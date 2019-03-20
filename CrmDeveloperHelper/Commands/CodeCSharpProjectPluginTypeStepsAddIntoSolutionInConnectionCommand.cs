@@ -3,19 +3,20 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class FileCSharpProjectCompareToCrmAssemblyInConnectionCommand : IServiceProviderOwner
+    internal sealed class CodeCSharpProjectPluginTypeStepsAddIntoSolutionInConnectionCommand : IServiceProviderOwner
     {
         private readonly Package _package;
 
         public IServiceProvider ServiceProvider => this._package;
 
-        private const int _baseIdStart = PackageIds.FileCSharpProjectCompareToCrmAssemblyInConnectionCommandId;
+        private const int _baseIdStart = PackageIds.CodeCSharpProjectPluginTypeStepsAddIntoSolutionInConnectionCommandId;
 
-        private FileCSharpProjectCompareToCrmAssemblyInConnectionCommand(Package package)
+        private CodeCSharpProjectPluginTypeStepsAddIntoSolutionInConnectionCommand(Package package)
         {
             this._package = package ?? throw new ArgumentNullException(nameof(package));
 
@@ -38,11 +39,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        public static FileCSharpProjectCompareToCrmAssemblyInConnectionCommand Instance { get; private set; }
+        public static CodeCSharpProjectPluginTypeStepsAddIntoSolutionInConnectionCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new FileCSharpProjectCompareToCrmAssemblyInConnectionCommand(package);
+            Instance = new CodeCSharpProjectPluginTypeStepsAddIntoSolutionInConnectionCommand(package);
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -55,7 +56,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var index = menuCommand.CommandID.ID - _baseIdStart;
 
-                    var connectionConfig = Model.ConnectionConfiguration.Get();
+                    var connectionConfig = ConnectionConfiguration.Get();
 
                     var list = connectionConfig.GetConnectionsWithoutCurrent();
 
@@ -67,9 +68,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         menuCommand.Enabled = menuCommand.Visible = true;
 
-                        CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpSingle(this, menuCommand);
+                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp(this, menuCommand);
 
-                        CommonHandlers.ActionBeforeQueryStatusSolutionExplorerSingleItemContainsProject(this, menuCommand, FileOperations.SupportsCSharpType);
+                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentContainingProject(this, menuCommand, FileOperations.SupportsCSharpType);
                     }
                 }
             }
@@ -79,7 +80,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        private void menuItemCallback(object sender, EventArgs e)
+        private async void menuItemCallback(object sender, EventArgs e)
         {
             try
             {
@@ -107,15 +108,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var helper = DTEHelper.Create(applicationObject);
 
-                    EnvDTE.SelectedItem item = helper.GetSingleSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType);
+                    var document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsCSharpType);
 
-                    if (item != null)
-                    {
-                        if (item.ProjectItem != null && item.ProjectItem.ContainingProject != null)
-                        {
-                            helper.HandleComparingPluginAssemblyAndLocalAssemblyCommand(connectionData, item.ProjectItem.ContainingProject);
-                        }
-                    }
+                    helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, document?.FullName);
+                    helper.ActivateOutputWindow(null);
+                    string fileType = await PropertiesHelper.GetTypeFullNameAsync(document);
+
+                    helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(connectionData, null, true, fileType);
                 }
             }
             catch (Exception ex)

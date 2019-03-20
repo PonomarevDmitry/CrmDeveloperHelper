@@ -26,13 +26,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         private static void ActionExecute(DTEHelper helper)
         {
-            var list = helper.GetOpenedDocumentsAsDocument(FileOperations.SupportsCSharpType)
+            var listProjects = helper.GetOpenedDocumentsAsDocument(FileOperations.SupportsCSharpType)
                                  .Where(i => i.ProjectItem?.ContainingProject != null && !string.IsNullOrEmpty(i.ProjectItem?.ContainingProject?.Name))
                                  .Select(i => i.ProjectItem.ContainingProject.Name);
 
-            if (list.Any())
+            if (listProjects.Any())
             {
-                helper.HandleAddingPluginAssemblyProcessingStepsByProjectCommand(null, null, true, list.ToArray());
+                helper.HandleAddingPluginAssemblyProcessingStepsByProjectCommand(null, null, true, listProjects.ToArray());
             }
         }
     }

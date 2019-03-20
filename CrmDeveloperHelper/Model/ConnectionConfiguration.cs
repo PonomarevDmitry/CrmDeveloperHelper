@@ -529,12 +529,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public List<ConnectionData> GetConnectionsWithoutCurrent()
         {
-            if (this.CurrentConnectionData == null)
-            {
-                return new List<ConnectionData>();
-            }
-
-            return this.Connections.Where(c => this.CurrentConnectionData.ConnectionId != c.ConnectionId).ToList();
+            return this.Connections.Where(c => this.CurrentConnectionData?.ConnectionId != c.ConnectionId).ToList();
         }
 
         public List<ConnectionData> GetConnectionsByGroupWithoutCurrent()

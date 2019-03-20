@@ -89,17 +89,22 @@
     <DeployExtension>False</DeployExtension>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\CodeCSharpProjectPluginAssemblyAddIntoSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\CodeCSharpProjectPluginTypeStepsAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\AbstractCommand.Generic.cs" />
     <Compile Include="Commands\AddFilesIntoListForPublishCommand.cs" />
     <Compile Include="Commands\CodeCSharpAddPluginStepCommand.cs" />
     <Compile Include="Commands\CodeCSharpAddPluginStepInConnectionCommand.cs" />
     <Compile Include="Commands\CodeCSharpPluginTreeCommand.cs" />
     <Compile Include="Commands\CodeCSharpProjectCompareToCrmAssemblyInConnectionCommand.cs" />
+    <Compile Include="Commands\CodeCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CodeCSharpProjectUpdatePluginAssemblyCommand.cs" />
     <Compile Include="Commands\CodeCSharpProjectUpdatePluginAssemblyInConnectionCommand.cs" />
+    <Compile Include="Commands\CodeReportAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CodeReportShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\CodeReportShowDifferenceThreeFileCommand.cs" />
     <Compile Include="Commands\CodeWebResourceAddIntoSolutionCommand.cs" />
+    <Compile Include="Commands\CodeWebResourceAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CodeWebResourceAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\CodeCSharpPluginAssemblyDescriptionCommand.cs" />
     <Compile Include="Commands\CodeCSharpPluginTypeDescriptionCommand.cs" />
@@ -231,6 +236,7 @@
     <Compile Include="Commands\DocumentsCSharpProjectPluginTypeStepsAddIntoSolutionCommand.cs" />
     <Compile Include="Commands\DocumentsCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceAddIntoSolutionCommand.cs" />
+    <Compile Include="Commands\DocumentsWebResourceAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceCheckEncodingCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceCheckEncodingCompareFilesCommand.cs" />
@@ -295,6 +301,7 @@
     <Compile Include="Commands\AbstractCommand.cs" />
     <Compile Include="Commands\FolderWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
     <Compile Include="Commands\ListForPublishAddIntoSolutionCommand.cs" />
+    <Compile Include="Commands\ListForPublishAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\ListForPublishAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\ListForPublishCompareInConnectionGroupCommand.cs" />
     <Compile Include="Commands\ListForPublishPerformPublishEqualByTextCommand.cs" />
@@ -307,6 +314,7 @@
     <Compile Include="Commands\ProjectPluginAssemblyAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\ProjectPluginAssemblyDescriptionCommand.cs" />
     <Compile Include="Commands\ProjectPluginAssemblyStepsAddIntoSolutionCommand.cs" />
+    <Compile Include="Commands\ProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\ProjectPluginAssemblyStepsAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\ProjectPluginTreeCommand.cs" />
     <Compile Include="Commands\ProjectPluginTypeDescriptionCommand.cs" />
@@ -321,6 +329,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CrmDeveloperHelperPackageCommandTable.vsct</DependentUpon>
     </Compile>
+    <Compile Include="Commands\DocumentsCSharpProjectPluginAssemblyAddIntoSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\DocumentsCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\DocumentsCSharpProjectPluginTypeStepsAddIntoSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\DocumentsReportAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Entities\AppModuleRoles.cs" />
     <Compile Include="Entities\AppModuleRoles.Generated.cs" />
     <Compile Include="Entities\Attachment.Generated.cs" />
@@ -373,6 +385,12 @@
     <Compile Include="Entities\TeamTemplate.Generated.cs" />
     <Compile Include="Entities\WebResource.Additional.cs" />
     <Compile Include="Entities\WebWizard.Generated.cs" />
+    <Compile Include="Commands\FileCSharpProjectPluginAssemblyAddIntoSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\FileCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\FileCSharpProjectPluginTypeStepsAddIntoSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\FileReportAddIntoSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\FileWebResourceAddIntoSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\FolderWebResourceAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Helpers\AssemblyReader.cs" />
     <Compile Include="Helpers\AssemblyReaderResult.cs" />
     <Compile Include="Helpers\BoolToOppositeBoolConverter.cs" />
@@ -843,6 +861,7 @@
     <Compile Include="Model\WorkflowSetEntityPropertyStep.cs" />
     <Compile Include="Model\WorkflowSetEntityPropertyStepType.cs" />
     <Compile Include="Model\XmlOptionsControls.cs" />
+    <Compile Include="Commands\ProjectPluginAssemblyAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\CommandNames.Designer.cs">
       <AutoGen>True</AutoGen>

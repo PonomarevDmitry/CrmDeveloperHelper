@@ -3,19 +3,20 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class FileCSharpProjectCompareToCrmAssemblyInConnectionCommand : IServiceProviderOwner
+    internal sealed class CodeReportAddIntoSolutionInConnectionCommand : IServiceProviderOwner
     {
         private readonly Package _package;
 
         public IServiceProvider ServiceProvider => this._package;
 
-        private const int _baseIdStart = PackageIds.FileCSharpProjectCompareToCrmAssemblyInConnectionCommandId;
+        private const int _baseIdStart = PackageIds.CodeReportAddIntoSolutionInConnectionCommandId;
 
-        private FileCSharpProjectCompareToCrmAssemblyInConnectionCommand(Package package)
+        private CodeReportAddIntoSolutionInConnectionCommand(Package package)
         {
             this._package = package ?? throw new ArgumentNullException(nameof(package));
 
@@ -38,11 +39,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        public static FileCSharpProjectCompareToCrmAssemblyInConnectionCommand Instance { get; private set; }
+        public static CodeReportAddIntoSolutionInConnectionCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new FileCSharpProjectCompareToCrmAssemblyInConnectionCommand(package);
+            Instance = new CodeReportAddIntoSolutionInConnectionCommand(package);
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -55,7 +56,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var index = menuCommand.CommandID.ID - _baseIdStart;
 
-                    var connectionConfig = Model.ConnectionConfiguration.Get();
+                    var connectionConfig = ConnectionConfiguration.Get();
 
                     var list = connectionConfig.GetConnectionsWithoutCurrent();
 
@@ -67,9 +68,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         menuCommand.Enabled = menuCommand.Visible = true;
 
-                        CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpSingle(this, menuCommand);
-
-                        CommonHandlers.ActionBeforeQueryStatusSolutionExplorerSingleItemContainsProject(this, menuCommand, FileOperations.SupportsCSharpType);
+                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentReport(this, menuCommand);
                     }
                 }
             }
@@ -107,15 +106,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var helper = DTEHelper.Create(applicationObject);
 
-                    EnvDTE.SelectedItem item = helper.GetSingleSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType);
+                    List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsReportType);
 
-                    if (item != null)
-                    {
-                        if (item.ProjectItem != null && item.ProjectItem.ContainingProject != null)
-                        {
-                            helper.HandleComparingPluginAssemblyAndLocalAssemblyCommand(connectionData, item.ProjectItem.ContainingProject);
-                        }
-                    }
+                    helper.HandleAddingReportsIntoSolutionCommand(connectionData, null, true, selectedFiles);
                 }
             }
             catch (Exception ex)

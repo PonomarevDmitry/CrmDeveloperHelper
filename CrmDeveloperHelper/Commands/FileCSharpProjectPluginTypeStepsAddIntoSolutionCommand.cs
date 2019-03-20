@@ -30,13 +30,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         {
             try
             {
-                var list = helper.GetListSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType);
+                var listFiles = helper.GetListSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType);
 
                 var pluginTypeNames = new List<string>();
 
                 helper.ActivateOutputWindow(null);
 
-                foreach (var item in list)
+                foreach (var item in listFiles)
                 {
                     helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, item?.ProjectItem?.FileNames[1]);
                     var typeName = await PropertiesHelper.GetTypeFullNameAsync(item);

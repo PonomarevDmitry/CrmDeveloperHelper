@@ -63,7 +63,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     {
                         var connectionData = list[index];
 
-                        menuCommand.Text = connectionData.NameWithCurrentMark;
+                        menuCommand.Text = connectionData.Name;
 
                         menuCommand.Enabled = menuCommand.Visible = true;
 

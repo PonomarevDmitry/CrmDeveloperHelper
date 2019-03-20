@@ -3,19 +3,21 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class FileCSharpProjectCompareToCrmAssemblyInConnectionCommand : IServiceProviderOwner
+    internal sealed class FileCSharpProjectPluginAssemblyAddIntoSolutionInConnectionCommand : IServiceProviderOwner
     {
         private readonly Package _package;
 
         public IServiceProvider ServiceProvider => this._package;
 
-        private const int _baseIdStart = PackageIds.FileCSharpProjectCompareToCrmAssemblyInConnectionCommandId;
+        private const int _baseIdStart = PackageIds.FileCSharpProjectPluginAssemblyAddIntoSolutionInConnectionCommandId;
 
-        private FileCSharpProjectCompareToCrmAssemblyInConnectionCommand(Package package)
+        private FileCSharpProjectPluginAssemblyAddIntoSolutionInConnectionCommand(Package package)
         {
             this._package = package ?? throw new ArgumentNullException(nameof(package));
 
@@ -38,11 +40,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        public static FileCSharpProjectCompareToCrmAssemblyInConnectionCommand Instance { get; private set; }
+        public static FileCSharpProjectPluginAssemblyAddIntoSolutionInConnectionCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new FileCSharpProjectCompareToCrmAssemblyInConnectionCommand(package);
+            Instance = new FileCSharpProjectPluginAssemblyAddIntoSolutionInConnectionCommand(package);
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -55,7 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var index = menuCommand.CommandID.ID - _baseIdStart;
 
-                    var connectionConfig = Model.ConnectionConfiguration.Get();
+                    var connectionConfig = ConnectionConfiguration.Get();
 
                     var list = connectionConfig.GetConnectionsWithoutCurrent();
 
@@ -67,9 +69,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         menuCommand.Enabled = menuCommand.Visible = true;
 
-                        CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpSingle(this, menuCommand);
-
-                        CommonHandlers.ActionBeforeQueryStatusSolutionExplorerSingleItemContainsProject(this, menuCommand, FileOperations.SupportsCSharpType);
+                        CommonHandlers.ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(this, menuCommand, FileOperations.SupportsCSharpType);
                     }
                 }
             }
@@ -107,14 +107,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var helper = DTEHelper.Create(applicationObject);
 
-                    EnvDTE.SelectedItem item = helper.GetSingleSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType);
+                    var listProjects = helper.GetListSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType)
+                                .Where(i => i.ProjectItem?.ContainingProject != null && !string.IsNullOrEmpty(i.ProjectItem?.ContainingProject?.Name))
+                                .Select(i => i.ProjectItem.ContainingProject.Name);
 
-                    if (item != null)
+                    if (listProjects.Any())
                     {
-                        if (item.ProjectItem != null && item.ProjectItem.ContainingProject != null)
-                        {
-                            helper.HandleComparingPluginAssemblyAndLocalAssemblyCommand(connectionData, item.ProjectItem.ContainingProject);
-                        }
+                        helper.HandleAddingPluginAssemblyIntoSolutionByProjectCommand(connectionData, null, true, listProjects.ToArray());
                     }
                 }
             }

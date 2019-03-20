@@ -4573,6 +4573,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
+            if (crmConfig.CurrentConnectionData?.ConnectionId == connectionData.ConnectionId)
+            {
+                return;
+            }
+
             if ((System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Shift) == System.Windows.Input.ModifierKeys.Shift)
             {
                 crmConfig.SetCurrentConnection(connectionData.ConnectionId);

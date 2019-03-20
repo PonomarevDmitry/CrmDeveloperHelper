@@ -63,8 +63,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeWebResourceShowDependentComponentsCommand.Initialize(this);
             CodeWebResourceUpdateContentPublishCommand.Initialize(this);
             CodeWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(this);
+
             CodeWebResourceAddIntoSolutionCommand.Initialize(this);
             CodeWebResourceAddIntoSolutionLastCommand.Initialize(this);
+            CodeWebResourceAddIntoSolutionInConnectionCommand.Initialize(this);
 
             CodeXmlExecuteFetchXmlRequestCommand.Initialize(this);
             CodeXmlExecuteFetchXmlRequestInConnectionsCommand.Initialize(this);
@@ -113,8 +115,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeReportShowDifferenceThreeFileCommand.Initialize(this);
             CodeReportDownloadCommand.Initialize(this);
             CodeReportOpenInWebCommand.Initialize(this);
+
             CodeReportAddIntoSolutionCommand.Initialize(this);
             CodeReportAddIntoSolutionLastCommand.Initialize(this);
+            CodeReportAddIntoSolutionInConnectionCommand.Initialize(this);
 
             CodeCSharpUpdateEntityMetadataFileCommand.Initialize(this);
             CodeCSharpUpdateEntityMetadataFileWithSelectCommand.Initialize(this);
@@ -137,10 +141,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CodeCSharpProjectPluginAssemblyAddIntoSolutionCommand.Initialize(this);
             CodeCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.Initialize(this);
+            CodeCSharpProjectPluginAssemblyAddIntoSolutionInConnectionCommand.Initialize(this);
+
             CodeCSharpProjectPluginAssemblyStepsAddIntoSolutionCommand.Initialize(this);
             CodeCSharpProjectPluginAssemblyStepsAddIntoSolutionLastCommand.Initialize(this);
+            CodeCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand.Initialize(this);
+
             CodeCSharpProjectPluginTypeStepsAddIntoSolutionCommand.Initialize(this);
             CodeCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand.Initialize(this);
+            CodeCSharpProjectPluginTypeStepsAddIntoSolutionInConnectionCommand.Initialize(this);
 
 
 
@@ -165,16 +174,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileWebResourceUpdateContentPublishCommand.Initialize(this);
             FileWebResourceUpdateContentPublishEqualByTextCommand.Initialize(this);
             FileWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(this);
+
             FileWebResourceAddIntoSolutionCommand.Initialize(this);
             FileWebResourceAddIntoSolutionLastCommand.Initialize(this);
+            FileWebResourceAddIntoSolutionInConnectionCommand.Initialize(this);
 
             FileReportDownloadCommand.Initialize(this);
             FileReportLinkClearCommand.Initialize(this);
             FileReportLinkCreateCommand.Initialize(this);
             FileReportUpdateCommand.Initialize(this);
             FileReportOpenInWebCommand.Initialize(this);
+
             FileReportAddIntoSolutionCommand.Initialize(this);
             FileReportAddIntoSolutionLastCommand.Initialize(this);
+            FileReportAddIntoSolutionInConnectionCommand.Initialize(this);
 
             FileCSharpUpdateEntityMetadataFileCommand.Initialize(this);
             FileCSharpUpdateEntityMetadataFileWithSelectCommand.Initialize(this);
@@ -194,10 +207,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             FileCSharpProjectPluginAssemblyAddIntoSolutionCommand.Initialize(this);
             FileCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.Initialize(this);
+            FileCSharpProjectPluginAssemblyAddIntoSolutionInConnectionCommand.Initialize(this);
+
             FileCSharpProjectPluginAssemblyStepsAddIntoSolutionCommand.Initialize(this);
             FileCSharpProjectPluginAssemblyStepsAddIntoSolutionLastCommand.Initialize(this);
+            FileCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand.Initialize(this);
+
             FileCSharpProjectPluginTypeStepsAddIntoSolutionCommand.Initialize(this);
             FileCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand.Initialize(this);
+            FileCSharpProjectPluginTypeStepsAddIntoSolutionInConnectionCommand.Initialize(this);
 
 
 
@@ -212,21 +230,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             DocumentsWebResourceShowDependentComponentsCommand.Initialize(this);
             DocumentsWebResourceUpdateContentPublishEqualByTextCommand.Initialize(this);
             DocumentsWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(this);
+
             DocumentsWebResourceAddIntoSolutionCommand.Initialize(this);
             DocumentsWebResourceAddIntoSolutionLastCommand.Initialize(this);
+            DocumentsWebResourceAddIntoSolutionInConnectionCommand.Initialize(this);
 
             DocumentsReportLinkClearCommand.Initialize(this);
+
             DocumentsReportAddIntoSolutionCommand.Initialize(this);
             DocumentsReportAddIntoSolutionLastCommand.Initialize(this);
+            DocumentsReportAddIntoSolutionInConnectionCommand.Initialize(this);
 
             DocumentsCSharpUpdateEntityMetadataFileCommand.Initialize(this);
             DocumentsCSharpUpdateGlobalOptionSetsFileCommand.Initialize(this);
+
             DocumentsCSharpProjectPluginAssemblyAddIntoSolutionCommand.Initialize(this);
             DocumentsCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.Initialize(this);
+            DocumentsCSharpProjectPluginAssemblyAddIntoSolutionInConnectionCommand.Initialize(this);
+
             DocumentsCSharpProjectPluginAssemblyStepsAddIntoSolutionCommand.Initialize(this);
             DocumentsCSharpProjectPluginAssemblyStepsAddIntoSolutionLastCommand.Initialize(this);
+            DocumentsCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand.Initialize(this);
+
             DocumentsCSharpProjectPluginTypeStepsAddIntoSolutionCommand.Initialize(this);
             DocumentsCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand.Initialize(this);
+            DocumentsCSharpProjectPluginTypeStepsAddIntoSolutionInConnectionCommand.Initialize(this);
 
 
 
@@ -251,8 +279,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FolderWebResourceUpdateContentPublishCommand.Initialize(this);
             FolderWebResourceUpdateContentPublishEqualByTextCommand.Initialize(this);
             FolderWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(this);
+
             FolderWebResourceAddIntoSolutionCommand.Initialize(this);
             FolderWebResourceAddIntoSolutionLastCommand.Initialize(this);
+            FolderWebResourceAddIntoSolutionInConnectionCommand.Initialize(this);
 
             FolderCSharpUpdateEntityMetadataFileCommand.Initialize(this);
             FolderCSharpUpdateGlobalOptionSetsFileCommand.Initialize(this);
@@ -266,8 +296,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             ProjectPluginAssemblyAddIntoSolutionCommand.Initialize(this);
             ProjectPluginAssemblyAddIntoSolutionLastCommand.Initialize(this);
+            ProjectPluginAssemblyAddIntoSolutionInConnectionCommand.Initialize(this);
+
             ProjectPluginAssemblyStepsAddIntoSolutionCommand.Initialize(this);
             ProjectPluginAssemblyStepsAddIntoSolutionLastCommand.Initialize(this);
+            ProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand.Initialize(this);
+
             ProjectPluginAssemblyDescriptionCommand.Initialize(this);
             ProjectPluginTypeDescriptionCommand.Initialize(this);
             ProjectPluginTreeCommand.Initialize(this);
@@ -283,8 +317,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             ListForPublishPerformPublishEqualByTextCommand.Initialize(this);
             ListForPublishPerformPublishGroupConnectionCommand.Initialize(this);
             ListForPublishShowListCommand.Initialize(this);
+
             ListForPublishAddIntoSolutionCommand.Initialize(this);
             ListForPublishAddIntoSolutionLastCommand.Initialize(this);
+            ListForPublishAddIntoSolutionInConnectionCommand.Initialize(this);
 
 
 

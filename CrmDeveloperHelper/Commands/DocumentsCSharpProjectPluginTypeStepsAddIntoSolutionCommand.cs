@@ -27,13 +27,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         private static async void ActionExecute(DTEHelper helper)
         {
-            var list = helper.GetOpenedDocumentsAsDocument(FileOperations.SupportsCSharpType);
+            var listFiles = helper.GetOpenedDocumentsAsDocument(FileOperations.SupportsCSharpType);
 
             var pluginTypeNames = new List<string>();
 
             helper.ActivateOutputWindow(null);
 
-            foreach (var item in list)
+            foreach (var item in listFiles)
             {
                 helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, item?.FullName);
                 var typeName = await PropertiesHelper.GetTypeFullNameAsync(item);
