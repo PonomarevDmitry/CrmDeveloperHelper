@@ -1221,6 +1221,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (crmConfig != null && connectionData != null && commonConfig != null && selectedFiles.Count > 0)
             {
+                CheckWishToChangeCurrentConnection(connectionData, crmConfig);
+
                 bool canPublish = false;
 
                 if (commonConfig.DoNotPropmPublishMessage)
@@ -1247,8 +1249,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     ActivateOutputWindow(connectionData);
                     WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                    CheckWishToChangeCurrentConnection(connectionData, crmConfig);
 
                     try
                     {
@@ -1283,6 +1283,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (crmConfig != null && connectionData != null && commonConfig != null && selectedFiles.Count > 0)
             {
+                CheckWishToChangeCurrentConnection(connectionData, crmConfig);
+
                 bool canPublish = false;
 
                 if (commonConfig.DoNotPropmPublishMessage)
@@ -1309,8 +1311,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     ActivateOutputWindow(connectionData);
                     WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                    CheckWishToChangeCurrentConnection(connectionData, crmConfig);
 
                     try
                     {
@@ -4545,14 +4545,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (crmConfig != null && connectionData != null)
             {
+                CheckWishToChangeCurrentConnection(connectionData, crmConfig);
+
                 string message = string.Format(Properties.MessageBoxStrings.PublishAllInConnectionFormat1, connectionData.Name);
 
                 if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                 {
                     ActivateOutputWindow(connectionData);
                     WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                    CheckWishToChangeCurrentConnection(connectionData, crmConfig);
 
                     try
                     {
