@@ -73,7 +73,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <ComboBox x:Name="cmBAssemblyToLoad" Grid.Row="0" Grid.Column="0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" IsTabStop="True" KeyDown="txtBFilter_KeyDown" />
+                        <ComboBox x:Name="cmBAssemblyToLoad" Grid.Row="0" Grid.Column="0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" IsTabStop="True" KeyDown="cmBAssemblyToLoad_KeyDown" />
                         <Button x:Name="btnSelectFile" Content="Select" Grid.Row="0" Grid.Column="1" Click="btnSelectFile_Click" />
 
                         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0">

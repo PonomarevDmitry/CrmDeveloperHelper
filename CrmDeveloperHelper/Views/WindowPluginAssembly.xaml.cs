@@ -297,7 +297,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             PluginAssemblyId = assemblyRef,
                         };
 
-                        ToggleControls(true, Properties.WindowStatusStrings.RegisteringPluginTypeFormat2, _service.ConnectionData.Name, pluginType);
+                        ToggleControls(false, Properties.WindowStatusStrings.RegisteringPluginTypeFormat2, _service.ConnectionData.Name, pluginType);
 
                         try
                         {
@@ -305,7 +305,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }
                         catch (Exception ex)
                         {
-                            ToggleControls(true, Properties.WindowStatusStrings.RegisteringPluginTypeFailedFormat2, _service.ConnectionData.Name, pluginType);
+                            ToggleControls(false, Properties.WindowStatusStrings.RegisteringPluginTypeFailedFormat2, _service.ConnectionData.Name, pluginType);
 
                             _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
                             _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
@@ -332,7 +332,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void rbSourceType_Checked(object sender, RoutedEventArgs e)
         {
-            var isDisk = rBDisk.IsChecked.GetValueOrDefault();
+            UpdateTextBoxFileNameOnServerReadOnly();
+        }
+
+        private void UpdateTextBoxFileNameOnServerReadOnly()
+        {
+            var isDisk = this._controlsEnabled && rBDisk.IsChecked.GetValueOrDefault();
 
             txtBFileNameOnServer.IsReadOnly = !isDisk;
         }
@@ -343,9 +348,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, trVPluginTreeNew, trVPluginTreeMissing, btnClose);
+            ToggleControl(enabled
+                , this.tSProgressBar
+
+                , trVPluginTreeNew
+                , trVPluginTreeMissing
+
+                , btnClose
+                , btnLoadAssembly
+                , btnSelectFile
+
+                , txtBDescription
+                , txtBFileNameOnServer
+
+                , cmBAssemblyToLoad
+
+                , rBDatabase
+                , rBDisk
+                , rBGAC
+                , rBSandBox
+                , rBNone
+            );
 
             ToggleControl(enabled && _assemblyLoad != null, btnSave);
+
+            UpdateTextBoxFileNameOnServerReadOnly();
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -437,7 +464,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             PerformLoadAssemblyClick();
         }
 
-        private void txtBFilter_KeyDown(object sender, KeyEventArgs e)
+        private void cmBAssemblyToLoad_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
