@@ -1,4 +1,5 @@
 ﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
@@ -509,6 +510,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 });
             }
+        }
+
+        protected void SetCurrentConnection(IWriteToOutput iWriteToOutput, ConnectionData connectionData)
+        {
+            if (connectionData == null || connectionData.ConnectionConfiguration == null)
+            {
+                return;
+            }
+
+            if (connectionData.ConnectionConfiguration.CurrentConnectionData?.ConnectionId == connectionData.ConnectionId)
+            {
+                return;
+            }
+
+            connectionData.ConnectionConfiguration.SetCurrentConnection(connectionData.ConnectionId);
+            connectionData.ConnectionConfiguration.Save();
+            iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
+            iWriteToOutput.ActivateOutputWindow(null);
         }
     }
 }

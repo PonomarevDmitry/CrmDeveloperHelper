@@ -159,12 +159,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (!_connectionCache.ContainsKey(connectionData.ConnectionId))
                 {
+                    ToggleControls(connectionData, false, string.Empty);
+
                     _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
                     _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
                     _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
+
+                    ToggleControls(connectionData, true, string.Empty);
                 }
 
                 return _connectionCache[connectionData.ConnectionId];
@@ -339,7 +343,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, this.tSBLoadSolutionImage);
+            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, this.tSBLoadSolutionImage);
 
             UpdateButtonsEnable();
         }
@@ -691,6 +695,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
+        }
+
+        private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
+        {
+            SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
         }
     }
 }
