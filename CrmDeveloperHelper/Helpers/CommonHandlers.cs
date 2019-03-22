@@ -552,14 +552,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 var helper = DTEHelper.Create(applicationObject);
 
-                EnvDTE.SelectedItem item = helper.GetSingleSelectedItemInSolutionExplorer(checker);
+                var projectItem = helper.GetSingleSelectedProjectItemInSolutionExplorer(checker);
 
-                if (item != null)
+                if (projectItem != null && projectItem.ContainingProject != null)
                 {
-                    if (item.ProjectItem != null && item.ProjectItem.ContainingProject != null)
-                    {
-                        visible = true;
-                    }
+                    visible = true;
                 }
             }
 
@@ -569,7 +566,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        internal static void ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(IServiceProviderOwner command, OleMenuCommand menuCommand, Func<string, bool> checker)
+        internal static void ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(IServiceProviderOwner command, OleMenuCommand menuCommand, Func<string, bool> checker, bool recursive)
         {
             bool visible = false;
 
@@ -577,9 +574,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 var helper = DTEHelper.Create(applicationObject);
 
-                var list = helper.GetListSelectedItemInSolutionExplorer(checker);
+                var list = helper.GetSelectedProjectItemsInSolutionExplorer(checker, recursive);
 
-                visible = list.Any(item => item.ProjectItem != null && item.ProjectItem.ContainingProject != null);
+                visible = list.Any(item => item != null && item.ContainingProject != null);
             }
 
             if (visible == false)

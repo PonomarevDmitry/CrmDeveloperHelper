@@ -66,7 +66,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                             menuCommand.Enabled = menuCommand.Visible = true;
 
-                            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(this, menuCommand, FileOperations.SupportsCSharpType);
+                            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(this, menuCommand, FileOperations.SupportsCSharpType, false);
                         }
                     }
                 }
@@ -105,13 +105,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         var helper = DTEHelper.Create(applicationObject);
 
-                        var list = helper.GetListSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType)
-                                    .Where(i => i.ProjectItem?.ContainingProject != null && !string.IsNullOrEmpty(i.ProjectItem?.ContainingProject?.Name))
-                                    .Select(i => i.ProjectItem.ContainingProject.Name);
+                        var list = helper.GetSelectedProjectItemsInSolutionExplorer(FileOperations.SupportsCSharpType, false)
+                                    .Where(i => i.ContainingProject != null && !string.IsNullOrEmpty(i.ContainingProject?.Name))
+                                    .Select(i => i.ContainingProject.Name);
 
                         if (list.Any())
                         {
-                            helper.HandleAddingPluginAssemblyProcessingStepsByProjectCommand(null, solutionUniqueName, false, list.ToArray());
+                            helper.HandleAddingPluginAssemblyProcessingStepsByProjectCommand(null, solutionUniqueName, false, list.Distinct(StringComparer.InvariantCultureIgnoreCase).ToArray());
                         }
                     }
                 }

@@ -1,4 +1,4 @@
-using Microsoft.VisualStudio.Shell;
+﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
@@ -8,15 +8,15 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class FileCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand : IServiceProviderOwner
+    internal sealed class FolderCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand : IServiceProviderOwner
     {
         private readonly Package _package;
 
         public IServiceProvider ServiceProvider => this._package;
 
-        private const int _baseIdStart = PackageIds.FileCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommandId;
+        private const int _baseIdStart = PackageIds.FolderCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommandId;
 
-        private FileCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand(Package package)
+        private FolderCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand(Package package)
         {
             this._package = package ?? throw new ArgumentNullException(nameof(package));
 
@@ -39,11 +39,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        public static FileCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand Instance { get; private set; }
+        public static FolderCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new FileCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand(package);
+            Instance = new FolderCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand(package);
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -68,7 +68,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         menuCommand.Enabled = menuCommand.Visible = true;
 
-                        CommonHandlers.ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(this, menuCommand, FileOperations.SupportsCSharpType, false);
+                        CommonHandlers.ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(this, menuCommand, FileOperations.SupportsCSharpType, true);
                     }
                 }
             }
@@ -106,7 +106,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var helper = DTEHelper.Create(applicationObject);
 
-                    var listProjects = helper.GetSelectedProjectItemsInSolutionExplorer(FileOperations.SupportsCSharpType, false)
+                    var listProjects = helper.GetSelectedProjectItemsInSolutionExplorer(FileOperations.SupportsCSharpType, true)
                                  .Where(i => i.ContainingProject != null && !string.IsNullOrEmpty(i.ContainingProject?.Name))
                                  .Select(i => i.ContainingProject.Name);
 

@@ -3,9 +3,9 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
@@ -59,17 +59,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var connectionConfig = ConnectionConfiguration.Get();
 
-                    var list = connectionConfig.GetConnectionsWithoutCurrent();
+                    var list = connectionConfig.Connections;
 
                     if (0 <= index && index < list.Count)
                     {
                         var connectionData = list[index];
 
-                        menuCommand.Text = connectionData.Name;
+                        menuCommand.Text = connectionData.NameWithCurrentMark;
 
                         menuCommand.Enabled = menuCommand.Visible = true;
 
-                        CommonHandlers.ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(this, menuCommand, FileOperations.SupportsCSharpType);
+                        CommonHandlers.ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(this, menuCommand, FileOperations.SupportsCSharpType, false);
                     }
                 }
             }
@@ -99,7 +99,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                 var connectionConfig = Model.ConnectionConfiguration.Get();
 
-                var list = connectionConfig.GetConnectionsWithoutCurrent();
+                var list = connectionConfig.Connections;
 
                 if (0 <= index && index < list.Count)
                 {
@@ -107,20 +107,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var helper = DTEHelper.Create(applicationObject);
 
-                    var listFiles = helper.GetListSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType);
+                    var listFiles = helper.GetSelectedProjectItemsInSolutionExplorer(FileOperations.SupportsCSharpType, false);
 
                     var pluginTypeNames = new List<string>();
+                    var handledFilePaths = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
                     helper.ActivateOutputWindow(null);
 
                     foreach (var item in listFiles)
                     {
-                        helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, item?.ProjectItem?.FileNames[1]);
-                        var typeName = await PropertiesHelper.GetTypeFullNameAsync(item);
+                        string filePath = item.FileNames[1];
 
-                        if (!string.IsNullOrEmpty(typeName))
+                        if (handledFilePaths.Add(filePath))
                         {
-                            pluginTypeNames.Add(typeName);
+                            helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, filePath);
+                            var typeName = await PropertiesHelper.GetTypeFullNameAsync(item);
+
+                            if (!string.IsNullOrEmpty(typeName))
+                            {
+                                pluginTypeNames.Add(typeName);
+                            }
                         }
                     }
 

@@ -131,28 +131,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return false;
         }
 
-        public static Task<string> GetTypeFullNameAsync(SelectedItem item)
+        public static Task<string> GetTypeFullNameAsync(ProjectItem item)
         {
             return Task.Run(() => GetTypeFullName(item));
         }
 
-        private static string GetTypeFullName(SelectedItem item)
+        private static string GetTypeFullName(ProjectItem item)
         {
             string fileType = string.Empty;
 
-            VSProject2 proj = item.ProjectItem?.ContainingProject?.Object as VSProject2;
+            VSProject2 proj = item.ContainingProject?.Object as VSProject2;
 
-            if (item.ProjectItem != null && item.ProjectItem.FileCount > 0 && proj != null)
+            if (item != null && item.FileCount > 0 && proj != null)
             {
-                fileType = CSharpCodeHelper.GetFileTypeFullName(item.ProjectItem.FileNames[1], proj);
+                fileType = CSharpCodeHelper.GetFileTypeFullName(item.FileNames[1], proj);
             }
-            else if (item.ProjectItem != null && item.ProjectItem.FileCount > 0)
+            else if (item != null && item.FileCount > 0)
             {
-                fileType = item.ProjectItem.Name.Split('.').FirstOrDefault();
-            }
-            else if (!string.IsNullOrEmpty(item.Name))
-            {
-                fileType = item.Name;
+                fileType = item.Name.Split('.').FirstOrDefault();
             }
 
             return fileType;

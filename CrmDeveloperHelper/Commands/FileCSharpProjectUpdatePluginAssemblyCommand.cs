@@ -27,14 +27,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         private static void ActionExecute(DTEHelper helper)
         {
-            EnvDTE.SelectedItem item = helper.GetSingleSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType);
+            var projectItem = helper.GetSingleSelectedProjectItemInSolutionExplorer(FileOperations.SupportsCSharpType);
 
-            if (item != null)
+            if (projectItem != null && projectItem.ContainingProject != null)
             {
-                if (item.ProjectItem != null && item.ProjectItem.ContainingProject != null)
-                {
-                    helper.HandleUpdatingPluginAssemblyCommand(null, item.ProjectItem.ContainingProject);
-                }
+                helper.HandleUpdatingPluginAssemblyCommand(null, projectItem.ContainingProject);
             }
         }
     }

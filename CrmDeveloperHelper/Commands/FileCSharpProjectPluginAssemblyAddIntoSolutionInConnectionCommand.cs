@@ -1,9 +1,8 @@
-﻿using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
 
@@ -59,17 +58,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var connectionConfig = ConnectionConfiguration.Get();
 
-                    var list = connectionConfig.GetConnectionsWithoutCurrent();
+                    var list = connectionConfig.Connections;
 
                     if (0 <= index && index < list.Count)
                     {
                         var connectionData = list[index];
 
-                        menuCommand.Text = connectionData.Name;
+                        menuCommand.Text = connectionData.NameWithCurrentMark;
 
                         menuCommand.Enabled = menuCommand.Visible = true;
 
-                        CommonHandlers.ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(this, menuCommand, FileOperations.SupportsCSharpType);
+                        CommonHandlers.ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(this, menuCommand, FileOperations.SupportsCSharpType, false);
                     }
                 }
             }
@@ -99,7 +98,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                 var connectionConfig = Model.ConnectionConfiguration.Get();
 
-                var list = connectionConfig.GetConnectionsWithoutCurrent();
+                var list = connectionConfig.Connections;
 
                 if (0 <= index && index < list.Count)
                 {
@@ -107,13 +106,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var helper = DTEHelper.Create(applicationObject);
 
-                    var listProjects = helper.GetListSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType)
-                                .Where(i => i.ProjectItem?.ContainingProject != null && !string.IsNullOrEmpty(i.ProjectItem?.ContainingProject?.Name))
-                                .Select(i => i.ProjectItem.ContainingProject.Name);
+                    var listProjects = helper.GetSelectedProjectItemsInSolutionExplorer(FileOperations.SupportsCSharpType, false)
+                                .Where(i => i.ContainingProject != null && !string.IsNullOrEmpty(i.ContainingProject?.Name))
+                                .Select(i => i.ContainingProject.Name);
 
                     if (listProjects.Any())
                     {
-                        helper.HandleAddingPluginAssemblyIntoSolutionByProjectCommand(connectionData, null, true, listProjects.ToArray());
+                        helper.HandleAddingPluginAssemblyIntoSolutionByProjectCommand(connectionData, null, true, listProjects.Distinct(StringComparer.InvariantCultureIgnoreCase).ToArray());
                     }
                 }
             }

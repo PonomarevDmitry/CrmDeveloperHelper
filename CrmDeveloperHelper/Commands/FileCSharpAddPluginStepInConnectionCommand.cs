@@ -107,13 +107,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var helper = DTEHelper.Create(applicationObject);
 
-                    EnvDTE.SelectedItem item = helper.GetSingleSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType);
+                    var projectItem = helper.GetSingleSelectedProjectItemInSolutionExplorer(FileOperations.SupportsCSharpType);
 
-                    if (item != null)
+                    if (projectItem != null)
                     {
-                        helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, item?.ProjectItem?.FileNames[1]);
+                        helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, projectItem.FileNames[1]);
                         helper.ActivateOutputWindow(null);
-                        string fileType = await PropertiesHelper.GetTypeFullNameAsync(item);
+                        string fileType = await PropertiesHelper.GetTypeFullNameAsync(projectItem);
 
                         helper.HandleAddPluginStep(fileType, connectionData);
                     }

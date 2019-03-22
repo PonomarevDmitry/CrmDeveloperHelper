@@ -79,33 +79,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add PluginAssembly into Crm Solution.
-        /// </summary>
-        internal static string CodeCSharpProjectPluginAssemblyAddIntoSolutionCommand {
-            get {
-                return ResourceManager.GetString("CodeCSharpProjectPluginAssemblyAddIntoSolutionCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add Steps for PluginAssembly into Crm Solution.
-        /// </summary>
-        internal static string CodeCSharpProjectPluginAssemblyStepsAddIntoSolutionCommand {
-            get {
-                return ResourceManager.GetString("CodeCSharpProjectPluginAssemblyStepsAddIntoSolutionCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add Steps for PluginType into Crm Solution.
-        /// </summary>
-        internal static string CodeCSharpProjectPluginTypeStepsAddIntoSolutionCommand {
-            get {
-                return ResourceManager.GetString("CodeCSharpProjectPluginTypeStepsAddIntoSolutionCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Update PluginAssembly.
         /// </summary>
         internal static string CodeCSharpProjectUpdatePluginAssemblyCommand {
@@ -142,15 +115,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add Report in Crm Solution.
-        /// </summary>
-        internal static string CodeReportAddIntoSolutionCommand {
-            get {
-                return ResourceManager.GetString("CodeReportAddIntoSolutionCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Download Report.
         /// </summary>
         internal static string CodeReportDownloadCommand {
@@ -183,15 +147,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CodeReportUpdateCommand {
             get {
                 return ResourceManager.GetString("CodeReportUpdateCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add WebResource in Crm Solution.
-        /// </summary>
-        internal static string CodeWebResourceAddIntoSolutionCommand {
-            get {
-                return ResourceManager.GetString("CodeWebResourceAddIntoSolutionCommand", resourceCulture);
             }
         }
         
@@ -511,51 +466,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add PluginAssembly into Crm Solution.
-        /// </summary>
-        internal static string DocumentsCSharpProjectPluginAssemblyAddIntoSolutionCommand {
-            get {
-                return ResourceManager.GetString("DocumentsCSharpProjectPluginAssemblyAddIntoSolutionCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add Steps for PluginAssembly into Crm Solution.
-        /// </summary>
-        internal static string DocumentsCSharpProjectPluginAssemblyStepsAddIntoSolutionCommand {
-            get {
-                return ResourceManager.GetString("DocumentsCSharpProjectPluginAssemblyStepsAddIntoSolutionCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add Steps for PluginType into Crm Solution.
-        /// </summary>
-        internal static string DocumentsCSharpProjectPluginTypeStepsAddIntoSolutionCommand {
-            get {
-                return ResourceManager.GetString("DocumentsCSharpProjectPluginTypeStepsAddIntoSolutionCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add Opened Reports into Crm Solution.
-        /// </summary>
-        internal static string DocumentsReportAddIntoSolutionCommand {
-            get {
-                return ResourceManager.GetString("DocumentsReportAddIntoSolutionCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add Opened WebResources in Crm Solution.
-        /// </summary>
-        internal static string DocumentsWebResourceAddIntoSolutionCommand {
-            get {
-                return ResourceManager.GetString("DocumentsWebResourceAddIntoSolutionCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Compare Files.
         /// </summary>
         internal static string DocumentsWebResourceCompareCommand {
@@ -610,33 +520,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add PluginAssembly into Crm Solution.
-        /// </summary>
-        internal static string FileCSharpProjectPluginAssemblyAddIntoSolutionCommand {
-            get {
-                return ResourceManager.GetString("FileCSharpProjectPluginAssemblyAddIntoSolutionCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add Steps for PluginAssembly into Crm Solution.
-        /// </summary>
-        internal static string FileCSharpProjectPluginAssemblyStepsAddIntoSolutionCommand {
-            get {
-                return ResourceManager.GetString("FileCSharpProjectPluginAssemblyStepsAddIntoSolutionCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add Steps for PluginType into Crm Solution.
-        /// </summary>
-        internal static string FileCSharpProjectPluginTypeStepsAddIntoSolutionCommand {
-            get {
-                return ResourceManager.GetString("FileCSharpProjectPluginTypeStepsAddIntoSolutionCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Update PluginAssembly.
         /// </summary>
         internal static string FileCSharpProjectUpdatePluginAssemblyCommand {
@@ -673,15 +556,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add Reports in Crm Solution.
-        /// </summary>
-        internal static string FileReportAddIntoSolutionCommand {
-            get {
-                return ResourceManager.GetString("FileReportAddIntoSolutionCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Download Report.
         /// </summary>
         internal static string FileReportDownloadCommand {
@@ -696,15 +570,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string FileReportUpdateCommand {
             get {
                 return ResourceManager.GetString("FileReportUpdateCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add WebResources in Crm Solution.
-        /// </summary>
-        internal static string FileWebResourceAddIntoSolutionCommand {
-            get {
-                return ResourceManager.GetString("FileWebResourceAddIntoSolutionCommand", resourceCulture);
             }
         }
         
@@ -781,15 +646,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add WebResources in Crm Solution (Recursive).
-        /// </summary>
-        internal static string FolderWebResourceAddIntoSolutionCommand {
-            get {
-                return ResourceManager.GetString("FolderWebResourceAddIntoSolutionCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Compare Files (Recursive).
         /// </summary>
         internal static string FolderWebResourceCompareCommand {
@@ -813,15 +669,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string FolderWebResourceUpdateContentPublishCommand {
             get {
                 return ResourceManager.GetString("FolderWebResourceUpdateContentPublishCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add List in Crm Solution.
-        /// </summary>
-        internal static string ListForPublishAddIntoSolutionCommand {
-            get {
-                return ResourceManager.GetString("ListForPublishAddIntoSolutionCommand", resourceCulture);
             }
         }
         
@@ -867,24 +714,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string ProjectCompareToCrmAssemblyCommand {
             get {
                 return ResourceManager.GetString("ProjectCompareToCrmAssemblyCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add PluginAssembly into Crm Solution.
-        /// </summary>
-        internal static string ProjectPluginAssemblyAddIntoSolutionCommand {
-            get {
-                return ResourceManager.GetString("ProjectPluginAssemblyAddIntoSolutionCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add Steps for PluginAssembly into Crm Solution.
-        /// </summary>
-        internal static string ProjectPluginAssemblyStepsAddIntoSolutionCommand {
-            get {
-                return ResourceManager.GetString("ProjectPluginAssemblyStepsAddIntoSolutionCommand", resourceCulture);
             }
         }
         

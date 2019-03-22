@@ -3,20 +3,20 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class ListForPublishAddIntoSolutionInConnectionCommand : IServiceProviderOwner
+    internal sealed class FolderCSharpProjectPluginAssemblyStepsAddIntoSolutionLastCommand : IServiceProviderOwner
     {
         private readonly Package _package;
 
         public IServiceProvider ServiceProvider => this._package;
 
-        private const int _baseIdStart = PackageIds.ListForPublishAddIntoSolutionInConnectionCommandId;
+        private const int _baseIdStart = PackageIds.FolderCSharpProjectPluginAssemblyStepsAddIntoSolutionLastCommandId;
 
-        private ListForPublishAddIntoSolutionInConnectionCommand(Package package)
+        private FolderCSharpProjectPluginAssemblyStepsAddIntoSolutionLastCommand(Package package)
         {
             this._package = package ?? throw new ArgumentNullException(nameof(package));
 
@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
             if (commandService != null)
             {
-                for (int i = 0; i < ConnectionData.CountConnectionToQuickList; i++)
+                for (int i = 0; i < ConnectionData.CountLastSolutions; i++)
                 {
                     var menuCommandID = new CommandID(PackageGuids.guidDynamicCommandSet, _baseIdStart + i);
 
@@ -39,11 +39,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        public static ListForPublishAddIntoSolutionInConnectionCommand Instance { get; private set; }
+        public static FolderCSharpProjectPluginAssemblyStepsAddIntoSolutionLastCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new ListForPublishAddIntoSolutionInConnectionCommand(package);
+            Instance = new FolderCSharpProjectPluginAssemblyStepsAddIntoSolutionLastCommand(package);
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -54,21 +54,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 {
                     menuCommand.Enabled = menuCommand.Visible = false;
 
-                    var index = menuCommand.CommandID.ID - _baseIdStart;
-
                     var connectionConfig = ConnectionConfiguration.Get();
 
-                    var list = connectionConfig.Connections;
-
-                    if (0 <= index && index < list.Count)
+                    if (connectionConfig.CurrentConnectionData != null)
                     {
-                        var connectionData = list[index];
+                        var index = menuCommand.CommandID.ID - _baseIdStart;
 
-                        menuCommand.Text = connectionData.NameWithCurrentMark;
+                        if (0 <= index && index < connectionConfig.CurrentConnectionData.LastSelectedSolutionsUniqueName.Count)
+                        {
+                            menuCommand.Text = connectionConfig.CurrentConnectionData.LastSelectedSolutionsUniqueName.ElementAt(index);
 
-                        menuCommand.Enabled = menuCommand.Visible = true;
+                            menuCommand.Enabled = menuCommand.Visible = true;
 
-                        CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceAny(this, menuCommand);
+                            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(this, menuCommand, FileOperations.SupportsCSharpType, true);
+                        }
                     }
                 }
             }
@@ -94,30 +93,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     return;
                 }
 
-                var index = menuCommand.CommandID.ID - _baseIdStart;
+                var connectionConfig = ConnectionConfiguration.Get();
 
-                var connectionConfig = Model.ConnectionConfiguration.Get();
-
-                var list = connectionConfig.Connections;
-
-                if (0 <= index && index < list.Count)
+                if (connectionConfig.CurrentConnectionData != null)
                 {
-                    var connectionData = list[index];
+                    var index = menuCommand.CommandID.ID - _baseIdStart;
 
-                    var helper = DTEHelper.Create(applicationObject);
-
-                    List<SelectedFile> selectedFiles = helper.GetSelectedFilesFromListForPublish();
-
-                    if (selectedFiles.Count > 0)
+                    if (0 <= index && index < connectionConfig.CurrentConnectionData.LastSelectedSolutionsUniqueName.Count)
                     {
-                        helper.ShowListForPublish();
+                        string solutionUniqueName = connectionConfig.CurrentConnectionData.LastSelectedSolutionsUniqueName.ElementAt(index);
 
-                        helper.HandleAddingWebResourcesIntoSolutionCommand(connectionData, null, true, selectedFiles);
-                    }
-                    else
-                    {
-                        helper.WriteToOutput(null, Properties.OutputStrings.PublishListIsEmpty);
-                        helper.ActivateOutputWindow(null);
+                        var helper = DTEHelper.Create(applicationObject);
+
+                        var list = helper.GetSelectedProjectItemsInSolutionExplorer(FileOperations.SupportsCSharpType, true)
+                                    .Where(i => i.ContainingProject != null && !string.IsNullOrEmpty(i.ContainingProject?.Name))
+                                    .Select(i => i.ContainingProject.Name);
+
+                        if (list.Any())
+                        {
+                            helper.HandleAddingPluginAssemblyProcessingStepsByProjectCommand(null, solutionUniqueName, false, list.Distinct(StringComparer.InvariantCultureIgnoreCase).ToArray());
+                        }
                     }
                 }
             }

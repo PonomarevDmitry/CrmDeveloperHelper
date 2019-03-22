@@ -25,19 +25,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         private static void ActionExecute(DTEHelper helper)
         {
-            EnvDTE.SelectedItem item = helper.GetSingleSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType);
+            var projectItem = helper.GetSingleSelectedProjectItemInSolutionExplorer(FileOperations.SupportsCSharpType);
 
-            if (item != null)
+            if (projectItem != null)
             {
                 string selection = string.Empty;
 
-                if (item.ProjectItem != null && item.ProjectItem.ContainingProject != null)
+                if (projectItem != null && projectItem.ContainingProject != null)
                 {
-                    selection = item.ProjectItem.ContainingProject.Name;
+                    selection = projectItem.ContainingProject.Name;
                 }
-                else if (!string.IsNullOrEmpty(item.Name))
+                else if (!string.IsNullOrEmpty(projectItem.Name))
                 {
-                    selection = item.Name;
+                    selection = projectItem.Name;
                 }
 
                 helper.HandleExportPluginAssembly(selection);

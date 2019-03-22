@@ -3,20 +3,21 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class FileCSharpProjectPluginAssemblyAddIntoSolutionLastCommand : IServiceProviderOwner
+    internal sealed class FolderCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand : IServiceProviderOwner
     {
         private readonly Package _package;
 
         public IServiceProvider ServiceProvider => this._package;
 
-        private const int _baseIdStart = PackageIds.FileCSharpProjectPluginAssemblyAddIntoSolutionLastCommandId;
+        private const int _baseIdStart = PackageIds.FolderCSharpProjectPluginTypeStepsAddIntoSolutionLastCommandId;
 
-        private FileCSharpProjectPluginAssemblyAddIntoSolutionLastCommand(Package package)
+        private FolderCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand(Package package)
         {
             this._package = package ?? throw new ArgumentNullException(nameof(package));
 
@@ -39,11 +40,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        public static FileCSharpProjectPluginAssemblyAddIntoSolutionLastCommand Instance { get; private set; }
+        public static FolderCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new FileCSharpProjectPluginAssemblyAddIntoSolutionLastCommand(package);
+            Instance = new FolderCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand(package);
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -66,7 +67,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                             menuCommand.Enabled = menuCommand.Visible = true;
 
-                            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(this, menuCommand, FileOperations.SupportsCSharpType, false);
+                            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(this, menuCommand, FileOperations.SupportsCSharpType, true);
                         }
                     }
                 }
@@ -77,7 +78,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        private void menuItemCallback(object sender, EventArgs e)
+        private async void menuItemCallback(object sender, EventArgs e)
         {
             try
             {
@@ -105,13 +106,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         var helper = DTEHelper.Create(applicationObject);
 
-                        var list = helper.GetSelectedProjectItemsInSolutionExplorer(FileOperations.SupportsCSharpType, false)
-                                     .Where(i => i.ContainingProject != null && !string.IsNullOrEmpty(i.ContainingProject?.Name))
-                                     .Select(i => i.ContainingProject.Name);
+                        var listFiles = helper.GetSelectedProjectItemsInSolutionExplorer(FileOperations.SupportsCSharpType, true);
 
-                        if (list.Any())
+                        var pluginTypeNames = new List<string>();
+                        var handledFilePaths = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+                        helper.ActivateOutputWindow(null);
+
+                        foreach (var item in listFiles)
                         {
-                            helper.HandleAddingPluginAssemblyIntoSolutionByProjectCommand(null, solutionUniqueName, false, list.Distinct(StringComparer.InvariantCultureIgnoreCase).ToArray());
+                            string filePath = item.FileNames[1];
+
+                            if (handledFilePaths.Add(filePath))
+                            {
+                                helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, filePath);
+                                var typeName = await PropertiesHelper.GetTypeFullNameAsync(item);
+
+                                if (!string.IsNullOrEmpty(typeName))
+                                {
+                                    pluginTypeNames.Add(typeName);
+                                }
+                            }
+                        }
+
+                        if (pluginTypeNames.Any())
+                        {
+                            helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(null, solutionUniqueName, false, pluginTypeNames.ToArray());
                         }
                     }
                 }

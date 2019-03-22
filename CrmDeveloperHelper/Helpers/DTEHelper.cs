@@ -563,13 +563,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         if (recursive)
                         {
-                            FillListProjectItems(hash, item.ProjectItem.ProjectItems, checkerFunction);
+                            FillHashSubProjectItems(hash, item.ProjectItem.ProjectItems, checkerFunction);
                         }
                     }
 
                     if (recursive && item.Project != null)
                     {
-                        FillListProjectItems(hash, item.Project.ProjectItems, checkerFunction);
+                        FillHashSubProjectItems(hash, item.Project.ProjectItems, checkerFunction);
                     }
                 });
 
@@ -581,9 +581,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return selectedFiles;
         }
 
-        public SelectedItem GetSingleSelectedItemInSolutionExplorer(Func<string, bool> checkerFunction)
+        private void FillHashSubProjectItems(HashSet<string> hash, ProjectItems projectItems, Func<string, bool> checkerFunction)
         {
-            SelectedItem result = null;
+            if (projectItems != null)
+            {
+                foreach (ProjectItem projItem in projectItems)
+                {
+                    string path = projItem.FileNames[1];
+
+                    if (checkerFunction(path))
+                    {
+                        if (!hash.Contains(path))
+                        {
+                            hash.Add(path);
+                        }
+                    }
+
+                    FillHashSubProjectItems(hash, projItem.ProjectItems, checkerFunction);
+
+                    if (projItem.SubProject != null)
+                    {
+                        FillHashSubProjectItems(hash, projItem.SubProject.ProjectItems, checkerFunction);
+                    }
+                }
+            }
+        }
+
+        public ProjectItem GetSingleSelectedProjectItemInSolutionExplorer(Func<string, bool> checkerFunction)
+        {
+            ProjectItem result = null;
 
             if (ApplicationObject.ActiveWindow != null
                && ApplicationObject.ActiveWindow.Type == vsWindowType.vsWindowTypeSolutionExplorer
@@ -596,9 +622,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     try
                     {
-                        string file = a.Name.ToLower();
-
-                        return checkerFunction(file);
+                        return a.ProjectItem != null && checkerFunction(a.Name);
                     }
                     catch (Exception ex)
                     {
@@ -610,42 +634,98 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (filtered.Count() == 1)
                 {
-                    result = filtered.FirstOrDefault();
+                    result = filtered.FirstOrDefault()?.ProjectItem;
                 }
             }
 
             return result;
         }
 
-        public List<SelectedItem> GetListSelectedItemInSolutionExplorer(Func<string, bool> checkerFunction)
+        public IEnumerable<ProjectItem> GetSelectedProjectItemsInSolutionExplorer(Func<string, bool> checkerFunction, bool recursive)
         {
-            List<SelectedItem> result = new List<SelectedItem>();
-
             if (ApplicationObject.ActiveWindow != null
-               && ApplicationObject.ActiveWindow.Type == vsWindowType.vsWindowTypeSolutionExplorer
-               && ApplicationObject.SelectedItems != null
+                && ApplicationObject.ActiveWindow.Type == vsWindowType.vsWindowTypeSolutionExplorer
+                && ApplicationObject.SelectedItems != null
             )
             {
                 var items = ApplicationObject.SelectedItems.Cast<SelectedItem>().ToList();
 
-                var filtered = items.Where(a =>
+                HashSet<string> hash = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+                foreach (var item in items)
                 {
-                    try
+                    if (item.ProjectItem != null
+                        && item.ProjectItem.ContainingProject != null
+                    )
                     {
-                        return a.ProjectItem != null && a.ProjectItem.ContainingProject != null && checkerFunction(a.Name.ToLower());
+                        string path = item.ProjectItem.FileNames[1];
+
+                        if (!string.IsNullOrEmpty(path)
+                            && checkerFunction(path)
+                            && !hash.Contains(path)
+                        )
+                        {
+                            if (hash.Add(path))
+                            {
+                                yield return item.ProjectItem;
+                            }
+                        }
+
+                        if (recursive)
+                        {
+                            foreach (var subItem in GetSubProjectItems(hash, item.ProjectItem.ProjectItems, checkerFunction))
+                            {
+                                yield return subItem;
+                            }
+                        }
                     }
-                    catch (Exception ex)
+
+                    if (recursive && item.Project != null)
                     {
-                        DTEHelper.WriteExceptionToOutput(null, ex);
-
-                        return false;
+                        foreach (var subItem in GetSubProjectItems(hash, item.Project.ProjectItems, checkerFunction))
+                        {
+                            yield return subItem;
+                        }
                     }
-                });
+                }
+            }
+        }
 
-                result.AddRange(filtered);
+        private IEnumerable<ProjectItem> GetSubProjectItems(HashSet<string> hash, ProjectItems projectItems, Func<string, bool> checkerFunction)
+        {
+            if (projectItems == null)
+            {
+                yield break;
             }
 
-            return result;
+            foreach (ProjectItem projItem in projectItems)
+            {
+                string path = projItem.FileNames[1];
+
+                if (checkerFunction(path))
+                {
+                    if (!hash.Contains(path))
+                    {
+                        if (hash.Add(path))
+                        {
+                            yield return projItem;
+                        }
+                    }
+                }
+
+                foreach (var subItem in GetSubProjectItems(hash, projItem.ProjectItems, checkerFunction))
+                {
+                    yield return subItem;
+                }
+
+                if (projItem.SubProject != null)
+                {
+                    foreach (var subItem in GetSubProjectItems(hash, projItem.SubProject.ProjectItems, checkerFunction))
+                    {
+                        yield return subItem;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -733,32 +813,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             return Enumerable.Empty<EnvDTE.Project>();
-        }
-
-        private void FillListProjectItems(HashSet<string> hash, ProjectItems projectItems, Func<string, bool> checkerFunction)
-        {
-            if (projectItems != null)
-            {
-                foreach (ProjectItem projItem in projectItems)
-                {
-                    string path = projItem.FileNames[1];
-
-                    if (checkerFunction(path))
-                    {
-                        if (!hash.Contains(path))
-                        {
-                            hash.Add(path);
-                        }
-                    }
-
-                    FillListProjectItems(hash, projItem.ProjectItems, checkerFunction);
-
-                    if (projItem.SubProject != null)
-                    {
-                        FillListProjectItems(hash, projItem.SubProject.ProjectItems, checkerFunction);
-                    }
-                }
-            }
         }
 
         public List<SelectedFile> GetSelectedFilesFromListForPublish()

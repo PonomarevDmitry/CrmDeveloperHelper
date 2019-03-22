@@ -24,17 +24,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             CommonHandlers.ActionBeforeQueryStatusSolutionExplorerSingleItemContainsProject(command, menuCommand, FileOperations.SupportsCSharpType);
         }
 
-        private async static void ActionExecute(DTEHelper helper)
+        private static async void ActionExecute(DTEHelper helper)
         {
             try
             {
-                EnvDTE.SelectedItem item = helper.GetSingleSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType);
+                var projectItem = helper.GetSingleSelectedProjectItemInSolutionExplorer(FileOperations.SupportsCSharpType);
 
-                if (item != null)
+                if (projectItem != null)
                 {
-                    helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, item?.ProjectItem?.FileNames[1]);
+                    helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, projectItem.FileNames[1]);
                     helper.ActivateOutputWindow(null);
-                    string fileType = await PropertiesHelper.GetTypeFullNameAsync(item);
+                    string fileType = await PropertiesHelper.GetTypeFullNameAsync(projectItem);
 
                     helper.HandleExportPluginTypeDescription(fileType);
                 }

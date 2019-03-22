@@ -107,14 +107,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var helper = DTEHelper.Create(applicationObject);
 
-                    EnvDTE.SelectedItem item = helper.GetSingleSelectedItemInSolutionExplorer(FileOperations.SupportsCSharpType);
+                    var projectItem = helper.GetSingleSelectedProjectItemInSolutionExplorer(FileOperations.SupportsCSharpType);
 
-                    if (item != null)
+                    if (projectItem != null && projectItem.ContainingProject != null)
                     {
-                        if (item.ProjectItem != null && item.ProjectItem.ContainingProject != null)
-                        {
-                            helper.HandleUpdatingPluginAssemblyCommand(connectionData, item.ProjectItem.ContainingProject);
-                        }
+                        helper.HandleUpdatingPluginAssemblyCommand(connectionData, projectItem.ContainingProject);
                     }
                 }
             }

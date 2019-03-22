@@ -123,15 +123,6 @@
   <data name="CodeCSharpProjectCompareToCrmAssemblyCommand" xml:space="preserve">
     <value>Compare with Crm PluginAssembly</value>
   </data>
-  <data name="CodeCSharpProjectPluginAssemblyAddIntoSolutionCommand" xml:space="preserve">
-    <value>Add PluginAssembly into Crm Solution</value>
-  </data>
-  <data name="CodeCSharpProjectPluginAssemblyStepsAddIntoSolutionCommand" xml:space="preserve">
-    <value>Add Steps for PluginAssembly into Crm Solution</value>
-  </data>
-  <data name="CodeCSharpProjectPluginTypeStepsAddIntoSolutionCommand" xml:space="preserve">
-    <value>Add Steps for PluginType into Crm Solution</value>
-  </data>
   <data name="CodeCSharpProjectUpdatePluginAssemblyCommand" xml:space="preserve">
     <value>Update PluginAssembly</value>
   </data>
@@ -144,9 +135,6 @@
   <data name="CodeCSharpUpdateProxyClassesCommand" xml:space="preserve">
     <value>Update Proxy Classes</value>
   </data>
-  <data name="CodeReportAddIntoSolutionCommand" xml:space="preserve">
-    <value>Add Report in Crm Solution</value>
-  </data>
   <data name="CodeReportDownloadCommand" xml:space="preserve">
     <value>Download Report</value>
   </data>
@@ -158,9 +146,6 @@
   </data>
   <data name="CodeReportUpdateCommand" xml:space="preserve">
     <value>Update Report in Crm</value>
-  </data>
-  <data name="CodeWebResourceAddIntoSolutionCommand" xml:space="preserve">
-    <value>Add WebResource in Crm Solution</value>
   </data>
   <data name="CodeWebResourceCompareWithDetailsCommand" xml:space="preserve">
     <value>Compare File with details</value>
@@ -267,21 +252,6 @@
   <data name="CommonOpenSolutionImageCommand" xml:space="preserve">
     <value>Open SolutionImage</value>
   </data>
-  <data name="DocumentsCSharpProjectPluginAssemblyAddIntoSolutionCommand" xml:space="preserve">
-    <value>Add PluginAssembly into Crm Solution</value>
-  </data>
-  <data name="DocumentsCSharpProjectPluginAssemblyStepsAddIntoSolutionCommand" xml:space="preserve">
-    <value>Add Steps for PluginAssembly into Crm Solution</value>
-  </data>
-  <data name="DocumentsCSharpProjectPluginTypeStepsAddIntoSolutionCommand" xml:space="preserve">
-    <value>Add Steps for PluginType into Crm Solution</value>
-  </data>
-  <data name="DocumentsReportAddIntoSolutionCommand" xml:space="preserve">
-    <value>Add Opened Reports into Crm Solution</value>
-  </data>
-  <data name="DocumentsWebResourceAddIntoSolutionCommand" xml:space="preserve">
-    <value>Add Opened WebResources in Crm Solution</value>
-  </data>
   <data name="DocumentsWebResourceCompareCommand" xml:space="preserve">
     <value>Compare Files</value>
   </data>
@@ -300,15 +270,6 @@
   <data name="FileCSharpProjectCompareToCrmAssemblyCommand" xml:space="preserve">
     <value>Compare with Crm PluginAssembly</value>
   </data>
-  <data name="FileCSharpProjectPluginAssemblyAddIntoSolutionCommand" xml:space="preserve">
-    <value>Add PluginAssembly into Crm Solution</value>
-  </data>
-  <data name="FileCSharpProjectPluginAssemblyStepsAddIntoSolutionCommand" xml:space="preserve">
-    <value>Add Steps for PluginAssembly into Crm Solution</value>
-  </data>
-  <data name="FileCSharpProjectPluginTypeStepsAddIntoSolutionCommand" xml:space="preserve">
-    <value>Add Steps for PluginType into Crm Solution</value>
-  </data>
   <data name="FileCSharpProjectUpdatePluginAssemblyCommand" xml:space="preserve">
     <value>Update PluginAssembly</value>
   </data>
@@ -321,17 +282,11 @@
   <data name="FileCSharpUpdateProxyClassesCommand" xml:space="preserve">
     <value>Update Proxy Classes</value>
   </data>
-  <data name="FileReportAddIntoSolutionCommand" xml:space="preserve">
-    <value>Add Reports in Crm Solution</value>
-  </data>
   <data name="FileReportDownloadCommand" xml:space="preserve">
     <value>Download Report</value>
   </data>
   <data name="FileReportUpdateCommand" xml:space="preserve">
     <value>Update Report in Crm</value>
-  </data>
-  <data name="FileWebResourceAddIntoSolutionCommand" xml:space="preserve">
-    <value>Add WebResources in Crm Solution</value>
   </data>
   <data name="FileWebResourceCompareCommand" xml:space="preserve">
     <value>Compare Files</value>
@@ -357,9 +312,6 @@
   <data name="FolderAddSolutionFileCommand" xml:space="preserve">
     <value>Crm Solution BackUp</value>
   </data>
-  <data name="FolderWebResourceAddIntoSolutionCommand" xml:space="preserve">
-    <value>Add WebResources in Crm Solution (Recursive)</value>
-  </data>
   <data name="FolderWebResourceCompareCommand" xml:space="preserve">
     <value>Compare Files (Recursive)</value>
   </data>
@@ -368,9 +320,6 @@
   </data>
   <data name="FolderWebResourceUpdateContentPublishCommand" xml:space="preserve">
     <value>Publish Files (Recursive)</value>
-  </data>
-  <data name="ListForPublishAddIntoSolutionCommand" xml:space="preserve">
-    <value>Add List in Crm Solution</value>
   </data>
   <data name="ListForPublishClearListCommand" xml:space="preserve">
     <value>Clear List</value>
@@ -386,12 +335,6 @@
   </data>
   <data name="ProjectCompareToCrmAssemblyCommand" xml:space="preserve">
     <value>Compare with Crm PluginAssembly</value>
-  </data>
-  <data name="ProjectPluginAssemblyAddIntoSolutionCommand" xml:space="preserve">
-    <value>Add PluginAssembly into Crm Solution</value>
-  </data>
-  <data name="ProjectPluginAssemblyStepsAddIntoSolutionCommand" xml:space="preserve">
-    <value>Add Steps for PluginAssembly into Crm Solution</value>
   </data>
   <data name="ProjectUpdatePluginAssemblyCommand" xml:space="preserve">
     <value>Update PluginAssembly</value>
