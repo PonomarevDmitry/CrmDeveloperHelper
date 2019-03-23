@@ -10,7 +10,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         /// <summary>
         /// Настройки расширения
         /// </summary>
-        public string Prefix { get; private set; }
+        public string Prefix
+        {
+            get => txtBPrefix.Text.Trim();
+            set => txtBPrefix.Text = value;
+        }
 
         private readonly Func<string, bool> _checker;
         private readonly string _message;
@@ -38,7 +42,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ClickOkButton()
         {
-            string text = txtBPrefix.Text.ToLower().Trim();
+            string text = txtBPrefix.Text.Trim();
 
             if (string.IsNullOrEmpty(text))
             {

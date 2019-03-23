@@ -5,7 +5,8 @@
         Title="Entity Name Prefix" Height="132" Width="635" WindowStartupLocation="Manual">
     <Grid>
         <Label x:Name="lblText" Content="Prefix" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="26" Width="187"/>
-        <TextBox x:Name="txtBPrefix" Height="23" Margin="10,36,10,0"   VerticalAlignment="Top" TabIndex="2147483647"/>
+        <TextBox x:Name="txtBPrefix" Height="23" Margin="10,36,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" />
+
         <Button x:Name="btnOk" Content="Ok" Margin="0,0,127,10" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="89" Click="btnOk_Click"/>
         <Button x:Name="btnCancel" Content="Cancel" Margin="0,0,10,10" Click="btnCancel_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
     </Grid>

@@ -74,7 +74,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
-            this._optionsExportSolutionOptionsControl = new ExportSolutionOptionsControl(_commonConfig, cmBCurrentConnection);
+            this._optionsExportSolutionOptionsControl = new ExportSolutionOptionsControl(cmBCurrentConnection);
             this._optionsExportSolutionOptionsControl.CloseClicked += Child_CloseClicked;
             this._optionsSolutionPopup = new Popup
             {
@@ -1138,9 +1138,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            string exportFolder = string.Empty;
+            var exportSolutionProfile = _optionsExportSolutionOptionsControl.GetExportSolutionProfile();
 
-            exportFolder = _optionsExportSolutionOptionsControl.GetExportFolder();
+            if (exportSolutionProfile == null)
+            {
+                return;
+            }
+
+            string exportFolder = exportSolutionProfile.ExportFolder;
 
             if (string.IsNullOrEmpty(exportFolder))
             {
@@ -1149,13 +1154,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var fileExportFolder = exportFolder;
 
-            var uniqueName = connectionData.ExportSolutionOverrideUniqueName?.Trim() ?? string.Empty;
-            var displayName = connectionData.ExportSolutionOverrideDisplayName?.Trim() ?? string.Empty;
-            var version = connectionData.ExportSolutionOverrideVersion?.Trim() ?? string.Empty;
+            var uniqueName = exportSolutionProfile.OverrideUniqueName?.Trim() ?? string.Empty;
+            var displayName = exportSolutionProfile.OverrideDisplayName?.Trim() ?? string.Empty;
+            var version = exportSolutionProfile.OverrideVersion?.Trim() ?? string.Empty;
 
-            var description = connectionData.ExportSolutionOverrideDescription?.Trim() ?? string.Empty;
+            var description = exportSolutionProfile.OverrideDescription?.Trim() ?? string.Empty;
 
-            if (connectionData.ExportSolutionIsOverrideSolutionNameAndVersion)
+            if (exportSolutionProfile.IsOverrideSolutionNameAndVersion)
             {
                 if (!string.IsNullOrEmpty(version))
                 {
@@ -1169,7 +1174,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            if (connectionData.ExportSolutionIsCreateFolderForVersion)
+            if (exportSolutionProfile.IsCreateFolderForVersion)
             {
                 if (!string.IsNullOrEmpty(version))
                 {
@@ -1192,29 +1197,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             ExportSolutionOverrideInformation solutionExportInfo = new ExportSolutionOverrideInformation(
-                connectionData.ExportSolutionIsOverrideSolutionNameAndVersion
+                exportSolutionProfile.IsOverrideSolutionNameAndVersion
                 , uniqueName
                 , displayName
                 , version
-                , connectionData.ExportSolutionIsOverrideSolutionDescription
+                , exportSolutionProfile.IsOverrideSolutionDescription
                 , description
                 );
 
             ExportSolutionConfig config = new ExportSolutionConfig()
             {
-                ExportAutoNumberingSettings = _commonConfig.ExportSolutionExportAutoNumberingSettings,
-                ExportCalendarSettings = _commonConfig.ExportSolutionExportCalendarSettings,
-                ExportCustomizationSettings = _commonConfig.ExportSolutionExportCustomizationSettings,
-                ExportEmailTrackingSettings = _commonConfig.ExportSolutionExportEmailTrackingSettings,
-                ExportExternalApplications = _commonConfig.ExportSolutionExportExternalApplications,
-                ExportGeneralSettings = _commonConfig.ExportSolutionExportGeneralSettings,
-                ExportIsvConfig = _commonConfig.ExportSolutionExportIsvConfig,
-                ExportMarketingSettings = _commonConfig.ExportSolutionExportMarketingSettings,
-                ExportOutlookSynchronizationSettings = _commonConfig.ExportSolutionExportOutlookSynchronizationSettings,
-                ExportRelationshipRoles = _commonConfig.ExportSolutionExportRelationshipRoles,
-                ExportSales = _commonConfig.ExportSolutionExportSales,
+                ExportAutoNumberingSettings = exportSolutionProfile.ExportAutoNumberingSettings,
+                ExportCalendarSettings = exportSolutionProfile.ExportCalendarSettings,
+                ExportCustomizationSettings = exportSolutionProfile.ExportCustomizationSettings,
+                ExportEmailTrackingSettings = exportSolutionProfile.ExportEmailTrackingSettings,
+                ExportExternalApplications = exportSolutionProfile.ExportExternalApplications,
+                ExportGeneralSettings = exportSolutionProfile.ExportGeneralSettings,
+                ExportIsvConfig = exportSolutionProfile.ExportIsvConfig,
+                ExportMarketingSettings = exportSolutionProfile.ExportMarketingSettings,
+                ExportOutlookSynchronizationSettings = exportSolutionProfile.ExportOutlookSynchronizationSettings,
+                ExportRelationshipRoles = exportSolutionProfile.ExportRelationshipRoles,
+                ExportSales = exportSolutionProfile.ExportSales,
 
-                Managed = connectionData.ExportSolutionManaged,
+                Managed = exportSolutionProfile.IsManaged,
 
                 IdSolution = solution.Id,
 
@@ -1239,8 +1244,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         {
                             _optionsExportSolutionOptionsControl.StoreTextValues();
 
-                            service.ConnectionData.AddLastExportSolutionOverrideUniqueName(solutionExportInfo.UniqueName);
-                            service.ConnectionData.AddLastExportSolutionOverrideDisplayName(solutionExportInfo.DisplayName);
+                            exportSolutionProfile.AddLastOverrideUniqueName(solutionExportInfo.UniqueName);
+                            exportSolutionProfile.AddLastOverrideDisplayName(solutionExportInfo.DisplayName);
 
                             _optionsExportSolutionOptionsControl.RestoreTextValues();
 
@@ -1249,7 +1254,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                 var oldVersion = ver.ToString();
                                 var newVersion = new Version(ver.Major, ver.Minor, ver.Build, ver.Revision + 1).ToString();
 
-                                service.ConnectionData.AddLastExportSolutionOverrideVersion(newVersion, oldVersion);
+                                exportSolutionProfile.AddLastOverrideVersion(newVersion, oldVersion);
 
                                 _optionsExportSolutionOptionsControl.SetNewVersion(newVersion);
                             }
@@ -1262,7 +1267,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this.Dispatcher.Invoke(() =>
                     {
-                        if (service.ConnectionData.ExportSolutionIsCopyFileToClipBoard)
+                        if (exportSolutionProfile.IsCopyFileToClipBoard)
                         {
                             Clipboard.SetFileDropList(new System.Collections.Specialized.StringCollection() { filePath });
                         }
@@ -2813,11 +2818,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _syncCacheObjects.Add(connectionData.ConnectionId, new object());
 
                 BindingOperations.EnableCollectionSynchronization(connectionData.LastSelectedSolutionsUniqueName, _syncCacheObjects[connectionData.ConnectionId]);
-
-                BindingOperations.EnableCollectionSynchronization(connectionData.LastSolutionExportFolders, _syncCacheObjects[connectionData.ConnectionId]);
-                BindingOperations.EnableCollectionSynchronization(connectionData.LastExportSolutionOverrideUniqueName, _syncCacheObjects[connectionData.ConnectionId]);
-                BindingOperations.EnableCollectionSynchronization(connectionData.LastExportSolutionOverrideDisplayName, _syncCacheObjects[connectionData.ConnectionId]);
-                BindingOperations.EnableCollectionSynchronization(connectionData.LastExportSolutionOverrideVersion, _syncCacheObjects[connectionData.ConnectionId]);
             }
 
             _optionsExportSolutionOptionsControl.StoreTextValues();

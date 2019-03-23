@@ -670,278 +670,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private string _ExportSolutionFolder;
-        [DataMember]
-        public string ExportSolutionFolder
-        {
-            get => _ExportSolutionFolder;
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                {
-                    return;
-                }
-
-                value = value.Trim();
-
-                if (_ExportSolutionFolder == value)
-                {
-                    return;
-                }
-
-                this.OnPropertyChanging(nameof(ExportSolutionFolder));
-                this._ExportSolutionFolder = value;
-                this.OnPropertyChanged(nameof(ExportSolutionFolder));
-            }
-        }
-
-        private bool _ExportSolutionIsOverrideSolutionNameAndVersion;
-        [DataMember]
-        public bool ExportSolutionIsOverrideSolutionNameAndVersion
-        {
-            get => _ExportSolutionIsOverrideSolutionNameAndVersion;
-            set
-            {
-                if (_ExportSolutionIsOverrideSolutionNameAndVersion == value)
-                {
-                    return;
-                }
-
-                this.OnPropertyChanging(nameof(ExportSolutionIsOverrideSolutionNameAndVersion));
-                this._ExportSolutionIsOverrideSolutionNameAndVersion = value;
-                this.OnPropertyChanged(nameof(ExportSolutionIsOverrideSolutionNameAndVersion));
-            }
-        }
-
-        private bool _ExportSolutionIsOverrideSolutionDescription;
-        [DataMember]
-        public bool ExportSolutionIsOverrideSolutionDescription
-        {
-            get => _ExportSolutionIsOverrideSolutionDescription;
-            set
-            {
-                if (_ExportSolutionIsOverrideSolutionDescription == value)
-                {
-                    return;
-                }
-
-                this.OnPropertyChanging(nameof(ExportSolutionIsOverrideSolutionDescription));
-                this._ExportSolutionIsOverrideSolutionDescription = value;
-                this.OnPropertyChanged(nameof(ExportSolutionIsOverrideSolutionDescription));
-            }
-        }
-
-        private bool _ExportSolutionIsCreateFolderForVersion;
-        [DataMember]
-        public bool ExportSolutionIsCreateFolderForVersion
-        {
-            get => _ExportSolutionIsCreateFolderForVersion;
-            set
-            {
-                if (_ExportSolutionIsCreateFolderForVersion == value)
-                {
-                    return;
-                }
-
-                this.OnPropertyChanging(nameof(ExportSolutionIsCreateFolderForVersion));
-                this._ExportSolutionIsCreateFolderForVersion = value;
-                this.OnPropertyChanged(nameof(ExportSolutionIsCreateFolderForVersion));
-            }
-        }
-
-        private bool _ExportSolutionIsCopyFileToClipBoard;
-        [DataMember]
-        public bool ExportSolutionIsCopyFileToClipBoard
-        {
-            get => _ExportSolutionIsCopyFileToClipBoard;
-            set
-            {
-                if (_ExportSolutionIsCopyFileToClipBoard == value)
-                {
-                    return;
-                }
-
-                this.OnPropertyChanging(nameof(ExportSolutionIsCopyFileToClipBoard));
-                this._ExportSolutionIsCopyFileToClipBoard = value;
-                this.OnPropertyChanged(nameof(ExportSolutionIsCopyFileToClipBoard));
-            }
-        }
-
-        private string _ExportSolutionOverrideUniqueName;
-        [DataMember]
-        public string ExportSolutionOverrideUniqueName
-        {
-            get => _ExportSolutionOverrideUniqueName;
-            set
-            {
-                if (!string.IsNullOrEmpty(value))
-                {
-                    value = value.Trim();
-                }
-                else
-                {
-                    value = string.Empty;
-                }
-
-                if (_ExportSolutionOverrideUniqueName == value)
-                {
-                    return;
-                }
-
-                this.OnPropertyChanging(nameof(ExportSolutionOverrideUniqueName));
-                this._ExportSolutionOverrideUniqueName = value;
-                this.OnPropertyChanged(nameof(ExportSolutionOverrideUniqueName));
-            }
-        }
-
-        private string _ExportSolutionOverrideDisplayName;
-        [DataMember]
-        public string ExportSolutionOverrideDisplayName
-        {
-            get => _ExportSolutionOverrideDisplayName;
-            set
-            {
-                if (!string.IsNullOrEmpty(value))
-                {
-                    value = value.Trim();
-                }
-                else
-                {
-                    value = string.Empty;
-                }
-
-                if (_ExportSolutionOverrideDisplayName == value)
-                {
-                    return;
-                }
-
-                this.OnPropertyChanging(nameof(ExportSolutionOverrideDisplayName));
-                this._ExportSolutionOverrideDisplayName = value;
-                this.OnPropertyChanged(nameof(ExportSolutionOverrideDisplayName));
-            }
-        }
-
-        private string _ExportSolutionOverrideVersion;
-        [DataMember]
-        public string ExportSolutionOverrideVersion
-        {
-            get => _ExportSolutionOverrideVersion;
-            set
-            {
-                if (!string.IsNullOrEmpty(value))
-                {
-                    value = value.Trim();
-                }
-                else
-                {
-                    value = string.Empty;
-                }
-
-                if (_ExportSolutionOverrideVersion == value)
-                {
-                    return;
-                }
-
-                this.OnPropertyChanging(nameof(ExportSolutionOverrideVersion));
-                this._ExportSolutionOverrideVersion = value;
-                this.OnPropertyChanged(nameof(ExportSolutionOverrideVersion));
-            }
-        }
-
-        private int _ExportSolutionOverrideUniqueNameSelectedIndex = -1;
-        [DataMember]
-        public int ExportSolutionOverrideUniqueNameSelectedIndex
-        {
-            get => _ExportSolutionOverrideUniqueNameSelectedIndex;
-            set
-            {
-                if (_ExportSolutionOverrideUniqueNameSelectedIndex == value)
-                {
-                    return;
-                }
-
-                this.OnPropertyChanging(nameof(ExportSolutionOverrideUniqueNameSelectedIndex));
-                this._ExportSolutionOverrideUniqueNameSelectedIndex = value;
-                this.OnPropertyChanged(nameof(ExportSolutionOverrideUniqueNameSelectedIndex));
-            }
-        }
-
-        private int _ExportSolutionOverrideDisplayNameSelectedIndex = -1;
-        [DataMember]
-        public int ExportSolutionOverrideDisplayNameSelectedIndex
-        {
-            get => _ExportSolutionOverrideDisplayNameSelectedIndex;
-            set
-            {
-                if (_ExportSolutionOverrideDisplayNameSelectedIndex == value)
-                {
-                    return;
-                }
-
-                this.OnPropertyChanging(nameof(ExportSolutionOverrideDisplayNameSelectedIndex));
-                this._ExportSolutionOverrideDisplayNameSelectedIndex = value;
-                this.OnPropertyChanged(nameof(ExportSolutionOverrideDisplayNameSelectedIndex));
-            }
-        }
-
-        private int _ExportSolutionOverrideVersionSelectedIndex = -1;
-        [DataMember]
-        public int ExportSolutionOverrideVersionSelectedIndex
-        {
-            get => _ExportSolutionOverrideVersionSelectedIndex;
-            set
-            {
-                if (_ExportSolutionOverrideVersionSelectedIndex == value)
-                {
-                    return;
-                }
-
-                this.OnPropertyChanging(nameof(ExportSolutionOverrideVersionSelectedIndex));
-                this._ExportSolutionOverrideVersionSelectedIndex = value;
-                this.OnPropertyChanged(nameof(ExportSolutionOverrideVersionSelectedIndex));
-            }
-        }
-
-        private string _ExportSolutionOverrideDescription;
-        [DataMember]
-        public string ExportSolutionOverrideDescription
-        {
-            get => _ExportSolutionOverrideDescription;
-            set
-            {
-                if (!string.IsNullOrEmpty(value))
-                {
-                    value = value.Trim();
-                }
-                else
-                {
-                    value = string.Empty;
-                }
-
-                if (_ExportSolutionOverrideDescription == value)
-                {
-                    return;
-                }
-
-                this.OnPropertyChanging(nameof(ExportSolutionOverrideDescription));
-                this._ExportSolutionOverrideDescription = value;
-                this.OnPropertyChanged(nameof(ExportSolutionOverrideDescription));
-            }
-        }
-
-        private bool _ExportSolutionManaged;
-        [DataMember]
-        public bool ExportSolutionManaged
-        {
-            get => _ExportSolutionManaged;
-            set
-            {
-                this.OnPropertyChanging(nameof(ExportSolutionManaged));
-                this._ExportSolutionManaged = value;
-                this.OnPropertyChanged(nameof(ExportSolutionManaged));
-            }
-        }
-
         private string _TraceReaderFilter;
         [DataMember]
         public string TraceReaderFilter
@@ -1063,16 +791,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         public ObservableCollection<string> LastSolutionExportFolders { get; private set; }
 
         [DataMember]
-        public ObservableCollection<string> LastExportSolutionOverrideUniqueName { get; private set; }
-
-        [DataMember]
-        public ObservableCollection<string> LastExportSolutionOverrideDisplayName { get; private set; }
-
-        [DataMember]
-        public ObservableCollection<string> LastExportSolutionOverrideVersion { get; private set; }
-
-        [DataMember]
         public ObservableCollection<FetchXmlRequestParameter> FetchXmlRequestParameterList { get; private set; }
+
+        [DataMember]
+        public ObservableCollection<ExportSolutionProfile> ExportSolutionProfileList { get; private set; }
+
+        private int _ExportSolutionProfileListSelectedIndex = -1;
+        [DataMember]
+        public int ExportSolutionProfileListSelectedIndex
+        {
+            get => _ExportSolutionProfileListSelectedIndex;
+            set
+            {
+                if (_ExportSolutionProfileListSelectedIndex == value)
+                {
+                    return;
+                }
+
+                this.OnPropertyChanging(nameof(ExportSolutionProfileListSelectedIndex));
+                this._ExportSolutionProfileListSelectedIndex = value;
+                this.OnPropertyChanged(nameof(ExportSolutionProfileListSelectedIndex));
+            }
+        }
 
         private ConcurrentDictionary<string, bool> _knownRequests = new ConcurrentDictionary<string, bool>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -1086,10 +826,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             this.LastSelectedSolutionsUniqueName = new ObservableCollection<string>();
             this.LastSolutionExportFolders = new ObservableCollection<string>();
-            this.LastExportSolutionOverrideUniqueName = new ObservableCollection<string>();
-            this.LastExportSolutionOverrideDisplayName = new ObservableCollection<string>();
-            this.LastExportSolutionOverrideVersion = new ObservableCollection<string>();
             this.FetchXmlRequestParameterList = new ObservableCollection<FetchXmlRequestParameter>();
+            this.ExportSolutionProfileList = new ObservableCollection<ExportSolutionProfile>();
 
             this.TraceReaderLastFilters = new ObservableCollection<string>();
             this.TraceReaderLastFolders = new ObservableCollection<string>();
@@ -1144,24 +882,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 this.LastSolutionExportFolders = new ObservableCollection<string>();
             }
 
-            if (this.LastExportSolutionOverrideUniqueName == null)
-            {
-                this.LastExportSolutionOverrideUniqueName = new ObservableCollection<string>();
-            }
-
-            if (this.LastExportSolutionOverrideDisplayName == null)
-            {
-                this.LastExportSolutionOverrideDisplayName = new ObservableCollection<string>();
-            }
-
-            if (this.LastExportSolutionOverrideVersion == null)
-            {
-                this.LastExportSolutionOverrideVersion = new ObservableCollection<string>();
-            }
-
             if (this.FetchXmlRequestParameterList == null)
             {
                 this.FetchXmlRequestParameterList = new ObservableCollection<FetchXmlRequestParameter>();
+            }
+
+            if (this.ExportSolutionProfileList == null)
+            {
+                this.ExportSolutionProfileList = new ObservableCollection<ExportSolutionProfile>();
             }
 
             if (this.TraceReaderLastFilters == null)
@@ -1186,6 +914,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             if (this.ConnectionId == Guid.Empty)
             {
                 this.ConnectionId = Guid.NewGuid();
+            }
+
+            if (this.ExportSolutionProfileList.Count == 0)
+            {
+                this.ExportSolutionProfileList.Add(new ExportSolutionProfile()
+                {
+                    Name = "Default",
+                });
             }
         }
 
@@ -1338,78 +1074,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     this.LastSolutionExportFolders.RemoveAt(this.LastSolutionExportFolders.Count - 1);
                 }
-            }
-        }
-
-        public void AddLastExportSolutionOverrideUniqueName(string uniqueName)
-        {
-            if (string.IsNullOrEmpty(uniqueName))
-            {
-                return;
-            }
-
-            if (this.LastExportSolutionOverrideUniqueName.Contains(uniqueName))
-            {
-                this.LastExportSolutionOverrideUniqueName.Move(LastExportSolutionOverrideUniqueName.IndexOf(uniqueName), 0);
-            }
-            else
-            {
-                this.LastExportSolutionOverrideUniqueName.Insert(0, uniqueName);
-
-                while (this.LastExportSolutionOverrideUniqueName.Count > CountLastItems)
-                {
-                    this.LastExportSolutionOverrideUniqueName.RemoveAt(this.LastExportSolutionOverrideUniqueName.Count - 1);
-                }
-            }
-        }
-
-        public void AddLastExportSolutionOverrideDisplayName(string displayName)
-        {
-            if (string.IsNullOrEmpty(displayName))
-            {
-                return;
-            }
-
-            if (this.LastExportSolutionOverrideDisplayName.Contains(displayName))
-            {
-                this.LastExportSolutionOverrideDisplayName.Move(LastExportSolutionOverrideDisplayName.IndexOf(displayName), 0);
-            }
-            else
-            {
-                this.LastExportSolutionOverrideDisplayName.Insert(0, displayName);
-
-                while (this.LastExportSolutionOverrideDisplayName.Count > CountLastItems)
-                {
-                    this.LastExportSolutionOverrideDisplayName.RemoveAt(this.LastExportSolutionOverrideDisplayName.Count - 1);
-                }
-            }
-        }
-
-        public void AddLastExportSolutionOverrideVersion(string newVersion, string oldVersion)
-        {
-            if (this.LastExportSolutionOverrideVersion.Contains(newVersion))
-            {
-                this.LastExportSolutionOverrideVersion.Move(LastExportSolutionOverrideVersion.IndexOf(newVersion), 0);
-
-                if (this.LastExportSolutionOverrideVersion.Contains(oldVersion))
-                {
-                    this.LastExportSolutionOverrideVersion.Remove(oldVersion);
-                }
-            }
-            else if (this.LastExportSolutionOverrideVersion.Contains(oldVersion))
-            {
-                this.LastExportSolutionOverrideVersion.Move(LastExportSolutionOverrideVersion.IndexOf(oldVersion), 0);
-
-                this.LastExportSolutionOverrideVersion[0] = newVersion;
-            }
-            else
-            {
-                this.LastExportSolutionOverrideVersion.Insert(0, newVersion);
-            }
-
-            while (this.LastExportSolutionOverrideVersion.Count > CountLastItems)
-            {
-                this.LastExportSolutionOverrideVersion.RemoveAt(this.LastExportSolutionOverrideVersion.Count - 1);
             }
         }
 
@@ -2063,16 +1727,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.SelectedCrmSvcUtil = diskData.SelectedCrmSvcUtil;
             this.SelectSolutionFilter = diskData.SelectSolutionFilter;
             this.ExplorerSolutionFilter = diskData.ExplorerSolutionFilter;
-            this.ExportSolutionFolder = diskData.ExportSolutionFolder;
-            this.ExportSolutionIsOverrideSolutionNameAndVersion = diskData.ExportSolutionIsOverrideSolutionNameAndVersion;
-            this.ExportSolutionIsOverrideSolutionDescription = diskData.ExportSolutionIsOverrideSolutionDescription;
-            this.ExportSolutionIsCreateFolderForVersion = diskData.ExportSolutionIsCreateFolderForVersion;
-            this.ExportSolutionIsCopyFileToClipBoard = diskData.ExportSolutionIsCopyFileToClipBoard;
-            this.ExportSolutionOverrideUniqueName = diskData.ExportSolutionOverrideUniqueName;
-            this.ExportSolutionOverrideDisplayName = diskData.ExportSolutionOverrideDisplayName;
-            this.ExportSolutionOverrideVersion = diskData.ExportSolutionOverrideVersion;
-            this.ExportSolutionOverrideDescription = diskData.ExportSolutionOverrideDescription;
-            this.ExportSolutionManaged = diskData.ExportSolutionManaged;
             this.TraceReaderFilter = diskData.TraceReaderFilter;
             this.TraceReaderFolder = diskData.TraceReaderFolder;
             this.UserId = diskData.UserId;
@@ -2096,28 +1750,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 this.LastSolutionExportFolders.Add(item);
             }
 
-            this.LastExportSolutionOverrideUniqueName.Clear();
-            foreach (var item in diskData.LastExportSolutionOverrideUniqueName)
-            {
-                this.LastExportSolutionOverrideUniqueName.Add(item);
-            }
-
-            this.LastExportSolutionOverrideDisplayName.Clear();
-            foreach (var item in diskData.LastExportSolutionOverrideDisplayName)
-            {
-                this.LastExportSolutionOverrideDisplayName.Add(item);
-            }
-
-            this.LastExportSolutionOverrideVersion.Clear();
-            foreach (var item in diskData.LastExportSolutionOverrideVersion)
-            {
-                this.LastExportSolutionOverrideVersion.Add(item);
-            }
-
             this.FetchXmlRequestParameterList.Clear();
             foreach (var item in diskData.FetchXmlRequestParameterList)
             {
                 this.FetchXmlRequestParameterList.Add(item);
+            }
+
+            this.ExportSolutionProfileList.Clear();
+            foreach (var item in diskData.ExportSolutionProfileList)
+            {
+                this.ExportSolutionProfileList.Add(item);
+            }
+
+            if (this.ExportSolutionProfileList.Count == 0)
+            {
+                this.ExportSolutionProfileList.Add(new ExportSolutionProfile()
+                {
+                    Name = "Default",
+                });
             }
 
             //this.Utils.Clear();
