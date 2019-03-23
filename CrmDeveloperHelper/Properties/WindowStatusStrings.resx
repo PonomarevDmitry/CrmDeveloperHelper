@@ -1296,4 +1296,16 @@
   <data name="RemovingComponentsExistingInTargetFormat1" xml:space="preserve">
     <value>Removing components existing in {0}...</value>
   </data>
+  <data name="RegisteringPluginTypeCompletedFormat2" xml:space="preserve">
+    <value>{0}. Registering PluginType {1} completed.</value>
+  </data>
+  <data name="BuildingProjectCompletedFormat1" xml:space="preserve">
+    <value>Building Project {0} completed.</value>
+  </data>
+  <data name="BuildingProjectFailedFormat1" xml:space="preserve">
+    <value>Building Project {0} failed.</value>
+  </data>
+  <data name="BuildingProjectFormat1" xml:space="preserve">
+    <value>Building Project {0}...</value>
+  </data>
 </root>

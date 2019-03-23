@@ -649,7 +649,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowPluginAssembly(_iWriteToOutput, service, assembly, null);
+                    var form = new WindowPluginAssembly(_iWriteToOutput, service, assembly, null, null);
 
                     form.ShowDialog();
                 }
@@ -805,7 +805,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var assembly = new PluginAssembly();
 
-            var form = new WindowPluginAssembly(_iWriteToOutput, service, assembly, null);
+            var form = new WindowPluginAssembly(_iWriteToOutput, service, assembly, null, null);
 
             if (form.ShowDialog().GetValueOrDefault())
             {

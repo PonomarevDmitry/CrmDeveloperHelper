@@ -19,11 +19,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         private static void ActionExecute(DTEHelper helper)
         {
-            helper.ShowListForPublish();
+            helper.ShowListForPublish(null);
 
             if (MessageBox.Show(Properties.MessageBoxStrings.ClearListForPublish, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
-                helper.ClearListForPublish();
+                helper.ClearListForPublish(null);
             }
         }
 

@@ -205,6 +205,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Building Project {0} completed..
+        /// </summary>
+        internal static string BuildingProjectCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("BuildingProjectCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Building Project {0} failed..
+        /// </summary>
+        internal static string BuildingProjectFailedFormat1 {
+            get {
+                return ResourceManager.GetString("BuildingProjectFailedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Building Project {0}....
+        /// </summary>
+        internal static string BuildingProjectFormat1 {
+            get {
+                return ResourceManager.GetString("BuildingProjectFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checking ConnectionRole Categories in {0} and {1}....
         /// </summary>
         internal static string CheckingConnectionRoleCategoriesFormat2 {
@@ -2712,6 +2739,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string RegisteringPluginStepsFormat1 {
             get {
                 return ResourceManager.GetString("RegisteringPluginStepsFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Registering PluginType {1} completed..
+        /// </summary>
+        internal static string RegisteringPluginTypeCompletedFormat2 {
+            get {
+                return ResourceManager.GetString("RegisteringPluginTypeCompletedFormat2", resourceCulture);
             }
         }
         

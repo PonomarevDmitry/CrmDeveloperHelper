@@ -123,14 +123,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         if (selectedFiles.Count > 0)
                         {
-                            helper.ShowListForPublish();
+                            helper.ShowListForPublish(connectionData);
 
                             helper.HandleAddingWebResourcesIntoSolutionCommand(null, solutionUniqueName, false, selectedFiles);
                         }
                         else
                         {
-                            helper.WriteToOutput(null, Properties.OutputStrings.PublishListIsEmpty);
-                            helper.ActivateOutputWindow(null);
+                            helper.WriteToOutput(connectionData, Properties.OutputStrings.PublishListIsEmpty);
+                            helper.ActivateOutputWindow(connectionData);
                         }
                     }
                 }

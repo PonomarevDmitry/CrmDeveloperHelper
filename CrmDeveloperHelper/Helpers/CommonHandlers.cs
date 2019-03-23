@@ -1073,7 +1073,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (selectedFiles.Count > 0)
             {
-                helper.ShowListForPublish();
+                helper.ShowListForPublish(null);
             }
             else
             {

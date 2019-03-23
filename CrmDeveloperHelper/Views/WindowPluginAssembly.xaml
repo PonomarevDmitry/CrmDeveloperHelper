@@ -50,46 +50,41 @@
             <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="0">
 
                 <GroupBox Header="Assembly to Load" Margin="10,10,10,0" VerticalAlignment="Top">
-                    <Grid>
-                        <Grid.Resources>
-                            <Style TargetType="{x:Type ComboBox}">
-                                <Setter Property="Padding" Value="1"/>
-                                <Setter Property="Margin" Value="3"/>
-                                <Setter Property="VerticalAlignment" Value="Stretch"/>
-                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                            </Style>
-                            <Style TargetType="{x:Type Button}">
-                                <Setter Property="Padding" Value="1"/>
-                                <Setter Property="Margin" Value="10,3,3,3"/>
-                                <Setter Property="VerticalAlignment" Value="Stretch"/>
-                            </Style>
-                        </Grid.Resources>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="10*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
 
-                        <ComboBox x:Name="cmBAssemblyToLoad" Grid.Row="0" Grid.Column="0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" IsTabStop="True" KeyDown="cmBAssemblyToLoad_KeyDown" />
-                        <Button x:Name="btnSelectFile" Content="Select" Grid.Row="0" Grid.Column="1" Click="btnSelectFile_Click" />
-
-                        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0">
-
+                    <StackPanel Orientation="Vertical">
+                        <Grid>
                             <Grid.Resources>
-                                <Style TargetType="{x:Type Button}">
-                                    <Setter Property="Padding" Value="1"/>
-                                    <Setter Property="Margin" Value="10,3,3,3"/>
-                                    <Setter Property="VerticalAlignment" Value="Stretch"/>
-                                    <Setter Property="VerticalContentAlignment" Value="Center"/>
-                                </Style>
-                                <Style TargetType="{x:Type CheckBox}">
+                                <Style TargetType="{x:Type ComboBox}">
                                     <Setter Property="Padding" Value="1"/>
                                     <Setter Property="Margin" Value="3"/>
                                     <Setter Property="VerticalAlignment" Value="Stretch"/>
                                     <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                </Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Padding" Value="1"/>
+                                    <Setter Property="VerticalAlignment" Value="Stretch"/>
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <ComboBox x:Name="cmBAssemblyToLoad" Grid.Row="0" Grid.Column="0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" IsTabStop="True" KeyDown="cmBAssemblyToLoad_KeyDown" />
+                            <Button x:Name="btnSelectFile" Content="Select" Grid.Row="0" Grid.Column="1" Margin="10,3,3,3" Click="btnSelectFile_Click" />
+                        </Grid>
+
+                        <Grid Margin="0">
+
+                            <Grid.Resources>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Padding" Value="1"/>
+                                    <Setter Property="Margin" Value="3"/>
+                                    <Setter Property="VerticalAlignment" Value="Stretch"/>
                                     <Setter Property="VerticalContentAlignment" Value="Center"/>
                                 </Style>
                             </Grid.Resources>
@@ -99,11 +94,15 @@
                                 <ColumnDefinition Width="10*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
 
+                            <Button x:Name="btnBuildProject" Content="Build Project" Grid.Row="0" Grid.Column="0" Visibility="Hidden" IsEnabled="False" Click="btnBuildProject_Click"  />
                             <Button x:Name="btnLoadAssembly" Content="Load Assembly" Grid.Row="0" Grid.Column="2" Click="btnLoadAssembly_Click"  />
                         </Grid>
 
-                    </Grid>
+                    </StackPanel>
                 </GroupBox>
 
                 <GroupBox HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top" Header="Isolation Mode">

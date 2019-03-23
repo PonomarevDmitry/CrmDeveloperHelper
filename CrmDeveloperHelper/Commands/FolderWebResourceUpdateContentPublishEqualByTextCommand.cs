@@ -66,7 +66,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         menuCommand.Text = connectionData.NameWithCurrentMark;
 
-                        if (!connectionData.IsReadOnly)
+                        if (connectionData.IsReadOnly)
+                        {
+                            menuCommand.Enabled = menuCommand.Visible = false;
+                        }
+                        else
                         {
                             menuCommand.Enabled = menuCommand.Visible = true;
 

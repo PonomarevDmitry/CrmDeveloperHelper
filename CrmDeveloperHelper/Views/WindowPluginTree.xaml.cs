@@ -2490,7 +2490,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var pluginAssembly = await repository.GetAssemblyByIdAsync(nodeItem.PluginAssembly.Value);
 
-                var form = new WindowPluginAssembly(_iWriteToOutput, service, pluginAssembly, null);
+                var form = new WindowPluginAssembly(_iWriteToOutput, service, pluginAssembly, null, null);
 
                 if (form.ShowDialog().GetValueOrDefault())
                 {
@@ -2742,7 +2742,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
             };
 
-            var form = new WindowPluginAssembly(_iWriteToOutput, service, pluginAssembly, null);
+            var form = new WindowPluginAssembly(_iWriteToOutput, service, pluginAssembly, null, null);
 
             if (form.ShowDialog().GetValueOrDefault())
             {

@@ -1,5 +1,6 @@
 ﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 {
@@ -35,5 +36,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
         void ProcessStartProgramComparer(string file1, string file2, string fileTitle1, string fileTitle2);
 
         void ProcessStartProgramComparerThreeWayFile(string fileLocalPath, string filePath1, string filePath2, string fileLocalTitle, string fileTitle1, string fileTitle2);
+
+        Task<int> BuildProjectAsync(EnvDTE.Project project);
     }
 }

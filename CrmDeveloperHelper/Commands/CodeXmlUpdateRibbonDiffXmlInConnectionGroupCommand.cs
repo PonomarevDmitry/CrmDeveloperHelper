@@ -65,7 +65,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     {
                         var connectionData = list[index];
 
-                        if (!connectionData.IsReadOnly)
+                        if (connectionData.IsReadOnly)
+                        {
+                            menuCommand.Enabled = menuCommand.Visible = false;
+                        }
+                        else
                         {
                             menuCommand.Enabled = menuCommand.Visible = true;
 
@@ -120,13 +124,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 {
                     var connectionData = list[index];
 
-                    var helper = DTEHelper.Create(applicationObject);
-
-                    List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsXmlType);
-
-                    if (selectedFiles.Count == 1)
+                    if (!connectionData.IsReadOnly)
                     {
-                        helper.HandleRibbonDiffXmlUpdateCommand(connectionData, selectedFiles.FirstOrDefault());
+                        var helper = DTEHelper.Create(applicationObject);
+
+                        List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsXmlType);
+
+                        if (selectedFiles.Count == 1)
+                        {
+                            helper.HandleRibbonDiffXmlUpdateCommand(connectionData, selectedFiles.FirstOrDefault());
+                        }
                     }
                 }
             }

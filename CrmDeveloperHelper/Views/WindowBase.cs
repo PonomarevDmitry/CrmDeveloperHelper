@@ -527,7 +527,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             connectionData.ConnectionConfiguration.SetCurrentConnection(connectionData.ConnectionId);
             connectionData.ConnectionConfiguration.Save();
             iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
-            iWriteToOutput.ActivateOutputWindow(null);
         }
     }
 }

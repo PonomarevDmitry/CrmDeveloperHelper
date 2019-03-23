@@ -18,31 +18,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public partial class WindowPluginAssembly : WindowBase
     {
-        private bool _controlsEnabled = true;
-
         private readonly IWriteToOutput _iWriteToOutput;
         private readonly IOrganizationServiceExtented _service;
 
-        private BitmapImage _imagePluginAssembly;
-        private BitmapImage _imagePluginType;
-        private BitmapImage _imageWorkflowActivity;
+        private readonly string _defaultOutputFilePath;
+        private readonly EnvDTE.Project _project;
+
+        private readonly ObservableCollection<PluginTreeViewItem> _listLocalAssembly = new ObservableCollection<PluginTreeViewItem>();
+        private readonly ObservableCollection<PluginTreeViewItem> _listMissingCrm = new ObservableCollection<PluginTreeViewItem>();
+
+        private readonly BitmapImage _imagePluginAssembly;
+        private readonly BitmapImage _imagePluginType;
+        private readonly BitmapImage _imageWorkflowActivity;
 
         public PluginAssembly PluginAssembly { get; private set; }
 
         private AssemblyReaderResult _assemblyLoad;
 
-        private string _defaultOutputFilePath;
-
         private int _init = 0;
-
-        private ObservableCollection<PluginTreeViewItem> _listLocalAssembly = new ObservableCollection<PluginTreeViewItem>();
-        private ObservableCollection<PluginTreeViewItem> _listMissingCrm = new ObservableCollection<PluginTreeViewItem>();
 
         public WindowPluginAssembly(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , PluginAssembly pluginAssembly
             , string defaultOutputFilePath
+            , EnvDTE.Project project
         )
         {
             _init++;
@@ -52,22 +52,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput = iWriteToOutput;
             this._service = service;
             this._defaultOutputFilePath = defaultOutputFilePath;
-
+            this._project = project;
             this.PluginAssembly = pluginAssembly;
+
+            this._imagePluginAssembly = this.Resources["ImagePluginAssembly"] as BitmapImage;
+            this._imagePluginType = this.Resources["ImagePluginType"] as BitmapImage;
+            this._imageWorkflowActivity = this.Resources["ImageWorkflowActivity"] as BitmapImage;
 
             InitializeComponent();
 
-            LoadImages();
-
             LoadFromConfig();
 
-            tSSLblConnectionName.Content = _service.ConnectionData.Name;
+            this.trVPluginTreeNew.ItemsSource = _listLocalAssembly;
+            this.trVPluginTreeMissing.ItemsSource = _listMissingCrm;
+            this.tSSLblConnectionName.Content = _service.ConnectionData.Name;
+
+            btnBuildProject.IsEnabled = this._project != null;
+            btnBuildProject.Visibility = btnBuildProject.IsEnabled ? Visibility.Visible : Visibility.Hidden;
 
             LoadEntityPluginAssemblyProperties();
-
-            this.trVPluginTreeNew.ItemsSource = _listLocalAssembly;
-
-            this.trVPluginTreeMissing.ItemsSource = _listMissingCrm;
 
             _init--;
         }
@@ -101,13 +104,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             base.SaveConfigurationInternal(winConfig);
 
             winConfig.DictDouble[paramColumnGeneralInfoWidth] = columnGeneralInfo.Width.Value;
-        }
-
-        private void LoadImages()
-        {
-            this._imagePluginAssembly = this.Resources["ImagePluginAssembly"] as BitmapImage;
-            this._imagePluginType = this.Resources["ImagePluginType"] as BitmapImage;
-            this._imageWorkflowActivity = this.Resources["ImageWorkflowActivity"] as BitmapImage;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -302,17 +298,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         try
                         {
                             pluginTypeEntity.Id = await _service.CreateAsync(pluginTypeEntity);
+
+                            ToggleControls(true, Properties.WindowStatusStrings.RegisteringPluginTypeCompletedFormat2, _service.ConnectionData.Name, pluginType);
                         }
                         catch (Exception ex)
                         {
-                            ToggleControls(false, Properties.WindowStatusStrings.RegisteringPluginTypeFailedFormat2, _service.ConnectionData.Name, pluginType);
+                            ToggleControls(true, Properties.WindowStatusStrings.RegisteringPluginTypeFailedFormat2, _service.ConnectionData.Name, pluginType);
 
                             _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
                             _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
                         }
                     }
 
-                    ToggleControls(false, Properties.WindowStatusStrings.RegisteringNewPluginTypesCompletedFormat2, _service.ConnectionData.Name, listToRegister.Count);
+                    ToggleControls(true, Properties.WindowStatusStrings.RegisteringNewPluginTypesCompletedFormat2, _service.ConnectionData.Name, listToRegister.Count);
                 }
 
                 ToggleControls(true, Properties.WindowStatusStrings.UpdatingPluginAssemblyCompletedFormat1, _service.ConnectionData.Name);
@@ -335,20 +333,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateTextBoxFileNameOnServerReadOnly();
         }
 
+        private bool IsControlsEnabled => this._init == 0;
+
         private void UpdateTextBoxFileNameOnServerReadOnly()
         {
-            var isDisk = this._controlsEnabled && rBDisk.IsChecked.GetValueOrDefault();
+            var isDisk = this.IsControlsEnabled && rBDisk.IsChecked.GetValueOrDefault();
 
             txtBFileNameOnServer.IsReadOnly = !isDisk;
         }
 
         private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            if (enabled)
+            {
+                _init++;
+            }
+            else
+            {
+                _init--;
+            }
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(enabled
+            ToggleControl(this.IsControlsEnabled
                 , this.tSProgressBar
 
                 , trVPluginTreeNew
@@ -370,7 +377,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , rBNone
             );
 
-            ToggleControl(enabled && _assemblyLoad != null, btnSave);
+            ToggleControl(this.IsControlsEnabled && _assemblyLoad != null, btnSave);
 
             UpdateTextBoxFileNameOnServerReadOnly();
         }
@@ -617,6 +624,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
 
             ToggleControls(true, Properties.WindowStatusStrings.LoadingAssemblyFromPathCompletedFormat1, assemblyPath);
+        }
+
+        private async void btnBuildProject_Click(object sender, RoutedEventArgs e)
+        {
+            if (_project == null)
+            {
+                return;
+            }
+
+            ToggleControls(false, Properties.WindowStatusStrings.BuildingProjectFormat1, _project.Name);
+
+            var buildResult = await _iWriteToOutput.BuildProjectAsync(_project);
+
+            if (buildResult == 0)
+            {
+                ToggleControls(true, Properties.WindowStatusStrings.BuildingProjectCompletedFormat1, _project.Name);
+            }
+            else
+            {
+                ToggleControls(true, Properties.WindowStatusStrings.BuildingProjectFailedFormat1, _project.Name);
+            }
         }
     }
 }

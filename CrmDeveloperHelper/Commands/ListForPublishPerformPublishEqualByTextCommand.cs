@@ -66,7 +66,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         menuCommand.Text = connectionData.NameWithCurrentMark;
 
-                        if (!connectionData.IsReadOnly)
+                        if (connectionData.IsReadOnly)
+                        {
+                            menuCommand.Enabled = menuCommand.Visible = false;
+                        }
+                        else
                         {
                             menuCommand.Enabled = menuCommand.Visible = true;
 
@@ -115,14 +119,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         if (selectedFiles.Count > 0)
                         {
-                            helper.ShowListForPublish();
+                            helper.ShowListForPublish(connectionData);
 
                             helper.HandleUpdateContentWebResourcesAndPublishEqualByTextCommand(connectionData, selectedFiles);
                         }
                         else
                         {
-                            helper.WriteToOutput(null, Properties.OutputStrings.PublishListIsEmpty);
-                            helper.ActivateOutputWindow(null);
+                            helper.WriteToOutput(connectionData, Properties.OutputStrings.PublishListIsEmpty);
+                            helper.ActivateOutputWindow(connectionData);
                         }
                     }
                 }

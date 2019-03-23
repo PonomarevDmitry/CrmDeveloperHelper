@@ -604,6 +604,8 @@
     <Compile Include="Helpers\DeviceIdManager.cs" />
     <Compile Include="Helpers\DiffMatchPatch.cs" />
     <Compile Include="Helpers\DTEHelper.cs" />
+    <Compile Include="Helpers\DTEHelper.SelectedElements.cs" />
+    <Compile Include="Helpers\DTEHelper.WriteToOutputAndPublishList.cs" />
     <Compile Include="Helpers\Encryption.cs" />
     <Compile Include="Helpers\EntityAttributesDependentComponentsHandler.cs" />
     <Compile Include="Helpers\EntityDescriptionHandler.cs" />
