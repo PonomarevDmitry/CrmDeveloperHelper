@@ -26,32 +26,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly object sysObjectConnections = new object();
 
-        private IWriteToOutput _iWriteToOutput;
+        private readonly IWriteToOutput _iWriteToOutput;
 
-        private CommonConfiguration _commonConfig;
+        private readonly CommonConfiguration _commonConfig;
 
         private EnvDTE.SelectedItem _selectedItem;
 
         private Guid? _objectId;
         private int? _componentType;
 
-        private bool _controlsEnabled = true;
+        private readonly Popup _optionsPopup;
 
-        private Popup _optionsPopup;
-
-        private Popup _optionsSolutionPopup;
+        private readonly Popup _optionsSolutionPopup;
         private ExportSolutionOptionsControl _optionsExportSolutionOptionsControl;
 
         public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.SolutionComponentSettings;
 
-        private ObservableCollection<EntityViewItem> _itemsSource;
+        private readonly ObservableCollection<EntityViewItem> _itemsSource;
 
-        private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
-        private Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
+        private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
+        private readonly Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
 
-        private Dictionary<Guid, object> _syncCacheObjects = new Dictionary<Guid, object>();
-
-        private int _init = 0;
+        private readonly Dictionary<Guid, object> _syncCacheObjects = new Dictionary<Guid, object>();
 
         public WindowExplorerSolution(
             IWriteToOutput iWriteToOutput
@@ -62,7 +58,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , EnvDTE.SelectedItem selectedItem
             )
         {
-            _init++;
+            this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
@@ -123,7 +119,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             BindCollections(service.ConnectionData);
 
-            _init--;
+            this.DecreaseInit();
 
             FocusOnComboBoxTextBox(cmBFilter);
 
@@ -295,7 +291,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingSolutions()
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -399,11 +395,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection);
+            ToggleControl(this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection);
 
             UpdateButtonsEnable();
         }
@@ -415,7 +411,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 try
                 {
                     {
-                        bool enabled = this._controlsEnabled;
+                        bool enabled = this.IsControlsEnabled;
 
                         menuAnalyzeSolutions.IsEnabled = tSDDBAnalyzeSolutions.IsEnabled = enabled;
 
@@ -498,7 +494,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
 
                     {
-                        bool enabled = this._controlsEnabled;
+                        bool enabled = this.IsControlsEnabled;
 
                         menuShow.IsEnabled = tSDDBShow.IsEnabled = enabled;
 
@@ -548,7 +544,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
 
                     {
-                        bool enabled = this._controlsEnabled;
+                        bool enabled = this.IsControlsEnabled;
 
                         tSDDBCopyComponents.IsEnabled = enabled;
                         tSDDBCopyComponents.Items.Clear();
@@ -589,7 +585,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         ;
 
                     {
-                        bool enabled = this._controlsEnabled;
+                        bool enabled = this.IsControlsEnabled;
 
                         tSDDBClearUnmanagedSolution.IsEnabled = enabled;
 
@@ -640,7 +636,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task FillChangeComponentsToLastSelectedSolutionsAsync()
         {
-            bool enabled = this._controlsEnabled;
+            bool enabled = this.IsControlsEnabled;
 
             tSDDBCopyComponentsLastSolution.IsEnabled = enabled;
             tSDDBCopyComponentsLastSolution.Items.Clear();
@@ -995,7 +991,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void mICheckImportPossibility_Click(object sender, RoutedEventArgs e)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1018,7 +1014,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void mICheckImportPossibilityAndExportSolution_Click(object sender, RoutedEventArgs e)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1111,7 +1107,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void mIExportSolution_Click(object sender, RoutedEventArgs e)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1366,7 +1362,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ExecuteActionOnSingleSolution(Solution solution, Func<string, Solution, Task> action)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1400,7 +1396,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ExecuteActionOnSingleSolutionWithoutFolderCheck(Solution solution, Func<string, Solution, Task> action)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1777,7 +1773,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ExecuteActionOnSolutionPair(Solution solution1, Solution solution2, Func<string, Solution, Solution, Task> action)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1811,7 +1807,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ExecuteActionOnSolutionAndSolutionCollection(Solution[] solutions, Solution solution, Func<string, Solution[], Solution, Task> action)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }

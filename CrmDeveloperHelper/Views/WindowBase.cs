@@ -15,11 +15,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private bool loaded = false;
 
+        private int _init = 0;
+
         public WindowBase()
         {
             var winConfig = this.GetWindowsSettings();
 
             LoadConfiguration(winConfig);
+        }
+
+        protected bool IsControlsEnabled => this._init == 0;
+
+        protected void ChangeInitByEnabled(bool enabled)
+        {
+            if (true)
+            {
+                this._init++;
+            }
+            else
+            {
+                this._init--;
+            }
+        }
+
+        protected void IncreaseInit()
+        {
+            this._init++;
+        }
+
+        protected void DecreaseInit()
+        {
+            this._init--;
         }
 
         protected WindowSettings GetWindowsSettings()
@@ -480,7 +506,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        protected void ToggleControl(bool enabled, params Control[] controlsArray)
+        protected void ToggleControl(params Control[] controlsArray)
         {
             if (controlsArray == null || !controlsArray.Any())
             {
@@ -498,15 +524,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (control is TextBox textBox)
                     {
-                        textBox.IsReadOnly = !enabled;
+                        textBox.IsReadOnly = !IsControlsEnabled;
                     }
                     else if (control is ProgressBar progressBar)
                     {
-                        progressBar.IsIndeterminate = !enabled;
+                        progressBar.IsIndeterminate = !IsControlsEnabled;
                     }
                     else
                     {
-                        control.IsEnabled = enabled;
+                        control.IsEnabled = IsControlsEnabled;
                     }
                 });
             }

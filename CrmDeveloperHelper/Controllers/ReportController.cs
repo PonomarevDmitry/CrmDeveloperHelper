@@ -20,7 +20,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
     public class ReportController
     {
-        private IWriteToOutput _iWriteToOutput = null;
+        private readonly IWriteToOutput _iWriteToOutput = null;
 
         private const int timeDelay = 2000;
 

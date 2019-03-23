@@ -17,7 +17,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
     public class CompareController
     {
-        private IWriteToOutputAndPublishList _iWriteToOutputAndPublishList = null;
+        private readonly IWriteToOutputAndPublishList _iWriteToOutputAndPublishList = null;
 
         public CompareController(IWriteToOutputAndPublishList iWriteToOutputAndPublishList)
         {

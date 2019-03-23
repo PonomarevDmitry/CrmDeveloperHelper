@@ -35,8 +35,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private AssemblyReaderResult _assemblyLoad;
 
-        private int _init = 0;
-
         public WindowPluginAssembly(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -45,7 +43,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , EnvDTE.Project project
         )
         {
-            _init++;
+            this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
@@ -72,7 +70,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadEntityPluginAssemblyProperties();
 
-            _init--;
+            this.DecreaseInit();
         }
 
         private void LoadFromConfig()
@@ -333,8 +331,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateTextBoxFileNameOnServerReadOnly();
         }
 
-        private bool IsControlsEnabled => this._init == 0;
-
         private void UpdateTextBoxFileNameOnServerReadOnly()
         {
             var isDisk = this.IsControlsEnabled && rBDisk.IsChecked.GetValueOrDefault();
@@ -344,40 +340,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
-            if (enabled)
-            {
-                _init++;
-            }
-            else
-            {
-                _init--;
-            }
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(this.IsControlsEnabled
-                , this.tSProgressBar
-
+            ToggleControl(this.tSProgressBar
                 , trVPluginTreeNew
-                , trVPluginTreeMissing
 
+                , trVPluginTreeMissing
                 , btnClose
+
                 , btnLoadAssembly
                 , btnSelectFile
-
                 , txtBDescription
-                , txtBFileNameOnServer
 
+                , txtBFileNameOnServer
                 , cmBAssemblyToLoad
 
                 , rBDatabase
+
                 , rBDisk
                 , rBGAC
                 , rBSandBox
                 , rBNone
             );
 
-            ToggleControl(this.IsControlsEnabled && _assemblyLoad != null, btnSave);
+            ToggleControl(btnSave);
 
             UpdateTextBoxFileNameOnServerReadOnly();
         }

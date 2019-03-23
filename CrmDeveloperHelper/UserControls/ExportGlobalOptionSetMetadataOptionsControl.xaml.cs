@@ -10,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
     /// </summary>
     public partial class ExportGlobalOptionSetMetadataOptionsControl : UserControl
     {
-        private CommonConfiguration _commonConfig;
+        private readonly CommonConfiguration _commonConfig;
 
         public ExportGlobalOptionSetMetadataOptionsControl(CommonConfiguration commonConfig)
         {

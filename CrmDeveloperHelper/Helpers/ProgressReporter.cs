@@ -4,7 +4,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public class ProgressReporter
     {
-        private IWriteToOutput _writeToOutput;
+        private readonly IWriteToOutput _writeToOutput;
         private readonly int _total;
         private readonly string _procedureName;
 

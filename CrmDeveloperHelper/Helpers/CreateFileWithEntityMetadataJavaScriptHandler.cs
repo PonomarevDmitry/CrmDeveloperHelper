@@ -310,7 +310,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine("};");
         }
 
-        private void WriteSummaryStrings(IEnumerable<string> lines)
+        protected override void WriteSummaryStrings(IEnumerable<string> lines)
         {
             if (lines.Any())
             {

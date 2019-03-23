@@ -23,17 +23,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly object sysObjectConnections = new object();
 
-        private IWriteToOutput _iWriteToOutput;
+        private readonly IWriteToOutput _iWriteToOutput;
 
-        private Dictionary<Guid, IOrganizationServiceExtented> _cacheService = new Dictionary<Guid, IOrganizationServiceExtented>();
+        private readonly Dictionary<Guid, IOrganizationServiceExtented> _cacheService = new Dictionary<Guid, IOrganizationServiceExtented>();
 
-        private CommonConfiguration _commonConfig;
+        private readonly CommonConfiguration _commonConfig;
 
-        private ObservableCollection<EntityViewItem> _itemsSource;
-
-        private bool _controlsEnabled = true;
-
-        private int _init = 0;
+        private readonly ObservableCollection<EntityViewItem> _itemsSource;
 
         public WindowOrganizationComparerWebResources(
             IWriteToOutput iWriteToOutput
@@ -43,7 +39,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filter
         )
         {
-            _init++;
+            this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
@@ -82,7 +78,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBConnection2.ItemsSource = connection1.ConnectionConfiguration.Connections;
             cmBConnection2.SelectedItem = connection2;
 
-            _init--;
+            this.DecreaseInit();
 
             ShowExistingWebResources();
         }
@@ -155,7 +151,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingWebResources()
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -344,11 +340,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, this.cmBConnection1, this.cmBConnection2);
+            ToggleControl(this.tSProgressBar, this.cmBConnection1, this.cmBConnection2);
 
             UpdateButtonsEnable();
         }
@@ -359,7 +355,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this._controlsEnabled && this.lstVwWebResources.SelectedItems.Count > 0;
+                    bool enabled = this.IsControlsEnabled && this.lstVwWebResources.SelectedItems.Count > 0;
 
                     var item = (this.lstVwWebResources.SelectedItems[0] as EntityViewItem);
 
@@ -410,7 +406,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ExecuteAction(LinkedEntities<WebResource> linked, bool showAllways, Func<LinkedEntities<WebResource>, bool, Task> action)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -493,7 +489,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , Func<LinkedEntities<WebResource>, bool, string, string, Task> action
         )
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -525,7 +521,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformShowingDifferenceDescriptionAsync(LinkedEntities<WebResource> linked, bool showAllways)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -569,7 +565,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ExecuteActionDescription(Guid idWebResource, string name, Func<Task<IOrganizationServiceExtented>> getService, Func<Guid, string, Func<Task<IOrganizationServiceExtented>>, Task> action)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -589,7 +585,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportDescriptionToFile(Guid idWebResource, string name, Func<Task<IOrganizationServiceExtented>> getService)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -664,7 +660,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformDownloadWebResourceAsync(Guid idWebResource, string name, Func<Task<IOrganizationServiceExtented>> getService)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -731,7 +727,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformShowingDifferenceContentAsync(LinkedEntities<WebResource> linked, bool showAllways)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -784,7 +780,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }

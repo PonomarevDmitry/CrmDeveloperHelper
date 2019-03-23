@@ -28,19 +28,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly object sysObjectConnections = new object();
 
-        private IWriteToOutput _iWriteToOutput;
+        private readonly IWriteToOutput _iWriteToOutput;
 
-        private CommonConfiguration _commonConfig;
+        private readonly CommonConfiguration _commonConfig;
 
-        private bool _controlsEnabled = true;
+        private readonly ObservableCollection<EntityViewItem> _itemsSource;
 
-        private ObservableCollection<EntityViewItem> _itemsSource;
+        private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
 
-        private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
-
-        private Popup _optionsPopup;
-
-        private int _init = 0;
+        private readonly Popup _optionsPopup;
 
         public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.XmlFull;
 
@@ -50,7 +46,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             )
         {
-            _init++;
+            this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
@@ -89,7 +85,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
-            _init--;
+            this.DecreaseInit();
 
             if (service != null)
             {
@@ -151,7 +147,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingSiteMaps()
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -273,11 +269,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection);
+            ToggleControl(this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection);
 
             UpdateButtonsEnable();
         }
@@ -288,7 +284,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this._controlsEnabled && this.lstVwSiteMaps.SelectedItems.Count > 0;
+                    bool enabled = this.IsControlsEnabled && this.lstVwSiteMaps.SelectedItems.Count > 0;
 
                     UIElement[] list = { tSDDBExportSiteMap, btnExportAll };
 
@@ -349,7 +345,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             string folder = txtBFolder.Text.Trim();
 
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -459,7 +455,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteActionEntity(Guid idSiteMap, string name, string nameUnique, string fieldName, string fieldTitle, Func<string, Guid, string, string, string, string, Task> action)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -481,7 +477,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportXmlToFile(string folder, Guid idSiteMap, string name, string nameUnique, string fieldName, string fieldTitle)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -514,7 +510,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformUpdateEntityField(string folder, Guid idSiteMap, string name, string nameUnique, string fieldName, string fieldTitle)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -891,7 +887,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._itemsSource?.Clear();
             });
 
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }

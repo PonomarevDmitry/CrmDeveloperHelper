@@ -40,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected override async Task ShowExistingEntities()
         {
-            if (!_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -96,7 +96,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected override void SelectEntityAction(Entity Entity)
         {
-            if (!_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }

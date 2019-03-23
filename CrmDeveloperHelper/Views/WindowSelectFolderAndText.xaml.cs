@@ -12,7 +12,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly object sysObjectConnections = new object();
 
-        private CommonConfiguration _commonConfig;
+        private readonly CommonConfiguration _commonConfig;
         private readonly Func<string, bool> _checker;
         private readonly string _message;
 

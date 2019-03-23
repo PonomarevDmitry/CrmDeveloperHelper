@@ -22,20 +22,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly object sysObjectConnections = new object();
 
-        private IWriteToOutput _iWriteToOutput;
+        private readonly IWriteToOutput _iWriteToOutput;
 
-        private CommonConfiguration _commonConfig;
+        private readonly CommonConfiguration _commonConfig;
 
-        private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
-        private Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
+        private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
+        private readonly Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
 
         private SolutionImage _solutionImage = null;
 
-        private ObservableCollection<SolutionImageComponent> _itemsSource;
-
-        private bool _controlsEnabled = true;
-
-        private int _init = 0;
+        private readonly ObservableCollection<SolutionImageComponent> _itemsSource;
 
         public WindowSolutionImage(
             IWriteToOutput iWriteToOutput
@@ -44,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filePath
         )
         {
-            BeginLoadConfig();
+            this.IncreaseInit();
 
             InitializeComponent();
 
@@ -71,7 +67,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBCurrentConnection.ItemsSource = connectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = connectionData;
 
-            EndLoadConfig();
+            this.DecreaseInit();
 
             if (!string.IsNullOrEmpty(filePath))
             {
@@ -136,16 +132,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             base.OnClosed(e);
         }
 
-        private void BeginLoadConfig()
-        {
-            ++_init;
-        }
-
-        private void EndLoadConfig()
-        {
-            --_init;
-        }
-
         private async Task<IOrganizationServiceExtented> GetService()
         {
             ConnectionData connectionData = null;
@@ -205,7 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task LoadSolutionImage(string filePath)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -262,7 +248,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void FilteringSolutionImageComponents()
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -339,11 +325,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, this.tSBLoadSolutionImage);
+            ToggleControl(this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, this.tSBLoadSolutionImage);
 
             UpdateButtonsEnable();
         }
@@ -408,7 +394,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteAction(SolutionImageComponent entity, Func<string, SolutionImageComponent, Task> action)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }

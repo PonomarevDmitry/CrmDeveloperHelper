@@ -17,7 +17,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
     public class SolutionController
     {
-        private IWriteToOutput _iWriteToOutput = null;
+        private readonly IWriteToOutput _iWriteToOutput = null;
 
         public SolutionController(IWriteToOutput iWriteToOutput)
         {

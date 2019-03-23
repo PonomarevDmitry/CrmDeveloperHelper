@@ -1,4 +1,3 @@
-﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
@@ -20,15 +19,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public partial class WindowPluginConfigurationPluginAssembly : WindowBase
     {
-        private IWriteToOutput _iWriteToOutput;
+        private readonly IWriteToOutput _iWriteToOutput;
 
-        private CommonConfiguration _commonConfig;
+        private readonly CommonConfiguration _commonConfig;
 
         private PluginDescription _pluginDescription = null;
 
-        private bool _controlsEnabled = true;
-
-        private ObservableCollection<PluginAssembly> _itemsSource;
+        private readonly ObservableCollection<PluginAssembly> _itemsSource;
 
         private const string _formatFileTxt = "{0} {1} - Description.txt";
 
@@ -78,7 +75,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task LoadPluginConfiguration(string filePath)
         {
-            if (!_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -179,11 +176,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, this.tSBLoadPluginConfiguration, this.tSBCreateAssemblyDescription);
+            ToggleControl(this.tSProgressBar, this.tSBLoadPluginConfiguration, this.tSBCreateAssemblyDescription);
 
             UpdateButtonsEnable();
         }
@@ -194,7 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this._controlsEnabled && this.lstVwPluginAssemblies.SelectedItems.Count > 0;
+                    bool enabled = this.IsControlsEnabled && this.lstVwPluginAssemblies.SelectedItems.Count > 0;
 
                     UIElement[] list = { tSBCreateAssemblyDescription };
 
@@ -250,7 +247,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             string folder = txtBFolder.Text.Trim();
 
-            if (!_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }

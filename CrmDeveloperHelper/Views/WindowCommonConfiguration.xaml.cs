@@ -18,9 +18,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly object sysObjectUtils = new object();
 
-        private CommonConfiguration _config;
+        private readonly CommonConfiguration _config;
 
-        private ObservableCollection<ListViewItem> _sourceFileActions = new ObservableCollection<ListViewItem>();
+        private readonly ObservableCollection<ListViewItem> _sourceFileActions = new ObservableCollection<ListViewItem>();
 
         public WindowCommonConfiguration(CommonConfiguration config)
         {

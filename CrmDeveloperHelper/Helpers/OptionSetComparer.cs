@@ -17,8 +17,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private StringMapRepository _rep1;
         private StringMapRepository _rep2;
 
-        private Dictionary<string, List<StringMap>> _cache1 = new Dictionary<string, List<StringMap>>(StringComparer.InvariantCultureIgnoreCase);
-        private Dictionary<string, List<StringMap>> _cache2 = new Dictionary<string, List<StringMap>>(StringComparer.InvariantCultureIgnoreCase);
+        private readonly Dictionary<string, List<StringMap>> _cache1 = new Dictionary<string, List<StringMap>>(StringComparer.InvariantCultureIgnoreCase);
+        private readonly Dictionary<string, List<StringMap>> _cache2 = new Dictionary<string, List<StringMap>>(StringComparer.InvariantCultureIgnoreCase);
 
         public OptionSetComparer(string tabSpacer, string connectionName1, string connectionName2, StringMapRepository rep1, StringMapRepository rep2)
         {

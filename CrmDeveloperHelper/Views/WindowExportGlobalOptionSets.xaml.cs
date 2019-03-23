@@ -26,22 +26,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly object sysObjectConnections = new object();
 
-        private IWriteToOutput _iWriteToOutput;
+        private readonly IWriteToOutput _iWriteToOutput;
 
-        private CommonConfiguration _commonConfig;
+        private readonly CommonConfiguration _commonConfig;
 
         private readonly string _filePath;
 
-        private bool _controlsEnabled = true;
+        private readonly ObservableCollection<OptionSetMetadataListViewItem> _itemsSource;
 
-        private ObservableCollection<OptionSetMetadataListViewItem> _itemsSource;
+        private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
+        private readonly Dictionary<Guid, IEnumerable<OptionSetMetadata>> _cacheOptionSetMetadata = new Dictionary<Guid, IEnumerable<OptionSetMetadata>>();
 
-        private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
-        private Dictionary<Guid, IEnumerable<OptionSetMetadata>> _cacheOptionSetMetadata = new Dictionary<Guid, IEnumerable<OptionSetMetadata>>();
-
-        private Popup _optionsPopup;
-
-        private int _init = 0;
+        private readonly Popup _optionsPopup;
 
         private HashSet<string> _selectedOptionSets;
 
@@ -54,7 +50,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string selection
         )
         {
-            _init++;
+            this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
@@ -134,7 +130,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
-            _init--;
+            this.DecreaseInit();
 
             ShowExistingOptionSets();
         }
@@ -179,7 +175,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 try
                 {
                     {
-                        bool enabled = this._controlsEnabled && this.lstVwOptionSets.SelectedItems.Count > 0;
+                        bool enabled = this.IsControlsEnabled && this.lstVwOptionSets.SelectedItems.Count > 0;
 
                         UIElement[] list = { tSDDBSingleOptionSet, btnCreateJavaScriptFileForSingleOptionSet, btnCreateCSharpFileForSingleOptionSet };
 
@@ -190,7 +186,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
 
                     {
-                        bool enabled = _controlsEnabled;
+                        bool enabled = this.IsControlsEnabled;
 
                         UIElement[] list = { tSDDBGlobalOptionSets, tSBCreateCSharpFile, tSBCreateJavaScriptFile };
 
@@ -247,7 +243,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingOptionSets()
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -396,11 +392,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, this.tSBCreateCSharpFile, this.tSBCreateJavaScriptFile);
+            ToggleControl(this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, this.tSBCreateCSharpFile, this.tSBCreateJavaScriptFile);
 
             UpdateButtonsEnable();
         }
@@ -439,7 +435,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -541,7 +537,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -704,7 +700,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -969,7 +965,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._itemsSource?.Clear();
             });
 
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }

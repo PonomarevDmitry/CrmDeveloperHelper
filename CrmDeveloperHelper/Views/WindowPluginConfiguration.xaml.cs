@@ -10,7 +10,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public partial class WindowPluginConfiguration : WindowBase
     {
-        private CommonConfiguration _commonConfig;
+        private readonly CommonConfiguration _commonConfig;
 
         private bool _showExportFolder;
 

@@ -12,7 +12,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -23,16 +22,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly object sysObjectConnections = new object();
 
-        private IWriteToOutput _iWriteToOutput = null;
+        private readonly IWriteToOutput _iWriteToOutput = null;
 
         private View _currentView = View.ByEntity;
 
         private PluginDescription _pluginDescription = null;
 
-        private CommonConfiguration _commonConfig;
+        private readonly CommonConfiguration _commonConfig;
 
-        private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
-        private bool _controlsEnabled = true;
+        private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
 
         private enum View
         {
@@ -139,9 +137,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         this._currentView = tempView;
 
-                        bool lastEnabled = this._controlsEnabled;
-
-                        this._controlsEnabled = true;
+                        this.IncreaseInit();
 
                         rBViewByEntity.IsChecked = rBViewByAssembly.IsChecked = rBViewByMessage.IsChecked = false;
 
@@ -159,7 +155,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                 break;
                         }
 
-                        this._controlsEnabled = lastEnabled;
+                        this.DecreaseInit();
                     }
                 }
             }
@@ -207,7 +203,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task LoadPluginConfiguration(string filePath)
         {
-            if (!_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -252,7 +248,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ShowExistingPlugins()
         {
-            if (!_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1021,11 +1017,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, this.tSBCollapseAll, this.tSBExpandAll, this.menuView, this.tSBLoadPluginConfiguraion);
+            ToggleControl(this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, this.tSBCollapseAll, this.tSBExpandAll, this.menuView, this.tSBLoadPluginConfiguraion);
 
             UpdateButtonsEnable();
         }
@@ -1037,7 +1033,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 try
                 {
                     {
-                        bool enabled = this._controlsEnabled
+                        bool enabled = this.IsControlsEnabled
                                             && this.trVPluginTree.SelectedItem != null
                                             && this.trVPluginTree.SelectedItem is StepFullInfo
                                             && (this.trVPluginTree.SelectedItem as StepFullInfo).PluginType != null;
@@ -1058,7 +1054,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
                         });
 
-                        bool enabled = this._controlsEnabled
+                        bool enabled = this.IsControlsEnabled
                                             && connectionData != null
                                             && connectionData.IsReadOnly == false
                                             && this.trVPluginTree.SelectedItem != null
@@ -1143,7 +1139,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBCollapseAll_Click(object sender, RoutedEventArgs e)
         {
-            if (!_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1153,7 +1149,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBExpandAll_Click(object sender, RoutedEventArgs e)
         {
-            if (!_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }

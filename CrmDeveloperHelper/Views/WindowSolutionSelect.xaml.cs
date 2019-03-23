@@ -1,4 +1,3 @@
-﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -20,16 +19,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public partial class WindowSolutionSelect : WindowBase
     {
-        private IWriteToOutput _iWriteToOutput;
+        private readonly IWriteToOutput _iWriteToOutput;
 
         /// <summary>
         /// Сервис CRM
         /// </summary>
         private IOrganizationServiceExtented _service;
 
-        private bool _controlsEnabled = true;
         private Solution _lastSolution;
-        private ObservableCollection<EntityViewItem> _itemsSource;
+        private readonly ObservableCollection<EntityViewItem> _itemsSource;
 
         private object _syncObject = new object();
 
@@ -80,7 +78,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingSolutions(string lastSolutionUniqueName = null)
         {
-            if (!_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -204,11 +202,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, this.btnSelectSolution, this.btnSelectLastSolution);
+            ToggleControl(this.tSProgressBar, this.btnSelectSolution, this.btnSelectLastSolution);
 
             UpdateButtonsEnable();
         }
@@ -271,7 +269,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void SelectSolutioAction(Solution solution)
         {
-            if (!_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }

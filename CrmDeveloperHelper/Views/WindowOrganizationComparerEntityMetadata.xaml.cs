@@ -1,8 +1,5 @@
-﻿using Microsoft.Crm.Sdk.Messages;
-using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -29,20 +26,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly object sysObjectConnections = new object();
 
-        private IWriteToOutput _iWriteToOutput;
+        private readonly IWriteToOutput _iWriteToOutput;
 
-        private Popup _optionsPopup;
+        private readonly Popup _optionsPopup;
 
-        private Dictionary<Guid, IOrganizationServiceExtented> _cacheService = new Dictionary<Guid, IOrganizationServiceExtented>();
-        private Dictionary<Guid, List<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, List<EntityMetadata>>();
+        private readonly Dictionary<Guid, IOrganizationServiceExtented> _cacheService = new Dictionary<Guid, IOrganizationServiceExtented>();
+        private readonly Dictionary<Guid, List<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, List<EntityMetadata>>();
 
-        private CommonConfiguration _commonConfig;
+        private readonly CommonConfiguration _commonConfig;
 
-        private ObservableCollection<LinkedEntityMetadata> _itemsSource;
-
-        private bool _controlsEnabled = true;
-
-        private int _init = 0;
+        private readonly ObservableCollection<LinkedEntityMetadata> _itemsSource;
 
         public WindowOrganizationComparerEntityMetadata(
             IWriteToOutput iWriteToOutput
@@ -52,7 +45,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string entityFilter
         )
         {
-            _init++;
+            this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
@@ -100,7 +93,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBConnection2.ItemsSource = connection1.ConnectionConfiguration.Connections;
             cmBConnection2.SelectedItem = connection2;
 
-            _init--;
+            this.DecreaseInit();
 
             ShowExistingEntities();
         }
@@ -189,7 +182,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingEntities()
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -369,11 +362,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, this.cmBConnection1, this.cmBConnection2);
+            ToggleControl(this.tSProgressBar, this.cmBConnection1, this.cmBConnection2);
 
             UpdateButtonsEnable();
         }
@@ -384,7 +377,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this._controlsEnabled && this.lstVwEntities.SelectedItems.Count > 0;
+                    bool enabled = this.IsControlsEnabled && this.lstVwEntities.SelectedItems.Count > 0;
 
                     var item = (this.lstVwEntities.SelectedItems[0] as LinkedEntityMetadata);
 
@@ -449,7 +442,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteDifferenceCSharp(string entityName)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -556,7 +549,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteDifferenceJavaScript(string entityName)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -661,7 +654,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task CreateEntityMetadataFileCSharp(Func<Task<IOrganizationServiceExtented>> getService, string entityName, string nameSpace)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -735,7 +728,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task CreateEntityMetadataFileJavaScript(Func<Task<IOrganizationServiceExtented>> getService, string entityName, string nameSpace)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -810,7 +803,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1416,7 +1409,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteDifferenceEntityRibbon(string entityName)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1528,7 +1521,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteDifferenceEntityRibbonDiffXml(LinkedEntityMetadata entity)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1662,7 +1655,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteCreatingEntityRibbon(Func<Task<IOrganizationServiceExtented>> getService, string entityName)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1740,7 +1733,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteCreatingEntityRibbonArchive(Func<Task<IOrganizationServiceExtented>> getService, string entityName)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1814,7 +1807,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteCreatingEntityRibbonDiffXml(Func<Task<IOrganizationServiceExtented>> getService, EntityMetadata entityMetadata)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }

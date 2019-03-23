@@ -11,9 +11,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 {
     public partial class ExportSolutionOptionsControl : UserControl
     {
-        private CommonConfiguration _commonConfig;
+        private readonly CommonConfiguration _commonConfig;
         private ComboBox _cmBCurrentConnection;
-        private Dictionary<Guid, object> _syncCacheObjects = new Dictionary<Guid, object>();
+        private readonly Dictionary<Guid, object> _syncCacheObjects = new Dictionary<Guid, object>();
 
         private string _textUniqueName;
         private string _textDisplayName;

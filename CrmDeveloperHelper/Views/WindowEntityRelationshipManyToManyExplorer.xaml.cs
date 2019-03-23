@@ -24,25 +24,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly object sysObjectConnections = new object();
 
-        private IWriteToOutput _iWriteToOutput;
+        private readonly IWriteToOutput _iWriteToOutput;
 
-        private CommonConfiguration _commonConfig;
+        private readonly CommonConfiguration _commonConfig;
 
-        private bool _controlsEnabled = true;
+        private readonly ObservableCollection<EntityMetadataViewItem> _itemsSourceEntityList;
 
-        private ObservableCollection<EntityMetadataViewItem> _itemsSourceEntityList;
+        private readonly ObservableCollection<ManyToManyRelationshipMetadataViewItem> _itemsSourceEntityRelationshipList;
 
-        private ObservableCollection<ManyToManyRelationshipMetadataViewItem> _itemsSourceEntityRelationshipList;
+        private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
 
-        private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
+        private readonly Dictionary<Guid, IEnumerable<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadata>>();
 
-        private Dictionary<Guid, IEnumerable<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadata>>();
+        private readonly Dictionary<Guid, ConcurrentDictionary<string, Task>> _cacheMetadataTask = new Dictionary<Guid, ConcurrentDictionary<string, Task>>();
 
-        private Dictionary<Guid, ConcurrentDictionary<string, Task>> _cacheMetadataTask = new Dictionary<Guid, ConcurrentDictionary<string, Task>>();
-
-        private Dictionary<Guid, ConcurrentDictionary<string, IEnumerable<ManyToManyRelationshipMetadataViewItem>>> _cacheEntityManyToMany = new Dictionary<Guid, ConcurrentDictionary<string, IEnumerable<ManyToManyRelationshipMetadataViewItem>>>();
-
-        private int _init = 0;
+        private readonly Dictionary<Guid, ConcurrentDictionary<string, IEnumerable<ManyToManyRelationshipMetadataViewItem>>> _cacheEntityManyToMany = new Dictionary<Guid, ConcurrentDictionary<string, IEnumerable<ManyToManyRelationshipMetadataViewItem>>>();
 
         public WindowEntityRelationshipManyToManyExplorer(
             IWriteToOutput iWriteToOutput
@@ -51,7 +47,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filterEntity
         )
         {
-            _init++;
+            this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
@@ -83,7 +79,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
-            _init--;
+            this.DecreaseInit();
 
             ShowExistingEntities();
         }
@@ -166,7 +162,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingEntities()
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -275,7 +271,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingEntityRelationships()
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -330,7 +326,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                 cacheMetadataTask.TryAdd(entityLogicalName, task);
 
                                 await task;
-                            }                            
+                            }
                         }
 
                         var coll = new List<ManyToManyRelationshipMetadataViewItem>();
@@ -463,11 +459,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, mIClearEntityCacheAndRefresh, mIClearEntityRelationshipCacheAndRefresh);
+            ToggleControl(this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, mIClearEntityCacheAndRefresh, mIClearEntityRelationshipCacheAndRefresh);
 
             UpdateButtonsEnable();
         }
@@ -478,7 +474,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this._controlsEnabled && this.lstVwEntities != null && this.lstVwEntities.SelectedItems.Count > 0;
+                    bool enabled = this.IsControlsEnabled && this.lstVwEntities != null && this.lstVwEntities.SelectedItems.Count > 0;
 
                     UIElement[] list = { };
 
@@ -848,7 +844,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteActionAsync(IEnumerable<string> entityNames, Func<IEnumerable<string>, Task> action)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -870,7 +866,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PublishEntityAsync(IEnumerable<string> entityNames)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1211,7 +1207,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._itemsSourceEntityRelationshipList?.Clear();
             });
 
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }

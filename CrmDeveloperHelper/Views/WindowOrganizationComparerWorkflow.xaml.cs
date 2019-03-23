@@ -1,4 +1,4 @@
-﻿using Microsoft.Xrm.Sdk.Query;
+using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -23,19 +23,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly object sysObjectConnections = new object();
 
-        private IWriteToOutput _iWriteToOutput;
+        private readonly IWriteToOutput _iWriteToOutput;
 
         private string _filterEntity;
 
-        private Dictionary<Guid, IOrganizationServiceExtented> _cacheService = new Dictionary<Guid, IOrganizationServiceExtented>();
+        private readonly Dictionary<Guid, IOrganizationServiceExtented> _cacheService = new Dictionary<Guid, IOrganizationServiceExtented>();
 
-        private CommonConfiguration _commonConfig;
+        private readonly CommonConfiguration _commonConfig;
 
-        private ObservableCollection<EntityViewItem> _itemsSource;
-
-        private bool _controlsEnabled = true;
-
-        private int _init = 0;
+        private readonly ObservableCollection<EntityViewItem> _itemsSource;
 
         public WindowOrganizationComparerWorkflow(
             IWriteToOutput iWriteToOutput
@@ -46,7 +42,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filter
         )
         {
-            _init++;
+            this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
@@ -94,7 +90,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBConnection2.ItemsSource = connection1.ConnectionConfiguration.Connections;
             cmBConnection2.SelectedItem = connection2;
 
-            _init--;
+            this.DecreaseInit();
 
             ShowExistingWorkflows();
         }
@@ -177,11 +173,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingWorkflows()
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.LoadingWorkflows);
 
             this._itemsSource.Clear();
@@ -369,7 +365,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this.lstVwWorkflows.SelectedItem = this.lstVwWorkflows.Items[0];
                 }
             });
-            
+
             ToggleControls(true, Properties.WindowStatusStrings.LoadingWorkflowsCompletedFormat1, results.Count());
         }
 
@@ -392,11 +388,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, this.cmBConnection1, this.cmBConnection2);
+            ToggleControl(this.tSProgressBar, this.cmBConnection1, this.cmBConnection2);
 
             UpdateButtonsEnable();
         }
@@ -407,7 +403,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this._controlsEnabled && this.lstVwWorkflows.SelectedItems.Count > 0;
+                    bool enabled = this.IsControlsEnabled && this.lstVwWorkflows.SelectedItems.Count > 0;
 
                     var item = (this.lstVwWorkflows.SelectedItems[0] as EntityViewItem);
 
@@ -460,7 +456,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ExecuteActionOnLink(LinkedEntities<Workflow> linked, bool showAllways, Func<LinkedEntities<Workflow>, bool, Task> action)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -628,7 +624,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ExecuteActionLinked(LinkedEntities<Workflow> linked, bool showAllways, string fieldName, string fieldTitle, Func<LinkedEntities<Workflow>, bool, string, string, Task> action)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -653,7 +649,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformShowingDifferenceSingleXmlAsync(LinkedEntities<Workflow> linked, bool showAllways, string fieldName, string fieldTitle)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -716,11 +712,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformShowingDifferenceCorrectedXamlAsync(LinkedEntities<Workflow> linked, bool showAllways, string fieldName, string fieldTitle)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceForCorrectedFieldFormat1, fieldTitle);
 
             var service1 = await GetService1();
@@ -770,8 +766,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
             }
-            
-            ToggleControls(true,  Properties.WindowStatusStrings.ShowingDifferenceForCorrectedFieldCompletedFormat1, fieldTitle);
+
+            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceForCorrectedFieldCompletedFormat1, fieldTitle);
         }
 
         private void mIExportWorkflow1Xaml_Click(object sender, RoutedEventArgs e)
@@ -872,7 +868,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ExecuteActionEntity(Guid idWorflow, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, Func<Guid, Func<Task<IOrganizationServiceExtented>>, string, string, Task> action)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -892,7 +888,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportXmlToFileAsync(Guid idWorflow, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -923,11 +919,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportCorrectedToFileAsync(Guid idWorflow, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.ExportingCorrectedXmlFieldToFileFormat1, fieldTitle);
 
             var service = await getService();
@@ -952,7 +948,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
-            
+
             ToggleControls(true, Properties.WindowStatusStrings.ExportingCorrectedXmlFieldToFileCompletedFormat1, fieldTitle);
         }
 
@@ -970,11 +966,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformShowingDifferenceDescriptionAsync(LinkedEntities<Workflow> linked, bool showAllways)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityDescriptions);
 
             var service1 = await GetService1();
@@ -1017,13 +1013,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
             }
-            
+
             ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityDescriptionsCompleted);
         }
 
         private void ExecuteActionDescription(Guid idWorflow, Func<Task<IOrganizationServiceExtented>> getService, Func<Guid, Func<Task<IOrganizationServiceExtented>>, Task> action)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1043,7 +1039,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportDescriptionToFileAsync(Guid idWorflow, Func<Task<IOrganizationServiceExtented>> getService)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1120,7 +1116,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }

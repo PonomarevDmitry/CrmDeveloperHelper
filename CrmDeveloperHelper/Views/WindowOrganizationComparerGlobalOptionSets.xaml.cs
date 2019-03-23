@@ -1,6 +1,4 @@
-﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -26,20 +24,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly object sysObjectConnections = new object();
 
-        private IWriteToOutput _iWriteToOutput;
+        private readonly IWriteToOutput _iWriteToOutput;
 
-        private Dictionary<Guid, IOrganizationServiceExtented> _cacheService = new Dictionary<Guid, IOrganizationServiceExtented>();
-        private Dictionary<Guid, List<OptionSetMetadata>> _cacheOptionSetMetadata = new Dictionary<Guid, List<OptionSetMetadata>>();
+        private readonly Dictionary<Guid, IOrganizationServiceExtented> _cacheService = new Dictionary<Guid, IOrganizationServiceExtented>();
+        private readonly Dictionary<Guid, List<OptionSetMetadata>> _cacheOptionSetMetadata = new Dictionary<Guid, List<OptionSetMetadata>>();
 
-        private CommonConfiguration _commonConfig;
+        private readonly CommonConfiguration _commonConfig;
 
-        private ObservableCollection<LinkedOptionSetMetadata> _itemsSource;
+        private readonly ObservableCollection<LinkedOptionSetMetadata> _itemsSource;
 
-        private Popup _optionsPopup;
-
-        private bool _controlsEnabled = true;
-
-        private int _init = 0;
+        private readonly Popup _optionsPopup;
 
         public WindowOrganizationComparerGlobalOptionSets(
           IWriteToOutput iWriteToOutput
@@ -49,7 +43,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filter
             )
         {
-            _init++;
+            this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
@@ -97,7 +91,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBConnection2.ItemsSource = connection1.ConnectionConfiguration.Connections;
             cmBConnection2.SelectedItem = connection2;
 
-            _init--;
+            this.DecreaseInit();
 
             ShowExistingOptionSets();
         }
@@ -191,7 +185,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingOptionSets()
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -327,11 +321,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, this.cmBConnection1, this.cmBConnection2);
+            ToggleControl(this.tSProgressBar, this.cmBConnection1, this.cmBConnection2);
 
             UpdateButtonsEnable();
         }
@@ -412,7 +406,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -548,7 +542,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -688,7 +682,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task CreateGlobalOptionSetsCSharpFile(Func<Task<IOrganizationServiceExtented>> getService, string nameSpace, IEnumerable<OptionSetMetadata> optionSets)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -801,7 +795,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task CreateGlobalOptionSetsJavaScriptFile(Func<Task<IOrganizationServiceExtented>> getService, string nameSpace, IEnumerable<OptionSetMetadata> optionSets)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -923,7 +917,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this._controlsEnabled && this.lstVwOptionSets.SelectedItems.Count > 0;
+                    bool enabled = this.IsControlsEnabled && this.lstVwOptionSets.SelectedItems.Count > 0;
 
                     var item = (this.lstVwOptionSets.SelectedItems[0] as LinkedOptionSetMetadata);
 
@@ -945,7 +939,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }

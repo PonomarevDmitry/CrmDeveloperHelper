@@ -26,7 +26,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private const string _tabSpacer = "    ";
 
-        private IWriteToOutput _iWriteToOutput;
+        private readonly IWriteToOutput _iWriteToOutput;
 
         public OrganizationCustomizationTransfer(IOrganizationComparerSource comparerSource, IWriteToOutput iWriteToOutput, string folder)
         {

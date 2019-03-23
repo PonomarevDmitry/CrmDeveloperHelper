@@ -26,21 +26,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly object sysObjectConnections = new object();
 
-        private IWriteToOutput _iWriteToOutput;
+        private readonly IWriteToOutput _iWriteToOutput;
 
-        private CommonConfiguration _commonConfig;
+        private readonly CommonConfiguration _commonConfig;
 
-        private bool _controlsEnabled = true;
+        private readonly ObservableCollection<EntityMetadataViewItem> _itemsSourceEntityList;
 
-        private ObservableCollection<EntityMetadataViewItem> _itemsSourceEntityList;
+        private readonly ObservableCollection<RolePrivilegeViewItem> _itemsSourceSecurityRoleList;
 
-        private ObservableCollection<RolePrivilegeViewItem> _itemsSourceSecurityRoleList;
+        private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
 
-        private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
-
-        private Dictionary<Guid, IEnumerable<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadata>>();
-
-        private int _init = 0;
+        private readonly Dictionary<Guid, IEnumerable<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadata>>();
 
         public WindowEntitySecurityRoleExplorer(
             IWriteToOutput iWriteToOutput
@@ -50,7 +46,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filterEntity
         )
         {
-            _init++;
+            this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
@@ -85,7 +81,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
-            _init--;
+            this.DecreaseInit();
 
             ShowExistingEntities();
         }
@@ -168,7 +164,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingEntities()
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -277,7 +273,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowEntitySecurityRoles()
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -392,11 +388,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, tSProgressBar, btnRefreshEntites, btnRefreshRoles);
+            ToggleControl(this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, tSProgressBar, btnRefreshEntites, btnRefreshRoles);
 
             UpdateRoleButtons();
         }
@@ -407,7 +403,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this._controlsEnabled
+                    bool enabled = this.IsControlsEnabled
                         && this._itemsSourceSecurityRoleList != null
                         && this._itemsSourceSecurityRoleList.Any(e => e.IsChanged)
                         ;
@@ -767,7 +763,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteActionAsync(IEnumerable<string> entityNames, Func<IEnumerable<string>, Task> action)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -789,7 +785,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PublishEntityAsync(IEnumerable<string> entityNames)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1164,7 +1160,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._itemsSourceSecurityRoleList?.Clear();
             });
 
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }

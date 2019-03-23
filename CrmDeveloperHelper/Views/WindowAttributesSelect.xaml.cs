@@ -1,4 +1,3 @@
-using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
@@ -19,17 +18,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public partial class WindowAttributesSelect : WindowBase
     {
-        private IWriteToOutput _iWriteToOutput;
-
-        private bool _controlsEnabled = true;
+        private readonly IWriteToOutput _iWriteToOutput;
 
         private readonly EntityMetadata _entityMetadata;
 
         private readonly IOrganizationServiceExtented _service;
 
-        private List<AttributeSelectItem> _source = new List<AttributeSelectItem>();
+        private readonly List<AttributeSelectItem> _source = new List<AttributeSelectItem>();
 
-        private ObservableCollection<AttributeSelectItem> _sourceDataGrid = new ObservableCollection<AttributeSelectItem>();
+        private readonly ObservableCollection<AttributeSelectItem> _sourceDataGrid = new ObservableCollection<AttributeSelectItem>();
 
         public WindowAttributesSelect(
             IWriteToOutput outputWindow
@@ -150,11 +147,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar);
+            ToggleControl(this.tSProgressBar);
         }
 
         private void txtBFilter_KeyDown(object sender, KeyEventArgs e)

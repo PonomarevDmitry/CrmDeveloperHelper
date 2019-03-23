@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public partial class WindowExportFormEvents : WindowBase
     {
-        private CommonConfiguration _commonConfig;
+        private readonly CommonConfiguration _commonConfig;
 
         public WindowExportFormEvents(CommonConfiguration commonConfig)
         {

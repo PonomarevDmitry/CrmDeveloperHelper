@@ -1,4 +1,3 @@
-﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -18,7 +17,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public partial class WindowReportSelect : WindowBase
     {
-        private IWriteToOutput _iWriteToOutput;
+        private readonly IWriteToOutput _iWriteToOutput;
 
         /// <summary>
         /// Сервис CRM
@@ -39,9 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         /// </summary>
         public Guid? SelectedReportId { get; private set; }
 
-        private ObservableCollection<EntityViewItem> _itemsSource;
-
-        private bool _controlsEnabled = true;
+        private readonly ObservableCollection<EntityViewItem> _itemsSource;
 
         public WindowReportSelect(
              IWriteToOutput iWriteToOutput
@@ -87,7 +84,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingReports()
         {
-            if (!_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -216,11 +213,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, this.btnSelectReport, this.btnSelectLastLink);
+            ToggleControl(this.tSProgressBar, this.btnSelectReport, this.btnSelectLastLink);
 
             UpdateButtonsEnable();
         }
@@ -231,7 +228,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this._controlsEnabled && this.lstVwReports.SelectedItems.Count > 0;
+                    bool enabled = this.IsControlsEnabled && this.lstVwReports.SelectedItems.Count > 0;
 
                     UIElement[] list = { btnSelectReport };
 

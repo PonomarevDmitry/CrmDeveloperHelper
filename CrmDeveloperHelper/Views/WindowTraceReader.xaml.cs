@@ -24,23 +24,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly object sysObjectTraceList = new object();
 
-        private IWriteToOutput _iWriteToOutput;
+        private readonly IWriteToOutput _iWriteToOutput;
 
-        private CommonConfiguration _commonConfig;
+        private readonly CommonConfiguration _commonConfig;
 
-        private bool _controlsEnabled = true;
-
-        private ObservableCollection<TraceRecord> _itemsSource;
+        private readonly ObservableCollection<TraceRecord> _itemsSource;
 
         private List<TraceRecord> _loadedRecords;
 
-        private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
+        private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
 
-        private Dictionary<Guid, Dictionary<Guid, SystemUser>> _systemUserCache = new Dictionary<Guid, Dictionary<Guid, SystemUser>>();
+        private readonly Dictionary<Guid, Dictionary<Guid, SystemUser>> _systemUserCache = new Dictionary<Guid, Dictionary<Guid, SystemUser>>();
 
-        private Dictionary<Guid, object> _syncCacheObjects = new Dictionary<Guid, object>();
-
-        private int _init = 0;
+        private readonly Dictionary<Guid, object> _syncCacheObjects = new Dictionary<Guid, object>();
 
         public WindowTraceReader(
             IWriteToOutput iWriteToOutput
@@ -48,7 +44,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
         )
         {
-            _init++;
+            this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
@@ -76,7 +72,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
-            _init--;
+            this.DecreaseInit();
 
             FocusOnComboBoxTextBox(cmBFilter);
 
@@ -156,7 +152,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task LoadTraceRecordsAsync(IEnumerable<string> files)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -195,7 +191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task FilterExistingTraceRecords()
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -358,11 +354,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, btnSetCurrentConnection, cmBCurrentConnection, this.miOpenFolder, this.miOpenFilesInFolders);
+            ToggleControl(this.tSProgressBar, btnSetCurrentConnection, cmBCurrentConnection, this.miOpenFolder, this.miOpenFilesInFolders);
 
             UpdateButtonsEnable();
         }
@@ -373,7 +369,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    mIRemoveFolder.IsEnabled = this._controlsEnabled && lstVwFolders.SelectedItems.Count > 0;
+                    mIRemoveFolder.IsEnabled = this.IsControlsEnabled && lstVwFolders.SelectedItems.Count > 0;
                 }
                 catch (Exception ex)
                 {
@@ -422,7 +418,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._itemsSource?.Clear();
             });
 
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }

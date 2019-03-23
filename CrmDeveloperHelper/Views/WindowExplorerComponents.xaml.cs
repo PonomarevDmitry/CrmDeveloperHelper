@@ -35,19 +35,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly CommonConfiguration _commonConfig;
 
-        private Popup _optionsPopup;
+        private readonly Popup _optionsPopup;
 
         public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.SolutionComponentSettings;
 
         private Solution _solution;
 
-        private bool _controlsEnabled = true;
-
-        private ObservableCollection<SolutionComponentViewItem> _itemsSource;
+        private readonly ObservableCollection<SolutionComponentViewItem> _itemsSource;
 
         private readonly IEnumerable<SolutionComponent> _solutionComponents;
-
-        private int _init = 0;
 
         public WindowExplorerComponents(
              IWriteToOutput iWriteToOutput
@@ -59,7 +55,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string selection
         )
         {
-            BeginLoadConfig();
+            this.IncreaseInit();
 
             InitializeComponent();
 
@@ -116,22 +112,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.lstVSolutionComponents.ItemsSource = _itemsSource;
 
-            EndLoadConfig();
+            this.DecreaseInit();
 
             if (_service != null)
             {
                 ShowExistingComponents(solutionUniqueName);
             }
-        }
-
-        private void BeginLoadConfig()
-        {
-            ++_init;
-        }
-
-        private void EndLoadConfig()
-        {
-            --_init;
         }
 
         private void LoadFromConfig()
@@ -184,7 +170,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingComponents(string solutionUniqueName = null)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -342,11 +328,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, this.btnExportAll, this.tSDDBExportSolutionComponent, this.cmBComponentType, this.mISolutionInformation);
+            ToggleControl(this.tSProgressBar, this.btnExportAll, this.tSDDBExportSolutionComponent, this.cmBComponentType, this.mISolutionInformation);
 
             UpdateButtonsEnable();
         }
@@ -416,7 +402,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             string folder = _commonConfig.FolderForExport;
 
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1073,7 +1059,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void cmBComponentType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1085,7 +1071,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void cmBSolutionComponentType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1390,7 +1376,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ExecuteActionOnSingleSolution(Solution solution, Func<string, Solution, Task> action)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }

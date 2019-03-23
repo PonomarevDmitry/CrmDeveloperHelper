@@ -19,7 +19,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         /// </summary>
         public ConnectionData ConnectionData { get; private set; }
 
-        private ObservableCollection<ConnectionUserData> _listUsers;
+        private readonly ObservableCollection<ConnectionUserData> _listUsers;
 
         private readonly IWriteToOutput _iWriteToOutput;
 
@@ -268,7 +268,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, this.btnSave, this.btnTestConnection);
+            ToggleControl(this.tSProgressBar, this.btnSave, this.btnTestConnection);
         }
     }
 }

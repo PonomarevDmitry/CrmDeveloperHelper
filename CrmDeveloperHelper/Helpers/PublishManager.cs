@@ -14,7 +14,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     /// </summary>
     public class PublishManager
     {
-        private IWriteToOutput _iWriteToOutput;
+        private readonly IWriteToOutput _iWriteToOutput;
 
         private readonly IOrganizationServiceExtented _service;
 

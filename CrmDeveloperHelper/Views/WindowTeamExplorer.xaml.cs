@@ -26,25 +26,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly object sysObjectConnections = new object();
 
-        private IWriteToOutput _iWriteToOutput;
+        private readonly IWriteToOutput _iWriteToOutput;
 
-        private CommonConfiguration _commonConfig;
+        private readonly CommonConfiguration _commonConfig;
 
-        private bool _controlsEnabled = true;
+        private readonly ObservableCollection<SystemUser> _itemsSourceSystemUsers;
 
-        private ObservableCollection<SystemUser> _itemsSourceSystemUsers;
+        private readonly ObservableCollection<Team> _itemsSourceTeams;
+        private readonly ObservableCollection<Role> _itemsSourceRoles;
 
-        private ObservableCollection<Team> _itemsSourceTeams;
-        private ObservableCollection<Role> _itemsSourceRoles;
+        private readonly ObservableCollection<EntityPrivilegeViewItem> _itemsSourceEntityPrivileges;
 
-        private ObservableCollection<EntityPrivilegeViewItem> _itemsSourceEntityPrivileges;
+        private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
+        private readonly Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
 
-        private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
-        private Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
-
-        private Dictionary<Guid, IEnumerable<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadata>>();
-
-        private int _init = 0;
+        private readonly Dictionary<Guid, IEnumerable<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadata>>();
 
         public WindowTeamExplorer(
             IWriteToOutput iWriteToOutput
@@ -54,7 +50,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filterEntity
         )
         {
-            _init++;
+            this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
@@ -89,7 +85,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
-            _init--;
+            this.DecreaseInit();
 
             ShowExistingTeams();
         }
@@ -198,7 +194,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowTeamSystemUsers()
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -258,7 +254,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowTeamRoles()
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -318,7 +314,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingTeams()
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -389,7 +385,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowTeamEntityPrivileges()
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -520,11 +516,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, btnRefreshEntites, btnRefreshRoles, btnRefreshSystemUsers, btnRefreshTeams, tSProgressBar);
+            ToggleControl(this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, btnRefreshEntites, btnRefreshRoles, btnRefreshSystemUsers, btnRefreshTeams, tSProgressBar);
 
             UpdateSecurityRolesButtons();
 
@@ -975,7 +971,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteActionAsync(IEnumerable<string> entityNames, Func<IEnumerable<string>, Task> action)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -997,7 +993,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PublishEntityAsync(IEnumerable<string> entityNames)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1044,7 +1040,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this._controlsEnabled && this.lstVwSecurityRoles != null && this.lstVwSecurityRoles.SelectedItems.Count > 0;
+                    bool enabled = this.IsControlsEnabled && this.lstVwSecurityRoles != null && this.lstVwSecurityRoles.SelectedItems.Count > 0;
 
                     UIElement[] list = { btnRemoveRoleFromTeam };
 
@@ -1072,7 +1068,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var team = GetSelectedTeam();
 
-                    bool enabled = this._controlsEnabled
+                    bool enabled = this.IsControlsEnabled
                         && team != null
                         && !team.IsDefault.GetValueOrDefault()
                         && this.lstVwSystemUsers != null
@@ -1098,7 +1094,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 try
                 {
                     {
-                        bool enabled = this._controlsEnabled
+                        bool enabled = this.IsControlsEnabled
                             && this.lstVwTeams != null
                             && this.lstVwTeams.SelectedItems.Count > 0
                             ;
@@ -1112,7 +1108,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
 
                     {
-                        bool enabled = this._controlsEnabled
+                        bool enabled = this.IsControlsEnabled
                             && this.lstVwTeams != null
                             && this.lstVwTeams.SelectedItems.OfType<Team>().Any(r => !r.IsDefault.GetValueOrDefault())
                             ;
@@ -1315,7 +1311,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }

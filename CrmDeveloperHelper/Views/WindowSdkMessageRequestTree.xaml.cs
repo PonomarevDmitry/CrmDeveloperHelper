@@ -26,9 +26,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly IWriteToOutput _iWriteToOutput;
 
-        private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
-
-        private int _init = 0;
+        private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
 
         private View _currentView = View.ByEntityMessageNamespace;
 
@@ -39,7 +37,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private BitmapImage _imageResponse;
         private BitmapImage _imageNamespace;
 
-        private CommonConfiguration _commonConfig;
+        private readonly CommonConfiguration _commonConfig;
 
         private enum View
         {
@@ -49,8 +47,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ByNamespaceEntityMessage = 3,
         }
 
-        private bool _controlsEnabled = true;
-
         public WindowSdkMessageRequestTree(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -59,7 +55,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string messageFilter
             )
         {
-            _init++;
+            this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
@@ -86,7 +82,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
-            _init--;
+            this.DecreaseInit();
 
             if (service != null)
             {
@@ -140,9 +136,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         this._currentView = tempView;
 
-                        bool lastEnabled = this._controlsEnabled;
-
-                        this._controlsEnabled = true;
+                        this.IncreaseInit();
 
                         rBViewByEntityMessageNamespace.IsChecked
                             = rBViewByNamespaceEntityMessage.IsChecked
@@ -169,7 +163,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                 break;
                         }
 
-                        this._controlsEnabled = lastEnabled;
+                        this.DecreaseInit();
                     }
                 }
             }
@@ -240,7 +234,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingSdkMessageRequests()
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -639,11 +633,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, this.tSBCollapseAll, this.tSBExpandAll, this.menuView);
+            ToggleControl(this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, this.tSBCollapseAll, this.tSBExpandAll, this.menuView);
 
             UpdateButtonsEnable();
         }
@@ -654,7 +648,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this._controlsEnabled
+                    bool enabled = this.IsControlsEnabled
                                         && this.trVSdkMessageRequestTree.SelectedItem != null
                                         && this.trVSdkMessageRequestTree.SelectedItem is SdkMessageRequestTreeViewItem
                                         && CanCreateDescription(this.trVSdkMessageRequestTree.SelectedItem as SdkMessageRequestTreeViewItem);
@@ -782,7 +776,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBCollapseAll_Click(object sender, RoutedEventArgs e)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -792,7 +786,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBExpandAll_Click(object sender, RoutedEventArgs e)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }

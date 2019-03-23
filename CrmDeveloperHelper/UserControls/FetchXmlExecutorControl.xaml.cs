@@ -28,9 +28,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
     {
         private readonly object sysObjectConnections = new object();
 
-        private Dictionary<Guid, object> _syncCacheObjects = new Dictionary<Guid, object>();
+        private readonly Dictionary<Guid, object> _syncCacheObjects = new Dictionary<Guid, object>();
 
-        private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
+        private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
 
         private bool _controlsEnabled = true;
 

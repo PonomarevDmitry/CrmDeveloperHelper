@@ -138,7 +138,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        protected void WriteSummaryStrings(IEnumerable<string> listStrings)
+        protected virtual void WriteSummaryStrings(IEnumerable<string> listStrings)
         {
             if (!listStrings.Any())
             {

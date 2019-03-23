@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public class FormatTextTableHandler
     {
-        private Dictionary<int, int> maxLength = new Dictionary<int, int>();
+        private readonly Dictionary<int, int> maxLength = new Dictionary<int, int>();
 
         private List<string[]> lines = new List<string[]>();
 

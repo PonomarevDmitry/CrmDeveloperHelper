@@ -1,5 +1,4 @@
 using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -19,8 +18,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public partial class WindowSdkMessageProcessingStep : WindowBase
     {
-        private bool _controlsEnabled = true;
-
         private readonly IWriteToOutput _iWriteToOutput;
         private readonly IOrganizationServiceExtented _service;
 
@@ -29,8 +26,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         public SdkMessageProcessingStep Step { get; private set; }
 
         private readonly List<SdkMessageFilter> _filters;
-
-        private int _init = 0;
 
         private EntityReference _impersonatingUser = null;
 
@@ -43,7 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , SdkMessageProcessingStep step
         )
         {
-            _init++;
+            this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
@@ -63,7 +58,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadEntityStepProperties();
 
-            _init--;
+            this.DecreaseInit();
 
             FocusOnComboBoxTextBox(cmBMessageName);
         }
@@ -798,11 +793,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, btnSave, btnClose);
+            ToggleControl(this.tSProgressBar, btnSave, btnClose);
         }
 
         private void UpdateStatus(string format, params object[] args)

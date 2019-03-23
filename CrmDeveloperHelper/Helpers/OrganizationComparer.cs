@@ -20,7 +20,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private const string tabSpacer = "    ";
 
-        private IWriteToOutput _iWriteToOutput;
+        private readonly IWriteToOutput _iWriteToOutput;
 
         private IOrganizationComparerSource _comparerSource;
 

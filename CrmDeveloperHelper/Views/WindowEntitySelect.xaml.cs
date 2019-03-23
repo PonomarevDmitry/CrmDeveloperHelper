@@ -3,9 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,8 +14,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     public abstract partial class WindowEntitySelect : WindowBase
     {
         protected IWriteToOutput _iWriteToOutput;
-
-        protected bool _controlsEnabled = true;
 
         protected readonly string _entityName;
 
@@ -74,11 +70,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, this.btnSelectEntity);
+            ToggleControl(this.tSProgressBar, this.btnSelectEntity);
 
             UpdateButtonsEnable();
         }

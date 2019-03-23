@@ -1,4 +1,3 @@
-﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -12,7 +11,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
@@ -20,7 +18,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public partial class WindowWebResourceSelectOrCreate : WindowBase
     {
-        private IWriteToOutput _iWriteToOutput;
+        private readonly IWriteToOutput _iWriteToOutput;
 
         /// <summary>
         /// Сервис CRM
@@ -50,8 +48,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         public bool ForAllOther { get; private set; }
 
         private readonly ConnectionData _connectionData;
-
-        private bool _controlsEnabled = true;
 
         public WindowWebResourceSelectOrCreate(
             IWriteToOutput iWriteToOutput
@@ -118,11 +114,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingWebResources(Guid? lastLinkedWebResource = null)
         {
-            if (!_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.LoadingWebResources);
 
             this.trVWebResources.Dispatcher.Invoke(() =>
@@ -175,7 +171,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             LoadWebResources(list);
-            
+
             ToggleControls(true, Properties.WindowStatusStrings.LoadingWebResourcesCompletedFormat1, list.Count());
         }
 
@@ -306,11 +302,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(enabled, tSProgressBar);
+            ToggleControl(tSProgressBar);
 
             UpdateButtonsEnable();
         }
@@ -321,9 +317,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    btnCreateNewWebResource.IsEnabled = _controlsEnabled;
+                    btnCreateNewWebResource.IsEnabled = this.IsControlsEnabled;
 
-                    bool enabled = _controlsEnabled
+                    bool enabled = this.IsControlsEnabled
                                     && this.trVWebResources.SelectedItem != null
                                     && this.trVWebResources.SelectedItem is EntityTreeViewItem
                                     && (this.trVWebResources.SelectedItem as EntityTreeViewItem).WebResourceId != null;
@@ -402,11 +398,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnCreateNewWebResource_Click(object sender, RoutedEventArgs e)
         {
-            if (!_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
-            
+
             ToggleControls(false, Properties.WindowStatusStrings.PreparingCreatingNewWebResource);
 
             var extension = _file.Extension;
@@ -457,7 +453,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this.ForAllOther = false;
                 ToggleControls(true, Properties.WindowStatusStrings.SolutionForCreatingNewWebResouceNotSelected);
-                
+
                 return;
             }
 

@@ -4,7 +4,6 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,8 +14,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public partial class WindowSdkMessageProcessingStepImage : WindowBase
     {
-        private bool _controlsEnabled = true;
-
         private readonly IWriteToOutput _iWriteToOutput;
         private readonly IOrganizationServiceExtented _service;
 
@@ -27,8 +24,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public SdkMessageProcessingStepImage Image { get; private set; }
 
-        private int _init = 0;
-
         public WindowSdkMessageProcessingStepImage(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -37,7 +32,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string messageName
         )
         {
-            _init++;
+            this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
@@ -53,7 +48,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadEntityImageProperties();
 
-            _init--;
+            this.DecreaseInit();
 
             txtBName.Focus();
         }
@@ -228,11 +223,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, btnSave, btnCancel);
+            ToggleControl(this.tSProgressBar, btnSave, btnCancel);
         }
 
         private void UpdateStatus(string format, params object[] args)

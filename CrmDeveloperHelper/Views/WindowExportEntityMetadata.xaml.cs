@@ -28,22 +28,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly object sysObjectConnections = new object();
 
-        private Popup _optionsPopup;
+        private readonly Popup _optionsPopup;
 
-        private IWriteToOutput _iWriteToOutput;
+        private readonly IWriteToOutput _iWriteToOutput;
 
-        private CommonConfiguration _commonConfig;
+        private readonly CommonConfiguration _commonConfig;
 
-        public string _filePath;
+        public readonly string _filePath;
 
-        private bool _controlsEnabled = true;
+        private readonly ObservableCollection<EntityMetadataListViewItem> _itemsSource;
 
-        private ObservableCollection<EntityMetadataListViewItem> _itemsSource;
-
-        private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
-        private Dictionary<Guid, IEnumerable<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadata>>();
-
-        private int _init = 0;
+        private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
+        private readonly Dictionary<Guid, IEnumerable<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadata>>();
 
         public WindowExportEntityMetadata(
             IWriteToOutput iWriteToOutput
@@ -54,7 +50,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filePath
         )
         {
-            _init++;
+            this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
@@ -109,7 +105,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
-            _init--;
+            this.DecreaseInit();
 
             if (allEntities != null)
             {
@@ -186,7 +182,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingEntities()
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -314,11 +310,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection);
+            ToggleControl(this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection);
 
             UpdateButtonsEnable();
         }
@@ -329,7 +325,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this._controlsEnabled && this.lstVwEntities.SelectedItems.Count > 0;
+                    bool enabled = this.IsControlsEnabled && this.lstVwEntities.SelectedItems.Count > 0;
 
                     UIElement[] list = { miEntityOperations };
 
@@ -683,7 +679,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             string folder = txtBFolder.Text.Trim();
 
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -779,7 +775,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task CreateEntityMetadataFileJSAsync(EntityMetadataListViewItem entityMetadata)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -838,7 +834,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task StartCreateFileWithAttibuteDependentAsync(EntityMetadataListViewItem entityMetadata)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -915,7 +911,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task CreateEntityXmlFileAsync(EntityMetadataListViewItem entityMetadata)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -955,7 +951,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PublishEntityAsync(EntityMetadataListViewItem entityMetadata)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1177,7 +1173,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._itemsSource?.Clear();
             });
 
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1221,7 +1217,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportEntityRibbon(EntityMetadataListViewItem entityMetadata)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1271,7 +1267,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportEntityRibbonArchive(EntityMetadataListViewItem entityMetadata)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1317,7 +1313,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportEntityRibbonDiffXml(EntityMetadataListViewItem entityMetadata)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -1382,7 +1378,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformUpdateEntityRibbonDiffXml(EntityMetadataListViewItem entity)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }

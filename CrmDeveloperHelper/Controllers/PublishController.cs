@@ -16,7 +16,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
     /// </summary>
     public class PublishController
     {
-        private IWriteToOutput _iWriteToOutput = null;
+        private readonly IWriteToOutput _iWriteToOutput = null;
 
         /// <summary>
         /// Конструктор контроллера для публикации

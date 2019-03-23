@@ -4,7 +4,6 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -24,12 +23,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private SolutionImage _solutionImage = null;
 
-        private IWriteToOutput _iWriteToOutput;
+        private readonly IWriteToOutput _iWriteToOutput;
         private ConnectionConfiguration _crmConfig;
 
-        private CommonConfiguration _commonConfig;
-
-        private bool _controlsEnabled = true;
+        private readonly CommonConfiguration _commonConfig;
 
         public WindowOrganizationComparer(
             IWriteToOutput iWriteToOutput
@@ -87,11 +84,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(enabled, tSProgressBar);
+            ToggleControl(tSProgressBar);
 
             UpdateButtonsConnection();
         }
@@ -139,7 +136,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
 
                     {
-                        bool enabled = this._controlsEnabled && connection1 != null && connection2 == null;
+                        bool enabled = this.IsControlsEnabled && connection1 != null && connection2 == null;
 
                         UIElement[] list = { tSBTestConnection };
 
@@ -150,7 +147,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
 
                     {
-                        bool enabled = this._controlsEnabled && connection1 != null && connection2 != null;
+                        bool enabled = this.IsControlsEnabled && connection1 != null && connection2 != null;
 
                         UIElement[] list = { tSDDBCompareOrganizations, tSDDBTransfer };
 
@@ -337,7 +334,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void tSBTestConnection_Click(object sender, RoutedEventArgs e)
         {
-            if (!_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -2237,7 +2234,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteOperation(Func<OrganizationComparer, Task> function)
         {
-            if (!_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -2470,7 +2467,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteListOperation(List<Func<OrganizationComparer, Task>> functions)
         {
-            if (!_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -3330,7 +3327,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteOperationFrom1To2Async(Func<OrganizationCustomizationTransfer, Task> function)
         {
-            if (!_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -3370,7 +3367,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteOperationFrom2To1Async(Func<OrganizationCustomizationTransfer, Task> function)
         {
-            if (!_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -3556,7 +3553,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task LoadSolutionImage(string filePath)
         {
-            if (!_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }

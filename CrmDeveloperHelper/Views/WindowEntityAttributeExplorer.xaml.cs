@@ -25,25 +25,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
     {
         private readonly object sysObjectConnections = new object();
 
-        private IWriteToOutput _iWriteToOutput;
+        private readonly IWriteToOutput _iWriteToOutput;
 
-        private CommonConfiguration _commonConfig;
+        private readonly CommonConfiguration _commonConfig;
 
-        private bool _controlsEnabled = true;
+        private readonly ObservableCollection<EntityMetadataViewItem> _itemsSourceEntityList;
 
-        private ObservableCollection<EntityMetadataViewItem> _itemsSourceEntityList;
+        private readonly ObservableCollection<AttributeMetadataViewItem> _itemsSourceAttributeList;
 
-        private ObservableCollection<AttributeMetadataViewItem> _itemsSourceAttributeList;
+        private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
 
-        private Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
+        private readonly Dictionary<Guid, IEnumerable<EntityMetadataViewItem>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadataViewItem>>();
 
-        private Dictionary<Guid, IEnumerable<EntityMetadataViewItem>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadataViewItem>>();
+        private readonly Dictionary<Guid, ConcurrentDictionary<string, Task>> _cacheMetadataTask = new Dictionary<Guid, ConcurrentDictionary<string, Task>>();
 
-        private Dictionary<Guid, ConcurrentDictionary<string, Task>> _cacheMetadataTask = new Dictionary<Guid, ConcurrentDictionary<string, Task>>();
-
-        private Dictionary<Guid, ConcurrentDictionary<string, IEnumerable<AttributeMetadataViewItem>>> _cacheAttributeMetadata = new Dictionary<Guid, ConcurrentDictionary<string, IEnumerable<AttributeMetadataViewItem>>>();
-
-        private int _init = 0;
+        private readonly Dictionary<Guid, ConcurrentDictionary<string, IEnumerable<AttributeMetadataViewItem>>> _cacheAttributeMetadata = new Dictionary<Guid, ConcurrentDictionary<string, IEnumerable<AttributeMetadataViewItem>>>();
 
         public WindowEntityAttributeExplorer(
             IWriteToOutput iWriteToOutput
@@ -52,7 +48,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filterEntity
         )
         {
-            _init++;
+            IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
@@ -84,7 +80,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
-            _init--;
+            DecreaseInit();
 
             ShowExistingEntities();
         }
@@ -167,7 +163,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingEntities()
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!IsControlsEnabled)
             {
                 return;
             }
@@ -278,7 +274,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ShowExistingAttributes()
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!IsControlsEnabled)
             {
                 return;
             }
@@ -455,11 +451,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, mISaveChanges, mIClearEntityCacheAndRefresh, mIClearAttributeCacheAndRefresh);
+            ToggleControl(this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, mISaveChanges, mIClearEntityCacheAndRefresh, mIClearAttributeCacheAndRefresh);
 
             UpdateButtonsEnable();
         }
@@ -470,7 +466,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this._controlsEnabled && this.lstVwEntities.SelectedItems.Count > 0;
+                    bool enabled = this.IsControlsEnabled && this.lstVwEntities.SelectedItems.Count > 0;
 
                     UIElement[] list = { };
 
@@ -826,7 +822,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteActionAsync(IEnumerable<string> entityNames, Func<IEnumerable<string>, Task> action)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!IsControlsEnabled)
             {
                 return;
             }
@@ -848,7 +844,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PublishEntityAsync(IEnumerable<string> entityNames)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!IsControlsEnabled)
             {
                 return;
             }
@@ -1189,7 +1185,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._itemsSourceAttributeList?.Clear();
             });
 
-            if (_init > 0 || !_controlsEnabled)
+            if (!IsControlsEnabled)
             {
                 return;
             }
@@ -1244,7 +1240,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void mISaveChanges_Click(object sender, RoutedEventArgs e)
         {
-            if (_init > 0 || !_controlsEnabled)
+            if (!IsControlsEnabled)
             {
                 return;
             }

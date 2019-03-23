@@ -1,4 +1,3 @@
-﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
@@ -20,21 +19,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public partial class WindowPluginConfigurationComparerPluginAssembly : WindowBase
     {
-        private IWriteToOutput _iWriteToOutput;
+        private readonly IWriteToOutput _iWriteToOutput;
 
         private PluginConfigurationAssemblyDescriptionHandler _handler1;
         private PluginConfigurationAssemblyDescriptionHandler _handler2;
 
-        private CommonConfiguration _commonConfig;
+        private readonly CommonConfiguration _commonConfig;
 
         private PluginDescription _pluginDescription1 = null;
         private PluginDescription _pluginDescription2 = null;
 
-        private bool _controlsEnabled = true;
-
         private List<LinkedEntities<PluginAssembly>> _allEntities = null;
 
-        private ObservableCollection<EntityViewItem> _itemsSource;
+        private readonly ObservableCollection<EntityViewItem> _itemsSource;
 
         public WindowPluginConfigurationComparerPluginAssembly(
             IWriteToOutput iWriteToOutput
@@ -97,7 +94,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task LoadPluginConfiguration(string filePath, Action<PluginDescription> setter, TextBox textBox)
         {
-            if (!_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -243,11 +240,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ToggleControls(bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, this.tSBLoadPluginConfiguration1, this.tSBLoadPluginConfiguration2, this.menuActions);
+            ToggleControl(this.tSProgressBar, this.tSBLoadPluginConfiguration1, this.tSBLoadPluginConfiguration2, this.menuActions);
 
             UpdateButtonsEnable();
         }
@@ -258,7 +255,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this._controlsEnabled && this.lstVwPluginAssemblies.SelectedItems.Count > 0;
+                    bool enabled = this.IsControlsEnabled && this.lstVwPluginAssemblies.SelectedItems.Count > 0;
 
                     UIElement[] list = { tSDDBActions };
 
@@ -312,7 +309,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteAction(LinkedEntities<PluginAssembly> link, Func<string, LinkedEntities<PluginAssembly>, Task> action)
         {
-            if (!_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -334,7 +331,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformShowingDifference(string folder, LinkedEntities<PluginAssembly> linked)
         {
-            if (!_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -502,7 +499,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , PluginAssembly pluginAssembly
             , Func<string, PluginConfigurationAssemblyDescriptionHandler, PluginDescription, PluginAssembly, Task> action)
         {
-            if (!_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
@@ -524,7 +521,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportDescriptionToFile(string folder, PluginConfigurationAssemblyDescriptionHandler handler, PluginDescription pluginDescription, PluginAssembly assembly)
         {
-            if (!_controlsEnabled)
+            if (!this.IsControlsEnabled)
             {
                 return;
             }
