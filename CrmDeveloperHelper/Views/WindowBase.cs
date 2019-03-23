@@ -28,7 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected void ChangeInitByEnabled(bool enabled)
         {
-            if (true)
+            if (enabled)
             {
                 this._init++;
             }
