@@ -7,11 +7,11 @@
         Title="Import Job Explorer" Height="538.662" Width="717" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
         <ContextMenu x:Key="listContextMenu">
-            <MenuItem Header="Open in Web" VerticalAlignment="Center"/>
-            
+            <MenuItem Header="Open in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
+
             <Separator/>
             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
-            
+
             <Separator/>
             <MenuItem Header="Data" VerticalAlignment="Center" Click="mIExportImportJobData_Click"/>
 
@@ -27,10 +27,10 @@
 
         <Label Content="Folder" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Height="23" Padding="0" VerticalContentAlignment="Center"/>
         <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="48,38,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" />
-        
+
         <Label Content="Filter" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
         <TextBox x:Name="txtBFilter" Height="23" Margin="48,66,10,0"   VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
-        
+
         <DataGrid x:Name="lstVwImportJobs" AutoGenerateColumns="False" Margin="10,94,10,99" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwImportJobs_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -46,22 +46,22 @@
 
                 <DataGridTextColumn Header="Solution Name" Width="150" Binding="{Binding SolutionName}" />
 
-                <DataGridTextColumn Header="Started On" Width="150" Binding="{Binding StartedOn}" />
+                <DataGridTextColumn Header="Started On" Width="150" Binding="{Binding StartedOn, StringFormat={}{0:dd.MM.yyyy HH:mm:ss}}" />
 
-                <DataGridTextColumn Header="Progress" Width="150" Binding="{Binding Progress}" />
+                <DataGridTextColumn Header="Progress" Width="150" Binding="{Binding Progress, StringFormat={}{0:F2}}" />
 
-                <DataGridTextColumn Header="Completed On" Width="150" Binding="{Binding CompletedOn}" />
+                <DataGridTextColumn Header="Completed On" Width="150" Binding="{Binding CompletedOn, StringFormat={}{0:dd.MM.yyyy HH:mm:ss}}" />
 
-                <DataGridTextColumn Header="Created On" Width="150" Binding="{Binding CreatedOn}" />
+                <DataGridTextColumn Header="Created On" Width="150" Binding="{Binding CreatedOn, StringFormat={}{0:dd.MM.yyyy HH:mm:ss}}" />
 
                 <DataGridTextColumn Header="Created By" Width="150" Binding="{Binding CreatedBy}" />
 
             </DataGrid.Columns>
         </DataGrid>
-        
+
         <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,69" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="25" Width="53"/>
         <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,0,0,69" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Height="25" Width="254" />
-        
+
         <ToolBar Margin="0,0,0,31" VerticalAlignment="Bottom" Height="33">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
@@ -77,7 +77,7 @@
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
                     <Button x:Name="btnExportAll" Content="Export All ImportJob Information" Click="btnExportAll_Click" />
-                    
+
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportImportJob" Header="Export ImportJob Information" VerticalAlignment="Center">
@@ -90,7 +90,7 @@
                             <MenuItem Header="FormattedResults" VerticalAlignment="Center" Click="mIExportImportJobFormattedResults_Click"/>
                         </MenuItem>
                     </Menu>
-                    
+
                 </ToolBarPanel>
                 <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
