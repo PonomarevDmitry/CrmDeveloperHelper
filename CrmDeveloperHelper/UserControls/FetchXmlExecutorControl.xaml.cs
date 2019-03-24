@@ -1035,7 +1035,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 var commonConfig = CommonConfiguration.Get();
 
-                string fileName = EntityFileNameFormatter.GetEntityName(service.ConnectionData.Name, entityFull, "EntityDescription", "txt");
+                string fileName = EntityFileNameFormatter.GetEntityName(service.ConnectionData.Name, entityFull, EntityFileNameFormatter.Headers.EntityDescription, "txt");
                 string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, entityFull, null, service.ConnectionData);
@@ -1166,7 +1166,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 var commonConfig = CommonConfiguration.Get();
 
-                string fileName = EntityFileNameFormatter.GetEntityName(service.ConnectionData.Name, entityFull, "EntityDescription", "txt");
+                string fileName = EntityFileNameFormatter.GetEntityName(service.ConnectionData.Name, entityFull, EntityFileNameFormatter.Headers.EntityDescription, "txt");
                 string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, entityFull, null, service.ConnectionData);

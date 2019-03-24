@@ -444,7 +444,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await PerformExportWebResourceContent(folder, idWebResource, name);
 
-            await PerformExportXmlToFile(folder, idWebResource, name, WebResource.Schema.Attributes.dependencyxml, "DependencyXml");
+            await PerformExportXmlToFile(folder, idWebResource, name, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml);
         }
 
         private async Task ExecuteActionEntity(Guid idWebResource, string name, string fieldName, string fieldTitle, Func<string, Guid, string, string, string, Task> action)
@@ -493,7 +493,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(true));
 
-                string fileName = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, name, "EntityDescription", "txt");
+                string fileName = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, name, EntityFileNameFormatter.Headers.EntityDescription, "txt");
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, webresource, EntityFileNameFormatter.WebResourceIgnoreFields, service.ConnectionData);
@@ -599,7 +599,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.dependencyxml, "DependencyXml", PerformExportXmlToFile);
+            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, PerformExportXmlToFile);
         }
 
         private async Task PerformExportXmlToFile(string folder, Guid idWebResource, string name, string fieldName, string fieldTitle)
@@ -1040,7 +1040,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.dependencyxml, "DependencyXml", PerformUpdateEntityField);
+            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, PerformUpdateEntityField);
         }
 
         private void mIUpdateWebResourceContent_Click(object sender, RoutedEventArgs e)
@@ -1052,7 +1052,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.content, "Content", PerformUpdateEntityField);
+            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.content, WebResource.Schema.Headers.content, PerformUpdateEntityField);
         }
 
         private void btnPublishWebResource_Click(object sender, RoutedEventArgs e)

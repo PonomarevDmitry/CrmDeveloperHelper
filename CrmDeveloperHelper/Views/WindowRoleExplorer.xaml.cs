@@ -1409,7 +1409,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entityFull = service.RetrieveByQuery<Entity>(entity.LogicalName, entity.Id, new ColumnSet(true));
 
-            string fileName = EntityFileNameFormatter.GetEntityName(service.ConnectionData.Name, entityFull, "EntityDescription", "txt");
+            string fileName = EntityFileNameFormatter.GetEntityName(service.ConnectionData.Name, entityFull, EntityFileNameFormatter.Headers.EntityDescription, "txt");
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, entityFull, null, service.ConnectionData);
@@ -1478,7 +1478,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             roleBackup.RolePrivileges.AddRange(temp.OrderBy(p => p.Name));
 
-            string fileName = EntityFileNameFormatter.GetRoleFileName(service.ConnectionData.Name, role.Name, "Backup", "xml");
+            string fileName = EntityFileNameFormatter.GetRoleFileName(service.ConnectionData.Name, role.Name, EntityFileNameFormatter.Headers.Backup, "xml");
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             await roleBackup.SaveAsync(filePath);

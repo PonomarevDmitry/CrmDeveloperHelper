@@ -199,13 +199,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         {
             return new TupleList<string, string>
                 {
-                    { Report.Schema.Attributes.name, "Name" }
-                    , { Report.Schema.Attributes.filename, "FileName" }
-                    , { Report.Schema.Attributes.reporttypecode, "ReportType" }
-                    , { Report.Schema.Attributes.ispersonal, "ViewableBy" }
-                    , { Report.Schema.Attributes.ownerid, "Owner" }
-                    , { Report.Schema.Attributes.iscustomizable, "IsCustomizable" }
-                    , { Report.Schema.Attributes.ismanaged, "IsManaged" }
+                    { Report.Schema.Attributes.name, Report.Schema.Headers.name }
+                    , { Report.Schema.Attributes.filename, Report.Schema.Headers.filename }
+                    , { Report.Schema.Attributes.reporttypecode, Report.Schema.Headers.reporttypecode }
+                    , { Report.Schema.Attributes.ispersonal, Report.Schema.Headers.ispersonal }
+                    , { Report.Schema.Attributes.ownerid, Report.Schema.Headers.ownerid }
+                    , { Report.Schema.Attributes.iscustomizable, Report.Schema.Headers.iscustomizable }
+                    , { Report.Schema.Attributes.ismanaged, Report.Schema.Headers.ismanaged }
                     , { "solution.uniquename", "SolutionName" }
                     , { "solution.ismanaged", "SolutionIsManaged" }
                     , { "suppsolution.uniquename", "SupportingName" }

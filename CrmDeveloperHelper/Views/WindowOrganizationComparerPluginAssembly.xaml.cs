@@ -494,8 +494,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (showAllways || desc1 != desc2)
                     {
-                        string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData, assembly1.Name, "EntityDescription", desc1);
-                        string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData, assembly2.Name, "EntityDescription", desc2);
+                        string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData, assembly1.Name, EntityFileNameFormatter.Headers.EntityDescription, desc1);
+                        string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData, assembly2.Name, EntityFileNameFormatter.Headers.EntityDescription, desc2);
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
@@ -697,7 +697,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(assembly, EntityFileNameFormatter.PluginAssemblyIgnoreFields, service.ConnectionData);
 
-                string filePath = await CreateDescriptionFileAsync(service.ConnectionData, assembly.Name, "EntityDescription", description);
+                string filePath = await CreateDescriptionFileAsync(service.ConnectionData, assembly.Name, EntityFileNameFormatter.Headers.EntityDescription, description);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }

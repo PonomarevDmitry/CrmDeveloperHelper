@@ -363,8 +363,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportMouseDoubleClick(string folder, Guid idImportJob, string solutionName, DateTime? createdOn)
         {
-            //await PerformExportXmlToFile(folder, idImportJob, solutionName, createdOn, ImportJob.Schema.Attributes.data, "Data");
-
             await PerformExportFormattedResults(folder, idImportJob, solutionName, createdOn);
         }
 
@@ -447,7 +445,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             await PerformExportEntityDescription(folder, idImportJob, solutionName, createdOn);
 
-            await PerformExportXmlToFile(folder, idImportJob, solutionName, createdOn, ImportJob.Schema.Attributes.data, "Data");
+            await PerformExportXmlToFile(folder, idImportJob, solutionName, createdOn, ImportJob.Schema.Attributes.data, ImportJob.Schema.Headers.data);
 
             await PerformExportFormattedResults(folder, idImportJob, solutionName, createdOn);
         }
@@ -516,7 +514,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.SolutionName, entity.CreatedOn, ImportJob.Schema.Attributes.data, "Data", PerformExportXmlToFile);
+            ExecuteActionEntity(entity.Id, entity.SolutionName, entity.CreatedOn, ImportJob.Schema.Attributes.data, ImportJob.Schema.Headers.data, PerformExportXmlToFile);
         }
 
         private void mIExportImportJobFormattedResults_Click(object sender, RoutedEventArgs e)
@@ -608,7 +606,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                string fileName = EntityFileNameFormatter.GetImportJobFileName(service.ConnectionData.Name, solutionName, createdOn, "EntityDescription", "txt");
+                string fileName = EntityFileNameFormatter.GetImportJobFileName(service.ConnectionData.Name, solutionName, createdOn, EntityFileNameFormatter.Headers.EntityDescription, "txt");
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                 var repository = new ImportJobRepository(service);

@@ -599,11 +599,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             await PerformShowingDifferenceEntityDescriptionAsync(linked, showAllways);
 
-            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SavedQuery.Schema.Attributes.fetchxml, "FetchXml");
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml);
 
-            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SavedQuery.Schema.Attributes.layoutxml, "LayoutXml", ContentCoparerHelper.RemoveLayoutObjectCode);
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, ContentCoparerHelper.RemoveLayoutObjectCode);
 
-            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SavedQuery.Schema.Attributes.columnsetxml, "ColumnSetXml");
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml);
         }
 
         private void mIShowDifferenceFetchXml_Click(object sender, RoutedEventArgs e)
@@ -615,7 +615,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, SavedQuery.Schema.Attributes.fetchxml, "FetchXml", PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, PerformShowingDifferenceSingleXmlAsync);
         }
 
         private void mIShowDifferenceLayoutXml_Click(object sender, RoutedEventArgs e)
@@ -627,7 +627,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, SavedQuery.Schema.Attributes.layoutxml, "LayoutXml", PerformShowingDifferenceSingleXmlAsync, ContentCoparerHelper.RemoveLayoutObjectCode);
+            ExecuteActionLinked(link.Link, true, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, PerformShowingDifferenceSingleXmlAsync, ContentCoparerHelper.RemoveLayoutObjectCode);
         }
 
         private void mIShowDifferenceColumnSetXml_Click(object sender, RoutedEventArgs e)
@@ -639,7 +639,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, SavedQuery.Schema.Attributes.columnsetxml, "ColumnSetXml", PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, PerformShowingDifferenceSingleXmlAsync);
         }
 
         private void ExecuteActionLinked(LinkedEntities<SavedQuery> linked, bool showAllways, string fieldName, string fieldTitle, Func<LinkedEntities<SavedQuery>, bool, string, string, Action<XElement>, Task> action, Action<XElement> actionXml = null)
@@ -729,7 +729,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, SavedQuery.Schema.Attributes.fetchxml, "FetchXml", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, PerformExportXmlToFileAsync);
         }
 
         private void mIExportSavedQuery2FetchXml_Click(object sender, RoutedEventArgs e)
@@ -741,7 +741,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, SavedQuery.Schema.Attributes.fetchxml, "FetchXml", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, PerformExportXmlToFileAsync);
         }
 
         private void mIExportSavedQuery1LayoutXml_Click(object sender, RoutedEventArgs e)
@@ -753,7 +753,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, SavedQuery.Schema.Attributes.layoutxml, "LayoutXml", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, PerformExportXmlToFileAsync);
         }
 
         private void mIExportSavedQuery2LayoutXml_Click(object sender, RoutedEventArgs e)
@@ -765,7 +765,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, SavedQuery.Schema.Attributes.layoutxml, "LayoutXml", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, PerformExportXmlToFileAsync);
         }
 
         private void mIExportSavedQuery1ColumnSetXml_Click(object sender, RoutedEventArgs e)
@@ -777,7 +777,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, SavedQuery.Schema.Attributes.columnsetxml, "ColumnSetXml", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, PerformExportXmlToFileAsync);
         }
 
         private void mIExportSavedQuery2ColumnSetXml_Click(object sender, RoutedEventArgs e)
@@ -789,7 +789,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, SavedQuery.Schema.Attributes.columnsetxml, "ColumnSetXml", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, PerformExportXmlToFileAsync);
         }
 
         private void ExecuteActionEntity(Guid idsavedquery, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, Func<Guid, Func<Task<IOrganizationServiceExtented>>, string, string, Task> action)
@@ -878,8 +878,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (showAllways || desc1 != desc2)
                     {
-                        string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData, savedQuery1.ReturnedTypeCode, savedQuery1.Name, "EntityDescription", desc1);
-                        string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData, savedQuery2.ReturnedTypeCode, savedQuery2.Name, "EntityDescription", desc2);
+                        string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData, savedQuery1.ReturnedTypeCode, savedQuery1.Name, EntityFileNameFormatter.Headers.EntityDescription, desc1);
+                        string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData, savedQuery2.ReturnedTypeCode, savedQuery2.Name, EntityFileNameFormatter.Headers.EntityDescription, desc2);
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
@@ -943,7 +943,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(savedQuery, EntityFileNameFormatter.SavedQueryIgnoreFields, service.ConnectionData);
 
-                string filePath = await CreateDescriptionFileAsync(service.ConnectionData, savedQuery.ReturnedTypeCode, savedQuery.Name, "EntityDescription", description);
+                string filePath = await CreateDescriptionFileAsync(service.ConnectionData, savedQuery.ReturnedTypeCode, savedQuery.Name, EntityFileNameFormatter.Headers.EntityDescription, description);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }

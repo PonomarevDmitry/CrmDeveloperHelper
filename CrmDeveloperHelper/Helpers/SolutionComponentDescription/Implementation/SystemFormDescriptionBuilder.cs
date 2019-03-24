@@ -121,13 +121,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         {
             return new TupleList<string, string>
                 {
-                    {  SystemForm.Schema.Attributes.objecttypecode, "EntityName" }
-                    , { SystemForm.Schema.Attributes.type, "FormType" }
-                    , { SystemForm.Schema.Attributes.name, "Name" }
-                    , { SystemForm.Schema.Attributes.uniquename, "UniqueName" }
-                    , { SystemForm.Schema.Attributes.formactivationstate, "State" }
-                    , { SystemForm.Schema.Attributes.iscustomizable, "IsCustomizable" }
-                    , { SystemForm.Schema.Attributes.ismanaged, "IsManaged" }
+                    {  SystemForm.Schema.Attributes.objecttypecode, SystemForm.Schema.Headers.objecttypecode }
+                    , { SystemForm.Schema.Attributes.type, SystemForm.Schema.Headers.type }
+                    , { SystemForm.Schema.Attributes.name, SystemForm.Schema.Headers.name }
+                    , { SystemForm.Schema.Attributes.uniquename, SystemForm.Schema.Headers.uniquename }
+                    , { SystemForm.Schema.Attributes.formactivationstate, SystemForm.Schema.Headers.formactivationstate }
+                    , { SystemForm.Schema.Attributes.iscustomizable, SystemForm.Schema.Headers.iscustomizable }
+                    , { SystemForm.Schema.Attributes.ismanaged, SystemForm.Schema.Headers.ismanaged }
                     , { "solution.uniquename", "SolutionName" }
                     , { "solution.ismanaged", "SolutionIsManaged" }
                     , { "suppsolution.uniquename", "SupportingName" }

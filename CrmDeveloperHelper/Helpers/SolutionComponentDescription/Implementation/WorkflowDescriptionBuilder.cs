@@ -131,16 +131,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         {
             return new TupleList<string, string>
                 {
-                    { Workflow.Schema.Attributes.primaryentity, "EntityName" }
-                    , { Workflow.Schema.Attributes.category, "Category" }
-                    , { Workflow.Schema.Attributes.name, "Name" }
-                    , { Workflow.Schema.Attributes.uniquename, "UniqueName" }
-                    , { Workflow.Schema.Attributes.businessprocesstype, "Type" }
-                    , { Workflow.Schema.Attributes.scope, "Scope" }
-                    , { Workflow.Schema.Attributes.mode, "Mode" }
-                    , { Workflow.Schema.Attributes.statuscode, "StatusCode" }
-                    , { Workflow.Schema.Attributes.iscustomizable, "IsCustomizable" }
-                    , { Workflow.Schema.Attributes.ismanaged, "IsManaged" }
+                    { Workflow.Schema.Attributes.primaryentity, Workflow.Schema.Headers.primaryentity }
+                    , { Workflow.Schema.Attributes.category, Workflow.Schema.Headers.category }
+                    , { Workflow.Schema.Attributes.name, Workflow.Schema.Headers.name }
+                    , { Workflow.Schema.Attributes.uniquename, Workflow.Schema.Headers.uniquename }
+                    , { Workflow.Schema.Attributes.businessprocesstype, Workflow.Schema.Headers.businessprocesstype }
+                    , { Workflow.Schema.Attributes.scope, Workflow.Schema.Headers.scope }
+                    , { Workflow.Schema.Attributes.mode, Workflow.Schema.Headers.mode }
+                    , { Workflow.Schema.Attributes.statuscode, Workflow.Schema.Headers.statuscode }
+                    , { Workflow.Schema.Attributes.iscustomizable, Workflow.Schema.Headers.iscustomizable }
+                    , { Workflow.Schema.Attributes.ismanaged, Workflow.Schema.Headers.ismanaged }
                     , { "solution.uniquename", "SolutionName" }
                     , { "solution.ismanaged", "SolutionIsManaged" }
                     , { "suppsolution.uniquename", "SupportingName" }

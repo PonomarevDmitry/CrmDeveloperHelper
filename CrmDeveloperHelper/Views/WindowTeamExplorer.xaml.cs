@@ -1461,7 +1461,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var entityFull = service.RetrieveByQuery<Entity>(entity.LogicalName, entity.Id, new ColumnSet(true));
 
-            string fileName = EntityFileNameFormatter.GetEntityName(service.ConnectionData.Name, entityFull, "EntityDescription", "txt");
+            string fileName = EntityFileNameFormatter.GetEntityName(service.ConnectionData.Name, entityFull, EntityFileNameFormatter.Headers.EntityDescription, "txt");
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, entityFull, null, service.ConnectionData);

@@ -557,7 +557,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             await PerformShowingDifferenceDescriptionAsync(linked, showAllways);
 
-            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SiteMap.Schema.Attributes.sitemapxml, "SiteMapXml");
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SiteMap.Schema.Attributes.sitemapxml, SiteMap.Schema.Headers.sitemapxml);
         }
 
         private void mIShowDifferenceSiteMapXml_Click(object sender, RoutedEventArgs e)
@@ -569,7 +569,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, SiteMap.Schema.Attributes.sitemapxml, "SiteMapXml", PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, SiteMap.Schema.Attributes.sitemapxml, SiteMap.Schema.Headers.sitemapxml, PerformShowingDifferenceSingleXmlAsync);
         }
 
         private void ExecuteActionLinked(LinkedEntities<SiteMap> linked, bool showAllways, string fieldName, string fieldTitle, Func<LinkedEntities<SiteMap>, bool, string, string, Task> action)
@@ -739,8 +739,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (showAllways || desc1 != desc2)
                     {
-                        string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData, sitemap1.SiteMapName, sitemap1.Id, "EntityDescription", desc1);
-                        string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData, sitemap2.SiteMapName, sitemap2.Id, "EntityDescription", desc2);
+                        string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData, sitemap1.SiteMapName, sitemap1.Id, EntityFileNameFormatter.Headers.EntityDescription, desc1);
+                        string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData, sitemap2.SiteMapName, sitemap2.Id, EntityFileNameFormatter.Headers.EntityDescription, desc2);
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
@@ -804,7 +804,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(sitemap, EntityFileNameFormatter.SiteMapIgnoreFields, service.ConnectionData);
 
-                string filePath = await CreateDescriptionFileAsync(service.ConnectionData, sitemap.SiteMapName, sitemap.Id, "EntityDescription", description);
+                string filePath = await CreateDescriptionFileAsync(service.ConnectionData, sitemap.SiteMapName, sitemap.Id, EntityFileNameFormatter.Headers.EntityDescription, description);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
@@ -845,7 +845,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, SiteMap.Schema.Attributes.sitemapxml, "SiteMapXml", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, SiteMap.Schema.Attributes.sitemapxml, SiteMap.Schema.Headers.sitemapxml, PerformExportXmlToFileAsync);
         }
 
         private void mIExportSiteMap2SiteMapXml_Click(object sender, RoutedEventArgs e)
@@ -857,7 +857,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, SiteMap.Schema.Attributes.sitemapxml, "SiteMapXml", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, SiteMap.Schema.Attributes.sitemapxml, SiteMap.Schema.Headers.sitemapxml, PerformExportXmlToFileAsync);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

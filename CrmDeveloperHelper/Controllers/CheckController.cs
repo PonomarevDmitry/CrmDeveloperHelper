@@ -79,7 +79,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             List<string> wrongEntityRelationshipsManyToMany = new List<string>();
 
             var wrongWebResourceNames = new FormatTextTableHandler();
-            wrongWebResourceNames.SetHeader(WebResource.Schema.Headers.webresourcetype, WebResource.Schema.Headers.name);
+            wrongWebResourceNames.SetHeader(WebResource.Schema.Headers.webresourcetypeLong, WebResource.Schema.Headers.name);
 
             {
                 EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);

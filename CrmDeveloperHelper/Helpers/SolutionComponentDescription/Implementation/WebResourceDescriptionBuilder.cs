@@ -151,12 +151,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         {
             return new TupleList<string, string>
             {
-                { WebResource.Schema.Attributes.name, "Name" }
-                , { WebResource.Schema.Attributes.displayname, "DisplayName" }
-                , { WebResource.Schema.Attributes.webresourcetype, "Type" }
-                , { WebResource.Schema.Attributes.languagecode, "LanguageCode" }
-                , { WebResource.Schema.Attributes.ismanaged, "IsManaged" }
-                , { WebResource.Schema.Attributes.iscustomizable, "IsCustomizable" }
+                { WebResource.Schema.Attributes.name, WebResource.Schema.Headers.name }
+                , { WebResource.Schema.Attributes.displayname, WebResource.Schema.Headers.displayname }
+                , { WebResource.Schema.Attributes.webresourcetype, WebResource.Schema.Headers.webresourcetype }
+                , { WebResource.Schema.Attributes.languagecode, WebResource.Schema.Headers.languagecode }
+                , { WebResource.Schema.Attributes.ismanaged, WebResource.Schema.Headers.ismanaged }
+                , { WebResource.Schema.Attributes.iscustomizable, WebResource.Schema.Headers.iscustomizable }
                 , { "solution.uniquename", "SolutionName" }
                 , { "solution.ismanaged", "SolutionIsManaged" }
                 , { "suppsolution.uniquename", "SupportingName" }

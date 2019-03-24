@@ -345,6 +345,7 @@
     <Compile Include="Entities\DependencyNode.Generated.cs" />
     <Compile Include="Entities\ImportEntityMapping.cs" />
     <Compile Include="Entities\ImportEntityMapping.Generated.cs" />
+    <Compile Include="Entities\ImportJob.Additional.cs" />
     <Compile Include="Entities\ImportJob.cs" />
     <Compile Include="Entities\ImportJob.Generated.cs" />
     <Compile Include="Entities\ImportMap.cs" />
@@ -352,9 +353,13 @@
     <Compile Include="Entities\InvalidDependency.Additional.cs" />
     <Compile Include="Entities\InvalidDependency.cs" />
     <Compile Include="Entities\InvalidDependency.Generated.cs" />
+    <Compile Include="Entities\Organization.Additional.cs" />
     <Compile Include="Entities\ProcessTrigger.cs" />
     <Compile Include="Entities\ProcessTrigger.Generated.cs" />
+    <Compile Include="Entities\Report.Additional.cs" />
     <Compile Include="Entities\RoleTemplate.Generated.cs" />
+    <Compile Include="Entities\SavedQuery.Additional.cs" />
+    <Compile Include="Entities\SavedQueryVisualization.Additional.cs" />
     <Compile Include="Entities\SdkMessage.Additional.cs" />
     <Compile Include="Entities\SdkMessageFilter.Additional.cs" />
     <Compile Include="Entities\SdkMessagePair.cs" />
@@ -368,6 +373,8 @@
     <Compile Include="Entities\SdkMessageResponse.Generated.cs" />
     <Compile Include="Entities\SdkMessageResponseField.cs" />
     <Compile Include="Entities\SdkMessageResponseField.Generated.cs" />
+    <Compile Include="Entities\SiteMap.Additional.cs" />
+    <Compile Include="Entities\SystemForm.Additional.cs" />
     <Compile Include="Entities\SystemUserRoles.Generated.cs" />
     <Compile Include="Entities\Team.Additional.cs" />
     <Compile Include="Entities\TeamMembership.Generated.cs" />
@@ -381,6 +388,7 @@
     <Compile Include="Commands\FileReportAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\FileWebResourceAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\FolderWebResourceAddIntoSolutionInConnectionCommand.cs" />
+    <Compile Include="Entities\Workflow.Additional.cs" />
     <Compile Include="Helpers\AssemblyReader.cs" />
     <Compile Include="Helpers\AssemblyReaderResult.cs" />
     <Compile Include="Helpers\BoolToOppositeBoolConverter.cs" />

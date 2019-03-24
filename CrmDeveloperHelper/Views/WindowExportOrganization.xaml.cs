@@ -412,25 +412,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             await PerformExportEntityDescription(folder, organization);
 
-            await PerformExportXmlToFile(folder, organization, Organization.Schema.Attributes.defaultemailsettings, "DefaultEmailSettings");
+            await PerformExportXmlToFile(folder, organization, Organization.Schema.Attributes.defaultemailsettings, Organization.Schema.Headers.defaultemailsettings);
 
-            await PerformExportXmlToFile(folder, organization, Organization.Schema.Attributes.externalpartycorrelationkeys, "ExternalPartyCorrelationKeys");
+            await PerformExportXmlToFile(folder, organization, Organization.Schema.Attributes.externalpartycorrelationkeys, Organization.Schema.Headers.externalpartycorrelationkeys);
 
-            await PerformExportXmlToFile(folder, organization, Organization.Schema.Attributes.externalpartyentitysettings, "ExternalPartyEntitySettings");
+            await PerformExportXmlToFile(folder, organization, Organization.Schema.Attributes.externalpartyentitysettings, Organization.Schema.Headers.externalpartyentitysettings);
 
-            await PerformExportXmlToFile(folder, organization, Organization.Schema.Attributes.featureset, "FeatureSet");
+            await PerformExportXmlToFile(folder, organization, Organization.Schema.Attributes.featureset, Organization.Schema.Headers.featureset);
 
-            await PerformExportXmlToFile(folder, organization, Organization.Schema.Attributes.kmsettings, "KMSettings");
+            await PerformExportXmlToFile(folder, organization, Organization.Schema.Attributes.kmsettings, Organization.Schema.Headers.kmsettings);
 
-            await PerformExportXmlToFile(folder, organization, Organization.Schema.Attributes.referencesitemapxml, "ReferenceSiteMapXml");
+            await PerformExportXmlToFile(folder, organization, Organization.Schema.Attributes.referencesitemapxml, Organization.Schema.Headers.referencesitemapxml);
 
-            await PerformExportXmlToFile(folder, organization, Organization.Schema.Attributes.sitemapxml, "SiteMapXml");
+            await PerformExportXmlToFile(folder, organization, Organization.Schema.Attributes.sitemapxml, Organization.Schema.Headers.sitemapxml);
 
-            await PerformExportXmlToFile(folder, organization, Organization.Schema.Attributes.defaultthemedata, "DefaultThemeData");
+            await PerformExportXmlToFile(folder, organization, Organization.Schema.Attributes.defaultthemedata, Organization.Schema.Headers.defaultthemedata);
 
-            await PerformExportXmlToFile(folder, organization, Organization.Schema.Attributes.highcontrastthemedata, "HighContrastThemeData");
+            await PerformExportXmlToFile(folder, organization, Organization.Schema.Attributes.highcontrastthemedata, Organization.Schema.Headers.highcontrastthemedata);
 
-            await PerformExportXmlToFile(folder, organization, Organization.Schema.Attributes.slapausestates, "SlaPauseStates");
+            await PerformExportXmlToFile(folder, organization, Organization.Schema.Attributes.slapausestates, Organization.Schema.Headers.slapausestates);
         }
 
         private void ExecuteActionEntity(Organization organization, string fieldName, string fieldTitle, Func<string, Organization, string, string, Task> action)
@@ -565,7 +565,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                string fileName = EntityFileNameFormatter.GetOrganizationFileName(service.ConnectionData.Name, organization.Name, "EntityDescription", "txt");
+                string fileName = EntityFileNameFormatter.GetOrganizationFileName(service.ConnectionData.Name, organization.Name, EntityFileNameFormatter.Headers.EntityDescription, "txt");
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, organization, EntityFileNameFormatter.OrganizationIgnoreFields, service.ConnectionData);
@@ -596,7 +596,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity, Organization.Schema.Attributes.defaultemailsettings, "DefaultEmailSettings", PerformExportXmlToFile);
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.defaultemailsettings, Organization.Schema.Headers.defaultemailsettings, PerformExportXmlToFile);
         }
 
         private void mIExportOrganizationExternalPartyCorrelationKeys_Click(object sender, RoutedEventArgs e)
@@ -608,7 +608,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity, Organization.Schema.Attributes.externalpartycorrelationkeys, "ExternalPartyCorrelationKeys", PerformExportXmlToFile);
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.externalpartycorrelationkeys, Organization.Schema.Headers.externalpartycorrelationkeys, PerformExportXmlToFile);
         }
 
         private void mIExportOrganizationExternalPartyEntitySettings_Click(object sender, RoutedEventArgs e)
@@ -620,7 +620,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity, Organization.Schema.Attributes.externalpartyentitysettings, "ExternalPartyEntitySettings", PerformExportXmlToFile);
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.externalpartyentitysettings, Organization.Schema.Headers.externalpartyentitysettings, PerformExportXmlToFile);
         }
 
         private void mIExportOrganizationFeatureSet_Click(object sender, RoutedEventArgs e)
@@ -632,7 +632,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity, Organization.Schema.Attributes.featureset, "FeatureSet", PerformExportXmlToFile);
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.featureset, Organization.Schema.Headers.featureset, PerformExportXmlToFile);
         }
 
         private void mIExportOrganizationKMSettings_Click(object sender, RoutedEventArgs e)
@@ -644,7 +644,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity, Organization.Schema.Attributes.kmsettings, "KMSettings", PerformExportXmlToFile);
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.kmsettings, Organization.Schema.Headers.kmsettings, PerformExportXmlToFile);
         }
 
         private void mIExportOrganizationReferenceSiteMapXml_Click(object sender, RoutedEventArgs e)
@@ -656,7 +656,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity, Organization.Schema.Attributes.referencesitemapxml, "ReferenceSiteMapXml", PerformExportXmlToFile);
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.referencesitemapxml, Organization.Schema.Headers.referencesitemapxml, PerformExportXmlToFile);
         }
 
         private void mIExportOrganizationSiteMapXml_Click(object sender, RoutedEventArgs e)
@@ -668,7 +668,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity, Organization.Schema.Attributes.sitemapxml, "SiteMapXml", PerformExportXmlToFile);
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.sitemapxml, Organization.Schema.Headers.sitemapxml, PerformExportXmlToFile);
         }
 
         private void mIExportOrganizationDefaultThemeData_Click(object sender, RoutedEventArgs e)
@@ -680,7 +680,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity, Organization.Schema.Attributes.defaultthemedata, "DefaultThemeData", PerformExportXmlToFile);
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.defaultthemedata, Organization.Schema.Headers.defaultthemedata, PerformExportXmlToFile);
         }
 
         private void mIExportOrganizationHighContrastThemeData_Click(object sender, RoutedEventArgs e)
@@ -692,7 +692,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity, Organization.Schema.Attributes.highcontrastthemedata, "HighContrastThemeData", PerformExportXmlToFile);
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.highcontrastthemedata, Organization.Schema.Headers.highcontrastthemedata, PerformExportXmlToFile);
         }
 
         private void mIExportOrganizationSlaPauseStates_Click(object sender, RoutedEventArgs e)
@@ -704,7 +704,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity, Organization.Schema.Attributes.slapausestates, "SlaPauseStates", PerformExportXmlToFile);
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.slapausestates, Organization.Schema.Headers.slapausestates, PerformExportXmlToFile);
         }
 
         private void mIExportOrganizationShowDifferenceSiteMapXmlAndReferenceSiteMapXml_Click(object sender, RoutedEventArgs e)
@@ -718,8 +718,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ExecuteDifference(
                 entity
-                , Organization.Schema.Attributes.sitemapxml, "SiteMapXml"
-                , Organization.Schema.Attributes.referencesitemapxml, "ReferenceSiteMapXml"
+                , Organization.Schema.Attributes.sitemapxml, Organization.Schema.Headers.sitemapxml
+                , Organization.Schema.Attributes.referencesitemapxml, Organization.Schema.Headers.referencesitemapxml
                 , PerformShowingDirfference
                 );
         }
@@ -735,8 +735,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ExecuteDifference(
                 entity
-                , Organization.Schema.Attributes.defaultthemedata, "DefaultThemeData"
-                , Organization.Schema.Attributes.highcontrastthemedata, "HighContrastThemeData"
+                , Organization.Schema.Attributes.defaultthemedata, Organization.Schema.Headers.defaultthemedata
+                , Organization.Schema.Attributes.highcontrastthemedata, Organization.Schema.Headers.highcontrastthemedata
                 , PerformShowingDirfference
                 );
         }
@@ -860,7 +860,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity, Organization.Schema.Attributes.defaultemailsettings, "DefaultEmailSettings", PerformUpdateEntityField);
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.defaultemailsettings, Organization.Schema.Headers.defaultemailsettings, PerformUpdateEntityField);
         }
 
         private void mIUpdateOrganizationExternalPartyCorrelationKeys_Click(object sender, RoutedEventArgs e)
@@ -872,7 +872,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity, Organization.Schema.Attributes.externalpartycorrelationkeys, "ExternalPartyCorrelationKeys", PerformUpdateEntityField);
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.externalpartycorrelationkeys, Organization.Schema.Headers.externalpartycorrelationkeys, PerformUpdateEntityField);
         }
 
         private void mIUpdateOrganizationExternalPartyEntitySettings_Click(object sender, RoutedEventArgs e)
@@ -884,7 +884,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity, Organization.Schema.Attributes.externalpartyentitysettings, "ExternalPartyEntitySettings", PerformUpdateEntityField);
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.externalpartyentitysettings, Organization.Schema.Headers.externalpartyentitysettings, PerformUpdateEntityField);
         }
 
         private void mIUpdateOrganizationFeatureSet_Click(object sender, RoutedEventArgs e)
@@ -896,7 +896,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity, Organization.Schema.Attributes.featureset, "FeatureSet", PerformUpdateEntityField);
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.featureset, Organization.Schema.Headers.featureset, PerformUpdateEntityField);
         }
 
         private void mIUpdateOrganizationKMSettings_Click(object sender, RoutedEventArgs e)
@@ -908,7 +908,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity, Organization.Schema.Attributes.kmsettings, "KMSettings", PerformUpdateEntityField);
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.kmsettings, Organization.Schema.Headers.kmsettings, PerformUpdateEntityField);
         }
 
         private void mIUpdateOrganizationReferenceSiteMapXml_Click(object sender, RoutedEventArgs e)
@@ -920,7 +920,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity, Organization.Schema.Attributes.referencesitemapxml, "ReferenceSiteMapXml", PerformUpdateEntityField);
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.referencesitemapxml, Organization.Schema.Headers.referencesitemapxml, PerformUpdateEntityField);
         }
 
         private void mIUpdateOrganizationSiteMapXml_Click(object sender, RoutedEventArgs e)
@@ -932,7 +932,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity, Organization.Schema.Attributes.sitemapxml, "SiteMapXml", PerformUpdateEntityField);
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.sitemapxml, Organization.Schema.Headers.sitemapxml, PerformUpdateEntityField);
         }
 
         private void mIUpdateOrganizationDefaultThemeData_Click(object sender, RoutedEventArgs e)
@@ -944,7 +944,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity, Organization.Schema.Attributes.defaultthemedata, "DefaultThemeData", PerformUpdateEntityField);
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.defaultthemedata, Organization.Schema.Headers.defaultthemedata, PerformUpdateEntityField);
         }
 
         private void mIUpdateOrganizationHighContrastThemeData_Click(object sender, RoutedEventArgs e)
@@ -956,7 +956,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity, Organization.Schema.Attributes.highcontrastthemedata, "HighContrastThemeData", PerformUpdateEntityField);
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.highcontrastthemedata, Organization.Schema.Headers.highcontrastthemedata, PerformUpdateEntityField);
         }
 
         private void mIUpdateOrganizationSlaPauseStates_Click(object sender, RoutedEventArgs e)
@@ -968,7 +968,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity, Organization.Schema.Attributes.slapausestates, "SlaPauseStates", PerformUpdateEntityField);
+            ExecuteActionEntity(entity, Organization.Schema.Attributes.slapausestates, Organization.Schema.Headers.slapausestates, PerformUpdateEntityField);
         }
 
         private void miOptions_Click(object sender, RoutedEventArgs e)

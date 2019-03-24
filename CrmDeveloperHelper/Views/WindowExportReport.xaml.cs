@@ -411,17 +411,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             await PerformExportEntityDescription(folder, idReport, name, filename);
 
-            await PerformExportXmlToFile(folder, idReport, name, filename, Report.Schema.Attributes.bodytext, "BodyText");
+            await PerformExportXmlToFile(folder, idReport, name, filename, Report.Schema.Attributes.bodytext, Report.Schema.Headers.bodytext);
 
-            await PerformExportXmlToFile(folder, idReport, name, filename, Report.Schema.Attributes.originalbodytext, "OriginalBodyText");
+            await PerformExportXmlToFile(folder, idReport, name, filename, Report.Schema.Attributes.originalbodytext, Report.Schema.Headers.originalbodytext);
 
-            await PerformExportXmlToFile(folder, idReport, name, filename, Report.Schema.Attributes.defaultfilter, "DefaultFilter");
+            await PerformExportXmlToFile(folder, idReport, name, filename, Report.Schema.Attributes.defaultfilter, Report.Schema.Headers.defaultfilter);
 
-            await PerformExportXmlToFile(folder, idReport, name, filename, Report.Schema.Attributes.customreportxml, "CustomReportXml");
+            await PerformExportXmlToFile(folder, idReport, name, filename, Report.Schema.Attributes.customreportxml, Report.Schema.Headers.customreportxml);
 
-            await PerformExportXmlToFile(folder, idReport, name, filename, Report.Schema.Attributes.schedulexml, "ScheduleXml");
+            await PerformExportXmlToFile(folder, idReport, name, filename, Report.Schema.Attributes.schedulexml, Report.Schema.Headers.schedulexml);
 
-            await PerformExportXmlToFile(folder, idReport, name, filename, Report.Schema.Attributes.queryinfo, "QueryInfo");
+            await PerformExportXmlToFile(folder, idReport, name, filename, Report.Schema.Attributes.queryinfo, Report.Schema.Headers.queryinfo);
         }
 
         private async Task ExecuteActionEntity(Guid idReport, string name, string filename, string fieldName, string fieldTitle, Func<string, Guid, string, string, string, string, Task> action)
@@ -572,7 +572,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                string fileName = EntityFileNameFormatter.GetReportFileName(service.ConnectionData.Name, name, idReport, "EntityDescription", "txt");
+                string fileName = EntityFileNameFormatter.GetReportFileName(service.ConnectionData.Name, name, idReport, EntityFileNameFormatter.Headers.EntityDescription, "txt");
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                 var repository = new ReportRepository(service);
@@ -607,7 +607,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.bodytext, "BodyText", PerformExportXmlToFile);
+            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.bodytext, Report.Schema.Headers.bodytext, PerformExportXmlToFile);
         }
 
         private void mIExportReportOriginalBodyText_Click(object sender, RoutedEventArgs e)
@@ -619,7 +619,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.originalbodytext, "OriginalBodyText", PerformExportXmlToFile);
+            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.originalbodytext, Report.Schema.Headers.originalbodytext, PerformExportXmlToFile);
         }
 
         private void mIExportReportBodyBinary_Click(object sender, RoutedEventArgs e)
@@ -631,7 +631,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.bodybinary, "BodyBinary", PerformExportBodyBinary);
+            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.bodybinary, Report.Schema.Headers.bodybinary, PerformExportBodyBinary);
         }
 
         private void mIExportReportDefaultFilter_Click(object sender, RoutedEventArgs e)
@@ -643,7 +643,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.defaultfilter, "DefaultFilter", PerformExportXmlToFile);
+            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.defaultfilter, Report.Schema.Headers.defaultfilter, PerformExportXmlToFile);
         }
 
         private void mIExportReportCustomReportXml_Click(object sender, RoutedEventArgs e)
@@ -655,7 +655,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.customreportxml, "CustomReportXml", PerformExportXmlToFile);
+            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.customreportxml, Report.Schema.Headers.customreportxml, PerformExportXmlToFile);
         }
 
         private void mIExportReportScheduleXml_Click(object sender, RoutedEventArgs e)
@@ -667,7 +667,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.schedulexml, "ScheduleXml", PerformExportXmlToFile);
+            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.schedulexml, Report.Schema.Headers.schedulexml, PerformExportXmlToFile);
         }
 
         private void mIExportReportQueryInfo_Click(object sender, RoutedEventArgs e)
@@ -679,7 +679,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.queryinfo, "QueryInfo", PerformExportXmlToFile);
+            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.queryinfo, Report.Schema.Headers.queryinfo, PerformExportXmlToFile);
         }
 
         private async Task PerformExportBodyBinary(string folder, Guid idReport, string name, string filename, string fieldName, string fieldTitle)
@@ -984,7 +984,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.defaultfilter, "DefaultFilter", PerformExportXmlToFile);
+            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.defaultfilter, Report.Schema.Headers.defaultfilter, PerformExportXmlToFile);
         }
 
         private void mIUpdateReportCustomReportXml_Click(object sender, RoutedEventArgs e)
@@ -996,7 +996,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.customreportxml, "CustomReportXml", PerformExportXmlToFile);
+            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.customreportxml, Report.Schema.Headers.customreportxml, PerformExportXmlToFile);
         }
 
         private void mIUpdateReportScheduleXml_Click(object sender, RoutedEventArgs e)
@@ -1008,7 +1008,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.schedulexml, "ScheduleXml", PerformExportXmlToFile);
+            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.schedulexml, Report.Schema.Headers.schedulexml, PerformExportXmlToFile);
         }
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)

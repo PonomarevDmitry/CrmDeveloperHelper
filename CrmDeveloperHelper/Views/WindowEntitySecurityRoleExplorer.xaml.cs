@@ -1314,7 +1314,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             roleBackup.RolePrivileges.AddRange(temp.OrderBy(p => p.Name));
 
-            string fileName = EntityFileNameFormatter.GetRoleFileName(service.ConnectionData.Name, role.Role.Name, "Backup", "xml");
+            string fileName = EntityFileNameFormatter.GetRoleFileName(service.ConnectionData.Name, role.Role.Name, EntityFileNameFormatter.Headers.Backup, "xml");
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             await roleBackup.SaveAsync(filePath);

@@ -354,9 +354,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportMouseDoubleClick(string folder, Guid idSavedQueryVisualization, string entityName, string name)
         {
-            await PerformExportXmlToFile(folder, idSavedQueryVisualization, entityName, name, SavedQueryVisualization.Schema.Attributes.datadescription, "DataDescription");
+            await PerformExportXmlToFile(folder, idSavedQueryVisualization, entityName, name, SavedQueryVisualization.Schema.Attributes.datadescription, SavedQueryVisualization.Schema.Headers.datadescription);
 
-            await PerformExportXmlToFile(folder, idSavedQueryVisualization, entityName, name, SavedQueryVisualization.Schema.Attributes.presentationdescription, "PresentationDescription");
+            await PerformExportXmlToFile(folder, idSavedQueryVisualization, entityName, name, SavedQueryVisualization.Schema.Attributes.presentationdescription, SavedQueryVisualization.Schema.Headers.presentationdescription);
         }
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -465,9 +465,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             await PerformExportEntityDescription(folder, idSavedQueryVisualization, entityName, name);
 
-            await PerformExportXmlToFile(folder, idSavedQueryVisualization, entityName, name, SavedQueryVisualization.Schema.Attributes.datadescription, "DataDescription");
+            await PerformExportXmlToFile(folder, idSavedQueryVisualization, entityName, name, SavedQueryVisualization.Schema.Attributes.datadescription, SavedQueryVisualization.Schema.Headers.datadescription);
 
-            await PerformExportXmlToFile(folder, idSavedQueryVisualization, entityName, name, SavedQueryVisualization.Schema.Attributes.presentationdescription, "PresentationDescription");
+            await PerformExportXmlToFile(folder, idSavedQueryVisualization, entityName, name, SavedQueryVisualization.Schema.Attributes.presentationdescription, SavedQueryVisualization.Schema.Headers.presentationdescription);
         }
 
         private async Task ExecuteActionEntity(Guid idSavedQueryVisualization, string entityName, string name, string fieldName, string fieldTitle, Func<string, Guid, string, string, string, string, Task> action)
@@ -615,7 +615,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.datadescription, "DataDescription", PerformExportXmlToFile);
+            ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.datadescription, SavedQueryVisualization.Schema.Headers.datadescription, PerformExportXmlToFile);
         }
 
         private void mIExportSystemChartPresentationDescription_Click(object sender, RoutedEventArgs e)
@@ -627,7 +627,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.presentationdescription, "PresentationDescription", PerformExportXmlToFile);
+            ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.presentationdescription, SavedQueryVisualization.Schema.Headers.presentationdescription, PerformExportXmlToFile);
         }
 
         private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
@@ -650,7 +650,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                string fileName = EntityFileNameFormatter.GetSavedQueryVisualizationFileName(service.ConnectionData.Name, entityName, name, "EntityDescription", "txt");
+                string fileName = EntityFileNameFormatter.GetSavedQueryVisualizationFileName(service.ConnectionData.Name, entityName, name, EntityFileNameFormatter.Headers.EntityDescription, "txt");
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                 var repository = new SavedQueryVisualizationRepository(service);
@@ -1198,7 +1198,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.datadescription, "DataDescription", PerformUpdateEntityField);
+            ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.datadescription, SavedQueryVisualization.Schema.Headers.datadescription, PerformUpdateEntityField);
         }
 
         private void mIUpdateSystemChartPresentationDescription_Click(object sender, RoutedEventArgs e)
@@ -1210,7 +1210,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.presentationdescription, "PresentationDescription", PerformUpdateEntityField);
+            ExecuteActionEntity(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, SavedQueryVisualization.Schema.Attributes.presentationdescription, SavedQueryVisualization.Schema.Headers.presentationdescription, PerformUpdateEntityField);
         }
 
         private void btnPublishEntity_Click(object sender, RoutedEventArgs e)

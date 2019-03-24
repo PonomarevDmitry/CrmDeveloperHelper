@@ -150,11 +150,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         {
             return new TupleList<string, string>
                 {
-                    { SiteMap.Schema.EntityPrimaryIdAttribute, "Id" }
-                    , { SiteMap.Schema.Attributes.sitemapname, "Name" }
-                    , { SiteMap.Schema.Attributes.sitemapnameunique, "NameUnique" }
-                    , { SiteMap.Schema.Attributes.isappaware, "IsAppware" }
-                    , { SiteMap.Schema.Attributes.ismanaged, "IsManaged" }
+                    { SiteMap.Schema.Attributes.sitemapid, SiteMap.Schema.Headers.sitemapid }
+                    , { SiteMap.Schema.Attributes.sitemapname, SiteMap.Schema.Headers.name }
+                    , { SiteMap.Schema.Attributes.sitemapnameunique, SiteMap.Schema.Headers.nameunique }
+                    , { SiteMap.Schema.Attributes.isappaware, SiteMap.Schema.Headers.isappware }
+                    , { SiteMap.Schema.Attributes.ismanaged, SiteMap.Schema.Headers.ismanaged }
                     , { "solution.uniquename", "SolutionName" }
                     , { "solution.ismanaged", "SolutionIsManaged" }
                     , { "suppsolution.uniquename", "SupportingName" }

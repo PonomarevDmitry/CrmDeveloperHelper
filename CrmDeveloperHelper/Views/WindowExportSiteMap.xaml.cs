@@ -333,7 +333,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task PerformExportMouseDoubleClick(string folder, Guid idSiteMap, string name, string nameUnique)
         {
-            await PerformExportXmlToFile(folder, idSiteMap, name, nameUnique, SiteMap.Schema.Attributes.sitemapxml, "SiteMapXml");
+            await PerformExportXmlToFile(folder, idSiteMap, name, nameUnique, SiteMap.Schema.Attributes.sitemapxml, SiteMap.Schema.Headers.sitemapxml);
         }
 
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -450,7 +450,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             await PerformExportEntityDescription(folder, idSiteMap, name, nameUnique);
 
-            await PerformExportXmlToFile(folder, idSiteMap, name, nameUnique, SiteMap.Schema.Attributes.sitemapxml, "SiteMapXml");
+            await PerformExportXmlToFile(folder, idSiteMap, name, nameUnique, SiteMap.Schema.Attributes.sitemapxml, SiteMap.Schema.Headers.sitemapxml);
         }
 
         private async Task ExecuteActionEntity(Guid idSiteMap, string name, string nameUnique, string fieldName, string fieldTitle, Func<string, Guid, string, string, string, string, Task> action)
@@ -616,7 +616,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                string fileName = EntityFileNameFormatter.GetSiteMapFileName(service.ConnectionData.Name, name, idSiteMap, "EntityDescription", "txt");
+                string fileName = EntityFileNameFormatter.GetSiteMapFileName(service.ConnectionData.Name, name, idSiteMap, EntityFileNameFormatter.Headers.EntityDescription, "txt");
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                 var repository = new SitemapRepository(service);
@@ -651,7 +651,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.SiteMapName, entity.SiteMapNameUnique, SiteMap.Schema.Attributes.sitemapxml, "SiteMapXml", PerformExportXmlToFile);
+            ExecuteActionEntity(entity.Id, entity.SiteMapName, entity.SiteMapNameUnique, SiteMap.Schema.Attributes.sitemapxml, SiteMap.Schema.Headers.sitemapxml, PerformExportXmlToFile);
         }
 
         private void btnPublishSiteMap_Click(object sender, RoutedEventArgs e)
@@ -909,7 +909,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.SiteMapName, entity.SiteMapNameUnique, SiteMap.Schema.Attributes.sitemapxml, "SiteMapXml", PerformUpdateEntityField);
+            ExecuteActionEntity(entity.Id, entity.SiteMapName, entity.SiteMapNameUnique, SiteMap.Schema.Attributes.sitemapxml, SiteMap.Schema.Headers.sitemapxml, PerformUpdateEntityField);
         }
 
         private void miOptions_Click(object sender, RoutedEventArgs e)

@@ -122,10 +122,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         {
             return new TupleList<string, string>
                 {
-                    {  SavedQuery.Schema.Attributes.returnedtypecode, "EntityName" }
-                    , { SavedQuery.Schema.Attributes.name, "Name" }
-                    , { SavedQuery.Schema.Attributes.iscustomizable, "IsCustomizable" }
-                    , { SavedQuery.Schema.Attributes.ismanaged, "IsManaged" }
+                    {  SavedQuery.Schema.Attributes.returnedtypecode, SavedQuery.Schema.Headers.returnedtypecode }
+                    , { SavedQuery.Schema.Attributes.name, SavedQuery.Schema.Headers.name }
+                    , { SavedQuery.Schema.Attributes.iscustomizable, SavedQuery.Schema.Headers.iscustomizable }
+                    , { SavedQuery.Schema.Attributes.ismanaged, SavedQuery.Schema.Headers.ismanaged }
                     , { "solution.uniquename", "SolutionName" }
                     , { "solution.ismanaged", "SolutionIsManaged" }
                     , { "suppsolution.uniquename", "SupportingName" }

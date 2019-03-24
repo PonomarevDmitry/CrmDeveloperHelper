@@ -410,7 +410,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingEntityDescription);
 
-            string fileName = EntityFileNameFormatter.GetPluginTypeFileName(service.ConnectionData.Name, name, "EntityDescription");
+            string fileName = EntityFileNameFormatter.GetPluginTypeFileName(service.ConnectionData.Name, name, EntityFileNameFormatter.Headers.EntityDescription);
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
             var repository = new PluginTypeRepository(service);

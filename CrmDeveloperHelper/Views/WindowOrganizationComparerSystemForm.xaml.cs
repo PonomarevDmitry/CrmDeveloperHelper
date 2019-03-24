@@ -650,7 +650,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await PerformShowingDifferenceEntityDescriptionAsync(linked, showAllways);
 
-            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SystemForm.Schema.Attributes.formxml, "FormXml");
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SystemForm.Schema.Attributes.formxml, SystemForm.Schema.Headers.formxml);
         }
 
         private void mIShowDifferenceEntityDescription_Click(object sender, RoutedEventArgs e)
@@ -692,8 +692,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (showAllways || desc1 != desc2)
                     {
-                        string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData, systemForm1.ObjectTypeCode, systemForm1.Name, "EntityDescription", desc1);
-                        string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData, systemForm2.ObjectTypeCode, systemForm2.Name, "EntityDescription", desc2);
+                        string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData, systemForm1.ObjectTypeCode, systemForm1.Name, EntityFileNameFormatter.Headers.EntityDescription, desc1);
+                        string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData, systemForm2.ObjectTypeCode, systemForm2.Name, EntityFileNameFormatter.Headers.EntityDescription, desc2);
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
@@ -797,7 +797,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, SystemForm.Schema.Attributes.formxml, "FormXml", PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, SystemForm.Schema.Attributes.formxml, SystemForm.Schema.Headers.formxml, PerformShowingDifferenceSingleXmlAsync);
         }
 
         private void ExecuteActionLinked(LinkedEntities<SystemForm> linked, bool showAllways, string fieldName, string fieldTitle, Func<LinkedEntities<SystemForm>, bool, string, string, Action<XElement>, Task> action, Action<XElement> actionXml = null)
@@ -1099,7 +1099,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(systemForm, EntityFileNameFormatter.SystemFormIgnoreFields, service.ConnectionData);
 
-                string filePath = await CreateDescriptionFileAsync(service.ConnectionData, systemForm.ObjectTypeCode, systemForm.Name, "EntityDescription", description);
+                string filePath = await CreateDescriptionFileAsync(service.ConnectionData, systemForm.ObjectTypeCode, systemForm.Name, EntityFileNameFormatter.Headers.EntityDescription, description);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
@@ -1215,7 +1215,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntityField(link.Link.Entity1.Id, GetService1, SystemForm.Schema.Attributes.formxml, "FormXml", PerformExportXmlToFileAsync);
+            ExecuteActionEntityField(link.Link.Entity1.Id, GetService1, SystemForm.Schema.Attributes.formxml, SystemForm.Schema.Headers.formxml, PerformExportXmlToFileAsync);
         }
 
         private void mIExportSystemForm2FormXml_Click(object sender, RoutedEventArgs e)
@@ -1227,7 +1227,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntityField(link.Link.Entity2.Id, GetService2, SystemForm.Schema.Attributes.formxml, "FormXml", PerformExportXmlToFileAsync);
+            ExecuteActionEntityField(link.Link.Entity2.Id, GetService2, SystemForm.Schema.Attributes.formxml, SystemForm.Schema.Headers.formxml, PerformExportXmlToFileAsync);
         }
 
         private void mIExportSystemForm1DownloadWebResouces_Click(object sender, RoutedEventArgs e)

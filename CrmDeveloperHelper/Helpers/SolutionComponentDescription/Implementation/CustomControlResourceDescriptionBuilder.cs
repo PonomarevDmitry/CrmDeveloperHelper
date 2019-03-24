@@ -172,8 +172,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 {
                     { CustomControlResource.Schema.Attributes.customcontrolid + "." + CustomControl.Schema.Attributes.name, "ControlName" }
                     , { CustomControlResource.Schema.Attributes.name, "Name" }
-                    , { CustomControlResource.Schema.Attributes.webresourceid + "." + WebResource.Schema.Attributes.name, "WebResourceName" }
-                    , { CustomControlResource.Schema.Attributes.webresourceid + "." + WebResource.Schema.Attributes.webresourcetype, "WebResourceType" }
+                    , { CustomControlResource.Schema.Attributes.webresourceid + "." + WebResource.Schema.Attributes.name, WebResource.Schema.Headers.WebResourceName }
+                    , { CustomControlResource.Schema.Attributes.webresourceid + "." + WebResource.Schema.Attributes.webresourcetype, WebResource.Schema.Headers.webresourcetypeLong }
                     , { CustomControlResource.Schema.EntityPrimaryIdAttribute, "Id" }
                     , { CustomControlResource.Schema.Attributes.ismanaged, "IsManaged" }
                     , { "solution.uniquename", "SolutionName" }

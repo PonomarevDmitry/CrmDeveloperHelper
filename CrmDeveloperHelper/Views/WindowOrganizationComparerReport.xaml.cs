@@ -519,17 +519,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             await PerformShowingDifferenceDescriptionAsync(linked, showAllways);
 
-            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, Report.Schema.Attributes.bodytext, "BodyText");
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, Report.Schema.Attributes.bodytext, Report.Schema.Headers.bodytext);
 
-            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, Report.Schema.Attributes.originalbodytext, "OriginalBodyText");
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, Report.Schema.Attributes.originalbodytext, Report.Schema.Headers.originalbodytext);
 
-            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, Report.Schema.Attributes.defaultfilter, "DefaultFilter");
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, Report.Schema.Attributes.defaultfilter, Report.Schema.Headers.defaultfilter);
 
-            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, Report.Schema.Attributes.customreportxml, "CustomReportXml");
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, Report.Schema.Attributes.customreportxml, Report.Schema.Headers.customreportxml);
 
-            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, Report.Schema.Attributes.schedulexml, "ScheduleXml");
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, Report.Schema.Attributes.schedulexml, Report.Schema.Headers.schedulexml);
 
-            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, Report.Schema.Attributes.queryinfo, "QueryInfo");
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, Report.Schema.Attributes.queryinfo, Report.Schema.Headers.queryinfo);
         }
 
         private void mIShowDifferenceBodyText_Click(object sender, RoutedEventArgs e)
@@ -541,7 +541,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, Report.Schema.Attributes.bodytext, "BodyText", PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, Report.Schema.Attributes.bodytext, Report.Schema.Headers.bodytext, PerformShowingDifferenceSingleXmlAsync);
         }
 
         private void mIShowDifferenceOriginalBodyText_Click(object sender, RoutedEventArgs e)
@@ -553,7 +553,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, Report.Schema.Attributes.originalbodytext, "OriginalBodyText", PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, Report.Schema.Attributes.originalbodytext, Report.Schema.Headers.originalbodytext, PerformShowingDifferenceSingleXmlAsync);
         }
 
         private void mIShowDifferenceDefaultFilter_Click(object sender, RoutedEventArgs e)
@@ -565,7 +565,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, Report.Schema.Attributes.defaultfilter, "DefaultFilter", PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, Report.Schema.Attributes.defaultfilter, Report.Schema.Headers.defaultfilter, PerformShowingDifferenceSingleXmlAsync);
         }
 
         private void mIShowDifferenceCustomReportXml_Click(object sender, RoutedEventArgs e)
@@ -577,7 +577,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, Report.Schema.Attributes.customreportxml, "CustomReportXml", PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, Report.Schema.Attributes.customreportxml, Report.Schema.Headers.customreportxml, PerformShowingDifferenceSingleXmlAsync);
         }
 
         private void mIShowDifferenceScheduleXml_Click(object sender, RoutedEventArgs e)
@@ -589,7 +589,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, Report.Schema.Attributes.schedulexml, "ScheduleXml", PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, Report.Schema.Attributes.schedulexml, Report.Schema.Headers.schedulexml, PerformShowingDifferenceSingleXmlAsync);
         }
 
         private void mIShowDifferenceQueryInfo_Click(object sender, RoutedEventArgs e)
@@ -601,7 +601,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, Report.Schema.Attributes.queryinfo, "QueryInfo", PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, Report.Schema.Attributes.queryinfo, Report.Schema.Headers.queryinfo, PerformShowingDifferenceSingleXmlAsync);
         }
 
         private void ExecuteActionLinked(LinkedEntities<Report> linked, bool showAllways, string fieldName, string fieldTitle, Func<LinkedEntities<Report>, bool, string, string, Task> action)
@@ -932,7 +932,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionOnEntity(link.Link.Entity1.Id, GetService1, Report.Schema.Attributes.bodytext, "BodyText", PerformExportXmlToFile);
+            ExecuteActionOnEntity(link.Link.Entity1.Id, GetService1, Report.Schema.Attributes.bodytext, Report.Schema.Headers.bodytext, PerformExportXmlToFile);
         }
 
         private void mIExportReport2BodyText_Click(object sender, RoutedEventArgs e)
@@ -944,7 +944,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionOnEntity(link.Link.Entity2.Id, GetService2, Report.Schema.Attributes.bodytext, "BodyText", PerformExportXmlToFile);
+            ExecuteActionOnEntity(link.Link.Entity2.Id, GetService2, Report.Schema.Attributes.bodytext, Report.Schema.Headers.bodytext, PerformExportXmlToFile);
         }
 
         private void mIExportReport1OriginalBodyText_Click(object sender, RoutedEventArgs e)
@@ -956,7 +956,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionOnEntity(link.Link.Entity1.Id, GetService1, Report.Schema.Attributes.originalbodytext, "OriginalBodyText", PerformExportXmlToFile);
+            ExecuteActionOnEntity(link.Link.Entity1.Id, GetService1, Report.Schema.Attributes.originalbodytext, Report.Schema.Headers.originalbodytext, PerformExportXmlToFile);
         }
 
         private void mIExportReport2OriginalBodyText_Click(object sender, RoutedEventArgs e)
@@ -968,7 +968,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionOnEntity(link.Link.Entity2.Id, GetService2, Report.Schema.Attributes.originalbodytext, "OriginalBodyText", PerformExportXmlToFile);
+            ExecuteActionOnEntity(link.Link.Entity2.Id, GetService2, Report.Schema.Attributes.originalbodytext, Report.Schema.Headers.originalbodytext, PerformExportXmlToFile);
         }
 
         private void mIExportReport1DefaultFilter_Click(object sender, RoutedEventArgs e)
@@ -980,7 +980,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionOnEntity(link.Link.Entity1.Id, GetService1, Report.Schema.Attributes.defaultfilter, "DefaultFilter", PerformExportXmlToFile);
+            ExecuteActionOnEntity(link.Link.Entity1.Id, GetService1, Report.Schema.Attributes.defaultfilter, Report.Schema.Headers.defaultfilter, PerformExportXmlToFile);
         }
 
         private void mIExportReport2DefaultFilter_Click(object sender, RoutedEventArgs e)
@@ -992,7 +992,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionOnEntity(link.Link.Entity2.Id, GetService2, Report.Schema.Attributes.defaultfilter, "DefaultFilter", PerformExportXmlToFile);
+            ExecuteActionOnEntity(link.Link.Entity2.Id, GetService2, Report.Schema.Attributes.defaultfilter, Report.Schema.Headers.defaultfilter, PerformExportXmlToFile);
         }
 
         private void mIExportReport1CustomReportXml_Click(object sender, RoutedEventArgs e)
@@ -1004,7 +1004,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionOnEntity(link.Link.Entity1.Id, GetService1, Report.Schema.Attributes.customreportxml, "CustomReportXml", PerformExportXmlToFile);
+            ExecuteActionOnEntity(link.Link.Entity1.Id, GetService1, Report.Schema.Attributes.customreportxml, Report.Schema.Headers.customreportxml, PerformExportXmlToFile);
         }
 
         private void mIExportReport2CustomReportXml_Click(object sender, RoutedEventArgs e)
@@ -1016,7 +1016,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionOnEntity(link.Link.Entity2.Id, GetService2, Report.Schema.Attributes.customreportxml, "CustomReportXml", PerformExportXmlToFile);
+            ExecuteActionOnEntity(link.Link.Entity2.Id, GetService2, Report.Schema.Attributes.customreportxml, Report.Schema.Headers.customreportxml, PerformExportXmlToFile);
         }
 
         private void mIExportReport1ScheduleXml_Click(object sender, RoutedEventArgs e)
@@ -1028,7 +1028,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionOnEntity(link.Link.Entity1.Id, GetService1, Report.Schema.Attributes.schedulexml, "ScheduleXml", PerformExportXmlToFile);
+            ExecuteActionOnEntity(link.Link.Entity1.Id, GetService1, Report.Schema.Attributes.schedulexml, Report.Schema.Headers.schedulexml, PerformExportXmlToFile);
         }
 
         private void mIExportReport2ScheduleXml_Click(object sender, RoutedEventArgs e)
@@ -1040,7 +1040,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionOnEntity(link.Link.Entity2.Id, GetService2, Report.Schema.Attributes.schedulexml, "ScheduleXml", PerformExportXmlToFile);
+            ExecuteActionOnEntity(link.Link.Entity2.Id, GetService2, Report.Schema.Attributes.schedulexml, Report.Schema.Headers.schedulexml, PerformExportXmlToFile);
         }
 
         private void mIExportReport1QueryInfo_Click(object sender, RoutedEventArgs e)
@@ -1052,7 +1052,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionOnEntity(link.Link.Entity1.Id, GetService1, Report.Schema.Attributes.queryinfo, "QueryInfo", PerformExportXmlToFile);
+            ExecuteActionOnEntity(link.Link.Entity1.Id, GetService1, Report.Schema.Attributes.queryinfo, Report.Schema.Headers.queryinfo, PerformExportXmlToFile);
         }
 
         private void mIExportReport2QueryInfo_Click(object sender, RoutedEventArgs e)
@@ -1064,7 +1064,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionOnEntity(link.Link.Entity2.Id, GetService2, Report.Schema.Attributes.queryinfo, "QueryInfo", PerformExportXmlToFile);
+            ExecuteActionOnEntity(link.Link.Entity2.Id, GetService2, Report.Schema.Attributes.queryinfo, Report.Schema.Headers.queryinfo, PerformExportXmlToFile);
         }
 
         private void mIExportReport1BodyBinary_Click(object sender, RoutedEventArgs e)
@@ -1076,7 +1076,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionOnEntity(link.Link.Entity1.Id, GetService1, Report.Schema.Attributes.bodybinary, "BodyBinary", PerformExportBodyBinary);
+            ExecuteActionOnEntity(link.Link.Entity1.Id, GetService1, Report.Schema.Attributes.bodybinary, Report.Schema.Headers.bodybinary, PerformExportBodyBinary);
         }
 
         private void mIExportReport2BodyBinary_Click(object sender, RoutedEventArgs e)
@@ -1088,7 +1088,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionOnEntity(link.Link.Entity2.Id, GetService2, Report.Schema.Attributes.bodybinary, "BodyBinary", PerformExportBodyBinary);
+            ExecuteActionOnEntity(link.Link.Entity2.Id, GetService2, Report.Schema.Attributes.bodybinary, Report.Schema.Headers.bodybinary, PerformExportBodyBinary);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

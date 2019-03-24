@@ -7,6 +7,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     internal static class EntityFileNameFormatter
     {
+        public static partial class Headers
+        {
+            public const string EntityDescription = "EntityDescription";
+
+            public const string Backup = "Backup";
+        }
+
         private static string GetDateString()
         {
             return DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss");

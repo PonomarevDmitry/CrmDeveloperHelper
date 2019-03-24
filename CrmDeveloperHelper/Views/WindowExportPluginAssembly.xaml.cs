@@ -433,7 +433,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var assembly = await repository.GetAssemblyByIdAsync(idPluginAssembly);
 
-            string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, name, "EntityDescription", "txt");
+            string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, name, EntityFileNameFormatter.Headers.EntityDescription, "txt");
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
             await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, assembly, EntityFileNameFormatter.PluginAssemblyIgnoreFields, service.ConnectionData);

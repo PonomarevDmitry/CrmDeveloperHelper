@@ -557,9 +557,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             await PerformShowingDifferenceDescriptionAsync(linked, showAllways);
 
-            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SavedQueryVisualization.Schema.Attributes.datadescription, "DataDescription");
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SavedQueryVisualization.Schema.Attributes.datadescription, SavedQueryVisualization.Schema.Headers.datadescription);
 
-            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SavedQueryVisualization.Schema.Attributes.presentationdescription, "PresentationDescription");
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SavedQueryVisualization.Schema.Attributes.presentationdescription, SavedQueryVisualization.Schema.Headers.presentationdescription);
         }
 
         private void mIShowDifferenceDataDescription_Click(object sender, RoutedEventArgs e)
@@ -571,7 +571,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, SavedQueryVisualization.Schema.Attributes.datadescription, "DataDescription", PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, SavedQueryVisualization.Schema.Attributes.datadescription, SavedQueryVisualization.Schema.Headers.datadescription, PerformShowingDifferenceSingleXmlAsync);
         }
 
         private void mIShowDifferencePresentationDescription_Click(object sender, RoutedEventArgs e)
@@ -583,7 +583,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, SavedQueryVisualization.Schema.Attributes.presentationdescription, "PresentationDescription", PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, SavedQueryVisualization.Schema.Attributes.presentationdescription, SavedQueryVisualization.Schema.Headers.presentationdescription, PerformShowingDifferenceSingleXmlAsync);
         }
 
         private void ExecuteActionLinked(
@@ -675,7 +675,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, SavedQueryVisualization.Schema.Attributes.datadescription, "DataDescription", PerformExportXmlToFile);
+            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, SavedQueryVisualization.Schema.Attributes.datadescription, SavedQueryVisualization.Schema.Headers.datadescription, PerformExportXmlToFile);
         }
 
         private void mIExportSystemChart2DataDescription_Click(object sender, RoutedEventArgs e)
@@ -687,7 +687,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, SavedQueryVisualization.Schema.Attributes.datadescription, "DataDescription", PerformExportXmlToFile);
+            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, SavedQueryVisualization.Schema.Attributes.datadescription, SavedQueryVisualization.Schema.Headers.datadescription, PerformExportXmlToFile);
         }
 
         private void mIExportSystemChart1PresentationDescription_Click(object sender, RoutedEventArgs e)
@@ -699,7 +699,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, SavedQueryVisualization.Schema.Attributes.presentationdescription, "PresentationDescription", PerformExportXmlToFile);
+            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, SavedQueryVisualization.Schema.Attributes.presentationdescription, SavedQueryVisualization.Schema.Headers.presentationdescription, PerformExportXmlToFile);
         }
 
         private void mIExportSystemChart2PresentationDescription_Click(object sender, RoutedEventArgs e)
@@ -711,7 +711,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, SavedQueryVisualization.Schema.Attributes.presentationdescription, "PresentationDescription", PerformExportXmlToFile);
+            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, SavedQueryVisualization.Schema.Attributes.presentationdescription, SavedQueryVisualization.Schema.Headers.presentationdescription, PerformExportXmlToFile);
         }
 
         private void ExecuteActionEntity(Guid idChart, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, Func<Guid, Func<Task<IOrganizationServiceExtented>>, string, string, Task> action)
@@ -800,8 +800,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (showAllways || desc1 != desc2)
                     {
-                        string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData, chart1.PrimaryEntityTypeCode, chart1.Name, "EntityDescription", desc1);
-                        string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData, chart2.PrimaryEntityTypeCode, chart2.Name, "EntityDescription", desc2);
+                        string filePath1 = await CreateDescriptionFileAsync(service1.ConnectionData, chart1.PrimaryEntityTypeCode, chart1.Name, EntityFileNameFormatter.Headers.EntityDescription, desc1);
+                        string filePath2 = await CreateDescriptionFileAsync(service2.ConnectionData, chart2.PrimaryEntityTypeCode, chart2.Name, EntityFileNameFormatter.Headers.EntityDescription, desc2);
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
@@ -865,7 +865,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(chart, EntityFileNameFormatter.SavedQueryVisualizationIgnoreFields, service.ConnectionData);
 
-                string filePath = await CreateDescriptionFileAsync(service.ConnectionData, chart.PrimaryEntityTypeCode, chart.Name, "EntityDescription", description);
+                string filePath = await CreateDescriptionFileAsync(service.ConnectionData, chart.PrimaryEntityTypeCode, chart.Name, EntityFileNameFormatter.Headers.EntityDescription, description);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
