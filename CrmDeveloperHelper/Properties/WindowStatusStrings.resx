@@ -1308,4 +1308,10 @@
   <data name="BuildingProjectFormat1" xml:space="preserve">
     <value>Building Project {0}...</value>
   </data>
+  <data name="LoadingImportJobs" xml:space="preserve">
+    <value>Loading import jobs...</value>
+  </data>
+  <data name="LoadingImportJobsCompletedFormat1" xml:space="preserve">
+    <value>{0} import jobs loaded.</value>
+  </data>
 </root>

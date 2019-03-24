@@ -551,6 +551,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuSolutionListInWebDyn_Group = 0x1291;
         public const int commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuCustomizationInWebDyn = 0x1292;
         public const int commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuCustomizationInWebDyn_Group = 0x1293;
+        public const int commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuImportJobDyn = 0x12E0;
+        public const int commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuImportJobDyn_Group = 0x12E1;
         public const int commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen = 0x10EF;
         public const int commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenDefaultSolutionInWebDyn = 0x1295;
         public const int commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenDefaultSolutionInWebDyn_Group = 0x1296;
@@ -800,6 +802,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int FolderCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommandId = 0x2166;
         public const int FolderCSharpProjectPluginTypeStepsAddIntoSolutionLastCommandId = 0x2198;
         public const int FolderCSharpProjectPluginTypeStepsAddIntoSolutionInConnectionCommandId = 0x21CA;
+        public const int CommonImportJobExplorerInConnectionCommandId = 0x21FC;
         public const int CodeWebResourceUpdateContentPublishCommandId = 0x2000;
         public const int CodeWebResourceShowDifferenceCommandId = 0x2001;
         public const int CodeWebResourceShowDifferenceCustomCommandId = 0x2002;

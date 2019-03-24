@@ -275,6 +275,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return string.Format(TeamFormatFileTxt, connectionName, name, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
+        internal static ReadOnlyCollection<string> ImportJobIgnoreFields = new ReadOnlyCollection<string>(new[]
+        {
+            ImportJob.Schema.Attributes.data
+        });
+
+        private const string ImportJobFormatFileTxt = "{0}.ImportJob {1}{2} - {3} at {4}.{5}";
+
+        internal static string GetImportJobFileName(string connectionName, string solutionName, DateTime? createdOn, string fieldTitle, string extension)
+        {
+            string createdOnStr = string.Empty;
+
+            if (createdOn.HasValue)
+            {
+                createdOnStr = string.Format(" at {0:yyyy.MM.dd HH-mm-ss}", createdOn.Value);
+            }
+
+            return string.Format(ImportJobFormatFileTxt, connectionName, solutionName, createdOnStr, fieldTitle, GetDateString(), extension.Trim('.'));
+        }
+
         internal static string GetEntityName(string connectionName, Entity entity, string fieldTitle, string extension)
         {
             switch (entity.LogicalName.ToLower())
@@ -431,6 +450,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         var ent = entity.ToEntity<Team>();
 
                         return GetTeamFileName(connectionName, ent.Name, fieldTitle, extension.Trim('.'));
+                    }
+
+                case ImportJob.EntityLogicalName:
+                    {
+                        var ent = entity.ToEntity<ImportJob>();
+
+                        return GetImportJobFileName(connectionName, ent.SolutionName, ent.CreatedOn, fieldTitle, extension.Trim('.'));
                     }
 
                 //case SdkEntity.EntityLogicalName:

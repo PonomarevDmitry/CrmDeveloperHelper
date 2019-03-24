@@ -350,6 +350,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CommonSolutionExplorerCommand.Initialize(this);
             CommonSolutionExplorerInConnectionCommand.Initialize(this);
+            CommonImportJobExplorerInConnectionCommand.Initialize(this);
 
             CommonOpenSolutionImageCommand.Initialize(this);
             CommonExportSystemFormXmlCommand.Initialize(this);

@@ -663,4 +663,7 @@
   <data name="CreatingRoleBackupFormat2" xml:space="preserve">
     <value>{0} - Creating Role backup {1}</value>
   </data>
+  <data name="ImportJobExplorerFormat1" xml:space="preserve">
+    <value>{0} - ImportJob Explorer</value>
+  </data>
 </root>

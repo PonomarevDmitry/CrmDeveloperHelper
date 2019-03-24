@@ -1195,6 +1195,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - ImportJob Explorer.
+        /// </summary>
+        internal static string ImportJobExplorerFormat1 {
+            get {
+                return ResourceManager.GetString("ImportJobExplorerFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Multi Difference {1}.
         /// </summary>
         internal static string MultiDifferenceFormat2 {

@@ -490,6 +490,7 @@
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuSolutionListInWebDyn_Group" priority="0x0604" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuCustomizationInWebDyn_Group" priority="0x0604" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuImportJobDyn_Group" priority="0x0604" />
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen" priority="0x0604" />
 
@@ -1234,6 +1235,13 @@
           <MenuText>Customization in Web</MenuText>
         </Strings>
       </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuImportJobDyn" priority="0x0107" type="Menu">
+        <Strings>
+          <ButtonText>ImportJobs Explorer</ButtonText>
+          <MenuText>ImportJobs Explorer</MenuText>
+        </Strings>
+      </Menu>
+
 
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenDefaultSolutionInWebDyn" priority="0x0107" type="Menu">
         <Strings>
@@ -5354,6 +5362,16 @@
         </Strings>
       </Button>
 
+      <Button guid="guidDynamicCommandSet" id="CommonImportJobExplorerInConnectionCommandId" priority="0x012C" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>ImportJob Explorer in Connection Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
 
 
 
@@ -7412,24 +7430,24 @@
     <CommandPlacement guid="guidCommandSet" id="CommonOpenSolutionImageCommandId" priority="0x0120">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands" />
     </CommandPlacement>
-
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuSolutionListInWebDyn" priority="0x0121">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands" />
     </CommandPlacement>
-
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuCustomizationInWebDyn" priority="0x0122">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands" />
     </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuImportJobDyn" priority="0x0123">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands" />
+    </CommandPlacement>
+
 
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenDefaultSolutionInWebDyn" priority="0x0123">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen" />
     </CommandPlacement>
-
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenLastSolutionInWindowDyn" priority="0x012D">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen" />
     </CommandPlacement>
-
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenLastSolutionInWebDyn" priority="0x012E">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen" />
     </CommandPlacement>
@@ -8843,6 +8861,10 @@
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutionExplorerDyn_Group" />
     </CommandPlacement>
 
+
+
+
+
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll_MenuConnectionDyn_Group" priority="0x0109">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll_MenuConnectionDyn" />
     </CommandPlacement>
@@ -9122,6 +9144,13 @@
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CommonOpenCustomizationCommandId" priority="0x0122">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuCustomizationInWebDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuImportJobDyn_Group" priority="0x0122">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuImportJobDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonImportJobExplorerInConnectionCommandId" priority="0x0122">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuImportJobDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenDefaultSolutionInWebDyn_Group" priority="0x0123">
@@ -10851,6 +10880,9 @@
       <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuCustomizationInWebDyn" value="0x1292" />
       <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuCustomizationInWebDyn_Group" value="0x1293" />
 
+      <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuImportJobDyn" value="0x12E0" />
+      <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuImportJobDyn_Group" value="0x12E1" />
+
       <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen" value="0x10EF" />
 
       <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpen_MenuOpenDefaultSolutionInWebDyn" value="0x1295" />
@@ -10997,7 +11029,7 @@
 
 
 
-      <!-- 0x12E0 -->
+      <!-- 0x12E2 -->
 
 
     </GuidSymbol>
@@ -11253,7 +11285,9 @@
       <IDSymbol name="FolderCSharpProjectPluginTypeStepsAddIntoSolutionLastCommandId" value="8600" />
       <IDSymbol name="FolderCSharpProjectPluginTypeStepsAddIntoSolutionInConnectionCommandId" value="8650" />
 
-      <!-- 8700 -->
+      <IDSymbol name="CommonImportJobExplorerInConnectionCommandId" value="8700" />
+
+      <!-- 8750 -->
 
     </GuidSymbol>
 

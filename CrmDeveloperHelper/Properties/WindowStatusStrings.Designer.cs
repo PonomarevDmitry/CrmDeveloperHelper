@@ -1915,6 +1915,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loading import jobs....
+        /// </summary>
+        internal static string LoadingImportJobs {
+            get {
+                return ResourceManager.GetString("LoadingImportJobs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} import jobs loaded..
+        /// </summary>
+        internal static string LoadingImportJobsCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("LoadingImportJobsCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading many-to-many relationships....
         /// </summary>
         internal static string LoadingManyToManyRelationships {

@@ -1204,6 +1204,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
+        public void StartOpenImportJobExplorerWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._solutionController.ExecuteOpeningImportJobExlorerWindow(connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
         public void StartOpenSolutionImageWindow(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>

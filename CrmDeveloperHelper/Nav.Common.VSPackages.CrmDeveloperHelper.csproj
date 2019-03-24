@@ -190,6 +190,7 @@
     <Compile Include="Commands\CommonExportXsdSchemasCommand.cs" />
     <Compile Include="Commands\CommonFindEntityObjectsByIdCommand.cs" />
     <Compile Include="Commands\CommonFindEntityObjectsByUniqueidentifierCommand.cs" />
+    <Compile Include="Commands\CommonImportJobExplorerInConnectionCommand.cs" />
     <Compile Include="Commands\CommonOpenConfigFolderCommand.cs" />
     <Compile Include="Commands\CommonOpenCrmWebSiteCommand.cs" />
     <Compile Include="Commands\CommonCurrentConnectionCommand.cs" />
@@ -344,6 +345,8 @@
     <Compile Include="Entities\DependencyNode.Generated.cs" />
     <Compile Include="Entities\ImportEntityMapping.cs" />
     <Compile Include="Entities\ImportEntityMapping.Generated.cs" />
+    <Compile Include="Entities\ImportJob.cs" />
+    <Compile Include="Entities\ImportJob.Generated.cs" />
     <Compile Include="Entities\ImportMap.cs" />
     <Compile Include="Entities\ImportMap.Generated.cs" />
     <Compile Include="Entities\InvalidDependency.Additional.cs" />
@@ -900,6 +903,7 @@
     <Compile Include="Repository\FieldPermissionRepository.cs" />
     <Compile Include="Repository\FieldSecurityProfileRepository.cs" />
     <Compile Include="Repository\GenericRepository.cs" />
+    <Compile Include="Repository\ImportJobRepository.cs" />
     <Compile Include="Repository\InvalidDependencyRepository.cs" />
     <Compile Include="Repository\KbArticleTemplateRepository.cs" />
     <Compile Include="Repository\LanguageLocaleRepository.cs" />
@@ -1000,6 +1004,9 @@
     </Compile>
     <Compile Include="Views\WindowExplorerComponents.xaml.cs">
       <DependentUpon>WindowExplorerComponents.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowExplorerImportJob.xaml.cs">
+      <DependentUpon>WindowExplorerImportJob.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowExplorerSolutionComponentDependencies.xaml.cs">
       <DependentUpon>WindowExplorerSolutionComponentDependencies.xaml</DependentUpon>
@@ -1567,6 +1574,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowExplorerComponents.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExplorerImportJob.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -3124,6 +3124,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleOpenImportJobExplorerWindow(ConnectionData connectionData)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            {
+                return;
+            }
+
+            if (connectionData == null)
+            {
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (crmConfig != null && connectionData != null)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData, crmConfig);
+
+                try
+                {
+                    Controller.StartOpenImportJobExplorerWindow(connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
         public void HandleOpenSolutionImageWindow()
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
