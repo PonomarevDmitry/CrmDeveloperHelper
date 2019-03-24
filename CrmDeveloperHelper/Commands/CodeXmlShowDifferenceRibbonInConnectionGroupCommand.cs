@@ -59,11 +59,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var connectionConfig = ConnectionConfiguration.Get();
 
-                    var list = connectionConfig.GetConnectionsByGroupWithoutCurrent();
+                    var connectionsList = connectionConfig.GetConnectionsByGroupWithoutCurrent();
 
-                    if (0 <= index && index < list.Count)
+                    if (0 <= index && index < connectionsList.Count)
                     {
-                        var connectionData = list[index];
+                        var connectionData = connectionsList[index];
 
                         menuCommand.Enabled = menuCommand.Visible = true;
 
@@ -111,11 +111,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                 var connectionConfig = Model.ConnectionConfiguration.Get();
 
-                var list = connectionConfig.GetConnectionsByGroupWithoutCurrent();
+                var connectionsList = connectionConfig.GetConnectionsByGroupWithoutCurrent();
 
-                if (0 <= index && index < list.Count)
+                if (0 <= index && index < connectionsList.Count)
                 {
-                    var connectionData = list[index];
+                    var connectionData = connectionsList[index];
 
                     var helper = DTEHelper.Create(applicationObject);
 

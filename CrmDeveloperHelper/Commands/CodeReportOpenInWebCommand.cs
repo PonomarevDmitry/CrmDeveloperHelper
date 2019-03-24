@@ -74,11 +74,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var connectionConfig = ConnectionConfiguration.Get();
 
-                    var list = connectionConfig.GetConnectionsByGroupWithCurrent();
+                    var connectionsList = connectionConfig.GetConnectionsByGroupWithCurrent();
 
-                    if (0 <= index && index < list.Count)
+                    if (0 <= index && index < connectionsList.Count)
                     {
-                        var connectionData = list[index];
+                        var connectionData = connectionsList[index];
 
                         menuCommand.Text = connectionData.NameWithCurrentMark;
 
@@ -108,11 +108,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                 var connectionConfig = ConnectionConfiguration.Get();
 
-                var list = connectionConfig.GetConnectionsByGroupWithCurrent();
+                var connectionsList = connectionConfig.GetConnectionsByGroupWithCurrent();
 
-                if (0 <= index && index < list.Count)
+                if (0 <= index && index < connectionsList.Count)
                 {
-                    var connectionData = list[index];
+                    var connectionData = connectionsList[index];
 
                     var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
                     if (applicationObject != null)

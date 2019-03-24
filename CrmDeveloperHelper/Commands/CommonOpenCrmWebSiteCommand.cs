@@ -95,9 +95,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var connectionConfig = Model.ConnectionConfiguration.Get();
 
-                    if (0 <= index && index < connectionConfig.Connections.Count)
+                    var connectionsList = connectionConfig.Connections;
+
+                    if (0 <= index && index < connectionsList.Count)
                     {
-                        var connectionData = connectionConfig.Connections[index];
+                        var connectionData = connectionsList[index];
 
                         menuCommand.Text = connectionData.NameWithCurrentMark;
 
@@ -131,9 +133,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                 var connectionConfig = Model.ConnectionConfiguration.Get();
 
-                if (0 <= index && index < connectionConfig.Connections.Count)
+                var connectionsList = connectionConfig.Connections;
+
+                if (0 <= index && index < connectionsList.Count)
                 {
-                    var connectionData = connectionConfig.Connections[index];
+                    var connectionData = connectionsList[index];
 
                     var helper = DTEHelper.Create(applicationObject);
 

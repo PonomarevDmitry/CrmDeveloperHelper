@@ -564,15 +564,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public TupleList<ConnectionData, ConnectionData> GetConnectionPairsByGroup()
         {
-            var list = GetConnectionsByGroupWithCurrent();
+            var connectionsList = GetConnectionsByGroupWithCurrent();
 
             var result = new TupleList<ConnectionData, ConnectionData>();
 
-            for (int index1 = 0; index1 < list.Count; index1++)
+            for (int index1 = 0; index1 < connectionsList.Count; index1++)
             {
-                for (int index2 = index1 + 1; index2 < list.Count; index2++)
+                for (int index2 = index1 + 1; index2 < connectionsList.Count; index2++)
                 {
-                    result.Add(list[index1], list[index2]);
+                    result.Add(connectionsList[index1], connectionsList[index2]);
                 }
             }
 
