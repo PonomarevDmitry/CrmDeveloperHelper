@@ -169,6 +169,96 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. Assigning Entities to Team {1} completed..
+        /// </summary>
+        internal static string AssigningEntitiesToTeamCompletedFormat2 {
+            get {
+                return ResourceManager.GetString("AssigningEntitiesToTeamCompletedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Assigning Entities to Team {1}....
+        /// </summary>
+        internal static string AssigningEntitiesToTeamFormat2 {
+            get {
+                return ResourceManager.GetString("AssigningEntitiesToTeamFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Assigning Entities to User {1} completed..
+        /// </summary>
+        internal static string AssigningEntitiesToUserCompletedFormat2 {
+            get {
+                return ResourceManager.GetString("AssigningEntitiesToUserCompletedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Assigning Entities to User {1}....
+        /// </summary>
+        internal static string AssigningEntitiesToUserFormat2 {
+            get {
+                return ResourceManager.GetString("AssigningEntitiesToUserFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Assigning Entity to Team {1} completed..
+        /// </summary>
+        internal static string AssigningEntityToTeamCompletedFormat2 {
+            get {
+                return ResourceManager.GetString("AssigningEntityToTeamCompletedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Assigning Entity to Team {1} failed..
+        /// </summary>
+        internal static string AssigningEntityToTeamFailedFormat2 {
+            get {
+                return ResourceManager.GetString("AssigningEntityToTeamFailedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Assigning Entity to Team {1}....
+        /// </summary>
+        internal static string AssigningEntityToTeamFormat2 {
+            get {
+                return ResourceManager.GetString("AssigningEntityToTeamFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Assigning Entity to User {1} completed..
+        /// </summary>
+        internal static string AssigningEntityToUserCompletedFormat2 {
+            get {
+                return ResourceManager.GetString("AssigningEntityToUserCompletedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Assigning Entity to User {1} failed..
+        /// </summary>
+        internal static string AssigningEntityToUserFailedFormat2 {
+            get {
+                return ResourceManager.GetString("AssigningEntityToUserFailedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Assigning Entity to User {1}....
+        /// </summary>
+        internal static string AssigningEntityToUserFormat2 {
+            get {
+                return ResourceManager.GetString("AssigningEntityToUserFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}. Assigning roles {1} to teams {2} completed..
         /// </summary>
         internal static string AssigningRolesToTeamsCompletedFormat3 {
@@ -1254,6 +1344,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string ExecutingValidateSavedQueryRequest {
             get {
                 return ResourceManager.GetString("ExecutingValidateSavedQueryRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Executing Workflow {0} completed..
+        /// </summary>
+        internal static string ExecutingWorkflowCompletedFormat2 {
+            get {
+                return ResourceManager.GetString("ExecutingWorkflowCompletedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Executing Workflow {0} failed..
+        /// </summary>
+        internal static string ExecutingWorkflowFailedFormat2 {
+            get {
+                return ResourceManager.GetString("ExecutingWorkflowFailedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Executing Workflow {0}....
+        /// </summary>
+        internal static string ExecutingWorkflowFormat2 {
+            get {
+                return ResourceManager.GetString("ExecutingWorkflowFormat2", resourceCulture);
             }
         }
         

@@ -1528,11 +1528,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var task1 = _comparerSource.GetWorkflow1Async(new ColumnSet(true));
             var task2 = _comparerSource.GetWorkflow2Async(new ColumnSet(true));
 
-            List<Workflow> list1 = await task1;
+            List<Workflow> list1 = (await task1).ToList();
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.WorkflowsInConnectionFormat2, Connection1.Name, list1.Count()));
 
-            List<Workflow> list2 = await task2;
+            List<Workflow> list2 = (await task2).ToList();
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.WorkflowsInConnectionFormat2, Connection2.Name, list2.Count()));
 
@@ -1864,11 +1864,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var task1 = _comparerSource.GetWorkflow1Async(columnsSet);
             var task2 = _comparerSource.GetWorkflow2Async(columnsSet);
 
-            List<Workflow> list1 = await task1;
+            List<Workflow> list1 = (await task1).ToList();
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.WorkflowsInConnectionFormat2, Connection1.Name, list1.Count()));
 
-            List<Workflow> list2 = await task2;
+            List<Workflow> list2 = (await task2).ToList();
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.WorkflowsInConnectionFormat2, Connection2.Name, list2.Count()));
 

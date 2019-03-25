@@ -6,6 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
@@ -25,12 +28,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public Task<List<Workflow>> GetListAsync(string filterEntity, int? category, int? mode, ColumnSet columnSet)
+        public Task<IEnumerable<Workflow>> GetListAsync(string filterEntity, int? category, int? mode, ColumnSet columnSet)
         {
             return Task.Run(() => GetList(filterEntity, category, mode, columnSet));
         }
 
-        private List<Workflow> GetList(string filterEntity, int? category, int? mode, ColumnSet columnSet)
+        private IEnumerable<Workflow> GetList(string filterEntity, int? category, int? mode, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {
@@ -300,6 +303,77 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
 
             return result;
+        }
+
+        public static IEnumerable<DataGridColumn> GetDataGridColumn()
+        {
+            //<DataGridTextColumn Header="Entity Name" Width="260" Binding="{Binding EntityName}" />
+
+            //<DataGridTextColumn Header="Category" Width="200" Binding="{Binding Category}" />
+
+            //<DataGridTextColumn Header="Workflow Name" Width="200" Binding="{Binding WorkflowName}" />
+
+            //<DataGridTextColumn Header="Mode" Width="150" Binding="{Binding ModeName}" />
+
+            //<DataGridTextColumn Header="Status" Width="150" Binding="{Binding StatusName}" />
+
+            return new List<DataGridColumn>()
+            {
+                new DataGridTextColumn()
+                {
+                    Header = "Entity Name",
+                    Width = new DataGridLength(260),
+                    Binding = new Binding
+                    {
+                        Path = new PropertyPath("PrimaryEntity"),
+                        Mode = BindingMode.OneTime,
+                    },
+                },
+
+                new DataGridTextColumn()
+                {
+                    Header = "Category",
+                    Width = new DataGridLength(200),
+                    Binding = new Binding
+                    {
+                        Path = new PropertyPath("FormattedValues[category]"),
+                        Mode = BindingMode.OneTime,
+                    },
+                },
+
+                new DataGridTextColumn()
+                {
+                    Header = "Name",
+                    Width = new DataGridLength(200),
+                    Binding = new Binding
+                    {
+                        Path = new PropertyPath("Name"),
+                        Mode = BindingMode.OneTime,
+                    },
+                },
+
+                new DataGridTextColumn()
+                {
+                    Header = "Mode",
+                    Width = new DataGridLength(150),
+                    Binding = new Binding
+                    {
+                        Path = new PropertyPath("FormattedValues[mode]"),
+                        Mode = BindingMode.OneTime,
+                    },
+                },
+
+                new DataGridTextColumn()
+                {
+                    Header = "Status",
+                    Width = new DataGridLength(150),
+                    Binding = new Binding
+                    {
+                        Path = new PropertyPath("FormattedValues[statuscode]"),
+                        Mode = BindingMode.OneTime,
+                    },
+                },
+            };
         }
     }
 }

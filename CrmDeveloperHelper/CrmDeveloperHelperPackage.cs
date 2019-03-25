@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Threading;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.ToolWindowPanes;
 using System;
@@ -412,7 +413,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             //Repository.ConnectionIntellisenseDataRepository.LoadIntellisenseCache();
         }
 
-        internal void ExecuteFetchXmlQueryAsync(string filePath, ConnectionData connectionData, bool strictConnection)
+        internal void ExecuteFetchXmlQueryAsync(string filePath, ConnectionData connectionData, IWriteToOutput iWriteToOutput, bool strictConnection)
         {
             var panes = FindOrCreateFetchXmlExecutorToolWindowPane(filePath);
 
@@ -421,7 +422,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             if (!panes.Any() || (strictConnection && connectionPane == null))
             {
                 connectionPane = FindToolWindow(typeof(FetchXmlExecutorToolWindowPane), GetNextPaneId(), true) as FetchXmlExecutorToolWindowPane;
-                connectionPane.SetSource(filePath, connectionData);
+                connectionPane.SetSource(filePath, connectionData, iWriteToOutput);
 
                 panes.Add(connectionPane);
             }

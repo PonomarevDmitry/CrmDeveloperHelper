@@ -187,6 +187,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Assigning Entities to Team {1}.
+        /// </summary>
+        internal static string AssigningEntitiesToTeamFormat2 {
+            get {
+                return ResourceManager.GetString("AssigningEntitiesToTeamFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Assigning Entities to User {1}.
+        /// </summary>
+        internal static string AssigningEntitiesToUserFormat2 {
+            get {
+                return ResourceManager.GetString("AssigningEntitiesToUserFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Assigning Entity to Team {1}.
+        /// </summary>
+        internal static string AssigningEntityToTeamFormat2 {
+            get {
+                return ResourceManager.GetString("AssigningEntityToTeamFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Assigning Entity to User {1}.
+        /// </summary>
+        internal static string AssigningEntityToUserFormat2 {
+            get {
+                return ResourceManager.GetString("AssigningEntityToUserFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Assigning Roles {1} to Teams {2}.
         /// </summary>
         internal static string AssigningRolesToTeamsFormat3 {
@@ -939,6 +975,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string DownloadingWebResourceFormat1 {
             get {
                 return ResourceManager.GetString("DownloadingWebResourceFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Executing Workflow {1}.
+        /// </summary>
+        internal static string ExecutingWorkflowFormat2 {
+            get {
+                return ResourceManager.GetString("ExecutingWorkflowFormat2", resourceCulture);
             }
         }
         

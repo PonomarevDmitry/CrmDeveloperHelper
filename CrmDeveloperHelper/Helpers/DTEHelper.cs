@@ -581,7 +581,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 CheckWishToChangeCurrentConnection(connectionData, crmConfig);
 
-                CrmDeveloperHelperPackage.Singleton?.ExecuteFetchXmlQueryAsync(selectedFile.FilePath, connectionData, strictConnection);
+                CrmDeveloperHelperPackage.Singleton?.ExecuteFetchXmlQueryAsync(selectedFile.FilePath, connectionData, this, strictConnection);
             }
         }
 

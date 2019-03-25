@@ -50,7 +50,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return await new RoleRepository(service).GetListByIdListAsync(solutionComponents.Select(s => s.ObjectId.Value), new ColumnSet(true));
         }
 
-        protected override async Task<List<Workflow>> GetWorkflowAsync(IOrganizationServiceExtented service, ColumnSet columnSet)
+        protected override async Task<IEnumerable<Workflow>> GetWorkflowAsync(IOrganizationServiceExtented service, ColumnSet columnSet)
         {
             List<Workflow> result = new List<Workflow>();
 

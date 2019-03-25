@@ -237,11 +237,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var taskSource = _comparerSource.GetWorkflow1Async(columnsSet);
             var taskTarget = _comparerSource.GetWorkflow2Async(columnsSet);
 
-            List<Workflow> listSource = await taskSource;
+            List<Workflow> listSource = (await taskSource).ToList();
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.WorkflowsInConnectionFormat2, ConnectionSource.Name, listSource.Count()));
 
-            List<Workflow> listTarget = await taskTarget;
+            List<Workflow> listTarget = (await taskTarget).ToList();
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.WorkflowsInConnectionFormat2, ConnectionTarget.Name, listTarget.Count()));
 

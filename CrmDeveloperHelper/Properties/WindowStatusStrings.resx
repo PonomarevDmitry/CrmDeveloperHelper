@@ -1314,4 +1314,43 @@
   <data name="LoadingImportJobsCompletedFormat1" xml:space="preserve">
     <value>{0} import jobs loaded.</value>
   </data>
+  <data name="AssigningEntityToUserCompletedFormat2" xml:space="preserve">
+    <value>{0}. Assigning Entity to User {1} completed.</value>
+  </data>
+  <data name="AssigningEntitiesToTeamCompletedFormat2" xml:space="preserve">
+    <value>{0}. Assigning Entities to Team {1} completed.</value>
+  </data>
+  <data name="AssigningEntitiesToTeamFormat2" xml:space="preserve">
+    <value>{0}. Assigning Entities to Team {1}...</value>
+  </data>
+  <data name="AssigningEntitiesToUserCompletedFormat2" xml:space="preserve">
+    <value>{0}. Assigning Entities to User {1} completed.</value>
+  </data>
+  <data name="AssigningEntitiesToUserFormat2" xml:space="preserve">
+    <value>{0}. Assigning Entities to User {1}...</value>
+  </data>
+  <data name="AssigningEntityToTeamCompletedFormat2" xml:space="preserve">
+    <value>{0}. Assigning Entity to Team {1} completed.</value>
+  </data>
+  <data name="AssigningEntityToTeamFailedFormat2" xml:space="preserve">
+    <value>{0}. Assigning Entity to Team {1} failed.</value>
+  </data>
+  <data name="AssigningEntityToTeamFormat2" xml:space="preserve">
+    <value>{0}. Assigning Entity to Team {1}...</value>
+  </data>
+  <data name="AssigningEntityToUserFailedFormat2" xml:space="preserve">
+    <value>{0}. Assigning Entity to User {1} failed.</value>
+  </data>
+  <data name="AssigningEntityToUserFormat2" xml:space="preserve">
+    <value>{0}. Assigning Entity to User {1}...</value>
+  </data>
+  <data name="ExecutingWorkflowCompletedFormat2" xml:space="preserve">
+    <value>Executing Workflow {0} completed.</value>
+  </data>
+  <data name="ExecutingWorkflowFailedFormat2" xml:space="preserve">
+    <value>Executing Workflow {0} failed.</value>
+  </data>
+  <data name="ExecutingWorkflowFormat2" xml:space="preserve">
+    <value>Executing Workflow {0}...</value>
+  </data>
 </root>

@@ -473,7 +473,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (withBusinessProcesses)
             {
-                List<Workflow> businessProcesses = await repWorkflow.GetListAsync(entityNameFilter, (int)Workflow.Schema.OptionSets.category.Workflow_0, null, _columnSetWorkflow);
+                IEnumerable<Workflow> businessProcesses = await repWorkflow.GetListAsync(entityNameFilter, (int)Workflow.Schema.OptionSets.category.Workflow_0, null, _columnSetWorkflow);
 
                 foreach (var item in businessProcesses)
                 {
@@ -496,7 +496,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var listEntities = new HashSet<string>(processingSteps.Select(ent => ent.EntityName), StringComparer.InvariantCultureIgnoreCase);
 
-            List<Workflow> businessRules = null;
+            IEnumerable<Workflow> businessRules = null;
 
             if (withBusinessRules)
             {

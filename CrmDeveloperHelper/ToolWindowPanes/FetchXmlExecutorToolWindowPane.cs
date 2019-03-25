@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.Shell;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
@@ -32,9 +33,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.ToolWindowPanes
             SetCaption();
         }
 
-        public void SetSource(string filePath, ConnectionData connectionData)
+        public void SetSource(string filePath, ConnectionData connectionData, IWriteToOutput iWriteToOutput)
         {
-            _control.SetSource(filePath, connectionData);
+            _control.SetSource(filePath, connectionData, iWriteToOutput);
 
             SetCaption();
         }

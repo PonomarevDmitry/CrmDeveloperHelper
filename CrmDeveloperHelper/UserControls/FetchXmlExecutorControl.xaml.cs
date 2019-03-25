@@ -1,9 +1,13 @@
+using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Query;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Views;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -26,13 +30,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
     /// </summary>
     public partial class FetchXmlExecutorControl : UserControl
     {
+        private int _init = 0;
+
+        private EntityCollection _entityCollection;
+
+        private IWriteToOutput _iWriteToOutput;
+
         private readonly object sysObjectConnections = new object();
 
         private readonly Dictionary<Guid, object> _syncCacheObjects = new Dictionary<Guid, object>();
 
         private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
-
-        private bool _controlsEnabled = true;
 
         public event EventHandler<EventArgs> ConnectionChanged;
 
@@ -78,6 +86,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             tabControl.Loaded += TabControl_Loaded;
         }
 
+        protected bool IsControlsEnabled => this._init == 0;
+
+        protected void ChangeInitByEnabled(bool enabled)
+        {
+            if (enabled)
+            {
+                this._init++;
+            }
+            else
+            {
+                this._init--;
+            }
+        }
+
+        protected void IncreaseInit()
+        {
+            this._init++;
+        }
+
+        protected void DecreaseInit()
+        {
+            this._init--;
+        }
+
         private void TabControl_Loaded(object sender, RoutedEventArgs e)
         {
             if (_selectedItem != null)
@@ -113,7 +145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             settings.Save();
         }
 
-        public void SetSource(string filePath, ConnectionData connectionData)
+        public void SetSource(string filePath, ConnectionData connectionData, IWriteToOutput iWriteToOutput)
         {
             if (!string.IsNullOrEmpty(this.FilePath))
             {
@@ -121,6 +153,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
 
             this.FilePath = filePath;
+            this._iWriteToOutput = iWriteToOutput;
 
             BindingOperations.EnableCollectionSynchronization(connectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
@@ -139,7 +172,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             this.Execute();
         }
 
-        private void UpdateStatus(string format, params object[] args)
+        private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)
         {
             string message = format;
 
@@ -147,6 +180,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             {
                 message = string.Format(format, args);
             }
+
+            _iWriteToOutput.WriteToOutput(connectionData, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -157,18 +192,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         public async Task Execute()
         {
-            if (!_controlsEnabled)
+            if (!IsControlsEnabled)
             {
                 return;
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.ExecutingFetch);
+            ToggleControls(this.ConnectionData, false, Properties.WindowStatusStrings.ExecutingFetch);
 
             ClearGridAndTextBox();
 
             if (!TryLoadFileText())
             {
-                ToggleControls(true, Properties.WindowStatusStrings.FileNotExists);
+                ToggleControls(this.ConnectionData, true, Properties.WindowStatusStrings.FileNotExists);
                 return;
             }
 
@@ -184,7 +219,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 this._selectedItem = tbErrorText;
 
-                ToggleControls(true, Properties.WindowStatusStrings.ConnectionIsNotSelected);
+                ToggleControls(this.ConnectionData, true, Properties.WindowStatusStrings.ConnectionIsNotSelected);
 
                 return;
             }
@@ -214,7 +249,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 this._selectedItem = tbErrorText;
 
-                ToggleControls(true, Properties.WindowStatusStrings.FileTextIsNotValidXml);
+                ToggleControls(this.ConnectionData, true, Properties.WindowStatusStrings.FileTextIsNotValidXml);
 
                 return;
             }
@@ -223,7 +258,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             if (CheckParametersAndReturnHasNew(doc, connectionData))
             {
-                ToggleControls(true, Properties.WindowStatusStrings.FillNewParameters);
+                ToggleControls(this.ConnectionData, true, Properties.WindowStatusStrings.FillNewParameters);
 
                 return;
             }
@@ -232,7 +267,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             FillParametersValues(doc, connectionData);
 
-            UpdateStatus(Properties.WindowStatusStrings.ExecutingFetch);
+            UpdateStatus(this.ConnectionData, Properties.WindowStatusStrings.ExecutingFetch);
 
             await ExecuteFetchAsync(doc, connectionData);
         }
@@ -251,7 +286,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 this._selectedItem = tbErrorText;
 
-                UpdateStatus(Properties.WindowStatusStrings.FileNotExists);
+                UpdateStatus(this.ConnectionData, Properties.WindowStatusStrings.FileNotExists);
 
                 return false;
             }
@@ -270,12 +305,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private async Task ExecuteFetch(XElement fetchXml, ConnectionData connectionData)
         {
-            EntityCollection entityCollection = null;
+            this._entityCollection = null;
+
+            var service = await GetServiceAsync(connectionData);
 
             try
             {
-                var service = await GetServiceAsync(connectionData);
-
                 var request = new RetrieveMultipleRequest()
                 {
                     Query = new FetchExpression(fetchXml.ToString()),
@@ -283,11 +318,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 var response = (RetrieveMultipleResponse)service.Execute(request);
 
-                entityCollection = response.EntityCollection;
+                this._entityCollection = response.EntityCollection;
 
-                LoadData(connectionData, entityCollection, fetchXml);
+                LoadData(connectionData, this._entityCollection, fetchXml);
 
-                ToggleControls(true, Properties.WindowStatusStrings.FetchQueryExecutedSuccessfullyFormat1, entityCollection.Entities.Count);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.FetchQueryExecutedSuccessfullyFormat1, this._entityCollection.Entities.Count);
             }
             catch (Exception ex)
             {
@@ -312,7 +347,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                     this._selectedItem = tbErrorText;
 
-                    ToggleControls(true, Properties.WindowStatusStrings.FetchExecutionError);
+                    ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.FetchExecutionError);
                 });
 
                 return;
@@ -562,7 +597,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             public Guid Id { get; private set; }
 
-            public ConnectionData ConnectionData { get; private set;}
+            public ConnectionData ConnectionData { get; private set; }
 
             public PrimaryGuidView(ConnectionData connectionData, string logicalName, Guid idValue)
             {
@@ -585,7 +620,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                     return this.ConnectionData.Name.CompareTo(other.ConnectionData.Name);
                 }
 
-                return  this.Id.CompareTo(other.Id);
+                return this.Id.CompareTo(other.Id);
             }
 
             public int CompareTo(object obj)
@@ -739,12 +774,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             {
                 if (!_connectionCache.ContainsKey(connectionData.ConnectionId))
                 {
-                    DTEHelper.Singleton?.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-                    DTEHelper.Singleton?.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+                    ToggleControls(connectionData, false, string.Empty);
+
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+                    _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
                     var service = await QuickConnection.ConnectAsync(connectionData);
-                    DTEHelper.Singleton?.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
+
+                    ToggleControls(connectionData, true, string.Empty);
                 }
 
                 return _connectionCache[connectionData.ConnectionId];
@@ -860,7 +899,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             this._selectedItem = tbFetchXml;
 
-            UpdateStatus(string.Empty);
+            UpdateStatus(this.ConnectionData, string.Empty);
         }
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -882,7 +921,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             OnConnectionChanged();
 
-            if (!_controlsEnabled)
+            if (!IsControlsEnabled)
             {
                 return;
             }
@@ -917,13 +956,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        private void ToggleControls(bool enabled, string statusFormat, params object[] args)
+        private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
-            this._controlsEnabled = enabled;
+            this.ChangeInitByEnabled(enabled);
 
-            UpdateStatus(statusFormat, args);
+            UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(enabled, this.tSProgressBar, cmBCurrentConnection, tSProgressBar, this.btnExecuteFetchXml, this.btnExecuteFetchXml2, this.stBtnExecuteFetchXml, this.dGrParameters);
+            ToggleControl(IsControlsEnabled
+                , this.tSProgressBar
+                , this.cmBCurrentConnection
+                , this.tSProgressBar
+                , this.btnExecuteFetchXml
+                , this.btnExecuteFetchXml2
+                , this.stBtnExecuteFetchXml
+                , this.dGrParameters
+            );
+
+            ToggleControl(IsControlsEnabled && _entityCollection != null && _entityCollection.Entities.Count > 0
+                , this.menuExecuteWorkflow
+                , this.menuAssignToUser
+                , this.menuAssignToTeam
+            );
         }
 
         protected void ToggleControl(bool enabled, params Control[] controlsArray)
@@ -979,12 +1032,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             {
                 var service = await GetServiceAsync(this.ConnectionData);
 
-                if (DTEHelper.Singleton != null)
-                {
-                    var commonConfig = CommonConfiguration.Get();
+                var commonConfig = CommonConfiguration.Get();
 
-                    Views.WindowHelper.OpenEntityMetadataWindow(DTEHelper.Singleton, service, commonConfig, null, entity.LogicalName, null);
-                }
+                Views.WindowHelper.OpenEntityMetadataWindow(_iWriteToOutput, service, commonConfig, null, entity.LogicalName, null);
             }
         }
 
@@ -1022,6 +1072,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private async void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             if (!TryFindEntityFromDataRowView(e, out var entity))
             {
                 return;
@@ -1040,12 +1095,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, entityFull, null, service.ConnectionData);
 
-                DTEHelper.Singleton?.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
                     , service.ConnectionData.Name
                     , entityFull.LogicalName
                     , filePath);
 
-                DTEHelper.Singleton?.PerformAction(service.ConnectionData, filePath);
+                _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
         }
 
@@ -1102,12 +1157,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             {
                 var service = await GetServiceAsync(this.ConnectionData);
 
-                if (DTEHelper.Singleton != null)
-                {
-                    var commonConfig = CommonConfiguration.Get();
+                var commonConfig = CommonConfiguration.Get();
 
-                    Views.WindowHelper.OpenEntityMetadataWindow(DTEHelper.Singleton, service, commonConfig, null, entityReferenceView.LogicalName, null);
-                }
+                Views.WindowHelper.OpenEntityMetadataWindow(_iWriteToOutput, service, commonConfig, null, entityReferenceView.LogicalName, null);
             }
         }
 
@@ -1153,6 +1205,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private async void mICreateEntityReferenceDescription_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             if (!TryFindEntityReferenceViewFromRow(e, out var entityReferenceView))
             {
                 return;
@@ -1171,12 +1228,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, entityFull, null, service.ConnectionData);
 
-                DTEHelper.Singleton?.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
                     , service.ConnectionData.Name
                     , entityFull.LogicalName
                     , filePath);
 
-                DTEHelper.Singleton?.PerformAction(service.ConnectionData, filePath);
+                _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
         }
 
@@ -1263,6 +1320,469 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             string jsCode = ContentCoparerHelper.FormatToJavaScript("fetchXml", fileText);
 
             Clipboard.SetText(jsCode);
+        }
+
+        private async void mIExecuteWorkflowOnEntity_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            var service = await GetServiceAsync(this.ConnectionData);
+
+            var repository = new WorkflowRepository(service);
+
+            Func<string, Task<IEnumerable<Workflow>>> getter = (string filter) => repository.GetListAsync(
+                entity.LogicalName
+                , (int)Workflow.Schema.OptionSets.category.Workflow_0
+                , null
+                , new ColumnSet(
+                    Workflow.Schema.Attributes.workflowid
+                    , Workflow.Schema.Attributes.category
+                    , Workflow.Schema.Attributes.name
+                    , Workflow.Schema.Attributes.mode
+                    , Workflow.Schema.Attributes.uniquename
+                    , Workflow.Schema.Attributes.primaryentity
+                    , Workflow.Schema.Attributes.iscustomizable
+                    , Workflow.Schema.Attributes.statuscode
+                )
+            );
+
+            IEnumerable<DataGridColumn> columns = WorkflowRepository.GetDataGridColumn();
+
+            var form = new WindowEntitySelect<Workflow>(_iWriteToOutput, service.ConnectionData, Workflow.EntityLogicalName, getter, columns);
+
+            if (!form.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            if (form.SelectedEntity == null)
+            {
+                return;
+            }
+
+            Workflow workflow = form.SelectedEntity;
+
+            string operationName = string.Format(Properties.OperationNames.ExecutingWorkflowFormat2, service.ConnectionData.Name, workflow.Name);
+
+            _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ExecutingWorkflowFormat2, service.ConnectionData.Name, workflow.Name);
+
+            try
+            {
+                var request = new ExecuteWorkflowRequest()
+                {
+                    EntityId = entity.Id,
+                    WorkflowId = workflow.Id,
+                };
+
+                var url = service.ConnectionData.GetEntityInstanceUrl(entity.LogicalName, entity.Id);
+
+                _iWriteToOutput.WriteToOutput(service.ConnectionData, $@"Executing Workflow {workflow.Name}
+    LogicalName: {entity.LogicalName}
+    Id:          {entity.Id}
+    Url:         {url}");
+
+                await service.ExecuteAsync(request);
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExecutingWorkflowCompletedFormat2, service.ConnectionData.Name, workflow.Name);
+            }
+            catch (Exception ex)
+            {
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExecutingWorkflowFailedFormat2, service.ConnectionData.Name, workflow.Name);
+
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+            }
+
+            _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
+        }
+
+        private async void mIAssignEntityToUser_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            var service = await GetServiceAsync(this.ConnectionData);
+
+            var repository = new SystemUserRepository(service);
+
+            Func<string, Task<IEnumerable<SystemUser>>> getter = (string filter) => repository.GetUsersAsync(filter
+                , new ColumnSet(
+                    SystemUser.Schema.Attributes.domainname
+                    , SystemUser.Schema.Attributes.fullname
+                    , SystemUser.Schema.Attributes.businessunitid
+                    , SystemUser.Schema.Attributes.isdisabled
+                )
+            );
+
+            IEnumerable<DataGridColumn> columns = SystemUserRepository.GetDataGridColumn();
+
+            var form = new WindowEntitySelect<SystemUser>(_iWriteToOutput, service.ConnectionData, SystemUser.EntityLogicalName, getter, columns);
+
+            if (!form.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            if (form.SelectedEntity == null)
+            {
+                return;
+            }
+
+            SystemUser user = form.SelectedEntity;
+
+            string operationName = string.Format(Properties.OperationNames.AssigningEntityToUserFormat2, service.ConnectionData.Name, user.FullName);
+
+            _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AssigningEntityToUserFormat2, service.ConnectionData.Name, user.FullName);
+
+            try
+            {
+                var request = new AssignRequest()
+                {
+                    Target = entity.ToEntityReference(),
+                    Assignee = user.ToEntityReference(),
+                };
+
+                await service.ExecuteAsync(request);
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AssigningEntityToUserCompletedFormat2, service.ConnectionData.Name, user.FullName);
+            }
+            catch (Exception ex)
+            {
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AssigningEntityToUserFailedFormat2, service.ConnectionData.Name, user.FullName);
+
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+            }
+
+            _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
+        }
+
+        private async void mIAssignEntityToTeam_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            var service = await GetServiceAsync(this.ConnectionData);
+
+            var repository = new TeamRepository(service);
+
+            Func<string, Task<IEnumerable<Team>>> getter = (string filter) => repository.GetOwnerTeamsAsync(filter
+                , new ColumnSet(
+                    Team.Schema.Attributes.name
+                    , Team.Schema.Attributes.businessunitid
+                    , Team.Schema.Attributes.isdefault
+                )
+            );
+
+            IEnumerable<DataGridColumn> columns = TeamRepository.GetDataGridColumnOwner();
+
+            var form = new WindowEntitySelect<Team>(_iWriteToOutput, service.ConnectionData, Team.EntityLogicalName, getter, columns);
+
+            if (!form.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            if (form.SelectedEntity == null)
+            {
+                return;
+            }
+
+            Team team = form.SelectedEntity;
+
+            string operationName = string.Format(Properties.OperationNames.AssigningEntityToTeamFormat2, service.ConnectionData.Name, team.Name);
+
+            _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AssigningEntityToTeamFormat2, service.ConnectionData.Name, team.Name);
+
+            try
+            {
+                var request = new AssignRequest()
+                {
+                    Target = entity.ToEntityReference(),
+                    Assignee = team.ToEntityReference(),
+                };
+
+                await service.ExecuteAsync(request);
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AssigningEntityToTeamCompletedFormat2, service.ConnectionData.Name, team.Name);
+            }
+            catch (Exception ex)
+            {
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AssigningEntityToTeamFailedFormat2, service.ConnectionData.Name, team.Name);
+
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+            }
+
+            _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
+        }
+
+        private async void miExecuteWorkflowOnAllEntites_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null || _entityCollection.Entities.Count == 0)
+            {
+                return;
+            }
+
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            var service = await GetServiceAsync(this.ConnectionData);
+
+            var repository = new WorkflowRepository(service);
+
+            Func<string, Task<IEnumerable<Workflow>>> getter = (string filter) => repository.GetListAsync(
+                _entityCollection[0].LogicalName
+                , (int)Workflow.Schema.OptionSets.category.Workflow_0
+                , null
+                , new ColumnSet(
+                    Workflow.Schema.Attributes.workflowid
+                    , Workflow.Schema.Attributes.category
+                    , Workflow.Schema.Attributes.name
+                    , Workflow.Schema.Attributes.mode
+                    , Workflow.Schema.Attributes.uniquename
+                    , Workflow.Schema.Attributes.primaryentity
+                    , Workflow.Schema.Attributes.iscustomizable
+                    , Workflow.Schema.Attributes.statuscode
+                )
+            );
+
+            IEnumerable<DataGridColumn> columns = WorkflowRepository.GetDataGridColumn();
+
+            var form = new WindowEntitySelect<Workflow>(_iWriteToOutput, service.ConnectionData, Workflow.EntityLogicalName, getter, columns);
+
+            if (!form.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            if (form.SelectedEntity == null)
+            {
+                return;
+            }
+
+            Workflow workflow = form.SelectedEntity;
+
+            string operationName = string.Format(Properties.OperationNames.ExecutingWorkflowFormat2, service.ConnectionData.Name, workflow.Name);
+
+            _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ExecutingWorkflowFormat2, service.ConnectionData.Name, workflow.Name);
+
+            foreach (var entity in _entityCollection.Entities)
+            {
+                try
+                {
+                    var request = new ExecuteWorkflowRequest()
+                    {
+                        EntityId = entity.Id,
+                        WorkflowId = workflow.Id,
+                    };
+
+                    var url = service.ConnectionData.GetEntityInstanceUrl(entity.LogicalName, entity.Id);
+
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, $@"Executing Workflow {workflow.Name}
+    LogicalName: {entity.LogicalName}
+    Id:          {entity.Id}
+    Url:         {url}");
+
+                    await service.ExecuteAsync(request);
+
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                }
+            }
+
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExecutingWorkflowCompletedFormat2, service.ConnectionData.Name, workflow.Name);
+
+            _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
+        }
+
+        private async void miAssignToUserAllEntites_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null || _entityCollection.Entities.Count == 0)
+            {
+                return;
+            }
+
+            var service = await GetServiceAsync(this.ConnectionData);
+
+            var repository = new SystemUserRepository(service);
+
+            Func<string, Task<IEnumerable<SystemUser>>> getter = (string filter) => repository.GetUsersAsync(filter
+                , new ColumnSet(
+                    SystemUser.Schema.Attributes.domainname
+                    , SystemUser.Schema.Attributes.fullname
+                    , SystemUser.Schema.Attributes.businessunitid
+                    , SystemUser.Schema.Attributes.isdisabled
+                )
+            );
+
+            IEnumerable<DataGridColumn> columns = SystemUserRepository.GetDataGridColumn();
+
+            var form = new WindowEntitySelect<SystemUser>(_iWriteToOutput, service.ConnectionData, SystemUser.EntityLogicalName, getter, columns);
+
+            if (!form.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            if (form.SelectedEntity == null)
+            {
+                return;
+            }
+
+            SystemUser user = form.SelectedEntity;
+
+            string operationName = string.Format(Properties.OperationNames.AssigningEntitiesToUserFormat2, service.ConnectionData.Name, user.FullName);
+
+            _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AssigningEntitiesToUserFormat2, service.ConnectionData.Name, user.FullName);
+
+            foreach (var entity in _entityCollection.Entities)
+            {
+                try
+                {
+                    var request = new AssignRequest()
+                    {
+                        Target = entity.ToEntityReference(),
+                        Assignee = user.ToEntityReference(),
+                    };
+
+                    var url = service.ConnectionData.GetEntityInstanceUrl(entity.LogicalName, entity.Id);
+
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, $@"Assigning Entity to User {user.FullName}
+    LogicalName: {entity.LogicalName}
+    Id:          {entity.Id}
+    Url:         {url}");
+
+                    await service.ExecuteAsync(request);
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                }
+            }
+
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AssigningEntitiesToUserCompletedFormat2, service.ConnectionData.Name, user.FullName);
+
+            _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
+        }
+
+        private async void miAssignToTeamAllEntites_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null || _entityCollection.Entities.Count == 0)
+            {
+                return;
+            }
+
+            var service = await GetServiceAsync(this.ConnectionData);
+
+            var repository = new TeamRepository(service);
+
+            Func<string, Task<IEnumerable<Team>>> getter = (string filter) => repository.GetOwnerTeamsAsync(filter
+                , new ColumnSet(
+                    Team.Schema.Attributes.name
+                    , Team.Schema.Attributes.businessunitid
+                    , Team.Schema.Attributes.isdefault
+                )
+            );
+
+            IEnumerable<DataGridColumn> columns = TeamRepository.GetDataGridColumnOwner();
+
+            var form = new WindowEntitySelect<Team>(_iWriteToOutput, service.ConnectionData, Team.EntityLogicalName, getter, columns);
+
+            if (!form.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            if (form.SelectedEntity == null)
+            {
+                return;
+            }
+
+            Team team = form.SelectedEntity;
+
+            string operationName = string.Format(Properties.OperationNames.AssigningEntitiesToTeamFormat2, service.ConnectionData.Name, team.Name);
+
+            _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AssigningEntitiesToTeamFormat2, service.ConnectionData.Name, team.Name);
+
+            foreach (var entity in _entityCollection.Entities)
+            {
+                try
+                {
+                    var request = new AssignRequest()
+                    {
+                        Target = entity.ToEntityReference(),
+                        Assignee = team.ToEntityReference(),
+                    };
+
+                    var url = service.ConnectionData.GetEntityInstanceUrl(entity.LogicalName, entity.Id);
+
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, $@"Assigning Entity to Team {team.Name}
+    LogicalName: {entity.LogicalName}
+    Id:          {entity.Id}
+    Url:         {url}");
+
+                    await service.ExecuteAsync(request);
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                }
+            }
+
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AssigningEntitiesToTeamCompletedFormat2, service.ConnectionData.Name, team.Name);
+
+            _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
         }
     }
 }
