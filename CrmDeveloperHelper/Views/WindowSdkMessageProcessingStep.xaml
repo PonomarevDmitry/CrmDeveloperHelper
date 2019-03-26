@@ -88,7 +88,7 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Content="EventHandler" Grid.Row="0" Grid.Column="0"/>
-                        <TextBox x:Name="txtBEventHandler" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" IsReadOnly="true" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrush}}" />
+                        <TextBox x:Name="txtBEventHandler" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" IsReadOnly="true" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrush}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
 
                         <Label Content="Message" Grid.Row="1" Grid.Column="0"/>
                         <ComboBox x:Name="cmBMessageName" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" SelectionChanged="cmBMessageName_SelectionChanged" />
@@ -100,7 +100,7 @@
                         <ComboBox x:Name="cmBSecondaryEntity" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" />
 
                         <Label x:Name="lblFilteringBAttributes" Content="Filtering Attributes" Grid.Row="4" Grid.Column="0"/>
-                        <TextBox x:Name="txtBFilteringBAttributes" Grid.Row="4" Grid.Column="1" IsReadOnly="true" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrush}}" />
+                        <TextBox x:Name="txtBFilteringBAttributes" Grid.Row="4" Grid.Column="1" IsReadOnly="true" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrush}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
                         <Button x:Name="btnSelectAttributes" Content="Select" Grid.Row="4" Grid.Column="2" Click="btnSelectAttributes_Click" IsEnabled="False" />
 
                         <Label Content="Name" Grid.Row="5" Grid.Column="0"/>
@@ -108,7 +108,7 @@
                         <Button Content="Generate" Grid.Row="5" Grid.Column="2" Click="btnGenerateName_Click" />
 
                         <Label Content="Run in User's Context" Grid.Row="6" Grid.Column="0"/>
-                        <TextBox x:Name="txtBRunInUserContext" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" IsReadOnly="true" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrush}}" />
+                        <TextBox x:Name="txtBRunInUserContext" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" IsReadOnly="true" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrush}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
 
                         <Grid Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2">
 

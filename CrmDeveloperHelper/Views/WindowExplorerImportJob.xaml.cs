@@ -557,8 +557,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        formattedResults = ContentCoparerHelper.FormatXmlByConfiguration(formattedResults, _commonConfig, _xmlOptions);
-
                         File.WriteAllText(filePath, formattedResults, new UTF8Encoding(false));
 
                         this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);

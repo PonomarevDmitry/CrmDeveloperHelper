@@ -101,13 +101,13 @@
                         </GroupBox>
                         <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
                         <GroupBox Grid.Column="2" Header="Fetch Xml Text">
-                            <TextBox x:Name="txtBFetchXml" IsReadOnly="True" IsReadOnlyCaretVisible="True" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrush}}" />
+                            <TextBox x:Name="txtBFetchXml" IsReadOnly="True" IsReadOnlyCaretVisible="True" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrush}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
                         </GroupBox>
                     </Grid>
                 </DockPanel>
             </TabItem>
             <TabItem x:Name="tbErrorText" IsEnabled="False" Visibility="Collapsed" IsSelected="False" Header="Error Text">
-                <TextBox x:Name="txtBErrorText" Margin="5" IsReadOnly="True" IsReadOnlyCaretVisible="True" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrush}}" />
+                <TextBox x:Name="txtBErrorText" Margin="5" IsReadOnly="True" IsReadOnlyCaretVisible="True" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrush}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
             </TabItem>
             <TabItem x:Name="tbResults" IsEnabled="False" Visibility="Collapsed" IsSelected="False" Header="Results">
                 <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="true">

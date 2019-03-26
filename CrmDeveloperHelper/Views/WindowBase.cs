@@ -525,6 +525,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     if (control is TextBox textBox)
                     {
                         textBox.IsReadOnly = !IsControlsEnabled;
+                        textBox.IsReadOnlyCaretVisible = !IsControlsEnabled;
                     }
                     else if (control is ProgressBar progressBar)
                     {

@@ -350,8 +350,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , trVPluginTreeMissing
                 , btnClose
 
-                , btnLoadAssembly
                 , btnSelectFile
+                , btnLoadAssembly
+                , btnBuildProject
+
                 , txtBDescription
 
                 , txtBFileNameOnServer
