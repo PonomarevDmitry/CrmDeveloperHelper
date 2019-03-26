@@ -31,10 +31,10 @@
 
         <ContextMenu x:Key="listContextMenuRole" Opened="ContextMenuRole_Opened">
             <MenuItem Header="Open Role in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceInWeb_Click" />
-            
+
             <Separator/>
             <MenuItem Header="Open Role List in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
-            
+
             <Separator/>
             <MenuItem Header="Create Role Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click" />
 
@@ -42,8 +42,34 @@
             <MenuItem Header="Create Role Backup" VerticalAlignment="Center" Click="mICreateRoleBackup_Click" />
 
             <Separator/>
+            <MenuItem Header="Change Role Privileges">
+                <MenuItem Header="Clear Role" VerticalAlignment="Center" Click="mIClearRole_Click" ToolTip="Clear Role Privileges" />
+
+                <Separator/>
+                <MenuItem Header="Add Unique Privileges From Target Role" VerticalAlignment="Center" Click="mIAddUniquePrivilegesFromRole_Click" ToolTip="Add Unique Privileges that are not From Target Role" />
+
+                <Separator/>
+                <MenuItem Header="Merge Common Privileges to Max From Target Role" VerticalAlignment="Center" Click="mIMergeCommonPrivilegesToMaxFromRole_Click" ToolTip="Merge Common Privileges to Maximum Depth From Target Role" />
+
+                <Separator/>
+                <MenuItem Header="Replace Privileges From Target Role" VerticalAlignment="Center" Click="mIReplacePrivilegesFromRole_Click" ToolTip="Replace Privileges From Target Role" />
+            </MenuItem>
+
+            <Separator/>
+            <MenuItem Header="Copy Privileges">
+                <MenuItem Header="Add Unique Privileges to Target Role" VerticalAlignment="Center" Click="mIAddUniquePrivilegesToRole_Click" ToolTip="Add Unique Privileges that are not in Target Role" />
+                
+                <Separator/>
+                <MenuItem Header="Merge Common Privileges to Max to Target Role" VerticalAlignment="Center" Click="mIMergeCommonPrivilegesToMaxInRole_Click" ToolTip="Merge Common Privileges to Maximum Depth in Target Role" />
+                
+                <Separator/>
+                <MenuItem Header="Replace Privileges in Target Role" VerticalAlignment="Center" Click="mIReplacePrivilegesInRole_Click" ToolTip="Replace Privileges in Target Role" />
+            </MenuItem>
+
+            <Separator/>
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddRoleIntoCrmSolution_Click" />
+
             <Separator/>
             <MenuItem Header="Clipboard">
                 <MenuItem Header="Copy User Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
@@ -256,10 +282,10 @@
                         </DataGrid>
                     </DockPanel>
                 </TabItem>
-                
+
                 <TabItem Header="Teams">
                     <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True" >
-                        
+
                         <ToolBar Margin="0" VerticalAlignment="Top" Height="Auto" DockPanel.Dock="Top">
                             <Button x:Name="btnRefreshTeams" HorizontalAlignment="Left" Click="btnRefreshTeams_Click">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -272,7 +298,7 @@
                             <Separator Margin="20,0" />
                             <Button x:Name="btnRemoveRoleFromTeam" IsEnabled="False" Content="Remove Role from Team" Click="btnRemoveRoleFromTeam_Click"/>
                         </ToolBar>
-                        
+
                         <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
@@ -307,7 +333,7 @@
                                 <DataGridTextColumn Header="BusinessUnit" Width="200" Binding="{Binding BusinessUnitId.Name, Mode=OneTime}" />
 
                             </DataGrid.Columns>
-                        </DataGrid>                        
+                        </DataGrid>
                     </DockPanel>
                 </TabItem>
 
@@ -369,7 +395,7 @@
                             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                                 <MenuItem Header="Clear Cache" Click="mIClearEntityCacheAndRefresh_Click" VerticalAlignment="Center" />
-                            </Menu>                            
+                            </Menu>
                         </ToolBar>
 
                         <Grid VerticalAlignment="Top" DockPanel.Dock="Top">

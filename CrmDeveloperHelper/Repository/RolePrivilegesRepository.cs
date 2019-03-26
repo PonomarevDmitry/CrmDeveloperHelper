@@ -571,7 +571,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
 
             var roleArray = idRoles.ToArray();
-            
+
             var roles = GetRolesForTeamBusinessUnit(idTeam, roleArray);
 
             if (roles.Any())
@@ -679,7 +679,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             , IEnumerable<RolePrivilege> privilegesRemove
             )
         {
-            return Task.Run(() => ModifyRolePrivileges(idRole, privilegesAdd,  privilegesRemove));
+            return Task.Run(() => ModifyRolePrivileges(idRole, privilegesAdd, privilegesRemove));
         }
 
         private void ModifyRolePrivileges(Guid idRole
@@ -711,6 +711,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                     _service.Execute(request);
                 }
+            }
+        }
+
+        public Task ReplaceRolePrivilegesAsync(Guid idRole, IEnumerable<RolePrivilege> privileges)
+        {
+            return Task.Run(() => ReplaceRolePrivilege(idRole, privileges));
+        }
+
+        private void ReplaceRolePrivilege(Guid idRole, IEnumerable<RolePrivilege> privileges)
+        {
+            if (privileges != null)
+            {
+                ReplacePrivilegesRoleRequest request = new ReplacePrivilegesRoleRequest()
+                {
+                    RoleId = idRole,
+                    Privileges = privileges.ToArray(),
+                };
+
+                _service.Execute(request);
             }
         }
     }

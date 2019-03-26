@@ -372,4 +372,13 @@
   <data name="ExportedRoleBackupForConnectionFormat3" xml:space="preserve">
     <value>{0}. Role backup {1} exported to file: {2}</value>
   </data>
+  <data name="AddedNewPrivilegesForConnectionFormat3" xml:space="preserve">
+    <value>{0}. Role {1} Added New Privileges exported to file: {2}</value>
+  </data>
+  <data name="AllNewPrivilegesForConnectionFormat3" xml:space="preserve">
+    <value>{0}. Role {1} All New Privileges exported to file: {2}</value>
+  </data>
+  <data name="ChangedPrivilegesForConnectionFormat3" xml:space="preserve">
+    <value>{0}. Role {1} Changed Privileges exported to file: {2}</value>
+  </data>
 </root>

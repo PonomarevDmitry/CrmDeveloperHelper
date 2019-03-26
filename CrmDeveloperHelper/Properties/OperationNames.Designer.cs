@@ -88,6 +88,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Adding New Privileges from {1} to {2}.
+        /// </summary>
+        internal static string AddingNewPrivilegesFromRoleToRoleFormat3 {
+            get {
+                return ResourceManager.GetString("AddingNewPrivilegesFromRoleToRoleFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Adding PluginAssembly into Solution {1}.
         /// </summary>
         internal static string AddingPluginAssemblyIntoSolutionFormat2 {
@@ -691,6 +700,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Clearing Role Privileges {1}.
+        /// </summary>
+        internal static string ClearingRolePrivilegesFormat2 {
+            get {
+                return ResourceManager.GetString("ClearingRolePrivilegesFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comparing Connections {0} and {1}.
         /// </summary>
         internal static string ComparingConnectionsFormat2 {
@@ -1249,6 +1267,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Merging Privileges to Maximum from {1} to {2}.
+        /// </summary>
+        internal static string MergingPrivilegesToMaximumFromRoleToRoleFormat3 {
+            get {
+                return ResourceManager.GetString("MergingPrivilegesToMaximumFromRoleToRoleFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Multi Difference {1}.
         /// </summary>
         internal static string MultiDifferenceFormat2 {
@@ -1515,6 +1542,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string RemovingUsersFromTeamsFormat3 {
             get {
                 return ResourceManager.GetString("RemovingUsersFromTeamsFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Replacing Privileges from {1} to {2}.
+        /// </summary>
+        internal static string ReplacingPrivilegesFromRoleToRoleFormat3 {
+            get {
+                return ResourceManager.GetString("ReplacingPrivilegesFromRoleToRoleFormat3", resourceCulture);
             }
         }
         

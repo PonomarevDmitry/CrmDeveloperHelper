@@ -1303,16 +1303,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _service.ConnectionData.OpenCrmWebSite(OpenCrmWebSiteType.Solutions);
         }
 
-        private async void btnOpenInWebDefaultSolution_Click(object sender, RoutedEventArgs e)
+        private void btnOpenInWebDefaultSolution_Click(object sender, RoutedEventArgs e)
         {
-            var repository = new SolutionRepository(_service);
-
-            var solution = await repository.GetSolutionByUniqueNameAsync(Solution.InstancesUniqueNames.Default);
-
-            if (solution != null)
-            {
-                _service.ConnectionData.OpenSolutionInWeb(solution.Id);
-            }
+            _service.ConnectionData.OpenSolutionInWeb(Solution.Schema.InstancesUniqueId.DefaultId);
         }
     }
 }

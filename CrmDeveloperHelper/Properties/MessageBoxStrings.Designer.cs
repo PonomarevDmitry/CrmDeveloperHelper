@@ -133,6 +133,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure want to clear Role {0} Privileges?.
+        /// </summary>
+        internal static string ClearRoleFormat1 {
+            get {
+                return ResourceManager.GetString("ClearRoleFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure want to clear solution {0}?.
         /// </summary>
         internal static string ClearSolutionFormat1 {

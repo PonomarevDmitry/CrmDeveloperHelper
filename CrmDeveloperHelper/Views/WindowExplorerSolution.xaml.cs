@@ -2478,14 +2478,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
-            var repository = new SolutionRepository(service);
-
-            var solution = await repository.GetSolutionByUniqueNameAsync(Solution.InstancesUniqueNames.Default);
-
-            if (solution != null)
-            {
-                service.ConnectionData.OpenSolutionInWeb(solution.Id);
-            }
+            service.ConnectionData.OpenSolutionInWeb(Solution.Schema.InstancesUniqueId.DefaultId);
         }
 
         private void mIClearUnmanagedSolution_Click(object sender, RoutedEventArgs e)

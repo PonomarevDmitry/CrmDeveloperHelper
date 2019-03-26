@@ -7,6 +7,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
     {
         public static partial class Schema
         {
+            public static partial class Headers
+            {
+                public const string AllNewPrivileges = "AllNewPrivileges";
+
+                public const string AddedNewPrivileges = "AddedNewPrivileges";
+
+                public const string ChangedPrivileges = "ChangedPrivileges";
+            }
+
             public static partial class EntityAliasFields
             {
                 public const string BusinessUnitParentBusinessUnit = BusinessUnit.Schema.EntityLogicalName + "." + BusinessUnit.Schema.Attributes.parentbusinessunitid;

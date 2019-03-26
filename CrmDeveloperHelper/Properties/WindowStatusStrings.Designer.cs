@@ -88,6 +88,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. Add New Privileges from {1} to {2} completed..
+        /// </summary>
+        internal static string AddingNewPrivilegesFromRoleToRoleCompletedFormat3 {
+            get {
+                return ResourceManager.GetString("AddingNewPrivilegesFromRoleToRoleCompletedFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Add New Privileges from {1} to {2}....
+        /// </summary>
+        internal static string AddingNewPrivilegesFromRoleToRoleFormat3 {
+            get {
+                return ResourceManager.GetString("AddingNewPrivilegesFromRoleToRoleFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}. Adding users {1} to teams {2} completed..
         /// </summary>
         internal static string AddingUsersToTeamsCompletedFormat3 {
@@ -111,6 +129,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string AllRequiredComponentsExistsInTargetFormat1 {
             get {
                 return ResourceManager.GetString("AllRequiredComponentsExistsInTargetFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Analizing Roles {0} and {1}....
+        /// </summary>
+        internal static string AnalizingRolesFormat2 {
+            get {
+                return ResourceManager.GetString("AnalizingRolesFormat2", resourceCulture);
             }
         }
         
@@ -624,6 +651,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CheckingWorkflowsWithDetailsFormat2 {
             get {
                 return ResourceManager.GetString("CheckingWorkflowsWithDetailsFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Clearing Role Privileges {1} completed..
+        /// </summary>
+        internal static string ClearingRolePrivilegesCompletedFormat2 {
+            get {
+                return ResourceManager.GetString("ClearingRolePrivilegesCompletedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Clearing Role Privileges {1}....
+        /// </summary>
+        internal static string ClearingRolePrivilegesFormat2 {
+            get {
+                return ResourceManager.GetString("ClearingRolePrivilegesFormat2", resourceCulture);
             }
         }
         
@@ -2644,11 +2689,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. Merging Privileges to Maximum from {1} to {2} completed..
+        /// </summary>
+        internal static string MergingPrivilegesToMaximumFromRoleToRoleCompletedFormat3 {
+            get {
+                return ResourceManager.GetString("MergingPrivilegesToMaximumFromRoleToRoleCompletedFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Merging Privileges to Maximum from {1} to {2}....
+        /// </summary>
+        internal static string MergingPrivilegesToMaximumFromRoleToRoleFormat3 {
+            get {
+                return ResourceManager.GetString("MergingPrivilegesToMaximumFromRoleToRoleFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No components to add..
         /// </summary>
         internal static string NoComponentsToAdd {
             get {
                 return ResourceManager.GetString("NoComponentsToAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Privileges to add..
+        /// </summary>
+        internal static string NoPrivilegesToAdd {
+            get {
+                return ResourceManager.GetString("NoPrivilegesToAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Privileges to change..
+        /// </summary>
+        internal static string NoPrivilegesToChange {
+            get {
+                return ResourceManager.GetString("NoPrivilegesToChange", resourceCulture);
             }
         }
         
@@ -3027,6 +3108,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string RemovingUsersFromTeamsFormat3 {
             get {
                 return ResourceManager.GetString("RemovingUsersFromTeamsFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Replacing Privileges from {1} to {2} completed..
+        /// </summary>
+        internal static string ReplacingPrivilegesFromRoleToRoleCompletedFormat3 {
+            get {
+                return ResourceManager.GetString("ReplacingPrivilegesFromRoleToRoleCompletedFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Replacing Privileges from {1} to {2}....
+        /// </summary>
+        internal static string ReplacingPrivilegesFromRoleToRoleFormat3 {
+            get {
+                return ResourceManager.GetString("ReplacingPrivilegesFromRoleToRoleFormat3", resourceCulture);
             }
         }
         
@@ -3414,6 +3513,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string StartTestingConnectionFormat1 {
             get {
                 return ResourceManager.GetString("StartTestingConnectionFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Clearing Role Privileges {1}....
+        /// </summary>
+        internal static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
         

@@ -300,4 +300,7 @@
   <data name="TextCannotBeParsedToIntFormat1" xml:space="preserve">
     <value>Text "{0}" cannot be parsed to int.</value>
   </data>
+  <data name="ClearRoleFormat1" xml:space="preserve">
+    <value>Are you sure want to clear Role {0} Privileges?</value>
+  </data>
 </root>

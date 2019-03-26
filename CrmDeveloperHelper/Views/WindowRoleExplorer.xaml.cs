@@ -1,3 +1,4 @@
+using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
@@ -1441,60 +1442,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            string operationName = string.Format(Properties.OperationNames.CreatingRoleBackupFormat2, service.ConnectionData.Name, role.Name);
-
-            _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
-
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingRoleBackupFormat2, service.ConnectionData.Name, role.Name);
-
-            var repositoryRolePrivileges = new RolePrivilegesRepository(service);
-            var repositoryPrivileges = new PrivilegeRepository(service);
-
-            var rolePrivileges = await repositoryRolePrivileges.GetRolePrivilegesAsync(role.Id);
-            var privileges = await repositoryPrivileges.GetListForRoleAsync(role.Id);
-
-            var temp = new List<Model.Backup.RolePrivilege>();
-
-            foreach (var rolePriv in rolePrivileges)
-            {
-                var priv = privileges.FirstOrDefault(p => p.Id == rolePriv.PrivilegeId);
-
-                if (priv != null)
-                {
-                    temp.Add(new Model.Backup.RolePrivilege()
-                    {
-                        Name = priv.Name,
-                        Level = rolePriv.Depth,
-                    });
-                }
-            }
-
-            Model.Backup.Role roleBackup = new Model.Backup.Role()
-            {
-                Id = role.Id,
-                TemplateId = role.RoleTemplateId?.Id,
-                Name = role.Name,
-            };
-
-            roleBackup.RolePrivileges.AddRange(temp.OrderBy(p => p.Name));
-
-            string fileName = EntityFileNameFormatter.GetRoleFileName(service.ConnectionData.Name, role.Name, EntityFileNameFormatter.Headers.Backup, "xml");
-            string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-            await roleBackup.SaveAsync(filePath);
-
-            _iWriteToOutput.WriteToOutput(service.ConnectionData
-                , Properties.OutputStrings.ExportedRoleBackupForConnectionFormat3
-                , service.ConnectionData.Name
-                , role.Name
-                , filePath
-            );
-
-            _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingRoleBackupCompletedFormat2, service.ConnectionData.Name, role.Name);
-
-            _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
+            await PerformRoleBackup(service, role, true);
         }
 
         private void ContextMenuRole_Opened(object sender, RoutedEventArgs e)
@@ -1988,6 +1936,664 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
             SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
+        }
+
+        private async Task PerformRoleBackup(IOrganizationServiceExtented service, Role role, bool openFile)
+        {
+            string operationName = string.Format(Properties.OperationNames.CreatingRoleBackupFormat2, service.ConnectionData.Name, role.Name);
+
+            _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingRoleBackupFormat2, service.ConnectionData.Name, role.Name);
+
+            var repositoryRolePrivileges = new RolePrivilegesRepository(service);
+            var repositoryPrivileges = new PrivilegeRepository(service);
+
+            var rolePrivileges = await repositoryRolePrivileges.GetRolePrivilegesAsync(role.Id);
+            var privileges = await repositoryPrivileges.GetListForRoleAsync(role.Id);
+
+            Model.Backup.Role roleBackup = CreateRoleBackupByPrivileges(role, rolePrivileges, privileges);
+
+            string fileName = EntityFileNameFormatter.GetRoleFileName(service.ConnectionData.Name, role.Name, EntityFileNameFormatter.Headers.Backup, "xml");
+            string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            await roleBackup.SaveAsync(filePath);
+
+            _iWriteToOutput.WriteToOutput(service.ConnectionData
+                , Properties.OutputStrings.ExportedRoleBackupForConnectionFormat3
+                , service.ConnectionData.Name
+                , role.Name
+                , filePath
+            );
+
+            if (openFile)
+            {
+                _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+            }
+            else
+            {
+                _iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
+            }
+
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingRoleBackupCompletedFormat2, service.ConnectionData.Name, role.Name);
+
+            _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
+        }
+
+        private static Model.Backup.Role CreateRoleBackupByPrivileges(Role role, IEnumerable<Microsoft.Crm.Sdk.Messages.RolePrivilege> rolePrivileges, List<Privilege> privileges)
+        {
+            var temp = new List<Model.Backup.RolePrivilege>();
+
+            foreach (var rolePriv in rolePrivileges)
+            {
+                var priv = privileges.FirstOrDefault(p => p.Id == rolePriv.PrivilegeId);
+
+                if (priv != null)
+                {
+                    temp.Add(new Model.Backup.RolePrivilege()
+                    {
+                        Name = priv.Name,
+                        Level = rolePriv.Depth,
+                    });
+                }
+            }
+
+            Model.Backup.Role roleBackup = new Model.Backup.Role()
+            {
+                Id = role.Id,
+                TemplateId = role.RoleTemplateId?.Id,
+                Name = role.Name,
+            };
+
+            roleBackup.RolePrivileges.AddRange(temp.OrderBy(p => p.Name));
+            return roleBackup;
+        }
+
+        private async void mIAddUniquePrivilegesToRole_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Entity entity)
+            )
+            {
+                return;
+            }
+
+            var sourceRole = entity.ToEntity<Role>();
+
+            var service = await GetService();
+
+            var repository = new RoleRepository(service);
+
+            Func<string, Task<IEnumerable<Role>>> getter = (string filter) => repository.GetRolesForNotAnotherAsync(filter
+                , sourceRole.Id
+                , new ColumnSet(
+                    Role.Schema.Attributes.name
+                    , Role.Schema.Attributes.businessunitid
+                    , Role.Schema.Attributes.ismanaged
+                    , Role.Schema.Attributes.iscustomizable
+                )
+            );
+
+            IEnumerable<DataGridColumn> columns = Helpers.SolutionComponentDescription.Implementation.RoleDescriptionBuilder.GetDataGridColumn();
+
+            var form = new WindowEntitySelect<Role>(_iWriteToOutput, service.ConnectionData, Role.EntityLogicalName, getter, columns);
+
+            if (!form.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            if (form.SelectedEntity == null)
+            {
+                return;
+            }
+
+            var targetRole = form.SelectedEntity;
+
+            await AddUniquePrivilegesFromSourceToTarget(service, sourceRole, targetRole);
+        }
+
+        private async void mIMergeCommonPrivilegesToMaxInRole_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Entity entity)
+            )
+            {
+                return;
+            }
+
+            var sourceRole = entity.ToEntity<Role>();
+
+            var service = await GetService();
+
+            var repository = new RoleRepository(service);
+
+            Func<string, Task<IEnumerable<Role>>> getter = (string filter) => repository.GetRolesForNotAnotherAsync(filter
+                , sourceRole.Id
+                , new ColumnSet(
+                    Role.Schema.Attributes.name
+                    , Role.Schema.Attributes.businessunitid
+                    , Role.Schema.Attributes.ismanaged
+                    , Role.Schema.Attributes.iscustomizable
+                )
+            );
+
+            IEnumerable<DataGridColumn> columns = Helpers.SolutionComponentDescription.Implementation.RoleDescriptionBuilder.GetDataGridColumn();
+
+            var form = new WindowEntitySelect<Role>(_iWriteToOutput, service.ConnectionData, Role.EntityLogicalName, getter, columns);
+
+            if (!form.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            if (form.SelectedEntity == null)
+            {
+                return;
+            }
+
+            var targetRole = form.SelectedEntity;
+
+            await MergePrivilegesFromSourceToTarget(service, sourceRole, targetRole);
+        }
+
+        private async void mIReplacePrivilegesInRole_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Entity entity)
+            )
+            {
+                return;
+            }
+
+            var sourceRole = entity.ToEntity<Role>();
+
+            var service = await GetService();
+
+            var repository = new RoleRepository(service);
+
+            Func<string, Task<IEnumerable<Role>>> getter = (string filter) => repository.GetRolesForNotAnotherAsync(filter
+                , sourceRole.Id
+                , new ColumnSet(
+                    Role.Schema.Attributes.name
+                    , Role.Schema.Attributes.businessunitid
+                    , Role.Schema.Attributes.ismanaged
+                    , Role.Schema.Attributes.iscustomizable
+                )
+            );
+
+            IEnumerable<DataGridColumn> columns = Helpers.SolutionComponentDescription.Implementation.RoleDescriptionBuilder.GetDataGridColumn();
+
+            var form = new WindowEntitySelect<Role>(_iWriteToOutput, service.ConnectionData, Role.EntityLogicalName, getter, columns);
+
+            if (!form.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            if (form.SelectedEntity == null)
+            {
+                return;
+            }
+
+            var targetRole = form.SelectedEntity;
+
+            await ReplacePrivilegesFromSourceToTarget(service, sourceRole, targetRole);
+        }
+
+        private async void mIClearRole_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Entity entity)
+                )
+            {
+                return;
+            }
+
+            var role = entity.ToEntity<Role>();
+
+            var service = await GetService();
+
+            string question = string.Format(Properties.MessageBoxStrings.ClearRoleFormat1, role.Name);
+
+            if (MessageBox.Show(question, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
+            {
+                return;
+            }
+
+            var repositoryRolePrivileges = new RolePrivilegesRepository(service);
+            IEnumerable<RolePrivilege> rolePrivileges = null;
+
+            {
+                string operationName = string.Format(Properties.OperationNames.CreatingRoleBackupFormat2, service.ConnectionData.Name, role.Name);
+
+                _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
+
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingRoleBackupFormat2, service.ConnectionData.Name, role.Name);
+
+                var repositoryPrivileges = new PrivilegeRepository(service);
+
+                rolePrivileges = await repositoryRolePrivileges.GetRolePrivilegesAsync(role.Id);
+
+                var privileges = await repositoryPrivileges.GetListForRoleAsync(role.Id);
+
+                Model.Backup.Role roleBackup = CreateRoleBackupByPrivileges(role, rolePrivileges, privileges);
+
+                string fileName = EntityFileNameFormatter.GetRoleFileName(service.ConnectionData.Name, role.Name, EntityFileNameFormatter.Headers.Backup, "xml");
+                string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                await roleBackup.SaveAsync(filePath);
+
+                _iWriteToOutput.WriteToOutput(service.ConnectionData
+                    , Properties.OutputStrings.ExportedRoleBackupForConnectionFormat3
+                    , service.ConnectionData.Name
+                    , role.Name
+                    , filePath
+                );
+
+                _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingRoleBackupCompletedFormat2, service.ConnectionData.Name, role.Name);
+
+                _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
+            }
+
+            {
+                string operationName = string.Format(Properties.OperationNames.ClearingRolePrivilegesFormat2, service.ConnectionData.Name, role.Name);
+
+                _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
+
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ClearingRolePrivilegesFormat2, service.ConnectionData.Name, role.Name);
+
+                await repositoryRolePrivileges.ModifyRolePrivilegesAsync(role.Id, null, rolePrivileges);
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ClearingRolePrivilegesCompletedFormat2, service.ConnectionData.Name, role.Name);
+
+                _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
+            }
+
+            ShowRoleEntityPrivileges();
+        }
+
+        private async void mIAddUniquePrivilegesFromRole_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Entity entity)
+            )
+            {
+                return;
+            }
+
+            var targetRole = entity.ToEntity<Role>();
+
+            var service = await GetService();
+
+            var repository = new RoleRepository(service);
+
+            Func<string, Task<IEnumerable<Role>>> getter = (string filter) => repository.GetRolesForNotAnotherAsync(filter
+                , targetRole.Id
+                , new ColumnSet(
+                    Role.Schema.Attributes.name
+                    , Role.Schema.Attributes.businessunitid
+                    , Role.Schema.Attributes.ismanaged
+                    , Role.Schema.Attributes.iscustomizable
+                )
+            );
+
+            IEnumerable<DataGridColumn> columns = Helpers.SolutionComponentDescription.Implementation.RoleDescriptionBuilder.GetDataGridColumn();
+
+            var form = new WindowEntitySelect<Role>(_iWriteToOutput, service.ConnectionData, Role.EntityLogicalName, getter, columns);
+
+            if (!form.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            if (form.SelectedEntity == null)
+            {
+                return;
+            }
+
+            var sourceRole = form.SelectedEntity;
+
+            await AddUniquePrivilegesFromSourceToTarget(service, sourceRole, targetRole);
+
+            ShowRoleEntityPrivileges();
+        }
+
+        private async void mIMergeCommonPrivilegesToMaxFromRole_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Entity entity)
+            )
+            {
+                return;
+            }
+
+            var targetRole = entity.ToEntity<Role>();
+
+            var service = await GetService();
+
+            var repository = new RoleRepository(service);
+
+            Func<string, Task<IEnumerable<Role>>> getter = (string filter) => repository.GetRolesForNotAnotherAsync(filter
+                , targetRole.Id
+                , new ColumnSet(
+                    Role.Schema.Attributes.name
+                    , Role.Schema.Attributes.businessunitid
+                    , Role.Schema.Attributes.ismanaged
+                    , Role.Schema.Attributes.iscustomizable
+                )
+            );
+
+            IEnumerable<DataGridColumn> columns = Helpers.SolutionComponentDescription.Implementation.RoleDescriptionBuilder.GetDataGridColumn();
+
+            var form = new WindowEntitySelect<Role>(_iWriteToOutput, service.ConnectionData, Role.EntityLogicalName, getter, columns);
+
+            if (!form.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            if (form.SelectedEntity == null)
+            {
+                return;
+            }
+
+            var sourceRole = form.SelectedEntity;
+
+            await MergePrivilegesFromSourceToTarget(service, sourceRole, targetRole);
+
+            ShowRoleEntityPrivileges();
+        }
+
+        private async void mIReplacePrivilegesFromRole_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Entity entity)
+            )
+            {
+                return;
+            }
+
+            var targetRole = entity.ToEntity<Role>();
+
+            var service = await GetService();
+
+            var repository = new RoleRepository(service);
+
+            Func<string, Task<IEnumerable<Role>>> getter = (string filter) => repository.GetRolesForNotAnotherAsync(filter
+                , targetRole.Id
+                , new ColumnSet(
+                    Role.Schema.Attributes.name
+                    , Role.Schema.Attributes.businessunitid
+                    , Role.Schema.Attributes.ismanaged
+                    , Role.Schema.Attributes.iscustomizable
+                )
+            );
+
+            IEnumerable<DataGridColumn> columns = Helpers.SolutionComponentDescription.Implementation.RoleDescriptionBuilder.GetDataGridColumn();
+
+            var form = new WindowEntitySelect<Role>(_iWriteToOutput, service.ConnectionData, Role.EntityLogicalName, getter, columns);
+
+            if (!form.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            if (form.SelectedEntity == null)
+            {
+                return;
+            }
+
+            var sourceRole = form.SelectedEntity;
+
+            await ReplacePrivilegesFromSourceToTarget(service, sourceRole, targetRole);
+
+            ShowRoleEntityPrivileges();
+        }
+
+        #region Changing Role Privileges
+
+        private async Task AddUniquePrivilegesFromSourceToTarget(IOrganizationServiceExtented service, Role sourceRole, Role targetRole)
+        {
+            var repositoryRolePrivileges = new RolePrivilegesRepository(service);
+            var repositoryPrivileges = new PrivilegeRepository(service);
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AnalizingRolesFormat2, sourceRole.Name, targetRole.Name);
+
+            IEnumerable<Microsoft.Crm.Sdk.Messages.RolePrivilege> newRolePrivileges = Enumerable.Empty<Microsoft.Crm.Sdk.Messages.RolePrivilege>();
+
+            var targetRolePrivileges = await repositoryRolePrivileges.GetRolePrivilegesAsync(targetRole.Id);
+
+            {
+                var sourceRolePrivileges = await repositoryRolePrivileges.GetRolePrivilegesAsync(sourceRole.Id);
+
+                newRolePrivileges = sourceRolePrivileges.Except(targetRolePrivileges, new RolePrivilegeComparer());
+            }
+
+            if (!newRolePrivileges.Any())
+            {
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.NoPrivilegesToAdd);
+                return;
+            }
+
+            await PerformRoleBackup(service, targetRole, false);
+
+            {
+                string operationName = string.Format(Properties.OperationNames.AddingNewPrivilegesFromRoleToRoleFormat3, service.ConnectionData.Name, targetRole.Name);
+
+                _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
+
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AddingNewPrivilegesFromRoleToRoleFormat3, service.ConnectionData.Name, targetRole.Name);
+
+                var sourcePrivileges = await repositoryPrivileges.GetListForRoleAsync(sourceRole.Id);
+
+                await repositoryRolePrivileges.ModifyRolePrivilegesAsync(targetRole.Id, newRolePrivileges, null);
+
+                Model.Backup.Role roleBackup = CreateRoleBackupByPrivileges(targetRole, newRolePrivileges, sourcePrivileges);
+
+                string fileName = EntityFileNameFormatter.GetRoleFileName(service.ConnectionData.Name, targetRole.Name, Role.Schema.Headers.AddedNewPrivileges, "xml");
+                string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                await roleBackup.SaveAsync(filePath);
+
+                _iWriteToOutput.WriteToOutput(service.ConnectionData
+                    , Properties.OutputStrings.AddedNewPrivilegesForConnectionFormat3
+                    , service.ConnectionData.Name
+                    , targetRole.Name
+                    , filePath
+                );
+
+                _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AddingNewPrivilegesFromRoleToRoleCompletedFormat3, service.ConnectionData.Name, sourceRole.Name);
+
+                _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
+            }
+        }
+
+        private async Task MergePrivilegesFromSourceToTarget(IOrganizationServiceExtented service, Role sourceRole, Role targetRole)
+        {
+            var repositoryRolePrivileges = new RolePrivilegesRepository(service);
+            var repositoryPrivileges = new PrivilegeRepository(service);
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AnalizingRolesFormat2, sourceRole.Name, targetRole.Name);
+
+            IEnumerable<Microsoft.Crm.Sdk.Messages.RolePrivilege> newRolePrivileges = Enumerable.Empty<Microsoft.Crm.Sdk.Messages.RolePrivilege>();
+
+            var targetRolePrivileges = await repositoryRolePrivileges.GetRolePrivilegesAsync(targetRole.Id);
+
+            {
+                var sourceRolePrivileges = await repositoryRolePrivileges.GetRolePrivilegesAsync(sourceRole.Id);
+
+                newRolePrivileges = GetPrivilegesToMaximize(sourceRolePrivileges, targetRolePrivileges);
+            }
+
+            if (!newRolePrivileges.Any())
+            {
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.NoPrivilegesToChange);
+                return;
+            }
+
+            await PerformRoleBackup(service, targetRole, false);
+
+            {
+                string operationName = string.Format(Properties.OperationNames.MergingPrivilegesToMaximumFromRoleToRoleFormat3, service.ConnectionData.Name, targetRole.Name);
+
+                _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
+
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.MergingPrivilegesToMaximumFromRoleToRoleFormat3, service.ConnectionData.Name, targetRole.Name);
+
+                var sourcePrivileges = await repositoryPrivileges.GetListForRoleAsync(sourceRole.Id);
+
+                await repositoryRolePrivileges.ModifyRolePrivilegesAsync(targetRole.Id, newRolePrivileges, null);
+
+                Model.Backup.Role roleBackup = CreateRoleBackupByPrivileges(targetRole, newRolePrivileges, sourcePrivileges);
+
+                string fileName = EntityFileNameFormatter.GetRoleFileName(service.ConnectionData.Name, targetRole.Name, Role.Schema.Headers.ChangedPrivileges, "xml");
+                string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                await roleBackup.SaveAsync(filePath);
+
+                _iWriteToOutput.WriteToOutput(service.ConnectionData
+                    , Properties.OutputStrings.ChangedPrivilegesForConnectionFormat3
+                    , service.ConnectionData.Name
+                    , targetRole.Name
+                    , filePath
+                );
+
+                _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.MergingPrivilegesToMaximumFromRoleToRoleCompletedFormat3, service.ConnectionData.Name, sourceRole.Name);
+
+                _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
+            }
+        }
+
+        private IEnumerable<RolePrivilege> GetPrivilegesToMaximize(IEnumerable<RolePrivilege> sourceRolePrivileges, IEnumerable<RolePrivilege> targetRolePrivileges)
+        {
+            List<RolePrivilege> result = new List<RolePrivilege>();
+
+            foreach (var rolePrivilege in sourceRolePrivileges)
+            {
+                var targetRolePriv = targetRolePrivileges.FirstOrDefault(r => r.PrivilegeId == rolePrivilege.PrivilegeId);
+
+                if (targetRolePriv != null && (int)targetRolePriv.Depth > (int)rolePrivilege.Depth)
+                {
+                    result.Add(rolePrivilege);
+                }
+            }
+
+            return result;
+        }
+
+        private async Task ReplacePrivilegesFromSourceToTarget(IOrganizationServiceExtented service, Role sourceRole, Role targetRole)
+        {
+            await PerformRoleBackup(service, targetRole, false);
+
+            {
+                string operationName = string.Format(Properties.OperationNames.ReplacingPrivilegesFromRoleToRoleFormat3, service.ConnectionData.Name, targetRole.Name);
+
+                _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
+
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ReplacingPrivilegesFromRoleToRoleFormat3, service.ConnectionData.Name, targetRole.Name);
+
+                var repositoryRolePrivileges = new RolePrivilegesRepository(service);
+                var repositoryPrivileges = new PrivilegeRepository(service);
+
+                var rolePrivileges = await repositoryRolePrivileges.GetRolePrivilegesAsync(sourceRole.Id);
+                var privileges = await repositoryPrivileges.GetListForRoleAsync(sourceRole.Id);
+
+                Model.Backup.Role roleBackup = CreateRoleBackupByPrivileges(targetRole, rolePrivileges, privileges);
+
+                await repositoryRolePrivileges.ReplaceRolePrivilegesAsync(targetRole.Id, rolePrivileges);
+
+                string fileName = EntityFileNameFormatter.GetRoleFileName(service.ConnectionData.Name, targetRole.Name, Role.Schema.Headers.AllNewPrivileges, "xml");
+                string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                await roleBackup.SaveAsync(filePath);
+
+                _iWriteToOutput.WriteToOutput(service.ConnectionData
+                    , Properties.OutputStrings.AllNewPrivilegesForConnectionFormat3
+                    , service.ConnectionData.Name
+                    , targetRole.Name
+                    , filePath
+                );
+
+                _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ReplacingPrivilegesFromRoleToRoleCompletedFormat3, service.ConnectionData.Name, sourceRole.Name);
+
+                _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
+            }
+        }
+
+        #endregion Changing Role Privileges
+
+        public class RolePrivilegeComparer : IEqualityComparer<Microsoft.Crm.Sdk.Messages.RolePrivilege>
+        {
+            public bool Equals(Microsoft.Crm.Sdk.Messages.RolePrivilege x, Microsoft.Crm.Sdk.Messages.RolePrivilege y)
+            {
+                if (x == null && y == null)
+                {
+                    return true;
+                }
+                else if (x == null || y == null)
+                {
+                    return false;
+                }
+                else if (x.PrivilegeId == y.PrivilegeId)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            public int GetHashCode(Microsoft.Crm.Sdk.Messages.RolePrivilege obj)
+            {
+                int result = obj.PrivilegeId.GetHashCode();
+
+                return result;
+            }
         }
     }
 }

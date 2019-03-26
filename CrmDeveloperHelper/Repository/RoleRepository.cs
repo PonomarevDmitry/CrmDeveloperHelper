@@ -920,5 +920,80 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             return result;
         }
+
+        public Task<IEnumerable<Role>> GetRolesForNotAnotherAsync(string filterRole, Guid idRole, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetRolesForNotAnother(filterRole, idRole, columnSet));
+        }
+
+        private IEnumerable<Role> GetRolesForNotAnother(string filterRole, Guid idRole, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                EntityName = Role.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(Role.Schema.Attributes.parentroleid, ConditionOperator.Null),
+                        new ConditionExpression(Role.Schema.Attributes.roleid, ConditionOperator.NotEqual, idRole),
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(Role.Schema.Attributes.name, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            if (!string.IsNullOrEmpty(filterRole))
+            {
+                if (Guid.TryParse(filterRole, out Guid id))
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.roleid, ConditionOperator.Equal, id));
+                }
+                else
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(Role.Schema.Attributes.name, ConditionOperator.Like, "%" + filterRole + "%"));
+                }
+            }
+
+            var result = new List<Role>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Role>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
+            }
+
+            return result;
+        }
     }
 }

@@ -85,11 +85,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 case ComponentType.SavedQueryVisualization:
                     {
                         var respositorySolution = new SolutionRepository(this._service);
-                        var defaultSolution = respositorySolution.GetSolutionByUniqueName(Solution.InstancesUniqueNames.Default);
 
                         var chart = _service.RetrieveByQuery<SavedQueryVisualization>(SavedQueryVisualization.EntityLogicalName, objectId, new ColumnSet(SavedQueryVisualization.Schema.Attributes.primaryentitytypecode));
 
-                        if (defaultSolution != null && chart != null && !string.IsNullOrEmpty(chart.PrimaryEntityTypeCode))
+                        if (chart != null && !string.IsNullOrEmpty(chart.PrimaryEntityTypeCode))
                         {
                             if ((this._service.ConnectionData.IntellisenseData?.Entities?.ContainsKey(chart.PrimaryEntityTypeCode)).GetValueOrDefault())
                             {
@@ -97,7 +96,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                                 if (linkedEntityObjectCode.HasValue)
                                 {
-                                    return $"/main.aspx?appSolutionId=%7b{defaultSolution.Id}%7d&extraqs=etc%3d{linkedEntityObjectCode}%26id%3d%7b{objectId}%7d&pagetype=vizdesigner";
+                                    return $"/main.aspx?appSolutionId=%7b{Solution.Schema.InstancesUniqueId.DefaultId}%7d&extraqs=etc%3d{linkedEntityObjectCode}%26id%3d%7b{objectId}%7d&pagetype=vizdesigner";
                                 }
                             }
                         }
@@ -107,22 +106,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 case ComponentType.SystemForm:
                     {
                         var respositorySolution = new SolutionRepository(this._service);
-                        var defaultSolution = respositorySolution.GetSolutionByUniqueName(Solution.InstancesUniqueNames.Default);
 
                         var systemform = _service.RetrieveByQuery<SystemForm>(SystemForm.EntityLogicalName, objectId, new ColumnSet(SystemForm.Schema.Attributes.type, SystemForm.Schema.Attributes.objecttypecode));
 
-                        if (systemform != null && systemform.Type != null && defaultSolution != null)
+                        if (systemform != null && systemform.Type != null)
                         {
                             switch (systemform.Type.Value)
                             {
                                 case (int)SystemForm.Schema.OptionSets.type.InteractionCentricDashboard_10:
-                                    return $"/main.aspx?appSolutionId=%7b{defaultSolution.Id}%7d&extraqs=%26formId%3d%7b{systemform.Id}%7d%26dashboardType%3d1032&pagetype=icdashboardeditor";
+                                    return $"/main.aspx?appSolutionId=%7b{Solution.Schema.InstancesUniqueId.DefaultId}%7d&extraqs=%26formId%3d%7b{systemform.Id}%7d%26dashboardType%3d1032&pagetype=icdashboardeditor";
 
                                 case (int)SystemForm.Schema.OptionSets.type.Dashboard_0:
-                                    return $"/main.aspx?appSolutionId=%7b{defaultSolution.Id}%7d&extraqs=%26formId%3d%7b{systemform.Id}%7d%26dashboardType%3d1030&pagetype=dashboardeditor";
+                                    return $"/main.aspx?appSolutionId=%7b{Solution.Schema.InstancesUniqueId.DefaultId}%7d&extraqs=%26formId%3d%7b{systemform.Id}%7d%26dashboardType%3d1030&pagetype=dashboardeditor";
 
                                 case (int)SystemForm.Schema.OptionSets.type.Mobile_Express_5:
-                                    return $"/m/Console/EntityConfig.aspx?appSolutionId=%7b{defaultSolution.Id}%7d&etn={systemform.ObjectTypeCode}&formid=%7b{systemform.Id}%7d";
+                                    return $"/m/Console/EntityConfig.aspx?appSolutionId=%7b{Solution.Schema.InstancesUniqueId.DefaultId}%7d&etn={systemform.ObjectTypeCode}&formid=%7b{systemform.Id}%7d";
 
                                 case (int)SystemForm.Schema.OptionSets.type.Task_Flow_Form_9:
                                     {
@@ -148,7 +146,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                                             if (linkedEntityObjectCode.HasValue)
                                             {
-                                                return $"/main.aspx?appSolutionId=%7b{defaultSolution.Id}%7d&etc={linkedEntityObjectCode}&extraqs=formtype%3d{formtype}%26formId%3d{systemform.Id}%26action%3d-1&pagetype=formeditor";
+                                                return $"/main.aspx?appSolutionId=%7b{Solution.Schema.InstancesUniqueId.DefaultId}%7d&etc={linkedEntityObjectCode}&extraqs=formtype%3d{formtype}%26formId%3d{systemform.Id}%26action%3d-1&pagetype=formeditor";
                                             }
                                         }
                                     }
@@ -164,12 +162,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                         //designer/sitemap/FD140AAF-4DF4-11DD-BD17-0019B9312238/39983702-960A-E711-80DD-00155D018C04#/SiteMapHome/39983702-960a-e711-80dd-00155d018c04
 
-                        var defaultSolution = respositorySolution.GetSolutionByUniqueName(Solution.InstancesUniqueNames.Default);
-
-                        if (defaultSolution != null)
-                        {
-                            return $"/designer/sitemap/{defaultSolution.Id}/{objectId}#/SiteMapHome/{objectId}";
-                        }
+                        return $"/designer/sitemap/{Solution.Schema.InstancesUniqueId.DefaultId}/{objectId}#/SiteMapHome/{objectId}";
                     }
                     break;
 
@@ -253,14 +246,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 case ComponentType.AppModule:
                     {
                         var respositorySolution = new SolutionRepository(this._service);
-                        var defaultSolution = respositorySolution.GetSolutionByUniqueName(Solution.InstancesUniqueNames.Default);
 
                         // /designer/app/47FB3607-13DA-E811-8114-001DD8B71D68/7A536683-A60D-E811-8105-001DD8B71D68#/AppDesignerCanvas/7a536683-a60d-e811-8105-001dd8b71d68
 
-                        if (defaultSolution != null)
-                        {
-                            return $"/designer/app/{defaultSolution.Id}/{objectId}#/AppDesignerCanvas/{objectId}";
-                        }
+                        return $"/designer/app/{Solution.Schema.InstancesUniqueId.DefaultId}/{objectId}#/AppDesignerCanvas/{objectId}";
                     }
                     break;
 

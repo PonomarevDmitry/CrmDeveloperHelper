@@ -681,4 +681,16 @@
   <data name="ExecutingWorkflowFormat2" xml:space="preserve">
     <value>{0} - Executing Workflow {1}</value>
   </data>
+  <data name="AddingNewPrivilegesFromRoleToRoleFormat3" xml:space="preserve">
+    <value>{0} - Adding New Privileges from {1} to {2}</value>
+  </data>
+  <data name="ReplacingPrivilegesFromRoleToRoleFormat3" xml:space="preserve">
+    <value>{0} - Replacing Privileges from {1} to {2}</value>
+  </data>
+  <data name="ClearingRolePrivilegesFormat2" xml:space="preserve">
+    <value>{0} - Clearing Role Privileges {1}</value>
+  </data>
+  <data name="MergingPrivilegesToMaximumFromRoleToRoleFormat3" xml:space="preserve">
+    <value>{0} - Merging Privileges to Maximum from {1} to {2}</value>
+  </data>
 </root>

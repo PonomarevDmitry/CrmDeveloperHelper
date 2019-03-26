@@ -86,12 +86,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     return;
                 }
 
-                var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
-                if (applicationObject == null)
-                {
-                    return;
-                }
-
                 var index = menuCommand.CommandID.ID - _baseIdStart;
 
                 var connectionConfig = Model.ConnectionConfiguration.Get();
@@ -102,9 +96,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 {
                     var connectionData = connectionsList[index];
 
-                    var helper = DTEHelper.Create(applicationObject);
-
-                    helper.HandleOpenLastSelectedSolution(connectionData, Solution.InstancesUniqueNames.Default, ActionOpenComponent.OpenInWeb);
+                    connectionData.OpenSolutionInWeb(Solution.Schema.InstancesUniqueId.DefaultId);
                 }
             }
             catch (Exception ex)

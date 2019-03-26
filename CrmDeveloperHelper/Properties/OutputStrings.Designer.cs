@@ -70,11 +70,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. Role {1} Added New Privileges exported to file: {2}.
+        /// </summary>
+        internal static string AddedNewPrivilegesForConnectionFormat3 {
+            get {
+                return ResourceManager.GetString("AddedNewPrivilegesForConnectionFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Role {1} All New Privileges exported to file: {2}.
+        /// </summary>
+        internal static string AllNewPrivilegesForConnectionFormat3 {
+            get {
+                return ResourceManager.GetString("AllNewPrivilegesForConnectionFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assembly Name is empty..
         /// </summary>
         internal static string AssemblyNameIsEmpty {
             get {
                 return ResourceManager.GetString("AssemblyNameIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Role {1} Changed Privileges exported to file: {2}.
+        /// </summary>
+        internal static string ChangedPrivilegesForConnectionFormat3 {
+            get {
+                return ResourceManager.GetString("ChangedPrivilegesForConnectionFormat3", resourceCulture);
             }
         }
         

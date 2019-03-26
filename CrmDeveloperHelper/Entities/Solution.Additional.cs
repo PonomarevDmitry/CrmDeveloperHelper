@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xrm.Sdk;
+using System;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 {
@@ -12,13 +13,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 public const string SupportingSolution = "supporting" + Solution.EntityLogicalName;
             }
-        }
 
-        public static partial class InstancesUniqueNames
-        {
-            public const string Default = "Default";
+            public static partial class InstancesUniqueNames
+            {
+                public const string Default = "Default";
 
-            public const string Active = "Active";
+                public const string Active = "Active";
+            }
+
+            public static partial class InstancesUniqueId
+            {
+                public readonly static Guid DefaultId = Guid.Parse("fd140aaf-4df4-11dd-bd17-0019b9312238");
+            }
         }
 
         public string UniqueNameEscapeUnderscore

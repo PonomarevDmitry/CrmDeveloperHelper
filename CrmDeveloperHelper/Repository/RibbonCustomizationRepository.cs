@@ -618,7 +618,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         {
                             Conditions =
                             {
-                                new ConditionExpression(Solution.Schema.Attributes.uniquename, ConditionOperator.Equal, Solution.InstancesUniqueNames.Active),
+                                new ConditionExpression(Solution.Schema.Attributes.uniquename, ConditionOperator.Equal, Solution.Schema.InstancesUniqueNames.Active),
                             },
                         },
                     },

@@ -1353,4 +1353,40 @@
   <data name="ExecutingWorkflowFormat2" xml:space="preserve">
     <value>Executing Workflow {0}...</value>
   </data>
+  <data name="NoPrivilegesToAdd" xml:space="preserve">
+    <value>No Privileges to add.</value>
+  </data>
+  <data name="ReplacingPrivilegesFromRoleToRoleCompletedFormat3" xml:space="preserve">
+    <value>{0}. Replacing Privileges from {1} to {2} completed.</value>
+  </data>
+  <data name="ReplacingPrivilegesFromRoleToRoleFormat3" xml:space="preserve">
+    <value>{0}. Replacing Privileges from {1} to {2}...</value>
+  </data>
+  <data name="AnalizingRolesFormat2" xml:space="preserve">
+    <value>Analizing Roles {0} and {1}...</value>
+  </data>
+  <data name="AddingNewPrivilegesFromRoleToRoleCompletedFormat3" xml:space="preserve">
+    <value>{0}. Add New Privileges from {1} to {2} completed.</value>
+  </data>
+  <data name="AddingNewPrivilegesFromRoleToRoleFormat3" xml:space="preserve">
+    <value>{0}. Add New Privileges from {1} to {2}...</value>
+  </data>
+  <data name="ClearingRolePrivilegesCompletedFormat2" xml:space="preserve">
+    <value>{0}. Clearing Role Privileges {1} completed.</value>
+  </data>
+  <data name="ClearingRolePrivilegesFormat2" xml:space="preserve">
+    <value>{0}. Clearing Role Privileges {1}...</value>
+  </data>
+  <data name="MergingPrivilegesToMaximumFromRoleToRoleCompletedFormat3" xml:space="preserve">
+    <value>{0}. Merging Privileges to Maximum from {1} to {2} completed.</value>
+  </data>
+  <data name="MergingPrivilegesToMaximumFromRoleToRoleFormat3" xml:space="preserve">
+    <value>{0}. Merging Privileges to Maximum from {1} to {2}...</value>
+  </data>
+  <data name="NoPrivilegesToChange" xml:space="preserve">
+    <value>No Privileges to change.</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>{0}. Clearing Role Privileges {1}...</value>
+  </data>
 </root>
