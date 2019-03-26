@@ -143,10 +143,15 @@
                                 <EventSetter Event="Click" Handler="dGrResults_Hyperlink_Click"/>
                                 <Setter Property="ContextMenu" Value="{StaticResource listContextMenuEntityReference}"/>
                             </Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+                                <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+                            </Style>
                         </DataGrid.Resources>
                         <DataGrid.ItemContainerStyle>
                             <Style TargetType="{x:Type DataGridRow}">
                                 <Setter Property="ContextMenu" Value="{StaticResource listContextMenuEntity}"/>
+                                <Setter Property="MaxHeight" Value="50"/>
                             </Style>
                         </DataGrid.ItemContainerStyle>
                     </DataGrid>
