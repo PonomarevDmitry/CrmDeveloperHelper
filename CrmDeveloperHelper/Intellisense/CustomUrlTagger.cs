@@ -29,6 +29,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             + UrlCommandFilter.PrefixOpenInVisualStudio
             + "|" + UrlCommandFilter.PrefixOpenInVisualStudioRelativePath
             + "|" + UrlCommandFilter.PrefixOpenInTextEditor
+            + "|" + UrlCommandFilter.PrefixOpenInExcel
             + "|" + UrlCommandFilter.PrefixShowDifference
             + "|" + UrlCommandFilter.PrefixSelectFileInFolder
             + "|" + UrlCommandFilter.PrefixOpenSolution

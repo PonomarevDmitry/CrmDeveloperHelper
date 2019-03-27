@@ -1,12 +1,9 @@
-﻿using EnvDTE;
-using EnvDTE80;
+using EnvDTE;
 using Microsoft.Xrm.Sdk;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Properties;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Views;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
@@ -21,9 +18,6 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using System.Windows;
-using System.Windows.Resources;
-using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
@@ -712,14 +706,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this.WriteToOutput(connectionData, string.Empty);
             this.WriteToOutput(connectionData, "File Uri                   :    {0}", uriFile);
             this.WriteToOutput(connectionData, string.Empty);
-            this.WriteToOutput(connectionData, "Open File in Visual Studio :    {0}", uriFile.Replace("file:", "openinvisualstudio:"));
+            this.WriteToOutput(connectionData, "Open File in Visual Studio :    {0}", uriFile.Replace("file:", $"{Intellisense.UrlCommandFilter.PrefixOpenInVisualStudio}:"));
             if (File.Exists(commonConfig.TextEditorProgram))
             {
                 this.WriteToOutput(connectionData, string.Empty);
-                this.WriteToOutput(connectionData, "Open File in TextEditor    :    {0}", uriFile.Replace("file:", "openintexteditor:"));
+                this.WriteToOutput(connectionData, "Open File in TextEditor    :    {0}", uriFile.Replace("file:", $"{Intellisense.UrlCommandFilter.PrefixOpenInTextEditor}:"));
             }
             this.WriteToOutput(connectionData, string.Empty);
-            this.WriteToOutput(connectionData, "Select File in Folder      :    {0}", uriFile.Replace("file:", "selectfileinfolder:"));
+            this.WriteToOutput(connectionData, "Select File in Folder      :    {0}", uriFile.Replace("file:", $"{Intellisense.UrlCommandFilter.PrefixSelectFileInFolder}:"));
+            this.WriteToOutput(connectionData, string.Empty);
+        }
+
+        public void WriteToOutputFilePathUriToOpenInExcel(ConnectionData connectionData, string filePath)
+        {
+            if (string.IsNullOrEmpty(filePath))
+            {
+                return;
+            }
+
+            var uriFile = new Uri(filePath, UriKind.Absolute).AbsoluteUri;
+
+            this.WriteToOutput(connectionData, "Open File in Excel         :    {0}", uriFile.Replace("file:", $"{Intellisense.UrlCommandFilter.PrefixOpenInExcel}:"));
             this.WriteToOutput(connectionData, string.Empty);
         }
 
@@ -764,77 +771,73 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void SelectFileInFolder(ConnectionData connectionData, string filePath)
         {
-            if (File.Exists(filePath))
+            if (!File.Exists(filePath))
             {
-                this.WriteToOutput(connectionData, "Selecting file in folder {0}", filePath);
+                return;
+            }
 
-                ProcessStartInfo info = new ProcessStartInfo
+            this.WriteToOutput(connectionData, "Selecting file in folder {0}", filePath);
+
+            ProcessStartInfo info = new ProcessStartInfo
+            {
+                FileName = "explorer.exe",
+                Arguments = @"/select, """ + filePath + "\"",
+
+                UseShellExecute = true,
+                WindowStyle = ProcessWindowStyle.Normal
+            };
+
+            try
+            {
+                System.Diagnostics.Process process = System.Diagnostics.Process.Start(info);
+
+                if (process != null)
                 {
-                    FileName = "explorer.exe",
-                    Arguments = @"/select, """ + filePath + "\"",
-
-                    UseShellExecute = true,
-                    WindowStyle = ProcessWindowStyle.Normal
-                };
-
-                try
-                {
-                    System.Diagnostics.Process process = System.Diagnostics.Process.Start(info);
-
-                    if (process != null)
+                    if (!process.HasExited)
                     {
-                        if (!process.HasExited)
-                        {
-                            process.WaitForInputIdle();
-                        }
+                        process.WaitForInputIdle();
                     }
                 }
-                catch (Exception ex)
-                {
-                    this.WriteErrorToOutput(connectionData, ex);
-
-#if DEBUG
-                    if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
-#endif
-                }
+            }
+            catch (Exception ex)
+            {
+                this.WriteErrorToOutput(connectionData, ex);
             }
         }
 
         public void OpenFolder(string folderPath)
         {
-            if (Directory.Exists(folderPath))
+            if (!Directory.Exists(folderPath))
             {
-                this.WriteToOutput(null, "Opening folder {0}", folderPath);
+                return;
+            }
 
-                ProcessStartInfo info = new ProcessStartInfo
+            this.WriteToOutput(null, "Opening folder {0}", folderPath);
+
+            ProcessStartInfo info = new ProcessStartInfo
+            {
+                FileName = "explorer.exe",
+                Arguments = string.Format("\"{0}\"", folderPath),
+
+                UseShellExecute = true,
+                WindowStyle = ProcessWindowStyle.Normal
+            };
+
+            try
+            {
+                System.Diagnostics.Process process = System.Diagnostics.Process.Start(info);
+
+                if (process != null)
                 {
-                    FileName = "explorer.exe",
-                    Arguments = folderPath,
-
-                    UseShellExecute = true,
-                    WindowStyle = ProcessWindowStyle.Normal
-                };
-
-                try
-                {
-                    System.Diagnostics.Process process = System.Diagnostics.Process.Start(info);
-
-                    if (process != null)
+                    if (!process.HasExited)
                     {
-                        if (!process.HasExited)
-                        {
-                            process.WaitForInputIdle();
-                        }
+                        process.WaitForInputIdle();
                     }
                 }
-                catch (Exception ex)
-                {
-                    this.WriteErrorToOutput(null, ex);
-
-#if DEBUG
-                    if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
-#endif
-                }
+            }
+            catch (Exception ex)
+            {
+                this.WriteErrorToOutput(null, ex);
             }
         }
 
@@ -890,16 +893,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void OpenFileInVisualStudio(ConnectionData connectionData, string filePath)
         {
-            if (File.Exists(filePath))
+            if (!File.Exists(filePath)
+                || ApplicationObject == null
+            )
             {
-                if (ApplicationObject != null)
-                {
-                    this.WriteToOutput(connectionData, "Opening in Visual Studio file {0}", filePath);
-
-                    ApplicationObject.ItemOperations.OpenFile(filePath);
-                    ApplicationObject.MainWindow.Activate();
-                }
+                return;
             }
+
+            this.WriteToOutput(connectionData, "Opening in Visual Studio file {0}", filePath);
+
+            ApplicationObject.ItemOperations.OpenFile(filePath);
+            ApplicationObject.MainWindow.Activate();
         }
 
         public void OpenFileInVisualStudioRelativePath(ConnectionData connectionData, string filePath)
@@ -923,13 +927,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            if (File.Exists(filePath))
+            if (!File.Exists(filePath))
             {
-                this.WriteToOutput(connectionData, "Opening in Visual Studio file {0}", filePath);
-
-                ApplicationObject.ItemOperations.OpenFile(filePath);
-                ApplicationObject.MainWindow.Activate();
+                return;
             }
+
+            this.WriteToOutput(connectionData, "Opening in Visual Studio file {0}", filePath);
+
+            ApplicationObject.ItemOperations.OpenFile(filePath);
+            ApplicationObject.MainWindow.Activate();
         }
 
         public void ShowDifference(Uri uri)
@@ -1098,35 +1104,76 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (File.Exists(filePath) && File.Exists(commonConfig.TextEditorProgram))
+            if (!File.Exists(filePath)
+                || !File.Exists(commonConfig.TextEditorProgram)
+            )
             {
-                this.WriteToOutput(connectionData, "Opening in Text Editor file {0}", filePath);
+                return;
+            }
 
-                ProcessStartInfo info = new ProcessStartInfo
+            this.WriteToOutput(connectionData, "Opening in Text Editor file {0}", filePath);
+
+            ProcessStartInfo info = new ProcessStartInfo
+            {
+                FileName = string.Format("\"{0}\"", commonConfig.TextEditorProgram),
+                Arguments = string.Format("\"{0}\"", filePath),
+
+                UseShellExecute = false,
+                WindowStyle = ProcessWindowStyle.Normal
+            };
+
+            try
+            {
+                System.Diagnostics.Process process = System.Diagnostics.Process.Start(info);
+
+                if (process != null)
                 {
-                    FileName = string.Format("\"{0}\"", commonConfig.TextEditorProgram),
-                    Arguments = string.Format("\"{0}\"", filePath),
-
-                    UseShellExecute = false,
-                    WindowStyle = ProcessWindowStyle.Normal
-                };
-
-                try
-                {
-                    System.Diagnostics.Process process = System.Diagnostics.Process.Start(info);
-
-                    if (process != null)
+                    if (!process.HasExited)
                     {
-                        if (!process.HasExited)
-                        {
-                            process.WaitForInputIdle();
-                        }
+                        process.WaitForInputIdle();
                     }
                 }
-                catch (Exception ex)
+            }
+            catch (Exception ex)
+            {
+                this.WriteErrorToOutput(connectionData, ex);
+            }
+        }
+
+        public void OpenFileInExcel(ConnectionData connectionData, string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                return;
+            }
+
+            this.WriteToOutput(connectionData, string.Empty);
+            this.WriteToOutput(connectionData, "Opening in Excel file {0}", filePath);
+
+            ProcessStartInfo info = new ProcessStartInfo
+            {
+                FileName = "Excel.exe",
+                Arguments = string.Format("\"{0}\"", filePath),
+
+                UseShellExecute = true,
+                WindowStyle = ProcessWindowStyle.Normal
+            };
+
+            try
+            {
+                System.Diagnostics.Process process = System.Diagnostics.Process.Start(info);
+
+                if (process != null)
                 {
-                    this.WriteErrorToOutput(connectionData, ex);
+                    if (!process.HasExited)
+                    {
+                        process.WaitForInputIdle();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                this.WriteErrorToOutput(connectionData, ex);
             }
         }
 

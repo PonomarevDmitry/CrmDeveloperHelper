@@ -702,6 +702,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        private bool _OpenImportJobFormattedResultsInExcel = true;
+        [DataMember]
+        public bool OpenImportJobFormattedResultsInExcel
+        {
+            get => _OpenImportJobFormattedResultsInExcel;
+            set
+            {
+                this.OnPropertyChanging(nameof(OpenImportJobFormattedResultsInExcel));
+                this._OpenImportJobFormattedResultsInExcel = value;
+                this.OnPropertyChanged(nameof(OpenImportJobFormattedResultsInExcel));
+            }
+        }
+
         [DataMember]
         public ObservableCollection<CrmSvcUtil> Utils { get; private set; }
 

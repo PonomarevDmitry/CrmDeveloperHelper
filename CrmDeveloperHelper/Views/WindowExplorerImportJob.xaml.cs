@@ -20,7 +20,6 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
@@ -91,6 +90,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
+            chBOpenFormattedResultsInExcel.IsEnabled = IsExcelInstalled();
+            chBOpenFormattedResultsInExcel.Visibility = chBOpenFormattedResultsInExcel.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
+
             this.DecreaseInit();
 
             if (service != null)
@@ -102,6 +104,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void LoadFromConfig()
         {
             cmBFileAction.DataContext = _commonConfig;
+
+            chBOpenFormattedResultsInExcel.DataContext = _commonConfig;
 
             txtBFolder.DataContext = _commonConfig;
         }
@@ -561,7 +565,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         File.WriteAllText(filePath, formattedResults, new UTF8Encoding(false));
 
-                        this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                        this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
+
+                        if (IsExcelInstalled())
+                        {
+                            this._iWriteToOutput.WriteToOutputFilePathUriToOpenInExcel(service.ConnectionData, filePath);
+
+                            if (chBOpenFormattedResultsInExcel.IsChecked.GetValueOrDefault())
+                            {
+                                this._iWriteToOutput.OpenFileInExcel(service.ConnectionData, filePath);
+                            }
+                        }
 
                         this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, ImportJob.Schema.EntityLogicalName, name, fieldTitle, filePath);
                     }

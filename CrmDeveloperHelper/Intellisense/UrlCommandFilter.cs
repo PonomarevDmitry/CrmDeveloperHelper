@@ -21,6 +21,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
         public const string PrefixOpenInVisualStudio = "openinvisualstudio";
         public const string PrefixOpenInVisualStudioRelativePath = "openinvisualstudiopath";
         public const string PrefixOpenInTextEditor = "openintexteditor";
+        public const string PrefixOpenInExcel = "openinexcel";
         public const string PrefixShowDifference = "showdifference";
         public const string PrefixSelectFileInFolder = "selectfileinfolder";
         public const string PrefixOpenSolution = "opensolution";
@@ -180,6 +181,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 if (File.Exists(uri.LocalPath))
                 {
                     DTEHelper.Singleton?.OpenFileInTextEditor(null, uri.LocalPath);
+                }
+
+                return true;
+            }
+
+            if (string.Equals(uri.Scheme, PrefixOpenInExcel, StringComparison.InvariantCultureIgnoreCase))
+            {
+                if (File.Exists(uri.LocalPath))
+                {
+                    DTEHelper.Singleton?.OpenFileInExcel(null, uri.LocalPath);
                 }
 
                 return true;

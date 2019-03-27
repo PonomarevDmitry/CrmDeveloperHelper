@@ -1,4 +1,6 @@
-﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+﻿using Microsoft.Win32;
+using Microsoft.Xrm.Sdk;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
@@ -556,7 +558,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
         }
 
-        protected void SwitchEntityDatesToLocalTime(IEnumerable<Microsoft.Xrm.Sdk.Entity> entities)
+        protected void SwitchEntityDatesToLocalTime(IEnumerable<Entity> entities)
         {
             foreach (var item in entities)
             {
@@ -570,6 +572,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
             }
+        }
+
+        public static bool IsExcelInstalled()
+        {
+            RegistryKey hkcr = Registry.ClassesRoot;
+            RegistryKey excelKey = hkcr.OpenSubKey("Excel.Application");
+
+            return excelKey != null;
         }
     }
 }

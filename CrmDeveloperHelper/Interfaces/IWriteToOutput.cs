@@ -15,6 +15,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 
         void WriteToOutputFilePathUri(ConnectionData connectionData, string filePath);
 
+        void WriteToOutputFilePathUriToOpenInExcel(ConnectionData connectionData, string filePath);
+
         void WriteToOutputSolutionUri(ConnectionData connectionData, string solutionUniqueName, Guid solutionId);
 
         void WriteErrorToOutput(ConnectionData connectionData, Exception ex, string message = null, params object[] args);
@@ -30,6 +32,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
         void OpenFileInVisualStudio(ConnectionData connectionData, string filePath);
 
         void OpenFileInTextEditor(ConnectionData connectionData, string filePath);
+
+        void OpenFileInExcel(ConnectionData connectionData, string filePath);
 
         void SelectFileInFolder(ConnectionData connectionData, string filePath);
 
