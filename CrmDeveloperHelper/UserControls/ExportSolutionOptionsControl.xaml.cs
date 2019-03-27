@@ -13,6 +13,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
     public partial class ExportSolutionOptionsControl : UserControl
     {
         private readonly ComboBox _cmBCurrentConnection;
+        private readonly ComboBox _cmBExportSolutionProfile;
+
         private readonly Dictionary<Guid, object> _syncCacheObjects = new Dictionary<Guid, object>();
 
         private readonly Dictionary<ExportSolutionProfile, object> _syncCacheProfiles = new Dictionary<ExportSolutionProfile, object>();
@@ -22,17 +24,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         private string _textExportFolder;
         private bool _bindLastSolutionExportFolders;
 
-        public ExportSolutionOptionsControl(ComboBox cmBCurrentConnection)
+        public ExportSolutionOptionsControl(ComboBox cmBCurrentConnection, ComboBox cmBExportSolutionProfile)
         {
             InitializeComponent();
 
             this._cmBCurrentConnection = cmBCurrentConnection;
+            this._cmBExportSolutionProfile = cmBExportSolutionProfile;
 
             BindCollections(_cmBCurrentConnection.SelectedItem as ConnectionData);
 
             LoadFromConfig();
 
-            if (cmBExportSolutionProfile.SelectedItem is ExportSolutionProfile exportSolutionProfile)
+            if (_cmBExportSolutionProfile.SelectedItem is ExportSolutionProfile exportSolutionProfile)
             {
                 cmBUniqueName.Text = exportSolutionProfile.OverrideUniqueName;
                 cmBDisplayName.Text = exportSolutionProfile.OverrideDisplayName;
@@ -42,6 +45,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
 
             cmBCurrentConnection.SelectionChanged += cmBCurrentConnection_SelectionChanged;
+            cmBExportSolutionProfile.SelectionChanged += cmBExportSolutionProfile_SelectionChanged;
         }
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -68,7 +72,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private void cmBExportSolutionProfile_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cmBExportSolutionProfile.SelectedItem is ExportSolutionProfile exportSolutionProfile)
+            if (_cmBExportSolutionProfile.SelectedItem is ExportSolutionProfile exportSolutionProfile)
             {
                 BindCollections(exportSolutionProfile);
             }
@@ -109,33 +113,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private void LoadFromConfig()
         {
-            cmBExportSolutionProfile.DataContext = _cmBCurrentConnection;
+            chBAutoNumbering.DataContext = _cmBExportSolutionProfile;
+            chBCalendar.DataContext = _cmBExportSolutionProfile;
+            chBCustomization.DataContext = _cmBExportSolutionProfile;
+            chBEmailTracking.DataContext = _cmBExportSolutionProfile;
+            chBExternalApplications.DataContext = _cmBExportSolutionProfile;
+            chBGeneral.DataContext = _cmBExportSolutionProfile;
+            chBISVConfig.DataContext = _cmBExportSolutionProfile;
+            chBMarketing.DataContext = _cmBExportSolutionProfile;
+            chBOutlookSynchronization.DataContext = _cmBExportSolutionProfile;
+            chBRelashionshipRoles.DataContext = _cmBExportSolutionProfile;
+            chBSales.DataContext = _cmBExportSolutionProfile;
 
-            chBAutoNumbering.DataContext = cmBExportSolutionProfile;
-            chBCalendar.DataContext = cmBExportSolutionProfile;
-            chBCustomization.DataContext = cmBExportSolutionProfile;
-            chBEmailTracking.DataContext = cmBExportSolutionProfile;
-            chBExternalApplications.DataContext = cmBExportSolutionProfile;
-            chBGeneral.DataContext = cmBExportSolutionProfile;
-            chBISVConfig.DataContext = cmBExportSolutionProfile;
-            chBMarketing.DataContext = cmBExportSolutionProfile;
-            chBOutlookSynchronization.DataContext = cmBExportSolutionProfile;
-            chBRelashionshipRoles.DataContext = cmBExportSolutionProfile;
-            chBSales.DataContext = cmBExportSolutionProfile;
+            chBIsManaged.DataContext = _cmBExportSolutionProfile;
 
-            chBIsManaged.DataContext = cmBExportSolutionProfile;
+            chBOverrideSolutionNameAndVersion.DataContext = _cmBExportSolutionProfile;
+            chBOverrideSolutionDescription.DataContext = _cmBExportSolutionProfile;
 
-            chBOverrideSolutionNameAndVersion.DataContext = cmBExportSolutionProfile;
-            chBOverrideSolutionDescription.DataContext = cmBExportSolutionProfile;
+            chBCreateFolderForVersion.DataContext = _cmBExportSolutionProfile;
+            chBCopyFileToClipBoard.DataContext = _cmBExportSolutionProfile;
 
-            chBCreateFolderForVersion.DataContext = cmBExportSolutionProfile;
-            chBCopyFileToClipBoard.DataContext = cmBExportSolutionProfile;
+            cmBUniqueName.DataContext = _cmBExportSolutionProfile;
+            cmBDisplayName.DataContext = _cmBExportSolutionProfile;
+            cmBVersion.DataContext = _cmBExportSolutionProfile;
 
-            cmBUniqueName.DataContext = cmBExportSolutionProfile;
-            cmBDisplayName.DataContext = cmBExportSolutionProfile;
-            cmBVersion.DataContext = cmBExportSolutionProfile;
-
-            txtBDescription.DataContext = cmBExportSolutionProfile;
+            txtBDescription.DataContext = _cmBExportSolutionProfile;
         }
 
         public void DetachCollections()
@@ -177,7 +179,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         public void SetNewVersion(string newVersion)
         {
-            if (cmBExportSolutionProfile.SelectedItem is ExportSolutionProfile exportSolutionProfile)
+            if (_cmBExportSolutionProfile.SelectedItem is ExportSolutionProfile exportSolutionProfile)
             {
                 exportSolutionProfile.OverrideVersion = newVersion;
             }
@@ -228,67 +230,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 BindingOperations.SetBinding(cmBExportFolder, ComboBox.TextProperty, binding);
             }
 
-            cmBExportFolder.DataContext = cmBExportSolutionProfile;
+            cmBExportFolder.DataContext = _cmBExportSolutionProfile;
 
             this._bindLastSolutionExportFolders = true;
         }
 
-        public ExportSolutionProfile GetExportSolutionProfile()
+        public string GetExportFolder()
         {
-            return cmBExportSolutionProfile.SelectedItem as ExportSolutionProfile;
-        }
-
-        private void btnNewProfile_Click(object sender, RoutedEventArgs e)
-        {
-            if (_cmBCurrentConnection.SelectedItem != null
-                && _cmBCurrentConnection.SelectedItem is ConnectionData connectionData
-            )
-            {
-                var dialog = new WindowSelectPrefix("Enter New Profile Name", "New Profile Name");
-
-                if (dialog.ShowDialog().GetValueOrDefault())
-                {
-                    connectionData.ExportSolutionProfileList.Add(new ExportSolutionProfile()
-                    {
-                        Name = dialog.Prefix,
-                    });
-                }
-            }
-        }
-
-        private void btnEditProfile_Click(object sender, RoutedEventArgs e)
-        {
-            if (cmBExportSolutionProfile.SelectedItem != null
-                && cmBExportSolutionProfile.SelectedItem is ExportSolutionProfile exportSolutionProfile
-                && _cmBCurrentConnection.SelectedItem != null
-                && _cmBCurrentConnection.SelectedItem is ConnectionData connectionData
-            )
-            {
-                var dialog = new WindowSelectPrefix("Enter Profile Name", "Profile Name")
-                {
-                    Prefix = exportSolutionProfile.Name,
-                };
-
-                if (dialog.ShowDialog().GetValueOrDefault())
-                {
-                    exportSolutionProfile.Name = dialog.Prefix;
-                }
-            }
-        }
-
-        private void btnDeleteProfile_Click(object sender, RoutedEventArgs e)
-        {
-            if (cmBExportSolutionProfile.Items.Count > 1)
-            {
-                if (cmBExportSolutionProfile.SelectedItem != null
-                    && cmBExportSolutionProfile.SelectedItem is ExportSolutionProfile exportSolutionProfile
-                    && _cmBCurrentConnection.SelectedItem != null
-                    && _cmBCurrentConnection.SelectedItem is ConnectionData connectionData
-                )
-                {
-                    connectionData.ExportSolutionProfileList.Remove(exportSolutionProfile);
-                }
-            }
+            return cmBExportFolder.Text?.Trim();
         }
     }
 }

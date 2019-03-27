@@ -63,6 +63,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (_listGetter != null)
                 {
                     list = await _listGetter(filter);
+
+                    SwitchEntityDatesToLocalTime(list);
                 }
             }
             catch (Exception ex)

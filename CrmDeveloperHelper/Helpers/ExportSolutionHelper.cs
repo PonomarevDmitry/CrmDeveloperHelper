@@ -471,20 +471,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public Task ImportSolutionAsync(byte[] solutionBodyBinary)
+        public Task<Guid> ImportSolutionAsync(byte[] solutionBodyBinary)
         {
             return Task.Run(() => ImportSolution(solutionBodyBinary));
         }
 
-        private void ImportSolution(byte[] solutionBodyBinary)
+        private Guid ImportSolution(byte[] solutionBodyBinary)
         {
+            Guid importJobId = Guid.NewGuid();
+
             ImportSolutionRequest request = new ImportSolutionRequest()
             {
                 CustomizationFile = solutionBodyBinary,
                 OverwriteUnmanagedCustomizations = true,
+                PublishWorkflows = true,
+                ImportJobId = importJobId,
             };
 
             var response = (ImportSolutionResponse)_service.Execute(request);
+
+            return importJobId;
         }
     }
 }

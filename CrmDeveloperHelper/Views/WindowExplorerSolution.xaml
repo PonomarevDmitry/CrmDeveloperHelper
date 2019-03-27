@@ -16,8 +16,7 @@
     <Grid>
         <ToolBar x:Name="toolBarHeader" Margin="0,0,0,0" VerticalAlignment="Top" Height="33">
             <Button Content="Description Options" Click="miDescriptionOptions_Click"/>
-            <Separator/>
-            <Button Content="Export Solution Options" Click="miExportSolutionOptions_Click"/>
+
             <Separator/>
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                 <MenuItem Header="Open Solution Component Windows" VerticalAlignment="Center">
@@ -54,13 +53,49 @@
             </Menu>
         </ToolBar>
 
-        <Label Content="Folder" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="58,38,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" />
+        <Grid x:Name="gridExportProfile" Margin="10,38,10,0" VerticalAlignment="Top">
+            <Grid.Resources>
+                <Style TargetType="{x:Type ComboBox}">
+                    <Setter Property="Padding" Value="1"/>
+                    <Setter Property="Margin" Value="3"/>
+                    <Setter Property="VerticalAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                </Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Padding" Value="3"/>
+                    <Setter Property="Margin" Value="5,3"/>
+                    <Setter Property="VerticalAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                </Style>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
-        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
-        <ComboBox x:Name="cmBFilter" Height="23" Margin="58,66,10,0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.ExplorerSolutionFilter}" ItemsSource="{Binding Path=SelectedItem.LastSelectedSolutionsUniqueName}" VerticalAlignment="Top" KeyDown="cmBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
+            <Button Content="Export Solution Profile" Grid.Column="0" Click="miExportSolutionOptions_Click" Margin="0,3,5,3"/>
+            <ComboBox x:Name="cmBExportSolutionProfile" Grid.Column="1" IsTabStop="True" Height="23" DisplayMemberPath="Name" SelectedIndex="{Binding Path=SelectedItem.ExportSolutionProfileListSelectedIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Path=SelectedItem.ExportSolutionProfileList}" />
 
-        <GroupBox Header="Solutions" Margin="10,94,10,69">
+            <Button x:Name="btnNewProfile" Content="New" Grid.Column="2" Click="btnNewProfile_Click" Height="23" IsTabStop="False" />
+            <Button x:Name="btnEditProfile" Content="Edit" Grid.Column="3" Click="btnEditProfile_Click" Height="23" IsTabStop="False" />
+            <Button x:Name="btnDeleteProfile" Content="Delete" Grid.Column="4" Click="btnDeleteProfile_Click" Height="23" IsTabStop="False" Margin="5,3,0,3" />
+        </Grid>
+
+        <Label Content="Folder" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="58,73,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" />
+
+        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
+        <ComboBox x:Name="cmBFilter" Height="23" Margin="58,101,10,0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.ExplorerSolutionFilter}" ItemsSource="{Binding Path=SelectedItem.LastSelectedSolutionsUniqueName}" VerticalAlignment="Top" KeyDown="cmBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
+
+        <GroupBox Header="Solutions" Margin="10,129,10,69">
             <DockPanel LastChildFill="True">
                 <ToolBar Height="Auto" Width="Auto" VerticalAlignment="Top" DockPanel.Dock="Top" >
                     <ToolBar.Resources>
@@ -103,11 +138,11 @@
                             </Menu>
                         </ToolBarPanel>
                         <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right">
-                            
+
                             <MenuItem x:Name="tSDDBClearUnmanagedSolution" Header="Clear Unmanaged Solution" VerticalAlignment="Center" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Padding="3" Margin="2" IsEnabled="False"/>
-                            
+
                             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
-                            
+
                             <MenuItem x:Name="menuItemChangeComponents" Header="Change Solution Components" VerticalAlignment="Center" Padding="3" Margin="6,2">
                                 <MenuItem x:Name="tSDDBCopyComponents" Header="Copy Components to Selected Solutions" VerticalAlignment="Center" Padding="3" Margin="2" IsEnabled="False"/>
                                 <Separator/>

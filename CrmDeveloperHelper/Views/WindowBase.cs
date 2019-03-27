@@ -555,5 +555,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             connectionData.ConnectionConfiguration.Save();
             iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
         }
+
+        protected void SwitchEntityDatesToLocalTime(IEnumerable<Microsoft.Xrm.Sdk.Entity> entities)
+        {
+            foreach (var item in entities)
+            {
+                foreach (var attrKey in item.Attributes.Keys.ToList())
+                {
+                    if (item.Attributes[attrKey] != null
+                        && item.Attributes[attrKey] is DateTime dateTime
+                    )
+                    {
+                        item.Attributes[attrKey] = dateTime.ToLocalTime();
+                    }
+                }
+            }
+        }
     }
 }

@@ -189,6 +189,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             , ImportJob.Schema.Attributes.createdon
                             , ImportJob.Schema.Attributes.createdby
                         ));
+
+                    SwitchEntityDatesToLocalTime(list);
                 }
             }
             catch (Exception ex)

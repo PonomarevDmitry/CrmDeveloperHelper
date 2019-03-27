@@ -13,7 +13,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public abstract partial class WindowEntitySelect : WindowBase
     {
-        protected IWriteToOutput _iWriteToOutput;
+        protected readonly IWriteToOutput _iWriteToOutput;
 
         protected readonly string _entityName;
 

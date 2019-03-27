@@ -1657,6 +1657,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private void mICreateSolutionEntityDescription_Click(object sender, RoutedEventArgs e)
+        {
+            if (_solution != null)
+            {
+                ExecuteActionOnSingleSolution(_solution, PerformSolutionEntityDescription);
+            }
+        }
+
         private void mIUsedEntitiesInWorkflows_Click(object sender, RoutedEventArgs e)
         {
             if (_solution != null)
@@ -1670,6 +1678,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (_solution != null)
             {
                 ExecuteActionOnSingleSolution(_solution, PerformCreateFileWithUsedNotExistsEntitiesInWorkflows);
+            }
+        }
+
+        private async Task PerformSolutionEntityDescription(string folder, Solution solution)
+        {
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingEntityDescription);
+
+            try
+            {
+                SolutionRepository repository = new SolutionRepository(_service);
+
+                var solutionFull = await repository.GetSolutionByIdAsync(solution.Id);
+
+                string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                    _service.ConnectionData.Name
+                    , solution.UniqueName
+                    , EntityFileNameFormatter.Headers.EntityDescription
+                );
+
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, solutionFull, EntityFileNameFormatter.WebResourceIgnoreFields, _service.ConnectionData);
+
+                this._iWriteToOutput.WriteToOutput(_service.ConnectionData
+                    , Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
+                    , _service.ConnectionData.Name
+                    , solutionFull.LogicalName
+                    , filePath
+                );
+
+                this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
+
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingEntityDescriptionFailed);
             }
         }
 
