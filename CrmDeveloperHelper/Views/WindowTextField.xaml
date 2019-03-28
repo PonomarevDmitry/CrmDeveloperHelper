@@ -5,7 +5,7 @@
         Title="Enter Text" Height="412" Width="638" WindowStartupLocation="Manual">
     <Grid>
         <Label x:Name="lblText" Content="Field Name" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Padding="0"/>
-        <TextBox x:Name="txtBFieldText" Margin="10,31,10,43" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrush}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" AcceptsTab="True" AcceptsReturn="True" TextWrapping="NoWrap" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
+        <TextBox x:Name="txtBFieldText" Margin="10,31,10,43" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" AcceptsTab="True" AcceptsReturn="True" TextWrapping="NoWrap" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
       
         <Button x:Name="btnOk" Content="Ok" Margin="0,0,127,10" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="89" Click="btnOk_Click"/>
         <Button x:Name="btnCancel" Content="Cancel" Margin="0,0,10,10" Click="btnCancel_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>

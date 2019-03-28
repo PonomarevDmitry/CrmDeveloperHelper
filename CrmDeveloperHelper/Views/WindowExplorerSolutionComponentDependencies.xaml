@@ -56,9 +56,11 @@
             </Menu>
         </ToolBar>
 
-        <TextBox x:Name="txtBComponentDescription" Height="50" Margin="10,38,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Top" IsReadOnlyCaretVisible="True" IsReadOnly="True" />
+        <TextBox x:Name="txtBComponentDescription" Height="50" Margin="10,38,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Top" IsReadOnly="True" IsReadOnlyCaretVisible="True"  Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
+        
         <Label Content="Filter" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" Padding="2" Height="23" VerticalContentAlignment="Center"/>
         <TextBox x:Name="txtBFilter" Height="23" Margin="52,93,10,0"   VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
+        
         <Grid Margin="10,116,10,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>

@@ -58,7 +58,7 @@
                 <TextBox x:Name="txtBRelatedAttributeName" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"/>
 
                 <Label Content="Attributes" Grid.Row="4" Grid.Column="0"/>
-                <TextBox x:Name="txtBAttributes" IsReadOnly="true" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrush}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" Grid.Row="4" Grid.Column="1"/>
+                <TextBox x:Name="txtBAttributes" IsReadOnly="true" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" Grid.Row="4" Grid.Column="1"/>
                 <Button Content="Select" Grid.Row="4" Grid.Column="2" Click="btnSelectAttributes_Click" />
             </Grid>
         </GroupBox>
