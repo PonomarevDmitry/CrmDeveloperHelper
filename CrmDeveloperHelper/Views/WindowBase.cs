@@ -510,6 +510,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected void ToggleControl(params Control[] controlsArray)
         {
+            ToggleControl(IsControlsEnabled, controlsArray);
+        }
+
+        protected void ToggleControl(bool enabled, params Control[] controlsArray)
+        {
             if (controlsArray == null || !controlsArray.Any())
             {
                 return;
@@ -526,16 +531,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (control is TextBox textBox)
                     {
-                        textBox.IsReadOnly = !IsControlsEnabled;
-                        textBox.IsReadOnlyCaretVisible = !IsControlsEnabled;
+                        textBox.IsReadOnly = !enabled;
+                        textBox.IsReadOnlyCaretVisible = !enabled;
                     }
                     else if (control is ProgressBar progressBar)
                     {
-                        progressBar.IsIndeterminate = !IsControlsEnabled;
+                        progressBar.IsIndeterminate = !enabled;
                     }
                     else
                     {
-                        control.IsEnabled = IsControlsEnabled;
+                        control.IsEnabled = enabled;
                     }
                 });
             }

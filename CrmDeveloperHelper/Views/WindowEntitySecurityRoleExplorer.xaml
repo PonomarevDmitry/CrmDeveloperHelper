@@ -8,6 +8,12 @@
 
         <BitmapImage x:Key="ImageRefresh" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Refresh_16.png" />
 
+        <BitmapImage x:Key="BitmapImageNone" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/PrivilegeDepths/ico_18_role_X.gif" />
+        <BitmapImage x:Key="BitmapImageBasic" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/PrivilegeDepths/ico_18_role_B.gif" />
+        <BitmapImage x:Key="BitmapImageLocal" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/PrivilegeDepths/ico_18_role_L.gif" />
+        <BitmapImage x:Key="BitmapImageDeep" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/PrivilegeDepths/ico_18_role_D.gif" />
+        <BitmapImage x:Key="BitmapImageGlobal" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/PrivilegeDepths/ico_18_role_G.gif" />
+
         <helpers:PrivilegeDepthConverter x:Key="privilegeDepthConverter" />
         <BooleanToVisibilityConverter x:Key="boolToVisibility"/>
 
@@ -71,10 +77,10 @@
 
         <ContextMenu x:Key="listContextMenuSecurityRole" Opened="ContextMenuSecurityRole_Opened">
             <MenuItem Header="Open Role in Web" VerticalAlignment="Center" Click="mIOpenSecurityRoleInWeb_Click" />
-            
+
             <Separator/>
             <MenuItem Header="Open Role List in Web" VerticalAlignment="Center" Click="mIOpenSecurityRoleListInWeb_Click" />
-            
+
             <Separator/>
             <MenuItem Header="Open Role Explorer" VerticalAlignment="Center" Click="mIOpenSecurityRoleExplorer_Click" />
 
@@ -100,68 +106,7 @@
         </ContextMenu>
     </src:WindowBase.Resources>
     <DockPanel LastChildFill="True">
-        <ToolBar Margin="0" VerticalAlignment="Top" Height="Auto" DockPanel.Dock="Top">
-            <Button x:Name="btnRefreshEntites" HorizontalAlignment="Left" Click="btnRefreshEntites_Click">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Entites</TextBlock>
-                </StackPanel>
-            </Button>
-            <Separator Margin="20,0" />
-            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                <MenuItem Header="Entity" VerticalAlignment="Center">
-                    <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
-                    <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
-                    <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
-                    <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click" />
-                    <Separator/>
-                    <MenuItem Header="Forms" Click="btnSystemForms_Click" />
-                    <MenuItem Header="Views" Click="btnSavedQuery_Click" />
-                    <MenuItem Header="Charts" Click="btnSavedChart_Click" />
-                    <Separator/>
-                    <MenuItem Header="Workflows" Click="btnWorkflows_Click" />
-                    <Separator/>
-                    <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click" />
-                    <Separator/>
-                    <MenuItem Header="Plugin Tree" Click="btnPluginTree_Click" />
-                    <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
-                    <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
-                </MenuItem>
-            </Menu>
-            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                <MenuItem Header="Compare" VerticalAlignment="Center">
-                    <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
-                    <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
-                    <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
-                    <Separator/>
-                    <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
-                </MenuItem>
-            </Menu>
-            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
-            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                <MenuItem Header="Clear Cache" Click="mIClearEntityCacheAndRefresh_Click" VerticalAlignment="Center" />
-            </Menu>
-            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
-            <Button x:Name="btnRefreshRoles" HorizontalAlignment="Left" Click="btnRefreshRoles_Click">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Roles</TextBlock>
-                </StackPanel>
-            </Button>
-            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
-            <Button x:Name="btnSaveRoleChanges" Content="Save Role Changes" Click="mISaveRoleChanges_Click" />
-        </ToolBar>
+
         <StatusBar VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
@@ -177,6 +122,63 @@
             </Grid.ColumnDefinitions>
 
             <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="true" Grid.Column="0">
+
+                <ToolBar Margin="0" VerticalAlignment="Top" Height="Auto" DockPanel.Dock="Top">
+                    <Button x:Name="btnRefreshEntites" HorizontalAlignment="Left" Click="btnRefreshEntites_Click">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Entites</TextBlock>
+                        </StackPanel>
+                    </Button>
+
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                    <Button x:Name="btnClearEntityCacheAndRefresh" Content="Clear Cache" Click="btnClearEntityCacheAndRefresh_Click" />
+
+                    <Separator Margin="10,0" />
+                    <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+
+                        <MenuItem Header="Open Window">
+                            <MenuItem Header="Open Entity Information" >
+                                <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
+                                <Separator/>
+                                <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
+                                <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
+                                <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
+                                <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
+                                <Separator/>
+                                <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click" />
+                                <Separator/>
+                                <MenuItem Header="Forms" Click="btnSystemForms_Click" />
+                                <MenuItem Header="Views" Click="btnSavedQuery_Click" />
+                                <MenuItem Header="Charts" Click="btnSavedChart_Click" />
+                                <Separator/>
+                                <MenuItem Header="Workflows" Click="btnWorkflows_Click" />
+                                <Separator/>
+                                <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click" />
+                                <Separator/>
+                                <MenuItem Header="Plugin Tree" Click="btnPluginTree_Click" />
+                                <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
+                                <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
+                            </MenuItem>
+
+                            <Separator />
+                            <MenuItem Header="Compare Information with other Organization">
+                                <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
+                                <Separator/>
+                                <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
+                                <Separator/>
+                                <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
+                                <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
+                                <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
+                                <Separator/>
+                                <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
+                                <Separator/>
+                                <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
+                            </MenuItem>
+                        </MenuItem>
+                    </Menu>
+
+                </ToolBar>
 
                 <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
                     <Grid.ColumnDefinitions>
@@ -212,6 +214,251 @@
             <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
 
             <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="true" Grid.Column="2">
+
+                <ToolBar Margin="0" VerticalAlignment="Top" Height="Auto" DockPanel.Dock="Top">
+                    <Button x:Name="btnRefreshRoles" HorizontalAlignment="Left" Click="btnRefreshRoles_Click">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Roles</TextBlock>
+                        </StackPanel>
+                    </Button>
+
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                    <Button x:Name="btnSaveRoleChanges" Content="Save Role Changes" Click="mISaveRoleChanges_Click" />
+
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                    <Menu x:Name="menuSetPrivilege" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+
+                        <MenuItem Header="Set Privilege">
+                            <MenuItem x:Name="mISetPrivilegeCreate" Header="Create">
+                                <MenuItem x:Name="mISetAttributeCreateNone" Header="None" Click="mISetAttributeCreateNone_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeCreateBasic" Header="Basic" Click="mISetAttributeCreateBasic_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeCreateLocal" Header="Local" Click="mISetAttributeCreateLocal_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeCreateDeep" Header="Deep" Click="mISetAttributeCreateDeep_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeCreateGlobal" Header="Global" Click="mISetAttributeCreateGlobal_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </MenuItem>
+
+                            <MenuItem x:Name="mISetPrivilegeRead" Header="Read">
+                                <MenuItem x:Name="mISetAttributeReadNone" Header="None" Click="mISetAttributeReadNone_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeReadBasic" Header="Basic" Click="mISetAttributeReadBasic_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeReadLocal" Header="Local" Click="mISetAttributeReadLocal_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeReadDeep" Header="Deep" Click="mISetAttributeReadDeep_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeReadGlobal" Header="Global" Click="mISetAttributeReadGlobal_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </MenuItem>
+
+                            <MenuItem x:Name="mISetPrivilegeUpdate" Header="Update">
+                                <MenuItem x:Name="mISetAttributeUpdateNone" Header="None" Click="mISetAttributeUpdateNone_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeUpdateBasic" Header="Basic" Click="mISetAttributeUpdateBasic_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeUpdateLocal" Header="Local" Click="mISetAttributeUpdateLocal_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeUpdateDeep" Header="Deep" Click="mISetAttributeUpdateDeep_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeUpdateGlobal" Header="Global" Click="mISetAttributeUpdateGlobal_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </MenuItem>
+
+                            <MenuItem x:Name="mISetPrivilegeDelete" Header="Delete">
+                                <MenuItem x:Name="mISetAttributeDeleteNone" Header="None" Click="mISetAttributeDeleteNone_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeDeleteBasic" Header="Basic" Click="mISetAttributeDeleteBasic_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeDeleteLocal" Header="Local" Click="mISetAttributeDeleteLocal_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeDeleteDeep" Header="Deep" Click="mISetAttributeDeleteDeep_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeDeleteGlobal" Header="Global" Click="mISetAttributeDeleteGlobal_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </MenuItem>
+
+                            <MenuItem x:Name="mISetPrivilegeAppend" Header="Append">
+                                <MenuItem x:Name="mISetAttributeAppendNone" Header="None" Click="mISetAttributeAppendNone_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeAppendBasic" Header="Basic" Click="mISetAttributeAppendBasic_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeAppendLocal" Header="Local" Click="mISetAttributeAppendLocal_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeAppendDeep" Header="Deep" Click="mISetAttributeAppendDeep_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeAppendGlobal" Header="Global" Click="mISetAttributeAppendGlobal_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </MenuItem>
+
+                            <MenuItem x:Name="mISetPrivilegeAppendTo" Header="AppendTo">
+                                <MenuItem x:Name="mISetAttributeAppendToNone" Header="None" Click="mISetAttributeAppendToNone_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeAppendToBasic" Header="Basic" Click="mISetAttributeAppendToBasic_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeAppendToLocal" Header="Local" Click="mISetAttributeAppendToLocal_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeAppendToDeep" Header="Deep" Click="mISetAttributeAppendToDeep_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeAppendToGlobal" Header="Global" Click="mISetAttributeAppendToGlobal_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </MenuItem>
+
+                            <MenuItem x:Name="mISetPrivilegeAssign" Header="Assign">
+                                <MenuItem x:Name="mISetAttributeAssignNone" Header="None" Click="mISetAttributeAssignNone_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeAssignBasic" Header="Basic" Click="mISetAttributeAssignBasic_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeAssignLocal" Header="Local" Click="mISetAttributeAssignLocal_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeAssignDeep" Header="Deep" Click="mISetAttributeAssignDeep_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeAssignGlobal" Header="Global" Click="mISetAttributeAssignGlobal_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </MenuItem>
+
+                            <MenuItem x:Name="mISetPrivilegeShare" Header="Share">
+                                <MenuItem x:Name="mISetAttributeShareNone" Header="None" Click="mISetAttributeShareNone_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeShareBasic" Header="Basic" Click="mISetAttributeShareBasic_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeShareLocal" Header="Local" Click="mISetAttributeShareLocal_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeShareDeep" Header="Deep" Click="mISetAttributeShareDeep_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeShareGlobal" Header="Global" Click="mISetAttributeShareGlobal_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </MenuItem>
+
+                            
+                        </MenuItem>
+                    </Menu>
+
+                </ToolBar>
 
                 <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
                     <Grid.ColumnDefinitions>
@@ -421,6 +668,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </DockPanel>
+
         </Grid>
     </DockPanel>
 </src:WindowBase>

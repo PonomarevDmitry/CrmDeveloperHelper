@@ -131,6 +131,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return str.ToString();
         }
 
+        public IWriteToOutput WriteToOutputEntityInstance(ConnectionData connectionData, Entity entity)
+        {
+            return WriteToOutputEntityInstance(connectionData, entity.LogicalName, entity.Id);
+        }
+
+        public IWriteToOutput WriteToOutputEntityInstance(ConnectionData connectionData, EntityReference entityRef)
+        {
+            WriteToOutputEntityInstance(connectionData, entityRef.LogicalName, entityRef.Id);
+
+            if (!string.IsNullOrEmpty(entityRef.Name))
+            {
+                this.WriteToOutput(connectionData, $"    Name:        {entityRef.Name}");
+            }
+
+            return this;
+        }
+
+        public IWriteToOutput WriteToOutputEntityInstance(ConnectionData connectionData, string entityName, Guid id)
+        {
+            this.WriteToOutput(connectionData, $"    LogicalName: {entityName}");
+
+            this.WriteToOutput(connectionData, $"    Id:          {id}");
+            if (connectionData != null)
+            {
+                this.WriteToOutput(connectionData, $"    Url:         {connectionData.GetEntityInstanceUrl(entityName, id)}");
+            }
+
+            return this;
+        }
+
         public string WriteToOutputStartOperation(ConnectionData connectionData, string format, params object[] args)
         {
             string message = format;
@@ -167,7 +197,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
-        public void WriteErrorToOutput(ConnectionData connectionData, Exception ex, string message = null, params object[] args)
+        public IWriteToOutput WriteErrorToOutput(ConnectionData connectionData, Exception ex, string message = null, params object[] args)
         {
             var description = GetExceptionDescription(ex);
 
@@ -213,6 +243,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
 #endif
             }
+
+            return this;
         }
 
         public static void WriteExceptionToOutput(ConnectionData connectionData, Exception ex, string message = null, params object[] args)
@@ -436,7 +468,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void ActivateOutputWindow(ConnectionData connectionData)
+        public IWriteToOutput ActivateOutputWindow(ConnectionData connectionData)
         {
             var outputWindowLocal = GetOutputWindow(connectionData);
 
@@ -462,20 +494,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     WriteExceptionToLog(ex);
                 }
             }
+
+            return this;
         }
 
-        public void ActivateVisualStudioWindow()
+        public IWriteToOutput ActivateVisualStudioWindow()
         {
             ApplicationObject?.MainWindow?.Activate();
+
+            return this;
         }
 
         #region Методы для работы со списком на публикацию.
 
-        public void AddToListForPublish(IEnumerable<SelectedFile> selectedFiles)
+        public IWriteToOutputAndPublishList AddToListForPublish(IEnumerable<SelectedFile> selectedFiles)
         {
             if (!selectedFiles.Any())
             {
-                return;
+                return this;
             }
 
             WriteToOutput(null, string.Empty);
@@ -525,13 +561,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 tableAddedInPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(null, _tabSpacer + s));
             }
+
+            return this;
         }
 
-        public void RemoveFromListForPublish(List<SelectedFile> selectedFiles)
+        public IWriteToOutput RemoveFromListForPublish(List<SelectedFile> selectedFiles)
         {
             if (!selectedFiles.Any())
             {
-                return;
+                return this;
             }
 
             WriteToOutput(null, string.Empty);
@@ -571,9 +609,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 tableRemovedFromPublishList.GetFormatedLines(false).ForEach(s => WriteToOutput(null, _tabSpacer + s));
             }
+
+            return this;
         }
 
-        public void ClearListForPublish(ConnectionData connectionData)
+        public IWriteToOutput ClearListForPublish(ConnectionData connectionData)
         {
             _ListForPublish.Clear();
 
@@ -582,9 +622,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteToOutput(connectionData, string.Empty);
 
             WriteToOutput(connectionData, "Publish List has cleaned.");
+
+            return this;
         }
 
-        public void ShowListForPublish(ConnectionData connectionData)
+        public IWriteToOutput ShowListForPublish(ConnectionData connectionData)
         {
             ActivateOutputWindow(connectionData);
 
@@ -603,6 +645,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 WriteToOutput(connectionData, Properties.OutputStrings.PublishListIsEmpty);
             }
+
+            return this;
         }
 
         #endregion Методы для работы со списком на публикацию.
@@ -692,11 +736,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return null;
         }
 
-        public void WriteToOutputFilePathUri(ConnectionData connectionData, string filePath)
+        public IWriteToOutput WriteToOutputFilePathUri(ConnectionData connectionData, string filePath)
         {
             if (string.IsNullOrEmpty(filePath))
             {
-                return;
+                return this;
             }
 
             var commonConfig = CommonConfiguration.Get();
@@ -715,26 +759,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this.WriteToOutput(connectionData, string.Empty);
             this.WriteToOutput(connectionData, "Select File in Folder      :    {0}", uriFile.Replace("file:", $"{Intellisense.UrlCommandFilter.PrefixSelectFileInFolder}:"));
             this.WriteToOutput(connectionData, string.Empty);
+
+            return this;
         }
 
-        public void WriteToOutputFilePathUriToOpenInExcel(ConnectionData connectionData, string filePath)
+        public IWriteToOutput WriteToOutputFilePathUriToOpenInExcel(ConnectionData connectionData, string filePath)
         {
             if (string.IsNullOrEmpty(filePath))
             {
-                return;
+                return this;
             }
 
             var uriFile = new Uri(filePath, UriKind.Absolute).AbsoluteUri;
 
             this.WriteToOutput(connectionData, "Open File in Excel         :    {0}", uriFile.Replace("file:", $"{Intellisense.UrlCommandFilter.PrefixOpenInExcel}:"));
             this.WriteToOutput(connectionData, string.Empty);
+
+            return this;
         }
 
-        public void WriteToOutputSolutionUri(ConnectionData connectionData, string solutionUniqueName, Guid solutionId)
+        public IWriteToOutput WriteToOutputSolutionUri(ConnectionData connectionData, string solutionUniqueName, Guid solutionId)
         {
             if (string.IsNullOrEmpty(solutionUniqueName))
             {
-                return;
+                return this;
             }
 
             string solutionUrl = connectionData.GetSolutionUrl(solutionId);
@@ -767,13 +815,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this.WriteToOutput(connectionData, "Open Solution in Windows     : {0}", urlOpenSolution);
 
             this.WriteToOutput(connectionData, string.Empty);
+
+            return this;
         }
 
-        public void SelectFileInFolder(ConnectionData connectionData, string filePath)
+        public IWriteToOutput SelectFileInFolder(ConnectionData connectionData, string filePath)
         {
             if (!File.Exists(filePath))
             {
-                return;
+                return this;
             }
 
             this.WriteToOutput(connectionData, "Selecting file in folder {0}", filePath);
@@ -803,13 +853,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 this.WriteErrorToOutput(connectionData, ex);
             }
+
+            return this;
         }
 
-        public void OpenFolder(string folderPath)
+        public IWriteToOutput OpenFolder(string folderPath)
         {
             if (!Directory.Exists(folderPath))
             {
-                return;
+                return this;
             }
 
             this.WriteToOutput(null, "Opening folder {0}", folderPath);
@@ -839,13 +891,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 this.WriteErrorToOutput(null, ex);
             }
+
+            return this;
         }
 
-        public void PerformAction(ConnectionData connectionData, string filePath, bool hideFilePathUri = false)
+        public IWriteToOutput PerformAction(ConnectionData connectionData, string filePath, bool hideFilePathUri = false)
         {
             if (!File.Exists(filePath))
             {
-                return;
+                return this;
             }
 
             if (!hideFilePathUri)
@@ -868,13 +922,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 SelectFileInFolder(connectionData, filePath);
             }
+
+            return this;
         }
 
-        public void OpenFile(ConnectionData connectionData, string filePath)
+        public IWriteToOutput OpenFile(ConnectionData connectionData, string filePath)
         {
             if (!File.Exists(filePath))
             {
-                return;
+                return this;
             }
 
             CommonConfiguration commonConfig = CommonConfiguration.Get();
@@ -889,28 +945,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 OpenFileInVisualStudio(connectionData, filePath);
             }
+
+            return this;
         }
 
-        public void OpenFileInVisualStudio(ConnectionData connectionData, string filePath)
+        public IWriteToOutput OpenFileInVisualStudio(ConnectionData connectionData, string filePath)
         {
             if (!File.Exists(filePath)
                 || ApplicationObject == null
             )
             {
-                return;
+                return this;
             }
 
             this.WriteToOutput(connectionData, "Opening in Visual Studio file {0}", filePath);
 
             ApplicationObject.ItemOperations.OpenFile(filePath);
             ApplicationObject.MainWindow.Activate();
+
+            return this;
         }
 
-        public void OpenFileInVisualStudioRelativePath(ConnectionData connectionData, string filePath)
+        public IWriteToOutput OpenFileInVisualStudioRelativePath(ConnectionData connectionData, string filePath)
         {
             if (ApplicationObject == null || string.IsNullOrEmpty(filePath))
             {
-                return;
+                return this;
             }
 
             filePath = filePath.Replace("/", "\\").Trim('\\', '/');
@@ -929,20 +989,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (!File.Exists(filePath))
             {
-                return;
+                return this;
             }
 
             this.WriteToOutput(connectionData, "Opening in Visual Studio file {0}", filePath);
 
             ApplicationObject.ItemOperations.OpenFile(filePath);
             ApplicationObject.MainWindow.Activate();
+
+            return this;
         }
 
-        public void ShowDifference(Uri uri)
+        public IWriteToOutput ShowDifference(Uri uri)
         {
             if (!File.Exists(uri.LocalPath))
             {
-                return;
+                return this;
             }
 
             ConnectionData connectionData = null;
@@ -987,7 +1049,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
                 {
-                    return;
+                    return this;
                 }
 
                 connectionData = crmConfig.CurrentConnectionData;
@@ -1018,9 +1080,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     WriteErrorToOutput(connectionData, ex);
                 }
             }
+
+            return this;
         }
 
-        public void OpenSolution(Uri uri)
+        public IWriteToOutput OpenSolution(Uri uri)
         {
             ConnectionData connectionData = null;
             string solutionUniqueName = null;
@@ -1051,7 +1115,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
                 {
-                    return;
+                    return this;
                 }
 
                 connectionData = crmConfig.CurrentConnectionData;
@@ -1061,9 +1125,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 this.HandleOpenLastSelectedSolution(connectionData, solutionUniqueName, ActionOpenComponent.OpenInWindow);
             }
+
+            return this;
         }
 
-        public void OpenSolutionList(Uri uri)
+        public IWriteToOutput OpenSolutionList(Uri uri)
         {
             ConnectionData connectionData = null;
 
@@ -1088,7 +1154,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
                 {
-                    return;
+                    return this;
                 }
 
                 connectionData = crmConfig.CurrentConnectionData;
@@ -1098,9 +1164,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 this.HandleOpenSolutionExplorerWindow(connectionData);
             }
+
+            return this;
         }
 
-        public void OpenFileInTextEditor(ConnectionData connectionData, string filePath)
+        public IWriteToOutput OpenFileInTextEditor(ConnectionData connectionData, string filePath)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -1108,7 +1176,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 || !File.Exists(commonConfig.TextEditorProgram)
             )
             {
-                return;
+                return this;
             }
 
             this.WriteToOutput(connectionData, "Opening in Text Editor file {0}", filePath);
@@ -1138,13 +1206,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 this.WriteErrorToOutput(connectionData, ex);
             }
+
+            return this;
         }
 
-        public void OpenFileInExcel(ConnectionData connectionData, string filePath)
+        public IWriteToOutput OpenFileInExcel(ConnectionData connectionData, string filePath)
         {
             if (!File.Exists(filePath))
             {
-                return;
+                return this;
             }
 
             this.WriteToOutput(connectionData, string.Empty);
@@ -1175,9 +1245,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 this.WriteErrorToOutput(connectionData, ex);
             }
+
+            return this;
         }
 
-        public void ProcessStartProgramComparer(string filePath1, string filePath2, string fileTitle1, string fileTitle2)
+        public IWriteToOutput ProcessStartProgramComparer(string filePath1, string filePath2, string fileTitle1, string fileTitle2)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -1269,16 +1341,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 this.OpenFile(null, filePath2);
             }
+
+            return this;
         }
 
-        public void ProcessStartProgramComparerThreeWayFile(string fileLocalPath, string filePath1, string filePath2, string fileLocalTitle, string fileTitle1, string fileTitle2)
+        public IWriteToOutput ProcessStartProgramComparerThreeWayFile(string fileLocalPath, string filePath1, string filePath2, string fileLocalTitle, string fileTitle1, string fileTitle2)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
             if (!commonConfig.DifferenceThreeWayAvaliable())
             {
                 this.WriteToOutput(null, "There is no valid configuration for ThreeWay Difference.");
-                return;
+                return this;
             }
 
             if (File.Exists(filePath1) && File.Exists(filePath2) && File.Exists(fileLocalPath))
@@ -1349,6 +1423,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 this.OpenFile(null, filePath2);
             }
+
+            return this;
         }
 
         public Task<int> BuildProjectAsync(Project project)

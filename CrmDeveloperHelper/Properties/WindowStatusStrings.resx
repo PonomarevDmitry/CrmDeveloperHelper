@@ -1167,11 +1167,11 @@
   <data name="AssigningRolesToUsersFormat3" xml:space="preserve">
     <value>{0}. Assigning roles {1} to users {2}...</value>
   </data>
-  <data name="SavingChangesToRolesCompletedFormat2" xml:space="preserve">
-    <value>{0}. Saving Changes to roles {1} completed.</value>
+  <data name="SavingChangesInRolesCompletedFormat1" xml:space="preserve">
+    <value>{0}. Saving Changes in Roles completed.</value>
   </data>
-  <data name="SavingChangesToRolesFormat2" xml:space="preserve">
-    <value>{0}. Saving Changes to roles {1}...</value>
+  <data name="SavingChangesInRolesFormat1" xml:space="preserve">
+    <value>{0}. Saving Changes in Roles...</value>
   </data>
   <data name="CheckingWorkflowsStatesFormat2" xml:space="preserve">
     <value>Checking Workflows states in {0} and {1}...</value>
@@ -1314,9 +1314,6 @@
   <data name="LoadingImportJobsCompletedFormat1" xml:space="preserve">
     <value>{0} import jobs loaded.</value>
   </data>
-  <data name="AssigningEntityToUserCompletedFormat2" xml:space="preserve">
-    <value>{0}. Assigning Entity to User {1} completed.</value>
-  </data>
   <data name="AssigningEntitiesToTeamCompletedFormat2" xml:space="preserve">
     <value>{0}. Assigning Entities to Team {1} completed.</value>
   </data>
@@ -1328,21 +1325,6 @@
   </data>
   <data name="AssigningEntitiesToUserFormat2" xml:space="preserve">
     <value>{0}. Assigning Entities to User {1}...</value>
-  </data>
-  <data name="AssigningEntityToTeamCompletedFormat2" xml:space="preserve">
-    <value>{0}. Assigning Entity to Team {1} completed.</value>
-  </data>
-  <data name="AssigningEntityToTeamFailedFormat2" xml:space="preserve">
-    <value>{0}. Assigning Entity to Team {1} failed.</value>
-  </data>
-  <data name="AssigningEntityToTeamFormat2" xml:space="preserve">
-    <value>{0}. Assigning Entity to Team {1}...</value>
-  </data>
-  <data name="AssigningEntityToUserFailedFormat2" xml:space="preserve">
-    <value>{0}. Assigning Entity to User {1} failed.</value>
-  </data>
-  <data name="AssigningEntityToUserFormat2" xml:space="preserve">
-    <value>{0}. Assigning Entity to User {1}...</value>
   </data>
   <data name="ExecutingWorkflowCompletedFormat2" xml:space="preserve">
     <value>Executing Workflow {0} completed.</value>

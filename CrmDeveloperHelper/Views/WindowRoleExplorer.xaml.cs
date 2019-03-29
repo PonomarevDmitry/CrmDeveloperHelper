@@ -1894,9 +1894,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.SavingChangesToRolesFormat2, service.ConnectionData.Name, role.Name);
+            string operationName = string.Format(Properties.OperationNames.SavingChangesInRolesFormat1, service.ConnectionData.Name);
+
+            _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.SavingChangesInRolesFormat1, service.ConnectionData.Name);
 
             var rolePrivileges = new RolePrivilegesRepository(service);
+
+            _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SavingChangesInRoleFormat1, role.Name);
+            _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, role);
 
             try
             {
@@ -1907,7 +1914,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.SavingChangesToRolesCompletedFormat2, service.ConnectionData.Name, role.Name);
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.SavingChangesInRolesCompletedFormat1, service.ConnectionData.Name);
+
+            _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
 
             ShowRoleEntityPrivileges();
         }

@@ -976,6 +976,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 , this.menuExecuteWorkflow
                 , this.menuAssignToUser
                 , this.menuAssignToTeam
+                , this.menuTransferToConnection
             );
         }
 
@@ -1334,12 +1335,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
+            if (entity.Id == Guid.Empty)
+            {
+                return;
+            }
+
+            await ExecuteWorkfowOnEntities(entity.LogicalName, new[] { entity.Id });
+        }
+
+        private async void miExecuteWorkflowOnAllEntites_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+                || !_entityCollection.Entities.Any(en => en.Id != Guid.Empty)
+            )
+            {
+                return;
+            }
+
+            await ExecuteWorkfowOnEntities(_entityCollection.EntityName, _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id));
+        }
+
+        private async Task ExecuteWorkfowOnEntities(string entityName, IEnumerable<Guid> entityIds)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!entityIds.Any(id => id != Guid.Empty))
+            {
+                return;
+            }
+
             var service = await GetServiceAsync(this.ConnectionData);
 
             var repository = new WorkflowRepository(service);
 
             Func<string, Task<IEnumerable<Workflow>>> getter = (string filter) => repository.GetListAsync(
-                entity.LogicalName
+                entityName
                 , (int)Workflow.Schema.OptionSets.category.Workflow_0
                 , null
                 , new ColumnSet(
@@ -1376,31 +1415,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ExecutingWorkflowFormat2, service.ConnectionData.Name, workflow.Name);
 
-            try
+            _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+            foreach (var id in entityIds.Where(e => e != Guid.Empty).Distinct())
             {
-                var request = new ExecuteWorkflowRequest()
+                try
                 {
-                    EntityId = entity.Id,
-                    WorkflowId = workflow.Id,
-                };
+                    var request = new ExecuteWorkflowRequest()
+                    {
+                        EntityId = id,
+                        WorkflowId = workflow.Id,
+                    };
 
-                var url = service.ConnectionData.GetEntityInstanceUrl(entity.LogicalName, entity.Id);
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExecutingOnEntityWorkflowFormat1, workflow.Name);
+                    _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, entityName, id);
 
-                _iWriteToOutput.WriteToOutput(service.ConnectionData, $@"Executing Workflow {workflow.Name}
-    LogicalName: {entity.LogicalName}
-    Id:          {entity.Id}
-    Url:         {url}");
+                    await service.ExecuteAsync(request);
 
-                await service.ExecuteAsync(request);
-
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExecutingWorkflowCompletedFormat2, service.ConnectionData.Name, workflow.Name);
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                }
             }
-            catch (Exception ex)
-            {
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExecutingWorkflowFailedFormat2, service.ConnectionData.Name, workflow.Name);
 
-                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-            }
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExecutingWorkflowCompletedFormat2, service.ConnectionData.Name, workflow.Name);
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
         }
@@ -1417,219 +1456,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            var service = await GetServiceAsync(this.ConnectionData);
-
-            var repository = new SystemUserRepository(service);
-
-            Func<string, Task<IEnumerable<SystemUser>>> getter = (string filter) => repository.GetUsersAsync(filter
-                , new ColumnSet(
-                    SystemUser.Schema.Attributes.domainname
-                    , SystemUser.Schema.Attributes.fullname
-                    , SystemUser.Schema.Attributes.businessunitid
-                    , SystemUser.Schema.Attributes.isdisabled
-                )
-            );
-
-            IEnumerable<DataGridColumn> columns = SystemUserRepository.GetDataGridColumn();
-
-            var form = new WindowEntitySelect<SystemUser>(_iWriteToOutput, service.ConnectionData, SystemUser.EntityLogicalName, getter, columns);
-
-            if (!form.ShowDialog().GetValueOrDefault())
+            if (entity.Id == Guid.Empty)
             {
                 return;
             }
 
-            if (form.SelectedEntity == null)
-            {
-                return;
-            }
-
-            SystemUser user = form.SelectedEntity;
-
-            string operationName = string.Format(Properties.OperationNames.AssigningEntityToUserFormat2, service.ConnectionData.Name, user.FullName);
-
-            _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
-
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AssigningEntityToUserFormat2, service.ConnectionData.Name, user.FullName);
-
-            try
-            {
-                var request = new AssignRequest()
-                {
-                    Target = entity.ToEntityReference(),
-                    Assignee = user.ToEntityReference(),
-                };
-
-                await service.ExecuteAsync(request);
-
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AssigningEntityToUserCompletedFormat2, service.ConnectionData.Name, user.FullName);
-            }
-            catch (Exception ex)
-            {
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AssigningEntityToUserFailedFormat2, service.ConnectionData.Name, user.FullName);
-
-                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-            }
-
-            _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
-        }
-
-        private async void mIAssignEntityToTeam_Click(object sender, RoutedEventArgs e)
-        {
-            if (!IsControlsEnabled)
-            {
-                return;
-            }
-
-            if (!TryFindEntityFromDataRowView(e, out var entity))
-            {
-                return;
-            }
-
-            var service = await GetServiceAsync(this.ConnectionData);
-
-            var repository = new TeamRepository(service);
-
-            Func<string, Task<IEnumerable<Team>>> getter = (string filter) => repository.GetOwnerTeamsAsync(filter
-                , new ColumnSet(
-                    Team.Schema.Attributes.name
-                    , Team.Schema.Attributes.businessunitid
-                    , Team.Schema.Attributes.isdefault
-                )
-            );
-
-            IEnumerable<DataGridColumn> columns = TeamRepository.GetDataGridColumnOwner();
-
-            var form = new WindowEntitySelect<Team>(_iWriteToOutput, service.ConnectionData, Team.EntityLogicalName, getter, columns);
-
-            if (!form.ShowDialog().GetValueOrDefault())
-            {
-                return;
-            }
-
-            if (form.SelectedEntity == null)
-            {
-                return;
-            }
-
-            Team team = form.SelectedEntity;
-
-            string operationName = string.Format(Properties.OperationNames.AssigningEntityToTeamFormat2, service.ConnectionData.Name, team.Name);
-
-            _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
-
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AssigningEntityToTeamFormat2, service.ConnectionData.Name, team.Name);
-
-            try
-            {
-                var request = new AssignRequest()
-                {
-                    Target = entity.ToEntityReference(),
-                    Assignee = team.ToEntityReference(),
-                };
-
-                await service.ExecuteAsync(request);
-
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AssigningEntityToTeamCompletedFormat2, service.ConnectionData.Name, team.Name);
-            }
-            catch (Exception ex)
-            {
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AssigningEntityToTeamFailedFormat2, service.ConnectionData.Name, team.Name);
-
-                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-            }
-
-            _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
-        }
-
-        private async void miExecuteWorkflowOnAllEntites_Click(object sender, RoutedEventArgs e)
-        {
-            if (!IsControlsEnabled)
-            {
-                return;
-            }
-
-            if (_entityCollection == null || _entityCollection.Entities.Count == 0)
-            {
-                return;
-            }
-
-            if (!IsControlsEnabled)
-            {
-                return;
-            }
-
-            var service = await GetServiceAsync(this.ConnectionData);
-
-            var repository = new WorkflowRepository(service);
-
-            Func<string, Task<IEnumerable<Workflow>>> getter = (string filter) => repository.GetListAsync(
-                _entityCollection[0].LogicalName
-                , (int)Workflow.Schema.OptionSets.category.Workflow_0
-                , null
-                , new ColumnSet(
-                    Workflow.Schema.Attributes.workflowid
-                    , Workflow.Schema.Attributes.category
-                    , Workflow.Schema.Attributes.name
-                    , Workflow.Schema.Attributes.mode
-                    , Workflow.Schema.Attributes.uniquename
-                    , Workflow.Schema.Attributes.primaryentity
-                    , Workflow.Schema.Attributes.iscustomizable
-                    , Workflow.Schema.Attributes.statuscode
-                )
-            );
-
-            IEnumerable<DataGridColumn> columns = WorkflowRepository.GetDataGridColumn();
-
-            var form = new WindowEntitySelect<Workflow>(_iWriteToOutput, service.ConnectionData, Workflow.EntityLogicalName, getter, columns);
-
-            if (!form.ShowDialog().GetValueOrDefault())
-            {
-                return;
-            }
-
-            if (form.SelectedEntity == null)
-            {
-                return;
-            }
-
-            Workflow workflow = form.SelectedEntity;
-
-            string operationName = string.Format(Properties.OperationNames.ExecutingWorkflowFormat2, service.ConnectionData.Name, workflow.Name);
-
-            _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
-
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ExecutingWorkflowFormat2, service.ConnectionData.Name, workflow.Name);
-
-            foreach (var entity in _entityCollection.Entities)
-            {
-                try
-                {
-                    var request = new ExecuteWorkflowRequest()
-                    {
-                        EntityId = entity.Id,
-                        WorkflowId = workflow.Id,
-                    };
-
-                    var url = service.ConnectionData.GetEntityInstanceUrl(entity.LogicalName, entity.Id);
-
-                    _iWriteToOutput.WriteToOutput(service.ConnectionData, $@"Executing Workflow {workflow.Name}
-    LogicalName: {entity.LogicalName}
-    Id:          {entity.Id}
-    Url:         {url}");
-
-                    await service.ExecuteAsync(request);
-
-                }
-                catch (Exception ex)
-                {
-                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
-                }
-            }
-
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExecutingWorkflowCompletedFormat2, service.ConnectionData.Name, workflow.Name);
-
-            _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
+            await AssignEntitiesToUser(entity.LogicalName, new[] { entity.Id });
         }
 
         private async void miAssignToUserAllEntites_Click(object sender, RoutedEventArgs e)
@@ -1639,7 +1471,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            if (_entityCollection == null || _entityCollection.Entities.Count == 0)
+            if (_entityCollection == null
+               || _entityCollection.Entities.Count == 0
+               || !_entityCollection.Entities.Any(en => en.Id != Guid.Empty)
+            )
+            {
+                return;
+            }
+
+            await AssignEntitiesToUser(_entityCollection.EntityName, _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id));
+        }
+
+        private async Task AssignEntitiesToUser(string entityName, IEnumerable<Guid> entityIds)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!entityIds.Any(id => id != Guid.Empty))
             {
                 return;
             }
@@ -1679,22 +1529,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AssigningEntitiesToUserFormat2, service.ConnectionData.Name, user.FullName);
 
-            foreach (var entity in _entityCollection.Entities)
+            _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+            foreach (var id in entityIds.Where(e => e != Guid.Empty).Distinct())
             {
                 try
                 {
                     var request = new AssignRequest()
                     {
-                        Target = entity.ToEntityReference(),
+                        Target = new EntityReference(entityName, id),
                         Assignee = user.ToEntityReference(),
                     };
 
-                    var url = service.ConnectionData.GetEntityInstanceUrl(entity.LogicalName, entity.Id);
-
-                    _iWriteToOutput.WriteToOutput(service.ConnectionData, $@"Assigning Entity to User {user.FullName}
-    LogicalName: {entity.LogicalName}
-    Id:          {entity.Id}
-    Url:         {url}");
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.AssigningEntityToUserFormat1, user.FullName);
+                    _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, entityName, id);
 
                     await service.ExecuteAsync(request);
                 }
@@ -1709,6 +1557,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
         }
 
+        private async void mIAssignEntityToTeam_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            if (entity.Id == Guid.Empty)
+            {
+                return;
+            }
+
+            await AssignEntitiesToTeam(entity.LogicalName, new[] { entity.Id });
+        }
+
         private async void miAssignToTeamAllEntites_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
@@ -1716,7 +1584,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            if (_entityCollection == null || _entityCollection.Entities.Count == 0)
+            if (_entityCollection == null
+               || _entityCollection.Entities.Count == 0
+               || !_entityCollection.Entities.Any(en => en.Id != Guid.Empty)
+            )
+            {
+                return;
+            }
+
+            await AssignEntitiesToTeam(_entityCollection.EntityName, _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id));
+        }
+
+        private async Task AssignEntitiesToTeam(string entityName, IEnumerable<Guid> entityIds)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!entityIds.Any(id => id != Guid.Empty))
             {
                 return;
             }
@@ -1755,22 +1641,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AssigningEntitiesToTeamFormat2, service.ConnectionData.Name, team.Name);
 
-            foreach (var entity in _entityCollection.Entities)
+            _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+            foreach (var id in entityIds.Where(e => e != Guid.Empty).Distinct())
             {
                 try
                 {
                     var request = new AssignRequest()
                     {
-                        Target = entity.ToEntityReference(),
+                        Target = new EntityReference(entityName, id),
                         Assignee = team.ToEntityReference(),
                     };
 
-                    var url = service.ConnectionData.GetEntityInstanceUrl(entity.LogicalName, entity.Id);
-
-                    _iWriteToOutput.WriteToOutput(service.ConnectionData, $@"Assigning Entity to Team {team.Name}
-    LogicalName: {entity.LogicalName}
-    Id:          {entity.Id}
-    Url:         {url}");
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.AssigningEntityToTeamFormat1, team.Name);
+                    _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, entityName, id);
 
                     await service.ExecuteAsync(request);
                 }
@@ -1783,6 +1667,79 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AssigningEntitiesToTeamCompletedFormat2, service.ConnectionData.Name, team.Name);
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
+        }
+
+        private void MITransferToConnection_SubmenuOpened(object sender, RoutedEventArgs e)
+        {
+            mITransferAllEntitiesToConnection.Items.Clear();
+
+            var connectionData = this.ConnectionData;
+
+            if (connectionData != null)
+            {
+                var otherConnections = connectionData.ConnectionConfiguration.Connections.Where(c => c.ConnectionId != connectionData.ConnectionId).ToList();
+
+                if (otherConnections.Any())
+                {
+                    foreach (var connection in otherConnections)
+                    {
+                        MenuItem menuItem = new MenuItem()
+                        {
+                            Header = connection.Name,
+                            Tag = connection,
+                        };
+                        menuItem.Click += mITransferAllEntitiesToConnection_Click;
+
+                        if (mITransferAllEntitiesToConnection.Items.Count > 0)
+                        {
+                            mITransferAllEntitiesToConnection.Items.Add(new Separator());
+                        }
+
+                        mITransferAllEntitiesToConnection.Items.Add(menuItem);
+                    }
+                }
+            }
+        }
+
+        private async void mITransferAllEntitiesToConnection_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null || _entityCollection.Entities.Count == 0)
+            {
+                return;
+            }
+
+            if (!(sender is MenuItem menuItem)
+                || menuItem.Tag == null
+                || !(menuItem.Tag is ConnectionData targetConnectionData)
+            )
+            {
+                return;
+            }
+
+            var sourceService = await GetServiceAsync(this.ConnectionData);
+
+            var targetService = await GetServiceAsync(targetConnectionData);
+
+            string entityName = _entityCollection.EntityName;
+
+            EntityMetadataRepository repository = new EntityMetadataRepository(targetService);
+
+            var targetEntityMetadata = await repository.GetEntityMetadataAsync(_entityCollection.EntityName);
+
+            if (targetEntityMetadata == null)
+            {
+                return;
+            }
+
+            List<Entity> entities = _entityCollection.Entities.ToList();
+
+
+
         }
     }
 }

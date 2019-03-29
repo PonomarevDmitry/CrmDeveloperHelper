@@ -666,17 +666,11 @@
   <data name="ImportJobExplorerFormat1" xml:space="preserve">
     <value>{0} - ImportJob Explorer</value>
   </data>
-  <data name="AssigningEntityToUserFormat2" xml:space="preserve">
-    <value>{0} - Assigning Entity to User {1}</value>
-  </data>
   <data name="AssigningEntitiesToTeamFormat2" xml:space="preserve">
     <value>{0} - Assigning Entities to Team {1}</value>
   </data>
   <data name="AssigningEntitiesToUserFormat2" xml:space="preserve">
     <value>{0} - Assigning Entities to User {1}</value>
-  </data>
-  <data name="AssigningEntityToTeamFormat2" xml:space="preserve">
-    <value>{0} - Assigning Entity to Team {1}</value>
   </data>
   <data name="ExecutingWorkflowFormat2" xml:space="preserve">
     <value>{0} - Executing Workflow {1}</value>
@@ -692,5 +686,8 @@
   </data>
   <data name="MergingPrivilegesToMaximumFromRoleToRoleFormat3" xml:space="preserve">
     <value>{0} - Merging Privileges to Maximum from {1} to {2}</value>
+  </data>
+  <data name="SavingChangesInRolesFormat1" xml:space="preserve">
+    <value>{0} - Saving Changes in Roles...</value>
   </data>
 </root>

@@ -232,60 +232,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Assigning Entity to Team {1} completed..
-        /// </summary>
-        internal static string AssigningEntityToTeamCompletedFormat2 {
-            get {
-                return ResourceManager.GetString("AssigningEntityToTeamCompletedFormat2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}. Assigning Entity to Team {1} failed..
-        /// </summary>
-        internal static string AssigningEntityToTeamFailedFormat2 {
-            get {
-                return ResourceManager.GetString("AssigningEntityToTeamFailedFormat2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}. Assigning Entity to Team {1}....
-        /// </summary>
-        internal static string AssigningEntityToTeamFormat2 {
-            get {
-                return ResourceManager.GetString("AssigningEntityToTeamFormat2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}. Assigning Entity to User {1} completed..
-        /// </summary>
-        internal static string AssigningEntityToUserCompletedFormat2 {
-            get {
-                return ResourceManager.GetString("AssigningEntityToUserCompletedFormat2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}. Assigning Entity to User {1} failed..
-        /// </summary>
-        internal static string AssigningEntityToUserFailedFormat2 {
-            get {
-                return ResourceManager.GetString("AssigningEntityToUserFailedFormat2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}. Assigning Entity to User {1}....
-        /// </summary>
-        internal static string AssigningEntityToUserFormat2 {
-            get {
-                return ResourceManager.GetString("AssigningEntityToUserFormat2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0}. Assigning roles {1} to teams {2} completed..
         /// </summary>
         internal static string AssigningRolesToTeamsCompletedFormat3 {
@@ -3157,20 +3103,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Saving Changes to roles {1} completed..
+        ///   Looks up a localized string similar to {0}. Saving Changes in Roles completed..
         /// </summary>
-        internal static string SavingChangesToRolesCompletedFormat2 {
+        internal static string SavingChangesInRolesCompletedFormat1 {
             get {
-                return ResourceManager.GetString("SavingChangesToRolesCompletedFormat2", resourceCulture);
+                return ResourceManager.GetString("SavingChangesInRolesCompletedFormat1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Saving Changes to roles {1}....
+        ///   Looks up a localized string similar to {0}. Saving Changes in Roles....
         /// </summary>
-        internal static string SavingChangesToRolesFormat2 {
+        internal static string SavingChangesInRolesFormat1 {
             get {
-                return ResourceManager.GetString("SavingChangesToRolesFormat2", resourceCulture);
+                return ResourceManager.GetString("SavingChangesInRolesFormat1", resourceCulture);
             }
         }
         

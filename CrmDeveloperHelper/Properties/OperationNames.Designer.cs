@@ -214,24 +214,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Assigning Entity to Team {1}.
-        /// </summary>
-        internal static string AssigningEntityToTeamFormat2 {
-            get {
-                return ResourceManager.GetString("AssigningEntityToTeamFormat2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} - Assigning Entity to User {1}.
-        /// </summary>
-        internal static string AssigningEntityToUserFormat2 {
-            get {
-                return ResourceManager.GetString("AssigningEntityToUserFormat2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} - Assigning Roles {1} to Teams {2}.
         /// </summary>
         internal static string AssigningRolesToTeamsFormat3 {
@@ -1560,6 +1542,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string SavingChangesFormat1 {
             get {
                 return ResourceManager.GetString("SavingChangesFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Saving Changes in Roles....
+        /// </summary>
+        internal static string SavingChangesInRolesFormat1 {
+            get {
+                return ResourceManager.GetString("SavingChangesInRolesFormat1", resourceCulture);
             }
         }
         

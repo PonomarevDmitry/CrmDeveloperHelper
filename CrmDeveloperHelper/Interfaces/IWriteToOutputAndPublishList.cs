@@ -5,6 +5,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 {
     public interface IWriteToOutputAndPublishList : IWriteToOutput
     {
-        void AddToListForPublish(IEnumerable<SelectedFile> selectedFiles);
+        IWriteToOutputAndPublishList AddToListForPublish(IEnumerable<SelectedFile> selectedFiles);
     }
 }

@@ -97,6 +97,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assigning Entity to Team {0}.
+        /// </summary>
+        internal static string AssigningEntityToTeamFormat1 {
+            get {
+                return ResourceManager.GetString("AssigningEntityToTeamFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assigning Entity to User {0}.
+        /// </summary>
+        internal static string AssigningEntityToUserFormat1 {
+            get {
+                return ResourceManager.GetString("AssigningEntityToUserFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}. Role {1} Changed Privileges exported to file: {2}.
         /// </summary>
         internal static string ChangedPrivilegesForConnectionFormat3 {
@@ -264,6 +282,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string ExceptionWhileOperationFormat1 {
             get {
                 return ResourceManager.GetString("ExceptionWhileOperationFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Executing on Entity Workflow {0}.
+        /// </summary>
+        internal static string ExecutingOnEntityWorkflowFormat1 {
+            get {
+                return ResourceManager.GetString("ExecutingOnEntityWorkflowFormat1", resourceCulture);
             }
         }
         
@@ -696,6 +723,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string SavedQueryNotFoundedFormat2 {
             get {
                 return ResourceManager.GetString("SavedQueryNotFoundedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving Changes in Role {0}....
+        /// </summary>
+        internal static string SavingChangesInRoleFormat1 {
+            get {
+                return ResourceManager.GetString("SavingChangesInRoleFormat1", resourceCulture);
             }
         }
         

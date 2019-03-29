@@ -26,6 +26,7 @@
                 <MenuItem Header="Assign Entity to User" Click="mIAssignEntityToUser_Click"/>
                 <MenuItem Header="Assign Entity to Team" Click="mIAssignEntityToTeam_Click"/>
             </MenuItem>
+            
         </ContextMenu>
         <ContextMenu x:Key="listContextMenuEntityReference">
             <MenuItem Header="Open EntityReference Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityReferenceCustomizationInWeb_Click" />
@@ -101,13 +102,13 @@
                         </GroupBox>
                         <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
                         <GroupBox Grid.Column="2" Header="Fetch Xml Text">
-                            <TextBox x:Name="txtBFetchXml" IsReadOnly="True" IsReadOnlyCaretVisible="True" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrush}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
+                            <TextBox x:Name="txtBFetchXml" IsReadOnly="True" IsReadOnlyCaretVisible="True" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
                         </GroupBox>
                     </Grid>
                 </DockPanel>
             </TabItem>
             <TabItem x:Name="tbErrorText" IsEnabled="False" Visibility="Collapsed" IsSelected="False" Header="Error Text">
-                <TextBox x:Name="txtBErrorText" Margin="5" IsReadOnly="True" IsReadOnlyCaretVisible="True" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrush}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
+                <TextBox x:Name="txtBErrorText" Margin="5" IsReadOnly="True" IsReadOnlyCaretVisible="True" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
             </TabItem>
             <TabItem x:Name="tbResults" IsEnabled="False" Visibility="Collapsed" IsSelected="False" Header="Results">
                 <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="true">
@@ -134,6 +135,13 @@
                         <Menu x:Name="menuAssignToTeam" VerticalAlignment="Stretch" Background="{x:Null}">
                             <MenuItem Header="Assign to Team">
                                 <MenuItem Header="Assign all Entities to Team" Click="miAssignToTeamAllEntites_Click"/>
+                            </MenuItem>
+                        </Menu>
+
+                        <Separator/>
+                        <Menu x:Name="menuTransferToConnection" VerticalAlignment="Stretch" Background="{x:Null}">
+                            <MenuItem x:Name="mITransferToConnection" Header="Transfer to Connection" SubmenuOpened="MITransferToConnection_SubmenuOpened">
+                                <MenuItem x:Name="mITransferAllEntitiesToConnection" Header="Transfer all Entities to Connection"/>
                             </MenuItem>
                         </Menu>
                     </ToolBar>
