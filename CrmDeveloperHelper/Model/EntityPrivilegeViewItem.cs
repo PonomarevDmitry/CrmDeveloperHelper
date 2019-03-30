@@ -31,7 +31,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string DisplayName { get; private set; }
 
-        public bool IsCustomizable  { get; private set; }
+        public bool IsCustomizable { get; private set; }
 
         private PrivilegeDepthExtended _initialCreate;
         private PrivilegeDepthExtended _initialRead;
@@ -42,14 +42,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         private PrivilegeDepthExtended _initialShare;
         private PrivilegeDepthExtended _initialAssign;
 
-        public bool AvailableCreate => _availablePrivilegesTypes.Contains(PrivilegeType.Create);
-        public bool AvailableRead => _availablePrivilegesTypes.Contains(PrivilegeType.Read);
-        public bool AvailableUpdate => _availablePrivilegesTypes.Contains(PrivilegeType.Write);
-        public bool AvailableDelete => _availablePrivilegesTypes.Contains(PrivilegeType.Delete);
-        public bool AvailableAppend => _availablePrivilegesTypes.Contains(PrivilegeType.Append);
-        public bool AvailableAppendTo => _availablePrivilegesTypes.Contains(PrivilegeType.AppendTo);
-        public bool AvailableShare => _availablePrivilegesTypes.Contains(PrivilegeType.Share);
-        public bool AvailableAssign => _availablePrivilegesTypes.Contains(PrivilegeType.Assign);
+        public bool AvailableCreate => _availablePrivilegesTypes.ContainsKey(PrivilegeType.Create);
+        public bool AvailableRead => _availablePrivilegesTypes.ContainsKey(PrivilegeType.Read);
+        public bool AvailableUpdate => _availablePrivilegesTypes.ContainsKey(PrivilegeType.Write);
+        public bool AvailableDelete => _availablePrivilegesTypes.ContainsKey(PrivilegeType.Delete);
+        public bool AvailableAppend => _availablePrivilegesTypes.ContainsKey(PrivilegeType.Append);
+        public bool AvailableAppendTo => _availablePrivilegesTypes.ContainsKey(PrivilegeType.AppendTo);
+        public bool AvailableShare => _availablePrivilegesTypes.ContainsKey(PrivilegeType.Share);
+        public bool AvailableAssign => _availablePrivilegesTypes.ContainsKey(PrivilegeType.Assign);
 
         public EntityPrivilegeViewItem(EntityMetadata entityMetadata, IEnumerable<RolePrivilege> rolePrivileges, bool isCustomizable = false)
         {
@@ -57,7 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             LoadData(entityMetadata, rolePrivileges);
         }
 
-        private HashSet<PrivilegeType> _availablePrivilegesTypes = new HashSet<PrivilegeType>();
+        private Dictionary<PrivilegeType, SecurityPrivilegeMetadata> _availablePrivilegesTypes = new Dictionary<PrivilegeType, SecurityPrivilegeMetadata>();
 
         public void LoadData(EntityMetadata entityMetadata, IEnumerable<RolePrivilege> rolePrivileges)
         {
@@ -91,7 +91,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                 if (privilege != null)
                 {
-                    this._availablePrivilegesTypes.Add(privilegeType);
+                    this._availablePrivilegesTypes.Add(privilegeType, privilege);
 
                     var rolePrivilege = rolePrivileges.FirstOrDefault(p => p.PrivilegeId == privilege.PrivilegeId);
 
@@ -352,15 +352,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
 
             if (privilegeType == PrivilegeType.None
-                || EntityMetadata == null
-                || EntityMetadata.Privileges == null
-                || !EntityMetadata.Privileges.Any()
-                )
+                || !_availablePrivilegesTypes.ContainsKey(privilegeType)
+            )
             {
                 return;
             }
 
-            var privilege = EntityMetadata.Privileges.FirstOrDefault(p => p.PrivilegeType == privilegeType);
+            var privilege = _availablePrivilegesTypes[privilegeType];
 
             if (privilege == null)
             {
@@ -400,7 +398,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public PrivilegeDepthExtended[] ShareOptions => ReturnOptions(PrivilegeType.Share);
 
-        private static PrivilegeDepthExtended[] _optionsDefault = new PrivilegeDepthExtended[] { PrivilegeDepthExtended.None };
+        private static readonly PrivilegeDepthExtended[] _optionsDefault = new PrivilegeDepthExtended[] { PrivilegeDepthExtended.None };
 
         private static ConcurrentDictionary<Tuple<bool, bool, bool, bool>, PrivilegeDepthExtended[]> _optionsCache = new ConcurrentDictionary<Tuple<bool, bool, bool, bool>, PrivilegeDepthExtended[]>();
 
@@ -412,22 +410,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                 if (privilege != null)
                 {
-                    var key = Tuple.Create(privilege.CanBeBasic, privilege.CanBeLocal, privilege.CanBeDeep, privilege.CanBeGlobal);
-
-                    if (_optionsCache.ContainsKey(key))
-                    {
-                        return _optionsCache[key];
-                    }
-
-                    PrivilegeDepthExtended[] result = ConstructNewArray(privilege.CanBeBasic, privilege.CanBeLocal, privilege.CanBeDeep, privilege.CanBeGlobal);
-
-                    _optionsCache.TryAdd(key, result);
-
-                    return result;
+                    return GetPrivilegeDepthsByAvailability(privilege.CanBeBasic, privilege.CanBeLocal, privilege.CanBeDeep, privilege.CanBeGlobal);
                 }
             }
 
             return _optionsDefault;
+        }
+
+        public static PrivilegeDepthExtended[] GetPrivilegeDepthsByAvailability(bool canBeBasic, bool canBeLocal, bool canBeDeep, bool canBeGlobal)
+        {
+            var key = Tuple.Create(canBeBasic, canBeLocal, canBeDeep, canBeGlobal);
+
+            if (_optionsCache.ContainsKey(key))
+            {
+                return _optionsCache[key];
+            }
+
+            PrivilegeDepthExtended[] result = ConstructNewArray(canBeBasic, canBeLocal, canBeDeep, canBeGlobal);
+
+            _optionsCache.TryAdd(key, result);
+
+            return result;
         }
 
         private static PrivilegeDepthExtended[] ConstructNewArray(bool canBeBasic, bool canBeLocal, bool canBeDeep, bool canBeGlobal)

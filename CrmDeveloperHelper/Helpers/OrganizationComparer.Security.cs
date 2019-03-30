@@ -34,7 +34,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var list1 = await task1;
 
-            var taskPriv1 = new PrivilegeRepository(_comparerSource.Service1).GetListAsync();
+            var taskPriv1 = new PrivilegeRepository(_comparerSource.Service1).GetListAsync(null);
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Security Roles in {0}: {1}", Connection1.Name, list1.Count()));
 
@@ -42,7 +42,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var list2 = await task2;
 
-            var taskPriv2 = new PrivilegeRepository(_comparerSource.Service2).GetListAsync();
+            var taskPriv2 = new PrivilegeRepository(_comparerSource.Service2).GetListAsync(null);
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Security Roles in {0}: {1}", Connection2.Name, list2.Count()));
 
@@ -84,14 +84,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Security Roles Privileges in {0}: {1}", Connection2.Name, listRolePrivilege2.Count()));
 
-
-
             if (!list1.Any() && !list2.Any())
             {
                 _iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.ThereIsNothingToCompare);
                 _iWriteToOutput.WriteToOutputEndOperation(null, operation);
                 return null;
             }
+
+            var privilegeComparer = new PrivilegeComparer();
 
             var group1 = listRolePrivilege1.GroupBy(e => e.RoleId.Value).ToDictionary(g => g.Key, g => g.AsEnumerable());
             var group2 = listRolePrivilege2.GroupBy(e => e.RoleId.Value).ToDictionary(g => g.Key, g => g.AsEnumerable());
@@ -226,7 +226,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 group1.TryGetValue(commonRole.Entity1.Id, out IEnumerable<RolePrivileges> enumerable1);
                 group2.TryGetValue(commonRole.Entity2.Id, out IEnumerable<RolePrivileges> enumerable2);
 
-                List<string> diff = ComparePrivileges(enumerable1, enumerable2, commonPrivileges, dictPrivilege1, dictPrivilege2);
+                List<string> diff = ComparePrivileges(enumerable1, enumerable2, commonPrivileges, dictPrivilege1, dictPrivilege2, privilegeComparer);
 
                 if (diff.Count > 0)
                 {
@@ -248,7 +248,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 content.AppendLine().AppendLine().AppendFormat("Security Privileges ONLY EXISTS in {0}: {1}", Connection1.Name, privilegesOnlyIn1.Count);
 
-                foreach (var e in privilegesOnlyIn1.OrderBy(CategorizationPrivilege).ThenBy(FormatPrivilege).ThenBy(s => s))
+                foreach (var e in privilegesOnlyIn1.OrderBy(s => s, privilegeComparer))
                 {
                     content.AppendLine().Append(tabSpacer + e.TrimEnd());
                 }
@@ -266,7 +266,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 content.AppendLine().AppendLine().AppendFormat("Security Privileges ONLY EXISTS in {0}: {1}", Connection2.Name, privilegesOnlyIn2.Count);
 
-                foreach (var e in privilegesOnlyIn2.OrderBy(CategorizationPrivilege).ThenBy(FormatPrivilege).ThenBy(s => s))
+                foreach (var e in privilegesOnlyIn2.OrderBy(s => s, privilegeComparer))
                 {
                     content.AppendLine().Append(tabSpacer + e.TrimEnd());
                 }
@@ -385,6 +385,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , HashSet<string> commonPrivileges
             , Dictionary<string, Privilege> listPrivilege1
             , Dictionary<string, Privilege> listPrivilege2
+            , PrivilegeComparer privilegeComparer
         )
         {
             List<string> result = new List<string>();
@@ -395,7 +396,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             FormatTextTableHandler tableDifferent = new FormatTextTableHandler();
             tableDifferent.SetHeader("Privilege", Connection1.Name, Connection2.Name);
 
-            foreach (var privName in commonPrivileges.OrderBy(p => CategorizationPrivilege(p)).ThenBy(p => FormatPrivilege(p)).ThenBy(p => p))
+            foreach (var privName in commonPrivileges.OrderBy(s => s, privilegeComparer))
             {
                 var priv1 = listPrivilege1[privName];
                 var priv2 = listPrivilege2[privName];
@@ -469,46 +470,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
-        private string[] _prefixes = {
-            "prvAppendTo"
-            , "prvAppend"
-            , "prvAssign"
-            , "prvCreate"
-            , "prvDelete"
-            , "prvDisable"
-            , "prvRead"
-            , "prvShare"
-            , "prvWrite"
-            , "prvRollup"
-            , "prvPublish"
-            , "prvReparent"
-        };
-
-        private int CategorizationPrivilege(string name)
-        {
-            foreach (var item in _prefixes)
-            {
-                if (name.StartsWith(item, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    return 1;
-                }
-            }
-
-            return 2;
-        }
-
-        private string FormatPrivilege(string name)
-        {
-            foreach (var item in _prefixes)
-            {
-                if (name.StartsWith(item, StringComparison.OrdinalIgnoreCase))
-                {
-                    return Regex.Replace(name, item, string.Empty, RegexOptions.IgnoreCase);
-                }
-            }
-
-            return name;
-        }
+        
 
         public Task<string> CheckFieldSecurityProfilesAsync()
         {

@@ -2,17 +2,17 @@
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Metadata.Query;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Microsoft.Xrm.Sdk.Query;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Xml.Linq;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
@@ -402,6 +402,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             RetrieveAllEntitiesResponse resp = (RetrieveAllEntitiesResponse)_service.Execute(raer);
 
             return resp.EntityMetadata.OrderBy(ent => ent.LogicalName).ToList();
+        }
+
+        public Task<List<EntityMetadata>> GetEntitiesDisplayNameWithPrivilegesAsync()
+        {
+            return Task<List<EntityMetadata>>.Run(() => GetEntitiesDisplayNameWithPrivileges());
+        }
+
+        private List<EntityMetadata> GetEntitiesDisplayNameWithPrivileges()
+        {
+            MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression("LogicalName", "DisplayName", "ObjectTypeCode", "Privileges")
+            {
+                AllProperties = false
+            };
+
+            EntityQueryExpression entityQueryExpression = new EntityQueryExpression()
+            {
+                Properties = entityProperties,
+            };
+
+            RetrieveMetadataChangesRequest request = new RetrieveMetadataChangesRequest()
+            {
+                Query = entityQueryExpression,
+            };
+
+            RetrieveMetadataChangesResponse response = (RetrieveMetadataChangesResponse)_service.Execute(request);
+
+            return response.EntityMetadata.OrderBy(ent => ent.LogicalName).ToList();
         }
 
         public Task<List<EntityMetadata>> GetEntitiesWithAttributesForAuditAsync()

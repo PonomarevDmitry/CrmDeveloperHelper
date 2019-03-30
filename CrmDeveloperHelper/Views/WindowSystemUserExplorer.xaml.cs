@@ -37,11 +37,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly ObservableCollection<Role> _itemsSourceRolesByTeams;
 
         private readonly ObservableCollection<EntityPrivilegeViewItem> _itemsSourceEntityPrivileges;
+        private readonly ObservableCollection<OtherPrivilegeViewItem> _itemsSourceOtherPrivileges;
 
         private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
         private readonly Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
 
         private readonly Dictionary<Guid, IEnumerable<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadata>>();
+        private readonly Dictionary<Guid, IEnumerable<Privilege>> _cachePrivileges = new Dictionary<Guid, IEnumerable<Privilege>>();
 
         public WindowSystemUserExplorer(
             IWriteToOutput iWriteToOutput
@@ -83,6 +85,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             lstVwSecurityRoles.ItemsSource = _itemsSourceRoles = new ObservableCollection<Role>();
             lstVwSecurityRolesByTeams.ItemsSource = _itemsSourceRolesByTeams = new ObservableCollection<Role>();
             lstVwEntityPrivileges.ItemsSource = _itemsSourceEntityPrivileges = new ObservableCollection<EntityPrivilegeViewItem>();
+            lstVwOtherPrivileges.ItemsSource = _itemsSourceOtherPrivileges = new ObservableCollection<OtherPrivilegeViewItem>();
 
             UpdateSystemUsersButtons();
 
@@ -219,6 +222,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _itemsSourceRolesByTeams.Clear();
 
                 _itemsSourceEntityPrivileges.Clear();
+                _itemsSourceOtherPrivileges.Clear();
 
                 textName = txtBFilterSystemUser.Text.Trim().ToLower();
             });
@@ -421,49 +425,52 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Dispatcher.Invoke(() =>
             {
                 _itemsSourceEntityPrivileges.Clear();
+                _itemsSourceOtherPrivileges.Clear();
             });
 
             var user = GetSelectedSystemUser();
 
             IEnumerable<EntityMetadata> entityMetadataList = Enumerable.Empty<EntityMetadata>();
 
-            IEnumerable<EntityPrivilegeViewItem> list = Enumerable.Empty<EntityPrivilegeViewItem>();
+            IEnumerable<EntityPrivilegeViewItem> listEntityPrivileges = Enumerable.Empty<EntityPrivilegeViewItem>();
+
+            IEnumerable<OtherPrivilegeViewItem> listOtherPrivileges = Enumerable.Empty<OtherPrivilegeViewItem>();
 
             try
             {
                 if (service != null)
                 {
-                    if (!_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
-                    {
-                        EntityMetadataRepository repository = new EntityMetadataRepository(service);
+                    var taskEntityMetadata = GetEntityMetadataEnumerable(service);
+                    var taskPrivileges = GetPrivileges(service);
 
-                        var temp = await repository.GetEntitiesForEntityAttributeExplorerAsync(EntityFilters.Entity | EntityFilters.Privileges);
+                    entityMetadataList = await taskEntityMetadata;
+                    var otherPrivileges = await taskPrivileges;
 
-                        _cacheEntityMetadata.Add(service.ConnectionData.ConnectionId, temp);
-                    }
-
-                    entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
-
-                    entityMetadataList = entityMetadataList.Where(e => e.Privileges != null && e.Privileges.Any());
+                    entityMetadataList = entityMetadataList.Where(e => e.Privileges != null && e.Privileges.Any(p => p.PrivilegeType != PrivilegeType.None));
 
                     if (user != null)
                     {
-                        string textName = string.Empty;
+                        string filterEntity = string.Empty;
+                        string filterOtherPrivilege = string.Empty;
 
-                        txtBEntityFilter.Dispatcher.Invoke(() =>
+                        this.Dispatcher.Invoke(() =>
                         {
-                            textName = txtBEntityFilter.Text.Trim().ToLower();
+                            filterEntity = txtBEntityFilter.Text.Trim().ToLower();
+                            filterOtherPrivilege = txtBOtherPrivilegesFilter.Text.Trim().ToLower();
                         });
 
-                        entityMetadataList = FilterEntityList(entityMetadataList, textName);
+                        entityMetadataList = FilterEntityList(entityMetadataList, filterEntity);
+                        otherPrivileges = FilterPrivilegeList(otherPrivileges, filterOtherPrivilege);
 
-                        if (entityMetadataList.Any())
+                        if (entityMetadataList.Any() || otherPrivileges.Any())
                         {
                             var repository = new RolePrivilegesRepository(service);
 
-                            var privileges = await repository.GetUserPrivilegesAsync(user.Id);
+                            var userPrivileges = await repository.GetUserPrivilegesAsync(user.Id);
 
-                            list = entityMetadataList.Select(e => new EntityPrivilegeViewItem(e, privileges));
+                            listEntityPrivileges = entityMetadataList.Select(e => new EntityPrivilegeViewItem(e, userPrivileges));
+
+                            listOtherPrivileges = otherPrivileges.Select(e => new OtherPrivilegeViewItem(e, userPrivileges));
                         }
                     }
                 }
@@ -475,7 +482,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.lstVwEntityPrivileges.Dispatcher.Invoke(() =>
             {
-                foreach (var entity in list.OrderBy(s => s.LogicalName))
+                foreach (var entity in listEntityPrivileges.OrderBy(s => s.LogicalName))
                 {
                     _itemsSourceEntityPrivileges.Add(entity);
                 }
@@ -486,7 +493,60 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
+            this.lstVwOtherPrivileges.Dispatcher.Invoke(() =>
+            {
+                foreach (var otherPriv in listOtherPrivileges.OrderBy(s => s.EntityLogicalName).ThenBy(s => s.Name, new PrivilegeComparer()))
+                {
+                    _itemsSourceOtherPrivileges.Add(otherPriv);
+                }
+
+                if (this.lstVwOtherPrivileges.Items.Count == 1)
+                {
+                    this.lstVwOtherPrivileges.SelectedItem = this.lstVwOtherPrivileges.Items[0];
+                }
+            });
+
             ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingEntitiesCompletedFormat1, entityMetadataList.Count());
+        }
+
+        private async Task<IEnumerable<Privilege>> GetPrivileges(IOrganizationServiceExtented service)
+        {
+            if (!_cachePrivileges.ContainsKey(service.ConnectionData.ConnectionId))
+            {
+                PrivilegeRepository repository = new PrivilegeRepository(service);
+
+                var temp = await repository.GetListWithEntityNameAsync(new ColumnSet(
+                    Privilege.Schema.Attributes.privilegeid
+                    , Privilege.Schema.Attributes.name
+                    , Privilege.Schema.Attributes.accessright
+
+                    , Privilege.Schema.Attributes.canbebasic
+                    , Privilege.Schema.Attributes.canbelocal
+                    , Privilege.Schema.Attributes.canbedeep
+                    , Privilege.Schema.Attributes.canbeglobal
+
+                    , Privilege.Schema.Attributes.canbeentityreference
+                    , Privilege.Schema.Attributes.canbeparententityreference
+                ));
+
+                _cachePrivileges.Add(service.ConnectionData.ConnectionId, temp);
+            }
+
+            return _cachePrivileges[service.ConnectionData.ConnectionId];
+        }
+
+        private async Task<IEnumerable<EntityMetadata>> GetEntityMetadataEnumerable(IOrganizationServiceExtented service)
+        {
+            if (!_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
+            {
+                EntityMetadataRepository repository = new EntityMetadataRepository(service);
+
+                var temp = await repository.GetEntitiesDisplayNameWithPrivilegesAsync();
+
+                _cacheEntityMetadata.Add(service.ConnectionData.ConnectionId, temp);
+            }
+
+            return _cacheEntityMetadata[service.ConnectionData.ConnectionId];
         }
 
         private static IEnumerable<EntityMetadata> FilterEntityList(IEnumerable<EntityMetadata> list, string textName)
@@ -515,6 +575,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                 .Any(lbl => lbl.Label.ToLower().Contains(textName)))
                         );
                     }
+                }
+            }
+
+            return list;
+        }
+
+        private static IEnumerable<Privilege> FilterPrivilegeList(IEnumerable<Privilege> list, string textName)
+        {
+            if (!string.IsNullOrEmpty(textName))
+            {
+                textName = textName.ToLower();
+
+                if (Guid.TryParse(textName, out Guid tempGuid))
+                {
+                    list = list.Where(ent => ent.Id == tempGuid);
+                }
+                else
+                {
+                    list = list.Where(ent => ent.Name.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) != -1);
                 }
             }
 
@@ -1297,6 +1376,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (connectionData != null)
             {
                 _cacheEntityMetadata.Remove(connectionData.ConnectionId);
+                _cachePrivileges.Remove(connectionData.ConnectionId);
 
                 RefreshSystemUserInfo();
             }

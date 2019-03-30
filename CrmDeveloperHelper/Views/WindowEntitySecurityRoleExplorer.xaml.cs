@@ -291,7 +291,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         EntityMetadataRepository repository = new EntityMetadataRepository(service);
 
-                        var temp = await repository.GetEntitiesForEntityAttributeExplorerAsync(EntityFilters.Entity | EntityFilters.Privileges);
+                        var temp = await repository.GetEntitiesDisplayNameWithPrivilegesAsync();
 
                         _cacheEntityMetadata.Add(service.ConnectionData.ConnectionId, temp);
                     }

@@ -354,6 +354,7 @@
     <Compile Include="Entities\InvalidDependency.cs" />
     <Compile Include="Entities\InvalidDependency.Generated.cs" />
     <Compile Include="Entities\Organization.Additional.cs" />
+    <Compile Include="Entities\Privilege.Additional.cs" />
     <Compile Include="Entities\ProcessTrigger.cs" />
     <Compile Include="Entities\ProcessTrigger.Generated.cs" />
     <Compile Include="Entities\Report.Additional.cs" />
@@ -650,6 +651,7 @@
     <Compile Include="Helpers\PluginsAndWorkflowLoader.cs" />
     <Compile Include="Helpers\PluginTypeConfigurationDescriptionHandler.cs" />
     <Compile Include="Helpers\PluginTypeDescriptionHandler.cs" />
+    <Compile Include="Helpers\PrivilegeComparer.cs" />
     <Compile Include="Helpers\PrivilegeDepthConverter.cs" />
     <Compile Include="Helpers\ProgressReporter.cs" />
     <Compile Include="Helpers\PropertiesHelper.cs" />
@@ -826,6 +828,7 @@
     <Compile Include="Model\OrganizationDifferenceImage.cs" />
     <Compile Include="Model\OrganizationDifferenceImageComponent.cs" />
     <Compile Include="Model\OrganizationServiceExtentedProxy.cs" />
+    <Compile Include="Model\OtherPrivilegeViewItem.cs" />
     <Compile Include="Model\PluginSearchResult.cs" />
     <Compile Include="Model\PluginStage.cs" />
     <Compile Include="Model\PluginTreeViewItem.cs" />

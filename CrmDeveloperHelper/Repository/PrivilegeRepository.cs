@@ -1,4 +1,5 @@
-﻿using Microsoft.Xrm.Sdk;
+﻿using Microsoft.Crm.Sdk.Messages;
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -25,12 +26,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public Task<List<Privilege>> GetListAsync()
+        public Task<List<Privilege>> GetListAsync(ColumnSet columnSet)
         {
-            return Task.Run(() => GetList());
+            return Task.Run(() => GetList(columnSet));
         }
 
-        private List<Privilege> GetList()
+        private List<Privilege> GetList(ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {
@@ -38,7 +39,90 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 NoLock = true,
 
-                ColumnSet = new ColumnSet(true),
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Orders =
+                {
+                    new OrderExpression(Privilege.Schema.Attributes.name, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                }
+            };
+
+            var result = new List<Privilege>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Privilege>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
+            }
+
+            return result;
+        }
+
+        public Task<List<Privilege>> GetListWithEntityNameAsync(ColumnSet columnSet)
+        {
+            return Task.Run(() => GetListWithEntityName(columnSet));
+        }
+
+        private List<Privilege> GetListWithEntityName(ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                EntityName = Privilege.EntityLogicalName,
+
+                NoLock = true,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    FilterOperator = LogicalOperator.Or,
+
+                    Conditions =
+                    {
+                        new ConditionExpression(Privilege.Schema.Attributes.accessright, ConditionOperator.Equal, (int)AccessRights.None),
+                        new ConditionExpression(PrivilegeObjectTypeCodes.EntityLogicalName, PrivilegeObjectTypeCodes.Schema.Attributes.objecttypecode, ConditionOperator.Equal, "none"),
+                    },
+                },
+
+                LinkEntities =
+                {
+                    new LinkEntity()
+                    {
+                        LinkFromEntityName = Privilege.EntityLogicalName,
+                        LinkFromAttributeName = Privilege.PrimaryIdAttribute,
+
+                        LinkToEntityName = PrivilegeObjectTypeCodes.EntityLogicalName,
+                        LinkToAttributeName = PrivilegeObjectTypeCodes.Schema.Attributes.privilegeid,
+
+                        JoinOperator = JoinOperator.LeftOuter,
+
+                        EntityAlias = PrivilegeObjectTypeCodes.EntityLogicalName,
+
+                        Columns = new ColumnSet(PrivilegeObjectTypeCodes.Schema.Attributes.objecttypecode),
+                    },
+                },
 
                 Orders =
                 {

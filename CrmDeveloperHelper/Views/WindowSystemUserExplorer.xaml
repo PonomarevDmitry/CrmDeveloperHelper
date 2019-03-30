@@ -159,6 +159,9 @@
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Users</TextBlock>
                 </StackPanel>
             </Button>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Button Content="Clear Entity Cache and Refresh" Click="mIClearEntityCacheAndRefresh_Click" />
         </ToolBar>
         <StatusBar VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
@@ -369,9 +372,10 @@
                             <Button x:Name="btnRefreshEntites" HorizontalAlignment="Left" Click="btnRefreshEntites_Click">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Entites</TextBlock>
+                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Entities Privileges</TextBlock>
                                 </StackPanel>
                             </Button>
+
                             <Separator Margin="20,0" />
                             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                                 <MenuItem Header="Open Entity Information" VerticalAlignment="Center">
@@ -399,6 +403,7 @@
                                     <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
                                 </MenuItem>
                             </Menu>
+
                             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                                 <MenuItem Header="Compare Information with other Organization" VerticalAlignment="Center">
@@ -414,10 +419,6 @@
                                     <Separator/>
                                     <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
                                 </MenuItem>
-                            </Menu>
-                            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                                <MenuItem Header="Clear Entity Cache and Refresh" Click="mIClearEntityCacheAndRefresh_Click" VerticalAlignment="Center" />
                             </Menu>
                         </ToolBar>
 
@@ -531,6 +532,76 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Image Source="{Binding Path=ShareRight, Converter={StaticResource ResourceKey=privilegeDepthConverter}}" Visibility="{Binding Path=AvailableShare, Converter={StaticResource ResourceKey=boolToVisibility}}" MaxHeight="16" MaxWidth="16" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </DockPanel>
+                </TabItem>
+
+                <TabItem Header="Other Privileges">
+                    <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True" >
+
+                        <ToolBar Margin="0" VerticalAlignment="Top" Height="27" DockPanel.Dock="Top">
+                            <Button x:Name="btnRefreshOtherPrivileges" HorizontalAlignment="Left" Click="btnRefreshEntites_Click">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Role Privileges</TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </ToolBar>
+
+                        <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="50*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+                            <TextBox x:Name="txtBOtherPrivilegesFilter"  Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBEntityFilter_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
+                        </Grid>
+
+                        <DataGrid x:Name="lstVwOtherPrivileges" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
+                            <DataGrid.Resources>
+                                <Style TargetType="{x:Type DataGridColumnHeader}">
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                </Style>
+                            </DataGrid.Resources>
+                            <DataGrid.Columns>
+
+                                <DataGridTextColumn Header="Privilege Name" Width="200" Binding="{Binding Name, Mode=OneTime}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn Header="Privilege Type" Width="200" Binding="{Binding PrivilegeType, Mode=OneTime}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn Header="Linked Entity" Width="200" Binding="{Binding EntityLogicalName, Mode=OneTime}" >
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="Right">
+                                    <DataGridTemplateColumn.Header>
+                                        <Label Content="R" Margin="0" Padding="0" ToolTip="Right" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Image Source="{Binding Path=Right, Converter={StaticResource ResourceKey=privilegeDepthConverter}}" MaxHeight="16" MaxWidth="16" />
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
