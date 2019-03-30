@@ -227,7 +227,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(this.tSProgressBar, btnSave, btnCancel);
+            ToggleControl(this.tSProgressBar
+
+                , btnSave
+                , btnCancel
+                , btnSetAllAttributes
+                , btnSelectAttributes
+
+                , txtBName
+                , txtBEntityAlias
+                , txtBRelatedAttributeName
+                , txtBDescription
+
+                , cmBMessagePropertyName
+
+                , rBBoth
+                , rBPostImage
+                , rBPreImage
+            );
         }
 
         private void UpdateStatus(string format, params object[] args)
@@ -258,15 +275,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (_entityMetadata == null)
             {
+                ToggleControls(false, Properties.WindowStatusStrings.GettingEntityMetadataFormat1, this._entityName);
+
                 var repository = new EntityMetadataRepository(_service);
 
                 _entityMetadata = await repository.GetEntityMetadataAsync(_entityName);
+
+                ToggleControls(true, Properties.WindowStatusStrings.GettingEntityMetadataCompletedFormat1, this._entityName);
             }
 
             if (_entityMetadata == null)
             {
                 return;
             }
+
+            ToggleControls(false, Properties.WindowStatusStrings.UpdatingImageAttributesFormat1, this._entityName);
 
             var form = new WindowAttributesSelect(_iWriteToOutput
                 , _service
@@ -278,6 +301,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 txtBAttributes.Text = form.GetAttributes();
             }
+
+            ToggleControls(true, Properties.WindowStatusStrings.UpdatingImageAttributesCompletedFormat1, this._entityName);
+        }
+
+        private void btnSetAllAttributes_Click(object sender, RoutedEventArgs e)
+        {
+            txtBAttributes.Text = string.Empty;
         }
     }
 }

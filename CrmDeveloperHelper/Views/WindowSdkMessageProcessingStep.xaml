@@ -28,9 +28,9 @@
                 <ToolBarPanel x:Name="toolStrip" Orientation="Horizontal" >
 
                 </ToolBarPanel>
-                <Button x:Name="btnClose" Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
-                <Separator Margin="20,0" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
-                <Button x:Name="btnSave" Content="Save" Click="btnSave_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" />
+                <Button x:Name="btnClose" Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" TabIndex="20" />
+                <Separator Margin="20,0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button x:Name="btnSave" Content="Save" Click="btnSave_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" TabIndex="10" />
             </DockPanel>
         </ToolBar>
 
@@ -85,32 +85,35 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="10*"/>
                             <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
                         <Label Content="EventHandler" Grid.Row="0" Grid.Column="0"/>
-                        <TextBox x:Name="txtBEventHandler" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" IsReadOnly="true" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
+                        <TextBox x:Name="txtBEventHandler" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" IsReadOnly="true" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
 
                         <Label Content="Message" Grid.Row="1" Grid.Column="0"/>
-                        <ComboBox x:Name="cmBMessageName" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" SelectionChanged="cmBMessageName_SelectionChanged" />
+                        <ComboBox x:Name="cmBMessageName" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" SelectionChanged="cmBMessageName_SelectionChanged" />
 
                         <Label Content="Primary Entity" Grid.Row="2" Grid.Column="0"/>
-                        <ComboBox x:Name="cmBPrimaryEntity" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" />
+                        <ComboBox x:Name="cmBPrimaryEntity" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" />
 
                         <Label Content="Secondary Entity" Grid.Row="3" Grid.Column="0"/>
-                        <ComboBox x:Name="cmBSecondaryEntity" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" />
+                        <ComboBox x:Name="cmBSecondaryEntity" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" />
 
                         <Label x:Name="lblFilteringBAttributes" Content="Filtering Attributes" Grid.Row="4" Grid.Column="0"/>
                         <TextBox x:Name="txtBFilteringBAttributes" Grid.Row="4" Grid.Column="1" IsReadOnly="true" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
-                        <Button x:Name="btnSelectAttributes" Content="Select" Grid.Row="4" Grid.Column="2" Click="btnSelectAttributes_Click" IsEnabled="False" />
+
+                        <Button x:Name="btnSetAllAttributes" Content="Set All" Grid.Row="4" Grid.Column="2" Click="btnSetAllAttributes_Click" IsEnabled="False" />
+                        <Button x:Name="btnSelectAttributes" Content="Select" Grid.Row="4" Grid.Column="3" Click="btnSelectAttributes_Click" IsEnabled="False" />
 
                         <Label Content="Name" Grid.Row="5" Grid.Column="0"/>
-                        <TextBox x:Name="txtBName" Grid.Row="5" Grid.Column="1"/>
-                        <Button Content="Generate" Grid.Row="5" Grid.Column="2" Click="btnGenerateName_Click" />
+                        <TextBox x:Name="txtBName" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"/>
+                        <Button Content="Generate" Grid.Row="5" Grid.Column="3" Click="btnGenerateName_Click" />
 
                         <Label Content="Run in User's Context" Grid.Row="6" Grid.Column="0"/>
-                        <TextBox x:Name="txtBRunInUserContext" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" IsReadOnly="true" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
+                        <TextBox x:Name="txtBRunInUserContext" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" IsReadOnly="true" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
 
-                        <Grid Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2">
+                        <Grid Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3">
 
                             <Grid.Resources>
                                 <Style TargetType="{x:Type Button}">
@@ -130,7 +133,7 @@
                         </Grid>
 
                         <Label Content="Execution Order" Grid.Row="8" Grid.Column="0"/>
-                        <TextBox x:Name="txtBExecutionOrder" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2"/>
+                        <TextBox x:Name="txtBExecutionOrder" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="3"/>
 
                     </Grid>
                 </GroupBox>

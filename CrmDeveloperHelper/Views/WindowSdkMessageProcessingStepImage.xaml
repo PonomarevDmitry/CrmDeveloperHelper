@@ -28,7 +28,7 @@
                     </Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Padding" Value="1"/>
-                        <Setter Property="Margin" Value="10,3,3,3"/>
+                        <Setter Property="Margin" Value="5,3"/>
                         <Setter Property="VerticalAlignment" Value="Stretch"/>
                     </Style>
                 </Grid.Resources>
@@ -43,23 +43,26 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="10*"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <Label Content="Name" Grid.Row="0" Grid.Column="0"/>
-                <TextBox x:Name="txtBName" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="txtBName" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"/>
 
                 <Label Content="Entity Alias" Grid.Row="1" Grid.Column="0"/>
-                <TextBox x:Name="txtBEntityAlias" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="txtBEntityAlias" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"/>
 
                 <Label Content="MessagePropertyName" Grid.Row="2" Grid.Column="0"/>
-                <ComboBox x:Name="cmBMessagePropertyName" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" />
+                <ComboBox x:Name="cmBMessagePropertyName" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" />
 
                 <Label Content="RelatedAttributeName" Grid.Row="3" Grid.Column="0"/>
-                <TextBox x:Name="txtBRelatedAttributeName" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="txtBRelatedAttributeName" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3"/>
 
                 <Label Content="Attributes" Grid.Row="4" Grid.Column="0"/>
                 <TextBox x:Name="txtBAttributes" IsReadOnly="true" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" Grid.Row="4" Grid.Column="1"/>
-                <Button Content="Select" Grid.Row="4" Grid.Column="2" Click="btnSelectAttributes_Click" />
+
+                <Button x:Name="btnSetAllAttributes" Content="Set All" Grid.Row="4" Grid.Column="2" Click="btnSetAllAttributes_Click" />
+                <Button x:Name="btnSelectAttributes" Content="Select" Grid.Row="4" Grid.Column="3" Click="btnSelectAttributes_Click" Margin="5,3,3,3" />
             </Grid>
         </GroupBox>
 
@@ -75,7 +78,7 @@
             </StackPanel>
         </GroupBox>
 
-        <Button x:Name="btnSave" Content="Save" Margin="0,0,127,39" Click="btnSave_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="103"/>
+        <Button x:Name="btnSave" Content="Save" Margin="0,0,110,39" Click="btnSave_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
         <Button x:Name="btnCancel" Content="Cancel" Margin="0,0,10,39" Click="btnCancel_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
 
         <StatusBar Height="24" VerticalAlignment="Bottom">

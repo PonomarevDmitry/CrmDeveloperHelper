@@ -110,7 +110,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 cmBSecondaryEntity.Text = secondaryText;
             });
 
-            btnSelectAttributes.IsEnabled = string.Equals(cmBMessageName.SelectedItem?.ToString(), "Update", StringComparison.InvariantCultureIgnoreCase);
+            this.Dispatcher.Invoke(() =>
+            {
+                btnSetAllAttributes.IsEnabled
+                    = btnSelectAttributes.IsEnabled
+                    = string.Equals(cmBMessageName.SelectedItem?.ToString(), "Update", StringComparison.InvariantCultureIgnoreCase);
+            });
 
             if (cmBMessageName.SelectedItem == null)
             {
@@ -624,23 +629,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            ToggleControls(false, Properties.WindowStatusStrings.GettingEntityMetadataFormat1, entityName);
+
             var repository = new EntityMetadataRepository(_service);
 
             var entityMetadata = await repository.GetEntityMetadataAsync(entityName);
 
-            if (entityMetadata != null)
-            {
-                var form = new WindowAttributesSelect(_iWriteToOutput
-                    , _service
-                    , entityMetadata
-                    , txtBFilteringBAttributes.Text.Trim()
-                );
+            ToggleControls(true, Properties.WindowStatusStrings.GettingEntityMetadataCompletedFormat1, entityName);
 
-                if (form.ShowDialog().GetValueOrDefault())
-                {
-                    txtBFilteringBAttributes.Text = form.GetAttributes();
-                }
+            if (entityMetadata == null)
+            {
+                return;
             }
+
+            ToggleControls(false, Properties.WindowStatusStrings.UpdatingStepFilteringAttributesFormat1, entityName);
+
+            var form = new WindowAttributesSelect(_iWriteToOutput
+                , _service
+                , entityMetadata
+                , txtBFilteringBAttributes.Text.Trim()
+            );
+
+            if (form.ShowDialog().GetValueOrDefault())
+            {
+                txtBFilteringBAttributes.Text = form.GetAttributes();
+            }
+
+            ToggleControls(true, Properties.WindowStatusStrings.UpdatingStepFilteringAttributesCompletedFormat1, entityName);
+        }
+
+        private void btnSetAllAttributes_Click(object sender, RoutedEventArgs e)
+        {
+            txtBFilteringBAttributes.Text = string.Empty;
         }
 
         private void rbStage_Checked(object sender, RoutedEventArgs e)
@@ -659,7 +679,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void ChangeCheckBoxEnable()
         {
-            chBDeleteAsyncOperationIfSuccessful.IsEnabled = rBPostOperation.IsChecked.GetValueOrDefault() && rBAsync.IsChecked.GetValueOrDefault();
+            chBDeleteAsyncOperationIfSuccessful.IsEnabled = this.IsControlsEnabled && rBPostOperation.IsChecked.GetValueOrDefault() && rBAsync.IsChecked.GetValueOrDefault();
         }
 
         private void btnGenerateName_Click(object sender, RoutedEventArgs e)
@@ -797,7 +817,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(this.tSProgressBar, btnSave, btnClose);
+            ToggleControl(this.tSProgressBar
+                , btnSave
+                , btnClose
+                , btnSelectUser
+                , btnClearUser
+
+                , cmBMessageName
+                , cmBPrimaryEntity
+                , cmBSecondaryEntity
+
+                , txtBDescription
+                , txtBExecutionOrder
+                , txtBName
+                , txtBSecureConfiguration
+                , txtBUnSecureConfiguration
+
+                , rBAsync
+                , rBSync
+
+                , rBPreValidation
+                , rBPreOperation
+                , rBPostOperation
+
+                , rBParent
+                , rBChild
+
+                , rBOffline
+                , rBDeploymentBoth
+                , rBServer
+            );
+
+            ToggleControl(IsControlsEnabled && string.Equals(cmBMessageName.SelectedItem?.ToString(), "Update", StringComparison.InvariantCultureIgnoreCase)
+                , btnSetAllAttributes
+                , btnSelectAttributes
+            );
+
+            ChangeCheckBoxEnable();
         }
 
         private void UpdateStatus(string format, params object[] args)

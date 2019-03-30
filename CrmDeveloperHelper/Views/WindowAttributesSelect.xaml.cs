@@ -35,6 +35,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string selectedAttributes
         )
         {
+            this.IncreaseInit();
+
             InitializeComponent();
 
             lstVwAttributes.ItemsSource = _sourceDataGrid;
@@ -61,22 +63,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             foreach (var attr in _entityMetadata.Attributes.Where(a => string.IsNullOrEmpty(a.AttributeOf)).OrderBy(a => a.LogicalName))
             {
-                _source.Add(new AttributeSelectItem(attr)
+                var item = new AttributeSelectItem(attr)
                 {
-                    IsSelected = selectedAttributesColl.Contains(attr.LogicalName),
-                });
-            }
+                    IsChecked = selectedAttributesColl.Contains(attr.LogicalName),
+                };
 
-            chBAllAttributes.IsChecked = !_source.Any(a => a.IsSelected);
+                item.PropertyChanged += Item_PropertyChanged;
+
+                _source.Add(item);
+            }
 
             foreach (var item in _source.OrderBy(a => a.LogicalName))
             {
                 _sourceDataGrid.Add(item);
             }
 
+            this.DecreaseInit();
+
+            UpdateSelectedAttributesText();
+
             txtBFilter.SelectionStart = txtBFilter.Text.Length;
             txtBFilter.SelectionLength = 0;
             txtBFilter.Focus();
+        }
+
+        private void Item_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            UpdateSelectedAttributesText();
+        }
+
+        private void UpdateSelectedAttributesText()
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            txtBSelectedAttributes.Dispatcher.Invoke(() =>
+            {
+                txtBSelectedAttributes.Text = GetAttributes();
+            });
         }
 
         public class AttributeSelectItem : INotifyPropertyChanging, INotifyPropertyChanged
@@ -89,20 +115,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             public string AttributeTypeName => AttributeMetadata.AttributeType.ToString();
 
-            private bool _IsSelected = false;
-            public bool IsSelected
+            private bool _IsChecked = false;
+            public bool IsChecked
             {
-                get => _IsSelected;
+                get => _IsChecked;
                 set
                 {
-                    if (_IsSelected == value)
+                    if (_IsChecked == value)
                     {
                         return;
                     }
 
-                    this.OnPropertyChanging(nameof(IsSelected));
-                    this._IsSelected = value;
-                    this.OnPropertyChanged(nameof(IsSelected));
+                    this.OnPropertyChanging(nameof(IsChecked));
+                    this._IsChecked = value;
+                    this.OnPropertyChanged(nameof(IsChecked));
                 }
             }
 
@@ -336,43 +362,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public string GetAttributes()
         {
-            if (chBAllAttributes.IsChecked.GetValueOrDefault())
+            if (!this._source.Any(a => a.IsChecked))
             {
                 return string.Empty;
             }
 
-            if (this._source.Count(a => a.IsSelected) == this._source.Count)
+            if (this._source.Count(a => a.IsChecked) == this._source.Count)
             {
                 return string.Empty;
             }
 
-            return string.Join(",", this._source.Where(a => a.IsSelected).OrderBy(a => a.LogicalName).Select(a => a.LogicalName));
+            return string.Join(",", this._source.Where(a => a.IsChecked).OrderBy(a => a.LogicalName).Select(a => a.LogicalName));
         }
 
-        private void chBAllAttributes_Checked(object sender, RoutedEventArgs e)
+        private void SelectAllAttributesInDataGrid(IEnumerable<AttributeSelectItem> items, bool isSelected)
         {
-            bool allAttributes = chBAllAttributes.IsChecked.GetValueOrDefault();
+            this.IncreaseInit();
 
-            lstVwAttributes.IsReadOnly = allAttributes;
-
-            btnSelectAll.IsEnabled = !allAttributes;
-            btnDeselectAll.IsEnabled = !allAttributes;
-        }
-
-        private void btnSelectAll_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (var item in _sourceDataGrid)
+            foreach (var item in items)
             {
-                item.IsSelected = true;
+                item.IsChecked = isSelected;
             }
+
+            this.DecreaseInit();
+
+            this.UpdateSelectedAttributesText();
         }
 
-        private void btnDeselectAll_Click(object sender, RoutedEventArgs e)
+        private void hypLinkSelectAll_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
-            foreach (var item in _sourceDataGrid)
-            {
-                item.IsSelected = false;
-            }
+            SelectAllAttributesInDataGrid(_source, true);
+        }
+
+        private void hypLinkDeselectAll_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            SelectAllAttributesInDataGrid(_source, false);
+        }
+
+        private void hypLinkSelectFiltered_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            SelectAllAttributesInDataGrid(lstVwAttributes.Items.OfType<AttributeSelectItem>(), true);
+        }
+
+        private void hypLinkDeselectFiltered_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            SelectAllAttributesInDataGrid(lstVwAttributes.Items.OfType<AttributeSelectItem>(), false);
         }
     }
 }

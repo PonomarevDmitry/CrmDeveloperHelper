@@ -74,7 +74,7 @@
     <DeployExtension>True</DeployExtension>
     <CreateVsixContainer>True</CreateVsixContainer>
     <CopyVsixExtensionFiles>False</CopyVsixExtensionFiles>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>BasicCorrectnessRules.ruleset</CodeAnalysisRuleSet>
     <CopyVsixExtensionLocation>C:\Users\dponomarev\AppData\Local\Microsoft\VisualStudio\12.0Exp\Extensions\CrmDeveloperHelper</CopyVsixExtensionLocation>
   </PropertyGroup>
@@ -1846,6 +1846,7 @@
     <EmbeddedResource Include="Properties\WindowStatusStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>WindowStatusStrings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>

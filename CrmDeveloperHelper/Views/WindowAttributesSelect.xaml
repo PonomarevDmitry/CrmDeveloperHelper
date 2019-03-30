@@ -20,12 +20,37 @@
         </ContextMenu>
     </src:WindowBase.Resources>
     <Grid>
-        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBFilter" Height="26" Margin="51,10,104,0" IsTabStop="True" VerticalAlignment="Top" KeyDown="txtBFilter_KeyDown" VerticalContentAlignment="Center" />
 
-        <CheckBox x:Name="chBAllAttributes" Content="All Attributes" HorizontalAlignment="Right" Margin="0,16,10,0" VerticalAlignment="Top" Checked="chBAllAttributes_Checked" Unchecked="chBAllAttributes_Checked" />
+        <TextBox x:Name="txtBSelectedAttributes" Height="26" Margin="10,10,10,0" IsTabStop="False" VerticalAlignment="Top" VerticalContentAlignment="Center" IsReadOnly="True" IsReadOnlyCaretVisible="True" />
 
-        <DataGrid x:Name="lstVwAttributes" AutoGenerateColumns="False" Margin="10,41,10,62" SelectionMode="Single" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtBFilter" Height="26" Margin="51,41,10,0" IsTabStop="True" VerticalAlignment="Top" KeyDown="txtBFilter_KeyDown" VerticalContentAlignment="Center" />
+
+        <Label Margin="0,67,406,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="101">
+            <Hyperlink x:Name="hypLinkSelectFiltered" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkSelectFiltered_RequestNavigate">
+                <Run Text="Select All Filtered"/>
+            </Hyperlink>
+        </Label>
+
+        <Label Margin="0,67,273,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="115">
+            <Hyperlink x:Name="hypLinkDeselectFiltered" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkDeselectFiltered_RequestNavigate" >
+                <Run Text="Deselect All Filtered"/>
+            </Hyperlink>
+        </Label>
+
+        <Label Margin="0,67,142,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="114">
+            <Hyperlink x:Name="hypLinkSelectAll" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkSelectAll_RequestNavigate">
+                <Run Text="Select All Attributes"/>
+            </Hyperlink>
+        </Label>
+
+        <Label Margin="0,67,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="127">
+            <Hyperlink x:Name="hypLinkDeselectAll" NavigateUri="www.microsoftdynamicscrm.com" RequestNavigate="hypLinkDeselectAll_RequestNavigate" >
+                <Run Text="Deselect All Attributes"/>
+            </Hyperlink>
+        </Label>
+
+        <DataGrid x:Name="lstVwAttributes" AutoGenerateColumns="False" Margin="10,98,10,62" SelectionMode="Single" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -36,10 +61,10 @@
                     <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
                 </Style>
             </DataGrid.ItemContainerStyle>
-            
+
             <DataGrid.Columns>
 
-                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}">
+                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}">
                     <DataGridCheckBoxColumn.Header>
                         <Label Content="S" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Padding="0" ToolTip="Is Selected" />
                     </DataGridCheckBoxColumn.Header>
@@ -67,13 +92,11 @@
                     </Style>
                 </DockPanel.Resources>
                 <ToolBarPanel x:Name="toolStrip" Orientation="Horizontal" >
-                    <Button x:Name="btnOk" Content="Ok" Click="btnOk_Click" />
-                    <Separator Margin="10,0" />
-                    <Button x:Name="btnSelectAll" Content="Select All" Click="btnSelectAll_Click" />
-                    <Separator Margin="10,0" />
-                    <Button x:Name="btnDeselectAll" Content="Deselect All" Click="btnDeselectAll_Click" />
+
                 </ToolBarPanel>
-                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" TabIndex="20"/>
+                <Separator Margin="10,0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" HorizontalAlignment="Right" DockPanel.Dock="Right" />
+                <Button x:Name="btnOk" Content="Ok" Click="btnOk_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" TabIndex="10" />
             </DockPanel>
         </ToolBar>
         <StatusBar Height="24" VerticalAlignment="Bottom">

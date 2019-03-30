@@ -1371,4 +1371,25 @@
   <data name="String1" xml:space="preserve">
     <value>{0}. Clearing Role Privileges {1}...</value>
   </data>
+
+  <data name="GettingEntityMetadataCompletedFormat1" xml:space="preserve">
+    <value>Getting EntityMetadata {0} completed.</value>
+  </data>
+  <data name="GettingEntityMetadataFormat1" xml:space="preserve">
+    <value>Getting EntityMetadata {0}...</value>
+  </data>
+
+  <data name="UpdatingImageAttributesCompletedFormat1" xml:space="preserve">
+    <value>Updating Image {0} Attributes completed.</value>
+  </data>
+  <data name="UpdatingImageAttributesFormat1" xml:space="preserve">
+    <value>Updating Image {0} Attributes...</value>
+  </data>
+
+  <data name="UpdatingStepFilteringAttributesCompletedFormat1" xml:space="preserve">
+    <value>Updating Step {0} Filtering Attributes completed.</value>
+  </data>
+  <data name="UpdatingStepFilteringAttributesFormat1" xml:space="preserve">
+    <value>Updating Step {0} Filtering Attributes...</value>
+  </data>
 </root>

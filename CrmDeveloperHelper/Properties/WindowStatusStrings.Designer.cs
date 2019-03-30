@@ -1753,6 +1753,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Getting EntityMetadata {0} completed..
+        /// </summary>
+        internal static string GettingEntityMetadataCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("GettingEntityMetadataCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting EntityMetadata {0}....
+        /// </summary>
+        internal static string GettingEntityMetadataFormat1 {
+            get {
+                return ResourceManager.GetString("GettingEntityMetadataFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Getting messages....
         /// </summary>
         internal static string GettingMessages {
@@ -3607,6 +3625,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Updating Image {0} Attributes completed..
+        /// </summary>
+        internal static string UpdatingImageAttributesCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("UpdatingImageAttributesCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating Image {0} Attributes....
+        /// </summary>
+        internal static string UpdatingImageAttributesFormat1 {
+            get {
+                return ResourceManager.GetString("UpdatingImageAttributesFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}. Updating Plugin Assembly completed..
         /// </summary>
         internal static string UpdatingPluginAssemblyCompletedFormat1 {
@@ -3747,6 +3783,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string UpdatingSdkMessageProcessingStepSecureConfigFormat1 {
             get {
                 return ResourceManager.GetString("UpdatingSdkMessageProcessingStepSecureConfigFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating Step {0} Filtering Attributes completed..
+        /// </summary>
+        internal static string UpdatingStepFilteringAttributesCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("UpdatingStepFilteringAttributesCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating Step {0} Filtering Attributes....
+        /// </summary>
+        internal static string UpdatingStepFilteringAttributesFormat1 {
+            get {
+                return ResourceManager.GetString("UpdatingStepFilteringAttributesFormat1", resourceCulture);
             }
         }
         

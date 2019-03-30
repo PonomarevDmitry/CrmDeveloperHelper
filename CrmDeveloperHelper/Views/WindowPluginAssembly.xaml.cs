@@ -636,5 +636,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(true, Properties.WindowStatusStrings.BuildingProjectFailedFormat1, _project.Name);
             }
         }
+
+        private void CheckAllAttributesInDataGrid(IEnumerable<PluginTreeViewItem> items, bool isChecked)
+        {
+            foreach (var item in items)
+            {
+                item.IsChecked = isChecked;
+            }
+        }
+
+        private void hypLinkSelectAll_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            CheckAllAttributesInDataGrid(_listLocalAssembly, true);
+        }
+
+        private void hypLinkDeselectAll_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            CheckAllAttributesInDataGrid(_listLocalAssembly, false);
+        }
     }
 }
