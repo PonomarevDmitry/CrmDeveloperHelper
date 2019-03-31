@@ -495,7 +495,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.lstVwOtherPrivileges.Dispatcher.Invoke(() =>
             {
-                foreach (var otherPriv in listOtherPrivileges.OrderBy(s => s.EntityLogicalName).ThenBy(s => s.Name, new PrivilegeComparer()))
+                foreach (var otherPriv in listOtherPrivileges.OrderBy(s => s.EntityLogicalName).ThenBy(s => s.Name, new PrivilegeNameComparer()))
                 {
                     _itemsSourceOtherPrivileges.Add(otherPriv);
                 }

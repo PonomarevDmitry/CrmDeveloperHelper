@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
-    public class PrivilegeComparer : IComparer<string>
+    public class PrivilegeNameComparer : IComparer<string>
     {
         private static readonly List<string> _prefixes = new List<string>() {
             "prvCreate"

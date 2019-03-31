@@ -470,7 +470,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.lstVwOtherPrivileges.Dispatcher.Invoke(() =>
             {
-                foreach (var otherPriv in listOtherPrivileges.OrderBy(s => s.EntityLogicalName).ThenBy(s => s.Name, new PrivilegeComparer()))
+                foreach (var otherPriv in listOtherPrivileges.OrderBy(s => s.EntityLogicalName).ThenBy(s => s.Name, new PrivilegeNameComparer()))
                 {
                     otherPriv.PropertyChanged -= rolePrivilege_PropertyChanged;
                     otherPriv.PropertyChanged -= rolePrivilege_PropertyChanged;
@@ -2690,7 +2690,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #endregion Changing Role Privileges
 
-        public class RolePrivilegeComparer : IEqualityComparer<Microsoft.Crm.Sdk.Messages.RolePrivilege>
+        private class RolePrivilegeComparer : IEqualityComparer<Microsoft.Crm.Sdk.Messages.RolePrivilege>
         {
             public bool Equals(Microsoft.Crm.Sdk.Messages.RolePrivilege x, Microsoft.Crm.Sdk.Messages.RolePrivilege y)
             {

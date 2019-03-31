@@ -651,7 +651,7 @@
     <Compile Include="Helpers\PluginsAndWorkflowLoader.cs" />
     <Compile Include="Helpers\PluginTypeConfigurationDescriptionHandler.cs" />
     <Compile Include="Helpers\PluginTypeDescriptionHandler.cs" />
-    <Compile Include="Helpers\PrivilegeComparer.cs" />
+    <Compile Include="Helpers\PrivilegeNameComparer.cs" />
     <Compile Include="Helpers\PrivilegeDepthConverter.cs" />
     <Compile Include="Helpers\ProgressReporter.cs" />
     <Compile Include="Helpers\PropertiesHelper.cs" />

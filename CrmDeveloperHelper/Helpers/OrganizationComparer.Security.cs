@@ -91,7 +91,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return null;
             }
 
-            var privilegeComparer = new PrivilegeComparer();
+            var privilegeComparer = new PrivilegeNameComparer();
 
             var group1 = listRolePrivilege1.GroupBy(e => e.RoleId.Value).ToDictionary(g => g.Key, g => g.AsEnumerable());
             var group2 = listRolePrivilege2.GroupBy(e => e.RoleId.Value).ToDictionary(g => g.Key, g => g.AsEnumerable());
@@ -385,7 +385,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , HashSet<string> commonPrivileges
             , Dictionary<string, Privilege> listPrivilege1
             , Dictionary<string, Privilege> listPrivilege2
-            , PrivilegeComparer privilegeComparer
+            , PrivilegeNameComparer privilegeComparer
         )
         {
             List<string> result = new List<string>();
