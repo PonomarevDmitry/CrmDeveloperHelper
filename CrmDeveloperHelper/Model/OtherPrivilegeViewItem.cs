@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string Name => Privilege.Name;
 
-        public string EntityLogicalName => Privilege.EntityName;
+        public string EntityLogicalName => Privilege.LinkedEntitiesSorted;
 
         public AccessRights? PrivilegeAccessRights { get; private set; }
 

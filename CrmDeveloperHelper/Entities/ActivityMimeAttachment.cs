@@ -2,9 +2,9 @@
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 {
     /// <summary>
-	/// MIME attachment for an activity.
-	/// </summary>
-	[System.Runtime.Serialization.DataContractAttribute()]
+    /// MIME attachment for an activity.
+    /// </summary>
+    [System.Runtime.Serialization.DataContractAttribute()]
     [Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("activitymimeattachment")]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9154")]
     public partial class ActivityMimeAttachment : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged

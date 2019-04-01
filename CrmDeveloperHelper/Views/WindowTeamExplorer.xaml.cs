@@ -491,7 +491,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 PrivilegeRepository repository = new PrivilegeRepository(service);
 
-                var temp = await repository.GetListWithEntityNameAsync(new ColumnSet(
+                var temp = await repository.GetListOtherPrivilegeAsync(new ColumnSet(
                     Privilege.Schema.Attributes.privilegeid
                     , Privilege.Schema.Attributes.name
                     , Privilege.Schema.Attributes.accessright

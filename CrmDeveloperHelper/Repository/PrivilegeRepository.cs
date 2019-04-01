@@ -35,9 +35,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             QueryExpression query = new QueryExpression()
             {
-                EntityName = Privilege.EntityLogicalName,
-
                 NoLock = true,
+
+                EntityName = Privilege.EntityLogicalName,
 
                 ColumnSet = columnSet ?? new ColumnSet(true),
 
@@ -77,21 +77,95 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
+            FillLinkedEntities(result);
+
             return result;
         }
 
-        public Task<List<Privilege>> GetListWithEntityNameAsync(ColumnSet columnSet)
+        private void FillLinkedEntities(IEnumerable<Privilege> result)
         {
-            return Task.Run(() => GetListWithEntityName(columnSet));
+            var privilegesObjectTypes = GetPrivilegeObjectTypeCodes();
+
+            var dictObjectTypes = privilegesObjectTypes.GroupBy(o => o.PrivilegeId.Id).ToDictionary(g => g.Key, g => g.Select(o => o.ObjectTypeCode).OrderBy(s => s).ToList());
+
+            foreach (var item in result)
+            {
+                if (dictObjectTypes.ContainsKey(item.Id))
+                {
+                    item.LinkedEntities = dictObjectTypes[item.Id];
+                }
+            }
         }
 
-        private List<Privilege> GetListWithEntityName(ColumnSet columnSet)
+        private List<PrivilegeObjectTypeCodes> GetPrivilegeObjectTypeCodes()
         {
             QueryExpression query = new QueryExpression()
             {
-                EntityName = Privilege.EntityLogicalName,
-
                 NoLock = true,
+
+                EntityName = PrivilegeObjectTypeCodes.EntityLogicalName,
+
+                ColumnSet = new ColumnSet(PrivilegeObjectTypeCodes.Schema.Attributes.privilegeid, PrivilegeObjectTypeCodes.Schema.Attributes.objecttypecode),
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                }
+            };
+
+            var result = new List<PrivilegeObjectTypeCodes>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<PrivilegeObjectTypeCodes>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
+            }
+
+            return result;
+        }
+
+        public Task<List<Privilege>> GetListOtherPrivilegeAsync(ColumnSet columnSet)
+        {
+            return Task.Run(() => GetListOtherPrivilege(columnSet));
+        }
+
+        private List<Privilege> GetListOtherPrivilege(ColumnSet columnSet)
+        {
+            var result = new List<Privilege>();
+
+            FillPrivilegesWithNoneAccessType(columnSet, result);
+
+            var hashPrivilegeIds = new HashSet<Guid>();
+
+            FillPrivilegesWithNoneEntity(columnSet, result, hashPrivilegeIds);
+
+            return result;
+        }
+
+        private void FillPrivilegesWithNoneAccessType(ColumnSet columnSet, List<Privilege> result)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                EntityName = Privilege.EntityLogicalName,
 
                 ColumnSet = columnSet ?? new ColumnSet(true),
 
@@ -102,9 +176,57 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Conditions =
                     {
                         new ConditionExpression(Privilege.Schema.Attributes.accessright, ConditionOperator.Equal, (int)AccessRights.None),
-                        new ConditionExpression(PrivilegeObjectTypeCodes.EntityLogicalName, PrivilegeObjectTypeCodes.Schema.Attributes.objecttypecode, ConditionOperator.Equal, "none"),
                     },
                 },
+
+                Orders =
+                {
+                    new OrderExpression(Privilege.Schema.Attributes.name, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                }
+            };
+
+            var temp = new List<Privilege>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Privilege>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
+            }
+
+            FillLinkedEntities(result);
+        }
+
+        private void FillPrivilegesWithNoneEntity(ColumnSet columnSet, List<Privilege> result, HashSet<Guid> hashPrivilegeIds)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                EntityName = Privilege.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
 
                 LinkEntities =
                 {
@@ -116,11 +238,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkToEntityName = PrivilegeObjectTypeCodes.EntityLogicalName,
                         LinkToAttributeName = PrivilegeObjectTypeCodes.Schema.Attributes.privilegeid,
 
-                        JoinOperator = JoinOperator.LeftOuter,
-
                         EntityAlias = PrivilegeObjectTypeCodes.EntityLogicalName,
 
-                        Columns = new ColumnSet(PrivilegeObjectTypeCodes.Schema.Attributes.objecttypecode),
+                        LinkCriteria =
+                        {
+                            Conditions =
+                            {
+                                new ConditionExpression(PrivilegeObjectTypeCodes.EntityLogicalName, PrivilegeObjectTypeCodes.Schema.Attributes.objecttypecode, ConditionOperator.Equal, "none"),
+                            },
+                        },
                     },
                 },
 
@@ -136,7 +262,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             };
 
-            var result = new List<Privilege>();
+            var temp = new List<Privilege>();
 
             try
             {
@@ -144,7 +270,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     var coll = _service.RetrieveMultiple(query);
 
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Privilege>()));
+                    temp.AddRange(coll.Entities.Select(e => e.ToEntity<Privilege>()));
 
                     if (!coll.MoreRecords)
                     {
@@ -160,7 +286,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
-            return result;
+            foreach (var item in temp)
+            {
+                if (hashPrivilegeIds.Add(item.Id))
+                {
+                    item.LinkedEntities = new List<string>() { "none" };
+
+                    result.Add(item);
+                }
+            }
         }
 
         public Task<List<Privilege>> GetListForRoleAsync(Guid idRole)
@@ -180,6 +314,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 LinkEntities =
                 {
+                    new LinkEntity()
+                    {
+                        LinkFromEntityName = Privilege.EntityLogicalName,
+                        LinkFromAttributeName = Privilege.PrimaryIdAttribute,
+
+                        LinkToEntityName = PrivilegeObjectTypeCodes.EntityLogicalName,
+                        LinkToAttributeName = PrivilegeObjectTypeCodes.Schema.Attributes.privilegeid,
+
+                        JoinOperator = JoinOperator.LeftOuter,
+
+                        EntityAlias = PrivilegeObjectTypeCodes.EntityLogicalName,
+
+                        Columns = new ColumnSet(PrivilegeObjectTypeCodes.Schema.Attributes.objecttypecode),
+                    },
+
                     new LinkEntity()
                     {
                         LinkFromEntityName = Privilege.EntityLogicalName,

@@ -1,5 +1,8 @@
 ﻿namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 {
+    [System.Runtime.Serialization.DataContractAttribute()]
+    [Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("privilegeobjecttypecodes")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9154")]
     public partial class PrivilegeObjectTypeCodes : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
     {
         /// <summary>
