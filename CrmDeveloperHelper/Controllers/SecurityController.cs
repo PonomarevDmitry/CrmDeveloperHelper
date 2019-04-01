@@ -45,7 +45,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-                WindowHelper.OpenSystemUsersExplorer(this._iWriteToOutput, service, commonConfig, null, selection);
+                WindowHelper.OpenSystemUsersExplorer(this._iWriteToOutput, service, commonConfig, selection);
             }
             catch (Exception ex)
             {
@@ -56,7 +56,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
             }
         }
-        
+
         public async Task ExecuteShowingTeamsExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             if (connectionData == null)
@@ -80,7 +80,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-                WindowHelper.OpenTeamsExplorer(this._iWriteToOutput, service, commonConfig, null, selection);
+                WindowHelper.OpenTeamsExplorer(this._iWriteToOutput, service, commonConfig, selection);
             }
             catch (Exception ex)
             {
@@ -115,7 +115,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-                WindowHelper.OpenRolesExplorer(this._iWriteToOutput, service, commonConfig, null, selection);
+                WindowHelper.OpenRolesExplorer(this._iWriteToOutput, service, commonConfig, selection);
             }
             catch (Exception ex)
             {

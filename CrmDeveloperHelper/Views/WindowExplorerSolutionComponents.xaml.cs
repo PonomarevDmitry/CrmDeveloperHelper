@@ -1508,14 +1508,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, _service, _commonConfig, null, null);
+            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, _service, _commonConfig);
         }
 
         private void miSecurityRolesExplorer_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenRolesExplorer(this._iWriteToOutput, _service, _commonConfig, null, null);
+            WindowHelper.OpenRolesExplorer(this._iWriteToOutput, _service, _commonConfig);
         }
 
         private void btnGlobalOptionSets_Click(object sender, RoutedEventArgs e)

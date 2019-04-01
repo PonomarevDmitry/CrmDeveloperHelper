@@ -235,7 +235,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-                WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, commonConfig, null, selection);
+                WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, commonConfig, selection);
             }
             catch (Exception ex)
             {

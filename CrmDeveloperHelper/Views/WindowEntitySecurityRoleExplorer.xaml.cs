@@ -1433,7 +1433,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
             }
 
-            WindowHelper.OpenRolesExplorer(_iWriteToOutput, service, _commonConfig, entityMetadataList, role.RoleName);
+            WindowHelper.OpenRolesExplorer(_iWriteToOutput, service, _commonConfig, role.RoleName, entityMetadataList, null);
         }
 
         private async void mICreateSecurityRoleBackup_Click(object sender, RoutedEventArgs e)

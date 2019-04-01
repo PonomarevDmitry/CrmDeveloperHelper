@@ -174,9 +174,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
+        )
+        {
+            OpenEntitySecurityRolesExplorer(iWriteToOutput, service, commonConfig, null, null);
+        }
+
+        public static void OpenEntitySecurityRolesExplorer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filterEntityName
+        )
+        {
+            OpenEntitySecurityRolesExplorer(iWriteToOutput, service, commonConfig, filterEntityName, null);
+        }
+
+        public static void OpenEntitySecurityRolesExplorer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filterEntityName
             , IEnumerable<EntityMetadata> entityMetadataList
-            , string filterEntityName = null
-            )
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -500,9 +519,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
+            , string filter
+        )
+        {
+            OpenSystemUsersExplorer(iWriteToOutput, service, commonConfig, filter, null, null);
+        }
+
+        public static void OpenSystemUsersExplorer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filter
             , IEnumerable<EntityMetadata> entityMetadataList
-            , string filter = null
-            )
+            , IEnumerable<Privilege> privileges
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -513,6 +543,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , service
                         , commonConfig
                         , entityMetadataList
+                        , privileges
                         , filter
                     );
 
@@ -533,9 +564,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
+            , string filter
+        )
+        {
+            OpenTeamsExplorer(iWriteToOutput, service, commonConfig, filter, null, null);
+        }
+
+        public static void OpenTeamsExplorer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filter
             , IEnumerable<EntityMetadata> entityMetadataList
-            , string filter = null
-            )
+            , IEnumerable<Privilege> privileges
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -546,6 +588,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , service
                         , commonConfig
                         , entityMetadataList
+                        , privileges
                         , filter
                     );
 
@@ -566,9 +609,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
+        )
+        {
+            OpenRolesExplorer(iWriteToOutput, service, commonConfig, null, null, null);
+        }
+
+        public static void OpenRolesExplorer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filter
+        )
+        {
+            OpenRolesExplorer(iWriteToOutput, service, commonConfig, filter, null, null);
+        }
+
+        public static void OpenRolesExplorer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filter
             , IEnumerable<EntityMetadata> entityMetadataList
-            , string filter = null
-            )
+            , IEnumerable<Privilege> privileges
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -579,6 +642,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , service
                         , commonConfig
                         , entityMetadataList
+                        , privileges
                         , filter
                     );
 
@@ -1506,7 +1570,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     break;
 
                 case ComponentType.Role:
-                    OpenRolesExplorer(iWriteToOutput, service, commonConfig, null, componentName);
+                    OpenRolesExplorer(iWriteToOutput, service, commonConfig, componentName, null, null);
                     break;
 
                 case ComponentType.Organization:

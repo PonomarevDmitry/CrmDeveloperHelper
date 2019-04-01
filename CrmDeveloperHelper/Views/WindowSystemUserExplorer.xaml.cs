@@ -50,6 +50,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , IEnumerable<EntityMetadata> entityMetadataList
+            , IEnumerable<Privilege> privileges
             , string filterEntity
         )
         {
@@ -65,6 +66,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (entityMetadataList != null && entityMetadataList.Any(e => e.Privileges != null && e.Privileges.Any()))
             {
                 _cacheEntityMetadata[service.ConnectionData.ConnectionId] = entityMetadataList;
+            }
+
+            if (privileges != null)
+            {
+                _cachePrivileges[service.ConnectionData.ConnectionId] = privileges;
             }
 
             BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
@@ -852,7 +858,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
             }
 
-            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entityMetadataList, entity?.LogicalName);
+            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList);
         }
 
         private async void btnExportApplicationRibbon_Click(object sender, RoutedEventArgs e)
@@ -1462,24 +1468,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService();
 
             IEnumerable<EntityMetadata> entityMetadataList = null;
+            IEnumerable<Privilege> privileges = null;
 
             if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
             {
                 entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
             }
 
+            if (_cachePrivileges.ContainsKey(service.ConnectionData.ConnectionId))
+            {
+                privileges = _cachePrivileges[service.ConnectionData.ConnectionId];
+            }
+
             switch (entity)
             {
                 case Role role:
-                    WindowHelper.OpenRolesExplorer(_iWriteToOutput, service, _commonConfig, entityMetadataList, role.Name);
+                    WindowHelper.OpenRolesExplorer(_iWriteToOutput, service, _commonConfig, role.Name, entityMetadataList, privileges);
                     break;
 
                 case SystemUser user:
-                    WindowHelper.OpenSystemUsersExplorer(_iWriteToOutput, service, _commonConfig, entityMetadataList, user.FullName);
+                    WindowHelper.OpenSystemUsersExplorer(_iWriteToOutput, service, _commonConfig, user.FullName, entityMetadataList, privileges);
                     break;
 
                 case Team team:
-                    WindowHelper.OpenTeamsExplorer(_iWriteToOutput, service, _commonConfig, entityMetadataList, team.Name);
+                    WindowHelper.OpenTeamsExplorer(_iWriteToOutput, service, _commonConfig, team.Name, entityMetadataList, privileges);
                     break;
             }
         }
@@ -1621,13 +1633,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService();
 
             IEnumerable<EntityMetadata> entityMetadataList = null;
+            IEnumerable<Privilege> privileges = null;
 
             if (_cacheEntityMetadata.ContainsKey(service.ConnectionData.ConnectionId))
             {
                 entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
             }
 
-            WindowHelper.OpenTeamsExplorer(_iWriteToOutput, service, _commonConfig, entityMetadataList, role.TeamName);
+            if (_cachePrivileges.ContainsKey(service.ConnectionData.ConnectionId))
+            {
+                privileges = _cachePrivileges[service.ConnectionData.ConnectionId];
+            }
+
+            WindowHelper.OpenTeamsExplorer(_iWriteToOutput, service, _commonConfig, role.TeamName, entityMetadataList, privileges);
         }
 
         private async void mICreateRoleTeamEntityDescription_Click(object sender, RoutedEventArgs e)

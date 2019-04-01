@@ -1118,7 +1118,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, null, entity?.ReturnedTypeCode);
+            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.ReturnedTypeCode);
         }
 
         private async void miSecurityRolesExplorer_Click(object sender, RoutedEventArgs e)
@@ -1127,7 +1127,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenRolesExplorer(this._iWriteToOutput, service, _commonConfig, null, null);
+            WindowHelper.OpenRolesExplorer(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void btnExportApplicationRibbon_Click(object sender, RoutedEventArgs e)

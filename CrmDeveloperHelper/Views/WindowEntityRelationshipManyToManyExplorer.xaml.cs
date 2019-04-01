@@ -599,7 +599,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
             }
 
-            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entityMetadataList, entity?.LogicalName);
+            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList);
         }
 
         private async void miSecurityRolesExplorer_Click(object sender, RoutedEventArgs e)
@@ -615,7 +615,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
             }
 
-            WindowHelper.OpenRolesExplorer(this._iWriteToOutput, service, _commonConfig, entityMetadataList, null);
+            WindowHelper.OpenRolesExplorer(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void btnExportApplicationRibbon_Click(object sender, RoutedEventArgs e)

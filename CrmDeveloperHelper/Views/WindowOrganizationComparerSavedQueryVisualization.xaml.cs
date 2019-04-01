@@ -1138,7 +1138,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
-            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, null, entity?.EntityName);
+            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.EntityName);
         }
 
         private async void btnEntitySecurityRolesExplorer2_Click(object sender, RoutedEventArgs e)
@@ -1149,7 +1149,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService2();
 
-            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, null, entity?.EntityName);
+            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.EntityName);
         }
 
         private async void btnSecurityRolesExplorer1_Click(object sender, RoutedEventArgs e)
@@ -1158,7 +1158,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
-            WindowHelper.OpenRolesExplorer(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
+            WindowHelper.OpenRolesExplorer(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void btnSecurityRolesExplorer2_Click(object sender, RoutedEventArgs e)
@@ -1167,7 +1167,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService2();
 
-            WindowHelper.OpenRolesExplorer(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
+            WindowHelper.OpenRolesExplorer(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void btnCreateMetadataFile1_Click(object sender, RoutedEventArgs e)

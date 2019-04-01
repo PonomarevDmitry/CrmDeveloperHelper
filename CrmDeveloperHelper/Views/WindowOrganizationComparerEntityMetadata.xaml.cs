@@ -1019,7 +1019,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
             }
 
-            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entityMetadataList, entity?.LogicalName);
+            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList);
         }
 
         private async void btnEntitySecurityRolesExplorer2_Click(object sender, RoutedEventArgs e)
@@ -1037,7 +1037,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
             }
 
-            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entityMetadataList, entity?.LogicalName);
+            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList);
         }
 
         private async void btnSecurityRolesExplorer1_Click(object sender, RoutedEventArgs e)
@@ -1053,7 +1053,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
             }
 
-            WindowHelper.OpenRolesExplorer(this._iWriteToOutput, service, _commonConfig, entityMetadataList, string.Empty);
+            WindowHelper.OpenRolesExplorer(this._iWriteToOutput, service, _commonConfig, null, entityMetadataList, null);
         }
 
         private async void btnSecurityRolesExplorer2_Click(object sender, RoutedEventArgs e)
@@ -1069,7 +1069,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
             }
 
-            WindowHelper.OpenRolesExplorer(this._iWriteToOutput, service, _commonConfig, entityMetadataList, string.Empty);
+            WindowHelper.OpenRolesExplorer(this._iWriteToOutput, service, _commonConfig, null, entityMetadataList, null);
         }
 
         private async void btnCreateMetadataFile1_Click(object sender, RoutedEventArgs e)
