@@ -45,6 +45,17 @@
             <MenuItem Header="Create Role Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click" />
 
             <Separator/>
+            <MenuItem Header="Compare Role Privileges">
+                <MenuItem Header="With Role Privileges" VerticalAlignment="Center" Click="mIRolePrivilegesWithRolePrivileges_Click" />
+
+                <Separator/>
+                <MenuItem Header="With User Privileges" VerticalAlignment="Center" Click="mIRolePrivilegesWithUserPrivileges_Click" />
+
+                <Separator/>
+                <MenuItem Header="With Team Privileges" VerticalAlignment="Center" Click="mIRolePrivilegesWithTeamPrivileges_Click" />
+            </MenuItem>
+
+            <Separator/>
             <MenuItem Header="Create Role Backup" VerticalAlignment="Center" Click="mICreateRoleBackup_Click" />
 
             <Separator/>

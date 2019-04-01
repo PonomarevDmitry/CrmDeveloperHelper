@@ -673,6 +673,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Comparing RolePrivileges in {0} and {1} completed..
+        /// </summary>
+        internal static string ComparingEntitiesPrivilegesCompletedFormat2 {
+            get {
+                return ResourceManager.GetString("ComparingEntitiesPrivilegesCompletedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comparing RolePrivileges in {0} and {1}....
+        /// </summary>
+        internal static string ComparingEntitiesPrivilegesFormat2 {
+            get {
+                return ResourceManager.GetString("ComparingEntitiesPrivilegesFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comparing PluginAssembly with local Assembly for {0} completed..
         /// </summary>
         internal static string ComparingPluginAssemblyWithLocalAssemblyCompletedFormat1 {

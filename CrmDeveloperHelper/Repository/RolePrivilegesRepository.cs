@@ -167,19 +167,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             switch (mask)
             {
                 case 1:
-                    return "User";
+                    return "Basic (User)";
 
                 case 2:
-                    return "Business Unit";
+                    return "Local (Business Unit)";
 
                 case 4:
-                    return "Parent: Child Business Units";
+                    return "Deep (Parent: Child Business Units)";
 
                 case 8:
-                    return "Organization";
+                    return "Global (Organization)";
 
                 default:
                     return string.Format("{0} - Unknown", mask);
+            }
+        }
+
+        public static string GetPrivilegeDepthMaskName(PrivilegeDepth depth)
+        {
+            switch (depth)
+            {
+                case PrivilegeDepth.Basic:
+                    return "Basic (User)";
+
+                case PrivilegeDepth.Local:
+                    return "Local (Business Unit)";
+
+                case PrivilegeDepth.Deep:
+                    return "Deep (Parent: Child Business Units)";
+
+                case PrivilegeDepth.Global:
+                    return "Global (Organization)";
+
+                default:
+                    return string.Empty;
             }
         }
 

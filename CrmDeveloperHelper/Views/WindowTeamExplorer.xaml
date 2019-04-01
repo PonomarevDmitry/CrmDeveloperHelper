@@ -54,6 +54,17 @@
             <MenuItem Header="Open Team List in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
             <Separator/>
             <MenuItem Header="Create Team Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click" />
+
+            <Separator/>
+            <MenuItem Header="Compare Role Privileges">
+                <MenuItem Header="With Role Privileges" VerticalAlignment="Center" Click="mIRolePrivilegesWithRolePrivileges_Click" />
+
+                <Separator/>
+                <MenuItem Header="With User Privileges" VerticalAlignment="Center" Click="mIRolePrivilegesWithUserPrivileges_Click" />
+
+                <Separator/>
+                <MenuItem Header="With Team Privileges" VerticalAlignment="Center" Click="mIRolePrivilegesWithTeamPrivileges_Click" />
+            </MenuItem>
         </ContextMenu>
 
         <ContextMenu x:Key="listContextMenuEntityPrivileges" Opened="ContextMenuEntityPrivileges_Opened">

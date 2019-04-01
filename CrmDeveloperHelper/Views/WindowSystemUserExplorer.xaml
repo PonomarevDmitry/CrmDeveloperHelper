@@ -17,6 +17,18 @@
             <MenuItem Header="Open User List in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
             <Separator/>
             <MenuItem Header="Create User Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click" />
+
+            <Separator/>
+            <MenuItem Header="Compare Role Privileges">
+                <MenuItem Header="With Role Privileges" VerticalAlignment="Center" Click="mIRolePrivilegesWithRolePrivileges_Click" />
+
+                <Separator/>
+                <MenuItem Header="With User Privileges" VerticalAlignment="Center" Click="mIRolePrivilegesWithUserPrivileges_Click" />
+
+                <Separator/>
+                <MenuItem Header="With Team Privileges" VerticalAlignment="Center" Click="mIRolePrivilegesWithTeamPrivileges_Click" />
+            </MenuItem>
+
             <Separator/>
             <MenuItem Header="Clipboard">
                 <MenuItem Header="Copy User Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />

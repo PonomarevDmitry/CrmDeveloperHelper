@@ -688,6 +688,11 @@
     <value>{0} - Merging Privileges to Maximum from {1} to {2}</value>
   </data>
   <data name="SavingChangesInRolesFormat1" xml:space="preserve">
-    <value>{0} - Saving Changes in Roles...</value>
+    <value>{0} - Saving Changes in Roles</value>
   </data>
+  <data name="ComparingEntitiesPrivilegesFormat3" xml:space="preserve">
+    <value>{0} - Comparing RolePrivileges in {1} and {2}</value>
+  </data>
+
+
 </root>

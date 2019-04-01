@@ -500,5 +500,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             return string.Format(CheckEntityNamesForPrefixFileNameFormat3, connectionName, prefix, GetDateString());
         }
+
+        private const string ComparingRolePrivilegesInEntitiesFileNameFormat3 = "{0}.Comparing RolePrivileges for {1} and {2} at {3}.txt";
+
+        public static string ComparingRolePrivilegesInEntitiesFileName(string connectionName, string name1, string name2)
+        {
+            string[] arr = new string[] { name1, name2 };
+
+            Array.Sort(arr);
+
+            return string.Format(ComparingRolePrivilegesInEntitiesFileNameFormat3, connectionName, arr[0], arr[1], GetDateString());
+        }
     }
 }

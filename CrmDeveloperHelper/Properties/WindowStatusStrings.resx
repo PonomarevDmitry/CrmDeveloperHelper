@@ -1392,4 +1392,12 @@
   <data name="UpdatingStepFilteringAttributesFormat1" xml:space="preserve">
     <value>Updating Step {0} Filtering Attributes...</value>
   </data>
+  
+  <data name="ComparingEntitiesPrivilegesCompletedFormat2" xml:space="preserve">
+    <value>Comparing RolePrivileges in {0} and {1} completed.</value>
+  </data>
+  <data name="ComparingEntitiesPrivilegesFormat2" xml:space="preserve">
+    <value>Comparing RolePrivileges in {0} and {1}...</value>
+  </data>
+  
 </root>

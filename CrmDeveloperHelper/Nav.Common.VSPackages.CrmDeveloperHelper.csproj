@@ -659,6 +659,7 @@
     <Compile Include="Helpers\PublishManager.cs" />
     <Compile Include="Helpers\QuickConnection.cs" />
     <Compile Include="Helpers\RegistrerPluginHelper.cs" />
+    <Compile Include="Helpers\RolePrivilegeComparerHelper.cs" />
     <Compile Include="Helpers\SolutionComponentConverter.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\AppModuleRolesDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\AppModuleDescriptionBuilder.cs" />

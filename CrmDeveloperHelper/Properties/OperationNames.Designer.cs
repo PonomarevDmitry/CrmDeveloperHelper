@@ -709,6 +709,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Comparing RolePrivileges in {1} and {2}.
+        /// </summary>
+        internal static string ComparingEntitiesPrivilegesFormat3 {
+            get {
+                return ResourceManager.GetString("ComparingEntitiesPrivilegesFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Comparing Files and WebResources.
         /// </summary>
         internal static string ComparingFilesAndWebResourcesFormat1 {
@@ -1546,7 +1555,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Saving Changes in Roles....
+        ///   Looks up a localized string similar to {0} - Saving Changes in Roles.
         /// </summary>
         internal static string SavingChangesInRolesFormat1 {
             get {

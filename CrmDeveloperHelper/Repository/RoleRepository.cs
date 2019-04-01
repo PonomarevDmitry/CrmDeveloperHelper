@@ -945,6 +945,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     },
                 },
 
+                LinkEntities =
+                {
+                    new LinkEntity()
+                    {
+                        JoinOperator = JoinOperator.LeftOuter,
+
+                        LinkFromEntityName = Role.EntityLogicalName,
+                        LinkFromAttributeName = Role.Schema.Attributes.roletemplateid,
+
+                        LinkToEntityName = RoleTemplate.Schema.EntityLogicalName,
+                        LinkToAttributeName = RoleTemplate.Schema.EntityPrimaryIdAttribute,
+
+                        EntityAlias = Role.Schema.Attributes.roletemplateid,
+
+                        Columns = new ColumnSet(RoleTemplate.Schema.Attributes.name),
+                    },
+                },
+
                 Orders =
                 {
                     new OrderExpression(Role.Schema.Attributes.name, OrderType.Ascending),

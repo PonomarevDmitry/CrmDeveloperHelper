@@ -681,5 +681,88 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             return result;
         }
+
+        public Task<IEnumerable<SystemUser>> GetUsersNotAnotherAsync(string filter, Guid idUser, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetUsersNotAnother(filter, idUser, columnSet));
+        }
+
+        private IEnumerable<SystemUser> GetUsersNotAnother(string filter, Guid idUser, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                EntityName = SystemUser.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(SystemUser.Schema.Attributes.systemuserid, ConditionOperator.NotEqual, idUser),
+                    },
+                },
+
+                Orders =
+                {
+                    new OrderExpression(SystemUser.Schema.Attributes.fullname, OrderType.Ascending),
+                    new OrderExpression(SystemUser.Schema.Attributes.domainname, OrderType.Ascending),
+                    new OrderExpression(SystemUser.Schema.Attributes.businessunitid, OrderType.Ascending),
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                if (Guid.TryParse(filter, out Guid id))
+                {
+                    query.Criteria.Conditions.Add(new ConditionExpression(SystemUser.Schema.Attributes.systemuserid, ConditionOperator.Equal, id));
+                }
+                else
+                {
+                    query.Criteria.Filters.Add(new FilterExpression(LogicalOperator.Or)
+                    {
+                        Conditions =
+                        {
+                            new ConditionExpression(SystemUser.Schema.Attributes.fullname, ConditionOperator.Like, "%" + filter + "%"),
+                            new ConditionExpression(SystemUser.Schema.Attributes.domainname, ConditionOperator.Like, "%" + filter + "%"),
+                        },
+                    });
+                }
+            }
+
+            var result = new List<SystemUser>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SystemUser>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
+            }
+
+            return result;
+        }
     }
 }

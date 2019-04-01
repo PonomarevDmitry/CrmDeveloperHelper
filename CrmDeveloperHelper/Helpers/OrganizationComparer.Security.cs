@@ -55,7 +55,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var taskPrivRole1 = new RolePrivilegesRepository(_comparerSource.Service1).GetListAsync(list1.Select(e => e.RoleId.Value));
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Security Privileges in {0}: {1}", Connection1.Name, dictPrivilege1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Privileges in {0}: {1}", Connection1.Name, dictPrivilege1.Count()));
 
 
 
@@ -64,13 +64,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var taskPrivRole2 = new RolePrivilegesRepository(_comparerSource.Service2).GetListAsync(list2.Select(e => e.RoleId.Value));
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Security Privileges in {0}: {1}", Connection2.Name, dictPrivilege2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Privileges in {0}: {1}", Connection2.Name, dictPrivilege2.Count()));
 
 
 
             var commonPrivileges = dictPrivilege1.Values.Intersect(dictPrivilege2.Values, privileteEquality).ToList();
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Common Security Privileges in {0} and {1}: {2}", Connection1.Name, Connection2.Name, commonPrivileges.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Common Privileges in {0} and {1}: {2}", Connection1.Name, Connection2.Name, commonPrivileges.Count()));
 
 
 
@@ -80,11 +80,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var listRolePrivilege1 = await taskPrivRole1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Security Roles Privileges in {0}: {1}", Connection1.Name, listRolePrivilege1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Privileges in {0}: {1}", Connection1.Name, listRolePrivilege1.Count()));
 
             var listRolePrivilege2 = await taskPrivRole2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Security Roles Privileges in {0}: {1}", Connection2.Name, listRolePrivilege2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Privileges in {0}: {1}", Connection2.Name, listRolePrivilege2.Count()));
 
             if (!list1.Any() && !list2.Any())
             {
@@ -371,7 +371,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , IEnumerable<Privilege> commonPrivileges
             , Dictionary<string, Privilege> listPrivilege1
             , Dictionary<string, Privilege> listPrivilege2
-            , PrivilegeNameComparer privilegeComparer
+            , PrivilegeNameComparer privilegeNameComparer
         )
         {
             List<string> result = new List<string>();
@@ -385,7 +385,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             FormatTextTableHandler tableDifferent = new FormatTextTableHandler();
             tableDifferent.SetHeader("PrivilegeName", "PrivilegeType", Connection1.Name, Connection2.Name, "Linked Entities");
 
-            foreach (var priv in commonPrivileges.OrderBy(s => s.LinkedEntitiesSorted).OrderBy(s => s.Name, privilegeComparer))
+            foreach (var priv in commonPrivileges.OrderBy(s => s.LinkedEntitiesSorted).OrderBy(s => s.Name, privilegeNameComparer))
             {
                 var priv1 = listPrivilege1[priv.Name];
                 var priv2 = listPrivilege2[priv.Name];
@@ -476,8 +476,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             return result;
         }
-
-
 
         public Task<string> CheckFieldSecurityProfilesAsync()
         {

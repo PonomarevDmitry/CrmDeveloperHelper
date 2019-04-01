@@ -14,6 +14,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,6 +25,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public partial class WindowSystemUserExplorer : WindowBase
     {
+        private string _tabSpacer = "    ";
+
         private readonly object sysObjectConnections = new object();
 
         private readonly IWriteToOutput _iWriteToOutput;
@@ -1876,7 +1879,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var role = form.SelectedEntity.ToEntity<Role>();
+            var role = form.SelectedEntity;
 
             string usersName = string.Join(", ", userList.Select(r => string.Format("{0} - {1}", r.DomainName, r.FullName)).OrderBy(s => s));
             string rolesName = role.Name;
@@ -2003,7 +2006,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            var team = form.SelectedEntity.ToEntity<Team>();
+            var team = form.SelectedEntity;
 
             string usersName = string.Join(", ", userList.Select(r => string.Format("{0} - {1}", r.DomainName, r.FullName)).OrderBy(s => s));
             string teamsName = team.Name;
@@ -2128,6 +2131,288 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
             SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
+        }
+
+        private async void mIRolePrivilegesWithRolePrivileges_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Entity entity)
+            )
+            {
+                return;
+            }
+
+            var user1 = entity.ToEntity<SystemUser>();
+
+            var service = await GetService();
+
+            var repositoryRole = new RoleRepository(service);
+
+            Func<string, Task<IEnumerable<Role>>> getter = (string filter) => repositoryRole.GetListAsync(filter
+                , new ColumnSet(
+                    Role.Schema.Attributes.name
+                    , Role.Schema.Attributes.businessunitid
+                    , Role.Schema.Attributes.ismanaged
+                    , Role.Schema.Attributes.iscustomizable
+                )
+            );
+
+            IEnumerable<DataGridColumn> columns = Helpers.SolutionComponentDescription.Implementation.RoleDescriptionBuilder.GetDataGridColumn();
+
+            var form = new WindowEntitySelect<Role>(_iWriteToOutput, service.ConnectionData, Role.EntityLogicalName, getter, columns);
+
+            if (!form.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            if (form.SelectedEntity == null)
+            {
+                return;
+            }
+
+            var role2 = form.SelectedEntity;
+
+            string name1 = string.Format("User {0}", user1.FullName);
+            string name2 = string.Format("Role {0}", role2.Name);
+
+            StringBuilder content = new StringBuilder();
+
+            var privilegeComparer = new PrivilegeNameComparer();
+
+            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+            content.AppendLine(service.ConnectionData.GetConnectionDescription());
+            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
+
+            string operation = string.Format(Properties.OperationNames.ComparingEntitiesPrivilegesFormat3, service.ConnectionData.Name, name1, name2);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operation));
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ComparingEntitiesPrivilegesFormat2, name1, name2);
+
+            var repositoryRolePrivileges = new RolePrivilegesRepository(service);
+
+            var userPrivileges1 = await repositoryRolePrivileges.GetUserPrivilegesAsync(user1.Id);
+            var rolePrivileges2 = await repositoryRolePrivileges.GetRolePrivilegesAsync(role2.Id);
+
+            var hashPrivileges = new HashSet<Guid>(userPrivileges1.Select(p => p.PrivilegeId).Union(rolePrivileges2.Select(p => p.PrivilegeId)));
+
+            var repositoryPrivilege = new PrivilegeRepository(service);
+            var privileges = await repositoryPrivilege.GetListByIdsAsync(hashPrivileges);
+
+            var comparer = new RolePrivilegeComparerHelper(_tabSpacer, name1, name2);
+
+            content.AppendLine();
+
+            var difference = comparer.CompareRolePrivileges(userPrivileges1, rolePrivileges2, privileges, new PrivilegeNameComparer());
+
+            difference.ForEach(s => content.AppendLine(s));
+
+            content.AppendLine();
+
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ComparingEntitiesPrivilegesCompletedFormat2, name1, name2);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation));
+
+            string fileName = EntityFileNameFormatter.ComparingRolePrivilegesInEntitiesFileName(service.ConnectionData.Name, name1, name2);
+
+            string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+        }
+
+        private async void mIRolePrivilegesWithUserPrivileges_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Entity entity)
+            )
+            {
+                return;
+            }
+
+            var user1 = entity.ToEntity<SystemUser>();
+
+            var service = await GetService();
+
+            var repositoryUser = new SystemUserRepository(service);
+
+            Func<string, Task<IEnumerable<SystemUser>>> getter = (string filter) => repositoryUser.GetUsersNotAnotherAsync(filter
+                , user1.Id
+                , new ColumnSet(
+                    SystemUser.Schema.Attributes.domainname
+                    , SystemUser.Schema.Attributes.fullname
+                    , SystemUser.Schema.Attributes.businessunitid
+                    , SystemUser.Schema.Attributes.isdisabled
+            ));
+
+            IEnumerable<DataGridColumn> columns = SystemUserRepository.GetDataGridColumn();
+
+            var form = new WindowEntitySelect<SystemUser>(_iWriteToOutput, service.ConnectionData, SystemUser.EntityLogicalName, getter, columns);
+
+            if (!form.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            if (form.SelectedEntity == null)
+            {
+                return;
+            }
+
+            var user2 = form.SelectedEntity;
+
+            string name1 = string.Format("User {0}", user1.FullName);
+            string name2 = string.Format("User {0}", user2.FullName);
+
+            StringBuilder content = new StringBuilder();
+
+            var privilegeComparer = new PrivilegeNameComparer();
+
+            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+            content.AppendLine(service.ConnectionData.GetConnectionDescription());
+            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
+
+            string operation = string.Format(Properties.OperationNames.ComparingEntitiesPrivilegesFormat3, service.ConnectionData.Name, name1, name2);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operation));
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ComparingEntitiesPrivilegesFormat2, name1, name2);
+
+            var repositoryRolePrivileges = new RolePrivilegesRepository(service);
+
+            var rolePrivileges1 = await repositoryRolePrivileges.GetUserPrivilegesAsync(user1.Id);
+            var userPrivileges2 = await repositoryRolePrivileges.GetUserPrivilegesAsync(user2.Id);
+
+            var hashPrivileges = new HashSet<Guid>(rolePrivileges1.Select(p => p.PrivilegeId).Union(userPrivileges2.Select(p => p.PrivilegeId)));
+
+            var repositoryPrivilege = new PrivilegeRepository(service);
+            var privileges = await repositoryPrivilege.GetListByIdsAsync(hashPrivileges);
+
+            var comparer = new RolePrivilegeComparerHelper(_tabSpacer, name1, name2);
+
+            content.AppendLine();
+
+            var difference = comparer.CompareRolePrivileges(rolePrivileges1, userPrivileges2, privileges, new PrivilegeNameComparer());
+
+            difference.ForEach(s => content.AppendLine(s));
+
+            content.AppendLine();
+
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ComparingEntitiesPrivilegesCompletedFormat2, name1, name2);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation));
+
+            string fileName = EntityFileNameFormatter.ComparingRolePrivilegesInEntitiesFileName(service.ConnectionData.Name, name1, name2);
+
+            string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+        }
+
+        private async void mIRolePrivilegesWithTeamPrivileges_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Entity entity)
+            )
+            {
+                return;
+            }
+
+            var user1 = entity.ToEntity<SystemUser>();
+
+            var service = await GetService();
+
+            var repositoryTeam = new TeamRepository(service);
+
+            Func<string, Task<IEnumerable<Team>>> getter = (string filter) => repositoryTeam.GetOwnerTeamsAsync(filter, new ColumnSet(
+                                Team.Schema.Attributes.name
+                                , Team.Schema.Attributes.businessunitid
+                                , Team.Schema.Attributes.isdefault
+                                ));
+
+            IEnumerable<DataGridColumn> columns = TeamRepository.GetDataGridColumnOwner();
+
+            var form = new WindowEntitySelect<Team>(_iWriteToOutput, service.ConnectionData, Team.EntityLogicalName, getter, columns);
+
+            if (!form.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            if (form.SelectedEntity == null)
+            {
+                return;
+            }
+
+            var team2 = form.SelectedEntity;
+
+            string name1 = string.Format("User {0}", user1.FullName);
+            string name2 = string.Format("Team {0}", team2.Name);
+
+            StringBuilder content = new StringBuilder();
+
+            var privilegeComparer = new PrivilegeNameComparer();
+
+            content.AppendLine(Properties.OutputStrings.ConnectingToCRM);
+            content.AppendLine(service.ConnectionData.GetConnectionDescription());
+            content.AppendFormat(Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint).AppendLine();
+
+            string operation = string.Format(Properties.OperationNames.ComparingEntitiesPrivilegesFormat3, service.ConnectionData.Name, name1, name2);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operation));
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ComparingEntitiesPrivilegesFormat2, name1, name2);
+
+            var repositoryRolePrivileges = new RolePrivilegesRepository(service);
+
+            var rolePrivileges1 = await repositoryRolePrivileges.GetUserPrivilegesAsync(user1.Id);
+            var teamPrivileges2 = await repositoryRolePrivileges.GetTeamPrivilegesAsync(team2.Id);
+
+            var hashPrivileges = new HashSet<Guid>(rolePrivileges1.Select(p => p.PrivilegeId).Union(teamPrivileges2.Select(p => p.PrivilegeId)));
+
+            var repositoryPrivilege = new PrivilegeRepository(service);
+            var privileges = await repositoryPrivilege.GetListByIdsAsync(hashPrivileges);
+
+            var comparer = new RolePrivilegeComparerHelper(_tabSpacer, name1, name2);
+
+            content.AppendLine();
+
+            var difference = comparer.CompareRolePrivileges(rolePrivileges1, teamPrivileges2, privileges, new PrivilegeNameComparer());
+
+            difference.ForEach(s => content.AppendLine(s));
+
+            content.AppendLine();
+
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ComparingEntitiesPrivilegesCompletedFormat2, name1, name2);
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation));
+
+            string fileName = EntityFileNameFormatter.ComparingRolePrivilegesInEntitiesFileName(service.ConnectionData.Name, name1, name2);
+
+            string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
     }
 }
