@@ -1247,7 +1247,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return false;
             }
 
-            if (!(ItemsControl.ItemsControlFromItemContainer(menuItem) is ContextMenu contextMenu)
+            ContextMenu contextMenu = GetContextMenuFromMenuItem(menuItem);
+
+            if (contextMenu == null
                 || contextMenu.PlacementTarget == null
                 || !(contextMenu.PlacementTarget is TextBlock textBlock)
                 || !(contextMenu.DataContext is DataRowView dataRowView)
@@ -1277,6 +1279,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             return true;
         }
 
+        private ContextMenu GetContextMenuFromMenuItem(MenuItem menuItem)
+        {
+            ItemsControl result = menuItem;
+
+            do
+            {
+                result = ItemsControl.ItemsControlFromItemContainer(result);
+
+                if (result != null && result is ContextMenu contextMenu)
+                {
+                    return contextMenu;
+                }
+
+            } while (result != null);
+
+            return null;
+        }
+
         private bool TryFindNavigateUriFromHyperlink(RoutedEventArgs e, out Uri navigateUri)
         {
             navigateUri = null;
@@ -1286,7 +1306,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return false;
             }
 
-            if (!(ItemsControl.ItemsControlFromItemContainer(menuItem) is ContextMenu contextMenu)
+            var contextMenu = GetContextMenuFromMenuItem(menuItem);
+
+            if (contextMenu == null
                 || contextMenu.PlacementTarget == null
                 || !(contextMenu.PlacementTarget is TextBlock textBlock)
                 )
