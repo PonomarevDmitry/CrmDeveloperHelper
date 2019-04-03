@@ -481,6 +481,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformExportEntityDescription);
         }
 
+        private void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null || entity.WebResourceId == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformEntityEditor);
+        }
+
         private async Task PerformExportEntityDescription(string folder, Guid idWebResource, string name)
         {
             var service = await GetService();
@@ -515,6 +527,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingEntityDescriptionFailed);
             }
+        }
+
+        private async Task PerformEntityEditor(string folder, Guid idWebResource, string name)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, WebResource.EntityLogicalName, idWebResource);
         }
 
         private void trVWebResources_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)

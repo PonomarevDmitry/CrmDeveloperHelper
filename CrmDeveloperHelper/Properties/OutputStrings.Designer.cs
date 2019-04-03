@@ -97,7 +97,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assigning Entity to Team {0}.
+        ///   Looks up a localized string similar to Assigning Entity to Team {0}....
         /// </summary>
         internal static string AssigningEntityToTeamFormat1 {
             get {
@@ -106,7 +106,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assigning Entity to User {0}.
+        ///   Looks up a localized string similar to Assigning Entity to User {0}....
         /// </summary>
         internal static string AssigningEntityToUserFormat1 {
             get {
@@ -286,7 +286,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Executing on Entity Workflow {0}.
+        ///   Looks up a localized string similar to Executing on Entity Workflow {0}....
         /// </summary>
         internal static string ExecutingOnEntityWorkflowFormat1 {
             get {
@@ -525,6 +525,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string ManyToOneRelationshipsNamesWithPrefixFormat2 {
             get {
                 return ResourceManager.GetString("ManyToOneRelationshipsNamesWithPrefixFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No changes in Entity {0}.
+        /// </summary>
+        internal static string NoChangesInEntityFormat1 {
+            get {
+                return ResourceManager.GetString("NoChangesInEntityFormat1", resourceCulture);
             }
         }
         

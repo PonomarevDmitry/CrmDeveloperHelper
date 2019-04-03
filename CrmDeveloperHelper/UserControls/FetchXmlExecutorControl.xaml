@@ -6,9 +6,12 @@
              mc:Ignorable="d" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" d:DesignHeight="418" d:DesignWidth="882">
     <UserControl.Resources>
         <ContextMenu x:Key="listContextMenuEntity">
+            
             <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
+            
             <Separator/>
             <MenuItem Header="Open Entity Metadata Window" Click="mIOpenEntityMetadataWindow_Click"/>
+            
             <Separator/>
             <MenuItem Header="Clipboard">
                 <MenuItem Header="Copy Entity Id" Click="mICopyEntityId_Click"/>
@@ -18,7 +21,10 @@
             
             <Separator/>
             <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
-            
+
+            <Separator/>
+            <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
+
             <Separator/>
             <MenuItem Header="Change Entity">
                 <MenuItem Header="Execute Workflow on Entity" Click="mIExecuteWorkflowOnEntity_Click"/>
@@ -43,6 +49,9 @@
 
             <Separator/>
             <MenuItem Header="Create EntityReference Description" Click="mICreateEntityReferenceDescription_Click"/>
+
+            <Separator/>
+            <MenuItem Header="Change EntityReference in Editor" Click="mIChangeEntityReferenceInEditor_Click"/>
             
             <Separator/>
             <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
@@ -59,6 +68,9 @@
 
             <Separator/>
             <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+
+            <Separator/>
+            <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
 
             <Separator/>
             <MenuItem Header="Change Entity">

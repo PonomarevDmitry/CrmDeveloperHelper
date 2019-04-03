@@ -291,7 +291,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.WindowStatusStrings.UpdatingImageAttributesFormat1, this._entityName);
 
-            var form = new WindowAttributesSelect(_iWriteToOutput
+            var form = new WindowAttributeMultiSelect(_iWriteToOutput
                 , _service
                 , _entityMetadata
                 , txtBAttributes.Text.Trim()

@@ -644,7 +644,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.WindowStatusStrings.UpdatingStepFilteringAttributesFormat1, entityName);
 
-            var form = new WindowAttributesSelect(_iWriteToOutput
+            var form = new WindowAttributeMultiSelect(_iWriteToOutput
                 , _service
                 , entityMetadata
                 , txtBFilteringBAttributes.Text.Trim()

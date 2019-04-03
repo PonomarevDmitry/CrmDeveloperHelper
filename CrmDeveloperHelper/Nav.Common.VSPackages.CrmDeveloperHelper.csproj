@@ -959,6 +959,47 @@
     <Compile Include="Repository\WebResourceRepository.cs" />
     <Compile Include="Repository\WorkflowRepository.cs" />
     <Compile Include="ToolWindowPanes\FetchXmlExecutorToolWindowPane.cs" />
+    <Compile Include="UserControls\AttributeMetadataControls\AttributeMetadataControlFactory.cs" />
+    <Compile Include="UserControls\AttributeMetadataControls\DateTimeAttributeMetadataControl.xaml.cs">
+      <DependentUpon>DateTimeAttributeMetadataControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AttributeMetadataControls\IAttributeMetadataControl.cs" />
+    <Compile Include="UserControls\AttributeMetadataControls\LookupAttributeMetadataControl.xaml.cs">
+      <DependentUpon>LookupAttributeMetadataControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AttributeMetadataControls\EntityNameAttributeMetadataControl.xaml.cs">
+      <DependentUpon>EntityNameAttributeMetadataControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AttributeMetadataControls\BooleanAttributeMetadataControl.xaml.cs">
+      <DependentUpon>BooleanAttributeMetadataControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AttributeMetadataControls\StatusAttributeMetadataControl.xaml.cs">
+      <DependentUpon>StatusAttributeMetadataControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AttributeMetadataControls\PicklistAttributeMetadataControl.xaml.cs">
+      <DependentUpon>PicklistAttributeMetadataControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AttributeMetadataControls\DoubleAttributeMetadataControl.xaml.cs">
+      <DependentUpon>DoubleAttributeMetadataControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AttributeMetadataControls\DecimalAttributeMetadataControl.xaml.cs">
+      <DependentUpon>DecimalAttributeMetadataControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AttributeMetadataControls\MoneyAttributeMetadataControl.xaml.cs">
+      <DependentUpon>MoneyAttributeMetadataControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AttributeMetadataControls\BigIntAttributeMetadataControl.xaml.cs">
+      <DependentUpon>BigIntAttributeMetadataControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AttributeMetadataControls\IntegerAttributeMetadataControl.xaml.cs">
+      <DependentUpon>IntegerAttributeMetadataControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AttributeMetadataControls\MemoAttributeMetadataControl.xaml.cs">
+      <DependentUpon>MemoAttributeMetadataControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AttributeMetadataControls\StringAttributeMetadataControl.xaml.cs">
+      <DependentUpon>StringAttributeMetadataControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ExportEntityMetadataOptionsControl.xaml.cs">
       <DependentUpon>ExportEntityMetadataOptionsControl.xaml</DependentUpon>
     </Compile>
@@ -974,8 +1015,11 @@
     <Compile Include="UserControls\FetchXmlExecutorControl.xaml.cs">
       <DependentUpon>FetchXmlExecutorControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowAttributesSelect.xaml.cs">
-      <DependentUpon>WindowAttributesSelect.xaml</DependentUpon>
+    <Compile Include="Views\WindowAttributeMultiSelect.xaml.cs">
+      <DependentUpon>WindowAttributeMultiSelect.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowAttributeSelect.xaml.cs">
+      <DependentUpon>WindowAttributeSelect.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowBase.cs" />
     <Compile Include="Views\WindowCommonConfiguration.xaml.cs">
@@ -998,6 +1042,9 @@
     </Compile>
     <Compile Include="Views\WindowEntityAttributeExplorer.xaml.cs">
       <DependentUpon>WindowEntityAttributeExplorer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowEntityEditor.xaml.cs">
+      <DependentUpon>WindowEntityEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowEntityKeyExplorer.xaml.cs">
       <DependentUpon>WindowEntityKeyExplorer.xaml</DependentUpon>
@@ -1514,6 +1561,58 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="UserControls\AttributeMetadataControls\DateTimeAttributeMetadataControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\AttributeMetadataControls\LookupAttributeMetadataControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\AttributeMetadataControls\EntityNameAttributeMetadataControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\AttributeMetadataControls\BooleanAttributeMetadataControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\AttributeMetadataControls\StatusAttributeMetadataControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\AttributeMetadataControls\PicklistAttributeMetadataControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\AttributeMetadataControls\DoubleAttributeMetadataControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\AttributeMetadataControls\DecimalAttributeMetadataControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\AttributeMetadataControls\MoneyAttributeMetadataControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\AttributeMetadataControls\BigIntAttributeMetadataControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\AttributeMetadataControls\IntegerAttributeMetadataControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\AttributeMetadataControls\MemoAttributeMetadataControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AttributeMetadataControls\StringAttributeMetadataControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\ExportEntityMetadataOptionsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1534,7 +1633,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\WindowAttributesSelect.xaml">
+    <Page Include="Views\WindowAttributeMultiSelect.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowAttributeSelect.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1563,6 +1666,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowEntityAttributeExplorer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowEntityEditor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

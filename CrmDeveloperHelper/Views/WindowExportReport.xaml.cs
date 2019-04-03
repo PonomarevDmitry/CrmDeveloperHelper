@@ -564,6 +564,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteAction(entity.Id, entity.Name, entity.FileName, PerformExportEntityDescription);
         }
 
+        private void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.Id, entity.Name, entity.FileName, PerformEntityEditor);
+        }
+
+        private async Task PerformEntityEditor(string folder, Guid idReport, string name, string filename)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, Report.EntityLogicalName, idReport);
+        }
+
         private async Task PerformExportEntityDescription(string folder, Guid idReport, string name, string filename)
         {
             var service = await GetService();

@@ -508,12 +508,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        protected void ToggleControl(params Control[] controlsArray)
+        protected void ToggleControl(IEnumerable<UIElement> controlsArray)
         {
-            ToggleControl(IsControlsEnabled, controlsArray);
+            ToggleControlInternal(IsControlsEnabled, controlsArray);
         }
 
-        protected void ToggleControl(bool enabled, params Control[] controlsArray)
+        protected void ToggleControl(bool enabled, IEnumerable<UIElement> controlsArray)
+        {
+            ToggleControlInternal(enabled, controlsArray);
+        }
+
+        protected void ToggleControl(params UIElement[] controlsArray)
+        {
+            ToggleControlInternal(IsControlsEnabled, controlsArray);
+        }
+
+        protected void ToggleControl(bool enabled, params UIElement[] controlsArray)
+        {
+            ToggleControlInternal(enabled, controlsArray);
+        }
+
+        private void ToggleControlInternal(bool enabled, IEnumerable<UIElement> controlsArray)
         {
             if (controlsArray == null || !controlsArray.Any())
             {

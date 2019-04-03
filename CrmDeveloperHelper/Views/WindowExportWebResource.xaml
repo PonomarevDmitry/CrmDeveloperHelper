@@ -16,8 +16,13 @@
 
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
             <MenuItem Header="Open WebResource in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
+            
             <Separator/>
             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+
+            <Separator/>
+            <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
+
             <Separator/>
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
@@ -97,6 +102,10 @@
                             <MenuItem Header="Open WebResource in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
                             <Separator/>
                             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+
+                            <Separator/>
+                            <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
+
                             <Separator/>
                             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
                             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />

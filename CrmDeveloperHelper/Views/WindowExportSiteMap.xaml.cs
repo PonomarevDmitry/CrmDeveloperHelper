@@ -912,6 +912,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteActionEntity(entity.Id, entity.SiteMapName, entity.SiteMapNameUnique, SiteMap.Schema.Attributes.sitemapxml, SiteMap.Schema.Headers.sitemapxml, PerformUpdateEntityField);
         }
 
+        private void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.Id, entity.SiteMapName, entity.SiteMapNameUnique, PerformEntityEditor);
+        }
+
+        private async Task PerformEntityEditor(string folder, Guid idSiteMap, string name, string nameUnique)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, SiteMap.EntityLogicalName, idSiteMap);
+        }
+
         private void miOptions_Click(object sender, RoutedEventArgs e)
         {
             this._optionsPopup.IsOpen = true;

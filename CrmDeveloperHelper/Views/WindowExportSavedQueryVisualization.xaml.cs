@@ -642,6 +642,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteAction(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, PerformExportEntityDescription);
         }
 
+        private void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, PerformEntityEditor);
+        }
+
         private async Task PerformExportEntityDescription(string folder, Guid idSavedQueryVisualization, string entityName, string name)
         {
             var service = await GetService();
@@ -674,6 +686,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingEntityDescriptionFailed);
             }
+        }
+
+        private async Task PerformEntityEditor(string folder, Guid idSavedQueryVisualization, string entityName, string name)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, SavedQueryVisualization.EntityLogicalName, idSavedQueryVisualization);
         }
 
         private void btnClearEntityFilter_Click(object sender, RoutedEventArgs e)

@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadataControls.MemoAttributeMetadataControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadataControls"
+             mc:Ignorable="d" 
+             d:DesignWidth="566" d:DesignHeight="300"
+             HorizontalAlignment="Stretch" 
+             VerticalAlignment="Stretch"
+             >
+    <GroupBox x:Name="gbAttribute" Header="Attribute Name" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <CheckBox x:Name="chBChanged" Content="Changed" DockPanel.Dock="Top" IsEnabled="False" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Margin="3" />
+            <TextBox x:Name="txtBValue" AcceptsReturn="True" VerticalContentAlignment="Top" Margin="3" TextChanged="txtBValue_TextChanged" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
+        </DockPanel>
+    </GroupBox>
+</UserControl>

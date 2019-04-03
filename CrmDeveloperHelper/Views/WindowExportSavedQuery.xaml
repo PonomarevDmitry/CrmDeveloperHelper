@@ -16,6 +16,7 @@
             
             <Separator/>
             <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+
             <Separator/>
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
@@ -37,6 +38,7 @@
             <MenuItem Header="ColumnSet XML" VerticalAlignment="Center" Click="mIExportSavedQueryColumnSetXml_Click"/>
 
             <Separator x:Uid="controlChangeEntityAttribute"/>
+            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SavedQuery in Editor" Click="mIChangeEntityInEditor_Click"/>
             <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SavedQuery Attribute" VerticalAlignment="Center">
                 <MenuItem Header="Fetch XML" VerticalAlignment="Center" Click="mIUpdateSavedQueryFetchXml_Click"/>
                 <MenuItem Header="Layout XML" VerticalAlignment="Center" Click="mIUpdateSavedQueryLayoutXml_Click"/>
@@ -154,6 +156,10 @@
                             <MenuItem Header="Open SavedQuery in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
                             <Separator/>
                             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+
+                            <Separator/>
+                            <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
+
                             <Separator/>
                             <MenuItem Header="Clipboard">
                                 <MenuItem Header="Copy Fetch XML in JavaScript to Clipboard" VerticalAlignment="Center" Click="mIExportSavedQueryFetchXmlIntoJavaScript_Click" />

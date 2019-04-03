@@ -18,6 +18,7 @@
             
             <Separator/>
             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+
             <Separator/>
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center"  />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
@@ -32,8 +33,9 @@
             <MenuItem Header="ClientData" VerticalAlignment="Center" Click="mIExportWorkflowClientData_Click"/>
             <Separator/>
             <MenuItem Header="Corrected Xaml" VerticalAlignment="Center" Click="mIExportWorkflowCorrectedXaml_Click"/>
-            
+
             <Separator x:Uid="controlChangeEntityAttribute"/>
+            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Workflow in Editor" Click="mIChangeEntityInEditor_Click"/>
             <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Workflow Attribute" VerticalAlignment="Center">
                 <MenuItem Header="Xaml" VerticalAlignment="Center" Click="mIUpdateWorkflowXaml_Click"/>
                 <MenuItem Header="InputParameters" VerticalAlignment="Center" Click="mIUpdateWorkflowInputParameters_Click"/>
@@ -159,8 +161,13 @@
                             <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
                             <Separator/>
                             <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
+                            
                             <Separator/>
                             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+
+                            <Separator/>
+                            <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
+
                             <Separator/>
                             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center"  />
                             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />

@@ -222,6 +222,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
+        public static void OpenEntityEditor(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string entityName
+            , Guid entityId
+        )
+        {
+            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowEntityEditor(
+                        iWriteToOutput
+                        , service
+                        , commonConfig
+                        , entityName
+                        , entityId
+                    );
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
         public static void OpenApplicationRibbonWindow(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service

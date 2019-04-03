@@ -1,0 +1,12 @@
+using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Metadata;
+
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadataControls
+{
+    public interface IAttributeMetadataControl<out T> where T : AttributeMetadata
+    {
+        T AttributeMetadata { get; }
+
+        void AddChangedAttribute(Entity entity);
+    }
+}

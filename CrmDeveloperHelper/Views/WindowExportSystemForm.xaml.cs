@@ -678,6 +678,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformExportEntityDescriptionAsync);
         }
 
+        private void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformEntityEditor);
+        }
+
         private async Task PerformExportEntityDescriptionAsync(string folder, Guid idSystemForm, string entityName, string name)
         {
             var service = await GetService();
@@ -710,6 +722,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingEntityDescriptionFailed);
             }
+        }
+        
+        private async Task PerformEntityEditor(string folder, Guid idSystemForm, string entityName, string name)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, SystemForm.EntityLogicalName, idSystemForm);
         }
 
         private void mIPublishSystemForm_Click(object sender, RoutedEventArgs e)

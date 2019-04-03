@@ -693,6 +693,4 @@
   <data name="ComparingEntitiesPrivilegesFormat3" xml:space="preserve">
     <value>{0} - Comparing RolePrivileges in {1} and {2}</value>
   </data>
-
-
 </root>

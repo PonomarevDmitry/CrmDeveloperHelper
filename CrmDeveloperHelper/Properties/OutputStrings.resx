@@ -385,13 +385,17 @@
     <value>Saving Changes in Role {0}...</value>
   </data>
   <data name="ExecutingOnEntityWorkflowFormat1" xml:space="preserve">
-    <value>Executing on Entity Workflow {0}</value>
+    <value>Executing on Entity Workflow {0}...</value>
   </data>
   <data name="AssigningEntityToUserFormat1" xml:space="preserve">
-    <value>Assigning Entity to User {0}</value>
+    <value>Assigning Entity to User {0}...</value>
   </data>
   <data name="AssigningEntityToTeamFormat1" xml:space="preserve">
-    <value>Assigning Entity to Team {0}</value>
+    <value>Assigning Entity to Team {0}...</value>
+  </data>
+
+  <data name="NoChangesInEntityFormat1" xml:space="preserve">
+    <value>No changes in Entity {0}</value>
   </data>
   
 

@@ -1,4 +1,4 @@
-﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowAttributesSelect"
+﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowAttributeMultiSelect"
                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                 xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"

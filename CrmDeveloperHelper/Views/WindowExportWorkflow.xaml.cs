@@ -538,12 +538,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteAction(Guid idWorkflow, string entityName, string name, string category, Func<string, Guid, string, string, string, Task> action)
         {
-            string folder = txtBFolder.Text.Trim();
-
             if (!this.IsControlsEnabled)
             {
                 return;
             }
+
+            string folder = txtBFolder.Text.Trim();
 
             if (string.IsNullOrEmpty(folder))
             {
@@ -1074,6 +1074,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteAction(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], PerformExportEntityDescription);
         }
 
+        private void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], PerformEntityEditor);
+        }
+
         private async void mIExportWorkflowShowDifferenceXamlAndCorrectedXaml_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
@@ -1169,6 +1181,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingEntityDescriptionFailed);
             }
+        }
+
+        private async Task PerformEntityEditor(string folder, Guid idWorkflow, string entityName, string name, string category)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, Workflow.EntityLogicalName, idWorkflow);
         }
 
         private void btnClearEntityFilter_Click(object sender, RoutedEventArgs e)

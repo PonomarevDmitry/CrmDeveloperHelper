@@ -20,6 +20,7 @@
             <MenuItem Header="High Contrast Theme Data" VerticalAlignment="Center" Click="mIExportOrganizationHighContrastThemeData_Click" />
             <MenuItem Header="Sla Pause States" VerticalAlignment="Center" Click="mIExportOrganizationSlaPauseStates_Click" />
             <Separator/>
+            <MenuItem Header="Change Organization in Editor" Click="mIChangeEntityInEditor_Click"/>
             <MenuItem Header="Change Organization Attribute" VerticalAlignment="Center">
                 <MenuItem Header="Default Email Settings" VerticalAlignment="Center" Click="mIUpdateOrganizationDefaultEmailSettings_Click"/>
                 <MenuItem Header="External Party Correlation Keys" VerticalAlignment="Center" Click="mIUpdateOrganizationExternalPartyCorrelationKeys_Click"/>

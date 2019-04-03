@@ -1763,5 +1763,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
 
         }
+
+        private async void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            if (this.ConnectionData != null)
+            {
+                var service = await GetServiceAsync(this.ConnectionData);
+
+                var commonConfig = CommonConfiguration.Get();
+
+                WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, entity.LogicalName, entity.Id);
+            }
+        }
+
+        private async void mIChangeEntityReferenceInEditor_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!TryFindEntityReferenceViewFromRow(e, out var entityReferenceView))
+            {
+                return;
+            }
+
+            if (this.ConnectionData != null)
+            {
+                var service = await GetServiceAsync(this.ConnectionData);
+
+                var commonConfig = CommonConfiguration.Get();
+
+                WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, entityReferenceView.LogicalName, entityReferenceView.Id);
+            }
+        }
     }
 }

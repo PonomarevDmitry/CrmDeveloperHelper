@@ -1699,6 +1699,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filtering Attributes {0} completed..
+        /// </summary>
+        internal static string FilteringAttributesCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("FilteringAttributesCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filtering Attributes {0}....
+        /// </summary>
+        internal static string FilteringAttributesFormat1 {
+            get {
+                return ResourceManager.GetString("FilteringAttributesFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filtering OrganizationDifferenceImage Components....
         /// </summary>
         internal static string FilteringOrganizationDifferenceImageComponents {
@@ -1767,6 +1785,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string GettingAllRequiredComponentsFormat1 {
             get {
                 return ResourceManager.GetString("GettingAllRequiredComponentsFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting Entity....
+        /// </summary>
+        internal static string GettingEntity {
+            get {
+                return ResourceManager.GetString("GettingEntity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting Entity completed..
+        /// </summary>
+        internal static string GettingEntityCompleted {
+            get {
+                return ResourceManager.GetString("GettingEntityCompleted", resourceCulture);
             }
         }
         
@@ -3153,6 +3189,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string SavingChangesInRolesFormat1 {
             get {
                 return ResourceManager.GetString("SavingChangesInRolesFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving Entity {0} completed..
+        /// </summary>
+        internal static string SavingEntityCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("SavingEntityCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving Entity {0} failed..
+        /// </summary>
+        internal static string SavingEntityFailedFormat1 {
+            get {
+                return ResourceManager.GetString("SavingEntityFailedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving Entity {0}....
+        /// </summary>
+        internal static string SavingEntityFormat1 {
+            get {
+                return ResourceManager.GetString("SavingEntityFormat1", resourceCulture);
             }
         }
         

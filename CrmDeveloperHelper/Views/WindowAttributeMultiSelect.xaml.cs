@@ -16,7 +16,7 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowAttributesSelect : WindowBase
+    public partial class WindowAttributeMultiSelect : WindowBase
     {
         private readonly IWriteToOutput _iWriteToOutput;
 
@@ -28,7 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly ObservableCollection<AttributeSelectItem> _sourceDataGrid = new ObservableCollection<AttributeSelectItem>();
 
-        public WindowAttributesSelect(
+        public WindowAttributeMultiSelect(
             IWriteToOutput outputWindow
             , IOrganizationServiceExtented service
             , EntityMetadata entityMetadata

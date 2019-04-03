@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadataControls.DateTimeAttributeMetadataControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadataControls"
+             mc:Ignorable="d" 
+             d:DesignWidth="483"
+             >
+    <GroupBox x:Name="gbAttribute" Header="Attribute Name">
+        <DockPanel LastChildFill="True">
+            <CheckBox x:Name="chBChanged" Content="Ch" DockPanel.Dock="Left" IsEnabled="False" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Margin="3" />
+            <DatePicker x:Name="dPValue" VerticalContentAlignment="Center" Margin="3" SelectedDateChanged="dPValue_SelectedDateChanged" />
+        </DockPanel>
+    </GroupBox>
+</UserControl>
