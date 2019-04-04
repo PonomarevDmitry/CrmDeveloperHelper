@@ -8,18 +8,27 @@
     <src:WindowBase.Resources>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
             <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="miOpenEntityInWeb_Click" />
+            
             <Separator/>
             <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="miOpenEntityListInWeb_Click" />
+            
             <Separator/>
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
+
+            <Separator/>
+            <MenuItem Header="Create Entity New Instance" Click="miCreateNewEntityInstance_Click"/>
+
             <Separator/>
             <MenuItem Header="Create C# Metadata File" Click="miCreateCSharpFile_Click"/>
             <MenuItem Header="Create JavaScript Metadata File" Click="miCreateJavaScriptFile_Click"/>
+            
             <Separator/>
             <MenuItem Header="Create File with Attributes Dependent Components" Click="miCreateFileAttributesDependentComponents_Click"/>
+            
             <Separator/>
             <MenuItem Header="Export Entity Xml" Click="miExportEntityXml_Click"/>
+            
             <Separator/>
             <MenuItem Header="Entity Ribbon">
                 <MenuItem Header="Export Entity Ribbon" Click="miExportEntityRibbon_Click" />
@@ -30,16 +39,20 @@
                 <Separator/>
                 <MenuItem Header="Update Entity RibbonDiffXml" VerticalAlignment="Center" Click="miUpdateEntityRibbonDiffXml_Click"/>
             </MenuItem>
+            
             <Separator/>
             <MenuItem Header="Publish Entity" Click="miPublishEntity_Click"/>
+            
             <Separator/>
             <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="miOpenSolutionsContainingComponentInWindow_Click" />
+            
             <Separator/>
             <MenuItem Header="Dependent Components">
                 <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="miOpenDependentComponentsInWeb_Click" />
                 <Separator/>
                 <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="miOpenDependentComponentsInWindow_Click" />
             </MenuItem>
+            
             <Separator/>
             <MenuItem Header="Get Other Entity Information">
                 <MenuItem Header="Entity Attribute Explorer" Click="miEntityAttributeExplorer_Click"/>
@@ -65,6 +78,7 @@
                 <MenuItem Header="Message Tree" Click="miMessageTree_Click"/>
                 <MenuItem Header="Message Request Tree" Click="miMessageRequestTree_Click"/>
             </MenuItem>
+            
             <Separator/>
             <MenuItem Header="Compare Information with other Organization">
                 <MenuItem Header="Organization Comparer" Click="miOrganizationComparer_Click"/>

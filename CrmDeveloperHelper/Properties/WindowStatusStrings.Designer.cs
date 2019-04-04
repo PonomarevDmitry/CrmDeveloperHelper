@@ -1789,20 +1789,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Getting Entity....
+        ///   Looks up a localized string similar to Getting Entity {0} completed..
         /// </summary>
-        internal static string GettingEntity {
+        internal static string GettingEntityCompletedFormat1 {
             get {
-                return ResourceManager.GetString("GettingEntity", resourceCulture);
+                return ResourceManager.GetString("GettingEntityCompletedFormat1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Getting Entity completed..
+        ///   Looks up a localized string similar to Getting Entity {0}....
         /// </summary>
-        internal static string GettingEntityCompleted {
+        internal static string GettingEntityFormat1 {
             get {
-                return ResourceManager.GetString("GettingEntityCompleted", resourceCulture);
+                return ResourceManager.GetString("GettingEntityFormat1", resourceCulture);
             }
         }
         

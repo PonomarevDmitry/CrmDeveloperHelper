@@ -1345,6 +1345,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             Clipboard.SetText(jsCode);
         }
 
+        private IEnumerable<Guid> GetSelectedEntityIds()
+        {
+            HashSet<Guid> hash = new HashSet<Guid>();
+
+            List<Guid> result = new List<Guid>();
+
+            var selectedCells = dGrResults.SelectedCells.ToList();
+
+            foreach (var cell in selectedCells)
+            {
+                if (cell.Item is DataRowView item
+                    && item[_columnOriginalEntity] != null
+                    && item[_columnOriginalEntity] is Entity entity
+                    && entity.Id != Guid.Empty
+                )
+                {
+                    if (hash.Add(entity.Id))
+                    {
+                        result.Add(entity.Id);
+                    }
+                }
+            }
+
+            return result;
+        }
+
         private async void mIExecuteWorkflowOnEntity_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
@@ -1381,6 +1407,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
 
             await ExecuteWorkfowOnEntities(_entityCollection.EntityName, _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id));
+        }
+
+        private async void miExecuteWorkflowOnSelectedEntites_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+            )
+            {
+                return;
+            }
+
+            IEnumerable<Guid> selectedEntityIds = GetSelectedEntityIds();
+
+            if (!selectedEntityIds.Any())
+            {
+                return;
+            }
+
+            await ExecuteWorkfowOnEntities(_entityCollection.EntityName, selectedEntityIds);
         }
 
         private async Task ExecuteWorkfowOnEntities(string entityName, IEnumerable<Guid> entityIds)
@@ -1494,14 +1544,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
 
             if (_entityCollection == null
-               || _entityCollection.Entities.Count == 0
-               || !_entityCollection.Entities.Any(en => en.Id != Guid.Empty)
+                || _entityCollection.Entities.Count == 0
+                || !_entityCollection.Entities.Any(en => en.Id != Guid.Empty)
             )
             {
                 return;
             }
 
             await AssignEntitiesToUser(_entityCollection.EntityName, _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id));
+        }
+
+        private async void miAssignToUserSelectedEntites_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+            )
+            {
+                return;
+            }
+
+            IEnumerable<Guid> selectedEntityIds = GetSelectedEntityIds();
+
+            if (!selectedEntityIds.Any())
+            {
+                return;
+            }
+
+            await AssignEntitiesToUser(_entityCollection.EntityName, selectedEntityIds);
         }
 
         private async Task AssignEntitiesToUser(string entityName, IEnumerable<Guid> entityIds)
@@ -1607,14 +1681,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
 
             if (_entityCollection == null
-               || _entityCollection.Entities.Count == 0
-               || !_entityCollection.Entities.Any(en => en.Id != Guid.Empty)
+                || _entityCollection.Entities.Count == 0
+                || !_entityCollection.Entities.Any(en => en.Id != Guid.Empty)
             )
             {
                 return;
             }
 
             await AssignEntitiesToTeam(_entityCollection.EntityName, _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id));
+        }
+
+        private async void miAssignToTeamSelectedEntites_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+            )
+            {
+                return;
+            }
+
+            IEnumerable<Guid> selectedEntityIds = GetSelectedEntityIds();
+
+            if (!selectedEntityIds.Any())
+            {
+                return;
+            }
+
+            await AssignEntitiesToTeam(_entityCollection.EntityName, selectedEntityIds);
         }
 
         private async Task AssignEntitiesToTeam(string entityName, IEnumerable<Guid> entityIds)
@@ -1730,7 +1828,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            if (_entityCollection == null || _entityCollection.Entities.Count == 0)
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+            )
             {
                 return;
             }

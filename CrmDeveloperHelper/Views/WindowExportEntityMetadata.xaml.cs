@@ -820,6 +820,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.CreatingFileForEntityFormat2, service.ConnectionData.Name, entityMetadata.EntityLogicalName);
         }
 
+        private void miCreateNewEntityInstance_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionAsync(entity, CreateNewEntityInstanceAsync);
+        }
+
+        private async Task CreateNewEntityInstanceAsync(EntityMetadataListViewItem entityMetadata)
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, entityMetadata.EntityMetadata.LogicalName, Guid.Empty);
+        }
+
         private void miCreateFileAttributesDependentComponents_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();

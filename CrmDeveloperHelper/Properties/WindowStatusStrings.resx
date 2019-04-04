@@ -1407,11 +1407,11 @@
     <value>Filtering Attributes {0}...</value>
   </data>
 
-  <data name="GettingEntityCompleted" xml:space="preserve">
-    <value>Getting Entity completed.</value>
+  <data name="GettingEntityCompletedFormat1" xml:space="preserve">
+    <value>Getting Entity {0} completed.</value>
   </data>
-  <data name="GettingEntity" xml:space="preserve">
-    <value>Getting Entity...</value>
+  <data name="GettingEntityFormat1" xml:space="preserve">
+    <value>Getting Entity {0}...</value>
   </data>
 
 

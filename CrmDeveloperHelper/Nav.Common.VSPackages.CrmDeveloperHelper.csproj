@@ -964,6 +964,9 @@
       <DependentUpon>DateTimeAttributeMetadataControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\AttributeMetadataControls\IAttributeMetadataControl.cs" />
+    <Compile Include="UserControls\AttributeMetadataControls\UniqueIdentifierAttributeMetadataControl.xaml.cs">
+      <DependentUpon>UniqueIdentifierAttributeMetadataControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\AttributeMetadataControls\LookupAttributeMetadataControl.xaml.cs">
       <DependentUpon>LookupAttributeMetadataControl.xaml</DependentUpon>
     </Compile>
@@ -1562,6 +1565,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="UserControls\AttributeMetadataControls\DateTimeAttributeMetadataControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\AttributeMetadataControls\UniqueIdentifierAttributeMetadataControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

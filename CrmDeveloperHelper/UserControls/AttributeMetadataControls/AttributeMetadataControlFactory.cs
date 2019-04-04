@@ -144,11 +144,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                 return new StatusAttributeMetadataControl(service, entity, statusAttrib, initialValue);
             }
 
-            if (attributeMetadata is EntityNameAttributeMetadata entityNameAttrib)
-            {
-
-            }
-
             if (attributeMetadata is LookupAttributeMetadata lookupAttrib)
             {
                 EntityReference initialValue = null;
@@ -159,6 +154,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                 }
 
                 return new LookupAttributeMetadataControl(lookupAttrib, initialValue);
+            }
+
+            if (attributeMetadata is EntityNameAttributeMetadata entityNameAttrib)
+            {
+
+            }
+
+            if (attributeMetadata is UniqueIdentifierAttributeMetadata uniqueAttrib
+                || attributeMetadata.AttributeType == AttributeTypeCode.Uniqueidentifier
+            )
+            {
+                Guid? initialValue = null;
+
+                if (value != null && value is Guid valueGuid)
+                {
+                    initialValue = valueGuid;
+                }
+
+                return new UniqueIdentifierAttributeMetadataControl(attributeMetadata, initialValue);
             }
 
             return null;

@@ -36,6 +36,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly List<UserControl> _listAttributeControls = new List<UserControl>();
 
+        private Func<AttributeMetadata, bool> _attributeChecker;
+
         public WindowEntityEditor(
             IWriteToOutput outputWindow
             , IOrganizationServiceExtented service
@@ -68,6 +70,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBFilterAttribute.SelectionLength = 0;
             txtBFilterAttribute.Focus();
 
+            this._attributeChecker = a => a.IsValidForCreate.GetValueOrDefault();
+
             RetrieveEntityInformation();
         }
 
@@ -83,47 +87,72 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.GettingEntityMetadataCompletedFormat1, _entityName);
 
-                if (this._entityMetadata != null && _entityId != Guid.Empty)
+                if (this._entityMetadata != null)
                 {
-                    ToggleControls(false, Properties.WindowStatusStrings.GettingEntity);
-
-                    var repositoryGeneric = new GenericRepository(_service, this._entityMetadata);
-
-                    this._entityInstance = await repositoryGeneric.GetEntityByIdAsync(_entityId, new ColumnSet(true));
-
-                    ToggleControls(true, Properties.WindowStatusStrings.GettingEntityCompleted);
-
-                    if (this._entityInstance != null)
+                    if (_entityId != Guid.Empty)
                     {
-                        foreach (var attributeValue in this._entityInstance.Attributes.OrderBy(a => a.Key))
-                        {
-                            var attributeMetadata = this._entityMetadata.Attributes.FirstOrDefault(a => string.Equals(a.LogicalName, attributeValue.Key, StringComparison.InvariantCultureIgnoreCase));
+                        ToggleControls(false, Properties.WindowStatusStrings.GettingEntityFormat1, _entityId);
 
-                            if (attributeMetadata != null
-                                && string.IsNullOrEmpty(attributeMetadata.AttributeOf)
-                                && attributeMetadata.IsValidForUpdate.GetValueOrDefault()
-                            )
+                        var repositoryGeneric = new GenericRepository(_service, this._entityMetadata);
+
+                        this._entityInstance = await repositoryGeneric.GetEntityByIdAsync(_entityId, new ColumnSet(true));
+
+                        ToggleControls(true, Properties.WindowStatusStrings.GettingEntityCompletedFormat1, _entityId);
+
+                        if (this._entityInstance != null)
+                        {
+                            SetWindowTitle(string.Format("Edit Entity {0} - {1}", _entityName, _entityId));
+
+                            this._attributeChecker = a => a.IsValidForUpdate.GetValueOrDefault();
+
+                            foreach (var attributeValue in this._entityInstance.Attributes.OrderBy(a => a.Key))
                             {
-                                this.Dispatcher.Invoke(() =>
+                                var attributeMetadata = this._entityMetadata.Attributes.FirstOrDefault(a => string.Equals(a.LogicalName, attributeValue.Key, StringComparison.InvariantCultureIgnoreCase));
+
+                                if (attributeMetadata != null
+                                    && string.IsNullOrEmpty(attributeMetadata.AttributeOf)
+                                    && _attributeChecker(attributeMetadata)
+                                )
                                 {
-                                    var control = _controlFactory.CreateControlForAttribute(_service, attributeMetadata, _entityInstance, attributeValue.Value);
+                                    UserControl control = null;
+
+                                    this.Dispatcher.Invoke(() =>
+                                    {
+                                        control = _controlFactory.CreateControlForAttribute(_service, attributeMetadata, _entityInstance, attributeValue.Value);
+                                    });
 
                                     if (control != null)
                                     {
                                         _listAttributeControls.Add(control);
                                     }
-                                });
+                                }
                             }
                         }
+                        else
+                        {
+                            SetWindowTitle(string.Format("Create Entity {0} - {1}", _entityName, _entityId));
+                        }
                     }
-
-                    FilterEntityAttributes(null);
+                    else
+                    {
+                        SetWindowTitle(string.Format("Create Entity {0}", _entityName));
+                    }
                 }
+
+                FilterEntityAttributes(null);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
+        }
+
+        private void SetWindowTitle(string title)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                this.Title = title;
+            });
         }
 
         private void FilterEntityAttributes(UserControl selectedControl)
@@ -300,6 +329,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (!updateEntity.Attributes.Any())
             {
                 _iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.NoChangesInEntityFormat1, _entityName);
+                _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
                 return;
             }
 
@@ -309,6 +339,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             ToggleControls(false, Properties.WindowStatusStrings.SavingEntityFormat1, _entityName);
+
+            if (_entityInstance != null)
+            {
+                _iWriteToOutput.WriteToOutputEntityInstance(_service.ConnectionData, _entityInstance);
+            }
 
             try
             {
@@ -391,7 +426,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var currentAttributes = new HashSet<string>(_listAttributeControls.OfType<IAttributeMetadataControl<AttributeMetadata>>().Select(c => c.AttributeMetadata.LogicalName), StringComparer.InvariantCultureIgnoreCase);
 
-            var availableAttributes = _entityMetadata.Attributes.Where(a => string.IsNullOrEmpty(a.AttributeOf) && a.IsValidForUpdate.GetValueOrDefault() && !currentAttributes.Contains(a.LogicalName)).ToList();
+            var availableAttributes = _entityMetadata.Attributes.Where(a => string.IsNullOrEmpty(a.AttributeOf) && _attributeChecker(a) && !currentAttributes.Contains(a.LogicalName)).ToList();
 
             if (!availableAttributes.Any())
             {
@@ -409,7 +444,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (attributeMetadata == null
                 || !string.IsNullOrEmpty(attributeMetadata.AttributeOf)
-                || !attributeMetadata.IsValidForUpdate.GetValueOrDefault()
+                || !_attributeChecker(attributeMetadata)
             )
             {
                 return;
