@@ -2,6 +2,7 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using System;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -15,16 +16,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
         private readonly int? _initialValue;
 
-        public PicklistAttributeMetadataControl(IOrganizationServiceExtented service, Entity entity, PicklistAttributeMetadata attributeMetadata, int? initialValue)
+        private readonly bool _fillAllways;
+
+        public PicklistAttributeMetadataControl(bool fillAllways, Entity entity, PicklistAttributeMetadata attributeMetadata, int? initialValue)
         {
             InitializeComponent();
 
             AttributeMetadataControlFactory.SetGroupBoxNameByAttributeMetadata(gbAttribute, attributeMetadata);
 
             this._initialValue = initialValue;
+            this._fillAllways = fillAllways;
             this.AttributeMetadata = attributeMetadata;
 
             FillComboBox(entity);
+
+            btnRemoveControl.IsEnabled = _fillAllways;
+            chBChanged.IsEnabled = !_fillAllways;
+
+            btnRemoveControl.Visibility = btnRemoveControl.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
+            chBChanged.Visibility = chBChanged.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void FillComboBox(Entity entity)
@@ -42,7 +52,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
                 name.Append(_initialValue.Value);
 
-                if (entity.FormattedValues.ContainsKey(AttributeMetadata.LogicalName)
+                if (entity != null
+                    && entity.FormattedValues.ContainsKey(AttributeMetadata.LogicalName)
                     && !string.IsNullOrEmpty(entity.FormattedValues[AttributeMetadata.LogicalName])
                 )
                 {
@@ -128,7 +139,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
         {
             var currentValue = GetIntValue();
 
-            if (currentValue != _initialValue)
+            if (this._fillAllways || currentValue != _initialValue)
             {
                 if (currentValue.HasValue)
                 {
@@ -146,6 +157,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
             cmBValue.Focus();
 
             base.OnGotFocus(e);
+        }
+
+        public event EventHandler RemoveControlClicked;
+
+        private void btnRemoveControl_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveControlClicked?.Invoke(this, EventArgs.Empty);
         }
     }
 }

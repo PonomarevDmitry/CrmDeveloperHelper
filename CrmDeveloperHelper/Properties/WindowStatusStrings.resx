@@ -1426,4 +1426,18 @@
     <value>Saving Entity {0}...</value>
   </data>
 
+  <data name="SavingEntitiesCompletedFormat1" xml:space="preserve">
+    <value>Saving Entities {0} completed.</value>
+  </data>
+  <data name="SavingEntitiesFormat1" xml:space="preserve">
+    <value>Saving Entities {0}...</value>
+  </data>
+  
+  <data name="SavingEntityInstanceFailedFormat2" xml:space="preserve">
+    <value>Saving Entity Instance {0} - {1} failed.</value>
+  </data>
+  <data name="SavingEntityInstanceFormat2" xml:space="preserve">
+    <value>Saving Entity Instance {0} - {1}...</value>
+  </data>  
+
 </root>

@@ -9,7 +9,10 @@
              >
     <GroupBox x:Name="gbAttribute" Header="Attribute Name">
         <DockPanel LastChildFill="True">
-            <CheckBox x:Name="chBChanged" Content="Ch" DockPanel.Dock="Left" IsEnabled="False" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Margin="3" />
+            <Button x:Name="btnRemoveControl" Content="Remove" ToolTip="Remove Attribute" Height="20" DockPanel.Dock="Left" VerticalContentAlignment="Center" Margin="3" Click="btnRemoveControl_Click" IsTabStop="False" />
+
+            <CheckBox x:Name="chBChanged" Content="Ch" ToolTip="Is Changed" DockPanel.Dock="Left" IsEnabled="False" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Margin="3" />
+            
             <TextBox x:Name="txtBValue" Height="20" VerticalContentAlignment="Center" Margin="3" TextChanged="txtBValue_TextChanged" />
         </DockPanel>
     </GroupBox>

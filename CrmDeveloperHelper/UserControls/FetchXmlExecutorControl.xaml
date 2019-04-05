@@ -6,33 +6,32 @@
              mc:Ignorable="d" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" d:DesignHeight="418" d:DesignWidth="882">
     <UserControl.Resources>
         <ContextMenu x:Key="listContextMenuEntity">
-            
+
             <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
-            
+
             <Separator/>
             <MenuItem Header="Open Entity Metadata Window" Click="mIOpenEntityMetadataWindow_Click"/>
-            
+
             <Separator/>
             <MenuItem Header="Clipboard">
                 <MenuItem Header="Copy Entity Id" Click="mICopyEntityId_Click"/>
                 <MenuItem Header="Copy Entity Name" Click="mICopyEntityName_Click"/>
                 <MenuItem Header="Copy Entity Url" Click="mICopyEntityUrl_Click"/>
             </MenuItem>
-            
+
             <Separator/>
             <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
             <Separator/>
-            <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
-
-            <Separator/>
             <MenuItem Header="Change Entity">
+                <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
+                <Separator/>
                 <MenuItem Header="Execute Workflow on Entity" Click="mIExecuteWorkflowOnEntity_Click"/>
                 <Separator/>
                 <MenuItem Header="Assign Entity to User" Click="mIAssignEntityToUser_Click"/>
                 <MenuItem Header="Assign Entity to Team" Click="mIAssignEntityToTeam_Click"/>
             </MenuItem>
-            
+
         </ContextMenu>
         <ContextMenu x:Key="listContextMenuEntityReference">
             <MenuItem Header="Open EntityReference Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityReferenceCustomizationInWeb_Click" />
@@ -52,13 +51,13 @@
 
             <Separator/>
             <MenuItem Header="Change EntityReference in Editor" Click="mIChangeEntityReferenceInEditor_Click"/>
-            
+
             <Separator/>
             <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
-            
+
             <Separator/>
             <MenuItem Header="Open Entity Metadata Window" Click="mIOpenEntityMetadataWindow_Click"/>
-            
+
             <Separator/>
             <MenuItem Header="Clipboard">
                 <MenuItem Header="Copy Entity Id" Click="mICopyEntityId_Click"/>
@@ -70,10 +69,9 @@
             <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
             <Separator/>
-            <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
-
-            <Separator/>
             <MenuItem Header="Change Entity">
+                <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
+                <Separator/>
                 <MenuItem Header="Execute Workflow on Entity" Click="mIExecuteWorkflowOnEntity_Click"/>
                 <Separator/>
                 <MenuItem Header="Assign Entity to User" Click="mIAssignEntityToUser_Click"/>
@@ -128,7 +126,7 @@
                         <Button x:Name="btnExecuteFetchXml2" Content="Execute Fetch Xml" Click="btnExecuteFetchXml_Click"/>
                         <Separator/>
                         <Button Content="Copy JavaScript FetchXml to Clipboard" Click="btnCopyJavaScriptToClipboardCode_Click"/>
-                        
+
                         <Separator/>
                         <Menu x:Name="menuExecuteWorkflow" VerticalAlignment="Stretch" Background="{x:Null}">
                             <MenuItem Header="Execute Workflow">
@@ -137,7 +135,7 @@
                                 <MenuItem Header="Execute Workflow on all Entities" Click="miExecuteWorkflowOnAllEntites_Click"/>
                             </MenuItem>
                         </Menu>
-                        
+
                         <Separator/>
                         <Menu x:Name="menuAssignToUser" VerticalAlignment="Stretch" Background="{x:Null}">
                             <MenuItem Header="Assign to User">
@@ -146,13 +144,22 @@
                                 <MenuItem Header="Assign all Entities to User" Click="miAssignToUserAllEntites_Click"/>
                             </MenuItem>
                         </Menu>
-                        
+
                         <Separator/>
                         <Menu x:Name="menuAssignToTeam" VerticalAlignment="Stretch" Background="{x:Null}">
                             <MenuItem Header="Assign to Team">
                                 <MenuItem Header="Assign Selected Entities to Team" Click="miAssignToTeamSelectedEntites_Click"/>
                                 <Separator />
                                 <MenuItem Header="Assign all Entities to Team" Click="miAssignToTeamAllEntites_Click"/>
+                            </MenuItem>
+                        </Menu>
+
+                        <Separator/>
+                        <Menu x:Name="menuBulkEdit" VerticalAlignment="Stretch" Background="{x:Null}">
+                            <MenuItem Header="Bulk Edit">
+                                <MenuItem Header="Bulk Edit Selected Entities" Click="miBulkEditSelectedEntites_Click"/>
+                                <Separator />
+                                <MenuItem Header="Bulk Edit all Entities" Click="miBulkEditAllEntites_Click"/>
                             </MenuItem>
                         </Menu>
 
@@ -165,6 +172,7 @@
                             </MenuItem>
                         </Menu>
                     </ToolBar>
+                    
                     <DataGrid x:Name="dGrResults" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="Cell" MouseDoubleClick="dGrResults_MouseDoubleClick" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
                         <DataGrid.Resources>
                             <Style TargetType="Hyperlink">

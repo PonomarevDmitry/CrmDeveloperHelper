@@ -1,5 +1,6 @@
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
+using System;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadataControls
 {
@@ -8,5 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
         T AttributeMetadata { get; }
 
         void AddChangedAttribute(Entity entity);
+
+        event EventHandler RemoveControlClicked;
     }
 }

@@ -3193,6 +3193,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Saving Entities {0} completed..
+        /// </summary>
+        internal static string SavingEntitiesCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("SavingEntitiesCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving Entities {0}....
+        /// </summary>
+        internal static string SavingEntitiesFormat1 {
+            get {
+                return ResourceManager.GetString("SavingEntitiesFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saving Entity {0} completed..
         /// </summary>
         internal static string SavingEntityCompletedFormat1 {
@@ -3216,6 +3234,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string SavingEntityFormat1 {
             get {
                 return ResourceManager.GetString("SavingEntityFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving Entity Instance {0} - {1} failed..
+        /// </summary>
+        internal static string SavingEntityInstanceFailedFormat2 {
+            get {
+                return ResourceManager.GetString("SavingEntityInstanceFailedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving Entity Instance {0} - {1}....
+        /// </summary>
+        internal static string SavingEntityInstanceFormat2 {
+            get {
+                return ResourceManager.GetString("SavingEntityInstanceFormat2", resourceCulture);
             }
         }
         

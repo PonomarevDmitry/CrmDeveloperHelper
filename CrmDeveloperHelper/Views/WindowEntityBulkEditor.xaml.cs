@@ -7,6 +7,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadataControls;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowEntityEditor : WindowBase
+    public partial class WindowEntityBulkEditor : WindowBase
     {
         protected readonly IWriteToOutput _iWriteToOutput;
 
@@ -24,26 +25,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected readonly string _entityName;
 
-        protected readonly Guid _entityId;
+        protected readonly ReadOnlyCollection<Guid> _entityIds;
 
         protected readonly IOrganizationServiceExtented _service;
 
         private EntityMetadata _entityMetadata;
 
-        private Entity _entityInstance;
-
         private readonly AttributeMetadataControlFactory _controlFactory = new AttributeMetadataControlFactory();
 
         private readonly List<UserControl> _listAttributeControls = new List<UserControl>();
 
-        private Func<AttributeMetadata, bool> _attributeChecker;
+        private readonly Func<AttributeMetadata, bool> _attributeChecker;
 
-        public WindowEntityEditor(
+        public WindowEntityBulkEditor(
             IWriteToOutput outputWindow
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , string entityName
-            , Guid entityId
+            , IEnumerable<Guid> entityIds
         )
         {
             IncreaseInit();
@@ -52,17 +51,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
-            this.Name = string.Format("WindowEntityEditor_{0}", entityName);
+            this.Name = string.Format("WindowEntityBulkEditor_{0}", entityName);
 
             this._iWriteToOutput = outputWindow;
             this._service = service;
             this._commonConfig = commonConfig;
             this._entityName = entityName;
-            this._entityId = entityId;
+
+            this._entityIds = new ReadOnlyCollection<Guid>(entityIds.Where(i => i != Guid.Empty).Distinct().ToList());
 
             this.tSSLblConnectionName.Content = this._service.ConnectionData.Name;
-
-            ActivateControls(mIEntityInformation.Items.OfType<Control>(), false, "mIEntityInstance");
 
             DecreaseInit();
 
@@ -70,7 +68,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBFilterAttribute.SelectionLength = 0;
             txtBFilterAttribute.Focus();
 
-            this._attributeChecker = a => a.IsValidForCreate.GetValueOrDefault();
+            this._attributeChecker = a => a.IsValidForUpdate.GetValueOrDefault();
 
             RetrieveEntityInformation();
         }
@@ -87,72 +85,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ToggleControls(true, Properties.WindowStatusStrings.GettingEntityMetadataCompletedFormat1, _entityName);
 
-                if (this._entityMetadata != null)
-                {
-                    if (_entityId != Guid.Empty)
-                    {
-                        ToggleControls(false, Properties.WindowStatusStrings.GettingEntityFormat1, _entityId);
-
-                        var repositoryGeneric = new GenericRepository(_service, this._entityMetadata);
-
-                        this._entityInstance = await repositoryGeneric.GetEntityByIdAsync(_entityId, new ColumnSet(true));
-
-                        ToggleControls(true, Properties.WindowStatusStrings.GettingEntityCompletedFormat1, _entityId);
-
-                        if (this._entityInstance != null)
-                        {
-                            SetWindowTitle(string.Format("Edit Entity {0} - {1}", _entityName, _entityId));
-
-                            this._attributeChecker = a => a.IsValidForUpdate.GetValueOrDefault();
-
-                            foreach (var attributeValue in this._entityInstance.Attributes.OrderBy(a => a.Key))
-                            {
-                                var attributeMetadata = this._entityMetadata.Attributes.FirstOrDefault(a => string.Equals(a.LogicalName, attributeValue.Key, StringComparison.InvariantCultureIgnoreCase));
-
-                                if (attributeMetadata != null
-                                    && string.IsNullOrEmpty(attributeMetadata.AttributeOf)
-                                    && _attributeChecker(attributeMetadata)
-                                )
-                                {
-                                    UserControl control = null;
-
-                                    this.Dispatcher.Invoke(() =>
-                                    {
-                                        control = _controlFactory.CreateControlForAttribute(_service, false, attributeMetadata, _entityInstance, attributeValue.Value);
-                                    });
-
-                                    if (control != null)
-                                    {
-                                        _listAttributeControls.Add(control);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            SetWindowTitle(string.Format("Create Entity {0} - {1}", _entityName, _entityId));
-                        }
-                    }
-                    else
-                    {
-                        SetWindowTitle(string.Format("Create Entity {0}", _entityName));
-                    }
-                }
-
                 FilterEntityAttributes(null);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
-        }
-
-        private void SetWindowTitle(string title)
-        {
-            this.Dispatcher.Invoke(() =>
-            {
-                this.Title = title;
-            });
         }
 
         private void FilterEntityAttributes(UserControl selectedControl)
@@ -297,11 +235,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             );
 
             ToggleControl(_listAttributeControls);
-
-            this.Dispatcher.Invoke(() =>
-            {
-                ActivateControls(mIEntityInformation.Items.OfType<Control>(), IsControlsEnabled && _entityInstance != null, "mIEntityInstance");
-            });
         }
 
         private void txtBFilterAttribute_KeyDown(object sender, KeyEventArgs e)
@@ -319,45 +252,64 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnSaveEntity_Click(object sender, RoutedEventArgs e)
         {
-            var updateEntity = new Entity(_entityName);
-
-            foreach (var item in _listAttributeControls.OfType<IAttributeMetadataControl<AttributeMetadata>>())
+            if (!_entityIds.Any())
             {
-                item.AddChangedAttribute(updateEntity);
-            }
-
-            if (!updateEntity.Attributes.Any())
-            {
-                _iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.NoChangesInEntityFormat1, _entityName);
-                _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
                 return;
             }
 
-            if (_entityId != Guid.Empty)
             {
-                updateEntity.Id = _entityId;
+                var testEntity = new Entity(_entityName);
+
+                foreach (var item in _listAttributeControls.OfType<IAttributeMetadataControl<AttributeMetadata>>())
+                {
+                    item.AddChangedAttribute(testEntity);
+                }
+
+                if (!testEntity.Attributes.Any())
+                {
+                    _iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.NoChangesInEntityFormat1, _entityName);
+                    _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
+                    return;
+                }
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.SavingEntityFormat1, _entityName);
+            ToggleControls(false, Properties.WindowStatusStrings.SavingEntitiesFormat1, _entityName);
 
-            if (_entityInstance != null)
+            bool hasError = false;
+
+            foreach (var id in _entityIds)
             {
-                _iWriteToOutput.WriteToOutputEntityInstance(_service.ConnectionData, _entityInstance);
+                var updateEntity = new Entity(_entityName)
+                {
+                    Id = id,
+                };
+
+                foreach (var item in _listAttributeControls.OfType<IAttributeMetadataControl<AttributeMetadata>>())
+                {
+                    item.AddChangedAttribute(updateEntity);
+                }
+
+                try
+                {
+                    _iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.WindowStatusStrings.SavingEntityInstanceFormat2, _entityName, id);
+
+                    _iWriteToOutput.WriteToOutputEntityInstance(_service.ConnectionData, updateEntity);
+
+                    await _service.UpsertAsync(updateEntity);
+                }
+                catch (Exception ex)
+                {
+                    hasError = true;
+
+                    _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex, Properties.WindowStatusStrings.SavingEntityInstanceFailedFormat2, _entityName, id);
+                }
             }
 
-            try
+            ToggleControls(true, Properties.WindowStatusStrings.SavingEntitiesCompletedFormat1, _entityName);
+
+            if (!hasError)
             {
-                await _service.UpsertAsync(updateEntity);
-
-                ToggleControls(true, Properties.WindowStatusStrings.SavingEntityCompletedFormat1, _entityName);
-
                 this.Close();
-            }
-            catch (Exception ex)
-            {
-                ToggleControls(true, Properties.WindowStatusStrings.SavingEntityFailedFormat1, _entityName);
-
-                _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
             }
         }
 
@@ -371,38 +323,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             base.OnKeyDown(e);
-        }
-
-        private void mIOpenEntityInstanceInWeb_Click(object sender, RoutedEventArgs e)
-        {
-            if (_entityId == Guid.Empty)
-            {
-                return;
-            }
-
-            _service.ConnectionData.OpenEntityInstanceInWeb(_entityName, _entityId);
-        }
-
-        private void mICopyEntityInstanceIdToClipboard_Click(object sender, RoutedEventArgs e)
-        {
-            if (_entityId == Guid.Empty)
-            {
-                return;
-            }
-
-            Clipboard.SetText(_entityId.ToString());
-        }
-
-        private void mICopyEntityInstanceUrlToClipboard_Click(object sender, RoutedEventArgs e)
-        {
-            if (_entityId == Guid.Empty)
-            {
-                return;
-            }
-
-            var url = _service.ConnectionData.GetEntityInstanceUrl(_entityName, _entityId);
-
-            Clipboard.SetText(url);
         }
 
         private void mIOpenEntityInstanceCustomizationInWeb_Click(object sender, RoutedEventArgs e)
@@ -454,7 +374,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.Dispatcher.Invoke(() =>
             {
-                control = _controlFactory.CreateControlForAttribute(_service, false, attributeMetadata, _entityInstance, null);
+                control = _controlFactory.CreateControlForAttribute(_service, true, attributeMetadata, null, null);
+
+                if (control is IAttributeMetadataControl<AttributeMetadata> attributeControl)
+                {
+                    attributeControl.RemoveControlClicked += AttributeControl_RemoveControlClicked;
+                }
             });
 
             if (control != null)
@@ -463,6 +388,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             FilterEntityAttributes(control);
+        }
+
+        private void AttributeControl_RemoveControlClicked(object sender, EventArgs e)
+        {
+            if( sender is IAttributeMetadataControl<AttributeMetadata> attributeControl)
+            {
+                attributeControl.RemoveControlClicked -= AttributeControl_RemoveControlClicked;
+                attributeControl.RemoveControlClicked -= AttributeControl_RemoveControlClicked;
+            }
+
+            if (sender is UserControl control
+                && _listAttributeControls.Contains(control)
+            )
+            {
+                _listAttributeControls.Remove(control);
+            }
+
+            FilterEntityAttributes(null);
         }
 
         #region Кнопки открытия других форм с информация о сущности.

@@ -1,5 +1,6 @@
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,15 +12,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
         private readonly decimal? _initialValue;
 
-        public DecimalAttributeMetadataControl(DecimalAttributeMetadata attributeMetadata, decimal? initialValue)
+        private readonly bool _fillAllways;
+
+        public DecimalAttributeMetadataControl(bool fillAllways, DecimalAttributeMetadata attributeMetadata, decimal? initialValue)
         {
             InitializeComponent();
 
             AttributeMetadataControlFactory.SetGroupBoxNameByAttributeMetadata(gbAttribute, attributeMetadata);
 
             this._initialValue = initialValue;
+            this._fillAllways = fillAllways;
             this.AttributeMetadata = attributeMetadata;
+
             txtBValue.Text = initialValue.ToString();
+
+            btnRemoveControl.IsEnabled = _fillAllways;
+            chBChanged.IsEnabled = !_fillAllways;
+
+            btnRemoveControl.Visibility = btnRemoveControl.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
+            chBChanged.Visibility = chBChanged.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void txtBValue_TextChanged(object sender, TextChangedEventArgs e)
@@ -45,7 +56,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
         {
             var currentValue = GetDecimalValue();
 
-            if (currentValue != _initialValue)
+            if (this._fillAllways || currentValue != _initialValue)
             {
                 entity.Attributes[AttributeMetadata.LogicalName] = currentValue;
             }
@@ -56,6 +67,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
             txtBValue.Focus();
 
             base.OnGotFocus(e);
+        }
+
+        public event EventHandler RemoveControlClicked;
+
+        private void btnRemoveControl_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveControlClicked?.Invoke(this, EventArgs.Empty);
         }
     }
 }

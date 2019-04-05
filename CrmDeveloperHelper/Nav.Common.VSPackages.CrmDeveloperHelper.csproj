@@ -1046,6 +1046,9 @@
     <Compile Include="Views\WindowEntityAttributeExplorer.xaml.cs">
       <DependentUpon>WindowEntityAttributeExplorer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowEntityBulkEditor.xaml.cs">
+      <DependentUpon>WindowEntityBulkEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WindowEntityEditor.xaml.cs">
       <DependentUpon>WindowEntityEditor.xaml</DependentUpon>
     </Compile>
@@ -1676,6 +1679,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\WindowEntityBulkEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\WindowEntityEditor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1964,8 +1971,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\WindowStatusStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>WindowStatusStrings.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>WindowStatusStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>

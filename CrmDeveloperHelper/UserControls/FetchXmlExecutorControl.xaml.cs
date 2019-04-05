@@ -972,11 +972,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 , this.dGrParameters
             );
 
-            ToggleControl(IsControlsEnabled && _entityCollection != null && _entityCollection.Entities.Count > 0
+            ToggleControl(IsControlsEnabled && _entityCollection != null && _entityCollection.Entities.Any(en => en.Id != Guid.Empty)
                 , this.menuExecuteWorkflow
                 , this.menuAssignToUser
                 , this.menuAssignToTeam
                 , this.menuTransferToConnection
+                , this.menuBulkEdit
             );
         }
 
@@ -1906,6 +1907,69 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, entityReferenceView.LogicalName, entityReferenceView.Id);
             }
+        }
+
+        private async void miBulkEditAllEntites_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+                || !_entityCollection.Entities.Any(en => en.Id != Guid.Empty)
+            )
+            {
+                return;
+            }
+
+            await BulkEditEntities(_entityCollection.EntityName, _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id));
+        }
+
+        private async void miBulkEditSelectedEntites_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+            )
+            {
+                return;
+            }
+
+            IEnumerable<Guid> selectedEntityIds = GetSelectedEntityIds();
+
+            if (!selectedEntityIds.Any())
+            {
+                return;
+            }
+
+            await BulkEditEntities(_entityCollection.EntityName, selectedEntityIds);
+        }
+
+        private async Task BulkEditEntities(string entityName, IEnumerable<Guid> entityIds)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!entityIds.Any(id => id != Guid.Empty))
+            {
+                return;
+            }
+
+            var service = await GetServiceAsync(this.ConnectionData);
+
+            var entitiesIds = entityIds.Where(i => i != Guid.Empty).Distinct().ToList();
+
+            var commonConfig = CommonConfiguration.Get();
+
+            WindowHelper.OpenEntityBulkEditor(_iWriteToOutput, service, commonConfig, entityName, entitiesIds);
         }
     }
 }
