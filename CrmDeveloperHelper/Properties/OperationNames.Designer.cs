@@ -988,6 +988,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Editing CRM Objects by Id &apos;{1}&apos;, entityName &apos;{2}&apos;, entityTypeCode &apos;{3}&apos;.
+        /// </summary>
+        internal static string EditingCRMObjectsByIdEntityNameEntityTypeCodeFormat4 {
+            get {
+                return ResourceManager.GetString("EditingCRMObjectsByIdEntityNameEntityTypeCodeFormat4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Executing Workflow {1}.
         /// </summary>
         internal static string ExecutingWorkflowFormat2 {

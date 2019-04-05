@@ -207,6 +207,11 @@
   <data name="NoObjectsInCRMWereFounded" xml:space="preserve">
     <value>No Objects in CRM were founded.</value>
   </data>
+  <data name="ObjectsFoundedInCRMFormat1" xml:space="preserve">
+    <value>Objects founded in CRM: {0}</value>
+  </data>
+  
+
   <data name="NothingToPublish" xml:space="preserve">
     <value>Nothing to publish.</value>
   </data>

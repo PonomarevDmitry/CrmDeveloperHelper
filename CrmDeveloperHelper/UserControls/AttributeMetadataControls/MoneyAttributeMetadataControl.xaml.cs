@@ -27,10 +27,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
             txtBValue.Text = this._initialValue.ToString();
 
             btnRemoveControl.IsEnabled = _fillAllways;
-            chBChanged.IsEnabled = !_fillAllways;
 
             btnRemoveControl.Visibility = btnRemoveControl.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
-            chBChanged.Visibility = chBChanged.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
+            chBChanged.Visibility = _fillAllways ? Visibility.Collapsed : Visibility.Visible;
         }
 
         private void txtBValue_TextChanged(object sender, TextChangedEventArgs e)

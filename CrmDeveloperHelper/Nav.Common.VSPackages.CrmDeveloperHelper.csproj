@@ -180,6 +180,7 @@
     <Compile Include="Commands\CommonConfigCommand.cs" />
     <Compile Include="Commands\CommonCreateAllDependencyNodeDescriptionCommand.cs" />
     <Compile Include="Commands\CommonCrmConnectionTestCommand.cs" />
+    <Compile Include="Commands\CommonEditEntityObjectsByIdCommand.cs" />
     <Compile Include="Commands\CommonEntityAttributeExplorerCommand.cs" />
     <Compile Include="Commands\CommonEntityKeyExplorerCommand.cs" />
     <Compile Include="Commands\CommonEntityRelationshipManyToManyExplorerCommand.cs" />

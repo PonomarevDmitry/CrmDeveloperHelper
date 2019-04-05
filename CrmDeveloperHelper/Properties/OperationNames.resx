@@ -276,6 +276,9 @@
   <data name="FindingCRMObjectsByIdEntityNameEntityTypeCodeFormat4" xml:space="preserve">
     <value>{0} - Finding CRM Objects by Id '{1}', entityName '{2}', entityTypeCode '{3}'</value>
   </data>
+  <data name="EditingCRMObjectsByIdEntityNameEntityTypeCodeFormat4" xml:space="preserve">
+    <value>{0} - Editing CRM Objects by Id '{1}', entityName '{2}', entityTypeCode '{3}'</value>
+  </data>
   <data name="FindingCRMObjectsByUniqueidentifierEntityNameEntityTypeCodeFormat4" xml:space="preserve">
     <value>{0} - Finding CRM Objects by Uniqueidentifier '{1}', entityName '{2}', entityTypeCode '{3}'</value>
   </data>

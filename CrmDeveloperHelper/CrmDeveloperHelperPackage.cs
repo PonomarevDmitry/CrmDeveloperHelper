@@ -371,6 +371,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonFindEntityObjectsByNameCommand.Initialize(this);
             CommonFindEntityObjectsContainsStringCommand.Initialize(this);
             CommonFindEntityObjectsByIdCommand.Initialize(this);
+            CommonEditEntityObjectsByIdCommand.Initialize(this);
             CommonFindEntityObjectsByUniqueidentifierCommand.Initialize(this);
             CommonOrganizationComparerCommand.Initialize(this);
             CommonOpenOrganizationDifferenceImageCommand.Initialize(this);

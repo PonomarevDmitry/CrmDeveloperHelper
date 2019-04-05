@@ -619,6 +619,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Objects founded in CRM: {0}.
+        /// </summary>
+        internal static string ObjectsFoundedInCRMFormat1 {
+            get {
+                return ResourceManager.GetString("ObjectsFoundedInCRMFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Objects in CRM were exported to {0}.
         /// </summary>
         internal static string ObjectsInCRMWereExportedToFormat1 {

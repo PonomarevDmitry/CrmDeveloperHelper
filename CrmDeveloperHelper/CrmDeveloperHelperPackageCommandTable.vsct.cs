@@ -858,6 +858,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CommonFindEntityObjectsContainsStringCommandId = 0x2022;
         public const int CommonFindEntityObjectsByIdCommandId = 0x20FD;
         public const int CommonFindEntityObjectsByUniqueidentifierCommandId = 0x2149;
+        public const int CommonEditEntityObjectsByIdCommandId = 0x2195;
         public const int CommonPluginConfigurationCreateCommandId = 0x202A;
         public const int CommonPluginConfigurationPluginTypeCommandId = 0x202B;
         public const int CommonPluginConfigurationPluginAssemblyCommandId = 0x202C;

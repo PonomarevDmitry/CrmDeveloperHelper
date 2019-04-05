@@ -2240,6 +2240,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleEditEntityById()
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            {
+                return;
+            }
+
+            var connectionData = crmConfig.CurrentConnectionData;
+
+            if (crmConfig != null && connectionData != null && commonConfig != null)
+            {
+                var dialog = new WindowSelectEntityIdToFind(commonConfig, connectionData, string.Format("Find Entity in {0} by Id", connectionData.Name));
+
+                if (dialog.ShowDialog().GetValueOrDefault())
+                {
+                    string entityName = dialog.EntityTypeName;
+                    int? entityTypeCode = dialog.EntityTypeCode;
+                    Guid entityId = dialog.EntityId;
+
+                    connectionData = dialog.GetConnectionData();
+
+                    ActivateOutputWindow(connectionData);
+                    WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                    try
+                    {
+                        Controller.StartEditEntityById(connectionData, commonConfig, entityName, entityTypeCode, entityId);
+                    }
+                    catch (Exception ex)
+                    {
+                        WriteErrorToOutput(connectionData, ex);
+                    }
+                }
+            }
+        }
+
         public void HandleFindEntityByUniqueidentifier()
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();

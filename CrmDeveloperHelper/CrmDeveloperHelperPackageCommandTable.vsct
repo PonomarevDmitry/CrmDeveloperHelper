@@ -5069,8 +5069,12 @@
           <ButtonText>Find Entity Objects by Uniqueidentifier</ButtonText>
         </Strings>
       </Button>
-
-
+      <Button guid="guidCommandSet" id="CommonEditEntityObjectsByIdCommandId" priority="0x0110" type="Button">
+        <Strings>
+          <ButtonText>Edit Entity Objects by Id</ButtonText>
+        </Strings>
+      </Button>
+      
 
 
       <Button guid="guidDynamicCommandSet" id="CommonCheckEntitiesOwnerShipsCommandId" priority="0x0110" type="Button">
@@ -7267,9 +7271,11 @@
     <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsByUniqueidentifierCommandId" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupFindEntity" />
     </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonEditEntityObjectsByIdCommandId" priority="0x0120">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupFindEntity" />
+    </CommandPlacement>
 
-
-
+    
 
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership_MenuDyn" priority="0x0110">
@@ -11448,7 +11454,7 @@
       <IDSymbol name="CommonFindEntityObjectsContainsStringCommandId" value="0x2022" />
       <IDSymbol name="CommonFindEntityObjectsByIdCommandId" value="0x20FD" />
       <IDSymbol name="CommonFindEntityObjectsByUniqueidentifierCommandId" value="0x2149" />
-
+      <IDSymbol name="CommonEditEntityObjectsByIdCommandId" value="0x2195" />
 
 
       <IDSymbol name="CommonPluginConfigurationCreateCommandId" value="0x202A" />
@@ -11820,7 +11826,7 @@
 
 
 
-      <!-- 0x2195 -->
+      <!-- 0x2196 -->
 
     </GuidSymbol>
 
