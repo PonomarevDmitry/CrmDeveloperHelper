@@ -863,14 +863,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , IEnumerable<SolutionComponent> solutionComponents
             , string solutionUniqueName
-            , string selection = null
-            )
+            , string header
+            , string selection
+        )
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    var form = new WindowExplorerComponents(iWriteToOutput, service, descriptor, commonConfig, solutionComponents, solutionUniqueName, selection);
+                    var form = new WindowExplorerComponents(iWriteToOutput, service, descriptor, commonConfig, solutionComponents, solutionUniqueName, header, selection);
 
                     form.ShowDialog();
                 }

@@ -1109,7 +1109,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenExplorerComponentsWindow(_iWriteToOutput, service, descriptor, _commonConfig, fullMissingComponents, solution.UniqueName, null);
+            WindowHelper.OpenExplorerComponentsWindow(_iWriteToOutput, service, descriptor, _commonConfig, fullMissingComponents, solution.UniqueName, "AllMissingDependencies", null);
 
             return false;
         }
@@ -1523,7 +1523,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id);
+                await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id, solution.UniqueName);
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, service.ConnectionData.Name, filePath);
 
@@ -1559,7 +1559,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id);
+                await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id, solution.UniqueName);
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, service.ConnectionData.Name, filePath);
 
@@ -2048,7 +2048,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         string fileName = EntityFileNameFormatter.GetSolutionFileName(
                             service.ConnectionData.Name
                             , solutionTarget.UniqueName
-                            , "Components Backup"
+                            , $"Components Backup before Adding from {solutionSource.UniqueName}"
                         );
 
                         string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -2063,13 +2063,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         string fileName = EntityFileNameFormatter.GetSolutionFileName(
                             service.ConnectionData.Name
                             , solutionTarget.UniqueName
-                            , "SolutionImage Backup"
+                            , $"SolutionImage Components Backup before Adding from {solutionSource.UniqueName}"
                             , "xml"
                         );
 
                         string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                        await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solutionTarget.Id);
+                        await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solutionTarget.Id, solutionTarget.UniqueName);
                     }
 
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
@@ -2080,8 +2080,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             service.ConnectionData.Name
                             , solutionSource.UniqueName
                             , solutionTarget.UniqueName
-                            , "Unique Components for Adding"
-                            );
+                            , $"Unique Components for Adding from {solutionSource.UniqueName}"
+                        );
 
                         string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -2091,6 +2091,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
                     }
 
+                    {
+                        string fileName = EntityFileNameFormatter.GetSolutionMultipleFileName(
+                            service.ConnectionData.Name
+                            , solutionSource.UniqueName
+                            , solutionTarget.UniqueName
+                            , $"SolutionImage Unique Components for Adding from {solutionSource.UniqueName}"
+                        );
+
+                        string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                        await solutionDescriptor.CreateSolutionImageWithComponentsAsync(filePath, solutionSource.UniqueName, componentesOnlyInSource);
+                    }
 
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Coping Solution Components from '{0}' into '{1}'.", solutionSource.UniqueName, solutionTarget.UniqueName);
@@ -2162,7 +2174,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         string fileName = EntityFileNameFormatter.GetSolutionFileName(
                             service.ConnectionData.Name
                             , solutionTarget.UniqueName
-                            , "Components Backup"
+                            , $"Components Backup before Adding from {sourceName}"
                             , "txt"
                         );
 
@@ -2178,13 +2190,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         string fileName = EntityFileNameFormatter.GetSolutionFileName(
                             service.ConnectionData.Name
                             , solutionTarget.UniqueName
-                            , "SolutionImage Backup"
+                            , $"SolutionImage Components Backup before Adding from {sourceName}"
                             , "xml"
                         );
 
                         string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                        await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solutionTarget.Id);
+                        await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solutionTarget.Id, solutionTarget.UniqueName);
                     }
 
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
@@ -2195,7 +2207,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             service.ConnectionData.Name
                             , sourceName
                             , solutionTarget.UniqueName
-                            , "Unique Components for Adding"
+                            , $"Unique Components for Adding from {sourceName}"
                             );
 
                         string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -2212,6 +2224,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Created file with Unique Components in '{0}' for Adding to '{1}': {2}", sourceName, solutionTarget.UniqueName, filePath);
                         this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
+                    }
+
+                    {
+                        string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                            service.ConnectionData.Name
+                            , solutionTarget.UniqueName
+                            , $"SolutionImage Unique Components for Adding from {sourceName}"
+                            , "xml"
+                        );
+
+                        string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                        await solutionDescriptor.CreateSolutionImageWithComponentsAsync(filePath, sourceName, componentesOnlyInSource);
                     }
 
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
@@ -2265,7 +2290,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         string fileName = EntityFileNameFormatter.GetSolutionFileName(
                             service.ConnectionData.Name
                             , solutionTarget.UniqueName
-                            , "Components Backup"
+                            , $"Components Backup before removing {solutionSource.UniqueName}"
                         );
 
                         string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -2280,13 +2305,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         string fileName = EntityFileNameFormatter.GetSolutionFileName(
                             service.ConnectionData.Name
                             , solutionTarget.UniqueName
-                            , "SolutionImage Backup"
+                            , $"SolutionImage Components Backup before removing {solutionSource.UniqueName}"
                             , "xml"
                         );
 
                         string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                        await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solutionTarget.Id);
+                        await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solutionTarget.Id, solutionTarget.UniqueName);
                     }
 
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
@@ -2297,7 +2322,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             service.ConnectionData.Name
                             , solutionSource.UniqueName
                             , solutionTarget.UniqueName
-                            , "Unique Components for Removing"
+                            , $"Unique Components for Removing from {solutionSource.UniqueName}"
                             );
 
                         string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -2308,6 +2333,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
                     }
 
+                    {
+                        string fileName = EntityFileNameFormatter.GetSolutionMultipleFileName(
+                            service.ConnectionData.Name
+                            , solutionSource.UniqueName
+                            , solutionTarget.UniqueName
+                            , $"SolutionImage Unique Components for Removing from {solutionSource.UniqueName}"
+                            );
+
+                        string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                        await solutionDescriptor.CreateSolutionImageWithComponentsAsync(filePath, solutionTarget.UniqueName, commonComponents);
+                    }
 
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Removing Solution Components owned by '{0}' from '{1}'.", solutionSource.UniqueName, solutionTarget.UniqueName);
@@ -2379,7 +2416,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         string fileName = EntityFileNameFormatter.GetSolutionFileName(
                             service.ConnectionData.Name
                             , solutionTarget.UniqueName
-                            , "Components Backup"
+                            , $"Components Backup before removing {sourceName}"
                             , "txt"
                         );
 
@@ -2395,13 +2432,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         string fileName = EntityFileNameFormatter.GetSolutionFileName(
                             service.ConnectionData.Name
                             , solutionTarget.UniqueName
-                            , "SolutionImage Backup"
+                            , $"SolutionImage Components Backup before removing {sourceName}"
                             , "xml"
                         );
 
                         string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                        await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solutionTarget.Id);
+                        await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solutionTarget.Id, solutionTarget.UniqueName);
                     }
 
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
@@ -2412,8 +2449,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             service.ConnectionData.Name
                             , sourceName
                             , solutionTarget.UniqueName
-                            , "Unique Components for Removing"
-                            );
+                            , $"SolutionImage Unique Components for Removing from {sourceName}"
+                        );
 
                         string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -2429,6 +2466,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Created file with Unique Components in '{0}' for Removing from '{1}': {2}", sourceName, solutionTarget.UniqueName, filePath);
                         this._iWriteToOutput.WriteToOutputFilePathUri(service.ConnectionData, filePath);
+                    }
+
+                    {
+                        string fileName = EntityFileNameFormatter.GetSolutionMultipleFileName(
+                            service.ConnectionData.Name
+                            , sourceName
+                            , solutionTarget.UniqueName
+                            , $"SolutionImage Unique Components for Removing from {sourceName}"
+                            );
+
+                        string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                        await solutionDescriptor.CreateSolutionImageWithComponentsAsync(filePath, solutionTarget.UniqueName, componentesOnlyInSource);
                     }
 
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
@@ -2543,13 +2593,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string fileName = EntityFileNameFormatter.GetSolutionFileName(
                         service.ConnectionData.Name
                         , solution.UniqueName
-                        , "SolutionImage Backup"
+                        , "SolutionImage Backup before Clearing"
                         , "xml"
                     );
 
                     string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                    await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id);
+                    await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id, solution.UniqueName);
                 }
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(service);
@@ -2993,7 +3043,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                await solutionDescriptor.CreateSolutionImageWithComponentsAsync(filePath, components);
+                await solutionDescriptor.CreateSolutionImageWithComponentsAsync(filePath, Path.GetFileNameWithoutExtension(selectedPath), components);
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, service.ConnectionData.Name, filePath);
 

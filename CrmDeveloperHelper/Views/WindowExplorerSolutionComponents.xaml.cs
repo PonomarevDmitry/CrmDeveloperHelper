@@ -1345,7 +1345,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string fileName = EntityFileNameFormatter.GetSolutionFileName(
                         _service.ConnectionData.Name
                         , _solution.UniqueName
-                        , "Components Backup"
+                        , "SolutionImage Components Backup before removing"
                     );
 
                     string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -1360,13 +1360,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string fileName = EntityFileNameFormatter.GetSolutionFileName(
                         _service.ConnectionData.Name
                         , _solution.UniqueName
-                        , "SolutionImage Backup"
+                        , "SolutionImage Components Backup before removing"
                         , "xml"
                     );
 
                     string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                    await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, _solution.Id);
+                    await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, _solution.Id, _solution.UniqueName);
+                }
+
+                {
+                    string fileName = EntityFileNameFormatter.GetSolutionFileName(
+                        _service.ConnectionData.Name
+                        , _solution.UniqueName
+                        , "SolutionImage Removing Components"
+                        , "xml"
+                    );
+
+                    string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                    await solutionDescriptor.CreateSolutionImageWithComponentsAsync(filePath, _solution.UniqueName, solutionComponents);
                 }
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(this._service);
@@ -1427,13 +1440,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string fileName = EntityFileNameFormatter.GetSolutionFileName(
                         _service.ConnectionData.Name
                         , _solution.UniqueName
-                        , "SolutionImage Backup"
+                        , "SolutionImage Backup before Clearing"
                         , "xml"
                     );
 
                     string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                    await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, _solution.Id);
+                    await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, _solution.Id, _solution.UniqueName);
                 }
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(this._service);
@@ -1865,7 +1878,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id);
+                await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id, solution.UniqueName);
 
                 this._iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, _service.ConnectionData.Name, filePath);
 
@@ -1898,7 +1911,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id);
+                await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id, solution.UniqueName);
 
                 this._iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, _service.ConnectionData.Name, filePath);
 

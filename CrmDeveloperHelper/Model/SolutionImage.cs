@@ -13,6 +13,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
     public class SolutionImage
     {
         [DataMember]
+        public string SolutionName { get; set; }
+
+        [DataMember]
         public DateTime CreatedOn { get; set; }
 
         [DataMember]
@@ -52,7 +55,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.Components = new List<SolutionImageComponent>();
         }
 
-        public Task SaveAsync(string filePath)
+        public virtual Task SaveAsync(string filePath)
         {
             return Task.Run(() => Save(filePath));
         }

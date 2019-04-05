@@ -76,24 +76,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public Task CreateFileWithSolutionImageAsync(string filePath, Guid solutionId)
+        public Task CreateFileWithSolutionImageAsync(string filePath, Guid solutionId, string solutionUniqueName)
         {
-            return Task.Run(async () => await CreateFileWithSolutionImage(filePath, solutionId));
+            return Task.Run(async () => await CreateFileWithSolutionImage(filePath, solutionId, solutionUniqueName));
         }
 
-        private async Task CreateFileWithSolutionImage(string filePath, Guid solutionId)
+        private async Task CreateFileWithSolutionImage(string filePath, Guid solutionId, string solutionUniqueName)
         {
             try
             {
                 var repositorySolution = new SolutionRepository(_service);
 
-                //var solution = await repositorySolution.GetSolutionByIdAsync(solutionId);
-
                 var repository = new SolutionComponentRepository(_service);
 
                 var components = await repository.GetSolutionComponentsAsync(solutionId, new ColumnSet(SolutionComponent.Schema.Attributes.componenttype, SolutionComponent.Schema.Attributes.objectid, SolutionComponent.Schema.Attributes.rootcomponentbehavior));
 
-                await CreateSolutionImageWithComponents(filePath, components);
+                await CreateSolutionImageWithComponents(filePath, solutionUniqueName, components);
             }
             catch (Exception ex)
             {
@@ -101,17 +99,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public Task CreateSolutionImageWithComponentsAsync(string filePath, IEnumerable<SolutionComponent> components)
+        public Task CreateSolutionImageWithComponentsAsync(string filePath, string solutionName, IEnumerable<SolutionComponent> components)
         {
-            return Task.Run(async () => await CreateSolutionImageWithComponents(filePath, components));
+            return Task.Run(async () => await CreateSolutionImageWithComponents(filePath, solutionName, components));
         }
 
-        private async Task CreateSolutionImageWithComponents(string filePath, IEnumerable<SolutionComponent> components)
+        private async Task CreateSolutionImageWithComponents(string filePath, string solutionName, IEnumerable<SolutionComponent> components)
         {
             List<SolutionImageComponent> imageComponents = await _descriptor.GetSolutionImageComponentsListAsync(components);
 
             SolutionImage image = new SolutionImage()
             {
+                SolutionName = solutionName,
+
                 ConnectionName = _service.ConnectionData.Name,
 
                 ConnectionOrganizationName = _service.ConnectionData.UniqueOrgName,

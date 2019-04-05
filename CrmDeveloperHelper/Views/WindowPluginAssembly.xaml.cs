@@ -350,14 +350,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , trVPluginTreeMissing
                 , btnClose
 
-                , btnSelectFile
                 , btnLoadAssembly
                 , btnBuildProject
 
                 , txtBDescription
 
                 , txtBFileNameOnServer
-                , cmBAssemblyToLoad
 
                 , rBDatabase
 
@@ -494,6 +492,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             ToggleControls(false, Properties.WindowStatusStrings.LoadingAssemblyFromPathFormat1, assemblyPath);
 
             AssemblyReaderResult assemblyCheck = null;
@@ -619,6 +622,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async void btnBuildProject_Click(object sender, RoutedEventArgs e)
         {
             if (_project == null)
+            {
+                return;
+            }
+
+            if (!IsControlsEnabled)
             {
                 return;
             }

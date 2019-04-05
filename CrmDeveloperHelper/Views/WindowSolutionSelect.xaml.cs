@@ -429,13 +429,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string fileName = EntityFileNameFormatter.GetSolutionFileName(
                         _service.ConnectionData.Name
                         , solution.UniqueName
-                        , "SolutionImage Backup"
+                        , "SolutionImage Backup before Clearing"
                         , "xml"
                     );
 
                     string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                    await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id);
+                    await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id, solution.UniqueName);
                 }
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(_service);

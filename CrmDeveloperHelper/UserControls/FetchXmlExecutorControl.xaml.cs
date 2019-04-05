@@ -25,9 +25,6 @@ using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 {
-    /// <summary>
-    /// Interaction logic for FetchXmlExecutorControl.xaml
-    /// </summary>
     public partial class FetchXmlExecutorControl : UserControl
     {
         private int _init = 0;
@@ -973,11 +970,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             );
 
             ToggleControl(IsControlsEnabled && _entityCollection != null && _entityCollection.Entities.Any(en => en.Id != Guid.Empty)
-                , this.menuExecuteWorkflow
-                , this.menuAssignToUser
-                , this.menuAssignToTeam
+                , this.menuChangeSelectedEntities
+                , this.menuChangeAllEntities
                 , this.menuTransferToConnection
-                , this.menuBulkEdit
             );
         }
 
