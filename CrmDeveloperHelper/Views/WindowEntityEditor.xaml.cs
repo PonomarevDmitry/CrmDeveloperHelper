@@ -83,7 +83,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var repositoryEntityMetadata = new EntityMetadataRepository(_service);
 
-                this._entityMetadata = await repositoryEntityMetadata.GetEntityMetadataAsync(_entityName);
+                this._entityMetadata = await repositoryEntityMetadata.GetEntityMetadataWithAttributesAsync(_entityName);
 
                 ToggleControls(true, Properties.WindowStatusStrings.GettingEntityMetadataCompletedFormat1, _entityName);
 

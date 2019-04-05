@@ -1753,6 +1753,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filtering {0} Status Codes completed..
+        /// </summary>
+        internal static string FilteringStatusCodesCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("FilteringStatusCodesCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filtering {0} Status Codes....
+        /// </summary>
+        internal static string FilteringStatusCodesFormat1 {
+            get {
+                return ResourceManager.GetString("FilteringStatusCodesFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filtering trace records....
         /// </summary>
         internal static string FilteringTraceFiles {
@@ -3252,6 +3270,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string SavingEntityInstanceFormat2 {
             get {
                 return ResourceManager.GetString("SavingEntityInstanceFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Assigning Entities to Team {1} completed..
+        /// </summary>
+        internal static string SettingEntitiesStateCompletedFormat4 {
+            get {
+                return ResourceManager.GetString("SettingEntitiesStateCompletedFormat4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Assigning Entities to Team {1}....
+        /// </summary>
+        internal static string SettingEntitiesStateFormat4 {
+            get {
+                return ResourceManager.GetString("SettingEntitiesStateFormat4", resourceCulture);
             }
         }
         

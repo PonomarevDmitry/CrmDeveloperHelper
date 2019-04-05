@@ -197,6 +197,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
         }
 
+        public Task<EntityMetadata> GetEntityMetadataWithAttributesAsync(string entityName)
+        {
+            return Task.Run(() => GetEntityMetadataWithAttributes(entityName));
+        }
+
+        private EntityMetadata GetEntityMetadataWithAttributes(string entityName)
+        {
+            MetadataFilterExpression entityFilter = new MetadataFilterExpression(LogicalOperator.And);
+            entityFilter.Conditions.Add(new MetadataConditionExpression("LogicalName", MetadataConditionOperator.Equals, entityName));
+
+            MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression("LogicalName", "DisplayName", "Description", "Attributes", "ObjectTypeCode")
+            {
+                AllProperties = false
+            };
+
+            MetadataPropertiesExpression attributeProperties = new MetadataPropertiesExpression("AttributeOf", "LogicalName", "EntityLogicalName", "OptionSet")
+            {
+                AllProperties = false
+            };
+
+            EntityQueryExpression entityQueryExpression = new EntityQueryExpression()
+            {
+                Properties = entityProperties,
+
+                AttributeQuery = new AttributeQueryExpression()
+                {
+                    Properties = attributeProperties
+                },
+
+                Criteria = entityFilter,
+            };
+
+            RetrieveMetadataChangesRequest request = new RetrieveMetadataChangesRequest()
+            {
+                Query = entityQueryExpression,
+            };
+
+            RetrieveMetadataChangesResponse response = (RetrieveMetadataChangesResponse)_service.Execute(request);
+
+            return response.EntityMetadata.SingleOrDefault();
+        }
+
         public bool IsEntityExists(string entityName)
         {
             try

@@ -672,6 +672,11 @@
   <data name="AssigningEntitiesToTeamFormat2" xml:space="preserve">
     <value>{0} - Assigning Entities to Team {1}</value>
   </data>
+
+  <data name="SettingEntitiesStateFormat4" xml:space="preserve">
+    <value>{0} - Setting Entities {1} State {2} - {3}</value>
+  </data>
+  
   <data name="AssigningEntitiesToUserFormat2" xml:space="preserve">
     <value>{0} - Assigning Entities to User {1}</value>
   </data>

@@ -754,6 +754,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Setting Entity State {0} - {1}....
+        /// </summary>
+        internal static string SettingEntityStateFormat2 {
+            get {
+                return ResourceManager.GetString("SettingEntityStateFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Showing Difference is not allowed for {0}..
         /// </summary>
         internal static string ShowingDifferenceIsNotAllowedForFormat1 {

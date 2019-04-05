@@ -29,6 +29,8 @@
                 <MenuItem Header="Assign Entity to User" Click="mIAssignEntityToUser_Click"/>
                 <MenuItem Header="Assign Entity to Team" Click="mIAssignEntityToTeam_Click"/>
                 <Separator/>
+                <MenuItem Header="Set State Entity" Click="mISetStateEntity_Click"/>
+                <Separator/>
                 <MenuItem Header="Execute Workflow on Entity" Click="mIExecuteWorkflowOnEntity_Click"/>
             </MenuItem>
 
@@ -74,6 +76,8 @@
                 <Separator/>
                 <MenuItem Header="Assign Entity to User" Click="mIAssignEntityToUser_Click"/>
                 <MenuItem Header="Assign Entity to Team" Click="mIAssignEntityToTeam_Click"/>
+                <Separator/>
+                <MenuItem Header="Set State Entity" Click="mISetStateEntity_Click"/>
                 <Separator/>
                 <MenuItem Header="Execute Workflow on Entity" Click="mIExecuteWorkflowOnEntity_Click"/>
             </MenuItem>
@@ -133,8 +137,9 @@
                                 <MenuItem Header="Bulk Edit Selected Entities" Click="miBulkEditSelectedEntites_Click"/>
                                 <Separator />
                                 <MenuItem Header="Assign Selected Entities to User" Click="miAssignToUserSelectedEntites_Click"/>
-                                <Separator />
                                 <MenuItem Header="Assign Selected Entities to Team" Click="miAssignToTeamSelectedEntites_Click"/>
+                                <Separator/>
+                                <MenuItem Header="Set State Selected Entities" Click="mISetStateSelectedEntites_Click"/>
                                 <Separator />
                                 <MenuItem Header="Execute Workflow on Selected Entities" Click="miExecuteWorkflowOnSelectedEntites_Click"/>
                             </MenuItem>
@@ -146,8 +151,9 @@
                                 <MenuItem Header="Bulk Edit All Entities" Click="miBulkEditAllEntites_Click"/>
                                 <Separator />
                                 <MenuItem Header="Assign All Entities to User" Click="miAssignToUserAllEntites_Click"/>
-                                <Separator />
                                 <MenuItem Header="Assign All Entities to Team" Click="miAssignToTeamAllEntites_Click"/>
+                                <Separator/>
+                                <MenuItem Header="Set State Selected Entities" Click="mISetStateAllEntites_Click"/>
                                 <Separator />
                                 <MenuItem Header="Execute Workflow on All Entities" Click="miExecuteWorkflowOnAllEntites_Click"/>
                             </MenuItem>

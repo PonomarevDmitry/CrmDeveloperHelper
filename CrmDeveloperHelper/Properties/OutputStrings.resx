@@ -398,6 +398,12 @@
   <data name="AssigningEntityToTeamFormat1" xml:space="preserve">
     <value>Assigning Entity to Team {0}...</value>
   </data>
+  
+  <data name="SettingEntityStateFormat2" xml:space="preserve">
+    <value>Setting Entity State {0} - {1}...</value>
+  </data>
+
+  
 
   <data name="NoChangesInEntityFormat1" xml:space="preserve">
     <value>No changes in Entity {0}</value>

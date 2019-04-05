@@ -1573,6 +1573,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Setting Entities {1} State {2} - {3}.
+        /// </summary>
+        internal static string SettingEntitiesStateFormat4 {
+            get {
+                return ResourceManager.GetString("SettingEntitiesStateFormat4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Showing Organization Comparer.
         /// </summary>
         internal static string ShowingOrganizationComparer {

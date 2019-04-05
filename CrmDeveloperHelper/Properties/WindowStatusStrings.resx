@@ -1320,6 +1320,14 @@
   <data name="AssigningEntitiesToTeamFormat2" xml:space="preserve">
     <value>{0}. Assigning Entities to Team {1}...</value>
   </data>
+
+  <data name="SettingEntitiesStateCompletedFormat4" xml:space="preserve">
+    <value>{0}. Assigning Entities to Team {1} completed.</value>
+  </data>
+  <data name="SettingEntitiesStateFormat4" xml:space="preserve">
+    <value>{0}. Assigning Entities to Team {1}...</value>
+  </data>
+  
   <data name="AssigningEntitiesToUserCompletedFormat2" xml:space="preserve">
     <value>{0}. Assigning Entities to User {1} completed.</value>
   </data>
@@ -1405,6 +1413,13 @@
   </data>
   <data name="FilteringAttributesFormat1" xml:space="preserve">
     <value>Filtering Attributes {0}...</value>
+  </data>
+
+  <data name="FilteringStatusCodesCompletedFormat1" xml:space="preserve">
+    <value>Filtering {0} Status Codes completed.</value>
+  </data>
+  <data name="FilteringStatusCodesFormat1" xml:space="preserve">
+    <value>Filtering {0} Status Codes...</value>
   </data>
 
   <data name="GettingEntityCompletedFormat1" xml:space="preserve">

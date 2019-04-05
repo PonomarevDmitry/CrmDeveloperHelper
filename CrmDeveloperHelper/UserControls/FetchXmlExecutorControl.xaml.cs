@@ -1,6 +1,7 @@
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
+using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
@@ -1485,15 +1486,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
+            var request = new ExecuteWorkflowRequest()
+            {
+                WorkflowId = workflow.Id,
+            };
+
             foreach (var id in entityIds.Where(e => e != Guid.Empty).Distinct())
             {
                 try
                 {
-                    var request = new ExecuteWorkflowRequest()
-                    {
-                        EntityId = id,
-                        WorkflowId = workflow.Id,
-                    };
+                    request.EntityId = id;
 
                     _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExecutingOnEntityWorkflowFormat1, workflow.Name);
                     _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, entityName, id);
@@ -1623,15 +1625,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
+            var request = new AssignRequest()
+            {
+                Assignee = user.ToEntityReference(),
+            };
+
             foreach (var id in entityIds.Where(e => e != Guid.Empty).Distinct())
             {
                 try
                 {
-                    var request = new AssignRequest()
-                    {
-                        Target = new EntityReference(entityName, id),
-                        Assignee = user.ToEntityReference(),
-                    };
+                    request.Target = new EntityReference(entityName, id);
 
                     _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.AssigningEntityToUserFormat1, user.FullName);
                     _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, entityName, id);
@@ -1759,15 +1762,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
+            var request = new AssignRequest()
+            {
+                Assignee = team.ToEntityReference(),
+            };
+
             foreach (var id in entityIds.Where(e => e != Guid.Empty).Distinct())
             {
                 try
                 {
-                    var request = new AssignRequest()
-                    {
-                        Target = new EntityReference(entityName, id),
-                        Assignee = team.ToEntityReference(),
-                    };
+                    request.Target = new EntityReference(entityName, id);
 
                     _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.AssigningEntityToTeamFormat1, team.Name);
                     _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, entityName, id);
@@ -1965,6 +1969,134 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             var commonConfig = CommonConfiguration.Get();
 
             WindowHelper.OpenEntityBulkEditor(_iWriteToOutput, service, commonConfig, entityName, entitiesIds);
+        }
+
+        private async void mISetStateEntity_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            if (entity.Id == Guid.Empty)
+            {
+                return;
+            }
+
+            await SetStateEntities(entity.LogicalName, new[] { entity.Id });
+        }
+
+        private async void mISetStateSelectedEntites_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+            )
+            {
+                return;
+            }
+
+            IEnumerable<Guid> selectedEntityIds = GetSelectedEntityIds();
+
+            if (!selectedEntityIds.Any())
+            {
+                return;
+            }
+
+            await SetStateEntities(_entityCollection.EntityName, selectedEntityIds);
+        }
+
+        private async void mISetStateAllEntites_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+                || !_entityCollection.Entities.Any(en => en.Id != Guid.Empty)
+            )
+            {
+                return;
+            }
+
+            await SetStateEntities(_entityCollection.EntityName, _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id));
+        }
+
+        private async Task SetStateEntities(string entityName, IEnumerable<Guid> entityIds)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!entityIds.Any(id => id != Guid.Empty))
+            {
+                return;
+            }
+
+            var service = await GetServiceAsync(this.ConnectionData);
+
+            var commonConfig = CommonConfiguration.Get();
+
+            var form = new WindowStatusSelect(_iWriteToOutput, service, commonConfig, entityName);
+
+            if (!form.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            if (form.SelectedStatusOptionMetadata == null)
+            {
+                return;
+            }
+
+            StatusOptionMetadata statusOptionMetadata = form.SelectedStatusOptionMetadata;
+
+            string operationName = string.Format(Properties.OperationNames.SettingEntitiesStateFormat4, service.ConnectionData.Name, entityName, statusOptionMetadata.State, statusOptionMetadata.Value);
+
+            _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.SettingEntitiesStateFormat4, service.ConnectionData.Name, entityName, statusOptionMetadata.State, statusOptionMetadata.Value);
+
+            _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+            var request = new SetStateRequest()
+            {
+                State = new OptionSetValue(statusOptionMetadata.State.Value),
+                Status = new OptionSetValue(statusOptionMetadata.Value.Value),
+            };
+
+            foreach (var id in entityIds.Where(e => e != Guid.Empty).Distinct())
+            {
+                try
+                {
+                    request.EntityMoniker = new EntityReference(entityName, id);
+
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SettingEntityStateFormat2, statusOptionMetadata.State, statusOptionMetadata.Value);
+                    _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, entityName, id);
+
+                    await service.ExecuteAsync(request);
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                }
+            }
+
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.SettingEntitiesStateCompletedFormat4, service.ConnectionData.Name, entityName, statusOptionMetadata.State, statusOptionMetadata.Value);
+
+            _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
         }
     }
 }

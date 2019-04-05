@@ -1226,6 +1226,9 @@
     <Compile Include="Views\WindowSolutionSelect.xaml.cs">
       <DependentUpon>WindowSolutionSelect.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowStatusSelect.xaml.cs">
+      <DependentUpon>WindowStatusSelect.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WindowSystemUserExplorer.xaml.cs">
       <DependentUpon>WindowSystemUserExplorer.xaml</DependentUpon>
     </Compile>
@@ -1913,6 +1916,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowSolutionSelect.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowStatusSelect.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
