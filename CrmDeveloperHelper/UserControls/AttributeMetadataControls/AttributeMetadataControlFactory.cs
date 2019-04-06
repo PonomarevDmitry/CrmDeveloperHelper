@@ -169,7 +169,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                     initialValue = (EntityReference)value;
                 }
 
-                return new LookupAttributeMetadataControl(fillAllways, lookupAttrib, initialValue);
+                return new LookupAttributeMetadataControl(service, fillAllways, lookupAttrib, initialValue);
             }
 
             if (attributeMetadata is EntityNameAttributeMetadata entityNameAttrib)

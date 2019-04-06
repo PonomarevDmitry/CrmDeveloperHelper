@@ -1211,6 +1211,9 @@
     <Compile Include="Views\WindowSelectEntityIdToFind.xaml.cs">
       <DependentUpon>WindowSelectEntityIdToFind.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowSelectEntityReference.xaml.cs">
+      <DependentUpon>WindowSelectEntityReference.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WindowSelectFolderAndText.xaml.cs">
       <DependentUpon>WindowSelectFolderAndText.xaml</DependentUpon>
     </Compile>
@@ -1899,6 +1902,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\WindowSelectEntityReference.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\WindowSelectFolderAndText.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1961,6 +1968,7 @@
     <EmbeddedResource Include="Properties\MessageBoxStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>MessageBoxStrings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\OperationNames.resx">
       <Generator>ResXFileCodeGenerator</Generator>

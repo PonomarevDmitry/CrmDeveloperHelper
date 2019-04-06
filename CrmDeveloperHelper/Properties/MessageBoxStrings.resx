@@ -303,4 +303,7 @@
   <data name="ClearRoleFormat1" xml:space="preserve">
     <value>Are you sure want to clear Role {0} Privileges?</value>
   </data>
+  <data name="EntityNameIsEmpty" xml:space="preserve">
+    <value>Entity Name is empty.</value>
+  </data>
 </root>

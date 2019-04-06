@@ -1,6 +1,9 @@
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Views;
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -8,6 +11,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 {
     public partial class LookupAttributeMetadataControl : UserControl, IAttributeMetadataControl<LookupAttributeMetadata>
     {
+        private readonly IOrganizationServiceExtented _service;
+
         public LookupAttributeMetadata AttributeMetadata { get; private set; }
 
         private readonly EntityReference _initialValue;
@@ -16,11 +21,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
         private EntityReference currentValue;
 
-        public LookupAttributeMetadataControl(bool fillAllways, LookupAttributeMetadata attributeMetadata, EntityReference initialValue)
+        public LookupAttributeMetadataControl(IOrganizationServiceExtented service, bool fillAllways, LookupAttributeMetadata attributeMetadata, EntityReference initialValue)
         {
             InitializeComponent();
 
             AttributeMetadataControlFactory.SetGroupBoxNameByAttributeMetadata(gbAttribute, attributeMetadata);
+
+            this._service = service;
 
             this._initialValue = initialValue;
             this._fillAllways = fillAllways;
@@ -38,6 +45,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
         {
             this.currentValue = entityReferenceValue;
 
+            chBChanged.IsChecked = !IsEntityReferenceEquals(this.currentValue, _initialValue);
+
             if (currentValue == null)
             {
                 txtBReferenceName.Text = string.Empty;
@@ -52,9 +61,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
             }
         }
 
+        private bool IsEntityReferenceEquals(EntityReference entityReference1, EntityReference entityReference2)
+        {
+            if (entityReference1 == null
+                && entityReference2 == null
+            )
+            {
+                return true;
+            }
+            else if (entityReference1 != null
+                && entityReference2 == null
+            )
+            {
+                return false;
+            }
+            else if (entityReference1 == null
+                && entityReference2 != null
+            )
+            {
+                return false;
+            }
+            else if (entityReference1 != null
+                && entityReference2 != null
+            )
+            {
+                return string.Equals(entityReference1.LogicalName, entityReference2.LogicalName, StringComparison.InvariantCultureIgnoreCase)
+                    && entityReference1.Id == entityReference2.Id
+                    ;
+            }
+
+            return false;
+        }
+
         public void AddChangedAttribute(Entity entity)
         {
-
+            if (_fillAllways || !IsEntityReferenceEquals(this.currentValue, _initialValue))
+            {
+                entity.Attributes[AttributeMetadata.LogicalName] = this.currentValue;
+            }
         }
 
         protected override void OnGotFocus(RoutedEventArgs e)
@@ -71,7 +115,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
         private void btnSetValue_Click(object sender, RoutedEventArgs e)
         {
+            var targets = AttributeMetadata.Targets.OrderBy(s => s).ToList();
 
+            var form = new WindowSelectEntityReference(_service.ConnectionData, targets);
+
+            if (!form.ShowDialog().GetValueOrDefault())
+            {
+                return;
+            }
+
+            SetEntityReference(form.SelectedEntityReference);
         }
 
         public event EventHandler RemoveControlClicked;

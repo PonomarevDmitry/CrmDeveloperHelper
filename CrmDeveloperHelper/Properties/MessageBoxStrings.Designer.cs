@@ -259,6 +259,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Entity Name is empty..
+        /// </summary>
+        internal static string EntityNameIsEmpty {
+            get {
+                return ResourceManager.GetString("EntityNameIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         internal static string ErrorTitle {
