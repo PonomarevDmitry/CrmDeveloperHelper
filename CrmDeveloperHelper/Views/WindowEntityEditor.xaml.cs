@@ -118,7 +118,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                                     this.Dispatcher.Invoke(() =>
                                     {
-                                        control = _controlFactory.CreateControlForAttribute(_service, false, attributeMetadata, _entityInstance, attributeValue.Value);
+                                        control = _controlFactory.CreateControlForAttribute(_service, false, this._entityMetadata, attributeMetadata, _entityInstance, attributeValue.Value);
                                     });
 
                                     if (control != null)
@@ -454,7 +454,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.Dispatcher.Invoke(() =>
             {
-                control = _controlFactory.CreateControlForAttribute(_service, false, attributeMetadata, _entityInstance, null);
+                control = _controlFactory.CreateControlForAttribute(_service, false, this._entityMetadata, attributeMetadata, _entityInstance, null);
             });
 
             if (control != null)

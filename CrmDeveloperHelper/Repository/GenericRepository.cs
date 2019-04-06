@@ -61,7 +61,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             try
             {
-                return _service.RetrieveMultiple(query).Entities.SingleOrDefault();
+                var coll = _service.RetrieveMultiple(query);
+
+                return coll.Entities.SingleOrDefault();
             }
             catch (Exception ex)
             {

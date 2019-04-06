@@ -17,19 +17,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
     {
         public StatusAttributeMetadata AttributeMetadata { get; private set; }
 
-        private readonly int? _initialValue;
+        private readonly StateAttributeMetadata _stateAttributeMetadata;
+
+        private readonly int? _initialValueStatus;
+        private readonly int? _initialValueState;
 
         private readonly bool _fillAllways;
 
-        public StatusAttributeMetadataControl(bool fillAllways, Entity entity, StatusAttributeMetadata attributeMetadata, int? initialValue)
+        public StatusAttributeMetadataControl(bool fillAllways
+            , Entity entity
+            , StatusAttributeMetadata attributeMetadataStatus
+            , StateAttributeMetadata attributeMetadataState
+            , int? initialValueStatus
+            , int? initialValueState
+        )
         {
             InitializeComponent();
 
-            AttributeMetadataControlFactory.SetGroupBoxNameByAttributeMetadata(gbAttribute, attributeMetadata);
+            AttributeMetadataControlFactory.SetGroupBoxNameByAttributeMetadata(gbAttribute, attributeMetadataStatus);
 
-            this._initialValue = initialValue;
+            this._initialValueStatus = initialValueStatus;
+            this._initialValueState = initialValueState;
+
             this._fillAllways = fillAllways;
-            this.AttributeMetadata = attributeMetadata;
+
+            this.AttributeMetadata = attributeMetadataStatus;
+            this._stateAttributeMetadata = attributeMetadataState;
 
             FillComboBox(entity);
 
@@ -46,13 +59,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
             ComboBoxItem currentItem = null;
 
-            var optionSetOptions = AttributeMetadata.OptionSet.Options;
+            var statusOptionSetOptions = AttributeMetadata.OptionSet.Options.OfType<StatusOptionMetadata>();
 
-            if (_initialValue.HasValue && !optionSetOptions.Any(o => o.Value == _initialValue.Value))
+            if (_initialValueStatus.HasValue && !statusOptionSetOptions.Any(o => o.Value == _initialValueStatus.Value))
             {
                 StringBuilder name = new StringBuilder();
 
-                name.Append(_initialValue.Value);
+                name.Append(_initialValueStatus.Value);
 
                 if (entity != null
                     && entity.FormattedValues.ContainsKey(AttributeMetadata.LogicalName)
@@ -69,13 +82,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                 currentItem = new ComboBoxItem()
                 {
                     Content = name.ToString(),
-                    Tag = _initialValue.Value,
+                    Tag = _initialValueStatus.Value,
                 };
 
                 cmBValue.Items.Add(currentItem);
             }
 
-            foreach (var item in optionSetOptions.OfType<StatusOptionMetadata>().OrderBy(o => o.Value))
+            statusOptionSetOptions = AttributeMetadata.OptionSet.Options.OfType<StatusOptionMetadata>().Where(o => o.State == _initialValueState);
+
+            foreach (var item in statusOptionSetOptions.OfType<StatusOptionMetadata>().OrderBy(o => o.Value))
             {
                 StringBuilder name = new StringBuilder();
 
@@ -101,7 +116,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
                 cmBValue.Items.Add(newItem);
 
-                if (item.Value == _initialValue)
+                if (item.Value == _initialValueStatus)
                 {
                     currentItem = newItem;
                 }
@@ -121,7 +136,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
         {
             var currentValue = GetIntValue();
 
-            chBChanged.IsChecked = currentValue != _initialValue;
+            chBChanged.IsChecked = currentValue != _initialValueStatus;
         }
 
         private int? GetIntValue()
@@ -141,7 +156,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
         {
             var currentValue = GetIntValue();
 
-            if (this._fillAllways || currentValue != _initialValue)
+            if (this._fillAllways || currentValue != _initialValueStatus)
             {
                 if (currentValue.HasValue)
                 {

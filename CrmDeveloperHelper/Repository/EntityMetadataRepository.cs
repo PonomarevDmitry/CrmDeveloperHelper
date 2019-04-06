@@ -207,14 +207,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             MetadataFilterExpression entityFilter = new MetadataFilterExpression(LogicalOperator.And);
             entityFilter.Conditions.Add(new MetadataConditionExpression("LogicalName", MetadataConditionOperator.Equals, entityName));
 
-            MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression("LogicalName", "DisplayName", "Description", "Attributes", "ObjectTypeCode")
+            MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression(
+                "LogicalName"
+                , "DisplayName"
+                , "Description"
+                , "PrimaryIdAttribute"
+                , "PrimaryNameAttribute"
+                , "Attributes"
+                , "ObjectTypeCode"
+            )
             {
                 AllProperties = false
             };
 
-            MetadataPropertiesExpression attributeProperties = new MetadataPropertiesExpression("AttributeOf", "LogicalName", "EntityLogicalName", "OptionSet")
+            MetadataPropertiesExpression attributeProperties = new MetadataPropertiesExpression()
             {
-                AllProperties = false
+                AllProperties = true,
             };
 
             EntityQueryExpression entityQueryExpression = new EntityQueryExpression()

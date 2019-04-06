@@ -3,6 +3,7 @@ using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using System;
+using System.Linq;
 using System.Text;
 using System.Windows.Controls;
 
@@ -10,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 {
     public class AttributeMetadataControlFactory
     {
-        public UserControl CreateControlForAttribute(IOrganizationServiceExtented service, bool fillAllways, AttributeMetadata attributeMetadata, Entity entity, object value)
+        public UserControl CreateControlForAttribute(IOrganizationServiceExtented service, bool fillAllways, EntityMetadata entityMetadata, AttributeMetadata attributeMetadata, Entity entity, object value)
         {
             if (attributeMetadata is MemoAttributeMetadata memoAttrib)
             {
@@ -134,14 +135,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
             if (attributeMetadata is StatusAttributeMetadata statusAttrib)
             {
-                int? initialValue = null;
+                var stateAttrib = entityMetadata.Attributes.OfType<StateAttributeMetadata>().FirstOrDefault();
 
-                if (value != null && value is OptionSetValue optionSetValue)
+                if (stateAttrib != null)
                 {
-                    initialValue = optionSetValue.Value;
-                }
+                    int? initialValueStatus = null;
+                    int? initialValueState = null;
 
-                return new StatusAttributeMetadataControl(fillAllways, entity, statusAttrib, initialValue);
+                    if (value != null && value is OptionSetValue optionSetValueStatus)
+                    {
+                        initialValueStatus = optionSetValueStatus.Value;
+                    }
+
+                    if (entity != null
+                        && entity.Attributes.ContainsKey(stateAttrib.LogicalName)
+                        && entity.Attributes[stateAttrib.LogicalName] != null
+                        && entity.Attributes[stateAttrib.LogicalName] is OptionSetValue optionSetValueState
+                    )
+                    {
+                        initialValueState = optionSetValueState.Value;
+                    }
+
+                    return new StatusAttributeMetadataControl(fillAllways, entity, statusAttrib, stateAttrib, initialValueStatus, initialValueState);
+                }
             }
 
             if (attributeMetadata is LookupAttributeMetadata lookupAttrib)

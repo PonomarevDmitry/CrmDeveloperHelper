@@ -374,7 +374,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.Dispatcher.Invoke(() =>
             {
-                control = _controlFactory.CreateControlForAttribute(_service, true, attributeMetadata, null, null);
+                control = _controlFactory.CreateControlForAttribute(_service, true, _entityMetadata, attributeMetadata, null, null);
 
                 if (control is IAttributeMetadataControl<AttributeMetadata> attributeControl)
                 {
