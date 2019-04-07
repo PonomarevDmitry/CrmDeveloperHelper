@@ -12,10 +12,21 @@
     <GroupBox x:Name="gbAttribute" Header="Attribute Name" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
-            <DockPanel DockPanel.Dock="Top">
-                <Button x:Name="btnRemoveControl" Content="Remove" ToolTip="Remove Attribute" Height="20" DockPanel.Dock="Left" VerticalContentAlignment="Center" Margin="3" Click="btnRemoveControl_Click" IsTabStop="False" />
-                <CheckBox x:Name="chBChanged" Content="Changed" DockPanel.Dock="Left" IsEnabled="False" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Margin="3" />
-            </DockPanel>
+            <Grid DockPanel.Dock="Top">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <CheckBox x:Name="chBChanged" Grid.Column="0" Content="Changed" IsEnabled="False" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Margin="3" />
+
+                <Button x:Name="btnRemoveControl" Grid.Column="1" Content="Remove" ToolTip="Remove Attribute" Height="20" VerticalContentAlignment="Center" Margin="3" Click="btnRemoveControl_Click" IsTabStop="False" />
+
+                <Button x:Name="btnRestore" Grid.Column="2" Content="Restore" Height="20" VerticalContentAlignment="Center" Margin="3" Click="btnRestore_Click" IsTabStop="False" />
+
+            </Grid>
 
             <TextBox x:Name="txtBValue" AcceptsReturn="True" VerticalContentAlignment="Top" Margin="3" TextChanged="txtBValue_TextChanged" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
         </DockPanel>

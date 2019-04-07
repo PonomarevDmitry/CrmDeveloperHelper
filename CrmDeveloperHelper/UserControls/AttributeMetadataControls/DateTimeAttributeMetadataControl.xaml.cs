@@ -24,15 +24,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
             this._fillAllways = fillAllways;
             this.AttributeMetadata = attributeMetadata;
 
-            dPValue.SelectedDate = initialValue;
+            if (_initialValue.HasValue)
+            {
+                dPValue.SelectedDate = _initialValue.Value;
+            }
 
             btnRemoveControl.IsEnabled = _fillAllways;
 
             btnRemoveControl.Visibility = btnRemoveControl.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
             chBChanged.Visibility = _fillAllways ? Visibility.Collapsed : Visibility.Visible;
+
+            btnRestore.IsEnabled = !_fillAllways;
+            btnRestore.Visibility = btnRestore.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        private void dPValue_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        protected override void OnGotFocus(RoutedEventArgs e)
+        {
+            dPValue.Focus();
+
+            base.OnGotFocus(e);
+        }
+
+        private void DPValue_DateChanged(object sender, RoutedEventArgs e)
         {
             var currentValue = dPValue.SelectedDate;
 
@@ -49,18 +62,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
             }
         }
 
-        protected override void OnGotFocus(RoutedEventArgs e)
-        {
-            dPValue.Focus();
-
-            base.OnGotFocus(e);
-        }
-
         public event EventHandler RemoveControlClicked;
 
         private void btnRemoveControl_Click(object sender, RoutedEventArgs e)
         {
             RemoveControlClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void btnClear_Click(object sender, RoutedEventArgs e)
+        {
+            dPValue.SelectedDate = null;
+        }
+
+        private void btnRestore_Click(object sender, RoutedEventArgs e)
+        {
+            if (_initialValue.HasValue)
+            {
+                dPValue.SelectedDate = _initialValue.Value;
+            }
         }
     }
 }

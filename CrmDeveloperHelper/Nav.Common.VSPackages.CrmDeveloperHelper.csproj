@@ -1007,6 +1007,9 @@
     <Compile Include="UserControls\AttributeMetadataControls\StringAttributeMetadataControl.xaml.cs">
       <DependentUpon>StringAttributeMetadataControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\DateTimePicker.xaml.cs">
+      <DependentUpon>DateTimePicker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ExportEntityMetadataOptionsControl.xaml.cs">
       <DependentUpon>ExportEntityMetadataOptionsControl.xaml</DependentUpon>
     </Compile>
@@ -1639,6 +1642,10 @@
     <Page Include="UserControls\AttributeMetadataControls\StringAttributeMetadataControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\DateTimePicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\ExportEntityMetadataOptionsControl.xaml">
       <SubType>Designer</SubType>

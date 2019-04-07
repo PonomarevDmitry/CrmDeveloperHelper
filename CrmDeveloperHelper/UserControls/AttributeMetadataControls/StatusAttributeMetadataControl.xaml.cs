@@ -50,6 +50,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
             btnRemoveControl.Visibility = btnRemoveControl.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
             chBChanged.Visibility = _fillAllways ? Visibility.Collapsed : Visibility.Visible;
+
+            btnRestore.IsEnabled = !_fillAllways;
+            btnRestore.Visibility = btnRestore.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void FillComboBox(Entity entity)
@@ -181,6 +184,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
         private void btnRemoveControl_Click(object sender, RoutedEventArgs e)
         {
             RemoveControlClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void btnRestore_Click(object sender, RoutedEventArgs e)
+        {
+            if (_initialValueStatus.HasValue)
+            {
+                foreach (var item in cmBValue.Items.OfType<ComboBoxItem>())
+                {
+                    if (item.Tag != null
+                        && item.Tag is int optionSetValue
+                        && optionSetValue == _initialValueStatus.Value
+                    )
+                    {
+                        cmBValue.SelectedItem = item;
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                cmBValue.SelectedIndex = 0;
+            }
         }
     }
 }

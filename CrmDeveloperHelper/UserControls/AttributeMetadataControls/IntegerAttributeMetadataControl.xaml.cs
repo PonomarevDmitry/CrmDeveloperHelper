@@ -24,12 +24,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
             this._fillAllways = fillAllways;
             this.AttributeMetadata = attributeMetadata;
 
-            txtBValue.Text = initialValue.ToString();
+            txtBValue.Text = _initialValue.ToString();
 
             btnRemoveControl.IsEnabled = _fillAllways;
 
             btnRemoveControl.Visibility = btnRemoveControl.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
             chBChanged.Visibility = _fillAllways ? Visibility.Collapsed : Visibility.Visible;
+
+            btnRestore.IsEnabled = !_fillAllways;
+            btnRestore.Visibility = btnRestore.IsEnabled ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void txtBValue_TextChanged(object sender, TextChangedEventArgs e)
@@ -73,6 +76,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
         private void btnRemoveControl_Click(object sender, RoutedEventArgs e)
         {
             RemoveControlClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void btnRestore_Click(object sender, RoutedEventArgs e)
+        {
+            txtBValue.Text = _initialValue.ToString();
         }
     }
 }

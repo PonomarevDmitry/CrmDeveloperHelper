@@ -63,7 +63,7 @@
         <TextBox x:Name="txtBFilterAttribute" Height="26" Margin="51,38,10,0" IsTabStop="True" VerticalAlignment="Top" KeyDown="txtBFilterAttribute_KeyDown" VerticalContentAlignment="Center" />
 
         <GroupBox Header="Attributes" Margin="10,69,10,62">
-            <ScrollViewer x:Name="scrollViewerAttributes" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer x:Name="scrollViewerAttributes" VerticalScrollBarVisibility="Auto" Focusable="False">
                 <Grid x:Name="lstVwAttributes">
 
                 </Grid>

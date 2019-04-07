@@ -8,12 +8,23 @@
              d:DesignWidth="483"
              >
     <GroupBox x:Name="gbAttribute" Header="Attribute Name">
-        <DockPanel LastChildFill="True">
-            <Button x:Name="btnRemoveControl" Content="Remove" ToolTip="Remove Attribute" Height="20" DockPanel.Dock="Left" VerticalContentAlignment="Center" Margin="3" Click="btnRemoveControl_Click" IsTabStop="False" />
+        <Grid>
 
-            <CheckBox x:Name="chBChanged" Content="Ch" ToolTip="Is Changed" DockPanel.Dock="Left" IsEnabled="False" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Margin="3" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <CheckBox x:Name="chBChanged" Grid.Column="0" Content="Ch" ToolTip="Is Changed" IsEnabled="False" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Margin="3" />
+
+            <Button x:Name="btnRemoveControl" Grid.Column="1" Content="Remove" ToolTip="Remove Attribute" Height="20" VerticalContentAlignment="Center" Margin="3" Click="btnRemoveControl_Click" IsTabStop="False" />
+
+            <ComboBox x:Name="cmBValue" Grid.Column="2" Height="20" VerticalContentAlignment="Center" Margin="3" SelectionChanged="cmBValue_SelectionChanged" />
+
+            <Button x:Name="btnRestore" Grid.Column="3" Content="Restore" Height="20" VerticalContentAlignment="Center" Margin="3" Click="btnRestore_Click" IsTabStop="False" />
             
-            <ComboBox x:Name="cmBValue" Height="20" VerticalContentAlignment="Center" Margin="3" SelectionChanged="cmBValue_SelectionChanged" />
-        </DockPanel>
+        </Grid>
     </GroupBox>
 </UserControl>

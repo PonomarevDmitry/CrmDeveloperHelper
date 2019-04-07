@@ -8,17 +8,28 @@
              d:DesignWidth="483"
              >
     <GroupBox x:Name="gbAttribute" Header="Attribute Name">
-        <DockPanel LastChildFill="True">
+        <Grid>
 
-            <Button x:Name="btnRemoveControl" Content="Remove" ToolTip="Remove Attribute" Height="20" DockPanel.Dock="Left" VerticalContentAlignment="Center" Margin="3" Click="btnRemoveControl_Click" IsTabStop="False" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
-            <CheckBox x:Name="chBChanged" Content="Ch" ToolTip="Is Changed" DockPanel.Dock="Left" IsEnabled="False" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Margin="3" />
+            <CheckBox x:Name="chBChanged" Grid.Column="0" Content="Ch" ToolTip="Is Changed" IsEnabled="False" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Margin="3" />
 
-            <Button x:Name="btnClear" Content="Clear" Height="20" DockPanel.Dock="Right" VerticalContentAlignment="Center" Margin="3" Click="btnClear_Click" IsTabStop="False" />
+            <Button x:Name="btnRemoveControl" Grid.Column="1" Content="Remove" ToolTip="Remove Attribute" Height="20" VerticalContentAlignment="Center" Margin="3" Click="btnRemoveControl_Click" IsTabStop="False" />
 
-            <Button x:Name="btnSetValue" Content="Set Value" Height="20" DockPanel.Dock="Right" VerticalContentAlignment="Center" Margin="3" Click="btnSetValue_Click" IsTabStop="False" />
-            
-            <TextBox x:Name="txtBReferenceName" Height="20" VerticalContentAlignment="Center" Margin="3" IsReadOnly="True" IsReadOnlyCaretVisible="True" />
-        </DockPanel>
+            <TextBox x:Name="txtBReferenceName" Grid.Column="2" Height="20" VerticalContentAlignment="Center" Margin="3" IsReadOnly="True" IsReadOnlyCaretVisible="True" />
+
+            <Button x:Name="btnClear" Grid.Column="3" Content="Clear" Height="20" VerticalContentAlignment="Center" Margin="3" Click="btnClear_Click" IsTabStop="False" />
+
+            <Button x:Name="btnSetValue" Grid.Column="4" Content="Set Value" Height="20" VerticalContentAlignment="Center" Margin="3" Click="btnSetValue_Click" IsTabStop="False" />
+
+            <Button x:Name="btnRestore" Grid.Column="5" Content="Restore" Height="20" VerticalContentAlignment="Center" Margin="3" Click="btnRestore_Click" IsTabStop="False" />
+        </Grid>
     </GroupBox>
 </UserControl>

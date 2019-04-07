@@ -3,17 +3,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadataControls"
+             xmlns:DTPicker="clr-namespace:DTPicker"
              mc:Ignorable="d" 
              d:DesignWidth="483"
              >
     <GroupBox x:Name="gbAttribute" Header="Attribute Name">
-        <DockPanel LastChildFill="True">
-            <Button x:Name="btnRemoveControl" Content="Remove" ToolTip="Remove Attribute" Height="20" DockPanel.Dock="Left" VerticalContentAlignment="Center" Margin="3" Click="btnRemoveControl_Click" IsTabStop="False" />
+        <Grid>
 
-            <CheckBox x:Name="chBChanged" Content="Ch" ToolTip="Is Changed" DockPanel.Dock="Left" IsEnabled="False" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Margin="3" />
-            
-            <DatePicker x:Name="dPValue" VerticalContentAlignment="Center" Margin="3" SelectedDateChanged="dPValue_SelectedDateChanged" />
-        </DockPanel>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <CheckBox x:Name="chBChanged" Grid.Column="0" Content="Ch" ToolTip="Is Changed" IsEnabled="False" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Margin="3" />
+
+            <Button x:Name="btnRemoveControl" Grid.Column="1" Content="Remove" ToolTip="Remove Attribute" Height="20" VerticalContentAlignment="Center" Margin="3" Click="btnRemoveControl_Click" IsTabStop="False" />
+
+            <DTPicker:DateTimePicker x:Name="dPValue" Grid.Column="2" VerticalContentAlignment="Center" Margin="3" DateChanged="DPValue_DateChanged" />
+
+            <Button x:Name="btnClear" Grid.Column="3" Content="Clear" Height="20" VerticalContentAlignment="Center" Margin="3" Click="btnClear_Click" IsTabStop="False" />
+
+            <Button x:Name="btnRestore" Grid.Column="4" Content="Restore" Height="20" VerticalContentAlignment="Center" Margin="3" Click="btnRestore_Click" IsTabStop="False" />
+
+        </Grid>
     </GroupBox>
 </UserControl>

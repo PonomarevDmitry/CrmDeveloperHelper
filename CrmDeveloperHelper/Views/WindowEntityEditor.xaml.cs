@@ -101,6 +101,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         if (this._entityInstance != null)
                         {
+                            base.SwitchEntityDatesToLocalTime(new[] { this._entityInstance });
+
                             SetWindowTitle(string.Format("Edit Entity {0} - {1}", _entityName, _entityId));
 
                             this._attributeChecker = a => a.IsValidForUpdate.GetValueOrDefault();
