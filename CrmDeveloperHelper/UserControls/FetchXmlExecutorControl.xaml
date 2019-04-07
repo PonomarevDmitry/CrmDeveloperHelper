@@ -162,7 +162,7 @@
                         <Separator/>
                         <Menu x:Name="menuTransferToConnection" VerticalAlignment="Stretch" Background="{x:Null}">
                             <MenuItem x:Name="mITransferToConnection" Header="Transfer to Connection" SubmenuOpened="MITransferToConnection_SubmenuOpened">
-                                <MenuItem x:Name="mITransferSelectedEntitiesToConnection" Header="Execute Workflow on Selected Entities" />
+                                <MenuItem x:Name="mITransferSelectedEntitiesToConnection" Header="Transfer Selected Entities to Connection" />
                                 <Separator />
                                 <MenuItem x:Name="mITransferAllEntitiesToConnection" Header="Transfer all Entities to Connection"/>
                             </MenuItem>

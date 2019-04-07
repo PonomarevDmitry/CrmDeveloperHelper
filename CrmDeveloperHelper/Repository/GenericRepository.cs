@@ -24,6 +24,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         }
         public Task<Entity> GetEntityByIdAsync(Guid idEntity, ColumnSet columnSet)
         {
+            if (string.IsNullOrEmpty(_entityMetadata.PrimaryIdAttribute))
+            {
+                return Task.FromResult<Entity>(null);
+            }
+
             return Task.Run(async () => await GetEntityById(idEntity, columnSet));
         }
 
@@ -63,14 +68,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 var coll = _service.RetrieveMultiple(query);
 
-                return coll.Entities.SingleOrDefault();
+                if (coll.Entities.Count == 1)
+                {
+                    return coll.Entities.First();
+                }
             }
             catch (Exception ex)
             {
                 DTEHelper.WriteExceptionToLog(ex);
-
-                return null;
             }
+
+            return null;
         }
 
         public Task<List<Entity>> GetEntitiesByFieldAsync(string fieldName, Guid idEntity, ColumnSet columnSet)
@@ -139,6 +147,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
 
             return result;
+        }
+
+        public Task<Entity> GetEntityByNameFieldAsync(string name, ColumnSet columnSet)
+        {
+            if (string.IsNullOrEmpty(_entityMetadata.PrimaryNameAttribute))
+            {
+                return Task.FromResult<Entity>(null);
+            }
+
+            return Task.Run(async () => await GetEntityByNameField(name, columnSet));
+        }
+
+        private async Task<Entity> GetEntityByNameField(string name, ColumnSet columnSet)
+        {
+            {
+                var repository = new SdkMessageFilterRepository(_service);
+
+                var messageFilter = await repository.FindByEntityAndMessageAsync(_entityMetadata.LogicalName, SdkMessage.Instances.RetrieveMultiple, new ColumnSet(false));
+
+                if (messageFilter == null)
+                {
+                    return null;
+                }
+            }
+
+            var query = new QueryExpression()
+            {
+                NoLock = true,
+
+                TopCount = 2,
+
+                EntityName = _entityMetadata.LogicalName,
+
+                ColumnSet = columnSet,
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(_entityMetadata.PrimaryNameAttribute, ConditionOperator.Equal, name),
+                    },
+                },
+            };
+
+            try
+            {
+                var coll = _service.RetrieveMultiple(query);
+
+                if (coll.Entities.Count == 1)
+                {
+                    return coll.Entities.First();
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToLog(ex);
+            }
+
+            return null;
         }
     }
 }

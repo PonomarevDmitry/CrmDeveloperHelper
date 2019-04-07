@@ -1057,10 +1057,10 @@
     <value>Validating Xml for Field {0}...</value>
   </data>
   <data name="NotFoundedDefaultPublisher" xml:space="preserve">
-    <value>Not founded Default Publisher.</value>
+    <value>NOT FOUNDED Default Publisher.</value>
   </data>
   <data name="NotFoundedApplicationRibbonRibbonCustomization" xml:space="preserve">
-    <value>Not founded ApplicationRibbon RibbonCustomization entity.</value>
+    <value>NOT FOUNDED ApplicationRibbon RibbonCustomization entity.</value>
   </data>
   <data name="ValidatingRibbonDiffXml" xml:space="preserve">
     <value>Validating RibbonDiffXml...</value>
@@ -1327,7 +1327,7 @@
   <data name="SettingEntitiesStateFormat4" xml:space="preserve">
     <value>{0}. Assigning Entities to Team {1}...</value>
   </data>
-  
+
   <data name="AssigningEntitiesToUserCompletedFormat2" xml:space="preserve">
     <value>{0}. Assigning Entities to User {1} completed.</value>
   </data>
@@ -1415,6 +1415,33 @@
     <value>Filtering Attributes {0}...</value>
   </data>
 
+  <data name="FilteringEntityInstanceAttributesCompletedFormat2" xml:space="preserve">
+    <value>Filtering Entity {0} Instance {1} Attributes completed.</value>
+  </data>
+  <data name="FilteringEntityInstanceAttributesFormat2" xml:space="preserve">
+    <value>Filtering Entity {0} Instance {1} Attributes...</value>
+  </data>
+
+  <data name="TryingToFindEntityByIdFoundedFormat2" xml:space="preserve">
+    <value>Founded EntityReference {0} - {1} by Id.</value>
+  </data>
+  <data name="TryingToFindEntityByIdNotFoundedFormat2" xml:space="preserve">
+    <value>NOT FOUNDED EntityReference {0} - {1} by Id.</value>
+  </data>
+  <data name="TryingToFindEntityByIdFormat2" xml:space="preserve">
+    <value>Trying to Find EntityReference {0} - {1} by Id...</value>
+  </data>
+
+  <data name="TryingToFindEntityByNameFoundedFormat4" xml:space="preserve">
+    <value>Founded EntityReference {0} - {1} by {2} attribute with value {3}.</value>
+  </data>
+  <data name="TryingToFindEntityByNameNotFoundedFormat4" xml:space="preserve">
+    <value>NOT FOUNDED EntityReference {0} - {1} by {2} attribute with value {3}.</value>
+  </data>
+  <data name="TryingToFindEntityByNameFormat4" xml:space="preserve">
+    <value>Trying to Find EntityReference {0} - {1} by {2} attribute with value {3}...</value>
+  </data>
+
   <data name="FilteringStatusCodesCompletedFormat1" xml:space="preserve">
     <value>Filtering {0} Status Codes completed.</value>
   </data>
@@ -1447,12 +1474,12 @@
   <data name="SavingEntitiesFormat1" xml:space="preserve">
     <value>Saving Entities {0}...</value>
   </data>
-  
+
   <data name="SavingEntityInstanceFailedFormat2" xml:space="preserve">
     <value>Saving Entity Instance {0} - {1} failed.</value>
   </data>
   <data name="SavingEntityInstanceFormat2" xml:space="preserve">
     <value>Saving Entity Instance {0} - {1}...</value>
-  </data>  
+  </data>
 
 </root>

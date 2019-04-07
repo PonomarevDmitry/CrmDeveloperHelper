@@ -323,6 +323,9 @@
   <data name="EntityNotExistsInConnectionFormat2" xml:space="preserve">
     <value>Entity {0} NOT EXISTS in {1}</value>
   </data>
+  <data name="EntityAttributeNotExistsInConnectionFormat3" xml:space="preserve">
+    <value>Entity Attribute {0}.{1} NOT EXISTS in {2}</value>
+  </data>
   <data name="FileNotContainsXmlAttributeFormat2" xml:space="preserve">
     <value>File does not contain Xml Attribute {0}: {1}</value>
   </data>

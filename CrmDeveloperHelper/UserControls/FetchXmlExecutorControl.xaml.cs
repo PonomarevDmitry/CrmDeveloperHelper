@@ -1342,11 +1342,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             Clipboard.SetText(jsCode);
         }
 
-        private IEnumerable<Guid> GetSelectedEntityIds()
+        private IEnumerable<Entity> GetSelectedEntities()
         {
             HashSet<Guid> hash = new HashSet<Guid>();
 
-            List<Guid> result = new List<Guid>();
+            List<Entity> result = new List<Entity>();
 
             var selectedCells = dGrResults.SelectedCells.ToList();
 
@@ -1360,7 +1360,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 {
                     if (hash.Add(entity.Id))
                     {
-                        result.Add(entity.Id);
+                        result.Add(entity);
                     }
                 }
             }
@@ -1420,7 +1420,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            IEnumerable<Guid> selectedEntityIds = GetSelectedEntityIds();
+            IEnumerable<Guid> selectedEntityIds = GetSelectedEntities().Select(en => en.Id);
 
             if (!selectedEntityIds.Any())
             {
@@ -1566,7 +1566,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            IEnumerable<Guid> selectedEntityIds = GetSelectedEntityIds();
+            IEnumerable<Guid> selectedEntityIds = GetSelectedEntities().Select(en => en.Id);
 
             if (!selectedEntityIds.Any())
             {
@@ -1704,7 +1704,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            IEnumerable<Guid> selectedEntityIds = GetSelectedEntityIds();
+            IEnumerable<Guid> selectedEntityIds = GetSelectedEntities().Select(en => en.Id);
 
             if (!selectedEntityIds.Any())
             {
@@ -1789,81 +1789,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
         }
 
-        private void MITransferToConnection_SubmenuOpened(object sender, RoutedEventArgs e)
-        {
-            mITransferAllEntitiesToConnection.Items.Clear();
-
-            var connectionData = this.ConnectionData;
-
-            if (connectionData != null)
-            {
-                var otherConnections = connectionData.ConnectionConfiguration.Connections.Where(c => c.ConnectionId != connectionData.ConnectionId).ToList();
-
-                if (otherConnections.Any())
-                {
-                    foreach (var connection in otherConnections)
-                    {
-                        MenuItem menuItem = new MenuItem()
-                        {
-                            Header = connection.Name,
-                            Tag = connection,
-                        };
-                        menuItem.Click += mITransferAllEntitiesToConnection_Click;
-
-                        if (mITransferAllEntitiesToConnection.Items.Count > 0)
-                        {
-                            mITransferAllEntitiesToConnection.Items.Add(new Separator());
-                        }
-
-                        mITransferAllEntitiesToConnection.Items.Add(menuItem);
-                    }
-                }
-            }
-        }
-
-        private async void mITransferAllEntitiesToConnection_Click(object sender, RoutedEventArgs e)
-        {
-            if (!IsControlsEnabled)
-            {
-                return;
-            }
-
-            if (_entityCollection == null
-                || _entityCollection.Entities.Count == 0
-            )
-            {
-                return;
-            }
-
-            if (!(sender is MenuItem menuItem)
-                || menuItem.Tag == null
-                || !(menuItem.Tag is ConnectionData targetConnectionData)
-            )
-            {
-                return;
-            }
-
-            var sourceService = await GetServiceAsync(this.ConnectionData);
-
-            var targetService = await GetServiceAsync(targetConnectionData);
-
-            string entityName = _entityCollection.EntityName;
-
-            EntityMetadataRepository repository = new EntityMetadataRepository(targetService);
-
-            var targetEntityMetadata = await repository.GetEntityMetadataAsync(_entityCollection.EntityName);
-
-            if (targetEntityMetadata == null)
-            {
-                return;
-            }
-
-            List<Entity> entities = _entityCollection.Entities.ToList();
-
-
-
-        }
-
         private async void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
@@ -1940,7 +1865,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            IEnumerable<Guid> selectedEntityIds = GetSelectedEntityIds();
+            IEnumerable<Guid> selectedEntityIds = GetSelectedEntities().Select(en => en.Id);
 
             if (!selectedEntityIds.Any())
             {
@@ -2005,7 +1930,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            IEnumerable<Guid> selectedEntityIds = GetSelectedEntityIds();
+            IEnumerable<Guid> selectedEntityIds = GetSelectedEntities().Select(en => en.Id);
 
             if (!selectedEntityIds.Any())
             {
@@ -2097,6 +2022,138 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.SettingEntitiesStateCompletedFormat4, service.ConnectionData.Name, entityName, statusOptionMetadata.State, statusOptionMetadata.Value);
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
+        }
+
+        private void MITransferToConnection_SubmenuOpened(object sender, RoutedEventArgs e)
+        {
+            mITransferAllEntitiesToConnection.Items.Clear();
+            mITransferSelectedEntitiesToConnection.Items.Clear();
+
+            var connectionData = this.ConnectionData;
+
+            if (connectionData != null)
+            {
+                var otherConnections = connectionData.ConnectionConfiguration.Connections.Where(c => c.ConnectionId != connectionData.ConnectionId).ToList();
+
+                if (otherConnections.Any())
+                {
+                    foreach (var connection in otherConnections)
+                    {
+                        {
+                            MenuItem menuItem = new MenuItem()
+                            {
+                                Header = connection.Name,
+                                Tag = connection,
+                            };
+                            menuItem.Click += mITransferAllEntitiesToConnection_Click;
+
+                            if (mITransferAllEntitiesToConnection.Items.Count > 0)
+                            {
+                                mITransferAllEntitiesToConnection.Items.Add(new Separator());
+                            }
+
+                            mITransferAllEntitiesToConnection.Items.Add(menuItem);
+                        }
+
+                        {
+                            MenuItem menuItem = new MenuItem()
+                            {
+                                Header = connection.Name,
+                                Tag = connection,
+                            };
+                            menuItem.Click += mITransferSelectedEntitiesToConnection_Click;
+
+                            if (mITransferSelectedEntitiesToConnection.Items.Count > 0)
+                            {
+                                mITransferSelectedEntitiesToConnection.Items.Add(new Separator());
+                            }
+
+                            mITransferSelectedEntitiesToConnection.Items.Add(menuItem);
+                        }
+                    }
+                }
+            }
+        }
+
+        private async void mITransferAllEntitiesToConnection_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+                || !_entityCollection.Entities.Any(en => en.Id != Guid.Empty)
+            )
+            {
+                return;
+            }
+
+            if (!(sender is MenuItem menuItem)
+               || menuItem.Tag == null
+               || !(menuItem.Tag is ConnectionData targetConnectionData)
+            )
+            {
+                return;
+            }
+
+            await TransferEntities(targetConnectionData, _entityCollection.EntityName, _entityCollection.Entities.Where(en => en.Id != Guid.Empty));
+        }
+
+        private async void mITransferSelectedEntitiesToConnection_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+            )
+            {
+                return;
+            }
+
+            IEnumerable<Entity> selectedEntities = GetSelectedEntities();
+
+            if (!selectedEntities.Any())
+            {
+                return;
+            }
+
+            if (!(sender is MenuItem menuItem)
+               || menuItem.Tag == null
+               || !(menuItem.Tag is ConnectionData targetConnectionData)
+            )
+            {
+                return;
+            }
+
+            await TransferEntities(targetConnectionData, _entityCollection.EntityName, selectedEntities);
+        }
+
+        private async Task TransferEntities(ConnectionData targetConnectionData, string entityName, IEnumerable<Entity> entities)
+        {
+            var targetService = await GetServiceAsync(targetConnectionData);
+
+            ToggleControls(targetService.ConnectionData, false, Properties.WindowStatusStrings.GettingEntityMetadataFormat1, _entityCollection.EntityName);
+
+            EntityMetadataRepository repository = new EntityMetadataRepository(targetService);
+
+            var targetEntityMetadata = await repository.GetEntityMetadataAsync(_entityCollection.EntityName);
+
+            ToggleControls(targetService.ConnectionData, true, Properties.WindowStatusStrings.GettingEntityMetadataCompletedFormat1, _entityCollection.EntityName);
+
+            if (targetEntityMetadata == null)
+            {
+                this._iWriteToOutput.WriteToOutput(targetService.ConnectionData, Properties.OutputStrings.EntityNotExistsInConnectionFormat2, entityName, targetService.ConnectionData.Name);
+                return;
+            }
+
+            var commonConfig = CommonConfiguration.Get();
+
+            WindowHelper.OpenEntityBulkTransfer(_iWriteToOutput, targetService, commonConfig, targetEntityMetadata, entities);
         }
     }
 }

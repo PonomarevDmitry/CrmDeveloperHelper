@@ -1717,6 +1717,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filtering Entity {0} Instance {1} Attributes completed..
+        /// </summary>
+        internal static string FilteringEntityInstanceAttributesCompletedFormat2 {
+            get {
+                return ResourceManager.GetString("FilteringEntityInstanceAttributesCompletedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filtering Entity {0} Instance {1} Attributes....
+        /// </summary>
+        internal static string FilteringEntityInstanceAttributesFormat2 {
+            get {
+                return ResourceManager.GetString("FilteringEntityInstanceAttributesFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filtering OrganizationDifferenceImage Components....
         /// </summary>
         internal static string FilteringOrganizationDifferenceImageComponents {
@@ -2770,7 +2788,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Not founded ApplicationRibbon RibbonCustomization entity..
+        ///   Looks up a localized string similar to NOT FOUNDED ApplicationRibbon RibbonCustomization entity..
         /// </summary>
         internal static string NotFoundedApplicationRibbonRibbonCustomization {
             get {
@@ -2779,7 +2797,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Not founded Default Publisher..
+        ///   Looks up a localized string similar to NOT FOUNDED Default Publisher..
         /// </summary>
         internal static string NotFoundedDefaultPublisher {
             get {
@@ -3702,6 +3720,60 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string TransferingWorkflowsStatesFormat2 {
             get {
                 return ResourceManager.GetString("TransferingWorkflowsStatesFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trying to Find EntityReference {0} - {1} by Id....
+        /// </summary>
+        internal static string TryingToFindEntityByIdFormat2 {
+            get {
+                return ResourceManager.GetString("TryingToFindEntityByIdFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Founded EntityReference {0} - {1} by Id..
+        /// </summary>
+        internal static string TryingToFindEntityByIdFoundedFormat2 {
+            get {
+                return ResourceManager.GetString("TryingToFindEntityByIdFoundedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NOT FOUNDED EntityReference {0} - {1} by Id..
+        /// </summary>
+        internal static string TryingToFindEntityByIdNotFoundedFormat2 {
+            get {
+                return ResourceManager.GetString("TryingToFindEntityByIdNotFoundedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trying to Find EntityReference {0} - {1} by {2} attribute with value {3}....
+        /// </summary>
+        internal static string TryingToFindEntityByNameFormat4 {
+            get {
+                return ResourceManager.GetString("TryingToFindEntityByNameFormat4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Founded EntityReference {0} - {1} by {2} attribute with value {3}..
+        /// </summary>
+        internal static string TryingToFindEntityByNameFoundedFormat4 {
+            get {
+                return ResourceManager.GetString("TryingToFindEntityByNameFoundedFormat4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NOT FOUNDED EntityReference {0} - {1} by {2} attribute with value {3}..
+        /// </summary>
+        internal static string TryingToFindEntityByNameNotFoundedFormat4 {
+            get {
+                return ResourceManager.GetString("TryingToFindEntityByNameNotFoundedFormat4", resourceCulture);
             }
         }
         

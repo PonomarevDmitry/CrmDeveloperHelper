@@ -1,4 +1,5 @@
-﻿using Microsoft.Xrm.Sdk.Metadata;
+﻿using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -273,6 +274,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , commonConfig
                         , entityName
                         , entityIds
+                    );
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
+        public static void OpenEntityBulkTransfer(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , EntityMetadata entityMetadata
+            , IEnumerable<Entity> entities
+        )
+        {
+            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowEntityBulkTransfer(
+                        iWriteToOutput
+                        , service
+                        , commonConfig
+                        , entityMetadata
+                        , entities
                     );
 
                     form.ShowDialog();

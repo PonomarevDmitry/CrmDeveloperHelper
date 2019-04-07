@@ -232,6 +232,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Entity Attribute {0}.{1} NOT EXISTS in {2}.
+        /// </summary>
+        internal static string EntityAttributeNotExistsInConnectionFormat3 {
+            get {
+                return ResourceManager.GetString("EntityAttributeNotExistsInConnectionFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Entity Attributes names with prefix &apos;{0}&apos;: {1}.
         /// </summary>
         internal static string EntityAttributesNamesWithPrefixFormat2 {
