@@ -94,9 +94,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
         private void btnSetValue_Click(object sender, RoutedEventArgs e)
         {
-            var targets = AttributeMetadata.Targets.OrderBy(s => s).ToList();
-
-            var form = new WindowSelectEntityReference(_service.ConnectionData, targets);
+            var form = new WindowSelectEntityReference(_service.ConnectionData, new[] { _entityReferenceConnection1.LogicalName });
 
             if (!form.ShowDialog().GetValueOrDefault())
             {

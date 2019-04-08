@@ -257,10 +257,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            var list = _listAttributeControls.OfType<IAttributeMetadataControl<AttributeMetadata>>().ToList();
+
             {
                 var testEntity = new Entity(_entityName);
 
-                foreach (var item in _listAttributeControls.OfType<IAttributeMetadataControl<AttributeMetadata>>())
+                foreach (var item in list)
                 {
                     item.AddChangedAttribute(testEntity);
                 }
@@ -284,7 +286,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     Id = id,
                 };
 
-                foreach (var item in _listAttributeControls.OfType<IAttributeMetadataControl<AttributeMetadata>>())
+                foreach (var item in list)
                 {
                     item.AddChangedAttribute(updateEntity);
                 }

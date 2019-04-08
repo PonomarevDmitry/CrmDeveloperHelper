@@ -323,7 +323,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var updateEntity = new Entity(_entityName);
 
-            foreach (var item in _listAttributeControls.OfType<IAttributeMetadataControl<AttributeMetadata>>())
+            var list = _listAttributeControls.OfType<IAttributeMetadataControl<AttributeMetadata>>().ToList();
+
+            foreach (var item in list)
             {
                 item.AddChangedAttribute(updateEntity);
             }

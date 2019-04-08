@@ -174,7 +174,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
             if (attributeMetadata is EntityNameAttributeMetadata entityNameAttrib)
             {
+                string initialValue = null;
 
+                if (value != null && value is string entityName)
+                {
+                    initialValue = entityName;
+                }
+
+                return new EntityNameAttributeMetadataControl(service, fillAllways, entityNameAttrib, initialValue);
             }
 
             if (attributeMetadata is UniqueIdentifierAttributeMetadata uniqueAttrib
