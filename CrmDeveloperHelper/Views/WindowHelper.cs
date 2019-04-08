@@ -1142,13 +1142,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , ConnectionData connectionData
             , CommonConfiguration commonConfig
-            )
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
                 try
                 {
                     var form = new WindowSolutionImage(
+                        iWriteToOutput
+                        , commonConfig
+                        , connectionData
+                        , null
+                        );
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
+        public static void OpenSolutionDifferenceImageWindow(
+            IWriteToOutput iWriteToOutput
+            , ConnectionData connectionData
+            , CommonConfiguration commonConfig
+        )
+        {
+            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowSolutionDifferenceImage(
                         iWriteToOutput
                         , commonConfig
                         , connectionData

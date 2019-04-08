@@ -564,6 +564,14 @@
   <data name="FilteringOrganizationDifferenceImageComponentsCompletedFormat1" xml:space="preserve">
     <value>{0} OrganizationDifferenceImage Components loaded.</value>
   </data>
+
+  <data name="FilteringSolutionDifferenceImageComponents" xml:space="preserve">
+    <value>Filtering SolutionDifferenceImage Components...</value>
+  </data>
+  <data name="FilteringSolutionDifferenceImageComponentsCompletedFormat1" xml:space="preserve">
+    <value>{0} SolutionDifferenceImage Components loaded.</value>
+  </data>
+  
   <data name="FilteringSolutionImageComponents" xml:space="preserve">
     <value>Filtering SolutionImage Components...</value>
   </data>
@@ -678,6 +686,17 @@
   <data name="LoadingOrganizationDifferenceImageFailed" xml:space="preserve">
     <value>Loading OrganizationDifference Image failed.</value>
   </data>
+
+  <data name="LoadingSolutionDifferenceImage" xml:space="preserve">
+    <value>Loading SolutionDifference Image...</value>
+  </data>
+  <data name="LoadingSolutionDifferenceImageCompleted" xml:space="preserve">
+    <value>Loading SolutionDifference Image completed.</value>
+  </data>
+  <data name="LoadingSolutionDifferenceImageFailed" xml:space="preserve">
+    <value>Loading SolutionDifference Image failed.</value>
+  </data>
+
   <data name="LoadingOrganizations" xml:space="preserve">
     <value>Loading organizations...</value>
   </data>

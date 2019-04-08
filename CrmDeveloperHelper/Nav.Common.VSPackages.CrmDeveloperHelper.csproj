@@ -197,6 +197,7 @@
     <Compile Include="Commands\CommonCurrentConnectionCommand.cs" />
     <Compile Include="Commands\CommonOpenDefaultSolutionInWebCommand.cs" />
     <Compile Include="Commands\CommonOpenOrganizationDifferenceImageCommand.cs" />
+    <Compile Include="Commands\CommonOpenSolutionDifferenceImageCommand.cs" />
     <Compile Include="Commands\CommonOpenSolutionImageCommand.cs" />
     <Compile Include="Commands\CommonOpenXsdSchemaFolderCommand.cs" />
     <Compile Include="Commands\CommonPluginConfigurationCreateCommand.cs" />
@@ -843,6 +844,7 @@
     <Compile Include="Model\ShowComponentsInList.cs" />
     <Compile Include="Model\ShowDifferenceThreeFileType.cs" />
     <Compile Include="Model\SolutionComponentViewItem.cs" />
+    <Compile Include="Model\SolutionDifferenceImage.cs" />
     <Compile Include="Model\SolutionImage.cs" />
     <Compile Include="Model\SolutionImageComponent.cs" />
     <Compile Include="Model\TraceFile.cs" />
@@ -1231,6 +1233,9 @@
     </Compile>
     <Compile Include="Views\WindowSelectPrefix.xaml.cs">
       <DependentUpon>WindowSelectPrefix.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowSolutionDifferenceImage.xaml.cs">
+      <DependentUpon>WindowSolutionDifferenceImage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowSolutionImage.xaml.cs">
       <DependentUpon>WindowSolutionImage.xaml</DependentUpon>
@@ -1936,6 +1941,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowSelectPrefix.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowSolutionDifferenceImage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

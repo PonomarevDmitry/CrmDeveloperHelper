@@ -354,6 +354,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonImportJobExplorerInConnectionCommand.Initialize(this);
 
             CommonOpenSolutionImageCommand.Initialize(this);
+            CommonOpenSolutionDifferenceImageCommand.Initialize(this);
             CommonExportSystemFormXmlCommand.Initialize(this);
             CommonExportSystemSavedQueryVisualizationXmlCommand.Initialize(this);
             CommonExportSystemSavedQueryXmlCommand.Initialize(this);

@@ -891,6 +891,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CommonExportReportCommandId = 0x203E;
         public const int CommonSolutionExplorerCommandId = 0x203F;
         public const int CommonOpenSolutionImageCommandId = 0x2170;
+        public const int CommonOpenSolutionDifferenceImageCommandId = 0x2196;
         public const int CommonOpenXsdSchemaFolderCommandId = 0x217A;
         public const int CommonTraceExportFileCommandId = 0x2189;
         public const int CommonOrganizationComparerCommandId = 0x2040;

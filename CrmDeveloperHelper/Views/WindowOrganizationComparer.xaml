@@ -234,6 +234,7 @@
                                 <Separator/>
                                 <MenuItem Header="Solution Explorer"  Click="tSMIExportSolutionComponents_Click"/>
                                 <MenuItem Header="Open SolutionImage Window"  Click="tSMIOpenSolutionImage_Click"/>
+                                <MenuItem Header="Open SolutionDifferenceImage Window"  Click="tSMIOpenSolutionDifferenceImage_Click"/>
                             </MenuItem>
                         </Menu>
                         <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" >

@@ -249,6 +249,9 @@
   <data name="CommonOpenOrganizationDifferenceImageCommand" xml:space="preserve">
     <value>Open Organization Difference Image</value>
   </data>
+  <data name="CommonOpenSolutionDifferenceImageCommand" xml:space="preserve">
+    <value>Open Solution Difference Image</value>
+  </data>
   <data name="CommonOpenSolutionImageCommand" xml:space="preserve">
     <value>Open SolutionImage</value>
   </data>

@@ -344,6 +344,60 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 var componentsOnlyIn2 = GetComponentsInFirstNotSecond(components2, components1);
 
                 await CreateFileWithComponentsInSolution1(filePath, solution1.UniqueName, solution2.UniqueName, components1.Count, components2.Count, componentsOnlyIn1, componentsOnlyIn2.Count);
+
+                var commonComponents = GetCommonComponents(components1, components2);
+
+                List<SolutionImageComponent> imageCommonComponents = await _descriptor.GetSolutionImageComponentsListAsync(commonComponents);
+
+                List<SolutionImageComponent> imageComponentsOnlyIn1 = await _descriptor.GetSolutionImageComponentsListAsync(componentsOnlyIn1);
+                List<SolutionImageComponent> imageComponentsOnlyIn2 = await _descriptor.GetSolutionImageComponentsListAsync(componentsOnlyIn2);
+
+                SolutionDifferenceImage image = new SolutionDifferenceImage()
+                {
+                    Solution1Name = solution1.UniqueName,
+                    Solution2Name = solution2.UniqueName,
+
+                    ConnectionName = _service.ConnectionData.Name,
+
+                    ConnectionOrganizationName = _service.ConnectionData.UniqueOrgName,
+                    ConnectionDiscoveryService = _service.ConnectionData.DiscoveryUrl,
+                    ConnectionOrganizationService = _service.ConnectionData.OrganizationUrl,
+                    ConnectionPublicUrl = _service.ConnectionData.PublicUrl,
+
+                    MachineName = Environment.MachineName,
+                    ExecuteUserDomainName = Environment.UserDomainName,
+                    ExecuteUserName = Environment.UserName,
+
+                    ConnectionSystemUserName = _service.ConnectionData.GetUsername,
+
+                    CreatedOn = DateTime.Now,
+                };
+
+                foreach (var item in imageCommonComponents)
+                {
+                    if (!image.CommonComponents.Contains(item))
+                    {
+                        image.CommonComponents.Add(item);
+                    }
+                }
+
+                foreach (var item in imageComponentsOnlyIn1)
+                {
+                    if (!image.OnlySolution1Components.Contains(item))
+                    {
+                        image.OnlySolution1Components.Add(item);
+                    }
+                }
+
+                foreach (var item in imageComponentsOnlyIn2)
+                {
+                    if (!image.OnlySolution2Components.Contains(item))
+                    {
+                        image.OnlySolution2Components.Add(item);
+                    }
+                }
+
+                await image.SaveAsync(filePath + ".xml");
             }
             catch (Exception ex)
             {

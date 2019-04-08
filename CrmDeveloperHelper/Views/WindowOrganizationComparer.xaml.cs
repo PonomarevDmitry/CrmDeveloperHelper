@@ -1785,6 +1785,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private void tSMIOpenSolutionDifferenceImage_Click(object sender, RoutedEventArgs e)
+        {
+            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
+
+            if (connection1 != null && connection2 == null)
+            {
+                _commonConfig.Save();
+
+                var backWorker = new Thread(() =>
+                {
+                    try
+                    {
+                        SolutionController contr = new SolutionController(this._iWriteToOutput);
+
+                        contr.ExecuteOpeningSolutionDifferenceImageWindow(connection1, _commonConfig);
+                    }
+                    catch (Exception ex)
+                    {
+                        this._iWriteToOutput.WriteErrorToOutput(null, ex);
+                    }
+                });
+                backWorker.Start();
+            }
+        }
+
         private void tSMIExportOrganization_Click(object sender, RoutedEventArgs e)
         {
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);

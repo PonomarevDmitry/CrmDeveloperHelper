@@ -43,6 +43,10 @@
             <MenuItem Header="Open Solution in Web" VerticalAlignment="Center" Click="OpenSolutionInWeb_Click" />
             <Separator/>
             <MenuItem Header="Open SolutionImage Window" Click="mIOpenSolutionImage_Click" />
+
+            <Separator/>
+            <MenuItem Header="Open Solution DifferenceImage Window" Click="mIOpenSolutionDifferenceImage_Click" />
+
             <Separator/>
             <MenuItem Header="Open Organization DifferenceImage Window" Click="mIOpenOrganizationDifferenceImage_Click" />
         </ContextMenu>
@@ -201,7 +205,10 @@
                             
                             <Separator/>
                             <MenuItem Header="Open SolutionImage Window" Click="mIOpenSolutionImage_Click" />
-                            
+
+                            <Separator/>
+                            <MenuItem Header="Open Solution DifferenceImage Window" Click="mIOpenSolutionDifferenceImage_Click" />
+
                             <Separator/>
                             <MenuItem Header="Open Organization DifferenceImage Window" Click="mIOpenOrganizationDifferenceImage_Click" />
                         </MenuItem>

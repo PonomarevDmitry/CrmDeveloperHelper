@@ -1564,6 +1564,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenSolutionImageWindow(this._iWriteToOutput, _service.ConnectionData, _commonConfig);
         }
 
+        private void mIOpenSolutionDifferenceImage_Click(object sender, RoutedEventArgs e)
+        {
+            _commonConfig.Save();
+
+            WindowHelper.OpenSolutionDifferenceImageWindow(this._iWriteToOutput, _service.ConnectionData, _commonConfig);
+        }
+
         private void mIOpenOrganizationDifferenceImage_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();

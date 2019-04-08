@@ -126,6 +126,10 @@
                                     <MenuItem Header="Open Default Solution in Web" Click="mIOpenDefaultSolutionInWeb_Click" />
                                     <Separator/>
                                     <MenuItem Header="Open SolutionImage Window" Click="mIOpenSolutionImage_Click" />
+
+                                    <Separator/>
+                                    <MenuItem Header="Open Solution DifferenceImage Window" Click="mIOpenSolutionDifferenceImage_Click" />
+
                                     <Separator/>
                                     <MenuItem Header="Open Organization DifferenceImage Window" Click="mIOpenOrganizationDifferenceImage_Click" />
                                     <Separator/>

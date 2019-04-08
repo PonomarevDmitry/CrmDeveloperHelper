@@ -457,6 +457,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open Solution Difference Image.
+        /// </summary>
+        internal static string CommonOpenSolutionDifferenceImageCommand {
+            get {
+                return ResourceManager.GetString("CommonOpenSolutionDifferenceImageCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open SolutionImage.
         /// </summary>
         internal static string CommonOpenSolutionImageCommand {

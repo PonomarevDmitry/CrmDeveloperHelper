@@ -5386,6 +5386,12 @@
           <ButtonText>Open SolutionImage</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="CommonOpenSolutionDifferenceImageCommandId" priority="0x012C" type="Button">
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Open SolutionDifferenceImage</ButtonText>
+        </Strings>
+      </Button>
       <Button guid="guidDynamicCommandSet" id="CommonExportOpenLastSelectedSolutionInWebCommandId" priority="0x012C" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -7436,13 +7442,16 @@
     <CommandPlacement guid="guidCommandSet" id="CommonOpenSolutionImageCommandId" priority="0x0120">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuSolutionListInWebDyn" priority="0x0121">
+    <CommandPlacement guid="guidCommandSet" id="CommonOpenSolutionDifferenceImageCommandId" priority="0x0121">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuCustomizationInWebDyn" priority="0x0122">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuSolutionListInWebDyn" priority="0x0122">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuImportJobDyn" priority="0x0123">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuCustomizationInWebDyn" priority="0x0123">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuImportJobDyn" priority="0x0124">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands" />
     </CommandPlacement>
 
@@ -11513,6 +11522,7 @@
       <IDSymbol name="CommonExportReportCommandId" value="0x203E" />
       <IDSymbol name="CommonSolutionExplorerCommandId" value="0x203F" />
       <IDSymbol name="CommonOpenSolutionImageCommandId" value="0x2170" />
+      <IDSymbol name="CommonOpenSolutionDifferenceImageCommandId" value="0x2196" />
 
       <IDSymbol name="CommonOpenXsdSchemaFolderCommandId" value="0x217A" />
 
@@ -11826,7 +11836,7 @@
 
 
 
-      <!-- 0x2196 -->
+      <!-- 0x2197 -->
 
     </GuidSymbol>
 

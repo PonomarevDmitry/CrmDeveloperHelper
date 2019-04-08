@@ -1897,7 +1897,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , solution1.UniqueName
                     , solution2.UniqueName
                     , "Unique Components"
-                    );
+                );
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -2952,6 +2952,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _commonConfig.Save();
 
                 WindowHelper.OpenSolutionImageWindow(this._iWriteToOutput, connectionData, _commonConfig);
+            }
+        }
+
+        private void mIOpenSolutionDifferenceImage_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                _commonConfig.Save();
+
+                WindowHelper.OpenSolutionDifferenceImageWindow(this._iWriteToOutput, connectionData, _commonConfig);
             }
         }
 

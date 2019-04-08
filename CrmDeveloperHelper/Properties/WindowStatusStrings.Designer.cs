@@ -1753,6 +1753,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filtering SolutionDifferenceImage Components....
+        /// </summary>
+        internal static string FilteringSolutionDifferenceImageComponents {
+            get {
+                return ResourceManager.GetString("FilteringSolutionDifferenceImageComponents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} SolutionDifferenceImage Components loaded..
+        /// </summary>
+        internal static string FilteringSolutionDifferenceImageComponentsCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("FilteringSolutionDifferenceImageComponentsCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filtering SolutionImage Components....
         /// </summary>
         internal static string FilteringSolutionImageComponents {
@@ -2514,6 +2532,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string LoadingSolutionComponentsCompletedFormat1 {
             get {
                 return ResourceManager.GetString("LoadingSolutionComponentsCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading SolutionDifference Image....
+        /// </summary>
+        internal static string LoadingSolutionDifferenceImage {
+            get {
+                return ResourceManager.GetString("LoadingSolutionDifferenceImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading SolutionDifference Image completed..
+        /// </summary>
+        internal static string LoadingSolutionDifferenceImageCompleted {
+            get {
+                return ResourceManager.GetString("LoadingSolutionDifferenceImageCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading SolutionDifference Image failed..
+        /// </summary>
+        internal static string LoadingSolutionDifferenceImageFailed {
+            get {
+                return ResourceManager.GetString("LoadingSolutionDifferenceImageFailed", resourceCulture);
             }
         }
         

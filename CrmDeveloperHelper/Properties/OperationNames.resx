@@ -336,6 +336,9 @@
   <data name="ShowingOrganizationDifferenceImageWindow" xml:space="preserve">
     <value>Showing OrganizationDifferenceImage Window</value>
   </data>
+  <data name="ShowingSolutionDifferenceImageWindow" xml:space="preserve">
+    <value>Showing SolutionDifferenceImage Window</value>
+  </data>
   <data name="ShowingPluginConfigurationTreeFormat1" xml:space="preserve">
     <value>{0} - Showing Plugin Configuration Tree</value>
   </data>
