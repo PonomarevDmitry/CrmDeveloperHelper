@@ -35,6 +35,7 @@
             </MenuItem>
 
         </ContextMenu>
+        
         <ContextMenu x:Key="listContextMenuEntityReference">
             <MenuItem Header="Open EntityReference Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityReferenceCustomizationInWeb_Click" />
             <Separator/>
@@ -91,6 +92,7 @@
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
             <StatusBarItem x:Name="stBIStatus" Content="" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
         </StatusBar>
+        
         <TabControl x:Name="tabControl" DockPanel.Dock="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <TabItem x:Name="tbFetchXml" IsSelected="False" Header="Fetch Xml" >
                 <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="true">
@@ -130,6 +132,9 @@
                         <Button x:Name="btnExecuteFetchXml2" Content="Execute Fetch Xml" Click="btnExecuteFetchXml_Click"/>
                         <Separator/>
                         <Button Content="Copy JavaScript FetchXml to Clipboard" Click="btnCopyJavaScriptToClipboardCode_Click"/>
+
+                        <Separator/>
+                        <Button x:Name="btnCreateEntityInstance" Content="Create Entity Instance" Click="btnCreateEntityInstance_Click"/>
 
                         <Separator/>
                         <Menu x:Name="menuChangeSelectedEntities" VerticalAlignment="Stretch" Background="{x:Null}">

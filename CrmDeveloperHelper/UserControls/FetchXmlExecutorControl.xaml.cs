@@ -970,6 +970,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 , this.dGrParameters
             );
 
+            ToggleControl(IsControlsEnabled 
+                && _entityCollection != null 
+                && !string.IsNullOrEmpty(_entityCollection.EntityName)
+                , this.btnCreateEntityInstance
+            );
+
             ToggleControl(IsControlsEnabled && _entityCollection != null && _entityCollection.Entities.Any(en => en.Id != Guid.Empty)
                 , this.menuChangeSelectedEntities
                 , this.menuChangeAllEntities
@@ -2154,6 +2160,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             var commonConfig = CommonConfiguration.Get();
 
             WindowHelper.OpenEntityBulkTransfer(_iWriteToOutput, targetService, commonConfig, targetEntityMetadata, entities);
+        }
+
+        private async void btnCreateEntityInstance_Click(object sender, RoutedEventArgs e)
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || string.IsNullOrEmpty(_entityCollection.EntityName)
+            )
+            {
+                return;
+            }
+
+            var service = await GetServiceAsync(this.ConnectionData);
+
+            var commonConfig = CommonConfiguration.Get();
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, _entityCollection.EntityName, Guid.Empty);
         }
     }
 }
