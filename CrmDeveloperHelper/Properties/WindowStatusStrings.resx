@@ -1362,6 +1362,17 @@
   <data name="ExecutingWorkflowFormat2" xml:space="preserve">
     <value>Executing Workflow {0}...</value>
   </data>
+
+  <data name="DeletingEntitiesCompletedFormat2" xml:space="preserve">
+    <value>{0}. Deleting Entities {1} completed.</value>
+  </data>
+  <data name="DeletingEntitiesFailedFormat2" xml:space="preserve">
+    <value>{0}. Deleting Entities {1} failed.</value>
+  </data>
+  <data name="DeletingEntitiesFormat2" xml:space="preserve">
+    <value>{0}. Deleting Entities {1}...</value>
+  </data>
+
   <data name="NoPrivilegesToAdd" xml:space="preserve">
     <value>No Privileges to add.</value>
   </data>

@@ -970,8 +970,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 , this.dGrParameters
             );
 
-            ToggleControl(IsControlsEnabled 
-                && _entityCollection != null 
+            ToggleControl(IsControlsEnabled
+                && _entityCollection != null
                 && !string.IsNullOrEmpty(_entityCollection.EntityName)
                 , this.btnCreateEntityInstance
             );
@@ -1507,11 +1507,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                     _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, entityName, id);
 
                     await service.ExecuteAsync(request);
-
                 }
                 catch (Exception ex)
                 {
                     _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 }
             }
 
@@ -1650,6 +1651,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 catch (Exception ex)
                 {
                     _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 }
             }
 
@@ -1787,6 +1790,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 catch (Exception ex)
                 {
                     _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 }
             }
 
@@ -2022,6 +2027,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 catch (Exception ex)
                 {
                     _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 }
             }
 
@@ -2030,7 +2037,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
         }
 
-        private void MITransferToConnection_SubmenuOpened(object sender, RoutedEventArgs e)
+        private void mITransferToConnection_SubmenuOpened(object sender, RoutedEventArgs e)
         {
             mITransferAllEntitiesToConnection.Items.Clear();
             mITransferSelectedEntitiesToConnection.Items.Clear();
@@ -2181,6 +2188,121 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             var commonConfig = CommonConfiguration.Get();
 
             WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, _entityCollection.EntityName, Guid.Empty);
+        }
+
+        private async void mIDeleteEntity_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            if (entity.Id == Guid.Empty)
+            {
+                return;
+            }
+
+            await DeleteEntities(entity.LogicalName, new[] { entity.Id });
+        }
+
+        private async void mIDeleteSelectedEntity_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+            )
+            {
+                return;
+            }
+
+            IEnumerable<Guid> selectedEntityIds = GetSelectedEntities().Select(en => en.Id);
+
+            if (!selectedEntityIds.Any())
+            {
+                return;
+            }
+
+            await DeleteEntities(_entityCollection.EntityName, selectedEntityIds);
+        }
+
+        private async void mIDeleteAllEntity_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+                || !_entityCollection.Entities.Any(en => en.Id != Guid.Empty)
+            )
+            {
+                return;
+            }
+
+            await DeleteEntities(_entityCollection.EntityName, _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id));
+        }
+
+        private async Task DeleteEntities(string entityName, IEnumerable<Guid> entityIds)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            var listIds = entityIds.Where(e => e != Guid.Empty).Distinct().ToList();
+
+            if (!listIds.Any())
+            {
+                return;
+            }
+
+            string question = string.Format(Properties.MessageBoxStrings.DeleteEntityCountFormat2, entityName, listIds.Count);
+
+            if (MessageBox.Show(question, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
+            {
+                return;
+            }
+
+            var service = await GetServiceAsync(this.ConnectionData);
+
+            string operationName = string.Format(Properties.OperationNames.DeletingEntitiesFormat2, service.ConnectionData.Name, entityName);
+
+            _iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operationName);
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.DeletingEntitiesFormat2, service.ConnectionData.Name, entityName);
+
+            _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+            foreach (var id in listIds)
+            {
+                try
+                {
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.DeletingEntity);
+                    _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, entityName, id);
+
+                    await service.DeleteAsync(entityName, id);
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                }
+            }
+
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.DeletingEntitiesCompletedFormat2, service.ConnectionData.Name, entityName);
+
+            _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
         }
     }
 }

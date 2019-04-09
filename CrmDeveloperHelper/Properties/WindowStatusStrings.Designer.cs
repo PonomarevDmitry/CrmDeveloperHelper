@@ -1258,6 +1258,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. Deleting Entities {1} completed..
+        /// </summary>
+        internal static string DeletingEntitiesCompletedFormat2 {
+            get {
+                return ResourceManager.GetString("DeletingEntitiesCompletedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Deleting Entities {1} failed..
+        /// </summary>
+        internal static string DeletingEntitiesFailedFormat2 {
+            get {
+                return ResourceManager.GetString("DeletingEntitiesFailedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. Deleting Entities {1}....
+        /// </summary>
+        internal static string DeletingEntitiesFormat2 {
+            get {
+                return ResourceManager.GetString("DeletingEntitiesFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}. Deleting Plugin Step SecureConfiguration completed..
         /// </summary>
         internal static string DeletingSdkMessageProcessingStepSecureConfigCompletedFormat1 {

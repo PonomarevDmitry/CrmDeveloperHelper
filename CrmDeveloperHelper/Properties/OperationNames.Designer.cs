@@ -889,6 +889,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Deleting Entities {1}.
+        /// </summary>
+        internal static string DeletingEntitiesFormat2 {
+            get {
+                return ResourceManager.GetString("DeletingEntitiesFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Difference Local File, Reports in {1} and {2}.
         /// </summary>
         internal static string DifferenceLocalFileAndTwoReportsFormat3 {

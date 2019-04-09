@@ -686,6 +686,9 @@
   <data name="ExecutingWorkflowFormat2" xml:space="preserve">
     <value>{0} - Executing Workflow {1}</value>
   </data>
+  <data name="DeletingEntitiesFormat2" xml:space="preserve">
+    <value>{0} - Deleting Entities {1}</value>
+  </data>
   <data name="AddingNewPrivilegesFromRoleToRoleFormat3" xml:space="preserve">
     <value>{0} - Adding New Privileges from {1} to {2}</value>
   </data>

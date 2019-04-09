@@ -214,6 +214,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleting Entity....
+        /// </summary>
+        internal static string DeletingEntity {
+            get {
+                return ResourceManager.GetString("DeletingEntity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Difference was cancelled..
         /// </summary>
         internal static string DifferenceWasCancelled {

@@ -395,6 +395,9 @@
   <data name="ExecutingOnEntityWorkflowFormat1" xml:space="preserve">
     <value>Executing on Entity Workflow {0}...</value>
   </data>
+  <data name="DeletingEntity" xml:space="preserve">
+    <value>Deleting Entity...</value>
+  </data>
   <data name="AssigningEntityToUserFormat1" xml:space="preserve">
     <value>Assigning Entity to User {0}...</value>
   </data>

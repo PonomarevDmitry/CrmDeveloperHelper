@@ -214,6 +214,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete Entities {0}: {1}?.
+        /// </summary>
+        internal static string DeleteEntityCountFormat2 {
+            get {
+                return ResourceManager.GetString("DeleteEntityCountFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete FileAction for {0}.
         /// </summary>
         internal static string DeleteFileActionFormat1 {

@@ -147,6 +147,9 @@
   <data name="DeleteCrmSvcUtil" xml:space="preserve">
     <value>Delete CrmSvcUtil?</value>
   </data>
+  <data name="DeleteEntityCountFormat2" xml:space="preserve">
+    <value>Delete Entities {0}: {1}?</value>
+  </data>
   <data name="ErrorTitle" xml:space="preserve">
     <value>Error</value>
   </data>
