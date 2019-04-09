@@ -142,33 +142,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Analizing solutions {0} and {1} completed..
-        /// </summary>
-        internal static string AnalizingSolutionsCompletedFormat2 {
-            get {
-                return ResourceManager.GetString("AnalizingSolutionsCompletedFormat2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Analizing solutions {0} and {1} failed..
-        /// </summary>
-        internal static string AnalizingSolutionsFailedFormat2 {
-            get {
-                return ResourceManager.GetString("AnalizingSolutionsFailedFormat2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Analizing solutions {0} and {1}....
-        /// </summary>
-        internal static string AnalizingSolutionsFormat2 {
-            get {
-                return ResourceManager.GetString("AnalizingSolutionsFormat2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Analizing Workflow {0} - {1} completed..
         /// </summary>
         internal static string AnalizingWorkflowCompletedFormat2 {
@@ -705,6 +678,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string ComparingPluginAssemblyWithLocalAssemblyFormat1 {
             get {
                 return ResourceManager.GetString("ComparingPluginAssemblyWithLocalAssemblyFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comparing solutions {0} and {1} completed..
+        /// </summary>
+        internal static string ComparingSolutionsCompletedFormat2 {
+            get {
+                return ResourceManager.GetString("ComparingSolutionsCompletedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comparing solutions {0} and {1} failed..
+        /// </summary>
+        internal static string ComparingSolutionsFailedFormat2 {
+            get {
+                return ResourceManager.GetString("ComparingSolutionsFailedFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comparing solutions {0} and {1}....
+        /// </summary>
+        internal static string ComparingSolutionsFormat2 {
+            get {
+                return ResourceManager.GetString("ComparingSolutionsFormat2", resourceCulture);
             }
         }
         

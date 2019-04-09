@@ -126,14 +126,14 @@
   <data name="AddingInSolutionEntityFormat3" xml:space="preserve">
     <value>{0}. Adding in solution {1} entity {2}...</value>
   </data>
-  <data name="AnalizingSolutionsCompletedFormat2" xml:space="preserve">
-    <value>Analizing solutions {0} and {1} completed.</value>
+  <data name="ComparingSolutionsCompletedFormat2" xml:space="preserve">
+    <value>Comparing solutions {0} and {1} completed.</value>
   </data>
-  <data name="AnalizingSolutionsFailedFormat2" xml:space="preserve">
-    <value>Analizing solutions {0} and {1} failed.</value>
+  <data name="ComparingSolutionsFailedFormat2" xml:space="preserve">
+    <value>Comparing solutions {0} and {1} failed.</value>
   </data>
-  <data name="AnalizingSolutionsFormat2" xml:space="preserve">
-    <value>Analizing solutions {0} and {1}...</value>
+  <data name="ComparingSolutionsFormat2" xml:space="preserve">
+    <value>Comparing solutions {0} and {1}...</value>
   </data>
   <data name="AnalizingWorkflowCompletedFormat2" xml:space="preserve">
     <value>Analizing Workflow {0} - {1} completed.</value>

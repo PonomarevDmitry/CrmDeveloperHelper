@@ -137,8 +137,8 @@
                                 </MenuItem>
                             </Menu>
                             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                            <Menu x:Name="menuAnalyzeSolutions" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" Background="{x:Null}">
-                                <MenuItem x:Name="tSDDBAnalyzeSolutions" Header="Analyze Solutions" VerticalAlignment="Center" Padding="3" Margin="6,2" IsEnabled="False" />
+                            <Menu x:Name="menuCompareSolutions" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" Background="{x:Null}">
+                                <MenuItem x:Name="tSDDBCompareSolutions" Header="Compare Solutions" VerticalAlignment="Center" Padding="3" Margin="6,2" IsEnabled="False" />
                             </Menu>
                         </ToolBarPanel>
                         <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right">

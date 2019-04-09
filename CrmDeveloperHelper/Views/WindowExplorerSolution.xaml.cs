@@ -415,9 +415,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         bool enabled = this.IsControlsEnabled;
 
-                        menuAnalyzeSolutions.IsEnabled = tSDDBAnalyzeSolutions.IsEnabled = enabled;
+                        menuCompareSolutions.IsEnabled = tSDDBCompareSolutions.IsEnabled = enabled;
 
-                        tSDDBAnalyzeSolutions.Items.Clear();
+                        tSDDBCompareSolutions.Items.Clear();
 
                         if (enabled)
                         {
@@ -431,9 +431,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             {
                                 foreach (var solution1 in list1)
                                 {
-                                    if (tSDDBAnalyzeSolutions.Items.Count > 0)
+                                    if (tSDDBCompareSolutions.Items.Count > 0)
                                     {
-                                        tSDDBAnalyzeSolutions.Items.Add(new Separator());
+                                        tSDDBCompareSolutions.Items.Add(new Separator());
                                     }
 
                                     MenuItem menuItemSolutuion1 = new MenuItem()
@@ -441,7 +441,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                         Header = string.Format("Solution {0}", solution1.UniqueNameEscapeUnderscore),
                                     };
 
-                                    tSDDBAnalyzeSolutions.Items.Add(menuItemSolutuion1);
+                                    tSDDBCompareSolutions.Items.Add(menuItemSolutuion1);
 
                                     var list2 = list1.Where(en => !string.Equals(en.UniqueName, solution1.UniqueName, StringComparison.InvariantCultureIgnoreCase));
 
@@ -459,28 +459,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                                         menuItemSolutuion1.Items.Add(menuItemSolutuion2);
 
-                                        MenuItem mIAnalyzeSolutions = new MenuItem()
+                                        MenuItem mICompareSolutions = new MenuItem()
                                         {
-                                            Header = string.Format("Analyze Solutions {0} and {1}", solution1.UniqueNameEscapeUnderscore, solution2.UniqueNameEscapeUnderscore),
+                                            Header = string.Format("Compare Solutions {0} and {1}", solution1.UniqueNameEscapeUnderscore, solution2.UniqueNameEscapeUnderscore),
                                             Tag = Tuple.Create(solution1, solution2),
                                         };
-                                        mIAnalyzeSolutions.Click += mIAnalyzeSolutions_Click;
+                                        mICompareSolutions.Click += mICompareSolutions_Click;
 
                                         MenuItem mIShowUniqueComponentsIn1 = new MenuItem()
                                         {
-                                            Header = string.Format("Show Unique Components in {0} compared to {1}", solution1.UniqueNameEscapeUnderscore, solution2.UniqueNameEscapeUnderscore),
+                                            Header = string.Format("Show Unique Components in {0} compare to {1}", solution1.UniqueNameEscapeUnderscore, solution2.UniqueNameEscapeUnderscore),
                                             Tag = Tuple.Create(solution1, solution2),
                                         };
                                         mIShowUniqueComponentsIn1.Click += mIShowUniqueComponentsInSolution_Click;
 
                                         MenuItem mIShowUniqueComponentsIn2 = new MenuItem()
                                         {
-                                            Header = string.Format("Show Unique Components in {0} compared to {1}", solution2.UniqueNameEscapeUnderscore, solution1.UniqueNameEscapeUnderscore),
+                                            Header = string.Format("Show Unique Components in {0} compare to {1}", solution2.UniqueNameEscapeUnderscore, solution1.UniqueNameEscapeUnderscore),
                                             Tag = Tuple.Create(solution2, solution1),
                                         };
                                         mIShowUniqueComponentsIn2.Click += mIShowUniqueComponentsInSolution_Click;
 
-                                        menuItemSolutuion2.Items.Add(mIAnalyzeSolutions);
+                                        menuItemSolutuion2.Items.Add(mICompareSolutions);
                                         menuItemSolutuion2.Items.Add(new Separator());
                                         menuItemSolutuion2.Items.Add(mIShowUniqueComponentsIn1);
                                         menuItemSolutuion2.Items.Add(new Separator());
@@ -490,7 +490,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             }
                             else
                             {
-                                menuAnalyzeSolutions.IsEnabled = tSDDBAnalyzeSolutions.IsEnabled = false;
+                                menuCompareSolutions.IsEnabled = tSDDBCompareSolutions.IsEnabled = false;
                             }
                         }
                     }
@@ -1759,7 +1759,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIAnalyzeSolutions_Click(object sender, RoutedEventArgs e)
+        private void mICompareSolutions_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                && menuItem.Tag is Tuple<Solution, Solution> solutionPair
@@ -1768,7 +1768,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                && !string.Equals(solutionPair.Item1.UniqueName, solutionPair.Item2.UniqueName, StringComparison.InvariantCultureIgnoreCase)
                )
             {
-                ExecuteActionOnSolutionPair(solutionPair.Item1, solutionPair.Item2, PerformAnalizeSolutions);
+                ExecuteActionOnSolutionPair(solutionPair.Item1, solutionPair.Item2, PerformCompareSolutions);
             }
         }
 
@@ -1781,7 +1781,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 && !string.Equals(solutionPair.Item1.UniqueName, solutionPair.Item2.UniqueName, StringComparison.InvariantCultureIgnoreCase)
                 )
             {
-                ExecuteActionOnSolutionPair(solutionPair.Item1, solutionPair.Item2, PerformAnalizeSolutionsAndShowUnique);
+                ExecuteActionOnSolutionPair(solutionPair.Item1, solutionPair.Item2, PerformCompareSolutionsAndShowUnique);
             }
         }
 
@@ -1809,13 +1809,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            try
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
             {
-                action(folder, solution1, solution2);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(null, ex);
+                try
+                {
+                    action(folder, solution1, solution2);
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+                }
             }
         }
 
@@ -1853,40 +1858,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async Task PerformAnalizeSolutions(string folder, Solution solution1, Solution solution2)
+        private async Task PerformCompareSolutions(string folder, Solution solution1, Solution solution2)
         {
             var service = await GetService();
 
             try
             {
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AnalizingSolutionsFormat2, solution1.UniqueName, solution2.UniqueName);
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ComparingSolutionsFormat2, solution1.UniqueName, solution2.UniqueName);
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Analyzing Solution Components '{0}' and '{1}'.", solution1.UniqueName, solution2.UniqueName);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Comparing Solution Components '{0}' and '{1}'.", solution1.UniqueName, solution2.UniqueName);
                 var descriptor = await GetDescriptor();
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
 
                 await solutionDescriptor.FindUniqueComponentsInSolutionsAsync(solution1.Id, solution2.Id);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AnalizingSolutionsCompletedFormat2, solution1.UniqueName, solution2.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ComparingSolutionsCompletedFormat2, solution1.UniqueName, solution2.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AnalizingSolutionsFailedFormat2, solution1.UniqueName, solution2.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ComparingSolutionsFailedFormat2, solution1.UniqueName, solution2.UniqueName);
             }
         }
 
-        private async Task PerformAnalizeSolutionsAndShowUnique(string folder, Solution solution1, Solution solution2)
+        private async Task PerformCompareSolutionsAndShowUnique(string folder, Solution solution1, Solution solution2)
         {
             var service = await GetService();
 
             try
             {
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.AnalizingSolutionsFormat2, solution1.UniqueName, solution2.UniqueName);
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ComparingSolutionsFormat2, solution1.UniqueName, solution2.UniqueName);
 
                 var descriptor = await GetDescriptor();
 
@@ -1907,13 +1912,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AnalizingSolutionsCompletedFormat2, solution1.UniqueName, solution2.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ComparingSolutionsCompletedFormat2, solution1.UniqueName, solution2.UniqueName);
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.AnalizingSolutionsFailedFormat2, solution1.UniqueName, solution2.UniqueName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ComparingSolutionsFailedFormat2, solution1.UniqueName, solution2.UniqueName);
             }
         }
 
