@@ -121,6 +121,7 @@
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
                     <Button x:Name="btnExportAll" Content="Export All Solution Component Information" Click="btnExportAll_Click" />
+                    
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportSolutionComponent" Header="Solution Component Information" VerticalAlignment="Center">
@@ -139,6 +140,13 @@
                                 <MenuItem Header="Required Components" VerticalAlignment="Center" Click="mIExportRequiredComponents_Click" />
                                 <MenuItem Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportDependenciesForDelete_Click" />
                             </MenuItem>
+                        </MenuItem>
+                    </Menu>
+
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                    <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                        <MenuItem x:Name="mIListInformation" Header="List Information" VerticalAlignment="Center">
+                            <MenuItem Header="Save List to File" VerticalAlignment="Center" Click="mISaveListToFile_Click" />
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>

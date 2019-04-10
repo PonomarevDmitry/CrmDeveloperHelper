@@ -395,7 +395,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(this.tSProgressBar, this.btnExportAll, this.tSDDBExportSolutionComponent, this.cmBComponentType, this.cmBDependencyType);
+            ToggleControl(this.tSProgressBar
+                , this.btnExportAll
+                , this.tSDDBExportSolutionComponent
+                , this.mIListInformation
+                , this.cmBComponentType
+                , this.cmBDependencyType
+            );
 
             UpdateButtonsEnable();
         }
@@ -465,12 +471,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteAction(SolutionComponentViewItem item, Func<string, SolutionComponentViewItem, Task> action)
         {
-            string folder = _commonConfig.FolderForExport;
-
             if (!this.IsControlsEnabled)
             {
                 return;
             }
+
+            string folder = _commonConfig.FolderForExport;
 
             if (string.IsNullOrEmpty(folder))
             {
@@ -1306,6 +1312,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void btnOpenInWebDefaultSolution_Click(object sender, RoutedEventArgs e)
         {
             _service.ConnectionData.OpenSolutionInWeb(Solution.Schema.InstancesUniqueId.DefaultId);
+        }
+
+        private async void mISaveListToFile_Click(object sender, RoutedEventArgs e)
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            string folder = _commonConfig.FolderForExport;
+
+            if (string.IsNullOrEmpty(folder))
+            {
+                return;
+            }
+
+            if (!Directory.Exists(folder))
+            {
+                return;
+            }
+
+            var list = _itemsSource.Select(en => en.SolutionComponent);
+
+            if (!list.Any())
+            {
+                return;
+            }
+
+            string componentsName = GetDependencyType().ToString();
+
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingTextFileWithComponentsFormat1, componentsName);
+
+            var description = await _descriptor.GetSolutionComponentsDescriptionAsync(list);
+
+            var fileName = GetDescriptor().GetFileName(this._service.ConnectionData.Name, _componentType, _objectId, componentsName, "txt");
+            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+            File.WriteAllText(filePath, description, new UTF8Encoding(false));
+
+            this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "{0} was export into file '{1}'", componentsName, filePath);
+
+            this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
+
+            ToggleControls(true, Properties.WindowStatusStrings.CreatingTextFileWithComponentsCompletedFormat1, componentsName);
         }
     }
 }
