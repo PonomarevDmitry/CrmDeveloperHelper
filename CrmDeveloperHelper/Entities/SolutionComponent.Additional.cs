@@ -287,6 +287,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 case Entities.ComponentType.MobileOfflineProfileItem:
                     return MobileOfflineProfileItem.EntityTypeCode;
 
+                case Entities.ComponentType.MobileOfflineProfileItemAssociation:
+                    return MobileOfflineProfileItemAssociation.EntityTypeCode;
+
                 case Entities.ComponentType.SimilarityRule:
                     return SimilarityRule.EntityTypeCode;
 
@@ -343,6 +346,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 case Entities.ComponentType.WebWizard:
                     return WebWizard.Schema.EntityTypeCode;
+
+                case Entities.ComponentType.EntityDataProvider:
+                    return EntityDataProvider.EntityTypeCode;
+
+                case Entities.ComponentType.EntityDataSource:
+                    return EntityDataSource.EntityTypeCode;
 
                 case Entities.ComponentType.AttributePicklistValue:
                 case Entities.ComponentType.AttributeLookupValue:

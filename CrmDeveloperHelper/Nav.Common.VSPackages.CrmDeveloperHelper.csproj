@@ -345,6 +345,12 @@
     <Compile Include="Entities\DependencyNode.Additional.cs" />
     <Compile Include="Entities\DependencyNode.cs" />
     <Compile Include="Entities\DependencyNode.Generated.cs" />
+    <Compile Include="Entities\EntityDataProvider.Additional.cs" />
+    <Compile Include="Entities\EntityDataProvider.cs" />
+    <Compile Include="Entities\EntityDataProvider.Generated.cs" />
+    <Compile Include="Entities\EntityDataSource.Additional.cs" />
+    <Compile Include="Entities\EntityDataSource.cs" />
+    <Compile Include="Entities\EntityDataSource.Generated.cs" />
     <Compile Include="Entities\ImportEntityMapping.cs" />
     <Compile Include="Entities\ImportEntityMapping.Generated.cs" />
     <Compile Include="Entities\ImportJob.Additional.cs" />
@@ -355,6 +361,8 @@
     <Compile Include="Entities\InvalidDependency.Additional.cs" />
     <Compile Include="Entities\InvalidDependency.cs" />
     <Compile Include="Entities\InvalidDependency.Generated.cs" />
+    <Compile Include="Entities\MobileOfflineProfileItemAssociation.cs" />
+    <Compile Include="Entities\MobileOfflineProfileItemAssociation.Generated.cs" />
     <Compile Include="Entities\Organization.Additional.cs" />
     <Compile Include="Entities\Privilege.Additional.cs" />
     <Compile Include="Entities\ProcessTrigger.cs" />
@@ -683,6 +691,8 @@
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\DuplicateRuleConditionDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\DuplicateRuleDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\EmailTemplateDescriptionBuilder.cs" />
+    <Compile Include="Helpers\SolutionComponentDescription\Implementation\EntityDataProviderDescriptionBuilder.cs" />
+    <Compile Include="Helpers\SolutionComponentDescription\Implementation\EntityDataSourceDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\EntityKeyMetadataDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\EntityMapDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\EntityMetadataDescriptionBuilder.cs" />
@@ -692,6 +702,7 @@
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\KbArticleTemplateDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\MailMergeTemplateDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\ManagedPropertyDescriptionBuilder.cs" />
+    <Compile Include="Helpers\SolutionComponentDescription\Implementation\MobileOfflineProfileItemAssociationDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\MobileOfflineProfileItemDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\MobileOfflineProfileDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\OptionSetMetadataDescriptionBuilder.cs" />
@@ -1287,6 +1298,7 @@
     <Resource Include="Resources\SiteMaps\SiteMap.2016SP1.xml" />
     <Resource Include="Resources\SiteMaps\SiteMap.365.8.2.xml" />
     <Compile Include="Entities\SystemUser.Additional.cs" />
+    <Compile Include="Entities\MobileOfflineProfileItemAssociation.Additional.cs" />
     <None Include="Resources\Schemas\Examples\PublishXmlExample.xml" />
     <None Include="packages.config" />
     <Resource Include="Resources\Schemas\CustomizationsSolution.xsd">

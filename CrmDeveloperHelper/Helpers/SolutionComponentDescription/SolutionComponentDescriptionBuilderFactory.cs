@@ -122,6 +122,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         return new MobileOfflineProfileDescriptionBuilder(service);
                     case ComponentType.MobileOfflineProfileItem:
                         return new MobileOfflineProfileItemDescriptionBuilder(service);
+                    case ComponentType.MobileOfflineProfileItemAssociation:
+                        return new MobileOfflineProfileItemAssociationDescriptionBuilder(service);
                     case ComponentType.SimilarityRule:
                         return new SimilarityRuleDescriptionBuilder(service);
                     case ComponentType.CustomControl:
@@ -150,6 +152,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         return new SdkMessageResponseDescriptionBuilder(service);
                     case ComponentType.SdkMessageResponseField:
                         return new SdkMessageResponseFieldDescriptionBuilder(service);
+                    case ComponentType.EntityDataSource:
+                        return new EntityDataSourceDescriptionBuilder(service);
+                    case ComponentType.EntityDataProvider:
+                        return new EntityDataProviderDescriptionBuilder(service);
 
                         //case ComponentType.Form:
                         //    return new DescriptionBuilder(service);

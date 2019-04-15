@@ -214,6 +214,9 @@
         MobileOfflineProfileItem = 162,
 
         [System.Runtime.Serialization.EnumMemberAttribute()]
+        MobileOfflineProfileItemAssociation = 163,
+
+        [System.Runtime.Serialization.EnumMemberAttribute()]
         SimilarityRule = 165,
 
         [System.Runtime.Serialization.EnumMemberAttribute()]
@@ -236,6 +239,12 @@
 
         [System.Runtime.Serialization.EnumMemberAttribute()]
         ImportMap = 166,
+
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        EntityDataProvider = 181,
+
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        EntityDataSource = 183,
 
         [System.Runtime.Serialization.EnumMemberAttribute()]
         SdkMessage = 201,
