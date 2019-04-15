@@ -246,20 +246,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             ToggleControls(this.ConnectionData, false, Properties.WindowStatusStrings.StartTestingConnectionFormat1, this.ConnectionData.Name);
 
-            try
+            SaveConnectionInformation(this.ConnectionData);
+
+            var testResult = await QuickConnection.TestConnectAsync(this.ConnectionData, this._iWriteToOutput);
+
+            if (testResult)
             {
-                SaveConnectionInformation(this.ConnectionData);
-
-                await QuickConnection.TestConnectAsync(this.ConnectionData, this._iWriteToOutput);
-
                 LoadConnectionData(this.ConnectionData);
 
                 ToggleControls(this.ConnectionData, true, Properties.WindowStatusStrings.ConnectedSuccessfullyFormat1, this.ConnectionData.Name);
             }
-            catch (Exception ex)
+            else
             {
-                _iWriteToOutput.WriteErrorToOutput(this.ConnectionData, ex);
-
                 ToggleControls(this.ConnectionData, true, Properties.WindowStatusStrings.ConnectionFailedFormat1, this.ConnectionData.Name);
             }
         }

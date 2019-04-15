@@ -122,7 +122,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private void UpdateStatus(string format, params object[] args)
+        private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)
         {
             string message = format;
 
@@ -131,7 +131,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 message = string.Format(format, args);
             }
 
-            _iWriteToOutput.WriteToOutput(null, message);
+            _iWriteToOutput.WriteToOutput(connectionData, message);
 
             this.stBIStatus.Dispatcher.Invoke(() =>
             {
@@ -455,29 +455,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void tSBTestConnection_Click(object sender, RoutedEventArgs e)
         {
-            if (lstVwConnections.SelectedItems.Count == 1)
+            if (lstVwConnections.SelectedItems.Count != 1)
             {
-                ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
+                return;
+            }
 
-                UpdateStatus(Properties.WindowStatusStrings.StartTestingConnectionFormat1, connectionData.Name);
+            ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
 
-                try
-                {
-                    await QuickConnection.TestConnectAsync(connectionData, this._iWriteToOutput);
+            UpdateStatus(connectionData, Properties.WindowStatusStrings.StartTestingConnectionFormat1, connectionData.Name);
 
-                    UpdateCurrentConnectionInfo();
+            var testResult = await QuickConnection.TestConnectAsync(connectionData, this._iWriteToOutput);
 
-                    connectionData.Save();
-                    this._crmConfig.Save();
+            if (testResult)
+            {
+                UpdateCurrentConnectionInfo();
 
-                    UpdateStatus(Properties.WindowStatusStrings.ConnectedSuccessfullyFormat1, connectionData.Name);
-                }
-                catch (Exception ex)
-                {
-                    _iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+                connectionData.Save();
+                this._crmConfig.Save();
 
-                    UpdateStatus(Properties.WindowStatusStrings.ConnectionFailedFormat1, connectionData.Name);
-                }
+                UpdateStatus(connectionData, Properties.WindowStatusStrings.ConnectedSuccessfullyFormat1, connectionData.Name);
+            }
+            else
+            {
+                UpdateStatus(connectionData, Properties.WindowStatusStrings.ConnectionFailedFormat1, connectionData.Name);
             }
         }
 
@@ -745,27 +745,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void tSBArchiveTestConnection_Click(object sender, RoutedEventArgs e)
         {
-            if (lstVwArchiveConnections.SelectedItems.Count == 1)
+            if (lstVwArchiveConnections.SelectedItems.Count != 1)
             {
-                ConnectionData connectionData = lstVwArchiveConnections.SelectedItems[0] as ConnectionData;
+                return;
+            }
 
-                UpdateStatus(Properties.WindowStatusStrings.StartTestingConnectionFormat1, connectionData.Name);
+            ConnectionData connectionData = lstVwArchiveConnections.SelectedItems[0] as ConnectionData;
 
-                try
-                {
-                    await QuickConnection.TestConnectAsync(connectionData, this._iWriteToOutput);
+            UpdateStatus(connectionData, Properties.WindowStatusStrings.StartTestingConnectionFormat1, connectionData.Name);
 
-                    connectionData.Save();
-                    this._crmConfig.Save();
+            var testResult = await QuickConnection.TestConnectAsync(connectionData, this._iWriteToOutput);
 
-                    UpdateStatus(Properties.WindowStatusStrings.ConnectedSuccessfullyFormat1, connectionData.Name);
-                }
-                catch (Exception ex)
-                {
-                    _iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            if (testResult)
+            {
+                connectionData.Save();
+                this._crmConfig.Save();
 
-                    UpdateStatus(Properties.WindowStatusStrings.ConnectionFailedFormat1, connectionData.Name);
-                }
+                UpdateStatus(connectionData, Properties.WindowStatusStrings.ConnectedSuccessfullyFormat1, connectionData.Name);
+            }
+            else
+            {
+                UpdateStatus(connectionData, Properties.WindowStatusStrings.ConnectionFailedFormat1, connectionData.Name);
             }
         }
 
