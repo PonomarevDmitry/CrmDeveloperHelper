@@ -74,13 +74,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
 
-            List<string> wrongEntityNames = new List<string>();
-            List<string> wrongEntityAttributes = new List<string>();
-            List<string> wrongEntityRelationshipsManyToOne = new List<string>();
-            List<string> wrongEntityRelationshipsManyToMany = new List<string>();
+            List<SolutionComponent> wrongEntityNames = new List<SolutionComponent>();
+            List<SolutionComponent> wrongEntityAttributes = new List<SolutionComponent>();
+            List<SolutionComponent> wrongEntityRelationshipsManyToOne = new List<SolutionComponent>();
+            List<SolutionComponent> wrongEntityRelationshipsManyToMany = new List<SolutionComponent>();
 
-            var wrongWebResourceNames = new FormatTextTableHandler();
-            wrongWebResourceNames.SetHeader(WebResource.Schema.Headers.webresourcetypeLong, WebResource.Schema.Headers.name);
+            List<SolutionComponent> wrongWebResourceNames = new List<SolutionComponent>();
 
             {
                 EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
@@ -89,45 +88,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 foreach (EntityMetadata currentEntity in allEntities)
                 {
-                    if (currentEntity.LogicalName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                    if (currentEntity.LogicalName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        wrongEntityNames.Add(currentEntity.LogicalName);
+                        wrongEntityNames.Add(new SolutionComponent()
+                        {
+                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                            ObjectId = currentEntity.MetadataId,
+                        });
                     }
 
                     foreach (var currentAttribute in currentEntity.Attributes)
                     {
-                        if (currentAttribute.AttributeOf == null)
+                        if (string.IsNullOrEmpty(currentAttribute.AttributeOf))
                         {
-                            if (currentAttribute.LogicalName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                            if (currentAttribute.LogicalName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
                             {
-                                wrongEntityAttributes.Add(string.Format("{0}.{1}", currentEntity.LogicalName, currentAttribute.LogicalName));
+                                wrongEntityAttributes.Add(new SolutionComponent()
+                                {
+                                    ComponentType = new OptionSetValue((int)ComponentType.Attribute),
+                                    ObjectId = currentAttribute.MetadataId,
+                                });
                             }
                         }
                     }
 
                     foreach (var currentRelationship in currentEntity.ManyToOneRelationships)
                     {
-                        if (currentRelationship.SchemaName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                        if (currentRelationship.SchemaName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
                         {
-                            string name = string.Format("{0}.{1}", currentEntity.LogicalName, currentRelationship.SchemaName);
-
-                            if (!wrongEntityRelationshipsManyToOne.Contains(name))
+                            wrongEntityRelationshipsManyToOne.Add(new SolutionComponent()
                             {
-                                wrongEntityRelationshipsManyToOne.Add(name);
-                            }
+                                ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
+                                ObjectId = currentRelationship.MetadataId,
+                            });
                         }
                     }
 
                     foreach (var currentRelationship in currentEntity.ManyToManyRelationships)
                     {
-                        if (currentRelationship.SchemaName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                        if (currentRelationship.SchemaName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
                         {
-                            string name = string.Format("{0}.{1}", currentEntity.LogicalName, currentRelationship.SchemaName);
-
-                            if (!wrongEntityRelationshipsManyToMany.Contains(name))
+                            wrongEntityRelationshipsManyToMany.Add(new SolutionComponent()
                             {
-                                wrongEntityRelationshipsManyToMany.Add(name);
-                            }
+                                ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
+                                ObjectId = currentRelationship.MetadataId,
+                            });
                         }
                     }
                 }
@@ -142,22 +147,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     string name = webResource.Name;
 
-                    if (name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                    if (name.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        wrongWebResourceNames.AddLine(webResource.FormattedValues[WebResource.Schema.Attributes.webresourcetype], name);
+                        wrongEntityRelationshipsManyToMany.Add(new SolutionComponent()
+                        {
+                            ComponentType = new OptionSetValue((int)ComponentType.WebResource),
+                            ObjectId = webResource.Id,
+                        });
                     }
                 }
             }
 
-            WriteToContentList(wrongEntityNames, content, Properties.OutputStrings.EntityNamesWithPrefixFormat2, prefix);
+            var descriptor = new SolutionComponentDescriptor(service);
+            descriptor.SetSettings(commonConfig);
 
-            WriteToContentList(wrongEntityAttributes, content, Properties.OutputStrings.EntityAttributesNamesWithPrefixFormat2, prefix);
+            await WriteToContentList(descriptor, wrongEntityNames, content, Properties.OutputStrings.EntityNamesWithPrefixFormat2, prefix);
 
-            WriteToContentList(wrongEntityRelationshipsManyToOne, content, Properties.OutputStrings.ManyToOneRelationshipsNamesWithPrefixFormat2, prefix);
+            await WriteToContentList(descriptor, wrongEntityAttributes, content, Properties.OutputStrings.EntityAttributesNamesWithPrefixFormat2, prefix);
 
-            WriteToContentList(wrongEntityRelationshipsManyToMany, content, Properties.OutputStrings.ManyToManyRelationshipsNamesWithPrefixFormat2, prefix);
+            await WriteToContentList(descriptor, wrongEntityRelationshipsManyToOne, content, Properties.OutputStrings.ManyToOneRelationshipsNamesWithPrefixFormat2, prefix);
 
-            WriteToContentList(wrongWebResourceNames.GetFormatedLines(true), content, Properties.OutputStrings.WebResourcesWithPrefixFormat2, prefix);
+            await WriteToContentList(descriptor, wrongEntityRelationshipsManyToMany, content, Properties.OutputStrings.ManyToManyRelationshipsNamesWithPrefixFormat2, prefix);
+
+            await WriteToContentList(descriptor, wrongWebResourceNames, content, Properties.OutputStrings.WebResourcesWithPrefixFormat2, prefix);
 
             int totalErrors =
                 wrongEntityNames.Count
@@ -175,27 +187,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string filePath = string.Empty;
 
-            if (content.Length > 0)
+            string fileName = EntityFileNameFormatter.GetCheckEntityNamesForPrefixFileName(connectionData.Name, prefix);
+
+            filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            if (!Directory.Exists(commonConfig.FolderForExport))
             {
-                string fileName = EntityFileNameFormatter.GetCheckEntityNamesForPrefixFileName(connectionData.Name, prefix);
-
-                filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                if (!Directory.Exists(commonConfig.FolderForExport))
-                {
-                    Directory.CreateDirectory(commonConfig.FolderForExport);
-                }
-
-                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
-
-                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                Directory.CreateDirectory(commonConfig.FolderForExport);
             }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoObjectsInCRMWereFounded);
-            }
+
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
+
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
         #endregion Проверка имена на префикс.
@@ -1203,9 +1208,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
 
-            List<string> listEntityAttributes = new List<string>();
-            List<string> listEntityRelationshipsManyToOne = new List<string>();
-            List<string> listEntityRelationshipsManyToMany = new List<string>();
+            List<SolutionComponent> listEntityAttributes = new List<SolutionComponent>();
+            List<SolutionComponent> listEntityRelationshipsManyToOne = new List<SolutionComponent>();
+            List<SolutionComponent> listEntityRelationshipsManyToMany = new List<SolutionComponent>();
 
             {
                 EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
@@ -1216,11 +1221,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     foreach (var currentAttribute in currentEntity.Attributes)
                     {
-                        if (currentAttribute.AttributeOf == null)
+                        if (string.IsNullOrEmpty(currentAttribute.AttributeOf))
                         {
                             if (string.Equals(currentAttribute.LogicalName, name, StringComparison.OrdinalIgnoreCase))
                             {
-                                listEntityAttributes.Add(string.Format("{0}.{1}", currentEntity.LogicalName, currentAttribute.LogicalName));
+                                listEntityAttributes.Add(new SolutionComponent()
+                                {
+                                    ComponentType = new OptionSetValue((int)ComponentType.Attribute),
+                                    ObjectId = currentAttribute.MetadataId,
+                                });
                             }
                         }
                     }
@@ -1229,12 +1238,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         if (string.Equals(currentRelationship.SchemaName, name, StringComparison.OrdinalIgnoreCase))
                         {
-                            string elementName = string.Format("{0}.{1}", currentEntity.LogicalName, currentRelationship.SchemaName);
-
-                            if (!listEntityRelationshipsManyToOne.Contains(elementName))
+                            listEntityRelationshipsManyToOne.Add(new SolutionComponent()
                             {
-                                listEntityRelationshipsManyToOne.Add(elementName);
-                            }
+                                ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
+                                ObjectId = currentRelationship.MetadataId,
+                            });
                         }
                     }
 
@@ -1242,22 +1250,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         if (string.Equals(currentRelationship.SchemaName, name, StringComparison.OrdinalIgnoreCase))
                         {
-                            string elementName = string.Format("{0}.{1}", currentEntity.LogicalName, currentRelationship.SchemaName);
-
-                            if (!listEntityRelationshipsManyToMany.Contains(elementName))
+                            listEntityRelationshipsManyToMany.Add(new SolutionComponent()
                             {
-                                listEntityRelationshipsManyToMany.Add(elementName);
-                            }
+                                ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
+                                ObjectId = currentRelationship.MetadataId,
+                            });
                         }
                     }
                 }
             }
 
-            WriteToContentList(listEntityAttributes, content, "Entity Attributes names with name '" + name + "': {0}");
+            var descriptor = new SolutionComponentDescriptor(service);
+            descriptor.SetSettings(commonConfig);
 
-            WriteToContentList(listEntityRelationshipsManyToOne, content, "Many to One Relationships names with name '" + name + "': {0}");
+            await WriteToContentList(descriptor, listEntityAttributes, content, "Entity Attributes names with name '" + name + "': {0}");
 
-            WriteToContentList(listEntityRelationshipsManyToMany, content, "Many to Many Relationships names with name '" + name + "': {0}");
+            await WriteToContentList(descriptor, listEntityRelationshipsManyToOne, content, "Many to One Relationships names with name '" + name + "': {0}");
+
+            await WriteToContentList(descriptor, listEntityRelationshipsManyToMany, content, "Many to Many Relationships names with name '" + name + "': {0}");
 
             int totalErrors =
                 listEntityAttributes.Count
@@ -1271,33 +1281,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 content.AppendFormat("No Objects in CRM founded with name '{0}'.", name).AppendLine();
             }
 
-            string filePath = string.Empty;
+            string fileName = string.Format("{0}.Finding CRM Objects names for {1} at {2}.txt"
+            , connectionData.Name
+            , name
+            , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+            );
 
-            if (content.Length > 0)
+            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            if (!Directory.Exists(commonConfig.FolderForExport))
             {
-                string fileName = string.Format("{0}.Finding CRM Objects names for {1} at {2}.txt"
-                , connectionData.Name
-                , name
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
-                );
-
-                filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                if (!Directory.Exists(commonConfig.FolderForExport))
-                {
-                    Directory.CreateDirectory(commonConfig.FolderForExport);
-                }
-
-                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
-
-                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                Directory.CreateDirectory(commonConfig.FolderForExport);
             }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoObjectsInCRMWereFounded);
-            }
+
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
+
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
         #endregion Поиск элементов сущности с именем.
@@ -1343,9 +1344,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
 
-            List<string> listEntityAttributes = new List<string>();
-            List<string> listEntityRelationshipsManyToOne = new List<string>();
-            List<string> listEntityRelationshipsManyToMany = new List<string>();
+            List<SolutionComponent> listEntityAttributes = new List<SolutionComponent>();
+            List<SolutionComponent> listEntityRelationshipsManyToOne = new List<SolutionComponent>();
+            List<SolutionComponent> listEntityRelationshipsManyToMany = new List<SolutionComponent>();
 
             {
                 EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
@@ -1360,7 +1361,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         {
                             if (Regex.IsMatch(currentAttribute.LogicalName, name, RegexOptions.IgnoreCase))
                             {
-                                listEntityAttributes.Add(string.Format("{0}.{1}", currentEntity.LogicalName, currentAttribute.LogicalName));
+                                listEntityAttributes.Add(new SolutionComponent()
+                                {
+                                    ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                                    ObjectId = currentEntity.MetadataId,
+                                });
                             }
                         }
                     }
@@ -1369,12 +1374,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         if (Regex.IsMatch(currentRelationship.SchemaName, name, RegexOptions.IgnoreCase))
                         {
-                            string elementName = string.Format("{0}.{1}", currentEntity.LogicalName, currentRelationship.SchemaName);
-
-                            if (!listEntityRelationshipsManyToOne.Contains(elementName))
+                            listEntityRelationshipsManyToOne.Add(new SolutionComponent()
                             {
-                                listEntityRelationshipsManyToOne.Add(elementName);
-                            }
+                                ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
+                                ObjectId = currentRelationship.MetadataId,
+                            });
                         }
                     }
 
@@ -1382,22 +1386,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         if (Regex.IsMatch(currentRelationship.SchemaName, name, RegexOptions.IgnoreCase))
                         {
-                            string elementName = string.Format("{0}.{1}", currentEntity.LogicalName, currentRelationship.SchemaName);
-
-                            if (!listEntityRelationshipsManyToMany.Contains(elementName))
+                            listEntityRelationshipsManyToMany.Add(new SolutionComponent()
                             {
-                                listEntityRelationshipsManyToMany.Add(elementName);
-                            }
+                                ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
+                                ObjectId = currentRelationship.MetadataId,
+                            });
                         }
                     }
                 }
             }
 
-            WriteToContentList(listEntityAttributes, content, "Entity Attributes names contains '" + name + "': {0}");
+            var descriptor = new SolutionComponentDescriptor(service);
+            descriptor.SetSettings(commonConfig);
 
-            WriteToContentList(listEntityRelationshipsManyToOne, content, "Many to One Relationships names contains '" + name + "': {0}");
+            await WriteToContentList(descriptor, listEntityAttributes, content, "Entity Attributes names contains '" + name + "': {0}");
 
-            WriteToContentList(listEntityRelationshipsManyToMany, content, "Many to Many Relationships names contains '" + name + "': {0}");
+            await WriteToContentList(descriptor, listEntityRelationshipsManyToOne, content, "Many to One Relationships names contains '" + name + "': {0}");
+
+            await WriteToContentList(descriptor, listEntityRelationshipsManyToMany, content, "Many to Many Relationships names contains '" + name + "': {0}");
 
             int totalErrors =
                 listEntityAttributes.Count
@@ -1410,34 +1416,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 content.AppendLine();
                 content.AppendFormat("No Objects in CRM founded that contains '{0}'.", name).AppendLine();
             }
+            string fileName = string.Format("{0}.Finding CRM Objects names contains {1} at {2}.txt"
+            , connectionData.Name
+            , name
+            , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+            );
 
-            string filePath = string.Empty;
+            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-            if (content.Length > 0)
+            if (!Directory.Exists(commonConfig.FolderForExport))
             {
-                string fileName = string.Format("{0}.Finding CRM Objects names contains {1} at {2}.txt"
-                , connectionData.Name
-                , name
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
-                );
-
-                filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                if (!Directory.Exists(commonConfig.FolderForExport))
-                {
-                    Directory.CreateDirectory(commonConfig.FolderForExport);
-                }
-
-                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
-
-                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                Directory.CreateDirectory(commonConfig.FolderForExport);
             }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoObjectsInCRMWereFounded);
-            }
+
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
+
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
         #endregion Поиск элементов, содержащих строку.
@@ -2119,6 +2115,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     }
                 }
             }
+        }
+
+        private static async Task WriteToContentList(SolutionComponentDescriptor descriptor, List<SolutionComponent> list, StringBuilder content, string formatList, params object[] args)
+        {
+            if (list.Count == 0)
+            {
+                return;
+            }
+
+            if (content.Length > 0) { content.AppendLine(); }
+
+            List<object> temp = new List<object>(args)
+            {
+                list.Count
+            };
+
+            content.AppendFormat(formatList, temp.ToArray()).AppendLine();
+
+            string description = await descriptor.GetSolutionComponentsDescriptionAsync(list);
+
+            content.AppendLine(description);
         }
 
         private static void WriteToContentList(List<string> list, StringBuilder content, string formatList, params object[] args)
