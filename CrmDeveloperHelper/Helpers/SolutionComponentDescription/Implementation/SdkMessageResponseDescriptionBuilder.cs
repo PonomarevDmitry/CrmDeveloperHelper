@@ -29,10 +29,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         protected override ColumnSet GetColumnSet()
         {
             return new ColumnSet
-                (
-                    SdkMessageResponse.Schema.Attributes.sdkmessagerequestid
-                    , SdkMessageResponse.Schema.Attributes.customizationlevel
-                );
+            (
+                SdkMessageResponse.Schema.Attributes.sdkmessagerequestid
+                , SdkMessageResponse.Schema.Attributes.customizationlevel
+            );
         }
 
         protected override QueryExpression GetQuery(List<Guid> idsNotCached)
@@ -60,10 +60,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         LinkFromEntityName = SdkMessageResponse.EntityLogicalName,
                         LinkFromAttributeName = SdkMessageResponse.Schema.Attributes.sdkmessagerequestid,
 
-                        LinkToEntityName = SdkMessagePair.EntityLogicalName,
-                        LinkToAttributeName = SdkMessagePair.PrimaryIdAttribute,
+                        LinkToEntityName = SdkMessageRequest.EntityLogicalName,
+                        LinkToAttributeName = SdkMessageRequest.PrimaryIdAttribute,
 
                         EntityAlias = SdkMessageResponse.Schema.Attributes.sdkmessagerequestid,
+
+                        Columns = new ColumnSet(SdkMessageRequest.Schema.Attributes.name),
 
                         LinkEntities =
                         {
@@ -75,7 +77,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                                 LinkToEntityName = SdkMessagePair.EntityLogicalName,
                                 LinkToAttributeName = SdkMessagePair.PrimaryIdAttribute,
 
-                                EntityAlias = SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.sdkmessagepairid,
+                                 EntityAlias = SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.sdkmessagepairid ,
+
+                                Columns = new ColumnSet(SdkMessagePair.Schema.Attributes.@namespace),
 
                                 LinkEntities =
                                 {
@@ -104,7 +108,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         protected override FormatTextTableHandler GetDescriptionHeader(bool withManaged, bool withSolutionInfo, bool withUrls, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("Message", "RequestName", "CustomizationLevel", "Behavior");
+            handler.SetHeader("Message", "RequestName", "Namespace", "CustomizationLevel", "Behavior");
 
             return handler;
         }
@@ -118,7 +122,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             values.AddRange(new[]
             {
                 EntityDescriptionHandler.GetAttributeString(entity, SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.sdkmessagepairid + "." + SdkMessagePair.Schema.Attributes.sdkmessageid + "." + SdkMessage.Schema.Attributes.name)
-                , entity.SdkMessageRequestId?.Name
+                , EntityDescriptionHandler.GetAttributeString(entity, SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.name)
+                , EntityDescriptionHandler.GetAttributeString(entity, SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.sdkmessagepairid + "." + SdkMessagePair.Schema.Attributes.@namespace)
                 , entity.CustomizationLevel.ToString()
                 , behavior
             });
@@ -131,7 +136,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return new TupleList<string, string>
                 {
                     { SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.sdkmessagepairid + "." + SdkMessagePair.Schema.Attributes.sdkmessageid + "." + SdkMessage.Schema.Attributes.name, "Message" }
-                    , { SdkMessageResponse.Schema.Attributes.sdkmessagerequestid, "RequestName" }
+                    , { SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.name, "RequestName" }
+                    , { SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.sdkmessagepairid + "." + SdkMessagePair.Schema.Attributes.@namespace, "Namespace" }
                     , { SdkMessageResponse.Schema.Attributes.customizationlevel, "CustomizationLevel" }
                 };
         }

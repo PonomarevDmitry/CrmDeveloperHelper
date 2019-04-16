@@ -4,6 +4,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 {
     public partial class Privilege
     {
+        public static partial class Schema
+        {
+            public static partial class Headers
+            {
+                public const string name = "Name";
+
+                public const string accessright = "AccessRight";
+            }
+        }
+
         public List<string> LinkedEntities { get; set; }
 
         public string LinkedEntitiesSorted

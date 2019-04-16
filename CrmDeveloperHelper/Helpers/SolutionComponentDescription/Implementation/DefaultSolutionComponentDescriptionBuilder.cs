@@ -4,6 +4,7 @@ using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -87,11 +88,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             {
                 QueryExpression query = GetQuery(idsNotCached);
 
-                List<Entity> result = GetEntitiesByQuery(query);
+                if (query != null)
+                {
+                    List<Entity> result = GetEntitiesByQuery(query);
 
-                CacheEntities(result);
+                    CacheEntities(result);
 
-                list.AddRange(result);
+                    list.AddRange(result);
+                }
             }
 
             return list.Select(e => e.ToEntity<T>()).ToList();
@@ -140,6 +144,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             if (string.IsNullOrEmpty(this.EntityLogicalName) || string.IsNullOrEmpty(this.EntityPrimaryIdAttribute))
             {
                 return null;
+            }
+
+            {
+                var repository = new SdkMessageFilterRepository(_service);
+
+                var messageFilter = repository.FindByEntityAndMessage(this.EntityLogicalName, SdkMessage.Instances.RetrieveMultiple, new ColumnSet(false));
+
+                if (messageFilter == null)
+                {
+                    return null;
+                }
             }
 
             var query = new QueryExpression()
@@ -302,7 +317,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         protected virtual List<string> GetDescriptionValues(Entity entityInput, string behavior, bool withManaged, bool withSolutionInfo, bool withUrls, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var result = new List<string>() { entityInput.Id.ToString() };
+            var result = new List<string>() { entityInput.Id.ToString(), behavior };
 
             action(result, entityInput, withUrls, withManaged, withSolutionInfo);
 

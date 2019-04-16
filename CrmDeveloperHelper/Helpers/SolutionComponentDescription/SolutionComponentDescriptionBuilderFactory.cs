@@ -156,6 +156,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         return new EntityDataSourceDescriptionBuilder(service);
                     case ComponentType.EntityDataProvider:
                         return new EntityDataProviderDescriptionBuilder(service);
+                    case ComponentType.Privilege:
+                        return new PrivilegeDescriptionBuilder(service);
+                    case ComponentType.PrivilegeObjectTypeCode:
+                        return new PrivilegeObjectTypeCodeDescriptionBuilder(service);
+                    case ComponentType.WebWizard:
+                        return new WebWizardDescriptionBuilder(service);
 
                         //case ComponentType.Form:
                         //    return new DescriptionBuilder(service);

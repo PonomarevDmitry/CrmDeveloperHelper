@@ -365,6 +365,7 @@
     <Compile Include="Entities\MobileOfflineProfileItemAssociation.Generated.cs" />
     <Compile Include="Entities\Organization.Additional.cs" />
     <Compile Include="Entities\Privilege.Additional.cs" />
+    <Compile Include="Entities\PrivilegeObjectTypeCodes.Additional.cs" />
     <Compile Include="Entities\ProcessTrigger.cs" />
     <Compile Include="Entities\ProcessTrigger.Generated.cs" />
     <Compile Include="Entities\Report.Additional.cs" />
@@ -392,6 +393,7 @@
     <Compile Include="Entities\TeamRoles.Generated.cs" />
     <Compile Include="Entities\TeamTemplate.Generated.cs" />
     <Compile Include="Entities\WebResource.Additional.cs" />
+    <Compile Include="Entities\WebWizard.Additional.cs" />
     <Compile Include="Entities\WebWizard.Generated.cs" />
     <Compile Include="Commands\FileCSharpProjectPluginAssemblyAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\FileCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand.cs" />
@@ -708,6 +710,8 @@
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\OptionSetMetadataDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\PluginAssemblyDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\PluginTypeDescriptionBuilder.cs" />
+    <Compile Include="Helpers\SolutionComponentDescription\Implementation\PrivilegeDescriptionBuilder.cs" />
+    <Compile Include="Helpers\SolutionComponentDescription\Implementation\PrivilegeObjectTypeCodeDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\ProcessTriggerDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\RelationshipMetadataDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\ReportCategoryDescriptionBuilder.cs" />
@@ -742,6 +746,7 @@
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\SLADescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\SystemFormDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\WebResourceDescriptionBuilder.cs" />
+    <Compile Include="Helpers\SolutionComponentDescription\Implementation\WebWizardDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\Implementation\WorkflowDescriptionBuilder.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\SolutionComponentDescriptionBuilderFactory.cs" />
     <Compile Include="Helpers\SolutionComponentDescription\SolutionComponentMetadataSource.cs" />

@@ -1,34 +1,31 @@
-﻿
+
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 {
     ///<summary>
     /// DisplayName:
-    ///     (English - United States - 1033): Web Wizard
     ///     (Russian - 1049): Веб-мастер
     /// 
     /// DisplayCollectionName:
-    ///     (English - United States - 1033): Web Wizards
     ///     (Russian - 1049): Веб-мастера
     /// 
     /// Description:
-    ///     (English - United States - 1033): Definition for a Web-based wizard.
     ///     (Russian - 1049): Определение мастера веб-страниц.
     /// 
-    /// PropertyName                          Value                CanBeChanged
+    /// PropertyName                          Value
     /// ActivityTypeMask                      0
     /// AutoCreateAccessTeams                 False
     /// AutoRouteToOwnerQueue                 False
-    /// CanBeInManyToMany                     False                False
-    /// CanBePrimaryEntityInRelationship      False                False
-    /// CanBeRelatedEntityInRelationship      False                False
-    /// CanChangeHierarchicalRelationship     False                False
-    /// CanChangeTrackingBeEnabled            False                False
-    /// CanCreateAttributes                   False                False
-    /// CanCreateCharts                       False                False
-    /// CanCreateForms                        False                False
-    /// CanCreateViews                        False                False
-    /// CanEnableSyncToExternalSearchIndex    False                False
-    /// CanModifyAdditionalSettings           False                True
+    /// CanBeInManyToMany                     False
+    /// CanBePrimaryEntityInRelationship      False
+    /// CanBeRelatedEntityInRelationship      False
+    /// CanChangeHierarchicalRelationship     False
+    /// CanChangeTrackingBeEnabled            False
+    /// CanCreateAttributes                   False
+    /// CanCreateCharts                       False
+    /// CanCreateForms                        False
+    /// CanCreateViews                        False
+    /// CanEnableSyncToExternalSearchIndex    False
+    /// CanModifyAdditionalSettings           False
     /// CanTriggerWorkflow                    False
     /// ChangeTrackingEnabled                 False
     /// CollectionSchemaName                  WebWizards
@@ -44,15 +41,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
     /// IsActivity                            False
     /// IsActivityParty                       False
     /// IsAIRUpdated                          False
-    /// IsAuditEnabled                        False                False
+    /// IsAuditEnabled                        False
     /// IsAvailableOffline                    True
     /// IsBusinessProcessEnabled              False
     /// IsChildEntity                         False
-    /// IsConnectionsEnabled                  False                False
+    /// IsConnectionsEnabled                  False
     /// IsCustomEntity                        False
-    /// IsCustomizable                        False                False
+    /// IsCustomizable                        False
     /// IsDocumentManagementEnabled           False
-    /// IsDuplicateDetectionEnabled           False                False
+    /// IsDuplicateDetectionEnabled           False
     /// IsEnabledForCharts                    False
     /// IsEnabledForExternalChannels          False
     /// IsEnabledForTrace                     False
@@ -60,21 +57,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
     /// IsInteractionCentricEnabled           False
     /// IsIntersect                           False
     /// IsKnowledgeManagementEnabled          False
-    /// IsMailMergeEnabled                    False                False
-    /// IsMappable                            False                False
-    /// IsOfflineInMobileClient               False                True
+    /// IsMailMergeEnabled                    False
+    /// IsMappable                            False
+    /// IsOfflineInMobileClient               False
     /// IsOneNoteIntegrationEnabled           False
     /// IsOptimisticConcurrencyEnabled        True
     /// IsPrivate                             False
     /// IsQuickCreateEnabled                  False
     /// IsReadingPaneEnabled                  True
-    /// IsReadOnlyInMobileClient              False                False
-    /// IsRenameable                          False                False
+    /// IsReadOnlyInMobileClient              False
+    /// IsRenameable                          False
     /// IsStateModelAware                     False
     /// IsValidForAdvancedFind                False
-    /// IsValidForQueue                       False                False
-    /// IsVisibleInMobile                     False                False
-    /// IsVisibleInMobileClient               False                False
+    /// IsValidForQueue                       False
+    /// IsVisibleInMobile                     False
+    /// IsVisibleInMobileClient               False
     /// LogicalCollectionName                 webwizards
     /// LogicalName                           webwizard
     /// ObjectTypeCode                        4800
@@ -104,16 +101,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 ///<summary>
                 /// DisplayName:
-                ///     (English - United States - 1033): Access Privileges
                 ///     (Russian - 1049): Права доступа
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Privileges required to use this wizard, separated with commas (,).
                 ///     (Russian - 1049): Права, требуемые для использования мастера, разделенные запятыми (,).
                 /// 
                 /// SchemaName: AccessPrivileges
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 1024
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
@@ -122,46 +118,86 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 ///<summary>
                 /// DisplayName:
-                ///     (English - United States - 1033): Created By
+                ///     (Russian - 1049): Состояние компонента
+                /// 
+                /// Description:
+                ///     (Russian - 1049): Только для внутреннего использования.
+                /// 
+                /// SchemaName: ComponentState
+                /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// Global System  OptionSet componentstate
+                /// DefaultFormValue = -1
+                /// 
+                ///         DisplayName:
+                ///             (Russian - 1049): Состояние компонента
+                ///         
+                ///         Description:
+                ///             (Russian - 1049): Состояние этого компонента.
+                ///</summary>
+                public const string componentstate = "componentstate";
+
+                ///<summary>
+                /// DisplayName:
                 ///     (Russian - 1049): Создано
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Unique identifier of the user who created the wizard definition.
                 ///     (Russian - 1049): Уникальный идентификатор пользователя, создавшего определение мастера.
                 /// 
                 /// SchemaName: CreatedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: systemuser
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///             (English - United States - 1033): User
                 ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
-                ///             (English - United States - 1033): Users
                 ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
-                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
                 public const string createdby = "createdby";
 
                 ///<summary>
+                /// SchemaName: CreatedByName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'createdby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                ///</summary>
+                //public const string createdbyname = "createdbyname";
+
+                ///<summary>
+                /// SchemaName: CreatedByYomiName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'createdby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                ///</summary>
+                //public const string createdbyyominame = "createdbyyominame";
+
+                ///<summary>
                 /// DisplayName:
-                ///     (English - United States - 1033): Created On
                 ///     (Russian - 1049): Дата создания
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Date and time when the wizard definition was created.
                 ///     (Russian - 1049): Дата и время создания определения мастера.
                 /// 
                 /// SchemaName: CreatedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DateTimeBehavior = UserLocal    CanChangeDateTimeBehavior = False
                 /// ImeMode = Inactive    Format = DateAndTime
@@ -170,103 +206,194 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 ///<summary>
                 /// DisplayName:
-                ///     (English - United States - 1033): Created By (Delegate)
                 ///     (Russian - 1049): Кем создано (делегат)
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Unique identifier of the delegate user who created the webwizard.
                 ///     (Russian - 1049): Уникальный идентификатор делегата, создавшего мастер веб-страниц.
                 /// 
                 /// SchemaName: CreatedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: systemuser
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///             (English - United States - 1033): User
                 ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
-                ///             (English - United States - 1033): Users
                 ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
-                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
                 public const string createdonbehalfby = "createdonbehalfby";
 
                 ///<summary>
+                /// SchemaName: CreatedOnBehalfByName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'createdonbehalfby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                ///</summary>
+                //public const string createdonbehalfbyname = "createdonbehalfbyname";
+
+                ///<summary>
+                /// SchemaName: CreatedOnBehalfByYomiName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'createdonbehalfby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                ///</summary>
+                //public const string createdonbehalfbyyominame = "createdonbehalfbyyominame";
+
+                ///<summary>
                 /// DisplayName:
-                ///     (English - United States - 1033): Is Static Page Sequence
-                ///     (Russian - 1049): IsStaticPageSequence
+                ///     (Russian - 1049): Версия добавления
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Information about whether all pages for this wizard are statically defined.
-                ///     (Russian - 1049): Сведения о том, являются ли все страницы этого мастера определенными статически.
+                ///     (Russian - 1049): Версия, в которой был введен компонент.
                 /// 
-                /// SchemaName: IsStaticPageSequence
+                /// SchemaName: IntroducedVersion
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 48
+                /// Format = VersionNumber    ImeMode = Auto    IsLocalizable = False
+                ///</summary>
+                public const string introducedversion = "introducedversion";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (Russian - 1049): Состояние
+                /// 
+                /// Description:
+                ///     (Russian - 1049): Сведения о том, является ли компонент управляемым.
+                /// 
+                /// SchemaName: IsManaged
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DefaultValue = False
                 /// 
                 /// DisplayName:
-                ///     (English - United States - 1033): No
+                ///     (Russian - 1049): Неуправляемый
+                /// FalseOption = 0
+                /// 
+                /// DisplayName:
+                ///     (Russian - 1049): Управляемый
+                /// TrueOption = 1
+                ///</summary>
+                public const string ismanaged = "ismanaged";
+
+                ///<summary>
+                /// SchemaName: IsManagedName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'ismanaged'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                ///</summary>
+                //public const string ismanagedname = "ismanagedname";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (Russian - 1049): IsStaticPageSequence
+                /// 
+                /// Description:
+                ///     (Russian - 1049): Сведения о том, являются ли все страницы этого мастера определенными статически.
+                /// 
+                /// SchemaName: IsStaticPageSequence
+                /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// DefaultValue = False
+                /// 
+                /// DisplayName:
                 ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
-                ///     (English - United States - 1033): Yes
                 ///     (Russian - 1049): Да
                 /// TrueOption = 1
                 ///</summary>
                 public const string isstaticpagesequence = "isstaticpagesequence";
 
                 ///<summary>
+                /// SchemaName: IsStaticPageSequenceName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'isstaticpagesequence'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                ///</summary>
+                //public const string isstaticpagesequencename = "isstaticpagesequencename";
+
+                ///<summary>
                 /// DisplayName:
-                ///     (English - United States - 1033): Modified By
                 ///     (Russian - 1049): Изменено
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Unique identifier of the user who last modified the wizard definition.
                 ///     (Russian - 1049): Уникальный идентификатор последнего пользователя, изменившего определение мастера.
                 /// 
                 /// SchemaName: ModifiedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: systemuser
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///             (English - United States - 1033): User
                 ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
-                ///             (English - United States - 1033): Users
                 ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
-                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
                 public const string modifiedby = "modifiedby";
 
                 ///<summary>
+                /// SchemaName: ModifiedByName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'modifiedby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                ///</summary>
+                //public const string modifiedbyname = "modifiedbyname";
+
+                ///<summary>
+                /// SchemaName: ModifiedByYomiName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'modifiedby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                ///</summary>
+                //public const string modifiedbyyominame = "modifiedbyyominame";
+
+                ///<summary>
                 /// DisplayName:
-                ///     (English - United States - 1033): Modified On
                 ///     (Russian - 1049): Дата изменения
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Date and time when the wizard definition was last modified.
                 ///     (Russian - 1049): Дата и время последнего изменения определения мастера.
                 /// 
                 /// SchemaName: ModifiedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DateTimeBehavior = UserLocal    CanChangeDateTimeBehavior = False
                 /// ImeMode = Inactive    Format = DateAndTime
@@ -275,46 +402,63 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 ///<summary>
                 /// DisplayName:
-                ///     (English - United States - 1033): Modified By (Delegate)
                 ///     (Russian - 1049): Кем изменено (делегат)
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Unique identifier of the delegate user who last modified the webwizard.
                 ///     (Russian - 1049): Уникальный идентификатор делегата, внесшего последнее изменение в мастер веб-страниц.
                 /// 
                 /// SchemaName: ModifiedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: systemuser
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///             (English - United States - 1033): User
                 ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
-                ///             (English - United States - 1033): Users
                 ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
-                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
                 public const string modifiedonbehalfby = "modifiedonbehalfby";
 
                 ///<summary>
+                /// SchemaName: ModifiedOnBehalfByName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'modifiedonbehalfby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                ///</summary>
+                //public const string modifiedonbehalfbyname = "modifiedonbehalfbyname";
+
+                ///<summary>
+                /// SchemaName: ModifiedOnBehalfByYomiName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'modifiedonbehalfby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                ///</summary>
+                //public const string modifiedonbehalfbyyominame = "modifiedonbehalfbyyominame";
+
+                ///<summary>
                 /// DisplayName:
-                ///     (English - United States - 1033): Name
                 ///     (Russian - 1049): Имя
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Name of the wizard
                 ///     (Russian - 1049): Название мастера
                 /// 
                 /// SchemaName: Name
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 100
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
@@ -323,46 +467,84 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 ///<summary>
                 /// DisplayName:
-                ///     (English - United States - 1033): Organization
                 ///     (Russian - 1049): Предприятие
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Unique identifier of the organization.
                 ///     (Russian - 1049): Уникальный идентификатор организации.
                 /// 
                 /// SchemaName: OrganizationId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: organization
                 /// 
                 ///     Target organization    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///         DisplayName:
-                ///             (English - United States - 1033): Organization
                 ///             (Russian - 1049): Предприятие
                 ///         
                 ///         DisplayCollectionName:
-                ///             (English - United States - 1033): Organizations
                 ///             (Russian - 1049): Предприятия
                 ///         
                 ///         Description:
-                ///             (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
                 ///             (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
                 ///</summary>
                 public const string organizationid = "organizationid";
 
                 ///<summary>
+                /// SchemaName: OrganizationIdName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired    AttributeOf 'organizationid'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                ///</summary>
+                //public const string organizationidname = "organizationidname";
+
+                ///<summary>
                 /// DisplayName:
-                ///     (English - United States - 1033): Start Page Sequence Number
+                ///     (Russian - 1049): Время замены записи
+                /// 
+                /// Description:
+                ///     (Russian - 1049): Только для внутреннего использования.
+                /// 
+                /// SchemaName: OverwriteTime
+                /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// DateTimeBehavior = UserLocal    CanChangeDateTimeBehavior = False
+                /// ImeMode = Inactive    Format = DateOnly
+                ///</summary>
+                public const string overwritetime = "overwritetime";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (Russian - 1049): Решение
+                /// 
+                /// Description:
+                ///     (Russian - 1049): Уникальный идентификатор связанного решения.
+                /// 
+                /// SchemaName: SolutionId
+                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                ///</summary>
+                public const string solutionid = "solutionid";
+
+                ///<summary>
+                /// DisplayName:
                 ///     (Russian - 1049): Порядковый номер первой страницы
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Sequence number of the first page of this wizard.
                 ///     (Russian - 1049): Порядковый номер первой страницы данного мастера.
                 /// 
                 /// SchemaName: StartPageSequenceNumber
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MinValue = 0    MaxValue = 1000
                 /// Format = None
@@ -371,16 +553,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 ///<summary>
                 /// DisplayName:
-                ///     (English - United States - 1033): Title
+                ///     (Russian - 1049): Решение
+                /// 
+                /// Description:
+                ///     (Russian - 1049): Только для внутреннего использования.
+                /// 
+                /// SchemaName: SupportingSolutionId
+                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: False    IsValidForAdvancedFind: True
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                ///</summary>
+                public const string supportingsolutionid = "supportingsolutionid";
+
+                ///<summary>
+                /// DisplayName:
                 ///     (Russian - 1049): Обращение
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Title of the wizard.
                 ///     (Russian - 1049): Заголовок мастера.
                 /// 
                 /// SchemaName: TitleResourceString
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 100
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
@@ -390,7 +586,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// SchemaName: VersionNumber
                 /// BigIntAttributeMetadata    AttributeType: BigInt    AttributeTypeName: BigIntType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// MinValue = -9223372036854775808    MaxValue = 9223372036854775807
                 ///</summary>
@@ -398,32 +595,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 ///<summary>
                 /// DisplayName:
-                ///     (English - United States - 1033): Web Wizard
                 ///     (Russian - 1049): Веб-мастер
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Unique identifier of the wizard.
                 ///     (Russian - 1049): Уникальный идентификатор мастера.
                 /// 
                 /// SchemaName: WebWizardId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 ///</summary>
                 public const string webwizardid = "webwizardid";
 
                 ///<summary>
+                /// Description:
+                ///     (Russian - 1049): Уникальный идентификатор мастера веб-страниц.
+                /// 
+                /// SchemaName: WebWizardIdUnique
+                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                ///</summary>
+                public const string webwizardidunique = "webwizardidunique";
+
+                ///<summary>
                 /// DisplayName:
-                ///     (English - United States - 1033): Page Height
                 ///     (Russian - 1049): По высоте страницы
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Window height for the wizard.
                 ///     (Russian - 1049): Высота окна мастера.
                 /// 
                 /// SchemaName: WizardPageHeight
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MinValue = 0    MaxValue = 10000
                 /// Format = None
@@ -432,16 +639,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 ///<summary>
                 /// DisplayName:
-                ///     (English - United States - 1033): Page Width
                 ///     (Russian - 1049): По ширине страницы
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Window width for the wizard.
                 ///     (Russian - 1049): Ширина окна мастера.
                 /// 
                 /// SchemaName: WizardPageWidth
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MinValue = 0    MaxValue = 10000
                 /// Format = None
@@ -458,11 +664,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship lk_webwizard_createdby
                 /// 
-                /// PropertyName                               Value                     CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     lk_webwizard_createdby
                 /// ReferencingEntityNavigationPropertyName    createdby
-                /// IsCustomizable                             False                     False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -473,21 +679,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
                 /// ReferencedEntity systemuser:
                 ///     DisplayName:
-                ///         (English - United States - 1033): User
                 ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
-                ///         (English - United States - 1033): Users
                 ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
                 public static partial class lk_webwizard_createdby
@@ -508,11 +712,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship lk_webwizard_createdonbehalfby
                 /// 
-                /// PropertyName                               Value                             CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     lk_webwizard_createdonbehalfby
                 /// ReferencingEntityNavigationPropertyName    createdonbehalfby
-                /// IsCustomizable                             False                             False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -523,21 +727,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
                 /// ReferencedEntity systemuser:
                 ///     DisplayName:
-                ///         (English - United States - 1033): User
                 ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
-                ///         (English - United States - 1033): Users
                 ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
                 public static partial class lk_webwizard_createdonbehalfby
@@ -558,11 +760,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship lk_webwizard_modifiedby
                 /// 
-                /// PropertyName                               Value                      CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     lk_webwizard_modifiedby
                 /// ReferencingEntityNavigationPropertyName    modifiedby
-                /// IsCustomizable                             False                      False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -573,21 +775,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
                 /// ReferencedEntity systemuser:
                 ///     DisplayName:
-                ///         (English - United States - 1033): User
                 ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
-                ///         (English - United States - 1033): Users
                 ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
                 public static partial class lk_webwizard_modifiedby
@@ -608,11 +808,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship lk_webwizard_modifiedonbehalfby
                 /// 
-                /// PropertyName                               Value                              CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     lk_webwizard_modifiedonbehalfby
                 /// ReferencingEntityNavigationPropertyName    modifiedonbehalfby
-                /// IsCustomizable                             False                              False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -623,21 +823,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
                 /// ReferencedEntity systemuser:
                 ///     DisplayName:
-                ///         (English - United States - 1033): User
                 ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
-                ///         (English - United States - 1033): Users
                 ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
                 public static partial class lk_webwizard_modifiedonbehalfby
@@ -658,11 +856,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship organization_webwizard
                 /// 
-                /// PropertyName                               Value                     CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     organization_webwizard
                 /// ReferencingEntityNavigationPropertyName    organizationid
-                /// IsCustomizable                             False                     False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -673,21 +871,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
                 /// ReferencedEntity organization:
                 ///     DisplayName:
-                ///         (English - United States - 1033): Organization
                 ///         (Russian - 1049): Предприятие
                 ///     
                 ///     DisplayCollectionName:
-                ///         (English - United States - 1033): Organizations
                 ///         (Russian - 1049): Предприятия
                 ///     
                 ///     Description:
-                ///         (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
                 ///         (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
                 ///</summary>
                 public static partial class organization_webwizard
@@ -715,11 +911,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship lk_wizardaccessprivilege_webwizardid
                 /// 
-                /// PropertyName                               Value                                   CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     lk_wizardaccessprivilege_webwizardid
                 /// ReferencingEntityNavigationPropertyName    webwizardid
-                /// IsCustomizable                             False                                   False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -730,21 +926,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
                 /// ReferencingEntity wizardaccessprivilege:
                 ///     DisplayName:
-                ///         (English - United States - 1033): Web Wizard Access Privilege
                 ///         (Russian - 1049): Право доступа в мастере веб-страниц
                 ///     
                 ///     DisplayCollectionName:
-                ///         (English - United States - 1033): Web Wizard Access Privileges
                 ///         (Russian - 1049): Права доступа в мастере веб-страниц
                 ///     
                 ///     Description:
-                ///         (English - United States - 1033): Privilege needed to access a Web-based wizard.
                 ///         (Russian - 1049): Права, необходимые для доступа к мастеру веб-страниц.
                 ///</summary>
                 public static partial class lk_wizardaccessprivilege_webwizardid
@@ -765,11 +959,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship lk_wizardpage_webwizardid
                 /// 
-                /// PropertyName                               Value                        CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     lk_wizardpage_webwizardid
                 /// ReferencingEntityNavigationPropertyName    webwizardid
-                /// IsCustomizable                             False                        False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -780,21 +974,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
                 /// ReferencingEntity wizardpage:
                 ///     DisplayName:
-                ///         (English - United States - 1033): Wizard Page
                 ///         (Russian - 1049): Страница мастера
                 ///     
                 ///     DisplayCollectionName:
-                ///         (English - United States - 1033): Wizard Pages
                 ///         (Russian - 1049): Страницы мастера
                 ///     
                 ///     Description:
-                ///         (English - United States - 1033): Page in a Web-based wizard.
                 ///         (Russian - 1049): Страница мастера веб-страниц.
                 ///</summary>
                 public static partial class lk_wizardpage_webwizardid
@@ -815,11 +1007,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship userentityinstancedata_webwizard
                 /// 
-                /// PropertyName                               Value                               CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     userentityinstancedata_webwizard
                 /// ReferencingEntityNavigationPropertyName    objectid_webwizard
-                /// IsCustomizable                             False                               False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -830,17 +1022,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
                 /// ReferencingEntity userentityinstancedata:
                 ///     DisplayName:
-                ///         (English - United States - 1033): User Entity Instance Data
                 ///         (Russian - 1049): Данные экземпляра сущности пользователя
                 ///     
                 ///     Description:
-                ///         (English - United States - 1033): Per User item instance data
                 ///         (Russian - 1049): Данные экземпляра позиции "на пользователя"
                 ///</summary>
                 public static partial class userentityinstancedata_webwizard

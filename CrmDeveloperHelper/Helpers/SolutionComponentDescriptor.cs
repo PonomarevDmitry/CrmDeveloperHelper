@@ -20,8 +20,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     {
         private const string formatSpacer = "    {0}";
 
-        private const string unknowedMessage = "Default Description for Unknowned Solution Components:";
-
         private ConcurrentDictionary<int, ISolutionComponentDescriptionBuilder> _cacheBuilders = new ConcurrentDictionary<int, ISolutionComponentDescriptionBuilder>();
 
         private readonly IOrganizationServiceExtented _service;

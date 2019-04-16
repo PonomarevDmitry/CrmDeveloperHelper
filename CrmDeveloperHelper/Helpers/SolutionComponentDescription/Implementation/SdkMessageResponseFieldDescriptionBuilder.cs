@@ -122,7 +122,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         protected override FormatTextTableHandler GetDescriptionHeader(bool withManaged, bool withSolutionInfo, bool withUrls, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("Message", "RequestName", "Position", "Name", "PublicName", "ClrParser", "Parser", "Optional", "CustomizationLevel", "Behavior");
+            handler.SetHeader("Message", "RequestName", "Position", "Name", "PublicName", "Value", "ClrFormatter", "Formatter", "ParameterBindingInformation", "CustomizationLevel", "Behavior");
 
             return handler;
         }
