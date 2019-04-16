@@ -11,6 +11,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string ComponentType { get; private set; }
 
+        public string Behavior { get; private set; }
+
         public string IsManaged { get; private set; }
 
         public string IsCustomizable { get; private set; }
@@ -24,7 +26,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             , string componentType
             , string managed
             , string customizable
-            )
+            , string behavior
+        )
         {
             this.SolutionComponent = solutionComponent;
 
@@ -33,6 +36,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.ComponentType = componentType;
             this.IsManaged = managed;
             this.IsCustomizable = customizable;
+            this.Behavior = behavior;
         }
     }
 }

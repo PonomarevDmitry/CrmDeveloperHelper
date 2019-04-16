@@ -815,23 +815,55 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void mIAddEntityIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        private async void AddIntoCrmSolutionIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
         {
-            await AddEntityIntoSolution(true, null);
+            await AddEntityIntoSolution(true, null, RootComponentBehavior.IncludeSubcomponents);
         }
 
-        private async void mIAddEntityIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void AddIntoCrmSolutionDoNotIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
+        {
+            await AddEntityIntoSolution(true, null, RootComponentBehavior.DoNotIncludeSubcomponents);
+        }
+
+        private async void AddIntoCrmSolutionIncludeAsShellOnly_Click(object sender, RoutedEventArgs e)
+        {
+            await AddEntityIntoSolution(true, null, RootComponentBehavior.IncludeAsShellOnly);
+        }
+
+        private async void AddIntoCrmSolutionLastIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                && menuItem.Tag != null
                && menuItem.Tag is string solutionUniqueName
                )
             {
-                await AddEntityIntoSolution(false, solutionUniqueName);
+                await AddEntityIntoSolution(false, solutionUniqueName, RootComponentBehavior.IncludeSubcomponents);
             }
         }
 
-        private async Task AddEntityIntoSolution(bool withSelect, string solutionUniqueName)
+        private async void AddIntoCrmSolutionLastDoNotIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+               && menuItem.Tag != null
+               && menuItem.Tag is string solutionUniqueName
+               )
+            {
+                await AddEntityIntoSolution(false, solutionUniqueName, RootComponentBehavior.DoNotIncludeSubcomponents);
+            }
+        }
+
+        private async void AddIntoCrmSolutionLastIncludeAsShellOnly_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+               && menuItem.Tag != null
+               && menuItem.Tag is string solutionUniqueName
+               )
+            {
+                await AddEntityIntoSolution(false, solutionUniqueName, RootComponentBehavior.IncludeAsShellOnly);
+            }
+        }
+
+        private async Task AddEntityIntoSolution(bool withSelect, string solutionUniqueName, RootComponentBehavior rootComponentBehavior)
         {
             var entity = GetSelectedEntity();
 
@@ -859,7 +891,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                        await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Entity, new[] { entityMetadataId.Value }, null, withSelect);
+                        await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Entity, new[] { entityMetadataId.Value }, rootComponentBehavior, withSelect);
                     }
                     catch (Exception ex)
                     {
@@ -893,7 +925,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             bool hasEntity = !string.IsNullOrEmpty(nodeItem.SavedQueryVisualization.PrimaryEntityTypeCode) && !string.Equals(nodeItem.SavedQueryVisualization.PrimaryEntityTypeCode, "none", StringComparison.InvariantCultureIgnoreCase);
             ActivateControls(items, hasEntity, "contMnEntity");
-            FillLastSolutionItems(connectionData, items, hasEntity, mIAddEntityIntoCrmSolutionLast_Click, "contMnAddEntityIntoSolutionLast");
+
+            FillLastSolutionItems(connectionData, items, hasEntity, AddIntoCrmSolutionLastIncludeSubcomponents_Click, "contMnAddEntityIntoSolutionLastIncludeSubcomponents");
+
+            FillLastSolutionItems(connectionData, items, hasEntity, AddIntoCrmSolutionLastDoNotIncludeSubcomponents_Click, "contMnAddEntityIntoSolutionLastDoNotIncludeSubcomponents");
+
+            FillLastSolutionItems(connectionData, items, hasEntity, AddIntoCrmSolutionLastIncludeAsShellOnly_Click, "contMnAddEntityIntoSolutionLastIncludeAsShellOnly");
+
+            ActivateControls(items, hasEntity && connectionData.LastSelectedSolutionsUniqueName != null && connectionData.LastSelectedSolutionsUniqueName.Any(), "contMnAddEntityIntoSolutionLast");
         }
 
         private void tSDDBExportChart_SubmenuOpened(object sender, RoutedEventArgs e)

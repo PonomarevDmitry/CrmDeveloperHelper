@@ -303,6 +303,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return descriptionBuilder.GetDisplayName(solutionComponent);
         }
 
+        public string GetRootComponentBehaviorName(SolutionComponent solutionComponent)
+        {
+            if (solutionComponent == null)
+            {
+                return null;
+            }
+
+            return SolutionComponent.GetRootComponentBehaviorName(solutionComponent.RootComponentBehavior?.Value);
+        }
+
         public string GetFileName(string connectionName, int type, Guid objectId, string fieldTitle, string extension)
         {
             var descriptionBuilder = GetDescriptionBuilder(type);

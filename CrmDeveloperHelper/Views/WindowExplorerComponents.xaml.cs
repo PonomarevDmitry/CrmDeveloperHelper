@@ -241,8 +241,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string displayName = _descriptor.GetDisplayName(entity);
                 string managed = _descriptor.GetManagedName(entity);
                 string customizable = _descriptor.GetCustomizableName(entity);
+                string behavior = _descriptor.GetRootComponentBehaviorName(entity);
 
-                var item = new SolutionComponentViewItem(entity, name, displayName, entity.ComponentTypeName, managed, customizable);
+                var item = new SolutionComponentViewItem(entity, name, displayName, entity.ComponentTypeName, managed, customizable, behavior);
 
                 convertedList.Add(item);
             }
@@ -1138,7 +1139,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 //< DataGridTextColumn Header = "IsManaged" Width = "120" Binding = "{Binding IsManaged}" />
                 //< DataGridTextColumn Header = "IsCustomizable" Width = "120" Binding = "{Binding IsCustomizable}" />
 
-                string[] columns = { "Name", "DisplayName", "ComponentType", "IsManaged", "IsCustomizable" };
+                string[] columns = { "Name", "DisplayName", "ComponentType", "Behavior", "IsManaged", "IsCustomizable" };
 
                 foreach (var item in columns)
                 {

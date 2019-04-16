@@ -148,6 +148,8 @@
 
                 <DataGridTextColumn Header="ComponentType" Width="120" Binding="{Binding ComponentType}" />
 
+                <DataGridTextColumn Header="Behavior" Width="120" Binding="{Binding Behavior}" />
+
                 <DataGridTextColumn Header="IsManaged" Width="120" Binding="{Binding IsManaged}" />
 
                 <DataGridTextColumn Header="IsCustomizable" Width="120" Binding="{Binding IsCustomizable}" />
