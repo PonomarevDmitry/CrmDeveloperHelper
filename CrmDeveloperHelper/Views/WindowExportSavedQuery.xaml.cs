@@ -353,13 +353,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
                 if (((FrameworkElement)e.OriginalSource).DataContext is EntityViewItem item)
                 {
-                    ExecuteAction(item.SavedQuery.Id, item.SavedQuery.ReturnedTypeCode, item.SavedQuery.Name, PerformExportMouseDoubleClick);
+                    var service = await GetService();
+
+                    if (service != null)
+                    {
+                        service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.SavedQuery, item.SavedQuery.Id);
+                    }
                 }
             }
         }

@@ -838,7 +838,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
+                var entity = ((FrameworkElement)e.OriginalSource).DataContext as EntityMetadataViewItem;
+                ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
+                if (connectionData != null && entity != null)
+                {
+                    connectionData.OpenEntityMetadataInWeb(entity.EntityMetadata.MetadataId.Value);
+                }
+            }
+        }
+
+        private void LstVwEntityRelationships_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+                var entity = GetSelectedEntity();
+
+                var entityRelationship = ((FrameworkElement)e.OriginalSource).DataContext as ManyToManyRelationshipMetadataViewItem;
+
+                if (connectionData != null
+                    && entity != null
+                    && entityRelationship != null
+                )
+                {
+                    connectionData.OpenRelationshipMetadataInWeb(entity.EntityMetadata.MetadataId.Value, entityRelationship.ManyToManyRelationshipMetadata.MetadataId.Value);
+                }
             }
         }
 

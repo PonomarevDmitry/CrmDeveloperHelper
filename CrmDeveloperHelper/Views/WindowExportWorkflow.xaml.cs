@@ -509,7 +509,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
@@ -517,7 +517,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    ExecuteAction(item.Workflow.Id, item.Workflow.PrimaryEntity, item.Workflow.Name, item.Workflow.FormattedValues[Workflow.Schema.Attributes.category], PerformExportMouseDoubleClick);
+                    var service = await GetService();
+
+                    if (service != null)
+                    {
+                        service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.SavedQuery, item.Workflow.Id);
+                    }
                 }
             }
         }
