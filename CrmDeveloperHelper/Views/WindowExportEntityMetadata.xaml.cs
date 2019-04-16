@@ -686,12 +686,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (string.IsNullOrEmpty(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
-
-            if (!Directory.Exists(folder))
+            else if (!Directory.Exists(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
             await action(entityMetadata);
@@ -865,6 +866,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            string folder = txtBFolder.Text.Trim();
+
+            if (string.IsNullOrEmpty(folder))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(folder))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
             var service = await GetService();
 
             string operation = string.Format(Properties.OperationNames.CreatingFileWithAttributesDependentComponentsFormat2, service.ConnectionData.Name, entityMetadata.EntityLogicalName);
@@ -875,16 +889,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                string folder = txtBFolder.Text.Trim();
                 bool allComponents = _commonConfig.AllDependentComponentsForAttributes;
 
                 string fileName = string.Format("{0}.{1} attributes dependent components at {2}.txt", service.ConnectionData.Name, entityMetadata.EntityLogicalName, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
-
-                if (!Directory.Exists(folder))
-                {
-                    Directory.CreateDirectory(folder);
-                }
 
                 var descriptor = new SolutionComponentDescriptor(service);
                 descriptor.SetSettings(_commonConfig);

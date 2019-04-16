@@ -547,12 +547,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (string.IsNullOrEmpty(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
-
-            if (!Directory.Exists(folder))
+            else if (!Directory.Exists(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
             await action(folder, idWorkflow, entityName, name, category);
@@ -674,12 +675,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (string.IsNullOrEmpty(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
-
-            if (!Directory.Exists(folder))
+            else if (!Directory.Exists(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
             await action(folder, idWorkflow, entityName, name, category, fieldName, fieldTitle);
@@ -1104,12 +1106,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (string.IsNullOrEmpty(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
-
-            if (!Directory.Exists(folder))
+            else if (!Directory.Exists(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
             await PerformDifferenceXamlAndCorrectedXaml(folder, entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], Workflow.Schema.Attributes.xaml, Workflow.Schema.Headers.xaml, Workflow.Schema.Headers.CorrectedXaml);

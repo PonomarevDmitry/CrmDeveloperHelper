@@ -388,12 +388,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (string.IsNullOrEmpty(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
-
-            if (!Directory.Exists(folder))
+            else if (!Directory.Exists(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
             await action(folder, idImportJob, solutionName, createdOn);
@@ -467,12 +468,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (string.IsNullOrEmpty(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
-
-            if (!Directory.Exists(folder))
+            else if (!Directory.Exists(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
             await action(folder, idImportJob, solutionName, createdOn, fieldName, fieldTitle);

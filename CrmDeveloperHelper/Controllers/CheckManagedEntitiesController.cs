@@ -187,30 +187,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string filePath = string.Empty;
 
-            if (content.Length > 0)
+            string fileName = string.Format("{0}.Checking Managed Entities at {1}.txt"
+            , connectionData.Name
+            , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+            );
+
+            filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            if (!Directory.Exists(commonConfig.FolderForExport))
             {
-                string fileName = string.Format("{0}.Checking Managed Entities at {1}.txt"
-                , connectionData.Name
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
-                );
-
-                filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                if (!Directory.Exists(commonConfig.FolderForExport))
-                {
-                    Directory.CreateDirectory(commonConfig.FolderForExport);
-                }
-
-                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
-
-                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                Directory.CreateDirectory(commonConfig.FolderForExport);
             }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoObjectsInCRMWereFounded);
-            }
+
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
+
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
         private bool CheckGlobalOptionSets(StringBuilder content, IOrganizationServiceExtented service)

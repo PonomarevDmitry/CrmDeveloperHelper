@@ -160,7 +160,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         if (message.Length > 0) { message.AppendLine(); }
 
-                        message.Append(Properties.MessageBoxStrings.FolderDoesNotExists);
+                        message.Append(Properties.MessageBoxStrings.FolderForExportDoesNotExists);
                     }
                 }
             }

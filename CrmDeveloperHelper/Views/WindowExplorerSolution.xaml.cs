@@ -1374,7 +1374,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateButtonsEnable();
         }
 
-        private void ExecuteActionOnSingleSolution(Solution solution, Func<string, Solution, Task> action)
+        private async void ExecuteActionOnSingleSolution(Solution solution, Func<string, Solution, Task> action)
         {
             if (!this.IsControlsEnabled)
             {
@@ -1390,17 +1390,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (string.IsNullOrEmpty(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
-
-            if (!Directory.Exists(folder))
+            else if (!Directory.Exists(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
             try
             {
-                action(folder, solution);
+                await action(folder, solution);
             }
             catch (Exception ex)
             {
@@ -1785,7 +1786,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void ExecuteActionOnSolutionPair(Solution solution1, Solution solution2, Func<string, Solution, Solution, Task> action)
+        private async void ExecuteActionOnSolutionPair(Solution solution1, Solution solution2, Func<string, Solution, Solution, Task> action)
         {
             if (!this.IsControlsEnabled)
             {
@@ -1801,12 +1802,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (string.IsNullOrEmpty(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
-
-            if (!Directory.Exists(folder))
+            else if (!Directory.Exists(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
             ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
@@ -1815,7 +1817,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    action(folder, solution1, solution2);
+                    await action(folder, solution1, solution2);
                 }
                 catch (Exception ex)
                 {
@@ -1824,7 +1826,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void ExecuteActionOnSolutionAndSolutionCollection(Solution[] solutions, Solution solution, Func<string, Solution[], Solution, Task> action)
+        private async void ExecuteActionOnSolutionAndSolutionCollection(Solution[] solutions, Solution solution, Func<string, Solution[], Solution, Task> action)
         {
             if (!this.IsControlsEnabled)
             {
@@ -1840,17 +1842,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (string.IsNullOrEmpty(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
-
-            if (!Directory.Exists(folder))
+            else if (!Directory.Exists(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
             try
             {
-                action(folder, solutions, solution);
+                await action(folder, solutions, solution);
             }
             catch (Exception ex)
             {
@@ -2990,12 +2993,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (string.IsNullOrEmpty(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
-
-            if (!Directory.Exists(folder))
+            else if (!Directory.Exists(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
             string selectedPath = string.Empty;

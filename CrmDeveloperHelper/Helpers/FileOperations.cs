@@ -347,6 +347,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private const string _folderLogsSubdirectoryName = "Logs";
 
+        private const string _folderForExportSubdirectoryName = "FolderForExport";
+
         private static string GetConfigurationFilePath(string fileName)
         {
             return Path.Combine(GetConfigurationFolder(), fileName);
@@ -384,6 +386,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public static string GetLogsFilePath()
         {
             string directory = Path.Combine(GetConfigurationFolder(), _folderLogsSubdirectoryName);
+
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            return directory;
+        }
+
+        public static string GetDefaultFolderForExportFilePath()
+        {
+            string directory = Path.Combine(GetConfigurationFolder(), _folderForExportSubdirectoryName);
 
             if (!Directory.Exists(directory))
             {

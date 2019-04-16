@@ -1712,12 +1712,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (string.IsNullOrEmpty(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
-
-            if (!Directory.Exists(folder))
+            else if (!Directory.Exists(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
@@ -1873,22 +1874,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            string folder = string.Empty;
-            txtBFolder.Dispatcher.Invoke(() =>
-            {
-                folder = txtBFolder.Text.Trim();
-            });
-
-            if (string.IsNullOrEmpty(folder))
-            {
-                return;
-            }
-
-            if (!Directory.Exists(folder))
-            {
-                return;
-            }
-
             _commonConfig.Save();
 
             WindowHelper.OpenOrganizationComparerSavedQueryWindow(
@@ -1945,22 +1930,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            string folder = string.Empty;
-            txtBFolder.Dispatcher.Invoke(() =>
-            {
-                folder = txtBFolder.Text.Trim();
-            });
-
-            if (string.IsNullOrEmpty(folder))
-            {
-                return;
-            }
-
-            if (!Directory.Exists(folder))
-            {
-                return;
-            }
-
             _commonConfig.Save();
 
             WindowHelper.OpenOrganizationComparerGlobalOptionSetsWindow(
@@ -1977,22 +1946,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
-            {
-                return;
-            }
-
-            string folder = string.Empty;
-            txtBFolder.Dispatcher.Invoke(() =>
-            {
-                folder = txtBFolder.Text.Trim();
-            });
-
-            if (string.IsNullOrEmpty(folder))
-            {
-                return;
-            }
-
-            if (!Directory.Exists(folder))
             {
                 return;
             }
@@ -2017,22 +1970,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            string folder = string.Empty;
-            txtBFolder.Dispatcher.Invoke(() =>
-            {
-                folder = txtBFolder.Text.Trim();
-            });
-
-            if (string.IsNullOrEmpty(folder))
-            {
-                return;
-            }
-
-            if (!Directory.Exists(folder))
-            {
-                return;
-            }
-
             _commonConfig.Save();
 
             WindowHelper.OpenOrganizationComparerWebResourcesWindow(
@@ -2048,22 +1985,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
-            {
-                return;
-            }
-
-            string folder = string.Empty;
-            txtBFolder.Dispatcher.Invoke(() =>
-            {
-                folder = txtBFolder.Text.Trim();
-            });
-
-            if (string.IsNullOrEmpty(folder))
-            {
-                return;
-            }
-
-            if (!Directory.Exists(folder))
             {
                 return;
             }
@@ -2088,22 +2009,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            string folder = string.Empty;
-            txtBFolder.Dispatcher.Invoke(() =>
-            {
-                folder = txtBFolder.Text.Trim();
-            });
-
-            if (string.IsNullOrEmpty(folder))
-            {
-                return;
-            }
-
-            if (!Directory.Exists(folder))
-            {
-                return;
-            }
-
             _commonConfig.Save();
 
             WindowHelper.OpenOrganizationComparerApplicationRibbonWindow(
@@ -2123,22 +2028,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            string folder = string.Empty;
-            txtBFolder.Dispatcher.Invoke(() =>
-            {
-                folder = txtBFolder.Text.Trim();
-            });
-
-            if (string.IsNullOrEmpty(folder))
-            {
-                return;
-            }
-
-            if (!Directory.Exists(folder))
-            {
-                return;
-            }
-
             _commonConfig.Save();
 
             WindowHelper.OpenOrganizationComparerSiteMapWindow(
@@ -2154,22 +2043,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
-            {
-                return;
-            }
-
-            string folder = string.Empty;
-            txtBFolder.Dispatcher.Invoke(() =>
-            {
-                folder = txtBFolder.Text.Trim();
-            });
-
-            if (string.IsNullOrEmpty(folder))
-            {
-                return;
-            }
-
-            if (!Directory.Exists(folder))
             {
                 return;
             }
@@ -2194,22 +2067,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            string folder = string.Empty;
-            txtBFolder.Dispatcher.Invoke(() =>
-            {
-                folder = txtBFolder.Text.Trim();
-            });
-
-            if (string.IsNullOrEmpty(folder))
-            {
-                return;
-            }
-
-            if (!Directory.Exists(folder))
-            {
-                return;
-            }
-
             _commonConfig.Save();
 
             WindowHelper.OpenOrganizationComparerReportWindow(
@@ -2225,22 +2082,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
             if (connection1 == null || connection2 == null)
-            {
-                return;
-            }
-
-            string folder = string.Empty;
-            txtBFolder.Dispatcher.Invoke(() =>
-            {
-                folder = txtBFolder.Text.Trim();
-            });
-
-            if (string.IsNullOrEmpty(folder))
-            {
-                return;
-            }
-
-            if (!Directory.Exists(folder))
             {
                 return;
             }
@@ -2284,12 +2125,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (string.IsNullOrEmpty(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
-
-            if (!Directory.Exists(folder))
+            else if (!Directory.Exists(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
             this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.ComparingConnectionsFormat2, connection1.Name, connection2.Name);
@@ -2517,12 +2359,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (string.IsNullOrEmpty(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
-
-            if (!Directory.Exists(folder))
+            else if (!Directory.Exists(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
             this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.ComparingConnectionsFormat2, connection1.Name, connection2.Name);
@@ -3379,12 +3222,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (string.IsNullOrEmpty(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
-
-            if (!Directory.Exists(folder))
+            else if (!Directory.Exists(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
             await ExecuteTrasnferOperation(function, connection1, connection2, folder);
@@ -3419,12 +3263,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (string.IsNullOrEmpty(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
-
-            if (!Directory.Exists(folder))
+            else if (!Directory.Exists(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
             await ExecuteTrasnferOperation(function, connection2, connection1, folder);

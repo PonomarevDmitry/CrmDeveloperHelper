@@ -378,27 +378,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 content.AppendFormat("No Objects in CRM founded with prefix '{0}'.", prefix).AppendLine();
             }
 
-            if (content.Length > 0)
+            string fileName = string.Format("{0}.CRM Objects names for prefix '{1}' and show dependent components at {2}.txt", connectionData.Name, prefix, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+
+            if (!Directory.Exists(commonConfig.FolderForExport))
             {
-                string fileName = string.Format("{0}.CRM Objects names for prefix '{1}' and show dependent components at {2}.txt", connectionData.Name, prefix, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
-
-                if (!Directory.Exists(commonConfig.FolderForExport))
-                {
-                    Directory.CreateDirectory(commonConfig.FolderForExport);
-                }
-
-                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput(connectionData, "Created file with CRM Objects names for prefix '{0}' and show dependent components: {1}", prefix, filePath);
-
-                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                Directory.CreateDirectory(commonConfig.FolderForExport);
             }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, "No information about web-resource dependent components.");
-            }
+
+            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with CRM Objects names for prefix '{0}' and show dependent components: {1}", prefix, filePath);
+
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
         #endregion Проверка имена на префикс и показ зависимых объектов.
@@ -542,27 +535,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 content.AppendFormat(Properties.OutputStrings.NoObjectsInCRMFoundedWithPrefixFormat1, prefix).AppendLine();
             }
 
-            if (content.Length > 0)
+            string fileName = string.Format("{0}.CRM Objects marked to delete by '{1}' and show dependent components at {2}.txt", connectionData.Name, prefix, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+
+            if (!Directory.Exists(commonConfig.FolderForExport))
             {
-                string fileName = string.Format("{0}.CRM Objects marked to delete by '{1}' and show dependent components at {2}.txt", connectionData.Name, prefix, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
-
-                if (!Directory.Exists(commonConfig.FolderForExport))
-                {
-                    Directory.CreateDirectory(commonConfig.FolderForExport);
-                }
-
-                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput(connectionData, "Created file with CRM Objects marked to delete by '{0}' and show dependent components: {1}", prefix, filePath);
-
-                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                Directory.CreateDirectory(commonConfig.FolderForExport);
             }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, "No CRM Objects marked to delete by '{0}' and show dependent components.", prefix);
-            }
+
+            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with CRM Objects marked to delete by '{0}' and show dependent components: {1}", prefix, filePath);
+
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
         private bool IsMakedToDelete(string prefix, string logicalName, Label label)
@@ -1022,27 +1008,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             WriteToContentDictionary(content, webResourceDescriptions, "WebResource dependent components: {0}");
 
-            if (content.Length > 0)
+            string fileName = string.Format("{0}.WebResourceDependent at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+
+            if (!Directory.Exists(commonConfig.FolderForExport))
             {
-                string fileName = string.Format("{0}.WebResourceDependent at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
-
-                if (!Directory.Exists(commonConfig.FolderForExport))
-                {
-                    Directory.CreateDirectory(commonConfig.FolderForExport);
-                }
-
-                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput(connectionData, "Created file with web-resources dependent components: {0}", filePath);
-
-                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                Directory.CreateDirectory(commonConfig.FolderForExport);
             }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, "No information about web-resource dependent components.");
-            }
+
+            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with web-resources dependent components: {0}", filePath);
+
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
         #endregion Отображение зависимых компонентов веб-ресурсов.
@@ -1146,23 +1125,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 content.AppendLine("No duplicates were found.");
             }
 
-            if (content.Length > 0)
+            string fileName = string.Format("{0}.Checking Global OptionSet Duplicates on Entity at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+
+            if (!Directory.Exists(commonConfig.FolderForExport))
             {
-                string fileName = string.Format("{0}.Checking Global OptionSet Duplicates on Entity at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
-
-                if (!Directory.Exists(commonConfig.FolderForExport))
-                {
-                    Directory.CreateDirectory(commonConfig.FolderForExport);
-                }
-
-                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Checking Global OptionSet Duplicates on Entity: {0}", filePath);
-
-                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                Directory.CreateDirectory(commonConfig.FolderForExport);
             }
+
+            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with Checking Global OptionSet Duplicates on Entity: {0}", filePath);
+
+            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
         #endregion Проверка глобальных OptionSet на дубликаты на сущности.

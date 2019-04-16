@@ -414,6 +414,14 @@
   <data name="NoChangesInEntityFormat1" xml:space="preserve">
     <value>No changes in Entity {0}</value>
   </data>
+
+  <data name="FolderForExportIsEmpty" xml:space="preserve">
+    <value>Folder for Export is empty.</value>
+  </data>
+
+  <data name="FolderForExportDoesNotExistsFormat1" xml:space="preserve">
+    <value>Folder for Export does not exist: {0}</value>
+  </data>
   
 
 </root>

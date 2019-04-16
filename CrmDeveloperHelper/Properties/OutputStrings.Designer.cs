@@ -439,6 +439,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Folder for Export does not exist: {0}.
+        /// </summary>
+        internal static string FolderForExportDoesNotExistsFormat1 {
+            get {
+                return ResourceManager.GetString("FolderForExportDoesNotExistsFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder for Export is empty..
+        /// </summary>
+        internal static string FolderForExportIsEmpty {
+            get {
+                return ResourceManager.GetString("FolderForExportIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GetAttributeMetadata(Guid {0}).
         /// </summary>
         internal static string GetAttributeMetadataByGuidFormat1 {

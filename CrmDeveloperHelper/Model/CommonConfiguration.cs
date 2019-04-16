@@ -787,6 +787,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     result.FormsEventsFileName = defaultFormsEventsFileName;
                 }
 
+                if (string.IsNullOrEmpty(result.FolderForExport))
+                {
+                    result.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+                }
+
                 _singleton = result;
 
                 return _singleton;
