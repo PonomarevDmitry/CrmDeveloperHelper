@@ -344,3 +344,4 @@ healthchecksdb
 MigrationBackup/
 
 /CrmDeveloperHelper/sign.snk
+/CompiledVSIXPackages
