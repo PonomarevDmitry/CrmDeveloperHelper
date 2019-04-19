@@ -1393,6 +1393,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
+            if (string.Equals(fieldName, SavedQuery.Schema.Attributes.layoutxml, StringComparison.InvariantCulture)
+                && !string.IsNullOrEmpty(savedQuery.ReturnedTypeCode)
+            )
+            {
+                var entityData = connectionData.GetEntityIntellisenseData(savedQuery.ReturnedTypeCode);
+
+                if (entityData != null && entityData.ObjectTypeCode.HasValue)
+                {
+                    XAttribute attr = doc.Root.Attribute("object");
+
+                    if (attr != null)
+                    {
+                        attr.Value = entityData.ObjectTypeCode.ToString();
+                    }
+                }
+            }
+
             {
                 string xmlContent = savedQuery.GetAttributeValue<string>(fieldName);
 
