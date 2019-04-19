@@ -100,7 +100,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             if (entity != null)
             {
-                return string.Format("{0} - {1}", entity.ObjectTypeCode, entity.PrivilegeId?.Name); ;
+                return string.Format("{0} - {1}"
+                    , entity.ObjectTypeCode
+                    , EntityDescriptionHandler.GetAttributeString(entity, PrivilegeObjectTypeCodes.Schema.Attributes.privilegeid + "." + Privilege.Schema.Attributes.name)
+                );
             }
 
             return base.GetName(component);

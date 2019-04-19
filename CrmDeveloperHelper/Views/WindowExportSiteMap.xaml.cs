@@ -165,7 +165,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (service != null)
                 {
                     var repository = new SitemapRepository(service);
-                    list = await repository.GetListAsync(new ColumnSet(SiteMap.Schema.Attributes.sitemapname, SiteMap.Schema.Attributes.sitemapnameunique));
+                    list = await repository.GetListAsync(new ColumnSet(SiteMap.PrimaryIdAttribute, SiteMap.Schema.Attributes.sitemapname, SiteMap.Schema.Attributes.sitemapnameunique));
                 }
             }
             catch (Exception ex)
@@ -234,8 +234,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.lstVwSiteMaps.Dispatcher.Invoke(() =>
             {
                 foreach (var entity in results
-                    .OrderBy(ent => ent)
+                    .OrderBy(ent => ent.SiteMapNameUnique)
                     .ThenBy(ent => ent.SiteMapName)
+                    .ThenBy(ent => ent.Id)
                 )
                 {
                     var item = new EntityViewItem(entity.Id, entity.SiteMapName, entity.SiteMapNameUnique, entity);

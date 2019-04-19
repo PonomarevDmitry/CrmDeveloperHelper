@@ -51,6 +51,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 ColumnSet = columnSet ?? new ColumnSet(true),
 
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(SiteMap.PrimaryIdAttribute, ConditionOperator.NotNull),
+                    },
+                },
+
                 PageInfo = new PagingInfo()
                 {
                     PageNumber = 1,

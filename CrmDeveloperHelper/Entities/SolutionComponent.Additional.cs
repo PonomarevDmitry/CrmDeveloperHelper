@@ -413,6 +413,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     entityIdName = SystemForm.PrimaryIdAttribute;
                     break;
 
+                case Entities.ComponentType.PrivilegeObjectTypeCode:
+                    entityName = PrivilegeObjectTypeCodes.EntityLogicalName;
+                    entityIdName = PrivilegeObjectTypeCodes.PrimaryIdAttribute;
+                    break;
+
                 case Entities.ComponentType.DependencyFeature:
                     break;
 

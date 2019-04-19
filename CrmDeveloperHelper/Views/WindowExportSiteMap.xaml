@@ -67,7 +67,7 @@
 
                 <DataGridTextColumn Header="SiteMap Name" Width="150" Binding="{Binding SiteMapName}" />
 
-                <DataGridTextColumn Header="SiteMap Unique Name" Width="150" Binding="{Binding SiteMapUniqueName}" />
+                <DataGridTextColumn Header="SiteMap Name Unique" Width="150" Binding="{Binding SiteMapNameUnique}" />
 
             </DataGrid.Columns>
         </DataGrid>

@@ -192,7 +192,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (service1 != null && service2 != null)
                 {
-                    var columnSet = new ColumnSet(SiteMap.Schema.Attributes.sitemapname, SiteMap.Schema.Attributes.sitemapnameunique);
+                    var columnSet = new ColumnSet(SiteMap.PrimaryIdAttribute, SiteMap.Schema.Attributes.sitemapname, SiteMap.Schema.Attributes.sitemapnameunique);
 
                     List<LinkedEntities<SiteMap>> temp = new List<LinkedEntities<SiteMap>>();
 

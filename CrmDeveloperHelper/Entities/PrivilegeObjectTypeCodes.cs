@@ -15,6 +15,8 @@
 
         public const string EntityLogicalName = "privilegeobjecttypecodes";
 
+        public const string PrimaryIdAttribute = "privilegeobjecttypecodeid";
+
         public const int EntityTypeCode = 31;
 
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;

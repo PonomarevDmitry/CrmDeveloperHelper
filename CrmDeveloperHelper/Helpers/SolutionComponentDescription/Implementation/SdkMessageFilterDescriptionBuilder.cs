@@ -91,6 +91,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return values;
         }
 
+        public override string GetName(SolutionComponent solutionComponent)
+        {
+            var entity = GetEntity<SdkMessageFilter>(solutionComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                return string.Format("{0} - {1}"
+                    , entity.SdkMessageId?.Name
+                    , entity.PrimaryObjectTypeCode
+                );
+            }
+
+            return base.GetName(solutionComponent);
+        }
+
         public override TupleList<string, string> GetComponentColumns()
         {
             return new TupleList<string, string>
