@@ -1501,6 +1501,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Registering PluginAssembly.
+        /// </summary>
+        internal static string RegisteringPluginAssemblyFormat1 {
+            get {
+                return ResourceManager.GetString("RegisteringPluginAssemblyFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove IntellisenseContext EntityName.
         /// </summary>
         internal static string RemoveRibbonDiffIntellisenseContextEntityName {

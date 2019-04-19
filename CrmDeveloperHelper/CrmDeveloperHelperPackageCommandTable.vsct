@@ -378,6 +378,9 @@
       <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare" priority="0x060B" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnectionDyn_Group" priority="0x060B" />
 
+      <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupRegister" priority="0x060B" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupRegister_MenuConnectionDyn_Group" priority="0x060B" />
+
       <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupAddIntoSolution" priority="0x060C" />
 
       <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupAddIntoSolution_MenuAddAssemblyIntoSolution_GroupLastSolution" priority="0x060C" />
@@ -1948,6 +1951,12 @@
         <Strings>
           <ButtonText>Update PluginAssembly in Connection</ButtonText>
           <MenuText>Update PluginAssembly in Connection</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuProject_GroupRegister_MenuConnectionDyn" priority="0x0107" type="Menu">
+        <Strings>
+          <ButtonText>Register PluginAssembly in Connection</ButtonText>
+          <MenuText>Register PluginAssembly in Connection</MenuText>
         </Strings>
       </Menu>
 
@@ -4617,6 +4626,16 @@
         </Strings>
       </Button>
 
+      <Button guid="guidDynamicCommandSet" id="ProjectRegisterPluginAssemblyInConnectionCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Register PluginAssembly in Connection Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
       <Button guid="guidCommandSet" id="ProjectCompareToCrmAssemblyCommandId" priority="0x0121" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
@@ -6633,6 +6652,10 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare" priority="0x060B">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
     </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupRegister" priority="0x060B">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
+    </CommandPlacement>
+    
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupAddIntoSolution" priority="0x060C">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
     </CommandPlacement>
@@ -8792,6 +8815,10 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnectionDyn" priority="0x0121">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare" />
     </CommandPlacement>
+    
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupRegister_MenuConnectionDyn" priority="0x0121">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupRegister" />
+    </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupAddIntoSolution_MenuAddAssemblyIntoSolution" priority="0x060C">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupAddIntoSolution" />
@@ -9956,6 +9983,13 @@
     <CommandPlacement guid="guidDynamicCommandSet" id="ProjectCompareToCrmAssemblyInConnectionCommandId" priority="0x0121">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnectionDyn_Group" />
     </CommandPlacement>
+    
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupRegister_MenuConnectionDyn_Group" priority="0x0121">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupRegister_MenuConnectionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="ProjectRegisterPluginAssemblyInConnectionCommandId" priority="0x0121">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupRegister_MenuConnectionDyn_Group" />
+    </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupAddIntoSolution_MenuAddAssemblyIntoSolution_GroupLastSolution_MenuLastSolutionDyn" priority="0x0121">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupAddIntoSolution_MenuAddAssemblyIntoSolution_GroupLastSolution" />
@@ -10712,6 +10746,10 @@
       <IDSymbol name="folderMenuProject_GroupCompare_MenuConnectionDyn" value="0x113A" />
       <IDSymbol name="folderMenuProject_GroupCompare_MenuConnectionDyn_Group" value="0x113B" />
 
+      <IDSymbol name="folderMenuProject_GroupRegister" value="0x12E2" />
+      <IDSymbol name="folderMenuProject_GroupRegister_MenuConnectionDyn" value="0x12E3" />
+      <IDSymbol name="folderMenuProject_GroupRegister_MenuConnectionDyn_Group" value="0x12E4" />
+
       <IDSymbol name="folderMenuProject_GroupAddIntoSolution" value="0x10FA" />
 
       <IDSymbol name="folderMenuProject_GroupAddIntoSolution_MenuAddAssemblyIntoSolution" value="0x12B8" />
@@ -11044,7 +11082,7 @@
 
 
 
-      <!-- 0x12E2 -->
+      <!-- 0x12E5 -->
 
 
     </GuidSymbol>
@@ -11269,6 +11307,8 @@
       <IDSymbol name="FileCSharpProjectUpdatePluginAssemblyInConnectionCommandId" value="7300" />
       <IDSymbol name="ProjectUpdatePluginAssemblyInConnectionCommandId" value="7350" />
 
+      <IDSymbol name="ProjectRegisterPluginAssemblyInConnectionCommandId" value="8750" />
+
       <IDSymbol name="CommonOpenDefaultSolutionInWebCommandId" value="7400" />
 
       <IDSymbol name="CodeWebResourceAddIntoSolutionInConnectionCommandId" value="7450" />
@@ -11302,7 +11342,7 @@
 
       <IDSymbol name="CommonImportJobExplorerInConnectionCommandId" value="8700" />
 
-      <!-- 8750 -->
+      <!-- 8800 -->
 
     </GuidSymbol>
 

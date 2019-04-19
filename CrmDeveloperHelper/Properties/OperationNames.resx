@@ -666,6 +666,9 @@
   <data name="UpdatingPluginAssemblyFormat1" xml:space="preserve">
     <value>{0} - Updating PluginAssembly</value>
   </data>
+  <data name="RegisteringPluginAssemblyFormat1" xml:space="preserve">
+    <value>{0} - Registering PluginAssembly</value>
+  </data>
   <data name="CreatingRoleBackupFormat2" xml:space="preserve">
     <value>{0} - Creating Role backup {1}</value>
   </data>

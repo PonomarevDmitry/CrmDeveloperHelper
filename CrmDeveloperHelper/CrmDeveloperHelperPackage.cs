@@ -285,6 +285,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             ProjectUpdatePluginAssemblyCommand.Initialize(this);
             ProjectUpdatePluginAssemblyInConnectionCommand.Initialize(this);
 
+            ProjectRegisterPluginAssemblyInConnectionCommand.Initialize(this);
+
             ProjectCompareToCrmAssemblyCommand.Initialize(this);
             ProjectCompareToCrmAssemblyInConnectionCommand.Initialize(this);
 

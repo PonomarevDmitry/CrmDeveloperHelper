@@ -560,6 +560,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleRegisterPluginAssemblyCommand(ConnectionData connectionData, EnvDTE.Project project)
+        {
+            if (project == null)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(project.Name))
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            {
+                return;
+            }
+
+            if (connectionData == null)
+            {
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (crmConfig != null && connectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData, crmConfig);
+
+                var defaultOutputFilePath = PropertiesHelper.GetOutputFilePath(project);
+
+                try
+                {
+                    Controller.StartRegisterPluginAssembly(connectionData, commonConfig, project, defaultOutputFilePath);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
         public void HandleExecutingFetchXml(ConnectionData connectionData, SelectedFile selectedFile, bool strictConnection)
         {
             if (selectedFile == null || !File.Exists(selectedFile.FilePath))

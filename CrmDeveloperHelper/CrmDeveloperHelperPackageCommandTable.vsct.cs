@@ -437,6 +437,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int folderMenuProject_GroupCompare = 0x10FB;
         public const int folderMenuProject_GroupCompare_MenuConnectionDyn = 0x113A;
         public const int folderMenuProject_GroupCompare_MenuConnectionDyn_Group = 0x113B;
+        public const int folderMenuProject_GroupRegister = 0x12E2;
+        public const int folderMenuProject_GroupRegister_MenuConnectionDyn = 0x12E3;
+        public const int folderMenuProject_GroupRegister_MenuConnectionDyn_Group = 0x12E4;
         public const int folderMenuProject_GroupAddIntoSolution = 0x10FA;
         public const int folderMenuProject_GroupAddIntoSolution_MenuAddAssemblyIntoSolution = 0x12B8;
         public const int folderMenuProject_GroupAddIntoSolution_MenuAddAssemblyIntoSolution_GroupLastSolution = 0x12BA;
@@ -776,6 +779,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeCSharpProjectUpdatePluginAssemblyInConnectionCommandId = 0x1C52;
         public const int FileCSharpProjectUpdatePluginAssemblyInConnectionCommandId = 0x1C84;
         public const int ProjectUpdatePluginAssemblyInConnectionCommandId = 0x1CB6;
+        public const int ProjectRegisterPluginAssemblyInConnectionCommandId = 0x222E;
         public const int CommonOpenDefaultSolutionInWebCommandId = 0x1CE8;
         public const int CodeWebResourceAddIntoSolutionInConnectionCommandId = 0x1D1A;
         public const int CodeReportAddIntoSolutionInConnectionCommandId = 0x1D4C;

@@ -1391,6 +1391,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
+        public void StartRegisterPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, EnvDTE.Project project, string defaultOutputFilePath)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._pluginTypeDescriptionController.ExecuteRegisterPluginAssembly(connectionData, commonConfig, project, defaultOutputFilePath);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
         public void StartAddingReportsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
             var worker = new Thread(() =>

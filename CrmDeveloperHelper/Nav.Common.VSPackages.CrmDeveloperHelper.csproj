@@ -308,6 +308,7 @@
     <Compile Include="Commands\ProjectPluginAssemblyStepsAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\ProjectPluginTreeCommand.cs" />
     <Compile Include="Commands\ProjectPluginTypeDescriptionCommand.cs" />
+    <Compile Include="Commands\ProjectRegisterPluginAssemblyInConnectionCommand.cs" />
     <Compile Include="Commands\ProjectUpdatePluginAssemblyCommand.cs" />
     <Compile Include="Commands\ProjectUpdatePluginAssemblyInConnectionCommand.cs" />
     <Compile Include="Controllers\LinkController.cs" />

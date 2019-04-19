@@ -549,5 +549,73 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Обновление сборки плагинов.
+
+        #region Регистрация сборки плагинов.
+
+        public async Task ExecuteRegisterPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, EnvDTE.Project project, string defaultOutputFilePath)
+        {
+            string operation = string.Format(Properties.OperationNames.RegisteringPluginAssemblyFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await RegisterPluginAssembly(connectionData, commonConfig, project, defaultOutputFilePath);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task RegisterPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, EnvDTE.Project project, string defaultOutputFilePath)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            if (project == null || string.IsNullOrEmpty(project.Name))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.AssemblyNameIsEmpty);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            var assembly = new PluginAssembly();
+
+            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowPluginAssembly(_iWriteToOutput, service, assembly, defaultOutputFilePath, project);
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
+        #endregion Регистрация сборки плагинов.
     }
 }
