@@ -23,7 +23,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private static ConcurrentDictionary<Uri, IServiceManagement<IDiscoveryService>> _cacheDiscoveryServiceManagement = new ConcurrentDictionary<Uri, IServiceManagement<IDiscoveryService>>();
         private static ConcurrentDictionary<Uri, IServiceManagement<IOrganizationService>> _cacheOrganizationServiceManagement = new ConcurrentDictionary<Uri, IServiceManagement<IOrganizationService>>();
 
-        private static IServiceManagement<IDiscoveryService> GetDiscoveryServiceConfiguration(Uri uri)
+        private static IServiceManagement<IDiscoveryService> GetDiscoveryServiceConfiguration(ConnectionData connectionData, Uri uri)
         {
             if (_cacheDiscoveryServiceManagement.ContainsKey(uri))
             {
@@ -43,13 +43,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToOutput(null, ex);
+                DTEHelper.WriteExceptionToOutput(connectionData, ex);
             }
 
             return null;
         }
 
-        private static IServiceManagement<IOrganizationService> GetOrganizationServiceConfiguration(Uri uri)
+        private static IServiceManagement<IOrganizationService> GetOrganizationServiceConfiguration(ConnectionData connectionData, Uri uri)
         {
             if (_cacheOrganizationServiceManagement.ContainsKey(uri))
             {
@@ -69,7 +69,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             catch (Exception ex)
             {
-                DTEHelper.WriteExceptionToOutput(null, ex);
+                DTEHelper.WriteExceptionToOutput(connectionData, ex);
             }
 
             return null;
@@ -128,25 +128,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     , out OrganizationDetail organizationDetail
                 );
 
+                if (service != null)
                 {
-                    WhoAmIResponse whoresponse = (WhoAmIResponse)service.Execute(new WhoAmIRequest());
+                    {
+                        WhoAmIResponse whoresponse = (WhoAmIResponse)service.Execute(new WhoAmIRequest());
 
-                    iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WhoAmIRequestExecutedSuccessfully);
+                        iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WhoAmIRequestExecutedSuccessfully);
 
-                    iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.QuickConnectionOrganizationIdFormat1, whoresponse.OrganizationId);
-                    iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.QuickConnectionBusinessUnitIdFormat1, whoresponse.BusinessUnitId);
-                    iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.QuickConnectionUserIdFormat1, whoresponse.UserId);
+                        iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.QuickConnectionOrganizationIdFormat1, whoresponse.OrganizationId);
+                        iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.QuickConnectionBusinessUnitIdFormat1, whoresponse.BusinessUnitId);
+                        iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.QuickConnectionUserIdFormat1, whoresponse.UserId);
+                    }
+
+                    var result = new OrganizationServiceExtentedProxy(service, connectionData);
+
+                    await LoadOrganizationDataAsync(result, organizationDetail);
+
+                    iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, result.CurrentServiceEndpoint);
+
+                    iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.SuccessfullyConnectedFormat1, connectionData.Name);
+
+                    return true;
                 }
+                else
+                {
+                    iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
 
-                var result = new OrganizationServiceExtentedProxy(service, connectionData);
-
-                await LoadOrganizationDataAsync(result, organizationDetail);
-
-                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, result.CurrentServiceEndpoint);
-
-                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.SuccessfullyConnectedFormat1, connectionData.Name);
-
-                return true;
+                    return false;
+                }
             }
             catch (Exception ex)
             {
@@ -308,7 +317,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 && Uri.TryCreate(connectionData.DiscoveryUrl, UriKind.Absolute, out var discoveryUri)
                 )
             {
-                var disco = CreateDiscoveryService(discoveryUri, connectionData.User?.Username, connectionData.User?.Password);
+                var disco = CreateDiscoveryService(connectionData, discoveryUri, connectionData.User?.Username, connectionData.User?.Password);
 
                 if (disco != null)
                 {
@@ -350,7 +359,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (orgUri != null)
             {
-                IServiceManagement<IOrganizationService> serviceManagement = GetOrganizationServiceConfiguration(orgUri);
+                IServiceManagement<IOrganizationService> serviceManagement = GetOrganizationServiceConfiguration(connectionData, orgUri);
 
                 if (serviceManagement != null)
                 {
@@ -381,11 +390,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return null;
         }
 
-        private static DiscoveryServiceProxy CreateDiscoveryService(Uri discoveryUrl, string username, string password)
+        private static DiscoveryServiceProxy CreateDiscoveryService(ConnectionData connectionData, Uri discoveryUrl, string username, string password)
         {
             try
             {
-                IServiceManagement<IDiscoveryService> serviceManagement = GetDiscoveryServiceConfiguration(discoveryUrl);
+                IServiceManagement<IDiscoveryService> serviceManagement = GetDiscoveryServiceConfiguration(connectionData, discoveryUrl);
 
                 if (serviceManagement != null)
                 {
