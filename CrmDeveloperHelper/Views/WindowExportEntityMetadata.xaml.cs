@@ -34,7 +34,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly CommonConfiguration _commonConfig;
 
-        public readonly string _filePath;
+        private readonly string _filePath;
+        private readonly bool _isJavaScript;
+
+        private readonly EnvDTE.SelectedItem _selectedItem;
 
         private readonly ObservableCollection<EntityMetadataListViewItem> _itemsSource;
 
@@ -48,6 +51,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filterEntity
             , IEnumerable<EntityMetadata> allEntities
             , string filePath
+            , bool isJavaScript
+            , EnvDTE.SelectedItem selectedItem
         )
         {
             this.IncreaseInit();
@@ -57,6 +62,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput = iWriteToOutput;
             this._commonConfig = commonConfig;
             this._filePath = filePath;
+            this._isJavaScript = isJavaScript;
+            this._selectedItem = selectedItem;
 
             _connectionCache[service.ConnectionData.ConnectionId] = service;
 
@@ -101,6 +108,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 txtBFolder.Background = SystemColors.InactiveSelectionHighlightBrush;
                 txtBFolder.Text = Path.GetDirectoryName(_filePath);
             }
+            else if (this._selectedItem != null)
+            {
+                string exportFolder = string.Empty;
+
+                if (_selectedItem.ProjectItem != null)
+                {
+                    exportFolder = _selectedItem.ProjectItem.FileNames[1];
+                }
+                else if (_selectedItem.Project != null)
+                {
+                    string relativePath = DTEHelper.GetRelativePath(_selectedItem.Project);
+
+                    string solutionPath = Path.GetDirectoryName(_selectedItem.DTE.Solution.FullName);
+
+                    exportFolder = Path.Combine(solutionPath, relativePath);
+                }
+
+                if (!Directory.Exists(exportFolder))
+                {
+                    Directory.CreateDirectory(exportFolder);
+                }
+
+                txtBFolder.IsReadOnly = true;
+                txtBFolder.Background = SystemColors.InactiveSelectionHighlightBrush;
+                txtBFolder.Text = exportFolder;
+            }
+            else
+            {
+                {
+                    Binding binding = new Binding
+                    {
+                        Path = new PropertyPath("FolderForExport")
+                    };
+                    BindingOperations.SetBinding(txtBFolder, TextBox.TextProperty, binding);
+                }
+
+                txtBFolder.DataContext = _commonConfig;
+            }
 
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
@@ -127,11 +172,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBNamespaceJavaScript.DataContext = cmBCurrentConnection;
 
             cmBFileAction.DataContext = _commonConfig;
-
-            if (string.IsNullOrEmpty(_filePath))
-            {
-                txtBFolder.DataContext = _commonConfig;
-            }
         }
 
         protected override void OnClosed(EventArgs e)
@@ -676,7 +716,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async Task ExecuteActionAsync(EntityMetadataListViewItem entityMetadata, Func<EntityMetadataListViewItem, Task> action)
+        private async Task ExecuteActionAsync(EntityMetadataListViewItem entityMetadata, Func<string, EntityMetadataListViewItem, Task> action)
         {
             string folder = txtBFolder.Text.Trim();
 
@@ -696,10 +736,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
-            await action(entityMetadata);
+            await action(folder, entityMetadata);
         }
 
-        private async Task CreateEntityMetadataFileAsync(EntityMetadataListViewItem entityMetadata)
+        private async Task CreateEntityMetadataFileAsync(string folder, EntityMetadataListViewItem entityMetadata)
         {
             var service = await GetService();
 
@@ -728,19 +768,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , _commonConfig.SolutionComponentWithManagedInfo
                     , _commonConfig.ConstantType
                     , _commonConfig.OptionSetExportType
-                    );
+                );
 
-                string filePath = _filePath;
+                string fileName = string.Format("{0}.{1}.Generated.cs", service.ConnectionData.Name, entityMetadata.EntityMetadata.SchemaName);
 
-                if (string.IsNullOrEmpty(filePath))
+                if (this._selectedItem != null)
                 {
-                    string fileName = string.Format("{0}.{1}.Generated.cs", service.ConnectionData.Name, entityMetadata.EntityMetadata.SchemaName);
-                    filePath = Path.Combine(txtBFolder.Text.Trim(), FileOperations.RemoveWrongSymbols(fileName));
+                    fileName = string.Format("{0}.Generated.cs", entityMetadata.EntityMetadata.SchemaName);
+                }
+
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                if (!_isJavaScript && !string.IsNullOrEmpty(filePath))
+                {
+                    filePath = _filePath;
                 }
 
                 using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput))
                 {
                     await handler.CreateFileAsync(filePath);
+                }
+
+                if (this._selectedItem != null)
+                {
+                    if (_selectedItem.ProjectItem != null)
+                    {
+                        _selectedItem.ProjectItem.ProjectItems.AddFromFileCopy(filePath);
+
+                        _selectedItem.ProjectItem.ContainingProject.Save();
+                    }
+                    else if (_selectedItem.Project != null)
+                    {
+                        _selectedItem.Project.ProjectItems.AddFromFile(filePath);
+
+                        _selectedItem.Project.Save();
+                    }
                 }
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
@@ -773,7 +835,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteActionAsync(entity, CreateEntityMetadataFileJSAsync);
         }
 
-        private async Task CreateEntityMetadataFileJSAsync(EntityMetadataListViewItem entityMetadata)
+        private async Task CreateEntityMetadataFileJSAsync(string folder, EntityMetadataListViewItem entityMetadata)
         {
             if (!this.IsControlsEnabled)
             {
@@ -794,21 +856,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig.EntityMetadaOptionSetDependentComponents
             );
 
-            string folder = txtBFolder.Text.Trim();
+            string fileName = string.Format("{0}.{1}.EntityMetadata.Generated.js", service.ConnectionData.Name, entityMetadata.EntityLogicalName);
 
-            if (string.IsNullOrEmpty(folder))
+            if (this._selectedItem != null)
             {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
+                fileName = string.Format("{0}.EntityMetadata.Generated.js", entityMetadata.EntityLogicalName);
             }
 
-            string filename = string.Format("{0}.{1}.EntityMetadata.Generated.js", service.ConnectionData.Name, entityMetadata.EntityLogicalName);
-            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(filename));
+            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+            if (_isJavaScript && !string.IsNullOrEmpty(filePath))
+            {
+                filePath = _filePath;
+            }
 
             try
             {
@@ -819,6 +879,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
 
                     this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+                }
+
+                if (this._selectedItem != null)
+                {
+                    if (_selectedItem.ProjectItem != null)
+                    {
+                        _selectedItem.ProjectItem.ProjectItems.AddFromFileCopy(filePath);
+
+                        _selectedItem.ProjectItem.ContainingProject.Save();
+                    }
+                    else if (_selectedItem.Project != null)
+                    {
+                        _selectedItem.Project.ProjectItems.AddFromFile(filePath);
+
+                        _selectedItem.Project.Save();
+                    }
                 }
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
@@ -847,7 +923,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteActionAsync(entity, CreateNewEntityInstanceAsync);
         }
 
-        private async Task CreateNewEntityInstanceAsync(EntityMetadataListViewItem entityMetadata)
+        private async Task CreateNewEntityInstanceAsync(string folder, EntityMetadataListViewItem entityMetadata)
         {
             if (!this.IsControlsEnabled)
             {
@@ -873,24 +949,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteActionAsync(entity, StartCreateFileWithAttibuteDependentAsync);
         }
 
-        private async Task StartCreateFileWithAttibuteDependentAsync(EntityMetadataListViewItem entityMetadata)
+        private async Task StartCreateFileWithAttibuteDependentAsync(string folder, EntityMetadataListViewItem entityMetadata)
         {
             if (!this.IsControlsEnabled)
             {
                 return;
-            }
-
-            string folder = txtBFolder.Text.Trim();
-
-            if (string.IsNullOrEmpty(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
             var service = await GetService();
@@ -957,7 +1020,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteActionAsync(entity, PublishEntityAsync);
         }
 
-        private async Task CreateEntityXmlFileAsync(EntityMetadataListViewItem entityMetadata)
+        private async Task CreateEntityXmlFileAsync(string folder, EntityMetadataListViewItem entityMetadata)
         {
             if (!this.IsControlsEnabled)
             {
@@ -975,7 +1038,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var repository = new EntityMetadataRepository(service);
 
                 var fileName = string.Format("{0}.{1} - EntityXml at {2}.xml", service.ConnectionData.Name, entityMetadata.EntityLogicalName, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
-                string filePath = Path.Combine(txtBFolder.Text.Trim(), FileOperations.RemoveWrongSymbols(fileName));
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                 await repository.ExportEntityXmlAsync(entityMetadata.EntityLogicalName, filePath);
 
@@ -997,7 +1060,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.GettingEntityXmlFormat2, service.ConnectionData.Name, entityMetadata.EntityLogicalName);
         }
 
-        private async Task PublishEntityAsync(EntityMetadataListViewItem entityMetadata)
+        private async Task PublishEntityAsync(string folder, EntityMetadataListViewItem entityMetadata)
         {
             if (!this.IsControlsEnabled)
             {
@@ -1301,7 +1364,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteActionAsync(entity, PerformExportEntityRibbon);
         }
 
-        private async Task PerformExportEntityRibbon(EntityMetadataListViewItem entityMetadata)
+        private async Task PerformExportEntityRibbon(string folder, EntityMetadataListViewItem entityMetadata)
         {
             if (!this.IsControlsEnabled)
             {
@@ -1323,7 +1386,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     );
 
                 string fileName = EntityFileNameFormatter.GetEntityRibbonFileName(service.ConnectionData.Name, entityMetadata.EntityLogicalName);
-                string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                 File.WriteAllText(filePath, ribbonXml, new UTF8Encoding(false));
 
@@ -1351,7 +1414,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteActionAsync(entity, PerformExportEntityRibbonArchive);
         }
 
-        private async Task PerformExportEntityRibbonArchive(EntityMetadataListViewItem entityMetadata)
+        private async Task PerformExportEntityRibbonArchive(string folder, EntityMetadataListViewItem entityMetadata)
         {
             if (!this.IsControlsEnabled)
             {
@@ -1369,7 +1432,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var bodyEntityRibbon = await repository.ExportEntityRibbonByteArrayAsync(entityMetadata.EntityLogicalName, _commonConfig.GetRibbonLocationFilters());
 
                 string fileName = EntityFileNameFormatter.GetEntityRibbonFileName(service.ConnectionData.Name, entityMetadata.EntityLogicalName, "zip");
-                string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                 File.WriteAllBytes(filePath, bodyEntityRibbon);
 
@@ -1397,7 +1460,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteActionAsync(entity, PerformExportEntityRibbonDiffXml);
         }
 
-        private async Task PerformExportEntityRibbonDiffXml(EntityMetadataListViewItem entityMetadata)
+        private async Task PerformExportEntityRibbonDiffXml(string folder, EntityMetadataListViewItem entityMetadata)
         {
             if (!this.IsControlsEnabled)
             {
@@ -1429,7 +1492,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 {
                     string fileName = EntityFileNameFormatter.GetEntityRibbonDiffXmlFileName(service.ConnectionData.Name, entityMetadata.EntityLogicalName);
-                    string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+                    string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
                     File.WriteAllText(filePath, ribbonDiffXml, new UTF8Encoding(false));
 
@@ -1462,7 +1525,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteActionAsync(entity, PerformUpdateEntityRibbonDiffXml);
         }
 
-        private async Task PerformUpdateEntityRibbonDiffXml(EntityMetadataListViewItem entity)
+        private async Task PerformUpdateEntityRibbonDiffXml(string folder, EntityMetadataListViewItem entity)
         {
             if (!this.IsControlsEnabled)
             {

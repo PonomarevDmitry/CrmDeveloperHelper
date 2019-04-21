@@ -62,6 +62,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int codeMenuWebResource_GroupCompareFile = 0x1004;
         public const int codeMenuWebResource_GroupCompareFile_MenuConnectionDyn = 0x122C;
         public const int codeMenuWebResource_GroupCompareFile_MenuConnectionDyn_Group = 0x122D;
+        public const int codeMenuWebResource_GroupEntityMetadata = 0x12F7;
+        public const int codeMenuWebResource_GroupEntityMetadata_MenuConnectionDyn = 0x12F8;
+        public const int codeMenuWebResource_GroupEntityMetadata_MenuConnectionDyn_Group = 0x12F9;
         public const int codeMenuWebResource_GroupCheckFileEncoding = 0x1005;
         public const int codeMenuWebResource_GroupDownloadWebResource = 0x1006;
         public const int codeMenuWebResource_GroupOpenInWeb = 0x107D;
@@ -214,6 +217,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText = 0x1178;
         public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges = 0x1179;
         public const int documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges = 0x117A;
+        public const int documentsMenuWebResource_GroupEntityMetadata = 0x12FA;
+        public const int documentsMenuWebResource_GroupEntityMetadata_MenuEntityDyn = 0x12FB;
+        public const int documentsMenuWebResource_GroupEntityMetadata_MenuEntityDyn_Group = 0x12FC;
+        public const int documentsMenuWebResource_GroupEntityMetadata_MenuGlobalOptionSetsDyn = 0x12FD;
+        public const int documentsMenuWebResource_GroupEntityMetadata_MenuGlobalOptionSetsDyn_Group = 0x12FE;
         public const int documentsMenuWebResource_GroupEncoding = 0x117B;
         public const int documentsMenuWebResource_GroupEncoding_MenuCommands = 0x117C;
         public const int documentsMenuWebResource_GroupEncoding_MenuCommands_GroupCommands = 0x1188;
@@ -299,6 +307,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText = 0x1022;
         public const int fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges = 0x1023;
         public const int fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges = 0x1024;
+        public const int fileMenuWebResource_GroupEntityMetadata = 0x12FF;
+        public const int fileMenuWebResource_GroupEntityMetadata_MenuConnectionDyn = 0x1300;
+        public const int fileMenuWebResource_GroupEntityMetadata_MenuConnectionDyn_Group = 0x1301;
+        public const int fileMenuWebResource_GroupGlobalOptionSets = 0x1302;
+        public const int fileMenuWebResource_GroupGlobalOptionSets_MenuConnectionDyn = 0x1303;
+        public const int fileMenuWebResource_GroupGlobalOptionSets_MenuConnectionDyn_Group = 0x1304;
         public const int fileMenuWebResource_GroupEncoding = 0x1025;
         public const int fileMenuWebResource_GroupEncoding_MenuCommands = 0x1189;
         public const int fileMenuWebResource_GroupEncoding_MenuCommands_GroupCommands = 0x118A;
@@ -406,6 +420,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupByText = 0x1073;
         public const int folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges = 0x1074;
         public const int folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges = 0x1075;
+        public const int folderMenuWebResource_GroupEntityMetadata = 0x1305;
+        public const int folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn = 0x1306;
+        public const int folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn_Group = 0x1307;
+        public const int folderMenuWebResource_GroupEntityMetadata_MenuGlobalOptionSetsDyn = 0x1308;
+        public const int folderMenuWebResource_GroupEntityMetadata_MenuGlobalOptionSetsDyn_Group = 0x1309;
         public const int folderMenuWebResource_GroupEncoding = 0x1076;
         public const int folderMenuWebResource_GroupEncoding_MenuCommands = 0x118B;
         public const int folderMenuWebResource_GroupEncoding_MenuCommands_GroupCommands = 0x118C;
@@ -440,6 +459,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int folderMenuCSharp_GroupEntityMetadata_MenuGlobalOptionSetsDyn_Group = 0x1286;
         public const int folderMenuFolder = 0x107B;
         public const int folderMenuFolder_GroupFolder = 0x107C;
+        public const int folderMenuFolder_GroupMetadata = 0x12F4;
+        public const int folderMenuFolder_GroupMetadata_MenuEntityDyn = 0x12F5;
+        public const int folderMenuFolder_GroupMetadata_MenuEntityDyn_GroupConnection = 0x12F6;
         public const int folderMenuProject = 0x10F9;
         public const int folderMenuProject_GroupUpdate = 0x128D;
         public const int folderMenuProject_GroupUpdate_MenuConnectionDyn = 0x128E;
@@ -790,6 +812,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int DocumentsCSharpUpdateEntityMetadataFileCommandId = 0x1AF4;
         public const int FileCSharpUpdateEntityMetadataFileCommandId = 0x1B26;
         public const int FolderCSharpUpdateEntityMetadataFileCommandId = 0x1B58;
+        public const int CodeJavaScriptUpdateEntityMetadataFileCommandId = 0x22F6;
+        public const int DocumentsJavaScriptUpdateEntityMetadataFileCommandId = 0x2328;
+        public const int FileJavaScriptUpdateEntityMetadataFileCommandId = 0x235A;
+        public const int FolderJavaScriptUpdateEntityMetadataFileCommandId = 0x238C;
         public const int CodeCSharpUpdateGlobalOptionSetsFileCommandId = 0x1B8A;
         public const int DocumentsCSharpUpdateGlobalOptionSetsFileCommandId = 0x1BBC;
         public const int FileCSharpUpdateGlobalOptionSetsFileCommandId = 0x1BEE;
@@ -825,6 +851,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int FolderCSharpProjectPluginTypeStepsAddIntoSolutionLastCommandId = 0x2198;
         public const int FolderCSharpProjectPluginTypeStepsAddIntoSolutionInConnectionCommandId = 0x21CA;
         public const int CommonImportJobExplorerInConnectionCommandId = 0x21FC;
+        public const int FolderAddEntityMetadataFileInConnectionCommandId = 0x22C4;
         public const int CodeWebResourceUpdateContentPublishCommandId = 0x2000;
         public const int CodeWebResourceShowDifferenceCommandId = 0x2001;
         public const int CodeWebResourceShowDifferenceCustomCommandId = 0x2002;
@@ -871,6 +898,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeCSharpUpdateProxyClassesCommandId = 0x200E;
         public const int CodeCSharpUpdateEntityMetadataFileWithSelectCommandId = 0x2010;
         public const int CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommandId = 0x2012;
+        public const int CodeJavaScriptUpdateEntityMetadataFileWithSelectCommandId = 0x219D;
         public const int ListForPublishCompareCommandId = 0x2015;
         public const int ListForPublishCompareWithDetailsCommandId = 0x2016;
         public const int ListForPublishShowListCommandId = 0x211F;
@@ -953,6 +981,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int FileCSharpUpdateProxyClassesCommandId = 0x2058;
         public const int FileCSharpUpdateEntityMetadataFileWithSelectCommandId = 0x205A;
         public const int FileCSharpUpdateGlobalOptionSetsFileWithSelectCommandId = 0x205C;
+        public const int FileJavaScriptUpdateEntityMetadataFileWithSelectCommandId = 0x219E;
         public const int FolderWebResourceUpdateContentPublishCommandId = 0x205D;
         public const int FolderWebResourceShowDependentComponentsCommandId = 0x205F;
         public const int FolderWebResourceCompareCommandId = 0x2060;

@@ -16,9 +16,64 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
+        )
+        {
+            OpenEntityMetadataWindow(iWriteToOutput, service, commonConfig, null, null, null, false, null);
+        }
+
+        public static void OpenEntityMetadataWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filterEntityName
+        )
+        {
+            OpenEntityMetadataWindow(iWriteToOutput, service, commonConfig, null, filterEntityName, null, false, null);
+        }
+
+        public static void OpenEntityMetadataWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filterEntityName
+            , EnvDTE.SelectedItem selectedItem
+        )
+        {
+            OpenEntityMetadataWindow(iWriteToOutput, service, commonConfig, null, filterEntityName, null, false, selectedItem);
+        }
+
+        public static void OpenEntityMetadataWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filterEntityName
+            , string filePath
+            , bool isJavaScript
+        )
+        {
+            OpenEntityMetadataWindow(iWriteToOutput, service, commonConfig, null, filterEntityName, filePath, isJavaScript, null);
+        }
+
+        public static void OpenEntityMetadataWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
             , IEnumerable<EntityMetadata> entityMetadataList
-            , string filterEntityName = null
-            , string filePath = null
+            , string filterEntityName
+        )
+        {
+            OpenEntityMetadataWindow(iWriteToOutput, service, commonConfig, entityMetadataList, filterEntityName, null, false, null);
+        }
+
+        public static void OpenEntityMetadataWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , IEnumerable<EntityMetadata> entityMetadataList
+            , string filterEntityName
+            , string filePath
+            , bool isJavaScript
+            , EnvDTE.SelectedItem selectedItem
         )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -31,8 +86,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , commonConfig
                         , filterEntityName
                         , entityMetadataList
-                        , null
-                        );
+                        , filePath
+                        , isJavaScript
+                        , selectedItem
+                    );
 
                     form.ShowDialog();
                 }

@@ -100,6 +100,8 @@
     <Compile Include="Commands\CodeCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CodeCSharpProjectUpdatePluginAssemblyCommand.cs" />
     <Compile Include="Commands\CodeCSharpProjectUpdatePluginAssemblyInConnectionCommand.cs" />
+    <Compile Include="Commands\CodeJavaScriptUpdateEntityMetadataFileCommand.cs" />
+    <Compile Include="Commands\CodeJavaScriptUpdateEntityMetadataFileWithSelectCommand.cs" />
     <Compile Include="Commands\CodeReportAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CodeReportShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\CodeReportShowDifferenceThreeFileCommand.cs" />
@@ -230,6 +232,7 @@
     <Compile Include="Commands\DocumentsCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\DocumentsCSharpProjectPluginAssemblyStepsAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\DocumentsCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\DocumentsJavaScriptUpdateEntityMetadataFileCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceCheckEncodingCommand.cs" />
@@ -262,6 +265,8 @@
     <Compile Include="Commands\FileCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\FileCSharpProjectUpdatePluginAssemblyCommand.cs" />
     <Compile Include="Commands\FileCSharpProjectUpdatePluginAssemblyInConnectionCommand.cs" />
+    <Compile Include="Commands\FileJavaScriptUpdateEntityMetadataFileCommand.cs" />
+    <Compile Include="Commands\FileJavaScriptUpdateEntityMetadataFileWithSelectCommand.cs" />
     <Compile Include="Commands\FileReportAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\FileReportOpenInWebCommand.cs" />
     <Compile Include="Commands\FileReportUpdateCommand.cs" />
@@ -274,12 +279,14 @@
     <Compile Include="Commands\FileXmlOpenXsdSchemaFolderCommand.cs" />
     <Compile Include="Commands\FileXmlRemoveXsdSchemaCommand.cs" />
     <Compile Include="Commands\FileXmlSetXsdSchemaCommand.cs" />
+    <Compile Include="Commands\FolderAddEntityMetadataFileInConnectionCommand.cs" />
     <Compile Include="Commands\FolderCSharpProjectPluginAssemblyAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\FolderCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\FolderCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\FolderCSharpProjectPluginAssemblyStepsAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\FolderCSharpProjectPluginTypeStepsAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\FolderCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\FolderJavaScriptUpdateEntityMetadataFileCommand.cs" />
     <Compile Include="Commands\FolderWebResourceAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\FolderAddPluginConfigurationFileCommand.cs" />
     <Compile Include="Commands\FolderAddSolutionFileCommand.cs" />

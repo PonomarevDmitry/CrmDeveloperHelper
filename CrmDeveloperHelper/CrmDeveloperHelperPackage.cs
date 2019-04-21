@@ -68,6 +68,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeWebResourceAddIntoSolutionLastCommand.Initialize(this);
             CodeWebResourceAddIntoSolutionInConnectionCommand.Initialize(this);
 
+            CodeJavaScriptUpdateEntityMetadataFileCommand.Initialize(this);
+            CodeJavaScriptUpdateEntityMetadataFileWithSelectCommand.Initialize(this);
+
             CodeXmlExecuteFetchXmlRequestCommand.Initialize(this);
             CodeXmlExecuteFetchXmlRequestInConnectionsCommand.Initialize(this);
             CodeXmlConvertFetchXmlToJavaScriptCodeCommand.Initialize(this);
@@ -186,6 +189,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileWebResourceAddIntoSolutionLastCommand.Initialize(this);
             FileWebResourceAddIntoSolutionInConnectionCommand.Initialize(this);
 
+            FileJavaScriptUpdateEntityMetadataFileCommand.Initialize(this);
+            FileJavaScriptUpdateEntityMetadataFileWithSelectCommand.Initialize(this);
+
             FileReportDownloadCommand.Initialize(this);
             FileReportLinkClearCommand.Initialize(this);
             FileReportLinkCreateCommand.Initialize(this);
@@ -237,6 +243,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             DocumentsWebResourceAddIntoSolutionLastCommand.Initialize(this);
             DocumentsWebResourceAddIntoSolutionInConnectionCommand.Initialize(this);
 
+            DocumentsJavaScriptUpdateEntityMetadataFileCommand.Initialize(this);
+
             DocumentsReportLinkClearCommand.Initialize(this);
 
             DocumentsReportAddIntoSolutionLastCommand.Initialize(this);
@@ -263,6 +271,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             FolderAddPluginConfigurationFileCommand.Initialize(this);
             FolderAddSolutionFileCommand.Initialize(this);
+            FolderAddEntityMetadataFileInConnectionCommand.Initialize(this);
+
+
+
+
 
             FolderWebResourceCheckEncodingCommand.Initialize(this);
             FolderWebResourceCheckEncodingCompareFilesCommand.Initialize(this);
@@ -280,6 +293,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             FolderWebResourceAddIntoSolutionLastCommand.Initialize(this);
             FolderWebResourceAddIntoSolutionInConnectionCommand.Initialize(this);
+
+            FolderJavaScriptUpdateEntityMetadataFileCommand.Initialize(this);
 
             FolderCSharpProjectPluginAssemblyAddIntoSolutionInConnectionCommand.Initialize(this);
             FolderCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.Initialize(this);

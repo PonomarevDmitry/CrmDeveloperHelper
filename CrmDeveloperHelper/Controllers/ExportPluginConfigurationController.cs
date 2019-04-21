@@ -60,6 +60,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             var filePath = await CreatePluginDescription(connectionData, service, commonConfig);
@@ -246,6 +252,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             string filePath = string.Empty;
@@ -266,7 +278,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else if (selectedItem.Project != null)
             {
-                string relativePath = GetRelativePath(selectedItem.Project);
+                string relativePath = DTEHelper.GetRelativePath(selectedItem.Project);
 
                 string solutionPath = Path.GetDirectoryName(selectedItem.DTE.Solution.FullName);
 
@@ -285,33 +297,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-        }
-
-        private string GetRelativePath(EnvDTE.Project project)
-        {
-            List<string> names = new List<string>();
-
-            if (project != null)
-            {
-                AddNamesRecursive(names, project);
-            }
-
-            names.Reverse();
-
-            return string.Join(@"\", names);
-        }
-
-        private void AddNamesRecursive(List<string> names, EnvDTE.Project project)
-        {
-            if (project != null)
-            {
-                names.Add(project.Name);
-
-                if (project.ParentProjectItem != null && project.ParentProjectItem.ContainingProject != null)
-                {
-                    AddNamesRecursive(names, project.ParentProjectItem.ContainingProject);
-                }
-            }
         }
     }
 }

@@ -400,7 +400,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return filePath;
         }
 
-        private SelectedItem GetSelectedProjectItem()
+        public SelectedItem GetSelectedProjectItem()
         {
             SelectedItem result = null;
 

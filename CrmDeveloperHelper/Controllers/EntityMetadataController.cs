@@ -33,7 +33,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Создание файла с мета-данными сущности.
 
-        public async Task ExecuteCreatingFileWithEntityMetadata(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteCreatingFileWithEntityMetadata(string selection, EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataFormat1, connectionData?.Name);
 
@@ -54,9 +54,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 // Подключаемся к CRM.
                 var service = await QuickConnection.ConnectAsync(connectionData);
 
+                if (service == null)
+                {
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                    return;
+                }
+
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-                WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, commonConfig, null, selection, null);
+                WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, commonConfig, selection, selectedItem);
             }
             catch (Exception ex)
             {
@@ -93,6 +99,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 // Подключаемся к CRM.
                 var service = await QuickConnection.ConnectAsync(connectionData);
 
+                if (service == null)
+                {
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                    return;
+                }
+
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                 WindowHelper.OpenEntityAttributeExplorer(this._iWriteToOutput, service, commonConfig, selection);
@@ -127,6 +139,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 // Подключаемся к CRM.
                 var service = await QuickConnection.ConnectAsync(connectionData);
+
+                if (service == null)
+                {
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                    return;
+                }
 
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
@@ -163,6 +181,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 // Подключаемся к CRM.
                 var service = await QuickConnection.ConnectAsync(connectionData);
 
+                if (service == null)
+                {
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                    return;
+                }
+
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                 WindowHelper.OpenEntityRelationshipOneToManyExplorer(this._iWriteToOutput, service, commonConfig, selection);
@@ -198,6 +222,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 // Подключаемся к CRM.
                 var service = await QuickConnection.ConnectAsync(connectionData);
 
+                if (service == null)
+                {
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                    return;
+                }
+
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                 WindowHelper.OpenEntityRelationshipManyToManyExplorer(this._iWriteToOutput, service, commonConfig, selection);
@@ -232,6 +262,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 // Подключаемся к CRM.
                 var service = await QuickConnection.ConnectAsync(connectionData);
+
+                if (service == null)
+                {
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                    return;
+                }
 
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
@@ -272,6 +308,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 // Подключаемся к CRM.
                 var service = await QuickConnection.ConnectAsync(connectionData);
 
+                if (service == null)
+                {
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                    return;
+                }
+
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                 WindowHelper.OpenGlobalOptionSetsWindow(
@@ -295,9 +337,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Создание файла с глобальными OptionSet-ами.
 
-        #region Обновление файла с мета-данными сущности.
+        #region Обновление файла с мета-данными сущности C#.
 
-        public async Task ExecuteUpdateFileWithEntityMetadata(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
+        public async Task ExecuteUpdateFileWithEntityMetadataCSharp(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingFileWithEntityMetadataFormat1, connectionData?.Name);
 
@@ -305,7 +347,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdatingFileWithEntityMetadata(selectedFiles, connectionData, commonConfig, selectEntity);
+                await UpdatingFileWithEntityMetadataCSharp(selectedFiles, connectionData, commonConfig, selectEntity);
             }
             catch (Exception ex)
             {
@@ -317,7 +359,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdatingFileWithEntityMetadata(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
+        private async Task UpdatingFileWithEntityMetadataCSharp(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
         {
             if (connectionData == null)
             {
@@ -331,6 +373,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
@@ -409,12 +457,138 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     var tempService = await QuickConnection.ConnectAsync(connectionData);
 
-                    WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, tempService, commonConfig, null, selection, filePath);
+                    if (tempService == null)
+                    {
+                        _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                        return;
+                    }
+
+                    WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, tempService, commonConfig, selection, filePath, false);
                 }
             }
         }
 
-        #endregion Обновление файла с мета-данными сущности.
+        #endregion Обновление файла с мета-данными сущности C#.
+
+        #region Обновление файла с мета-данными сущности C#.
+
+        public async Task ExecuteUpdateFileWithEntityMetadataJavaScript(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
+        {
+            string operation = string.Format(Properties.OperationNames.UpdatingFileWithEntityMetadataFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await UpdatingFileWithEntityMetadataJavaScript(selectedFiles, connectionData, commonConfig, selectEntity);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task UpdatingFileWithEntityMetadataJavaScript(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            var descriptor = new SolutionComponentDescriptor(service);
+            descriptor.SetSettings(commonConfig);
+
+            foreach (var selFile in selectedFiles)
+            {
+                var filePath = selFile.FilePath;
+
+                if (!File.Exists(filePath))
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, filePath);
+                    continue;
+                }
+
+                var selection = Path.GetFileNameWithoutExtension(filePath);
+                selection = selection.Split('.').FirstOrDefault();
+
+                bool tempSelectEntity = selectEntity;
+
+                if (!tempSelectEntity)
+                {
+                    var metadata = descriptor.MetadataSource.GetEntityMetadata(selection.ToLower());
+
+                    if (metadata != null)
+                    {
+                        string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.IndentType, commonConfig.SpaceCount);
+
+                        var config = new CreateFileWithEntityMetadataJavaScriptConfiguration(
+                            metadata.LogicalName
+                            , tabSpacer
+                            , commonConfig.EntityMetadaOptionSetDependentComponents
+                        )
+                        {
+                            EntityMetadata = metadata
+                        };
+
+                        string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, connectionData?.Name, config.EntityName);
+
+                        this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+                        using (var handler = new CreateFileWithEntityMetadataJavaScriptHandler(config, service, _iWriteToOutput))
+                        {
+                            await handler.CreateFileAsync(filePath);
+                        }
+
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, connectionData.Name, config.EntityName, filePath);
+
+                        this._iWriteToOutput.WriteToOutputFilePathUri(connectionData, filePath);
+
+                        this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+
+                        continue;
+                    }
+                    else
+                    {
+                        tempSelectEntity = true;
+                    }
+                }
+
+                if (tempSelectEntity)
+                {
+                    var tempService = await QuickConnection.ConnectAsync(connectionData);
+
+                    if (tempService == null)
+                    {
+                        _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                        return;
+                    }
+
+                    WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, tempService, commonConfig, selection, filePath, true);
+                }
+            }
+        }
+
+        #endregion Обновление файла с мета-данными сущности C#.
 
         #region Обновление файла с глобальными OptionSet-ами.
 
@@ -452,6 +626,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
@@ -516,6 +696,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 if (tempWithSelect)
                 {
                     var tempService = await QuickConnection.ConnectAsync(connectionData);
+
+                    if (tempService == null)
+                    {
+                        _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                        return;
+                    }
 
                     WindowHelper.OpenGlobalOptionSetsWindow(
                         this._iWriteToOutput
@@ -589,6 +775,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
@@ -709,6 +901,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
@@ -849,6 +1047,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 

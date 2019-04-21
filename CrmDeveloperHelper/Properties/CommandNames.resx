@@ -135,6 +135,12 @@
   <data name="CodeCSharpUpdateProxyClassesCommand" xml:space="preserve">
     <value>Update Proxy Classes</value>
   </data>
+  <data name="CodeJavaScriptUpdateEntityMetadataFileWithSelectCommand" xml:space="preserve">
+    <value>Update EntityMetadata File with Select Entity</value>
+  </data>
+  <data name="CodeJavaScriptUpdateGlobalOptionSetsFileWithSelectCommand" xml:space="preserve">
+    <value>Update Global OptionSets File with Select</value>
+  </data>
   <data name="CodeReportDownloadCommand" xml:space="preserve">
     <value>Download Report</value>
   </data>
@@ -284,6 +290,12 @@
   </data>
   <data name="FileCSharpUpdateProxyClassesCommand" xml:space="preserve">
     <value>Update Proxy Classes</value>
+  </data>
+  <data name="FileJavaScriptUpdateEntityMetadataFileWithSelectCommand" xml:space="preserve">
+    <value>Update EntityMetadata File with Select Entity</value>
+  </data>
+  <data name="FileJavaScriptUpdateGlobalOptionSetsFileWithSelectCommand" xml:space="preserve">
+    <value>Update Global OptionSets File with Select</value>
   </data>
   <data name="FileReportDownloadCommand" xml:space="preserve">
     <value>Download Report</value>

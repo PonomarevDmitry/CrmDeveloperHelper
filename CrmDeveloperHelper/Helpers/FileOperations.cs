@@ -115,6 +115,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private static HashSet<string> _SupportedReportType = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { ".rdl", ".rdlc" };
 
         private const string _SupportedCSharpFile = ".cs";
+        private const string _SupportedJavaScriptFile = ".js";
         private const string _SupportedXmlFile = ".xml";
 
         /// <summary>
@@ -171,6 +172,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             if (!string.IsNullOrEmpty(path))
             {
                 result = path.EndsWith(_SupportedCSharpFile, StringComparison.OrdinalIgnoreCase);
+            }
+
+            return result;
+        }
+
+        public static bool SupportsJavaScriptType(string path)
+        {
+            bool result = false;
+
+            if (!string.IsNullOrEmpty(path))
+            {
+                result = path.EndsWith(_SupportedJavaScriptFile, StringComparison.OrdinalIgnoreCase);
             }
 
             return result;

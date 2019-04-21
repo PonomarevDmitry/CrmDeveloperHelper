@@ -1104,7 +1104,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
             }
 
-            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, entityMetadataList, entity?.LogicalName, null);
+            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, entityMetadataList, entity?.LogicalName);
         }
 
         private async void btnExportApplicationRibbon1_Click(object sender, RoutedEventArgs e)
@@ -1245,7 +1245,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
             }
 
-            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, entityMetadataList, entity?.LogicalName, null);
+            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, entityMetadataList, entity?.LogicalName);
         }
 
         private async void btnExportApplicationRibbon2_Click(object sender, RoutedEventArgs e)

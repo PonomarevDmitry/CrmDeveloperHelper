@@ -69,6 +69,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             WindowHelper.OpenExportSiteMapWindow(this._iWriteToOutput, service, commonConfig);
@@ -112,6 +118,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
@@ -157,6 +169,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             WindowHelper.OpenSavedQueryWindow(this._iWriteToOutput, service, commonConfig, string.Empty, selection);
@@ -200,6 +218,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
@@ -245,6 +269,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             WindowHelper.OpenSavedQueryVisualizationWindow(this._iWriteToOutput, service, commonConfig, string.Empty, selection);
@@ -288,6 +318,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
@@ -429,6 +465,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             WindowHelper.OpenWorkflowWindow(this._iWriteToOutput, service, commonConfig, string.Empty, selection);
@@ -473,6 +515,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             WindowHelper.OpenOrganizationExplorer(this._iWriteToOutput, service, commonConfig);
@@ -516,6 +564,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
@@ -582,6 +636,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
@@ -727,6 +787,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
@@ -893,6 +959,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             var repository = new SystemFormRepository(service);
@@ -1052,6 +1124,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
@@ -1218,6 +1296,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             var repository = new SavedQueryRepository(service);
@@ -1379,6 +1463,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 

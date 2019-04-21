@@ -1038,7 +1038,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 var commonConfig = CommonConfiguration.Get();
 
-                Views.WindowHelper.OpenEntityMetadataWindow(_iWriteToOutput, service, commonConfig, null, entity.LogicalName, null);
+                Views.WindowHelper.OpenEntityMetadataWindow(_iWriteToOutput, service, commonConfig, entity.LogicalName);
             }
         }
 
@@ -1163,7 +1163,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
                 var commonConfig = CommonConfiguration.Get();
 
-                Views.WindowHelper.OpenEntityMetadataWindow(_iWriteToOutput, service, commonConfig, null, entityReferenceView.LogicalName, null);
+                Views.WindowHelper.OpenEntityMetadataWindow(_iWriteToOutput, service, commonConfig, entityReferenceView.LogicalName);
             }
         }
 

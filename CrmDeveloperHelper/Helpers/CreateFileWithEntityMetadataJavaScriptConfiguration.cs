@@ -1,4 +1,5 @@
-﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+﻿using Microsoft.Xrm.Sdk.Metadata;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System.Collections.Generic;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
@@ -10,6 +11,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public string EntityName { get; private set; }
 
         public bool WithDependentComponents { get; private set; }
+
+        public EntityMetadata EntityMetadata { get; set; }
 
         public CreateFileWithEntityMetadataJavaScriptConfiguration(string entityName
             , string tabSpacer

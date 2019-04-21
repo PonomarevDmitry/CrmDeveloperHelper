@@ -108,7 +108,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsCSharpType);
 
-                    helper.HandleUpdateEntityMetadataFile(connectionData, selectedFiles, false);
+                    helper.HandleUpdateEntityMetadataFileCSharp(connectionData, selectedFiles, false);
                 }
             }
             catch (Exception ex)

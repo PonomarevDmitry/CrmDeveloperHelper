@@ -43,6 +43,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 // Подключаемся к CRM.
                 var service = await QuickConnection.ConnectAsync(connectionData);
 
+                if (service == null)
+                {
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                    return;
+                }
+
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                 WindowHelper.OpenSystemUsersExplorer(this._iWriteToOutput, service, commonConfig, selection);
@@ -78,6 +84,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 // Подключаемся к CRM.
                 var service = await QuickConnection.ConnectAsync(connectionData);
 
+                if (service == null)
+                {
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                    return;
+                }
+
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                 WindowHelper.OpenTeamsExplorer(this._iWriteToOutput, service, commonConfig, selection);
@@ -112,6 +124,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 // Подключаемся к CRM.
                 var service = await QuickConnection.ConnectAsync(connectionData);
+
+                if (service == null)
+                {
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                    return;
+                }
 
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 

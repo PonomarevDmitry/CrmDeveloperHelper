@@ -85,6 +85,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             // Менеджер для публикации в CRM.
@@ -311,6 +317,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
 
             var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 

@@ -94,11 +94,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     , out OrganizationDetail organizationDetail
                 );
 
-                var result = new OrganizationServiceExtentedProxy(service, connectionData);
+                if (service != null)
+                {
+                    var result = new OrganizationServiceExtentedProxy(service, connectionData);
 
-                await LoadOrganizationDataAsync(result, organizationDetail);
+                    await LoadOrganizationDataAsync(result, organizationDetail);
 
-                return result;
+                    return result;
+                }
+
+                connectionData.OrganizationInformationExpirationDate = null;
+                return null;
             }
             catch (Exception)
             {

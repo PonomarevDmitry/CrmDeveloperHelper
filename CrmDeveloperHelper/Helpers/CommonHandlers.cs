@@ -519,6 +519,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        internal static void ActionBeforeQueryStatusActiveDocumentJavaScript(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        {
+            bool visible = false;
+
+            if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
+            {
+                visible = CheckActiveDocumentExtension(applicationObject, FileOperations.SupportsJavaScriptType);
+            }
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
         internal static void ActionBeforeQueryStatusActiveDocumentContainingProject(IServiceProviderOwner command, OleMenuCommand menuCommand, Func<string, bool> checker)
         {
             bool visible = false;
@@ -645,6 +660,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        internal static void ActionBeforeQueryStatusOpenedDocumentsJavaScript(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        {
+            bool visible = false;
+
+            if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
+            {
+                visible = CheckOpenedDocumentsExtension(applicationObject, FileOperations.SupportsJavaScriptType);
+            }
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
         internal static void ActionBeforeQueryStatusOpenedDocumentsXml(IServiceProviderOwner command, OleMenuCommand menuCommand)
         {
             bool visible = false;
@@ -697,6 +727,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
             {
                 visible = CheckInSolutionExplorerRecursive(applicationObject, FileOperations.SupportsCSharpType);
+            }
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
+        internal static void ActionBeforeQueryStatusSolutionExplorerJavaScriptSingle(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        {
+            bool visible = false;
+
+            if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
+            {
+                visible = CheckInSolutionExplorerSingle(applicationObject, FileOperations.SupportsJavaScriptType);
+            }
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
+        internal static void ActionBeforeQueryStatusSolutionExplorerJavaScriptAny(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        {
+            bool visible = false;
+
+            if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
+            {
+                visible = CheckInSolutionExplorerAny(applicationObject, FileOperations.SupportsJavaScriptType);
+            }
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
+        internal static void ActionBeforeQueryStatusSolutionExplorerJavaScriptRecursive(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        {
+            bool visible = false;
+
+            if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
+            {
+                visible = CheckInSolutionExplorerRecursive(applicationObject, FileOperations.SupportsJavaScriptType);
             }
 
             if (visible == false)

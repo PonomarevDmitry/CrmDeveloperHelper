@@ -178,7 +178,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, null, string.Empty, null);
+            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void miEntityAttributeExplorer_Click(object sender, RoutedEventArgs e)

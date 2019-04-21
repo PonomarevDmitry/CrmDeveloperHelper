@@ -8,15 +8,15 @@ using System.ComponentModel.Design;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class DocumentsCSharpUpdateEntityMetadataFileCommand : IServiceProviderOwner
+    internal sealed class CodeJavaScriptUpdateEntityMetadataFileCommand : IServiceProviderOwner
     {
         private readonly Package _package;
 
         public IServiceProvider ServiceProvider => this._package;
 
-        private const int _baseIdStart = PackageIds.DocumentsCSharpUpdateEntityMetadataFileCommandId;
+        private const int _baseIdStart = PackageIds.CodeJavaScriptUpdateEntityMetadataFileCommandId;
 
-        private DocumentsCSharpUpdateEntityMetadataFileCommand(Package package)
+        private CodeJavaScriptUpdateEntityMetadataFileCommand(Package package)
         {
             this._package = package ?? throw new ArgumentNullException(nameof(package));
 
@@ -39,11 +39,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        public static DocumentsCSharpUpdateEntityMetadataFileCommand Instance { get; private set; }
+        public static CodeJavaScriptUpdateEntityMetadataFileCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new DocumentsCSharpUpdateEntityMetadataFileCommand(package);
+            Instance = new CodeJavaScriptUpdateEntityMetadataFileCommand(package);
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -68,7 +68,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         menuCommand.Enabled = menuCommand.Visible = true;
 
-                        CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsCSharp(this, menuCommand);
+                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentJavaScript(this, menuCommand);
                     }
                 }
             }
@@ -106,9 +106,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var helper = DTEHelper.Create(applicationObject);
 
-                    List<SelectedFile> selectedFiles = helper.GetOpenedDocuments(FileOperations.SupportsCSharpType);
+                    List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsJavaScriptType);
 
-                    helper.HandleUpdateEntityMetadataFileCSharp(connectionData, selectedFiles, false);
+                    helper.HandleUpdateEntityMetadataFileJavaScript(connectionData, selectedFiles, false);
                 }
             }
             catch (Exception ex)

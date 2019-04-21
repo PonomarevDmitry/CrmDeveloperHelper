@@ -75,6 +75,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             // Репозиторий для работы с веб-ресурсами
@@ -306,6 +312,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var service1 = await task1;
             var service2 = await task2;
+
+            if (service1 == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData1, Properties.OutputStrings.ConnectionFailedFormat1, connectionData1.Name);
+                return;
+            }
+
+            if (service2 == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData2, Properties.OutputStrings.ConnectionFailedFormat1, connectionData2.Name);
+                return;
+            }
 
             this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentServiceEndpointConnectionFormat2, connectionData1.Name, service1.CurrentServiceEndpoint);
             this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentServiceEndpointConnectionFormat2, connectionData2.Name, service2.CurrentServiceEndpoint);
@@ -641,6 +659,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             // Подключаемся к CRM.
             var service = await QuickConnection.ConnectAsync(connectionData);
 
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             // Репозиторий для работы с веб-ресурсами
@@ -888,6 +912,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             var service1 = await task1;
             var service2 = await task2;
+
+            if (service1 == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData1, Properties.OutputStrings.ConnectionFailedFormat1, connectionData1.Name);
+                return;
+            }
+
+            if (service2 == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData2, Properties.OutputStrings.ConnectionFailedFormat1, connectionData2.Name);
+                return;
+            }
 
             this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentServiceEndpointConnectionFormat2, connectionData1.Name, service1.CurrentServiceEndpoint);
             this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentServiceEndpointConnectionFormat2, connectionData2.Name, service2.CurrentServiceEndpoint);

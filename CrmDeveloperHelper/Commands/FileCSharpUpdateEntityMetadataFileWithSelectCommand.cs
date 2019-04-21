@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         {
             List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsCSharpType, false);
 
-            helper.HandleUpdateEntityMetadataFile(null, selectedFiles, true);
+            helper.HandleUpdateEntityMetadataFileCSharp(null, selectedFiles, true);
         }
 
         private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)

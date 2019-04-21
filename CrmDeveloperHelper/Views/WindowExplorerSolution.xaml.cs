@@ -156,7 +156,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 else if (_selectedItem.Project != null)
                 {
-                    string relativePath = GetRelativePath(_selectedItem.Project);
+                    string relativePath = DTEHelper.GetRelativePath(_selectedItem.Project);
 
                     string solutionPath = Path.GetDirectoryName(_selectedItem.DTE.Solution.FullName);
 
@@ -168,33 +168,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             else
             {
                 _optionsExportSolutionOptionsControl.BindExportFolder();
-            }
-        }
-
-        private string GetRelativePath(EnvDTE.Project project)
-        {
-            List<string> names = new List<string>();
-
-            if (project != null)
-            {
-                AddNamesRecursive(names, project);
-            }
-
-            names.Reverse();
-
-            return string.Join(@"\", names);
-        }
-
-        private void AddNamesRecursive(List<string> names, EnvDTE.Project project)
-        {
-            if (project != null)
-            {
-                names.Add(project.Name);
-
-                if (project.ParentProjectItem != null && project.ParentProjectItem.ContainingProject != null)
-                {
-                    AddNamesRecursive(names, project.ParentProjectItem.ContainingProject);
-                }
             }
         }
 
@@ -3115,7 +3088,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, null, null, null);
+            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void btnEntityAttributeExplorer_Click(object sender, RoutedEventArgs e)

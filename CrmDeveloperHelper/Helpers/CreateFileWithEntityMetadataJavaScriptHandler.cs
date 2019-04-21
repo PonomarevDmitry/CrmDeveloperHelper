@@ -14,8 +14,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     public class CreateFileWithEntityMetadataJavaScriptHandler : CreateFileHandler
     {
         private EntityMetadata _entityMetadata;
-        private DependencyDescriptionHandler _descriptorHandler;
-        private DependencyRepository _dependencyRepository;
+        private readonly DependencyDescriptionHandler _descriptorHandler;
+        private readonly DependencyRepository _dependencyRepository;
+        private readonly SolutionComponentDescriptor _solutionComponentDescriptor;
 
         private IOrganizationServiceExtented _service;
         private CreateFileWithEntityMetadataJavaScriptConfiguration _config;
@@ -35,6 +36,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this._config = config;
             this._service = service;
             this.iWriteToOutput = outputWindow;
+
+            this._solutionComponentDescriptor = new SolutionComponentDescriptor(_service)
+            {
+                WithManagedInfo = false,
+            };
+
+            if (_config.WithDependentComponents)
+            {
+                this._dependencyRepository = new DependencyRepository(_service);
+                this._descriptorHandler = new DependencyDescriptionHandler(_solutionComponentDescriptor);
+            }
         }
 
         public Task CreateFileAsync(string filePath)
@@ -44,20 +56,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private async Task CreateFile(string filePath)
         {
-            RetrieveEntityRequest request = new RetrieveEntityRequest
+            if (_config.EntityMetadata == null)
             {
-                LogicalName = _config.EntityName.ToLower(),
-
-                EntityFilters = EntityFilters.All
-            };
-
-            RetrieveEntityResponse response = (RetrieveEntityResponse)_service.Execute(request);
-            this._entityMetadata = response.EntityMetadata;
-
-            if (_config.WithDependentComponents)
+                this._entityMetadata = this._solutionComponentDescriptor.MetadataSource.GetEntityMetadata(_config.EntityName);
+            }
+            else
             {
-                this._dependencyRepository = new DependencyRepository(_service);
-                this._descriptorHandler = new DependencyDescriptionHandler(new SolutionComponentDescriptor(_service));
+                this._entityMetadata = _config.EntityMetadata;
+
+                this._solutionComponentDescriptor.MetadataSource.StoreEntityMetadata(_config.EntityMetadata);
             }
 
             var repositoryStringMap = new StringMapRepository(_service);

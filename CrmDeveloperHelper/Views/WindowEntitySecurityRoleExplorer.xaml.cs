@@ -655,7 +655,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId].ToList();
             }
 
-            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, entityMetadataList, entity?.LogicalName, null);
+            WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, entityMetadataList, entity?.LogicalName);
         }
 
         private async void btnEntityAttributeExplorer_Click(object sender, RoutedEventArgs e)

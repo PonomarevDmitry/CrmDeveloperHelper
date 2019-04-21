@@ -115,6 +115,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update EntityMetadata File with Select Entity.
+        /// </summary>
+        internal static string CodeJavaScriptUpdateEntityMetadataFileWithSelectCommand {
+            get {
+                return ResourceManager.GetString("CodeJavaScriptUpdateEntityMetadataFileWithSelectCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Global OptionSets File with Select.
+        /// </summary>
+        internal static string CodeJavaScriptUpdateGlobalOptionSetsFileWithSelectCommand {
+            get {
+                return ResourceManager.GetString("CodeJavaScriptUpdateGlobalOptionSetsFileWithSelectCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Download Report.
         /// </summary>
         internal static string CodeReportDownloadCommand {
@@ -561,6 +579,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string FileCSharpUpdateProxyClassesCommand {
             get {
                 return ResourceManager.GetString("FileCSharpUpdateProxyClassesCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update EntityMetadata File with Select Entity.
+        /// </summary>
+        internal static string FileJavaScriptUpdateEntityMetadataFileWithSelectCommand {
+            get {
+                return ResourceManager.GetString("FileJavaScriptUpdateEntityMetadataFileWithSelectCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Global OptionSets File with Select.
+        /// </summary>
+        internal static string FileJavaScriptUpdateGlobalOptionSetsFileWithSelectCommand {
+            get {
+                return ResourceManager.GetString("FileJavaScriptUpdateGlobalOptionSetsFileWithSelectCommand", resourceCulture);
             }
         }
         

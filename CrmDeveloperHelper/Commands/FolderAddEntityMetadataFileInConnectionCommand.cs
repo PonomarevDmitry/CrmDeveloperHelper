@@ -1,3 +1,4 @@
+﻿using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -5,18 +6,19 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class DocumentsCSharpUpdateEntityMetadataFileCommand : IServiceProviderOwner
+    internal sealed class FolderAddEntityMetadataFileInConnectionCommand : IServiceProviderOwner
     {
         private readonly Package _package;
 
         public IServiceProvider ServiceProvider => this._package;
 
-        private const int _baseIdStart = PackageIds.DocumentsCSharpUpdateEntityMetadataFileCommandId;
+        private const int _baseIdStart = PackageIds.FolderAddEntityMetadataFileInConnectionCommandId;
 
-        private DocumentsCSharpUpdateEntityMetadataFileCommand(Package package)
+        private FolderAddEntityMetadataFileInConnectionCommand(Package package)
         {
             this._package = package ?? throw new ArgumentNullException(nameof(package));
 
@@ -39,11 +41,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        public static DocumentsCSharpUpdateEntityMetadataFileCommand Instance { get; private set; }
+        public static FolderAddEntityMetadataFileInConnectionCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new DocumentsCSharpUpdateEntityMetadataFileCommand(package);
+            Instance = new FolderAddEntityMetadataFileInConnectionCommand(package);
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -68,7 +70,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         menuCommand.Enabled = menuCommand.Visible = true;
 
-                        CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsCSharp(this, menuCommand);
+                        CommonHandlers.ActiveSolutionExplorerFolderSingle(this, menuCommand);
                     }
                 }
             }
@@ -96,7 +98,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                 var index = menuCommand.CommandID.ID - _baseIdStart;
 
-                var connectionConfig = ConnectionConfiguration.Get();
+                var connectionConfig = Model.ConnectionConfiguration.Get();
 
                 var connectionsList = connectionConfig.Connections;
 
@@ -106,9 +108,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var helper = DTEHelper.Create(applicationObject);
 
-                    List<SelectedFile> selectedFiles = helper.GetOpenedDocuments(FileOperations.SupportsCSharpType);
+                    SelectedItem selectedItem = helper.GetSelectedProjectItem();
 
-                    helper.HandleUpdateEntityMetadataFileCSharp(connectionData, selectedFiles, false);
+                    if (selectedItem != null)
+                    {
+                        helper.HandleExportFileWithEntityMetadata(connectionData, selectedItem);
+                    }
                 }
             }
             catch (Exception ex)

@@ -949,13 +949,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartCreatingFileWithEntityMetadata(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartCreatingFileWithEntityMetadata(string selection, EnvDTE.SelectedItem selectedItem, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._entityMetadataController.ExecuteCreatingFileWithEntityMetadata(selection, connectionData, commonConfig);
+                    this._entityMetadataController.ExecuteCreatingFileWithEntityMetadata(selection, selectedItem, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -1085,13 +1085,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartUpdatingFileWithEntityMetadata(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
+        public void StartUpdatingFileWithEntityMetadataCSharp(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._entityMetadataController.ExecuteUpdateFileWithEntityMetadata(selectedFiles, connectionData, commonConfig, selectEntity);
+                    this._entityMetadataController.ExecuteUpdateFileWithEntityMetadataCSharp(selectedFiles, connectionData, commonConfig, selectEntity);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartUpdatingFileWithEntityMetadataJavaScript(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._entityMetadataController.ExecuteUpdateFileWithEntityMetadataJavaScript(selectedFiles, connectionData, commonConfig, selectEntity);
                 }
                 catch (Exception ex)
                 {
