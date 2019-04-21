@@ -8,10 +8,10 @@
     <src:WindowBase.Resources>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
             <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="miOpenEntityInWeb_Click" />
-            
+
             <Separator/>
             <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="miOpenEntityListInWeb_Click" />
-            
+
             <Separator/>
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution">
                 <MenuItem x:Uid="contMnAddIntoSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
@@ -34,13 +34,13 @@
             <Separator/>
             <MenuItem Header="Create C# Metadata File" Click="miCreateCSharpFile_Click"/>
             <MenuItem Header="Create JavaScript Metadata File" Click="miCreateJavaScriptFile_Click"/>
-            
+
             <Separator/>
             <MenuItem Header="Create File with Attributes Dependent Components" Click="miCreateFileAttributesDependentComponents_Click"/>
-            
+
             <Separator/>
             <MenuItem Header="Export Entity Xml" Click="miExportEntityXml_Click"/>
-            
+
             <Separator/>
             <MenuItem Header="Entity Ribbon">
                 <MenuItem Header="Export Entity Ribbon" Click="miExportEntityRibbon_Click" />
@@ -51,20 +51,20 @@
                 <Separator/>
                 <MenuItem Header="Update Entity RibbonDiffXml" VerticalAlignment="Center" Click="miUpdateEntityRibbonDiffXml_Click"/>
             </MenuItem>
-            
+
             <Separator/>
             <MenuItem Header="Publish Entity" Click="miPublishEntity_Click"/>
-            
+
             <Separator/>
             <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="miOpenSolutionsContainingComponentInWindow_Click" />
-            
+
             <Separator/>
             <MenuItem Header="Dependent Components">
                 <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="miOpenDependentComponentsInWeb_Click" />
                 <Separator/>
                 <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="miOpenDependentComponentsInWindow_Click" />
             </MenuItem>
-            
+
             <Separator/>
             <MenuItem Header="Get Other Entity Information">
                 <MenuItem Header="Entity Attribute Explorer" Click="miEntityAttributeExplorer_Click"/>
@@ -90,7 +90,7 @@
                 <MenuItem Header="Message Tree" Click="miMessageTree_Click"/>
                 <MenuItem Header="Message Request Tree" Click="miMessageRequestTree_Click"/>
             </MenuItem>
-            
+
             <Separator/>
             <MenuItem Header="Compare Information with other Organization">
                 <MenuItem Header="Organization Comparer" Click="miOrganizationComparer_Click"/>
@@ -154,16 +154,19 @@
                 </MenuItem>
             </Menu>
         </ToolBar>
-        <Label Content="Folder" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Height="23" Width="64" Padding="1" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="79,38,10,0"  VerticalAlignment="Top" VerticalContentAlignment="Center" />
-        
-        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,94,0,0" Padding="1" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="23"/>
-        <TextBox x:Name="txtBFilterEnitity" Height="23" Margin="79,94,10,0"  VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
-        
-        <Label Content="Namespace" HorizontalAlignment="Left" Margin="10,66,0,0" Padding="1" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="23"/>
-        <TextBox x:Name="txtBNamespace" Text="{Binding Path=SelectedItem.NamespaceClasses}" Height="23" Margin="79,66,10,0"  VerticalAlignment="Top" VerticalContentAlignment="Center" />
-        
-        <DataGrid x:Name="lstVwEntities" AutoGenerateColumns="False" Margin="10,122,10,69" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+        <Label Content="Folder" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Height="23" Padding="1" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="50,38,10,0"  VerticalAlignment="Top" VerticalContentAlignment="Center" />
+
+        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,122,0,0" Padding="1" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="23"/>
+        <TextBox x:Name="txtBFilterEnitity" Height="23" Margin="50,122,10,0"  VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
+
+        <Label Content="Namespace Classes" HorizontalAlignment="Left" Margin="10,66,0,0" Padding="1" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="23"/>
+        <TextBox x:Name="txtBNamespaceClasses" Text="{Binding Path=SelectedItem.NamespaceClasses}" Height="23" Margin="134,66,10,0"  VerticalAlignment="Top" VerticalContentAlignment="Center" />
+
+        <Label Content="Namespace JavaScript" HorizontalAlignment="Left" Margin="10,94,0,0" Padding="1" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="23"/>
+        <TextBox x:Name="txtBNamespaceJavaScript" Text="{Binding Path=SelectedItem.NamespaceJavaScript}" Height="23" Margin="134,94,10,0"  VerticalAlignment="Top" VerticalContentAlignment="Center" />
+
+        <DataGrid x:Name="lstVwEntities" AutoGenerateColumns="False" Margin="10,150,10,69" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>

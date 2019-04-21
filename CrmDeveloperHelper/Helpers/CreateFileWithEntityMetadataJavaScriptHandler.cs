@@ -19,7 +19,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private DependencyDescriptionHandler _descriptorHandler;
         private DependencyRepository _dependencyRepository;
 
-        public IOrganizationServiceExtented _service;
+        private IOrganizationServiceExtented _service;
         private CreateFileWithEntityMetadataJavaScriptConfiguration _config;
 
         private List<StringMap> _listStringMap;
@@ -30,7 +30,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             CreateFileWithEntityMetadataJavaScriptConfiguration config
             , IOrganizationServiceExtented service
             , IWriteToOutput outputWindow
-            ) : base(config.TabSpacer, true)
+        ) : base(config.TabSpacer, true)
         {
             this._config = config;
             this._service = service;
@@ -65,7 +65,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (string.IsNullOrEmpty(fileName))
             {
-                fileName = string.Format("{0}.{1}.Class.js", this._service.ConnectionData.Name, _entityMetadata.SchemaName);
+                fileName = string.Format("{0}.{1}.EntityMetadata.js", this._service.ConnectionData.Name, _entityMetadata.SchemaName);
             }
 
             var fileFilePath = Path.Combine(this._config.Folder, fileName);
@@ -76,7 +76,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteLine();
 
-            string tempNamespace = !string.IsNullOrEmpty(this._service.ConnectionData.NamespaceClasses) ? this._service.ConnectionData.NamespaceClasses + "." : string.Empty;
+            string tempNamespace = !string.IsNullOrEmpty(this._service.ConnectionData.NamespaceJavaScript) ? this._service.ConnectionData.NamespaceJavaScript + "." : string.Empty;
 
             WriteLine(string.Format("{0}{1} = (new function () ", tempNamespace, _entityMetadata.LogicalName) + "{");
 
@@ -107,12 +107,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private void WriteNamespace()
         {
-            if (string.IsNullOrEmpty(this._service.ConnectionData.NamespaceClasses))
+            if (string.IsNullOrEmpty(this._service.ConnectionData.NamespaceJavaScript))
             {
                 return;
             }
 
-            string[] split = this._service.ConnectionData.NamespaceClasses.Split('.');
+            string[] split = this._service.ConnectionData.NamespaceJavaScript.Split('.');
 
             StringBuilder str = new StringBuilder();
 

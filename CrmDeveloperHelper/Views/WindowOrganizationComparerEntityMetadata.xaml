@@ -126,7 +126,7 @@
             </Menu>
         </ToolBar>
 
-        <Grid Height="55" Margin="10,38,10,0" VerticalAlignment="Top">
+        <Grid Height="Auto" Margin="10,38,10,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="50*"/>
@@ -134,25 +134,35 @@
                 <ColumnDefinition Width="50*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="50*" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="5" />
-                <RowDefinition Height="50*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Label Content="Connection 1 to CRM:" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="0"/>
             <ComboBox x:Name="cmBConnection1" IsReadOnly="True" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0"  Grid.Row="0" Grid.Column="1"/>
+
             <Label Content="Connection 2 to CRM:" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="2"/>
             <ComboBox x:Name="cmBConnection2" IsReadOnly="True" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0"  Grid.Row="0" Grid.Column="3"/>
 
-            <Label Content="Namespace 1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="2" Grid.Column="0"/>
-            <TextBox x:Name="txtBNamespace1" Text="{Binding Path=SelectedItem.NamespaceClasses}"  HorizontalAlignment="Stretch" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="1"/>
+            <Label Content="Namespace Classes 1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="2" Grid.Column="0"/>
+            <TextBox x:Name="txtBNamespaceClasses1" Text="{Binding Path=SelectedItem.NamespaceClasses}"  HorizontalAlignment="Stretch" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="1"/>
 
-            <Label Content="Namespace 2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="2" Grid.Column="2"/>
-            <TextBox x:Name="txtBNamespace2" Text="{Binding Path=SelectedItem.NamespaceClasses}"  HorizontalAlignment="Stretch" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="3"/>
+            <Label Content="Namespace Classes 2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="2" Grid.Column="2"/>
+            <TextBox x:Name="txtBNamespaceClasses2" Text="{Binding Path=SelectedItem.NamespaceClasses}"  HorizontalAlignment="Stretch" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="3"/>
+
+            <Label Content="Namespace JavaScript 1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="4" Grid.Column="0"/>
+            <TextBox x:Name="txtBNamespaceJavaScript1" Text="{Binding Path=SelectedItem.NamespaceJavaScript}"  HorizontalAlignment="Stretch" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Grid.Row="4" Grid.Column="1"/>
+
+            <Label Content="Namespace JavaScript 2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="4" Grid.Column="2"/>
+            <TextBox x:Name="txtBNamespaceJavaScript2" Text="{Binding Path=SelectedItem.NamespaceJavaScript}"  HorizontalAlignment="Stretch" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Grid.Row="4" Grid.Column="3"/>
+
         </Grid>
-        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,98,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBFilterEnitity" Height="26" Margin="51,98,12,0"  VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
-        <DataGrid x:Name="lstVwEntities" AutoGenerateColumns="False" Margin="10,129,10,62" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+        <Label Content="Filter" HorizontalAlignment="Left" Margin="12,131,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtBFilterEnitity" Height="26" Margin="53,131,10,0"  VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
+        <DataGrid x:Name="lstVwEntities" AutoGenerateColumns="False" Margin="10,162,10,62" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>

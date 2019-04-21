@@ -747,7 +747,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 string fieldTitle = "SiteMapXml BackUp";
 
                 string fileName = EntityFileNameFormatter.GetSiteMapFileName(connectionData.Name, siteMap.SiteMapName, siteMap.Id, fieldTitle, "xml");
-                string filePath = Path.Combine(commonConfig.FolderForExport, fileName);
+                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
                 if (!string.IsNullOrEmpty(siteMapXml))
                 {
@@ -1072,7 +1072,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 string fieldTitle = "FormXml BackUp";
 
                 string fileName = EntityFileNameFormatter.GetSystemFormFileName(connectionData.Name, systemForm.ObjectTypeCode, systemForm.Name, fieldTitle, "xml");
-                string filePath = Path.Combine(commonConfig.FolderForExport, fileName);
+                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
                 if (!string.IsNullOrEmpty(formXml))
                 {
@@ -1416,7 +1416,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 fieldTitle += " BackUp";
 
                 string fileName = EntityFileNameFormatter.GetSavedQueryFileName(connectionData.Name, savedQuery.ReturnedTypeCode, savedQuery.Name, fieldTitle, "xml");
-                string filePath = Path.Combine(commonConfig.FolderForExport, fileName);
+                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
                 if (!string.IsNullOrEmpty(xmlContent))
                 {

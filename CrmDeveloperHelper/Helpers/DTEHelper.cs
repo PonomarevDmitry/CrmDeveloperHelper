@@ -223,6 +223,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     ActivateOutputWindow(connectionData);
                     WriteToOutputEmptyLines(connectionData, commonConfig);
 
+                    CheckWishToChangeCurrentConnection(connectionData, crmConfig);
+
                     try
                     {
                         Controller.StartUpdateContentAndPublish(selectedFiles, connectionData);
@@ -284,6 +286,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     ActivateOutputWindow(connectionData);
                     WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                    CheckWishToChangeCurrentConnection(connectionData, crmConfig);
 
                     try
                     {
@@ -708,8 +712,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (crmConfig != null && connectionData != null && selectedFiles.Count == 1)
             {
-                ActivateOutputWindow(connectionData);
-                WriteToOutputEmptyLines(connectionData, commonConfig);
+                CheckWishToChangeCurrentConnection(connectionData, crmConfig);
 
                 string filePath = selectedFiles[0].FilePath;
 
@@ -717,6 +720,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (form.ShowDialog().GetValueOrDefault())
                 {
+                    ActivateOutputWindow(connectionData);
+                    WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                    CheckWishToChangeCurrentConnection(connectionData, crmConfig);
+
                     try
                     {
                         Controller.UpdateProxyClasses(filePath, connectionData, commonConfig);
@@ -1336,10 +1344,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (crmConfig != null && connectionData != null && commonConfig != null)
             {
-                ActivateOutputWindow(connectionData);
-                WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                CheckWishToChangeCurrentConnection(connectionData, crmConfig);
+                 CheckWishToChangeCurrentConnection(connectionData, crmConfig);
 
                 if (connectionData.IsReadOnly)
                 {
@@ -1353,6 +1358,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {
+                    ActivateOutputWindow(connectionData);
+                    WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                    CheckWishToChangeCurrentConnection(connectionData, crmConfig);
+
                     try
                     {
                         Controller.StartRibbonDiffXmlUpdate(selectedFile, connectionData, commonConfig);
@@ -1503,6 +1513,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (crmConfig != null && connectionData != null && commonConfig != null && selectedFiles.Count > 0)
             {
+                CheckWishToChangeCurrentConnection(connectionData, crmConfig);
+
                 var form = new WindowSelectFolderForExport(connectionData, commonConfig.FolderForExport, commonConfig.DefaultFileAction);
 
                 if (form.ShowDialog().GetValueOrDefault())
@@ -1518,6 +1530,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         ActivateOutputWindow(connectionData);
                         WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                        CheckWishToChangeCurrentConnection(connectionData, crmConfig);
 
                         try
                         {
@@ -1545,6 +1559,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (crmConfig != null && connectionData != null && commonConfig != null)
             {
+                CheckWishToChangeCurrentConnection(connectionData, crmConfig);
+
                 var form = new WindowSelectFolderForExport(connectionData, commonConfig.FolderForExport, commonConfig.DefaultFileAction);
 
                 if (form.ShowDialog().GetValueOrDefault())
@@ -1560,6 +1576,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         ActivateOutputWindow(connectionData);
                         WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                        CheckWishToChangeCurrentConnection(connectionData, crmConfig);
 
                         try
                         {
@@ -1587,6 +1605,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (crmConfig != null && connectionData != null && commonConfig != null)
             {
+                CheckWishToChangeCurrentConnection(connectionData, crmConfig);
+
                 var form = new WindowSelectFolderForExport(connectionData, commonConfig.FolderForExport, commonConfig.DefaultFileAction);
 
                 if (form.ShowDialog().GetValueOrDefault())
@@ -1602,6 +1622,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         ActivateOutputWindow(connectionData);
                         WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                        CheckWishToChangeCurrentConnection(connectionData, crmConfig);
 
                         try
                         {
@@ -1797,6 +1819,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         ActivateOutputWindow(connectionData);
                         WriteToOutputEmptyLines(connectionData, commonConfig);
 
+                        CheckWishToChangeCurrentConnection(connectionData, crmConfig);
+
                         try
                         {
                             Controller.StartCheckEntitiesNames(connectionData, commonConfig, dialog.GetText());
@@ -1834,6 +1858,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         ActivateOutputWindow(connectionData);
                         WriteToOutputEmptyLines(connectionData, commonConfig);
 
+                        CheckWishToChangeCurrentConnection(connectionData, crmConfig);
+
                         try
                         {
                             Controller.StartCheckEntitiesNamesAndShowDependentComponents(connectionData, commonConfig, dialog.GetText());
@@ -1870,6 +1896,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         ActivateOutputWindow(connectionData);
                         WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                        CheckWishToChangeCurrentConnection(connectionData, crmConfig);
 
                         try
                         {
@@ -2196,6 +2224,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         ActivateOutputWindow(connectionData);
                         WriteToOutputEmptyLines(connectionData, commonConfig);
 
+                        CheckWishToChangeCurrentConnection(connectionData, crmConfig);
+
                         try
                         {
                             Controller.StartFindEntityElementsByName(connectionData, commonConfig, dialog.GetText());
@@ -2232,6 +2262,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         ActivateOutputWindow(connectionData);
                         WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                        CheckWishToChangeCurrentConnection(connectionData, crmConfig);
 
                         try
                         {
@@ -2272,6 +2304,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     ActivateOutputWindow(connectionData);
                     WriteToOutputEmptyLines(connectionData, commonConfig);
 
+                    CheckWishToChangeCurrentConnection(connectionData, crmConfig);
+
                     try
                     {
                         Controller.StartFindEntityById(connectionData, commonConfig, entityName, entityTypeCode, entityId);
@@ -2310,6 +2344,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     ActivateOutputWindow(connectionData);
                     WriteToOutputEmptyLines(connectionData, commonConfig);
 
+                    CheckWishToChangeCurrentConnection(connectionData, crmConfig);
+
                     try
                     {
                         Controller.StartEditEntityById(connectionData, commonConfig, entityName, entityTypeCode, entityId);
@@ -2347,6 +2383,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     ActivateOutputWindow(connectionData);
                     WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                    CheckWishToChangeCurrentConnection(connectionData, crmConfig);
 
                     try
                     {
@@ -3679,6 +3717,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     ActivateOutputWindow(connectionData);
                     WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                    CheckWishToChangeCurrentConnection(connectionData, crmConfig);
 
                     try
                     {

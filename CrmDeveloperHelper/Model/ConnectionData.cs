@@ -535,6 +535,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        private string _NamespaceJavaScript;
+        [DataMember]
+        public string NamespaceJavaScript
+        {
+            get => _NamespaceJavaScript;
+            set
+            {
+                this.OnPropertyChanging(nameof(NamespaceJavaScript));
+
+                if (!string.IsNullOrEmpty(value))
+                {
+                    value = value.Trim();
+                }
+                else
+                {
+                    value = string.Empty;
+                }
+
+                this._NamespaceJavaScript = value;
+                this.OnPropertyChanged(nameof(NamespaceJavaScript));
+            }
+        }
+
         private string _ServiceContextName;
         [DataMember]
         public string ServiceContextName

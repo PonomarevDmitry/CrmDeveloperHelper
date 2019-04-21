@@ -62,12 +62,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            var filePath = await CreatePluginDescription(connectionData, service, commonConfig.FolderForExport, commonConfig.PluginConfigurationFileName, connectionData.Name);
+            var filePath = await CreatePluginDescription(connectionData, service, commonConfig);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
-        private async Task<string> CreatePluginDescription(ConnectionData connectionData, IOrganizationServiceExtented service, string fileFolder, string fileNameFormat, string connectionDataName)
+        private async Task<string> CreatePluginDescription(ConnectionData connectionData, IOrganizationServiceExtented service, CommonConfiguration commonConfig)
         {
             Nav.Common.VSPackages.CrmDeveloperHelper.Model.Backup.PluginDescription description = await GetPluginDescription(service);
 
@@ -91,17 +91,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             description.ExecuteUserDomainName = Environment.UserDomainName;
             description.ExecuteUserName = Environment.UserName;
 
-            string fileName = string.Format("{0}{1} {2}.xml"
-                , (!string.IsNullOrEmpty(connectionDataName) ? connectionDataName + "." : string.Empty)
-                , fileNameFormat.Trim()
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+            string fileName = string.Format("{0}.{1} {2}.xml"
+                , connectionData.Name
+                , commonConfig.PluginConfigurationFileName.Trim()
+                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+            );
 
-            string filePath = Path.Combine(fileFolder, fileName);
-
-            if (!Directory.Exists(fileFolder))
+            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
             {
-                Directory.CreateDirectory(fileFolder);
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
             }
+            else if (!Directory.Exists(commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
+                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
+            string filePath = Path.Combine(commonConfig.FolderForExport, fileName);
 
             description.Save(filePath);
 
@@ -249,7 +256,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 string folder = selectedItem.ProjectItem.FileNames[1];
 
-                filePath = await CreatePluginDescription(connectionData, service, folder, commonConfig.PluginConfigurationFileName, connectionData.Name);
+                filePath = await CreatePluginDescription(connectionData, service, commonConfig);
 
                 File.SetAttributes(filePath, FileAttributes.ReadOnly);
 
@@ -270,7 +277,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     Directory.CreateDirectory(folder);
                 }
 
-                filePath = await CreatePluginDescription(connectionData, service, folder, commonConfig.PluginConfigurationFileName, connectionData.Name);
+                filePath = await CreatePluginDescription(connectionData, service, commonConfig);
 
                 File.SetAttributes(filePath, FileAttributes.ReadOnly);
 

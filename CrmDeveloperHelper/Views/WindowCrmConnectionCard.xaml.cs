@@ -199,6 +199,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             connectionData.NamespaceClasses = this.txtBNamespaceClasses.Text.Trim();
             connectionData.NamespaceOptionSets = this.txtBNamespaceOptionSets.Text.Trim();
+            connectionData.NamespaceJavaScript = this.txtBNamespaceJavaScript.Text.Trim();
 
             connectionData.IsReadOnly = chBIsReadOnly.IsChecked.GetValueOrDefault();
         }
@@ -213,6 +214,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             txtBNamespaceClasses.Text = connectionData.NamespaceClasses;
             txtBNamespaceOptionSets.Text = connectionData.NamespaceOptionSets;
+            txtBNamespaceJavaScript.Text = connectionData.NamespaceJavaScript;
 
             chBIsReadOnly.IsChecked = connectionData.IsReadOnly;
 
