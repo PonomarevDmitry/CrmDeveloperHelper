@@ -645,8 +645,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        internal static void ActionBeforeQueryStatusOpenedDocumentsXml(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        {
+            bool visible = false;
 
+            if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
+            {
+                visible = CheckOpenedDocumentsExtension(applicationObject, FileOperations.SupportsXmlType);
+            }
 
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
 
         internal static void ActionBeforeQueryStatusSolutionExplorerCSharpSingle(IServiceProviderOwner command, OleMenuCommand menuCommand)
         {
@@ -768,6 +780,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        internal static void ActionBeforeQueryStatusSolutionExplorerXmlAny(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        {
+            bool visible = false;
+
+            if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
+            {
+                visible = CheckInSolutionExplorerAny(applicationObject, FileOperations.SupportsXmlType);
+            }
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
         internal static void ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursive(IServiceProviderOwner command, OleMenuCommand menuCommand)
         {
             bool visible = false;
@@ -775,6 +802,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
             {
                 visible = CheckInSolutionExplorerRecursive(applicationObject, FileOperations.SupportsWebResourceTextType);
+            }
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
+        internal static void ActionBeforeQueryStatusSolutionExplorerXmlRecursive(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        {
+            bool visible = false;
+
+            if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
+            {
+                visible = CheckInSolutionExplorerRecursive(applicationObject, FileOperations.SupportsXmlType);
             }
 
             if (visible == false)

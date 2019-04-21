@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
   <!--  This is the file that defines the actual layout and type of the commands.
@@ -62,9 +62,11 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupExecuteFetch_MenuConnectionDyn_Group" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupCopyFetch" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupSelectFetch" priority="0x0601" />
+
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group" priority="0x0601" />
+
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupIntellisenseContext" priority="0x0601" />
 
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap" priority="0x0601" />
@@ -213,6 +215,10 @@
       <Group guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata_MenuGlobalOptionSetsDyn_Group" priority="0x0602" />
 
 
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuXml_GroupXsdSchema" priority="0x0602" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder" priority="0x0602" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group" priority="0x0602" />
+
 
 
 
@@ -315,6 +321,21 @@
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets_MenuConnectionDyn_Group" priority="0x0603" />
 
 
+      <Group guid="guidGroupAndMenuSet" id="fileMenuXml_GroupXsdSchema" priority="0x0602" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder" priority="0x0602" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group" priority="0x0602" />
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -392,6 +413,12 @@
       <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupAddIntoSolution_MenuAddAssemblyStepsIntoSolution_GroupConnectionDyn" priority="0x060C" />
 
       <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupDescription" priority="0x060D" />
+
+
+      <Group guid="guidGroupAndMenuSet" id="folderMenuXml_GroupXsdSchema" priority="0x0602" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder" priority="0x0602" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group" priority="0x0602" />
+
 
 
 
@@ -863,6 +890,19 @@
 
 
 
+      <Menu guid="guidGroupAndMenuSet" id="documentsMenuXml" priority="0x0201" type="Menu">
+        <Strings>
+          <ButtonText>Crm XML Opened</ButtonText>
+          <MenuText>Crm XML Opened</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="documentsMenuXml_GroupXsdSchema_MenuSetXsdSchemas" priority="0x0204" type="Menu">
+        <Strings>
+          <ButtonText>Set Xsd Schema</ButtonText>
+          <MenuText>Set Xsd Schema</MenuText>
+        </Strings>
+      </Menu>
+
 
 
 
@@ -942,6 +982,22 @@
           <MenuText>Crm C# Files</MenuText>
         </Strings>
       </Menu>
+
+
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuXml" priority="0x0201" type="Menu">
+        <Strings>
+          <ButtonText>Crm XML Files</ButtonText>
+          <MenuText>Crm XML Files</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuXml_GroupXsdSchema_MenuSetXsdSchemas" priority="0x0204" type="Menu">
+        <Strings>
+          <ButtonText>Set Xsd Schema</ButtonText>
+          <MenuText>Set Xsd Schema</MenuText>
+        </Strings>
+      </Menu>
+
+
 
 
 
@@ -1027,6 +1083,19 @@
         <Strings>
           <ButtonText>Crm - PluginAssembly</ButtonText>
           <MenuText>Crm - PluginAssembly</MenuText>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuXml" priority="0x0201" type="Menu">
+        <Strings>
+          <ButtonText>Crm XML Files (Recursive)</ButtonText>
+          <MenuText>Crm XML Files (Recursive)</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuXml_GroupXsdSchema_MenuSetXsdSchemas" priority="0x0204" type="Menu">
+        <Strings>
+          <ButtonText>Set Xsd Schema</ButtonText>
+          <MenuText>Set Xsd Schema</MenuText>
         </Strings>
       </Menu>
 
@@ -2194,6 +2263,75 @@
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CodeXmlRemoveXsdSchemaCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Remove Xsd Schema</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandSet" id="DocumentsXmlOpenXsdSchemaFolderCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Open Xsd Schema Default Folder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="DocumentsXmlSetXsdSchemaCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Set Xsd Schema Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="DocumentsXmlRemoveXsdSchemaCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Remove Xsd Schema</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandSet" id="FileXmlOpenXsdSchemaFolderCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Open Xsd Schema Default Folder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="FileXmlSetXsdSchemaCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Set Xsd Schema Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="FileXmlRemoveXsdSchemaCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Remove Xsd Schema</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandSet" id="FolderXmlOpenXsdSchemaFolderCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Open Xsd Schema Default Folder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="FolderXmlSetXsdSchemaCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Set Xsd Schema Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="FolderXmlRemoveXsdSchemaCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>Remove Xsd Schema</ButtonText>
@@ -5093,7 +5231,7 @@
           <ButtonText>Edit Entity Objects by Id</ButtonText>
         </Strings>
       </Button>
-      
+
 
 
       <Button guid="guidDynamicCommandSet" id="CommonCheckEntitiesOwnerShipsCommandId" priority="0x0110" type="Button">
@@ -5847,7 +5985,7 @@
       <Parent guid="guid3" id="guid3sym1" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="CodeWebResourceUpdateContentPublishCommandId" priority="0xFE">
+    <CommandPlacement guid="guidCommandSet" id="CodeWebResourceUpdateContentPublishCommandId" priority="0x01">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
     </CommandPlacement>
 
@@ -5859,43 +5997,46 @@
       <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml" priority="0x102">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml" priority="0x103">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuXml" priority="0x104">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport" priority="0x103">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport" priority="0x105">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuReport" priority="0x104">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
-    </CommandPlacement>
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp" priority="0x105">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp" priority="0x106">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuReport" priority="0x106">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
     </CommandPlacement>
 
-
-    <CommandPlacement guid="guidCommandSet" id="CodePublishListAddCommandId" priority="0x107">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp" priority="0x107">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CodePublishListRemoveCommandId" priority="0x108">
-      <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
-    </CommandPlacement>
-
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu" priority="0x109">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuCSharp" priority="0x108">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="openCrmSiteMenu" priority="0x10A">
+
+    <CommandPlacement guid="guidCommandSet" id="CodePublishListAddCommandId" priority="0x109">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonCurrentConnectionCommandId" priority="0x10B">
+    <CommandPlacement guid="guidCommandSet" id="CodePublishListRemoveCommandId" priority="0x10A">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu" priority="0x10C">
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu" priority="0x10B">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="openCrmSiteMenu" priority="0x10C">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonCurrentConnectionCommandId" priority="0x10D">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu" priority="0x10E">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
     </CommandPlacement>
 
@@ -6128,6 +6269,28 @@
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList" />
     </CommandPlacement>
 
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuXml_GroupXsdSchema" priority="0x0606">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuXml" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuXml_GroupXsdSchema_MenuSetXsdSchemas" priority="0x0606">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuXml_GroupXsdSchema" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidCommandSet" id="DocumentsXmlRemoveXsdSchemaCommandId" priority="0x0607">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuXml_GroupXsdSchema" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder" priority="0x0606">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuXml_GroupXsdSchema_MenuSetXsdSchemas" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group" priority="0x0606">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuXml_GroupXsdSchema_MenuSetXsdSchemas" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidCommandSet" id="DocumentsXmlOpenXsdSchemaFolderCommandId" priority="0x0606">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder" />
+    </CommandPlacement>
 
 
 
@@ -6207,34 +6370,46 @@
     <CommandPlacement guid="guidCommandSet" id="FolderWebResourceUpdateContentPublishCommandId" priority="0x102">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
+    
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource" priority="0x0204">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport" priority="0x0205">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource" priority="0x0205">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp" priority="0x0206">
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuXml" priority="0x0206">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource" priority="0x0207">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuXml" priority="0x0206">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp" priority="0x0208">
+    
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport" priority="0x0207">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject" priority="0x0209">
+    
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp" priority="0x0208">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu" priority="0x020A">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp" priority="0x0209">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="openCrmSiteMenu" priority="0x020B">
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject" priority="0x020A">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonCurrentConnectionCommandId" priority="0x020C">
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu" priority="0x020B">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu" priority="0x020D">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="openCrmSiteMenu" priority="0x020C">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonCurrentConnectionCommandId" priority="0x020D">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu" priority="0x020E">
       <Parent guid="guidGroupAndMenuSet" id="mainGroup" />
     </CommandPlacement>
 
@@ -6380,14 +6555,28 @@
 
 
 
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuXml_GroupXsdSchema" priority="0x0608">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuXml" />
+    </CommandPlacement>
 
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuXml_GroupXsdSchema_MenuSetXsdSchemas" priority="0x0608">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuXml_GroupXsdSchema" />
+    </CommandPlacement>
 
+    <CommandPlacement guid="guidCommandSet" id="FileXmlRemoveXsdSchemaCommandId" priority="0x0609">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuXml_GroupXsdSchema" />
+    </CommandPlacement>
 
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder" priority="0x0608">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuXml_GroupXsdSchema_MenuSetXsdSchemas" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group" priority="0x0608">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuXml_GroupXsdSchema_MenuSetXsdSchemas" />
+    </CommandPlacement>
 
-
-
-
-
+    <CommandPlacement guid="guidCommandSet" id="FileXmlOpenXsdSchemaFolderCommandId" priority="0x0606">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder" />
+    </CommandPlacement>
 
 
 
@@ -6505,6 +6694,28 @@
       <Parent guid="guidGroupAndMenuSet" id="folderMenuCSharp" />
     </CommandPlacement>
 
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuXml_GroupXsdSchema" priority="0x0609">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuXml" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuXml_GroupXsdSchema_MenuSetXsdSchemas" priority="0x0609">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuXml_GroupXsdSchema" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidCommandSet" id="FolderXmlRemoveXsdSchemaCommandId" priority="0x060A">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuXml_GroupXsdSchema" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder" priority="0x0609">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuXml_GroupXsdSchema_MenuSetXsdSchemas" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group" priority="0x0609">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuXml_GroupXsdSchema_MenuSetXsdSchemas" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidCommandSet" id="FolderXmlOpenXsdSchemaFolderCommandId" priority="0x0606">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder" />
+    </CommandPlacement>
 
 
 
@@ -6601,34 +6812,46 @@
     <CommandPlacement guid="guidCommandSet" id="FolderWebResourceUpdateContentPublishCommandId" priority="0x102">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
+    
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource" priority="0x0204">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport" priority="0x0205">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource" priority="0x0205">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp" priority="0x0206">
+    
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuXml" priority="0x0206">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource" priority="0x0207">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuXml" priority="0x0207">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp" priority="0x0208">
+    
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport" priority="0x0208">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuFolder" priority="0x0209">
+    
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp" priority="0x0209">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu" priority="0x020A">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuCSharp" priority="0x020A">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="openCrmSiteMenu" priority="0x020B">
+    
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuFolder" priority="0x020B">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonCurrentConnectionCommandId" priority="0x020C">
+    
+    <CommandPlacement guid="guidGroupAndMenuSet" id="listForPublishMenu" priority="0x020C">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu" priority="0x020D">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="openCrmSiteMenu" priority="0x020D">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonCurrentConnectionCommandId" priority="0x020E">
+      <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu" priority="0x020F">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupSolutionFolder" />
     </CommandPlacement>
 
@@ -6655,7 +6878,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupRegister" priority="0x060B">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
     </CommandPlacement>
-    
+
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupAddIntoSolution" priority="0x060C">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
     </CommandPlacement>
@@ -7304,7 +7527,7 @@
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupFindEntity" />
     </CommandPlacement>
 
-    
+
 
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership_MenuDyn" priority="0x0110">
@@ -7602,6 +7825,10 @@
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" />
     </CommandPlacement>
 
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlRemoveXsdSchemaCommandId" priority="0x107">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" />
+    </CommandPlacement>
+
 
 
 
@@ -7619,10 +7846,6 @@
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlSetXsdSchemaCommandId" priority="0x106">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group" />
-    </CommandPlacement>
-
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlRemoveXsdSchemaCommandId" priority="0x107">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupXsdSchema" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidCommandSet" id="CodeXmlRibbonDiffInsertIntellisenseContextCommandId" priority="0x107">
@@ -8127,7 +8350,9 @@
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuCSharp_GroupEntityMetadata" />
     </CommandPlacement>
 
-
+    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsXmlSetXsdSchemaCommandId" priority="0x106">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group" />
+    </CommandPlacement>
 
 
 
@@ -8537,6 +8762,11 @@
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets" />
     </CommandPlacement>
 
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileXmlSetXsdSchemaCommandId" priority="0x106">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group" />
+    </CommandPlacement>
+
+
 
 
 
@@ -8815,7 +9045,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnectionDyn" priority="0x0121">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare" />
     </CommandPlacement>
-    
+
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupRegister_MenuConnectionDyn" priority="0x0121">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupRegister" />
     </CommandPlacement>
@@ -8850,6 +9080,26 @@
     <CommandPlacement guid="guidCommandSet" id="ProjectPluginTreeCommandId" priority="0x0124">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupDescription" />
     </CommandPlacement>
+
+
+    <CommandPlacement guid="guidDynamicCommandSet" id="FolderXmlSetXsdSchemaCommandId" priority="0x106">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group" />
+    </CommandPlacement>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9983,7 +10233,7 @@
     <CommandPlacement guid="guidDynamicCommandSet" id="ProjectCompareToCrmAssemblyInConnectionCommandId" priority="0x0121">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare_MenuConnectionDyn_Group" />
     </CommandPlacement>
-    
+
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupRegister_MenuConnectionDyn_Group" priority="0x0121">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupRegister_MenuConnectionDyn" />
     </CommandPlacement>
@@ -10433,7 +10683,12 @@
       <IDSymbol name="documentsMenuCSharp_GroupEntityMetadata_MenuGlobalOptionSetsDyn" value="0x1281" />
       <IDSymbol name="documentsMenuCSharp_GroupEntityMetadata_MenuGlobalOptionSetsDyn_Group" value="0x1282" />
 
+      <IDSymbol name="documentsMenuXml" value="0x12E5" />
 
+      <IDSymbol name="documentsMenuXml_GroupXsdSchema" value="0x12E6" />
+      <IDSymbol name="documentsMenuXml_GroupXsdSchema_MenuSetXsdSchemas" value="0x12E7" />
+      <IDSymbol name="documentsMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder" value="0x12E8" />
+      <IDSymbol name="documentsMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group" value="0x12E9" />
 
 
 
@@ -10630,6 +10885,25 @@
 
       <IDSymbol name="fileMenuCSharp_GroupAddIntoSolution_MenuAddPluginTypeStepsIntoSolution_GroupConnectionDyn" value="0x12B5" />
 
+      <IDSymbol name="fileMenuXml" value="0x12F2" />
+
+      <IDSymbol name="fileMenuXml_GroupXsdSchema" value="0x12EA" />
+
+      <IDSymbol name="fileMenuXml_GroupXsdSchema_MenuSetXsdSchemas" value="0x12EB" />
+
+      <IDSymbol name="fileMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder" value="0x12EC" />
+      <IDSymbol name="fileMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group" value="0x12ED" />
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10769,6 +11043,19 @@
       <IDSymbol name="folderMenuProject_GroupAddIntoSolution_MenuAddAssemblyStepsIntoSolution_GroupConnectionDyn" value="0x12BB" />
 
       <IDSymbol name="folderMenuProject_GroupDescription" value="0x10FC" />
+
+
+      <IDSymbol name="folderMenuXml" value="0x12F3" />
+
+      <IDSymbol name="folderMenuXml_GroupXsdSchema" value="0x12EE" />
+
+      <IDSymbol name="folderMenuXml_GroupXsdSchema_MenuSetXsdSchemas" value="0x12EF" />
+
+      <IDSymbol name="folderMenuXml_GroupXsdSchema_MenuSetXsdSchemas_GroupOpenFolder" value="0x12F0" />
+      <IDSymbol name="folderMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group" value="0x12F1" />
+
+
+
 
 
 
@@ -11082,7 +11369,6 @@
 
 
 
-      <!-- 0x12E5 -->
 
 
     </GuidSymbol>
@@ -11242,6 +11528,9 @@
       <IDSymbol name="CommonExportXsdSchemasCommandId" value="4325" />
 
       <IDSymbol name="CodeXmlSetXsdSchemaCommandId" value="4350" />
+      <IDSymbol name="DocumentsXmlSetXsdSchemaCommandId" value="8800" />
+      <IDSymbol name="FileXmlSetXsdSchemaCommandId" value="8825" />
+      <IDSymbol name="FolderXmlSetXsdSchemaCommandId" value="8850" />
 
       <IDSymbol name="CodeXmlShowDifferenceSiteMapDefaultCommandId" value="4375" />
 
@@ -11342,7 +11631,7 @@
 
       <IDSymbol name="CommonImportJobExplorerInConnectionCommandId" value="8700" />
 
-      <!-- 8800 -->
+      <!-- 8900 -->
 
     </GuidSymbol>
 
@@ -11388,8 +11677,6 @@
 
       <IDSymbol name="CodeXmlExecuteFetchXmlRequestCommandId" value="0x2160" />
       <IDSymbol name="CodeXmlConvertFetchXmlToJavaScriptCodeCommandId" value="0x2161" />
-      <IDSymbol name="CodeXmlRemoveXsdSchemaCommandId" value="0x216E" />
-      <IDSymbol name="CodeXmlOpenXsdSchemaFolderCommandId" value="0x216F" />
 
       <IDSymbol name="CodeXmlRibbonDiffInsertIntellisenseContextCommandId" value="0x2178" />
       <IDSymbol name="CodeXmlRibbonDiffRemoveIntellisenseContextCommandId" value="0x2179" />
@@ -11408,6 +11695,18 @@
 
       <IDSymbol name="CodeXmlShowDifferenceSavedQueryCommandId" value="0x2186" />
       <IDSymbol name="CodeXmlUpdateSavedQueryCommandId" value="0x2187" />
+
+
+
+      <IDSymbol name="CodeXmlRemoveXsdSchemaCommandId" value="0x216E" />
+      <IDSymbol name="DocumentsXmlRemoveXsdSchemaCommandId" value="0x2197" />
+      <IDSymbol name="FileXmlRemoveXsdSchemaCommandId" value="0x2198" />
+      <IDSymbol name="FolderXmlRemoveXsdSchemaCommandId" value="0x2199" />
+
+      <IDSymbol name="CodeXmlOpenXsdSchemaFolderCommandId" value="0x216F" />
+      <IDSymbol name="DocumentsXmlOpenXsdSchemaFolderCommandId" value="0x219A" />
+      <IDSymbol name="FileXmlOpenXsdSchemaFolderCommandId" value="0x219B" />
+      <IDSymbol name="FolderXmlOpenXsdSchemaFolderCommandId" value="0x219C" />
 
 
 
@@ -11875,10 +12174,15 @@
 
 
 
-
-      <!-- 0x2197 -->
-
     </GuidSymbol>
+
+
+    <!-- Groups and Menus -->
+    <!-- 0x12F4 -->
+
+    <!-- Commands -->
+    <!-- 0x219D -->
+
 
   </Symbols>
 </CommandTable>

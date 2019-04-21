@@ -187,7 +187,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 var items = ApplicationObject.SelectedItems.Cast<SelectedItem>().ToList();
 
-                HashSet<string> hash = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                HashSet<string> hash = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
                 items.ForEach(item =>
                 {
@@ -195,32 +195,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         string path = item.ProjectItem.FileNames[1];
 
-                        if (!string.IsNullOrEmpty(path) && checkerFunction(path) && !hash.Contains(path))
+                        if (!string.IsNullOrEmpty(path)
+                            && checkerFunction(path)
+                            && hash.Add(path)
+                        )
                         {
-                            hash.Add(path);
+                            selectedFiles.Add(new SelectedFile(path, GetFriendlyPath(path))
+                            {
+                                Document = item.ProjectItem.Document,
+                            });
                         }
 
                         if (recursive)
                         {
-                            FillHashSubProjectItems(hash, item.ProjectItem.ProjectItems, checkerFunction);
+                            FillHashSubProjectItems(selectedFiles, hash, item.ProjectItem.ProjectItems, checkerFunction);
                         }
                     }
 
                     if (recursive && item.Project != null)
                     {
-                        FillHashSubProjectItems(hash, item.Project.ProjectItems, checkerFunction);
+                        FillHashSubProjectItems(selectedFiles, hash, item.Project.ProjectItems, checkerFunction);
                     }
                 });
-
-                hash.OrderBy(path => path).ToList().ForEach(
-                    path => selectedFiles.Add(new SelectedFile(path, GetFriendlyPath(path)))
-                );
             }
+
+            selectedFiles.Sort((x, y) => x.FilePath.CompareTo(y.FilePath));
 
             return selectedFiles;
         }
 
-        private void FillHashSubProjectItems(HashSet<string> hash, ProjectItems projectItems, Func<string, bool> checkerFunction)
+        private void FillHashSubProjectItems(List<SelectedFile> selectedFiles, HashSet<string> hash, ProjectItems projectItems, Func<string, bool> checkerFunction)
         {
             if (projectItems != null)
             {
@@ -228,19 +232,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     string path = projItem.FileNames[1];
 
-                    if (checkerFunction(path))
+                    if (!string.IsNullOrEmpty(path)
+                          && checkerFunction(path)
+                          && hash.Add(path)
+                      )
                     {
-                        if (!hash.Contains(path))
+                        selectedFiles.Add(new SelectedFile(path, GetFriendlyPath(path))
                         {
-                            hash.Add(path);
-                        }
+                            Document = projItem.Document,
+                        });
                     }
 
-                    FillHashSubProjectItems(hash, projItem.ProjectItems, checkerFunction);
+                    FillHashSubProjectItems(selectedFiles, hash, projItem.ProjectItems, checkerFunction);
 
                     if (projItem.SubProject != null)
                     {
-                        FillHashSubProjectItems(hash, projItem.SubProject.ProjectItems, checkerFunction);
+                        FillHashSubProjectItems(selectedFiles, hash, projItem.SubProject.ProjectItems, checkerFunction);
                     }
                 }
             }

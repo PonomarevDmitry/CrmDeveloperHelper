@@ -36,6 +36,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string UrlFriendlyFilePath { get; private set; }
 
+        public EnvDTE.Document Document { get; set; }
+
         /// <summary>
         /// Конструктор выбранного файла
         /// </summary>

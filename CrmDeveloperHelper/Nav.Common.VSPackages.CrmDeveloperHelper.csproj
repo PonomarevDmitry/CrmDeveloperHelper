@@ -247,6 +247,9 @@
     <Compile Include="Commands\DocumentsCSharpUpdateEntityMetadataFileCommand.cs" />
     <Compile Include="Commands\DocumentsCSharpUpdateGlobalOptionSetsFileCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
+    <Compile Include="Commands\DocumentsXmlOpenXsdSchemaFolderCommand.cs" />
+    <Compile Include="Commands\DocumentsXmlRemoveXsdSchemaCommand.cs" />
+    <Compile Include="Commands\DocumentsXmlSetXsdSchemaCommand.cs" />
     <Compile Include="Commands\FileCSharpAddPluginStepCommand.cs" />
     <Compile Include="Commands\FileCSharpAddPluginStepInConnectionCommand.cs" />
     <Compile Include="Commands\FileCSharpPluginAssemblyDescriptionCommand.cs" />
@@ -268,6 +271,9 @@
     <Compile Include="Commands\FileWebResourceShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\FileWebResourceShowDifferenceThreeFileCommand.cs" />
     <Compile Include="Commands\FileWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
+    <Compile Include="Commands\FileXmlOpenXsdSchemaFolderCommand.cs" />
+    <Compile Include="Commands\FileXmlRemoveXsdSchemaCommand.cs" />
+    <Compile Include="Commands\FileXmlSetXsdSchemaCommand.cs" />
     <Compile Include="Commands\FolderCSharpProjectPluginAssemblyAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\FolderCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\FolderCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand.cs" />
@@ -293,6 +299,9 @@
     <Compile Include="Commands\FolderCSharpUpdateGlobalOptionSetsFileCommand.cs" />
     <Compile Include="Commands\AbstractCommand.cs" />
     <Compile Include="Commands\FolderWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
+    <Compile Include="Commands\FolderXmlOpenXsdSchemaFolderCommand.cs" />
+    <Compile Include="Commands\FolderXmlRemoveXsdSchemaCommand.cs" />
+    <Compile Include="Commands\FolderXmlSetXsdSchemaCommand.cs" />
     <Compile Include="Commands\ListForPublishAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\ListForPublishAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\ListForPublishCompareInConnectionGroupCommand.cs" />

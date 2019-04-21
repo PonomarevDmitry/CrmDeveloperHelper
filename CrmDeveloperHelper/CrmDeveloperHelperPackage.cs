@@ -71,9 +71,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlExecuteFetchXmlRequestCommand.Initialize(this);
             CodeXmlExecuteFetchXmlRequestInConnectionsCommand.Initialize(this);
             CodeXmlConvertFetchXmlToJavaScriptCodeCommand.Initialize(this);
-            CodeXmlOpenXsdSchemaFolderCommand.Initialize(this);
-            CodeXmlSetXsdSchemaCommand.Initialize(this);
-            CodeXmlRemoveXsdSchemaCommand.Initialize(this);
             CodeXmlRibbonDiffInsertIntellisenseContextCommand.Initialize(this);
             CodeXmlRibbonDiffRemoveIntellisenseContextCommand.Initialize(this);
 
@@ -103,6 +100,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CodeXmlUpdateRibbonDiffXmlCommand.Initialize(this);
             CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommand.Initialize(this);
+
+            CodeXmlOpenXsdSchemaFolderCommand.Initialize(this);
+            DocumentsXmlOpenXsdSchemaFolderCommand.Initialize(this);
+            FileXmlOpenXsdSchemaFolderCommand.Initialize(this);
+            FolderXmlOpenXsdSchemaFolderCommand.Initialize(this);
+
+            CodeXmlSetXsdSchemaCommand.Initialize(this);
+            DocumentsXmlSetXsdSchemaCommand.Initialize(this);
+            FileXmlSetXsdSchemaCommand.Initialize(this);
+            FolderXmlSetXsdSchemaCommand.Initialize(this);
+
+            CodeXmlRemoveXsdSchemaCommand.Initialize(this);
+            DocumentsXmlRemoveXsdSchemaCommand.Initialize(this);
+            FileXmlRemoveXsdSchemaCommand.Initialize(this);
+            FolderXmlRemoveXsdSchemaCommand.Initialize(this);
 
             CodePublishListAddCommand.Initialize(this);
             CodePublishListRemoveCommand.Initialize(this);

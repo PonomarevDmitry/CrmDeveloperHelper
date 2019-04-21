@@ -1,20 +1,21 @@
-using Microsoft.VisualStudio.Shell;
+﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using System;
 using System.ComponentModel.Design;
+using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class CodeXmlSetXsdSchemaCommand : IServiceProviderOwner
+    internal sealed class FolderXmlSetXsdSchemaCommand : IServiceProviderOwner
     {
         private readonly Package _package;
 
         public IServiceProvider ServiceProvider => _package;
 
-        private const int _baseIdStart = PackageIds.CodeXmlSetXsdSchemaCommandId;
+        private const int _baseIdStart = PackageIds.FolderXmlSetXsdSchemaCommandId;
 
-        private CodeXmlSetXsdSchemaCommand(Package package)
+        private FolderXmlSetXsdSchemaCommand(Package package)
         {
             _package = package ?? throw new ArgumentNullException(nameof(package));
 
@@ -39,11 +40,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        public static CodeXmlSetXsdSchemaCommand Instance { get; private set; }
+        public static FolderXmlSetXsdSchemaCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new CodeXmlSetXsdSchemaCommand(package);
+            Instance = new FolderXmlSetXsdSchemaCommand(package);
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -60,7 +61,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     {
                         menuCommand.Enabled = menuCommand.Visible = true;
 
-                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentXml(this, menuCommand);
+                        CommonHandlers.ActionBeforeQueryStatusSolutionExplorerXmlRecursive(this, menuCommand);
                     }
                 }
             }
@@ -94,11 +95,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     DTEHelper helper = DTEHelper.Create(applicationObject);
 
-                    EnvDTE.Document document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsXmlType);
+                    var listFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsXmlType, true);
 
-                    if (document != null)
+                    if (listFiles.Any())
                     {
-                        ContentCoparerHelper.ReplaceXsdSchemaInDocument(document, selectedSchemas);
+                        foreach (var document in listFiles.Where(s => s.Document != null && s.Document.ActiveWindow != null && s.Document.ActiveWindow.Visible).Select(s => s.Document))
+                        {
+                            ContentCoparerHelper.ReplaceXsdSchemaInDocument(document, selectedSchemas);
+                        }
+
+                        foreach (var filePath in listFiles.Where(s => !(s.Document != null && s.Document.ActiveWindow != null && s.Document.ActiveWindow.Visible)).Select(s => s.FilePath))
+                        {
+                            ContentCoparerHelper.ReplaceXsdSchemaInFile(filePath, selectedSchemas);
+                        }
                     }
                 }
             }

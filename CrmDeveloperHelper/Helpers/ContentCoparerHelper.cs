@@ -1491,5 +1491,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 item.Remove();
             }
         }
+
+        public static void RemoveXsdSchemaInFile(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                return;
+            }
+
+            string text = File.ReadAllText(filePath);
+
+            if (Regex.IsMatch(text, patternXsi))
+            {
+                text = Regex.Replace(text, patternXsi, string.Empty, RegexOptions.IgnoreCase);
+            }
+
+            if (Regex.IsMatch(text, patternSchemaLocation))
+            {
+                text = Regex.Replace(text, patternSchemaLocation, string.Empty, RegexOptions.IgnoreCase);
+            }
+
+            File.WriteAllText(filePath, text);
+        }
+
+        internal static void ReplaceXsdSchemaInFile(string filePath, string[] fileNamesColl)
+        {
+            if (!File.Exists(filePath))
+            {
+                return;
+            }
+
+            string text = File.ReadAllText(filePath);
+
+            text = SetXsdSchema(text, fileNamesColl);
+
+            File.WriteAllText(filePath, text);
+        }
     }
 }
