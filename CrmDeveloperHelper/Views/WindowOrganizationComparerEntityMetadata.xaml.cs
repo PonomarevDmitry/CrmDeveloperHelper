@@ -470,22 +470,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             CreateFileWithEntityMetadataCSharpConfiguration config = GetCSharpConfig(entityName);
 
-            string filePath1 = string.Empty;
-            string filePath2 = string.Empty;
+            string fileName1 = string.Format("{0}.{1}.Generated.cs", service1.ConnectionData.Name, entityName);
+            string fileName2 = string.Format("{0}.{1}.Generated.cs", service2.ConnectionData.Name, entityName);
+
+            string filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName1));
+            string filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName2));
 
             using (var handler1 = new CreateFileWithEntityMetadataCSharpHandler(config, service1, _iWriteToOutput))
             {
-                var task1 = handler1.CreateFileAsync();
+                var task1 = handler1.CreateFileAsync(filePath1);
 
                 if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                 {
                     using (var handler2 = new CreateFileWithEntityMetadataCSharpHandler(config, service2, _iWriteToOutput))
                     {
-                        filePath2 = await handler2.CreateFileAsync();
+                        await handler2.CreateFileAsync(filePath2);
                     }
                 }
 
-                filePath1 = await task1;
+                await task1;
             }
 
             this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service1.ConnectionData.Name, config.EntityName, filePath1);
@@ -518,7 +521,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var result = new CreateFileWithEntityMetadataCSharpConfiguration
             (
                 entityName
-                , _commonConfig.FolderForExport
                 , tabSpacer
                 , _commonConfig.GenerateAttributes
                 , _commonConfig.GenerateStatus
@@ -572,28 +574,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-
             this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, entityName, service1.ConnectionData.Name, service2.ConnectionData.Name);
 
             ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataJavaScriptForEntityFormat1, entityName);
 
+            string filename1 = string.Format("{0}.{1}.EntityMetadata.Generated.js", service1.ConnectionData.Name, entityName);
+            string filename2 = string.Format("{0}.{1}.EntityMetadata.Generated.js", service2.ConnectionData.Name, entityName);
+
             CreateFileWithEntityMetadataJavaScriptConfiguration config = GetJavaScriptConfig(entityName);
 
-            string filePath1 = string.Empty;
-            string filePath2 = string.Empty;
+            string filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(filename1));
+            string filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(filename2));
+
             using (var handler1 = new CreateFileWithEntityMetadataJavaScriptHandler(config, service1, _iWriteToOutput))
             {
-                var task1 = handler1.CreateFileAsync();
+                var task1 = handler1.CreateFileAsync(filePath1);
 
                 if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                 {
                     using (var handler2 = new CreateFileWithEntityMetadataJavaScriptHandler(config, service2, _iWriteToOutput))
                     {
-                        filePath2 = await handler2.CreateFileAsync();
+                        await handler2.CreateFileAsync(filePath2);
                     }
                 }
 
-                filePath1 = await task1;
+                await task1;
             }
 
             this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service1.ConnectionData.Name, config.EntityName, filePath1);
@@ -625,10 +630,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var result = new CreateFileWithEntityMetadataJavaScriptConfiguration(
                 entityName
-                , _commonConfig.FolderForExport
                 , tabSpacer
                 , _commonConfig.EntityMetadaOptionSetDependentComponents
-                );
+            );
 
             return result;
         }
@@ -685,11 +689,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var config = GetCSharpConfig(entityName);
 
+            string fileName = string.Format("{0}.{1}.Generated.cs", service.ConnectionData.Name, entityName);
+            string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
             try
             {
                 using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput))
                 {
-                    string filePath = await handler.CreateFileAsync();
+                    await handler.CreateFileAsync(filePath);
 
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
 
@@ -758,11 +765,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var config = GetJavaScriptConfig(entityName);
 
+            string filename = string.Format("{0}.{1}.EntityMetadata.Generated.js", service.ConnectionData.Name, entityName);
+            string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(filename));
+
             try
             {
                 using (var handler = new CreateFileWithEntityMetadataJavaScriptHandler(config, service, _iWriteToOutput))
                 {
-                    string filePath = await handler.CreateFileAsync();
+                    await handler.CreateFileAsync(filePath);
 
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
 

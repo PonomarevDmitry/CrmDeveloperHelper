@@ -1,4 +1,3 @@
-﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
@@ -6,7 +5,6 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +24,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private readonly IWriteToOutput iWriteToOutput;
 
+        private List<string> _attributesForPthis = new List<string>();
+
         public CreateFileWithEntityMetadataJavaScriptHandler(
             CreateFileWithEntityMetadataJavaScriptConfiguration config
             , IOrganizationServiceExtented service
@@ -37,12 +37,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this.iWriteToOutput = outputWindow;
         }
 
-        public Task<string> CreateFileAsync(string fileName = null)
+        public Task CreateFileAsync(string filePath)
         {
-            return Task.Run(async () => await CreateFile(fileName));
+            return Task.Run(async () => await CreateFile(filePath));
         }
 
-        private async Task<string> CreateFile(string fileName = null)
+        private async Task CreateFile(string filePath)
         {
             RetrieveEntityRequest request = new RetrieveEntityRequest
             {
@@ -63,14 +63,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var repositoryStringMap = new StringMapRepository(_service);
             this._listStringMap = await repositoryStringMap.GetListAsync(this._entityMetadata.LogicalName);
 
-            if (string.IsNullOrEmpty(fileName))
-            {
-                fileName = string.Format("{0}.{1}.EntityMetadata.js", this._service.ConnectionData.Name, _entityMetadata.SchemaName);
-            }
-
-            var fileFilePath = Path.Combine(this._config.Folder, fileName);
-
-            StartWriting(fileFilePath);
+            StartWriting(filePath);
 
             WriteNamespace();
 
@@ -87,13 +80,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             await WriteRegularOptionSets();
 
             WriteLine();
-            WriteLine(CreateFileHandler.JavaScriptCommonConstants);
-            WriteLine();
-            WriteLine(CreateFileHandler.JavaScriptCommonFunctions);
-            WriteLine();
-
-            WriteLine();
             WriteLine("var pthis = this;");
+
+            if (_attributesForPthis.Any())
+            {
+                WriteLine();
+
+                foreach (var item in _attributesForPthis)
+                {
+                    WriteLine(string.Format("pthis.{0} = {0};", item));
+                }
+            }
 
             WriteLine();
             WriteLine("return pthis;");
@@ -101,8 +98,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             Write("}());");
 
             EndWriting();
-
-            return fileFilePath;
         }
 
         private void WriteNamespace()
@@ -146,6 +141,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 return;
             }
+
+            _attributesForPthis.Add("Attributes");
 
             WriteLine();
             WriteLine("var Attributes = {");
@@ -213,6 +210,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine();
             WriteLine("var StatusCodes = {");
 
+            _attributesForPthis.Add("StatusCodes");
+
             var options = CreateFileHandler.GetStatusOptionItems(statusAttr, stateAttr, this._listStringMap);
 
             WriteLine();
@@ -230,6 +229,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             WriteLine();
             WriteLine("var StateCodes = {");
+
+            _attributesForPthis.Add("StateCodes");
 
             var options = CreateFileHandler.GetStateOptionItems(statusAttr, stateAttr, this._listStringMap);
 
@@ -296,6 +297,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 enumName = attributeList.First().LogicalName;
             }
+
+            _attributesForPthis.Add(string.Format("{0}Enum", enumName));
 
             WriteLine(string.Format("var {0}Enum =", enumName) + " {");
 

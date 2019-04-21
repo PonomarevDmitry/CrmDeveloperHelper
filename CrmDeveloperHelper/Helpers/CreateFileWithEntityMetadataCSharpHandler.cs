@@ -36,7 +36,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             CreateFileWithEntityMetadataCSharpConfiguration config
             , IOrganizationServiceExtented service
             , IWriteToOutput iWriteToOutput
-            ) : base(config.TabSpacer, config.AllDescriptions)
+        ) : base(config.TabSpacer, config.AllDescriptions)
         {
             this._config = config;
             this._service = service;
@@ -50,12 +50,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this._descriptorHandler = new DependencyDescriptionHandler(_solutionComponentDescriptor);
         }
 
-        public Task<string> CreateFileAsync(string fileName = null)
+        public Task CreateFileAsync(string filePath)
         {
-            return Task.Run(async () => await CreateFile(fileName));
+            return Task.Run(async () => await CreateFile(filePath));
         }
 
-        private async Task<string> CreateFile(string fileName = null)
+        private async Task CreateFile(string filePath)
         {
             if (_config.EntityMetadata == null)
             {
@@ -80,13 +80,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var repositoryAttributeMap = new AttributeMapRepository(_service);
             this._listAttributeMap = repositoryAttributeMap.GetListWithEntityMapAsync(this._entityMetadata.LogicalName);
 
-            if (string.IsNullOrEmpty(fileName))
-            {
-                fileName = string.Format("{0}.{1}.Generated.cs", this._service.ConnectionData.Name, _entityMetadata.SchemaName);
-            }
-
-            var fileFilePath = Path.Combine(this._config.Folder, fileName);
-
             if (this._config.ConstantType == Model.ConstantType.ReadOnlyField)
             {
                 _fieldHeader = "static readonly";
@@ -96,7 +89,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 _fieldHeader = "const";
             }
 
-            StartWriting(fileFilePath);
+            StartWriting(filePath);
 
             WriteLine();
 
@@ -156,8 +149,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             Write("}");
 
             EndWriting();
-
-            return fileFilePath;
         }
 
         private HashSet<string> GetLinkedEntities(EntityMetadata entityMetadata)

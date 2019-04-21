@@ -713,7 +713,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var config = new CreateFileWithEntityMetadataCSharpConfiguration(
                     entityMetadata.EntityLogicalName
-                    , txtBFolder.Text.Trim()
                     , tabSpacer
                     , _commonConfig.GenerateAttributes
                     , _commonConfig.GenerateStatus
@@ -731,18 +730,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , _commonConfig.OptionSetExportType
                     );
 
-                string filePath = string.Empty;
+                string filePath = _filePath;
+
+                if (string.IsNullOrEmpty(filePath))
+                {
+                    string fileName = string.Format("{0}.{1}.Generated.cs", service.ConnectionData.Name, entityMetadata.EntityMetadata.SchemaName);
+                    filePath = Path.Combine(txtBFolder.Text.Trim(), FileOperations.RemoveWrongSymbols(fileName));
+                }
 
                 using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput))
                 {
-                    string fileName = null;
-
-                    if (!string.IsNullOrEmpty(_filePath))
-                    {
-                        fileName = Path.GetFileName(_filePath);
-                    }
-
-                    filePath = await handler.CreateFileAsync(fileName);
+                    await handler.CreateFileAsync(filePath);
                 }
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
@@ -792,16 +790,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var config = new CreateFileWithEntityMetadataJavaScriptConfiguration(
                 entityMetadata.EntityLogicalName
-                , txtBFolder.Text.Trim()
                 , tabSpacer
                 , _commonConfig.EntityMetadaOptionSetDependentComponents
-                );
+            );
+
+            string folder = txtBFolder.Text.Trim();
+
+            if (string.IsNullOrEmpty(folder))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(folder))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
+            string filename = string.Format("{0}.{1}.EntityMetadata.Generated.js", service.ConnectionData.Name, entityMetadata.EntityLogicalName);
+            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(filename));
 
             try
             {
                 using (var handler = new CreateFileWithEntityMetadataJavaScriptHandler(config, service, _iWriteToOutput))
                 {
-                    string filePath = await handler.CreateFileAsync();
+                    await handler.CreateFileAsync(filePath);
 
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
 

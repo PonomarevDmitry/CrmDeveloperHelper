@@ -24,18 +24,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public CreateFormTabsJavaScriptHandler(
             CreateFileWithEntityMetadataJavaScriptConfiguration config
             , IOrganizationServiceExtented service
-            ) : base(config.TabSpacer, true)
+        ) : base(config.TabSpacer, true)
         {
             this._config = config;
             this._service = service;
         }
 
-        public Task<string> CreateFileAsync(string fileName, List<FormTab> tabs)
+        public Task CreateFileAsync(string filePath, List<FormTab> tabs)
         {
-            return Task.Run(() => CreateFile(fileName, tabs));
+            return Task.Run(() => CreateFile(filePath, tabs));
         }
 
-        private string CreateFile(string fileName, List<FormTab> tabs)
+        private void CreateFile(string filePath, List<FormTab> tabs)
         {
             RetrieveEntityRequest request = new RetrieveEntityRequest();
             request.LogicalName = _config.EntityName.ToLower();
@@ -45,9 +45,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             RetrieveEntityResponse response = (RetrieveEntityResponse)_service.Execute(request);
             this._entityMetadata = response.EntityMetadata;
 
-            var fileFilePath = Path.Combine(this._config.Folder, fileName);
-
-            StartWriting(fileFilePath);
+            StartWriting(filePath);
 
             WriteNamespace();
 
@@ -64,6 +62,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteWebResources(tabs);
 
             WriteLine();
+            WriteLine(JavaScriptCommonConstants);
+            WriteLine();
+            WriteLine(JavaScriptCommonFunctions);
+            WriteLine();
+
+            WriteLine();
             WriteLine("var pthis = this;");
 
             WriteLine();
@@ -72,8 +76,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             Write("}());");
 
             EndWriting();
-
-            return fileFilePath;
         }
 
         private void WriteWebResources(List<FormTab> tabs)

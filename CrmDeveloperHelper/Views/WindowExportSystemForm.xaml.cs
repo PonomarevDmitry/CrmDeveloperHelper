@@ -730,7 +730,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingEntityDescriptionFailed);
             }
         }
-        
+
         private async Task PerformEntityEditor(string folder, Guid idSystemForm, string entityName, string name)
         {
             var service = await GetService();
@@ -1027,7 +1027,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var descriptor = await GetDescriptor();
             var handler = new FormDescriptionHandler(descriptor, new DependencyRepository(service));
 
-            string fileName = EntityFileNameFormatter.GetSystemFormFileName(service.ConnectionData.Name, entityName, name, "EntityMetadata", "js");
+            string fileName = string.Format("{0}.{1}_form_main.js", service.ConnectionData.Name, entityName);
 
             var repository = new SystemFormRepository(service);
 
@@ -1045,20 +1045,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     var config = new CreateFileWithEntityMetadataJavaScriptConfiguration(
                         entityName
-                        , folder
                         , tabSpacer
                         , _commonConfig.EntityMetadaOptionSetDependentComponents
-                        );
+                    );
 
                     XElement doc = XElement.Parse(formXml);
 
                     var tabs = handler.GetFormTabs(doc);
 
-                    string filePath = string.Empty;
+                    string filePath = Path.Combine(folder, fileName);
 
                     using (var handlerCreate = new CreateFormTabsJavaScriptHandler(config, service))
                     {
-                        filePath = await handlerCreate.CreateFileAsync(fileName, tabs);
+                        await handlerCreate.CreateFileAsync(filePath, tabs);
                     }
 
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, "Entity Metadata", filePath);

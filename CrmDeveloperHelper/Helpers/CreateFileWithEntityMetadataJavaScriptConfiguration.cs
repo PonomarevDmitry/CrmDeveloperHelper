@@ -5,8 +5,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public class CreateFileWithEntityMetadataJavaScriptConfiguration
     {
-        public string Folder { get; private set; }
-
         public string TabSpacer { get; private set; }
 
         public string EntityName { get; private set; }
@@ -14,12 +12,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public bool WithDependentComponents { get; private set; }
 
         public CreateFileWithEntityMetadataJavaScriptConfiguration(string entityName
-            , string folder
             , string tabSpacer
             , bool withDependentComponents
-            )
+        )
         {
-            this.Folder = folder;
             this.EntityName = entityName;
             this.TabSpacer = tabSpacer;
             this.WithDependentComponents = withDependentComponents;

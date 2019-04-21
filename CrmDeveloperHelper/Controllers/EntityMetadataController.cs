@@ -362,7 +362,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         var config = new CreateFileWithEntityMetadataCSharpConfiguration(
                             metadata.LogicalName
-                            , Path.GetDirectoryName(filePath)
                             , tabSpacer
                             , commonConfig.GenerateAttributes
                             , commonConfig.GenerateStatus
@@ -389,9 +388,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput))
                         {
-                            string fileName = Path.GetFileName(filePath);
-
-                            await handler.CreateFileAsync(fileName);
+                            await handler.CreateFileAsync(filePath);
                         }
 
                         this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, connectionData.Name, config.EntityName, filePath);

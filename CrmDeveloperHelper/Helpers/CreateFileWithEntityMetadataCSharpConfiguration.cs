@@ -7,8 +7,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     {
         public string EntityName { get; private set; }
 
-        public string Folder { get; private set; }
-
         public string TabSpacer { get; private set; }
 
         public bool GenerateAttributes { get; private set; }
@@ -43,7 +41,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public CreateFileWithEntityMetadataCSharpConfiguration(
             string entityName
-            , string folder
             , string tabSpacer
             , bool generateAttributes
             , bool generateStatus
@@ -62,7 +59,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             )
         {
             this.EntityName = entityName.ToLower();
-            this.Folder = folder;
             this.TabSpacer = tabSpacer;
             this.GenerateAttributes = generateAttributes;
             this.GenerateStatus = generateStatus;
