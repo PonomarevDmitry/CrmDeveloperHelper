@@ -93,9 +93,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             arguments.AppendFormat(" /url:{0}", connectionData.OrganizationUrl);
             arguments.AppendFormat(" /out:\"{0}\"", filePath);
 
-            if (!string.IsNullOrEmpty(connectionData.NameSpaceClasses))
+            if (!string.IsNullOrEmpty(connectionData.NamespaceClasses))
             {
-                arguments.AppendFormat(" /namespace:{0}", connectionData.NameSpaceClasses);
+                arguments.AppendFormat(" /namespace:{0}", connectionData.NamespaceClasses);
             }
 
             if (!string.IsNullOrEmpty(connectionData.ServiceContextName))

@@ -137,7 +137,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadFromConfig()
         {
-            txtBNameSpace.DataContext = cmBCurrentConnection;
+            txtBNamespace.DataContext = cmBCurrentConnection;
 
             cmBFileAction.DataContext = _commonConfig;
 
@@ -462,7 +462,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var optionSetExportType = _commonConfig.OptionSetExportType;
 
                 string folder = txtBFolder.Text.Trim();
-                string nameSpace = txtBNameSpace.Text.Trim();
+                string nameSpace = txtBNamespace.Text.Trim();
 
                 bool withDependentComponents = _commonConfig.GlobalOptionSetsWithDependentComponents;
                 bool allDescriptions = _commonConfig.AllDescriptions;
@@ -488,7 +488,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                service.ConnectionData.NameSpaceOptionSets = nameSpace;
+                service.ConnectionData.NamespaceOptionSets = nameSpace;
 
                 using (var handler = new CreateGlobalOptionSetsFileCSharpHandler(
                                     service
@@ -562,7 +562,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
 
                 string folder = txtBFolder.Text.Trim();
-                string nameSpace = txtBNameSpace.Text.Trim();
+                string nameSpace = txtBNamespace.Text.Trim();
 
                 bool withDependentComponents = _commonConfig.GlobalOptionSetsWithDependentComponents;
 
@@ -579,7 +579,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     filePath = Path.Combine(folder, fileName);
                 }
 
-                service.ConnectionData.NameSpaceOptionSets = nameSpace;
+                service.ConnectionData.NamespaceOptionSets = nameSpace;
 
                 using (var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
                     service

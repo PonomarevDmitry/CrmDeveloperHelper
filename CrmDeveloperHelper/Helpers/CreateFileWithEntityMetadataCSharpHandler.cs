@@ -100,7 +100,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteLine();
 
-            WriteLine("namespace {0}", this._service.ConnectionData.NameSpaceClasses);
+            WriteLine("namespace {0}", this._service.ConnectionData.NamespaceClasses);
             WriteLine("{");
 
             WriteSummaryEntity();

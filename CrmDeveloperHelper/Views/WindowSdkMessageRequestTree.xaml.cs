@@ -333,9 +333,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     SdkMessageRequestTreeViewItem nodeMessage = CreateNodeMessage(mess.Key, mess);
                     AddTreeNode(nodeEntity, nodeMessage);
 
-                    var groupsByNameSpace = mess.GroupBy(ent => ent.Namespace).OrderBy(e => e.Key);
+                    var groupsByNamespace = mess.GroupBy(ent => ent.Namespace).OrderBy(e => e.Key);
 
-                    foreach (var grNamespace in groupsByNameSpace)
+                    foreach (var grNamespace in groupsByNamespace)
                     {
                         SdkMessageRequestTreeViewItem nodeNamespace = CreateNodeNamespace(grNamespace.Key);
                         AddTreeNode(nodeMessage, nodeNamespace);
@@ -370,9 +370,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     SdkMessageRequestTreeViewItem nodeEntity = CreateNodeEntity(grEntity.Key, grEntity);
                     AddTreeNode(nodeMessage, nodeEntity);
 
-                    var groupsByNameSpace = grEntity.GroupBy(ent => ent.Namespace).OrderBy(e => e.Key);
+                    var groupsByNamespace = grEntity.GroupBy(ent => ent.Namespace).OrderBy(e => e.Key);
 
-                    foreach (var grNamespace in groupsByNameSpace)
+                    foreach (var grNamespace in groupsByNamespace)
                     {
                         SdkMessageRequestTreeViewItem nodeNamespace = CreateNodeNamespace(grNamespace.Key);
                         AddTreeNode(nodeEntity, nodeNamespace);
@@ -391,9 +391,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             ObservableCollection<SdkMessageRequestTreeViewItem> list = new ObservableCollection<SdkMessageRequestTreeViewItem>();
 
-            var groupsByNameSpace = search.Requests.GroupBy(ent => ent.Namespace).OrderBy(e => e.Key);
+            var groupsByNamespace = search.Requests.GroupBy(ent => ent.Namespace).OrderBy(e => e.Key);
 
-            foreach (var grNamespace in groupsByNameSpace)
+            foreach (var grNamespace in groupsByNamespace)
             {
                 SdkMessageRequestTreeViewItem nodeNamespace = CreateNodeNamespace(grNamespace.Key);
                 list.Add(nodeNamespace);
@@ -428,9 +428,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             ObservableCollection<SdkMessageRequestTreeViewItem> list = new ObservableCollection<SdkMessageRequestTreeViewItem>();
 
-            var groupsByNameSpace = search.Requests.GroupBy(ent => ent.Namespace).OrderBy(e => e.Key);
+            var groupsByNamespace = search.Requests.GroupBy(ent => ent.Namespace).OrderBy(e => e.Key);
 
-            foreach (var grNamespace in groupsByNameSpace)
+            foreach (var grNamespace in groupsByNamespace)
             {
                 SdkMessageRequestTreeViewItem nodeNamespace = CreateNodeNamespace(grNamespace.Key);
                 list.Add(nodeNamespace);

@@ -56,13 +56,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             StartWriting(filePath);
 
-            WriteNameSpace();
+            WriteNamespace();
 
             WriteLine();
 
-            string tempNameSpace = !string.IsNullOrEmpty(this._service.ConnectionData.NameSpaceOptionSets) ? this._service.ConnectionData.NameSpaceOptionSets + "." : string.Empty;
+            string tempNamespace = !string.IsNullOrEmpty(this._service.ConnectionData.NamespaceOptionSets) ? this._service.ConnectionData.NamespaceOptionSets + "." : string.Empty;
 
-            WriteLine(string.Format("{0}GlobalOptionSets = (new function () ", tempNameSpace) + "{");
+            WriteLine(string.Format("{0}GlobalOptionSets = (new function () ", tempNamespace) + "{");
 
             await WriteRegularOptionSets(optionSets);
 
@@ -77,14 +77,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             EndWriting();
         }
 
-        private void WriteNameSpace()
+        private void WriteNamespace()
         {
-            if (string.IsNullOrEmpty(this._service.ConnectionData.NameSpaceOptionSets))
+            if (string.IsNullOrEmpty(this._service.ConnectionData.NamespaceOptionSets))
             {
                 return;
             }
 
-            string[] split = this._service.ConnectionData.NameSpaceOptionSets.Split('.');
+            string[] split = this._service.ConnectionData.NamespaceOptionSets.Split('.');
 
             StringBuilder str = new StringBuilder();
 

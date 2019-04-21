@@ -84,7 +84,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteLine();
 
-            WriteLine("namespace {0}", this._service.ConnectionData.NameSpaceOptionSets);
+            WriteLine("namespace {0}", this._service.ConnectionData.NamespaceOptionSets);
             WriteLine("{");
 
             await WriteRegularOptionSets(optionSets);

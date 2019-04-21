@@ -49,13 +49,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             StartWriting(fileFilePath);
 
-            WriteNameSpace();
+            WriteNamespace();
 
             WriteLine();
 
-            string tempNameSpace = !string.IsNullOrEmpty(this._service.ConnectionData.NameSpaceClasses) ? this._service.ConnectionData.NameSpaceClasses + "." : string.Empty;
+            string tempNamespace = !string.IsNullOrEmpty(this._service.ConnectionData.NamespaceClasses) ? this._service.ConnectionData.NamespaceClasses + "." : string.Empty;
 
-            WriteLine(string.Format("{0}{1} = (new function () ", tempNameSpace, _entityMetadata.LogicalName) + "{");
+            WriteLine(string.Format("{0}{1} = (new function () ", tempNamespace, _entityMetadata.LogicalName) + "{");
 
             WriteTabs(tabs);
 
@@ -171,14 +171,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine("};");
         }
 
-        private void WriteNameSpace()
+        private void WriteNamespace()
         {
-            if (string.IsNullOrEmpty(this._service.ConnectionData.NameSpaceClasses))
+            if (string.IsNullOrEmpty(this._service.ConnectionData.NamespaceClasses))
             {
                 return;
             }
 
-            string[] split = this._service.ConnectionData.NameSpaceClasses.Split('.');
+            string[] split = this._service.ConnectionData.NamespaceClasses.Split('.');
 
             StringBuilder str = new StringBuilder();
 

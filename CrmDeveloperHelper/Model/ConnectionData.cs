@@ -486,17 +486,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private string _NameSpaceClasses;
+        private string _NamespaceClasses;
         /// <summary>
         /// Пространство имен для класса с метаданными сущности
         /// </summary>
         [DataMember]
-        public string NameSpaceClasses
+        public string NamespaceClasses
         {
-            get => _NameSpaceClasses;
+            get => _NamespaceClasses;
             set
             {
-                this.OnPropertyChanging(nameof(NameSpaceClasses));
+                this.OnPropertyChanging(nameof(NamespaceClasses));
 
                 if (!string.IsNullOrEmpty(value))
                 {
@@ -507,19 +507,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     value = string.Empty;
                 }
 
-                this._NameSpaceClasses = value;
-                this.OnPropertyChanged(nameof(NameSpaceClasses));
+                this._NamespaceClasses = value;
+                this.OnPropertyChanged(nameof(NamespaceClasses));
             }
         }
 
-        private string _NameSpaceOptionSets;
+        private string _NamespaceOptionSets;
         [DataMember]
-        public string NameSpaceOptionSets
+        public string NamespaceOptionSets
         {
-            get => _NameSpaceOptionSets;
+            get => _NamespaceOptionSets;
             set
             {
-                this.OnPropertyChanging(nameof(NameSpaceOptionSets));
+                this.OnPropertyChanging(nameof(NamespaceOptionSets));
 
                 if (!string.IsNullOrEmpty(value))
                 {
@@ -530,8 +530,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     value = string.Empty;
                 }
 
-                this._NameSpaceOptionSets = value;
-                this.OnPropertyChanged(nameof(NameSpaceOptionSets));
+                this._NamespaceOptionSets = value;
+                this.OnPropertyChanged(nameof(NamespaceOptionSets));
             }
         }
 
@@ -833,8 +833,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.TraceReaderLastFolders = new ObservableCollection<string>();
             this.TraceReaderSelectedFolders = new ObservableCollection<string>();
 
-            this.NameSpaceClasses = nameof(NameSpaceClasses);
-            this.NameSpaceOptionSets = nameof(NameSpaceOptionSets);
+            this.NamespaceClasses = nameof(NamespaceClasses);
+            this.NamespaceOptionSets = nameof(NamespaceOptionSets);
             this.ServiceContextName = "XrmServiceContext";
         }
 
@@ -974,8 +974,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 OrganizationUrl = this.OrganizationUrl,
                 UniqueOrgName = this.UniqueOrgName,
 
-                NameSpaceClasses = this.NameSpaceClasses,
-                NameSpaceOptionSets = this.NameSpaceOptionSets,
+                NamespaceClasses = this.NamespaceClasses,
+                NamespaceOptionSets = this.NamespaceOptionSets,
                 ServiceContextName = this.ServiceContextName,
 
                 ConnectionConfiguration = this.ConnectionConfiguration,
@@ -1719,8 +1719,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.DefaultLanguage = diskData.DefaultLanguage;
             this.InstalledLanguagePacks = diskData.InstalledLanguagePacks;
             this.BaseCurrency = diskData.BaseCurrency;
-            this.NameSpaceClasses = diskData.NameSpaceClasses;
-            this.NameSpaceOptionSets = diskData.NameSpaceOptionSets;
+            this.NamespaceClasses = diskData.NamespaceClasses;
+            this.NamespaceOptionSets = diskData.NamespaceOptionSets;
             this.ServiceContextName = diskData.ServiceContextName;
             this.InteractiveLogin = diskData.InteractiveLogin;
             this.GenerateActions = diskData.GenerateActions;

@@ -124,10 +124,10 @@
             <ComboBox x:Name="cmBConnection2" IsReadOnly="True" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0"  Grid.Row="0" Grid.Column="3"/>
 
             <Label Content="Namespace 1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="2" Grid.Column="0"/>
-            <TextBox x:Name="txtBNameSpace1" Text="{Binding Path=SelectedItem.NameSpaceOptionSets}"  HorizontalAlignment="Stretch" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="1"/>
+            <TextBox x:Name="txtBNamespace1" Text="{Binding Path=SelectedItem.NamespaceOptionSets}"  HorizontalAlignment="Stretch" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="1"/>
 
             <Label Content="Namespace 2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="2" Grid.Column="2"/>
-            <TextBox x:Name="txtBNameSpace2" Text="{Binding Path=SelectedItem.NameSpaceOptionSets}"  HorizontalAlignment="Stretch" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="3"/>
+            <TextBox x:Name="txtBNamespace2" Text="{Binding Path=SelectedItem.NamespaceOptionSets}"  HorizontalAlignment="Stretch" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="3"/>
         </Grid>
         <Label Content="Filter" HorizontalAlignment="Left" Margin="10,98,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
         <TextBox x:Name="txtBFilter" Height="26" Margin="51,98,10,0" TextWrapping="NoWrap" VerticalAlignment="Top" KeyDown="txtBFilter_KeyDown" VerticalContentAlignment="Center" />

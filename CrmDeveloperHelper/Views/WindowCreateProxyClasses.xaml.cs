@@ -79,7 +79,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connection != null)
             {
-                txtBNameSpace.DataContext = connection;
+                txtBNamespace.DataContext = connection;
                 txtBServiceContextName.DataContext = connection;
                 chBInteractiveLogin.DataContext = connection;
                 chBGenerateActions.DataContext = connection;

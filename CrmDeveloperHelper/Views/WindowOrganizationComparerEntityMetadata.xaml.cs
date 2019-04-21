@@ -100,8 +100,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadFromConfig()
         {
-            txtBNameSpace1.DataContext = cmBConnection1;
-            txtBNameSpace2.DataContext = cmBConnection2;
+            txtBNamespace1.DataContext = cmBConnection1;
+            txtBNamespace2.DataContext = cmBConnection2;
 
             cmBFileAction.DataContext = _commonConfig;
         }
@@ -637,7 +637,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            CreateEntityMetadataFileCSharp(GetService1, entity?.LogicalName, txtBNameSpace1.Text.Trim());
+            CreateEntityMetadataFileCSharp(GetService1, entity?.LogicalName, txtBNamespace1.Text.Trim());
         }
 
         private void btnConnection2CSharp_Click(object sender, RoutedEventArgs e)
@@ -649,7 +649,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            CreateEntityMetadataFileCSharp(GetService2, entity?.LogicalName, txtBNameSpace2.Text.Trim());
+            CreateEntityMetadataFileCSharp(GetService2, entity?.LogicalName, txtBNamespace2.Text.Trim());
         }
 
         private async Task CreateEntityMetadataFileCSharp(Func<Task<IOrganizationServiceExtented>> getService, string entityName, string nameSpace)
@@ -711,7 +711,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            CreateEntityMetadataFileJavaScript(GetService1, entity?.LogicalName, txtBNameSpace1.Text.Trim());
+            CreateEntityMetadataFileJavaScript(GetService1, entity?.LogicalName, txtBNamespace1.Text.Trim());
         }
 
         private void btnConnection2JavaScript_Click(object sender, RoutedEventArgs e)
@@ -723,7 +723,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            CreateEntityMetadataFileJavaScript(GetService2, entity?.LogicalName, txtBNameSpace2.Text.Trim());
+            CreateEntityMetadataFileJavaScript(GetService2, entity?.LogicalName, txtBNamespace2.Text.Trim());
         }
 
         private async Task CreateEntityMetadataFileJavaScript(Func<Task<IOrganizationServiceExtented>> getService, string entityName, string nameSpace)

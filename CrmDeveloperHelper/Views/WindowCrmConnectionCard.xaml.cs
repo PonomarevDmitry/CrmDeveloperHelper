@@ -197,8 +197,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             connectionData.User = cmBUser.SelectedItem as ConnectionUserData;
 
-            connectionData.NameSpaceClasses = this.txtBNameSpaceClasses.Text.Trim();
-            connectionData.NameSpaceOptionSets = this.txtBNameSpaceOptionSets.Text.Trim();
+            connectionData.NamespaceClasses = this.txtBNamespaceClasses.Text.Trim();
+            connectionData.NamespaceOptionSets = this.txtBNamespaceOptionSets.Text.Trim();
 
             connectionData.IsReadOnly = chBIsReadOnly.IsChecked.GetValueOrDefault();
         }
@@ -211,8 +211,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBOrganizationServiceUrl.Text = connectionData.OrganizationUrl;
             txtBUniqueOrganizationName.Text = connectionData.UniqueOrgName;
 
-            txtBNameSpaceClasses.Text = connectionData.NameSpaceClasses;
-            txtBNameSpaceOptionSets.Text = connectionData.NameSpaceOptionSets;
+            txtBNamespaceClasses.Text = connectionData.NamespaceClasses;
+            txtBNamespaceOptionSets.Text = connectionData.NamespaceOptionSets;
 
             chBIsReadOnly.IsChecked = connectionData.IsReadOnly;
 

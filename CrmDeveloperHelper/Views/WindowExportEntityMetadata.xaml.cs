@@ -123,7 +123,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadFromConfig()
         {
-            txtBNameSpace.DataContext = cmBCurrentConnection;
+            txtBNamespace.DataContext = cmBCurrentConnection;
 
             cmBFileAction.DataContext = _commonConfig;
 

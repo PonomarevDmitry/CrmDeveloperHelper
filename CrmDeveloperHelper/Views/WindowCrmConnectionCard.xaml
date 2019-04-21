@@ -45,9 +45,9 @@
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
                         <Label Content="Namespace Classes" HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="0"/>
-                        <TextBox x:Name="txtBNameSpaceClasses" Height="23"    HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="0"/>
+                        <TextBox x:Name="txtBNamespaceClasses" Height="23"    HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="0"/>
                         <Label Content="Namespace OptionSets" HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="0" Grid.Row="1"/>
-                        <TextBox x:Name="txtBNameSpaceOptionSets" Height="23"    HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="1"/>
+                        <TextBox x:Name="txtBNamespaceOptionSets" Height="23"    HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="1"/>
                     </Grid>
                 </Grid>
             </TabItem>
