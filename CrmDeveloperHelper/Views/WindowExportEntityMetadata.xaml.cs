@@ -703,7 +703,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity, CreateEntityMetadataFileAsync);
+            ExecuteActionAsync(entity, CreateEntityMetadataFileCSharpAsync);
         }
 
         private void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -714,7 +714,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (entity != null)
                 {
-                    ExecuteActionAsync(entity, CreateEntityMetadataFileAsync);
+                    if (_isJavaScript && !string.IsNullOrEmpty(_filePath))
+                    {
+                        ExecuteActionAsync(entity, CreateEntityMetadataFileJavaScriptAsync);
+                    }
+                    else
+                    {
+                        ExecuteActionAsync(entity, CreateEntityMetadataFileCSharpAsync);
+                    }
                 }
             }
         }
@@ -742,7 +749,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await action(folder, entityMetadata);
         }
 
-        private async Task CreateEntityMetadataFileAsync(string folder, EntityMetadataListViewItem entityMetadata)
+        private async Task CreateEntityMetadataFileCSharpAsync(string folder, EntityMetadataListViewItem entityMetadata)
         {
             var service = await GetService();
 
@@ -835,10 +842,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity, CreateEntityMetadataFileJSAsync);
+            ExecuteActionAsync(entity, CreateEntityMetadataFileJavaScriptAsync);
         }
 
-        private async Task CreateEntityMetadataFileJSAsync(string folder, EntityMetadataListViewItem entityMetadata)
+        private async Task CreateEntityMetadataFileJavaScriptAsync(string folder, EntityMetadataListViewItem entityMetadata)
         {
             if (!this.IsControlsEnabled)
             {
