@@ -25,8 +25,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private readonly IWriteToOutput iWriteToOutput;
 
-        private List<string> _attributesForPthis = new List<string>();
-
         public CreateFileWithEntityMetadataJavaScriptHandler(
             CreateFileWithEntityMetadataJavaScriptConfiguration config
             , IOrganizationServiceExtented service
@@ -85,7 +83,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteLine();
 
-            WriteLine(string.Format("{0} = (new function () ", className) + "{");
+            WriteLine(string.Format("{0} = ", className) + "{");
 
             WriteAttributesToFile();
 
@@ -93,23 +91,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             await WriteRegularOptionSets();
 
-            WriteLine();
-            WriteLine("var pthis = this;");
-
-            if (_attributesForPthis.Any())
-            {
-                WriteLine();
-
-                foreach (var item in _attributesForPthis)
-                {
-                    WriteLine(string.Format("pthis.{0} = {0};", item));
-                }
-            }
-
-            WriteLine();
-            WriteLine("return pthis;");
-
-            Write("}());");
+            Write("}");
 
             EndWriting();
         }
@@ -156,17 +138,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            _attributesForPthis.Add("Attributes");
-
             WriteLine();
-            WriteLine("var Attributes = {");
+            WriteLine("'Attributes': {");
 
             foreach (AttributeMetadata attrib in attributes.OrderBy(attr => attr.LogicalName))
             {
                 WriteLine("'{0}': '{0}',", attrib.LogicalName.ToLower());
             }
 
-            WriteLine("};");
+            WriteLine("},");
         }
 
         private async Task WriteRegularOptionSets()
@@ -222,9 +202,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private void GenerateStatusEnums(StatusAttributeMetadata statusAttr, StateAttributeMetadata stateAttr)
         {
             WriteLine();
-            WriteLine("var StatusCodes = {");
-
-            _attributesForPthis.Add("StatusCodes");
+            WriteLine("'StatusCodes': {");
 
             var options = CreateFileHandler.GetStatusOptionItems(statusAttr, stateAttr, this._listStringMap);
 
@@ -236,15 +214,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 WriteLine(item.MakeStringJS());
             }
 
-            WriteLine("};");
+            WriteLine("},");
         }
 
         private void GenerateStateEnums(StateAttributeMetadata stateAttr, StatusAttributeMetadata statusAttr)
         {
             WriteLine();
-            WriteLine("var StateCodes = {");
-
-            _attributesForPthis.Add("StateCodes");
+            WriteLine("'StateCodes': {");
 
             var options = CreateFileHandler.GetStateOptionItems(statusAttr, stateAttr, this._listStringMap);
 
@@ -256,7 +232,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 WriteLine(item.MakeStringJS());
             }
 
-            WriteLine("};");
+            WriteLine("},");
         }
 
         private async Task GenerateOptionSetEnums(IEnumerable<AttributeMetadata> attributeList, OptionSetMetadata optionSet)
@@ -312,9 +288,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 enumName = attributeList.First().LogicalName;
             }
 
-            _attributesForPthis.Add(string.Format("{0}Enum", enumName));
-
-            WriteLine(string.Format("var {0}Enum =", enumName) + " {");
+            WriteLine(string.Format("'{0}Enum':", enumName) + " {");
 
             WriteLine();
 
@@ -324,7 +298,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 WriteLine(item.MakeStringJS());
             }
 
-            WriteLine("};");
+            WriteLine("},");
         }
 
         protected override void WriteSummaryStrings(IEnumerable<string> lines)
