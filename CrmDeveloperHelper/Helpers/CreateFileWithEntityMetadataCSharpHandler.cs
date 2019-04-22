@@ -123,6 +123,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine();
             WriteLine("public {0} string EntityPrimaryIdAttribute = \"{1}\";", _fieldHeader, _entityMetadata.PrimaryIdAttribute);
 
+            if (!string.IsNullOrEmpty(_entityMetadata.PrimaryImageAttribute))
+            {
+                WriteLine();
+
+                WriteLine("public {0} string EntityPrimaryImageAttribute = \"{1}\";", _fieldHeader, _entityMetadata.PrimaryImageAttribute);
+            }
+
+            if (_entityMetadata.ObjectTypeCode.HasValue)
+            {
+                WriteLine();
+
+                if (_entityMetadata.IsCustomEntity.GetValueOrDefault())
+                {
+                    WriteLine("// public {0} int EntityObjectTypeCode = {1};", _fieldHeader, _entityMetadata.ObjectTypeCode);
+                }
+                else
+                {
+                    WriteLine("public {0} int EntityObjectTypeCode = {1};", _fieldHeader, _entityMetadata.ObjectTypeCode);
+                }
+            }
+
             await WriteAttributesToFile();
 
             await WriteEnums();
