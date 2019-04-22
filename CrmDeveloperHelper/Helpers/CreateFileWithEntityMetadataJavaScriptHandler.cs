@@ -72,13 +72,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             StartWriting(filePath);
 
-            WriteNamespace();
+            string jsNamespace = this._service.ConnectionData.NamespaceJavaScript;
+            string className = (!string.IsNullOrEmpty(jsNamespace) ? jsNamespace + "." : string.Empty) + _entityMetadata.LogicalName;
+
+            if (_config.GenerateIntoSchemaClass)
+            {
+                jsNamespace = className;
+                className += ".Schema";
+            }
+
+            WriteNamespace(jsNamespace);
 
             WriteLine();
 
-            string tempNamespace = !string.IsNullOrEmpty(this._service.ConnectionData.NamespaceJavaScript) ? this._service.ConnectionData.NamespaceJavaScript + "." : string.Empty;
-
-            WriteLine(string.Format("{0}{1} = (new function () ", tempNamespace, _entityMetadata.LogicalName) + "{");
+            WriteLine(string.Format("{0} = (new function () ", className) + "{");
 
             WriteAttributesToFile();
 
@@ -107,14 +114,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             EndWriting();
         }
 
-        private void WriteNamespace()
+        private void WriteNamespace(string jsNamespace)
         {
-            if (string.IsNullOrEmpty(this._service.ConnectionData.NamespaceJavaScript))
+            if (string.IsNullOrEmpty(jsNamespace))
             {
                 return;
             }
 
-            string[] split = this._service.ConnectionData.NamespaceJavaScript.Split('.');
+            string[] split = jsNamespace.Split('.');
 
             StringBuilder str = new StringBuilder();
 

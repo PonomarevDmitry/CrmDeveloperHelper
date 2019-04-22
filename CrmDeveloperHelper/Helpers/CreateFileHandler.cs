@@ -84,9 +84,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        protected void StartWriting(string fileFilePath)
+        protected void StartWriting(string filePath)
         {
-            this._writer = new StreamWriter(fileFilePath, false, new UTF8Encoding(false));
+            this._writer = new StreamWriter(filePath, false, new UTF8Encoding(false));
         }
 
         protected void EndWriting()

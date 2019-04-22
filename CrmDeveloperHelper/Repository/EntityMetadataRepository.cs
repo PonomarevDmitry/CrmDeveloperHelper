@@ -39,7 +39,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private List<EntityMetadata> GetEntitiesDisplayName()
         {
-            MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression("LogicalName", "DisplayName", "Description", "DisplayCollectionName", "OwnershipType", "IsIntersect", "ObjectTypeCode")
+            MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression("LogicalName", "DisplayName", "SchemaName", "Description", "DisplayCollectionName", "OwnershipType", "IsIntersect", "ObjectTypeCode")
             {
                 AllProperties = false
             };
@@ -120,12 +120,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private List<EntityMetadata> GetEntitiesWithAttributes()
         {
-            MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression("LogicalName", "DisplayName", "Description", "DisplayCollectionName", "OwnershipType", "Attributes", "ObjectTypeCode")
+            MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression("LogicalName", "DisplayName", "SchemaName", "Description", "DisplayCollectionName", "OwnershipType", "Attributes", "ObjectTypeCode")
             {
                 AllProperties = false
             };
 
-            MetadataPropertiesExpression attributeProperties = new MetadataPropertiesExpression("AttributeOf", "LogicalName", "EntityLogicalName", "OptionSet")
+            MetadataPropertiesExpression attributeProperties = new MetadataPropertiesExpression("AttributeOf", "LogicalName", "DisplayName", "SchemaName", "EntityLogicalName", "OptionSet")
             {
                 AllProperties = false
             };
@@ -210,6 +210,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression(
                 "LogicalName"
                 , "DisplayName"
+                , "SchemaName"
                 , "Description"
                 , "PrimaryIdAttribute"
                 , "PrimaryNameAttribute"
@@ -461,7 +462,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private List<EntityMetadata> GetEntitiesDisplayNameWithPrivileges()
         {
-            MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression("LogicalName", "DisplayName", "ObjectTypeCode", "Privileges")
+            MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression("LogicalName", "DisplayName", "SchemaName", "Description", "ObjectTypeCode", "Privileges")
             {
                 AllProperties = false
             };

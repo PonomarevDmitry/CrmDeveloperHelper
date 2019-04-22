@@ -155,7 +155,7 @@
             </Menu>
         </ToolBar>
         <Label Content="Folder" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Height="23" Padding="1" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="50,38,10,0"  VerticalAlignment="Top" VerticalContentAlignment="Center" />
+        <TextBox x:Name="txtBFolder" Height="23" Margin="50,38,10,0"  VerticalAlignment="Top" VerticalContentAlignment="Center" />
 
         <Label Content="Filter" HorizontalAlignment="Left" Margin="10,122,0,0" Padding="1" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="23"/>
         <TextBox x:Name="txtBFilterEnitity" Height="23" Margin="50,122,10,0"  VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />

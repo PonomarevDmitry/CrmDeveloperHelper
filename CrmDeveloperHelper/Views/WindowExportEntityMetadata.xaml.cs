@@ -36,6 +36,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly string _filePath;
         private readonly bool _isJavaScript;
+        private readonly bool _blockNotMetadata;
 
         private readonly EnvDTE.SelectedItem _selectedItem;
 
@@ -64,6 +65,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._filePath = filePath;
             this._isJavaScript = isJavaScript;
             this._selectedItem = selectedItem;
+
+            this._blockNotMetadata = selectedItem != null || !string.IsNullOrEmpty(_filePath);
 
             _connectionCache[service.ConnectionData.ConnectionId] = service;
 
@@ -707,11 +710,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                var item = ((FrameworkElement)e.OriginalSource).DataContext as EntityMetadataListViewItem;
+                var entity = ((FrameworkElement)e.OriginalSource).DataContext as EntityMetadataListViewItem;
 
-                if (item != null)
+                if (entity != null)
                 {
-                    ExecuteActionAsync(item, CreateEntityMetadataFileAsync);
+                    ExecuteActionAsync(entity, CreateEntityMetadataFileAsync);
                 }
             }
         }
@@ -770,16 +773,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , _commonConfig.OptionSetExportType
                 );
 
-                string fileName = string.Format("{0}.{1}.Generated.cs", service.ConnectionData.Name, entityMetadata.EntityMetadata.SchemaName);
+                string fileName = string.Format("{0}.{1}.Generated.cs", service.ConnectionData.Name, entityMetadata.EntityLogicalName);
 
                 if (this._selectedItem != null)
                 {
-                    fileName = string.Format("{0}.Generated.cs", entityMetadata.EntityMetadata.SchemaName);
+                    fileName = string.Format("{0}.Generated.cs", entityMetadata.EntityLogicalName);
                 }
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                if (!_isJavaScript && !string.IsNullOrEmpty(filePath))
+                if (!_isJavaScript && !string.IsNullOrEmpty(_filePath))
                 {
                     filePath = _filePath;
                 }
@@ -854,6 +857,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 entityMetadata.EntityLogicalName
                 , tabSpacer
                 , _commonConfig.EntityMetadaOptionSetDependentComponents
+                , _commonConfig.GenerateIntoSchemaClass
             );
 
             string fileName = string.Format("{0}.{1}.EntityMetadata.Generated.js", service.ConnectionData.Name, entityMetadata.EntityLogicalName);
@@ -865,7 +869,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-            if (_isJavaScript && !string.IsNullOrEmpty(filePath))
+            if (_isJavaScript && !string.IsNullOrEmpty(_filePath))
             {
                 filePath = _filePath;
             }
@@ -956,6 +960,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            if (!_blockNotMetadata)
+            {
+                return;
+            }
+
             var service = await GetService();
 
             string operation = string.Format(Properties.OperationNames.CreatingFileWithAttributesDependentComponentsFormat2, service.ConnectionData.Name, entityMetadata.EntityLogicalName);
@@ -1023,6 +1032,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task CreateEntityXmlFileAsync(string folder, EntityMetadataListViewItem entityMetadata)
         {
             if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!_blockNotMetadata)
             {
                 return;
             }
@@ -1371,6 +1385,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            if (!_blockNotMetadata)
+            {
+                return;
+            }
+
             var service = await GetService();
 
             ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ExportingRibbonForEntityFormat1, entityMetadata.EntityLogicalName);
@@ -1421,6 +1440,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            if (!_blockNotMetadata)
+            {
+                return;
+            }
+
             var service = await GetService();
 
             ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ExportingRibbonForEntityFormat1, entityMetadata.EntityLogicalName);
@@ -1463,6 +1487,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task PerformExportEntityRibbonDiffXml(string folder, EntityMetadataListViewItem entityMetadata)
         {
             if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!_blockNotMetadata)
             {
                 return;
             }
@@ -1528,6 +1557,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task PerformUpdateEntityRibbonDiffXml(string folder, EntityMetadataListViewItem entity)
         {
             if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!_blockNotMetadata)
             {
                 return;
             }

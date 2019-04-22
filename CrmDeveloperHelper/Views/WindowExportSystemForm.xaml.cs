@@ -1047,6 +1047,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         entityName
                         , tabSpacer
                         , _commonConfig.EntityMetadaOptionSetDependentComponents
+                        , _commonConfig.GenerateIntoSchemaClass
                     );
 
                     XElement doc = XElement.Parse(formXml);

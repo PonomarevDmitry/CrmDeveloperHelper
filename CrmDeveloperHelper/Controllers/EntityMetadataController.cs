@@ -425,7 +425,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             , commonConfig.SolutionComponentWithManagedInfo
                             , commonConfig.ConstantType
                             , commonConfig.OptionSetExportType
-                            )
+                        )
                         {
                             EntityMetadata = metadata
                         };
@@ -545,6 +545,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             metadata.LogicalName
                             , tabSpacer
                             , commonConfig.EntityMetadaOptionSetDependentComponents
+                            , commonConfig.GenerateIntoSchemaClass
                         )
                         {
                             EntityMetadata = metadata
