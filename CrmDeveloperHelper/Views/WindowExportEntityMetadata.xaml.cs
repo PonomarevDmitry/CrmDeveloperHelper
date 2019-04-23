@@ -967,7 +967,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (!_blockNotMetadata)
+            if (_blockNotMetadata)
             {
                 return;
             }
@@ -1043,7 +1043,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (!_blockNotMetadata)
+            if (_blockNotMetadata)
             {
                 return;
             }
@@ -1392,7 +1392,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (!_blockNotMetadata)
+            if (_blockNotMetadata)
             {
                 return;
             }
@@ -1447,7 +1447,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (!_blockNotMetadata)
+            if (_blockNotMetadata)
             {
                 return;
             }
@@ -1498,7 +1498,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (!_blockNotMetadata)
+            if (_blockNotMetadata)
             {
                 return;
             }
@@ -1568,7 +1568,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            if (!_blockNotMetadata)
+            if (_blockNotMetadata)
             {
                 return;
             }
