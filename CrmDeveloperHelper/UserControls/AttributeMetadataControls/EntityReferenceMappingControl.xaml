@@ -5,10 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadataControls"
              mc:Ignorable="d" 
-             d:DesignWidth="483"
+             d:DesignWidth="600"
              >
     <GroupBox x:Name="gbAttribute" Header="Attribute Name">
         <Grid>
+
+            <Grid.Resources>
+                <ResourceDictionary Source="AttributeMetadataStyle.xaml" />
+            </Grid.Resources>
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -16,28 +20,28 @@
                 <ColumnDefinition Width="150" />
 
                 <ColumnDefinition Width="5" />
-
                 <ColumnDefinition Width="10*" />
+
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox x:Name="txtBEntityReferenceConnection1EntityName" Grid.Column="0" Height="20" VerticalContentAlignment="Center" Margin="3" Width="Auto" IsReadOnly="True" IsReadOnlyCaretVisible="True" IsTabStop="False" />
+            <TextBox x:Name="txtBEntityReferenceConnection1EntityName" Grid.Column="0" IsReadOnly="True" IsReadOnlyCaretVisible="True" IsTabStop="False" />
 
-            <TextBox x:Name="txtBEntityReferenceConnection1EntityId" Grid.Column="1" Height="20" VerticalContentAlignment="Center" Margin="3" Width="Auto" IsReadOnly="True" IsReadOnlyCaretVisible="True" IsTabStop="False" />
+            <TextBox x:Name="txtBEntityReferenceConnection1EntityId" Grid.Column="1" IsReadOnly="True" IsReadOnlyCaretVisible="True" IsTabStop="False" />
 
-            <TextBox x:Name="txtBEntityReferenceConnection1Name" Grid.Column="2" Height="20" VerticalContentAlignment="Center" Margin="3" IsReadOnly="True" IsReadOnlyCaretVisible="True" IsTabStop="False" />
+            <TextBox x:Name="txtBEntityReferenceConnection1Name" Grid.Column="2" IsReadOnly="True" IsReadOnlyCaretVisible="True" IsTabStop="False" />
 
-            <GridSplitter VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="3" IsTabStop="False" />
+            <GridSplitter   Grid.Column="3" IsTabStop="False" />
 
-            <TextBox x:Name="txtBCurrentValue" Grid.Column="4" Height="20" VerticalContentAlignment="Center" Margin="3" IsReadOnly="True" IsReadOnlyCaretVisible="True" IsTabStop="False" />
+            <TextBox x:Name="txtBCurrentValue" Grid.Column="4" IsReadOnly="True" IsReadOnlyCaretVisible="True" IsTabStop="False" />
 
-            <Button x:Name="btnClear" Content="Clear" Grid.Column="5" Height="20" VerticalContentAlignment="Center" Margin="3" Width="Auto" Click="btnClear_Click" IsTabStop="True" />
+            <Button x:Name="btnClear" Content="Clear" Grid.Column="5" Click="btnClear_Click" IsTabStop="True" />
 
-            <Button x:Name="btnSetValue" Content="Set Value" Grid.Column="6" Height="20" VerticalContentAlignment="Center" Margin="3" Width="Auto" Click="btnSetValue_Click" IsTabStop="True" />
+            <Button x:Name="btnSetValue" Content="Set Value" Grid.Column="6" Click="btnSetValue_Click" IsTabStop="True" />
 
-            <Button x:Name="btnRestore" Content="Restore" Grid.Column="7" Height="20" VerticalContentAlignment="Center" Margin="3" Width="Auto" Click="btnRestore_Click" IsTabStop="False" />
+            <Button x:Name="btnRestore" Content="Restore" Grid.Column="7" Click="btnRestore_Click" IsTabStop="False" />
         </Grid>
     </GroupBox>
 </UserControl>

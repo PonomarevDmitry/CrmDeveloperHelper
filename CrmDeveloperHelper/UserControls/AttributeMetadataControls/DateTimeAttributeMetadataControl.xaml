@@ -10,6 +10,10 @@
     <GroupBox x:Name="gbAttribute" Header="Attribute Name">
         <Grid>
 
+            <Grid.Resources>
+                <ResourceDictionary Source="AttributeMetadataStyle.xaml" />
+            </Grid.Resources>
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
@@ -18,15 +22,15 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <CheckBox x:Name="chBChanged" Grid.Column="0" Content="Ch" ToolTip="Is Changed" IsEnabled="False" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Margin="3" />
+            <CheckBox x:Name="chBChanged" Grid.Column="0" Content="Ch" ToolTip="Is Changed" IsEnabled="False"  />
 
-            <Button x:Name="btnRemoveControl" Grid.Column="1" Content="Remove" ToolTip="Remove Attribute" Height="20" VerticalContentAlignment="Center" Margin="3" Click="btnRemoveControl_Click" IsTabStop="False" />
+            <Button x:Name="btnRemoveControl" Grid.Column="1" Content="Remove" ToolTip="Remove Attribute" Click="btnRemoveControl_Click" IsTabStop="False" />
 
-            <DTPicker:DateTimePicker x:Name="dPValue" Grid.Column="2" VerticalContentAlignment="Center" Margin="3" DateChanged="DPValue_DateChanged" />
+            <DTPicker:DateTimePicker x:Name="dPValue" Grid.Column="2" DateChanged="DPValue_DateChanged" />
 
-            <Button x:Name="btnClear" Grid.Column="3" Content="Clear" Height="20" VerticalContentAlignment="Center" Margin="3" Click="btnClear_Click" IsTabStop="False" />
+            <Button x:Name="btnClear" Grid.Column="3" Content="Clear" Click="btnClear_Click" IsTabStop="False" />
 
-            <Button x:Name="btnRestore" Grid.Column="4" Content="Restore" Height="20" VerticalContentAlignment="Center" Margin="3" Click="btnRestore_Click" IsTabStop="False" />
+            <Button x:Name="btnRestore" Grid.Column="4" Content="Restore" Click="btnRestore_Click" IsTabStop="False" />
 
         </Grid>
     </GroupBox>

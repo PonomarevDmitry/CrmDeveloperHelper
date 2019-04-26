@@ -9,6 +9,10 @@
              >
     <GroupBox x:Name="gbAttribute" Header="Attribute Name">
         <Grid>
+
+            <Grid.Resources>
+                <ResourceDictionary Source="AttributeMetadataStyle.xaml" />
+            </Grid.Resources>
             
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -17,13 +21,13 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <CheckBox x:Name="chBChanged" Grid.Column="0" Content="Ch" ToolTip="Is Changed" IsEnabled="False" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Margin="3" />
+            <CheckBox x:Name="chBChanged" Grid.Column="0" Content="Ch" ToolTip="Is Changed" IsEnabled="False"  />
 
-            <Button x:Name="btnRemoveControl" Grid.Column="1" Content="Remove" ToolTip="Remove Attribute" Height="20" VerticalContentAlignment="Center" Margin="3" Click="btnRemoveControl_Click" IsTabStop="False" />
+            <Button x:Name="btnRemoveControl" Grid.Column="1" Content="Remove" ToolTip="Remove Attribute" Click="btnRemoveControl_Click" IsTabStop="False" />
 
-            <TextBox x:Name="txtBValue" Grid.Column="2" Height="20" VerticalContentAlignment="Center" Margin="3" TextChanged="txtBValue_TextChanged" />
+            <TextBox x:Name="txtBValue" Grid.Column="2" TextChanged="txtBValue_TextChanged" />
 
-            <Button x:Name="btnRestore" Grid.Column="3" Content="Restore" Height="20" VerticalContentAlignment="Center" Margin="3" Click="btnRestore_Click" IsTabStop="False" />
+            <Button x:Name="btnRestore" Grid.Column="3" Content="Restore" Click="btnRestore_Click" IsTabStop="False" />
         </Grid>
     </GroupBox>
 </UserControl>

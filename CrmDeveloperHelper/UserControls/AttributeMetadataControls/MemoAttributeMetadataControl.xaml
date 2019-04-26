@@ -6,13 +6,17 @@
              xmlns:local="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadataControls"
              mc:Ignorable="d" 
              d:DesignWidth="566" d:DesignHeight="300"
-             HorizontalAlignment="Stretch" 
-             VerticalAlignment="Stretch"
+              
+             
              >
-    <GroupBox x:Name="gbAttribute" Header="Attribute Name" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <GroupBox x:Name="gbAttribute" Header="Attribute Name"  >
+        <DockPanel LastChildFill="True"  >
 
             <Grid DockPanel.Dock="Top">
+
+                <Grid.Resources>
+                    <ResourceDictionary Source="AttributeMetadataStyle.xaml" />
+                </Grid.Resources>
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -20,15 +24,15 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <CheckBox x:Name="chBChanged" Grid.Column="0" Content="Changed" IsEnabled="False" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Margin="3" />
+                <CheckBox x:Name="chBChanged" Grid.Column="0" Content="Changed" IsEnabled="False"  />
 
-                <Button x:Name="btnRemoveControl" Grid.Column="1" Content="Remove" ToolTip="Remove Attribute" Height="20" VerticalContentAlignment="Center" Margin="3" Click="btnRemoveControl_Click" IsTabStop="False" />
+                <Button x:Name="btnRemoveControl" Grid.Column="1" Content="Remove" ToolTip="Remove Attribute" Click="btnRemoveControl_Click" IsTabStop="False" />
 
-                <Button x:Name="btnRestore" Grid.Column="2" Content="Restore" Height="20" VerticalContentAlignment="Center" Margin="3" Click="btnRestore_Click" IsTabStop="False" />
+                <Button x:Name="btnRestore" Grid.Column="2" Content="Restore" Click="btnRestore_Click" IsTabStop="False" />
 
             </Grid>
 
-            <TextBox x:Name="txtBValue" AcceptsReturn="True" VerticalContentAlignment="Top" Margin="3" TextChanged="txtBValue_TextChanged" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
+            <TextBox x:Name="txtBValue" AcceptsReturn="True" VerticalContentAlignment="Top" TextChanged="txtBValue_TextChanged" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
         </DockPanel>
     </GroupBox>
 </UserControl>

@@ -109,8 +109,8 @@
             </MenuItem>
         </ContextMenu>
     </src:WindowBase.Resources>
-    <Grid>
-        <ToolBar x:Name="toolBarHeader" Margin="0,0,0,0" VerticalAlignment="Top" Height="33">
+    <DockPanel LastChildFill="True">
+        <ToolBar x:Name="toolBarHeader" DockPanel.Dock="Top">
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                 <MenuItem Header="Options" Click="miExportEntityMetadataOptions_Click" />
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
@@ -154,38 +154,63 @@
                 </MenuItem>
             </Menu>
         </ToolBar>
-        <Label Content="Folder" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Height="23" Padding="1" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBFolder" Height="23" Margin="50,38,10,0"  VerticalAlignment="Top" VerticalContentAlignment="Center" />
 
-        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,122,0,0" Padding="1" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="23"/>
-        <TextBox x:Name="txtBFilterEnitity" Height="23" Margin="50,122,10,0"  VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
+        <Grid Margin="10,5" DockPanel.Dock="Top">
 
-        <Label Content="Namespace Classes" HorizontalAlignment="Left" Margin="10,66,0,0" Padding="1" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="23"/>
-        <TextBox x:Name="txtBNamespaceClasses" Text="{Binding Path=SelectedItem.NamespaceClasses}" Height="23" Margin="134,66,10,0"  VerticalAlignment="Top" VerticalContentAlignment="Center" />
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <Label Content="Namespace JavaScript" HorizontalAlignment="Left" Margin="10,94,0,0" Padding="1" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="23"/>
-        <TextBox x:Name="txtBNamespaceJavaScript" Text="{Binding Path=SelectedItem.NamespaceJavaScript}" Height="23" Margin="134,94,10,0"  VerticalAlignment="Top" VerticalContentAlignment="Center" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"  />
+                <ColumnDefinition Width="Auto" MinWidth="50" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
 
-        <DataGrid x:Name="lstVwEntities" AutoGenerateColumns="False" Margin="10,150,10,69" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
-            <DataGrid.Resources>
-                <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Grid.Resources>
+                <Style TargetType="{x:Type Label}">
+                    <Setter Property="Padding" Value="2"/>
+                    <Setter Property="Margin" Value="0,3,3,3"/>
+
+                    <Setter Property="VerticalAlignment" Value="Stretch"/>
+                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
                 </Style>
-            </DataGrid.Resources>
-            <DataGrid.ItemContainerStyle>
-                <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="Padding" Value="2"/>
+                    <Setter Property="Margin" Value="3,3,0,3"/>
+
+                    <Setter Property="VerticalAlignment" Value="Stretch"/>
+                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
                 </Style>
-            </DataGrid.ItemContainerStyle>
-            <DataGrid.Columns>
+            </Grid.Resources>
 
-                <DataGridTextColumn Header="Entity Name" Width="260" Binding="{Binding EntityLogicalName}" />
+            <Label Content="Folder" Grid.Row="0" Grid.Column="0" />
+            <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" />
 
-                <DataGridTextColumn Header="Display Name" Width="260" Binding="{Binding DisplayName}" />
+            <Label Content="Namespace Classes" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
+            <TextBox x:Name="txtBNamespaceClasses" Grid.Row="1" Grid.Column="2" Text="{Binding Path=SelectedItem.NamespaceClasses}"  />
 
-            </DataGrid.Columns>
-        </DataGrid>
-        <ToolBar Margin="0,0,0,31" VerticalAlignment="Bottom" Height="33">
+            <Label Content="Namespace JavaScript" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="txtBNamespaceJavaScript" Grid.Row="2" Grid.Column="2" Text="{Binding Path=SelectedItem.NamespaceJavaScript}"  />
+
+            <Label Content="Filter"  Grid.Row="3" Grid.Column="0" />
+            <TextBox x:Name="txtBFilterEnitity" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" KeyDown="txtBFilterEnitity_KeyDown" />
+        </Grid>
+
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
+            <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
+            <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+        </StatusBar>
+
+        <ToolBar DockPanel.Dock="Bottom">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
@@ -216,19 +241,32 @@
                             <MenuItem Header="Publish Entity" Click="miPublishEntity_Click"/>
                         </MenuItem>
                     </Menu>
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Label Content="Action" HorizontalAlignment="Left" Padding="10,0" VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
                     <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" IsReadOnly="True" Padding="10,0" Width="180" SelectedIndex="0" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" />
                 </ToolBarPanel>
                 <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
-        <StatusBar VerticalAlignment="Bottom">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
-            <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-        </StatusBar>
-    </Grid>
+
+        <DataGrid x:Name="lstVwEntities" AutoGenerateColumns="False" SelectionMode="Single" Margin="10,5" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.ItemContainerStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                </Style>
+            </DataGrid.ItemContainerStyle>
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Entity Name" Width="260" Binding="{Binding EntityLogicalName}" />
+
+                <DataGridTextColumn Header="Display Name" Width="260" Binding="{Binding DisplayName}" />
+
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
 </src:WindowBase>
