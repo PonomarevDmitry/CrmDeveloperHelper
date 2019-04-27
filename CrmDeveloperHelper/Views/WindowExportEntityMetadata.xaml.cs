@@ -3,12 +3,14 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -694,7 +696,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private void miCreateCSharpFile_Click(object sender, RoutedEventArgs e)
+        private void miCreateCSharpFileSchemaMetadata_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -703,7 +705,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity, CreateEntityMetadataFileCSharpAsync);
+            ExecuteActionAsync(entity, CreateEntityMetadataFileCSharpSchemaAsync);
+        }
+
+        private void miCreateCSharpFileProxyClass_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionAsync(entity, CreateEntityMetadataFileCSharpProxyClassAsync);
         }
 
         private void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -720,7 +734,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                     else
                     {
-                        ExecuteActionAsync(entity, CreateEntityMetadataFileCSharpAsync);
+                        ExecuteActionAsync(entity, CreateEntityMetadataFileCSharpSchemaAsync);
                     }
                 }
             }
@@ -749,7 +763,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await action(folder, entityMetadata);
         }
 
-        private async Task CreateEntityMetadataFileCSharpAsync(string folder, EntityMetadataListViewItem entityMetadata)
+        private async Task CreateEntityMetadataFileCSharpSchemaAsync(string folder, EntityMetadataListViewItem entityMetadata)
         {
             var service = await GetService();
 
@@ -816,6 +830,93 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityMetadata.EntityLogicalName);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat1, entityMetadata.EntityLogicalName);
+            }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.CreatingFileForEntityFormat2, service.ConnectionData.Name, entityMetadata.EntityLogicalName);
+        }
+
+        private async Task CreateEntityMetadataFileCSharpProxyClassAsync(string folder, EntityMetadataListViewItem entityMetadata)
+        {
+            var service = await GetService();
+
+            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.CreatingFileForEntityFormat2, service.ConnectionData.Name, entityMetadata.EntityLogicalName);
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityMetadata.EntityLogicalName);
+
+            try
+            {
+                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
+
+                string fileName = string.Format("{0}.{1}.cs", service.ConnectionData.Name, entityMetadata.EntityLogicalName);
+
+                if (this._selectedItem != null)
+                {
+                    fileName = string.Format("{0}.cs", entityMetadata.EntityLogicalName);
+                }
+
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                if (!_isJavaScript && !string.IsNullOrEmpty(_filePath))
+                {
+                    filePath = _filePath;
+                }
+
+                var repository = new EntityMetadataRepository(service);
+
+                ICodeGenerationService codeGenerationService = new CodeGenerationService();
+                INamingService namingService = new NamingService(service.ConnectionData.ServiceContextName);
+                ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClasses);
+                ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService();
+                IMetadataProviderService metadataProviderService = new MetadataProviderService(repository);
+
+                ICodeGenerationServiceProvider codeGenerationServiceProvider = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService, namingService);
+
+                var entityMetadataFull = await repository.GetEntityMetadataAsync(entityMetadata.EntityLogicalName);
+
+                CodeGeneratorOptions options = new CodeGeneratorOptions
+                {
+                    BlankLinesBetweenMembers = true,
+                    BracingStyle = "C",
+                    IndentString = tabSpacer,
+                    VerbatimOrder = true,
+                };
+
+                await codeGenerationService.WriteEntityFileAsync(entityMetadataFull, "CSharp", filePath, service.ConnectionData.NamespaceClasses, options, codeGenerationServiceProvider);
+
+                //using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput))
+                //{
+                //    await handler.CreateFileAsync(filePath);
+                //}
+
+                if (this._selectedItem != null)
+                {
+                    if (_selectedItem.ProjectItem != null)
+                    {
+                        _selectedItem.ProjectItem.ProjectItems.AddFromFileCopy(filePath);
+
+                        _selectedItem.ProjectItem.ContainingProject.Save();
+                    }
+                    else if (_selectedItem.Project != null)
+                    {
+                        _selectedItem.Project.ProjectItems.AddFromFile(filePath);
+
+                        _selectedItem.Project.Save();
+                    }
+                }
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.EntityLogicalName, filePath);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 

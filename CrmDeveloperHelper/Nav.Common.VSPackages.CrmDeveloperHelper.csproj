@@ -685,6 +685,24 @@
     <Compile Include="Helpers\PrivilegeDepthConverter.cs" />
     <Compile Include="Helpers\ProgressReporter.cs" />
     <Compile Include="Helpers\PropertiesHelper.cs" />
+    <Compile Include="Helpers\ProxyClassGeneration\CodeGenerationType.cs" />
+    <Compile Include="Helpers\ProxyClassGeneration\Implementation\CodeGenerationService.cs" />
+    <Compile Include="Helpers\ProxyClassGeneration\Implementation\CodeGenerationServiceProvider.cs" />
+    <Compile Include="Helpers\ProxyClassGeneration\Implementation\CodeWriterFilterService.cs" />
+    <Compile Include="Helpers\ProxyClassGeneration\Implementation\MetadataProviderService.cs" />
+    <Compile Include="Helpers\ProxyClassGeneration\Implementation\NamingService.cs" />
+    <Compile Include="Helpers\ProxyClassGeneration\Implementation\StaticNamingService.cs" />
+    <Compile Include="Helpers\ProxyClassGeneration\Implementation\TypeMappingService.cs" />
+    <Compile Include="Helpers\ProxyClassGeneration\Interfaces\ICodeGenerationService.cs" />
+    <Compile Include="Helpers\ProxyClassGeneration\Interfaces\ICodeGenerationServiceProvider.cs" />
+    <Compile Include="Helpers\ProxyClassGeneration\Interfaces\ICodeWriterFilterService.cs" />
+    <Compile Include="Helpers\ProxyClassGeneration\Interfaces\IMetadataProviderService.cs" />
+    <Compile Include="Helpers\ProxyClassGeneration\Interfaces\INamingService.cs" />
+    <Compile Include="Helpers\ProxyClassGeneration\Interfaces\ITypeMappingService.cs" />
+    <Compile Include="Helpers\ProxyClassGeneration\CodeGenerationSdkMessage.cs" />
+    <Compile Include="Helpers\ProxyClassGeneration\CodeGenerationSdkMessagePair.cs" />
+    <Compile Include="Helpers\ProxyClassGeneration\CodeGenerationSdkMessageRequest.cs" />
+    <Compile Include="Helpers\ProxyClassGeneration\CodeGenerationSdkMessageResponse.cs" />
     <Compile Include="Helpers\PublishManager.cs" />
     <Compile Include="Helpers\QuickConnection.cs" />
     <Compile Include="Helpers\RegistrerPluginHelper.cs" />
@@ -2071,10 +2089,7 @@
     <Analyzer Include="..\packages\Microsoft.VisualStudio.SDK.Analyzers.15.7.11\analyzers\cs\Microsoft.VisualStudio.SDK.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.VisualStudio.Threading.Analyzers.15.7.21\analyzers\cs\Microsoft.VisualStudio.Threading.Analyzers.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helpers\ProxyClassGeneration\Implementation\" />
-    <Folder Include="Helpers\ProxyClassGeneration\Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="..\packages\Microsoft.VisualStudio.SDK.EmbedInteropTypes.15.0.10\build\Microsoft.VisualStudio.SDK.EmbedInteropTypes.targets" Condition="Exists('..\packages\Microsoft.VisualStudio.SDK.EmbedInteropTypes.15.0.10\build\Microsoft.VisualStudio.SDK.EmbedInteropTypes.targets')" />

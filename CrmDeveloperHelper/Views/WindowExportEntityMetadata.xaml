@@ -32,7 +32,10 @@
             <MenuItem Header="Create Entity New Instance" Click="miCreateNewEntityInstance_Click"/>
 
             <Separator/>
-            <MenuItem Header="Create C# Metadata File" Click="miCreateCSharpFile_Click"/>
+            <MenuItem Header="Create C# Metadata File" Click="miCreateCSharpFileSchemaMetadata_Click"/>
+            <MenuItem Header="Create C# ProxyClass File" Click="miCreateCSharpFileProxyClass_Click"/>
+
+            <Separator/>
             <MenuItem Header="Create JavaScript Metadata File" Click="miCreateJavaScriptFile_Click"/>
 
             <Separator/>
@@ -226,17 +229,24 @@
                 <ToolBarPanel Orientation="Horizontal" >
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="miEntityOperations" Header="Entity Operations" VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="3">
-                            <MenuItem Header="Create C# Metadata File" Click="miCreateCSharpFile_Click" />
+                            <MenuItem Header="Create C# Metadata File" Click="miCreateCSharpFileSchemaMetadata_Click" />
+                            <MenuItem Header="Create C# ProxyClass File" Click="miCreateCSharpFileProxyClass_Click"/>
+
                             <Separator/>
-                            <MenuItem Header="Create JavaScript Metadata File" Click="miCreateJavaScriptFile_Click" />
+                            <MenuItem Header="Create JavaScript Metadata File" Click="miCreateJavaScriptFile_Click"/>
+
                             <Separator/>
                             <MenuItem Header="Export Entity Ribbon" Click="miExportEntityRibbon_Click" />
+
                             <Separator/>
                             <MenuItem Header="Export Entity RibbonDiffXml" Click="miExportEntityRibbonDiffXml_Click" />
+
                             <Separator/>
                             <MenuItem Header="Export Entity Ribbon Archive" Click="miExportEntityRibbonArchive_Click" />
+
                             <Separator/>
                             <MenuItem Header="Update Entity RibbonDiffXml" VerticalAlignment="Center" Click="miUpdateEntityRibbonDiffXml_Click"/>
+
                             <Separator/>
                             <MenuItem Header="Publish Entity" Click="miPublishEntity_Click"/>
                         </MenuItem>

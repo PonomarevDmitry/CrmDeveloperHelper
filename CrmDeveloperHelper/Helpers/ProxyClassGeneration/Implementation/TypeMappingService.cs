@@ -1,0 +1,250 @@
+using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Metadata;
+using System;
+using System.CodeDom;
+using System.Collections.Generic;
+using System.Globalization;
+
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
+{
+    internal sealed class TypeMappingService : ITypeMappingService
+    {
+        private readonly Dictionary<AttributeTypeCode, Type> _attributeTypeMapping;
+        private readonly string _namespace;
+
+        internal TypeMappingService(string @namespace)
+        {
+            this._namespace = @namespace;
+
+            this._attributeTypeMapping = new Dictionary<AttributeTypeCode, Type>
+            {
+                { AttributeTypeCode.Boolean, typeof(bool) },
+
+                { AttributeTypeCode.ManagedProperty, typeof(BooleanManagedProperty) },
+                { AttributeTypeCode.CalendarRules, typeof(object) },
+
+                { AttributeTypeCode.DateTime, typeof(DateTime) },
+
+                { AttributeTypeCode.Double, typeof(double) },
+                { AttributeTypeCode.Integer, typeof(int) },
+                { AttributeTypeCode.BigInt, typeof(long) },
+
+                { AttributeTypeCode.Decimal, typeof(decimal) },
+                { AttributeTypeCode.Money, typeof(Money) },
+
+                { AttributeTypeCode.EntityName, typeof(string) },
+
+                { AttributeTypeCode.Customer, typeof(EntityReference) },
+                { AttributeTypeCode.Lookup, typeof(EntityReference) },
+                { AttributeTypeCode.Owner, typeof(EntityReference) },
+
+                { AttributeTypeCode.Memo, typeof(string) },
+                { AttributeTypeCode.String, typeof(string) },
+
+                { AttributeTypeCode.Uniqueidentifier, typeof(Guid) }
+            };
+        }
+
+        CodeTypeReference ITypeMappingService.GetTypeForEntity(EntityMetadata entityMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        {
+            return this.TypeRef(iCodeGenerationServiceProvider.NamingService.GetNameForEntity(entityMetadata, iCodeGenerationServiceProvider));
+        }
+
+        CodeTypeReference ITypeMappingService.GetTypeForAttributeType(
+            EntityMetadata entityMetadata
+            , AttributeMetadata attributeMetadata
+            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
+        )
+        {
+            Type type = typeof(object);
+            if (attributeMetadata.AttributeType.HasValue)
+            {
+                AttributeTypeCode key = attributeMetadata.AttributeType.Value;
+                if (this._attributeTypeMapping.ContainsKey(key))
+                {
+                    type = this._attributeTypeMapping[key];
+                }
+                else
+                {
+                    if (key == AttributeTypeCode.PartyList)
+                    {
+                        return this.BuildCodeTypeReferenceForPartyList(iCodeGenerationServiceProvider);
+                    }
+
+                    if (attributeMetadata is ImageAttributeMetadata)
+                    {
+                        type = typeof(byte[]);
+                    }
+                    else
+                    {
+                        OptionSetMetadataBase attributeOptionSet = TypeMappingService.GetAttributeOptionSet(attributeMetadata);
+                        if (attributeOptionSet != null)
+                        {
+                            CodeTypeReference codeTypeReference = this.BuildCodeTypeReferenceForOptionSet(attributeMetadata.LogicalName, entityMetadata, attributeOptionSet, iCodeGenerationServiceProvider);
+                            if (!codeTypeReference.BaseType.Equals("System.Object"))
+                            {
+                                return codeTypeReference;
+                            }
+
+                            if (key.Equals(AttributeTypeCode.Picklist) || key.Equals(AttributeTypeCode.Status))
+                            {
+                                type = typeof(OptionSetValue);
+                                if (type.IsValueType)
+                                {
+                                    type = typeof(Nullable<>).MakeGenericType(type);
+                                }
+                            }
+                        }
+                    }
+                }
+                if (type.IsValueType)
+                {
+                    type = typeof(Nullable<>).MakeGenericType(type);
+                }
+            }
+            return TypeMappingService.TypeRef(type);
+        }
+
+        CodeTypeReference ITypeMappingService.GetTypeForRelationship(
+            RelationshipMetadataBase relationshipMetadata
+            , EntityMetadata otherEntityMetadata
+            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
+        )
+        {
+            return this.TypeRef(iCodeGenerationServiceProvider.NamingService.GetNameForEntity(otherEntityMetadata, iCodeGenerationServiceProvider));
+        }
+
+        CodeTypeReference ITypeMappingService.GetTypeForRequestField(CodeGenerationSdkMessageRequest request, Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageRequestField requestField, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        {
+            var isGeneric = request.MessagePair.Message.IsGeneric(requestField);
+
+            return this.GetTypeForField(requestField.ClrParser, isGeneric);
+        }
+
+        CodeTypeReference ITypeMappingService.GetTypeForResponseField(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageResponseField responseField, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        {
+            return this.GetTypeForField(responseField.ClrFormatter, false);
+        }
+
+        private CodeTypeReference BuildCodeTypeReferenceForOptionSet(
+            string attributeName
+            , EntityMetadata entityMetadata
+            , OptionSetMetadataBase attributeOptionSet
+            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
+        )
+        {
+            if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateOptionSet(attributeOptionSet, iCodeGenerationServiceProvider))
+            {
+                string nameForOptionSet = iCodeGenerationServiceProvider.NamingService.GetNameForOptionSet(entityMetadata, attributeOptionSet, iCodeGenerationServiceProvider);
+
+                CodeGenerationType typeForOptionSet = iCodeGenerationServiceProvider.CodeGenerationService.GetTypeForOptionSet(entityMetadata, attributeOptionSet, iCodeGenerationServiceProvider);
+
+                switch (typeForOptionSet)
+                {
+                    case CodeGenerationType.Class:
+                        return this.TypeRef(nameForOptionSet);
+
+                    case CodeGenerationType.Enum:
+                    case CodeGenerationType.Struct:
+                        return TypeMappingService.TypeRef(typeof(Nullable<>), this.TypeRef(nameForOptionSet));
+                }
+            }
+            return TypeMappingService.TypeRef(typeof(object));
+        }
+
+        private CodeTypeReference BuildCodeTypeReferenceForPartyList(ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        {
+            EntityMetadata entityMetadata = iCodeGenerationServiceProvider.MetadataProviderService.GetEntityMetadata("activityparty");
+
+            if (entityMetadata != null)
+            {
+                if (!iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateEntity(entityMetadata, iCodeGenerationServiceProvider))
+                {
+                    entityMetadata = null;
+                }
+            }
+
+            if (entityMetadata == null)
+            {
+                return TypeMappingService.TypeRef(typeof(IEnumerable<>), TypeMappingService.TypeRef(typeof(Entity)));
+            }
+
+            return TypeMappingService.TypeRef(typeof(IEnumerable<>), this.TypeRef(iCodeGenerationServiceProvider.NamingService.GetNameForEntity(entityMetadata, iCodeGenerationServiceProvider)));
+        }
+
+        internal static OptionSetMetadataBase GetAttributeOptionSet(AttributeMetadata attribute)
+        {
+            OptionSetMetadataBase optionSetMetadataBase = null;
+            Type type = attribute.GetType();
+            if (type == typeof(BooleanAttributeMetadata))
+            {
+                optionSetMetadataBase = ((BooleanAttributeMetadata)attribute).OptionSet;
+            }
+            else if (type == typeof(StateAttributeMetadata))
+            {
+                optionSetMetadataBase = ((EnumAttributeMetadata)attribute).OptionSet;
+            }
+            else if (type == typeof(PicklistAttributeMetadata))
+            {
+                optionSetMetadataBase = ((EnumAttributeMetadata)attribute).OptionSet;
+            }
+            else if (type == typeof(StatusAttributeMetadata))
+            {
+                optionSetMetadataBase = ((EnumAttributeMetadata)attribute).OptionSet;
+            }
+
+            return optionSetMetadataBase;
+        }
+
+        private CodeTypeReference GetTypeForField(string clrFormatter, bool isGeneric)
+        {
+            CodeTypeReference codeTypeReference = TypeMappingService.TypeRef(typeof(object));
+
+            if (isGeneric)
+            {
+                codeTypeReference = new CodeTypeReference(new CodeTypeParameter("T"));
+            }
+            else if (!string.IsNullOrEmpty(clrFormatter))
+            {
+                Type type = Type.GetType(clrFormatter, false);
+                if (type != null)
+                {
+                    codeTypeReference = TypeMappingService.TypeRef(type);
+                }
+                else
+                {
+                    string[] strArray = clrFormatter.Split(new char[1] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (strArray != null && strArray.Length > 0)
+                    {
+                        codeTypeReference = new CodeTypeReference(strArray[0]);
+                    }
+                }
+            }
+            return codeTypeReference;
+        }
+
+        private CodeTypeReference TypeRef(string typeName)
+        {
+            if (!string.IsNullOrWhiteSpace(this._namespace))
+            {
+                return new CodeTypeReference(string.Format(CultureInfo.InvariantCulture, "{0}.{1}", this._namespace, typeName));
+            }
+
+            return new CodeTypeReference(typeName);
+        }
+
+        private static CodeTypeReference TypeRef(Type type)
+        {
+            return new CodeTypeReference(type);
+        }
+
+        private static CodeTypeReference TypeRef(Type type, CodeTypeReference typeParameter)
+        {
+            return new CodeTypeReference(type.FullName, new CodeTypeReference[1]
+            {
+                typeParameter
+            });
+        }
+    }
+}
