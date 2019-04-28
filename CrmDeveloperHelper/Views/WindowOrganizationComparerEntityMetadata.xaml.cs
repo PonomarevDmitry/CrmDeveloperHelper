@@ -558,6 +558,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes
                 , _commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
                 , _commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
+                , _commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
             );
 
             return result;

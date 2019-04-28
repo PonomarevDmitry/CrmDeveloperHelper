@@ -47,6 +47,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             chBProxyClassUseSchemaConstInCSharpAttributes.DataContext = _commonConfig;
             chBProxyClassesWithoutObsoleteAttribute.DataContext = _commonConfig;
             chBProxyClassesMakeAllPropertiesEditable.DataContext = _commonConfig;
+            chBProxyClassesAddConstructorWithAnonymousTypeObject.DataContext = _commonConfig;
 
             chBAttributesSchema.DataContext = _commonConfig;
             chBManyToOneSchema.DataContext = _commonConfig;

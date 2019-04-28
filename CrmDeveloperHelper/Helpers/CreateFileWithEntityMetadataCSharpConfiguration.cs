@@ -49,6 +49,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public bool MakeAllPropertiesEditable { get; private set; }
 
+        public bool AddConstructorWithAnonymousTypeObject { get; private set; }
+
         public CreateFileWithEntityMetadataCSharpConfiguration(
             string entityName
             , string tabSpacer
@@ -71,6 +73,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , bool useSchemaConstInCSharpAttributes
             , bool withoutObsoleteAttribute
             , bool makeAllPropertiesEditable
+            , bool addConstructorWithAnonymousTypeObject
         )
         {
             this.EntityName = entityName.ToLower();
@@ -96,6 +99,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this.UseSchemaConstInCSharpAttributes = useSchemaConstInCSharpAttributes;
             this.WithoutObsoleteAttribute = withoutObsoleteAttribute;
             this.MakeAllPropertiesEditable = makeAllPropertiesEditable;
+            this.AddConstructorWithAnonymousTypeObject = addConstructorWithAnonymousTypeObject;
         }
     }
 }

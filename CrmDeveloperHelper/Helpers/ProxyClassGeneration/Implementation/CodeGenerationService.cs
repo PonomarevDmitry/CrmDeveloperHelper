@@ -481,7 +481,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                 entityClass.Members.Add(this.EntityMetadataConstant("EntityPrimaryImageAttribute", typeof(string), entityMetadata.PrimaryImageAttribute));
             }
 
-            entityClass.Members.Add(this.EntityConstructor(entityMetadata, iCodeGenerationServiceProvider));
+            entityClass.Members.Add(this.EntityConstructorDefault(entityMetadata, iCodeGenerationServiceProvider));
+
+            if (_config.AddConstructorWithAnonymousTypeObject)
+            {
+                entityClass.Members.Add(this.EntityConstructorAnonymousObject(entityMetadata, iCodeGenerationServiceProvider));
+            }
 
             entityClass.Members.Add(this.Event("PropertyChanged", typeof(PropertyChangedEventHandler), typeof(INotifyPropertyChanged), new CodeRegionDirective(CodeRegionMode.Start, "NotifyProperty Events")));
             entityClass.Members.Add(this.Event("PropertyChanging", typeof(PropertyChangingEventHandler), typeof(INotifyPropertyChanging)));
@@ -496,14 +501,74 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return codeMemberField;
         }
 
-        private CodeTypeMember EntityConstructor(
+        private CodeTypeMember EntityConstructorDefault(
             EntityMetadata entityMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
+        )
         {
             var codeConstructor = this.Constructor();
             codeConstructor.BaseConstructorArgs.Add(VarRef("EntityLogicalName"));
 
             codeConstructor.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForEntityDefaultConstructor(entityMetadata, iCodeGenerationServiceProvider)));
+
+            return codeConstructor;
+        }
+
+        private CodeTypeMember EntityConstructorAnonymousObject(
+            EntityMetadata entityMetadata
+            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
+        )
+        {
+            var codeConstructor = this.Constructor();
+
+            codeConstructor.Parameters.Add(new CodeParameterDeclarationExpression(typeof(Object), "anonymousObject"));
+
+            codeConstructor.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForEntityAnonymousConstructor(entityMetadata, iCodeGenerationServiceProvider)));
+
+            codeConstructor.ChainedConstructorArgs.Add(new CodeSnippetExpression(string.Empty));
+
+            codeConstructor.Statements.Add(new CodeSnippetStatement(string.Format(
+@"{0}{0}{0}if (anonymousObject == null)
+{0}{0}{0}{{
+{0}{0}{0}{0}return;
+{0}{0}{0}}}
+
+{0}{0}{0}System.Type anonymousObjectType = anonymousObject.GetType();
+
+{0}{0}{0}if (!anonymousObjectType.Name.StartsWith(""<>"")
+{0}{0}{0}{0}|| anonymousObjectType.Name.IndexOf(""AnonymousType"", System.StringComparison.InvariantCultureIgnoreCase) == -1
+{0}{0}{0})
+{0}{0}{0}{{
+{0}{0}{0}{0}return;
+{0}{0}{0}}}
+
+{0}{0}{0}foreach (var prop in anonymousObjectType.GetProperties())
+{0}{0}{0}{{
+{0}{0}{0}{0}var value = prop.GetValue(anonymousObject, null);
+{0}{0}{0}{0}var name = prop.Name.ToLower();
+
+{0}{0}{0}{0}switch (name)
+{0}{0}{0}{0}{{
+{0}{0}{0}{0}{0}case ""id"":
+{0}{0}{0}{0}{0}case EntityPrimaryIdAttribute:
+{0}{0}{0}{0}{0}{0}if (value is System.Guid idValue)
+{0}{0}{0}{0}{0}{0}{{
+{0}{0}{0}{0}{0}{0}{0}Attributes[EntityPrimaryIdAttribute] = base.Id = idValue;
+{0}{0}{0}{0}{0}{0}}}
+{0}{0}{0}{0}{0}{0}break;
+
+{0}{0}{0}{0}{0}default:
+{0}{0}{0}{0}{0}{0}if (value is Microsoft.Xrm.Sdk.FormattedValueCollection formattedValueCollection)
+{0}{0}{0}{0}{0}{0}{{
+{0}{0}{0}{0}{0}{0}{0}FormattedValues.AddRange(formattedValueCollection);
+{0}{0}{0}{0}{0}{0}}}
+{0}{0}{0}{0}{0}{0}else
+{0}{0}{0}{0}{0}{0}{{
+{0}{0}{0}{0}{0}{0}{0}Attributes[name] = value;
+{0}{0}{0}{0}{0}{0}}}
+{0}{0}{0}{0}{0}{0}break;
+{0}{0}{0}{0}}}
+{0}{0}{0}}}", _config.TabSpacer)));
 
             return codeConstructor;
         }
@@ -688,7 +753,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return new CodeStatementCollection()
             {
                 Var(typeof (EntityCollection), "collection",  ThisMethodInvoke("GetAttributeValue", TypeRef(typeof (EntityCollection)), attributeNameRef)),
-                If( And( NotNull( VarRef("collection")),  NotNull( PropRef( VarRef("collection"), "Entities"))),  Return( StaticMethodInvoke(typeof (Enumerable), "Cast", propertyType.TypeArguments[0], (CodeExpression) PropRef( VarRef("collection"), "Entities"))),  Return( Null()))
+                If(And(NotNull(VarRef("collection")), NotNull(PropRef(VarRef("collection"), "Entities"))), Return( StaticMethodInvoke(typeof (Enumerable), "Cast", propertyType.TypeArguments[0], (CodeExpression)PropRef(VarRef("collection"), "Entities"))), Return(Null()))
             };
         }
 
@@ -796,7 +861,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return new CodeStatementCollection(new CodeStatement[2]
             {
                 Var(typeof (OptionSetValue), "optionSet", ThisMethodInvoke("GetAttributeValue", TypeRef(typeof (OptionSetValue)), attributeNameRef)),
-                If( NotNull(VarRef("optionSet")), Return( Cast(codeTypeReference, ConvertEnum(codeTypeReference, "optionSet"))), Return( Null()))
+                If(NotNull(VarRef("optionSet")), Return(Cast(codeTypeReference, ConvertEnum(codeTypeReference, "optionSet"))), Return( Null()))
             });
         }
 
@@ -1990,6 +2055,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         private static CodeBinaryOperatorExpression NotNull(CodeExpression expression)
         {
             return new CodeBinaryOperatorExpression(expression, CodeBinaryOperatorType.IdentityInequality, Null());
+        }
+
+        private static CodeBinaryOperatorExpression Null(CodeExpression expression)
+        {
+            return new CodeBinaryOperatorExpression(expression, CodeBinaryOperatorType.IdentityEquality, Null());
         }
 
         private static CodeExpression GuidEmpty()

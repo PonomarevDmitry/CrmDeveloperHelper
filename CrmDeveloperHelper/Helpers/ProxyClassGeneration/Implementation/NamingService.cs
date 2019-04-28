@@ -268,6 +268,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return new[] { $"Default Constructor {entityMetadata.LogicalName}" };
         }
 
+        public IEnumerable<string> GetCommentsForEntityAnonymousConstructor(EntityMetadata entityMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        {
+            return new[] { $"Constructor {entityMetadata.LogicalName} for populating via LINQ queries given a LINQ anonymous type object" };
+        }
+
         public IEnumerable<string> GetCommentsForAttribute(EntityMetadata entityMetadata, AttributeMetadata attributeMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
             var listStrings = CreateFileHandler.UnionStrings(attributeMetadata.DisplayName, attributeMetadata.Description, null, null, _config.AllDescriptions, _config.TabSpacer);

@@ -417,6 +417,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        private bool _GenerateProxyClassesAddConstructorWithAnonymousTypeObject = true;
+        [DataMember]
+        public bool GenerateProxyClassesAddConstructorWithAnonymousTypeObject
+        {
+            get => _GenerateProxyClassesAddConstructorWithAnonymousTypeObject;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateProxyClassesAddConstructorWithAnonymousTypeObject));
+                this._GenerateProxyClassesAddConstructorWithAnonymousTypeObject = value;
+                this.OnPropertyChanged(nameof(GenerateProxyClassesAddConstructorWithAnonymousTypeObject));
+            }
+        }
+
         private bool _GenerateAttributesProxyClass = true;
         /// <summary>
         /// Генерировать атрибуты в файле с метаданными сущности

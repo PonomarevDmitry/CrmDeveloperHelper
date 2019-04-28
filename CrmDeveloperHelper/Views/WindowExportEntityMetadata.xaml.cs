@@ -797,6 +797,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , _commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes
                     , _commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
                     , _commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
+                    , _commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
                 );
 
                 string fileName = string.Format("{0}.{1}.Generated.cs", service.ConnectionData.Name, entityMetadata.EntityLogicalName);
@@ -896,6 +897,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , _commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes
                     , _commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
                     , _commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
+                    , _commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
                 );
 
                 string fileName = string.Format("{0}.{1}.cs", service.ConnectionData.Name, entityMetadata.EntityLogicalName);

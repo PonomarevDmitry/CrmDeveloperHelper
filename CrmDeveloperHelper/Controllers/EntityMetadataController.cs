@@ -432,6 +432,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             , commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes
                             , commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
                             , commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
+                            , commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
                         )
                         {
                             EntityMetadata = metadata
@@ -580,6 +581,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             , commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes
                             , commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
                             , commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
+                            , commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
                         )
                         {
                             EntityMetadata = metadata
