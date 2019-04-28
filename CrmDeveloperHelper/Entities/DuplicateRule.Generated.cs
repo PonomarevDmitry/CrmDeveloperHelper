@@ -1,100 +1,101 @@
-﻿
+
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 {
-    ///<summary>
-    /// DisplayName:
-    /// (English - United States - 1033): Duplicate Detection Rule
-    /// (Russian - 1049): Правило обнаружения повторяющихся записей
-    /// 
-    /// DisplayCollectionName:
-    /// (English - United States - 1033): Duplicate Detection Rules
-    /// (Russian - 1049): Правила обнаружения повторяющихся записей
-    /// 
-    /// Description:
-    /// (English - United States - 1033): Rule used to identify potential duplicates.
-    /// (Russian - 1049): Правило, используемое для определения возможных повторов.
-    /// 
-    /// PropertyName                          Value                    CanBeChanged
-    /// ActivityTypeMask                      0
-    /// AutoCreateAccessTeams                 False
-    /// AutoRouteToOwnerQueue                 False
-    /// CanBeInManyToMany                     False                    False
-    /// CanBePrimaryEntityInRelationship      False                    False
-    /// CanBeRelatedEntityInRelationship      False                    False
-    /// CanChangeHierarchicalRelationship     False                    False
-    /// CanChangeTrackingBeEnabled            True                     True
-    /// CanCreateAttributes                   False                    False
-    /// CanCreateCharts                       False                    False
-    /// CanCreateForms                        False                    False
-    /// CanCreateViews                        False                    False
-    /// CanEnableSyncToExternalSearchIndex    False                    False
-    /// CanModifyAdditionalSettings           True                     True
-    /// CanTriggerWorkflow                    False
-    /// ChangeTrackingEnabled                 False
-    /// CollectionSchemaName                  DuplicateRules
-    /// DaysSinceRecordLastModified           0
-    /// EnforceStateTransitions               False
-    /// EntityColor
-    /// EntityHelpUrl
-    /// EntityHelpUrlEnabled                  False
-    /// EntitySetName                         duplicaterules
-    /// IconLargeName
-    /// IconMediumName
-    /// IconSmallName
-    /// IsActivity                            False
-    /// IsActivityParty                       False
-    /// IsAIRUpdated                          False
-    /// IsAuditEnabled                        False                    True
-    /// IsAvailableOffline                    False
-    /// IsBusinessProcessEnabled              False
-    /// IsChildEntity                         False
-    /// IsConnectionsEnabled                  False                    False
-    /// IsCustomEntity                        False
-    /// IsCustomizable                        True                     False
-    /// IsDocumentManagementEnabled           False
-    /// IsDuplicateDetectionEnabled           False                    False
-    /// IsEnabledForCharts                    False
-    /// IsEnabledForExternalChannels          False
-    /// IsEnabledForTrace                     False
-    /// IsImportable                          False
-    /// IsInteractionCentricEnabled           False
-    /// IsIntersect                           False
-    /// IsKnowledgeManagementEnabled          False
-    /// IsMailMergeEnabled                    False                    False
-    /// IsMappable                            False                    False
-    /// IsOfflineInMobileClient               False                    True
-    /// IsOneNoteIntegrationEnabled           False
-    /// IsOptimisticConcurrencyEnabled        False
-    /// IsPrivate                             False
-    /// IsQuickCreateEnabled                  False
-    /// IsReadingPaneEnabled                  True
-    /// IsReadOnlyInMobileClient              False                    False
-    /// IsRenameable                          False                    False
-    /// IsStateModelAware                     False
-    /// IsValidForAdvancedFind                False
-    /// IsValidForQueue                       False                    False
-    /// IsVisibleInMobile                     False                    False
-    /// IsVisibleInMobileClient               False                    False
-    /// LogicalCollectionName                 duplicaterules
-    /// LogicalName                           duplicaterule
-    /// ObjectTypeCode                        4414
-    /// OwnershipType                         UserOwned
-    /// RecurrenceBaseEntityLogicalName
-    /// ReportViewName                        FilteredDuplicateRule
-    /// SchemaName                            DuplicateRule
-    /// SyncToExternalSearchIndex             False
-    ///</summary>
     public partial class DuplicateRule
     {
+        ///<summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Duplicate Detection Rule
+        /// 
+        /// DisplayCollectionName:
+        ///     (English - United States - 1033): Duplicate Detection Rules
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Rule used to identify potential duplicates.
+        /// 
+        /// PropertyName                          Value
+        /// ActivityTypeMask                      0
+        /// AutoCreateAccessTeams                 False
+        /// AutoRouteToOwnerQueue                 False
+        /// CanBeInManyToMany                     False
+        /// CanBePrimaryEntityInRelationship      False
+        /// CanBeRelatedEntityInRelationship      False
+        /// CanChangeHierarchicalRelationship     False
+        /// CanChangeTrackingBeEnabled            True
+        /// CanCreateAttributes                   False
+        /// CanCreateCharts                       False
+        /// CanCreateForms                        False
+        /// CanCreateViews                        False
+        /// CanEnableSyncToExternalSearchIndex    False
+        /// CanModifyAdditionalSettings           True
+        /// CanTriggerWorkflow                    False
+        /// ChangeTrackingEnabled                 False
+        /// CollectionSchemaName                  DuplicateRules
+        /// DataProviderId                        null
+        /// DataSourceId                          null
+        /// EnforceStateTransitions               False
+        /// EntityHelpUrlEnabled                  False
+        /// EntitySetName                         duplicaterules
+        /// IntroducedVersion                     5.0.0.0
+        /// IsAIRUpdated                          False
+        /// IsActivity                            False
+        /// IsActivityParty                       False
+        /// IsAvailableOffline                    False
+        /// IsBPFEntity                           False
+        /// IsBusinessProcessEnabled              False
+        /// IsChildEntity                         False
+        /// IsConnectionsEnabled                  False
+        /// IsCustomEntity                        False
+        /// IsCustomizable                        True
+        /// IsDocumentManagementEnabled           False
+        /// IsDocumentRecommendationsEnabled      False
+        /// IsDuplicateDetectionEnabled           False
+        /// IsEnabledForCharts                    False
+        /// IsEnabledForExternalChannels          False
+        /// IsEnabledForTrace                     False
+        /// IsImportable                          False
+        /// IsInteractionCentricEnabled           False
+        /// IsIntersect                           False
+        /// IsKnowledgeManagementEnabled          False
+        /// IsLogicalEntity                       False
+        /// IsMailMergeEnabled                    False
+        /// IsMappable                            False
+        /// IsOfflineInMobileClient               False
+        /// IsOneNoteIntegrationEnabled           False
+        /// IsOptimisticConcurrencyEnabled        False
+        /// IsPrivate                             False
+        /// IsQuickCreateEnabled                  False
+        /// IsReadOnlyInMobileClient              False
+        /// IsReadingPaneEnabled                  True
+        /// IsRenameable                          False
+        /// IsSLAEnabled                          False
+        /// IsStateModelAware                     False
+        /// IsValidForAdvancedFind                False
+        /// IsValidForQueue                       False
+        /// IsVisibleInMobile                     False
+        /// IsVisibleInMobileClient               False
+        /// LogicalCollectionName                 duplicaterules
+        /// LogicalName                           duplicaterule
+        /// ObjectTypeCode                        4414
+        /// OwnershipType                         UserOwned
+        /// PrimaryIdAttribute                    duplicateruleid
+        /// PrimaryNameAttribute                  name
+        /// ReportViewName                        FilteredDuplicateRule
+        /// SchemaName                            DuplicateRule
+        /// SyncToExternalSearchIndex             False
+        /// UsesBusinessDataLabelTable            False
+        ///</summary>
         public static partial class Schema
         {
             public const string EntityLogicalName = "duplicaterule";
 
             public const string EntitySchemaName = "DuplicateRule";
 
+            public const string EntityPrimaryIdAttribute = "duplicateruleid";
+
             public const string EntityPrimaryNameAttribute = "name";
 
-            public const string EntityPrimaryIdAttribute = "duplicateruleid";
+            public const int EntityObjectTypeCode = 4414;
 
             #region Attributes.
 
@@ -102,562 +103,1498 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 ///<summary>
                 /// DisplayName:
+                ///     (English - United States - 1033): Duplicate Detection Rule
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): Unique identifier of the duplicate detection rule.
+                /// 
+                /// SchemaName: DuplicateRuleId
+                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   True
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    True
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string duplicateruleid = "duplicateruleid";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): Rule Name
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): Name of the duplicate detection rule.
+                /// 
+                /// SchemaName: Name
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 160
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  True
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   True
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
+                ///</summary>
+                public const string name = "name";
+
+                ///<summary>
+                /// DisplayName:
                 ///     (English - United States - 1033): Base Record Type Match Code Table
-                ///     (Russian - 1049): Таблица кодов соответствия типа базовой записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Database table that stores match codes for the record type being evaluated for potential duplicates.
-                ///     (Russian - 1049): Таблица базы данных, в которой хранятся коды соответствия для типа записи, оцениваемой с точки зрения возможных повторов.
                 /// 
                 /// SchemaName: BaseEntityMatchCodeTable
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 50
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string baseentitymatchcodetable = "baseentitymatchcodetable";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Base Record Type
-                ///     (Russian - 1049): Тип базовой записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Record type of the record being evaluated for potential duplicates.
-                ///     (Russian - 1049): Тип записи, оцениваемой с точки зрения возможных повторов.
                 /// 
                 /// SchemaName: BaseEntityName
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: ApplicationRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 160
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string baseentityname = "baseentityname";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Base Record Type
-                ///     (Russian - 1049): Тип базовой записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Record type of the record being evaluated for potential duplicates.
-                ///     (Russian - 1049): Тип записи, оцениваемой с точки зрения возможных повторов.
                 /// 
                 /// SchemaName: BaseEntityTypeCode
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// Local System  OptionSet duplicaterule_baseentitytypecode
                 /// DefaultFormValue = 0
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string baseentitytypecode = "baseentitytypecode";
 
                 ///<summary>
+                /// SchemaName: BaseEntityTypeCodeName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'baseentitytypecode'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string baseentitytypecodename = "baseentitytypecodename";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By
-                ///     (Russian - 1049): Создано
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who created the duplicate detection rule.
-                ///     (Russian - 1049): Уникальный идентификатор пользователя, создавшего правило обнаружения повторных записей.
                 /// 
                 /// SchemaName: CreatedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: systemuser
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///         (English - United States - 1033): User
-                ///         (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Users
-                ///         (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string createdby = "createdby";
 
                 ///<summary>
+                /// SchemaName: CreatedByName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'createdby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string createdbyname = "createdbyname";
+
+                ///<summary>
+                /// SchemaName: CreatedByYomiName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'createdby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string createdbyyominame = "createdbyyominame";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created On
-                ///     (Russian - 1049): Дата создания
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the duplicate detection rule was created.
-                ///     (Russian - 1049): Дата и время создания правила обнаружения повторных записей.
                 /// 
                 /// SchemaName: CreatedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DateTimeBehavior = UserLocal    CanChangeDateTimeBehavior = False
                 /// ImeMode = Inactive    Format = DateAndTime
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string createdon = "createdon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By (Delegate)
-                ///     (Russian - 1049): Кем создано (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who created the duplicaterule.
-                ///     (Russian - 1049): Уникальный идентификатор делегированного пользователя, создавшего правило поиска повторяющихся данных.
                 /// 
                 /// SchemaName: CreatedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: systemuser
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///         (English - United States - 1033): User
-                ///         (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Users
-                ///         (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string createdonbehalfby = "createdonbehalfby";
 
                 ///<summary>
+                /// SchemaName: CreatedOnBehalfByName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'createdonbehalfby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string createdonbehalfbyname = "createdonbehalfbyname";
+
+                ///<summary>
+                /// SchemaName: CreatedOnBehalfByYomiName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'createdonbehalfby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string createdonbehalfbyyominame = "createdonbehalfbyyominame";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Description
-                ///     (Russian - 1049): Описание
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Description of the duplicate detection rule.
-                ///     (Russian - 1049): Описание правила обнаружения повторных записей.
                 /// 
                 /// SchemaName: Description
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 2000
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string description = "description";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (English - United States - 1033): Duplicate Detection Rule
-                ///     (Russian - 1049): Правило обнаружения повторяющихся записей
-                /// 
-                /// Description:
-                ///     (English - United States - 1033): Unique identifier of the duplicate detection rule.
-                ///     (Russian - 1049): Уникальный идентификатор правила обнаружения повторных записей.
-                /// 
-                /// SchemaName: DuplicateRuleId
-                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
-                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
-                ///</summary>
-                public const string duplicateruleid = "duplicateruleid";
-
-                ///<summary>
-                /// DisplayName:
                 ///     (English - United States - 1033): Exclude Inactive Records
-                ///     (Russian - 1049): Исключение неактивных записей
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Determines whether to flag inactive records as duplicates
-                ///     (Russian - 1049): Определяет, помечать ли неактивные записи как дубликаты
                 /// 
                 /// SchemaName: ExcludeInactiveRecords
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DefaultValue = False
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): False
-                ///     (Russian - 1049): Ложь
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): True
-                ///     (Russian - 1049): Истина
                 /// TrueOption = 1
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string excludeinactiverecords = "excludeinactiverecords";
 
                 ///<summary>
                 /// DisplayName:
+                ///     (English - United States - 1033): Exclude Inactive Records
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): Determines whether to flag inactive records as duplicates
+                /// 
+                /// SchemaName: ExcludeInactiveRecordsName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'excludeinactiverecords'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string excludeinactiverecordsname = "excludeinactiverecordsname";
+
+                ///<summary>
+                /// DisplayName:
                 ///     (English - United States - 1033): Case Sensitive
-                ///     (Russian - 1049): С учетом регистра
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Indicates if the operator is case-sensitive.
-                ///     (Russian - 1049): Указывает, является ли оператор чувствительным к регистру.
                 /// 
                 /// SchemaName: IsCaseSensitive
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DefaultValue = False
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): False
-                ///     (Russian - 1049): Ложь
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): True
-                ///     (Russian - 1049): Истина
                 /// TrueOption = 1
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string iscasesensitive = "iscasesensitive";
 
                 ///<summary>
                 /// DisplayName:
+                ///     (English - United States - 1033): Is Case Sensitive
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): Information about whether the duplicate detection rule is case-sensitive.
+                /// 
+                /// SchemaName: IsCaseSensitiveName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'iscasesensitive'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string iscasesensitivename = "iscasesensitivename";
+
+                ///<summary>
+                /// DisplayName:
                 ///     (English - United States - 1033): Matching Record Type Match Code Table
-                ///     (Russian - 1049): Таблица кодов соответствия соответствующего типа записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Database table that stores match codes for potential duplicate records.
-                ///     (Russian - 1049): Таблица базы данных, в которой хранятся коды соответствия для возможных повторных записей.
                 /// 
                 /// SchemaName: MatchingEntityMatchCodeTable
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 50
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string matchingentitymatchcodetable = "matchingentitymatchcodetable";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Matching Record Type
-                ///     (Russian - 1049): Соответствующий тип записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Record type of the records being evaluated as potential duplicates.
-                ///     (Russian - 1049): Тип записи, оцениваемой с точки зрения возможных повторов.
                 /// 
                 /// SchemaName: MatchingEntityName
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 160
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string matchingentityname = "matchingentityname";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Matching Record Type
-                ///     (Russian - 1049): Соответствующий тип записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Record type of the records being evaluated as potential duplicates.
-                ///     (Russian - 1049): Тип записи, оцениваемой с точки зрения возможных повторов.
                 /// 
                 /// SchemaName: MatchingEntityTypeCode
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// Local System  OptionSet duplicaterule_matchingentitytypecode
                 /// DefaultFormValue = 0
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string matchingentitytypecode = "matchingentitytypecode";
 
                 ///<summary>
+                /// SchemaName: MatchingEntityTypeCodeName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'matchingentitytypecode'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string matchingentitytypecodename = "matchingentitytypecodename";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By
-                ///     (Russian - 1049): Изменено
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who last modified the duplicate detection rule.
-                ///     (Russian - 1049): Уникальный идентификатор последнего пользователя, изменившего правило обнаружения повторных записей.
                 /// 
                 /// SchemaName: ModifiedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: systemuser
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///         (English - United States - 1033): User
-                ///         (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Users
-                ///         (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string modifiedby = "modifiedby";
 
                 ///<summary>
+                /// SchemaName: ModifiedByName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'modifiedby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string modifiedbyname = "modifiedbyname";
+
+                ///<summary>
+                /// SchemaName: ModifiedByYomiName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'modifiedby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string modifiedbyyominame = "modifiedbyyominame";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified On
-                ///     (Russian - 1049): Дата изменения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the duplicate detection rule was last modified.
-                ///     (Russian - 1049): Дата и время последнего изменения правила обнаружения повторных записей.
                 /// 
                 /// SchemaName: ModifiedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DateTimeBehavior = UserLocal    CanChangeDateTimeBehavior = False
                 /// ImeMode = Inactive    Format = DateAndTime
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string modifiedon = "modifiedon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By (Delegate)
-                ///     (Russian - 1049): Кем изменено (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who last modified the duplicaterule.
-                ///     (Russian - 1049): Уникальный идентификатор последнего делегированного пользователя, изменившего правило поиска повторяющихся данных.
                 /// 
                 /// SchemaName: ModifiedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: systemuser
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///         (English - United States - 1033): User
-                ///         (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Users
-                ///         (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string modifiedonbehalfby = "modifiedonbehalfby";
 
                 ///<summary>
-                /// DisplayName:
-                ///     (English - United States - 1033): Rule Name
-                ///     (Russian - 1049): Имя правила
-                /// 
-                /// Description:
-                ///     (English - United States - 1033): Name of the duplicate detection rule.
-                ///     (Russian - 1049): Имя правила обнаружения повторных записей.
-                /// 
-                /// SchemaName: Name
-                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
-                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// MaxLength = 160
+                /// SchemaName: ModifiedOnBehalfByName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'modifiedonbehalfby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
-                public const string name = "name";
+                //public const string modifiedonbehalfbyname = "modifiedonbehalfbyname";
+
+                ///<summary>
+                /// SchemaName: ModifiedOnBehalfByYomiName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'modifiedonbehalfby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string modifiedonbehalfbyyominame = "modifiedonbehalfbyyominame";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owner
-                ///     (Russian - 1049): Ответственный
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user or team who owns the duplicate detection rule.
-                ///     (Russian - 1049): Уникальный идентификатор пользователя или рабочей группы, ответственных за правило поиска повторяющихся данных.
                 /// 
                 /// SchemaName: OwnerId
                 /// LookupAttributeMetadata    AttributeType: Owner    AttributeTypeName: OwnerType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: systemuser,team
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///         (English - United States - 1033): User
-                ///         (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Users
-                ///         (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 /// 
                 ///     Target team    PrimaryIdAttribute teamid    PrimaryNameAttribute name
                 ///         DisplayName:
-                ///         (English - United States - 1033): Team
-                ///         (Russian - 1049): Рабочая группа
+                ///             (English - United States - 1033): Team
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Teams
-                ///         (Russian - 1049): Рабочие группы
+                ///             (English - United States - 1033): Teams
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
-                ///         (Russian - 1049): Набор системных пользователей, которые обычно участвуют в совместной работе. Рабочие группы можно использовать для упрощения предоставления участникам группы общего доступа к записям и данным организации, если участники принадлежат к разным подразделениям.
+                ///             (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   True
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              True
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string ownerid = "ownerid";
 
                 ///<summary>
+                /// SchemaName: OwnerIdName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired    AttributeOf 'ownerid'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string owneridname = "owneridname";
+
+                ///<summary>
+                /// SchemaName: OwnerIdType
+                /// EntityNameAttributeMetadata    AttributeType: EntityName    AttributeTypeName: EntityNameType    RequiredLevel: SystemRequired    AttributeOf 'ownerid'
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string owneridtype = "owneridtype";
+
+                ///<summary>
+                /// SchemaName: OwnerIdYomiName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired    AttributeOf 'ownerid'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string owneridyominame = "owneridyominame";
+
+                ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the business unit that owns duplicate detection rule.
-                ///     (Russian - 1049): Уникальный идентификатор подразделения, ответственного за правило обнаружения повторных записей.
                 /// 
                 /// SchemaName: OwningBusinessUnit
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: businessunit
                 /// 
                 ///     Target businessunit    PrimaryIdAttribute businessunitid    PrimaryNameAttribute name
                 ///         DisplayName:
-                ///         (English - United States - 1033): Business Unit
-                ///         (Russian - 1049): Подразделение
+                ///             (English - United States - 1033): Business Unit
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Business Units
-                ///         (Russian - 1049): Подразделения
+                ///             (English - United States - 1033): Business Units
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Business, division, or department in the Microsoft Dynamics 365 database.
-                ///         (Russian - 1049): Компания, подразделение или отдел в базе данных Microsoft Dynamics 365.
+                ///             (English - United States - 1033): Business, division, or department in the Microsoft Dynamics 365 database.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   True
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string owningbusinessunit = "owningbusinessunit";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owning Team
-                ///     (Russian - 1049): Ответственная рабочая группа
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the team who owns the duplicate detection rule.
-                ///     (Russian - 1049): Уникальный идентификатор рабочей группы, ответственной за правила обнаружения повторов.
                 /// 
                 /// SchemaName: OwningTeam
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: team
                 /// 
                 ///     Target team    PrimaryIdAttribute teamid    PrimaryNameAttribute name
                 ///         DisplayName:
-                ///         (English - United States - 1033): Team
-                ///         (Russian - 1049): Рабочая группа
+                ///             (English - United States - 1033): Team
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Teams
-                ///         (Russian - 1049): Рабочие группы
+                ///             (English - United States - 1033): Teams
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
-                ///         (Russian - 1049): Набор системных пользователей, которые обычно участвуют в совместной работе. Рабочие группы можно использовать для упрощения предоставления участникам группы общего доступа к записям и данным организации, если участники принадлежат к разным подразделениям.
+                ///             (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string owningteam = "owningteam";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owning User
-                ///     (Russian - 1049): Ответственный пользователь
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who owns the duplicate detection rule.
-                ///     (Russian - 1049): Уникальный идентификатор пользователя, ответственного за правило обнаружения повторных записей.
                 /// 
                 /// SchemaName: OwningUser
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: systemuser
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///         (English - United States - 1033): User
-                ///         (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Users
-                ///         (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string owninguser = "owninguser";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Status
-                ///     (Russian - 1049): Состояние
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Status of the duplicate detection rule.
-                ///     (Russian - 1049): Состояние правила обнаружения повторных записей.
                 /// 
                 /// SchemaName: StateCode
                 /// StateAttributeMetadata    AttributeType: State    AttributeTypeName: StateType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// DefaultFormValue = 0
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string statecode = "statecode";
 
                 ///<summary>
+                /// Description:
+                ///     (English - United States - 1033): Status name of the rule.
+                /// 
+                /// SchemaName: StateCodeName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'statecode'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string statecodename = "statecodename";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Status Reason
-                ///     (Russian - 1049): Причина состояния
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Reason for the status of the duplicate detection rule.
-                ///     (Russian - 1049): Причина состояния правила обнаружения повторных записей.
                 /// 
                 /// SchemaName: StatusCode
                 /// StatusAttributeMetadata    AttributeType: Status    AttributeTypeName: StatusType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// DefaultFormValue = -1
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string statuscode = "statuscode";
 
                 ///<summary>
                 /// Description:
+                ///     (English - United States - 1033): Name of the status reason of the rule.
+                /// 
+                /// SchemaName: StatusCodeName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'statuscode'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string statuscodename = "statuscodename";
+
+                ///<summary>
+                /// Description:
                 ///     (English - United States - 1033): For internal use only.
-                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: TimeZoneRuleVersionNumber
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MinValue = -1    MaxValue = 2147483647
                 /// Format = None
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string timezoneruleversionnumber = "timezoneruleversionnumber";
 
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Time zone code that was in use when the record was created.
-                ///     (Russian - 1049): Код часового пояса, использовавшийся при создании записи.
                 /// 
                 /// SchemaName: UTCConversionTimeZoneCode
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MinValue = -1    MaxValue = 2147483647
                 /// Format = None
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string utcconversiontimezonecode = "utcconversiontimezonecode";
             }
@@ -675,11 +1612,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Status
-                ///     (Russian - 1049): Состояние
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Status of the duplicate detection rule.
-                ///     (Russian - 1049): Состояние правила обнаружения повторных записей.
                 ///</summary>
                 public enum statecode
                 {
@@ -690,7 +1625,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Inactive
-                    ///     (Russian - 1049): Неактивный
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Inactive_0 = 0,
@@ -702,7 +1636,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Active
-                    ///     (Russian - 1049): Активный
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Active_1 = 1,
@@ -714,11 +1647,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Status
-                ///     (Russian - 1049): Состояние
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Status of the duplicate detection rule.
-                ///     (Russian - 1049): Состояние правила обнаружения повторных записей.
                 ///</summary>
                 public enum statuscode
                 {
@@ -728,7 +1659,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Unpublished
-                    ///     (Russian - 1049): Не опубликовано
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Inactive_0_Unpublished_0 = 0,
@@ -739,7 +1669,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Publishing
-                    ///     (Russian - 1049): Публикация
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Inactive_0_Publishing_1 = 1,
@@ -750,7 +1679,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Published
-                    ///     (Russian - 1049): Опубликовано
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Active_1_Published_2 = 2,
@@ -761,48 +1689,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 #region Picklist OptionSet OptionSets.
 
                 ///<summary>
-                /// Attribute: baseentitytypecode
+                /// Attribute:
+                ///     baseentitytypecode
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Base Record Type
-                ///     (Russian - 1049): Тип базовой записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Record type of the record being evaluated for potential duplicates.
-                ///     (Russian - 1049): Тип записи, оцениваемой с точки зрения возможных повторов.
                 /// 
                 /// Local System  OptionSet duplicaterule_baseentitytypecode
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Base Record Type
-                ///     (Russian - 1049): Тип базовой записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Record type of the record being evaluated for potential duplicates.
-                ///     (Russian - 1049): Тип записи, оцениваемой с точки зрения возможных повторов.
                 ///</summary>
                 //public enum baseentitytypecode
 
                 ///<summary>
-                /// Attribute: matchingentitytypecode
+                /// Attribute:
+                ///     matchingentitytypecode
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Matching Record Type
-                ///     (Russian - 1049): Соответствующий тип записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Record type of the records being evaluated as potential duplicates.
-                ///     (Russian - 1049): Тип записи, оцениваемой с точки зрения возможных повторов.
                 /// 
                 /// Local System  OptionSet duplicaterule_matchingentitytypecode
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Matching Record Type
-                ///     (Russian - 1049): Соответствующий тип записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Record type of the records being evaluated as potential duplicates.
-                ///     (Russian - 1049): Тип записи, оцениваемой с точки зрения возможных повторов.
                 ///</summary>
                 //public enum matchingentitytypecode
 
@@ -818,11 +1740,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship BusinessUnit_DuplicateRules
                 /// 
-                /// PropertyName                               Value                          CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     BusinessUnit_DuplicateRules
                 /// ReferencingEntityNavigationPropertyName    owningbusinessunit
-                /// IsCustomizable                             False                          False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -833,22 +1755,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity businessunit:
+                /// ReferencedEntity businessunit:    PrimaryIdAttribute businessunitid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///     (English - United States - 1033): Business Unit
-                ///     (Russian - 1049): Подразделение
+                ///         (English - United States - 1033): Business Unit
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Business Units
-                ///     (Russian - 1049): Подразделения
+                ///         (English - United States - 1033): Business Units
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Business, division, or department in the Microsoft Dynamics 365 database.
-                ///     (Russian - 1049): Компания, подразделение или отдел в базе данных Microsoft Dynamics 365.
+                ///         (English - United States - 1033): Business, division, or department in the Microsoft Dynamics 365 database.
                 ///</summary>
                 public static partial class businessunit_duplicaterules
                 {
@@ -868,11 +1788,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship lk_duplicaterule_createdonbehalfby
                 /// 
-                /// PropertyName                               Value                                 CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     lk_duplicaterule_createdonbehalfby
                 /// ReferencingEntityNavigationPropertyName    createdonbehalfby
-                /// IsCustomizable                             False                                 False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -883,22 +1803,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity systemuser:
+                /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
-                ///     (English - United States - 1033): User
-                ///     (Russian - 1049): Пользователь
+                ///         (English - United States - 1033): User
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Users
-                ///     (Russian - 1049): Пользователи
+                ///         (English - United States - 1033): Users
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///     (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
                 public static partial class lk_duplicaterule_createdonbehalfby
                 {
@@ -918,11 +1836,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship lk_duplicaterule_modifiedonbehalfby
                 /// 
-                /// PropertyName                               Value                                  CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     lk_duplicaterule_modifiedonbehalfby
                 /// ReferencingEntityNavigationPropertyName    modifiedonbehalfby
-                /// IsCustomizable                             False                                  False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -933,22 +1851,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity systemuser:
+                /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
-                ///     (English - United States - 1033): User
-                ///     (Russian - 1049): Пользователь
+                ///         (English - United States - 1033): User
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Users
-                ///     (Russian - 1049): Пользователи
+                ///         (English - United States - 1033): Users
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///     (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
                 public static partial class lk_duplicaterule_modifiedonbehalfby
                 {
@@ -968,11 +1884,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship lk_duplicaterulebase_createdby
                 /// 
-                /// PropertyName                               Value                             CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     lk_duplicaterulebase_createdby
                 /// ReferencingEntityNavigationPropertyName    createdby
-                /// IsCustomizable                             False                             False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -983,22 +1899,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity systemuser:
+                /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
-                ///     (English - United States - 1033): User
-                ///     (Russian - 1049): Пользователь
+                ///         (English - United States - 1033): User
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Users
-                ///     (Russian - 1049): Пользователи
+                ///         (English - United States - 1033): Users
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///     (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
                 public static partial class lk_duplicaterulebase_createdby
                 {
@@ -1018,11 +1932,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship lk_duplicaterulebase_modifiedby
                 /// 
-                /// PropertyName                               Value                              CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     lk_duplicaterulebase_modifiedby
                 /// ReferencingEntityNavigationPropertyName    modifiedby
-                /// IsCustomizable                             False                              False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -1033,22 +1947,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity systemuser:
+                /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
-                ///     (English - United States - 1033): User
-                ///     (Russian - 1049): Пользователь
+                ///         (English - United States - 1033): User
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Users
-                ///     (Russian - 1049): Пользователи
+                ///         (English - United States - 1033): Users
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///     (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
                 public static partial class lk_duplicaterulebase_modifiedby
                 {
@@ -1068,11 +1980,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship owner_duplicaterules
                 /// 
-                /// PropertyName                               Value                    CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     owner_duplicaterules
                 /// ReferencingEntityNavigationPropertyName    ownerid
-                /// IsCustomizable                             False                    False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -1083,22 +1995,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity owner:
+                /// ReferencedEntity owner:    PrimaryIdAttribute ownerid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///     (English - United States - 1033): Owner
-                ///     (Russian - 1049): Ответственный
+                ///         (English - United States - 1033): Owner
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Owners
-                ///     (Russian - 1049): Ответственные
+                ///         (English - United States - 1033): Owners
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Group of undeleted system users and undeleted teams. Owners can be used to control access to specific objects.
-                ///     (Russian - 1049): Группа для восстановленных системных пользователей и рабочих групп. Для контроля доступа к конкретным объектам можно использовать ответственных.
+                ///         (English - United States - 1033): Group of undeleted system users and undeleted teams. Owners can be used to control access to specific objects.
                 ///</summary>
                 public static partial class owner_duplicaterules
                 {
@@ -1118,11 +2028,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship SystemUser_DuplicateRules
                 /// 
-                /// PropertyName                               Value                        CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     SystemUser_DuplicateRules
                 /// ReferencingEntityNavigationPropertyName    owninguser
-                /// IsCustomizable                             False                        False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -1133,22 +2043,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity systemuser:
+                /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
-                ///     (English - United States - 1033): User
-                ///     (Russian - 1049): Пользователь
+                ///         (English - United States - 1033): User
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Users
-                ///     (Russian - 1049): Пользователи
+                ///         (English - United States - 1033): Users
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///     (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
                 public static partial class systemuser_duplicaterules
                 {
@@ -1168,11 +2076,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship team_DuplicateRules
                 /// 
-                /// PropertyName                               Value                    CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     team_DuplicateRules
                 /// ReferencingEntityNavigationPropertyName    owningteam
-                /// IsCustomizable                             False                    False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -1183,22 +2091,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity team:
+                /// ReferencedEntity team:    PrimaryIdAttribute teamid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///     (English - United States - 1033): Team
-                ///     (Russian - 1049): Рабочая группа
+                ///         (English - United States - 1033): Team
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Teams
-                ///     (Russian - 1049): Рабочие группы
+                ///         (English - United States - 1033): Teams
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
-                ///     (Russian - 1049): Набор системных пользователей, которые обычно участвуют в совместной работе. Рабочие группы можно использовать для упрощения предоставления участникам группы общего доступа к записям и данным организации, если участники принадлежат к разным подразделениям.
+                ///         (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
                 ///</summary>
                 public static partial class team_duplicaterules
                 {
@@ -1225,11 +2131,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship DuplicateRule_Annotation
                 /// 
-                /// PropertyName                               Value                       CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     DuplicateRule_Annotation
                 /// ReferencingEntityNavigationPropertyName    objectid_duplicaterule
-                /// IsCustomizable                             True                        False
+                /// IsCustomizable                             True
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1240,22 +2146,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              Cascade
                 /// CascadeConfiguration.Share                 Cascade
                 /// CascadeConfiguration.Unshare               Cascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencingEntity annotation:
+                /// ReferencingEntity annotation:    PrimaryIdAttribute annotationid    PrimaryNameAttribute subject
                 ///     DisplayName:
-                ///     (English - United States - 1033): Note
-                ///     (Russian - 1049): Примечание
+                ///         (English - United States - 1033): Note
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Notes
-                ///     (Russian - 1049): Примечания
+                ///         (English - United States - 1033): Notes
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Note that is attached to one or more objects, including other notes.
-                ///     (Russian - 1049): Примечание, которое прикреплено к одному или нескольким объектам, в том числе другим примечаниям.
+                ///         (English - United States - 1033): Note that is attached to one or more objects, including other notes.
                 ///</summary>
                 public static partial class duplicaterule_annotation
                 {
@@ -1275,11 +2179,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship DuplicateRule_DuplicateBaseRecord
                 /// 
-                /// PropertyName                               Value                                CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     DuplicateRule_DuplicateBaseRecord
                 /// ReferencingEntityNavigationPropertyName    duplicateruleid
-                /// IsCustomizable                             False                                False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -1290,22 +2194,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencingEntity duplicaterecord:
+                /// ReferencingEntity duplicaterecord:    PrimaryIdAttribute duplicateid
                 ///     DisplayName:
-                ///     (English - United States - 1033): Duplicate Record
-                ///     (Russian - 1049): Повторяющаяся запись
+                ///         (English - United States - 1033): Duplicate Record
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Duplicate Records
-                ///     (Russian - 1049): Повторные записи
+                ///         (English - United States - 1033): Duplicate Records
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Potential duplicate record.
-                ///     (Russian - 1049): Возможная повторная запись.
+                ///         (English - United States - 1033): Potential duplicate record.
                 ///</summary>
                 public static partial class duplicaterule_duplicatebaserecord
                 {
@@ -1323,11 +2225,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship DuplicateRule_DuplicateRuleConditions
                 /// 
-                /// PropertyName                               Value                                    CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     DuplicateRule_DuplicateRuleConditions
                 /// ReferencingEntityNavigationPropertyName    regardingobjectid
-                /// IsCustomizable                             False                                    False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -1338,22 +2240,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencingEntity duplicaterulecondition:
+                /// ReferencingEntity duplicaterulecondition:    PrimaryIdAttribute duplicateruleconditionid
                 ///     DisplayName:
-                ///     (English - United States - 1033): Duplicate Rule Condition
-                ///     (Russian - 1049): Условие правила обнаружения повторяющихся данных
+                ///         (English - United States - 1033): Duplicate Rule Condition
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Duplicate Rule Conditions
-                ///     (Russian - 1049): Условия правила обнаружения повторов
+                ///         (English - United States - 1033): Duplicate Rule Conditions
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Condition of a duplicate detection rule.
-                ///     (Russian - 1049): Условие правила обнаружения повторных записей.
+                ///         (English - United States - 1033): Condition of a duplicate detection rule.
                 ///</summary>
                 public static partial class duplicaterule_duplicateruleconditions
                 {
@@ -1371,11 +2271,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship DuplicateRule_SyncErrors
                 /// 
-                /// PropertyName                               Value                                        CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     DuplicateRule_SyncErrors
                 /// ReferencingEntityNavigationPropertyName    regardingobjectid_duplicaterule_syncerror
-                /// IsCustomizable                             True                                         False
+                /// IsCustomizable                             True
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1386,22 +2286,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              Cascade
                 /// CascadeConfiguration.Share                 Cascade
                 /// CascadeConfiguration.Unshare               Cascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencingEntity syncerror:
+                /// ReferencingEntity syncerror:    PrimaryIdAttribute syncerrorid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///     (English - United States - 1033): Sync Error
-                ///     (Russian - 1049): Ошибка синхронизации
+                ///         (English - United States - 1033): Sync Error
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Sync Errors
-                ///     (Russian - 1049): Ошибки синхронизации
+                ///         (English - United States - 1033): Sync Errors
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Failure reason and other detailed information for a record that failed to sync.
-                ///     (Russian - 1049): Причина сбоя и другие подробные сведения о записи, при синхронизации которой произошла ошибка.
+                ///         (English - United States - 1033): Failure reason and other detailed information for a record that failed to sync.
                 ///</summary>
                 public static partial class duplicaterule_syncerrors
                 {
@@ -1421,11 +2319,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship userentityinstancedata_duplicaterule
                 /// 
-                /// PropertyName                               Value                                   CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     userentityinstancedata_duplicaterule
                 /// ReferencingEntityNavigationPropertyName    objectid_duplicaterule
-                /// IsCustomizable                             False                                   False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -1436,20 +2334,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencingEntity userentityinstancedata:
+                /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
                 ///     DisplayName:
-                ///     (English - United States - 1033): User Entity Instance Data
-                ///     (Russian - 1049): Данные экземпляра сущности пользователя
-                ///     
-                ///     DisplayCollectionName:
+                ///         (English - United States - 1033): User Entity Instance Data
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Per User item instance data
-                ///     (Russian - 1049): Данные экземпляра позиции "на пользователя"
+                ///         (English - United States - 1033): Per User item instance data
                 ///</summary>
                 public static partial class userentityinstancedata_duplicaterule
                 {

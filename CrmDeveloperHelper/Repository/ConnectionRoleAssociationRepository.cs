@@ -48,7 +48,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = ConnectionRoleAssociation.Schema.Attributes.associatedconnectionroleid,
 
                         LinkToEntityName = ConnectionRole.EntityLogicalName,
-                        LinkToAttributeName = ConnectionRole.PrimaryIdAttribute,
+                        LinkToAttributeName = ConnectionRole.EntityPrimaryIdAttribute,
 
                         EntityAlias = ConnectionRole.EntityLogicalName,
 

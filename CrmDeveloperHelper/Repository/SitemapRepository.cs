@@ -55,7 +55,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(SiteMap.PrimaryIdAttribute, ConditionOperator.NotNull),
+                        new ConditionExpression(SiteMap.EntityPrimaryIdAttribute, ConditionOperator.NotNull),
                     },
                 },
 
@@ -114,7 +114,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(SiteMap.PrimaryIdAttribute, ConditionOperator.Equal, idSiteMap),
+                        new ConditionExpression(SiteMap.EntityPrimaryIdAttribute, ConditionOperator.Equal, idSiteMap),
                     },
                 },
             };

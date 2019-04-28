@@ -320,7 +320,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new LinkEntity()
                     {
                         LinkFromEntityName = Role.EntityLogicalName,
-                        LinkFromAttributeName = Role.PrimaryIdAttribute,
+                        LinkFromAttributeName = Role.EntityPrimaryIdAttribute,
 
                         LinkToEntityName = SystemUserRoles.Schema.EntityLogicalName,
                         LinkToAttributeName = SystemUserRoles.Schema.Attributes.roleid,
@@ -414,7 +414,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new LinkEntity()
                     {
                         LinkFromEntityName = Role.EntityLogicalName,
-                        LinkFromAttributeName = Role.PrimaryIdAttribute,
+                        LinkFromAttributeName = Role.EntityPrimaryIdAttribute,
 
                         LinkToEntityName = TeamRoles.Schema.EntityLogicalName,
                         LinkToAttributeName = TeamRoles.Schema.Attributes.roleid,
@@ -511,7 +511,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         JoinOperator = JoinOperator.LeftOuter,
 
                         LinkFromEntityName = Role.EntityLogicalName,
-                        LinkFromAttributeName = Role.PrimaryIdAttribute,
+                        LinkFromAttributeName = Role.EntityPrimaryIdAttribute,
 
                         LinkToEntityName = SystemUserRoles.Schema.EntityLogicalName,
                         LinkToAttributeName = SystemUserRoles.Schema.Attributes.roleid,
@@ -627,7 +627,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         JoinOperator = JoinOperator.LeftOuter,
 
                         LinkFromEntityName = Role.EntityLogicalName,
-                        LinkFromAttributeName = Role.PrimaryIdAttribute,
+                        LinkFromAttributeName = Role.EntityPrimaryIdAttribute,
 
                         LinkToEntityName = TeamRoles.Schema.EntityLogicalName,
                         LinkToAttributeName = TeamRoles.Schema.Attributes.roleid,

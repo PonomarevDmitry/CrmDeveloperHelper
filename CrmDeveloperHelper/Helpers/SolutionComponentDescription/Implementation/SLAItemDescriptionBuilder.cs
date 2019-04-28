@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public override string EntityLogicalName => SLAItem.EntityLogicalName;
 
-        public override string EntityPrimaryIdAttribute => SLAItem.Schema.EntityPrimaryIdAttribute;
+        public override string EntityPrimaryIdAttribute => SLAItem.EntityPrimaryIdAttribute;
 
         protected override ColumnSet GetColumnSet()
         {

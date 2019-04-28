@@ -1,100 +1,101 @@
-﻿
+
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 {
-    ///<summary>
-    /// DisplayName:
-    /// (English - United States - 1033): Privilege
-    /// (Russian - 1049): Привилегия
-    /// 
-    /// DisplayCollectionName:
-    /// (English - United States - 1033): Privileges
-    /// (Russian - 1049): Права
-    /// 
-    /// Description:
-    /// (English - United States - 1033): Permission to perform an action in Microsoft CRM. The platform checks for the privilege and rejects the attempt if the user does not hold the privilege.
-    /// (Russian - 1049): Разрешение на выполнение действия в Microsoft CRM. Платформа проверяет наличие привилегии и запрещает попытку, если у пользователя нет требуемой привилегии.
-    /// 
-    /// PropertyName                          Value                CanBeChanged
-    /// ActivityTypeMask                      0
-    /// AutoCreateAccessTeams                 False
-    /// AutoRouteToOwnerQueue                 False
-    /// CanBeInManyToMany                     False                False
-    /// CanBePrimaryEntityInRelationship      False                False
-    /// CanBeRelatedEntityInRelationship      False                False
-    /// CanChangeHierarchicalRelationship     False                False
-    /// CanChangeTrackingBeEnabled            True                 True
-    /// CanCreateAttributes                   False                False
-    /// CanCreateCharts                       False                False
-    /// CanCreateForms                        False                False
-    /// CanCreateViews                        False                False
-    /// CanEnableSyncToExternalSearchIndex    False                False
-    /// CanModifyAdditionalSettings           False                True
-    /// CanTriggerWorkflow                    False
-    /// ChangeTrackingEnabled                 True
-    /// CollectionSchemaName                  Privileges
-    /// DaysSinceRecordLastModified           9999
-    /// EnforceStateTransitions               False
-    /// EntityColor
-    /// EntityHelpUrl
-    /// EntityHelpUrlEnabled                  False
-    /// EntitySetName                         privileges
-    /// IconLargeName
-    /// IconMediumName
-    /// IconSmallName
-    /// IsActivity                            False
-    /// IsActivityParty                       False
-    /// IsAIRUpdated                          False
-    /// IsAuditEnabled                        False                False
-    /// IsAvailableOffline                    True
-    /// IsBusinessProcessEnabled              False
-    /// IsChildEntity                         False
-    /// IsConnectionsEnabled                  False                False
-    /// IsCustomEntity                        False
-    /// IsCustomizable                        False                False
-    /// IsDocumentManagementEnabled           False
-    /// IsDuplicateDetectionEnabled           False                False
-    /// IsEnabledForCharts                    False
-    /// IsEnabledForExternalChannels          False
-    /// IsEnabledForTrace                     False
-    /// IsImportable                          False
-    /// IsInteractionCentricEnabled           False
-    /// IsIntersect                           False
-    /// IsKnowledgeManagementEnabled          False
-    /// IsMailMergeEnabled                    False                False
-    /// IsMappable                            False                False
-    /// IsOfflineInMobileClient               False                True
-    /// IsOneNoteIntegrationEnabled           False
-    /// IsOptimisticConcurrencyEnabled        True
-    /// IsPrivate                             False
-    /// IsQuickCreateEnabled                  False
-    /// IsReadingPaneEnabled                  True
-    /// IsReadOnlyInMobileClient              False                False
-    /// IsRenameable                          False                False
-    /// IsStateModelAware                     False
-    /// IsValidForAdvancedFind                False
-    /// IsValidForQueue                       False                False
-    /// IsVisibleInMobile                     False                False
-    /// IsVisibleInMobileClient               False                False
-    /// LogicalCollectionName                 privileges
-    /// LogicalName                           privilege
-    /// ObjectTypeCode                        1023
-    /// OwnershipType                         None
-    /// RecurrenceBaseEntityLogicalName
-    /// ReportViewName                        FilteredPrivilege
-    /// SchemaName                            Privilege
-    /// SyncToExternalSearchIndex             False
-    ///</summary>
     public partial class Privilege
     {
+        ///<summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Privilege
+        /// 
+        /// DisplayCollectionName:
+        ///     (English - United States - 1033): Privileges
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Permission to perform an action in Microsoft CRM. The platform checks for the privilege and rejects the attempt if the user does not hold the privilege.
+        /// 
+        /// PropertyName                          Value
+        /// ActivityTypeMask                      0
+        /// AutoCreateAccessTeams                 False
+        /// AutoRouteToOwnerQueue                 False
+        /// CanBeInManyToMany                     False
+        /// CanBePrimaryEntityInRelationship      False
+        /// CanBeRelatedEntityInRelationship      False
+        /// CanChangeHierarchicalRelationship     False
+        /// CanChangeTrackingBeEnabled            True
+        /// CanCreateAttributes                   False
+        /// CanCreateCharts                       False
+        /// CanCreateForms                        False
+        /// CanCreateViews                        False
+        /// CanEnableSyncToExternalSearchIndex    False
+        /// CanModifyAdditionalSettings           False
+        /// CanTriggerWorkflow                    False
+        /// ChangeTrackingEnabled                 True
+        /// CollectionSchemaName                  Privileges
+        /// DataProviderId                        null
+        /// DataSourceId                          null
+        /// EnforceStateTransitions               False
+        /// EntityHelpUrlEnabled                  False
+        /// EntitySetName                         privileges
+        /// IntroducedVersion                     5.0.0.0
+        /// IsAIRUpdated                          False
+        /// IsActivity                            False
+        /// IsActivityParty                       False
+        /// IsAvailableOffline                    True
+        /// IsBPFEntity                           False
+        /// IsBusinessProcessEnabled              False
+        /// IsChildEntity                         False
+        /// IsConnectionsEnabled                  False
+        /// IsCustomEntity                        False
+        /// IsCustomizable                        False
+        /// IsDocumentManagementEnabled           False
+        /// IsDocumentRecommendationsEnabled      False
+        /// IsDuplicateDetectionEnabled           False
+        /// IsEnabledForCharts                    False
+        /// IsEnabledForExternalChannels          False
+        /// IsEnabledForTrace                     False
+        /// IsImportable                          False
+        /// IsInteractionCentricEnabled           False
+        /// IsIntersect                           False
+        /// IsKnowledgeManagementEnabled          False
+        /// IsLogicalEntity                       False
+        /// IsMailMergeEnabled                    False
+        /// IsMappable                            False
+        /// IsOfflineInMobileClient               False
+        /// IsOneNoteIntegrationEnabled           False
+        /// IsOptimisticConcurrencyEnabled        True
+        /// IsPrivate                             False
+        /// IsQuickCreateEnabled                  False
+        /// IsReadOnlyInMobileClient              False
+        /// IsReadingPaneEnabled                  True
+        /// IsRenameable                          False
+        /// IsSLAEnabled                          False
+        /// IsStateModelAware                     False
+        /// IsValidForAdvancedFind                False
+        /// IsValidForQueue                       False
+        /// IsVisibleInMobile                     False
+        /// IsVisibleInMobileClient               False
+        /// LogicalCollectionName                 privileges
+        /// LogicalName                           privilege
+        /// ObjectTypeCode                        1023
+        /// OwnershipType                         None
+        /// PrimaryIdAttribute                    privilegeid
+        /// PrimaryNameAttribute                  name
+        /// ReportViewName                        FilteredPrivilege
+        /// SchemaName                            Privilege
+        /// SyncToExternalSearchIndex             False
+        /// UsesBusinessDataLabelTable            False
+        ///</summary>
         public static partial class Schema
         {
             public const string EntityLogicalName = "privilege";
 
             public const string EntitySchemaName = "Privilege";
 
+            public const string EntityPrimaryIdAttribute = "privilegeid";
+
             public const string EntityPrimaryNameAttribute = "name";
 
-            public const string EntityPrimaryIdAttribute = "privilegeid";
+            public const int EntityObjectTypeCode = 1023;
 
             #region Attributes.
 
@@ -102,211 +103,862 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 ///<summary>
                 /// Description:
+                ///     (English - United States - 1033): Unique identifier of the privilege.
+                /// 
+                /// SchemaName: PrivilegeId
+                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   True
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    True
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string privilegeid = "privilegeid";
+
+                ///<summary>
+                /// Description:
+                ///     (English - United States - 1033): Name of the privilege.
+                /// 
+                /// SchemaName: Name
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  True
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   True
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string name = "name";
+
+                ///<summary>
+                /// Description:
                 ///     (English - United States - 1033): Rights a user has to an instance of an entity.
-                ///     (Russian - 1049): Имеющиеся у пользователя права на экземпляр сущности.
                 /// 
                 /// SchemaName: AccessRight
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MinValue = -2147483648    MaxValue = 2147483647
                 /// Format = None
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string accessright = "accessright";
 
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Information that specifies whether the privilege applies to the user, the user's team, or objects shared by the user.
-                ///     (Russian - 1049): Указывает, применяется ли привилегия к пользователю, рабочей группе пользователя или к объектам, общий доступ к которым инициирован пользователем.
                 /// 
                 /// SchemaName: CanBeBasic
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DefaultValue = False
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): No
-                ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Yes
-                ///     (Russian - 1049): Да
                 /// TrueOption = 1
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string canbebasic = "canbebasic";
 
                 ///<summary>
+                /// SchemaName: CanBeBasicName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'canbebasic'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string canbebasicname = "canbebasicname";
+
+                ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Information that specifies whether the privilege applies to child business units of the business unit associated with the user.
-                ///     (Russian - 1049): Указывает, применяется ли привилегия к дочерним подразделениям подразделения в которое входит пользователь.
                 /// 
                 /// SchemaName: CanBeDeep
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DefaultValue = False
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): No
-                ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Yes
-                ///     (Russian - 1049): Да
                 /// TrueOption = 1
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string canbedeep = "canbedeep";
 
                 ///<summary>
+                /// SchemaName: CanBeDeepName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'canbedeep'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string canbedeepname = "canbedeepname";
+
+                ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Information that specifies whether the privilege applies to the local reference of an external party.
-                ///     (Russian - 1049): Указывает, применяется ли привилегия к локальной ссылке внешней стороны.
                 /// 
                 /// SchemaName: CanBeEntityReference
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DefaultValue = False
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): No
-                ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Yes
-                ///     (Russian - 1049): Да
                 /// TrueOption = 1
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string canbeentityreference = "canbeentityreference";
 
                 ///<summary>
+                /// SchemaName: CanBeEntityReferenceName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'canbeentityreference'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string canbeentityreferencename = "canbeentityreferencename";
+
+                ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Information that specifies whether the privilege applies to the entire organization.
-                ///     (Russian - 1049): Указывает, применяется ли привилегия ко всей организации.
                 /// 
                 /// SchemaName: CanBeGlobal
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DefaultValue = False
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): No
-                ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Yes
-                ///     (Russian - 1049): Да
                 /// TrueOption = 1
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string canbeglobal = "canbeglobal";
 
                 ///<summary>
+                /// SchemaName: CanBeGlobalName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'canbeglobal'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string canbeglobalname = "canbeglobalname";
+
+                ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Information that specifies whether the privilege applies to the user's business unit.
-                ///     (Russian - 1049): Указывает, применяется ли привилегия к подразделению пользователя.
                 /// 
                 /// SchemaName: CanBeLocal
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DefaultValue = False
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): No
-                ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Yes
-                ///     (Russian - 1049): Да
                 /// TrueOption = 1
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string canbelocal = "canbelocal";
 
                 ///<summary>
+                /// SchemaName: CanBeLocalName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'canbelocal'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string canbelocalname = "canbelocalname";
+
+                ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Information that specifies whether the privilege applies to parent reference of the external party.
-                ///     (Russian - 1049): Указывает, применяется ли привилегия к родительской ссылке внешней стороны.
                 /// 
                 /// SchemaName: CanBeParentEntityReference
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DefaultValue = False
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): No
-                ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Yes
-                ///     (Russian - 1049): Да
                 /// TrueOption = 1
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string canbeparententityreference = "canbeparententityreference";
 
                 ///<summary>
+                /// SchemaName: CanBeParentEntityReferenceName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'canbeparententityreference'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string canbeparententityreferencename = "canbeparententityreferencename";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): Component State
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): For internal use only.
+                /// 
+                /// SchemaName: ComponentState
+                /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// Global System  OptionSet componentstate
+                /// DefaultFormValue = -1
+                /// 
+                ///         DisplayName:
+                ///             (English - United States - 1033): Component State
+                ///         
+                ///         Description:
+                ///             (English - United States - 1033): The state of this component.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string componentstate = "componentstate";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): Introduced Version
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): Version in which the component is introduced.
+                /// 
+                /// SchemaName: IntroducedVersion
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 48
+                /// Format = VersionNumber    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string introducedversion = "introducedversion";
+
+                ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Specifies whether the privilege is disabled.
-                ///     (Russian - 1049): Определяет, отключена ли привилегия.
                 /// 
                 /// SchemaName: IsDisabledWhenIntegrated
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: False    IsValidForRead: False    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: False    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DefaultValue = False
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): No
-                ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Yes
-                ///     (Russian - 1049): Да
                 /// TrueOption = 1
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
-                public const string isdisabledwhenintegrated = "isdisabledwhenintegrated";
+                //public const string isdisabledwhenintegrated = "isdisabledwhenintegrated";
 
                 ///<summary>
-                /// Description:
-                ///     (English - United States - 1033): Name of the privilege.
-                ///     (Russian - 1049): Название привилегии.
+                /// DisplayName:
+                ///     (English - United States - 1033): State
                 /// 
-                /// SchemaName: Name
-                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// Description:
+                ///     (English - United States - 1033): Information that specifies whether this component is managed.
+                /// 
+                /// SchemaName: IsManaged
+                /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// MaxLength = 100
-                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// DefaultValue = False
+                /// 
+                /// DisplayName:
+                ///     (English - United States - 1033): Unmanaged
+                /// FalseOption = 0
+                /// 
+                /// DisplayName:
+                ///     (English - United States - 1033): Managed
+                /// TrueOption = 1
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 True
                 ///</summary>
-                public const string name = "name";
+                public const string ismanaged = "ismanaged";
 
                 ///<summary>
-                /// Description:
-                ///     (English - United States - 1033): Unique identifier of the privilege.
-                ///     (Russian - 1049): Уникальный идентификатор привилегии.
-                /// 
-                /// SchemaName: PrivilegeId
-                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
-                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// SchemaName: IsManagedName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'ismanaged'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
-                public const string privilegeid = "privilegeid";
+                //public const string ismanagedname = "ismanagedname";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): Record Overwrite Time
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): For internal use only.
+                /// 
+                /// SchemaName: OverwriteTime
+                /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// DateTimeBehavior = UserLocal    CanChangeDateTimeBehavior = False
+                /// ImeMode = Inactive    Format = DateOnly
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string overwritetime = "overwritetime";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): App Module Unique Id
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): Unique identifier of the Privilege used when synchronizing customizations for the Microsoft Dynamics CRM client for Outlook
+                /// 
+                /// SchemaName: PrivilegeRowId
+                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string privilegerowid = "privilegerowid";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): Solution
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): Unique identifier of the associated solution.
+                /// 
+                /// SchemaName: SolutionId
+                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string solutionid = "solutionid";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): Solution
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): For internal use only.
+                /// 
+                /// SchemaName: SupportingSolutionId
+                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: False    IsValidForAdvancedFind: True
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 True
+                ///</summary>
+                public const string supportingsolutionid = "supportingsolutionid";
 
                 ///<summary>
                 /// SchemaName: VersionNumber
                 /// BigIntAttributeMetadata    AttributeType: BigInt    AttributeTypeName: BigIntType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// MinValue = -9223372036854775808    MaxValue = 9223372036854775807
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string versionnumber = "versionnumber";
             }
@@ -320,11 +972,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship FK_PrivilegeObjectTypeCodes
                 /// 
-                /// PropertyName                               Value                          CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     FK_PrivilegeObjectTypeCodes
                 /// ReferencingEntityNavigationPropertyName    privilegeid
-                /// IsCustomizable                             False                          False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -335,22 +987,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencingEntity privilegeobjecttypecodes:
+                /// ReferencingEntity privilegeobjecttypecodes:    PrimaryIdAttribute privilegeobjecttypecodeid
                 ///     DisplayName:
-                ///     (English - United States - 1033): Privilege Object Type Code
-                ///     (Russian - 1049): Код типа объекта права
+                ///         (English - United States - 1033): Privilege Object Type Code
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Privilege Object Type Codes
-                ///     (Russian - 1049): Коды типов объектов прав
+                ///         (English - United States - 1033): Privilege Object Type Codes
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): For internal use only.
-                ///     (Russian - 1049): Только для внутреннего использования.
+                ///         (English - United States - 1033): For internal use only.
                 ///</summary>
                 public static partial class fk_privilegeobjecttypecodes
                 {
@@ -368,11 +1018,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship Privilege_AsyncOperations
                 /// 
-                /// PropertyName                               Value                          CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     Privilege_AsyncOperations
                 /// ReferencingEntityNavigationPropertyName    regardingobjectid_privilege
-                /// IsCustomizable                             False                          False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -383,22 +1033,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencingEntity asyncoperation:
+                /// ReferencingEntity asyncoperation:    PrimaryIdAttribute asyncoperationid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///     (English - United States - 1033): System Job
-                ///     (Russian - 1049): Системное задание
+                ///         (English - United States - 1033): System Job
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): System Jobs
-                ///     (Russian - 1049): Системные задания
+                ///         (English - United States - 1033): System Jobs
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Process whose execution can proceed independently or in the background.
-                ///     (Russian - 1049): Процесс, который может выполняться независимо или в фоновом режиме.
+                ///         (English - United States - 1033): Process whose execution can proceed independently or in the background.
                 ///</summary>
                 public static partial class privilege_asyncoperations
                 {
@@ -418,11 +1066,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship Privilege_BulkDeleteFailures
                 /// 
-                /// PropertyName                               Value                           CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     Privilege_BulkDeleteFailures
                 /// ReferencingEntityNavigationPropertyName    regardingobjectid_privilege
-                /// IsCustomizable                             False                           False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -433,22 +1081,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencingEntity bulkdeletefailure:
+                /// ReferencingEntity bulkdeletefailure:    PrimaryIdAttribute bulkdeletefailureid
                 ///     DisplayName:
-                ///     (English - United States - 1033): Bulk Delete Failure
-                ///     (Russian - 1049): Ошибка группового удаления
+                ///         (English - United States - 1033): Bulk Delete Failure
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Bulk Delete Failures
-                ///     (Russian - 1049): Ошибки группового удаления
+                ///         (English - United States - 1033): Bulk Delete Failures
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Record that was not deleted during a bulk deletion job.
-                ///     (Russian - 1049): Запись не была удалена во время задания группового удаления.
+                ///         (English - United States - 1033): Record that was not deleted during a bulk deletion job.
                 ///</summary>
                 public static partial class privilege_bulkdeletefailures
                 {
@@ -466,11 +1112,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship userentityinstancedata_privilege
                 /// 
-                /// PropertyName                               Value                               CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     userentityinstancedata_privilege
                 /// ReferencingEntityNavigationPropertyName    objectid_privilege
-                /// IsCustomizable                             False                               False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -481,20 +1127,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencingEntity userentityinstancedata:
+                /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
                 ///     DisplayName:
-                ///     (English - United States - 1033): User Entity Instance Data
-                ///     (Russian - 1049): Данные экземпляра сущности пользователя
-                ///     
-                ///     DisplayCollectionName:
+                ///         (English - United States - 1033): User Entity Instance Data
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Per User item instance data
-                ///     (Russian - 1049): Данные экземпляра позиции "на пользователя"
+                ///         (English - United States - 1033): Per User item instance data
                 ///</summary>
                 public static partial class userentityinstancedata_privilege
                 {
@@ -519,10 +1162,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:N - Relationship ChannelAccessProfile_Privilege
                 /// 
-                /// PropertyName                                   Value                             CanBeChanged
+                /// PropertyName                                   Value
                 /// Entity1NavigationPropertyName                  ChannelAccessProfile_Privilege
                 /// Entity2NavigationPropertyName                  ChannelAccessProfile_Privilege
-                /// IsCustomizable                                 False                             False
+                /// IsCustomizable                                 False
                 /// IsCustomRelationship                           False
                 /// IsValidForAdvancedFind                         False
                 /// RelationshipType                               ManyToManyRelationship
@@ -534,18 +1177,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// Entity2AssociatedMenuConfiguration.Group       Details
                 /// Entity2AssociatedMenuConfiguration.Order       null
                 /// 
-                /// Entity2LogicalName channelaccessprofile:
+                /// Entity2LogicalName channelaccessprofile:    PrimaryIdAttribute channelaccessprofileid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///     (English - United States - 1033): Channel Access Profile
-                ///     (Russian - 1049): Профиль доступа к каналам
+                ///         (English - United States - 1033): Channel Access Profile
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Channel Access Profiles
-                ///     (Russian - 1049): Профили доступа к каналам
+                ///         (English - United States - 1033): Channel Access Profiles
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Information about permissions needed to access Dynamics 365 through external channels.For internal use only
-                ///     (Russian - 1049): Информация о разрешениях, необходимых для доступа к Dynamics 365 через внешние каналы. Только для внутреннего использования.
+                ///         (English - United States - 1033): Information about permissions needed to access Dynamics 365 through external channels.For internal use only
                 ///</summary>
                 public static partial class channelaccessprofile_privilege
                 {
@@ -561,16 +1201,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                     public const string Entity2Attribute_channelaccessprofileid = "channelaccessprofileid";
 
-                    public const string Entity2LogicalNamename = "name";
+                    public const string Entity2LogicalName_PrimaryNameAttribute_name = "name";
                 }
 
                 ///<summary>
                 /// N:N - Relationship roleprivileges_association
                 /// 
-                /// PropertyName                                   Value                         CanBeChanged
+                /// PropertyName                                   Value
                 /// Entity1NavigationPropertyName                  roleprivileges_association
                 /// Entity2NavigationPropertyName                  roleprivileges_association
-                /// IsCustomizable                                 False                         False
+                /// IsCustomizable                                 False
                 /// IsCustomRelationship                           False
                 /// IsValidForAdvancedFind                         False
                 /// RelationshipType                               ManyToManyRelationship
@@ -582,18 +1222,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// Entity2AssociatedMenuConfiguration.Group       Details
                 /// Entity2AssociatedMenuConfiguration.Order       null
                 /// 
-                /// Entity2LogicalName role:
+                /// Entity2LogicalName role:    PrimaryIdAttribute roleid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///     (English - United States - 1033): Security Role
-                ///     (Russian - 1049): Роль безопасности
+                ///         (English - United States - 1033): Security Role
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Security Roles
-                ///     (Russian - 1049): Роли безопасности
+                ///         (English - United States - 1033): Security Roles
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Grouping of security privileges. Users are assigned roles that authorize their access to the Microsoft CRM system.
-                ///     (Russian - 1049): Группа привилегий безопасности. Пользователям назначаются роли, которые контролируют их доступ к CRM-системе Microsoft.
+                ///         (English - United States - 1033): Grouping of security privileges. Users are assigned roles that authorize their access to the Microsoft CRM system.
                 ///</summary>
                 public static partial class roleprivileges_association
                 {
@@ -609,16 +1246,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                     public const string Entity2Attribute_roleid = "roleid";
 
-                    public const string Entity2LogicalNamename = "name";
+                    public const string Entity2LogicalName_PrimaryNameAttribute_name = "name";
                 }
 
                 ///<summary>
                 /// N:N - Relationship roletemplateprivileges_association
                 /// 
-                /// PropertyName                                   Value                                 CanBeChanged
+                /// PropertyName                                   Value
                 /// Entity1NavigationPropertyName                  roletemplateprivileges_association
                 /// Entity2NavigationPropertyName                  roletemplateprivileges_association
-                /// IsCustomizable                                 False                                 False
+                /// IsCustomizable                                 False
                 /// IsCustomRelationship                           False
                 /// IsValidForAdvancedFind                         False
                 /// RelationshipType                               ManyToManyRelationship
@@ -630,18 +1267,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// Entity2AssociatedMenuConfiguration.Group       Details
                 /// Entity2AssociatedMenuConfiguration.Order       null
                 /// 
-                /// Entity1LogicalName roletemplate:
+                /// Entity1LogicalName roletemplate:    PrimaryIdAttribute roletemplateid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///     (English - United States - 1033): Role Template
-                ///     (Russian - 1049): Шаблон роли
+                ///         (English - United States - 1033): Role Template
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Role Templates
-                ///     (Russian - 1049): Шаблоны ролей
+                ///         (English - United States - 1033): Role Templates
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Template for a role. Defines initial attributes that will be used when creating a new role.
-                ///     (Russian - 1049): Шаблон роли. Определяет исходные атрибуты, которые будут использоваться при создании новой роли.
+                ///         (English - United States - 1033): Template for a role. Defines initial attributes that will be used when creating a new role.
                 ///</summary>
                 public static partial class roletemplateprivileges_association
                 {

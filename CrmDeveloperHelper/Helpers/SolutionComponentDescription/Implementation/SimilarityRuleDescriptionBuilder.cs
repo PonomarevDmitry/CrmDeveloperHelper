@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public override string EntityLogicalName => SimilarityRule.EntityLogicalName;
 
-        public override string EntityPrimaryIdAttribute => SimilarityRule.Schema.EntityPrimaryIdAttribute;
+        public override string EntityPrimaryIdAttribute => SimilarityRule.EntityPrimaryIdAttribute;
 
         protected override ColumnSet GetColumnSet()
         {
@@ -57,7 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             values.AddRange(new[]
             {
                 entity.BaseEntityName
-                , entity.Name
+                , entity.name
                 , entity.MatchingEntityName
                 , entity.Id.ToString()
                 , behavior

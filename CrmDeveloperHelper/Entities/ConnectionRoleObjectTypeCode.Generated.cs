@@ -1,91 +1,88 @@
-﻿
+
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 {
-    ///<summary>
-    /// DisplayName:
-    /// (English - United States - 1033): Connection Role Object Type Code
-    /// (Russian - 1049): Код типа объекта роли подключения
-    /// 
-    /// DisplayCollectionName:
-    /// (English - United States - 1033): Connection Role Object Type Codes
-    /// (Russian - 1049): Коды типа объекта роли подключения
-    /// 
-    /// Description:
-    /// (English - United States - 1033): Specifies the entity type that can play specific role in a connection.
-    /// (Russian - 1049): Определение типа сущности, которая может играть определенную роль в подключении.
-    /// 
-    /// PropertyName                          Value                            CanBeChanged
-    /// ActivityTypeMask                      0
-    /// AutoCreateAccessTeams                 False
-    /// AutoRouteToOwnerQueue                 False
-    /// CanBeInManyToMany                     False                            False
-    /// CanBePrimaryEntityInRelationship      False                            False
-    /// CanBeRelatedEntityInRelationship      False                            False
-    /// CanChangeHierarchicalRelationship     False                            False
-    /// CanChangeTrackingBeEnabled            False                            False
-    /// CanCreateAttributes                   False                            False
-    /// CanCreateCharts                       False                            False
-    /// CanCreateForms                        False                            False
-    /// CanCreateViews                        False                            False
-    /// CanEnableSyncToExternalSearchIndex    False                            False
-    /// CanModifyAdditionalSettings           False                            True
-    /// CanTriggerWorkflow                    False
-    /// ChangeTrackingEnabled                 False
-    /// CollectionSchemaName                  ConnectionRoleObjectTypeCodes
-    /// DaysSinceRecordLastModified           0
-    /// EnforceStateTransitions               False
-    /// EntityColor
-    /// EntityHelpUrl
-    /// EntityHelpUrlEnabled                  False
-    /// EntitySetName                         connectionroleobjecttypecodes
-    /// IconLargeName
-    /// IconMediumName
-    /// IconSmallName
-    /// IsActivity                            False
-    /// IsActivityParty                       False
-    /// IsAIRUpdated                          False
-    /// IsAuditEnabled                        False                            False
-    /// IsAvailableOffline                    True
-    /// IsBusinessProcessEnabled              False
-    /// IsChildEntity                         True
-    /// IsConnectionsEnabled                  False                            False
-    /// IsCustomEntity                        False
-    /// IsCustomizable                        False                            False
-    /// IsDocumentManagementEnabled           False
-    /// IsDuplicateDetectionEnabled           False                            False
-    /// IsEnabledForCharts                    False
-    /// IsEnabledForExternalChannels          False
-    /// IsEnabledForTrace                     False
-    /// IsImportable                          False
-    /// IsInteractionCentricEnabled           False
-    /// IsIntersect                           False
-    /// IsKnowledgeManagementEnabled          False
-    /// IsMailMergeEnabled                    False                            False
-    /// IsMappable                            False                            False
-    /// IsOfflineInMobileClient               False                            True
-    /// IsOneNoteIntegrationEnabled           False
-    /// IsOptimisticConcurrencyEnabled        True
-    /// IsPrivate                             True
-    /// IsQuickCreateEnabled                  False
-    /// IsReadingPaneEnabled                  True
-    /// IsReadOnlyInMobileClient              False                            False
-    /// IsRenameable                          False                            False
-    /// IsStateModelAware                     False
-    /// IsValidForAdvancedFind                False
-    /// IsValidForQueue                       False                            False
-    /// IsVisibleInMobile                     False                            False
-    /// IsVisibleInMobileClient               False                            False
-    /// LogicalCollectionName                 connectionroleobjecttypecodes
-    /// LogicalName                           connectionroleobjecttypecode
-    /// ObjectTypeCode                        3233
-    /// OwnershipType                         None
-    /// RecurrenceBaseEntityLogicalName
-    /// ReportViewName
-    /// SchemaName                            ConnectionRoleObjectTypeCode
-    /// SyncToExternalSearchIndex             False
-    ///</summary>
     public partial class ConnectionRoleObjectTypeCode
     {
+        ///<summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Connection Role Object Type Code
+        /// 
+        /// DisplayCollectionName:
+        ///     (English - United States - 1033): Connection Role Object Type Codes
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Specifies the entity type that can play specific role in a connection.
+        /// 
+        /// PropertyName                          Value
+        /// ActivityTypeMask                      0
+        /// AutoCreateAccessTeams                 False
+        /// AutoRouteToOwnerQueue                 False
+        /// CanBeInManyToMany                     False
+        /// CanBePrimaryEntityInRelationship      False
+        /// CanBeRelatedEntityInRelationship      False
+        /// CanChangeHierarchicalRelationship     False
+        /// CanChangeTrackingBeEnabled            False
+        /// CanCreateAttributes                   False
+        /// CanCreateCharts                       False
+        /// CanCreateForms                        False
+        /// CanCreateViews                        False
+        /// CanEnableSyncToExternalSearchIndex    False
+        /// CanModifyAdditionalSettings           False
+        /// CanTriggerWorkflow                    False
+        /// ChangeTrackingEnabled                 False
+        /// CollectionSchemaName                  ConnectionRoleObjectTypeCodes
+        /// DataProviderId                        null
+        /// DataSourceId                          null
+        /// EnforceStateTransitions               False
+        /// EntityHelpUrlEnabled                  False
+        /// EntitySetName                         connectionroleobjecttypecodes
+        /// IntroducedVersion                     5.0.0.0
+        /// IsAIRUpdated                          False
+        /// IsActivity                            False
+        /// IsActivityParty                       False
+        /// IsAvailableOffline                    True
+        /// IsBPFEntity                           False
+        /// IsBusinessProcessEnabled              False
+        /// IsChildEntity                         True
+        /// IsConnectionsEnabled                  False
+        /// IsCustomEntity                        False
+        /// IsCustomizable                        False
+        /// IsDocumentManagementEnabled           False
+        /// IsDocumentRecommendationsEnabled      False
+        /// IsDuplicateDetectionEnabled           False
+        /// IsEnabledForCharts                    False
+        /// IsEnabledForExternalChannels          False
+        /// IsEnabledForTrace                     False
+        /// IsImportable                          False
+        /// IsInteractionCentricEnabled           False
+        /// IsIntersect                           False
+        /// IsKnowledgeManagementEnabled          False
+        /// IsLogicalEntity                       False
+        /// IsMailMergeEnabled                    False
+        /// IsMappable                            False
+        /// IsOfflineInMobileClient               False
+        /// IsOneNoteIntegrationEnabled           False
+        /// IsOptimisticConcurrencyEnabled        True
+        /// IsPrivate                             True
+        /// IsQuickCreateEnabled                  False
+        /// IsReadOnlyInMobileClient              False
+        /// IsReadingPaneEnabled                  True
+        /// IsRenameable                          False
+        /// IsSLAEnabled                          False
+        /// IsStateModelAware                     False
+        /// IsValidForAdvancedFind                False
+        /// IsValidForQueue                       False
+        /// IsVisibleInMobile                     False
+        /// IsVisibleInMobileClient               False
+        /// LogicalCollectionName                 connectionroleobjecttypecodes
+        /// LogicalName                           connectionroleobjecttypecode
+        /// ObjectTypeCode                        3233
+        /// OwnershipType                         None
+        /// PrimaryIdAttribute                    connectionroleobjecttypecodeid
+        /// SchemaName                            ConnectionRoleObjectTypeCode
+        /// SyncToExternalSearchIndex             False
+        /// UsesBusinessDataLabelTable            False
+        ///</summary>
         public static partial class Schema
         {
             public const string EntityLogicalName = "connectionroleobjecttypecode";
@@ -94,82 +91,206 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
             public const string EntityPrimaryIdAttribute = "connectionroleobjecttypecodeid";
 
+            public const int EntityObjectTypeCode = 3233;
+
             #region Attributes.
 
             public static partial class Attributes
             {
                 ///<summary>
+                /// Description:
+                ///     (English - United States - 1033): Unique identifier of the connection role object type association.
+                /// 
+                /// SchemaName: ConnectionRoleObjectTypeCodeId
+                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    True
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string connectionroleobjecttypecodeid = "connectionroleobjecttypecodeid";
+
+                ///<summary>
                 /// SchemaName: AssociatedObjectTypeCode
                 /// EntityNameAttributeMetadata    AttributeType: EntityName    AttributeTypeName: EntityNameType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string associatedobjecttypecode = "associatedobjecttypecode";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Connection Role
-                ///     (Russian - 1049): Роль подключения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the connection role associated with the Connection Role Object Type Code.
-                ///     (Russian - 1049): Уникальный идентификатор роли подключения, связанной с кодом типа объекта роли подключения.
                 /// 
                 /// SchemaName: ConnectionRoleId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: connectionrole
                 /// 
                 ///     Target connectionrole    PrimaryIdAttribute connectionroleid    PrimaryNameAttribute name
                 ///         DisplayName:
-                ///         (English - United States - 1033): Connection Role
-                ///         (Russian - 1049): Роль подключения
+                ///             (English - United States - 1033): Connection Role
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Connection Roles
-                ///         (Russian - 1049): Роли подключения
+                ///             (English - United States - 1033): Connection Roles
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Role describing a relationship between a two records.
-                ///         (Russian - 1049): Роль, описывающая отношение между двумя записями.
+                ///             (English - United States - 1033): Role describing a relationship between a two records.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string connectionroleid = "connectionroleid";
 
                 ///<summary>
-                /// Description:
-                ///     (English - United States - 1033): Unique identifier of the connection role object type association.
-                ///     (Russian - 1049): Уникальный идентификатор связи типа объекта роли подключения.
-                /// 
-                /// SchemaName: ConnectionRoleObjectTypeCodeId
-                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
-                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// SchemaName: ConnectionRoleIdName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'connectionroleid'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
-                public const string connectionroleobjecttypecodeid = "connectionroleobjecttypecodeid";
+                //public const string connectionroleidname = "connectionroleidname";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Organization 
-                ///     (Russian - 1049): Предприятие 
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the organization associated with the connectionroleobjecttypecode.
-                ///     (Russian - 1049): Уникальный идентификатор организации, связанной с connectionroleobjecttypecode.
                 /// 
                 /// SchemaName: OrganizationId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string organizationid = "organizationid";
 
                 ///<summary>
                 /// SchemaName: VersionNumber
                 /// BigIntAttributeMetadata    AttributeType: BigInt    AttributeTypeName: BigIntType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// MinValue = -9223372036854775808    MaxValue = 9223372036854775807
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string versionnumber = "versionnumber";
             }
@@ -183,11 +304,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship connection_role_connection_role_object_type_codes
                 /// 
-                /// PropertyName                               Value                                                CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     connection_role_connection_role_object_type_codes
                 /// ReferencingEntityNavigationPropertyName    connectionroleid
-                /// IsCustomizable                             False                                                False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -198,22 +319,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity connectionrole:
+                /// ReferencedEntity connectionrole:    PrimaryIdAttribute connectionroleid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///     (English - United States - 1033): Connection Role
-                ///     (Russian - 1049): Роль подключения
+                ///         (English - United States - 1033): Connection Role
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Connection Roles
-                ///     (Russian - 1049): Роли подключения
+                ///         (English - United States - 1033): Connection Roles
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Role describing a relationship between a two records.
-                ///     (Russian - 1049): Роль, описывающая отношение между двумя записями.
+                ///         (English - United States - 1033): Role describing a relationship between a two records.
                 ///</summary>
                 public static partial class connection_role_connection_role_object_type_codes
                 {
@@ -240,11 +359,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship userentityinstancedata_connectionroleobjecttypecode
                 /// 
-                /// PropertyName                               Value                                                  CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     userentityinstancedata_connectionroleobjecttypecode
                 /// ReferencingEntityNavigationPropertyName    objectid_connectionroleobjecttypecode
-                /// IsCustomizable                             False                                                  False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -255,20 +374,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencingEntity userentityinstancedata:
+                /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
                 ///     DisplayName:
-                ///     (English - United States - 1033): User Entity Instance Data
-                ///     (Russian - 1049): Данные экземпляра сущности пользователя
-                ///     
-                ///     DisplayCollectionName:
+                ///         (English - United States - 1033): User Entity Instance Data
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Per User item instance data
-                ///     (Russian - 1049): Данные экземпляра позиции "на пользователя"
+                ///         (English - United States - 1033): Per User item instance data
                 ///</summary>
                 public static partial class userentityinstancedata_connectionroleobjecttypecode
                 {

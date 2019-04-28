@@ -43,7 +43,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 LinkFromAttributeName = SdkMessagePair.Schema.Attributes.sdkmessageid,
 
                 LinkToEntityName = SdkMessage.EntityLogicalName,
-                LinkToAttributeName = SdkMessage.PrimaryIdAttribute,
+                LinkToAttributeName = SdkMessage.EntityPrimaryIdAttribute,
 
                 EntityAlias = SdkMessageRequest.Schema.Attributes.sdkmessagepairid + "." + SdkMessagePair.Schema.Attributes.sdkmessageid,
 
@@ -66,7 +66,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = SdkMessageRequest.Schema.Attributes.sdkmessagepairid,
 
                         LinkToEntityName = SdkMessagePair.EntityLogicalName,
-                        LinkToAttributeName = SdkMessagePair.PrimaryIdAttribute,
+                        LinkToAttributeName = SdkMessagePair.EntityPrimaryIdAttribute,
 
                         EntityAlias = SdkMessageRequest.Schema.Attributes.sdkmessagepairid,
 
@@ -146,7 +146,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(SdkMessageRequest.PrimaryIdAttribute, ConditionOperator.Equal, idSdkMessageRequest),
+                        new ConditionExpression(SdkMessageRequest.EntityPrimaryIdAttribute, ConditionOperator.Equal, idSdkMessageRequest),
                     },
                 },
 
@@ -158,7 +158,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = SdkMessageRequest.Schema.Attributes.sdkmessagepairid,
 
                         LinkToEntityName = SdkMessagePair.EntityLogicalName,
-                        LinkToAttributeName = SdkMessagePair.PrimaryIdAttribute,
+                        LinkToAttributeName = SdkMessagePair.EntityPrimaryIdAttribute,
 
                         EntityAlias = SdkMessageRequest.Schema.Attributes.sdkmessagepairid,
 
@@ -172,7 +172,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                                 LinkFromAttributeName = SdkMessagePair.Schema.Attributes.sdkmessageid,
 
                                 LinkToEntityName = SdkMessage.EntityLogicalName,
-                                LinkToAttributeName = SdkMessage.PrimaryIdAttribute,
+                                LinkToAttributeName = SdkMessage.EntityPrimaryIdAttribute,
 
                                 EntityAlias = SdkMessageRequest.Schema.Attributes.sdkmessagepairid + "." + SdkMessagePair.Schema.Attributes.sdkmessageid,
 

@@ -142,7 +142,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new LinkEntity()
                     {
                         LinkFromEntityName = SystemUser.EntityLogicalName,
-                        LinkFromAttributeName = SystemUser.PrimaryIdAttribute,
+                        LinkFromAttributeName = SystemUser.EntityPrimaryIdAttribute,
 
                         LinkToEntityName = TeamMembership.Schema.EntityLogicalName,
                         LinkToAttributeName = TeamMembership.Schema.Attributes.systemuserid,
@@ -237,7 +237,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new LinkEntity()
                     {
                         LinkFromEntityName = SystemUser.EntityLogicalName,
-                        LinkFromAttributeName = SystemUser.PrimaryIdAttribute,
+                        LinkFromAttributeName = SystemUser.EntityPrimaryIdAttribute,
 
                         LinkToEntityName = SystemUserRoles.Schema.EntityLogicalName,
                         LinkToAttributeName = SystemUserRoles.Schema.Attributes.systemuserid,

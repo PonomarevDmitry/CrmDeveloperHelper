@@ -94,7 +94,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(SdkMessageProcessingStepSecureConfig.PrimaryIdAttribute, ConditionOperator.Equal, id),
+                        new ConditionExpression(SdkMessageProcessingStepSecureConfig.EntityPrimaryIdAttribute, ConditionOperator.Equal, id),
                     },
                 },
             };

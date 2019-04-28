@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public override string EntityLogicalName => Workflow.EntityLogicalName;
 
-        public override string EntityPrimaryIdAttribute => Workflow.Schema.EntityPrimaryIdAttribute;
+        public override string EntityPrimaryIdAttribute => Workflow.EntityPrimaryIdAttribute;
 
         protected override ColumnSet GetColumnSet()
         {

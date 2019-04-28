@@ -215,7 +215,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new LinkEntity()
                     {
                         LinkFromEntityName = DisplayString.EntityLogicalName,
-                        LinkFromAttributeName = DisplayString.PrimaryIdAttribute,
+                        LinkFromAttributeName = DisplayString.EntityPrimaryIdAttribute,
 
                         LinkToEntityName = DisplayStringMap.EntityLogicalName,
                         LinkToAttributeName = DisplayStringMap.Schema.Attributes.displaystringid,

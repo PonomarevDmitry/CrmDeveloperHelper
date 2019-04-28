@@ -45,7 +45,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new LinkEntity()
                     {
                         LinkFromEntityName = SdkMessageFilter.EntityLogicalName,
-                        LinkFromAttributeName = SdkMessageFilter.PrimaryIdAttribute,
+                        LinkFromAttributeName = SdkMessageFilter.EntityPrimaryIdAttribute,
 
                         LinkToEntityName = SdkMessageProcessingStep.EntityLogicalName,
                         LinkToAttributeName = SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid,
@@ -200,7 +200,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(SdkMessageFilter.PrimaryIdAttribute, ConditionOperator.In, ids),
+                        new ConditionExpression(SdkMessageFilter.EntityPrimaryIdAttribute, ConditionOperator.In, ids),
                     },
                 },
 
@@ -212,7 +212,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = SdkMessageFilter.Schema.Attributes.sdkmessageid,
 
                         LinkToEntityName = SdkMessage.EntityLogicalName,
-                        LinkToAttributeName = SdkMessage.PrimaryIdAttribute,
+                        LinkToAttributeName = SdkMessage.EntityPrimaryIdAttribute,
 
                         Columns = new ColumnSet(true),
 
@@ -287,7 +287,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = SdkMessageFilter.Schema.Attributes.sdkmessageid,
 
                         LinkToEntityName = SdkMessage.EntityLogicalName,
-                        LinkToAttributeName = SdkMessage.PrimaryIdAttribute,
+                        LinkToAttributeName = SdkMessage.EntityPrimaryIdAttribute,
 
                         LinkCriteria =
                         {

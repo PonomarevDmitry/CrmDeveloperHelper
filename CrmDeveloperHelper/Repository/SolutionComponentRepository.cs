@@ -105,7 +105,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = SolutionComponent.Schema.Attributes.solutionid,
 
                         LinkToEntityName = Solution.EntityLogicalName,
-                        LinkToAttributeName = Solution.PrimaryIdAttribute,
+                        LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
 
                         LinkCriteria =
                         {

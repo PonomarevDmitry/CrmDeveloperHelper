@@ -238,7 +238,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new LinkEntity()
                     {
                         LinkFromEntityName = Team.EntityLogicalName,
-                        LinkFromAttributeName = Team.PrimaryIdAttribute,
+                        LinkFromAttributeName = Team.EntityPrimaryIdAttribute,
 
                         LinkToEntityName = TeamRoles.Schema.EntityLogicalName,
                         LinkToAttributeName = TeamRoles.Schema.Attributes.teamid,

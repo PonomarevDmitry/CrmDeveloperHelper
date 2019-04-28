@@ -1,97 +1,100 @@
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 {
-    ///<summary>
-    /// DisplayName:
-    ///     (Russian - 1049): Поставщик данных виртуальной сущности
-    /// 
-    /// DisplayCollectionName:
-    ///     (Russian - 1049): Поставщики данных виртуальных сущностей
-    /// 
-    /// Description:
-    ///     (Russian - 1049): Разработчики могут регистрировать подключаемые модули для поставщика данных, чтобы обеспечить виртуальным сущностям в системе доступ к данным.
-    /// 
-    /// PropertyName                          Value
-    /// ActivityTypeMask                      0
-    /// AutoCreateAccessTeams                 False
-    /// AutoRouteToOwnerQueue                 False
-    /// CanBeInManyToMany                     False
-    /// CanBePrimaryEntityInRelationship      False
-    /// CanBeRelatedEntityInRelationship      False
-    /// CanChangeHierarchicalRelationship     False
-    /// CanChangeTrackingBeEnabled            False
-    /// CanCreateAttributes                   False
-    /// CanCreateCharts                       False
-    /// CanCreateForms                        False
-    /// CanCreateViews                        False
-    /// CanEnableSyncToExternalSearchIndex    False
-    /// CanModifyAdditionalSettings           False
-    /// CanTriggerWorkflow                    False
-    /// ChangeTrackingEnabled                 False
-    /// CollectionSchemaName                  EntityDataProviders
-    /// DaysSinceRecordLastModified           0
-    /// EnforceStateTransitions               False
-    /// EntityColor
-    /// EntityHelpUrl
-    /// EntityHelpUrlEnabled                  False
-    /// EntitySetName                         entitydataproviders
-    /// IconLargeName
-    /// IconMediumName
-    /// IconSmallName
-    /// IsActivity                            False
-    /// IsActivityParty                       False
-    /// IsAIRUpdated                          False
-    /// IsAuditEnabled                        False
-    /// IsAvailableOffline                    False
-    /// IsBusinessProcessEnabled              False
-    /// IsChildEntity                         False
-    /// IsConnectionsEnabled                  False
-    /// IsCustomEntity                        False
-    /// IsCustomizable                        False
-    /// IsDocumentManagementEnabled           False
-    /// IsDuplicateDetectionEnabled           False
-    /// IsEnabledForCharts                    False
-    /// IsEnabledForExternalChannels          False
-    /// IsEnabledForTrace                     False
-    /// IsImportable                          False
-    /// IsInteractionCentricEnabled           False
-    /// IsIntersect                           False
-    /// IsKnowledgeManagementEnabled          False
-    /// IsMailMergeEnabled                    False
-    /// IsMappable                            False
-    /// IsOfflineInMobileClient               False
-    /// IsOneNoteIntegrationEnabled           False
-    /// IsOptimisticConcurrencyEnabled        True
-    /// IsPrivate                             False
-    /// IsQuickCreateEnabled                  False
-    /// IsReadingPaneEnabled                  False
-    /// IsReadOnlyInMobileClient              False
-    /// IsRenameable                          False
-    /// IsStateModelAware                     False
-    /// IsValidForAdvancedFind                False
-    /// IsValidForQueue                       False
-    /// IsVisibleInMobile                     False
-    /// IsVisibleInMobileClient               False
-    /// LogicalCollectionName                 entitydataproviders
-    /// LogicalName                           entitydataprovider
-    /// ObjectTypeCode                        78
-    /// OwnershipType                         OrganizationOwned
-    /// RecurrenceBaseEntityLogicalName
-    /// ReportViewName
-    /// SchemaName                            EntityDataProvider
-    /// SyncToExternalSearchIndex             False
-    ///</summary>
     public partial class EntityDataProvider
     {
+        ///<summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Virtual Entity Data Provider
+        /// 
+        /// DisplayCollectionName:
+        ///     (English - United States - 1033): Virtual Entity Data Providers
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Developers can register plug-ins on a data provider to enable data access for virtual entities in the system.
+        /// 
+        /// PropertyName                          Value
+        /// ActivityTypeMask                      0
+        /// AutoCreateAccessTeams                 False
+        /// AutoRouteToOwnerQueue                 False
+        /// CanBeInManyToMany                     False
+        /// CanBePrimaryEntityInRelationship      False
+        /// CanBeRelatedEntityInRelationship      False
+        /// CanChangeHierarchicalRelationship     False
+        /// CanChangeTrackingBeEnabled            False
+        /// CanCreateAttributes                   False
+        /// CanCreateCharts                       False
+        /// CanCreateForms                        False
+        /// CanCreateViews                        False
+        /// CanEnableSyncToExternalSearchIndex    False
+        /// CanModifyAdditionalSettings           False
+        /// CanTriggerWorkflow                    False
+        /// ChangeTrackingEnabled                 False
+        /// CollectionSchemaName                  EntityDataProviders
+        /// DataProviderId                        null
+        /// DataSourceId                          null
+        /// EnforceStateTransitions               False
+        /// EntityHelpUrlEnabled                  False
+        /// EntitySetName                         entitydataproviders
+        /// IntroducedVersion                     9.0.0.0
+        /// IsAIRUpdated                          False
+        /// IsActivity                            False
+        /// IsActivityParty                       False
+        /// IsAvailableOffline                    False
+        /// IsBPFEntity                           False
+        /// IsBusinessProcessEnabled              False
+        /// IsChildEntity                         False
+        /// IsConnectionsEnabled                  False
+        /// IsCustomEntity                        False
+        /// IsCustomizable                        False
+        /// IsDocumentManagementEnabled           False
+        /// IsDocumentRecommendationsEnabled      False
+        /// IsDuplicateDetectionEnabled           False
+        /// IsEnabledForCharts                    False
+        /// IsEnabledForExternalChannels          False
+        /// IsEnabledForTrace                     False
+        /// IsImportable                          False
+        /// IsInteractionCentricEnabled           False
+        /// IsIntersect                           False
+        /// IsKnowledgeManagementEnabled          False
+        /// IsLogicalEntity                       False
+        /// IsMailMergeEnabled                    False
+        /// IsMappable                            False
+        /// IsOfflineInMobileClient               False
+        /// IsOneNoteIntegrationEnabled           False
+        /// IsOptimisticConcurrencyEnabled        True
+        /// IsPrivate                             False
+        /// IsQuickCreateEnabled                  False
+        /// IsReadOnlyInMobileClient              False
+        /// IsReadingPaneEnabled                  False
+        /// IsRenameable                          False
+        /// IsSLAEnabled                          False
+        /// IsStateModelAware                     False
+        /// IsValidForAdvancedFind                False
+        /// IsValidForQueue                       False
+        /// IsVisibleInMobile                     False
+        /// IsVisibleInMobileClient               False
+        /// LogicalCollectionName                 entitydataproviders
+        /// LogicalName                           entitydataprovider
+        /// ObjectTypeCode                        78
+        /// OwnershipType                         OrganizationOwned
+        /// PrimaryIdAttribute                    entitydataproviderid
+        /// PrimaryNameAttribute                  name
+        /// SchemaName                            EntityDataProvider
+        /// SyncToExternalSearchIndex             False
+        /// UsesBusinessDataLabelTable            False
+        ///</summary>
         public static partial class Schema
         {
             public const string EntityLogicalName = "entitydataprovider";
 
             public const string EntitySchemaName = "EntityDataProvider";
 
+            public const string EntityPrimaryIdAttribute = "entitydataproviderid";
+
             public const string EntityPrimaryNameAttribute = "name";
 
-            public const string EntityPrimaryIdAttribute = "entitydataproviderid";
+            public const int EntityObjectTypeCode = 78;
 
             #region Attributes.
 
@@ -99,10 +102,80 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Состояние компонента
+                ///     (English - United States - 1033): Data Provider
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Только для внутреннего использования.
+                ///     (English - United States - 1033): Unique identifier of the data provider.
+                /// 
+                /// SchemaName: EntityDataProviderId
+                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   True
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    True
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 True
+                ///</summary>
+                public const string entitydataproviderid = "entitydataproviderid";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): Name
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): The name of this Data Provider. This is the name that appears in the dropdown when creating a new entity.
+                /// 
+                /// SchemaName: Name
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  True
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
+                ///</summary>
+                public const string name = "name";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): Component State
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): For internal use only.
                 /// 
                 /// SchemaName: ComponentState
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -113,31 +186,69 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// DefaultFormValue = -1
                 /// 
                 ///         DisplayName:
-                ///             (Russian - 1049): Состояние компонента
+                ///             (English - United States - 1033): Component State
                 ///         
                 ///         Description:
-                ///             (Russian - 1049): Состояние этого компонента.
+                ///             (English - United States - 1033): The state of this component.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string componentstate = "componentstate";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Подключаемый модуль Create
+                ///     (English - United States - 1033): Create Plugin
                 /// 
                 /// SchemaName: CreatePlugin
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string createplugin = "createplugin";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Логическое имя сущности источника данных
+                ///     (English - United States - 1033): Data Source Entity Logical Name
                 /// 
                 /// Description:
-                ///     (Russian - 1049): При создании поставщика данных конечный пользователь должен выбрать сущность источника данных, которая будет создана для этого поставщика.
+                ///     (English - United States - 1033): When creating a Data Provider, the end user must select the name of the Data Source entity that will be created for the provider.
                 /// 
                 /// SchemaName: DataSourceLogicalName
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -146,27 +257,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 100
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string datasourcelogicalname = "datasourcelogicalname";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Подключаемый модуль Delete
+                ///     (English - United States - 1033): Delete Plugin
                 /// 
                 /// SchemaName: DeletePlugin
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string deleteplugin = "deleteplugin";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Описание
+                ///     (English - United States - 1033): Description
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Для чего используется этот поставщик данных? На какие технологии хранилища данных он ориентирован?
+                ///     (English - United States - 1033): What is this Data Provider used for and data store technologies does it target?
                 /// 
                 /// SchemaName: Description
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -175,45 +324,68 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 1000
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string description = "description";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Поставщик данных
+                ///     (English - United States - 1033): Unique Id
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Уникальный идентификатор поставщика данных.
-                /// 
-                /// SchemaName: EntityDataProviderId
-                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForUpdate: False
-                /// IsValidForRead: True    IsValidForAdvancedFind: True
-                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
-                ///</summary>
-                public const string entitydataproviderid = "entitydataproviderid";
-
-                ///<summary>
-                /// DisplayName:
-                ///     (Russian - 1049): Уникальный идентификатор
-                /// 
-                /// Description:
-                ///     (Russian - 1049): Только для внутреннего использования.
+                ///     (English - United States - 1033): For internal use only.
                 /// 
                 /// SchemaName: EntityDataProviderIdUnique
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string entitydataprovideridunique = "entitydataprovideridunique";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Версия добавления
+                ///     (English - United States - 1033): Introduced Version
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Версия, в которой была добавлена форма.
+                ///     (English - United States - 1033): Version in which the form is introduced.
                 /// 
                 /// SchemaName: IntroducedVersion
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -222,30 +394,68 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 48
                 /// Format = VersionNumber    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string introducedversion = "introducedversion";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Настраиваемый
+                ///     (English - United States - 1033): Customizable
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Сведения, указывающие на возможность настройки этого компонента.
+                ///     (English - United States - 1033): Information that specifies whether this component can be customized.
                 /// 
                 /// SchemaName: IsCustomizable
                 /// ManagedPropertyAttributeMetadata    AttributeType: ManagedProperty    AttributeTypeName: ManagedPropertyType    RequiredLevel: SystemRequired
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string iscustomizable = "iscustomizable";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Состояние
+                ///     (English - United States - 1033): State
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Указывает, является ли компонент решения частью управляемого решения.
+                ///     (English - United States - 1033): Indicates whether the solution component is part of a managed solution.
                 /// 
                 /// SchemaName: IsManaged
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
@@ -255,12 +465,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// DefaultValue = False
                 /// 
                 /// DisplayName:
-                ///     (Russian - 1049): Неуправляемый
+                ///     (English - United States - 1033): Unmanaged
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
-                ///     (Russian - 1049): Управляемый
+                ///     (English - United States - 1033): Managed
                 /// TrueOption = 1
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string ismanaged = "ismanaged";
 
@@ -270,47 +499,68 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 //public const string ismanagedname = "ismanagedname";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Имя
+                ///     (English - United States - 1033): Organization Id
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Имя этого поставщика данных. Это имя отображается в раскрывающемся списке при создании новой сущности.
-                /// 
-                /// SchemaName: Name
-                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForUpdate: True
-                /// IsValidForRead: True    IsValidForAdvancedFind: True
-                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// MaxLength = 100
-                /// Format = Text    ImeMode = Auto    IsLocalizable = False
-                ///</summary>
-                public const string name = "name";
-
-                ///<summary>
-                /// DisplayName:
-                ///     (Russian - 1049): Код организации
-                /// 
-                /// Description:
-                ///     (Russian - 1049): Уникальный идентификатор организации.
+                ///     (English - United States - 1033): Unique identifier for the organization.
                 /// 
                 /// SchemaName: OrganizationId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   True
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string organizationid = "organizationid";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Время замены записи
+                ///     (English - United States - 1033): Record Overwrite Time
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Только для внутреннего использования.
+                ///     (English - United States - 1033): For internal use only.
                 /// 
                 /// SchemaName: OverwriteTime
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
@@ -319,72 +569,186 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DateTimeBehavior = UserLocal    CanChangeDateTimeBehavior = False
                 /// ImeMode = Inactive    Format = DateOnly
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string overwritetime = "overwritetime";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Подключаемый модуль MultipleRetrieve
+                ///     (English - United States - 1033): MultipleRetrieve Plugin
                 /// 
                 /// SchemaName: RetrieveMultiplePlugin
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string retrievemultipleplugin = "retrievemultipleplugin";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Подключаемый модуль Retrieve
+                ///     (English - United States - 1033): Retrieve Plugin
                 /// 
                 /// SchemaName: RetrievePlugin
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string retrieveplugin = "retrieveplugin";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Решение
+                ///     (English - United States - 1033): Solution
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Уникальный идентификатор связанного решения.
+                ///     (English - United States - 1033): Unique identifier of the associated solution.
                 /// 
                 /// SchemaName: SolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string solutionid = "solutionid";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Решение
+                ///     (English - United States - 1033): Solution
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Только для внутреннего использования.
+                ///     (English - United States - 1033): For internal use only.
                 /// 
                 /// SchemaName: SupportingSolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: False    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string supportingsolutionid = "supportingsolutionid";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Подключаемый модуль Update
+                ///     (English - United States - 1033): Update Plugin
                 /// 
                 /// SchemaName: UpdatePlugin
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string updateplugin = "updateplugin";
             }
@@ -418,15 +782,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity organization:
+                /// ReferencedEntity organization:    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///         (Russian - 1049): Предприятие
+                ///         (English - United States - 1033): Organization
                 ///     
                 ///     DisplayCollectionName:
-                ///         (Russian - 1049): Предприятия
+                ///         (English - United States - 1033): Organizations
                 ///     
                 ///     Description:
-                ///         (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
+                ///         (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
                 ///</summary>
                 public static partial class organization_entitydataprovider
                 {
@@ -473,15 +837,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencingEntity entitydatasource:
+                /// ReferencingEntity entitydatasource:    PrimaryIdAttribute entitydatasourceid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///         (Russian - 1049): Источник данных виртуальной сущности
+                ///         (English - United States - 1033): Virtual Entity Data Source
                 ///     
                 ///     DisplayCollectionName:
-                ///         (Russian - 1049): Источники данных виртуальных сущностей
+                ///         (English - United States - 1033): Virtual Entity Data Sources
                 ///     
                 ///     Description:
-                ///         (Russian - 1049): Внутренняя сущность, в которой хранится информация источника данных для всех установленных поставщиков.
+                ///         (English - United States - 1033): Internal entity that stores data source information for all installed providers.
                 ///</summary>
                 public static partial class entitydataprovider_datasource
                 {

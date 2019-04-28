@@ -233,7 +233,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new LinkEntity()
                     {
                         LinkFromEntityName = Privilege.EntityLogicalName,
-                        LinkFromAttributeName = Privilege.PrimaryIdAttribute,
+                        LinkFromAttributeName = Privilege.EntityPrimaryIdAttribute,
 
                         LinkToEntityName = PrivilegeObjectTypeCodes.EntityLogicalName,
                         LinkToAttributeName = PrivilegeObjectTypeCodes.Schema.Attributes.privilegeid,
@@ -317,7 +317,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new LinkEntity()
                     {
                         LinkFromEntityName = Privilege.EntityLogicalName,
-                        LinkFromAttributeName = Privilege.PrimaryIdAttribute,
+                        LinkFromAttributeName = Privilege.EntityPrimaryIdAttribute,
 
                         LinkToEntityName = PrivilegeObjectTypeCodes.EntityLogicalName,
                         LinkToAttributeName = PrivilegeObjectTypeCodes.Schema.Attributes.privilegeid,
@@ -332,7 +332,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new LinkEntity()
                     {
                         LinkFromEntityName = Privilege.EntityLogicalName,
-                        LinkFromAttributeName = Privilege.PrimaryIdAttribute,
+                        LinkFromAttributeName = Privilege.EntityPrimaryIdAttribute,
 
                         LinkToEntityName = RolePrivileges.EntityLogicalName,
                         LinkToAttributeName = RolePrivileges.Schema.Attributes.privilegeid,

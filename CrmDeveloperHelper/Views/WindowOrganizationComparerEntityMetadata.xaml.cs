@@ -8,6 +8,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -422,7 +423,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    ExecuteDifferenceCSharp(item.LogicalName);
+                    ExecuteDifferenceCSharpSchema(item);
                 }
             }
         }
@@ -432,19 +433,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateButtonsEnable();
         }
 
-        private void btnDifferenceCSharpFile_Click(object sender, RoutedEventArgs e)
+        private void btnDifferenceCSharpFileSchema_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
 
-            if (string.IsNullOrEmpty(entity?.LogicalName))
+            if (entity == null
+                || string.IsNullOrEmpty(entity.LogicalName)
+            )
             {
                 return;
             }
 
-            ExecuteDifferenceCSharp(entity?.LogicalName);
+            ExecuteDifferenceCSharpSchema(entity);
         }
 
-        private async Task ExecuteDifferenceCSharp(string entityName)
+        private async Task ExecuteDifferenceCSharpSchema(LinkedEntityMetadata linkedEntityMetadata)
         {
             if (!this.IsControlsEnabled)
             {
@@ -465,14 +468,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, entityName, service1.ConnectionData.Name, service2.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, linkedEntityMetadata.LogicalName, service1.ConnectionData.Name, service2.ConnectionData.Name);
 
-            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataCSharpForEntityFormat1, entityName);
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataCSharpForEntityFormat1, linkedEntityMetadata.LogicalName);
 
-            CreateFileWithEntityMetadataCSharpConfiguration config = GetCSharpConfig(entityName);
+            CreateFileWithEntityMetadataCSharpConfiguration config = GetCSharpConfigSchema(linkedEntityMetadata.LogicalName);
 
-            string fileName1 = string.Format("{0}.{1}.Generated.cs", service1.ConnectionData.Name, entityName);
-            string fileName2 = string.Format("{0}.{1}.Generated.cs", service2.ConnectionData.Name, entityName);
+            string fileName1 = string.Format("{0}.{1}.Generated.cs", service1.ConnectionData.Name, linkedEntityMetadata.EntityMetadata1.SchemaName);
+            string fileName2 = string.Format("{0}.{1}.Generated.cs", service2.ConnectionData.Name, linkedEntityMetadata.EntityMetadata2.SchemaName);
 
             string filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName1));
             string filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName2));
@@ -526,12 +529,116 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(service2.ConnectionData, filePath2);
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataCSharpForEntityCompletedFormat1, entityName);
+            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataCSharpForEntityCompletedFormat1, linkedEntityMetadata.LogicalName);
 
-            this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, entityName, service1.ConnectionData.Name, service2.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, linkedEntityMetadata.LogicalName, service1.ConnectionData.Name, service2.ConnectionData.Name);
         }
 
-        private CreateFileWithEntityMetadataCSharpConfiguration GetCSharpConfig(string entityName)
+        private void btnDifferenceCSharpFileProxyClass_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedLinkedEntityMetadata();
+
+            if (entity == null
+                || string.IsNullOrEmpty(entity.LogicalName)
+            )
+            {
+                return;
+            }
+
+            ExecuteDifferenceCSharpProxyClass(entity);
+        }
+
+        private async Task ExecuteDifferenceCSharpProxyClass(LinkedEntityMetadata linkedEntityMetadata)
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(_commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                _commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(_commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, _commonConfig.FolderForExport);
+                _commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
+            var service1 = await GetService1();
+            var service2 = await GetService2();
+
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, linkedEntityMetadata.LogicalName, service1.ConnectionData.Name, service2.ConnectionData.Name);
+
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataCSharpForEntityFormat1, linkedEntityMetadata.LogicalName);
+
+            CreateFileWithEntityMetadataCSharpConfiguration config = GetCSharpConfigProxyClass(linkedEntityMetadata.LogicalName);
+
+            string fileName1 = string.Format("{0}.{1}.cs", service1.ConnectionData.Name, linkedEntityMetadata.EntityMetadata1.SchemaName);
+            string fileName2 = string.Format("{0}.{1}.cs", service2.ConnectionData.Name, linkedEntityMetadata.EntityMetadata2.SchemaName);
+
+            string filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName1));
+            string filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName2));
+
+            var repository1 = new EntityMetadataRepository(service1);
+            var repository2 = new EntityMetadataRepository(service2);
+
+            ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
+            ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
+
+            INamingService namingService1 = new NamingService(service1.ConnectionData.ServiceContextName, config);
+            INamingService namingService2 = new NamingService(service2.ConnectionData.ServiceContextName, config);
+            ITypeMappingService typeMappingService1 = new TypeMappingService(service1.ConnectionData.NamespaceClasses);
+            ITypeMappingService typeMappingService2 = new TypeMappingService(service2.ConnectionData.NamespaceClasses);
+            IMetadataProviderService metadataProviderService1 = new MetadataProviderService(repository1);
+            IMetadataProviderService metadataProviderService2 = new MetadataProviderService(repository2);
+
+            ICodeGenerationServiceProvider codeGenerationServiceProvider1 = new CodeGenerationServiceProvider(typeMappingService1, codeGenerationService, codeWriterFilterService, metadataProviderService1, namingService1);
+            ICodeGenerationServiceProvider codeGenerationServiceProvider2 = new CodeGenerationServiceProvider(typeMappingService2, codeGenerationService, codeWriterFilterService, metadataProviderService2, namingService2);
+
+            var entityMetadataFull1 = await repository1.GetEntityMetadataAsync(linkedEntityMetadata.LogicalName);
+            var entityMetadataFull2 = await repository2.GetEntityMetadataAsync(linkedEntityMetadata.LogicalName);
+
+            CodeGeneratorOptions options = new CodeGeneratorOptions
+            {
+                BlankLinesBetweenMembers = true,
+                BracingStyle = "C",
+                IndentString = config.TabSpacer,
+                VerbatimOrder = true,
+            };
+
+            var task1 = codeGenerationService.WriteEntityFileAsync(entityMetadataFull1, "CSharp", filePath1, service1.ConnectionData.NamespaceClasses, options, codeGenerationServiceProvider1);
+
+            if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+            {
+                await codeGenerationService.WriteEntityFileAsync(entityMetadataFull2, "CSharp", filePath2, service2.ConnectionData.NamespaceClasses, options, codeGenerationServiceProvider2);
+            }
+
+            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service1.ConnectionData.Name, config.EntityName, filePath1);
+
+            if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
+            {
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service2.ConnectionData.Name, config.EntityName, filePath2);
+            }
+
+            if (File.Exists(filePath1) && File.Exists(filePath2))
+            {
+                this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+            }
+            else
+            {
+                this._iWriteToOutput.PerformAction(service1.ConnectionData, filePath1);
+
+                this._iWriteToOutput.PerformAction(service2.ConnectionData, filePath2);
+            }
+
+            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataCSharpForEntityCompletedFormat1, linkedEntityMetadata.LogicalName);
+
+            this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, linkedEntityMetadata.LogicalName, service1.ConnectionData.Name, service2.ConnectionData.Name);
+        }
+
+        private CreateFileWithEntityMetadataCSharpConfiguration GetCSharpConfigSchema(string entityName)
         {
             string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
 
@@ -564,19 +671,54 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return result;
         }
 
+        private CreateFileWithEntityMetadataCSharpConfiguration GetCSharpConfigProxyClass(string entityName)
+        {
+            string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
+
+            var result = new CreateFileWithEntityMetadataCSharpConfiguration
+            (
+                entityName
+                , tabSpacer
+                , _commonConfig.GenerateAttributesProxyClass
+                , _commonConfig.GenerateStatusOptionSetProxyClass
+                , _commonConfig.GenerateLocalOptionSetProxyClass
+                , _commonConfig.GenerateGlobalOptionSetProxyClass
+                , _commonConfig.GenerateOneToManyProxyClass
+                , _commonConfig.GenerateManyToOneProxyClass
+                , _commonConfig.GenerateManyToManyProxyClass
+                , false
+                , _commonConfig.AllDescriptions
+                , _commonConfig.EntityMetadaOptionSetDependentComponents
+                , _commonConfig.GenerateIntoSchemaClass
+                , _commonConfig.SolutionComponentWithManagedInfo
+                , _commonConfig.ConstantType
+                , _commonConfig.OptionSetExportType
+                , _commonConfig.GenerateAttributesProxyClassWithNameOf
+                , _commonConfig.GenerateProxyClassesWithDebuggerNonUserCode
+                , _commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes
+                , _commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
+                , _commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
+                , _commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
+            );
+
+            return result;
+        }
+
         private void btnDifferenceJavaScriptFile_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
 
-            if (string.IsNullOrEmpty(entity?.LogicalName))
+            if (entity == null
+                || string.IsNullOrEmpty(entity.LogicalName)
+            )
             {
                 return;
             }
 
-            ExecuteDifferenceJavaScript(entity?.LogicalName);
+            ExecuteDifferenceJavaScript(entity);
         }
 
-        private async Task ExecuteDifferenceJavaScript(string entityName)
+        private async Task ExecuteDifferenceJavaScript(LinkedEntityMetadata linkedEntityMetadata)
         {
             if (!this.IsControlsEnabled)
             {
@@ -597,14 +739,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service1 = await GetService1();
             var service2 = await GetService2();
 
-            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, entityName, service1.ConnectionData.Name, service2.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, linkedEntityMetadata.LogicalName, service1.ConnectionData.Name, service2.ConnectionData.Name);
 
-            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataJavaScriptForEntityFormat1, entityName);
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataJavaScriptForEntityFormat1, linkedEntityMetadata.LogicalName);
 
-            string filename1 = string.Format("{0}.{1}.EntityMetadata.Generated.js", service1.ConnectionData.Name, entityName);
-            string filename2 = string.Format("{0}.{1}.EntityMetadata.Generated.js", service2.ConnectionData.Name, entityName);
+            string filename1 = string.Format("{0}.{1}.entitymetadata.generated.js", service1.ConnectionData.Name, linkedEntityMetadata.LogicalName);
+            string filename2 = string.Format("{0}.{1}.entitymetadata.generated.js", service2.ConnectionData.Name, linkedEntityMetadata.LogicalName);
 
-            CreateFileWithEntityMetadataJavaScriptConfiguration config = GetJavaScriptConfig(entityName);
+            CreateFileWithEntityMetadataJavaScriptConfiguration config = GetJavaScriptConfig(linkedEntityMetadata.LogicalName);
 
             string filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(filename1));
             string filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(filename2));
@@ -642,9 +784,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.PerformAction(service2.ConnectionData, filePath2);
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataJavaScriptForEntityCompletedFormat1, entityName);
+            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataJavaScriptForEntityCompletedFormat1, linkedEntityMetadata.LogicalName);
 
-            this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, entityName, service1.ConnectionData.Name, service2.ConnectionData.Name);
+            this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, linkedEntityMetadata.LogicalName, service1.ConnectionData.Name, service2.ConnectionData.Name);
         }
 
         private CreateFileWithEntityMetadataJavaScriptConfiguration GetJavaScriptConfig(string entityName)
@@ -661,31 +803,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return result;
         }
 
-        private void btnConnection1CSharp_Click(object sender, RoutedEventArgs e)
+        private void btnConnection1CSharpSchema_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
 
-            if (string.IsNullOrEmpty(entity?.LogicalName))
+            if (entity == null
+                || string.IsNullOrEmpty(entity.LogicalName)
+            )
             {
                 return;
             }
 
-            CreateEntityMetadataFileCSharp(GetService1, entity?.LogicalName);
+            CreateEntityMetadataFileCSharpSchema(GetService1, entity.EntityMetadata1);
         }
 
-        private void btnConnection2CSharp_Click(object sender, RoutedEventArgs e)
+        private void btnConnection2CSharpSchema_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
 
-            if (string.IsNullOrEmpty(entity?.LogicalName))
+            if (entity == null
+                || string.IsNullOrEmpty(entity.LogicalName)
+            )
             {
                 return;
             }
 
-            CreateEntityMetadataFileCSharp(GetService2, entity?.LogicalName);
+            CreateEntityMetadataFileCSharpSchema(GetService2, entity.EntityMetadata2);
         }
 
-        private async Task CreateEntityMetadataFileCSharp(Func<Task<IOrganizationServiceExtented>> getService, string entityName)
+        private async Task CreateEntityMetadataFileCSharpSchema(Func<Task<IOrganizationServiceExtented>> getService, EntityMetadata entityMetadata)
         {
             if (!this.IsControlsEnabled)
             {
@@ -705,15 +851,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await getService();
 
-            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityName);
+            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
 
-            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityName);
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityMetadata.LogicalName);
 
             string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
 
-            var config = GetCSharpConfig(entityName);
+            var config = GetCSharpConfigSchema(entityMetadata.LogicalName);
 
-            string fileName = string.Format("{0}.{1}.Generated.cs", service.ConnectionData.Name, entityName);
+            string fileName = string.Format("{0}.{1}.Generated.cs", service.ConnectionData.Name, entityMetadata.SchemaName);
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             try
@@ -731,22 +877,121 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput, codeGenerationServiceProvider))
                 {
                     await handler.CreateFileAsync(filePath);
-
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
-
-                    this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
                 }
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityName);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityMetadata.LogicalName);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
-                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat1, entityName);
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat1, entityMetadata.LogicalName);
             }
 
-            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityName);
+            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
+        }
+
+        private void btnConnection1CSharpProxyClass_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedLinkedEntityMetadata();
+
+            if (entity == null
+                || string.IsNullOrEmpty(entity.LogicalName)
+            )
+            {
+                return;
+            }
+
+            CreateEntityMetadataFileCSharpProxyClass(GetService1, entity.EntityMetadata1);
+        }
+
+        private void btnConnection2CSharpProxyClass_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedLinkedEntityMetadata();
+
+            if (entity == null
+                || string.IsNullOrEmpty(entity.LogicalName)
+            )
+            {
+                return;
+            }
+
+            CreateEntityMetadataFileCSharpProxyClass(GetService2, entity.EntityMetadata2);
+        }
+
+        private async Task CreateEntityMetadataFileCSharpProxyClass(Func<Task<IOrganizationServiceExtented>> getService, EntityMetadata entityMetadata)
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(_commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                _commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(_commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, _commonConfig.FolderForExport);
+                _commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
+            var service = await getService();
+
+            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
+
+            ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityMetadata.LogicalName);
+
+            string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
+
+            var config = GetCSharpConfigProxyClass(entityMetadata.LogicalName);
+
+            string fileName = string.Format("{0}.{1}.cs", service.ConnectionData.Name, entityMetadata.SchemaName);
+            string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            try
+            {
+                var repository = new EntityMetadataRepository(service);
+
+                ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
+                INamingService namingService = new NamingService(service.ConnectionData.ServiceContextName, config);
+                ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClasses);
+                ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
+                IMetadataProviderService metadataProviderService = new MetadataProviderService(repository);
+
+                ICodeGenerationServiceProvider codeGenerationServiceProvider = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService, namingService);
+
+                var entityMetadataFull = await repository.GetEntityMetadataAsync(entityMetadata.LogicalName);
+
+                CodeGeneratorOptions options = new CodeGeneratorOptions
+                {
+                    BlankLinesBetweenMembers = true,
+                    BracingStyle = "C",
+                    IndentString = config.TabSpacer,
+                    VerbatimOrder = true,
+                };
+
+                await codeGenerationService.WriteEntityFileAsync(entityMetadataFull, "CSharp", filePath, service.ConnectionData.NamespaceClasses, options, codeGenerationServiceProvider);
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityCompletedFormat1, entityMetadata.LogicalName);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.CreatingFileForEntityFailedFormat1, entityMetadata.LogicalName);
+            }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
         }
 
         private void btnConnection1JavaScript_Click(object sender, RoutedEventArgs e)

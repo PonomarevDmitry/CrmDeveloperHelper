@@ -1,923 +1,2199 @@
-﻿
+
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 {
-    ///<summary>
-    /// DisplayName:
-    /// (English - United States - 1033): Sdk Message Processing Step
-    /// (Russian - 1049): Шаг обработки сообщения SDK
-    /// 
-    /// DisplayCollectionName:
-    /// (English - United States - 1033): Sdk Message Processing Steps
-    /// (Russian - 1049): Шаги обработки сообщения SDK
-    /// 
-    /// Description:
-    /// (English - United States - 1033): Stage in the execution pipeline that a plug-in is to execute.
-    /// (Russian - 1049): Стадия конвейерной обработки, на которой выполняется запуск подключаемого модуля.
-    /// 
-    /// PropertyName                          Value                               CanBeChanged
-    /// ActivityTypeMask                      0
-    /// AutoCreateAccessTeams                 False
-    /// AutoRouteToOwnerQueue                 False
-    /// CanBeInManyToMany                     False                               False
-    /// CanBePrimaryEntityInRelationship      False                               False
-    /// CanBeRelatedEntityInRelationship      False                               False
-    /// CanChangeHierarchicalRelationship     False                               False
-    /// CanChangeTrackingBeEnabled            False                               False
-    /// CanCreateAttributes                   False                               False
-    /// CanCreateCharts                       False                               False
-    /// CanCreateForms                        False                               False
-    /// CanCreateViews                        False                               False
-    /// CanEnableSyncToExternalSearchIndex    False                               False
-    /// CanModifyAdditionalSettings           False                               True
-    /// CanTriggerWorkflow                    False
-    /// ChangeTrackingEnabled                 False
-    /// CollectionSchemaName                  SdkMessageProcessingSteps
-    /// DaysSinceRecordLastModified           0
-    /// EnforceStateTransitions               False
-    /// EntityColor
-    /// EntityHelpUrl
-    /// EntityHelpUrlEnabled                  False
-    /// EntitySetName                         sdkmessageprocessingsteps
-    /// IconLargeName
-    /// IconMediumName
-    /// IconSmallName
-    /// IsActivity                            False
-    /// IsActivityParty                       False
-    /// IsAIRUpdated                          False
-    /// IsAuditEnabled                        False                               False
-    /// IsAvailableOffline                    True
-    /// IsBusinessProcessEnabled              False
-    /// IsChildEntity                         False
-    /// IsConnectionsEnabled                  False                               False
-    /// IsCustomEntity                        False
-    /// IsCustomizable                        False                               False
-    /// IsDocumentManagementEnabled           False
-    /// IsDuplicateDetectionEnabled           False                               False
-    /// IsEnabledForCharts                    False
-    /// IsEnabledForExternalChannels          False
-    /// IsEnabledForTrace                     False
-    /// IsImportable                          False
-    /// IsInteractionCentricEnabled           False
-    /// IsIntersect                           False
-    /// IsKnowledgeManagementEnabled          False
-    /// IsMailMergeEnabled                    False                               False
-    /// IsMappable                            False                               False
-    /// IsOfflineInMobileClient               False                               True
-    /// IsOneNoteIntegrationEnabled           False
-    /// IsOptimisticConcurrencyEnabled        True
-    /// IsPrivate                             False
-    /// IsQuickCreateEnabled                  False
-    /// IsReadingPaneEnabled                  True
-    /// IsReadOnlyInMobileClient              False                               False
-    /// IsRenameable                          False                               False
-    /// IsStateModelAware                     False
-    /// IsValidForAdvancedFind                True
-    /// IsValidForQueue                       False                               False
-    /// IsVisibleInMobile                     False                               False
-    /// IsVisibleInMobileClient               False                               False
-    /// LogicalCollectionName                 sdkmessageprocessingsteps
-    /// LogicalName                           sdkmessageprocessingstep
-    /// ObjectTypeCode                        4608
-    /// OwnershipType                         OrganizationOwned
-    /// RecurrenceBaseEntityLogicalName
-    /// ReportViewName                        FilteredSdkMessageProcessingStep
-    /// SchemaName                            SdkMessageProcessingStep
-    /// SyncToExternalSearchIndex             False
-    ///</summary>
     public partial class SdkMessageProcessingStep
     {
+        ///<summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Sdk Message Processing Step
+        /// 
+        /// DisplayCollectionName:
+        ///     (English - United States - 1033): Sdk Message Processing Steps
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Stage in the execution pipeline that a plug-in is to execute.
+        /// 
+        /// PropertyName                          Value
+        /// ActivityTypeMask                      0
+        /// AutoCreateAccessTeams                 False
+        /// AutoRouteToOwnerQueue                 False
+        /// CanBeInManyToMany                     False
+        /// CanBePrimaryEntityInRelationship      False
+        /// CanBeRelatedEntityInRelationship      False
+        /// CanChangeHierarchicalRelationship     False
+        /// CanChangeTrackingBeEnabled            False
+        /// CanCreateAttributes                   False
+        /// CanCreateCharts                       False
+        /// CanCreateForms                        False
+        /// CanCreateViews                        False
+        /// CanEnableSyncToExternalSearchIndex    False
+        /// CanModifyAdditionalSettings           False
+        /// CanTriggerWorkflow                    False
+        /// ChangeTrackingEnabled                 False
+        /// CollectionSchemaName                  SdkMessageProcessingSteps
+        /// DataProviderId                        null
+        /// DataSourceId                          null
+        /// EnforceStateTransitions               False
+        /// EntityHelpUrlEnabled                  False
+        /// EntitySetName                         sdkmessageprocessingsteps
+        /// IntroducedVersion                     5.0.0.0
+        /// IsAIRUpdated                          False
+        /// IsActivity                            False
+        /// IsActivityParty                       False
+        /// IsAvailableOffline                    True
+        /// IsBPFEntity                           False
+        /// IsBusinessProcessEnabled              False
+        /// IsChildEntity                         False
+        /// IsConnectionsEnabled                  False
+        /// IsCustomEntity                        False
+        /// IsCustomizable                        False
+        /// IsDocumentManagementEnabled           False
+        /// IsDocumentRecommendationsEnabled      False
+        /// IsDuplicateDetectionEnabled           False
+        /// IsEnabledForCharts                    False
+        /// IsEnabledForExternalChannels          False
+        /// IsEnabledForTrace                     False
+        /// IsImportable                          False
+        /// IsInteractionCentricEnabled           False
+        /// IsIntersect                           False
+        /// IsKnowledgeManagementEnabled          False
+        /// IsLogicalEntity                       False
+        /// IsMailMergeEnabled                    False
+        /// IsMappable                            False
+        /// IsOfflineInMobileClient               False
+        /// IsOneNoteIntegrationEnabled           False
+        /// IsOptimisticConcurrencyEnabled        True
+        /// IsPrivate                             False
+        /// IsQuickCreateEnabled                  False
+        /// IsReadOnlyInMobileClient              False
+        /// IsReadingPaneEnabled                  True
+        /// IsRenameable                          False
+        /// IsSLAEnabled                          False
+        /// IsStateModelAware                     False
+        /// IsValidForAdvancedFind                True
+        /// IsValidForQueue                       False
+        /// IsVisibleInMobile                     False
+        /// IsVisibleInMobileClient               False
+        /// LogicalCollectionName                 sdkmessageprocessingsteps
+        /// LogicalName                           sdkmessageprocessingstep
+        /// ObjectTypeCode                        4608
+        /// OwnershipType                         OrganizationOwned
+        /// PrimaryIdAttribute                    sdkmessageprocessingstepid
+        /// PrimaryNameAttribute                  name
+        /// ReportViewName                        FilteredSdkMessageProcessingStep
+        /// SchemaName                            SdkMessageProcessingStep
+        /// SyncToExternalSearchIndex             False
+        /// UsesBusinessDataLabelTable            False
+        ///</summary>
         public static partial class Schema
         {
             public const string EntityLogicalName = "sdkmessageprocessingstep";
 
             public const string EntitySchemaName = "SdkMessageProcessingStep";
 
+            public const string EntityPrimaryIdAttribute = "sdkmessageprocessingstepid";
+
             public const string EntityPrimaryNameAttribute = "name";
 
-            public const string EntityPrimaryIdAttribute = "sdkmessageprocessingstepid";
+            public const int EntityObjectTypeCode = 4608;
 
             #region Attributes.
 
             public static partial class Attributes
             {
                 ///<summary>
+                /// Description:
+                ///     (English - United States - 1033): Unique identifier of the SDK message processing step entity.
+                /// 
+                /// SchemaName: SdkMessageProcessingStepId
+                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   True
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    True
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string sdkmessageprocessingstepid = "sdkmessageprocessingstepid";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): Name
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): Name of SdkMessage processing step.
+                /// 
+                /// SchemaName: Name
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 256
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  True
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   True
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
+                ///</summary>
+                public const string name = "name";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Asynchronous Automatic Delete
-                ///     (Russian - 1049): Асинхронное автоматическое удаление
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Indicates whether the asynchronous system job is automatically deleted on completion.
-                ///     (Russian - 1049): Указывает, будет ли асинхронное системное задание автоматически удаляться по выполнении.
                 /// 
                 /// SchemaName: AsyncAutoDelete
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DefaultValue = False
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): No
-                ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Yes
-                ///     (Russian - 1049): Да
                 /// TrueOption = 1
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string asyncautodelete = "asyncautodelete";
 
                 ///<summary>
                 /// DisplayName:
+                ///     (English - United States - 1033): Async Auto Delete Name
+                /// 
+                /// SchemaName: AsyncAutoDeleteName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'asyncautodelete'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string asyncautodeletename = "asyncautodeletename";
+
+                ///<summary>
+                /// DisplayName:
                 ///     (English - United States - 1033): Intent
-                ///     (Russian - 1049): Назначение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Identifies whether a SDK Message Processing Step type will be ReadOnly or Read Write. false - ReadWrite, true - ReadOnly 
-                ///     (Russian - 1049): Указывает, будет ли тип шага обработки сообщения SDK доступен только для чтения либо для чтения и записи. false - для чтения и записи (ReadWrite), true - только для чтения (ReadOnly).
                 /// 
                 /// SchemaName: CanUseReadOnlyConnection
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DefaultValue = False
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): No
-                ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Yes
-                ///     (Russian - 1049): Да
                 /// TrueOption = 1
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              7.1.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string canusereadonlyconnection = "canusereadonlyconnection";
 
                 ///<summary>
+                /// SchemaName: CanUseReadOnlyConnectionName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: SystemRequired    AttributeOf 'canusereadonlyconnection'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              7.1.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string canusereadonlyconnectionname = "canusereadonlyconnectionname";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Component State
-                ///     (Russian - 1049): Состояние компонента
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
-                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: ComponentState
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// Global System  OptionSet componentstate
                 /// DefaultFormValue = -1
+                /// 
+                ///         DisplayName:
+                ///             (English - United States - 1033): Component State
+                ///         
+                ///         Description:
+                ///             (English - United States - 1033): The state of this component.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string componentstate = "componentstate";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Configuration
-                ///     (Russian - 1049): Настройка
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Step-specific configuration for the plug-in type. Passed to the plug-in constructor at run time.
-                ///     (Russian - 1049): Конфигурация типа подключаемого модуля для конкретного шага. Передается конструктору подключаемого модуля при запуске.
                 /// 
                 /// SchemaName: Configuration
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 1073741823
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string configuration = "configuration";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By
-                ///     (Russian - 1049): Создано
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who created the SDK message processing step.
-                ///     (Russian - 1049): Уникальный идентификатор пользователя, создавшего шаг обработки сообщения SDK.
                 /// 
                 /// SchemaName: CreatedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: systemuser
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///         (English - United States - 1033): User
-                ///         (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Users
-                ///         (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string createdby = "createdby";
 
                 ///<summary>
+                /// SchemaName: CreatedByName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'createdby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string createdbyname = "createdbyname";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created On
-                ///     (Russian - 1049): Дата создания
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the SDK message processing step was created.
-                ///     (Russian - 1049): Дата и время создания шага обработки сообщения SDK.
                 /// 
                 /// SchemaName: CreatedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DateTimeBehavior = UserLocal    CanChangeDateTimeBehavior = False
                 /// ImeMode = Inactive    Format = DateAndTime
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string createdon = "createdon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By (Delegate)
-                ///     (Russian - 1049): Кем создано (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who created the sdkmessageprocessingstep.
-                ///     (Russian - 1049): Уникальный идентификатор делегата, создавшего шаг обработки сообщения SDK.
                 /// 
                 /// SchemaName: CreatedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: systemuser
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///         (English - United States - 1033): User
-                ///         (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Users
-                ///         (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string createdonbehalfby = "createdonbehalfby";
 
                 ///<summary>
+                /// SchemaName: CreatedOnBehalfByName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'createdonbehalfby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string createdonbehalfbyname = "createdonbehalfbyname";
+
+                ///<summary>
+                /// SchemaName: CreatedOnBehalfByYomiName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'createdonbehalfby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string createdonbehalfbyyominame = "createdonbehalfbyyominame";
+
+                ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Customization level of the SDK message processing step.
-                ///     (Russian - 1049): Уровень настройки шага обработки сообщения SDK.
                 /// 
                 /// SchemaName: CustomizationLevel
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MinValue = -255    MaxValue = 255
                 /// Format = None
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string customizationlevel = "customizationlevel";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Description
-                ///     (Russian - 1049): Описание
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Description of the SDK message processing step.
-                ///     (Russian - 1049): Описание шага обработки сообщения SDK.
                 /// 
                 /// SchemaName: Description
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 256
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string description = "description";
 
                 ///<summary>
                 /// DisplayName:
+                ///     (English - United States - 1033): EventExpander
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): Configuration for sending pipeline events to the Event Expander service.
+                /// 
+                /// SchemaName: EventExpander
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 1073741823
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
+                ///</summary>
+                public const string eventexpander = "eventexpander";
+
+                ///<summary>
+                /// DisplayName:
                 ///     (English - United States - 1033): Event Handler
-                ///     (Russian - 1049): Обработчик событий
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the associated event handler.
-                ///     (Russian - 1049): Уникальный идентификатор связанного обработчика событий.
                 /// 
                 /// SchemaName: EventHandler
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: plugintype,serviceendpoint
                 /// 
                 ///     Target plugintype    PrimaryIdAttribute plugintypeid    PrimaryNameAttribute name
                 ///         DisplayName:
-                ///         (English - United States - 1033): Plug-in Type
-                ///         (Russian - 1049): Тип подключаемого модуля
+                ///             (English - United States - 1033): Plug-in Type
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Plug-in Types
-                ///         (Russian - 1049): Типы подключаемых модулей
+                ///             (English - United States - 1033): Plug-in Types
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Type that inherits from the IPlugin interface and is contained within a plug-in assembly.
-                ///         (Russian - 1049): Тип, производный от интерфейса IPlugin, и содержащийся в сборке подключаемого модуля.
+                ///             (English - United States - 1033): Type that inherits from the IPlugin interface and is contained within a plug-in assembly.
                 /// 
                 ///     Target serviceendpoint    PrimaryIdAttribute serviceendpointid    PrimaryNameAttribute name
                 ///         DisplayName:
-                ///         (English - United States - 1033): Service Endpoint
-                ///         (Russian - 1049): Конечная точка сервиса
+                ///             (English - United States - 1033): Service Endpoint
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Service Endpoints
-                ///         (Russian - 1049): Конечные точки сервиса
+                ///             (English - United States - 1033): Service Endpoints
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Service endpoint that can be contacted.
-                ///         (Russian - 1049): Конечная точка сервиса, к которой можно обратиться.
+                ///             (English - United States - 1033): Service endpoint that can be contacted.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string eventhandler = "eventhandler";
 
                 ///<summary>
+                /// SchemaName: EventHandlerName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'eventhandler'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 256
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string eventhandlername = "eventhandlername";
+
+                ///<summary>
+                /// SchemaName: EventHandlerTypeCode
+                /// EntityNameAttributeMetadata    AttributeType: EntityName    AttributeTypeName: EntityNameType    RequiredLevel: None    AttributeOf 'eventhandler'
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string eventhandlertypecode = "eventhandlertypecode";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Filtering Attributes
-                ///     (Russian - 1049): Атрибуты фильтрации
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Comma-separated list of attributes. If at least one of these attributes is modified, the plug-in should execute.
-                ///     (Russian - 1049): Список разделенных запятыми атрибутов. Запуск подключаемого модуля следует выполнить при изменении по крайней мере одного из этих атрибутов.
                 /// 
                 /// SchemaName: FilteringAttributes
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 100000
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string filteringattributes = "filteringattributes";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Impersonating User
-                ///     (Russian - 1049): Олицетворяющий пользователь
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user to impersonate context when step is executed.
-                ///     (Russian - 1049): Уникальный идентификатор пользователя для олицетворения контекста при выполнении шага.
                 /// 
                 /// SchemaName: ImpersonatingUserId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: systemuser
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///         (English - United States - 1033): User
-                ///         (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Users
-                ///         (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string impersonatinguserid = "impersonatinguserid";
 
                 ///<summary>
+                /// SchemaName: ImpersonatingUserIdName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'impersonatinguserid'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string impersonatinguseridname = "impersonatinguseridname";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Introduced Version
-                ///     (Russian - 1049): Версия введения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Version in which the form is introduced.
-                ///     (Russian - 1049): Версия, в которой была введена форма.
                 /// 
                 /// SchemaName: IntroducedVersion
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 48
                 /// Format = VersionNumber    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              6.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string introducedversion = "introducedversion";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Invocation Source
-                ///     (Russian - 1049): Источник вызова
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Identifies if a plug-in should be executed from a parent pipeline, a child pipeline, or both.
-                ///     (Russian - 1049): Указывает источник запуска подключаемого модуля: родительский канал, дочерний канал или оба.
                 /// 
                 /// SchemaName: InvocationSource
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// Local System  OptionSet sdkmessageprocessingstep_invocationsource
                 /// DefaultFormValue = 0
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// DeprecatedVersion              5.0.0.0
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string invocationsource = "invocationsource";
 
                 ///<summary>
+                /// SchemaName: InvocationSourceName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'invocationsource'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string invocationsourcename = "invocationsourcename";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Customizable
-                ///     (Russian - 1049): Настраиваемый
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Information that specifies whether this component can be customized.
-                ///     (Russian - 1049): Сведения, указывающие на возможность настройки этого компонента.
                 /// 
                 /// SchemaName: IsCustomizable
                 /// ManagedPropertyAttributeMetadata    AttributeType: ManagedProperty    AttributeTypeName: ManagedPropertyType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string iscustomizable = "iscustomizable";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Hidden
-                ///     (Russian - 1049): Скрытый
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Information that specifies whether this component should be hidden.
-                ///     (Russian - 1049): Сведения, указывающие на необходимость скрытия этого компонента.
                 /// 
                 /// SchemaName: IsHidden
                 /// ManagedPropertyAttributeMetadata    AttributeType: ManagedProperty    AttributeTypeName: ManagedPropertyType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   True
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string ishidden = "ishidden";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): State
-                ///     (Russian - 1049): Область
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Information that specifies whether this component is managed.
-                ///     (Russian - 1049): Сведения о том, является ли компонент управляемым.
                 /// 
                 /// SchemaName: IsManaged
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DefaultValue = False
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Unmanaged
-                ///     (Russian - 1049): Неуправляемый
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Managed
-                ///     (Russian - 1049): Управляемый
                 /// TrueOption = 1
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string ismanaged = "ismanaged";
 
                 ///<summary>
+                /// SchemaName: IsManagedName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'ismanaged'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string ismanagedname = "ismanagedname";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Execution Mode
-                ///     (Russian - 1049): Режим выполнения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Run-time mode of execution, for example, synchronous or asynchronous.
-                ///     (Russian - 1049): Режим запуска, например синхронный или асинхронный.
                 /// 
                 /// SchemaName: Mode
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// Local System  OptionSet sdkmessageprocessingstep_mode
                 /// DefaultFormValue = 0
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string mode = "mode";
 
                 ///<summary>
+                /// SchemaName: ModeName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'mode'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string modename = "modename";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By
-                ///     (Russian - 1049): Изменено
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who last modified the SDK message processing step.
-                ///     (Russian - 1049): Уникальный идентификатор последнего пользователя, изменившего шаг обработки сообщения SDK.
                 /// 
                 /// SchemaName: ModifiedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: systemuser
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///         (English - United States - 1033): User
-                ///         (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Users
-                ///         (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string modifiedby = "modifiedby";
 
                 ///<summary>
+                /// SchemaName: ModifiedByName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'modifiedby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string modifiedbyname = "modifiedbyname";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified On
-                ///     (Russian - 1049): Дата изменения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the SDK message processing step was last modified.
-                ///     (Russian - 1049): Дата и время последнего изменения шага обработки сообщения SDK.
                 /// 
                 /// SchemaName: ModifiedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DateTimeBehavior = UserLocal    CanChangeDateTimeBehavior = False
                 /// ImeMode = Inactive    Format = DateAndTime
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string modifiedon = "modifiedon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By (Delegate)
-                ///     (Russian - 1049): Кем изменено (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who last modified the sdkmessageprocessingstep.
-                ///     (Russian - 1049): Уникальный идентификатор делегата, внесшего последнее изменение в шаг обработки сообщения SDK.
                 /// 
                 /// SchemaName: ModifiedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: systemuser
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///         (English - United States - 1033): User
-                ///         (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Users
-                ///         (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string modifiedonbehalfby = "modifiedonbehalfby";
 
                 ///<summary>
-                /// DisplayName:
-                ///     (English - United States - 1033): Name
-                ///     (Russian - 1049): Название
-                /// 
-                /// Description:
-                ///     (English - United States - 1033): Name of SdkMessage processing step.
-                ///     (Russian - 1049): Название шага обработки сообщения SDK.
-                /// 
-                /// SchemaName: Name
-                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
-                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// MaxLength = 256
+                /// SchemaName: ModifiedOnBehalfByName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'modifiedonbehalfby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
-                public const string name = "name";
+                //public const string modifiedonbehalfbyname = "modifiedonbehalfbyname";
+
+                ///<summary>
+                /// SchemaName: ModifiedOnBehalfByYomiName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'modifiedonbehalfby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string modifiedonbehalfbyyominame = "modifiedonbehalfbyyominame";
 
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the organization with which the SDK message processing step is associated.
-                ///     (Russian - 1049): Уникальный идентификатор организации, с которой связан шаг обработки сообщения SDK.
                 /// 
                 /// SchemaName: OrganizationId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: organization
                 /// 
                 ///     Target organization    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///         DisplayName:
-                ///         (English - United States - 1033): Organization
-                ///         (Russian - 1049): Предприятие
+                ///             (English - United States - 1033): Organization
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Organizations
-                ///         (Russian - 1049): Предприятия
+                ///             (English - United States - 1033): Organizations
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
-                ///         (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
+                ///             (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string organizationid = "organizationid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Record Overwrite Time
-                ///     (Russian - 1049): Время замены записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
-                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: OverwriteTime
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DateTimeBehavior = UserLocal    CanChangeDateTimeBehavior = False
                 /// ImeMode = Inactive    Format = DateOnly
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string overwritetime = "overwritetime";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Plug-In Type
-                ///     (Russian - 1049): Тип подключаемого модуля
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the plug-in type associated with the step.
-                ///     (Russian - 1049): Уникальный идентификатор типа подключаемого модуля, связанного с шагом.
                 /// 
                 /// SchemaName: PluginTypeId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: sdkmessagefilter
                 /// 
                 ///     Target sdkmessagefilter    PrimaryIdAttribute sdkmessagefilterid
                 ///         DisplayName:
-                ///         (English - United States - 1033): Sdk Message Filter
-                ///         (Russian - 1049): Фильтр сообщения SDK
+                ///             (English - United States - 1033): Sdk Message Filter
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Sdk Message Filters
-                ///         (Russian - 1049): Фильтры сообщений SDK
+                ///             (English - United States - 1033): Sdk Message Filters
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Filter that defines which SDK messages are valid for each type of entity.
-                ///         (Russian - 1049): Фильтр, определяющий, какие сообщения SDK подходят для каждого типа сущности.
+                ///             (English - United States - 1033): Filter that defines which SDK messages are valid for each type of entity.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// DeprecatedVersion              5.0.0.0
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string plugintypeid = "plugintypeid";
 
                 ///<summary>
+                /// SchemaName: PluginTypeIdName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'plugintypeid'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// DeprecatedVersion              5.0.0.0
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string plugintypeidname = "plugintypeidname";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Execution Order
-                ///     (Russian - 1049): Порядок выполнения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Processing order within the stage.
-                ///     (Russian - 1049): Порядок обработки внутри этапа.
                 /// 
                 /// SchemaName: Rank
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MinValue = -2147483648    MaxValue = 2147483647
                 /// Format = None
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string rank = "rank";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): SdkMessage Filter
-                ///     (Russian - 1049): Фильтр сообщения SDK
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the SDK message filter.
-                ///     (Russian - 1049): Уникальный идентификатор фильтра сообщения SDK.
                 /// 
                 /// SchemaName: SdkMessageFilterId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: sdkmessagefilter
                 /// 
                 ///     Target sdkmessagefilter    PrimaryIdAttribute sdkmessagefilterid
                 ///         DisplayName:
-                ///         (English - United States - 1033): Sdk Message Filter
-                ///         (Russian - 1049): Фильтр сообщения SDK
+                ///             (English - United States - 1033): Sdk Message Filter
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Sdk Message Filters
-                ///         (Russian - 1049): Фильтры сообщений SDK
+                ///             (English - United States - 1033): Sdk Message Filters
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Filter that defines which SDK messages are valid for each type of entity.
-                ///         (Russian - 1049): Фильтр, определяющий, какие сообщения SDK подходят для каждого типа сущности.
+                ///             (English - United States - 1033): Filter that defines which SDK messages are valid for each type of entity.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string sdkmessagefilterid = "sdkmessagefilterid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): SDK Message
-                ///     (Russian - 1049): Сообщение SDK
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the SDK message.
-                ///     (Russian - 1049): Уникальный идентификатор сообщения SDK.
                 /// 
                 /// SchemaName: SdkMessageId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: sdkmessage
                 /// 
                 ///     Target sdkmessage    PrimaryIdAttribute sdkmessageid    PrimaryNameAttribute name
                 ///         DisplayName:
-                ///         (English - United States - 1033): Sdk Message
-                ///         (Russian - 1049): Сообщение SDK
+                ///             (English - United States - 1033): Sdk Message
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Sdk Messages
-                ///         (Russian - 1049): Сообщения SDK
+                ///             (English - United States - 1033): Sdk Messages
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Message that is supported by the SDK.
-                ///         (Russian - 1049): Сообщение, поддерживаемое SDK.
+                ///             (English - United States - 1033): Message that is supported by the SDK.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string sdkmessageid = "sdkmessageid";
 
                 ///<summary>
-                /// Description:
-                ///     (English - United States - 1033): Unique identifier of the SDK message processing step entity.
-                ///     (Russian - 1049): Уникальный идентификатор сущности шага обработки сообщения SDK.
-                /// 
-                /// SchemaName: SdkMessageProcessingStepId
-                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
-                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// SchemaName: SdkMessageIdName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'sdkmessageid'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
-                public const string sdkmessageprocessingstepid = "sdkmessageprocessingstepid";
+                //public const string sdkmessageidname = "sdkmessageidname";
 
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the SDK message processing step.
-                ///     (Russian - 1049): Уникальный идентификатор шага обработки сообщения SDK.
                 /// 
                 /// SchemaName: SdkMessageProcessingStepIdUnique
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string sdkmessageprocessingstepidunique = "sdkmessageprocessingstepidunique";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): SDK Message Processing Step Secure Configuration
-                ///     (Russian - 1049): Безопасная конфигурация шага обработки сообщения SDK
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the Sdk message processing step secure configuration.
-                ///     (Russian - 1049): Уникальный идентификатор безопасной конфигурации шага обработки сообщения SDK.
                 /// 
                 /// SchemaName: SdkMessageProcessingStepSecureConfigId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: ApplicationRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: sdkmessageprocessingstepsecureconfig
                 /// 
                 ///     Target sdkmessageprocessingstepsecureconfig    PrimaryIdAttribute sdkmessageprocessingstepsecureconfigid
                 ///         DisplayName:
-                ///         (English - United States - 1033): Sdk Message Processing Step Secure Configuration
-                ///         (Russian - 1049): Безопасная конфигурация шага обработки сообщения SDK
+                ///             (English - United States - 1033): Sdk Message Processing Step Secure Configuration
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Sdk Message Processing Step Secure Configurations
-                ///         (Russian - 1049): Безопасные конфигурации шага обработки сообщения SDK
+                ///             (English - United States - 1033): Sdk Message Processing Step Secure Configurations
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Non-public custom configuration that is passed to a plug-in's constructor.
-                ///         (Russian - 1049): Внутренняя настраиваемая конфигурация, передаваемая конструктору подключаемого модуля.
+                ///             (English - United States - 1033): Non-public custom configuration that is passed to a plug-in's constructor.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string sdkmessageprocessingstepsecureconfigid = "sdkmessageprocessingstepsecureconfigid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
-                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the associated solution.
-                ///     (Russian - 1049): Уникальный идентификатор связанного решения.
                 /// 
                 /// SchemaName: SolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string solutionid = "solutionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Execution Stage
-                ///     (Russian - 1049): Этап выполнения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Stage in the execution pipeline that the SDK message processing step is in.
-                ///     (Russian - 1049): Стадия конвейерной обработки, в которую входит шаг обработки сообщения SDK.
                 /// 
                 /// SchemaName: Stage
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// Local System  OptionSet sdkmessageprocessingstep_stage
                 /// DefaultFormValue = 10
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string stage = "stage";
 
                 ///<summary>
+                /// SchemaName: StageName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'stage'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string stagename = "stagename";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Status
-                ///     (Russian - 1049): Состояние
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Status of the SDK message processing step.
-                ///     (Russian - 1049): Состояние шага обработки сообщения SDK.
                 /// 
                 /// SchemaName: StateCode
                 /// StateAttributeMetadata    AttributeType: State    AttributeTypeName: StateType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// DefaultFormValue = 0
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string statecode = "statecode";
 
                 ///<summary>
+                /// SchemaName: StateCodeName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'statecode'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string statecodename = "statecodename";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Status Reason
-                ///     (Russian - 1049): Причина состояния
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Reason for the status of the SDK message processing step.
-                ///     (Russian - 1049): Причина состояния шага обработки сообщения SDK.
                 /// 
                 /// SchemaName: StatusCode
                 /// StatusAttributeMetadata    AttributeType: Status    AttributeTypeName: StatusType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// DefaultFormValue = -1
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string statuscode = "statuscode";
 
                 ///<summary>
+                /// SchemaName: StatusCodeName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'statuscode'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string statuscodename = "statuscodename";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Deployment
-                ///     (Russian - 1049): Развертывание
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Deployment that the SDK message processing step should be executed on; server, client, or both.
-                ///     (Russian - 1049): Развертывание, в котором должен быть выполнен шаг обработки сообщения SDK: сервер, клиент или оба.
                 /// 
                 /// SchemaName: SupportedDeployment
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// Local System  OptionSet sdkmessageprocessingstep_supporteddeployment
                 /// DefaultFormValue = 0
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string supporteddeployment = "supporteddeployment";
 
                 ///<summary>
+                /// SchemaName: SupportedDeploymentName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'supporteddeployment'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string supporteddeploymentname = "supporteddeploymentname";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
-                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
-                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: SupportingSolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: False    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: False    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string supportingsolutionid = "supportingsolutionid";
 
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Number that identifies a specific revision of the SDK message processing step. 
-                ///     (Russian - 1049): Число, определяющее редакцию шага обработки сообщения SDK. 
                 /// 
                 /// SchemaName: VersionNumber
                 /// BigIntAttributeMetadata    AttributeType: BigInt    AttributeTypeName: BigIntType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// MinValue = -9223372036854775808    MaxValue = 9223372036854775807
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string versionnumber = "versionnumber";
             }
@@ -935,11 +2211,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Status
-                ///     (Russian - 1049): Состояние
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Status of the SDK message processing step.
-                ///     (Russian - 1049): Состояние шага обработки сообщения SDK.
                 ///</summary>
                 public enum statecode
                 {
@@ -950,7 +2224,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Enabled
-                    ///     (Russian - 1049): Включено
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Enabled_0 = 0,
@@ -962,7 +2235,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Disabled
-                    ///     (Russian - 1049): Отключено
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Disabled_1 = 1,
@@ -974,11 +2246,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Status
-                ///     (Russian - 1049): Состояние
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Status of the SDK message processing step.
-                ///     (Russian - 1049): Состояние шага обработки сообщения SDK.
                 ///</summary>
                 public enum statuscode
                 {
@@ -988,7 +2258,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Enabled
-                    ///     (Russian - 1049): Включено
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Enabled_0_Enabled_1 = 1,
@@ -999,7 +2268,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Disabled
-                    ///     (Russian - 1049): Отключено
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Disabled_1_Disabled_2 = 2,
@@ -1010,25 +2278,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 #region Picklist OptionSet OptionSets.
 
                 ///<summary>
-                /// Attribute: invocationsource
+                /// Attribute:
+                ///     invocationsource
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Invocation Source
-                ///     (Russian - 1049): Источник вызова
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Identifies if a plug-in should be executed from a parent pipeline, a child pipeline, or both.
-                ///     (Russian - 1049): Указывает источник запуска подключаемого модуля: родительский канал, дочерний канал или оба.
                 /// 
                 /// Local System  OptionSet sdkmessageprocessingstep_invocationsource
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Invocation Source
-                ///     (Russian - 1049): Источник вызова
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Identifies if a plug-in should be executed from a parent pipeline, a child pipeline, or both.
-                ///     (Russian - 1049): Указывает источник запуска подключаемого модуля: родительский канал, дочерний канал или оба.
                 ///</summary>
                 public enum invocationsource
                 {
@@ -1038,7 +2303,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Internal
-                    ///     (Russian - 1049): Внутренний
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Internal_1 = -1,
@@ -1049,7 +2313,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Parent
-                    ///     (Russian - 1049): Родительский объект
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Parent_0 = 0,
@@ -1060,32 +2323,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Child
-                    ///     (Russian - 1049): Дочерний объект
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Child_1 = 1,
                 }
 
                 ///<summary>
-                /// Attribute: mode
+                /// Attribute:
+                ///     mode
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Execution Mode
-                ///     (Russian - 1049): Режим выполнения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Run-time mode of execution, for example, synchronous or asynchronous.
-                ///     (Russian - 1049): Режим запуска, например синхронный или асинхронный.
                 /// 
                 /// Local System  OptionSet sdkmessageprocessingstep_mode
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Mode
-                ///     (Russian - 1049): Режим
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Run-time mode of execution, for example, synchronous or asynchronous.
-                ///     (Russian - 1049): Режим запуска, например синхронный или асинхронный.
                 ///</summary>
                 public enum mode
                 {
@@ -1095,7 +2354,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Synchronous
-                    ///     (Russian - 1049): Синхронный
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Synchronous_0 = 0,
@@ -1106,32 +2364,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Asynchronous
-                    ///     (Russian - 1049): Асинхронный
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Asynchronous_1 = 1,
                 }
 
                 ///<summary>
-                /// Attribute: stage
+                /// Attribute:
+                ///     stage
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Execution Stage
-                ///     (Russian - 1049): Этап выполнения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Stage in the execution pipeline that the SDK message processing step is in.
-                ///     (Russian - 1049): Стадия конвейерной обработки, в которую входит шаг обработки сообщения SDK.
                 /// 
                 /// Local System  OptionSet sdkmessageprocessingstep_stage
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Stage
-                ///     (Russian - 1049): Этап
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Stage in the execution pipeline that the SDK message processing step is in.
-                ///     (Russian - 1049): Стадия конвейерной обработки, в которую входит шаг обработки сообщения SDK.
                 ///</summary>
                 public enum stage
                 {
@@ -1141,7 +2395,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Initial Pre-operation (For internal use only)
-                    ///     (Russian - 1049): Начальная операция вне транзакции
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Initial_Pre_operation_For_internal_use_only_5 = 5,
@@ -1152,7 +2405,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Pre-validation
-                    ///     (Russian - 1049): Перед основной операцией вне транзакции
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Pre_validation_10 = 10,
@@ -1163,7 +2415,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Internal Pre-operation Before External Plugins (For internal use only)
-                    ///     (Russian - 1049): Внутренняя перед основной операцией перед внешними подключаемыми модулями внутри транзакции
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Internal_Pre_operation_Before_External_Plugins_For_internal_use_only_15 = 15,
@@ -1174,7 +2425,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Pre-operation
-                    ///     (Russian - 1049): Перед основной операцией внутри транзакции
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Pre_operation_20 = 20,
@@ -1185,7 +2435,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Internal Pre-operation After External Plugins (For internal use only)
-                    ///     (Russian - 1049): Внутренняя перед основной операцией после внешних подключаемых модулей внутри транзакции
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Internal_Pre_operation_After_External_Plugins_For_internal_use_only_25 = 25,
@@ -1196,7 +2445,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Main Operation (For internal use only)
-                    ///     (Russian - 1049): Основная операция
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Main_Operation_For_internal_use_only_30 = 30,
@@ -1207,7 +2455,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Internal Post-operation Before External Plugins (For internal use only)
-                    ///     (Russian - 1049): Внутренняя после основной операции перед внешними подключаемыми модулями внутри транзакции
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Internal_Post_operation_Before_External_Plugins_For_internal_use_only_35 = 35,
@@ -1218,7 +2465,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Post-operation
-                    ///     (Russian - 1049): После основной операции внутри транзакции
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Post_operation_40 = 40,
@@ -1229,7 +2475,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Internal Post-operation After External Plugins (For internal use only)
-                    ///     (Russian - 1049): Внутренняя после основной операции после внешних подключаемых модулей внутри транзакции
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Internal_Post_operation_After_External_Plugins_For_internal_use_only_45 = 45,
@@ -1240,7 +2485,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Post-operation (Deprecated)
-                    ///     (Russian - 1049): После основной операции вне транзакции
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Post_operation_Deprecated_50 = 50,
@@ -1251,32 +2495,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Final Post-operation (For internal use only)
-                    ///     (Russian - 1049): Конечная операция вне транзакции
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Final_Post_operation_For_internal_use_only_55 = 55,
                 }
 
                 ///<summary>
-                /// Attribute: supporteddeployment
+                /// Attribute:
+                ///     supporteddeployment
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Deployment
-                ///     (Russian - 1049): Развертывание
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Deployment that the SDK message processing step should be executed on; server, client, or both.
-                ///     (Russian - 1049): Развертывание, в котором должен быть выполнен шаг обработки сообщения SDK: сервер, клиент или оба.
                 /// 
                 /// Local System  OptionSet sdkmessageprocessingstep_supporteddeployment
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Supported Deployment
-                ///     (Russian - 1049): Поддерживаемое развертывание
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Deployment that the SDK message processing step should be executed on; server, client, or both.
-                ///     (Russian - 1049): Развертывание, в котором должен быть выполнен шаг обработки сообщения SDK: сервер, клиент или оба.
                 ///</summary>
                 public enum supporteddeployment
                 {
@@ -1286,7 +2526,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Server Only
-                    ///     (Russian - 1049): Только сервер
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Server_Only_0 = 0,
@@ -1297,7 +2536,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Microsoft Dynamics 365 Client for Outlook Only
-                    ///     (Russian - 1049): Только клиент Microsoft Dynamics 365 для Outlook
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Microsoft_Dynamics_365_Client_for_Outlook_Only_1 = 1,
@@ -1308,7 +2546,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Both
-                    ///     (Russian - 1049): Оба
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Both_2 = 2,
@@ -1326,11 +2563,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship createdby_sdkmessageprocessingstep
                 /// 
-                /// PropertyName                               Value                                 CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     createdby_sdkmessageprocessingstep
                 /// ReferencingEntityNavigationPropertyName    createdby
-                /// IsCustomizable                             False                                 False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -1341,22 +2578,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity systemuser:
+                /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
-                ///     (English - United States - 1033): User
-                ///     (Russian - 1049): Пользователь
+                ///         (English - United States - 1033): User
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Users
-                ///     (Russian - 1049): Пользователи
+                ///         (English - United States - 1033): Users
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///     (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
                 public static partial class createdby_sdkmessageprocessingstep
                 {
@@ -1376,11 +2611,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship impersonatinguserid_sdkmessageprocessingstep
                 /// 
-                /// PropertyName                               Value                                           CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     impersonatinguserid_sdkmessageprocessingstep
                 /// ReferencingEntityNavigationPropertyName    impersonatinguserid
-                /// IsCustomizable                             False                                           False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -1391,22 +2626,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity systemuser:
+                /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
-                ///     (English - United States - 1033): User
-                ///     (Russian - 1049): Пользователь
+                ///         (English - United States - 1033): User
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Users
-                ///     (Russian - 1049): Пользователи
+                ///         (English - United States - 1033): Users
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///     (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
                 public static partial class impersonatinguserid_sdkmessageprocessingstep
                 {
@@ -1426,11 +2659,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship lk_sdkmessageprocessingstep_createdonbehalfby
                 /// 
-                /// PropertyName                               Value                                            CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     lk_sdkmessageprocessingstep_createdonbehalfby
                 /// ReferencingEntityNavigationPropertyName    createdonbehalfby
-                /// IsCustomizable                             False                                            False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -1441,22 +2674,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity systemuser:
+                /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
-                ///     (English - United States - 1033): User
-                ///     (Russian - 1049): Пользователь
+                ///         (English - United States - 1033): User
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Users
-                ///     (Russian - 1049): Пользователи
+                ///         (English - United States - 1033): Users
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///     (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
                 public static partial class lk_sdkmessageprocessingstep_createdonbehalfby
                 {
@@ -1476,11 +2707,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship lk_sdkmessageprocessingstep_modifiedonbehalfby
                 /// 
-                /// PropertyName                               Value                                             CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     lk_sdkmessageprocessingstep_modifiedonbehalfby
                 /// ReferencingEntityNavigationPropertyName    modifiedonbehalfby
-                /// IsCustomizable                             False                                             False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -1491,22 +2722,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity systemuser:
+                /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
-                ///     (English - United States - 1033): User
-                ///     (Russian - 1049): Пользователь
+                ///         (English - United States - 1033): User
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Users
-                ///     (Russian - 1049): Пользователи
+                ///         (English - United States - 1033): Users
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///     (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
                 public static partial class lk_sdkmessageprocessingstep_modifiedonbehalfby
                 {
@@ -1526,11 +2755,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship modifiedby_sdkmessageprocessingstep
                 /// 
-                /// PropertyName                               Value                                  CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     modifiedby_sdkmessageprocessingstep
                 /// ReferencingEntityNavigationPropertyName    modifiedby
-                /// IsCustomizable                             False                                  False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -1541,22 +2770,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity systemuser:
+                /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
-                ///     (English - United States - 1033): User
-                ///     (Russian - 1049): Пользователь
+                ///         (English - United States - 1033): User
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Users
-                ///     (Russian - 1049): Пользователи
+                ///         (English - United States - 1033): Users
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///     (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
                 public static partial class modifiedby_sdkmessageprocessingstep
                 {
@@ -1576,11 +2803,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship organization_sdkmessageprocessingstep
                 /// 
-                /// PropertyName                               Value                                    CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     organization_sdkmessageprocessingstep
                 /// ReferencingEntityNavigationPropertyName    organizationid
-                /// IsCustomizable                             False                                    False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -1591,22 +2818,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity organization:
+                /// ReferencedEntity organization:    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///     (English - United States - 1033): Organization
-                ///     (Russian - 1049): Предприятие
+                ///         (English - United States - 1033): Organization
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Organizations
-                ///     (Russian - 1049): Предприятия
+                ///         (English - United States - 1033): Organizations
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
-                ///     (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
+                ///         (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
                 ///</summary>
                 public static partial class organization_sdkmessageprocessingstep
                 {
@@ -1626,11 +2851,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship plugintype_sdkmessageprocessingstep
                 /// 
-                /// PropertyName                               Value                                  CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     plugintype_sdkmessageprocessingstep
                 /// ReferencingEntityNavigationPropertyName    eventhandler_plugintype
-                /// IsCustomizable                             False                                  False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1641,22 +2866,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity plugintype:
+                /// ReferencedEntity plugintype:    PrimaryIdAttribute plugintypeid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///     (English - United States - 1033): Plug-in Type
-                ///     (Russian - 1049): Тип подключаемого модуля
+                ///         (English - United States - 1033): Plug-in Type
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Plug-in Types
-                ///     (Russian - 1049): Типы подключаемых модулей
+                ///         (English - United States - 1033): Plug-in Types
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Type that inherits from the IPlugin interface and is contained within a plug-in assembly.
-                ///     (Russian - 1049): Тип, производный от интерфейса IPlugin, и содержащийся в сборке подключаемого модуля.
+                ///         (English - United States - 1033): Type that inherits from the IPlugin interface and is contained within a plug-in assembly.
                 ///</summary>
                 public static partial class plugintype_sdkmessageprocessingstep
                 {
@@ -1676,11 +2899,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship plugintypeid_sdkmessageprocessingstep
                 /// 
-                /// PropertyName                               Value                                    CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     plugintypeid_sdkmessageprocessingstep
                 /// ReferencingEntityNavigationPropertyName    plugintypeid
-                /// IsCustomizable                             False                                    False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1691,22 +2914,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity plugintype:
+                /// ReferencedEntity plugintype:    PrimaryIdAttribute plugintypeid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///     (English - United States - 1033): Plug-in Type
-                ///     (Russian - 1049): Тип подключаемого модуля
+                ///         (English - United States - 1033): Plug-in Type
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Plug-in Types
-                ///     (Russian - 1049): Типы подключаемых модулей
+                ///         (English - United States - 1033): Plug-in Types
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Type that inherits from the IPlugin interface and is contained within a plug-in assembly.
-                ///     (Russian - 1049): Тип, производный от интерфейса IPlugin, и содержащийся в сборке подключаемого модуля.
+                ///         (English - United States - 1033): Type that inherits from the IPlugin interface and is contained within a plug-in assembly.
                 ///</summary>
                 public static partial class plugintypeid_sdkmessageprocessingstep
                 {
@@ -1726,11 +2947,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship sdkmessagefilterid_sdkmessageprocessingstep
                 /// 
-                /// PropertyName                               Value                                          CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     sdkmessagefilterid_sdkmessageprocessingstep
                 /// ReferencingEntityNavigationPropertyName    sdkmessagefilterid
-                /// IsCustomizable                             False                                          False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1741,22 +2962,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity sdkmessagefilter:
+                /// ReferencedEntity sdkmessagefilter:    PrimaryIdAttribute sdkmessagefilterid
                 ///     DisplayName:
-                ///     (English - United States - 1033): Sdk Message Filter
-                ///     (Russian - 1049): Фильтр сообщения SDK
+                ///         (English - United States - 1033): Sdk Message Filter
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Sdk Message Filters
-                ///     (Russian - 1049): Фильтры сообщений SDK
+                ///         (English - United States - 1033): Sdk Message Filters
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Filter that defines which SDK messages are valid for each type of entity.
-                ///     (Russian - 1049): Фильтр, определяющий, какие сообщения SDK подходят для каждого типа сущности.
+                ///         (English - United States - 1033): Filter that defines which SDK messages are valid for each type of entity.
                 ///</summary>
                 public static partial class sdkmessagefilterid_sdkmessageprocessingstep
                 {
@@ -1774,11 +2993,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship sdkmessageid_sdkmessageprocessingstep
                 /// 
-                /// PropertyName                               Value                                    CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     sdkmessageid_sdkmessageprocessingstep
                 /// ReferencingEntityNavigationPropertyName    sdkmessageid
-                /// IsCustomizable                             False                                    False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1789,22 +3008,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity sdkmessage:
+                /// ReferencedEntity sdkmessage:    PrimaryIdAttribute sdkmessageid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///     (English - United States - 1033): Sdk Message
-                ///     (Russian - 1049): Сообщение SDK
+                ///         (English - United States - 1033): Sdk Message
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Sdk Messages
-                ///     (Russian - 1049): Сообщения SDK
+                ///         (English - United States - 1033): Sdk Messages
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Message that is supported by the SDK.
-                ///     (Russian - 1049): Сообщение, поддерживаемое SDK.
+                ///         (English - United States - 1033): Message that is supported by the SDK.
                 ///</summary>
                 public static partial class sdkmessageid_sdkmessageprocessingstep
                 {
@@ -1824,11 +3041,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship sdkmessageprocessingstepsecureconfigid_sdkmessageprocessingstep
                 /// 
-                /// PropertyName                               Value                                                              CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     sdkmessageprocessingstepsecureconfigid_sdkmessageprocessingstep
                 /// ReferencingEntityNavigationPropertyName    sdkmessageprocessingstepsecureconfigid
-                /// IsCustomizable                             False                                                              False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1839,22 +3056,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity sdkmessageprocessingstepsecureconfig:
+                /// ReferencedEntity sdkmessageprocessingstepsecureconfig:    PrimaryIdAttribute sdkmessageprocessingstepsecureconfigid
                 ///     DisplayName:
-                ///     (English - United States - 1033): Sdk Message Processing Step Secure Configuration
-                ///     (Russian - 1049): Безопасная конфигурация шага обработки сообщения SDK
+                ///         (English - United States - 1033): Sdk Message Processing Step Secure Configuration
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Sdk Message Processing Step Secure Configurations
-                ///     (Russian - 1049): Безопасные конфигурации шага обработки сообщения SDK
+                ///         (English - United States - 1033): Sdk Message Processing Step Secure Configurations
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Non-public custom configuration that is passed to a plug-in's constructor.
-                ///     (Russian - 1049): Внутренняя настраиваемая конфигурация, передаваемая конструктору подключаемого модуля.
+                ///         (English - United States - 1033): Non-public custom configuration that is passed to a plug-in's constructor.
                 ///</summary>
                 public static partial class sdkmessageprocessingstepsecureconfigid_sdkmessageprocessingstep
                 {
@@ -1872,11 +3087,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship serviceendpoint_sdkmessageprocessingstep
                 /// 
-                /// PropertyName                               Value                                       CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     serviceendpoint_sdkmessageprocessingstep
                 /// ReferencingEntityNavigationPropertyName    eventhandler_serviceendpoint
-                /// IsCustomizable                             False                                       False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1887,22 +3102,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity serviceendpoint:
+                /// ReferencedEntity serviceendpoint:    PrimaryIdAttribute serviceendpointid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///     (English - United States - 1033): Service Endpoint
-                ///     (Russian - 1049): Конечная точка сервиса
+                ///         (English - United States - 1033): Service Endpoint
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Service Endpoints
-                ///     (Russian - 1049): Конечные точки сервиса
+                ///         (English - United States - 1033): Service Endpoints
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Service endpoint that can be contacted.
-                ///     (Russian - 1049): Конечная точка сервиса, к которой можно обратиться.
+                ///         (English - United States - 1033): Service endpoint that can be contacted.
                 ///</summary>
                 public static partial class serviceendpoint_sdkmessageprocessingstep
                 {
@@ -1929,11 +3142,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship SdkMessageProcessingStep_AsyncOperations
                 /// 
-                /// PropertyName                               Value                                       CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     SdkMessageProcessingStep_AsyncOperations
                 /// ReferencingEntityNavigationPropertyName    owningextensionid
-                /// IsCustomizable                             False                                       False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1944,22 +3157,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencingEntity asyncoperation:
+                /// ReferencingEntity asyncoperation:    PrimaryIdAttribute asyncoperationid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///     (English - United States - 1033): System Job
-                ///     (Russian - 1049): Системное задание
+                ///         (English - United States - 1033): System Job
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): System Jobs
-                ///     (Russian - 1049): Системные задания
+                ///         (English - United States - 1033): System Jobs
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Process whose execution can proceed independently or in the background.
-                ///     (Russian - 1049): Процесс, который может выполняться независимо или в фоновом режиме.
+                ///         (English - United States - 1033): Process whose execution can proceed independently or in the background.
                 ///</summary>
                 public static partial class sdkmessageprocessingstep_asyncoperations
                 {
@@ -1979,11 +3190,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship sdkmessageprocessingstepid_sdkmessageprocessingstepimage
                 /// 
-                /// PropertyName                               Value                                                       CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     sdkmessageprocessingstepid_sdkmessageprocessingstepimage
                 /// ReferencingEntityNavigationPropertyName    sdkmessageprocessingstepid
-                /// IsCustomizable                             False                                                       False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1994,22 +3205,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencingEntity sdkmessageprocessingstepimage:
+                /// ReferencingEntity sdkmessageprocessingstepimage:    PrimaryIdAttribute sdkmessageprocessingstepimageid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///     (English - United States - 1033): Sdk Message Processing Step Image
-                ///     (Russian - 1049): Образ шага обработки сообщения SDK
+                ///         (English - United States - 1033): Sdk Message Processing Step Image
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Sdk Message Processing Step Images
-                ///     (Russian - 1049): Образы шагов обработки сообщения SDK
+                ///         (English - United States - 1033): Sdk Message Processing Step Images
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Copy of an entity's attributes before or after the core system operation.
-                ///     (Russian - 1049): Копирование атрибутов сущности перед операцией базовой системы или после нее.
+                ///         (English - United States - 1033): Copy of an entity's attributes before or after the core system operation.
                 ///</summary>
                 public static partial class sdkmessageprocessingstepid_sdkmessageprocessingstepimage
                 {
@@ -2029,11 +3238,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship userentityinstancedata_sdkmessageprocessingstep
                 /// 
-                /// PropertyName                               Value                                              CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     userentityinstancedata_sdkmessageprocessingstep
                 /// ReferencingEntityNavigationPropertyName    objectid_sdkmessageprocessingstep
-                /// IsCustomizable                             False                                              False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -2044,20 +3253,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencingEntity userentityinstancedata:
+                /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
                 ///     DisplayName:
-                ///     (English - United States - 1033): User Entity Instance Data
-                ///     (Russian - 1049): Данные экземпляра сущности пользователя
-                ///     
-                ///     DisplayCollectionName:
+                ///         (English - United States - 1033): User Entity Instance Data
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Per User item instance data
-                ///     (Russian - 1049): Данные экземпляра позиции "на пользователя"
+                ///         (English - United States - 1033): Per User item instance data
                 ///</summary>
                 public static partial class userentityinstancedata_sdkmessageprocessingstep
                 {

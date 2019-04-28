@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public override string EntityLogicalName => ContractTemplate.EntityLogicalName;
 
-        public override string EntityPrimaryIdAttribute => ContractTemplate.Schema.EntityPrimaryIdAttribute;
+        public override string EntityPrimaryIdAttribute => ContractTemplate.EntityPrimaryIdAttribute;
 
         protected override ColumnSet GetColumnSet()
         {

@@ -76,11 +76,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
             public static partial class EntityAliasFields
             {
-                public const string SdkMessageFilterPrimaryObjectTypeCode = SdkMessageFilter.PrimaryIdAttribute + "." + SdkMessageFilter.Schema.Attributes.primaryobjecttypecode;
+                public const string SdkMessageFilterPrimaryObjectTypeCode = SdkMessageFilter.EntityPrimaryIdAttribute + "." + SdkMessageFilter.Schema.Attributes.primaryobjecttypecode;
 
-                public const string SdkMessageFilterSecondaryObjectTypeCode = SdkMessageFilter.PrimaryIdAttribute + "." + SdkMessageFilter.Schema.Attributes.secondaryobjecttypecode;
+                public const string SdkMessageFilterSecondaryObjectTypeCode = SdkMessageFilter.EntityPrimaryIdAttribute + "." + SdkMessageFilter.Schema.Attributes.secondaryobjecttypecode;
 
-                public const string SdkMessageFilterId = SdkMessageFilter.PrimaryIdAttribute + "." + SdkMessageFilter.PrimaryIdAttribute;
+                public const string SdkMessageFilterId = SdkMessageFilter.EntityPrimaryIdAttribute + "." + SdkMessageFilter.EntityPrimaryIdAttribute;
             }
         }
 

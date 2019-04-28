@@ -98,7 +98,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(Organization.PrimaryIdAttribute, ConditionOperator.Equal, idOrganization),
+                        new ConditionExpression(Organization.EntityPrimaryIdAttribute, ConditionOperator.Equal, idOrganization),
                     },
                 },
             };

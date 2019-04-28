@@ -23,7 +23,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public override string EntityLogicalName => RolePrivileges.EntityLogicalName;
 
-        public override string EntityPrimaryIdAttribute => RolePrivileges.Schema.EntityPrimaryIdAttribute;
+        public override string EntityPrimaryIdAttribute => RolePrivileges.EntityPrimaryIdAttribute;
 
         protected override ColumnSet GetColumnSet()
         {
@@ -58,7 +58,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         LinkFromAttributeName = RolePrivileges.Schema.Attributes.privilegeid,
 
                         LinkToEntityName = Privilege.EntityLogicalName,
-                        LinkToAttributeName = Privilege.PrimaryIdAttribute,
+                        LinkToAttributeName = Privilege.EntityPrimaryIdAttribute,
 
                         EntityAlias = Privilege.EntityLogicalName,
 
@@ -73,7 +73,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         LinkFromAttributeName = RolePrivileges.Schema.Attributes.roleid,
 
                         LinkToEntityName = Role.EntityLogicalName,
-                        LinkToAttributeName = Role.PrimaryIdAttribute,
+                        LinkToAttributeName = Role.EntityPrimaryIdAttribute,
 
                         EntityAlias = Role.EntityLogicalName,
 
@@ -89,7 +89,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                                 LinkFromAttributeName = Role.Schema.Attributes.businessunitid,
 
                                 LinkToEntityName = BusinessUnit.EntityLogicalName,
-                                LinkToAttributeName = BusinessUnit.PrimaryIdAttribute,
+                                LinkToAttributeName = BusinessUnit.EntityPrimaryIdAttribute,
 
                                 EntityAlias = BusinessUnit.EntityLogicalName,
 
@@ -106,7 +106,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         LinkFromAttributeName = RolePrivileges.Schema.Attributes.solutionid,
 
                         LinkToEntityName = Solution.EntityLogicalName,
-                        LinkToAttributeName = Solution.PrimaryIdAttribute,
+                        LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
 
                         EntityAlias = Solution.EntityLogicalName,
 
@@ -121,7 +121,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         LinkFromAttributeName = RolePrivileges.Schema.Attributes.supportingsolutionid,
 
                         LinkToEntityName = Solution.EntityLogicalName,
-                        LinkToAttributeName = Solution.PrimaryIdAttribute,
+                        LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
 
                         EntityAlias = SupportingSolutionAlias,
 

@@ -23,9 +23,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public int ComponentTypeValue => (int)ComponentType.DependencyFeature;
 
-        public string EntityLogicalName => DependencyFeature.Schema.EntityLogicalName;
+        public string EntityLogicalName => DependencyFeature.EntityLogicalName;
 
-        public string EntityPrimaryIdAttribute => DependencyFeature.Schema.EntityPrimaryIdAttribute;
+        public string EntityPrimaryIdAttribute => DependencyFeature.EntityPrimaryIdAttribute;
 
         public List<T> GetEntities<T>(IEnumerable<Guid> components) where T : Entity
         {

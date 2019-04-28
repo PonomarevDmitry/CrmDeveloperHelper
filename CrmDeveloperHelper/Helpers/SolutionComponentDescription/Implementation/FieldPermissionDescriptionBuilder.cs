@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public override string EntityLogicalName => FieldPermission.EntityLogicalName;
 
-        public override string EntityPrimaryIdAttribute => FieldPermission.Schema.EntityPrimaryIdAttribute;
+        public override string EntityPrimaryIdAttribute => FieldPermission.EntityPrimaryIdAttribute;
 
         protected override ColumnSet GetColumnSet()
         {
@@ -64,7 +64,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         LinkFromAttributeName = FieldPermission.Schema.Attributes.fieldsecurityprofileid,
 
                         LinkToEntityName = FieldSecurityProfile.EntityLogicalName,
-                        LinkToAttributeName = FieldSecurityProfile.PrimaryIdAttribute,
+                        LinkToAttributeName = FieldSecurityProfile.EntityPrimaryIdAttribute,
 
                         EntityAlias = FieldSecurityProfile.EntityLogicalName,
 
@@ -79,7 +79,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         LinkFromAttributeName = FieldPermission.Schema.Attributes.solutionid,
 
                         LinkToEntityName = Solution.EntityLogicalName,
-                        LinkToAttributeName = Solution.PrimaryIdAttribute,
+                        LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
 
                         EntityAlias = Solution.EntityLogicalName,
 
@@ -94,7 +94,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         LinkFromAttributeName = FieldPermission.Schema.Attributes.supportingsolutionid,
 
                         LinkToEntityName = Solution.EntityLogicalName,
-                        LinkToAttributeName = Solution.PrimaryIdAttribute,
+                        LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
 
                         EntityAlias = SupportingSolutionAlias,
 

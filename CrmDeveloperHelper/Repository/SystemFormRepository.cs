@@ -132,7 +132,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(SystemForm.PrimaryIdAttribute, ConditionOperator.Equal, idSystemForm),
+                        new ConditionExpression(SystemForm.EntityPrimaryIdAttribute, ConditionOperator.Equal, idSystemForm),
                     },
                 },
             };

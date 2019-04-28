@@ -1,79 +1,78 @@
-﻿
+
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 {
-    ///<summary>
-    /// PropertyName                          Value                                CanBeChanged
-    /// ActivityTypeMask                      0
-    /// AutoCreateAccessTeams                 False
-    /// AutoRouteToOwnerQueue                 False
-    /// CanBeInManyToMany                     False                                False
-    /// CanBePrimaryEntityInRelationship      False                                False
-    /// CanBeRelatedEntityInRelationship      False                                False
-    /// CanChangeHierarchicalRelationship     False                                False
-    /// CanChangeTrackingBeEnabled            False                                False
-    /// CanCreateAttributes                   False                                False
-    /// CanCreateCharts                       False                                False
-    /// CanCreateForms                        False                                False
-    /// CanCreateViews                        False                                False
-    /// CanEnableSyncToExternalSearchIndex    False                                False
-    /// CanModifyAdditionalSettings           False                                True
-    /// CanTriggerWorkflow                    False
-    /// ChangeTrackingEnabled                 False
-    /// CollectionSchemaName
-    /// DaysSinceRecordLastModified           0
-    /// EnforceStateTransitions               False
-    /// EntityColor
-    /// EntityHelpUrl
-    /// EntityHelpUrlEnabled                  False
-    /// EntitySetName                         connectionroleassociations
-    /// IconLargeName
-    /// IconMediumName
-    /// IconSmallName
-    /// IsActivity                            False
-    /// IsActivityParty                       False
-    /// IsAIRUpdated                          False
-    /// IsAuditEnabled                        False                                False
-    /// IsAvailableOffline                    True
-    /// IsBusinessProcessEnabled              False
-    /// IsChildEntity                         False
-    /// IsConnectionsEnabled                  False                                False
-    /// IsCustomEntity                        False
-    /// IsCustomizable                        False                                False
-    /// IsDocumentManagementEnabled           False
-    /// IsDuplicateDetectionEnabled           False                                False
-    /// IsEnabledForCharts                    False
-    /// IsEnabledForExternalChannels          False
-    /// IsEnabledForTrace                     False
-    /// IsImportable                          False
-    /// IsInteractionCentricEnabled           False
-    /// IsIntersect                           True
-    /// IsKnowledgeManagementEnabled          False
-    /// IsMailMergeEnabled                    False                                False
-    /// IsMappable                            False                                False
-    /// IsOfflineInMobileClient               False                                True
-    /// IsOneNoteIntegrationEnabled           False
-    /// IsOptimisticConcurrencyEnabled        True
-    /// IsPrivate                             False
-    /// IsQuickCreateEnabled                  False
-    /// IsReadingPaneEnabled                  True
-    /// IsReadOnlyInMobileClient              False                                False
-    /// IsRenameable                          False                                False
-    /// IsStateModelAware                     False
-    /// IsValidForAdvancedFind                False
-    /// IsValidForQueue                       False                                False
-    /// IsVisibleInMobile                     False                                False
-    /// IsVisibleInMobileClient               False                                False
-    /// LogicalCollectionName
-    /// LogicalName                           connectionroleassociation
-    /// ObjectTypeCode                        3232
-    /// OwnershipType                         None
-    /// RecurrenceBaseEntityLogicalName
-    /// ReportViewName                        FilteredConnectionRoleAssociation
-    /// SchemaName                            ConnectionRoleAssociation
-    /// SyncToExternalSearchIndex             False
-    ///</summary>
     public partial class ConnectionRoleAssociation
     {
+        ///<summary>
+        /// PropertyName                          Value
+        /// ActivityTypeMask                      0
+        /// AutoCreateAccessTeams                 False
+        /// AutoRouteToOwnerQueue                 False
+        /// CanBeInManyToMany                     False
+        /// CanBePrimaryEntityInRelationship      False
+        /// CanBeRelatedEntityInRelationship      False
+        /// CanChangeHierarchicalRelationship     False
+        /// CanChangeTrackingBeEnabled            False
+        /// CanCreateAttributes                   False
+        /// CanCreateCharts                       False
+        /// CanCreateForms                        False
+        /// CanCreateViews                        False
+        /// CanEnableSyncToExternalSearchIndex    False
+        /// CanModifyAdditionalSettings           False
+        /// CanTriggerWorkflow                    False
+        /// ChangeTrackingEnabled                 False
+        /// DataProviderId                        null
+        /// DataSourceId                          null
+        /// EnforceStateTransitions               False
+        /// EntityHelpUrlEnabled                  False
+        /// EntitySetName                         connectionroleassociations
+        /// IntroducedVersion                     5.0.0.0
+        /// IsAIRUpdated                          False
+        /// IsActivity                            False
+        /// IsActivityParty                       False
+        /// IsAvailableOffline                    True
+        /// IsBPFEntity                           False
+        /// IsBusinessProcessEnabled              False
+        /// IsChildEntity                         False
+        /// IsConnectionsEnabled                  False
+        /// IsCustomEntity                        False
+        /// IsCustomizable                        False
+        /// IsDocumentManagementEnabled           False
+        /// IsDocumentRecommendationsEnabled      False
+        /// IsDuplicateDetectionEnabled           False
+        /// IsEnabledForCharts                    False
+        /// IsEnabledForExternalChannels          False
+        /// IsEnabledForTrace                     False
+        /// IsImportable                          False
+        /// IsInteractionCentricEnabled           False
+        /// IsIntersect                           True
+        /// IsKnowledgeManagementEnabled          False
+        /// IsLogicalEntity                       False
+        /// IsMailMergeEnabled                    False
+        /// IsMappable                            False
+        /// IsOfflineInMobileClient               False
+        /// IsOneNoteIntegrationEnabled           False
+        /// IsOptimisticConcurrencyEnabled        True
+        /// IsPrivate                             False
+        /// IsQuickCreateEnabled                  False
+        /// IsReadOnlyInMobileClient              False
+        /// IsReadingPaneEnabled                  True
+        /// IsRenameable                          False
+        /// IsSLAEnabled                          False
+        /// IsStateModelAware                     False
+        /// IsValidForAdvancedFind                False
+        /// IsValidForQueue                       False
+        /// IsVisibleInMobile                     False
+        /// IsVisibleInMobileClient               False
+        /// LogicalName                           connectionroleassociation
+        /// ObjectTypeCode                        3232
+        /// OwnershipType                         None
+        /// PrimaryIdAttribute                    connectionroleassociationid
+        /// ReportViewName                        FilteredConnectionRoleAssociation
+        /// SchemaName                            ConnectionRoleAssociation
+        /// SyncToExternalSearchIndex             False
+        /// UsesBusinessDataLabelTable            False
+        ///</summary>
         public static partial class Schema
         {
             public const string EntityLogicalName = "connectionroleassociation";
@@ -82,44 +81,125 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
             public const string EntityPrimaryIdAttribute = "connectionroleassociationid";
 
+            public const int EntityObjectTypeCode = 3232;
+
             #region Attributes.
 
             public static partial class Attributes
             {
                 ///<summary>
-                /// SchemaName: AssociatedConnectionRoleId
-                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
-                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
-                ///</summary>
-                public const string associatedconnectionroleid = "associatedconnectionroleid";
-
-                ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the connection role association.
-                ///     (Russian - 1049): Уникальный идентификатор связи роли подключения.
                 /// 
                 /// SchemaName: ConnectionRoleAssociationId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    True
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string connectionroleassociationid = "connectionroleassociationid";
 
                 ///<summary>
+                /// SchemaName: AssociatedConnectionRoleId
+                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string associatedconnectionroleid = "associatedconnectionroleid";
+
+                ///<summary>
                 /// SchemaName: ConnectionRoleId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string connectionroleid = "connectionroleid";
 
                 ///<summary>
                 /// SchemaName: VersionNumber
                 /// BigIntAttributeMetadata    AttributeType: BigInt    AttributeTypeName: BigIntType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// MinValue = -9223372036854775808    MaxValue = 9223372036854775807
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string versionnumber = "versionnumber";
             }
@@ -133,11 +213,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship userentityinstancedata_connectionroleassociation
                 /// 
-                /// PropertyName                               Value                                               CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     userentityinstancedata_connectionroleassociation
                 /// ReferencingEntityNavigationPropertyName    objectid_connectionroleassociation
-                /// IsCustomizable                             False                                               False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -148,20 +228,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencingEntity userentityinstancedata:
+                /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
                 ///     DisplayName:
-                ///     (English - United States - 1033): User Entity Instance Data
-                ///     (Russian - 1049): Данные экземпляра сущности пользователя
-                ///     
-                ///     DisplayCollectionName:
+                ///         (English - United States - 1033): User Entity Instance Data
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Per User item instance data
-                ///     (Russian - 1049): Данные экземпляра позиции "на пользователя"
+                ///         (English - United States - 1033): Per User item instance data
                 ///</summary>
                 public static partial class userentityinstancedata_connectionroleassociation
                 {
@@ -186,10 +263,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:N - Relationship connectionroleassociation_association
                 /// 
-                /// PropertyName                                   Value                                    CanBeChanged
+                /// PropertyName                                   Value
                 /// Entity1NavigationPropertyName                  connectionroleassociation_association
                 /// Entity2NavigationPropertyName                  connectionroleassociation_association
-                /// IsCustomizable                                 False                                    False
+                /// IsCustomizable                                 False
                 /// IsCustomRelationship                           False
                 /// IsValidForAdvancedFind                         True
                 /// RelationshipType                               ManyToManyRelationship
@@ -201,18 +278,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// Entity2AssociatedMenuConfiguration.Group       Details
                 /// Entity2AssociatedMenuConfiguration.Order       null
                 /// 
-                /// Entity1LogicalName connectionrole:
+                /// Entity1LogicalName connectionrole:    PrimaryIdAttribute connectionroleid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///     (English - United States - 1033): Connection Role
-                ///     (Russian - 1049): Роль подключения
+                ///         (English - United States - 1033): Connection Role
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Connection Roles
-                ///     (Russian - 1049): Роли подключения
+                ///         (English - United States - 1033): Connection Roles
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Role describing a relationship between a two records.
-                ///     (Russian - 1049): Роль, описывающая отношение между двумя записями.
+                ///         (English - United States - 1033): Role describing a relationship between a two records.
                 ///</summary>
                 public static partial class connectionroleassociation_association
                 {
@@ -230,7 +304,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                     public const string Entity2Attribute_associatedconnectionroleid = "associatedconnectionroleid";
 
-                    public const string Entity2LogicalNamename = "name";
+                    public const string Entity2LogicalName_PrimaryNameAttribute_name = "name";
                 }
             }
 

@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public override string EntityLogicalName => ProcessTrigger.EntityLogicalName;
 
-        public override string EntityPrimaryIdAttribute => ProcessTrigger.Schema.EntityPrimaryIdAttribute;
+        public override string EntityPrimaryIdAttribute => ProcessTrigger.EntityPrimaryIdAttribute;
 
         protected override ColumnSet GetColumnSet()
         {
@@ -32,7 +32,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 (
                     ProcessTrigger.Schema.Attributes.primaryentitytypecode
                     , ProcessTrigger.Schema.Attributes.processid
-                    , ProcessTrigger.Schema.Attributes.Event
+                    , ProcessTrigger.Schema.Attributes.@event
                     , ProcessTrigger.Schema.Attributes.pipelinestage
                     , ProcessTrigger.Schema.Attributes.formid
                     , ProcessTrigger.Schema.Attributes.scope
@@ -107,7 +107,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 {
                     { ProcessTrigger.Schema.Attributes.primaryentitytypecode, "PrimaryEntityTypeCode" }
                     , { ProcessTrigger.Schema.Attributes.processid, "ProcessName" }
-                    , { ProcessTrigger.Schema.Attributes.Event, "Event" }
+                    , { ProcessTrigger.Schema.Attributes.@event, "Event" }
                     , { ProcessTrigger.Schema.Attributes.pipelinestage, "PipelineStage" }
                     , { ProcessTrigger.Schema.Attributes.formid, "FormName" }
                     , { ProcessTrigger.Schema.Attributes.scope, "Scope" }

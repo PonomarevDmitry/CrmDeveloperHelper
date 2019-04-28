@@ -59,7 +59,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid,
 
                         LinkToEntityName = SdkMessageFilter.EntityLogicalName,
-                        LinkToAttributeName = SdkMessageFilter.PrimaryIdAttribute,
+                        LinkToAttributeName = SdkMessageFilter.EntityPrimaryIdAttribute,
 
                         EntityAlias = SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid,
 
@@ -82,7 +82,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.eventhandler,
 
                 LinkToEntityName = PluginType.EntityLogicalName,
-                LinkToAttributeName = PluginType.PrimaryIdAttribute,
+                LinkToAttributeName = PluginType.EntityPrimaryIdAttribute,
 
                 EntityAlias = SdkMessageProcessingStep.Schema.Attributes.eventhandler,
 
@@ -104,7 +104,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.sdkmessageid,
 
                     LinkToEntityName = SdkMessage.EntityLogicalName,
-                    LinkToAttributeName = SdkMessage.PrimaryIdAttribute,
+                    LinkToAttributeName = SdkMessage.EntityPrimaryIdAttribute,
 
                     EntityAlias = SdkMessageProcessingStep.Schema.Attributes.sdkmessageid,
                 };
@@ -255,7 +255,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid,
 
                         LinkToEntityName = SdkMessageFilter.EntityLogicalName,
-                        LinkToAttributeName = SdkMessageFilter.PrimaryIdAttribute,
+                        LinkToAttributeName = SdkMessageFilter.EntityPrimaryIdAttribute,
 
                         EntityAlias = SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid,
 
@@ -270,7 +270,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.eventhandler,
 
                         LinkToEntityName = PluginType.EntityLogicalName,
-                        LinkToAttributeName = PluginType.PrimaryIdAttribute,
+                        LinkToAttributeName = PluginType.EntityPrimaryIdAttribute,
 
                         EntityAlias = SdkMessageProcessingStep.Schema.Attributes.eventhandler,
 
@@ -283,7 +283,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.sdkmessageid,
 
                         LinkToEntityName = SdkMessage.EntityLogicalName,
-                        LinkToAttributeName = SdkMessage.PrimaryIdAttribute,
+                        LinkToAttributeName = SdkMessage.EntityPrimaryIdAttribute,
 
                         EntityAlias = SdkMessageProcessingStep.Schema.Attributes.sdkmessageid,
 
@@ -352,7 +352,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid,
 
                         LinkToEntityName = SdkMessageFilter.EntityLogicalName,
-                        LinkToAttributeName = SdkMessageFilter.PrimaryIdAttribute,
+                        LinkToAttributeName = SdkMessageFilter.EntityPrimaryIdAttribute,
 
                         EntityAlias = SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid,
 
@@ -367,7 +367,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.eventhandler,
 
                         LinkToEntityName = PluginType.EntityLogicalName,
-                        LinkToAttributeName = PluginType.PrimaryIdAttribute,
+                        LinkToAttributeName = PluginType.EntityPrimaryIdAttribute,
 
                         EntityAlias = PluginType.EntityLogicalName,
 
@@ -388,7 +388,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.sdkmessageid,
 
                         LinkToEntityName = SdkMessage.EntityLogicalName,
-                        LinkToAttributeName = SdkMessage.PrimaryIdAttribute,
+                        LinkToAttributeName = SdkMessage.EntityPrimaryIdAttribute,
 
                         EntityAlias = SdkMessage.EntityLogicalName,
 
@@ -531,7 +531,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(SdkMessageProcessingStep.PrimaryIdAttribute, ConditionOperator.Equal, id),
+                        new ConditionExpression(SdkMessageProcessingStep.EntityPrimaryIdAttribute, ConditionOperator.Equal, id),
                     },
                 },
 
@@ -543,7 +543,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.sdkmessageid,
 
                         LinkToEntityName = SdkMessage.EntityLogicalName,
-                        LinkToAttributeName = SdkMessage.PrimaryIdAttribute,
+                        LinkToAttributeName = SdkMessage.EntityPrimaryIdAttribute,
 
                         EntityAlias = SdkMessageProcessingStep.Schema.Attributes.sdkmessageid,
 
@@ -558,7 +558,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid,
 
                         LinkToEntityName = SdkMessageFilter.EntityLogicalName,
-                        LinkToAttributeName = SdkMessageFilter.PrimaryIdAttribute,
+                        LinkToAttributeName = SdkMessageFilter.EntityPrimaryIdAttribute,
 
                         EntityAlias = SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid,
 
@@ -574,7 +574,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                                 LinkFromAttributeName = SdkMessageFilter.Schema.Attributes.sdkmessageid,
 
                                 LinkToEntityName = SdkMessage.EntityLogicalName,
-                                LinkToAttributeName = SdkMessage.PrimaryIdAttribute,
+                                LinkToAttributeName = SdkMessage.EntityPrimaryIdAttribute,
 
                                 EntityAlias = SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid + "." + SdkMessageFilter.Schema.Attributes.sdkmessageid,
 
@@ -591,7 +591,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.eventhandler,
 
                         LinkToEntityName = PluginType.EntityLogicalName,
-                        LinkToAttributeName = PluginType.PrimaryIdAttribute,
+                        LinkToAttributeName = PluginType.EntityPrimaryIdAttribute,
 
                         EntityAlias = SdkMessageProcessingStep.Schema.Attributes.eventhandler
                                         + "." + PluginType.EntityLogicalName
@@ -609,7 +609,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                                 LinkFromAttributeName = PluginType.Schema.Attributes.pluginassemblyid,
 
                                 LinkToEntityName = PluginAssembly.EntityLogicalName,
-                                LinkToAttributeName = PluginAssembly.PrimaryIdAttribute,
+                                LinkToAttributeName = PluginAssembly.EntityPrimaryIdAttribute,
 
                                 EntityAlias = SdkMessageProcessingStep.Schema.Attributes.eventhandler
                                                 + "." + PluginType.EntityLogicalName
@@ -644,7 +644,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(SdkMessageProcessingStep.PrimaryIdAttribute, ConditionOperator.Equal, id),
+                        new ConditionExpression(SdkMessageProcessingStep.EntityPrimaryIdAttribute, ConditionOperator.Equal, id),
                     },
                 },
 
@@ -656,7 +656,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.eventhandler,
 
                         LinkToEntityName = ServiceEndpoint.EntityLogicalName,
-                        LinkToAttributeName = ServiceEndpoint.PrimaryIdAttribute,
+                        LinkToAttributeName = ServiceEndpoint.EntityPrimaryIdAttribute,
 
                         EntityAlias = SdkMessageProcessingStep.Schema.Attributes.eventhandler
                                         + "." + ServiceEndpoint.EntityLogicalName
@@ -673,7 +673,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.sdkmessageprocessingstepsecureconfigid,
 
                         LinkToEntityName = SdkMessageProcessingStepSecureConfig.EntityLogicalName,
-                        LinkToAttributeName = SdkMessageProcessingStepSecureConfig.PrimaryIdAttribute,
+                        LinkToAttributeName = SdkMessageProcessingStepSecureConfig.EntityPrimaryIdAttribute,
 
                         EntityAlias = SdkMessageProcessingStep.Schema.Attributes.sdkmessageprocessingstepsecureconfigid,
 
@@ -688,7 +688,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.impersonatinguserid,
 
                         LinkToEntityName = SystemUser.EntityLogicalName,
-                        LinkToAttributeName = SystemUser.PrimaryIdAttribute,
+                        LinkToAttributeName = SystemUser.EntityPrimaryIdAttribute,
 
                         EntityAlias = SdkMessageProcessingStep.Schema.Attributes.impersonatinguserid,
 
@@ -703,7 +703,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.plugintypeid,
 
                         LinkToEntityName = SdkMessageFilter.EntityLogicalName,
-                        LinkToAttributeName = SdkMessageFilter.PrimaryIdAttribute,
+                        LinkToAttributeName = SdkMessageFilter.EntityPrimaryIdAttribute,
 
                         EntityAlias = SdkMessageProcessingStep.Schema.Attributes.plugintypeid,
 
@@ -719,7 +719,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                                 LinkFromAttributeName = SdkMessageFilter.Schema.Attributes.sdkmessageid,
 
                                 LinkToEntityName = SdkMessage.EntityLogicalName,
-                                LinkToAttributeName = SdkMessage.PrimaryIdAttribute,
+                                LinkToAttributeName = SdkMessage.EntityPrimaryIdAttribute,
 
                                 EntityAlias = SdkMessageProcessingStep.Schema.Attributes.plugintypeid + "." + SdkMessageFilter.Schema.Attributes.sdkmessageid,
 
@@ -810,7 +810,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid,
 
                         LinkToEntityName = SdkMessageFilter.EntityLogicalName,
-                        LinkToAttributeName = SdkMessageFilter.PrimaryIdAttribute,
+                        LinkToAttributeName = SdkMessageFilter.EntityPrimaryIdAttribute,
 
                         EntityAlias = SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid,
 

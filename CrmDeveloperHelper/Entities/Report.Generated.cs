@@ -1,100 +1,101 @@
-﻿
+
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 {
-    ///<summary>
-    /// DisplayName:
-    /// (English - United States - 1033): Report
-    /// (Russian - 1049): Отчет
-    /// 
-    /// DisplayCollectionName:
-    /// (English - United States - 1033): Reports
-    /// (Russian - 1049): Отчеты
-    /// 
-    /// Description:
-    /// (English - United States - 1033): Data summary in an easy-to-read layout.
-    /// (Russian - 1049): Сводные данные в легкочитаемом формате.
-    /// 
-    /// PropertyName                          Value             CanBeChanged
-    /// ActivityTypeMask                      0
-    /// AutoCreateAccessTeams                 False
-    /// AutoRouteToOwnerQueue                 False
-    /// CanBeInManyToMany                     False             False
-    /// CanBePrimaryEntityInRelationship      False             False
-    /// CanBeRelatedEntityInRelationship      False             False
-    /// CanChangeHierarchicalRelationship     False             False
-    /// CanChangeTrackingBeEnabled            True              True
-    /// CanCreateAttributes                   False             False
-    /// CanCreateCharts                       True              False
-    /// CanCreateForms                        False             False
-    /// CanCreateViews                        True              False
-    /// CanEnableSyncToExternalSearchIndex    False             False
-    /// CanModifyAdditionalSettings           True              True
-    /// CanTriggerWorkflow                    True
-    /// ChangeTrackingEnabled                 False
-    /// CollectionSchemaName                  Reports
-    /// DaysSinceRecordLastModified           0
-    /// EnforceStateTransitions               False
-    /// EntityColor
-    /// EntityHelpUrl
-    /// EntityHelpUrlEnabled                  False
-    /// EntitySetName                         reports
-    /// IconLargeName
-    /// IconMediumName
-    /// IconSmallName
-    /// IsActivity                            False
-    /// IsActivityParty                       False
-    /// IsAIRUpdated                          False
-    /// IsAuditEnabled                        False             True
-    /// IsAvailableOffline                    True
-    /// IsBusinessProcessEnabled              False
-    /// IsChildEntity                         False
-    /// IsConnectionsEnabled                  False             False
-    /// IsCustomEntity                        False
-    /// IsCustomizable                        True              False
-    /// IsDocumentManagementEnabled           False
-    /// IsDuplicateDetectionEnabled           False             False
-    /// IsEnabledForCharts                    True
-    /// IsEnabledForExternalChannels          False
-    /// IsEnabledForTrace                     False
-    /// IsImportable                          False
-    /// IsInteractionCentricEnabled           False
-    /// IsIntersect                           False
-    /// IsKnowledgeManagementEnabled          False
-    /// IsMailMergeEnabled                    False             False
-    /// IsMappable                            True              False
-    /// IsOfflineInMobileClient               False             True
-    /// IsOneNoteIntegrationEnabled           False
-    /// IsOptimisticConcurrencyEnabled        True
-    /// IsPrivate                             False
-    /// IsQuickCreateEnabled                  False
-    /// IsReadingPaneEnabled                  True
-    /// IsReadOnlyInMobileClient              False             False
-    /// IsRenameable                          True              False
-    /// IsStateModelAware                     False
-    /// IsValidForAdvancedFind                True
-    /// IsValidForQueue                       False             False
-    /// IsVisibleInMobile                     False             False
-    /// IsVisibleInMobileClient               False             False
-    /// LogicalCollectionName                 reports
-    /// LogicalName                           report
-    /// ObjectTypeCode                        9100
-    /// OwnershipType                         UserOwned
-    /// RecurrenceBaseEntityLogicalName
-    /// ReportViewName                        FilteredReport
-    /// SchemaName                            Report
-    /// SyncToExternalSearchIndex             False
-    ///</summary>
     public partial class Report
     {
+        ///<summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Report
+        /// 
+        /// DisplayCollectionName:
+        ///     (English - United States - 1033): Reports
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Data summary in an easy-to-read layout.
+        /// 
+        /// PropertyName                          Value
+        /// ActivityTypeMask                      0
+        /// AutoCreateAccessTeams                 False
+        /// AutoRouteToOwnerQueue                 False
+        /// CanBeInManyToMany                     False
+        /// CanBePrimaryEntityInRelationship      False
+        /// CanBeRelatedEntityInRelationship      False
+        /// CanChangeHierarchicalRelationship     False
+        /// CanChangeTrackingBeEnabled            True
+        /// CanCreateAttributes                   False
+        /// CanCreateCharts                       True
+        /// CanCreateForms                        False
+        /// CanCreateViews                        True
+        /// CanEnableSyncToExternalSearchIndex    False
+        /// CanModifyAdditionalSettings           True
+        /// CanTriggerWorkflow                    True
+        /// ChangeTrackingEnabled                 False
+        /// CollectionSchemaName                  Reports
+        /// DataProviderId                        null
+        /// DataSourceId                          null
+        /// EnforceStateTransitions               False
+        /// EntityHelpUrlEnabled                  False
+        /// EntitySetName                         reports
+        /// IntroducedVersion                     5.0.0.0
+        /// IsAIRUpdated                          False
+        /// IsActivity                            False
+        /// IsActivityParty                       False
+        /// IsAvailableOffline                    True
+        /// IsBPFEntity                           False
+        /// IsBusinessProcessEnabled              False
+        /// IsChildEntity                         False
+        /// IsConnectionsEnabled                  False
+        /// IsCustomEntity                        False
+        /// IsCustomizable                        True
+        /// IsDocumentManagementEnabled           False
+        /// IsDocumentRecommendationsEnabled      False
+        /// IsDuplicateDetectionEnabled           False
+        /// IsEnabledForCharts                    True
+        /// IsEnabledForExternalChannels          False
+        /// IsEnabledForTrace                     False
+        /// IsImportable                          False
+        /// IsInteractionCentricEnabled           False
+        /// IsIntersect                           False
+        /// IsKnowledgeManagementEnabled          False
+        /// IsLogicalEntity                       False
+        /// IsMailMergeEnabled                    False
+        /// IsMappable                            True
+        /// IsOfflineInMobileClient               False
+        /// IsOneNoteIntegrationEnabled           False
+        /// IsOptimisticConcurrencyEnabled        True
+        /// IsPrivate                             False
+        /// IsQuickCreateEnabled                  False
+        /// IsReadOnlyInMobileClient              False
+        /// IsReadingPaneEnabled                  True
+        /// IsRenameable                          True
+        /// IsSLAEnabled                          False
+        /// IsStateModelAware                     False
+        /// IsValidForAdvancedFind                True
+        /// IsValidForQueue                       False
+        /// IsVisibleInMobile                     False
+        /// IsVisibleInMobileClient               False
+        /// LogicalCollectionName                 reports
+        /// LogicalName                           report
+        /// ObjectTypeCode                        9100
+        /// OwnershipType                         UserOwned
+        /// PrimaryIdAttribute                    reportid
+        /// PrimaryNameAttribute                  name
+        /// ReportViewName                        FilteredReport
+        /// SchemaName                            Report
+        /// SyncToExternalSearchIndex             False
+        /// UsesBusinessDataLabelTable            False
+        ///</summary>
         public static partial class Schema
         {
             public const string EntityLogicalName = "report";
 
             public const string EntitySchemaName = "Report";
 
+            public const string EntityPrimaryIdAttribute = "reportid";
+
             public const string EntityPrimaryNameAttribute = "name";
 
-            public const string EntityPrimaryIdAttribute = "reportid";
+            public const int EntityObjectTypeCode = 9100;
 
             #region Attributes.
 
@@ -102,1009 +103,2339 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 ///<summary>
                 /// DisplayName:
+                ///     (English - United States - 1033): Report
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): Unique identifier of the report.
+                /// 
+                /// SchemaName: ReportId
+                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   True
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    True
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string reportid = "reportid";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): Name
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): Name of the report.
+                /// 
+                /// SchemaName: Name
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 425
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  True
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   True
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string name = "name";
+
+                ///<summary>
+                /// DisplayName:
                 ///     (English - United States - 1033): Body Binary
-                ///     (Russian - 1049): Двоичное содержимое
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Binary report contents (base-64 encoded).
-                ///     (Russian - 1049): Двоичное содержимое отчета (кодировка base-64).
                 /// 
                 /// SchemaName: BodyBinary
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 1073741823
                 /// Format = TextArea    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string bodybinary = "bodybinary";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Body Text
-                ///     (Russian - 1049): Основной текст
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Text contents of the RDL file for a Reporting Services report.
-                ///     (Russian - 1049): Текстовое содержание RDL-файла для отчета Reporting Services.
                 /// 
                 /// SchemaName: BodyText
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 1073741823
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string bodytext = "bodytext";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Linked Report URL
-                ///     (Russian - 1049): URL-адрес связанного отчета
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): URL for a linked report.
-                ///     (Russian - 1049): URL-адрес связанного отчета.
                 /// 
                 /// SchemaName: BodyUrl
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 200
                 /// Format = Url    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string bodyurl = "bodyurl";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Component State
-                ///     (Russian - 1049): Состояние компонента
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
-                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: ComponentState
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// Global System  OptionSet componentstate
                 /// DefaultFormValue = -1
+                /// 
+                ///         DisplayName:
+                ///             (English - United States - 1033): Component State
+                ///         
+                ///         Description:
+                ///             (English - United States - 1033): The state of this component.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string componentstate = "componentstate";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By
-                ///     (Russian - 1049): Создано
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who created the report.
-                ///     (Russian - 1049): Уникальный идентификатор пользователя, создавшего отчет.
                 /// 
                 /// SchemaName: CreatedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: systemuser
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///         (English - United States - 1033): User
-                ///         (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Users
-                ///         (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string createdby = "createdby";
 
                 ///<summary>
+                /// SchemaName: CreatedByName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'createdby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string createdbyname = "createdbyname";
+
+                ///<summary>
+                /// SchemaName: CreatedByYomiName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'createdby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string createdbyyominame = "createdbyyominame";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Crm Version in which the Report is created
-                ///     (Russian - 1049): Версия CRM, в которой был создан отчет.
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Major version number of Crm, used to identify the version of Crm in which report is created.
-                ///     (Russian - 1049): Старший номер версии CRM, используемый для определения версии CRM, в которой был создан отчет.
                 /// 
                 /// SchemaName: CreatedInMajorVersion
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MinValue = 0    MaxValue = 2147483647
                 /// Format = None
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              7.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string createdinmajorversion = "createdinmajorversion";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created On
-                ///     (Russian - 1049): Дата создания
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the report was created.
-                ///     (Russian - 1049): Дата и время создания отчета.
                 /// 
                 /// SchemaName: CreatedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DateTimeBehavior = UserLocal    CanChangeDateTimeBehavior = False
                 /// ImeMode = Inactive    Format = DateAndTime
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string createdon = "createdon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By (Delegate)
-                ///     (Russian - 1049): Кем создано (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who created the report.
-                ///     (Russian - 1049): Уникальный идентификатор пользователя-делегата, создавшего отчет.
                 /// 
                 /// SchemaName: CreatedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: systemuser
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///         (English - United States - 1033): User
-                ///         (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Users
-                ///         (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string createdonbehalfby = "createdonbehalfby";
 
                 ///<summary>
+                /// SchemaName: CreatedOnBehalfByName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'createdonbehalfby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string createdonbehalfbyname = "createdonbehalfbyname";
+
+                ///<summary>
+                /// SchemaName: CreatedOnBehalfByYomiName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'createdonbehalfby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string createdonbehalfbyyominame = "createdonbehalfbyyominame";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Custom Report XML
-                ///     (Russian - 1049): XML настраиваемого отчета
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): XML used to define a custom report.
-                ///     (Russian - 1049): XML, который использовался для определения настраиваемого отчета.
                 /// 
                 /// SchemaName: CustomReportXml
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 1073741823
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string customreportxml = "customreportxml";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Default filter
-                ///     (Russian - 1049): Фильтр по умолчанию
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Default filter for the report.
-                ///     (Russian - 1049): Фильтр отчета по умолчанию.
                 /// 
                 /// SchemaName: DefaultFilter
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 1073741823
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string defaultfilter = "defaultfilter";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Description
-                ///     (Russian - 1049): Описание
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Description of the report.
-                ///     (Russian - 1049): Описание отчета.
                 /// 
                 /// SchemaName: Description
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 256
                 /// Format = TextArea    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   True
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string description = "description";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): File Name
-                ///     (Russian - 1049): Имя файла
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): File name of the report.
-                ///     (Russian - 1049): Имя файла отчета.
                 /// 
                 /// SchemaName: FileName
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 255
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string filename = "filename";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): File Size (Bytes)
-                ///     (Russian - 1049): Размер файла (байт)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): File size of the report.
-                ///     (Russian - 1049): Размер файла отчета.
                 /// 
                 /// SchemaName: FileSize
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MinValue = 0    MaxValue = 1000000000
                 /// Format = None
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string filesize = "filesize";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Introduced Version
-                ///     (Russian - 1049): Версия введения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Version in which the report is introduced.
-                ///     (Russian - 1049): Версия, в которой был введен отчет.
                 /// 
                 /// SchemaName: IntroducedVersion
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 48
                 /// Format = VersionNumber    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              6.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string introducedversion = "introducedversion";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Customizable
-                ///     (Russian - 1049): Настраиваемый
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Information that specifies whether this component can be customized.
-                ///     (Russian - 1049): Сведения, указывающие на возможность настройки этого компонента.
                 /// 
                 /// SchemaName: IsCustomizable
                 /// ManagedPropertyAttributeMetadata    AttributeType: ManagedProperty    AttributeTypeName: ManagedPropertyType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = True
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   True
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string iscustomizable = "iscustomizable";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Is Custom Report
-                ///     (Russian - 1049): Настраиваемый отчет
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Information about whether the report is a custom report.
-                ///     (Russian - 1049): Сведения о том, является ли отчет настраиваемым.
                 /// 
                 /// SchemaName: IsCustomReport
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DefaultValue = False
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): False
-                ///     (Russian - 1049): Ложь
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): True
-                ///     (Russian - 1049): Истина
                 /// TrueOption = 1
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string iscustomreport = "iscustomreport";
 
                 ///<summary>
+                /// SchemaName: IsCustomReportName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'iscustomreport'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string iscustomreportname = "iscustomreportname";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Is Managed
-                ///     (Russian - 1049): Управляемый
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Indicates whether the solution component is part of a managed solution.
-                ///     (Russian - 1049): Указывает, является ли компонент решения частью управляемого решения.
                 /// 
                 /// SchemaName: IsManaged
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DefaultValue = False
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Unmanaged
-                ///     (Russian - 1049): Неуправляемый
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Managed
-                ///     (Russian - 1049): Управляемый
                 /// TrueOption = 1
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string ismanaged = "ismanaged";
 
                 ///<summary>
+                /// SchemaName: IsManagedName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'ismanaged'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string ismanagedname = "ismanagedname";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Viewable By
-                ///     (Russian - 1049): Доступно для просмотра
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Information about whether the report is personal or is available to all users.
-                ///     (Russian - 1049): Сведения о том, является ли отчет личным или доступным для всех пользователей.
                 /// 
                 /// SchemaName: IsPersonal
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DefaultValue = True
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Organization
-                ///     (Russian - 1049): Предприятие
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Individual
-                ///     (Russian - 1049): Отдельное лицо
                 /// TrueOption = 1
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string ispersonal = "ispersonal";
 
                 ///<summary>
+                /// SchemaName: IsPersonalName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'ispersonal'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string ispersonalname = "ispersonalname";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Is Scheduled Report
-                ///     (Russian - 1049): Планируемый отчет
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Information about whether the report is a scheduled report.
-                ///     (Russian - 1049): Сведения о том, является ли отчет запланированным.
                 /// 
                 /// SchemaName: IsScheduledReport
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DefaultValue = False
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): False
-                ///     (Russian - 1049): Ложь
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): True
-                ///     (Russian - 1049): Истина
                 /// TrueOption = 1
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string isscheduledreport = "isscheduledreport";
 
                 ///<summary>
+                /// SchemaName: IsScheduledReportName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'isscheduledreport'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string isscheduledreportname = "isscheduledreportname";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Language
-                ///     (Russian - 1049): Язык
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Language in which the report will be displayed.
-                ///     (Russian - 1049): Язык, на котором будет отображен отчет.
                 /// 
                 /// SchemaName: LanguageCode
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: ApplicationRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MinValue = 0    MaxValue = 2147483647
                 /// Format = Language
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string languagecode = "languagecode";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Mime Type
-                ///     (Russian - 1049): Тип MIME
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): MIME type of the report.
-                ///     (Russian - 1049): Тип MIME отчета.
                 /// 
                 /// SchemaName: MimeType
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 256
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string mimetype = "mimetype";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By
-                ///     (Russian - 1049): Изменено
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who last modified the report.
-                ///     (Russian - 1049): Уникальный идентификатор последнего пользователя, изменившего отчет.
                 /// 
                 /// SchemaName: ModifiedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: systemuser
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///         (English - United States - 1033): User
-                ///         (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Users
-                ///         (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string modifiedby = "modifiedby";
 
                 ///<summary>
+                /// SchemaName: ModifiedByName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'modifiedby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string modifiedbyname = "modifiedbyname";
+
+                ///<summary>
+                /// SchemaName: ModifiedByYomiName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'modifiedby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string modifiedbyyominame = "modifiedbyyominame";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified On
-                ///     (Russian - 1049): Дата изменения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the report was last modified.
-                ///     (Russian - 1049): Дата и время последнего изменения отчета.
                 /// 
                 /// SchemaName: ModifiedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DateTimeBehavior = UserLocal    CanChangeDateTimeBehavior = False
                 /// ImeMode = Inactive    Format = DateAndTime
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string modifiedon = "modifiedon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By (Delegate)
-                ///     (Russian - 1049): Кем изменено (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who last modified the report.
-                ///     (Russian - 1049): Уникальный идентификатор делегата, внесшего последние изменения в отчет.
                 /// 
                 /// SchemaName: ModifiedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: systemuser
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///         (English - United States - 1033): User
-                ///         (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Users
-                ///         (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string modifiedonbehalfby = "modifiedonbehalfby";
 
                 ///<summary>
-                /// DisplayName:
-                ///     (English - United States - 1033): Name
-                ///     (Russian - 1049): Имя
-                /// 
-                /// Description:
-                ///     (English - United States - 1033): Name of the report.
-                ///     (Russian - 1049): Имя отчета.
-                /// 
-                /// SchemaName: Name
-                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
-                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// MaxLength = 425
+                /// SchemaName: ModifiedOnBehalfByName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'modifiedonbehalfby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
-                public const string name = "name";
+                //public const string modifiedonbehalfbyname = "modifiedonbehalfbyname";
+
+                ///<summary>
+                /// SchemaName: ModifiedOnBehalfByYomiName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'modifiedonbehalfby'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string modifiedonbehalfbyyominame = "modifiedonbehalfbyyominame";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Body Text
-                ///     (Russian - 1049): Основной текст
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Original Text contents of the RDL file for a Reporting Services report.
-                ///     (Russian - 1049): Исходный текст RDL-файла для отчета служб отчетов.
                 /// 
                 /// SchemaName: OriginalBodyText
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 1073741823
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string originalbodytext = "originalbodytext";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Record Overwrite Time
-                ///     (Russian - 1049): Время замены записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
-                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: OverwriteTime
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DateTimeBehavior = UserLocal    CanChangeDateTimeBehavior = False
                 /// ImeMode = Inactive    Format = DateOnly
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string overwritetime = "overwritetime";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owner
-                ///     (Russian - 1049): Ответственный
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user or team who owns the report.
-                ///     (Russian - 1049): Уникальный идентификатор пользователя или рабочей группы, ответственных за отчет.
                 /// 
                 /// SchemaName: OwnerId
                 /// LookupAttributeMetadata    AttributeType: Owner    AttributeTypeName: OwnerType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: systemuser,team
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///         (English - United States - 1033): User
-                ///         (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Users
-                ///         (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 /// 
                 ///     Target team    PrimaryIdAttribute teamid    PrimaryNameAttribute name
                 ///         DisplayName:
-                ///         (English - United States - 1033): Team
-                ///         (Russian - 1049): Рабочая группа
+                ///             (English - United States - 1033): Team
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Teams
-                ///         (Russian - 1049): Рабочие группы
+                ///             (English - United States - 1033): Teams
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
-                ///         (Russian - 1049): Набор системных пользователей, которые обычно участвуют в совместной работе. Рабочие группы можно использовать для упрощения предоставления участникам группы общего доступа к записям и данным организации, если участники принадлежат к разным подразделениям.
+                ///             (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   True
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              True
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string ownerid = "ownerid";
 
                 ///<summary>
+                /// SchemaName: OwnerIdName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired    AttributeOf 'ownerid'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string owneridname = "owneridname";
+
+                ///<summary>
+                /// SchemaName: OwnerIdType
+                /// EntityNameAttributeMetadata    AttributeType: EntityName    AttributeTypeName: EntityNameType    RequiredLevel: SystemRequired    AttributeOf 'ownerid'
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string owneridtype = "owneridtype";
+
+                ///<summary>
+                /// SchemaName: OwnerIdYomiName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired    AttributeOf 'ownerid'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string owneridyominame = "owneridyominame";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owning Business Unit
-                ///     (Russian - 1049): Ответственное подразделение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the business unit that owns the report.
-                ///     (Russian - 1049): Уникальный идентификатор подразделения, ответственного за отчет.
                 /// 
                 /// SchemaName: OwningBusinessUnit
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: businessunit
                 /// 
                 ///     Target businessunit    PrimaryIdAttribute businessunitid    PrimaryNameAttribute name
                 ///         DisplayName:
-                ///         (English - United States - 1033): Business Unit
-                ///         (Russian - 1049): Подразделение
+                ///             (English - United States - 1033): Business Unit
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Business Units
-                ///         (Russian - 1049): Подразделения
+                ///             (English - United States - 1033): Business Units
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Business, division, or department in the Microsoft Dynamics 365 database.
-                ///         (Russian - 1049): Компания, подразделение или отдел в базе данных Microsoft Dynamics 365.
+                ///             (English - United States - 1033): Business, division, or department in the Microsoft Dynamics 365 database.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   True
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string owningbusinessunit = "owningbusinessunit";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owning Team
-                ///     (Russian - 1049): Ответственная рабочая группа
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the team who owns the report.
-                ///     (Russian - 1049): Уникальный идентификатор рабочей группы, которой принадлежит отчет.
                 /// 
                 /// SchemaName: OwningTeam
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: team
                 /// 
                 ///     Target team    PrimaryIdAttribute teamid    PrimaryNameAttribute name
                 ///         DisplayName:
-                ///         (English - United States - 1033): Team
-                ///         (Russian - 1049): Рабочая группа
+                ///             (English - United States - 1033): Team
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Teams
-                ///         (Russian - 1049): Рабочие группы
+                ///             (English - United States - 1033): Teams
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
-                ///         (Russian - 1049): Набор системных пользователей, которые обычно участвуют в совместной работе. Рабочие группы можно использовать для упрощения предоставления участникам группы общего доступа к записям и данным организации, если участники принадлежат к разным подразделениям.
+                ///             (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string owningteam = "owningteam";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owning User
-                ///     (Russian - 1049): Ответственный пользователь
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who owns the report.
-                ///     (Russian - 1049): Уникальный идентификатор пользователя, ответственного за отчет.
                 /// 
                 /// SchemaName: OwningUser
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: systemuser
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///         (English - United States - 1033): User
-                ///         (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Users
-                ///         (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string owninguser = "owninguser";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Parent Report
-                ///     (Russian - 1049): Родительский отчет
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the parent report.
-                ///     (Russian - 1049): Уникальный идентификатор родительского отчета.
                 /// 
                 /// SchemaName: ParentReportId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// Targets: report
                 /// 
                 ///     Target report    PrimaryIdAttribute reportid    PrimaryNameAttribute name
                 ///         DisplayName:
-                ///         (English - United States - 1033): Report
-                ///         (Russian - 1049): Отчет
+                ///             (English - United States - 1033): Report
                 ///         
                 ///         DisplayCollectionName:
-                ///         (English - United States - 1033): Reports
-                ///         (Russian - 1049): Отчеты
+                ///             (English - United States - 1033): Reports
                 ///         
                 ///         Description:
-                ///         (English - United States - 1033): Data summary in an easy-to-read layout.
-                ///         (Russian - 1049): Сводные данные в легкочитаемом формате.
+                ///             (English - United States - 1033): Data summary in an easy-to-read layout.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string parentreportid = "parentreportid";
 
                 ///<summary>
+                /// SchemaName: ParentReportIdName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'parentreportid'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string parentreportidname = "parentreportidname";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Query Info Structure
-                ///     (Russian - 1049): Структура сведений о запросе
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
-                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: QueryInfo
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 1073741823
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string queryinfo = "queryinfo";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Report
-                ///     (Russian - 1049): Отчет
-                /// 
-                /// Description:
-                ///     (English - United States - 1033): Unique identifier of the report.
-                ///     (Russian - 1049): Уникальный идентификатор отчета.
-                /// 
-                /// SchemaName: ReportId
-                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
-                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
-                ///</summary>
-                public const string reportid = "reportid";
-
-                ///<summary>
-                /// DisplayName:
-                ///     (English - United States - 1033): Report
-                ///     (Russian - 1049): Отчет
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
-                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: ReportIdUnique
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string reportidunique = "reportidunique";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Name on SRS
-                ///     (Russian - 1049): Имя в SRS
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Name of the report on SRS.
-                ///     (Russian - 1049): Имя отчета в SRS.
                 /// 
                 /// SchemaName: ReportNameOnSRS
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 425
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string reportnameonsrs = "reportnameonsrs";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Report Type
-                ///     (Russian - 1049): Тип отчета
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Type of the report.
-                ///     (Russian - 1049): Тип отчета.
                 /// 
                 /// SchemaName: ReportTypeCode
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: ApplicationRequired
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: True    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// Local System  OptionSet report_reporttypecode
                 /// DefaultFormValue = -1
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string reporttypecode = "reporttypecode";
 
                 ///<summary>
+                /// SchemaName: ReportTypeCodeName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'reporttypecode'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string reporttypecodename = "reporttypecodename";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Schedule Definition XML
-                ///     (Russian - 1049): XML определения расписания
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): XML used for defining the report schedule.
-                ///     (Russian - 1049): XML, который использовался для определения расписания отчета.
                 /// 
                 /// SchemaName: ScheduleXml
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 1073741823
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string schedulexml = "schedulexml";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Report Signature Date
-                ///     (Russian - 1049): Дата подписи отчета
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Report signature date, used to identify a report for upgrades and hotfixes.
-                ///     (Russian - 1049): Дата подписи отчета, используемой для идентификации отчета при обновлениях и исправлениях.
                 /// 
                 /// SchemaName: SignatureDate
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DateTimeBehavior = UserLocal    CanChangeDateTimeBehavior = False
                 /// ImeMode = Inactive    Format = DateOnly
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string signaturedate = "signaturedate";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Signature
-                ///     (Russian - 1049): Подпись
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the report signature used to identify a report for upgrades and hotfixes.
-                ///     (Russian - 1049): Уникальный идентификатор подписи отчета, используемой для идентификации отчета при обновлениях и исправлениях.
                 /// 
                 /// SchemaName: SignatureId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string signatureid = "signatureid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Signature Language Code
-                ///     (Russian - 1049): Код языка подписи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Report signature language code used to identify a report for upgrades and hotfixes.
-                ///     (Russian - 1049): Код языка подписи отчета, используемой для идентификации отчета при обновлениях и исправлениях.
                 /// 
                 /// SchemaName: SignatureLcid
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MinValue = 0    MaxValue = 2147483647
                 /// Format = Language
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string signaturelcid = "signaturelcid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Report Signature Major Version
-                ///     (Russian - 1049): Основная версия подписи отчета
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Report signature major version, used to identify a report for upgrades and hotfixes.
-                ///     (Russian - 1049): Основная версия подписи отчета, используемой для идентификации отчета при обновлениях и исправлениях.
                 /// 
                 /// SchemaName: SignatureMajorVersion
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MinValue = 0    MaxValue = 2147483647
                 /// Format = None
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string signaturemajorversion = "signaturemajorversion";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Report Signature Minor Version
-                ///     (Russian - 1049): Вспомогательная версия подписи отчета
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Report signature minor version, used to identify a report for upgrades and hotfixes.
-                ///     (Russian - 1049): Вспомогательная версия подписи отчета, используемой для идентификации отчета при обновлениях и исправлениях.
                 /// 
                 /// SchemaName: SignatureMinorVersion
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MinValue = 0    MaxValue = 2147483647
                 /// Format = None
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string signatureminorversion = "signatureminorversion";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
-                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the associated solution.
-                ///     (Russian - 1049): Уникальный идентификатор связанного решения.
                 /// 
                 /// SchemaName: SolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string solutionid = "solutionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
-                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
-                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: SupportingSolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: False    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: False    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string supportingsolutionid = "supportingsolutionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Time Zone Rule Version Number
-                ///     (Russian - 1049): Номер версии правила часового пояса
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
-                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: TimeZoneRuleVersionNumber
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MinValue = -1    MaxValue = 2147483647
                 /// Format = None
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string timezoneruleversionnumber = "timezoneruleversionnumber";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): UTC Conversion Time Zone Code
-                ///     (Russian - 1049): Код часового пояса (преобразование в UTC)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Time zone code that was in use when the record was created.
-                ///     (Russian - 1049): Код часового пояса, использовавшийся при создании записи.
                 /// 
                 /// SchemaName: UTCConversionTimeZoneCode
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForRead: True    IsValidForUpdate: True    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MinValue = -1    MaxValue = 2147483647
                 /// Format = None
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string utcconversiontimezonecode = "utcconversiontimezonecode";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Version Number
-                ///     (Russian - 1049): Номер версии
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Version number of the report.
-                ///     (Russian - 1049): Номер версии отчета.
                 /// 
                 /// SchemaName: VersionNumber
                 /// BigIntAttributeMetadata    AttributeType: BigInt    AttributeTypeName: BigIntType    RequiredLevel: None
-                /// IsValidForCreate: False    IsValidForRead: True    IsValidForUpdate: False    IsValidForAdvancedFind: False    CanBeChanged = False
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// MinValue = -9223372036854775808    MaxValue = 9223372036854775807
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  True
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string versionnumber = "versionnumber";
             }
@@ -1118,25 +2449,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 #region Picklist OptionSet OptionSets.
                 ///<summary>
-                /// Attribute: reporttypecode
+                /// Attribute:
+                ///     reporttypecode
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Report Type
-                ///     (Russian - 1049): Тип отчета
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Type of the report.
-                ///     (Russian - 1049): Тип отчета.
                 /// 
                 /// Local System  OptionSet report_reporttypecode
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Report Type
-                ///     (Russian - 1049): Тип отчета
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Type of the report.
-                ///     (Russian - 1049): Тип отчета.
                 ///</summary>
                 public enum reporttypecode
                 {
@@ -1146,7 +2474,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Reporting Services Report
-                    ///     (Russian - 1049): Отчет Reporting Services
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Reporting_Services_Report_1 = 1,
@@ -1157,7 +2484,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Other Report
-                    ///     (Russian - 1049): Другой отчет
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Other_Report_2 = 2,
@@ -1168,7 +2494,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Linked Report
-                    ///     (Russian - 1049): Связанный отчет
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Linked_Report_3 = 3,
@@ -1186,11 +2511,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship business_unit_reports
                 /// 
-                /// PropertyName                               Value                    CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     business_unit_reports
                 /// ReferencingEntityNavigationPropertyName    owningbusinessunit
-                /// IsCustomizable                             False                    False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1201,22 +2526,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity businessunit:
+                /// ReferencedEntity businessunit:    PrimaryIdAttribute businessunitid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///     (English - United States - 1033): Business Unit
-                ///     (Russian - 1049): Подразделение
+                ///         (English - United States - 1033): Business Unit
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Business Units
-                ///     (Russian - 1049): Подразделения
+                ///         (English - United States - 1033): Business Units
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Business, division, or department in the Microsoft Dynamics 365 database.
-                ///     (Russian - 1049): Компания, подразделение или отдел в базе данных Microsoft Dynamics 365.
+                ///         (English - United States - 1033): Business, division, or department in the Microsoft Dynamics 365 database.
                 ///</summary>
                 public static partial class business_unit_reports
                 {
@@ -1236,11 +2559,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship lk_report_createdonbehalfby
                 /// 
-                /// PropertyName                               Value                          CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     lk_report_createdonbehalfby
                 /// ReferencingEntityNavigationPropertyName    createdonbehalfby
-                /// IsCustomizable                             False                          False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1251,22 +2574,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity systemuser:
+                /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
-                ///     (English - United States - 1033): User
-                ///     (Russian - 1049): Пользователь
+                ///         (English - United States - 1033): User
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Users
-                ///     (Russian - 1049): Пользователи
+                ///         (English - United States - 1033): Users
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///     (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
                 public static partial class lk_report_createdonbehalfby
                 {
@@ -1286,11 +2607,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship lk_report_modifiedonbehalfby
                 /// 
-                /// PropertyName                               Value                           CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     lk_report_modifiedonbehalfby
                 /// ReferencingEntityNavigationPropertyName    modifiedonbehalfby
-                /// IsCustomizable                             False                           False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1301,22 +2622,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity systemuser:
+                /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
-                ///     (English - United States - 1033): User
-                ///     (Russian - 1049): Пользователь
+                ///         (English - United States - 1033): User
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Users
-                ///     (Russian - 1049): Пользователи
+                ///         (English - United States - 1033): Users
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///     (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
                 public static partial class lk_report_modifiedonbehalfby
                 {
@@ -1336,11 +2655,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship lk_reportbase_createdby
                 /// 
-                /// PropertyName                               Value                      CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     lk_reportbase_createdby
                 /// ReferencingEntityNavigationPropertyName    createdby
-                /// IsCustomizable                             False                      False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1351,22 +2670,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity systemuser:
+                /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
-                ///     (English - United States - 1033): User
-                ///     (Russian - 1049): Пользователь
+                ///         (English - United States - 1033): User
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Users
-                ///     (Russian - 1049): Пользователи
+                ///         (English - United States - 1033): Users
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///     (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
                 public static partial class lk_reportbase_createdby
                 {
@@ -1386,11 +2703,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship lk_reportbase_modifiedby
                 /// 
-                /// PropertyName                               Value                       CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     lk_reportbase_modifiedby
                 /// ReferencingEntityNavigationPropertyName    modifiedby
-                /// IsCustomizable                             False                       False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1401,22 +2718,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity systemuser:
+                /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
-                ///     (English - United States - 1033): User
-                ///     (Russian - 1049): Пользователь
+                ///         (English - United States - 1033): User
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Users
-                ///     (Russian - 1049): Пользователи
+                ///         (English - United States - 1033): Users
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
-                ///     (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
                 public static partial class lk_reportbase_modifiedby
                 {
@@ -1436,11 +2751,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship owner_reports
                 /// 
-                /// PropertyName                               Value                    CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     owner_reports
                 /// ReferencingEntityNavigationPropertyName    ownerid
-                /// IsCustomizable                             False                    False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -1451,22 +2766,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity owner:
+                /// ReferencedEntity owner:    PrimaryIdAttribute ownerid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///     (English - United States - 1033): Owner
-                ///     (Russian - 1049): Ответственный
+                ///         (English - United States - 1033): Owner
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Owners
-                ///     (Russian - 1049): Ответственные
+                ///         (English - United States - 1033): Owners
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Group of undeleted system users and undeleted teams. Owners can be used to control access to specific objects.
-                ///     (Russian - 1049): Группа для восстановленных системных пользователей и рабочих групп. Для контроля доступа к конкретным объектам можно использовать ответственных.
+                ///         (English - United States - 1033): Group of undeleted system users and undeleted teams. Owners can be used to control access to specific objects.
                 ///</summary>
                 public static partial class owner_reports
                 {
@@ -1486,11 +2799,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// N:1 - Relationship report_parent_report
                 /// 
-                /// PropertyName                               Value                    CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     report_parent_report
                 /// ReferencingEntityNavigationPropertyName    parentreportid
-                /// IsCustomizable                             True                     False
+                /// IsCustomizable                             True
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1501,6 +2814,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              Cascade
                 /// CascadeConfiguration.Share                 Cascade
                 /// CascadeConfiguration.Unshare               Cascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
@@ -1528,11 +2842,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship replicationbacklog_target_report
                 /// 
-                /// PropertyName                               Value                               CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     replicationbacklog_target_report
                 /// ReferencingEntityNavigationPropertyName    targetobjectid
-                /// IsCustomizable                             False                               False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -1543,22 +2857,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencingEntity replicationbacklog:
+                /// ReferencingEntity replicationbacklog:    PrimaryIdAttribute replicationbacklogid
                 ///     DisplayName:
-                ///     (English - United States - 1033): Replication Backlog
-                ///     (Russian - 1049): Задержка репликации
+                ///         (English - United States - 1033): Replication Backlog
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Replication Backlogs
-                ///     (Russian - 1049): Задержки репликации
+                ///         (English - United States - 1033): Replication Backlogs
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Entity to hold replication backlog tasks. For internal use only.
-                ///     (Russian - 1049): Сущность для хранения задач задержки репликации. Только для внутреннего использования.
+                ///         (English - United States - 1033): Entity to hold replication backlog tasks. For internal use only.
                 ///</summary>
                 public static partial class replicationbacklog_target_report
                 {
@@ -1576,11 +2888,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship Report_AsyncOperations
                 /// 
-                /// PropertyName                               Value                       CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     Report_AsyncOperations
                 /// ReferencingEntityNavigationPropertyName    regardingobjectid_report
-                /// IsCustomizable                             False                       False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1591,22 +2903,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencingEntity asyncoperation:
+                /// ReferencingEntity asyncoperation:    PrimaryIdAttribute asyncoperationid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///     (English - United States - 1033): System Job
-                ///     (Russian - 1049): Системное задание
+                ///         (English - United States - 1033): System Job
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): System Jobs
-                ///     (Russian - 1049): Системные задания
+                ///         (English - United States - 1033): System Jobs
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Process whose execution can proceed independently or in the background.
-                ///     (Russian - 1049): Процесс, который может выполняться независимо или в фоновом режиме.
+                ///         (English - United States - 1033): Process whose execution can proceed independently or in the background.
                 ///</summary>
                 public static partial class report_asyncoperations
                 {
@@ -1626,11 +2936,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship report_parent_report
                 /// 
-                /// PropertyName                               Value                    CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     report_parent_report
                 /// ReferencingEntityNavigationPropertyName    parentreportid
-                /// IsCustomizable                             True                     False
+                /// IsCustomizable                             True
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1641,6 +2951,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              Cascade
                 /// CascadeConfiguration.Share                 Cascade
                 /// CascadeConfiguration.Unshare               Cascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
@@ -1661,11 +2972,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship Report_ProcessSessions
                 /// 
-                /// PropertyName                               Value                       CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     Report_ProcessSessions
                 /// ReferencingEntityNavigationPropertyName    regardingobjectid_report
-                /// IsCustomizable                             False                       False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1676,22 +2987,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
-                /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
+                /// CascadeConfiguration.RollupView            NoCascade
+                /// AssociatedMenuConfiguration.Behavior       UseCollectionName
                 /// AssociatedMenuConfiguration.Group          Details
-                /// AssociatedMenuConfiguration.Order          null
+                /// AssociatedMenuConfiguration.Order          110
                 /// 
-                /// ReferencingEntity processsession:
+                /// ReferencingEntity processsession:    PrimaryIdAttribute processsessionid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///     (English - United States - 1033): Process Session
-                ///     (Russian - 1049): Сеанс процесса
+                ///         (English - United States - 1033): Process Session
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Process Sessions
-                ///     (Russian - 1049): Сеансы процесса
+                ///         (English - United States - 1033): Process Sessions
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Information that is generated when a dialog is run. Every time that you run a dialog, a dialog session is created.
-                ///     (Russian - 1049): Информация, созданная после запуска диалогового окна. При каждом запуске диалогового окна создается сеанс диалогового окна.
+                ///         (English - United States - 1033): Information that is generated when a dialog is run. Every time that you run a dialog, a dialog session is created.
                 ///</summary>
                 public static partial class report_processsessions
                 {
@@ -1711,11 +3020,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship report_reportcategories
                 /// 
-                /// PropertyName                               Value                      CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     report_reportcategories
                 /// ReferencingEntityNavigationPropertyName    reportid
-                /// IsCustomizable                             False                      False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1726,22 +3035,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencingEntity reportcategory:
+                /// ReferencingEntity reportcategory:    PrimaryIdAttribute reportcategoryid
                 ///     DisplayName:
-                ///     (English - United States - 1033): Report Related Category
-                ///     (Russian - 1049): Категория, связанная с отчетом
+                ///         (English - United States - 1033): Report Related Category
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Report Related Categories
-                ///     (Russian - 1049): Категории, связанные с отчетом
+                ///         (English - United States - 1033): Report Related Categories
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Categories related to a report. A report can be related to multiple categories.
-                ///     (Russian - 1049): Категории, связанные с отчетом. Отчет может быть связан с несколькими категориями.
+                ///         (English - United States - 1033): Categories related to a report. A report can be related to multiple categories.
                 ///</summary>
                 public static partial class report_reportcategories
                 {
@@ -1759,11 +3066,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship report_reportentities
                 /// 
-                /// PropertyName                               Value                    CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     report_reportentities
                 /// ReferencingEntityNavigationPropertyName    reportid
-                /// IsCustomizable                             False                    False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1774,22 +3081,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencingEntity reportentity:
+                /// ReferencingEntity reportentity:    PrimaryIdAttribute reportentityid
                 ///     DisplayName:
-                ///     (English - United States - 1033): Report Related Entity
-                ///     (Russian - 1049): Сущность, связанная с отчетом
+                ///         (English - United States - 1033): Report Related Entity
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Report Related Entities
-                ///     (Russian - 1049): Сущности, связанные с отчетом
+                ///         (English - United States - 1033): Report Related Entities
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Entities related to a report. A report can be related to multiple entities.
-                ///     (Russian - 1049): Сущности, связанные с отчетом. Отчет может быть связан с несколькими сущностями.
+                ///         (English - United States - 1033): Entities related to a report. A report can be related to multiple entities.
                 ///</summary>
                 public static partial class report_reportentities
                 {
@@ -1807,11 +3112,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship report_reportlink
                 /// 
-                /// PropertyName                               Value                    CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     report_reportlink
                 /// ReferencingEntityNavigationPropertyName    reportid
-                /// IsCustomizable                             False                    False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1822,22 +3127,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencingEntity reportlink:
+                /// ReferencingEntity reportlink:    PrimaryIdAttribute reportlinkid
                 ///     DisplayName:
-                ///     (English - United States - 1033): Report Link
-                ///     (Russian - 1049): Ссылка на отчет
+                ///         (English - United States - 1033): Report Link
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Report Links
-                ///     (Russian - 1049): Ссылки отчета
+                ///         (English - United States - 1033): Report Links
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Links and dependencies between reports. A report may drill through to another report, or it may have another report as a sub-report.
-                ///     (Russian - 1049): Ссылки и зависимости между отчетами. Отчет может быть детализирован до другого отчета или иметь другой отчет в качестве вложенного.
+                ///         (English - United States - 1033): Links and dependencies between reports. A report may drill through to another report, or it may have another report as a sub-report.
                 ///</summary>
                 public static partial class report_reportlink
                 {
@@ -1855,11 +3158,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship report_reportlink_sub
                 /// 
-                /// PropertyName                               Value                    CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     report_reportlink_sub
                 /// ReferencingEntityNavigationPropertyName    linkedreportid
-                /// IsCustomizable                             False                    False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1870,22 +3173,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencingEntity reportlink:
+                /// ReferencingEntity reportlink:    PrimaryIdAttribute reportlinkid
                 ///     DisplayName:
-                ///     (English - United States - 1033): Report Link
-                ///     (Russian - 1049): Ссылка на отчет
+                ///         (English - United States - 1033): Report Link
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Report Links
-                ///     (Russian - 1049): Ссылки отчета
+                ///         (English - United States - 1033): Report Links
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Links and dependencies between reports. A report may drill through to another report, or it may have another report as a sub-report.
-                ///     (Russian - 1049): Ссылки и зависимости между отчетами. Отчет может быть детализирован до другого отчета или иметь другой отчет в качестве вложенного.
+                ///         (English - United States - 1033): Links and dependencies between reports. A report may drill through to another report, or it may have another report as a sub-report.
                 ///</summary>
                 public static partial class report_reportlink_sub
                 {
@@ -1903,11 +3204,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship report_reportvisibility
                 /// 
-                /// PropertyName                               Value                      CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     report_reportvisibility
                 /// ReferencingEntityNavigationPropertyName    reportid
-                /// IsCustomizable                             False                      False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1918,22 +3219,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencingEntity reportvisibility:
+                /// ReferencingEntity reportvisibility:    PrimaryIdAttribute reportvisibilityid
                 ///     DisplayName:
-                ///     (English - United States - 1033): Report Visibility
-                ///     (Russian - 1049): Отображение отчета
+                ///         (English - United States - 1033): Report Visibility
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Report Visibilities
-                ///     (Russian - 1049): Видимость отчета
+                ///         (English - United States - 1033): Report Visibilities
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Area in which to show a report. A report can be shown in multiple areas.
-                ///     (Russian - 1049): Область отображения отчета. Отчет может быть отображен в нескольких областях.
+                ///         (English - United States - 1033): Area in which to show a report. A report can be shown in multiple areas.
                 ///</summary>
                 public static partial class report_reportvisibility
                 {
@@ -1951,11 +3250,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship Report_SyncErrors
                 /// 
-                /// PropertyName                               Value                                 CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     Report_SyncErrors
                 /// ReferencingEntityNavigationPropertyName    regardingobjectid_report_syncerror
-                /// IsCustomizable                             True                                  False
+                /// IsCustomizable                             True
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
@@ -1966,22 +3265,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              Cascade
                 /// CascadeConfiguration.Share                 Cascade
                 /// CascadeConfiguration.Unshare               Cascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencingEntity syncerror:
+                /// ReferencingEntity syncerror:    PrimaryIdAttribute syncerrorid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///     (English - United States - 1033): Sync Error
-                ///     (Russian - 1049): Ошибка синхронизации
+                ///         (English - United States - 1033): Sync Error
                 ///     
                 ///     DisplayCollectionName:
-                ///     (English - United States - 1033): Sync Errors
-                ///     (Russian - 1049): Ошибки синхронизации
+                ///         (English - United States - 1033): Sync Errors
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Failure reason and other detailed information for a record that failed to sync.
-                ///     (Russian - 1049): Причина сбоя и другие подробные сведения о записи, при синхронизации которой произошла ошибка.
+                ///         (English - United States - 1033): Failure reason and other detailed information for a record that failed to sync.
                 ///</summary>
                 public static partial class report_syncerrors
                 {
@@ -2001,11 +3298,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// 1:N - Relationship userentityinstancedata_report
                 /// 
-                /// PropertyName                               Value                            CanBeChanged
+                /// PropertyName                               Value
                 /// IsHierarchical                             False
                 /// ReferencedEntityNavigationPropertyName     userentityinstancedata_report
                 /// ReferencingEntityNavigationPropertyName    objectid_report
-                /// IsCustomizable                             False                            False
+                /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
                 /// RelationshipType                           OneToManyRelationship
@@ -2016,20 +3313,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Reparent              NoCascade
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
                 /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencingEntity userentityinstancedata:
+                /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
                 ///     DisplayName:
-                ///     (English - United States - 1033): User Entity Instance Data
-                ///     (Russian - 1049): Данные экземпляра сущности пользователя
-                ///     
-                ///     DisplayCollectionName:
+                ///         (English - United States - 1033): User Entity Instance Data
                 ///     
                 ///     Description:
-                ///     (English - United States - 1033): Per User item instance data
-                ///     (Russian - 1049): Данные экземпляра позиции "на пользователя"
+                ///         (English - United States - 1033): Per User item instance data
                 ///</summary>
                 public static partial class userentityinstancedata_report
                 {

@@ -103,7 +103,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = AttributeMap.Schema.Attributes.entitymapid,
 
                         LinkToEntityName = EntityMap.EntityLogicalName,
-                        LinkToAttributeName = EntityMap.PrimaryIdAttribute,
+                        LinkToAttributeName = EntityMap.EntityPrimaryIdAttribute,
 
                         EntityAlias = AttributeMap.Schema.Attributes.entitymapid,
 

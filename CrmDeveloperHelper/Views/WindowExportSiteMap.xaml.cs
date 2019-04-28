@@ -165,7 +165,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (service != null)
                 {
                     var repository = new SitemapRepository(service);
-                    list = await repository.GetListAsync(new ColumnSet(SiteMap.PrimaryIdAttribute, SiteMap.Schema.Attributes.sitemapname, SiteMap.Schema.Attributes.sitemapnameunique));
+                    list = await repository.GetListAsync(new ColumnSet(SiteMap.EntityPrimaryIdAttribute, SiteMap.Schema.Attributes.sitemapname, SiteMap.Schema.Attributes.sitemapnameunique));
                 }
             }
             catch (Exception ex)

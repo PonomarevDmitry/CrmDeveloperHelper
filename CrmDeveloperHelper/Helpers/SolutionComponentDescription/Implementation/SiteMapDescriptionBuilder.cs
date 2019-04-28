@@ -26,7 +26,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public override string EntityLogicalName => SiteMap.EntityLogicalName;
 
-        public override string EntityPrimaryIdAttribute => SiteMap.Schema.EntityPrimaryIdAttribute;
+        public override string EntityPrimaryIdAttribute => SiteMap.EntityPrimaryIdAttribute;
 
         protected override ColumnSet GetColumnSet()
         {

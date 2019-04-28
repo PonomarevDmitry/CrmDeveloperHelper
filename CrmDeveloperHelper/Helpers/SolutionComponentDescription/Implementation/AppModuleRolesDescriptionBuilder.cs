@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public override string EntityLogicalName => AppModuleRoles.EntityLogicalName;
 
-        public override string EntityPrimaryIdAttribute => AppModuleRoles.Schema.EntityPrimaryIdAttribute;
+        public override string EntityPrimaryIdAttribute => AppModuleRoles.EntityPrimaryIdAttribute;
 
         protected override ColumnSet GetColumnSet()
         {
@@ -62,7 +62,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         LinkFromAttributeName = AppModuleRoles.Schema.Attributes.appmoduleid,
 
                         LinkToEntityName = AppModule.EntityLogicalName,
-                        LinkToAttributeName = AppModule.PrimaryIdAttribute,
+                        LinkToAttributeName = AppModule.EntityPrimaryIdAttribute,
 
                         EntityAlias = AppModuleRoles.Schema.Attributes.appmoduleid,
 
@@ -75,7 +75,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         LinkFromAttributeName = AppModuleRoles.Schema.Attributes.roleid,
 
                         LinkToEntityName = Role.EntityLogicalName,
-                        LinkToAttributeName = Role.PrimaryIdAttribute,
+                        LinkToAttributeName = Role.EntityPrimaryIdAttribute,
 
                         EntityAlias = AppModuleRoles.Schema.Attributes.roleid,
 
@@ -90,7 +90,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         LinkFromAttributeName = AttributeMap.Schema.Attributes.solutionid,
 
                         LinkToEntityName = Solution.EntityLogicalName,
-                        LinkToAttributeName = Solution.PrimaryIdAttribute,
+                        LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
 
                         EntityAlias = Solution.EntityLogicalName,
 
@@ -105,7 +105,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         LinkFromAttributeName = AttributeMap.Schema.Attributes.supportingsolutionid,
 
                         LinkToEntityName = Solution.EntityLogicalName,
-                        LinkToAttributeName = Solution.PrimaryIdAttribute,
+                        LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
 
                         EntityAlias = SupportingSolutionAlias,
 

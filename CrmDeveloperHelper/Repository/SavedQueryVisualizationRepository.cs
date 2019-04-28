@@ -122,7 +122,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(SavedQueryVisualization.PrimaryIdAttribute, ConditionOperator.Equal, idSavedQueryVisualization),
+                        new ConditionExpression(SavedQueryVisualization.EntityPrimaryIdAttribute, ConditionOperator.Equal, idSavedQueryVisualization),
                     },
                 },
             };

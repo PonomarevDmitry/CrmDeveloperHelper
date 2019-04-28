@@ -336,16 +336,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     return ImportEntityMapping.EntityTypeCode;
 
                 case Entities.ComponentType.Attachment:
-                    return Attachment.Schema.EntityTypeCode;
+                    return Attachment.EntityTypeCode;
 
                 case Entities.ComponentType.DependencyFeature:
-                    return DependencyFeature.Schema.EntityTypeCode;
+                    return DependencyFeature.EntityTypeCode;
 
                 case Entities.ComponentType.ComplexControl:
-                    return ComplexControl.Schema.EntityTypeCode;
+                    return ComplexControl.EntityTypeCode;
 
                 case Entities.ComponentType.WebWizard:
-                    return WebWizard.Schema.EntityTypeCode;
+                    return WebWizard.EntityTypeCode;
 
                 case Entities.ComponentType.EntityDataProvider:
                     return EntityDataProvider.EntityTypeCode;
@@ -400,22 +400,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 case Entities.ComponentType.EmailTemplate:
                     entityName = Template.EntityLogicalName;
-                    entityIdName = Template.PrimaryIdAttribute;
+                    entityIdName = Template.EntityPrimaryIdAttribute;
                     break;
 
                 case Entities.ComponentType.RolePrivileges:
                     entityName = RolePrivileges.EntityLogicalName;
-                    entityIdName = RolePrivileges.PrimaryIdAttribute;
+                    entityIdName = RolePrivileges.EntityPrimaryIdAttribute;
                     break;
 
                 case Entities.ComponentType.SystemForm:
                     entityName = SystemForm.EntityLogicalName;
-                    entityIdName = SystemForm.PrimaryIdAttribute;
+                    entityIdName = SystemForm.EntityPrimaryIdAttribute;
                     break;
 
                 case Entities.ComponentType.PrivilegeObjectTypeCode:
                     entityName = PrivilegeObjectTypeCodes.EntityLogicalName;
-                    entityIdName = PrivilegeObjectTypeCodes.PrimaryIdAttribute;
+                    entityIdName = PrivilegeObjectTypeCodes.EntityPrimaryIdAttribute;
                     break;
 
                 case Entities.ComponentType.DependencyFeature:

@@ -11,7 +11,9 @@
         <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
         <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
-            <MenuItem x:Uid="menuContextDifference" Header="Difference C# File" Click="btnDifferenceCSharpFile_Click" />
+            <MenuItem x:Uid="menuContextDifference" Header="Difference C# Schema File" Click="btnDifferenceCSharpFileSchema_Click" />
+            <MenuItem x:Uid="menuContextDifference" Header="Difference C# Proxy Class" Click="btnDifferenceCSharpFileProxyClass_Click" />
+            <Separator x:Uid="menuContextDifference" />
             <MenuItem x:Uid="menuContextDifference" Header="Difference JavaScript File" Click="btnDifferenceJavaScriptFile_Click"/>
             <Separator x:Uid="menuContextDifference" />
             <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Ribbon" Click="mIDifferenceEntityRibbon_Click" />
@@ -32,7 +34,9 @@
             <Separator x:Uid="menuContextDifference" />
 
             <MenuItem Header="{DynamicResource ConnectionName1}">
-                <MenuItem Header="Create C# File" Click="btnConnection1CSharp_Click" />
+                <MenuItem Header="Create C# Schema File" Click="btnConnection1CSharpSchema_Click" />
+                <MenuItem Header="Create C# Proxy Class" Click="btnConnection1CSharpProxyClass_Click" />
+                <Separator/>
                 <MenuItem Header="Create JavaScript File" Click="btnConnection1JavaScript_Click"/>
                 <Separator/>
                 <MenuItem Header="Export Entity Ribbon" Click="mIConnection1EntityRibbon_Click" />
@@ -75,7 +79,9 @@
 
             <Separator x:Uid="menuContextConnection2" />
             <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}">
-                <MenuItem Header="Create C# File" Click="btnConnection2CSharp_Click" />
+                <MenuItem Header="Create C# Schema File" Click="btnConnection2CSharpSchema_Click" />
+                <MenuItem Header="Create C# Proxy Class" Click="btnConnection2CSharpProxyClass_Click" />
+                <Separator/>
                 <MenuItem Header="Create JavaScript File" Click="btnConnection2JavaScript_Click"/>
                 <Separator/>
                 <MenuItem Header="Export Entity Ribbon" Click="mIConnection2EntityRibbon_Click" />
@@ -199,7 +205,9 @@
                 <ToolBarPanel Orientation="Horizontal" >
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
-                            <MenuItem Header="C# File" Click="btnDifferenceCSharpFile_Click" />
+                            <MenuItem Header="C# Schema File" Click="btnDifferenceCSharpFileSchema_Click" />
+                            <MenuItem Header="C# Proxy Class" Click="btnDifferenceCSharpFileProxyClass_Click" />
+                            <Separator/>
                             <MenuItem Header="JavaScript File" Click="btnDifferenceJavaScriptFile_Click"/>
                             <Separator/>
                             <MenuItem Header="Entity Ribbon" Click="mIDifferenceEntityRibbon_Click" />
@@ -220,7 +228,9 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection1" Header="Connection 1">
-                            <MenuItem Header="Create C# File" Click="btnConnection1CSharp_Click" />
+                            <MenuItem Header="Create C# Schema File" Click="btnConnection1CSharpSchema_Click" />
+                            <MenuItem Header="Create C# Proxy Class" Click="btnConnection1CSharpProxyClass_Click" />
+                            <Separator/>
                             <MenuItem Header="Create JavaScript File" Click="btnConnection1JavaScript_Click"/>
                             <Separator/>
                             <MenuItem Header="Export Entity Ribbon" Click="mIConnection1EntityRibbon_Click" />
@@ -258,7 +268,9 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection2" Header="Connection 2">
-                            <MenuItem Header="Create C# File" Click="btnConnection2CSharp_Click" />
+                            <MenuItem Header="Create C# Schema File" Click="btnConnection2CSharpSchema_Click" />
+                            <MenuItem Header="Create C# Proxy Class" Click="btnConnection2CSharpProxyClass_Click" />
+                            <Separator/>
                             <MenuItem Header="Create JavaScript File" Click="btnConnection2JavaScript_Click"/>
                             <Separator/>
                             <MenuItem Header="Export Entity Ribbon" Click="mIConnection2EntityRibbon_Click" />

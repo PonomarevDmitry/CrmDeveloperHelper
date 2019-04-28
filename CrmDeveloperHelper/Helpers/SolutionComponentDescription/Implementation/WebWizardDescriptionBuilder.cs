@@ -20,9 +20,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public override int ComponentTypeValue => (int)ComponentType.WebWizard;
 
-        public override string EntityLogicalName => WebWizard.Schema.EntityLogicalName;
+        public override string EntityLogicalName => WebWizard.EntityLogicalName;
 
-        public override string EntityPrimaryIdAttribute => WebWizard.Schema.EntityPrimaryIdAttribute;
+        public override string EntityPrimaryIdAttribute => WebWizard.EntityPrimaryIdAttribute;
 
         protected override ColumnSet GetColumnSet()
         {
@@ -39,7 +39,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         protected override FormatTextTableHandler GetDescriptionHeader(bool withManaged, bool withSolutionInfo, bool withUrls, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader(WebWizard.Schema.Headers.name
+            handler.SetHeader(
+                WebWizard.Schema.Headers.name
                 , WebWizard.Schema.Headers.titleresourcestring
                 , WebWizard.Schema.Headers.isstaticpagesequence
                 , WebWizard.Schema.Headers.accessprivileges
@@ -53,16 +54,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         protected override List<string> GetDescriptionValues(Entity entityInput, string behavior, bool withManaged, bool withSolutionInfo, bool withUrls, Action<List<string>, Entity, bool, bool, bool> action)
         {
-            var entity = entityInput.ToEntity<Entity>();
+            var entity = entityInput.ToEntity<WebWizard>();
 
             List<string> values = new List<string>();
 
             values.AddRange(new[]
             {
-                entity.GetAttributeValue<string>(WebWizard.Schema.Attributes.name)
-                , entity.GetAttributeValue<string>(WebWizard.Schema.Attributes.titleresourcestring)
-                , entity.GetAttributeValue<bool?>(WebWizard.Schema.Attributes.isstaticpagesequence)?.ToString()
-                , entity.GetAttributeValue<string>(WebWizard.Schema.Attributes.accessprivileges)
+                entity.Name
+                , entity.TitleResourceString
+                , entity.IsStaticPageSequence.ToString()
+                , entity.AccessPrivileges
                 , behavior
             });
 
@@ -73,11 +74,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public override string GetName(SolutionComponent component)
         {
-            var entity = GetEntity<Entity>(component.ObjectId.Value);
+            var entity = GetEntity<WebWizard>(component.ObjectId.Value);
 
             if (entity != null)
             {
-                return entity.GetAttributeValue<string>(WebWizard.Schema.Attributes.name);
+                return entity.Name;
             }
 
             return base.GetName(component);
@@ -85,11 +86,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public override string GetDisplayName(SolutionComponent component)
         {
-            var entity = GetEntity<Entity>(component.ObjectId.Value);
+            var entity = GetEntity<WebWizard>(component.ObjectId.Value);
 
             if (entity != null)
             {
-                return entity.GetAttributeValue<string>(WebWizard.Schema.Attributes.titleresourcestring);
+                return entity.TitleResourceString;
             }
 
             return base.GetDisplayName(component);

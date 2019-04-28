@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public override string EntityLogicalName => SdkMessageResponseField.EntityLogicalName;
 
-        public override string EntityPrimaryIdAttribute => SdkMessageResponseField.Schema.EntityPrimaryIdAttribute;
+        public override string EntityPrimaryIdAttribute => SdkMessageResponseField.EntityPrimaryIdAttribute;
 
         protected override ColumnSet GetColumnSet()
         {
@@ -67,7 +67,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         LinkFromAttributeName = SdkMessageResponseField.Schema.Attributes.sdkmessageresponseid,
 
                         LinkToEntityName = SdkMessageResponse.EntityLogicalName,
-                        LinkToAttributeName = SdkMessageResponse.PrimaryIdAttribute,
+                        LinkToAttributeName = SdkMessageResponse.EntityPrimaryIdAttribute,
 
                         LinkEntities =
                         {
@@ -77,7 +77,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                                 LinkFromAttributeName = SdkMessageResponse.Schema.Attributes.sdkmessagerequestid,
 
                                 LinkToEntityName = SdkMessageRequest.EntityLogicalName,
-                                LinkToAttributeName = SdkMessageRequest.PrimaryIdAttribute,
+                                LinkToAttributeName = SdkMessageRequest.EntityPrimaryIdAttribute,
 
                                 EntityAlias = SdkMessageResponse.Schema.Attributes.sdkmessagerequestid,
 
@@ -91,7 +91,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                                         LinkFromAttributeName = SdkMessageRequest.Schema.Attributes.sdkmessagepairid,
 
                                         LinkToEntityName = SdkMessagePair.EntityLogicalName,
-                                        LinkToAttributeName = SdkMessagePair.PrimaryIdAttribute,
+                                        LinkToAttributeName = SdkMessagePair.EntityPrimaryIdAttribute,
 
                                         LinkEntities =
                                         {
@@ -101,7 +101,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                                                 LinkFromAttributeName = SdkMessagePair.Schema.Attributes.sdkmessageid,
 
                                                 LinkToEntityName = SdkMessage.EntityLogicalName,
-                                                LinkToAttributeName = SdkMessage.PrimaryIdAttribute,
+                                                LinkToAttributeName = SdkMessage.EntityPrimaryIdAttribute,
 
                                                 EntityAlias = SdkMessagePair.Schema.Attributes.sdkmessageid,
 

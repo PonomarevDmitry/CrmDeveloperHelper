@@ -1481,10 +1481,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             JoinOperator = JoinOperator.LeftOuter,
 
                             LinkFromEntityName = entityName,
-                            LinkFromAttributeName = WebResource.PrimaryIdAttribute,
+                            LinkFromAttributeName = WebResource.EntityPrimaryIdAttribute,
 
                             LinkToEntityName = WebResource.EntityLogicalName,
-                            LinkToAttributeName = WebResource.PrimaryIdAttribute,
+                            LinkToAttributeName = WebResource.EntityPrimaryIdAttribute,
 
                             EntityAlias = WebResource.EntityLogicalName,
 

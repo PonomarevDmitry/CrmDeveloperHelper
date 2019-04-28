@@ -54,7 +54,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = Solution.Schema.Attributes.publisherid,
 
                         LinkToEntityName = Publisher.EntityLogicalName,
-                        LinkToAttributeName = Publisher.PrimaryIdAttribute,
+                        LinkToAttributeName = Publisher.EntityPrimaryIdAttribute,
 
                         Columns = new ColumnSet(Publisher.Schema.Attributes.customizationprefix)
                     }
@@ -123,7 +123,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(Solution.PrimaryIdAttribute, ConditionOperator.Equal, id)
+                        new ConditionExpression(Solution.EntityPrimaryIdAttribute, ConditionOperator.Equal, id)
                     }
                 },
                 LinkEntities =
@@ -138,7 +138,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = Solution.Schema.Attributes.publisherid,
 
                         LinkToEntityName = Publisher.EntityLogicalName,
-                        LinkToAttributeName = Publisher.PrimaryIdAttribute,
+                        LinkToAttributeName = Publisher.EntityPrimaryIdAttribute,
 
                         Columns = new ColumnSet(Publisher.Schema.Attributes.customizationprefix)
                     }
@@ -184,7 +184,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = Solution.Schema.Attributes.publisherid,
 
                         LinkToEntityName = Publisher.EntityLogicalName,
-                        LinkToAttributeName = Publisher.PrimaryIdAttribute,
+                        LinkToAttributeName = Publisher.EntityPrimaryIdAttribute,
 
                         Columns = new ColumnSet(Publisher.Schema.Attributes.customizationprefix)
                     }
@@ -230,7 +230,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = Solution.Schema.Attributes.publisherid,
 
                         LinkToEntityName = Publisher.EntityLogicalName,
-                        LinkToAttributeName = Publisher.PrimaryIdAttribute,
+                        LinkToAttributeName = Publisher.EntityPrimaryIdAttribute,
 
                         Columns = new ColumnSet(Publisher.Schema.Attributes.customizationprefix)
                     }
@@ -259,7 +259,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 query.LinkEntities.Add(new LinkEntity()
                 {
                     LinkFromEntityName = Solution.EntityLogicalName,
-                    LinkFromAttributeName = Solution.PrimaryIdAttribute,
+                    LinkFromAttributeName = Solution.EntityPrimaryIdAttribute,
 
                     LinkToEntityName = SolutionComponent.EntityLogicalName,
                     LinkToAttributeName = SolutionComponent.Schema.Attributes.solutionid,
@@ -386,7 +386,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = Solution.Schema.Attributes.publisherid,
 
                         LinkToEntityName = Publisher.EntityLogicalName,
-                        LinkToAttributeName = Publisher.PrimaryIdAttribute,
+                        LinkToAttributeName = Publisher.EntityPrimaryIdAttribute,
 
                         Columns = new ColumnSet(Publisher.Schema.Attributes.customizationprefix)
                     }

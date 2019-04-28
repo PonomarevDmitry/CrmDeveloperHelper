@@ -200,7 +200,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(Workflow.PrimaryIdAttribute, ConditionOperator.Equal, idWorkflow),
+                        new ConditionExpression(Workflow.EntityPrimaryIdAttribute, ConditionOperator.Equal, idWorkflow),
                     },
                 },
             };

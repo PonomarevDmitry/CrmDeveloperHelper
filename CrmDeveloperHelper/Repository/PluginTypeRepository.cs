@@ -40,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new LinkEntity()
                     {
                         LinkFromEntityName = PluginType.EntityLogicalName,
-                        LinkFromAttributeName = PluginType.PrimaryIdAttribute,
+                        LinkFromAttributeName = PluginType.EntityPrimaryIdAttribute,
 
                         LinkToEntityName = SdkMessageProcessingStep.EntityLogicalName,
                         LinkToAttributeName = SdkMessageProcessingStep.Schema.Attributes.eventhandler,
@@ -116,7 +116,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = PluginType.Schema.Attributes.pluginassemblyid,
 
                         LinkToEntityName = PluginAssembly.EntityLogicalName,
-                        LinkToAttributeName = PluginAssembly.PrimaryIdAttribute,
+                        LinkToAttributeName = PluginAssembly.EntityPrimaryIdAttribute,
 
                         LinkCriteria =
                         {
@@ -345,7 +345,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(PluginType.PrimaryIdAttribute, ConditionOperator.Equal, id),
+                        new ConditionExpression(PluginType.EntityPrimaryIdAttribute, ConditionOperator.Equal, id),
                     },
                 },
 
@@ -359,7 +359,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = PluginType.Schema.Attributes.pluginassemblyid,
 
                         LinkToEntityName = PluginAssembly.EntityLogicalName,
-                        LinkToAttributeName = PluginAssembly.PrimaryIdAttribute,
+                        LinkToAttributeName = PluginAssembly.EntityPrimaryIdAttribute,
 
                         Columns = new ColumnSet(await PluginAssemblyRepository.GetAttributesAsync(_service)),
 
@@ -402,7 +402,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = PluginType.Schema.Attributes.pluginassemblyid,
 
                         LinkToEntityName = PluginAssembly.EntityLogicalName,
-                        LinkToAttributeName = PluginAssembly.PrimaryIdAttribute,
+                        LinkToAttributeName = PluginAssembly.EntityPrimaryIdAttribute,
 
                         LinkCriteria =
                         {

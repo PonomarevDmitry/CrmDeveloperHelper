@@ -214,7 +214,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(SavedQuery.PrimaryIdAttribute, ConditionOperator.Equal, idSavedQuery),
+                        new ConditionExpression(SavedQuery.EntityPrimaryIdAttribute, ConditionOperator.Equal, idSavedQuery),
                     },
                 },
             };

@@ -25,7 +25,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public override string EntityLogicalName => SdkMessageProcessingStep.EntityLogicalName;
 
-        public override string EntityPrimaryIdAttribute => SdkMessageProcessingStep.Schema.EntityPrimaryIdAttribute;
+        public override string EntityPrimaryIdAttribute => SdkMessageProcessingStep.EntityPrimaryIdAttribute;
 
         protected override QueryExpression GetQuery(List<Guid> idsNotCached)
         {
@@ -55,7 +55,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid,
 
                         LinkToEntityName = SdkMessageFilter.EntityLogicalName,
-                        LinkToAttributeName = SdkMessageFilter.PrimaryIdAttribute,
+                        LinkToAttributeName = SdkMessageFilter.EntityPrimaryIdAttribute,
 
                         EntityAlias = SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid,
 
@@ -70,7 +70,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.solutionid,
 
                         LinkToEntityName = Solution.EntityLogicalName,
-                        LinkToAttributeName = Solution.PrimaryIdAttribute,
+                        LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
 
                         EntityAlias = Solution.EntityLogicalName,
 
@@ -85,7 +85,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.supportingsolutionid,
 
                         LinkToEntityName = Solution.EntityLogicalName,
-                        LinkToAttributeName = Solution.PrimaryIdAttribute,
+                        LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
 
                         EntityAlias = SupportingSolutionAlias,
 

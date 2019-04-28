@@ -166,7 +166,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                                 , (int)WebResource.Schema.OptionSets.webresourcetype.JPG_format_6
                                 , (int)WebResource.Schema.OptionSets.webresourcetype.GIF_format_7
                                 , (int)WebResource.Schema.OptionSets.webresourcetype.ICO_format_10
-                                , (int)WebResource.Schema.OptionSets.webresourcetype.SVG_format_11
+                                , (int)WebResource.Schema.OptionSets.webresourcetype.Vector_format_SVG_11
                             }
                             , new ColumnSet
                             (

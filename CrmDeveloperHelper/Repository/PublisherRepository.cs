@@ -45,7 +45,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new LinkEntity()
                     {
                         LinkFromEntityName = Publisher.EntityLogicalName,
-                        LinkFromAttributeName = Publisher.PrimaryIdAttribute,
+                        LinkFromAttributeName = Publisher.EntityPrimaryIdAttribute,
 
                         LinkToEntityName = Solution.EntityLogicalName,
                         LinkToAttributeName = Solution.Schema.Attributes.publisherid,
@@ -54,7 +54,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         {
                             Conditions =
                             {
-                                new ConditionExpression(Solution.PrimaryIdAttribute, ConditionOperator.Equal, solutionId)
+                                new ConditionExpression(Solution.EntityPrimaryIdAttribute, ConditionOperator.Equal, solutionId)
                             }
                         }
                     }

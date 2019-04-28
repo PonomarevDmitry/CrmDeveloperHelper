@@ -570,12 +570,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (optionSets.Count() == 1)
                 {
-                    string fileName = string.Format("{0}.{1}.Generated.js", service.ConnectionData.Name, optionSets.First().Name);
+                    string fileName = string.Format("{0}.{1}.generated.js", service.ConnectionData.Name, optionSets.First().Name);
                     filePath = Path.Combine(folder, fileName);
                 }
                 else
                 {
-                    string fileName = string.Format("{0}.GlobalOptionSets.js", service.ConnectionData.Name);
+                    string fileName = string.Format("{0}.globaloptionsets.js", service.ConnectionData.Name);
                     filePath = Path.Combine(folder, fileName);
                 }
 

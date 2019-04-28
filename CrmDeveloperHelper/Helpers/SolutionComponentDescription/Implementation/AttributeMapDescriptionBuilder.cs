@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public override string EntityLogicalName => AttributeMap.EntityLogicalName;
 
-        public override string EntityPrimaryIdAttribute => AttributeMap.Schema.EntityPrimaryIdAttribute;
+        public override string EntityPrimaryIdAttribute => AttributeMap.EntityPrimaryIdAttribute;
 
         protected override ColumnSet GetColumnSet()
         {
@@ -64,7 +64,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         LinkFromAttributeName = AttributeMap.Schema.Attributes.entitymapid,
 
                         LinkToEntityName = EntityMap.EntityLogicalName,
-                        LinkToAttributeName = EntityMap.PrimaryIdAttribute,
+                        LinkToAttributeName = EntityMap.EntityPrimaryIdAttribute,
 
                         EntityAlias = EntityMap.EntityLogicalName,
 
@@ -79,7 +79,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         LinkFromAttributeName = AttributeMap.Schema.Attributes.solutionid,
 
                         LinkToEntityName = Solution.EntityLogicalName,
-                        LinkToAttributeName = Solution.PrimaryIdAttribute,
+                        LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
 
                         EntityAlias = Solution.EntityLogicalName,
 
@@ -94,7 +94,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         LinkFromAttributeName = AttributeMap.Schema.Attributes.supportingsolutionid,
 
                         LinkToEntityName = Solution.EntityLogicalName,
-                        LinkToAttributeName = Solution.PrimaryIdAttribute,
+                        LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
 
                         EntityAlias = SupportingSolutionAlias,
 

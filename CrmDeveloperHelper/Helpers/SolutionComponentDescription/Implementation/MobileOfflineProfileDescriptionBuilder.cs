@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public override string EntityLogicalName => MobileOfflineProfile.EntityLogicalName;
 
-        public override string EntityPrimaryIdAttribute => MobileOfflineProfile.Schema.EntityPrimaryIdAttribute;
+        public override string EntityPrimaryIdAttribute => MobileOfflineProfile.EntityPrimaryIdAttribute;
 
         protected override ColumnSet GetColumnSet()
         {

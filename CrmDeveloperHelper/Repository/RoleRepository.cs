@@ -78,7 +78,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = Role.Schema.Attributes.businessunitid,
 
                         LinkToEntityName = BusinessUnit.EntityLogicalName,
-                        LinkToAttributeName = BusinessUnit.PrimaryIdAttribute,
+                        LinkToAttributeName = BusinessUnit.EntityPrimaryIdAttribute,
 
                         EntityAlias = BusinessUnit.EntityLogicalName,
 
@@ -185,7 +185,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         LinkFromAttributeName = Role.Schema.Attributes.businessunitid,
 
                         LinkToEntityName = BusinessUnit.EntityLogicalName,
-                        LinkToAttributeName = BusinessUnit.PrimaryIdAttribute,
+                        LinkToAttributeName = BusinessUnit.EntityPrimaryIdAttribute,
 
                         EntityAlias = BusinessUnit.EntityLogicalName,
 

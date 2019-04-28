@@ -348,6 +348,7 @@
     <Compile Include="Commands\DocumentsReportAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Entities\AppModuleRoles.cs" />
     <Compile Include="Entities\AppModuleRoles.Generated.cs" />
+    <Compile Include="Entities\Attachment.cs" />
     <Compile Include="Entities\Attachment.Generated.cs" />
     <Compile Include="Entities\ChannelAccessProfile.cs" />
     <Compile Include="Entities\ChannelAccessProfile.Generated.cs" />
@@ -361,9 +362,11 @@
     <Compile Include="Entities\ChannelProperty.Generated.cs" />
     <Compile Include="Entities\ChannelPropertyGroup.cs" />
     <Compile Include="Entities\ChannelPropertyGroup.Generated.cs" />
+    <Compile Include="Entities\ComplexControl.cs" />
     <Compile Include="Entities\ComplexControl.Generated.cs" />
     <Compile Include="Entities\CustomControlResource.cs" />
     <Compile Include="Entities\CustomControlResource.Generated.cs" />
+    <Compile Include="Entities\DependencyFeature.cs" />
     <Compile Include="Entities\DependencyFeature.Generated.cs" />
     <Compile Include="Entities\DependencyNode.Additional.cs" />
     <Compile Include="Entities\DependencyNode.cs" />
@@ -392,6 +395,7 @@
     <Compile Include="Entities\ProcessTrigger.cs" />
     <Compile Include="Entities\ProcessTrigger.Generated.cs" />
     <Compile Include="Entities\Report.Additional.cs" />
+    <Compile Include="Entities\RoleTemplate.cs" />
     <Compile Include="Entities\RoleTemplate.Generated.cs" />
     <Compile Include="Entities\SavedQuery.Additional.cs" />
     <Compile Include="Entities\SavedQueryVisualization.Additional.cs" />
@@ -410,13 +414,18 @@
     <Compile Include="Entities\SdkMessageResponseField.Generated.cs" />
     <Compile Include="Entities\SiteMap.Additional.cs" />
     <Compile Include="Entities\SystemForm.Additional.cs" />
+    <Compile Include="Entities\SystemUserRoles.cs" />
     <Compile Include="Entities\SystemUserRoles.Generated.cs" />
     <Compile Include="Entities\Team.Additional.cs" />
+    <Compile Include="Entities\TeamMembership.cs" />
     <Compile Include="Entities\TeamMembership.Generated.cs" />
+    <Compile Include="Entities\TeamRoles.cs" />
     <Compile Include="Entities\TeamRoles.Generated.cs" />
+    <Compile Include="Entities\TeamTemplate.cs" />
     <Compile Include="Entities\TeamTemplate.Generated.cs" />
     <Compile Include="Entities\WebResource.Additional.cs" />
     <Compile Include="Entities\WebWizard.Additional.cs" />
+    <Compile Include="Entities\WebWizard.cs" />
     <Compile Include="Entities\WebWizard.Generated.cs" />
     <Compile Include="Commands\FileCSharpProjectPluginAssemblyAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\FileCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand.cs" />

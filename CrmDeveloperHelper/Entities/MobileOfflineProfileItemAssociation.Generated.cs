@@ -1,97 +1,109 @@
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 {
-    ///<summary>
-    /// DisplayName:
-    ///     (Russian - 1049): Связь элемента профиля Mobile Offline
-    /// 
-    /// DisplayCollectionName:
-    ///     (Russian - 1049): Связи элементов профиля Mobile Offline
-    /// 
-    /// Description:
-    ///     (Russian - 1049): Сведения об отношениях, которые должны использоваться для подписки на записи связанной сущности для элемента профиля Mobile Offline.
-    /// 
-    /// PropertyName                          Value
-    /// ActivityTypeMask                      0
-    /// AutoCreateAccessTeams                 False
-    /// AutoRouteToOwnerQueue                 False
-    /// CanBeInManyToMany                     False
-    /// CanBePrimaryEntityInRelationship      True
-    /// CanBeRelatedEntityInRelationship      True
-    /// CanChangeHierarchicalRelationship     False
-    /// CanChangeTrackingBeEnabled            True
-    /// CanCreateAttributes                   False
-    /// CanCreateCharts                       False
-    /// CanCreateForms                        False
-    /// CanCreateViews                        False
-    /// CanEnableSyncToExternalSearchIndex    False
-    /// CanModifyAdditionalSettings           False
-    /// CanTriggerWorkflow                    False
-    /// ChangeTrackingEnabled                 True
-    /// CollectionSchemaName                  MobileOfflineProfileItemAssociations
-    /// DaysSinceRecordLastModified           9999
-    /// EnforceStateTransitions               False
-    /// EntityColor
-    /// EntityHelpUrl
-    /// EntityHelpUrlEnabled                  False
-    /// EntitySetName                         mobileofflineprofileitemassociations
-    /// IconLargeName
-    /// IconMediumName
-    /// IconSmallName
-    /// IsActivity                            False
-    /// IsActivityParty                       False
-    /// IsAIRUpdated                          True
-    /// IsAuditEnabled                        False
-    /// IsAvailableOffline                    False
-    /// IsBusinessProcessEnabled              True
-    /// IsChildEntity                         True
-    /// IsConnectionsEnabled                  False
-    /// IsCustomEntity                        False
-    /// IsCustomizable                        False
-    /// IsDocumentManagementEnabled           False
-    /// IsDuplicateDetectionEnabled           False
-    /// IsEnabledForCharts                    False
-    /// IsEnabledForExternalChannels          False
-    /// IsEnabledForTrace                     True
-    /// IsImportable                          False
-    /// IsInteractionCentricEnabled           False
-    /// IsIntersect                           False
-    /// IsKnowledgeManagementEnabled          False
-    /// IsMailMergeEnabled                    False
-    /// IsMappable                            True
-    /// IsOfflineInMobileClient               False
-    /// IsOneNoteIntegrationEnabled           False
-    /// IsOptimisticConcurrencyEnabled        False
-    /// IsPrivate                             False
-    /// IsQuickCreateEnabled                  False
-    /// IsReadingPaneEnabled                  True
-    /// IsReadOnlyInMobileClient              False
-    /// IsRenameable                          False
-    /// IsStateModelAware                     False
-    /// IsValidForAdvancedFind                False
-    /// IsValidForQueue                       False
-    /// IsVisibleInMobile                     True
-    /// IsVisibleInMobileClient               True
-    /// LogicalCollectionName                 mobileofflineprofileitemassociations
-    /// LogicalName                           mobileofflineprofileitemassociation
-    /// ObjectTypeCode                        9868
-    /// OwnershipType                         OrganizationOwned
-    /// RecurrenceBaseEntityLogicalName
-    /// ReportViewName                        FilteredMobileOfflineProfileItemAssociation
-    /// SchemaName                            MobileOfflineProfileItemAssociation
-    /// SyncToExternalSearchIndex             False
-    ///</summary>
     public partial class MobileOfflineProfileItemAssociation
     {
+        ///<summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Mobile Offline Profile Item Association
+        /// 
+        /// DisplayCollectionName:
+        ///     (English - United States - 1033): Mobile Offline Profile Item Associations
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Information on relationships to be used to follow related entity's records for mobile offline profile item.
+        /// 
+        /// PropertyName                          Value
+        /// ActivityTypeMask                      0
+        /// AutoCreateAccessTeams                 False
+        /// AutoRouteToOwnerQueue                 False
+        /// CanBeInManyToMany                     False
+        /// CanBePrimaryEntityInRelationship      True
+        /// CanBeRelatedEntityInRelationship      True
+        /// CanChangeHierarchicalRelationship     False
+        /// CanChangeTrackingBeEnabled            True
+        /// CanCreateAttributes                   False
+        /// CanCreateCharts                       False
+        /// CanCreateForms                        False
+        /// CanCreateViews                        False
+        /// CanEnableSyncToExternalSearchIndex    False
+        /// CanModifyAdditionalSettings           False
+        /// CanTriggerWorkflow                    False
+        /// ChangeTrackingEnabled                 True
+        /// CollectionSchemaName                  MobileOfflineProfileItemAssociations
+        /// DataProviderId                        null
+        /// DataSourceId                          null
+        /// EnforceStateTransitions               False
+        /// EntityHelpUrlEnabled                  False
+        /// EntitySetName                         mobileofflineprofileitemassociations
+        /// IntroducedVersion                     8.0.0.0
+        /// IsAIRUpdated                          True
+        /// IsActivity                            False
+        /// IsActivityParty                       False
+        /// IsAvailableOffline                    False
+        /// IsBPFEntity                           False
+        /// IsBusinessProcessEnabled              True
+        /// IsChildEntity                         True
+        /// IsConnectionsEnabled                  False
+        /// IsCustomEntity                        False
+        /// IsCustomizable                        False
+        /// IsDocumentManagementEnabled           False
+        /// IsDocumentRecommendationsEnabled      False
+        /// IsDuplicateDetectionEnabled           False
+        /// IsEnabledForCharts                    False
+        /// IsEnabledForExternalChannels          False
+        /// IsEnabledForTrace                     True
+        /// IsImportable                          False
+        /// IsInteractionCentricEnabled           False
+        /// IsIntersect                           False
+        /// IsKnowledgeManagementEnabled          False
+        /// IsLogicalEntity                       False
+        /// IsMailMergeEnabled                    False
+        /// IsMappable                            True
+        /// IsOfflineInMobileClient               False
+        /// IsOneNoteIntegrationEnabled           False
+        /// IsOptimisticConcurrencyEnabled        False
+        /// IsPrivate                             False
+        /// IsQuickCreateEnabled                  False
+        /// IsReadOnlyInMobileClient              False
+        /// IsReadingPaneEnabled                  True
+        /// IsRenameable                          False
+        /// IsSLAEnabled                          False
+        /// IsStateModelAware                     False
+        /// IsValidForAdvancedFind                False
+        /// IsValidForQueue                       False
+        /// IsVisibleInMobile                     True
+        /// IsVisibleInMobileClient               True
+        /// LogicalCollectionName                 mobileofflineprofileitemassociations
+        /// LogicalName                           mobileofflineprofileitemassociation
+        /// MobileOfflineFilters                  		<fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+        /// MobileOfflineFilters                  			<entity name="mobileofflineprofileitemassociation">
+        /// MobileOfflineFilters                  				<filter type="and">
+        /// MobileOfflineFilters                  					<condition attribute="modifiedon" operator="on-or-after" value="1900-01-01"/>
+        /// MobileOfflineFilters                  				</filter>
+        /// MobileOfflineFilters                  			</entity>
+        /// MobileOfflineFilters                  		</fetch>
+        /// MobileOfflineFilters
+        /// ObjectTypeCode                        9868
+        /// OwnershipType                         OrganizationOwned
+        /// PrimaryIdAttribute                    mobileofflineprofileitemassociationid
+        /// PrimaryNameAttribute                  name
+        /// ReportViewName                        FilteredMobileOfflineProfileItemAssociation
+        /// SchemaName                            MobileOfflineProfileItemAssociation
+        /// SyncToExternalSearchIndex             False
+        /// UsesBusinessDataLabelTable            True
+        ///</summary>
         public static partial class Schema
         {
             public const string EntityLogicalName = "mobileofflineprofileitemassociation";
 
             public const string EntitySchemaName = "MobileOfflineProfileItemAssociation";
 
+            public const string EntityPrimaryIdAttribute = "mobileofflineprofileitemassociationid";
+
             public const string EntityPrimaryNameAttribute = "name";
 
-            public const string EntityPrimaryIdAttribute = "mobileofflineprofileitemassociationid";
+            public const int EntityObjectTypeCode = 9868;
 
             #region Attributes.
 
@@ -99,10 +111,80 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Состояние компонента
+                ///     (English - United States - 1033): Mobile Offline profileitemassociation
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Только для внутреннего использования.
+                ///     (English - United States - 1033): Unique identifier of the mobile offline profile item associaition.
+                /// 
+                /// SchemaName: MobileOfflineProfileItemAssociationId
+                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    True
+                /// IsPrimaryName                  False
+                /// IsRenameable                   True
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string mobileofflineprofileitemassociationid = "mobileofflineprofileitemassociationid";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): Name
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): Enter the name of the mobile offline profile item association.
+                /// 
+                /// SchemaName: Name
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 200
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  True
+                /// IsRenameable                   False
+                /// IsRequiredForForm              True
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
+                ///</summary>
+                public const string name = "name";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): Component State
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): For internal use only.
                 /// 
                 /// SchemaName: ComponentState
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -113,19 +195,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// DefaultFormValue = -1
                 /// 
                 ///         DisplayName:
-                ///             (Russian - 1049): Состояние компонента
+                ///             (English - United States - 1033): Component State
                 ///         
                 ///         Description:
-                ///             (Russian - 1049): Состояние этого компонента.
+                ///             (English - United States - 1033): The state of this component.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string componentstate = "componentstate";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Создано
+                ///     (English - United States - 1033): Created By
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Показывает, кто создал запись.
+                ///     (English - United States - 1033): Shows who created the record.
                 /// 
                 /// SchemaName: CreatedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -136,13 +237,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///             (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
                 ///         
                 ///         DisplayCollectionName:
-                ///             (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
                 ///         
                 ///         Description:
-                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   True
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string createdby = "createdby";
 
@@ -154,6 +274,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 200
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   True
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 //public const string createdbyname = "createdbyname";
 
@@ -165,15 +304,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 200
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   True
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 //public const string createdbyyominame = "createdbyyominame";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Дата создания
+                ///     (English - United States - 1033): Created On
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Показывает дату и время, в которые была создана запись. Дата и время отображаются для часового пояса, выбранного в параметрах Microsoft Dynamics 365.
+                ///     (English - United States - 1033): Shows the date and time when the record was created. The date and time are displayed in the time zone selected in Microsoft Dynamics 365 options.
                 /// 
                 /// SchemaName: CreatedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -182,15 +340,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DateTimeBehavior = UserLocal    CanChangeDateTimeBehavior = False
                 /// ImeMode = Inactive    Format = DateAndTime
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   True
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string createdon = "createdon";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Кем создано (делегат)
+                ///     (English - United States - 1033): Created By (Delegate)
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Показывает, кто создал запись от имени другого пользователя.
+                ///     (English - United States - 1033): Shows who created the record on behalf of another user.
                 /// 
                 /// SchemaName: CreatedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -201,13 +378,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///             (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
                 ///         
                 ///         DisplayCollectionName:
-                ///             (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
                 ///         
                 ///         Description:
-                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   True
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string createdonbehalfby = "createdonbehalfby";
 
@@ -219,6 +415,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 200
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   True
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 //public const string createdonbehalfbyname = "createdonbehalfbyname";
 
@@ -230,15 +445,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 200
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   True
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 //public const string createdonbehalfbyyominame = "createdonbehalfbyyominame";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Версия введения
+                ///     (English - United States - 1033): Introduced Version
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Версия, в которой введена связь элемента профиля Mobile Offline.
+                ///     (English - United States - 1033): Version in which the Mobile offline Profile Item Association is introduced.
                 /// 
                 /// SchemaName: IntroducedVersion
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -247,15 +481,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 48
                 /// Format = VersionNumber    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string introducedversion = "introducedversion";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Управляемый
+                ///     (English - United States - 1033): Is Managed
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Только для внутреннего использования.
+                ///     (English - United States - 1033): For internal use only.
                 /// 
                 /// SchemaName: IsManaged
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
@@ -265,21 +518,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// DefaultValue = False
                 /// 
                 /// DisplayName:
-                ///     (Russian - 1049): Неуправляемый
+                ///     (English - United States - 1033): Unmanaged
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
-                ///     (Russian - 1049): Управляемый
+                ///     (English - United States - 1033): Managed
                 /// TrueOption = 1
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string ismanaged = "ismanaged";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Является допустимым для Mobile Offline
+                ///     (English - United States - 1033): Is Valid For Mobile Offline
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Информация о том, является связь элемента профиля проверенной или нет
+                ///     (English - United States - 1033): Information about whether profile item association is validated or not
                 /// 
                 /// SchemaName: IsValidated
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
@@ -289,63 +561,105 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// DefaultValue = False
                 /// 
                 /// DisplayName:
-                ///     (Russian - 1049): Нет
+                ///     (English - United States - 1033): No
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
-                ///     (Russian - 1049): Да
+                ///     (English - United States - 1033): Yes
                 /// TrueOption = 1
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string isvalidated = "isvalidated";
 
                 ///<summary>
                 /// Description:
-                ///     (Russian - 1049): Является проверенным именем.
+                ///     (English - United States - 1033): Is Validated Name.
                 /// 
                 /// SchemaName: IsValidatedName
                 /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'isvalidated'
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 //public const string isvalidatedname = "isvalidatedname";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Mobile Offline profileitemassociation
+                ///     (English - United States - 1033): Unique Id
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Уникальный идентификатор связи элемента профиля Mobile Offline.
-                /// 
-                /// SchemaName: MobileOfflineProfileItemAssociationId
-                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForUpdate: False
-                /// IsValidForRead: True    IsValidForAdvancedFind: True
-                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
-                ///</summary>
-                public const string mobileofflineprofileitemassociationid = "mobileofflineprofileitemassociationid";
-
-                ///<summary>
-                /// DisplayName:
-                ///     (Russian - 1049): Уникальный идентификатор
-                /// 
-                /// Description:
-                ///     (Russian - 1049): Только для внутреннего использования
+                ///     (English - United States - 1033): For Internal Use Only
                 /// 
                 /// SchemaName: MobileOfflineProfileItemAssociationIdUnique
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string mobileofflineprofileitemassociationidunique = "mobileofflineprofileitemassociationidunique";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): В отношении
+                ///     (English - United States - 1033): Regarding
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Код элемента родительского профиля.
+                ///     (English - United States - 1033): Id of the parent profile item.
                 /// 
                 /// SchemaName: MobileOfflineProfileItemId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: SystemRequired
@@ -356,10 +670,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///     Target mobileofflineprofileitem    PrimaryIdAttribute mobileofflineprofileitemid    PrimaryNameAttribute name
                 ///         DisplayName:
-                ///             (Russian - 1049): Элемент профиля Mobile Offline
+                ///             (English - United States - 1033): Mobile Offline Profile Item
                 ///         
                 ///         Description:
-                ///             (Russian - 1049): Сведения о доступности сущности для мобильных устройств в автономном режиме для элемента профиля Mobile Offline.
+                ///             (English - United States - 1033): Information on entity availability to mobile devices in offline mode for a mobile offline profile item.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string mobileofflineprofileitemid = "mobileofflineprofileitemid";
 
@@ -371,15 +704,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 100
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 //public const string mobileofflineprofileitemidname = "mobileofflineprofileitemidname";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Изменено
+                ///     (English - United States - 1033): Modified By
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Показывает, кто последний обновил запись.
+                ///     (English - United States - 1033): Shows who last updated the record.
                 /// 
                 /// SchemaName: ModifiedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -390,13 +742,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///             (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
                 ///         
                 ///         DisplayCollectionName:
-                ///             (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
                 ///         
                 ///         Description:
-                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   True
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string modifiedby = "modifiedby";
 
@@ -408,6 +779,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 200
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   True
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 //public const string modifiedbyname = "modifiedbyname";
 
@@ -419,15 +809,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 200
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   True
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 //public const string modifiedbyyominame = "modifiedbyyominame";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Дата изменения
+                ///     (English - United States - 1033): Modified On
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Показывает дату и время последнего обновления записи. Дата и время отображаются для часового пояса, выбранного в параметрах Microsoft Dynamics 365.
+                ///     (English - United States - 1033): Shows the date and time when the record was last updated. The date and time are displayed in the time zone selected in Microsoft Dynamics 365 options.
                 /// 
                 /// SchemaName: ModifiedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -436,15 +845,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DateTimeBehavior = UserLocal    CanChangeDateTimeBehavior = False
                 /// ImeMode = Inactive    Format = DateAndTime
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   True
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string modifiedon = "modifiedon";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Кем изменено (делегат)
+                ///     (English - United States - 1033): Modified By (Delegate)
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Показывает, кто обновил запись от имени другого пользователя.
+                ///     (English - United States - 1033): Shows who updated the record on behalf of another user.
                 /// 
                 /// SchemaName: ModifiedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -455,13 +883,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
-                ///             (Russian - 1049): Пользователь
+                ///             (English - United States - 1033): User
                 ///         
                 ///         DisplayCollectionName:
-                ///             (Russian - 1049): Пользователи
+                ///             (English - United States - 1033): Users
                 ///         
                 ///         Description:
-                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   True
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string modifiedonbehalfby = "modifiedonbehalfby";
 
@@ -473,6 +920,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 200
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   True
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 //public const string modifiedonbehalfbyname = "modifiedonbehalfbyname";
 
@@ -484,32 +950,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 200
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   True
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 //public const string modifiedonbehalfbyyominame = "modifiedonbehalfbyyominame";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Имя
+                ///     (English - United States - 1033): Organization
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Введите имя связи элемента профиля Mobile Offline.
-                /// 
-                /// SchemaName: Name
-                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForUpdate: False
-                /// IsValidForRead: True    IsValidForAdvancedFind: True
-                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// MaxLength = 200
-                /// Format = Text    ImeMode = Auto    IsLocalizable = False
-                ///</summary>
-                public const string name = "name";
-
-                ///<summary>
-                /// DisplayName:
-                ///     (Russian - 1049): Предприятие
-                /// 
-                /// Description:
-                ///     (Russian - 1049): Уникальный идентификатор организации, относящейся к связи элемента профиля Mobile Offline.
+                ///     (English - United States - 1033): Unique identifier of the organization associated with the Mobile Offline Profile Item Association.
                 /// 
                 /// SchemaName: OrganizationId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: SystemRequired
@@ -520,13 +988,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///     Target organization    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///         DisplayName:
-                ///             (Russian - 1049): Предприятие
+                ///             (English - United States - 1033): Organization
                 ///         
                 ///         DisplayCollectionName:
-                ///             (Russian - 1049): Предприятия
+                ///             (English - United States - 1033): Organizations
                 ///         
                 ///         Description:
-                ///             (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
+                ///             (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string organizationid = "organizationid";
 
@@ -538,15 +1025,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 100
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 //public const string organizationidname = "organizationidname";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Время замены записи
+                ///     (English - United States - 1033): Record Overwrite Time
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Только для внутреннего использования.
+                ///     (English - United States - 1033): For internal use only.
                 /// 
                 /// SchemaName: OverwriteTime
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
@@ -555,30 +1061,68 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DateTimeBehavior = UserLocal    CanChangeDateTimeBehavior = False
                 /// ImeMode = Inactive    Format = DateOnly
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string overwritetime = "overwritetime";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Процесс
+                ///     (English - United States - 1033): Process
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Показывает идентификатор процесса.
+                ///     (English - United States - 1033): Shows the ID of the process.
                 /// 
                 /// SchemaName: ProcessId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string processid = "processid";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Фильтр сущностей связей элементов профиля
+                ///     (English - United States - 1033): Profile item association entity filter
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Критерии фильтра сущностей связей элементов профиля.
+                ///     (English - United States - 1033): Profile item association entity filter criteria.
                 /// 
                 /// SchemaName: ProfileItemAssociationEntityFilter
                 /// MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: None
@@ -587,15 +1131,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// MaxLength = 1073741823
                 /// Format = TextArea    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              8.2.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string profileitemassociationentityfilter = "profileitemassociationentityfilter";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Дата публикации
+                ///     (English - United States - 1033): Published On
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Показывает дату и время последней публикации.
+                ///     (English - United States - 1033): Displays the last published date time.
                 /// 
                 /// SchemaName: PublishedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -604,12 +1167,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// DateTimeBehavior = UserLocal    CanChangeDateTimeBehavior = False
                 /// ImeMode = Inactive    Format = DateAndTime
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string publishedon = "publishedon";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Только для внутреннего использования
+                ///     (English - United States - 1033): Internal Use Only
                 /// 
                 /// SchemaName: RelationshipData
                 /// MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: None
@@ -618,15 +1200,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// MaxLength = 1073741823
                 /// Format = TextArea    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string relationshipdata = "relationshipdata";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Отношение сущности
+                ///     (English - United States - 1033): Entity Relationship
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Имя схемы отношений сущности
+                ///     (English - United States - 1033): Entity relationship schema name
                 /// 
                 /// SchemaName: RelationshipDisplayName
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -635,27 +1236,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 200
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string relationshipdisplayname = "relationshipdisplayname";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Показывает отношение
+                ///     (English - United States - 1033): Shows the relationship
                 /// 
                 /// SchemaName: RelationshipId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string relationshipid = "relationshipid";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Отношение сущности
+                ///     (English - United States - 1033): Entity Relationship
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Отображаемое имя отношения сущности
+                ///     (English - United States - 1033): Display name of entity relationship
                 /// 
                 /// SchemaName: RelationshipName
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -664,15 +1303,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 200
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string relationshipname = "relationshipname";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Отношение сущности
+                ///     (English - United States - 1033): Entity Relationship
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Список отношений выбранной сущности в элементе родительского профиля
+                ///     (English - United States - 1033): List of relationships of entity selected in parent profile item
                 /// 
                 /// SchemaName: SelectedRelationShipsSchema
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -683,10 +1341,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// DefaultFormValue = Null
                 /// 
                 ///         DisplayName:
-                ///             (Russian - 1049): Отношения выбранных сущностей с включенным режимом Mobile Offline
+                ///             (English - United States - 1033): Selected Mobile Offline Enabled Entities Relationships
                 ///         
                 ///         Description:
-                ///             (Russian - 1049): это набор параметров отношений выбранной сущности в элементе родительского профиля Mobile Offline.
+                ///             (English - United States - 1033): this is the optionset for relationships for selected entity in parent mobile offline profile item.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   True
+                /// IsRequiredForForm              True
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string selectedrelationshipsschema = "selectedrelationshipsschema";
 
@@ -696,60 +1373,136 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 //public const string selectedrelationshipsschemaname = "selectedrelationshipsschemaname";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Решение
+                ///     (English - United States - 1033): Solution
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Уникальный идентификатор связанного решения.
+                ///     (English - United States - 1033): Unique identifier of the associated solution.
                 /// 
                 /// SchemaName: SolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string solutionid = "solutionid";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Стадия процесса
+                ///     (English - United States - 1033): Process Stage
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Показывает идентификатор стадии.
+                ///     (English - United States - 1033): Shows the ID of the stage.
                 /// 
                 /// SchemaName: StageId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 True
                 ///</summary>
                 public const string stageid = "stageid";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Решение
+                ///     (English - United States - 1033): Solution
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Только для внутреннего использования.
+                ///     (English - United States - 1033): For internal use only.
                 /// 
                 /// SchemaName: SupportingSolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: False    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string supportingsolutionid = "supportingsolutionid";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Пройденный путь
+                ///     (English - United States - 1033): Traversed Path
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Только для внутреннего использования.
+                ///     (English - United States - 1033): For internal use only.
                 /// 
                 /// SchemaName: TraversedPath
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -758,15 +1511,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
                 /// MaxLength = 1250
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string traversedpath = "traversedpath";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (Russian - 1049): Номер версии
+                ///     (English - United States - 1033): Version Number
                 /// 
                 /// Description:
-                ///     (Russian - 1049): Номер версии Mobile Offline profileitemassociation.
+                ///     (English - United States - 1033): Version number of the Mobile Offline profileitemassociation.
                 /// 
                 /// SchemaName: VersionNumber
                 /// BigIntAttributeMetadata    AttributeType: BigInt    AttributeTypeName: BigIntType    RequiredLevel: None
@@ -774,6 +1546,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// MinValue = -9223372036854775808    MaxValue = 9223372036854775807
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              8.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string versionnumber = "versionnumber";
             }
@@ -807,15 +1598,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity systemuser:
+                /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
-                ///         (Russian - 1049): Пользователь
+                ///         (English - United States - 1033): User
                 ///     
                 ///     DisplayCollectionName:
-                ///         (Russian - 1049): Пользователи
+                ///         (English - United States - 1033): Users
                 ///     
                 ///     Description:
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
                 public static partial class lk_mobileofflineprofileitemassociation_createdby
                 {
@@ -855,15 +1646,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity systemuser:
+                /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
-                ///         (Russian - 1049): Пользователь
+                ///         (English - United States - 1033): User
                 ///     
                 ///     DisplayCollectionName:
-                ///         (Russian - 1049): Пользователи
+                ///         (English - United States - 1033): Users
                 ///     
                 ///     Description:
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
                 public static partial class lk_mobileofflineprofileitemassociation_createdonbehalfby
                 {
@@ -903,15 +1694,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity systemuser:
+                /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
-                ///         (Russian - 1049): Пользователь
+                ///         (English - United States - 1033): User
                 ///     
                 ///     DisplayCollectionName:
-                ///         (Russian - 1049): Пользователи
+                ///         (English - United States - 1033): Users
                 ///     
                 ///     Description:
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
                 public static partial class lk_mobileofflineprofileitemassociation_modifiedby
                 {
@@ -951,15 +1742,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity systemuser:
+                /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
-                ///         (Russian - 1049): Пользователь
+                ///         (English - United States - 1033): User
                 ///     
                 ///     DisplayCollectionName:
-                ///         (Russian - 1049): Пользователи
+                ///         (English - United States - 1033): Users
                 ///     
                 ///     Description:
-                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
                 public static partial class lk_mobileofflineprofileitemassociation_modifiedonbehalfby
                 {
@@ -999,12 +1790,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity mobileofflineprofileitem:
+                /// ReferencedEntity mobileofflineprofileitem:    PrimaryIdAttribute mobileofflineprofileitemid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///         (Russian - 1049): Элемент профиля Mobile Offline
+                ///         (English - United States - 1033): Mobile Offline Profile Item
                 ///     
                 ///     Description:
-                ///         (Russian - 1049): Сведения о доступности сущности для мобильных устройств в автономном режиме для элемента профиля Mobile Offline.
+                ///         (English - United States - 1033): Information on entity availability to mobile devices in offline mode for a mobile offline profile item.
                 /// 
                 /// AttributeMaps:
                 ///     SourceEntity                        TargetEntity
@@ -1053,15 +1844,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity organization:
+                /// ReferencedEntity organization:    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///         (Russian - 1049): Предприятие
+                ///         (English - United States - 1033): Organization
                 ///     
                 ///     DisplayCollectionName:
-                ///         (Russian - 1049): Предприятия
+                ///         (English - United States - 1033): Organizations
                 ///     
                 ///     Description:
-                ///         (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
+                ///         (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
                 ///</summary>
                 public static partial class mobileofflineprofileitemassociation_organization
                 {

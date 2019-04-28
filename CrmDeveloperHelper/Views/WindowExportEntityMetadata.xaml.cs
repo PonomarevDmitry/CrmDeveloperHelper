@@ -800,11 +800,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , _commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
                 );
 
-                string fileName = string.Format("{0}.{1}.Generated.cs", service.ConnectionData.Name, entityMetadata.EntityLogicalName);
+                string fileName = string.Format("{0}.{1}.Generated.cs", service.ConnectionData.Name, entityMetadata.EntityMetadata.SchemaName);
 
                 if (this._selectedItem != null)
                 {
-                    fileName = string.Format("{0}.Generated.cs", entityMetadata.EntityLogicalName);
+                    fileName = string.Format("{0}.Generated.cs", entityMetadata.EntityMetadata.SchemaName);
                 }
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -900,11 +900,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , _commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
                 );
 
-                string fileName = string.Format("{0}.{1}.cs", service.ConnectionData.Name, entityMetadata.EntityLogicalName);
+                string fileName = string.Format("{0}.{1}.cs", service.ConnectionData.Name, entityMetadata.EntityMetadata.SchemaName);
 
                 if (this._selectedItem != null)
                 {
-                    fileName = string.Format("{0}.cs", entityMetadata.EntityLogicalName);
+                    fileName = string.Format("{0}.cs", entityMetadata.EntityMetadata.SchemaName);
                 }
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -1004,11 +1004,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig.GenerateIntoSchemaClass
             );
 
-            string fileName = string.Format("{0}.{1}.EntityMetadata.Generated.js", service.ConnectionData.Name, entityMetadata.EntityLogicalName);
+            string fileName = string.Format("{0}.{1}.entitymetadata.generated.js", service.ConnectionData.Name, entityMetadata.EntityLogicalName);
 
             if (this._selectedItem != null)
             {
-                fileName = string.Format("{0}.EntityMetadata.Generated.js", entityMetadata.EntityLogicalName);
+                fileName = string.Format("{0}.entitymetadata.generated.js", entityMetadata.EntityLogicalName);
             }
 
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));

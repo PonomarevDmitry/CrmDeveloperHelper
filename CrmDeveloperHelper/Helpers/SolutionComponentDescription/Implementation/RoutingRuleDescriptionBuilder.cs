@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public override string EntityLogicalName => RoutingRule.EntityLogicalName;
 
-        public override string EntityPrimaryIdAttribute => RoutingRule.Schema.EntityPrimaryIdAttribute;
+        public override string EntityPrimaryIdAttribute => RoutingRule.EntityPrimaryIdAttribute;
 
         protected override ColumnSet GetColumnSet()
         {

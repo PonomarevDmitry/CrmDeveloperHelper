@@ -102,7 +102,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(SdkMessageResponse.PrimaryIdAttribute, ConditionOperator.Equal, idSdkMessageResponse),
+                        new ConditionExpression(SdkMessageResponse.EntityPrimaryIdAttribute, ConditionOperator.Equal, idSdkMessageResponse),
                     },
                 },
             };

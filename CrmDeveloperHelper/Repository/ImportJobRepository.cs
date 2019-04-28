@@ -101,7 +101,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(ImportJob.PrimaryIdAttribute, ConditionOperator.Equal, idImportJob),
+                        new ConditionExpression(ImportJob.EntityPrimaryIdAttribute, ConditionOperator.Equal, idImportJob),
                     },
                 },
             };

@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public override string EntityLogicalName => HierarchyRule.EntityLogicalName;
 
-        public override string EntityPrimaryIdAttribute => HierarchyRule.Schema.EntityPrimaryIdAttribute;
+        public override string EntityPrimaryIdAttribute => HierarchyRule.EntityPrimaryIdAttribute;
 
         protected override ColumnSet GetColumnSet()
         {
