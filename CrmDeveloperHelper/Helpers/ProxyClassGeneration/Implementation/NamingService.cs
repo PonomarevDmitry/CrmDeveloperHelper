@@ -28,9 +28,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         private readonly List<string> _reservedAttributeNames;
 
-        internal NamingService(string serviceContextName)
+        private readonly CreateFileWithEntityMetadataCSharpConfiguration _config;
+
+        internal NamingService(string serviceContextName, CreateFileWithEntityMetadataCSharpConfiguration config)
         {
             this._serviceContextName = string.IsNullOrWhiteSpace(serviceContextName) ? typeof(OrganizationServiceContext).Name + "1" : serviceContextName;
+            this._config = config;
 
             this._nameMap = new Dictionary<string, int>();
             this._knowNames = new Dictionary<string, string>();
@@ -42,7 +45,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             }
         }
 
-        string INamingService.GetNameForOptionSet(
+        public string GetNameForOptionSet(
             EntityMetadata entityMetadata
             , OptionSetMetadataBase optionSetMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
@@ -54,11 +57,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             }
 
             string str = optionSetMetadata.OptionSetType.Value != OptionSetType.State ? this.CreateValidTypeName(optionSetMetadata.Name) : this.CreateValidTypeName(entityMetadata.SchemaName + "State");
+
             this._knowNames.Add(optionSetMetadata.MetadataId.Value.ToString(), str);
+
             return str;
         }
 
-        string INamingService.GetNameForOption(
+        public string GetNameForOption(
             OptionSetMetadataBase optionSetMetadata
             , OptionMetadata optionMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
@@ -97,7 +102,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return validName;
         }
 
-        string INamingService.GetNameForEntity(
+        public string GetNameForEntity(
             EntityMetadata entityMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
@@ -112,7 +117,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return validTypeName;
         }
 
-        string INamingService.GetNameForAttribute(
+        public string GetNameForAttribute(
             EntityMetadata entityMetadata
             , AttributeMetadata attributeMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
@@ -134,7 +139,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return validName;
         }
 
-        string INamingService.GetNameForRelationship(
+        public string GetNameForRelationship(
             EntityMetadata entityMetadata
             , RelationshipMetadataBase relationshipMetadata
             , EntityRole? reflexiveRole
@@ -148,7 +153,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             }
 
             string validName = NamingService.CreateValidName(!reflexiveRole.HasValue ? relationshipMetadata.SchemaName : (reflexiveRole.Value == EntityRole.Referenced ? "Referenced" + relationshipMetadata.SchemaName : "Referencing" + relationshipMetadata.SchemaName));
+
             Dictionary<string, string> dictionary = this._knowNames.Where<KeyValuePair<string, string>>(d => d.Key.StartsWith(entityMetadata.MetadataId.Value.ToString())).ToDictionary(d => d.Key, d => d.Value);
+
             INamingService service = iCodeGenerationServiceProvider.NamingService;
             if (this._reservedAttributeNames.Contains(validName) || validName == service.GetNameForEntity(entityMetadata, iCodeGenerationServiceProvider) || dictionary.ContainsValue(validName))
             {
@@ -159,12 +166,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return validName;
         }
 
-        string INamingService.GetNameForServiceContext(ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public string GetNameForServiceContext(ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
             return this._serviceContextName;
         }
 
-        string INamingService.GetNameForEntitySet(
+        public string GetNameForEntitySet(
             EntityMetadata entityMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
@@ -172,7 +179,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return iCodeGenerationServiceProvider.NamingService.GetNameForEntity(entityMetadata, iCodeGenerationServiceProvider) + "Set";
         }
 
-        string INamingService.GetNameForMessagePair(
+        public string GetNameForMessagePair(
             CodeGenerationSdkMessagePair messagePair
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
@@ -187,7 +194,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return validTypeName;
         }
 
-        string INamingService.GetNameForRequestField(
+        public string GetNameForRequestField(
             CodeGenerationSdkMessageRequest request
             , Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageRequestField requestField
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
@@ -203,7 +210,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return validName;
         }
 
-        string INamingService.GetNameForResponseField(
+        public string GetNameForResponseField(
             CodeGenerationSdkMessageResponse response
             , Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageResponseField responseField
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
@@ -247,94 +254,80 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return stringBuilder.ToString();
         }
 
-        IEnumerable<string> INamingService.GetCommentsForEntity(EntityMetadata entityMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public IEnumerable<string> GetCommentsForEntity(EntityMetadata entityMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
-            string name = entityMetadata.Description != null
-                && entityMetadata.Description.UserLocalizedLabel != null
-                ? entityMetadata.Description.UserLocalizedLabel.Label
-                : (entityMetadata.Description.LocalizedLabels.Any() ? entityMetadata.Description.LocalizedLabels.First().Label : string.Empty);
+            List<string> comments = new List<string>();
 
-            if (string.IsNullOrEmpty(name))
-            {
-                return Enumerable.Empty<string>();
-            }
+            CreateFileHandler.FillLabelEntity(comments, _config.AllDescriptions, entityMetadata.DisplayName, entityMetadata.DisplayCollectionName, entityMetadata.Description, _config.TabSpacer);
 
-            return new[] { name };
+            return comments;
         }
 
-        IEnumerable<string> INamingService.GetCommentsForEntityDefaultConstructor(EntityMetadata entityMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public IEnumerable<string> GetCommentsForEntityDefaultConstructor(EntityMetadata entityMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
             return new[] { $"Default Constructor {entityMetadata.LogicalName}" };
         }
 
-        IEnumerable<string> INamingService.GetCommentsForAttribute(EntityMetadata entityMetadata, AttributeMetadata attributeMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public IEnumerable<string> GetCommentsForAttribute(EntityMetadata entityMetadata, AttributeMetadata attributeMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
-            string name = attributeMetadata.Description != null
-                && attributeMetadata.Description.UserLocalizedLabel != null
-                ? attributeMetadata.Description.UserLocalizedLabel.Label
-                : (attributeMetadata.Description.LocalizedLabels.Any() ? attributeMetadata.Description.LocalizedLabels.First().Label : string.Empty);
+            var listStrings = CreateFileHandler.UnionStrings(attributeMetadata.DisplayName, attributeMetadata.Description, null, null, _config.AllDescriptions, _config.TabSpacer);
 
-            if (string.IsNullOrEmpty(name))
-            {
-                return Enumerable.Empty<string>();
-            }
-
-            return new[] { name };
+            return listStrings;
         }
 
-        IEnumerable<string> INamingService.GetCommentsForRelationshipOneToMany(EntityMetadata entityMetadata, OneToManyRelationshipMetadata relationshipMetadata, EntityRole? reflexiveRole, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public IEnumerable<string> GetCommentsForRelationshipOneToMany(EntityMetadata entityMetadata, OneToManyRelationshipMetadata relationshipMetadata, EntityRole? reflexiveRole, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
             return new[] { "1:N " + relationshipMetadata.SchemaName };
         }
 
-        IEnumerable<string> INamingService.GetCommentsForRelationshipManyToOne(EntityMetadata entityMetadata, OneToManyRelationshipMetadata relationshipMetadata, EntityRole? reflexiveRole, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public IEnumerable<string> GetCommentsForRelationshipManyToOne(EntityMetadata entityMetadata, OneToManyRelationshipMetadata relationshipMetadata, EntityRole? reflexiveRole, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
             return new[] { "N:1 " + relationshipMetadata.SchemaName };
         }
 
-        IEnumerable<string> INamingService.GetCommentsForRelationshipManyToMany(EntityMetadata entityMetadata, ManyToManyRelationshipMetadata relationshipMetadata, EntityRole? reflexiveRole, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public IEnumerable<string> GetCommentsForRelationshipManyToMany(EntityMetadata entityMetadata, ManyToManyRelationshipMetadata relationshipMetadata, EntityRole? reflexiveRole, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
             return new[] { "N:N " + relationshipMetadata.SchemaName };
         }
 
-        IEnumerable<string> INamingService.GetCommentsForServiceContext(ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public IEnumerable<string> GetCommentsForServiceContext(ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
             return new[] { "Represents a source of entities bound to a CRM service. It tracks and manages changes made to the retrieved entities." };
         }
 
-        IEnumerable<string> INamingService.GetCommentsForEntitySet(EntityMetadata entityMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public IEnumerable<string> GetCommentsForEntitySet(EntityMetadata entityMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
             CodeTypeReference typeForEntity = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata, iCodeGenerationServiceProvider);
 
             return new[] { string.Format(CultureInfo.InvariantCulture, "Gets a binding to the set of all <see cref=\"{0}\"/> entities.", typeForEntity.BaseType) };
         }
 
-        IEnumerable<string> INamingService.GetCommentsForServiceContextConstructor(ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public IEnumerable<string> GetCommentsForServiceContextConstructor(ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
             return new[] { "Constructor" };
         }
 
-        IEnumerable<string> INamingService.GetCommentsForOptionSet(EntityMetadata entityMetadata, OptionSetMetadataBase optionSetMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public IEnumerable<string> GetCommentsForOptionSet(EntityMetadata entityMetadata, OptionSetMetadataBase optionSetMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
             return Enumerable.Empty<string>();
         }
 
-        IEnumerable<string> INamingService.GetCommentsForOption(OptionSetMetadataBase optionSetMetadata, OptionMetadata optionMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public IEnumerable<string> GetCommentsForOption(OptionSetMetadataBase optionSetMetadata, OptionMetadata optionMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
             return Enumerable.Empty<string>();
         }
 
-        IEnumerable<string> INamingService.GetCommentsForMessagePair(CodeGenerationSdkMessagePair messagePair, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public IEnumerable<string> GetCommentsForMessagePair(CodeGenerationSdkMessagePair messagePair, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
             return Enumerable.Empty<string>();
         }
 
-        IEnumerable<string> INamingService.GetCommentsForRequestField(CodeGenerationSdkMessageRequest request, SdkMessageRequestField requestField, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public IEnumerable<string> GetCommentsForRequestField(CodeGenerationSdkMessageRequest request, SdkMessageRequestField requestField, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
             return Enumerable.Empty<string>();
         }
 
-        IEnumerable<string> INamingService.GetCommentsForResponseField(CodeGenerationSdkMessageResponse response, SdkMessageResponseField responseField, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public IEnumerable<string> GetCommentsForResponseField(CodeGenerationSdkMessageResponse response, SdkMessageResponseField responseField, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
             return Enumerable.Empty<string>();
         }

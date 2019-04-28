@@ -227,128 +227,128 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _GenerateAttributes = true;
+        private bool _GenerateAttributesSchema = true;
         /// <summary>
         /// Генерировать атрибуты в файле с метаданными сущности
         /// </summary>
         [DataMember]
-        public bool GenerateAttributes
+        public bool GenerateAttributesSchema
         {
-            get => _GenerateAttributes;
+            get => _GenerateAttributesSchema;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateAttributes));
-                this._GenerateAttributes = value;
-                this.OnPropertyChanged(nameof(GenerateAttributes));
+                this.OnPropertyChanging(nameof(GenerateAttributesSchema));
+                this._GenerateAttributesSchema = value;
+                this.OnPropertyChanged(nameof(GenerateAttributesSchema));
             }
         }
 
-        private bool _GenerateManyToOne = true;
+        private bool _GenerateManyToOneSchema = true;
         /// <summary>
         /// Генерировать связи Many To One (N:1) в файле с метаданными сущности
         /// </summary>
         [DataMember]
-        public bool GenerateManyToOne
+        public bool GenerateManyToOneSchema
         {
-            get => _GenerateManyToOne;
+            get => _GenerateManyToOneSchema;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateManyToOne));
-                this._GenerateManyToOne = value;
-                this.OnPropertyChanged(nameof(GenerateManyToOne));
+                this.OnPropertyChanging(nameof(GenerateManyToOneSchema));
+                this._GenerateManyToOneSchema = value;
+                this.OnPropertyChanged(nameof(GenerateManyToOneSchema));
             }
         }
 
-        private bool _GenerateOneToMany = true;
+        private bool _GenerateOneToManySchema = true;
         /// <summary>
         /// Генерировать One To Many (1:N) в файле с метаданными сущности
         /// </summary>
         [DataMember]
-        public bool GenerateOneToMany
+        public bool GenerateOneToManySchema
         {
-            get => _GenerateOneToMany;
+            get => _GenerateOneToManySchema;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateOneToMany));
-                this._GenerateOneToMany = value;
-                this.OnPropertyChanged(nameof(GenerateOneToMany));
+                this.OnPropertyChanging(nameof(GenerateOneToManySchema));
+                this._GenerateOneToManySchema = value;
+                this.OnPropertyChanged(nameof(GenerateOneToManySchema));
             }
         }
 
-        private bool _GenerateManyToMany = true;
+        private bool _GenerateManyToManySchema = true;
         /// <summary>
         /// Генерировать Many To Many (N:N) в файле с метаданными сущности
         /// </summary>
         [DataMember]
-        public bool GenerateManyToMany
+        public bool GenerateManyToManySchema
         {
-            get => _GenerateManyToMany;
+            get => _GenerateManyToManySchema;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateManyToMany));
-                this._GenerateManyToMany = value;
-                this.OnPropertyChanged(nameof(GenerateManyToMany));
+                this.OnPropertyChanging(nameof(GenerateManyToManySchema));
+                this._GenerateManyToManySchema = value;
+                this.OnPropertyChanged(nameof(GenerateManyToManySchema));
             }
         }
 
-        private bool _GenerateLocalOptionSet = true;
+        private bool _GenerateLocalOptionSetSchema = true;
         /// <summary>
         /// Генерировать enum для значений Picklist-ов в файле с метаданными сущности
         /// </summary>
         [DataMember]
-        public bool GenerateLocalOptionSet
+        public bool GenerateLocalOptionSetSchema
         {
-            get => _GenerateLocalOptionSet;
+            get => _GenerateLocalOptionSetSchema;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateLocalOptionSet));
-                this._GenerateLocalOptionSet = value;
-                this.OnPropertyChanged(nameof(GenerateLocalOptionSet));
+                this.OnPropertyChanging(nameof(GenerateLocalOptionSetSchema));
+                this._GenerateLocalOptionSetSchema = value;
+                this.OnPropertyChanged(nameof(GenerateLocalOptionSetSchema));
             }
         }
 
-        private bool _GenerateGlobalOptionSet = false;
+        private bool _GenerateGlobalOptionSetSchema = false;
         [DataMember]
-        public bool GenerateGlobalOptionSet
+        public bool GenerateGlobalOptionSetSchema
         {
-            get => _GenerateGlobalOptionSet;
+            get => _GenerateGlobalOptionSetSchema;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateGlobalOptionSet));
-                this._GenerateGlobalOptionSet = value;
-                this.OnPropertyChanged(nameof(GenerateGlobalOptionSet));
+                this.OnPropertyChanging(nameof(GenerateGlobalOptionSetSchema));
+                this._GenerateGlobalOptionSetSchema = value;
+                this.OnPropertyChanged(nameof(GenerateGlobalOptionSetSchema));
             }
         }
 
-        private bool _GenerateStatus = true;
+        private bool _GenerateStatusOptionSetSchema = true;
         /// <summary>
         /// Генерировать enum для значения Statecode и Statuscode в файле с метаданными сущности
         /// </summary>
         [DataMember]
-        public bool GenerateStatus
+        public bool GenerateStatusOptionSetSchema
         {
-            get => _GenerateStatus;
+            get => _GenerateStatusOptionSetSchema;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateStatus));
-                this._GenerateStatus = value;
-                this.OnPropertyChanged(nameof(GenerateStatus));
+                this.OnPropertyChanging(nameof(GenerateStatusOptionSetSchema));
+                this._GenerateStatusOptionSetSchema = value;
+                this.OnPropertyChanged(nameof(GenerateStatusOptionSetSchema));
             }
         }
 
-        private bool _GenerateKeys = true;
+        private bool _GenerateKeysSchema = true;
         /// <summary>
         /// Генерировать уникальные ключи
         /// </summary>
         [DataMember]
-        public bool GenerateKeys
+        public bool GenerateKeysSchema
         {
-            get => _GenerateKeys;
+            get => _GenerateKeysSchema;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateKeys));
-                this._GenerateKeys = value;
-                this.OnPropertyChanged(nameof(GenerateKeys));
+                this.OnPropertyChanging(nameof(GenerateKeysSchema));
+                this._GenerateKeysSchema = value;
+                this.OnPropertyChanged(nameof(GenerateKeysSchema));
             }
         }
 
@@ -362,6 +362,180 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 this.OnPropertyChanging(nameof(GenerateIntoSchemaClass));
                 this._GenerateIntoSchemaClass = value;
                 this.OnPropertyChanged(nameof(GenerateIntoSchemaClass));
+            }
+        }
+
+        private bool _GenerateProxyClassesUseSchemaConstInCSharpAttributes = true;
+        [DataMember]
+        public bool GenerateProxyClassesUseSchemaConstInCSharpAttributes
+        {
+            get => _GenerateProxyClassesUseSchemaConstInCSharpAttributes;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateProxyClassesUseSchemaConstInCSharpAttributes));
+                this._GenerateProxyClassesUseSchemaConstInCSharpAttributes = value;
+                this.OnPropertyChanged(nameof(GenerateProxyClassesUseSchemaConstInCSharpAttributes));
+            }
+        }
+
+        private bool _GenerateProxyClassesWithDebuggerNonUserCode = true;
+        [DataMember]
+        public bool GenerateProxyClassesWithDebuggerNonUserCode
+        {
+            get => _GenerateProxyClassesWithDebuggerNonUserCode;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateProxyClassesWithDebuggerNonUserCode));
+                this._GenerateProxyClassesWithDebuggerNonUserCode = value;
+                this.OnPropertyChanged(nameof(GenerateProxyClassesWithDebuggerNonUserCode));
+            }
+        }
+
+        private bool _GenerateProxyClassesMakeAllPropertiesEditable = true;
+        [DataMember]
+        public bool GenerateProxyClassesMakeAllPropertiesEditable
+        {
+            get => _GenerateProxyClassesMakeAllPropertiesEditable;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateProxyClassesMakeAllPropertiesEditable));
+                this._GenerateProxyClassesMakeAllPropertiesEditable = value;
+                this.OnPropertyChanged(nameof(GenerateProxyClassesMakeAllPropertiesEditable));
+            }
+        }
+
+        private bool _GenerateProxyClassesWithoutObsoleteAttribute = true;
+        [DataMember]
+        public bool GenerateProxyClassesWithoutObsoleteAttribute
+        {
+            get => _GenerateProxyClassesWithoutObsoleteAttribute;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateProxyClassesWithoutObsoleteAttribute));
+                this._GenerateProxyClassesWithoutObsoleteAttribute = value;
+                this.OnPropertyChanged(nameof(GenerateProxyClassesWithoutObsoleteAttribute));
+            }
+        }
+
+        private bool _GenerateAttributesProxyClass = true;
+        /// <summary>
+        /// Генерировать атрибуты в файле с метаданными сущности
+        /// </summary>
+        [DataMember]
+        public bool GenerateAttributesProxyClass
+        {
+            get => _GenerateAttributesProxyClass;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateAttributesProxyClass));
+                this._GenerateAttributesProxyClass = value;
+                this.OnPropertyChanged(nameof(GenerateAttributesProxyClass));
+            }
+        }
+
+        private bool _GenerateAttributesProxyClassWithNameOf = true;
+        [DataMember]
+        public bool GenerateAttributesProxyClassWithNameOf
+        {
+            get => _GenerateAttributesProxyClassWithNameOf;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateAttributesProxyClassWithNameOf));
+                this._GenerateAttributesProxyClassWithNameOf = value;
+                this.OnPropertyChanged(nameof(GenerateAttributesProxyClassWithNameOf));
+            }
+        }
+
+        private bool _GenerateManyToOneProxyClass = false;
+        /// <summary>
+        /// Генерировать связи Many To One (N:1) в файле с метаданными сущности
+        /// </summary>
+        [DataMember]
+        public bool GenerateManyToOneProxyClass
+        {
+            get => _GenerateManyToOneProxyClass;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateManyToOneProxyClass));
+                this._GenerateManyToOneProxyClass = value;
+                this.OnPropertyChanged(nameof(GenerateManyToOneProxyClass));
+            }
+        }
+
+        private bool _GenerateOneToManyProxyClass = false;
+        /// <summary>
+        /// Генерировать One To Many (1:N) в файле с метаданными сущности
+        /// </summary>
+        [DataMember]
+        public bool GenerateOneToManyProxyClass
+        {
+            get => _GenerateOneToManyProxyClass;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateOneToManyProxyClass));
+                this._GenerateOneToManyProxyClass = value;
+                this.OnPropertyChanged(nameof(GenerateOneToManyProxyClass));
+            }
+        }
+
+        private bool _GenerateManyToManyProxyClass = true;
+        /// <summary>
+        /// Генерировать Many To Many (N:N) в файле с метаданными сущности
+        /// </summary>
+        [DataMember]
+        public bool GenerateManyToManyProxyClass
+        {
+            get => _GenerateManyToManyProxyClass;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateManyToManyProxyClass));
+                this._GenerateManyToManyProxyClass = value;
+                this.OnPropertyChanged(nameof(GenerateManyToManyProxyClass));
+            }
+        }
+
+        private bool _GenerateLocalOptionSetProxyClass = true;
+        /// <summary>
+        /// Генерировать enum для значений Picklist-ов в файле с метаданными сущности
+        /// </summary>
+        [DataMember]
+        public bool GenerateLocalOptionSetProxyClass
+        {
+            get => _GenerateLocalOptionSetProxyClass;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateLocalOptionSetProxyClass));
+                this._GenerateLocalOptionSetProxyClass = value;
+                this.OnPropertyChanged(nameof(GenerateLocalOptionSetProxyClass));
+            }
+        }
+
+        private bool _GenerateGlobalOptionSetProxyClass = false;
+        [DataMember]
+        public bool GenerateGlobalOptionSetProxyClass
+        {
+            get => _GenerateGlobalOptionSetProxyClass;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateGlobalOptionSetProxyClass));
+                this._GenerateGlobalOptionSetProxyClass = value;
+                this.OnPropertyChanged(nameof(GenerateGlobalOptionSetProxyClass));
+            }
+        }
+
+        private bool _GenerateStatusOptionSetProxyClass = false;
+        /// <summary>
+        /// Генерировать enum для значения Statecode и Statuscode в файле с метаданными сущности
+        /// </summary>
+        [DataMember]
+        public bool GenerateStatusOptionSetProxyClass
+        {
+            get => _GenerateStatusOptionSetProxyClass;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateStatusOptionSetProxyClass));
+                this._GenerateStatusOptionSetProxyClass = value;
+                this.OnPropertyChanged(nameof(GenerateStatusOptionSetProxyClass));
             }
         }
 
@@ -874,15 +1048,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.ExportRibbonXmlHomepageGrid = diskData.ExportRibbonXmlHomepageGrid;
             this.ExportRibbonXmlSubGrid = diskData.ExportRibbonXmlSubGrid;
             this.ExportXmlAttributeOnNewLine = diskData.ExportXmlAttributeOnNewLine;
-            this.GenerateAttributes = diskData.GenerateAttributes;
-            this.GenerateManyToOne = diskData.GenerateManyToOne;
-            this.GenerateOneToMany = diskData.GenerateOneToMany;
-            this.GenerateManyToMany = diskData.GenerateManyToMany;
-            this.GenerateLocalOptionSet = diskData.GenerateLocalOptionSet;
-            this.GenerateGlobalOptionSet = diskData.GenerateGlobalOptionSet;
-            this.GenerateStatus = diskData.GenerateStatus;
-            this.GenerateKeys = diskData.GenerateKeys;
+
+            this.GenerateAttributesSchema = diskData.GenerateAttributesSchema;
+            this.GenerateManyToOneSchema = diskData.GenerateManyToOneSchema;
+            this.GenerateOneToManySchema = diskData.GenerateOneToManySchema;
+            this.GenerateManyToManySchema = diskData.GenerateManyToManySchema;
+            this.GenerateLocalOptionSetSchema = diskData.GenerateLocalOptionSetSchema;
+            this.GenerateGlobalOptionSetSchema = diskData.GenerateGlobalOptionSetSchema;
+            this.GenerateStatusOptionSetSchema = diskData.GenerateStatusOptionSetSchema;
+            this.GenerateKeysSchema = diskData.GenerateKeysSchema;
             this.GenerateIntoSchemaClass = diskData.GenerateIntoSchemaClass;
+
+            this.GenerateAttributesProxyClass = diskData.GenerateAttributesProxyClass;
+            this.GenerateManyToOneProxyClass = diskData.GenerateManyToOneProxyClass;
+            this.GenerateOneToManyProxyClass = diskData.GenerateOneToManyProxyClass;
+            this.GenerateManyToManyProxyClass = diskData.GenerateManyToManyProxyClass;
+            this.GenerateLocalOptionSetProxyClass = diskData.GenerateLocalOptionSetProxyClass;
+            this.GenerateGlobalOptionSetProxyClass = diskData.GenerateGlobalOptionSetProxyClass;
+            this.GenerateStatusOptionSetProxyClass = diskData.GenerateStatusOptionSetProxyClass;
+
             this.AllDescriptions = diskData.AllDescriptions;
             this.EntityMetadaOptionSetDependentComponents = diskData.EntityMetadaOptionSetDependentComponents;
             this.AllDependentComponentsForAttributes = diskData.AllDependentComponentsForAttributes;

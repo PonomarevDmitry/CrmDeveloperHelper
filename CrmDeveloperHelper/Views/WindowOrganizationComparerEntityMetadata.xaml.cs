@@ -1,6 +1,7 @@
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
@@ -476,13 +477,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             string filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName1));
             string filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName2));
 
-            using (var handler1 = new CreateFileWithEntityMetadataCSharpHandler(config, service1, _iWriteToOutput))
+            var repository1 = new EntityMetadataRepository(service1);
+            var repository2 = new EntityMetadataRepository(service2);
+
+            ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
+            ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
+
+            INamingService namingService1 = new NamingService(service1.ConnectionData.ServiceContextName, config);
+            INamingService namingService2 = new NamingService(service2.ConnectionData.ServiceContextName, config);
+            ITypeMappingService typeMappingService1 = new TypeMappingService(service1.ConnectionData.NamespaceClasses);
+            ITypeMappingService typeMappingService2 = new TypeMappingService(service2.ConnectionData.NamespaceClasses);
+            IMetadataProviderService metadataProviderService1 = new MetadataProviderService(repository1);
+            IMetadataProviderService metadataProviderService2 = new MetadataProviderService(repository2);
+
+            ICodeGenerationServiceProvider codeGenerationServiceProvider1 = new CodeGenerationServiceProvider(typeMappingService1, codeGenerationService, codeWriterFilterService, metadataProviderService1, namingService1);
+            ICodeGenerationServiceProvider codeGenerationServiceProvider2 = new CodeGenerationServiceProvider(typeMappingService2, codeGenerationService, codeWriterFilterService, metadataProviderService2, namingService2);
+
+            using (var handler1 = new CreateFileWithEntityMetadataCSharpHandler(config, service1, _iWriteToOutput, codeGenerationServiceProvider1))
             {
                 var task1 = handler1.CreateFileAsync(filePath1);
 
                 if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                 {
-                    using (var handler2 = new CreateFileWithEntityMetadataCSharpHandler(config, service2, _iWriteToOutput))
+                    using (var handler2 = new CreateFileWithEntityMetadataCSharpHandler(config, service2, _iWriteToOutput, codeGenerationServiceProvider2))
                     {
                         await handler2.CreateFileAsync(filePath2);
                     }
@@ -522,20 +539,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             (
                 entityName
                 , tabSpacer
-                , _commonConfig.GenerateAttributes
-                , _commonConfig.GenerateStatus
-                , _commonConfig.GenerateLocalOptionSet
-                , _commonConfig.GenerateGlobalOptionSet
-                , _commonConfig.GenerateOneToMany
-                , _commonConfig.GenerateManyToOne
-                , _commonConfig.GenerateManyToMany
-                , _commonConfig.GenerateKeys
+                , _commonConfig.GenerateAttributesSchema
+                , _commonConfig.GenerateStatusOptionSetSchema
+                , _commonConfig.GenerateLocalOptionSetSchema
+                , _commonConfig.GenerateGlobalOptionSetSchema
+                , _commonConfig.GenerateOneToManySchema
+                , _commonConfig.GenerateManyToOneSchema
+                , _commonConfig.GenerateManyToManySchema
+                , _commonConfig.GenerateKeysSchema
                 , _commonConfig.AllDescriptions
                 , _commonConfig.EntityMetadaOptionSetDependentComponents
                 , _commonConfig.GenerateIntoSchemaClass
                 , _commonConfig.SolutionComponentWithManagedInfo
                 , _commonConfig.ConstantType
                 , _commonConfig.OptionSetExportType
+                , _commonConfig.GenerateAttributesProxyClassWithNameOf
+                , _commonConfig.GenerateProxyClassesWithDebuggerNonUserCode
+                , _commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes
+                , _commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
+                , _commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
             );
 
             return result;
@@ -695,7 +717,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput))
+                var repository = new EntityMetadataRepository(service);
+
+                ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
+                INamingService namingService = new NamingService(service.ConnectionData.ServiceContextName, config);
+                ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClasses);
+                ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
+                IMetadataProviderService metadataProviderService = new MetadataProviderService(repository);
+
+                ICodeGenerationServiceProvider codeGenerationServiceProvider = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService, namingService);
+
+                using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput, codeGenerationServiceProvider))
                 {
                     await handler.CreateFileAsync(filePath);
 

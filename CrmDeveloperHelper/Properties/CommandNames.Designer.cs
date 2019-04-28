@@ -88,11 +88,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update EntityMetadata File with Select Entity.
+        ///   Looks up a localized string similar to Update EntityMetadata Proxy Class with Select Entity.
         /// </summary>
-        internal static string CodeCSharpUpdateEntityMetadataFileWithSelectCommand {
+        internal static string CodeCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand {
             get {
-                return ResourceManager.GetString("CodeCSharpUpdateEntityMetadataFileWithSelectCommand", resourceCulture);
+                return ResourceManager.GetString("CodeCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update EntityMetadata Schema File with Select Entity.
+        /// </summary>
+        internal static string CodeCSharpUpdateEntityMetadataFileSchemaWithSelectCommand {
+            get {
+                return ResourceManager.GetString("CodeCSharpUpdateEntityMetadataFileSchemaWithSelectCommand", resourceCulture);
             }
         }
         
@@ -556,11 +565,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update EntityMetadata File with Select Entity.
+        ///   Looks up a localized string similar to Update EntityMetadata Proxy Class with Select Entity.
         /// </summary>
-        internal static string FileCSharpUpdateEntityMetadataFileWithSelectCommand {
+        internal static string FileCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand {
             get {
-                return ResourceManager.GetString("FileCSharpUpdateEntityMetadataFileWithSelectCommand", resourceCulture);
+                return ResourceManager.GetString("FileCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update EntityMetadata Schema File with Select Entity.
+        /// </summary>
+        internal static string FileCSharpUpdateEntityMetadataFileSchemaWithSelectCommand {
+            get {
+                return ResourceManager.GetString("FileCSharpUpdateEntityMetadataFileSchemaWithSelectCommand", resourceCulture);
             }
         }
         

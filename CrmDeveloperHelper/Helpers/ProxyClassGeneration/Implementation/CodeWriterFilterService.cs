@@ -12,8 +12,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         private readonly bool _generateCustomActions;
         private readonly bool _generateServiceContext;
 
-        public CodeWriterFilterService()
+        private readonly CreateFileWithEntityMetadataCSharpConfiguration _config;
+
+        public CodeWriterFilterService(CreateFileWithEntityMetadataCSharpConfiguration config)
         {
+            this._config = config;
+
             _excludedNamespaces.Add("http://schemas.microsoft.com/xrm/2011/contracts");
         }
 
@@ -25,15 +29,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         //  this._generateServiceContext = !string.IsNullOrWhiteSpace(parameters.ServiceContextName);
         //}
 
-        bool ICodeWriterFilterService.GenerateOptionSet(
+        public bool GenerateOptionSet(
             OptionSetMetadataBase optionSetMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
+            if (optionSetMetadata.IsGlobal.GetValueOrDefault())
+            {
+                if (!_config.GenerateGlobalOptionSet)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if (!_config.GenerateLocalOptionSet)
+                {
+                    return false;
+                }
+            }
+
             return optionSetMetadata.OptionSetType.Value == OptionSetType.State;
         }
 
-        bool ICodeWriterFilterService.GenerateOption(
+        public bool GenerateOption(
             OptionMetadata option
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
@@ -41,7 +60,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return true;
         }
 
-        bool ICodeWriterFilterService.GenerateEntity(
+        public bool GenerateEntity(
             EntityMetadata entityMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
@@ -76,20 +95,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             //    }
             //}
 
-            return false;
+            return true;
         }
 
-        bool ICodeWriterFilterService.GenerateAttribute(
+        public bool GenerateAttribute(
             AttributeMetadata attributeMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            return !this.IsNotExposedChildAttribute(attributeMetadata) && (attributeMetadata.IsValidForCreate.GetValueOrDefault() || attributeMetadata.IsValidForRead.GetValueOrDefault() || attributeMetadata.IsValidForUpdate.GetValueOrDefault());
+            if (!_config.GenerateAttributes)
+            {
+                return false;
+            }
+
+            return !this.IsNotExposedChildAttribute(attributeMetadata)
+                &&
+                (
+                    attributeMetadata.IsValidForCreate.GetValueOrDefault()
+                    || attributeMetadata.IsValidForRead.GetValueOrDefault()
+                    || attributeMetadata.IsValidForUpdate.GetValueOrDefault()
+                );
         }
 
         private bool IsNotExposedChildAttribute(AttributeMetadata attributeMetadata)
         {
-            if (!string.IsNullOrEmpty(attributeMetadata.AttributeOf) && !(attributeMetadata is ImageAttributeMetadata) && !attributeMetadata.LogicalName.EndsWith("_url", StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(attributeMetadata.AttributeOf)
+                && !(attributeMetadata is ImageAttributeMetadata)
+                && !attributeMetadata.LogicalName.EndsWith("_url", StringComparison.OrdinalIgnoreCase)
+            )
             {
                 return !attributeMetadata.LogicalName.EndsWith("_timestamp", StringComparison.OrdinalIgnoreCase);
             }
@@ -97,12 +130,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return false;
         }
 
-        bool ICodeWriterFilterService.GenerateRelationship(
+        public bool GenerateRelationship(
             RelationshipMetadataBase relationshipMetadata
             , EntityMetadata otherEntityMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
+            if (relationshipMetadata.RelationshipType == RelationshipType.OneToManyRelationship)
+            {
+                if (!_config.GenerateOneToMany)
+                {
+                    return false;
+                }
+            }
+            else if (relationshipMetadata.RelationshipType == RelationshipType.ManyToManyRelationship)
+            {
+                if (!_config.GenerateManyToMany)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+
             if (otherEntityMetadata == null
                 || string.Equals(otherEntityMetadata.LogicalName, "calendarrule", StringComparison.Ordinal)
             )
@@ -110,15 +162,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                 return false;
             }
 
-            return iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateEntity(otherEntityMetadata, iCodeGenerationServiceProvider);
+            var generateEntity = GenerateEntity(otherEntityMetadata, iCodeGenerationServiceProvider);
+
+            if (!generateEntity)
+            {
+                return false;
+            }
+
+            return true;
         }
 
-        bool ICodeWriterFilterService.GenerateServiceContext(ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public bool GenerateServiceContext(ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
             return this._generateServiceContext;
         }
 
-        bool ICodeWriterFilterService.GenerateSdkMessage(
+        public bool GenerateSdkMessage(
             CodeGenerationSdkMessage message
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
@@ -126,13 +185,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return (this._generateMessages || this._generateCustomActions) && (!message.IsPrivate && message.SdkMessageFilters.Count != 0);
         }
 
-        bool ICodeWriterFilterService.GenerateSdkMessagePair(
+        public bool GenerateSdkMessagePair(
             CodeGenerationSdkMessagePair messagePair
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            if (!this._generateMessages && !this._generateCustomActions 
-                || _excludedNamespaces.Contains(messagePair.MessageNamespace.ToUpperInvariant()) 
+            if (!this._generateMessages && !this._generateCustomActions
+                || _excludedNamespaces.Contains(messagePair.MessageNamespace.ToUpperInvariant())
                 || this._generateCustomActions && !messagePair.Message.IsCustomAction
             )
             {

@@ -34,14 +34,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             rBReadOnly.DataContext = _commonConfig;
             rBConst.DataContext = _commonConfig;
 
-            chBAttributes.DataContext = _commonConfig;
-            chBManyToOne.DataContext = _commonConfig;
-            chBManyToMany.DataContext = _commonConfig;
-            chBOneToMany.DataContext = _commonConfig;
-            chBLocalOptionSets.DataContext = _commonConfig;
-            chBGlobalOptionSets.DataContext = _commonConfig;
-            chBStatus.DataContext = _commonConfig;
-            chBKeys.DataContext = _commonConfig;
+            chBAttributesProxyClass.DataContext = _commonConfig;
+            chBManyToOneProxyClass.DataContext = _commonConfig;
+            chBManyToManyProxyClass.DataContext = _commonConfig;
+            chBOneToManyProxyClass.DataContext = _commonConfig;
+            chBLocalOptionSetsProxyClass.DataContext = _commonConfig;
+            chBGlobalOptionSetsProxyClass.DataContext = _commonConfig;
+            chBStatusProxyClass.DataContext = _commonConfig;
+
+            chBProxyClassWithDebuggerNonUserCode.DataContext = _commonConfig;
+            chBAttributesProxyClassWithNameOf.DataContext = _commonConfig;
+            chBProxyClassUseSchemaConstInCSharpAttributes.DataContext = _commonConfig;
+            chBProxyClassesWithoutObsoleteAttribute.DataContext = _commonConfig;
+            chBProxyClassesMakeAllPropertiesEditable.DataContext = _commonConfig;
+
+            chBAttributesSchema.DataContext = _commonConfig;
+            chBManyToOneSchema.DataContext = _commonConfig;
+            chBManyToManySchema.DataContext = _commonConfig;
+            chBOneToManySchema.DataContext = _commonConfig;
+            chBLocalOptionSetsSchema.DataContext = _commonConfig;
+            chBGlobalOptionSetsSchema.DataContext = _commonConfig;
+            chBStatusSchema.DataContext = _commonConfig;
+            chBKeysSchema.DataContext = _commonConfig;
 
             chBIntoSchemaClass.DataContext = _commonConfig;
 

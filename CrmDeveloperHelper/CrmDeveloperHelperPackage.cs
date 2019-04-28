@@ -134,8 +134,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeReportAddIntoSolutionLastCommand.Initialize(this);
             CodeReportAddIntoSolutionInConnectionCommand.Initialize(this);
 
-            CodeCSharpUpdateEntityMetadataFileCommand.Initialize(this);
-            CodeCSharpUpdateEntityMetadataFileWithSelectCommand.Initialize(this);
+            CodeCSharpUpdateEntityMetadataFileSchemaCommand.Initialize(this);
+            CodeCSharpUpdateEntityMetadataFileSchemaWithSelectCommand.Initialize(this);
+
+            CodeCSharpUpdateEntityMetadataFileProxyClassCommand.Initialize(this);
+            CodeCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand.Initialize(this);
+
             CodeCSharpUpdateGlobalOptionSetsFileCommand.Initialize(this);
             CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommand.Initialize(this);
             CodeCSharpUpdateProxyClassesCommand.Initialize(this);
@@ -201,8 +205,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileReportAddIntoSolutionLastCommand.Initialize(this);
             FileReportAddIntoSolutionInConnectionCommand.Initialize(this);
 
-            FileCSharpUpdateEntityMetadataFileCommand.Initialize(this);
-            FileCSharpUpdateEntityMetadataFileWithSelectCommand.Initialize(this);
+            FileCSharpUpdateEntityMetadataFileSchemaCommand.Initialize(this);
+            FileCSharpUpdateEntityMetadataFileSchemaWithSelectCommand.Initialize(this);
+
+            FileCSharpUpdateEntityMetadataFileProxyClassCommand.Initialize(this);
+            FileCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand.Initialize(this);
+
             FileCSharpUpdateGlobalOptionSetsFileCommand.Initialize(this);
             FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand.Initialize(this);
             FileCSharpUpdateProxyClassesCommand.Initialize(this);
@@ -250,7 +258,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             DocumentsReportAddIntoSolutionLastCommand.Initialize(this);
             DocumentsReportAddIntoSolutionInConnectionCommand.Initialize(this);
 
-            DocumentsCSharpUpdateEntityMetadataFileCommand.Initialize(this);
+            DocumentsCSharpUpdateEntityMetadataFileSchemaCommand.Initialize(this);
+            DocumentsCSharpUpdateEntityMetadataFileProxyClassCommand.Initialize(this);
             DocumentsCSharpUpdateGlobalOptionSetsFileCommand.Initialize(this);
 
             DocumentsCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.Initialize(this);
@@ -305,7 +314,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FolderCSharpProjectPluginTypeStepsAddIntoSolutionInConnectionCommand.Initialize(this);
             FolderCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand.Initialize(this);
 
-            FolderCSharpUpdateEntityMetadataFileCommand.Initialize(this);
+            FolderCSharpUpdateEntityMetadataFileSchemaCommand.Initialize(this);
+            FolderCSharpUpdateEntityMetadataFileProxyClassCommand.Initialize(this);
             FolderCSharpUpdateGlobalOptionSetsFileCommand.Initialize(this);
 
 

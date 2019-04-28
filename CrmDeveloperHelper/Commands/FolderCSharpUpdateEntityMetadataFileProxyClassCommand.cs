@@ -8,15 +8,15 @@ using System.ComponentModel.Design;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class FolderCSharpUpdateEntityMetadataFileCommand : IServiceProviderOwner
+    internal sealed class FolderCSharpUpdateEntityMetadataFileProxyClassCommand : IServiceProviderOwner
     {
         private readonly Package _package;
 
         public IServiceProvider ServiceProvider => this._package;
 
-        private const int _baseIdStart = PackageIds.FolderCSharpUpdateEntityMetadataFileCommandId;
+        private const int _baseIdStart = PackageIds.FolderCSharpUpdateEntityMetadataFileProxyClassCommandId;
 
-        private FolderCSharpUpdateEntityMetadataFileCommand(Package package)
+        private FolderCSharpUpdateEntityMetadataFileProxyClassCommand(Package package)
         {
             this._package = package ?? throw new ArgumentNullException(nameof(package));
 
@@ -39,11 +39,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        public static FolderCSharpUpdateEntityMetadataFileCommand Instance { get; private set; }
+        public static FolderCSharpUpdateEntityMetadataFileProxyClassCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new FolderCSharpUpdateEntityMetadataFileCommand(package);
+            Instance = new FolderCSharpUpdateEntityMetadataFileProxyClassCommand(package);
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -108,7 +108,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsCSharpType, true);
 
-                    helper.HandleUpdateEntityMetadataFileCSharp(connectionData, selectedFiles, false);
+                    helper.HandleUpdateEntityMetadataFileCSharpProxyClass(connectionData, selectedFiles, false);
                 }
             }
             catch (Exception ex)

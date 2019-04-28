@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
@@ -24,7 +25,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public IOrganizationServiceExtented _service;
 
-        private CreateFileWithEntityMetadataCSharpConfiguration _config;
+        private readonly CreateFileWithEntityMetadataCSharpConfiguration _config;
 
         private Task<List<StringMap>> _listStringMap;
         private Task<List<AttributeMap>> _listAttributeMap;
@@ -32,15 +33,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private readonly IWriteToOutput _iWriteToOutput;
         private Task _taskDownloadMetadata;
 
+        private readonly ICodeGenerationServiceProvider _iCodeGenerationServiceProvider;
+
         public CreateFileWithEntityMetadataCSharpHandler(
             CreateFileWithEntityMetadataCSharpConfiguration config
             , IOrganizationServiceExtented service
             , IWriteToOutput iWriteToOutput
+            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         ) : base(config.TabSpacer, config.AllDescriptions)
         {
             this._config = config;
             this._service = service;
             this._iWriteToOutput = iWriteToOutput;
+            this._iCodeGenerationServiceProvider = iCodeGenerationServiceProvider;
 
             this._solutionComponentDescriptor = new SolutionComponentDescriptor(_service)
             {
@@ -96,13 +101,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine("namespace {0}", this._service.ConnectionData.NamespaceClasses);
             WriteLine("{");
 
-            WriteSummaryEntity();
+            if (!_config.GenerateIntoSchemaClass)
+            {
+                WriteSummaryEntity();
+            }
 
             WriteLine("public partial class {0}", _entityMetadata.SchemaName);
             WriteLine("{");
 
             if (_config.GenerateIntoSchemaClass)
             {
+                WriteSummaryEntity();
                 WriteLine("public static partial class Schema");
                 WriteLine("{");
             }
@@ -110,8 +119,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine("public {0} string EntityLogicalName = \"{1}\";", _fieldHeader, _entityMetadata.LogicalName);
 
             WriteLine();
-
             WriteLine("public {0} string EntitySchemaName = \"{1}\";", _fieldHeader, _entityMetadata.SchemaName);
+
+            WriteLine();
+            WriteLine("public {0} string EntityPrimaryIdAttribute = \"{1}\";", _fieldHeader, _entityMetadata.PrimaryIdAttribute);
 
             if (!string.IsNullOrEmpty(_entityMetadata.PrimaryNameAttribute))
             {
@@ -119,9 +130,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 WriteLine("public {0} string EntityPrimaryNameAttribute = \"{1}\";", _fieldHeader, _entityMetadata.PrimaryNameAttribute);
             }
-
-            WriteLine();
-            WriteLine("public {0} string EntityPrimaryIdAttribute = \"{1}\";", _fieldHeader, _entityMetadata.PrimaryIdAttribute);
 
             if (!string.IsNullOrEmpty(_entityMetadata.PrimaryImageAttribute))
             {
@@ -222,6 +230,250 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
+        private void WriteSummaryEntity()
+        {
+            List<string> summary = new List<string>();
+
+            CreateFileHandler.FillLabelEntity(summary, _config.AllDescriptions, _entityMetadata.DisplayName, _entityMetadata.DisplayCollectionName, _entityMetadata.Description, _tabSpacer);
+
+            List<string> footers = GetEntityMetadataDescription();
+
+            if (footers.Count > 0)
+            {
+                if (summary.Count > 0)
+                {
+                    summary.Add(string.Empty);
+                }
+
+                summary.AddRange(footers);
+            }
+
+            WriteSummaryStrings(summary);
+        }
+
+        private List<string> GetEntityMetadataDescription()
+        {
+            FormatTextTableHandler table = new FormatTextTableHandler();
+            table.SetHeader("PropertyName", "Value");
+
+            // ^([^\r\n]*)
+            // table.AddEntityMetadataString("$1", _entityMetadata.$1);
+
+            table.AddEntityMetadataString("ActivityTypeMask", _entityMetadata.ActivityTypeMask);
+            table.AddEntityMetadataString("AutoCreateAccessTeams", _entityMetadata.AutoCreateAccessTeams);
+            table.AddEntityMetadataString("AutoRouteToOwnerQueue", _entityMetadata.AutoRouteToOwnerQueue);
+            table.AddEntityMetadataString("CanBeInManyToMany", _entityMetadata.CanBeInManyToMany);
+            table.AddEntityMetadataString("CanBePrimaryEntityInRelationship", _entityMetadata.CanBePrimaryEntityInRelationship);
+            table.AddEntityMetadataString("CanBeRelatedEntityInRelationship", _entityMetadata.CanBeRelatedEntityInRelationship);
+            table.AddEntityMetadataString("CanChangeHierarchicalRelationship", _entityMetadata.CanChangeHierarchicalRelationship);
+            table.AddEntityMetadataString("CanChangeTrackingBeEnabled", _entityMetadata.CanChangeTrackingBeEnabled);
+            table.AddEntityMetadataString("CanCreateAttributes", _entityMetadata.CanCreateAttributes);
+            table.AddEntityMetadataString("CanCreateCharts", _entityMetadata.CanCreateCharts);
+            table.AddEntityMetadataString("CanCreateForms", _entityMetadata.CanCreateForms);
+            table.AddEntityMetadataString("CanCreateViews", _entityMetadata.CanCreateViews);
+            table.AddEntityMetadataString("CanEnableSyncToExternalSearchIndex", _entityMetadata.CanEnableSyncToExternalSearchIndex);
+            table.AddEntityMetadataString("CanModifyAdditionalSettings", _entityMetadata.CanModifyAdditionalSettings);
+            table.AddEntityMetadataString("CanTriggerWorkflow", _entityMetadata.CanTriggerWorkflow);
+            table.AddEntityMetadataString("ChangeTrackingEnabled", _entityMetadata.ChangeTrackingEnabled);
+            table.AddEntityMetadataString("CollectionSchemaName", _entityMetadata.CollectionSchemaName);
+            table.AddEntityMetadataString("DataProviderId", _entityMetadata.DataProviderId);
+            table.AddEntityMetadataString("DataSourceId", _entityMetadata.DataSourceId);
+            table.AddEntityMetadataString("EnforceStateTransitions", _entityMetadata.EnforceStateTransitions);
+            table.AddEntityMetadataString("EntityColor", _entityMetadata.EntityColor);
+            table.AddEntityMetadataString("EntityHelpUrl", _entityMetadata.EntityHelpUrl);
+            table.AddEntityMetadataString("EntityHelpUrlEnabled", _entityMetadata.EntityHelpUrlEnabled);
+            table.AddEntityMetadataString("EntitySetName", _entityMetadata.EntitySetName);
+            table.AddEntityMetadataString("ExternalCollectionName", _entityMetadata.ExternalCollectionName);
+            table.AddEntityMetadataString("ExternalName", _entityMetadata.ExternalName);
+            table.AddEntityMetadataString("IconLargeName", _entityMetadata.IconLargeName);
+            table.AddEntityMetadataString("IconMediumName", _entityMetadata.IconMediumName);
+            table.AddEntityMetadataString("IconSmallName", _entityMetadata.IconSmallName);
+            table.AddEntityMetadataString("IconVectorName", _entityMetadata.IconVectorName);
+            table.AddEntityMetadataString("IntroducedVersion", _entityMetadata.IntroducedVersion);
+            table.AddEntityMetadataString("IsAIRUpdated", _entityMetadata.IsAIRUpdated);
+            table.AddEntityMetadataString("IsActivity", _entityMetadata.IsActivity);
+            table.AddEntityMetadataString("IsActivityParty", _entityMetadata.IsActivityParty);
+            table.AddEntityMetadataString("IsAvailableOffline", _entityMetadata.IsAvailableOffline);
+            table.AddEntityMetadataString("IsBPFEntity", _entityMetadata.IsBPFEntity);
+            table.AddEntityMetadataString("IsBusinessProcessEnabled", _entityMetadata.IsBusinessProcessEnabled);
+            table.AddEntityMetadataString("IsChildEntity", _entityMetadata.IsChildEntity);
+            table.AddEntityMetadataString("IsConnectionsEnabled", _entityMetadata.IsConnectionsEnabled);
+            table.AddEntityMetadataString("IsCustomEntity", _entityMetadata.IsCustomEntity);
+            table.AddEntityMetadataString("IsCustomizable", _entityMetadata.IsCustomizable);
+            table.AddEntityMetadataString("IsDocumentManagementEnabled", _entityMetadata.IsDocumentManagementEnabled);
+            table.AddEntityMetadataString("IsDocumentRecommendationsEnabled", _entityMetadata.IsDocumentRecommendationsEnabled);
+            table.AddEntityMetadataString("IsDuplicateDetectionEnabled", _entityMetadata.IsDuplicateDetectionEnabled);
+            table.AddEntityMetadataString("IsEnabledForCharts", _entityMetadata.IsEnabledForCharts);
+            table.AddEntityMetadataString("IsEnabledForExternalChannels", _entityMetadata.IsEnabledForExternalChannels);
+            table.AddEntityMetadataString("IsEnabledForTrace", _entityMetadata.IsEnabledForTrace);
+            table.AddEntityMetadataString("IsImportable", _entityMetadata.IsImportable);
+            table.AddEntityMetadataString("IsInteractionCentricEnabled", _entityMetadata.IsInteractionCentricEnabled);
+            table.AddEntityMetadataString("IsIntersect", _entityMetadata.IsIntersect);
+            table.AddEntityMetadataString("IsKnowledgeManagementEnabled", _entityMetadata.IsKnowledgeManagementEnabled);
+            table.AddEntityMetadataString("IsLogicalEntity", _entityMetadata.IsLogicalEntity);
+            table.AddEntityMetadataString("IsMailMergeEnabled", _entityMetadata.IsMailMergeEnabled);
+
+            if (this._config.WithManagedInfo)
+            {
+                table.AddEntityMetadataString("IsManaged", _entityMetadata.IsManaged);
+            }
+
+            table.AddEntityMetadataString("IsMappable", _entityMetadata.IsMappable);
+            table.AddEntityMetadataString("IsOfflineInMobileClient", _entityMetadata.IsOfflineInMobileClient);
+            table.AddEntityMetadataString("IsOneNoteIntegrationEnabled", _entityMetadata.IsOneNoteIntegrationEnabled);
+            table.AddEntityMetadataString("IsOptimisticConcurrencyEnabled", _entityMetadata.IsOptimisticConcurrencyEnabled);
+            table.AddEntityMetadataString("IsPrivate", _entityMetadata.IsPrivate);
+            table.AddEntityMetadataString("IsQuickCreateEnabled", _entityMetadata.IsQuickCreateEnabled);
+            table.AddEntityMetadataString("IsReadOnlyInMobileClient", _entityMetadata.IsReadOnlyInMobileClient);
+            table.AddEntityMetadataString("IsReadingPaneEnabled", _entityMetadata.IsReadingPaneEnabled);
+            table.AddEntityMetadataString("IsRenameable", _entityMetadata.IsRenameable);
+            table.AddEntityMetadataString("IsSLAEnabled", _entityMetadata.IsSLAEnabled);
+            table.AddEntityMetadataString("IsStateModelAware", _entityMetadata.IsStateModelAware);
+            table.AddEntityMetadataString("IsValidForAdvancedFind", _entityMetadata.IsValidForAdvancedFind);
+            table.AddEntityMetadataString("IsValidForQueue", _entityMetadata.IsValidForQueue);
+            table.AddEntityMetadataString("IsVisibleInMobile", _entityMetadata.IsVisibleInMobile);
+            table.AddEntityMetadataString("IsVisibleInMobileClient", _entityMetadata.IsVisibleInMobileClient);
+            table.AddEntityMetadataString("LogicalCollectionName", _entityMetadata.LogicalCollectionName);
+            table.AddEntityMetadataString("LogicalName", _entityMetadata.LogicalName);
+            table.AddEntityMetadataString("MobileOfflineFilters", _entityMetadata.MobileOfflineFilters);
+            table.AddEntityMetadataString("ObjectTypeCode", _entityMetadata.ObjectTypeCode);
+            table.AddEntityMetadataString("OwnershipType", _entityMetadata.OwnershipType);
+            table.AddEntityMetadataString("PrimaryIdAttribute", _entityMetadata.PrimaryIdAttribute);
+            table.AddEntityMetadataString("PrimaryImageAttribute", _entityMetadata.PrimaryImageAttribute);
+            table.AddEntityMetadataString("PrimaryNameAttribute", _entityMetadata.PrimaryNameAttribute);
+            table.AddEntityMetadataString("RecurrenceBaseEntityLogicalName", _entityMetadata.RecurrenceBaseEntityLogicalName);
+            table.AddEntityMetadataString("ReportViewName", _entityMetadata.ReportViewName);
+            table.AddEntityMetadataString("SchemaName", _entityMetadata.SchemaName);
+            table.AddEntityMetadataString("SyncToExternalSearchIndex", _entityMetadata.SyncToExternalSearchIndex);
+            table.AddEntityMetadataString("UsesBusinessDataLabelTable", _entityMetadata.UsesBusinessDataLabelTable);
+
+            List<string> result = table.GetFormatedLines(false);
+
+            return result;
+        }
+
+        private async Task WriteAttributesToFile()
+        {
+            if (!this._config.GenerateAttributes
+                || _entityMetadata.Attributes == null
+                || !_entityMetadata.Attributes.Any()
+            )
+            {
+                return;
+            }
+
+            WriteLine();
+            WriteLine("#region Attributes.");
+
+            WriteLine();
+            WriteLine("public static partial class Attributes");
+            WriteLine("{");
+
+            await this._taskDownloadMetadata;
+
+            bool first = true;
+
+            if (!string.IsNullOrEmpty(_entityMetadata.PrimaryIdAttribute))
+            {
+                AttributeMetadata attributeMetadata = _entityMetadata.Attributes.FirstOrDefault(e => string.Equals(e.LogicalName, _entityMetadata.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase));
+
+                if (attributeMetadata != null
+                    && attributeMetadata.IsPrimaryId.GetValueOrDefault()
+                )
+                {
+                    if (first) { first = false; } else { WriteLine(); }
+
+                    GenerateAttributeMetadata(attributeMetadata);
+                }
+            }
+
+            if (!string.IsNullOrEmpty(_entityMetadata.PrimaryNameAttribute))
+            {
+                AttributeMetadata attributeMetadata = _entityMetadata.Attributes.FirstOrDefault(e => string.Equals(e.LogicalName, _entityMetadata.PrimaryNameAttribute, StringComparison.InvariantCultureIgnoreCase));
+
+                if (attributeMetadata != null
+                    && attributeMetadata.IsPrimaryName.GetValueOrDefault()
+                )
+                {
+                    if (first) { first = false; } else { WriteLine(); }
+
+                    GenerateAttributeMetadata(attributeMetadata);
+                }
+            }
+
+            foreach (AttributeMetadata attributeMetadata in _entityMetadata.Attributes
+                .Where(a => !string.Equals(a.LogicalName, _entityMetadata.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase)
+                    && !string.Equals(a.LogicalName, _entityMetadata.PrimaryNameAttribute, StringComparison.InvariantCultureIgnoreCase)
+                )
+                .OrderBy(attr => attr.LogicalName))
+            {
+                if (first) { first = false; } else { WriteLine(); }
+
+                GenerateAttributeMetadata(attributeMetadata);
+            }
+
+            WriteLine("}");
+
+            WriteLine();
+            WriteLine("#endregion Attributes.");
+        }
+
+        private void GenerateAttributeMetadata(AttributeMetadata attributeMetadata)
+        {
+            List<string> footers = GetAttributeDescription(attributeMetadata, _config.AllDescriptions, _config.WithManagedInfo, this._solutionComponentDescriptor);
+
+            footers.AddRange(GetAttributeMetadataDescription(attributeMetadata));
+
+            WriteSummary(attributeMetadata.DisplayName, attributeMetadata.Description, null, footers);
+
+            string str = string.Format("public {0} string {1} = \"{2}\";", _fieldHeader, attributeMetadata.LogicalName.ToLower(), attributeMetadata.LogicalName);
+
+            bool ignore = !this._iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateAttribute(attributeMetadata, this._iCodeGenerationServiceProvider);
+
+            if (ignore)
+            {
+                str = "//" + str;
+            }
+
+            WriteLine(str);
+        }
+
+        private List<string> GetAttributeMetadataDescription(AttributeMetadata attributeMetadata)
+        {
+            FormatTextTableHandler table = new FormatTextTableHandler();
+            table.SetHeader("PropertyName", "Value");
+
+            // ^([^\r\n]*)
+            // table.AddEntityMetadataString("$1", attributeMetadata.$1);
+
+            table.AddEntityMetadataString("AutoNumberFormat", attributeMetadata.AutoNumberFormat);
+            table.AddEntityMetadataString("CanBeSecuredForCreate", attributeMetadata.CanBeSecuredForCreate);
+            table.AddEntityMetadataString("CanBeSecuredForRead", attributeMetadata.CanBeSecuredForRead);
+            table.AddEntityMetadataString("CanBeSecuredForUpdate", attributeMetadata.CanBeSecuredForUpdate);
+            table.AddEntityMetadataString("CanModifyAdditionalSettings", attributeMetadata.CanModifyAdditionalSettings);
+            table.AddEntityMetadataString("DeprecatedVersion", attributeMetadata.DeprecatedVersion);
+            table.AddEntityMetadataString("ExternalName", attributeMetadata.ExternalName);
+            table.AddEntityMetadataString("InheritsFrom", attributeMetadata.InheritsFrom);
+            table.AddEntityMetadataString("IntroducedVersion", attributeMetadata.IntroducedVersion);
+            table.AddEntityMetadataString("IsCustomizable", attributeMetadata.IsCustomizable);
+            table.AddEntityMetadataString("IsDataSourceSecret", attributeMetadata.IsDataSourceSecret);
+            table.AddEntityMetadataString("IsFilterable", attributeMetadata.IsFilterable);
+            table.AddEntityMetadataString("IsGlobalFilterEnabled", attributeMetadata.IsGlobalFilterEnabled);
+            table.AddEntityMetadataString("IsPrimaryId", attributeMetadata.IsPrimaryId);
+            table.AddEntityMetadataString("IsPrimaryName", attributeMetadata.IsPrimaryName);
+            table.AddEntityMetadataString("IsRenameable", attributeMetadata.IsRenameable);
+            table.AddEntityMetadataString("IsRequiredForForm", attributeMetadata.IsRequiredForForm);
+            table.AddEntityMetadataString("IsRetrievable", attributeMetadata.IsRetrievable);
+            table.AddEntityMetadataString("IsSearchable", attributeMetadata.IsSearchable);
+            table.AddEntityMetadataString("IsSortableEnabled", attributeMetadata.IsSortableEnabled);
+            table.AddEntityMetadataString("IsValidForForm", attributeMetadata.IsValidForForm);
+            table.AddEntityMetadataString("IsValidForGrid", attributeMetadata.IsValidForGrid);
+
+            List<string> result = table.GetFormatedLines(false);
+
+            return result;
+        }
+
         private async Task WriteEnums()
         {
             if (!this._config.GenerateStatus && !this._config.GenerateLocalOptionSet && !this._config.GenerateGlobalOptionSet)
@@ -267,115 +519,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 ;
 
             return stateAttr != null || statusAttr != null || picklists.Any();
-        }
-
-        private void WriteSummaryEntity()
-        {
-            List<string> summary = new List<string>();
-
-            CreateFileHandler.FillLabelEntity(summary, _config.AllDescriptions, _entityMetadata.DisplayName, _entityMetadata.DisplayCollectionName, _entityMetadata.Description, _tabSpacer);
-
-            List<string> footers = GetEntityMetadataDescription();
-
-            if (footers.Count > 0)
-            {
-                if (summary.Count > 0)
-                {
-                    summary.Add(string.Empty);
-                }
-
-                summary.AddRange(footers);
-            }
-
-            WriteSummaryStrings(summary);
-        }
-
-        private List<string> GetEntityMetadataDescription()
-        {
-            FormatTextTableHandler table = new FormatTextTableHandler();
-
-            table.AddEntityMetadataString("ActivityTypeMask", _entityMetadata.ActivityTypeMask);
-            table.AddEntityMetadataString("AutoCreateAccessTeams", _entityMetadata.AutoCreateAccessTeams);
-            table.AddEntityMetadataString("AutoRouteToOwnerQueue", _entityMetadata.AutoRouteToOwnerQueue);
-            table.AddEntityMetadataString("CanBeInManyToMany", _entityMetadata.CanBeInManyToMany);
-            table.AddEntityMetadataString("CanBePrimaryEntityInRelationship", _entityMetadata.CanBePrimaryEntityInRelationship);
-            table.AddEntityMetadataString("CanBeRelatedEntityInRelationship", _entityMetadata.CanBeRelatedEntityInRelationship);
-            table.AddEntityMetadataString("CanChangeHierarchicalRelationship", _entityMetadata.CanChangeHierarchicalRelationship);
-            table.AddEntityMetadataString("CanChangeTrackingBeEnabled", _entityMetadata.CanChangeTrackingBeEnabled);
-            table.AddEntityMetadataString("CanCreateAttributes", _entityMetadata.CanCreateAttributes);
-            table.AddEntityMetadataString("CanCreateCharts", _entityMetadata.CanCreateCharts);
-            table.AddEntityMetadataString("CanCreateForms", _entityMetadata.CanCreateForms);
-            table.AddEntityMetadataString("CanCreateViews", _entityMetadata.CanCreateViews);
-            table.AddEntityMetadataString("CanEnableSyncToExternalSearchIndex", _entityMetadata.CanEnableSyncToExternalSearchIndex);
-            table.AddEntityMetadataString("CanModifyAdditionalSettings", _entityMetadata.CanModifyAdditionalSettings);
-            table.AddEntityMetadataString("CanTriggerWorkflow", _entityMetadata.CanTriggerWorkflow);
-            table.AddEntityMetadataString("ChangeTrackingEnabled", _entityMetadata.ChangeTrackingEnabled);
-            table.AddEntityMetadataString("CollectionSchemaName", _entityMetadata.CollectionSchemaName);
-            table.AddEntityMetadataString("DaysSinceRecordLastModified", _entityMetadata.DaysSinceRecordLastModified);
-            table.AddEntityMetadataString("EnforceStateTransitions", _entityMetadata.EnforceStateTransitions);
-            table.AddEntityMetadataString("EntityColor", _entityMetadata.EntityColor);
-            table.AddEntityMetadataString("EntityHelpUrl", _entityMetadata.EntityHelpUrl);
-            table.AddEntityMetadataString("EntityHelpUrlEnabled", _entityMetadata.EntityHelpUrlEnabled);
-            table.AddEntityMetadataString("EntitySetName", _entityMetadata.EntitySetName);
-            table.AddEntityMetadataString("IconLargeName", _entityMetadata.IconLargeName);
-            table.AddEntityMetadataString("IconMediumName", _entityMetadata.IconMediumName);
-            table.AddEntityMetadataString("IconSmallName", _entityMetadata.IconSmallName);
-            table.AddEntityMetadataString("IsActivity", _entityMetadata.IsActivity);
-            table.AddEntityMetadataString("IsActivityParty", _entityMetadata.IsActivityParty);
-            table.AddEntityMetadataString("IsAIRUpdated", _entityMetadata.IsAIRUpdated);
-            table.AddEntityMetadataString("IsAuditEnabled", _entityMetadata.IsAuditEnabled);
-            table.AddEntityMetadataString("IsAvailableOffline", _entityMetadata.IsAvailableOffline);
-            table.AddEntityMetadataString("IsBusinessProcessEnabled", _entityMetadata.IsBusinessProcessEnabled);
-            table.AddEntityMetadataString("IsChildEntity", _entityMetadata.IsChildEntity);
-            table.AddEntityMetadataString("IsConnectionsEnabled", _entityMetadata.IsConnectionsEnabled);
-            table.AddEntityMetadataString("IsCustomEntity", _entityMetadata.IsCustomEntity);
-            table.AddEntityMetadataString("IsCustomizable", _entityMetadata.IsCustomizable);
-            table.AddEntityMetadataString("IsDocumentManagementEnabled", _entityMetadata.IsDocumentManagementEnabled);
-            table.AddEntityMetadataString("IsDuplicateDetectionEnabled", _entityMetadata.IsDuplicateDetectionEnabled);
-            table.AddEntityMetadataString("IsEnabledForCharts", _entityMetadata.IsEnabledForCharts);
-            table.AddEntityMetadataString("IsEnabledForExternalChannels", _entityMetadata.IsEnabledForExternalChannels);
-            table.AddEntityMetadataString("IsEnabledForTrace", _entityMetadata.IsEnabledForTrace);
-            table.AddEntityMetadataString("IsImportable", _entityMetadata.IsImportable);
-            table.AddEntityMetadataString("IsInteractionCentricEnabled", _entityMetadata.IsInteractionCentricEnabled);
-            table.AddEntityMetadataString("IsIntersect", _entityMetadata.IsIntersect);
-            table.AddEntityMetadataString("IsKnowledgeManagementEnabled", _entityMetadata.IsKnowledgeManagementEnabled);
-            table.AddEntityMetadataString("IsMailMergeEnabled", _entityMetadata.IsMailMergeEnabled);
-
-            if (this._config.WithManagedInfo)
-            {
-                table.AddEntityMetadataString("IsManaged", _entityMetadata.IsManaged);
-            }
-
-            table.AddEntityMetadataString("IsMappable", _entityMetadata.IsMappable);
-            table.AddEntityMetadataString("IsOfflineInMobileClient", _entityMetadata.IsOfflineInMobileClient);
-            table.AddEntityMetadataString("IsOneNoteIntegrationEnabled", _entityMetadata.IsOneNoteIntegrationEnabled);
-            table.AddEntityMetadataString("IsOptimisticConcurrencyEnabled", _entityMetadata.IsOptimisticConcurrencyEnabled);
-            table.AddEntityMetadataString("IsPrivate", _entityMetadata.IsPrivate);
-            table.AddEntityMetadataString("IsQuickCreateEnabled", _entityMetadata.IsQuickCreateEnabled);
-            table.AddEntityMetadataString("IsReadingPaneEnabled", _entityMetadata.IsReadingPaneEnabled);
-            table.AddEntityMetadataString("IsReadOnlyInMobileClient", _entityMetadata.IsReadOnlyInMobileClient);
-            table.AddEntityMetadataString("IsRenameable", _entityMetadata.IsRenameable);
-            table.AddEntityMetadataString("IsStateModelAware", _entityMetadata.IsStateModelAware);
-            table.AddEntityMetadataString("IsValidForAdvancedFind", _entityMetadata.IsValidForAdvancedFind);
-            table.AddEntityMetadataString("IsValidForQueue", _entityMetadata.IsValidForQueue);
-            table.AddEntityMetadataString("IsVisibleInMobile", _entityMetadata.IsVisibleInMobile);
-            table.AddEntityMetadataString("IsVisibleInMobileClient", _entityMetadata.IsVisibleInMobileClient);
-            table.AddEntityMetadataString("LogicalCollectionName", _entityMetadata.LogicalCollectionName);
-            table.AddEntityMetadataString("LogicalName", _entityMetadata.LogicalName);
-            table.AddEntityMetadataString("ObjectTypeCode", _entityMetadata.ObjectTypeCode);
-            table.AddEntityMetadataString("OwnershipType", _entityMetadata.OwnershipType);
-            table.AddEntityMetadataString("RecurrenceBaseEntityLogicalName", _entityMetadata.RecurrenceBaseEntityLogicalName);
-            table.AddEntityMetadataString("ReportViewName", _entityMetadata.ReportViewName);
-            table.AddEntityMetadataString("SchemaName", _entityMetadata.SchemaName);
-            table.AddEntityMetadataString("SyncToExternalSearchIndex", _entityMetadata.SyncToExternalSearchIndex);
-
-            //AddEntityMetadataString(table, "SyncToExternalSearchIndex", _entityMetadata.SyncToExternalSearchIndex);
-
-            table.SetHeader("PropertyName", "Value");
-
-            List<string> result = table.GetFormatedLines(false);
-
-            return result;
         }
 
         private async Task<bool> WriteRegularOptionSets(bool first)
@@ -460,67 +603,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return first;
         }
 
-        private async Task GenerateStatusOptionSet(StatusAttributeMetadata statusAttr, StateAttributeMetadata stateAttr)
-        {
-            WriteLine();
-
-            var headers = new List<string> { string.Format("Attribute: {0}", statusAttr.LogicalName) };
-            if (this._config.WithManagedInfo)
-            {
-                headers.Add(string.Format("IsManaged: {0}", statusAttr.OptionSet.IsManaged));
-            }
-            headers.Add("Value Format: Statecode_Statuscode");
-
-            WriteSummary(stateAttr.DisplayName, stateAttr.Description, headers, null);
-            if (_config.OptionSetExportType == OptionSetExportType.Enums)
-            {
-                WriteLine("public enum statuscode");
-            }
-            else
-            {
-                WriteLine("public static partial class statuscode");
-            }
-            WriteLine("{");
-
-            var options = CreateFileHandler.GetStatusOptionItems(statusAttr, stateAttr, await this._listStringMap);
-
-            bool first = true;
-
-            // Формируем значения
-            foreach (var item in options)
-            {
-                if (first) { first = false; } else { WriteLine(); }
-
-                var header = new List<string> { string.Format("Linked Statecode: {0}, {1}", item.LinkedStateCodeName, item.LinkedStateCode.ToString()) };
-
-                if (item.DisplayOrder.HasValue)
-                {
-                    header.Add(string.Format("DisplayOrder: {0}", item.DisplayOrder.Value));
-                }
-
-                if (this._config.WithManagedInfo)
-                {
-                    header.Add(string.Format("IsManaged: {0}", item.OptionMetadata.IsManaged.GetValueOrDefault()));
-                }
-
-                WriteSummary(item.Label, item.Description, header, null);
-
-                var str = item.MakeStrings();
-
-                if (_config.OptionSetExportType == OptionSetExportType.Enums)
-                {
-                    WriteLine("[System.Runtime.Serialization.EnumMemberAttribute()]");
-                    WriteLine(str + ",");
-                }
-                else
-                {
-                    WriteLine("public {0} int {1};", _fieldHeader, str);
-                }
-            }
-
-            WriteLine("}");
-        }
-
         private async Task GenerateStateOptionSet(StateAttributeMetadata stateAttr, StatusAttributeMetadata statusAttr)
         {
             WriteLine();
@@ -582,65 +664,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine("}");
         }
 
-        private async Task WriteAttributesToFile()
+        private async Task GenerateStatusOptionSet(StatusAttributeMetadata statusAttr, StateAttributeMetadata stateAttr)
         {
-            if (!this._config.GenerateAttributes)
-            {
-                return;
-            }
-
-            if (_entityMetadata.Attributes == null)
-            {
-                return;
-            }
-
-            if (!_entityMetadata.Attributes.Any())
-            {
-                return;
-            }
-
-            var attributes = _entityMetadata.Attributes;
-
-            if (!attributes.Any())
-            {
-                return;
-            }
-
             WriteLine();
-            WriteLine("#region Attributes.");
 
-            WriteLine();
-            WriteLine("public static partial class Attributes");
+            var headers = new List<string> { string.Format("Attribute: {0}", statusAttr.LogicalName) };
+            if (this._config.WithManagedInfo)
+            {
+                headers.Add(string.Format("IsManaged: {0}", statusAttr.OptionSet.IsManaged));
+            }
+            headers.Add("Value Format: Statecode_Statuscode");
+
+            WriteSummary(stateAttr.DisplayName, stateAttr.Description, headers, null);
+            if (_config.OptionSetExportType == OptionSetExportType.Enums)
+            {
+                WriteLine("public enum statuscode");
+            }
+            else
+            {
+                WriteLine("public static partial class statuscode");
+            }
             WriteLine("{");
+
+            var options = CreateFileHandler.GetStatusOptionItems(statusAttr, stateAttr, await this._listStringMap);
 
             bool first = true;
 
-            foreach (AttributeMetadata attrib in attributes.OrderBy(attr => attr.LogicalName))
+            // Формируем значения
+            foreach (var item in options)
             {
                 if (first) { first = false; } else { WriteLine(); }
 
-                await this._taskDownloadMetadata;
+                var header = new List<string> { string.Format("Linked Statecode: {0}, {1}", item.LinkedStateCodeName, item.LinkedStateCode.ToString()) };
 
-                List<string> footers = GetAttributeDescription(attrib, _config.AllDescriptions, _config.WithManagedInfo, this._solutionComponentDescriptor);
-
-                WriteSummary(attrib.DisplayName, attrib.Description, null, footers);
-
-                string str = string.Format("public {0} string {1} = \"{2}\";", _fieldHeader, attrib.LogicalName.ToLower(), attrib.LogicalName);
-
-                bool ignore = !string.IsNullOrEmpty(attrib.AttributeOf);
-
-                if (ignore)
+                if (item.DisplayOrder.HasValue)
                 {
-                    str = "//" + str;
+                    header.Add(string.Format("DisplayOrder: {0}", item.DisplayOrder.Value));
                 }
 
-                WriteLine(str);
+                if (this._config.WithManagedInfo)
+                {
+                    header.Add(string.Format("IsManaged: {0}", item.OptionMetadata.IsManaged.GetValueOrDefault()));
+                }
+
+                WriteSummary(item.Label, item.Description, header, null);
+
+                var str = item.MakeStrings();
+
+                if (_config.OptionSetExportType == OptionSetExportType.Enums)
+                {
+                    WriteLine("[System.Runtime.Serialization.EnumMemberAttribute()]");
+                    WriteLine(str + ",");
+                }
+                else
+                {
+                    WriteLine("public {0} int {1};", _fieldHeader, str);
+                }
             }
 
             WriteLine("}");
-
-            WriteLine();
-            WriteLine("#endregion Attributes.");
         }
 
         private async Task GenerateOptionSetEnums(IEnumerable<AttributeMetadata> attributeList, OptionSetMetadata optionSet)
@@ -871,7 +953,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                 lines.Add(string.Empty);
                             }
 
-                            lines.Add(string.Format("{0} {1}:", nameField, entityMetadata.LogicalName));
+                            lines.Add(string.Format("{0} {1}:", nameField, entityMetadata.LogicalName)
+                                + _config.TabSpacer
+                                + string.Format("PrimaryIdAttribute {0}", entityMetadata.PrimaryIdAttribute)
+                                + (!string.IsNullOrEmpty(entityMetadata.PrimaryNameAttribute) ? _config.TabSpacer + string.Format("PrimaryNameAttribute {0}", entityMetadata.PrimaryNameAttribute) : string.Empty)
+                            );
+
                             lineEntityDescription.ForEach(s => lines.Add(_config.TabSpacer + s));
                         }
                     }
@@ -964,7 +1051,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private List<string> GetRelationshipMetadataOneToManyDescription(OneToManyRelationshipMetadata relationship)
         {
+            // ^([^\r\n]*)
+            // table.AddEntityMetadataString("$1", _entityMetadata.$1);
+
             FormatTextTableHandler table = new FormatTextTableHandler();
+            table.SetHeader("PropertyName", "Value");
 
             table.AddEntityMetadataString("IsHierarchical", relationship.IsHierarchical);
             table.AddEntityMetadataString("ReferencedEntityNavigationPropertyName", relationship.ReferencedEntityNavigationPropertyName);
@@ -1011,78 +1102,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            table.SetHeader("PropertyName", "Value");
-
             List<string> result = table.GetFormatedLines(false);
 
             return result;
-        }
-
-        private void WriteKeys(EntityKeyMetadata[] keys)
-        {
-            if (!this._config.GenerateKeys)
-            {
-                return;
-            }
-
-            if (keys == null)
-            {
-                return;
-            }
-
-            var keysColl = keys.Where(key => !string.IsNullOrEmpty(key.LogicalName));
-
-            if (!keysColl.Any())
-            {
-                return;
-            }
-
-            WriteLine();
-            WriteLine("#region EntityKeys.");
-
-            WriteLine();
-            WriteLine("public static partial class EntityKeys");
-            WriteLine("{");
-
-            bool first = true;
-            foreach (var key in keysColl.OrderBy(r => r.LogicalName))
-            {
-                if (first) { first = false; } else { WriteLine(); }
-
-                List<string> lines = new List<string>();
-
-                CreateFileHandler.FillLabelDisplayNameAndDescription(lines, _config.AllDescriptions, key.DisplayName, new Label(), _config.TabSpacer);
-
-                FormatTextTableHandler table = new FormatTextTableHandler();
-                table.SetHeader("PropertyName", "Value");
-
-                table.AddEntityMetadataString("SchemaName", key.SchemaName);
-                if (this._config.WithManagedInfo)
-                {
-                    table.AddEntityMetadataString("IsManaged", key.IsManaged);
-                }
-                table.AddEntityMetadataString("IsCustomizable", key.IsCustomizable);
-
-                lines.Add(string.Empty);
-                lines.AddRange(table.GetFormatedLines(false));
-
-                WriteSummaryStrings(lines);
-
-                WriteLine("public static partial class {0}", key.LogicalName.ToLower());
-                WriteLine("{");
-
-                WriteLine("public {0} string Name = \"{1}\";", _fieldHeader, key.LogicalName);
-
-                WriteLine();
-                WriteLine("public static readonly System.Collections.ObjectModel.ReadOnlyCollection<string> KeyAttributes = new System.Collections.ObjectModel.ReadOnlyCollection<string>(new string[] { " + string.Join(", ", key.KeyAttributes.OrderBy(s => s).Select(s => "\"" + s + "\"")) + " });");
-
-                WriteLine("}");
-            }
-
-            WriteLine("}");
-
-            WriteLine();
-            WriteLine("#endregion EntityKeys.");
         }
 
         private async Task WriteManyToMany(ManyToManyRelationshipMetadata[] metadata)
@@ -1161,7 +1183,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                 lines.Add(string.Empty);
                             }
 
-                            lines.Add(string.Format("{0} {1}:", nameField, entityMetadata.LogicalName));
+                            lines.Add(string.Format("{0} {1}:", nameField, entityMetadata.LogicalName)
+                                + _config.TabSpacer
+                                + string.Format("PrimaryIdAttribute {0}", entityMetadata.PrimaryIdAttribute)
+                                + (!string.IsNullOrEmpty(entityMetadata.PrimaryNameAttribute) ? _config.TabSpacer + string.Format("PrimaryNameAttribute {0}", entityMetadata.PrimaryNameAttribute) : string.Empty)
+                            );
                             lineEntityDescription.ForEach(s => lines.Add(_config.TabSpacer + s));
                         }
                     }
@@ -1241,7 +1267,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     if (!string.IsNullOrEmpty(entity2LogicalName.PrimaryNameAttribute))
                     {
                         WriteLine();
-                        WriteLine("public {0} string Entity2LogicalName{1} = \"{1}\";", _fieldHeader, entity2LogicalName.PrimaryNameAttribute);
+                        WriteLine("public {0} string Entity2LogicalName_PrimaryNameAttribute_{1} = \"{1}\";", _fieldHeader, entity2LogicalName.PrimaryNameAttribute);
                     }
                 }
 
@@ -1256,7 +1282,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private List<string> GetRelationshipMetadataManyToManyDescription(ManyToManyRelationshipMetadata relationship)
         {
+            // ^([^\r\n]*)
+            // table.AddEntityMetadataString("$1", _entityMetadata.$1);
+
             FormatTextTableHandler table = new FormatTextTableHandler();
+            table.SetHeader("PropertyName", "Value");
 
             table.AddEntityMetadataString("Entity1NavigationPropertyName", relationship.Entity1NavigationPropertyName);
             table.AddEntityMetadataString("Entity2NavigationPropertyName", relationship.Entity2NavigationPropertyName);
@@ -1316,11 +1346,80 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            table.SetHeader("PropertyName", "Value");
-
             List<string> result = table.GetFormatedLines(false);
 
             return result;
+        }
+
+        private void WriteKeys(EntityKeyMetadata[] keys)
+        {
+            if (!this._config.GenerateKeys)
+            {
+                return;
+            }
+
+            if (keys == null)
+            {
+                return;
+            }
+
+            var keysColl = keys.Where(key => !string.IsNullOrEmpty(key.LogicalName));
+
+            if (!keysColl.Any())
+            {
+                return;
+            }
+
+            WriteLine();
+            WriteLine("#region EntityKeys.");
+
+            WriteLine();
+            WriteLine("public static partial class EntityKeys");
+            WriteLine("{");
+
+            bool first = true;
+            foreach (var key in keysColl.OrderBy(r => r.LogicalName))
+            {
+                if (first) { first = false; } else { WriteLine(); }
+
+                List<string> lines = new List<string>();
+
+                CreateFileHandler.FillLabelDisplayNameAndDescription(lines, _config.AllDescriptions, key.DisplayName, new Label(), _config.TabSpacer);
+
+                // ^([^\r\n]*)
+                // table.AddEntityMetadataString("$1", _entityMetadata.$1);
+
+                FormatTextTableHandler table = new FormatTextTableHandler();
+                table.SetHeader("PropertyName", "Value");
+
+                table.AddEntityMetadataString("SchemaName", key.SchemaName);
+                if (this._config.WithManagedInfo)
+                {
+                    table.AddEntityMetadataString("IsManaged", key.IsManaged);
+                }
+                table.AddEntityMetadataString("IsCustomizable", key.IsCustomizable);
+                table.AddEntityMetadataString("IntroducedVersion", key.IntroducedVersion);
+
+                lines.Add(string.Empty);
+                lines.AddRange(table.GetFormatedLines(false));
+
+                WriteSummaryStrings(lines);
+
+                WriteLine("public static partial class {0}", key.LogicalName.ToLower());
+                WriteLine("{");
+
+                WriteLine("public {0} string Name = \"{1}\";", _fieldHeader, key.LogicalName);
+
+                WriteLine();
+                WriteLine("public static readonly System.Collections.ObjectModel.ReadOnlyCollection<string> KeyAttributes = new System.Collections.ObjectModel.ReadOnlyCollection<string>(new string[] { " + string.Join(", ", key.KeyAttributes.OrderBy(s => s).Select(s => "\"" + s + "\"")) + " });");
+
+                WriteLine("}");
+            }
+
+            WriteLine("}");
+
+            WriteLine();
+            WriteLine("#endregion EntityKeys.");
         }
     }
 }

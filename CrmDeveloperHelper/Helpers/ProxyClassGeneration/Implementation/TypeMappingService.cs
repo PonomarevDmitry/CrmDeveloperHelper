@@ -45,18 +45,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             };
         }
 
-        CodeTypeReference ITypeMappingService.GetTypeForEntity(EntityMetadata entityMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public CodeTypeReference GetTypeForEntity(EntityMetadata entityMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
             return this.TypeRef(iCodeGenerationServiceProvider.NamingService.GetNameForEntity(entityMetadata, iCodeGenerationServiceProvider));
         }
 
-        CodeTypeReference ITypeMappingService.GetTypeForAttributeType(
+        public CodeTypeReference GetTypeForAttributeType(
             EntityMetadata entityMetadata
             , AttributeMetadata attributeMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
             Type type = typeof(object);
+
             if (attributeMetadata.AttributeType.HasValue)
             {
                 AttributeTypeCode key = attributeMetadata.AttributeType.Value;
@@ -74,6 +75,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                     if (attributeMetadata is ImageAttributeMetadata)
                     {
                         type = typeof(byte[]);
+                    }
+                    else if (attributeMetadata is MultiSelectPicklistAttributeMetadata)
+                    {
+                        type = typeof(OptionSetValueCollection);
                     }
                     else
                     {
@@ -97,15 +102,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                         }
                     }
                 }
+
                 if (type.IsValueType)
                 {
                     type = typeof(Nullable<>).MakeGenericType(type);
                 }
             }
+
             return TypeMappingService.TypeRef(type);
         }
 
-        CodeTypeReference ITypeMappingService.GetTypeForRelationship(
+        public CodeTypeReference GetTypeForRelationship(
             RelationshipMetadataBase relationshipMetadata
             , EntityMetadata otherEntityMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
@@ -114,14 +121,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return this.TypeRef(iCodeGenerationServiceProvider.NamingService.GetNameForEntity(otherEntityMetadata, iCodeGenerationServiceProvider));
         }
 
-        CodeTypeReference ITypeMappingService.GetTypeForRequestField(CodeGenerationSdkMessageRequest request, Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageRequestField requestField, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public CodeTypeReference GetTypeForRequestField(CodeGenerationSdkMessageRequest request, Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageRequestField requestField, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
             var isGeneric = request.MessagePair.Message.IsGeneric(requestField);
 
             return this.GetTypeForField(requestField.ClrParser, isGeneric);
         }
 
-        CodeTypeReference ITypeMappingService.GetTypeForResponseField(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageResponseField responseField, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public CodeTypeReference GetTypeForResponseField(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageResponseField responseField, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
             return this.GetTypeForField(responseField.ClrFormatter, false);
         }
@@ -175,22 +182,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         internal static OptionSetMetadataBase GetAttributeOptionSet(AttributeMetadata attribute)
         {
             OptionSetMetadataBase optionSetMetadataBase = null;
+
             Type type = attribute.GetType();
+
             if (type == typeof(BooleanAttributeMetadata))
             {
                 optionSetMetadataBase = ((BooleanAttributeMetadata)attribute).OptionSet;
             }
             else if (type == typeof(StateAttributeMetadata))
             {
-                optionSetMetadataBase = ((EnumAttributeMetadata)attribute).OptionSet;
-            }
-            else if (type == typeof(PicklistAttributeMetadata))
-            {
-                optionSetMetadataBase = ((EnumAttributeMetadata)attribute).OptionSet;
+                optionSetMetadataBase = ((StateAttributeMetadata)attribute).OptionSet;
             }
             else if (type == typeof(StatusAttributeMetadata))
             {
-                optionSetMetadataBase = ((EnumAttributeMetadata)attribute).OptionSet;
+                optionSetMetadataBase = ((StatusAttributeMetadata)attribute).OptionSet;
+            }
+            else if (type == typeof(PicklistAttributeMetadata))
+            {
+                optionSetMetadataBase = ((PicklistAttributeMetadata)attribute).OptionSet;
+            }
+            else if (type == typeof(MultiSelectPicklistAttributeMetadata))
+            {
+                optionSetMetadataBase = ((MultiSelectPicklistAttributeMetadata)attribute).OptionSet;
             }
 
             return optionSetMetadataBase;

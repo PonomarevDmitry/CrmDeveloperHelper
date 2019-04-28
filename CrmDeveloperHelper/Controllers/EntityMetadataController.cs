@@ -2,11 +2,13 @@ using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Views;
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -339,7 +341,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Обновление файла с мета-данными сущности C#.
 
-        public async Task ExecuteUpdateFileWithEntityMetadataCSharp(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
+        public async Task ExecuteUpdateFileWithEntityMetadataCSharpSchema(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingFileWithEntityMetadataFormat1, connectionData?.Name);
 
@@ -347,7 +349,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdatingFileWithEntityMetadataCSharp(selectedFiles, connectionData, commonConfig, selectEntity);
+                await UpdatingFileWithEntityMetadataCSharpSchema(selectedFiles, connectionData, commonConfig, selectEntity);
             }
             catch (Exception ex)
             {
@@ -359,7 +361,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdatingFileWithEntityMetadataCSharp(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
+        private async Task UpdatingFileWithEntityMetadataCSharpSchema(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
         {
             if (connectionData == null)
             {
@@ -411,20 +413,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         var config = new CreateFileWithEntityMetadataCSharpConfiguration(
                             metadata.LogicalName
                             , tabSpacer
-                            , commonConfig.GenerateAttributes
-                            , commonConfig.GenerateStatus
-                            , commonConfig.GenerateLocalOptionSet
-                            , commonConfig.GenerateGlobalOptionSet
-                            , commonConfig.GenerateOneToMany
-                            , commonConfig.GenerateManyToOne
-                            , commonConfig.GenerateManyToMany
-                            , commonConfig.GenerateKeys
+                            , commonConfig.GenerateAttributesSchema
+                            , commonConfig.GenerateStatusOptionSetSchema
+                            , commonConfig.GenerateLocalOptionSetSchema
+                            , commonConfig.GenerateGlobalOptionSetSchema
+                            , commonConfig.GenerateOneToManySchema
+                            , commonConfig.GenerateManyToOneSchema
+                            , commonConfig.GenerateManyToManySchema
+                            , commonConfig.GenerateKeysSchema
                             , commonConfig.AllDescriptions
                             , commonConfig.EntityMetadaOptionSetDependentComponents
                             , commonConfig.GenerateIntoSchemaClass
                             , commonConfig.SolutionComponentWithManagedInfo
                             , commonConfig.ConstantType
                             , commonConfig.OptionSetExportType
+                            , commonConfig.GenerateAttributesProxyClassWithNameOf
+                            , commonConfig.GenerateProxyClassesWithDebuggerNonUserCode
+                            , commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes
+                            , commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
+                            , commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
                         )
                         {
                             EntityMetadata = metadata
@@ -434,7 +441,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
-                        using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput))
+                        var repository = new EntityMetadataRepository(service);
+
+                        ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
+                        INamingService namingService = new NamingService(service.ConnectionData.ServiceContextName, config);
+                        ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClasses);
+                        ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
+                        IMetadataProviderService metadataProviderService = new MetadataProviderService(repository);
+
+                        ICodeGenerationServiceProvider codeGenerationServiceProvider = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService, namingService);
+
+                        using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput, codeGenerationServiceProvider))
                         {
                             await handler.CreateFileAsync(filePath);
                         }
@@ -470,7 +487,160 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Обновление файла с мета-данными сущности C#.
 
-        #region Обновление файла с мета-данными сущности C#.
+        #region Обновление файла с прокси-классом сущности C#.
+
+        public async Task ExecuteUpdateFileWithEntityMetadataCSharpProxyClass(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
+        {
+            string operation = string.Format(Properties.OperationNames.UpdatingFileWithEntityMetadataFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await UpdatingFileWithEntityMetadataCSharpProxyClass(selectedFiles, connectionData, commonConfig, selectEntity);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task UpdatingFileWithEntityMetadataCSharpProxyClass(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            var descriptor = new SolutionComponentDescriptor(service);
+            descriptor.SetSettings(commonConfig);
+
+            foreach (var selFile in selectedFiles)
+            {
+                var filePath = selFile.FilePath;
+
+                if (!File.Exists(filePath))
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, filePath);
+                    continue;
+                }
+
+                var selection = Path.GetFileNameWithoutExtension(filePath);
+                selection = selection.Split('.').FirstOrDefault();
+
+                bool tempSelectEntity = selectEntity;
+
+                if (!tempSelectEntity)
+                {
+                    var metadata = descriptor.MetadataSource.GetEntityMetadata(selection.ToLower());
+
+                    if (metadata != null)
+                    {
+                        string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.IndentType, commonConfig.SpaceCount);
+
+                        var config = new CreateFileWithEntityMetadataCSharpConfiguration(
+                            metadata.LogicalName
+                            , tabSpacer
+                            , commonConfig.GenerateAttributesProxyClass
+                            , commonConfig.GenerateStatusOptionSetProxyClass
+                            , commonConfig.GenerateLocalOptionSetProxyClass
+                            , commonConfig.GenerateGlobalOptionSetProxyClass
+                            , commonConfig.GenerateOneToManyProxyClass
+                            , commonConfig.GenerateManyToOneProxyClass
+                            , commonConfig.GenerateManyToManyProxyClass
+                            , false
+                            , commonConfig.AllDescriptions
+                            , commonConfig.EntityMetadaOptionSetDependentComponents
+                            , commonConfig.GenerateIntoSchemaClass
+                            , commonConfig.SolutionComponentWithManagedInfo
+                            , commonConfig.ConstantType
+                            , commonConfig.OptionSetExportType
+                            , commonConfig.GenerateAttributesProxyClassWithNameOf
+                            , commonConfig.GenerateProxyClassesWithDebuggerNonUserCode
+                            , commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes
+                            , commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
+                            , commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
+                        )
+                        {
+                            EntityMetadata = metadata
+                        };
+
+                        string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, connectionData?.Name, config.EntityName);
+
+                        this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+                        var repository = new EntityMetadataRepository(service);
+
+                        ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
+                        INamingService namingService = new NamingService(service.ConnectionData.ServiceContextName, config);
+                        ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClasses);
+                        ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
+                        IMetadataProviderService metadataProviderService = new MetadataProviderService(repository);
+
+                        ICodeGenerationServiceProvider codeGenerationServiceProvider = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService, namingService);
+
+                        CodeGeneratorOptions options = new CodeGeneratorOptions
+                        {
+                            BlankLinesBetweenMembers = true,
+                            BracingStyle = "C",
+                            IndentString = tabSpacer,
+                            VerbatimOrder = true,
+                        };
+
+                        await codeGenerationService.WriteEntityFileAsync(metadata, "CSharp", filePath, service.ConnectionData.NamespaceClasses, options, codeGenerationServiceProvider);
+
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, connectionData.Name, config.EntityName, filePath);
+
+                        this._iWriteToOutput.WriteToOutputFilePathUri(connectionData, filePath);
+
+                        this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+
+                        continue;
+                    }
+                    else
+                    {
+                        tempSelectEntity = true;
+                    }
+                }
+
+                if (tempSelectEntity)
+                {
+                    var tempService = await QuickConnection.ConnectAsync(connectionData);
+
+                    if (tempService == null)
+                    {
+                        _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                        return;
+                    }
+
+                    WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, tempService, commonConfig, selection, filePath, false);
+                }
+            }
+        }
+
+        #endregion Обновление файла с прокси-классом сущности C#.
+
+        #region Обновление файла с мета-данными сущности JavaScript.
 
         public async Task ExecuteUpdateFileWithEntityMetadataJavaScript(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
         {
@@ -589,7 +759,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        #endregion Обновление файла с мета-данными сущности C#.
+        #endregion Обновление файла с мета-данными сущности JavaScript.
 
         #region Обновление файла с глобальными OptionSet-ами.
 

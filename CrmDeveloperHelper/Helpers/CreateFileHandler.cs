@@ -155,7 +155,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine("///</summary>");
         }
 
-        protected void WriteSummary(Label displayName, Label description, IEnumerable<string> headers, IEnumerable<string> footers)
+        public static IEnumerable<string> UnionStrings(Label displayName, Label description, IEnumerable<string> headers, IEnumerable<string> footers, bool allDescriptions, string tabSpacer)
         {
             bool displayNameIsNull = displayName == null || displayName.LocalizedLabels.Count == 0;
 
@@ -167,7 +167,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (displayNameIsNull && descriptionIsNull && headersIsNull && footersIsNull)
             {
-                return;
+                return Enumerable.Empty<string>();
             }
 
             List<string> listStrings = new List<string>();
@@ -177,7 +177,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 listStrings.AddRange(headers);
             }
 
-            CreateFileHandler.FillLabelDisplayNameAndDescription(listStrings, _allDescriptions, displayName, description, _tabSpacer);
+            CreateFileHandler.FillLabelDisplayNameAndDescription(listStrings, allDescriptions, displayName, description, tabSpacer);
 
             if (!footersIsNull)
             {
@@ -188,6 +188,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 listStrings.AddRange(footers);
             }
+
+            return listStrings;
+        }
+
+        protected void WriteSummary(Label displayName, Label description, IEnumerable<string> headers, IEnumerable<string> footers)
+        {
+            var listStrings = UnionStrings(displayName, description, headers, footers, _allDescriptions, _tabSpacer);
 
             WriteSummaryStrings(listStrings);
         }
@@ -759,7 +766,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                                         + tabSpacer
                                         + string.Format("PrimaryIdAttribute {0}", entityMetadata.PrimaryIdAttribute)
                                         + (!string.IsNullOrEmpty(entityMetadata.PrimaryNameAttribute) ? tabSpacer + string.Format("PrimaryNameAttribute {0}", entityMetadata.PrimaryNameAttribute) : string.Empty)
-                                        );
+                                    );
 
                                     lineEntityDescription.ForEach(s => result.Add(tabSpacer + tabSpacer + s));
                                 }

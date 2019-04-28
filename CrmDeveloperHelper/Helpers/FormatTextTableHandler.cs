@@ -341,7 +341,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return this;
         }
 
-        public FormatTextTableHandler AddLineIfNotEqual<T>(string fieldName, Nullable<T> value1, Nullable<T> value2) where T : struct
+        public FormatTextTableHandler AddLineIfNotEqual<T>(string fieldName, T? value1, T? value2) where T : struct
         {
             var str1 = value1.HasValue ? value1.Value.ToString() : "null";
             var str2 = value2.HasValue ? value2.Value.ToString() : "null";
@@ -356,7 +356,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public FormatTextTableHandler AddEntityMetadataString(string fieldName, string valueString)
         {
-            return this.AddLine(fieldName, valueString);
+            if (!string.IsNullOrEmpty(valueString))
+            {
+                valueString = valueString.Trim(' ', '\r', '\n');
+
+                if (!string.IsNullOrEmpty(valueString))
+                {
+                    var split = valueString.Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+
+                    foreach (var item in split)
+                    {
+                        this.AddLine(fieldName, item);
+                    }
+                }
+            }
+
+            return this;
         }
 
         public FormatTextTableHandler AddEntityMetadataString(string fieldName, BooleanManagedProperty value)
@@ -366,7 +381,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return this.AddLineNotNull(fieldName, valueString);
         }
 
-        public FormatTextTableHandler AddEntityMetadataString<T>(string fieldName, Nullable<T> value) where T : struct
+        public FormatTextTableHandler AddEntityMetadataString<T>(string fieldName, T? value) where T : struct
         {
             var valueString = value.HasValue ? value.ToString() : "null";
 

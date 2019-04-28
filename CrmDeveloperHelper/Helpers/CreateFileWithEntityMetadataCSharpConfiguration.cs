@@ -9,7 +9,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public string TabSpacer { get; private set; }
 
+        public bool UseSchemaConstInCSharpAttributes { get; private set; }
+
         public bool GenerateAttributes { get; private set; }
+
+        public bool GenerateAttributesWithNameOf { get; private set; }
 
         public bool GenerateStatus { get; private set; }
 
@@ -27,6 +31,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public bool GenerateIntoSchemaClass { get; private set; }
 
+        public bool GenerateWithDebuggerNonUserCode { get; private set; }
+
         public bool AllDescriptions { get; private set; }
 
         public bool WithDependentComponents { get; private set; }
@@ -38,6 +44,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public EntityMetadata EntityMetadata { get; set; }
 
         public bool WithManagedInfo { get; private set; }
+
+        public bool WithoutObsoleteAttribute { get; private set; }
+
+        public bool MakeAllPropertiesEditable { get; private set; }
 
         public CreateFileWithEntityMetadataCSharpConfiguration(
             string entityName
@@ -56,11 +66,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , bool withManagedInfo
             , ConstantType constantType
             , OptionSetExportType optionSetExportType
-            )
+            , bool generateAttributesWithNameOf
+            , bool generateWithDebuggerNonUserCode
+            , bool useSchemaConstInCSharpAttributes
+            , bool withoutObsoleteAttribute
+            , bool makeAllPropertiesEditable
+        )
         {
             this.EntityName = entityName.ToLower();
             this.TabSpacer = tabSpacer;
             this.GenerateAttributes = generateAttributes;
+            this.GenerateAttributesWithNameOf = generateAttributesWithNameOf;
             this.GenerateStatus = generateStatus;
             this.GenerateLocalOptionSet = generateLocalOptionSet;
             this.GenerateGlobalOptionSet = generateGlobalOptionSet;
@@ -75,6 +91,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             this.GenerateIntoSchemaClass = intoSchemaClass;
             this.WithManagedInfo = withManagedInfo;
+
+            this.GenerateWithDebuggerNonUserCode = generateWithDebuggerNonUserCode;
+            this.UseSchemaConstInCSharpAttributes = useSchemaConstInCSharpAttributes;
+            this.WithoutObsoleteAttribute = withoutObsoleteAttribute;
+            this.MakeAllPropertiesEditable = makeAllPropertiesEditable;
         }
     }
 }

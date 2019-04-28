@@ -100,6 +100,8 @@
     <Compile Include="Commands\CodeCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CodeCSharpProjectUpdatePluginAssemblyCommand.cs" />
     <Compile Include="Commands\CodeCSharpProjectUpdatePluginAssemblyInConnectionCommand.cs" />
+    <Compile Include="Commands\CodeCSharpUpdateEntityMetadataFileProxyClassCommand.cs" />
+    <Compile Include="Commands\CodeCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand.cs" />
     <Compile Include="Commands\CodeJavaScriptUpdateEntityMetadataFileCommand.cs" />
     <Compile Include="Commands\CodeJavaScriptUpdateEntityMetadataFileWithSelectCommand.cs" />
     <Compile Include="Commands\CodeReportAddIntoSolutionInConnectionCommand.cs" />
@@ -131,8 +133,8 @@
     <Compile Include="Commands\CodeReportShowDifferenceCommand.cs" />
     <Compile Include="Commands\CodeReportDownloadCommand.cs" />
     <Compile Include="Commands\CodeWebResourceShowDependentComponentsCommand.cs" />
-    <Compile Include="Commands\CodeCSharpUpdateEntityMetadataFileCommand.cs" />
-    <Compile Include="Commands\CodeCSharpUpdateEntityMetadataFileWithSelectCommand.cs" />
+    <Compile Include="Commands\CodeCSharpUpdateEntityMetadataFileSchemaCommand.cs" />
+    <Compile Include="Commands\CodeCSharpUpdateEntityMetadataFileSchemaWithSelectCommand.cs" />
     <Compile Include="Commands\CodeCSharpUpdateGlobalOptionSetsFileCommand.cs" />
     <Compile Include="Commands\CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommand.cs" />
     <Compile Include="Commands\CodeCSharpUpdateProxyClassesCommand.cs" />
@@ -232,6 +234,7 @@
     <Compile Include="Commands\DocumentsCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\DocumentsCSharpProjectPluginAssemblyStepsAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\DocumentsCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\DocumentsCSharpUpdateEntityMetadataFileProxyClassCommand.cs" />
     <Compile Include="Commands\DocumentsJavaScriptUpdateEntityMetadataFileCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceAddIntoSolutionLastCommand.cs" />
@@ -247,7 +250,7 @@
     <Compile Include="Commands\DocumentsReportAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceShowDependentComponentsCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceUpdateContentPublishEqualByTextCommand.cs" />
-    <Compile Include="Commands\DocumentsCSharpUpdateEntityMetadataFileCommand.cs" />
+    <Compile Include="Commands\DocumentsCSharpUpdateEntityMetadataFileSchemaCommand.cs" />
     <Compile Include="Commands\DocumentsCSharpUpdateGlobalOptionSetsFileCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
     <Compile Include="Commands\DocumentsXmlOpenXsdSchemaFolderCommand.cs" />
@@ -265,6 +268,8 @@
     <Compile Include="Commands\FileCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\FileCSharpProjectUpdatePluginAssemblyCommand.cs" />
     <Compile Include="Commands\FileCSharpProjectUpdatePluginAssemblyInConnectionCommand.cs" />
+    <Compile Include="Commands\FileCSharpUpdateEntityMetadataFileProxyClassCommand.cs" />
+    <Compile Include="Commands\FileCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand.cs" />
     <Compile Include="Commands\FileJavaScriptUpdateEntityMetadataFileCommand.cs" />
     <Compile Include="Commands\FileJavaScriptUpdateEntityMetadataFileWithSelectCommand.cs" />
     <Compile Include="Commands\FileReportAddIntoSolutionLastCommand.cs" />
@@ -286,6 +291,7 @@
     <Compile Include="Commands\FolderCSharpProjectPluginAssemblyStepsAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\FolderCSharpProjectPluginTypeStepsAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\FolderCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\FolderCSharpUpdateEntityMetadataFileProxyClassCommand.cs" />
     <Compile Include="Commands\FolderJavaScriptUpdateEntityMetadataFileCommand.cs" />
     <Compile Include="Commands\FolderWebResourceAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\FolderAddPluginConfigurationFileCommand.cs" />
@@ -302,7 +308,7 @@
     <Compile Include="Commands\FolderWebResourceShowDependentComponentsCommand.cs" />
     <Compile Include="Commands\FolderWebResourceUpdateContentPublishCommand.cs" />
     <Compile Include="Commands\FolderWebResourceUpdateContentPublishEqualByTextCommand.cs" />
-    <Compile Include="Commands\FolderCSharpUpdateEntityMetadataFileCommand.cs" />
+    <Compile Include="Commands\FolderCSharpUpdateEntityMetadataFileSchemaCommand.cs" />
     <Compile Include="Commands\FolderCSharpUpdateGlobalOptionSetsFileCommand.cs" />
     <Compile Include="Commands\AbstractCommand.cs" />
     <Compile Include="Commands\FolderWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
@@ -450,8 +456,8 @@
     <Compile Include="Commands\FileWebResourceShowDifferenceCustomCommand.cs" />
     <Compile Include="Commands\FileWebResourceUpdateContentPublishCommand.cs" />
     <Compile Include="Commands\FileWebResourceUpdateContentPublishEqualByTextCommand.cs" />
-    <Compile Include="Commands\FileCSharpUpdateEntityMetadataFileCommand.cs" />
-    <Compile Include="Commands\FileCSharpUpdateEntityMetadataFileWithSelectCommand.cs" />
+    <Compile Include="Commands\FileCSharpUpdateEntityMetadataFileSchemaCommand.cs" />
+    <Compile Include="Commands\FileCSharpUpdateEntityMetadataFileSchemaWithSelectCommand.cs" />
     <Compile Include="Commands\FileCSharpUpdateGlobalOptionSetsFileCommand.cs" />
     <Compile Include="Commands\FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand.cs" />
     <Compile Include="Commands\FileCSharpUpdateProxyClassesCommand.cs" />
