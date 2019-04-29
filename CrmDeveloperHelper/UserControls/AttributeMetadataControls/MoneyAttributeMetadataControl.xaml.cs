@@ -8,7 +8,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 {
     public partial class MoneyAttributeMetadataControl : UserControl, IAttributeMetadataControl<MoneyAttributeMetadata>
     {
-        public MoneyAttributeMetadata AttributeMetadata { get; private set; }
+        public MoneyAttributeMetadata AttributeMetadata { get; }
 
         private readonly decimal? _initialValue;
 

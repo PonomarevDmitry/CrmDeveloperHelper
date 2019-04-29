@@ -1037,6 +1037,9 @@
     <Compile Include="UserControls\AttributeMetadataControls\EntityReferenceMappingControl.xaml.cs">
       <DependentUpon>EntityReferenceMappingControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\AttributeMetadataControls\MultiSelectPicklistAttributeMetadataControl.xaml.cs">
+      <DependentUpon>MultiSelectPicklistAttributeMetadataControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\AttributeMetadataControls\UniqueIdentifierAttributeMetadataControl.xaml.cs">
       <DependentUpon>UniqueIdentifierAttributeMetadataControl.xaml</DependentUpon>
     </Compile>
@@ -1666,6 +1669,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\AttributeMetadataControls\AttributeMetadataStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\AttributeMetadataControls\MultiSelectPicklistAttributeMetadataControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

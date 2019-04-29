@@ -8,7 +8,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 {
     public partial class StringAttributeMetadataControl : UserControl, IAttributeMetadataControl<StringAttributeMetadata>
     {
-        public StringAttributeMetadata AttributeMetadata { get; private set; }
+        public StringAttributeMetadata AttributeMetadata { get; }
 
         private readonly string _initialValue;
 

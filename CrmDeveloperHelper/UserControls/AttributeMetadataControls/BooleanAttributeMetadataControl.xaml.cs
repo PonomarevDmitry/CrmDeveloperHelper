@@ -11,7 +11,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 {
     public partial class BooleanAttributeMetadataControl : UserControl, IAttributeMetadataControl<BooleanAttributeMetadata>
     {
-        public BooleanAttributeMetadata AttributeMetadata { get; private set; }
+        public BooleanAttributeMetadata AttributeMetadata { get; }
 
         private readonly bool? _initialValue;
 

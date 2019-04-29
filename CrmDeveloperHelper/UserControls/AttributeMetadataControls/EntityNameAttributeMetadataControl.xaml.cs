@@ -16,7 +16,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 
         private readonly bool _fillAllways;
 
-        public EntityNameAttributeMetadata AttributeMetadata { get; private set; }
+        public EntityNameAttributeMetadata AttributeMetadata { get; }
 
         public EntityNameAttributeMetadataControl(IOrganizationServiceExtented service, bool fillAllways, EntityNameAttributeMetadata attributeMetadata, string initialValue)
         {

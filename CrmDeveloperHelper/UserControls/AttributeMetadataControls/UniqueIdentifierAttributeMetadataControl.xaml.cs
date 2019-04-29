@@ -8,7 +8,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 {
     public partial class UniqueIdentifierAttributeMetadataControl : UserControl, IAttributeMetadataControl<AttributeMetadata>
     {
-        public AttributeMetadata AttributeMetadata { get; private set; }
+        public AttributeMetadata AttributeMetadata { get; }
 
         private readonly Guid? _initialValue;
 

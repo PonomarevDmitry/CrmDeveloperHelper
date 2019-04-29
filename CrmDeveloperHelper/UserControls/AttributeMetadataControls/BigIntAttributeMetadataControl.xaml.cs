@@ -8,7 +8,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 {
     public partial class BigIntAttributeMetadataControl : UserControl, IAttributeMetadataControl<BigIntAttributeMetadata>
     {
-        public BigIntAttributeMetadata AttributeMetadata { get; private set; }
+        public BigIntAttributeMetadata AttributeMetadata { get; }
 
         private readonly long? _initialValue;
 

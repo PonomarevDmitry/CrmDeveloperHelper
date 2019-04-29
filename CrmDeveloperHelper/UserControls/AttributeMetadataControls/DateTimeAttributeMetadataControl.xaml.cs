@@ -8,7 +8,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 {
     public partial class DateTimeAttributeMetadataControl : UserControl, IAttributeMetadataControl<DateTimeAttributeMetadata>
     {
-        public DateTimeAttributeMetadata AttributeMetadata { get; private set; }
+        public DateTimeAttributeMetadata AttributeMetadata { get; }
 
         private readonly DateTime? _initialValue;
 

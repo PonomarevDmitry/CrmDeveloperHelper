@@ -8,7 +8,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 {
     public partial class DecimalAttributeMetadataControl : UserControl, IAttributeMetadataControl<DecimalAttributeMetadata>
     {
-        public DecimalAttributeMetadata AttributeMetadata { get; private set; }
+        public DecimalAttributeMetadata AttributeMetadata { get; }
 
         private readonly decimal? _initialValue;
 

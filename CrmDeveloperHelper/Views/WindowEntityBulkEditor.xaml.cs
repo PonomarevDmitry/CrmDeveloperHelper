@@ -160,7 +160,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         index++;
 
-                        if (item is MemoAttributeMetadataControl)
+                        if (item is MemoAttributeMetadataControl
+                            || item is MultiSelectPicklistAttributeMetadataControl
+                        )
                         {
                             itemRowDef.Height = new GridLength(200, GridUnitType.Pixel);
 

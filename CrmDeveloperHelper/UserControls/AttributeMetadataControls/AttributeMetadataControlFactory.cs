@@ -133,6 +133,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                 return new PicklistAttributeMetadataControl(fillAllways, entity, picklistAttrib, initialValue);
             }
 
+            if (attributeMetadata is MultiSelectPicklistAttributeMetadata multiSelectPicklistAttributeMetadata)
+            {
+                OptionSetValueCollection initialValue = null;
+
+                if (value != null && value is OptionSetValueCollection optionSetValueCollection)
+                {
+                    initialValue = optionSetValueCollection;
+                }
+
+                return new MultiSelectPicklistAttributeMetadataControl(fillAllways, multiSelectPicklistAttributeMetadata, initialValue);
+            }
+
             if (attributeMetadata is StatusAttributeMetadata statusAttrib)
             {
                 var stateAttrib = entityMetadata.Attributes.OfType<StateAttributeMetadata>().FirstOrDefault();

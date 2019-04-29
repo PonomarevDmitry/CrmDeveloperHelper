@@ -8,7 +8,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 {
     public partial class IntegerAttributeMetadataControl : UserControl, IAttributeMetadataControl<IntegerAttributeMetadata>
     {
-        public IntegerAttributeMetadata AttributeMetadata { get; private set; }
+        public IntegerAttributeMetadata AttributeMetadata { get; }
 
         private readonly int? _initialValue;
 

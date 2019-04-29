@@ -8,7 +8,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 {
     public partial class MemoAttributeMetadataControl : UserControl, IAttributeMetadataControl<MemoAttributeMetadata>
     {
-        public MemoAttributeMetadata AttributeMetadata { get; private set; }
+        public MemoAttributeMetadata AttributeMetadata { get; }
 
         private readonly string _initialValue;
 
@@ -47,7 +47,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
             chBChanged.IsChecked = !string.Equals(currentValue, _initialValue);
         }
 
-        private object GetCurrentString()
+        private string GetCurrentString()
         {
             var currentValue = txtBValue.Text;
 

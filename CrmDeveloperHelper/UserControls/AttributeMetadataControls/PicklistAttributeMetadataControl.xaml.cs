@@ -12,7 +12,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 {
     public partial class PicklistAttributeMetadataControl : UserControl, IAttributeMetadataControl<PicklistAttributeMetadata>
     {
-        public PicklistAttributeMetadata AttributeMetadata { get; private set; }
+        public PicklistAttributeMetadata AttributeMetadata { get; }
 
         private readonly int? _initialValue;
 

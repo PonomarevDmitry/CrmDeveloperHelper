@@ -8,7 +8,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
 {
     public partial class DoubleAttributeMetadataControl : UserControl, IAttributeMetadataControl<DoubleAttributeMetadata>
     {
-        public DoubleAttributeMetadata AttributeMetadata { get; private set; }
+        public DoubleAttributeMetadata AttributeMetadata { get; }
 
         private readonly double? _initialValue;
 

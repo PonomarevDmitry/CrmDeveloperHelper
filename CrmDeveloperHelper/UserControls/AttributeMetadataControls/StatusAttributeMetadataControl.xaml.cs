@@ -15,7 +15,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
     /// </summary>
     public partial class StatusAttributeMetadataControl : UserControl, IAttributeMetadataControl<StatusAttributeMetadata>
     {
-        public StatusAttributeMetadata AttributeMetadata { get; private set; }
+        public StatusAttributeMetadata AttributeMetadata { get; }
 
         private readonly StateAttributeMetadata _stateAttributeMetadata;
 

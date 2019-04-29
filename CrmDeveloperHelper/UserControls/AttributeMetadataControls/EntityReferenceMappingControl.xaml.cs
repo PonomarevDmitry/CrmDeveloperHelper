@@ -13,7 +13,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
     {
         private readonly IOrganizationServiceExtented _service;
 
-        public LookupAttributeMetadata AttributeMetadata { get; private set; }
+        public LookupAttributeMetadata AttributeMetadata { get; }
 
         private readonly EntityReference _entityReferenceConnection1;
 
