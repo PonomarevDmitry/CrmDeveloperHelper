@@ -154,7 +154,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var picklists = _entityMetadata.Attributes
                 .Where(a => a is PicklistAttributeMetadata || a is MultiSelectPicklistAttributeMetadata)
                 .OfType<EnumAttributeMetadata>()
-                .Where(e => e.OptionSet.Options.Any(o => o.Value.HasValue))
+                .Where(e => e.OptionSet != null && e.OptionSet.Options.Any(o => o.Value.HasValue))
                 ;
 
             foreach (var attrib in picklists

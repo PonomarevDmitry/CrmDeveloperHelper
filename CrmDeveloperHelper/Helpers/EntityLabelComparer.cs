@@ -587,20 +587,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     if (attr1 is Microsoft.Xrm.Sdk.Metadata.EnumAttributeMetadata)
                     {
-                        var picklistAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.EnumAttributeMetadata;
-                        var picklistAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.EnumAttributeMetadata;
+                        var enumAttributeMetadata1 = attr1 as Microsoft.Xrm.Sdk.Metadata.EnumAttributeMetadata;
+                        var enumAttributeMetadata2 = attr2 as Microsoft.Xrm.Sdk.Metadata.EnumAttributeMetadata;
 
-                        if (picklistAttrib1.OptionSet != null && picklistAttrib2.OptionSet != null)
+                        if (enumAttributeMetadata1.OptionSet != null && enumAttributeMetadata2.OptionSet != null)
                         {
-                            if (!CreateFileHandler.IgnoreAttribute(picklistAttrib1.EntityLogicalName, picklistAttrib1.LogicalName))
+                            if (!CreateFileHandler.IgnoreAttribute(enumAttributeMetadata1.EntityLogicalName, enumAttributeMetadata1.LogicalName))
                             {
-                                var diffenrenceOptionSet = await _optionSetComparer.GetDifference(picklistAttrib1.OptionSet, picklistAttrib2.OptionSet, attr1.EntityLogicalName, attr1.LogicalName);
+                                var diffenrenceOptionSet = await _optionSetComparer.GetDifference(enumAttributeMetadata1.OptionSet, enumAttributeMetadata2.OptionSet, attr1.EntityLogicalName, attr1.LogicalName);
 
                                 if (diffenrenceOptionSet.Count > 0)
                                 {
                                     additionalDifference.Add(string.Format("Difference in OptionSet {0} and {1}"
-                                        , picklistAttrib1.OptionSet.Name + (picklistAttrib1.OptionSet.IsGlobal.GetValueOrDefault() ? "(Global)" : "(Local)")
-                                        , picklistAttrib2.OptionSet.Name + (picklistAttrib2.OptionSet.IsGlobal.GetValueOrDefault() ? "(Global)" : "(Local)")
+                                        , enumAttributeMetadata1.OptionSet.Name + (enumAttributeMetadata1.OptionSet.IsGlobal.GetValueOrDefault() ? "(Global)" : "(Local)")
+                                        , enumAttributeMetadata2.OptionSet.Name + (enumAttributeMetadata2.OptionSet.IsGlobal.GetValueOrDefault() ? "(Global)" : "(Local)")
                                         )
                                         );
                                     diffenrenceOptionSet.ForEach(s => additionalDifference.Add(_tabSpacer + s));

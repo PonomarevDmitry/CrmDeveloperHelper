@@ -81,7 +81,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
                 this.OptionSet = new OptionSetIntellisenseData(boolMetadata);
             }
 
-            if (attr is EnumAttributeMetadata enumAttributeMetadata)
+            if (attr is EnumAttributeMetadata enumAttributeMetadata
+                && enumAttributeMetadata.OptionSet != null
+            )
             {
                 this.OptionSet = new OptionSetIntellisenseData(enumAttributeMetadata);
             }

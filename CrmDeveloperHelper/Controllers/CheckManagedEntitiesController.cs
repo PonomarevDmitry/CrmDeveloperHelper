@@ -965,78 +965,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
-            if (currentAttribute is EnumAttributeMetadata enumAttrib)
+            if (currentAttribute is EnumAttributeMetadata enumAttributeMetadata
+                && enumAttributeMetadata.OptionSet != null
+            )
             {
-                if (enumAttrib.OptionSet != null)
+                if (!CreateFileHandler.IgnoreAttribute(enumAttributeMetadata.EntityLogicalName, enumAttributeMetadata.LogicalName))
                 {
-                    if (!CreateFileHandler.IgnoreAttribute(enumAttrib.EntityLogicalName, enumAttrib.LogicalName))
+                    if (enumAttributeMetadata.OptionSet.IsManaged.GetValueOrDefault() == false && enumAttributeMetadata.OptionSet.IsCustomOptionSet.GetValueOrDefault() == true)
                     {
-                        if (enumAttrib.OptionSet.IsManaged.GetValueOrDefault() == false && enumAttrib.OptionSet.IsCustomOptionSet.GetValueOrDefault() == true)
-                        {
-                            FillOptionSetInfo(result, enumAttrib.OptionSet);
-                        }
-                        else
-                        {
-                            List<string> unmanagedProperties = GetUnmanagedProperties(enumAttrib.OptionSet);
-
-                            if (unmanagedProperties.Any())
-                            {
-                                FillOptionSetInfo(result, enumAttrib.OptionSet);
-
-                                foreach (var str in unmanagedProperties)
-                                {
-                                    result.Add(tabSpacer + str);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (currentAttribute is Microsoft.Xrm.Sdk.Metadata.StateAttributeMetadata)
-            {
-                var stateAttrib = currentAttribute as Microsoft.Xrm.Sdk.Metadata.StateAttributeMetadata;
-
-                if (stateAttrib.OptionSet != null)
-                {
-                    if (stateAttrib.OptionSet.IsManaged.GetValueOrDefault() == false && stateAttrib.OptionSet.IsCustomOptionSet.GetValueOrDefault() == true)
-                    {
-                        FillOptionSetInfo(result, stateAttrib.OptionSet);
+                        FillOptionSetInfo(result, enumAttributeMetadata.OptionSet);
                     }
                     else
                     {
-                        List<string> unmanagedProperties = GetUnmanagedProperties(stateAttrib.OptionSet);
+                        List<string> unmanagedProperties = GetUnmanagedProperties(enumAttributeMetadata.OptionSet);
 
                         if (unmanagedProperties.Any())
                         {
-                            FillOptionSetInfo(result, stateAttrib.OptionSet);
-
-                            foreach (var str in unmanagedProperties)
-                            {
-                                result.Add(tabSpacer + str);
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (currentAttribute is Microsoft.Xrm.Sdk.Metadata.StatusAttributeMetadata)
-            {
-                var statusAttrib = currentAttribute as Microsoft.Xrm.Sdk.Metadata.StatusAttributeMetadata;
-
-                if (statusAttrib.OptionSet != null)
-                {
-                    if (statusAttrib.OptionSet.IsManaged.GetValueOrDefault() == false && statusAttrib.OptionSet.IsCustomOptionSet.GetValueOrDefault() == true)
-                    {
-                        FillOptionSetInfo(result, statusAttrib.OptionSet);
-                    }
-                    else
-                    {
-                        List<string> unmanagedProperties = GetUnmanagedProperties(statusAttrib.OptionSet);
-
-                        if (unmanagedProperties.Any())
-                        {
-                            FillOptionSetInfo(result, statusAttrib.OptionSet);
+                            FillOptionSetInfo(result, enumAttributeMetadata.OptionSet);
 
                             foreach (var str in unmanagedProperties)
                             {

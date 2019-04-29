@@ -307,7 +307,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 if (metaData is EnumAttributeMetadata enumAttributeMetadata
                     && enumAttributeMetadata.OptionSet != null
                     && enumAttributeMetadata.OptionSet.IsGlobal.GetValueOrDefault()
-                    )
+                )
                 {
                     result.Add(new SolutionComponent()
                     {
@@ -319,7 +319,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 if (metaData is LookupAttributeMetadata lookupMetadata
                     && lookupMetadata.Targets != null
                     && lookupMetadata.Targets.Count() <= 10
-                    )
+                )
                 {
                     foreach (var entityName in lookupMetadata.Targets.OrderBy(s => s))
                     {

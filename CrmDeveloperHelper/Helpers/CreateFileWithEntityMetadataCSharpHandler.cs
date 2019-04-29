@@ -536,6 +536,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 .Attributes
                 .Where(a => a is PicklistAttributeMetadata || a is MultiSelectPicklistAttributeMetadata)
                 .OfType<EnumAttributeMetadata>()
+                .Where(p => p.OptionSet != null)
                 .Where(p => (p.OptionSet.IsGlobal.GetValueOrDefault() && this._config.GenerateGlobalOptionSet)
                     || (!p.OptionSet.IsGlobal.GetValueOrDefault() && this._config.GenerateLocalOptionSet))
                 ;
@@ -554,6 +555,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 .Attributes
                 .Where(a => a is PicklistAttributeMetadata || a is MultiSelectPicklistAttributeMetadata)
                 .OfType<EnumAttributeMetadata>()
+                .Where(p => p.OptionSet != null)
                 .Where(p => (p.OptionSet.IsGlobal.GetValueOrDefault() && this._config.GenerateGlobalOptionSet)
                         || (!p.OptionSet.IsGlobal.GetValueOrDefault() && this._config.GenerateLocalOptionSet)
                         )

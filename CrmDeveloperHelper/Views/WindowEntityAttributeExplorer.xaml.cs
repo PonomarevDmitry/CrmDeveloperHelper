@@ -623,11 +623,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 entityMetadata
                 ?.Attributes
                 ?.OfType<EnumAttributeMetadata>()
-                .Where(a => a.OptionSet.IsGlobal.GetValueOrDefault())
-                .Select(a => a.OptionSet)
-                .GroupBy(o => o.MetadataId)
-                .Select(g => g.FirstOrDefault())
-                ?? new OptionSetMetadata[0]
+                ?.Where(a => a.OptionSet != null && a.OptionSet.IsGlobal.GetValueOrDefault())
+                ?.Select(a => a.OptionSet)
+                ?.GroupBy(o => o.MetadataId)
+                ?.Select(g => g.FirstOrDefault())
+                ?? Enumerable.Empty<OptionSetMetadata>()
                 ;
 
             _commonConfig.Save();
@@ -836,7 +836,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var attribute = ((FrameworkElement)e.OriginalSource).DataContext as AttributeMetadataViewItem;
 
-                if (connectionData != null 
+                if (connectionData != null
                     && entity != null
                     && attribute != null
                 )
