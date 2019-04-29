@@ -194,6 +194,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return optionSetValue.Value.ToString() + (formattedValues.ContainsKey(key) ? string.Format(" - {0}", formattedValues[key]) : string.Empty);
             }
 
+            if (value is OptionSetValueCollection valueOptionSetValueCollection)
+            {
+                string valuesString = valueOptionSetValueCollection.Any() ? string.Join(",", valueOptionSetValueCollection.Select(o => o.Value).OrderBy(o => o)) : "none";
+
+                return valuesString + (formattedValues.ContainsKey(key) ? string.Format(" - {0}", formattedValues[key]) : string.Empty);
+            }
+
             if (value is Money money)
             {
                 return money.Value.ToString();
@@ -265,6 +272,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return formattedValues.ContainsKey(key) && !string.IsNullOrEmpty(formattedValues[key]) ? formattedValues[key] : optionSetValue.Value.ToString();
             }
 
+            if (value is OptionSetValueCollection valueOptionSetValueCollection)
+            {
+                string valuesString = valueOptionSetValueCollection.Any() ? string.Join(",", valueOptionSetValueCollection.Select(o => o.Value).OrderBy(o => o)) : "none";
+
+                return formattedValues.ContainsKey(key) && !string.IsNullOrEmpty(formattedValues[key]) ? formattedValues[key] : valuesString;
+            }
+
             if (value is Money money)
             {
                 return money.Value.ToString();
@@ -315,6 +329,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             if (value is OptionSetValue optionSetValue)
             {
                 return optionSetValue.Value.ToString() + (formattedValues.ContainsKey(key) ? string.Format(" - {0}", formattedValues[key]) : string.Empty);
+            }
+
+            if (value is OptionSetValueCollection valueOptionSetValueCollection)
+            {
+                string valuesString = valueOptionSetValueCollection.Any() ? string.Join(",", valueOptionSetValueCollection.Select(o => o.Value).OrderBy(o => o)) : "none";
+
+                return valuesString + (formattedValues.ContainsKey(key) ? string.Format(" - {0}", formattedValues[key]) : string.Empty);
             }
 
             if (value is Money money)

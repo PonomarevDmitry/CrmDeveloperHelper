@@ -742,6 +742,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                         value = (entity.FormattedValues != null && entity.FormattedValues.ContainsKey(attributeName) ? string.Format("{0} - ", entity.FormattedValues[attributeName]) : string.Empty) + optionSetValue.Value.ToString();
                     }
 
+                    if (value is OptionSetValueCollection valueOptionSetValueCollection)
+                    {
+                        string valuesString = valueOptionSetValueCollection.Any() ? string.Join(",", valueOptionSetValueCollection.Select(o => o.Value).OrderBy(o => o)) : "none";
+
+                        value = (entity.FormattedValues != null && entity.FormattedValues.ContainsKey(attributeName) ? string.Format("{0} - ", entity.FormattedValues[attributeName]) : string.Empty) + valuesString;
+                    }
+
                     if (value is BooleanManagedProperty booleanManagedProperty)
                     {
                         value = string.Format("{0,-5}        CanBeChanged = {1,-5}", booleanManagedProperty.Value, booleanManagedProperty.CanBeChanged);

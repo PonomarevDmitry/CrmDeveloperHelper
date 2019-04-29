@@ -680,12 +680,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             {
                 statementCollection.AddRange(BuildEntityCollectionAttributeGet(attributeNameRef, targetType));
             }
+            if (attributeMetadata.AttributeTypeName != null
+                && attributeMetadata.AttributeTypeName == AttributeTypeDisplayName.MultiSelectPicklistType
+            )
+            {
+                statementCollection.AddRange(BuildAttributeGetNotNull(attributeNameRef, targetType));
+            }
             else
             {
                 statementCollection.Add(Return(ThisMethodInvoke("GetAttributeValue", targetType, attributeNameRef)));
             }
 
             return statementCollection;
+        }
+
+        private static CodeStatementCollection BuildAttributeGetNotNull(
+            CodeExpression attributeNameRef
+            , CodeTypeReference propertyType
+        )
+        {
+            return new CodeStatementCollection()
+            {
+                Var(propertyType, "collection",  ThisMethodInvoke("GetAttributeValue", propertyType, attributeNameRef)),
+                If(ExpressionNull(VarRef("collection")), new CodeStatement[]
+                {
+                    AssignValue(VarRef("collection"), New(propertyType)),
+                    new CodeExpressionStatement( ThisMethodInvoke("SetAttributeValue", attributeNameRef, VarRef("collection"))),
+                }),
+                Return(VarRef("collection")),
+            };
         }
 
         private CodeStatementCollection BuildAttributeSet(
@@ -748,8 +771,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         {
             return new CodeStatementCollection()
             {
-                Var(typeof (EntityCollection), "collection",  ThisMethodInvoke("GetAttributeValue", TypeRef(typeof (EntityCollection)), attributeNameRef)),
-                If(And(NotNull(VarRef("collection")), NotNull(PropRef(VarRef("collection"), "Entities"))), Return( StaticMethodInvoke(typeof (Enumerable), "Cast", propertyType.TypeArguments[0], (CodeExpression)PropRef(VarRef("collection"), "Entities"))), Return(Null()))
+                Var(typeof (EntityCollection), "collection",  ThisMethodInvoke("GetAttributeValue", TypeRef(typeof(EntityCollection)), attributeNameRef)),
+                If(And(NotNull(VarRef("collection")), NotNull(PropRef(VarRef("collection"), "Entities"))), Return(StaticMethodInvoke(typeof(Enumerable), "Cast", propertyType.TypeArguments[0], (CodeExpression)PropRef(VarRef("collection"), "Entities"))), Return(Null()))
             };
         }
 
@@ -857,7 +880,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return new CodeStatementCollection(new CodeStatement[2]
             {
                 Var(typeof (OptionSetValue), "optionSet", ThisMethodInvoke("GetAttributeValue", TypeRef(typeof (OptionSetValue)), attributeNameRef)),
-                If(NotNull(VarRef("optionSet")), Return(Cast(codeTypeReference, ConvertEnum(codeTypeReference, "optionSet"))), Return( Null()))
+                If(NotNull(VarRef("optionSet")), Return(Cast(codeTypeReference, ConvertEnum(codeTypeReference, "optionSet"))), Return(Null()))
             });
         }
 
@@ -1812,6 +1835,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return conditionStatement;
         }
 
+        private static CodeConditionStatement If(CodeExpression condition, CodeExpression[] trueCodes)
+        {
+            return If(condition, trueCodes.Select(s => new CodeExpressionStatement(s)).ToArray(), null);
+        }
+
+        private static CodeConditionStatement If(
+            CodeExpression condition
+            , CodeExpression[] trueCodes
+            , CodeExpression[] falseCodes
+        )
+        {
+            return If(condition, trueCodes.Select(s => new CodeExpressionStatement(s)).ToArray(), trueCodes.Select(s => new CodeExpressionStatement(s)).ToArray());
+        }
+
+        private static CodeConditionStatement If(CodeExpression condition, CodeStatement[] trueStatements)
+        {
+            return If(condition, trueStatements, null);
+        }
+
+        private static CodeConditionStatement If(
+            CodeExpression condition
+            , CodeStatement[] trueStatements
+            , CodeStatement[] falseStatements
+        )
+        {
+            var conditionStatement = new CodeConditionStatement(condition);
+
+            if (trueStatements != null)
+            {
+                conditionStatement.TrueStatements.AddRange(trueStatements);
+            }
+
+            if (falseStatements != null)
+            {
+                conditionStatement.FalseStatements.AddRange(falseStatements);
+            }
+
+            return conditionStatement;
+        }
+
         private static CodeFieldReferenceExpression FieldRef(Type targetType, string fieldName)
         {
             return new CodeFieldReferenceExpression(new CodeTypeReferenceExpression(targetType), fieldName);
@@ -1870,6 +1933,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         )
         {
             return new CodeVariableDeclarationStatement(type, name, init);
+        }
+
+        private static CodeVariableDeclarationStatement Var(
+            CodeTypeReference typeRef
+            , string name
+            , CodeExpression init
+        )
+        {
+            return new CodeVariableDeclarationStatement(typeRef, name, init);
         }
 
         private CodeConstructor Constructor(params CodeExpression[] thisArgs)
@@ -2042,9 +2114,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return new CodeMethodReturnStatement();
         }
 
-        private static CodeMethodReturnStatement Return(
-            CodeExpression expression
-        )
+        private static CodeMethodReturnStatement Return(CodeExpression expression)
         {
             return new CodeMethodReturnStatement(expression);
         }
@@ -2073,7 +2143,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return new CodeBinaryOperatorExpression(expression, CodeBinaryOperatorType.IdentityInequality, Null());
         }
 
-        private static CodeBinaryOperatorExpression Null(CodeExpression expression)
+        private static CodeBinaryOperatorExpression ExpressionNull(CodeExpression expression)
         {
             return new CodeBinaryOperatorExpression(expression, CodeBinaryOperatorType.IdentityEquality, Null());
         }
