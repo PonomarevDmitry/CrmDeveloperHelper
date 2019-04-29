@@ -50,8 +50,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                 return;
             }
 
-            StaticNamingService._attributeNames = new Dictionary<string, string>()
+            StaticNamingService._attributeNames = new Dictionary<string, string>(System.StringComparer.InvariantCultureIgnoreCase)
             {
+                {
+                    "name",
+                    "Name"
+                },
                 {
                     "month1",
                     "Month1"

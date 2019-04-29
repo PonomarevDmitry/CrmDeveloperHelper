@@ -290,7 +290,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         if (currentAttribute.AttributeOf == null)
                         {
-                            if (currentAttribute.LogicalName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                            if (currentAttribute.LogicalName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
                             {
                                 string name = string.Format("{0}.{1}", currentEntity.LogicalName, currentAttribute.LogicalName);
 
@@ -305,7 +305,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     foreach (var currentRelationship in currentEntity.ManyToOneRelationships)
                     {
-                        if (currentRelationship.SchemaName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                        if (currentRelationship.SchemaName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
                         {
                             string name = string.Format("{0}.{1}", currentEntity.LogicalName, currentRelationship.SchemaName);
 
@@ -322,7 +322,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     foreach (var currentRelationship in currentEntity.ManyToManyRelationships)
                     {
-                        if (currentRelationship.SchemaName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                        if (currentRelationship.SchemaName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
                         {
                             string name = string.Format("{0}.{1}", currentEntity.LogicalName, currentRelationship.SchemaName);
 
@@ -337,7 +337,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         }
                     }
 
-                    var wrongEntity = currentEntity.LogicalName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase);
+                    var wrongEntity = currentEntity.LogicalName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase);
                     if (wrongEntity)
                     {
                         var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.Entity, currentEntity.MetadataId.Value);
@@ -358,7 +358,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     string name = webResource.Name;
 
-                    if (name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                    if (name.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
                     {
                         string longName = string.Format("'{1}' {0}", name, webResource.FormattedValues[WebResource.Schema.Attributes.webresourcetype]);
 
@@ -527,7 +527,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     string name = webResource.Name;
 
-                    if (name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                    if (name.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
                     {
                         string longName = string.Format("'{1}' {0}", name, webResource.FormattedValues[WebResource.Schema.Attributes.webresourcetype]);
 
@@ -587,7 +587,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private bool IsMakedToDelete(string prefix, string logicalName, Label label)
         {
-            if (logicalName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+            if (logicalName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
             {
                 return true;
             }
@@ -596,7 +596,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 foreach (var item in label.LocalizedLabels)
                 {
-                    if (item.Label.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                    if (item.Label.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
                     {
                         return true;
                     }
@@ -1275,7 +1275,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         if (string.IsNullOrEmpty(currentAttribute.AttributeOf))
                         {
-                            if (string.Equals(currentAttribute.LogicalName, name, StringComparison.OrdinalIgnoreCase))
+                            if (string.Equals(currentAttribute.LogicalName, name, StringComparison.InvariantCultureIgnoreCase))
                             {
                                 listEntityAttributes.Add(new SolutionComponent()
                                 {
@@ -1288,7 +1288,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     foreach (var currentRelationship in currentEntity.ManyToOneRelationships)
                     {
-                        if (string.Equals(currentRelationship.SchemaName, name, StringComparison.OrdinalIgnoreCase))
+                        if (string.Equals(currentRelationship.SchemaName, name, StringComparison.InvariantCultureIgnoreCase))
                         {
                             listEntityRelationshipsManyToOne.Add(new SolutionComponent()
                             {
@@ -1300,7 +1300,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     foreach (var currentRelationship in currentEntity.ManyToManyRelationships)
                     {
-                        if (string.Equals(currentRelationship.SchemaName, name, StringComparison.OrdinalIgnoreCase))
+                        if (string.Equals(currentRelationship.SchemaName, name, StringComparison.InvariantCultureIgnoreCase))
                         {
                             listEntityRelationshipsManyToMany.Add(new SolutionComponent()
                             {

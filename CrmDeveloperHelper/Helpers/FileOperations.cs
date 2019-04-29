@@ -102,7 +102,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         #region Проверка расширений файлов.
 
-        private static readonly HashSet<string> _SupportedExtensionsWebResource = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        private static readonly HashSet<string> _SupportedExtensionsWebResource = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
         {
             ".html", ".htm", ".js", ".css",
             ".gif", ".jpg", ".png", ".ico", ".svg",
@@ -110,9 +110,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             ".xap"
         };
 
-        private static HashSet<string> _SupportedExtensionsWebResourceText = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { ".htm", ".html", ".css", ".js", ".xml", ".xsl, .xslt", ".svg" };
+        private static HashSet<string> _SupportedExtensionsWebResourceText = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase) { ".htm", ".html", ".css", ".js", ".xml", ".xsl, .xslt", ".svg" };
 
-        private static HashSet<string> _SupportedReportType = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { ".rdl", ".rdlc" };
+        private static HashSet<string> _SupportedReportType = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase) { ".rdl", ".rdlc" };
 
         private const string _SupportedCSharpFile = ".cs";
         private const string _SupportedJavaScriptFile = ".js";
@@ -171,7 +171,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (!string.IsNullOrEmpty(path))
             {
-                result = path.EndsWith(_SupportedCSharpFile, StringComparison.OrdinalIgnoreCase);
+                result = path.EndsWith(_SupportedCSharpFile, StringComparison.InvariantCultureIgnoreCase);
             }
 
             return result;
@@ -183,7 +183,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (!string.IsNullOrEmpty(path))
             {
-                result = path.EndsWith(_SupportedJavaScriptFile, StringComparison.OrdinalIgnoreCase);
+                result = path.EndsWith(_SupportedJavaScriptFile, StringComparison.InvariantCultureIgnoreCase);
             }
 
             return result;
@@ -195,7 +195,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (!string.IsNullOrEmpty(path))
             {
-                result = path.EndsWith(_SupportedXmlFile, StringComparison.OrdinalIgnoreCase);
+                result = path.EndsWith(_SupportedXmlFile, StringComparison.InvariantCultureIgnoreCase);
             }
 
             return result;

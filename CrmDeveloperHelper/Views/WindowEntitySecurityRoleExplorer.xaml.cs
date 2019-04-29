@@ -728,7 +728,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IEnumerable<OptionSetMetadata> optionSets =
                 entityMetadata
                 ?.Attributes
-                ?.OfType<PicklistAttributeMetadata>()
+                ?.OfType<EnumAttributeMetadata>()
                 .Where(a => a.OptionSet.IsGlobal.GetValueOrDefault())
                 .Select(a => a.OptionSet)
                 .GroupBy(o => o.MetadataId)

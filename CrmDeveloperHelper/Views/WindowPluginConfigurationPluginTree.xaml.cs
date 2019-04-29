@@ -430,17 +430,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!string.IsNullOrEmpty(pluginTypeName))
             {
-                steps = steps.Where(s => s.PluginType.TypeName.StartsWith(pluginTypeName, StringComparison.OrdinalIgnoreCase));
+                steps = steps.Where(s => s.PluginType.TypeName.StartsWith(pluginTypeName, StringComparison.InvariantCultureIgnoreCase));
             }
 
             if (!string.IsNullOrEmpty(messageName))
             {
-                steps = steps.Where(s => s.PluginStep.Message.StartsWith(messageName, StringComparison.OrdinalIgnoreCase));
+                steps = steps.Where(s => s.PluginStep.Message.StartsWith(messageName, StringComparison.InvariantCultureIgnoreCase));
             }
 
             if (!string.IsNullOrEmpty(entityName))
             {
-                steps = steps.Where(s => s.PluginStep.PrimaryEntity.StartsWith(entityName, StringComparison.OrdinalIgnoreCase));
+                steps = steps.Where(s => s.PluginStep.PrimaryEntity.StartsWith(entityName, StringComparison.InvariantCultureIgnoreCase));
             }
 
             var stages = GetStages();

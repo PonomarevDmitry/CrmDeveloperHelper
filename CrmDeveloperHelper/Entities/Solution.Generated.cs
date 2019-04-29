@@ -1263,7 +1263,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
-                //public const string publisheridname = "publisheridname";
+                public const string publisheridname = "publisheridname";
 
                 ///<summary>
                 /// SchemaName: PublisherIdOptionValuePrefix

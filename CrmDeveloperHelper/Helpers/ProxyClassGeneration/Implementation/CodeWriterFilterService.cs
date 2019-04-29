@@ -6,11 +6,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 {
     internal sealed class CodeWriterFilterService : ICodeWriterFilterService
     {
-        private readonly List<string> _excludedNamespaces = new List<string>();
+        private readonly HashSet<string> _excludedNamespaces = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
         private readonly string _messageNamespace;
-        private readonly bool _generateMessages;
-        private readonly bool _generateCustomActions;
-        private readonly bool _generateServiceContext;
 
         private readonly CreateFileWithEntityMetadataCSharpConfiguration _config;
 
@@ -70,13 +68,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                 return false;
             }
 
-            if (entityMetadata.IsIntersect.GetValueOrDefault()
-                || string.Equals(entityMetadata.LogicalName, "activityparty", StringComparison.Ordinal)
-                || string.Equals(entityMetadata.LogicalName, "calendarrule", StringComparison.Ordinal)
-            )
-            {
-                return true;
-            }
+            return true;
+
+            //if (entityMetadata.IsIntersect.GetValueOrDefault()
+            //    || string.Equals(entityMetadata.LogicalName, "activityparty", StringComparison.InvariantCultureIgnoreCase)
+            //    //|| string.Equals(entityMetadata.LogicalName, "calendarrule", StringComparison.InvariantCultureIgnoreCase)
+            //)
+            //{
+            //    return true;
+            //}
 
             //IMetadataProviderService service = (IMetadataProviderService)services.GetService(typeof(IMetadataProviderService));
             //foreach (SdkMessage sdkMessage in (!(service is IMetadataProviderService2) ? service.LoadMetadata() : ((IMetadataProviderService2)service).LoadMetadata(services)).Messages.MessageCollection.Values)
@@ -94,8 +94,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             //        }
             //    }
             //}
-
-            return true;
         }
 
         public bool GenerateAttribute(
@@ -121,10 +119,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         {
             if (!string.IsNullOrEmpty(attributeMetadata.AttributeOf)
                 && !(attributeMetadata is ImageAttributeMetadata)
-                && !attributeMetadata.LogicalName.EndsWith("_url", StringComparison.OrdinalIgnoreCase)
+                && !attributeMetadata.LogicalName.EndsWith("_url", StringComparison.InvariantCultureIgnoreCase)
             )
             {
-                return !attributeMetadata.LogicalName.EndsWith("_timestamp", StringComparison.OrdinalIgnoreCase);
+                return !attributeMetadata.LogicalName.EndsWith("_timestamp", StringComparison.InvariantCultureIgnoreCase);
             }
 
             return false;
@@ -133,31 +131,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         public bool GenerateRelationship(
             RelationshipMetadataBase relationshipMetadata
             , EntityMetadata otherEntityMetadata
+            , CodeGenerationRelationshipType relationshipType
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            if (relationshipMetadata.RelationshipType == RelationshipType.OneToManyRelationship)
+            if (otherEntityMetadata == null)
             {
-                if (!_config.GenerateOneToMany)
-                {
-                    return false;
-                }
+                return false;
             }
-            else if (relationshipMetadata.RelationshipType == RelationshipType.ManyToManyRelationship)
+
+            if (relationshipType == CodeGenerationRelationshipType.ManyToManyRelationship)
             {
                 if (!_config.GenerateManyToMany)
                 {
                     return false;
                 }
             }
-            else
+            else if (relationshipType == CodeGenerationRelationshipType.OneToManyRelationship)
             {
-                return false;
+                if (!_config.GenerateOneToMany)
+                {
+                    return false;
+                }
             }
-
-            if (otherEntityMetadata == null
-                || string.Equals(otherEntityMetadata.LogicalName, "calendarrule", StringComparison.Ordinal)
-            )
+            else if (relationshipType == CodeGenerationRelationshipType.ManyToOneRelationship)
+            {
+                if (!_config.GenerateManyToOne)
+                {
+                    return false;
+                }
+            }
+            else
             {
                 return false;
             }
@@ -174,7 +178,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         public bool GenerateServiceContext(ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
-            return this._generateServiceContext;
+            return this._config.GenerateServiceContext;
         }
 
         public bool GenerateSdkMessage(
@@ -182,7 +186,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            return (this._generateMessages || this._generateCustomActions) && (!message.IsPrivate && message.SdkMessageFilters.Count != 0);
+            return (this._config.GenerateMessages || this._config.GenerateCustomActions) 
+                && (!message.IsPrivate && message.SdkMessageFilters.Count != 0);
         }
 
         public bool GenerateSdkMessagePair(
@@ -190,9 +195,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            if (!this._generateMessages && !this._generateCustomActions
-                || _excludedNamespaces.Contains(messagePair.MessageNamespace.ToUpperInvariant())
-                || this._generateCustomActions && !messagePair.Message.IsCustomAction
+            if (!this._config.GenerateMessages && !this._config.GenerateCustomActions
+                || _excludedNamespaces.Contains(messagePair.MessageNamespace)
+                || this._config.GenerateCustomActions && !messagePair.Message.IsCustomAction
             )
             {
                 return false;
@@ -203,7 +208,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                 return true;
             }
 
-            return string.Equals(this._messageNamespace, messagePair.MessageNamespace, StringComparison.OrdinalIgnoreCase);
+            return string.Equals(this._messageNamespace, messagePair.MessageNamespace, StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }

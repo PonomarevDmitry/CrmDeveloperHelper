@@ -304,14 +304,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     });
                 }
 
-                if (metaData is PicklistAttributeMetadata picklistMetadata
-                    && picklistMetadata.OptionSet != null
-                    && picklistMetadata.OptionSet.IsGlobal.GetValueOrDefault()
+                if (metaData is EnumAttributeMetadata enumAttributeMetadata
+                    && enumAttributeMetadata.OptionSet != null
+                    && enumAttributeMetadata.OptionSet.IsGlobal.GetValueOrDefault()
                     )
                 {
                     result.Add(new SolutionComponent()
                     {
-                        ObjectId = picklistMetadata.OptionSet.MetadataId,
+                        ObjectId = enumAttributeMetadata.OptionSet.MetadataId,
                         ComponentType = new OptionSetValue((int)ComponentType.OptionSet),
                     });
                 }

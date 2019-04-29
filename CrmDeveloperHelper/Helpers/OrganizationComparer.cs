@@ -1440,7 +1440,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         if (ContentCoparerHelper.IsEntityDifferentInField(commonItem.Entity1, commonItem.Entity2, fieldName))
                         {
-                            if (string.Equals(fieldName, Report.Schema.Attributes.bodybinary, StringComparison.OrdinalIgnoreCase))
+                            if (string.Equals(fieldName, Report.Schema.Attributes.bodybinary, StringComparison.InvariantCultureIgnoreCase))
                             {
                                 tabDiff.AddLine(fieldName, string.Empty, string.Format(Properties.OrganizationComparerStrings.FieldDifferenceReasonFormat3, Connection1.Name, Connection2.Name, "Differs"));
                             }

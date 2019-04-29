@@ -1,8 +1,10 @@
-﻿using Microsoft.Xrm.Sdk;
+﻿using Microsoft.CSharp;
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Client;
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using System.CodeDom;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -113,11 +115,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             }
 
             string validTypeName = this.CreateValidTypeName(string.IsNullOrEmpty(StaticNamingService.GetNameForEntity(entityMetadata)) ? entityMetadata.SchemaName : StaticNamingService.GetNameForEntity(entityMetadata));
+
             this._knowNames.Add(entityMetadata.MetadataId.Value.ToString(), validTypeName);
+
             return validTypeName;
         }
 
-        public string GetNameForAttribute(
+        public string GetNameForAttributeAsEntityProperty(
             EntityMetadata entityMetadata
             , AttributeMetadata attributeMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
@@ -128,14 +132,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                 return this._knowNames[entityMetadata.MetadataId.Value.ToString() + attributeMetadata.MetadataId.Value];
             }
 
-            string validName = NamingService.CreateValidName(StaticNamingService.GetNameForAttribute(attributeMetadata) ?? attributeMetadata.SchemaName);
-            INamingService service = iCodeGenerationServiceProvider.NamingService;
-            if (this._reservedAttributeNames.Contains(validName) || validName == service.GetNameForEntity(entityMetadata, iCodeGenerationServiceProvider))
+            var validName = GetNameForAttribute(entityMetadata, attributeMetadata, iCodeGenerationServiceProvider);
+
+            if (this._reservedAttributeNames.Contains(validName))
             {
                 validName += "1";
             }
 
             this._knowNames.Add(entityMetadata.MetadataId.Value.ToString() + attributeMetadata.MetadataId.Value, validName);
+
+            return validName;
+        }
+
+        public string GetNameForAttribute(
+            EntityMetadata entityMetadata
+            , AttributeMetadata attributeMetadata
+            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        {
+            string validName = NamingService.CreateValidName(StaticNamingService.GetNameForAttribute(attributeMetadata) ?? attributeMetadata.SchemaName);
+
+            CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
+
+            if (!provider.IsValidIdentifier(validName))
+            {
+                validName = "@" + validName;
+            }
+
             return validName;
         }
 
@@ -152,17 +174,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                 return this._knowNames[entityMetadata.MetadataId.Value.ToString() + relationshipMetadata.MetadataId.Value + str];
             }
 
-            string validName = NamingService.CreateValidName(!reflexiveRole.HasValue ? relationshipMetadata.SchemaName : (reflexiveRole.Value == EntityRole.Referenced ? "Referenced" + relationshipMetadata.SchemaName : "Referencing" + relationshipMetadata.SchemaName));
+            string validName = NamingService.CreateValidName(relationshipMetadata.SchemaName + (!reflexiveRole.HasValue ? string.Empty : reflexiveRole.Value == EntityRole.Referenced ? "_Referenced" : "_Referencing"));
 
-            Dictionary<string, string> dictionary = this._knowNames.Where<KeyValuePair<string, string>>(d => d.Key.StartsWith(entityMetadata.MetadataId.Value.ToString())).ToDictionary(d => d.Key, d => d.Value);
+            Dictionary<string, string> knownNamesForEntityMetadata = this._knowNames.Where(d => d.Key.StartsWith(entityMetadata.MetadataId.Value.ToString())).ToDictionary(d => d.Key, d => d.Value);
 
-            INamingService service = iCodeGenerationServiceProvider.NamingService;
-            if (this._reservedAttributeNames.Contains(validName) || validName == service.GetNameForEntity(entityMetadata, iCodeGenerationServiceProvider) || dictionary.ContainsValue(validName))
+            if (this._reservedAttributeNames.Contains(validName)
+                || knownNamesForEntityMetadata.ContainsValue(validName)
+            )
             {
                 validName += "1";
             }
 
             this._knowNames.Add(entityMetadata.MetadataId.Value.ToString() + relationshipMetadata.MetadataId.Value + str, validName);
+
             return validName;
         }
 
@@ -190,7 +214,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             }
 
             string validTypeName = this.CreateValidTypeName(messagePair.Request.Name);
+
             this._knowNames.Add(messagePair.Id.ToString(), validTypeName);
+
             return validTypeName;
         }
 
@@ -206,7 +232,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             }
 
             string validName = NamingService.CreateValidName(requestField.Name);
+
             this._knowNames.Add(request.Id.ToString() + requestField.Position.GetValueOrDefault().ToString(CultureInfo.InvariantCulture), validName);
+
             return validName;
         }
 

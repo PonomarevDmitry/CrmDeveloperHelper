@@ -11,7 +11,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             IEnumerable<EntityMetadata> entities
             , IEnumerable<OptionSetMetadataBase> optionSets
             , IEnumerable<CodeGenerationSdkMessage> messages
-            , string language
             , string outputFilePath
             , string outputNamespace
             , CodeGeneratorOptions options
@@ -20,7 +19,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         Task WriteEntityFileAsync(
             EntityMetadata entityMetadata
-            , string language
             , string outputFilePath
             , string outputNamespace
             , CodeGeneratorOptions options
@@ -29,36 +27,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         Task WriteSdkMessageAsync(
             CodeGenerationSdkMessage sdkMessage
-            , string language
-            , string outputFilePath
-            , string outputNamespace
-            , CodeGeneratorOptions options
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        );
-
-        void WriteEntitiesFile(
-            IEnumerable<EntityMetadata> entities
-            , IEnumerable<OptionSetMetadataBase> optionSets
-            , IEnumerable<CodeGenerationSdkMessage> messages
-            , string language
-            , string outputFilePath
-            , string outputNamespace
-            , CodeGeneratorOptions options
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        );
-
-        void WriteEntityFile(
-            EntityMetadata entityMetadata
-            , string language
-            , string outputFilePath
-            , string outputNamespace
-            , CodeGeneratorOptions options
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        );
-
-        void WriteSdkMessage(
-            CodeGenerationSdkMessage sdkMessage
-            , string language
             , string outputFilePath
             , string outputNamespace
             , CodeGeneratorOptions options

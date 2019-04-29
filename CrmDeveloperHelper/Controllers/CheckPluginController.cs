@@ -647,7 +647,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 string primary = (string)entity.GetAttributeValue<AliasedValue>(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode).Value;
 
-                if (!string.Equals(primary, "none", StringComparison.OrdinalIgnoreCase))
+                if (!string.Equals(primary, "none", StringComparison.InvariantCultureIgnoreCase))
                 {
                     result.Add(primary);
                 }
@@ -657,7 +657,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 string primary = (string)entity.GetAttributeValue<AliasedValue>(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterSecondaryObjectTypeCode).Value;
 
-                if (!string.Equals(primary, "none", StringComparison.OrdinalIgnoreCase))
+                if (!string.Equals(primary, "none", StringComparison.InvariantCultureIgnoreCase))
                 {
                     result.Add(primary);
                 }
@@ -676,7 +676,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     string primary = (string)step.GetAttributeValue<AliasedValue>(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode).Value;
 
-                    if (!string.Equals(primary, "none", StringComparison.OrdinalIgnoreCase))
+                    if (!string.Equals(primary, "none", StringComparison.InvariantCultureIgnoreCase))
                     {
                         foreach (var item in step.FilteringAttributesStrings)
                         {
@@ -938,7 +938,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     string primary = (string)image.GetAttributeValue<AliasedValue>(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode).Value;
 
-                    if (!string.Equals(primary, "none", StringComparison.OrdinalIgnoreCase))
+                    if (!string.Equals(primary, "none", StringComparison.InvariantCultureIgnoreCase))
                     {
                         foreach (var item in image.Attributes1Strings)
                         {

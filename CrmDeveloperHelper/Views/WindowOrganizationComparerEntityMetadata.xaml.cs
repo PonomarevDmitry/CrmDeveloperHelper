@@ -608,11 +608,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 VerbatimOrder = true,
             };
 
-            var task1 = codeGenerationService.WriteEntityFileAsync(entityMetadataFull1, "CSharp", filePath1, service1.ConnectionData.NamespaceClasses, options, codeGenerationServiceProvider1);
+            var task1 = codeGenerationService.WriteEntityFileAsync(entityMetadataFull1, filePath1, service1.ConnectionData.NamespaceClasses, options, codeGenerationServiceProvider1);
 
             if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
             {
-                await codeGenerationService.WriteEntityFileAsync(entityMetadataFull2, "CSharp", filePath2, service2.ConnectionData.NamespaceClasses, options, codeGenerationServiceProvider2);
+                await codeGenerationService.WriteEntityFileAsync(entityMetadataFull2, filePath2, service2.ConnectionData.NamespaceClasses, options, codeGenerationServiceProvider2);
             }
 
             this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service1.ConnectionData.Name, config.EntityName, filePath1);
@@ -976,7 +976,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     VerbatimOrder = true,
                 };
 
-                await codeGenerationService.WriteEntityFileAsync(entityMetadataFull, "CSharp", filePath, service.ConnectionData.NamespaceClasses, options, codeGenerationServiceProvider);
+                await codeGenerationService.WriteEntityFileAsync(entityMetadataFull, filePath, service.ConnectionData.NamespaceClasses, options, codeGenerationServiceProvider);
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
 
@@ -1412,7 +1412,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IEnumerable<OptionSetMetadata> optionSets =
                 entityMetadata
                 ?.Attributes
-                ?.OfType<PicklistAttributeMetadata>()
+                ?.OfType<EnumAttributeMetadata>()
                 .Where(a => a.OptionSet.IsGlobal.GetValueOrDefault())
                 .Select(a => a.OptionSet)
                 .GroupBy(o => o.MetadataId)
@@ -1553,7 +1553,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IEnumerable<OptionSetMetadata> optionSets =
                 entityMetadata
                 ?.Attributes
-                ?.OfType<PicklistAttributeMetadata>()
+                ?.OfType<EnumAttributeMetadata>()
                 .Where(a => a.OptionSet.IsGlobal.GetValueOrDefault())
                 .Select(a => a.OptionSet)
                 .GroupBy(o => o.MetadataId)

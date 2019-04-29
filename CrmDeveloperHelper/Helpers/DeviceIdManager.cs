@@ -236,7 +236,7 @@ namespace Microsoft.Crm.Services.Utility
 
             const string HostSearchString = "login.live";
             if (issuerUri.Host.Length > HostSearchString.Length &&
-                issuerUri.Host.StartsWith(HostSearchString, StringComparison.OrdinalIgnoreCase))
+                issuerUri.Host.StartsWith(HostSearchString, StringComparison.InvariantCultureIgnoreCase))
             {
                 string environment = issuerUri.Host.Substring(HostSearchString.Length);
 
@@ -680,7 +680,7 @@ namespace Microsoft.Crm.Services.Utility
                 if (!string.IsNullOrEmpty(value))
                 {
                     //Parse the error code
-                    if (value.StartsWith("dc", StringComparison.Ordinal))
+                    if (value.StartsWith("dc", StringComparison.InvariantCultureIgnoreCase))
                     {
                         int code;
                         if (int.TryParse(value.Substring(2), NumberStyles.Integer,

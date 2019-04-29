@@ -57,7 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             values.AddRange(new[]
             {
                 entity.BaseEntityName
-                , entity.name
+                , entity.Name
                 , entity.MatchingEntityName
                 , entity.Id.ToString()
                 , behavior

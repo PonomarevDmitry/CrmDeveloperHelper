@@ -15,6 +15,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         bool GenerateRelationship(
             RelationshipMetadataBase relationshipMetadata
             , EntityMetadata otherEntityMetadata
+            , CodeGenerationRelationshipType relationshipType
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         );
 

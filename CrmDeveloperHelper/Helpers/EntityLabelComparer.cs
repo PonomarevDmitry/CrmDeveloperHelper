@@ -585,10 +585,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (attr1.GetType().Name == attr2.GetType().Name)
                 {
-                    if (attr1 is Microsoft.Xrm.Sdk.Metadata.PicklistAttributeMetadata)
+                    if (attr1 is Microsoft.Xrm.Sdk.Metadata.EnumAttributeMetadata)
                     {
-                        var picklistAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.PicklistAttributeMetadata;
-                        var picklistAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.PicklistAttributeMetadata;
+                        var picklistAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.EnumAttributeMetadata;
+                        var picklistAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.EnumAttributeMetadata;
 
                         if (picklistAttrib1.OptionSet != null && picklistAttrib2.OptionSet != null)
                         {
@@ -632,12 +632,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
 
-            if (attributeName.Equals("objectid", StringComparison.OrdinalIgnoreCase))
+            if (attributeName.Equals("objectid", StringComparison.InvariantCultureIgnoreCase))
             {
-                if (entityName.Equals("queueitem", StringComparison.OrdinalIgnoreCase)
-                    || entityName.Equals("principalobjectattributeaccess", StringComparison.OrdinalIgnoreCase)
-                    || entityName.Equals("annotation", StringComparison.OrdinalIgnoreCase)
-                    || entityName.Equals("userentityinstancedata", StringComparison.OrdinalIgnoreCase)
+                if (entityName.Equals("queueitem", StringComparison.InvariantCultureIgnoreCase)
+                    || entityName.Equals("principalobjectattributeaccess", StringComparison.InvariantCultureIgnoreCase)
+                    || entityName.Equals("annotation", StringComparison.InvariantCultureIgnoreCase)
+                    || entityName.Equals("userentityinstancedata", StringComparison.InvariantCultureIgnoreCase)
 
                     )
                 {
@@ -645,20 +645,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            if (entityName.Equals("duplicaterecord", StringComparison.OrdinalIgnoreCase))
+            if (entityName.Equals("duplicaterecord", StringComparison.InvariantCultureIgnoreCase))
             {
-                if (attributeName.Equals("baserecordid", StringComparison.OrdinalIgnoreCase)
-                    || attributeName.Equals("duplicaterecordid", StringComparison.OrdinalIgnoreCase)
+                if (attributeName.Equals("baserecordid", StringComparison.InvariantCultureIgnoreCase)
+                    || attributeName.Equals("duplicaterecordid", StringComparison.InvariantCultureIgnoreCase)
                     )
                 {
                     return true;
                 }
             }
 
-            if (entityName.Equals("connection", StringComparison.OrdinalIgnoreCase))
+            if (entityName.Equals("connection", StringComparison.InvariantCultureIgnoreCase))
             {
-                if (attributeName.Equals("record1id", StringComparison.OrdinalIgnoreCase)
-                    || attributeName.Equals("record2id", StringComparison.OrdinalIgnoreCase)
+                if (attributeName.Equals("record1id", StringComparison.InvariantCultureIgnoreCase)
+                    || attributeName.Equals("record2id", StringComparison.InvariantCultureIgnoreCase)
                     )
                 {
                     return true;

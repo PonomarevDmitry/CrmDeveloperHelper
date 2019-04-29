@@ -398,7 +398,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            var attr = _entityMetadata?.Attributes?.FirstOrDefault(a => a.LogicalName.Equals(attribute, StringComparison.OrdinalIgnoreCase));
+            var attr = _entityMetadata?.Attributes?.FirstOrDefault(a => a.LogicalName.Equals(attribute, StringComparison.InvariantCultureIgnoreCase));
 
             if (attr == null)
             {
@@ -479,7 +479,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     if (!string.IsNullOrEmpty(control.Attribute) && _entityMetadata != null && _entityMetadata.Attributes != null)
                     {
-                        var attr = _entityMetadata?.Attributes?.FirstOrDefault(a => a.LogicalName.Equals(control.Attribute, StringComparison.OrdinalIgnoreCase));
+                        var attr = _entityMetadata?.Attributes?.FirstOrDefault(a => a.LogicalName.Equals(control.Attribute, StringComparison.InvariantCultureIgnoreCase));
 
                         if (attr != null && attr.DisplayName != null && attr.DisplayName.LocalizedLabels != null)
                         {
@@ -973,10 +973,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             foreach (var child in nodeParameters.Elements())
             {
-                if (string.Equals(child.Name.ToString(), "DefaultViewId", StringComparison.OrdinalIgnoreCase)
-                    || string.Equals(child.Name.ToString(), "AvailableViewIds", StringComparison.OrdinalIgnoreCase)
-                    || string.Equals(child.Name.ToString(), "ViewId", StringComparison.OrdinalIgnoreCase)
-                    || string.Equals(child.Name.ToString(), "ViewIds", StringComparison.OrdinalIgnoreCase)
+                if (string.Equals(child.Name.ToString(), "DefaultViewId", StringComparison.InvariantCultureIgnoreCase)
+                    || string.Equals(child.Name.ToString(), "AvailableViewIds", StringComparison.InvariantCultureIgnoreCase)
+                    || string.Equals(child.Name.ToString(), "ViewId", StringComparison.InvariantCultureIgnoreCase)
+                    || string.Equals(child.Name.ToString(), "ViewIds", StringComparison.InvariantCultureIgnoreCase)
                     )
                 {
                     StringBuilder str = new StringBuilder();
@@ -1009,7 +1009,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     result.AppendLine().AppendFormat("  {0} = {1}", child.Name, str.ToString());
                 }
-                else if (string.Equals(child.Name.ToString(), "VisualizationId", StringComparison.OrdinalIgnoreCase))
+                else if (string.Equals(child.Name.ToString(), "VisualizationId", StringComparison.InvariantCultureIgnoreCase))
                 {
                     StringBuilder str = new StringBuilder();
 
@@ -1041,7 +1041,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     result.AppendLine().AppendFormat("  {0} = {1}", child.Name, str.ToString());
                 }
-                else if (string.Equals(child.Name.ToString(), "WebResourceId", StringComparison.OrdinalIgnoreCase))
+                else if (string.Equals(child.Name.ToString(), "WebResourceId", StringComparison.InvariantCultureIgnoreCase))
                 {
                     StringBuilder str = new StringBuilder();
 

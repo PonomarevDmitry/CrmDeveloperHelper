@@ -195,7 +195,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         /// </summary>
         [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(EntityPrimaryNameAttribute)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public string name
+        public string Name
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
@@ -205,9 +205,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
-                this.OnPropertyChanging(nameof(name));
+                this.OnPropertyChanging(nameof(Name));
                 this.SetAttributeValue(EntityPrimaryNameAttribute, value);
-                this.OnPropertyChanged(nameof(name));
+                this.OnPropertyChanged(nameof(Name));
             }
         }
         #endregion

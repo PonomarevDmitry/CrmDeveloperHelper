@@ -205,26 +205,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         _dictAttribute.TryAdd(metaAttribute.MetadataId.Value, metaAttribute);
                     }
 
-                    if (metaAttribute is StatusAttributeMetadata statusAttributeMetadata
-                            && statusAttributeMetadata.OptionSet != null
-                        )
-                    {
-                        if (!this.AllOptionSetMetadata.ContainsKey(statusAttributeMetadata.OptionSet.MetadataId.Value))
-                        {
-                            this.AllOptionSetMetadata.TryAdd(statusAttributeMetadata.OptionSet.MetadataId.Value, statusAttributeMetadata.OptionSet);
-                        }
-                    }
-
-                    if (metaAttribute is StateAttributeMetadata stateAttributeMetadata
-                            && stateAttributeMetadata.OptionSet != null
-                        )
-                    {
-                        if (!this.AllOptionSetMetadata.ContainsKey(stateAttributeMetadata.OptionSet.MetadataId.Value))
-                        {
-                            this.AllOptionSetMetadata.TryAdd(stateAttributeMetadata.OptionSet.MetadataId.Value, stateAttributeMetadata.OptionSet);
-                        }
-                    }
-
                     if (metaAttribute is BooleanAttributeMetadata booleanAttributeMetadata
                             && booleanAttributeMetadata.OptionSet != null
                         )
@@ -235,13 +215,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         }
                     }
 
-                    if (metaAttribute is PicklistAttributeMetadata picklistAttributeMetadata
-                            && picklistAttributeMetadata.OptionSet != null
+                    if (metaAttribute is EnumAttributeMetadata enumAttributeMetadata
+                            && enumAttributeMetadata.OptionSet != null
                         )
                     {
-                        if (!this.AllOptionSetMetadata.ContainsKey(picklistAttributeMetadata.OptionSet.MetadataId.Value))
+                        if (!this.AllOptionSetMetadata.ContainsKey(enumAttributeMetadata.OptionSet.MetadataId.Value))
                         {
-                            this.AllOptionSetMetadata.TryAdd(picklistAttributeMetadata.OptionSet.MetadataId.Value, picklistAttributeMetadata.OptionSet);
+                            this.AllOptionSetMetadata.TryAdd(enumAttributeMetadata.OptionSet.MetadataId.Value, enumAttributeMetadata.OptionSet);
                         }
                     }
                 }
@@ -375,7 +355,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         {
             EntityMetadata metadata = null;
 
-            metadata = _dictEntity.Values.FirstOrDefault(e => string.Equals(entityName, e.LogicalName, StringComparison.OrdinalIgnoreCase));
+            metadata = _dictEntity.Values.FirstOrDefault(e => string.Equals(entityName, e.LogicalName, StringComparison.InvariantCultureIgnoreCase));
 
             if (metadata != null)
             {
@@ -415,7 +395,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         {
             EntityMetadata metadata = null;
 
-            metadata = _dictEntity.Values.FirstOrDefault(e => string.Equals(entityName, e.LogicalName, StringComparison.OrdinalIgnoreCase));
+            metadata = _dictEntity.Values.FirstOrDefault(e => string.Equals(entityName, e.LogicalName, StringComparison.InvariantCultureIgnoreCase));
 
             if (metadata != null)
             {
@@ -453,7 +433,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     HandleEntityMetadata(metaEntity);
                 }
 
-                return _dictEntity.Values.FirstOrDefault(e => string.Equals(entityName, e.LogicalName, StringComparison.OrdinalIgnoreCase));
+                return _dictEntity.Values.FirstOrDefault(e => string.Equals(entityName, e.LogicalName, StringComparison.InvariantCultureIgnoreCase));
             }
             catch (Exception ex)
             {
@@ -470,7 +450,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         public OptionSetMetadata GetOptionSetMetadata(string name)
         {
-            return this.AllOptionSetMetadata?.Values.OfType<OptionSetMetadata>().FirstOrDefault(o => string.Equals(name, o.Name, StringComparison.OrdinalIgnoreCase));
+            return this.AllOptionSetMetadata?.Values.OfType<OptionSetMetadata>().FirstOrDefault(o => string.Equals(name, o.Name, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public AttributeMetadata GetAttributeMetadata(Guid idAttribute)
@@ -545,26 +525,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     _dictAttribute.TryAdd(metaAttribute.MetadataId.Value, metaAttribute);
                 }
 
-                if (metaAttribute is StatusAttributeMetadata statusAttributeMetadata
-                            && statusAttributeMetadata.OptionSet != null
-                        )
-                {
-                    if (!this.AllOptionSetMetadata.ContainsKey(statusAttributeMetadata.OptionSet.MetadataId.Value))
-                    {
-                        this.AllOptionSetMetadata.TryAdd(statusAttributeMetadata.OptionSet.MetadataId.Value, statusAttributeMetadata.OptionSet);
-                    }
-                }
-
-                if (metaAttribute is StateAttributeMetadata stateAttributeMetadata
-                        && stateAttributeMetadata.OptionSet != null
-                    )
-                {
-                    if (!this.AllOptionSetMetadata.ContainsKey(stateAttributeMetadata.OptionSet.MetadataId.Value))
-                    {
-                        this.AllOptionSetMetadata.TryAdd(stateAttributeMetadata.OptionSet.MetadataId.Value, stateAttributeMetadata.OptionSet);
-                    }
-                }
-
                 if (metaAttribute is BooleanAttributeMetadata booleanAttributeMetadata
                         && booleanAttributeMetadata.OptionSet != null
                     )
@@ -575,13 +535,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     }
                 }
 
-                if (metaAttribute is PicklistAttributeMetadata picklistAttributeMetadata
-                        && picklistAttributeMetadata.OptionSet != null
+                if (metaAttribute is EnumAttributeMetadata enumAttributeMetadata
+                        && enumAttributeMetadata.OptionSet != null
                     )
                 {
-                    if (!this.AllOptionSetMetadata.ContainsKey(picklistAttributeMetadata.OptionSet.MetadataId.Value))
+                    if (!this.AllOptionSetMetadata.ContainsKey(enumAttributeMetadata.OptionSet.MetadataId.Value))
                     {
-                        this.AllOptionSetMetadata.TryAdd(picklistAttributeMetadata.OptionSet.MetadataId.Value, picklistAttributeMetadata.OptionSet);
+                        this.AllOptionSetMetadata.TryAdd(enumAttributeMetadata.OptionSet.MetadataId.Value, enumAttributeMetadata.OptionSet);
                     }
                 }
 

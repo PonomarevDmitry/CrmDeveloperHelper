@@ -296,7 +296,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 var items = ApplicationObject.SelectedItems.Cast<SelectedItem>().ToList();
 
-                HashSet<string> hash = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                HashSet<string> hash = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
                 foreach (var item in items)
                 {

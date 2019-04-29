@@ -580,13 +580,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private static bool IsEntityOrLinkElement(XElement element)
         {
-            return string.Equals(element.Name.LocalName, "entity", StringComparison.OrdinalIgnoreCase)
-                || string.Equals(element.Name.LocalName, "link-entity", StringComparison.OrdinalIgnoreCase);
+            return string.Equals(element.Name.LocalName, "entity", StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(element.Name.LocalName, "link-entity", StringComparison.InvariantCultureIgnoreCase);
         }
 
         private static bool IsLinkElement(XElement element)
         {
-            return string.Equals(element.Name.LocalName, "link-entity", StringComparison.OrdinalIgnoreCase);
+            return string.Equals(element.Name.LocalName, "link-entity", StringComparison.InvariantCultureIgnoreCase);
         }
 
         private class PrimaryGuidView : IComparable, IComparable<PrimaryGuidView>, IEquatable<PrimaryGuidView>
@@ -747,6 +747,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                         value = string.Format("{0,-5}        CanBeChanged = {1,-5}", booleanManagedProperty.Value, booleanManagedProperty.CanBeChanged);
                     }
 
+                    if (value is EntityCollection valueEntityCollection)
+                    {
+                        value = string.Format("EnitityCollection {0}: {1}", valueEntityCollection.EntityName, (valueEntityCollection.Entities?.Count).GetValueOrDefault());
+                    }
+
                     if (dataTable.Columns.IndexOf(columnName) == -1)
                     {
                         if (!columnMapping.ContainsKey(attributeName))
@@ -862,23 +867,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         private static bool IsAttributeOrAllElement(XElement element)
         {
-            return string.Equals(element.Name.LocalName, "attribute", StringComparison.OrdinalIgnoreCase)
-                || string.Equals(element.Name.LocalName, "all-attributes", StringComparison.OrdinalIgnoreCase);
+            return string.Equals(element.Name.LocalName, "attribute", StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(element.Name.LocalName, "all-attributes", StringComparison.InvariantCultureIgnoreCase);
         }
 
         private static bool IsAttributeElement(XElement element)
         {
-            return string.Equals(element.Name.LocalName, "attribute", StringComparison.OrdinalIgnoreCase);
+            return string.Equals(element.Name.LocalName, "attribute", StringComparison.InvariantCultureIgnoreCase);
         }
 
         private static bool IsAllAttributesElement(XElement element)
         {
-            return string.Equals(element.Name.LocalName, "all-attributes", StringComparison.OrdinalIgnoreCase);
+            return string.Equals(element.Name.LocalName, "all-attributes", StringComparison.InvariantCultureIgnoreCase);
         }
 
         private static bool IsConditonElement(XElement element)
         {
-            return string.Equals(element.Name.LocalName, "condition", StringComparison.OrdinalIgnoreCase);
+            return string.Equals(element.Name.LocalName, "condition", StringComparison.InvariantCultureIgnoreCase);
         }
 
         private void ClearGridAndTextBox()

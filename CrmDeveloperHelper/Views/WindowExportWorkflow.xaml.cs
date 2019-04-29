@@ -117,7 +117,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 cmBCategory.Items.Add(string.Empty);
 
-                if (attributeCategory != null && attributeCategory is PicklistAttributeMetadata picklist)
+                if (attributeCategory != null && attributeCategory is EnumAttributeMetadata picklist)
                 {
                     foreach (var item in picklist.OptionSet.Options.Where(o => o.Value.HasValue))
                     {
@@ -150,7 +150,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 cmBMode.Items.Add(string.Empty);
 
-                if (attributeMode != null && attributeMode is PicklistAttributeMetadata picklist)
+                if (attributeMode != null && attributeMode is EnumAttributeMetadata picklist)
                 {
                     foreach (var item in picklist.OptionSet.Options.Where(o => o.Value.HasValue))
                     {

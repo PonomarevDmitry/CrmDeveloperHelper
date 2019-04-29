@@ -51,6 +51,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public bool AddConstructorWithAnonymousTypeObject { get; private set; }
 
+        public bool GenerateMessages { get; private set; }
+
+        public bool GenerateCustomActions { get; private set; }
+
+        public bool GenerateServiceContext { get; private set; }
+
         public CreateFileWithEntityMetadataCSharpConfiguration(
             string entityName
             , string tabSpacer

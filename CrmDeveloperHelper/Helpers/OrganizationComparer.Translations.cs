@@ -395,8 +395,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     {
                         var displayString2 = translation2.DisplayStrings.FirstOrDefault(d =>
-                            string.Equals(displayString1.EntityName, d.EntityName, StringComparison.OrdinalIgnoreCase)
-                            && string.Equals(displayString1.StringKey, d.StringKey, StringComparison.OrdinalIgnoreCase)
+                            string.Equals(displayString1.EntityName, d.EntityName, StringComparison.InvariantCultureIgnoreCase)
+                            && string.Equals(displayString1.StringKey, d.StringKey, StringComparison.InvariantCultureIgnoreCase)
                             );
 
                         if (displayString2 != null)
@@ -415,8 +415,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     {
                         var displayString1 = translation1.DisplayStrings.FirstOrDefault(d =>
-                            string.Equals(displayString2.EntityName, d.EntityName, StringComparison.OrdinalIgnoreCase)
-                            && string.Equals(displayString2.StringKey, d.StringKey, StringComparison.OrdinalIgnoreCase)
+                            string.Equals(displayString2.EntityName, d.EntityName, StringComparison.InvariantCultureIgnoreCase)
+                            && string.Equals(displayString2.StringKey, d.StringKey, StringComparison.InvariantCultureIgnoreCase)
                             );
 
                         if (displayString1 != null)
@@ -434,8 +434,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 foreach (var displayString1 in translation1.DisplayStrings)
                 {
                     var displayString2 = translation2.DisplayStrings.FirstOrDefault(d =>
-                            string.Equals(displayString1.EntityName, d.EntityName, StringComparison.OrdinalIgnoreCase)
-                            && string.Equals(displayString1.StringKey, d.StringKey, StringComparison.OrdinalIgnoreCase)
+                            string.Equals(displayString1.EntityName, d.EntityName, StringComparison.InvariantCultureIgnoreCase)
+                            && string.Equals(displayString1.StringKey, d.StringKey, StringComparison.InvariantCultureIgnoreCase)
                             );
 
                     if (displayString2 == null)
@@ -533,8 +533,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     {
                         var locLabel2 = translation2.LocalizedLabels.FirstOrDefault(d =>
-                            string.Equals(locLabel1.EntityName, d.EntityName, StringComparison.OrdinalIgnoreCase)
-                            && string.Equals(locLabel1.ColumnName, d.ColumnName, StringComparison.OrdinalIgnoreCase)
+                            string.Equals(locLabel1.EntityName, d.EntityName, StringComparison.InvariantCultureIgnoreCase)
+                            && string.Equals(locLabel1.ColumnName, d.ColumnName, StringComparison.InvariantCultureIgnoreCase)
                             && locLabel1.ObjectId == d.ObjectId
                             );
 
@@ -554,8 +554,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     {
                         var locLabel1 = translation1.LocalizedLabels.FirstOrDefault(d =>
-                            string.Equals(locLabel2.EntityName, d.EntityName, StringComparison.OrdinalIgnoreCase)
-                            && string.Equals(locLabel2.ColumnName, d.ColumnName, StringComparison.OrdinalIgnoreCase)
+                            string.Equals(locLabel2.EntityName, d.EntityName, StringComparison.InvariantCultureIgnoreCase)
+                            && string.Equals(locLabel2.ColumnName, d.ColumnName, StringComparison.InvariantCultureIgnoreCase)
                             && locLabel2.ObjectId == d.ObjectId
                             );
 
@@ -574,8 +574,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 foreach (var locLabel1 in translation1.LocalizedLabels)
                 {
                     var locLabel2 = translation2.LocalizedLabels.FirstOrDefault(d =>
-                            string.Equals(locLabel1.EntityName, d.EntityName, StringComparison.OrdinalIgnoreCase)
-                            && string.Equals(locLabel1.ColumnName, d.ColumnName, StringComparison.OrdinalIgnoreCase)
+                            string.Equals(locLabel1.EntityName, d.EntityName, StringComparison.InvariantCultureIgnoreCase)
+                            && string.Equals(locLabel1.ColumnName, d.ColumnName, StringComparison.InvariantCultureIgnoreCase)
                             && locLabel1.ObjectId == d.ObjectId
                             );
 

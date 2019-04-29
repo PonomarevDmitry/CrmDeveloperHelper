@@ -648,7 +648,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             );
 
-            var metadata = response.EntityMetadata.SingleOrDefault(e => string.Equals(e.LogicalName, WebResource.EntityLogicalName, StringComparison.OrdinalIgnoreCase));
+            var metadata = response.EntityMetadata.SingleOrDefault(e => string.Equals(e.LogicalName, WebResource.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase));
 
             if (metadata == null)
             {
@@ -665,7 +665,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     continue;
                 }
 
-                if (string.Equals(attr.LogicalName, WebResource.Schema.Attributes.content, StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(attr.LogicalName, WebResource.Schema.Attributes.content, StringComparison.InvariantCultureIgnoreCase))
                 {
                     continue;
                 }
@@ -776,9 +776,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                     if (!string.IsNullOrEmpty(extension))
                     {
-                        if (temp.EndsWith(extension, StringComparison.OrdinalIgnoreCase))
+                        if (temp.EndsWith(extension, StringComparison.InvariantCultureIgnoreCase))
                         {
-                            yield return temp.Substring(0, temp.LastIndexOf(extension, StringComparison.OrdinalIgnoreCase));
+                            yield return temp.Substring(0, temp.LastIndexOf(extension, StringComparison.InvariantCultureIgnoreCase));
                         }
                         else
                         {

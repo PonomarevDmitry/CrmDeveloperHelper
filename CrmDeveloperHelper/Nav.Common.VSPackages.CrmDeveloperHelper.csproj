@@ -700,6 +700,7 @@
     <Compile Include="Helpers\PrivilegeDepthConverter.cs" />
     <Compile Include="Helpers\ProgressReporter.cs" />
     <Compile Include="Helpers\PropertiesHelper.cs" />
+    <Compile Include="Helpers\ProxyClassGeneration\CodeGenerationRelationshipType.cs" />
     <Compile Include="Helpers\ProxyClassGeneration\CodeGenerationType.cs" />
     <Compile Include="Helpers\ProxyClassGeneration\Implementation\CodeGenerationService.cs" />
     <Compile Include="Helpers\ProxyClassGeneration\Implementation\CodeGenerationServiceProvider.cs" />

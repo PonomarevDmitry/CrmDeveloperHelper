@@ -6,6 +6,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -106,7 +107,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 WriteSummaryEntity();
             }
 
-            WriteLine("public partial class {0}", _entityMetadata.SchemaName);
+            var entityClassName = _iCodeGenerationServiceProvider.NamingService.GetNameForEntity(_entityMetadata, _iCodeGenerationServiceProvider);
+
+            WriteLine("public partial class {0}", entityClassName);
             WriteLine("{");
 
             if (_config.GenerateIntoSchemaClass)
@@ -182,7 +185,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private HashSet<string> GetLinkedEntities(EntityMetadata entityMetadata)
         {
-            HashSet<string> result = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            HashSet<string> result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
             if (entityMetadata.Attributes != null)
             {
@@ -426,9 +429,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteSummary(attributeMetadata.DisplayName, attributeMetadata.Description, null, footers);
 
-            string str = string.Format("public {0} string {1} = \"{2}\";", _fieldHeader, attributeMetadata.LogicalName.ToLower(), attributeMetadata.LogicalName);
+            var attributeName = _iCodeGenerationServiceProvider.NamingService.GetNameForAttribute(_entityMetadata, attributeMetadata, _iCodeGenerationServiceProvider).ToLower();
 
-            bool ignore = !this._iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateAttribute(attributeMetadata, this._iCodeGenerationServiceProvider);
+            CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
+
+            if (!provider.IsValidIdentifier(attributeName))
+            {
+                attributeName = "@" + attributeName;
+            }
+
+            string str = string.Format("public {0} string {1} = \"{2}\";", _fieldHeader, attributeName, attributeMetadata.LogicalName);
+
+            bool ignore =
+            !(
+                this._iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateAttribute(attributeMetadata, this._iCodeGenerationServiceProvider)
+                || attributeMetadata.IsValidForGrid.GetValueOrDefault()
+                || attributeMetadata.IsValidForForm.GetValueOrDefault()
+                || (attributeMetadata.IsValidForAdvancedFind?.Value).GetValueOrDefault()
+                || string.Equals(attributeMetadata.LogicalName, "solutionid", StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(attributeMetadata.LogicalName, "supportingsolutionid", StringComparison.InvariantCultureIgnoreCase)
+            );
 
             if (ignore)
             {
@@ -513,7 +533,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var statusAttr = _entityMetadata.Attributes.OfType<StatusAttributeMetadata>().FirstOrDefault();
 
             var picklists = _entityMetadata
-                .Attributes.OfType<PicklistAttributeMetadata>()
+                .Attributes
+                .Where(a => a is PicklistAttributeMetadata || a is MultiSelectPicklistAttributeMetadata)
+                .OfType<EnumAttributeMetadata>()
                 .Where(p => (p.OptionSet.IsGlobal.GetValueOrDefault() && this._config.GenerateGlobalOptionSet)
                     || (!p.OptionSet.IsGlobal.GetValueOrDefault() && this._config.GenerateLocalOptionSet))
                 ;
@@ -528,8 +550,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return first;
             }
 
-            var picklists = _entityMetadata.Attributes
-                .OfType<PicklistAttributeMetadata>()
+            var picklists = _entityMetadata
+                .Attributes
+                .Where(a => a is PicklistAttributeMetadata || a is MultiSelectPicklistAttributeMetadata)
+                .OfType<EnumAttributeMetadata>()
                 .Where(p => (p.OptionSet.IsGlobal.GetValueOrDefault() && this._config.GenerateGlobalOptionSet)
                         || (!p.OptionSet.IsGlobal.GetValueOrDefault() && this._config.GenerateLocalOptionSet)
                         )
@@ -923,7 +947,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     EntityMetadata entityMetadata = null;
                     string nameField = string.Empty;
 
-                    if (!string.Equals(this._entityMetadata.LogicalName, relationship.ReferencedEntity, StringComparison.OrdinalIgnoreCase))
+                    if (!string.Equals(this._entityMetadata.LogicalName, relationship.ReferencedEntity, StringComparison.InvariantCultureIgnoreCase))
                     {
                         nameField = "ReferencedEntity";
 
@@ -931,7 +955,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         entityMetadata = _solutionComponentDescriptor.MetadataSource.GetEntityMetadata(relationship.ReferencedEntity);
                     }
-                    else if (!string.Equals(this._entityMetadata.LogicalName, relationship.ReferencingEntity, StringComparison.OrdinalIgnoreCase))
+                    else if (!string.Equals(this._entityMetadata.LogicalName, relationship.ReferencingEntity, StringComparison.InvariantCultureIgnoreCase))
                     {
                         nameField = "ReferencingEntity";
 
@@ -966,8 +990,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 {
                     var attributeMaps = (await _listAttributeMap).Where(a =>
-                        string.Equals(a.EntityMapIdSourceEntityName, relationship.ReferencedEntity, StringComparison.OrdinalIgnoreCase)
-                        && string.Equals(a.EntityMapIdTargetEntityName, relationship.ReferencingEntity, StringComparison.OrdinalIgnoreCase)
+                        string.Equals(a.EntityMapIdSourceEntityName, relationship.ReferencedEntity, StringComparison.InvariantCultureIgnoreCase)
+                        && string.Equals(a.EntityMapIdTargetEntityName, relationship.ReferencingEntity, StringComparison.InvariantCultureIgnoreCase)
                     );
 
                     if (attributeMaps.Any())
@@ -1008,7 +1032,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 WriteLine();
                 WriteLine("public {0} string ReferencedAttribute_{1} = \"{1}\";", _fieldHeader, relationship.ReferencedAttribute);
 
-                if (!string.Equals(this._entityMetadata.LogicalName, relationship.ReferencedEntity, StringComparison.OrdinalIgnoreCase))
+                if (!string.Equals(this._entityMetadata.LogicalName, relationship.ReferencedEntity, StringComparison.InvariantCultureIgnoreCase))
                 {
                     await this._taskDownloadMetadata;
 
@@ -1027,7 +1051,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 WriteLine();
                 WriteLine("public {0} string ReferencingAttribute_{1} = \"{1}\";", _fieldHeader, relationship.ReferencingAttribute);
 
-                if (!string.Equals(this._entityMetadata.LogicalName, relationship.ReferencingEntity, StringComparison.OrdinalIgnoreCase))
+                if (!string.Equals(this._entityMetadata.LogicalName, relationship.ReferencingEntity, StringComparison.InvariantCultureIgnoreCase))
                 {
                     await this._taskDownloadMetadata;
 
@@ -1153,7 +1177,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     EntityMetadata entityMetadata = null;
                     string nameField = string.Empty;
 
-                    if (!string.Equals(this._entityMetadata.LogicalName, relationship.Entity1LogicalName, StringComparison.OrdinalIgnoreCase))
+                    if (!string.Equals(this._entityMetadata.LogicalName, relationship.Entity1LogicalName, StringComparison.InvariantCultureIgnoreCase))
                     {
                         nameField = "Entity1LogicalName";
 
@@ -1161,7 +1185,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         entityMetadata = _solutionComponentDescriptor.MetadataSource.GetEntityMetadata(relationship.Entity1LogicalName);
                     }
-                    else if (!string.Equals(this._entityMetadata.LogicalName, relationship.Entity2LogicalName, StringComparison.OrdinalIgnoreCase))
+                    else if (!string.Equals(this._entityMetadata.LogicalName, relationship.Entity2LogicalName, StringComparison.InvariantCultureIgnoreCase))
                     {
                         nameField = "Entity2LogicalName";
 
@@ -1195,8 +1219,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 //{
                 //    var attributeMaps = _listAttributeMap.Where(a =>
-                //        string.Equals(a.EntityMapIdSourceEntityName, relationship.Entity1LogicalName, StringComparison.OrdinalIgnoreCase)
-                //        && string.Equals(a.EntityMapIdTargetEntityName, relationship.Entity2LogicalName, StringComparison.OrdinalIgnoreCase)
+                //        string.Equals(a.EntityMapIdSourceEntityName, relationship.Entity1LogicalName, StringComparison.InvariantCultureIgnoreCase)
+                //        && string.Equals(a.EntityMapIdTargetEntityName, relationship.Entity2LogicalName, StringComparison.InvariantCultureIgnoreCase)
                 //    );
 
                 //    if (attributeMaps.Any())
@@ -1239,7 +1263,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 WriteLine();
                 WriteLine("public {0} string Entity1Attribute_{1} = \"{1}\";", _fieldHeader, relationship.Entity1IntersectAttribute);
 
-                if (!string.Equals(this._entityMetadata.LogicalName, relationship.Entity1LogicalName, StringComparison.OrdinalIgnoreCase))
+                if (!string.Equals(this._entityMetadata.LogicalName, relationship.Entity1LogicalName, StringComparison.InvariantCultureIgnoreCase))
                 {
                     await this._taskDownloadMetadata;
 
@@ -1258,7 +1282,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 WriteLine();
                 WriteLine("public {0} string Entity2Attribute_{1} = \"{1}\";", _fieldHeader, relationship.Entity2IntersectAttribute);
 
-                if (!string.Equals(this._entityMetadata.LogicalName, relationship.Entity2LogicalName, StringComparison.OrdinalIgnoreCase))
+                if (!string.Equals(this._entityMetadata.LogicalName, relationship.Entity2LogicalName, StringComparison.InvariantCultureIgnoreCase))
                 {
                     await this._taskDownloadMetadata;
 

@@ -378,7 +378,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string longtext = text1.Length > text2.Length ? text1 : text2;
             string shorttext = text1.Length > text2.Length ? text2 : text1;
-            int i = longtext.IndexOf(shorttext, StringComparison.Ordinal);
+            int i = longtext.IndexOf(shorttext, StringComparison.InvariantCultureIgnoreCase);
             if (i != -1)
             {
                 // Shorter text is inside the longer text (speedup).
@@ -855,7 +855,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             while (true)
             {
                 string pattern = text1.Substring(text_length - length);
-                int found = text2.IndexOf(pattern, StringComparison.Ordinal);
+                int found = text2.IndexOf(pattern, StringComparison.InvariantCultureIgnoreCase);
                 if (found == -1)
                 {
                     return best;
@@ -951,7 +951,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             string best_longtext_a = string.Empty, best_longtext_b = string.Empty;
             string best_shorttext_a = string.Empty, best_shorttext_b = string.Empty;
             while (j < shorttext.Length && (j = shorttext.IndexOf(seed, j + 1,
-                StringComparison.Ordinal)) != -1)
+                StringComparison.InvariantCultureIgnoreCase)) != -1)
             {
                 int prefixLength = diff_commonPrefix(longtext.Substring(i),
                                                      shorttext.Substring(j));
@@ -1484,7 +1484,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     // This is a single edit surrounded by equalities.
                     if (diffs[pointer].text.EndsWith(diffs[pointer - 1].text,
-                        StringComparison.Ordinal))
+                        StringComparison.InvariantCultureIgnoreCase))
                     {
                         // Shift the edit over the previous equality.
                         diffs[pointer].text = diffs[pointer - 1].text +
@@ -1496,7 +1496,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         changes = true;
                     }
                     else if (diffs[pointer].text.StartsWith(diffs[pointer + 1].text,
-                      StringComparison.Ordinal))
+                      StringComparison.InvariantCultureIgnoreCase))
                     {
                         // Shift the edit over the next equality.
                         diffs[pointer - 1].text += diffs[pointer + 1].text;
@@ -1852,7 +1852,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             // Highest score beyond which we give up.
             double score_threshold = Match_Threshold;
             // Is there a nearby exact match? (speedup)
-            int best_loc = text.IndexOf(pattern, loc, StringComparison.Ordinal);
+            int best_loc = text.IndexOf(pattern, loc, StringComparison.InvariantCultureIgnoreCase);
             if (best_loc != -1)
             {
                 score_threshold = Math.Min(match_bitapScore(0, best_loc, loc,
@@ -1860,7 +1860,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 // What about in the other direction? (speedup)
                 best_loc = text.LastIndexOf(pattern,
                     Math.Min(loc + pattern.Length, text.Length),
-                    StringComparison.Ordinal);
+                    StringComparison.InvariantCultureIgnoreCase);
                 if (best_loc != -1)
                 {
                     score_threshold = Math.Min(match_bitapScore(0, best_loc, loc,
@@ -2026,8 +2026,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             // Look for the first and last matches of pattern in text.  If two
             // different matches are found, increase the pattern length.
-            while (text.IndexOf(pattern, StringComparison.Ordinal)
-                != text.LastIndexOf(pattern, StringComparison.Ordinal)
+            while (text.IndexOf(pattern, StringComparison.InvariantCultureIgnoreCase)
+                != text.LastIndexOf(pattern, StringComparison.InvariantCultureIgnoreCase)
                 && pattern.Length < Match_MaxBits - Patch_Margin - Patch_Margin)
             {
                 padding += Patch_Margin;

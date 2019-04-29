@@ -34,21 +34,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense.Model
             this.OptionSetMetadata = boolMetadata.OptionSet;
         }
 
-        public OptionSetIntellisenseData(StateAttributeMetadata stateMetadata)
+        public OptionSetIntellisenseData(EnumAttributeMetadata enumAttributeMetadata)
         {
             this.IsStateCode = true;
-            this.OptionSetMetadata = stateMetadata.OptionSet;
-        }
-
-        public OptionSetIntellisenseData(StatusAttributeMetadata statusMetadata)
-        {
-            this.IsStatusCode = true;
-            this.OptionSetMetadata = statusMetadata.OptionSet;
-        }
-
-        public OptionSetIntellisenseData(PicklistAttributeMetadata picklistMetadata)
-        {
-            this.OptionSetMetadata = picklistMetadata.OptionSet;
+            this.OptionSetMetadata = enumAttributeMetadata.OptionSet;
         }
     }
 }

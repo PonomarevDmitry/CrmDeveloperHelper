@@ -60,7 +60,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             );
 
-            var metadata = response.EntityMetadata.SingleOrDefault(e => string.Equals(e.LogicalName, PluginAssembly.EntityLogicalName, StringComparison.OrdinalIgnoreCase));
+            var metadata = response.EntityMetadata.SingleOrDefault(e => string.Equals(e.LogicalName, PluginAssembly.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase));
 
             if (metadata == null)
             {
@@ -79,7 +79,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         continue;
                     }
 
-                    if (string.Equals(attr.LogicalName, PluginAssembly.Schema.Attributes.content, StringComparison.OrdinalIgnoreCase))
+                    if (string.Equals(attr.LogicalName, PluginAssembly.Schema.Attributes.content, StringComparison.InvariantCultureIgnoreCase))
                     {
                         continue;
                     }

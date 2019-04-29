@@ -64,7 +64,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             foreach (var item in _prefixes)
             {
-                if (name.StartsWith(item, StringComparison.OrdinalIgnoreCase))
+                if (name.StartsWith(item, StringComparison.InvariantCultureIgnoreCase))
                 {
                     return Regex.Replace(name, item, string.Empty, RegexOptions.IgnoreCase);
                 }

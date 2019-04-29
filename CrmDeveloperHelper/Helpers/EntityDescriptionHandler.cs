@@ -11,6 +11,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public static class EntityDescriptionHandler
     {
+        private const string _defaultTabSpacer = "    ";
+
+        public static Task ExportEntityDescriptionAsync(string filePath, Entity entity, ICollection<string> list, ConnectionData connectionData = null)
+        {
+            return Task.Run(() => ExportEntityDescription(filePath, entity, list, connectionData));
+        }
+
+        private static void ExportEntityDescription(string filePath, Entity entity, ICollection<string> list, ConnectionData connectionData)
+        {
+            string content = GetEntityDescription(entity, list, connectionData);
+
+            File.WriteAllText(filePath, content, new UTF8Encoding(false));
+        }
+
         public static Task<string> GetEntityDescriptionAsync(Entity entity, ICollection<string> attributeToIgnore, ConnectionData connectionData = null)
         {
             return Task.Run(() => GetEntityDescription(entity, attributeToIgnore, connectionData));
@@ -134,6 +148,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return GetAttributeStringInternal(entity, key, GetValueStringShortEntityReferenceAndPicklist, connectionData);
         }
 
+        public static string GetAttributeStringShortEntityReference(Entity entity, string key)
+        {
+            return GetAttributeStringInternal(entity, key, GetValueStringShortEntityReference, null);
+        }
+
         private static string GetValueStringFull(FormattedValueCollection formattedValues, string key, object value, ConnectionData connectionData)
         {
             if (value == null)
@@ -190,6 +209,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return GetValueStringFull(formattedValues, key, aliasedValue.Value, connectionData);
             }
 
+            if (value is EntityCollection entityCollection)
+            {
+                StringBuilder result = new StringBuilder();
+
+                result.AppendFormat("EnitityCollection {0}: {1}", entityCollection.EntityName, (entityCollection.Entities?.Count).GetValueOrDefault()).AppendLine();
+
+                foreach (var item in entityCollection.Entities)
+                {
+                    string entityDesc = GetEntityDescription(item, null, connectionData);
+
+                    if (!string.IsNullOrEmpty(entityDesc))
+                    {
+                        var split = entityDesc.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+                        foreach (var str in split)
+                        {
+                            result.AppendLine(_defaultTabSpacer + _defaultTabSpacer + str);
+                        }
+                    }
+                }
+
+                return result.ToString();
+            }
+
             return value.ToString();
         }
 
@@ -237,12 +280,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return GetValueStringShortEntityReferenceAndPicklist(formattedValues, key, aliasedValue.Value, connectionData);
             }
 
-            return value.ToString();
-        }
+            if (value is EntityCollection entityCollection)
+            {
+                return string.Format("EnitityCollection {0}: {1}", entityCollection.EntityName, (entityCollection.Entities?.Count).GetValueOrDefault());
+            }
 
-        public static string GetAttributeStringShortEntityReference(Entity entity, string key)
-        {
-            return GetAttributeStringInternal(entity, key, GetValueStringShortEntityReference, null);
+            return value.ToString();
         }
 
         private static string GetValueStringShortEntityReference(FormattedValueCollection formattedValues, string key, object value, ConnectionData connectionData)
@@ -289,19 +332,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return GetValueStringShortEntityReference(formattedValues, key, aliasedValue.Value, connectionData);
             }
 
+            if (value is EntityCollection entityCollection)
+            {
+                return string.Format("EnitityCollection {0}: {1}", entityCollection.EntityName, (entityCollection.Entities?.Count).GetValueOrDefault());
+            }
+
             return value.ToString();
-        }
-
-        public static Task ExportEntityDescriptionAsync(string filePath, Entity entity, ICollection<string> list, ConnectionData connectionData = null)
-        {
-            return Task.Run(() => ExportEntityDescription(filePath, entity, list, connectionData));
-        }
-
-        private static void ExportEntityDescription(string filePath, Entity entity, ICollection<string> list, ConnectionData connectionData)
-        {
-            string content = GetEntityDescription(entity, list, connectionData);
-
-            File.WriteAllText(filePath, content, new UTF8Encoding(false));
         }
     }
 }

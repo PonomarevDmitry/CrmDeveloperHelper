@@ -497,7 +497,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IEnumerable<OptionSetMetadata> optionSets =
                 entityMetadata
                 ?.Attributes
-                ?.OfType<PicklistAttributeMetadata>()
+                ?.OfType<EnumAttributeMetadata>()
                 .Where(a => a.OptionSet.IsGlobal.GetValueOrDefault())
                 .Select(a => a.OptionSet)
                 .GroupBy(o => o.MetadataId)
@@ -934,7 +934,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     VerbatimOrder = true,
                 };
 
-                await codeGenerationService.WriteEntityFileAsync(entityMetadataFull, "CSharp", filePath, service.ConnectionData.NamespaceClasses, options, codeGenerationServiceProvider);
+                await codeGenerationService.WriteEntityFileAsync(entityMetadataFull, filePath, service.ConnectionData.NamespaceClasses, options, codeGenerationServiceProvider);
 
                 if (this._selectedItem != null)
                 {

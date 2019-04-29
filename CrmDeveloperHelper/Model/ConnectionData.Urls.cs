@@ -300,7 +300,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             var componentTypeName = entityName;
 
-            if (string.Equals(componentTypeName, "template", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(componentTypeName, "template", StringComparison.InvariantCultureIgnoreCase))
             {
                 componentTypeName = "EmailTemplate";
             }

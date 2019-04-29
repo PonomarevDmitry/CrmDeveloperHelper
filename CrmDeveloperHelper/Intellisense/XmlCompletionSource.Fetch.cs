@@ -1021,19 +1021,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
         private static bool IsEntityOrLinkElement(XElement element)
         {
-            return string.Equals(element.Name.LocalName, "entity", StringComparison.OrdinalIgnoreCase)
-                || string.Equals(element.Name.LocalName, "link-entity", StringComparison.OrdinalIgnoreCase);
+            return string.Equals(element.Name.LocalName, "entity", StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(element.Name.LocalName, "link-entity", StringComparison.InvariantCultureIgnoreCase);
         }
 
         private static bool IsSubAreaOrPrivilege(XElement element)
         {
-            return string.Equals(element.Name.LocalName, "SubArea", StringComparison.OrdinalIgnoreCase)
-                || string.Equals(element.Name.LocalName, "Privilege", StringComparison.OrdinalIgnoreCase);
+            return string.Equals(element.Name.LocalName, "SubArea", StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(element.Name.LocalName, "Privilege", StringComparison.InvariantCultureIgnoreCase);
         }
 
         private static bool IsGridElement(XElement element)
         {
-            return string.Equals(element.Name.LocalName, "grid", StringComparison.OrdinalIgnoreCase);
+            return string.Equals(element.Name.LocalName, "grid", StringComparison.InvariantCultureIgnoreCase);
         }
 
         private string GetParentEntityName(XElement currentXmlNode)

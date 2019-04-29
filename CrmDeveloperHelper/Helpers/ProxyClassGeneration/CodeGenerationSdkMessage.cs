@@ -38,7 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         public bool IsGeneric(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageRequestField requestField)
         {
-            if (string.Equals(requestField.ClrParser, EntityTypeName, StringComparison.Ordinal))
+            if (string.Equals(requestField.ClrParser, EntityTypeName, StringComparison.InvariantCultureIgnoreCase))
             {
                 return this.SdkMessageFilters.Count > 1;
             }

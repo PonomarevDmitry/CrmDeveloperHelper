@@ -20,6 +20,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         string GetNameForEntity(EntityMetadata entityMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider);
 
+        string GetNameForAttributeAsEntityProperty(
+            EntityMetadata entityMetadata
+            , AttributeMetadata attributeMetadata
+            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
+        );
+
         string GetNameForAttribute(
             EntityMetadata entityMetadata
             , AttributeMetadata attributeMetadata

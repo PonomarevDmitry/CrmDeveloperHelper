@@ -252,7 +252,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (listLocale.Any())
             {
-                HashSet<string> hashShowed = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                HashSet<string> hashShowed = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
                 if (displayName != null && displayName.LocalizedLabels != null)
                 {
@@ -348,7 +348,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 listStrings.Add(string.Format("({0}):", LanguageLocale.GetLocaleName(localeId)));
 
-                HashSet<string> hashShowed = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                HashSet<string> hashShowed = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
                 if (displayName != null && displayName.LocalizedLabels != null)
                 {
@@ -667,6 +667,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
+            if (attrib is MultiSelectPicklistAttributeMetadata multiSelectPicklistAttrib)
+            {
+                string managedStr = string.Empty;
+
+                if (withManagedInfo)
+                {
+                    managedStr = " " + (multiSelectPicklistAttrib.OptionSet.IsManaged.GetValueOrDefault() ? "Managed" : "Unmanaged");
+                }
+
+                string temp = string.Format("{0} {1} {2} OptionSet {3}"
+                      , multiSelectPicklistAttrib.OptionSet.IsGlobal.GetValueOrDefault() ? "Global" : "Local"
+                      , multiSelectPicklistAttrib.OptionSet.IsCustomOptionSet.GetValueOrDefault() ? "Custom" : "System"
+                      , managedStr
+                      , multiSelectPicklistAttrib.OptionSet.Name
+                );
+
+                AddStringIntoList(result, tabSpacer, temp);
+
+                string defaultFormValue = string.Format("DefaultFormValue = {0}", multiSelectPicklistAttrib.DefaultFormValue.HasValue ? multiSelectPicklistAttrib.DefaultFormValue.ToString() : "Null");
+
+                AddStringIntoList(result, tabSpacer, defaultFormValue);
+
+                if (!string.IsNullOrEmpty(multiSelectPicklistAttrib.FormulaDefinition))
+                {
+                    AddStringIntoList(result, tabSpacer, "FormulaDefinition is not null");
+                }
+
+                if (multiSelectPicklistAttrib.OptionSet.IsGlobal.GetValueOrDefault())
+                {
+                    List<string> lineOptionSetDescription = new List<string>();
+
+                    FillLabelDisplayNameAndDescription(lineOptionSetDescription, allDescription, multiSelectPicklistAttrib.OptionSet.DisplayName, multiSelectPicklistAttrib.OptionSet.Description, tabSpacer);
+
+                    if (lineOptionSetDescription.Any())
+                    {
+                        if (result.Any())
+                        {
+                            result.Add(string.Empty);
+                        }
+
+                        lineOptionSetDescription.ForEach(s => result.Add(tabSpacer + tabSpacer + s));
+                    }
+                }
+            }
+
             if (attrib is StatusAttributeMetadata statusAttrib)
             {
                 string defaultFormValue = string.Format("DefaultFormValue = {0}", statusAttrib.DefaultFormValue.HasValue ? statusAttrib.DefaultFormValue.ToString() : "Null");
@@ -871,7 +916,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (listLocale.Any())
             {
-                HashSet<string> hashShowed = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                HashSet<string> hashShowed = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
                 if (displayName != null && displayName.LocalizedLabels != null)
                 {
@@ -999,7 +1044,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 listStrings.Add(string.Format("({0}):", LanguageLocale.GetLocaleName(localeId)));
 
-                HashSet<string> hashShowed = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                HashSet<string> hashShowed = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
                 if (displayName != null && displayName.LocalizedLabels != null)
                 {
@@ -1076,50 +1121,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static bool IgnoreAttribute(string entityName, string attributeName)
         {
-            if (entityName.Equals("connection", StringComparison.OrdinalIgnoreCase))
+            if (entityName.Equals("connection", StringComparison.InvariantCultureIgnoreCase))
             {
-                if (attributeName.Equals("record1objecttypecode", StringComparison.OrdinalIgnoreCase)
-                    || attributeName.Equals("record2objecttypecode", StringComparison.OrdinalIgnoreCase)
+                if (attributeName.Equals("record1objecttypecode", StringComparison.InvariantCultureIgnoreCase)
+                    || attributeName.Equals("record2objecttypecode", StringComparison.InvariantCultureIgnoreCase)
                     )
                 {
                     return true;
                 }
             }
 
-            if (entityName.Equals("importmap", StringComparison.OrdinalIgnoreCase))
+            if (entityName.Equals("importmap", StringComparison.InvariantCultureIgnoreCase))
             {
-                if (attributeName.Equals("targetentity", StringComparison.OrdinalIgnoreCase)
+                if (attributeName.Equals("targetentity", StringComparison.InvariantCultureIgnoreCase)
                     )
                 {
                     return true;
                 }
             }
 
-            if (entityName.Equals("queueitem", StringComparison.OrdinalIgnoreCase)
-                || entityName.Equals("sla", StringComparison.OrdinalIgnoreCase)
+            if (entityName.Equals("queueitem", StringComparison.InvariantCultureIgnoreCase)
+                || entityName.Equals("sla", StringComparison.InvariantCultureIgnoreCase)
                 )
             {
-                if (attributeName.Equals("objecttypecode", StringComparison.OrdinalIgnoreCase)
+                if (attributeName.Equals("objecttypecode", StringComparison.InvariantCultureIgnoreCase)
                     )
                 {
                     return true;
                 }
             }
 
-            if (entityName.Equals("duplicaterule", StringComparison.OrdinalIgnoreCase))
+            if (entityName.Equals("duplicaterule", StringComparison.InvariantCultureIgnoreCase))
             {
-                if (attributeName.Equals("baseentitytypecode", StringComparison.OrdinalIgnoreCase)
-                    || attributeName.Equals("matchingentitytypecode", StringComparison.OrdinalIgnoreCase)
+                if (attributeName.Equals("baseentitytypecode", StringComparison.InvariantCultureIgnoreCase)
+                    || attributeName.Equals("matchingentitytypecode", StringComparison.InvariantCultureIgnoreCase)
                     )
                 {
                     return true;
                 }
             }
 
-            if (entityName.Equals("similarityrule", StringComparison.OrdinalIgnoreCase))
+            if (entityName.Equals("similarityrule", StringComparison.InvariantCultureIgnoreCase))
             {
-                if (attributeName.Equals("baseentitytypecode", StringComparison.OrdinalIgnoreCase)
-                    || attributeName.Equals("matchingentitytypecode", StringComparison.OrdinalIgnoreCase)
+                if (attributeName.Equals("baseentitytypecode", StringComparison.InvariantCultureIgnoreCase)
+                    || attributeName.Equals("matchingentitytypecode", StringComparison.InvariantCultureIgnoreCase)
                     )
                 {
                     return true;
@@ -1213,7 +1258,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static bool IgnoreGlobalOptionSet(string name)
         {
-            return string.Equals(name, "activitypointer_activitytypecode", StringComparison.OrdinalIgnoreCase);
+            return string.Equals(name, "activitypointer_activitytypecode", StringComparison.InvariantCultureIgnoreCase);
         }
 
         public static string GetLocalizedLabel(Label label)
@@ -1319,8 +1364,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     if (listStringMap != null && !string.IsNullOrEmpty(entityName) && !string.IsNullOrEmpty(attributeName))
                     {
                         var stringMap = listStringMap.FirstOrDefault(e =>
-                            string.Equals(e.AttributeName, attributeName, StringComparison.OrdinalIgnoreCase)
-                            && string.Equals(e.ObjectTypeCode, entityName, StringComparison.OrdinalIgnoreCase)
+                            string.Equals(e.AttributeName, attributeName, StringComparison.InvariantCultureIgnoreCase)
+                            && string.Equals(e.ObjectTypeCode, entityName, StringComparison.InvariantCultureIgnoreCase)
                             && e.AttributeValue == optionValue.Value.Value
                             );
 
@@ -1397,8 +1442,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     if (listStringMap != null)
                     {
                         var stringMap = listStringMap.FirstOrDefault(e =>
-                            string.Equals(e.AttributeName, stateAttr.LogicalName, StringComparison.OrdinalIgnoreCase)
-                            && string.Equals(e.ObjectTypeCode, stateAttr.EntityLogicalName, StringComparison.OrdinalIgnoreCase)
+                            string.Equals(e.AttributeName, stateAttr.LogicalName, StringComparison.InvariantCultureIgnoreCase)
+                            && string.Equals(e.ObjectTypeCode, stateAttr.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase)
                             && e.AttributeValue == optionValue.Value.Value
                             );
 
@@ -1489,8 +1534,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     if (listStringMap != null)
                     {
                         var stringMap = listStringMap.FirstOrDefault(e =>
-                            string.Equals(e.AttributeName, statusAttr.LogicalName, StringComparison.OrdinalIgnoreCase)
-                            && string.Equals(e.ObjectTypeCode, statusAttr.EntityLogicalName, StringComparison.OrdinalIgnoreCase)
+                            string.Equals(e.AttributeName, statusAttr.LogicalName, StringComparison.InvariantCultureIgnoreCase)
+                            && string.Equals(e.ObjectTypeCode, statusAttr.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase)
                             && e.AttributeValue == optionValue.Value.Value
                             );
 

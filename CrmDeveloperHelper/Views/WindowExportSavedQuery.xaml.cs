@@ -434,7 +434,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    if (string.Equals(extension, "xml", StringComparison.OrdinalIgnoreCase))
+                    if (string.Equals(extension, "xml", StringComparison.InvariantCultureIgnoreCase))
                     {
                         //if (_commonConfig.SetXmlSchemasDuringExport)
                         //{

@@ -152,7 +152,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private async Task WriteRegularOptionSets()
         {
             var picklists = _entityMetadata.Attributes
-                .OfType<PicklistAttributeMetadata>()
+                .Where(a => a is PicklistAttributeMetadata || a is MultiSelectPicklistAttributeMetadata)
+                .OfType<EnumAttributeMetadata>()
                 .Where(e => e.OptionSet.Options.Any(o => o.Value.HasValue))
                 ;
 

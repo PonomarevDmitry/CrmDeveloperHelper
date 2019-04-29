@@ -110,8 +110,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (!types1.Select(t => t.TypeName).SequenceEqual(types2.Select(t => t.TypeName)))
                 {
-                    var only1Types = new HashSet<string>(types1.Select(t => t.TypeName).Except(types2.Select(t => t.TypeName)), StringComparer.OrdinalIgnoreCase);
-                    var only2Types = new HashSet<string>(types2.Select(t => t.TypeName).Except(types1.Select(t => t.TypeName)), StringComparer.OrdinalIgnoreCase);
+                    var only1Types = new HashSet<string>(types1.Select(t => t.TypeName).Except(types2.Select(t => t.TypeName)), StringComparer.InvariantCultureIgnoreCase);
+                    var only2Types = new HashSet<string>(types2.Select(t => t.TypeName).Except(types1.Select(t => t.TypeName)), StringComparer.InvariantCultureIgnoreCase);
 
                     var only1 = types1.Where(plugType => only1Types.Contains(plugType.TypeName));
                     var only2 = types2.Where(plugType => only2Types.Contains(plugType.TypeName));

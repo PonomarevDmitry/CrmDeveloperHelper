@@ -426,8 +426,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
 
                     var stringMap1 = _cache1[entityName1].FirstOrDefault(e =>
-                        string.Equals(e.AttributeName, attributeName1, StringComparison.OrdinalIgnoreCase)
-                        && string.Equals(e.ObjectTypeCode, entityName1, StringComparison.OrdinalIgnoreCase)
+                        string.Equals(e.AttributeName, attributeName1, StringComparison.InvariantCultureIgnoreCase)
+                        && string.Equals(e.ObjectTypeCode, entityName1, StringComparison.InvariantCultureIgnoreCase)
                         && e.AttributeValue == optionMetadata1.Value.Value
                         );
 
@@ -448,8 +448,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
 
                     var stringMap2 = _cache2[entityName2].FirstOrDefault(e =>
-                        string.Equals(e.AttributeName, attributeName2, StringComparison.OrdinalIgnoreCase)
-                        && string.Equals(e.ObjectTypeCode, entityName2, StringComparison.OrdinalIgnoreCase)
+                        string.Equals(e.AttributeName, attributeName2, StringComparison.InvariantCultureIgnoreCase)
+                        && string.Equals(e.ObjectTypeCode, entityName2, StringComparison.InvariantCultureIgnoreCase)
                         && e.AttributeValue == optionMetadata1.Value.Value
                         );
 

@@ -368,8 +368,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     string schemaName = string.Empty;
 
-                    if (string.Equals(fieldTitle, Organization.Schema.Attributes.sitemapxml, StringComparison.OrdinalIgnoreCase)
-                        || string.Equals(fieldTitle, Organization.Schema.Attributes.referencesitemapxml, StringComparison.OrdinalIgnoreCase)
+                    if (string.Equals(fieldTitle, Organization.Schema.Attributes.sitemapxml, StringComparison.InvariantCultureIgnoreCase)
+                        || string.Equals(fieldTitle, Organization.Schema.Attributes.referencesitemapxml, StringComparison.InvariantCultureIgnoreCase)
                         )
                     {
                         schemaName = CommonExportXsdSchemasCommand.SchemaSiteMapXml;

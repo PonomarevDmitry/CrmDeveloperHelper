@@ -181,32 +181,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         internal static OptionSetMetadataBase GetAttributeOptionSet(AttributeMetadata attribute)
         {
-            OptionSetMetadataBase optionSetMetadataBase = null;
-
-            Type type = attribute.GetType();
-
-            if (type == typeof(BooleanAttributeMetadata))
+            if (attribute is BooleanAttributeMetadata booleanAttributeMetadata)
             {
-                optionSetMetadataBase = ((BooleanAttributeMetadata)attribute).OptionSet;
-            }
-            else if (type == typeof(StateAttributeMetadata))
-            {
-                optionSetMetadataBase = ((StateAttributeMetadata)attribute).OptionSet;
-            }
-            else if (type == typeof(StatusAttributeMetadata))
-            {
-                optionSetMetadataBase = ((StatusAttributeMetadata)attribute).OptionSet;
-            }
-            else if (type == typeof(PicklistAttributeMetadata))
-            {
-                optionSetMetadataBase = ((PicklistAttributeMetadata)attribute).OptionSet;
-            }
-            else if (type == typeof(MultiSelectPicklistAttributeMetadata))
-            {
-                optionSetMetadataBase = ((MultiSelectPicklistAttributeMetadata)attribute).OptionSet;
+                return booleanAttributeMetadata.OptionSet;
             }
 
-            return optionSetMetadataBase;
+            if (attribute is EnumAttributeMetadata enumAttributeMetadata)
+            {
+                return enumAttributeMetadata.OptionSet;
+            }
+
+            return null;
         }
 
         private CodeTypeReference GetTypeForField(string clrFormatter, bool isGeneric)

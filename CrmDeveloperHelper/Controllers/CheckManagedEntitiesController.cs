@@ -965,25 +965,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }
             }
 
-            if (currentAttribute is Microsoft.Xrm.Sdk.Metadata.PicklistAttributeMetadata)
+            if (currentAttribute is EnumAttributeMetadata enumAttrib)
             {
-                var picklistAttrib = currentAttribute as Microsoft.Xrm.Sdk.Metadata.PicklistAttributeMetadata;
-
-                if (picklistAttrib.OptionSet != null)
+                if (enumAttrib.OptionSet != null)
                 {
-                    if (!CreateFileHandler.IgnoreAttribute(picklistAttrib.EntityLogicalName, picklistAttrib.LogicalName))
+                    if (!CreateFileHandler.IgnoreAttribute(enumAttrib.EntityLogicalName, enumAttrib.LogicalName))
                     {
-                        if (picklistAttrib.OptionSet.IsManaged.GetValueOrDefault() == false && picklistAttrib.OptionSet.IsCustomOptionSet.GetValueOrDefault() == true)
+                        if (enumAttrib.OptionSet.IsManaged.GetValueOrDefault() == false && enumAttrib.OptionSet.IsCustomOptionSet.GetValueOrDefault() == true)
                         {
-                            FillOptionSetInfo(result, picklistAttrib.OptionSet);
+                            FillOptionSetInfo(result, enumAttrib.OptionSet);
                         }
                         else
                         {
-                            List<string> unmanagedProperties = GetUnmanagedProperties(picklistAttrib.OptionSet);
+                            List<string> unmanagedProperties = GetUnmanagedProperties(enumAttrib.OptionSet);
 
                             if (unmanagedProperties.Any())
                             {
-                                FillOptionSetInfo(result, picklistAttrib.OptionSet);
+                                FillOptionSetInfo(result, enumAttrib.OptionSet);
 
                                 foreach (var str in unmanagedProperties)
                                 {
@@ -1202,7 +1200,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     var componentTypeName = entityName;
 
-                    if (string.Equals(componentTypeName, "template", StringComparison.OrdinalIgnoreCase))
+                    if (string.Equals(componentTypeName, "template", StringComparison.InvariantCultureIgnoreCase))
                     {
                         componentTypeName = "EmailTemplate";
                     }
@@ -1305,7 +1303,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                             default:
                                 {
-                                    var attr = entityMetadata.Attributes.FirstOrDefault(a => string.Equals(attrName, a.LogicalName, StringComparison.OrdinalIgnoreCase));
+                                    var attr = entityMetadata.Attributes.FirstOrDefault(a => string.Equals(attrName, a.LogicalName, StringComparison.InvariantCultureIgnoreCase));
 
                                     if (attr != null)
                                     {
@@ -1420,7 +1418,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         private static QueryExpression GetQuery(string entityName)
         {
-            if (string.Equals(entityName, "customcontrolresource", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(entityName, "customcontrolresource", StringComparison.InvariantCultureIgnoreCase))
             {
                 var query = new QueryExpression()
                 {

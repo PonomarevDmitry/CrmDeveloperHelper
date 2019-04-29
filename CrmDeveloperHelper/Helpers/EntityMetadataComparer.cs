@@ -403,7 +403,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     , rel1.IsManaged.ToString()
                     );
 
-                imageBuilder.AddComponentSolution1((int)ComponentType.EntityRelationship, rel1.MetadataId.Value);             
+                imageBuilder.AddComponentSolution1((int)ComponentType.EntityRelationship, rel1.MetadataId.Value);
             }
 
             foreach (ManyToManyRelationshipMetadata rel1 in listRel1.OrderBy(s => s.SchemaName))
@@ -1032,37 +1032,54 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         }
                     }
 
-                    if (attr1 is Microsoft.Xrm.Sdk.Metadata.PicklistAttributeMetadata)
+                    if (attr1 is Microsoft.Xrm.Sdk.Metadata.EnumAttributeMetadata
+                        && (attr1 is Microsoft.Xrm.Sdk.Metadata.PicklistAttributeMetadata || attr1 is Microsoft.Xrm.Sdk.Metadata.MultiSelectPicklistAttributeMetadata)
+                    )
                     {
-                        PicklistAttributeMetadata picklistAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.PicklistAttributeMetadata;
-                        PicklistAttributeMetadata picklistAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.PicklistAttributeMetadata;
+                        var enumAttrib1 = attr1 as Microsoft.Xrm.Sdk.Metadata.EnumAttributeMetadata;
+                        var enumAttrib2 = attr2 as Microsoft.Xrm.Sdk.Metadata.EnumAttributeMetadata;
 
-                        table.AddLineIfNotEqual("DefaultFormValue", picklistAttrib1.DefaultFormValue, picklistAttrib2.DefaultFormValue);
+                        table.AddLineIfNotEqual("DefaultFormValue", enumAttrib1.DefaultFormValue, enumAttrib2.DefaultFormValue);
 
-                        if (picklistAttrib1.FormulaDefinition != picklistAttrib2.FormulaDefinition)
+                        if (attr1 is Microsoft.Xrm.Sdk.Metadata.PicklistAttributeMetadata pickList1
+                            && attr2 is Microsoft.Xrm.Sdk.Metadata.PicklistAttributeMetadata pickList2
+                        )
                         {
-                            table.AddLine("FormulaDefinition");
+                            if (pickList1.FormulaDefinition != pickList2.FormulaDefinition)
+                            {
+                                table.AddLine("FormulaDefinition");
+                            }
                         }
 
-                        if (picklistAttrib1.OptionSet != null && picklistAttrib2.OptionSet == null)
+                        if (attr1 is Microsoft.Xrm.Sdk.Metadata.MultiSelectPicklistAttributeMetadata multiPickList1
+                             && attr2 is Microsoft.Xrm.Sdk.Metadata.MultiSelectPicklistAttributeMetadata multiPickList2
+                         )
+                        {
+                            if (multiPickList1.FormulaDefinition != multiPickList2.FormulaDefinition)
+                            {
+                                table.AddLine("FormulaDefinition");
+                            }
+                        }
+
+                        if (enumAttrib1.OptionSet != null && enumAttrib2.OptionSet == null)
                         {
                             table.AddLine("OptionSet", "not null", "null");
                         }
-                        else if (picklistAttrib1.OptionSet == null && picklistAttrib2.OptionSet != null)
+                        else if (enumAttrib1.OptionSet == null && enumAttrib2.OptionSet != null)
                         {
                             table.AddLine("OptionSet", "null", "not null");
                         }
-                        else if (picklistAttrib1.OptionSet != null && picklistAttrib2.OptionSet != null)
+                        else if (enumAttrib1.OptionSet != null && enumAttrib2.OptionSet != null)
                         {
-                            if (!CreateFileHandler.IgnoreAttribute(picklistAttrib1.EntityLogicalName, picklistAttrib1.LogicalName))
+                            if (!CreateFileHandler.IgnoreAttribute(enumAttrib1.EntityLogicalName, enumAttrib1.LogicalName))
                             {
-                                List<string> diffenrenceOptionSet = await _optionSetComparer.GetDifference(picklistAttrib1.OptionSet, picklistAttrib2.OptionSet, picklistAttrib1.EntityLogicalName, picklistAttrib1.LogicalName);
+                                List<string> diffenrenceOptionSet = await _optionSetComparer.GetDifference(enumAttrib1.OptionSet, enumAttrib2.OptionSet, enumAttrib1.EntityLogicalName, enumAttrib1.LogicalName);
 
                                 if (diffenrenceOptionSet.Count > 0)
                                 {
                                     additionalDifference.Add(string.Format("Difference in OptionSet {0} and {1}"
-                                        , picklistAttrib1.OptionSet.Name + (picklistAttrib1.OptionSet.IsGlobal.GetValueOrDefault() ? "(Global)" : "(Local)")
-                                        , picklistAttrib2.OptionSet.Name + (picklistAttrib2.OptionSet.IsGlobal.GetValueOrDefault() ? "(Global)" : "(Local)")
+                                        , enumAttrib1.OptionSet.Name + (enumAttrib1.OptionSet.IsGlobal.GetValueOrDefault() ? "(Global)" : "(Local)")
+                                        , enumAttrib2.OptionSet.Name + (enumAttrib2.OptionSet.IsGlobal.GetValueOrDefault() ? "(Global)" : "(Local)")
                                         )
                                         );
                                     diffenrenceOptionSet.ForEach(s => additionalDifference.Add(_tabSpacer + s));

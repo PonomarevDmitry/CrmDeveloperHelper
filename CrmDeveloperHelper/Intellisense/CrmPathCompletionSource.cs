@@ -182,7 +182,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             var attributeName = fields.First();
             fields = fields.Skip(1);
 
-            if (attributeName.StartsWith("multi ", StringComparison.OrdinalIgnoreCase))
+            if (attributeName.StartsWith("multi ", StringComparison.InvariantCultureIgnoreCase))
             {
                 attributeName = attributeName.Substring(6).Trim();
 
@@ -254,11 +254,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                         {
                             if (sourceEntity.IsIntersectEntity)
                             {
-                                var rel = sourceEntity?.ManyToManyRelationships?.Values?.FirstOrDefault(r => string.Equals(r.IntersectEntityName, sourceEntity.EntityLogicalName, StringComparison.OrdinalIgnoreCase));
+                                var rel = sourceEntity?.ManyToManyRelationships?.Values?.FirstOrDefault(r => string.Equals(r.IntersectEntityName, sourceEntity.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase));
 
                                 if (rel != null)
                                 {
-                                    if (string.Equals(rel.Entity1IntersectAttributeName, attributeName, StringComparison.OrdinalIgnoreCase))
+                                    if (string.Equals(rel.Entity1IntersectAttributeName, attributeName, StringComparison.InvariantCultureIgnoreCase))
                                     {
                                         if (!fields.Any())
                                         {
@@ -269,7 +269,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                                         GetEntitiesByRelativePathRecursive(result, rel.Entity1Name, fields, intellisenseData, out isGuid);
                                         return;
                                     }
-                                    else if (string.Equals(rel.Entity2IntersectAttributeName, attributeName, StringComparison.OrdinalIgnoreCase))
+                                    else if (string.Equals(rel.Entity2IntersectAttributeName, attributeName, StringComparison.InvariantCultureIgnoreCase))
                                     {
                                         if (!fields.Any())
                                         {
@@ -370,7 +370,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             var attributeName = fields.First();
             fields = fields.Skip(1);
 
-            if (attributeName.StartsWith("multi ", StringComparison.OrdinalIgnoreCase))
+            if (attributeName.StartsWith("multi ", StringComparison.InvariantCultureIgnoreCase))
             {
                 attributeName = attributeName.Substring(6).Trim();
 
@@ -420,7 +420,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                         {
                             if (sourceEntity.IsIntersectEntity)
                             {
-                                var rel = sourceEntity?.ManyToManyRelationships?.Values?.FirstOrDefault(r => string.Equals(r.IntersectEntityName, sourceEntity.EntityLogicalName, StringComparison.OrdinalIgnoreCase));
+                                var rel = sourceEntity?.ManyToManyRelationships?.Values?.FirstOrDefault(r => string.Equals(r.IntersectEntityName, sourceEntity.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase));
 
                                 if (rel != null)
                                 {

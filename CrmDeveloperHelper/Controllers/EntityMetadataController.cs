@@ -609,7 +609,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             VerbatimOrder = true,
                         };
 
-                        await codeGenerationService.WriteEntityFileAsync(metadata, "CSharp", filePath, service.ConnectionData.NamespaceClasses, options, codeGenerationServiceProvider);
+                        await codeGenerationService.WriteEntityFileAsync(metadata, filePath, service.ConnectionData.NamespaceClasses, options, codeGenerationServiceProvider);
 
                         this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, connectionData.Name, config.EntityName, filePath);
 

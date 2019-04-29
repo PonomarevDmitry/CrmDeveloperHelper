@@ -72,7 +72,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 var lbls = this.Label.LocalizedLabels.Where(lbl => !string.IsNullOrEmpty(lbl.Label));
 
-                HashSet<string> hashShowed = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                HashSet<string> hashShowed = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
                 foreach (var item in lbls.OrderBy(l => l.LanguageCode, new LocaleComparer()))
                 {

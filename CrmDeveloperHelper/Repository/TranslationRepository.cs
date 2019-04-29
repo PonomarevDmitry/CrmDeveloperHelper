@@ -376,7 +376,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private static bool IsWorksheet(XElement element)
         {
-            if (string.Equals(element.Name.LocalName, "Worksheet", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(element.Name.LocalName, "Worksheet", StringComparison.InvariantCultureIgnoreCase))
             {
                 return true;
             }
@@ -386,7 +386,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private static bool IsRow(XElement element)
         {
-            if (string.Equals(element.Name.LocalName, "Row", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(element.Name.LocalName, "Row", StringComparison.InvariantCultureIgnoreCase))
             {
                 return true;
             }
@@ -396,7 +396,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private static bool IsCell(XElement element)
         {
-            if (string.Equals(element.Name.LocalName, "Cell", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(element.Name.LocalName, "Cell", StringComparison.InvariantCultureIgnoreCase))
             {
                 return true;
             }
@@ -406,7 +406,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private static bool IsData(XElement element)
         {
-            if (string.Equals(element.Name.LocalName, "Data", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(element.Name.LocalName, "Data", StringComparison.InvariantCultureIgnoreCase))
             {
                 return true;
             }
@@ -416,11 +416,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private static bool IsDisplayStrings(XElement element)
         {
-            var attr = element.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "Id", StringComparison.OrdinalIgnoreCase));
+            var attr = element.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "Id", StringComparison.InvariantCultureIgnoreCase));
 
             if (attr != null)
             {
-                return string.Equals(attr.Value, "Display Strings", StringComparison.OrdinalIgnoreCase);
+                return string.Equals(attr.Value, "Display Strings", StringComparison.InvariantCultureIgnoreCase);
             }
 
             return false;
@@ -428,11 +428,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private static bool IsLocalizedLabels(XElement element)
         {
-            var attr = element.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "Id", StringComparison.OrdinalIgnoreCase));
+            var attr = element.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "Id", StringComparison.InvariantCultureIgnoreCase));
 
             if (attr != null)
             {
-                return string.Equals(attr.Value, "Localized Labels", StringComparison.OrdinalIgnoreCase);
+                return string.Equals(attr.Value, "Localized Labels", StringComparison.InvariantCultureIgnoreCase);
             }
 
             return false;

@@ -26,7 +26,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             foreach (var el in elements)
             {
-                var attr = el.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "Default", StringComparison.OrdinalIgnoreCase));
+                var attr = el.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "Default", StringComparison.InvariantCultureIgnoreCase));
 
                 Guid temp;
 
@@ -48,41 +48,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private static bool IsLabelVariable(XElement element)
         {
-            if (!string.Equals(element.Name.LocalName, "Variable", StringComparison.OrdinalIgnoreCase))
+            if (!string.Equals(element.Name.LocalName, "Variable", StringComparison.InvariantCultureIgnoreCase))
             {
                 return false;
             }
 
             {
-                var attr = element.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "TypeArguments", StringComparison.OrdinalIgnoreCase));
+                var attr = element.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "TypeArguments", StringComparison.InvariantCultureIgnoreCase));
 
                 if (attr == null)
                 {
                     return false;
                 }
 
-                if (!string.Equals(attr.Value, "x:String", StringComparison.OrdinalIgnoreCase))
+                if (!string.Equals(attr.Value, "x:String", StringComparison.InvariantCultureIgnoreCase))
                 {
                     return false;
                 }
             }
 
             {
-                var attr = element.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "Name", StringComparison.OrdinalIgnoreCase));
+                var attr = element.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "Name", StringComparison.InvariantCultureIgnoreCase));
 
                 if (attr == null)
                 {
                     return false;
                 }
 
-                if (!string.Equals(attr.Value, "stepLabelLabelId", StringComparison.OrdinalIgnoreCase))
+                if (!string.Equals(attr.Value, "stepLabelLabelId", StringComparison.InvariantCultureIgnoreCase))
                 {
                     return false;
                 }
             }
 
             {
-                var attr = element.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "Default", StringComparison.OrdinalIgnoreCase));
+                var attr = element.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "Default", StringComparison.InvariantCultureIgnoreCase));
 
                 if (attr == null)
                 {

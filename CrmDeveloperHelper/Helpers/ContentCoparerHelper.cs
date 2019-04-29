@@ -292,11 +292,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             const string className = "XrmWorkflow00000000000000000000000000000000";
 
-            if (string.Equals(doc.Name.LocalName, "Activity", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(doc.Name.LocalName, "Activity", StringComparison.InvariantCultureIgnoreCase))
             {
-                XAttribute attr = doc.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "Class", StringComparison.OrdinalIgnoreCase));
+                XAttribute attr = doc.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "Class", StringComparison.InvariantCultureIgnoreCase));
 
-                if (attr != null && attr.Value.StartsWith("XrmWorkflow", StringComparison.OrdinalIgnoreCase))
+                if (attr != null && attr.Value.StartsWith("XrmWorkflow", StringComparison.InvariantCultureIgnoreCase))
                 {
                     string oldClass = attr.Value;
 
