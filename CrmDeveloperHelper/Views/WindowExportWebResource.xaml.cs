@@ -111,12 +111,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , { (int)WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_CSS_2, this.Resources["ImageCss"] as BitmapImage }
                 , { (int)WebResource.Schema.OptionSets.webresourcetype.Script_JScript_3, this.Resources["ImageJS"] as BitmapImage }
                 , { (int)WebResource.Schema.OptionSets.webresourcetype.Data_XML_4, this.Resources["ImageXml"] as BitmapImage }
-                , { (int)WebResource.Schema.OptionSets.webresourcetype.PNG_format_5, this.Resources["ImageImages"] as BitmapImage }
+                , { (int)WebResource.Schema.OptionSets.webresourcetype.PNG_format_5, this.Resources["ImagePng"] as BitmapImage }
                 , { (int)WebResource.Schema.OptionSets.webresourcetype.JPG_format_6, this.Resources["ImageImages"] as BitmapImage }
-                , { (int)WebResource.Schema.OptionSets.webresourcetype.GIF_format_7, this.Resources["ImageImages"] as BitmapImage }
+                , { (int)WebResource.Schema.OptionSets.webresourcetype.GIF_format_7, this.Resources["ImageGif"] as BitmapImage }
                 , { (int)WebResource.Schema.OptionSets.webresourcetype.Silverlight_XAP_8, this.Resources["ImageXml"] as BitmapImage }
                 , { (int)WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_XSL_9, this.Resources["ImageXml"] as BitmapImage }
                 , { (int)WebResource.Schema.OptionSets.webresourcetype.ICO_format_10, this.Resources["ImageImages"] as BitmapImage }
+                , { (int)WebResource.Schema.OptionSets.webresourcetype.Vector_format_SVG_11, this.Resources["ImageSvg"] as BitmapImage }
+                , { (int)WebResource.Schema.OptionSets.webresourcetype.String_RESX_12, this.Resources["ImageResx"] as BitmapImage }
             };
 
             this._folderImage = this.Resources["ImageFolder"] as BitmapImage;
@@ -445,10 +447,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await PerformExportWebResourceContent(folder, idWebResource, name);
 
-            await PerformExportXmlToFile(folder, idWebResource, name, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml);
+            await PerformExportXmlToFile(folder, idWebResource, name, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, "xml");
+
+            await PerformExportXmlToFile(folder, idWebResource, name, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, "json");
         }
 
-        private async Task ExecuteActionEntity(Guid idWebResource, string name, string fieldName, string fieldTitle, Func<string, Guid, string, string, string, Task> action)
+        private async Task ExecuteActionEntity(Guid idWebResource, string name, string fieldName, string fieldTitle, string extension, Func<string, Guid, string, string, string, string, Task> action)
         {
             string folder = txtBFolder.Text.Trim();
 
@@ -468,7 +472,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
-            await action(folder, idWebResource, name, fieldName, fieldTitle);
+            await action(folder, idWebResource, name, fieldName, fieldTitle, extension);
         }
 
         private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
@@ -622,10 +626,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, PerformExportXmlToFile);
+            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, "xml", PerformExportXmlToFile);
         }
 
-        private async Task PerformExportXmlToFile(string folder, Guid idWebResource, string name, string fieldName, string fieldTitle)
+        private void mIExportWebResourceContentJson_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null || entity.WebResourceId == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, "json", PerformExportXmlToFile);
+        }
+
+        private async Task PerformExportXmlToFile(string folder, Guid idWebResource, string name, string fieldName, string fieldTitle, string extension)
         {
             if (!this.IsControlsEnabled)
             {
@@ -644,7 +660,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = webresource.GetAttributeValue<string>(fieldName);
 
-                string filePath = await CreateFileAsync(folder, name, fieldTitle, xmlContent);
+                string filePath = await CreateFileAsync(folder, name, fieldTitle, xmlContent, extension);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
@@ -658,7 +674,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async Task PerformUpdateEntityField(string folder, Guid idWebResource, string name, string fieldName, string fieldTitle)
+        private async Task PerformUpdateEntityField(string folder, Guid idWebResource, string name, string fieldName, string fieldTitle, string extension)
         {
             if (!this.IsControlsEnabled)
             {
@@ -701,7 +717,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         xmlContent = doc.ToString();
                     }
 
-                    string filePath = await CreateFileAsync(folder, name, fieldTitle + " BackUp", xmlContent);
+                    string filePath = await CreateFileAsync(folder, name, fieldTitle + " BackUp", xmlContent, extension);
                 }
 
                 var newText = string.Empty;
@@ -764,12 +780,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private Task<string> CreateFileAsync(string folder, string name, string fieldTitle, string xmlContent)
+        private Task<string> CreateFileAsync(string folder, string name, string fieldTitle, string xmlContent, string extension)
         {
-            return Task.Run(() => CreateFile(folder, name, fieldTitle, xmlContent));
+            return Task.Run(() => CreateFile(folder, name, fieldTitle, xmlContent, extension));
         }
 
-        private string CreateFile(string folder, string name, string fieldTitle, string xmlContent)
+        private string CreateFile(string folder, string name, string fieldTitle, string xmlContent, string extension)
         {
             name = Path.GetFileName(name);
 
@@ -785,7 +801,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return null;
             }
 
-            string fileName = EntityFileNameFormatter.GetWebResourceFileName(connectionData.Name, name, fieldTitle, "xml");
+            string fileName = EntityFileNameFormatter.GetWebResourceFileName(connectionData.Name, name, fieldTitle, extension);
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
             if (!string.IsNullOrEmpty(xmlContent))
@@ -1063,7 +1079,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, PerformUpdateEntityField);
+            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, "xml", PerformUpdateEntityField);
         }
 
         private void mIUpdateWebResourceContent_Click(object sender, RoutedEventArgs e)
@@ -1075,7 +1091,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.content, WebResource.Schema.Headers.content, PerformUpdateEntityField);
+            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.content, WebResource.Schema.Headers.content, "js", PerformUpdateEntityField);
+        }
+
+        private void mIUpdateWebResourceContentJson_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null || entity.WebResourceId == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, "json", PerformUpdateEntityField);
         }
 
         private void btnPublishWebResource_Click(object sender, RoutedEventArgs e)

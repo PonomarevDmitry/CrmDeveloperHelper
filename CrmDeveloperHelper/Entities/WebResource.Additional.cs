@@ -16,6 +16,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 public const string dependencyxml = "DependencyXml";
 
+                public const string contentjson = "ContentJson";
+
                 public const string name = "Name";
 
                 public const string displayname = "DisplayName";

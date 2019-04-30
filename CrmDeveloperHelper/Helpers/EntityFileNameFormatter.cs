@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
@@ -21,14 +22,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private const string WorkflowFormatFile = "{0}.{1} Workflow {2} - {3} - {4} at {5}.{6}";
 
-        internal static ReadOnlyCollection<string> WorkflowIgnoreFields = new ReadOnlyCollection<string>(new[] { Workflow.Schema.Attributes.xaml, Workflow.Schema.Attributes.inputparameters, Workflow.Schema.Attributes.clientdata });
+        internal static IReadOnlyList<string> WorkflowIgnoreFields = new ReadOnlyCollection<string>(new[] { Workflow.Schema.Attributes.xaml, Workflow.Schema.Attributes.inputparameters, Workflow.Schema.Attributes.clientdata });
 
         internal static string GetWorkflowFileName(string connectionName, string entityName, string category, string name, string fieldTitle, string extension)
         {
             return string.Format(WorkflowFormatFile, connectionName, entityName, category, name, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
-        internal static ReadOnlyCollection<string> WebResourceIgnoreFields = new ReadOnlyCollection<string>(new[] { WebResource.Schema.Attributes.content, WebResource.Schema.Attributes.dependencyxml });
+        internal static IReadOnlyCollection<string> WebResourceIgnoreFields = new ReadOnlyCollection<string>(new[] { WebResource.Schema.Attributes.content, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Attributes.dependencyxml });
 
         private const string WebResourceFormatFile = "{0}.{1} {2} at {3}.{4}";
 
@@ -37,7 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return string.Format(WebResourceFormatFile, connectionName, name, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
-        internal static ReadOnlyCollection<string> SystemFormIgnoreFields = new ReadOnlyCollection<string>(new[] { SystemForm.Schema.Attributes.formxml });
+        internal static IReadOnlyCollection<string> SystemFormIgnoreFields = new ReadOnlyCollection<string>(new[] { SystemForm.Schema.Attributes.formxml });
 
         private const string SystemFormFormatFile = "{0}.{1} SystemForm {2} - {3} at {4}.{5}";
 
@@ -76,7 +77,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private const string SiteMapFormatFile = "{0}.SiteMap{1} {2} - {3} at {4}.{5}";
 
-        internal static ReadOnlyCollection<string> SiteMapIgnoreFields = new ReadOnlyCollection<string>(new[] { SiteMap.Schema.Attributes.sitemapxml });
+        internal static IReadOnlyCollection<string> SiteMapIgnoreFields = new ReadOnlyCollection<string>(new[] { SiteMap.Schema.Attributes.sitemapxml });
 
         internal static string GetSiteMapFileName(string connectionName, string name, Guid id, string fieldTitle, string extension)
         {
@@ -85,7 +86,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private const string SavedQueryVisualizationFormatFile = "{0}.{1} SystemChart {2} - {3} at {4}.{5}";
 
-        internal static ReadOnlyCollection<string> SavedQueryVisualizationIgnoreFields = new ReadOnlyCollection<string>(new[] { SavedQueryVisualization.Schema.Attributes.datadescription, SavedQueryVisualization.Schema.Attributes.presentationdescription });
+        internal static IReadOnlyCollection<string> SavedQueryVisualizationIgnoreFields = new ReadOnlyCollection<string>(new[] { SavedQueryVisualization.Schema.Attributes.datadescription, SavedQueryVisualization.Schema.Attributes.presentationdescription });
 
         internal static string GetSavedQueryVisualizationFileName(string connectionName, string entityName, string name, string fieldTitle, string extension)
         {
@@ -94,7 +95,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private const string SavedQueryFormatFile = "{0}.{1} SavedQuery {2} - {3} at {4}.{5}";
 
-        internal static ReadOnlyCollection<string> SavedQueryIgnoreFields = new ReadOnlyCollection<string>(new[] { SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Attributes.columnsetxml });
+        internal static IReadOnlyCollection<string> SavedQueryIgnoreFields = new ReadOnlyCollection<string>(new[] { SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Attributes.columnsetxml });
 
         internal static string GetSavedQueryFileName(string connectionName, string entityName, string name, string fieldTitle, string extension)
         {
@@ -159,7 +160,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private const string ReportFormatFile = "{0}.Report {1} - {2} - {3} at {4}.{5}";
 
-        internal static ReadOnlyCollection<string> ReportIgnoreFields = new ReadOnlyCollection<string>(new[]
+        internal static IReadOnlyCollection<string> ReportIgnoreFields = new ReadOnlyCollection<string>(new[]
         {
             Report.Schema.Attributes.bodytext
             , Report.Schema.Attributes.originalbodytext
@@ -184,7 +185,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private const string PluginAssemblyFormatFileTxt = "{0}.PluginAssembly {1} - {2} at {3}.{4}";
 
-        internal static ReadOnlyCollection<string> PluginAssemblyIgnoreFields = new ReadOnlyCollection<string>(new[] { PluginAssembly.Schema.Attributes.content });
+        internal static IReadOnlyCollection<string> PluginAssemblyIgnoreFields = new ReadOnlyCollection<string>(new[] { PluginAssembly.Schema.Attributes.content });
 
         internal static string GetPluginAssemblyFileName(string connectionName, string name, string fieldTitle, string extension)
         {
@@ -193,7 +194,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private const string OrganizationFormatFile = "{0}.Organization {1} - {2} at {3}.{4}";
 
-        internal static ReadOnlyCollection<string> OrganizationIgnoreFields = new ReadOnlyCollection<string>(new[]
+        internal static IReadOnlyCollection<string> OrganizationIgnoreFields = new ReadOnlyCollection<string>(new[]
         {
             Organization.Schema.Attributes.defaultemailsettings
             , Organization.Schema.Attributes.externalpartycorrelationkeys
@@ -282,7 +283,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return string.Format(TeamFormatFileTxt, connectionName, name, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
-        internal static ReadOnlyCollection<string> ImportJobIgnoreFields = new ReadOnlyCollection<string>(new[]
+        internal static IReadOnlyCollection<string> ImportJobIgnoreFields = new ReadOnlyCollection<string>(new[]
         {
             ImportJob.Schema.Attributes.data
         });

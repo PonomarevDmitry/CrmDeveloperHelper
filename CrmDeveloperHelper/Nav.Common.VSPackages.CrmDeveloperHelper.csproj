@@ -1342,6 +1342,10 @@
     <Content Include="app.config">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Resource Include="Resources\Icons\16x16_resx.png" />
+    <Resource Include="Resources\Icons\16x16_svg.png" />
+    <Resource Include="Resources\Icons\16x16_gif.png" />
+    <Resource Include="Resources\Icons\16x16_png.png" />
     <Resource Include="Resources\serviceendpoint.png" />
     <Resource Include="Resources\workflowactivity.gif" />
     <Resource Include="Resources\PrivilegeDepths\ico_18_role_B.gif" />

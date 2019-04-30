@@ -13,24 +13,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     {
         private const string _defaultTabSpacer = "    ";
 
-        public static Task ExportEntityDescriptionAsync(string filePath, Entity entity, ICollection<string> list, ConnectionData connectionData = null)
+        public static Task ExportEntityDescriptionAsync(string filePath, Entity entity, IEnumerable<string> list, ConnectionData connectionData = null)
         {
             return Task.Run(() => ExportEntityDescription(filePath, entity, list, connectionData));
         }
 
-        private static void ExportEntityDescription(string filePath, Entity entity, ICollection<string> list, ConnectionData connectionData)
+        private static void ExportEntityDescription(string filePath, Entity entity, IEnumerable<string> list, ConnectionData connectionData)
         {
             string content = GetEntityDescription(entity, list, connectionData);
 
             File.WriteAllText(filePath, content, new UTF8Encoding(false));
         }
 
-        public static Task<string> GetEntityDescriptionAsync(Entity entity, ICollection<string> attributeToIgnore, ConnectionData connectionData = null)
+        public static Task<string> GetEntityDescriptionAsync(Entity entity, IEnumerable<string> attributeToIgnore, ConnectionData connectionData = null)
         {
             return Task.Run(() => GetEntityDescription(entity, attributeToIgnore, connectionData));
         }
 
-        private static string GetEntityDescription(Entity entity, ICollection<string> attributeToIgnore, ConnectionData connectionData)
+        private static string GetEntityDescription(Entity entity, IEnumerable<string> attributeToIgnore, ConnectionData connectionData)
         {
             StringBuilder result = new StringBuilder();
 
@@ -52,11 +52,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             FormatTextTableHandler table = new FormatTextTableHandler();
             table.SetHeader("Field Name", "Type", "Value");
 
+            HashSet<string> hash = new HashSet<string>(attributeToIgnore ?? Enumerable.Empty<string>(), StringComparer.InvariantCultureIgnoreCase);
+
             foreach (var attr in entity.Attributes.OrderBy(s => s.Key))
             {
-                if (attributeToIgnore != null)
+                if (hash.Any())
                 {
-                    if (attributeToIgnore.Contains(attr.Key))
+                    if (hash.Contains(attr.Key))
                     {
                         continue;
                     }
