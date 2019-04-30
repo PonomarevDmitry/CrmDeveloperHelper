@@ -2,22 +2,123 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
-        Title="Create Web Resource" Height="535" Width="540" WindowStartupLocation="Manual">
-    <Grid>
-        <TextBox x:Name="txtBFilePath" Height="23" Margin="10,10,10,0"   VerticalAlignment="Top" IsReadOnlyCaretVisible="True" IsReadOnly="True" IsTabStop="False" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" VerticalContentAlignment="Center"/>
-        <Label Content="Web Resource Name" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBName" Height="23" Margin="10,59,10,0"   VerticalAlignment="Top"  TextChanged="txtBName_TextChanged" VerticalContentAlignment="Center"/>
-        <Label Content="Display Name" HorizontalAlignment="Left" Margin="10,82,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBDisplayName" Height="23" Margin="10,108,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" />
-        <Label Content="Web Resource Final Name" HorizontalAlignment="Left" Margin="10,136,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBFinalName" Height="26" Margin="164,136,10,0"   VerticalAlignment="Top"  IsReadOnly="True" IsTabStop="False" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" VerticalContentAlignment="Center"/>
-        <Label Content="Solution Name" HorizontalAlignment="Left" Margin="10,167,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBSolutionName" Height="26" Margin="164,167,10,0"   VerticalAlignment="Top"  IsReadOnlyCaretVisible="True" IsReadOnly="True" IsTabStop="False" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" VerticalContentAlignment="Center"/>
-        <Label Content="Publisher Prefix" HorizontalAlignment="Left" Margin="10,198,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBPublisherPrefix" Height="26" Margin="164,198,10,0"   VerticalAlignment="Top"  IsReadOnlyCaretVisible="True" IsReadOnly="True" IsTabStop="False" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" VerticalContentAlignment="Center"/>
-        <Label Content="Web Resource Description" HorizontalAlignment="Left" Margin="10,224,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBDescription" Margin="10,250,10,40"   AcceptsReturn="True" AutoWordSelection="True" />
-        <Button x:Name="btnCreate" Content="Create" Margin="0,0,127,10" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="89" Click="btnCreate_Click"/>
-        <Button x:Name="btnCancel" Content="Cancel" Margin="0,0,10,10" Click="btnCancel_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+        Title="Create Web Resource" Height="535" Width="540" WindowStartupLocation="Manual"
+        >
+    <src:WindowBase.Resources>
+        <Style TargetType="{x:Type CheckBox}">
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Margin" Value="5"/>
+
+            <Setter Property="Height" Value="Auto"/>
+
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="{x:Type ComboBox}">
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Margin" Value="5"/>
+
+            <Setter Property="Height" Value="Auto"/>
+
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Margin" Value="5"/>
+
+            <Setter Property="Height" Value="Auto"/>
+
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        </Style>
+
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
+
+            <Setter Property="Height" Value="Auto"/>
+
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Margin" Value="5"/>
+
+            <Setter Property="Height" Value="Auto"/>
+
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+    </src:WindowBase.Resources>
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="100*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label Content="File Path" Grid.Row="0" />
+        <TextBox x:Name="txtBFilePath" Grid.Row="1" IsReadOnlyCaretVisible="True" IsReadOnly="True" IsTabStop="False" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+
+        <Label Content="Web Resource Name" Grid.Row="2" />
+        <ComboBox x:Name="cmBName" Grid.Row="3" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" SelectionChanged="cmBName_SelectionChanged" LostFocus="cmBName_LostFocus" TextBoxBase.TextChanged="cmBName_TextChanged" />
+
+        <Label Content="Display Name" Grid.Row="4" />
+        <ComboBox x:Name="cmBDisplayName" Grid.Row="5" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" />
+
+        <Grid Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            
+            <Label Content="Web Resource Final Name" Grid.Row="0" Grid.Column="0" />
+            <TextBox x:Name="txtBFinalName" Grid.Row="0" Grid.Column="1" IsReadOnlyCaretVisible="True" IsReadOnly="True" IsTabStop="False" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+
+            <Label Content="Solution Name" Grid.Row="1" Grid.Column="0" />
+            <TextBox x:Name="txtBSolutionName" Grid.Row="1" Grid.Column="1" IsReadOnlyCaretVisible="True" IsReadOnly="True" IsTabStop="False" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+
+            <Label Content="Publisher Prefix" Grid.Row="2" Grid.Column="0" />
+            <TextBox x:Name="txtBPublisherPrefix" Grid.Row="2" Grid.Column="1" IsReadOnlyCaretVisible="True" IsReadOnly="True" IsTabStop="False" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+        </Grid>
+
+        <Label Content="Web Resource Description" Grid.Row="7" />
+        <TextBox x:Name="txtBDescription" Grid.Row="8" AcceptsReturn="True" AutoWordSelection="True" />
+
+        <Grid Grid.Row="9" Margin="0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="btnCreate" Content="Create" Click="btnCreate_Click" Grid.Column="1"/>
+            <Button x:Name="btnCancel" Content="Cancel" Click="btnCancel_Click" Grid.Column="3"/>
+        </Grid>
+        
     </Grid>
 </src:WindowBase>
