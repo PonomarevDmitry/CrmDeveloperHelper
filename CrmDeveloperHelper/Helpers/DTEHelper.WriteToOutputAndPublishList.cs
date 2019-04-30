@@ -1,4 +1,5 @@
 using EnvDTE;
+using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.Xrm.Sdk;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -26,7 +27,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private const string _loggerOutputName = "OutputLogger";
         private const string _loggerErrors = "ErrorLogger";
 
-        private const string _outputWindowName = "Crm Developer Helper";
+        private const string _outputWindowPaneName = "Crm Developer Helper";
+        private static readonly Guid _outputWindowPaneId = new Guid("6997AAB4-2C13-46E9-9E24-BE82DD295BC9");
 
         private const string _tabSpacer = "    ";
 
@@ -34,6 +36,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private static readonly Guid ToolsDiffCommandGuid = new Guid("5D4C0442-C0A2-4BE8-9B4D-AB1C28450942");
         private const int ToolsDiffCommandId = 256;
+
 
         private static readonly ConcurrentDictionary<string, Logger> _loggersOutputCache = new ConcurrentDictionary<string, Logger>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -45,9 +48,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private readonly HashSet<string> _ListForPublish = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
-        private static ConditionalWeakTable<Exception, object> _logExceptions = new ConditionalWeakTable<Exception, object>();
+        private static readonly ConditionalWeakTable<Exception, object> _logExceptions = new ConditionalWeakTable<Exception, object>();
 
-        private static ConditionalWeakTable<Exception, object> _outputExceptions = new ConditionalWeakTable<Exception, object>();
+        private static readonly ConditionalWeakTable<Exception, object> _outputExceptions = new ConditionalWeakTable<Exception, object>();
 
         static DTEHelper()
         {
@@ -96,7 +99,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     bool firstWriteToOutput = true;
 
-                    if (_firstLineInOutput.TryGetValue(outputWindowLocal.Name, out bool temp))
+                    if (_firstLineInOutput.TryGetValue(outputWindowLocal.Guid, out bool temp))
                     {
                         firstWriteToOutput = temp;
                     }
@@ -106,7 +109,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         outputWindowLocal.OutputString(message);
                         outputWindowLocal.OutputString(Environment.NewLine);
 
-                        _firstLineInOutput[outputWindowLocal.Name] = false;
+                        _firstLineInOutput[outputWindowLocal.Guid] = false;
 
                         if (outputWindowLocal.TextDocument != null
                             && outputWindowLocal.TextDocument.Selection != null)
@@ -436,13 +439,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     {
                         outputWindowLocal.Clear();
 
-                        _firstLineInOutput[outputWindowLocal.Name] = true;
+                        _firstLineInOutput[outputWindowLocal.Guid] = true;
                     }
                     else
                     {
                         bool firstWriteToOutput = true;
 
-                        if (_firstLineInOutput.TryGetValue(outputWindowLocal.Name, out bool temp))
+                        if (_firstLineInOutput.TryGetValue(outputWindowLocal.Guid, out bool temp))
                         {
                             firstWriteToOutput = temp;
                         }
@@ -455,7 +458,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             outputWindowLocal.OutputString(Environment.NewLine);
                             outputWindowLocal.OutputString(Environment.NewLine);
 
-                            _firstLineInOutput[outputWindowLocal.Name] = false;
+                            _firstLineInOutput[outputWindowLocal.Guid] = false;
                         }
                     }
 
@@ -697,14 +700,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             try
             {
-                string outputWindowName = _outputWindowName;
+                string outputWindowPaneName = _outputWindowPaneName;
+                Guid outputWindowPaneId = _outputWindowPaneId;
 
                 if (connectionData != null)
                 {
+                    if (connectionData.ConnectionId == Guid.Empty)
+                    {
+                        connectionData.ConnectionId = Guid.NewGuid();
+                    }
+
                     string connectionName = !string.IsNullOrEmpty(connectionData.Name) ? connectionData.Name : connectionData.ConnectionId.ToString();
 
-                    outputWindowName += $" - {connectionName}";
+                    outputWindowPaneName += $" - {connectionName}";
+
+                    outputWindowPaneId = connectionData.ConnectionId;
                 }
+
+                var iVsOutputWindowService = (IVsOutputWindow)(Microsoft.VisualStudio.Shell.Package.GetGlobalService(typeof(SVsOutputWindow)));
+
+                IVsOutputWindowPane outputWindowPane = null;
+
+                iVsOutputWindowService.GetPane(ref outputWindowPaneId, out outputWindowPane);
+
+                if (outputWindowPane == null)
+                {
+                    iVsOutputWindowService.CreatePane(ref outputWindowPaneId, outputWindowPaneName, 1, 1);
+                    iVsOutputWindowService.GetPane(ref outputWindowPaneId, out outputWindowPane);
+                }
+
+                outputWindowPane.SetName(outputWindowPaneName);
 
                 OutputWindow outputWindow = ApplicationObject?.ToolWindows?.OutputWindow;
 
@@ -718,14 +743,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         if (pane != null)
                         {
-                            if (string.Equals(pane.Name, outputWindowName, StringComparison.InvariantCultureIgnoreCase))
+                            if (Guid.TryParse(pane.Guid, out var tempGuid)
+                                && tempGuid == outputWindowPaneId
+                            )
                             {
                                 return pane;
                             }
                         }
                     }
-
-                    return outputWindow.OutputWindowPanes.Add(outputWindowName);
                 }
             }
             catch (Exception ex)
