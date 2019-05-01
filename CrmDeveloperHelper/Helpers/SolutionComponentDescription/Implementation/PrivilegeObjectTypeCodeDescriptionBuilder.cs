@@ -64,6 +64,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                         Columns = new ColumnSet(Privilege.Schema.Attributes.name),
                     },
+
+                    new LinkEntity()
+                    {
+                        JoinOperator = JoinOperator.LeftOuter,
+
+                        LinkFromEntityName = PrivilegeObjectTypeCodes.EntityLogicalName,
+                        LinkFromAttributeName = PrivilegeObjectTypeCodes.Schema.Attributes.solutionid,
+
+                        LinkToEntityName = Solution.EntityLogicalName,
+                        LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
+
+                        EntityAlias = Solution.EntityLogicalName,
+
+                        Columns = new ColumnSet(Solution.Schema.Attributes.uniquename, Solution.Schema.Attributes.ismanaged),
+                    },
+
+                    new LinkEntity()
+                    {
+                        JoinOperator = JoinOperator.LeftOuter,
+
+                        LinkFromEntityName = PrivilegeObjectTypeCodes.EntityLogicalName,
+                        LinkFromAttributeName = PrivilegeObjectTypeCodes.Schema.Attributes.supportingsolutionid,
+
+                        LinkToEntityName = Solution.EntityLogicalName,
+                        LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
+
+                        EntityAlias = SupportingSolutionAlias,
+
+                        Columns = new ColumnSet(Solution.Schema.Attributes.uniquename, Solution.Schema.Attributes.ismanaged),
+                    },
                 },
             };
 
@@ -115,6 +145,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 {
                     {  PrivilegeObjectTypeCodes.Schema.Attributes.privilegeid + "." + Privilege.Schema.Attributes.name, PrivilegeObjectTypeCodes.Schema.Headers.privilegeid }
                     , { PrivilegeObjectTypeCodes.Schema.Attributes.objecttypecode, PrivilegeObjectTypeCodes.Schema.Headers.objecttypecode }
+                    , { "solution.uniquename", "SolutionName" }
+                    , { "solution.ismanaged", "SolutionIsManaged" }
+                    , { "suppsolution.uniquename", "SupportingName" }
+                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
                 };
         }
     }
