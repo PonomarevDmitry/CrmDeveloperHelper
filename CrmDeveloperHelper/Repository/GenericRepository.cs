@@ -34,48 +34,60 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private async Task<Entity> GetEntityById(Guid idEntity, ColumnSet columnSet)
         {
+            var repository = new SdkMessageFilterRepository(_service);
+
+            var messageFilter = await repository.FindByEntityAndMessageAsync(_entityMetadata.LogicalName, SdkMessage.Instances.RetrieveMultiple, new ColumnSet(false));
+
+            if (messageFilter != null)
             {
-                var repository = new SdkMessageFilterRepository(_service);
-
-                var messageFilter = await repository.FindByEntityAndMessageAsync(_entityMetadata.LogicalName, SdkMessage.Instances.RetrieveMultiple, new ColumnSet(false));
-
-                if (messageFilter == null)
+                var query = new QueryExpression()
                 {
-                    return null;
-                }
-            }
+                    NoLock = true,
 
-            var query = new QueryExpression()
-            {
-                NoLock = true,
+                    TopCount = 2,
 
-                TopCount = 2,
+                    EntityName = _entityMetadata.LogicalName,
 
-                EntityName = _entityMetadata.LogicalName,
+                    ColumnSet = columnSet,
 
-                ColumnSet = columnSet,
-
-                Criteria =
-                {
-                    Conditions =
+                    Criteria =
                     {
-                        new ConditionExpression(_entityMetadata.PrimaryIdAttribute, ConditionOperator.Equal, idEntity),
+                        Conditions =
+                        {
+                            new ConditionExpression(_entityMetadata.PrimaryIdAttribute, ConditionOperator.Equal, idEntity),
+                        },
                     },
-                },
-            };
+                };
 
-            try
-            {
-                var coll = _service.RetrieveMultiple(query);
-
-                if (coll.Entities.Count == 1)
+                try
                 {
-                    return coll.Entities.First();
+                    var coll = _service.RetrieveMultiple(query);
+
+                    if (coll.Entities.Count == 1)
+                    {
+                        return coll.Entities.First();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToLog(ex);
                 }
             }
-            catch (Exception ex)
+
+            messageFilter = await repository.FindByEntityAndMessageAsync(_entityMetadata.LogicalName, SdkMessage.Instances.Retrieve, new ColumnSet(false));
+
+            if (messageFilter != null)
             {
-                DTEHelper.WriteExceptionToLog(ex);
+                try
+                {
+                    var result = _service.Retrieve(_entityMetadata.LogicalName, idEntity, columnSet);
+
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToLog(ex);
+                }
             }
 
             return null;

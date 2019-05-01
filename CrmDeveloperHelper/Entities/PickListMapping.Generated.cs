@@ -1,17 +1,17 @@
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 {
-    public partial class ImportEntityMapping
+    public partial class PickListMapping
     {
         ///<summary>
         /// DisplayName:
-        ///     (English - United States - 1033): Import Entity Mapping
+        ///     (English - United States - 1033): List Value Mapping
         /// 
         /// DisplayCollectionName:
-        ///     (English - United States - 1033): Import Entity Mappings
+        ///     (English - United States - 1033): List Value Mappings
         /// 
         /// Description:
-        ///     (English - United States - 1033): Mapping for entities in a data map.
+        ///     (English - United States - 1033): In a data map, maps list values from the source file to Microsoft Dynamics 365.
         /// 
         /// PropertyName                          Value
         /// ActivityTypeMask                      0
@@ -30,12 +30,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         /// CanModifyAdditionalSettings           False
         /// CanTriggerWorkflow                    False
         /// ChangeTrackingEnabled                 False
-        /// CollectionSchemaName                  ImportEntityMappings
+        /// CollectionSchemaName                  PickListMappings
         /// DataProviderId                        null
         /// DataSourceId                          null
         /// EnforceStateTransitions               False
         /// EntityHelpUrlEnabled                  False
-        /// EntitySetName                         importentitymappings
+        /// EntitySetName                         picklistmappings
         /// IntroducedVersion                     5.0.0.0
         /// IsAIRUpdated                          False
         /// IsActivity                            False
@@ -74,24 +74,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         /// IsValidForQueue                       False
         /// IsVisibleInMobile                     False
         /// IsVisibleInMobileClient               False
-        /// LogicalCollectionName                 importentitymappings
-        /// LogicalName                           importentitymapping
-        /// ObjectTypeCode                        4428
+        /// LogicalCollectionName                 picklistmappings
+        /// LogicalName                           picklistmapping
+        /// ObjectTypeCode                        4418
         /// OwnershipType                         None
-        /// PrimaryIdAttribute                    importentitymappingid
-        /// SchemaName                            ImportEntityMapping
+        /// PrimaryIdAttribute                    picklistmappingid
+        /// SchemaName                            PickListMapping
         /// SyncToExternalSearchIndex             False
         /// UsesBusinessDataLabelTable            False
         ///</summary>
         public static partial class Schema
         {
-            public const string EntityLogicalName = "importentitymapping";
+            public const string EntityLogicalName = "picklistmapping";
 
-            public const string EntitySchemaName = "ImportEntityMapping";
+            public const string EntitySchemaName = "PickListMapping";
 
-            public const string EntityPrimaryIdAttribute = "importentitymappingid";
+            public const string EntityPrimaryIdAttribute = "picklistmappingid";
 
-            public const int EntityObjectTypeCode = 4428;
+            public const int EntityObjectTypeCode = 4418;
 
             #region Attributes.
 
@@ -99,9 +99,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 ///<summary>
                 /// Description:
-                ///     (English - United States - 1033): Unique identifier of the import entity mapping.
+                ///     (English - United States - 1033): Unique identifier of the picklist mapping.
                 /// 
-                /// SchemaName: ImportEntityMappingId
+                /// SchemaName: PickListMappingId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
                 /// IsValidForCreate: True    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
@@ -114,19 +114,97 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IntroducedVersion              5.0.0.0
                 /// IsCustomizable                 False
                 /// IsDataSourceSecret             False
-                /// IsFilterable                   True
+                /// IsFilterable                   False
                 /// IsGlobalFilterEnabled          False
                 /// IsPrimaryId                    True
                 /// IsPrimaryName                  False
                 /// IsRenameable                   False
                 /// IsRequiredForForm              False
-                /// IsRetrievable                  True
+                /// IsRetrievable                  False
                 /// IsSearchable                   False
                 /// IsSortableEnabled              False
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
-                public const string importentitymappingid = "importentitymappingid";
+                public const string picklistmappingid = "picklistmappingid";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): Column Mapping Id
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): Unique identifier of the column mapping with which this list value mapping is associated.
+                /// 
+                /// SchemaName: ColumnMappingId
+                /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: ApplicationRequired
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: True
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// Targets: columnmapping
+                /// 
+                ///     Target columnmapping    PrimaryIdAttribute columnmappingid    PrimaryNameAttribute sourceattributename
+                ///         DisplayName:
+                ///             (English - United States - 1033): Column Mapping
+                ///         
+                ///         DisplayCollectionName:
+                ///             (English - United States - 1033): Column Mappings
+                ///         
+                ///         Description:
+                ///             (English - United States - 1033): Mapping for columns in a data map.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 True
+                /// IsValidForGrid                 True
+                ///</summary>
+                public const string columnmappingid = "columnmappingid";
+
+                ///<summary>
+                /// Description:
+                ///     (English - United States - 1033): Name of the column mapping.
+                /// 
+                /// SchemaName: ColumnMappingIdName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired    AttributeOf 'columnmappingid'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              5.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string columnmappingidname = "columnmappingidname";
 
                 ///<summary>
                 /// DisplayName:
@@ -175,7 +253,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (English - United States - 1033): Created By
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Unique identifier of the user who created the import entity mapping.
+                ///     (English - United States - 1033): Unique identifier of the user who created the list value mapping.
                 /// 
                 /// SchemaName: CreatedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -277,7 +355,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 ///<summary>
                 /// Description:
-                ///     (English - United States - 1033): Date and time when the import entity mapping was created.
+                ///     (English - United States - 1033): Date and time when the list value mapping was created.
                 /// 
                 /// SchemaName: CreatedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
@@ -313,7 +391,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (English - United States - 1033): Created By (Delegate)
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Unique identifier of the delegate user who created the importentitymapping.
+                ///     (English - United States - 1033): Unique identifier of the delegate user who created the picklistmapping.
                 /// 
                 /// SchemaName: CreatedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -412,185 +490,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForGrid                 False
                 ///</summary>
                 //public const string createdonbehalfbyyominame = "createdonbehalfbyyominame";
-
-                ///<summary>
-                /// DisplayName:
-                ///     (English - United States - 1033): Remove Duplicates
-                /// 
-                /// Description:
-                ///     (English - United States - 1033): Information about whether the entity needs to be processed to find and delete duplicate records.
-                /// 
-                /// SchemaName: DeDupe
-                /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForUpdate: True
-                /// IsValidForRead: True    IsValidForAdvancedFind: True
-                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet importentitymapping_dedupe
-                /// DefaultFormValue = -1
-                /// PropertyName                   Value
-                /// CanBeSecuredForCreate          False
-                /// CanBeSecuredForRead            False
-                /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
-                /// IsCustomizable                 False
-                /// IsDataSourceSecret             False
-                /// IsFilterable                   False
-                /// IsGlobalFilterEnabled          False
-                /// IsPrimaryId                    False
-                /// IsPrimaryName                  False
-                /// IsRenameable                   False
-                /// IsRequiredForForm              False
-                /// IsRetrievable                  False
-                /// IsSearchable                   False
-                /// IsSortableEnabled              False
-                /// IsValidForForm                 True
-                /// IsValidForGrid                 True
-                ///</summary>
-                public const string dedupe = "dedupe";
-
-                ///<summary>
-                /// Description:
-                ///     (English - United States - 1033): Name for Dedupe
-                /// 
-                /// SchemaName: DeDupeName
-                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'dedupe'
-                /// IsValidForCreate: False    IsValidForUpdate: False
-                /// IsValidForRead: True    IsValidForAdvancedFind: False
-                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
-                /// PropertyName                   Value
-                /// CanBeSecuredForCreate          False
-                /// CanBeSecuredForRead            False
-                /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
-                /// IsCustomizable                 False
-                /// IsDataSourceSecret             False
-                /// IsFilterable                   False
-                /// IsGlobalFilterEnabled          False
-                /// IsPrimaryId                    False
-                /// IsPrimaryName                  False
-                /// IsRenameable                   False
-                /// IsRequiredForForm              False
-                /// IsRetrievable                  False
-                /// IsSearchable                   False
-                /// IsSortableEnabled              False
-                /// IsValidForForm                 False
-                /// IsValidForGrid                 False
-                ///</summary>
-                //public const string dedupename = "dedupename";
-
-                ///<summary>
-                /// Description:
-                ///     (English - United States - 1033): Unique identifier of the Import Entity Mapping.
-                /// 
-                /// SchemaName: ImportEntityMappingIdUnique
-                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: False    IsValidForUpdate: False
-                /// IsValidForRead: True    IsValidForAdvancedFind: False
-                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
-                /// PropertyName                   Value
-                /// CanBeSecuredForCreate          False
-                /// CanBeSecuredForRead            False
-                /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              9.0.0.0
-                /// IsCustomizable                 False
-                /// IsDataSourceSecret             False
-                /// IsFilterable                   False
-                /// IsGlobalFilterEnabled          False
-                /// IsPrimaryId                    False
-                /// IsPrimaryName                  False
-                /// IsRenameable                   False
-                /// IsRequiredForForm              False
-                /// IsRetrievable                  False
-                /// IsSearchable                   False
-                /// IsSortableEnabled              False
-                /// IsValidForForm                 False
-                /// IsValidForGrid                 False
-                ///</summary>
-                public const string importentitymappingidunique = "importentitymappingidunique";
-
-                ///<summary>
-                /// DisplayName:
-                ///     (English - United States - 1033): Data Map ID
-                /// 
-                /// Description:
-                ///     (English - United States - 1033): Unique identifier of the associated data map.
-                /// 
-                /// SchemaName: ImportMapId
-                /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: ApplicationRequired
-                /// IsValidForCreate: True    IsValidForUpdate: True
-                /// IsValidForRead: True    IsValidForAdvancedFind: True
-                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
-                /// Targets: importmap
-                /// 
-                ///     Target importmap    PrimaryIdAttribute importmapid    PrimaryNameAttribute name
-                ///         DisplayName:
-                ///             (English - United States - 1033): Data Map
-                ///         
-                ///         DisplayCollectionName:
-                ///             (English - United States - 1033): Data Maps
-                ///         
-                ///         Description:
-                ///             (English - United States - 1033): Data map used in import.
-                /// PropertyName                   Value
-                /// CanBeSecuredForCreate          False
-                /// CanBeSecuredForRead            False
-                /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
-                /// IsCustomizable                 False
-                /// IsDataSourceSecret             False
-                /// IsFilterable                   False
-                /// IsGlobalFilterEnabled          False
-                /// IsPrimaryId                    False
-                /// IsPrimaryName                  False
-                /// IsRenameable                   False
-                /// IsRequiredForForm              False
-                /// IsRetrievable                  False
-                /// IsSearchable                   False
-                /// IsSortableEnabled              False
-                /// IsValidForForm                 True
-                /// IsValidForGrid                 True
-                ///</summary>
-                public const string importmapid = "importmapid";
-
-                ///<summary>
-                /// DisplayName:
-                ///     (English - United States - 1033): Data Map
-                /// 
-                /// Description:
-                ///     (English - United States - 1033): Name of the associated data map.
-                /// 
-                /// SchemaName: ImportMapIdName
-                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired    AttributeOf 'importmapid'
-                /// IsValidForCreate: False    IsValidForUpdate: False
-                /// IsValidForRead: True    IsValidForAdvancedFind: False
-                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// MaxLength = 100
-                /// Format = Text    ImeMode = Auto    IsLocalizable = False
-                /// PropertyName                   Value
-                /// CanBeSecuredForCreate          False
-                /// CanBeSecuredForRead            False
-                /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
-                /// IsCustomizable                 False
-                /// IsDataSourceSecret             False
-                /// IsFilterable                   False
-                /// IsGlobalFilterEnabled          False
-                /// IsPrimaryId                    False
-                /// IsPrimaryName                  False
-                /// IsRenameable                   False
-                /// IsRequiredForForm              False
-                /// IsRetrievable                  False
-                /// IsSearchable                   False
-                /// IsSortableEnabled              False
-                /// IsValidForForm                 False
-                /// IsValidForGrid                 False
-                ///</summary>
-                //public const string importmapidname = "importmapidname";
 
                 ///<summary>
                 /// DisplayName:
@@ -704,7 +603,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (English - United States - 1033): Modified By
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Unique identifier of the user who last modified the import entity mapping.
+                ///     (English - United States - 1033): Unique identifier of the user who last modified the list value mapping.
                 /// 
                 /// SchemaName: ModifiedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -809,7 +708,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (English - United States - 1033): Modified On
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Date and time when the import entity mapping was last modified.
+                ///     (English - United States - 1033): Date and time when the list value mapping was last modified.
                 /// 
                 /// SchemaName: ModifiedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
@@ -845,7 +744,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (English - United States - 1033): Modified By (Delegate)
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Unique identifier of the delegate user who last modified the importentitymapping.
+                ///     (English - United States - 1033): Unique identifier of the delegate user who last modified the picklistmapping.
                 /// 
                 /// SchemaName: ModifiedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -982,18 +881,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 public const string overwritetime = "overwritetime";
 
                 ///<summary>
+                /// Description:
+                ///     (English - United States - 1033): Unique identifier of the Pick List Mapping.
+                /// 
+                /// SchemaName: PickListMappingIdUnique
+                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string picklistmappingidunique = "picklistmappingidunique";
+
+                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Process Code
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Information about whether the import entity mapping needs to be processed.
+                ///     (English - United States - 1033): Information about whether the list value mapping needs to be processed.
                 /// 
                 /// SchemaName: ProcessCode
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet importentitymapping_processcode
+                /// Local System  OptionSet picklistmapping_processcode
                 /// DefaultFormValue = -1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -1084,17 +1014,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 ///<summary>
                 /// DisplayName:
-                ///     (English - United States - 1033): Source Entity Name
+                ///     (English - United States - 1033): Source Value
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Name of the source entity.
+                ///     (English - United States - 1033): Source value to be replaced.
                 /// 
-                /// SchemaName: SourceEntityName
-                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: ApplicationRequired
+                /// SchemaName: SourceValue
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// MaxLength = 160
+                /// MaxLength = 2097152
                 /// Format = Text    ImeMode = Auto    IsLocalizable = False
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -1110,20 +1040,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsPrimaryName                  False
                 /// IsRenameable                   False
                 /// IsRequiredForForm              False
-                /// IsRetrievable                  True
-                /// IsSearchable                   True
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
                 /// IsSortableEnabled              False
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
-                public const string sourceentityname = "sourceentityname";
+                public const string sourcevalue = "sourcevalue";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Status
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Status of the import entity mapping.
+                ///     (English - United States - 1033): Status of the picklist mapping.
                 /// 
                 /// SchemaName: StateCode
                 /// StateAttributeMetadata    AttributeType: State    AttributeTypeName: StateType    RequiredLevel: SystemRequired
@@ -1155,7 +1085,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 ///<summary>
                 /// Description:
-                ///     (English - United States - 1033): Status name of the import entity mapping.
+                ///     (English - United States - 1033): Status name of the picklist mapping.
                 /// 
                 /// SchemaName: StateCodeName
                 /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'statecode'
@@ -1189,7 +1119,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (English - United States - 1033): Status Reason
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Reason for the status of the import entity mapping.
+                ///     (English - United States - 1033): Reason for the status of the picklist mapping.
                 /// 
                 /// SchemaName: StatusCode
                 /// StatusAttributeMetadata    AttributeType: Status    AttributeTypeName: StatusType    RequiredLevel: SystemRequired
@@ -1221,7 +1151,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 ///<summary>
                 /// Description:
-                ///     (English - United States - 1033): Name of the status reason of the import entity mapping.
+                ///     (English - United States - 1033): Name of the status reason of the picklist mapping.
                 /// 
                 /// SchemaName: StatusCodeName
                 /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'statuscode'
@@ -1286,18 +1216,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 ///<summary>
                 /// DisplayName:
-                ///     (English - United States - 1033): Target Entity
+                ///     (English - United States - 1033): Target Value
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Name of the Microsoft Dynamics 365 entity.
+                ///     (English - United States - 1033): Microsoft Dynamics 365 list value with which to replace the source value.
                 /// 
-                /// SchemaName: TargetEntityName
-                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
+                /// SchemaName: TargetValue
+                /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// MaxLength = 160
-                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// MinValue = -2147483648    MaxValue = 2147483647
+                /// Format = None
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1318,7 +1248,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
-                public const string targetentityname = "targetentityname";
+                public const string targetvalue = "targetvalue";
             }
 
             #endregion Attributes.
@@ -1336,12 +1266,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (English - United States - 1033): Status
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Status of the import entity mapping.
+                ///     (English - United States - 1033): Status of the picklist mapping.
                 ///</summary>
                 public enum statecode
                 {
                     ///<summary>
-                    /// Default statuscode: Active_1, 1
+                    /// Default statuscode: Active_0, 0
                     /// InvariantName: Active
                     /// DisplayOrder: 1
                     /// 
@@ -1360,7 +1290,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (English - United States - 1033): Status
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Status of the import entity mapping.
+                ///     (English - United States - 1033): Status of the picklist mapping.
                 ///</summary>
                 public enum statuscode
                 {
@@ -1372,53 +1302,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     ///     (English - United States - 1033): Active
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
-                    Active_0_Active_1 = 1,
+                    Active_0_Active_0 = 0,
                 }
 
                 #endregion State and Status OptionSets.
 
                 #region Picklist OptionSet OptionSets.
-
-                ///<summary>
-                /// Attribute:
-                ///     dedupe
-                /// 
-                /// DisplayName:
-                ///     (English - United States - 1033): Remove Duplicates
-                /// 
-                /// Description:
-                ///     (English - United States - 1033): Information about whether the entity needs to be processed to find and delete duplicate records.
-                /// 
-                /// Local System  OptionSet importentitymapping_dedupe
-                /// 
-                /// DisplayName:
-                ///     (English - United States - 1033): Detect Duplicates
-                /// 
-                /// Description:
-                ///     (English - United States - 1033): Will control whether duplicates are eliminated for given entity
-                ///</summary>
-                public enum dedupe
-                {
-                    ///<summary>
-                    /// 1
-                    /// DisplayOrder: 1
-                    /// 
-                    /// DisplayName:
-                    ///     (English - United States - 1033): Ignore
-                    ///</summary>
-                    [System.Runtime.Serialization.EnumMemberAttribute()]
-                    Ignore_1 = 1,
-
-                    ///<summary>
-                    /// 2
-                    /// DisplayOrder: 2
-                    /// 
-                    /// DisplayName:
-                    ///     (English - United States - 1033): Eliminate
-                    ///</summary>
-                    [System.Runtime.Serialization.EnumMemberAttribute()]
-                    Eliminate_2 = 2,
-                }
 
                 ///<summary>
                 /// Attribute:
@@ -1428,15 +1317,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (English - United States - 1033): Process Code
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Information about whether the import entity mapping needs to be processed.
+                ///     (English - United States - 1033): Information about whether the list value mapping needs to be processed.
                 /// 
-                /// Local System  OptionSet importentitymapping_processcode
+                /// Local System  OptionSet picklistmapping_processcode
                 /// 
                 /// DisplayName:
-                ///     (English - United States - 1033): Process Code
+                ///     (English - United States - 1033): ProcessCode
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Information about whether the import entity mapping needs to be processed.
+                ///     (English - United States - 1033): Information about whether the list value mapping needs to be processed.
                 ///</summary>
                 public enum processcode
                 {
@@ -1469,6 +1358,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Internal_3 = 3,
+
+                    ///<summary>
+                    /// 4
+                    /// DisplayOrder: 4
+                    /// 
+                    /// DisplayName:
+                    ///     (English - United States - 1033): Unmapped
+                    ///</summary>
+                    [System.Runtime.Serialization.EnumMemberAttribute()]
+                    Unmapped_4 = 4,
                 }
 
                 ///<summary>
@@ -1542,59 +1441,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             public static partial class ManyToOne
             {
                 ///<summary>
-                /// N:1 - Relationship ImportEntityMapping_ImportMap
+                /// N:1 - Relationship lk_picklistmapping_createdby
                 /// 
                 /// PropertyName                               Value
                 /// IsHierarchical                             False
-                /// ReferencedEntityNavigationPropertyName     ImportEntityMapping_ImportMap
-                /// ReferencingEntityNavigationPropertyName    importmapid
-                /// IsCustomizable                             False
-                /// IsCustomRelationship                       False
-                /// IsValidForAdvancedFind                     False
-                /// RelationshipType                           OneToManyRelationship
-                /// SecurityTypes                              Append
-                /// CascadeConfiguration.Assign                NoCascade
-                /// CascadeConfiguration.Delete                Cascade
-                /// CascadeConfiguration.Merge                 NoCascade
-                /// CascadeConfiguration.Reparent              NoCascade
-                /// CascadeConfiguration.Share                 NoCascade
-                /// CascadeConfiguration.Unshare               NoCascade
-                /// CascadeConfiguration.RollupView            NoCascade
-                /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
-                /// AssociatedMenuConfiguration.Group          Details
-                /// AssociatedMenuConfiguration.Order          null
-                /// 
-                /// ReferencedEntity importmap:    PrimaryIdAttribute importmapid    PrimaryNameAttribute name
-                ///     DisplayName:
-                ///         (English - United States - 1033): Data Map
-                ///     
-                ///     DisplayCollectionName:
-                ///         (English - United States - 1033): Data Maps
-                ///     
-                ///     Description:
-                ///         (English - United States - 1033): Data map used in import.
-                ///</summary>
-                public static partial class importentitymapping_importmap
-                {
-                    public const string Name = "ImportEntityMapping_ImportMap";
-
-                    public const string ReferencedEntity_importmap = "importmap";
-
-                    public const string ReferencedAttribute_importmapid = "importmapid";
-
-                    public const string ReferencedEntity_PrimaryNameAttribute_name = "name";
-
-                    public const string ReferencingEntity_importentitymapping = "importentitymapping";
-
-                    public const string ReferencingAttribute_importmapid = "importmapid";
-                }
-
-                ///<summary>
-                /// N:1 - Relationship lk_importentitymapping_createdby
-                /// 
-                /// PropertyName                               Value
-                /// IsHierarchical                             False
-                /// ReferencedEntityNavigationPropertyName     lk_importentitymapping_createdby
+                /// ReferencedEntityNavigationPropertyName     lk_picklistmapping_createdby
                 /// ReferencingEntityNavigationPropertyName    createdby
                 /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
@@ -1622,9 +1473,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
-                public static partial class lk_importentitymapping_createdby
+                public static partial class lk_picklistmapping_createdby
                 {
-                    public const string Name = "lk_importentitymapping_createdby";
+                    public const string Name = "lk_picklistmapping_createdby";
 
                     public const string ReferencedEntity_systemuser = "systemuser";
 
@@ -1632,17 +1483,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                     public const string ReferencedEntity_PrimaryNameAttribute_fullname = "fullname";
 
-                    public const string ReferencingEntity_importentitymapping = "importentitymapping";
+                    public const string ReferencingEntity_picklistmapping = "picklistmapping";
 
                     public const string ReferencingAttribute_createdby = "createdby";
                 }
 
                 ///<summary>
-                /// N:1 - Relationship lk_importentitymapping_createdonbehalfby
+                /// N:1 - Relationship lk_picklistmapping_createdonbehalfby
                 /// 
                 /// PropertyName                               Value
                 /// IsHierarchical                             False
-                /// ReferencedEntityNavigationPropertyName     lk_importentitymapping_createdonbehalfby
+                /// ReferencedEntityNavigationPropertyName     lk_picklistmapping_createdonbehalfby
                 /// ReferencingEntityNavigationPropertyName    createdonbehalfby
                 /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
@@ -1670,9 +1521,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
-                public static partial class lk_importentitymapping_createdonbehalfby
+                public static partial class lk_picklistmapping_createdonbehalfby
                 {
-                    public const string Name = "lk_importentitymapping_createdonbehalfby";
+                    public const string Name = "lk_picklistmapping_createdonbehalfby";
 
                     public const string ReferencedEntity_systemuser = "systemuser";
 
@@ -1680,17 +1531,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                     public const string ReferencedEntity_PrimaryNameAttribute_fullname = "fullname";
 
-                    public const string ReferencingEntity_importentitymapping = "importentitymapping";
+                    public const string ReferencingEntity_picklistmapping = "picklistmapping";
 
                     public const string ReferencingAttribute_createdonbehalfby = "createdonbehalfby";
                 }
 
                 ///<summary>
-                /// N:1 - Relationship lk_importentitymapping_modifiedby
+                /// N:1 - Relationship lk_picklistmapping_modifiedby
                 /// 
                 /// PropertyName                               Value
                 /// IsHierarchical                             False
-                /// ReferencedEntityNavigationPropertyName     lk_importentitymapping_modifiedby
+                /// ReferencedEntityNavigationPropertyName     lk_picklistmapping_modifiedby
                 /// ReferencingEntityNavigationPropertyName    modifiedby
                 /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
@@ -1718,9 +1569,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
-                public static partial class lk_importentitymapping_modifiedby
+                public static partial class lk_picklistmapping_modifiedby
                 {
-                    public const string Name = "lk_importentitymapping_modifiedby";
+                    public const string Name = "lk_picklistmapping_modifiedby";
 
                     public const string ReferencedEntity_systemuser = "systemuser";
 
@@ -1728,17 +1579,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                     public const string ReferencedEntity_PrimaryNameAttribute_fullname = "fullname";
 
-                    public const string ReferencingEntity_importentitymapping = "importentitymapping";
+                    public const string ReferencingEntity_picklistmapping = "picklistmapping";
 
                     public const string ReferencingAttribute_modifiedby = "modifiedby";
                 }
 
                 ///<summary>
-                /// N:1 - Relationship lk_importentitymapping_modifiedonbehalfby
+                /// N:1 - Relationship lk_picklistmapping_modifiedonbehalfby
                 /// 
                 /// PropertyName                               Value
                 /// IsHierarchical                             False
-                /// ReferencedEntityNavigationPropertyName     lk_importentitymapping_modifiedonbehalfby
+                /// ReferencedEntityNavigationPropertyName     lk_picklistmapping_modifiedonbehalfby
                 /// ReferencingEntityNavigationPropertyName    modifiedonbehalfby
                 /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
@@ -1766,9 +1617,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
-                public static partial class lk_importentitymapping_modifiedonbehalfby
+                public static partial class lk_picklistmapping_modifiedonbehalfby
                 {
-                    public const string Name = "lk_importentitymapping_modifiedonbehalfby";
+                    public const string Name = "lk_picklistmapping_modifiedonbehalfby";
 
                     public const string ReferencedEntity_systemuser = "systemuser";
 
@@ -1776,9 +1627,57 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                     public const string ReferencedEntity_PrimaryNameAttribute_fullname = "fullname";
 
-                    public const string ReferencingEntity_importentitymapping = "importentitymapping";
+                    public const string ReferencingEntity_picklistmapping = "picklistmapping";
 
                     public const string ReferencingAttribute_modifiedonbehalfby = "modifiedonbehalfby";
+                }
+
+                ///<summary>
+                /// N:1 - Relationship PickListMapping_ColumnMapping
+                /// 
+                /// PropertyName                               Value
+                /// IsHierarchical                             False
+                /// ReferencedEntityNavigationPropertyName     PickListMapping_ColumnMapping
+                /// ReferencingEntityNavigationPropertyName    columnmappingid
+                /// IsCustomizable                             False
+                /// IsCustomRelationship                       False
+                /// IsValidForAdvancedFind                     False
+                /// RelationshipType                           OneToManyRelationship
+                /// SecurityTypes                              Append
+                /// CascadeConfiguration.Assign                NoCascade
+                /// CascadeConfiguration.Delete                Cascade
+                /// CascadeConfiguration.Merge                 NoCascade
+                /// CascadeConfiguration.Reparent              NoCascade
+                /// CascadeConfiguration.Share                 NoCascade
+                /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
+                /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
+                /// AssociatedMenuConfiguration.Group          Details
+                /// AssociatedMenuConfiguration.Order          null
+                /// 
+                /// ReferencedEntity columnmapping:    PrimaryIdAttribute columnmappingid    PrimaryNameAttribute sourceattributename
+                ///     DisplayName:
+                ///         (English - United States - 1033): Column Mapping
+                ///     
+                ///     DisplayCollectionName:
+                ///         (English - United States - 1033): Column Mappings
+                ///     
+                ///     Description:
+                ///         (English - United States - 1033): Mapping for columns in a data map.
+                ///</summary>
+                public static partial class picklistmapping_columnmapping
+                {
+                    public const string Name = "PickListMapping_ColumnMapping";
+
+                    public const string ReferencedEntity_columnmapping = "columnmapping";
+
+                    public const string ReferencedAttribute_columnmappingid = "columnmappingid";
+
+                    public const string ReferencedEntity_PrimaryNameAttribute_sourceattributename = "sourceattributename";
+
+                    public const string ReferencingEntity_picklistmapping = "picklistmapping";
+
+                    public const string ReferencingAttribute_columnmappingid = "columnmappingid";
                 }
             }
 
@@ -1789,12 +1688,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             public static partial class OneToMany
             {
                 ///<summary>
-                /// 1:N - Relationship userentityinstancedata_importentitymapping
+                /// 1:N - Relationship userentityinstancedata_picklistmapping
                 /// 
                 /// PropertyName                               Value
                 /// IsHierarchical                             False
-                /// ReferencedEntityNavigationPropertyName     userentityinstancedata_importentitymapping
-                /// ReferencingEntityNavigationPropertyName    objectid_importentitymapping
+                /// ReferencedEntityNavigationPropertyName     userentityinstancedata_picklistmapping
+                /// ReferencingEntityNavigationPropertyName    objectid_picklistmapping
                 /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
@@ -1818,13 +1717,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Per User item instance data
                 ///</summary>
-                public static partial class userentityinstancedata_importentitymapping
+                public static partial class userentityinstancedata_picklistmapping
                 {
-                    public const string Name = "userentityinstancedata_importentitymapping";
+                    public const string Name = "userentityinstancedata_picklistmapping";
 
-                    public const string ReferencedEntity_importentitymapping = "importentitymapping";
+                    public const string ReferencedEntity_picklistmapping = "picklistmapping";
 
-                    public const string ReferencedAttribute_importentitymappingid = "importentitymappingid";
+                    public const string ReferencedAttribute_picklistmappingid = "picklistmappingid";
 
                     public const string ReferencingEntity_userentityinstancedata = "userentityinstancedata";
 

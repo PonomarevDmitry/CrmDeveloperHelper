@@ -64,6 +64,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         return new EntityMapDescriptionBuilder(service);
                     case ComponentType.AttributeMap:
                         return new AttributeMapDescriptionBuilder(service);
+                    case ComponentType.ImportMap:
+                        return new ImportMapDescriptionBuilder(service);
+                    case ComponentType.ImportEntityMapping:
+                        return new ImportEntityMappingDescriptionBuilder(service);
                     case ComponentType.RibbonCommand:
                         return new RibbonCommandDescriptionBuilder(service);
                     case ComponentType.RibbonContextGroup:
@@ -162,6 +166,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         return new PrivilegeObjectTypeCodeDescriptionBuilder(service);
                     case ComponentType.WebWizard:
                         return new WebWizardDescriptionBuilder(service);
+                    case ComponentType.ComplexControl:
+                        return new ComplexControlDescriptionBuilder(service);
 
                         //case ComponentType.Form:
                         //    return new DescriptionBuilder(service);

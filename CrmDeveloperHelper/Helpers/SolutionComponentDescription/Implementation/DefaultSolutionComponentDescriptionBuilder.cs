@@ -78,7 +78,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return GetEntities<T>(components.Select(id => (Guid?)id));
         }
 
-        public List<T> GetEntities<T>(IEnumerable<Guid?> components) where T : Entity
+        public virtual List<T> GetEntities<T>(IEnumerable<Guid?> components) where T : Entity
         {
             List<Guid> idsNotCached = components.Where(c => c.HasValue).Select(comp => comp.Value).ToList();
 
@@ -253,7 +253,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
         }
 
-        public T GetEntity<T>(Guid idEntity) where T : Entity
+        public virtual T GetEntity<T>(Guid idEntity) where T : Entity
         {
             var listEntities = GetEntities<T>(new Guid[] { idEntity });
 

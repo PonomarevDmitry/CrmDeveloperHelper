@@ -89,6 +89,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             public const string ExportFieldTranslation = "ExportFieldTranslation";
 
             public const string RetrieveMultiple = "RetrieveMultiple";
+
+            public const string Retrieve = "Retrieve";
         }
 
         public string PrimaryObjectTypeCodeName

@@ -1,25 +1,25 @@
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 {
-    public partial class ImportEntityMapping
+    public partial class NavigationSetting
     {
         ///<summary>
         /// DisplayName:
-        ///     (English - United States - 1033): Import Entity Mapping
+        ///     (English - United States - 1033): Navigation Setting
         /// 
         /// DisplayCollectionName:
-        ///     (English - United States - 1033): Import Entity Mappings
+        ///     (English - United States - 1033): Navigation Settings
         /// 
         /// Description:
-        ///     (English - United States - 1033): Mapping for entities in a data map.
+        ///     (English - United States - 1033): Navigation Setting: A setting page or group of pages available for configuration within an app. A record representing a group of pages is regarded as the parent navigation setting of one or more other records. For internal use only.
         /// 
         /// PropertyName                          Value
         /// ActivityTypeMask                      0
         /// AutoCreateAccessTeams                 False
         /// AutoRouteToOwnerQueue                 False
-        /// CanBeInManyToMany                     False
-        /// CanBePrimaryEntityInRelationship      False
-        /// CanBeRelatedEntityInRelationship      False
+        /// CanBeInManyToMany                     True
+        /// CanBePrimaryEntityInRelationship      True
+        /// CanBeRelatedEntityInRelationship      True
         /// CanChangeHierarchicalRelationship     False
         /// CanChangeTrackingBeEnabled            False
         /// CanCreateAttributes                   False
@@ -30,20 +30,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         /// CanModifyAdditionalSettings           False
         /// CanTriggerWorkflow                    False
         /// ChangeTrackingEnabled                 False
-        /// CollectionSchemaName                  ImportEntityMappings
+        /// CollectionSchemaName                  NavigationSettings
         /// DataProviderId                        null
         /// DataSourceId                          null
         /// EnforceStateTransitions               False
         /// EntityHelpUrlEnabled                  False
-        /// EntitySetName                         importentitymappings
-        /// IntroducedVersion                     5.0.0.0
+        /// EntitySetName                         navigationsettings
+        /// IntroducedVersion                     9.0.0.0
         /// IsAIRUpdated                          False
         /// IsActivity                            False
         /// IsActivityParty                       False
         /// IsAvailableOffline                    False
         /// IsBPFEntity                           False
         /// IsBusinessProcessEnabled              False
-        /// IsChildEntity                         False
+        /// IsChildEntity                         True
         /// IsConnectionsEnabled                  False
         /// IsCustomEntity                        False
         /// IsCustomizable                        False
@@ -53,7 +53,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         /// IsEnabledForCharts                    False
         /// IsEnabledForExternalChannels          False
         /// IsEnabledForTrace                     False
-        /// IsImportable                          False
+        /// IsImportable                          True
         /// IsInteractionCentricEnabled           False
         /// IsIntersect                           False
         /// IsKnowledgeManagementEnabled          False
@@ -62,11 +62,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         /// IsMappable                            False
         /// IsOfflineInMobileClient               False
         /// IsOneNoteIntegrationEnabled           False
-        /// IsOptimisticConcurrencyEnabled        False
+        /// IsOptimisticConcurrencyEnabled        True
         /// IsPrivate                             False
         /// IsQuickCreateEnabled                  False
         /// IsReadOnlyInMobileClient              False
-        /// IsReadingPaneEnabled                  True
+        /// IsReadingPaneEnabled                  False
         /// IsRenameable                          False
         /// IsSLAEnabled                          False
         /// IsStateModelAware                     False
@@ -74,36 +74,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         /// IsValidForQueue                       False
         /// IsVisibleInMobile                     False
         /// IsVisibleInMobileClient               False
-        /// LogicalCollectionName                 importentitymappings
-        /// LogicalName                           importentitymapping
-        /// ObjectTypeCode                        4428
-        /// OwnershipType                         None
-        /// PrimaryIdAttribute                    importentitymappingid
-        /// SchemaName                            ImportEntityMapping
+        /// LogicalCollectionName                 navigationsettings
+        /// LogicalName                           navigationsetting
+        /// ObjectTypeCode                        9900
+        /// OwnershipType                         OrganizationOwned
+        /// PrimaryIdAttribute                    navigationsettingid
+        /// PrimaryNameAttribute                  name
+        /// ReportViewName                        FilteredNavigationSetting
+        /// SchemaName                            NavigationSetting
         /// SyncToExternalSearchIndex             False
         /// UsesBusinessDataLabelTable            False
         ///</summary>
         public static partial class Schema
         {
-            public const string EntityLogicalName = "importentitymapping";
+            public const string EntityLogicalName = "navigationsetting";
 
-            public const string EntitySchemaName = "ImportEntityMapping";
+            public const string EntitySchemaName = "NavigationSetting";
 
-            public const string EntityPrimaryIdAttribute = "importentitymappingid";
+            public const string EntityPrimaryIdAttribute = "navigationsettingid";
 
-            public const int EntityObjectTypeCode = 4428;
+            public const string EntityPrimaryNameAttribute = "name";
+
+            public const int EntityObjectTypeCode = 9900;
 
             #region Attributes.
 
             public static partial class Attributes
             {
                 ///<summary>
-                /// Description:
-                ///     (English - United States - 1033): Unique identifier of the import entity mapping.
+                /// DisplayName:
+                ///     (English - United States - 1033): NavigationSettingId
                 /// 
-                /// SchemaName: ImportEntityMappingId
+                /// Description:
+                ///     (English - United States - 1033): Identifies a single setting page or group of pages configured for use in a single app.
+                /// 
+                /// SchemaName: NavigationSettingId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// PropertyName                   Value
@@ -111,7 +118,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CanBeSecuredForRead            False
                 /// CanBeSecuredForUpdate          False
                 /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
+                /// IntroducedVersion              9.0.0.0
                 /// IsCustomizable                 False
                 /// IsDataSourceSecret             False
                 /// IsFilterable                   True
@@ -126,7 +133,158 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
-                public const string importentitymappingid = "importentitymappingid";
+                public const string navigationsettingid = "navigationsettingid";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): Name
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): Type a title or name that describes the Navigation Setting so it can be identified in Dynamics CRM views.
+                /// 
+                /// SchemaName: Name
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = True
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  True
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string name = "name";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): AdvancedOrder
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): Enter the position of this NavigationSetting as it should appear within its group in the Advanced Setup menu.
+                /// 
+                /// SchemaName: AdvancedSettingOrder
+                /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MinValue = 0    MaxValue = 2147483647
+                /// Format = None
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   True
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string advancedsettingorder = "advancedsettingorder";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): AppConfigId
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): Enter the App Config record that this Navigation Setting is associated with.
+                /// 
+                /// SchemaName: AppConfigId
+                /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: ApplicationRequired
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// Targets: appmodule
+                /// 
+                ///     Target appmodule    PrimaryIdAttribute appmoduleid    PrimaryNameAttribute name
+                ///         DisplayName:
+                ///             (English - United States - 1033): App
+                ///         
+                ///         DisplayCollectionName:
+                ///             (English - United States - 1033): Apps
+                ///         
+                ///         Description:
+                ///             (English - United States - 1033): A role-based, modular business app that provides task-based functionality for a particular area of work.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string appconfigid = "appconfigid";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): AppConfigIdUnique
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): For system use only.
+                /// 
+                /// SchemaName: AppConfigIdUnique
+                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string appconfigidunique = "appconfigidunique";
 
                 ///<summary>
                 /// DisplayName:
@@ -152,7 +310,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
                 /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
+                /// CanModifyAdditionalSettings    False
                 /// IntroducedVersion              9.0.0.0
                 /// IsCustomizable                 False
                 /// IsDataSourceSecret             False
@@ -175,7 +333,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (English - United States - 1033): Created By
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Unique identifier of the user who created the import entity mapping.
+                ///     (English - United States - 1033): Shows who created the record.
                 /// 
                 /// SchemaName: CreatedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -198,20 +356,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CanBeSecuredForRead            False
                 /// CanBeSecuredForUpdate          False
                 /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
-                /// IsCustomizable                 False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 True
                 /// IsDataSourceSecret             False
                 /// IsFilterable                   False
                 /// IsGlobalFilterEnabled          False
                 /// IsPrimaryId                    False
                 /// IsPrimaryName                  False
-                /// IsRenameable                   False
+                /// IsRenameable                   True
                 /// IsRequiredForForm              False
                 /// IsRetrievable                  False
                 /// IsSearchable                   False
                 /// IsSortableEnabled              False
                 /// IsValidForForm                 False
-                /// IsValidForGrid                 True
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string createdby = "createdby";
 
@@ -227,8 +385,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
                 /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
                 /// IsCustomizable                 False
                 /// IsDataSourceSecret             False
                 /// IsFilterable                   False
@@ -246,41 +404,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 //public const string createdbyname = "createdbyname";
 
                 ///<summary>
-                /// SchemaName: CreatedByYomiName
-                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'createdby'
-                /// IsValidForCreate: False    IsValidForUpdate: False
-                /// IsValidForRead: True    IsValidForAdvancedFind: False
-                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// MaxLength = 100
-                /// Format = Text    ImeMode = Auto    IsLocalizable = False
-                /// PropertyName                   Value
-                /// CanBeSecuredForCreate          False
-                /// CanBeSecuredForRead            False
-                /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
-                /// IsCustomizable                 False
-                /// IsDataSourceSecret             False
-                /// IsFilterable                   False
-                /// IsGlobalFilterEnabled          False
-                /// IsPrimaryId                    False
-                /// IsPrimaryName                  False
-                /// IsRenameable                   False
-                /// IsRequiredForForm              False
-                /// IsRetrievable                  False
-                /// IsSearchable                   False
-                /// IsSortableEnabled              False
-                /// IsValidForForm                 False
-                /// IsValidForGrid                 False
-                ///</summary>
-                //public const string createdbyyominame = "createdbyyominame";
-
-                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): Created On
+                /// 
                 /// Description:
-                ///     (English - United States - 1033): Date and time when the import entity mapping was created.
+                ///     (English - United States - 1033): Shows the date and time when the record was created. The date and time are displayed in the time zone selected in Microsoft Dynamics CRM options.
                 /// 
                 /// SchemaName: CreatedOn
-                /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
+                /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
@@ -291,14 +422,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CanBeSecuredForRead            False
                 /// CanBeSecuredForUpdate          False
                 /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
-                /// IsCustomizable                 False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 True
                 /// IsDataSourceSecret             False
                 /// IsFilterable                   False
                 /// IsGlobalFilterEnabled          False
                 /// IsPrimaryId                    False
                 /// IsPrimaryName                  False
-                /// IsRenameable                   False
+                /// IsRenameable                   True
                 /// IsRequiredForForm              False
                 /// IsRetrievable                  False
                 /// IsSearchable                   False
@@ -313,7 +444,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (English - United States - 1033): Created By (Delegate)
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Unique identifier of the delegate user who created the importentitymapping.
+                ///     (English - United States - 1033): Shows who created the record on behalf of another user.
                 /// 
                 /// SchemaName: CreatedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -336,20 +467,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CanBeSecuredForRead            False
                 /// CanBeSecuredForUpdate          False
                 /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
-                /// IsCustomizable                 False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 True
                 /// IsDataSourceSecret             False
                 /// IsFilterable                   False
                 /// IsGlobalFilterEnabled          False
                 /// IsPrimaryId                    False
                 /// IsPrimaryName                  False
-                /// IsRenameable                   False
+                /// IsRenameable                   True
                 /// IsRequiredForForm              False
                 /// IsRetrievable                  False
                 /// IsSearchable                   False
                 /// IsSortableEnabled              False
                 /// IsValidForForm                 False
-                /// IsValidForGrid                 True
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string createdonbehalfby = "createdonbehalfby";
 
@@ -365,8 +496,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
                 /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
                 /// IsCustomizable                 False
                 /// IsDataSourceSecret             False
                 /// IsFilterable                   False
@@ -385,7 +516,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 ///<summary>
                 /// SchemaName: CreatedOnBehalfByYomiName
-                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'createdonbehalfby'
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired    AttributeOf 'createdonbehalfby'
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
@@ -395,8 +526,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
                 /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
                 /// IsCustomizable                 False
                 /// IsDataSourceSecret             False
                 /// IsFilterable                   False
@@ -415,80 +546,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 ///<summary>
                 /// DisplayName:
-                ///     (English - United States - 1033): Remove Duplicates
+                ///     (English - United States - 1033): Description
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Information about whether the entity needs to be processed to find and delete duplicate records.
+                ///     (English - United States - 1033): Type a description that describes that Navigation Setting in detail.
                 /// 
-                /// SchemaName: DeDupe
-                /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
+                /// SchemaName: Description
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
                 /// IsValidForCreate: True    IsValidForUpdate: True
-                /// IsValidForRead: True    IsValidForAdvancedFind: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet importentitymapping_dedupe
-                /// DefaultFormValue = -1
-                /// PropertyName                   Value
-                /// CanBeSecuredForCreate          False
-                /// CanBeSecuredForRead            False
-                /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
-                /// IsCustomizable                 False
-                /// IsDataSourceSecret             False
-                /// IsFilterable                   False
-                /// IsGlobalFilterEnabled          False
-                /// IsPrimaryId                    False
-                /// IsPrimaryName                  False
-                /// IsRenameable                   False
-                /// IsRequiredForForm              False
-                /// IsRetrievable                  False
-                /// IsSearchable                   False
-                /// IsSortableEnabled              False
-                /// IsValidForForm                 True
-                /// IsValidForGrid                 True
-                ///</summary>
-                public const string dedupe = "dedupe";
-
-                ///<summary>
-                /// Description:
-                ///     (English - United States - 1033): Name for Dedupe
-                /// 
-                /// SchemaName: DeDupeName
-                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'dedupe'
-                /// IsValidForCreate: False    IsValidForUpdate: False
-                /// IsValidForRead: True    IsValidForAdvancedFind: False
-                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
-                /// PropertyName                   Value
-                /// CanBeSecuredForCreate          False
-                /// CanBeSecuredForRead            False
-                /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
-                /// IsCustomizable                 False
-                /// IsDataSourceSecret             False
-                /// IsFilterable                   False
-                /// IsGlobalFilterEnabled          False
-                /// IsPrimaryId                    False
-                /// IsPrimaryName                  False
-                /// IsRenameable                   False
-                /// IsRequiredForForm              False
-                /// IsRetrievable                  False
-                /// IsSearchable                   False
-                /// IsSortableEnabled              False
-                /// IsValidForForm                 False
-                /// IsValidForGrid                 False
-                ///</summary>
-                //public const string dedupename = "dedupename";
-
-                ///<summary>
-                /// Description:
-                ///     (English - United States - 1033): Unique identifier of the Import Entity Mapping.
-                /// 
-                /// SchemaName: ImportEntityMappingIdUnique
-                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: False    IsValidForUpdate: False
-                /// IsValidForRead: True    IsValidForAdvancedFind: False
-                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// MaxLength = 2000
+                /// Format = Text    ImeMode = Auto    IsLocalizable = True
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -509,73 +578,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
-                public const string importentitymappingidunique = "importentitymappingidunique";
+                public const string description = "description";
 
                 ///<summary>
                 /// DisplayName:
-                ///     (English - United States - 1033): Data Map ID
+                ///     (English - United States - 1033): Group Name
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Unique identifier of the associated data map.
+                ///     (English - United States - 1033): Type the name of the group represented by this Navigation Setting record.
                 /// 
-                /// SchemaName: ImportMapId
-                /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: ApplicationRequired
+                /// SchemaName: GroupName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
                 /// IsValidForCreate: True    IsValidForUpdate: True
-                /// IsValidForRead: True    IsValidForAdvancedFind: True
-                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
-                /// Targets: importmap
-                /// 
-                ///     Target importmap    PrimaryIdAttribute importmapid    PrimaryNameAttribute name
-                ///         DisplayName:
-                ///             (English - United States - 1033): Data Map
-                ///         
-                ///         DisplayCollectionName:
-                ///             (English - United States - 1033): Data Maps
-                ///         
-                ///         Description:
-                ///             (English - United States - 1033): Data map used in import.
-                /// PropertyName                   Value
-                /// CanBeSecuredForCreate          False
-                /// CanBeSecuredForRead            False
-                /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
-                /// IsCustomizable                 False
-                /// IsDataSourceSecret             False
-                /// IsFilterable                   False
-                /// IsGlobalFilterEnabled          False
-                /// IsPrimaryId                    False
-                /// IsPrimaryName                  False
-                /// IsRenameable                   False
-                /// IsRequiredForForm              False
-                /// IsRetrievable                  False
-                /// IsSearchable                   False
-                /// IsSortableEnabled              False
-                /// IsValidForForm                 True
-                /// IsValidForGrid                 True
-                ///</summary>
-                public const string importmapid = "importmapid";
-
-                ///<summary>
-                /// DisplayName:
-                ///     (English - United States - 1033): Data Map
-                /// 
-                /// Description:
-                ///     (English - United States - 1033): Name of the associated data map.
-                /// 
-                /// SchemaName: ImportMapIdName
-                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired    AttributeOf 'importmapid'
-                /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
-                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// MaxLength = 100
-                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 400
+                /// Format = Text    ImeMode = Auto    IsLocalizable = True
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
                 /// CanBeSecuredForUpdate          False
                 /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
+                /// IntroducedVersion              9.0.0.0
                 /// IsCustomizable                 False
                 /// IsDataSourceSecret             False
                 /// IsFilterable                   False
@@ -590,21 +614,119 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
-                //public const string importmapidname = "importmapidname";
+                public const string groupname = "groupname";
+
+                ///<summary>
+                /// SchemaName: GroupTypeName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'settingtype'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string grouptypename = "grouptypename";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): IconResourceId
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): The web resource identifier of the icon to be used for a navigation setting area or sub area.
+                /// 
+                /// SchemaName: IconResourceId
+                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string iconresourceid = "iconresourceid";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): Import Sequence Number
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): Unique identifier of the data import or data migration that created this record.
+                /// 
+                /// SchemaName: ImportSequenceNumber
+                /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MinValue = -2147483648    MaxValue = 2147483647
+                /// Format = None
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   True
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string importsequencenumber = "importsequencenumber";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Introduced Version
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Version in which the component is introduced.
+                ///     (English - United States - 1033): Version in which the similarity rule is introduced.
                 /// 
                 /// SchemaName: IntroducedVersion
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
                 /// IsValidForCreate: True    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// MaxLength = 48
+                /// MaxLength = 100
                 /// Format = VersionNumber    ImeMode = Auto    IsLocalizable = False
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -630,10 +752,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 ///<summary>
                 /// DisplayName:
-                ///     (English - United States - 1033): State
+                ///     (English - United States - 1033): Is Managed
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Information that specifies whether this component is managed.
+                ///     (English - United States - 1033): For internal use only.
                 /// 
                 /// SchemaName: IsManaged
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
@@ -667,44 +789,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsSearchable                   False
                 /// IsSortableEnabled              False
                 /// IsValidForForm                 False
-                /// IsValidForGrid                 True
-                ///</summary>
-                public const string ismanaged = "ismanaged";
-
-                ///<summary>
-                /// SchemaName: IsManagedName
-                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'ismanaged'
-                /// IsValidForCreate: False    IsValidForUpdate: False
-                /// IsValidForRead: True    IsValidForAdvancedFind: False
-                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
-                /// PropertyName                   Value
-                /// CanBeSecuredForCreate          False
-                /// CanBeSecuredForRead            False
-                /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              9.0.0.0
-                /// IsCustomizable                 False
-                /// IsDataSourceSecret             False
-                /// IsFilterable                   False
-                /// IsGlobalFilterEnabled          False
-                /// IsPrimaryId                    False
-                /// IsPrimaryName                  False
-                /// IsRenameable                   False
-                /// IsRequiredForForm              False
-                /// IsRetrievable                  False
-                /// IsSearchable                   False
-                /// IsSortableEnabled              False
-                /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
-                //public const string ismanagedname = "ismanagedname";
+                public const string ismanaged = "ismanaged";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Unique identifier of the user who last modified the import entity mapping.
+                ///     (English - United States - 1033): Shows who last updated the record.
                 /// 
                 /// SchemaName: ModifiedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -727,20 +821,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CanBeSecuredForRead            False
                 /// CanBeSecuredForUpdate          False
                 /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
-                /// IsCustomizable                 False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 True
                 /// IsDataSourceSecret             False
                 /// IsFilterable                   False
                 /// IsGlobalFilterEnabled          False
                 /// IsPrimaryId                    False
                 /// IsPrimaryName                  False
-                /// IsRenameable                   False
+                /// IsRenameable                   True
                 /// IsRequiredForForm              False
                 /// IsRetrievable                  False
                 /// IsSearchable                   False
                 /// IsSortableEnabled              False
                 /// IsValidForForm                 False
-                /// IsValidForGrid                 True
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string modifiedby = "modifiedby";
 
@@ -756,8 +850,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
                 /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
                 /// IsCustomizable                 False
                 /// IsDataSourceSecret             False
                 /// IsFilterable                   False
@@ -775,44 +869,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 //public const string modifiedbyname = "modifiedbyname";
 
                 ///<summary>
-                /// SchemaName: ModifiedByYomiName
-                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'modifiedby'
-                /// IsValidForCreate: False    IsValidForUpdate: False
-                /// IsValidForRead: True    IsValidForAdvancedFind: False
-                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// MaxLength = 100
-                /// Format = Text    ImeMode = Auto    IsLocalizable = False
-                /// PropertyName                   Value
-                /// CanBeSecuredForCreate          False
-                /// CanBeSecuredForRead            False
-                /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
-                /// IsCustomizable                 False
-                /// IsDataSourceSecret             False
-                /// IsFilterable                   False
-                /// IsGlobalFilterEnabled          False
-                /// IsPrimaryId                    False
-                /// IsPrimaryName                  False
-                /// IsRenameable                   False
-                /// IsRequiredForForm              False
-                /// IsRetrievable                  False
-                /// IsSearchable                   False
-                /// IsSortableEnabled              False
-                /// IsValidForForm                 False
-                /// IsValidForGrid                 False
-                ///</summary>
-                //public const string modifiedbyyominame = "modifiedbyyominame";
-
-                ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified On
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Date and time when the import entity mapping was last modified.
+                ///     (English - United States - 1033): Shows the date and time when the record was last updated. The date and time are displayed in the time zone selected in Microsoft Dynamics CRM options.
                 /// 
                 /// SchemaName: ModifiedOn
-                /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
+                /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
@@ -823,20 +887,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CanBeSecuredForRead            False
                 /// CanBeSecuredForUpdate          False
                 /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
-                /// IsCustomizable                 False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 True
                 /// IsDataSourceSecret             False
                 /// IsFilterable                   False
                 /// IsGlobalFilterEnabled          False
                 /// IsPrimaryId                    False
                 /// IsPrimaryName                  False
-                /// IsRenameable                   False
+                /// IsRenameable                   True
                 /// IsRequiredForForm              False
                 /// IsRetrievable                  False
                 /// IsSearchable                   False
                 /// IsSortableEnabled              False
-                /// IsValidForForm                 True
-                /// IsValidForGrid                 True
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string modifiedon = "modifiedon";
 
@@ -845,7 +909,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (English - United States - 1033): Modified By (Delegate)
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Unique identifier of the delegate user who last modified the importentitymapping.
+                ///     (English - United States - 1033): Shows who last updated the record on behalf of another user.
                 /// 
                 /// SchemaName: ModifiedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -868,20 +932,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CanBeSecuredForRead            False
                 /// CanBeSecuredForUpdate          False
                 /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
-                /// IsCustomizable                 False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 True
                 /// IsDataSourceSecret             False
                 /// IsFilterable                   False
                 /// IsGlobalFilterEnabled          False
                 /// IsPrimaryId                    False
                 /// IsPrimaryName                  False
-                /// IsRenameable                   False
+                /// IsRenameable                   True
                 /// IsRequiredForForm              False
                 /// IsRetrievable                  False
                 /// IsSearchable                   False
                 /// IsSortableEnabled              False
                 /// IsValidForForm                 False
-                /// IsValidForGrid                 True
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string modifiedonbehalfby = "modifiedonbehalfby";
 
@@ -897,8 +961,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
                 /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
                 /// IsCustomizable                 False
                 /// IsDataSourceSecret             False
                 /// IsFilterable                   False
@@ -917,7 +981,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 ///<summary>
                 /// SchemaName: ModifiedOnBehalfByYomiName
-                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'modifiedonbehalfby'
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired    AttributeOf 'modifiedonbehalfby'
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
@@ -927,8 +991,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
                 /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
                 /// IsCustomizable                 False
                 /// IsDataSourceSecret             False
                 /// IsFilterable                   False
@@ -944,6 +1008,187 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForGrid                 False
                 ///</summary>
                 //public const string modifiedonbehalfbyyominame = "modifiedonbehalfbyyominame";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): NavigationSettingIdUnique
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): For system use only.
+                /// 
+                /// SchemaName: NavigationSettingIdUnique
+                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: True    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string navigationsettingidunique = "navigationsettingidunique";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): EntityObjectTypeCode
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): Enter the Object Type Code of the entity associated whose page this Navigation Setting record represents.
+                /// 
+                /// SchemaName: ObjectTypeCode
+                /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MinValue = -2147483648    MaxValue = 2147483647
+                /// Format = None
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   True
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string objecttypecode = "objecttypecode";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): Organization
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): System-populated field that identifies the organization that owns this Navigation Setting record.
+                /// 
+                /// SchemaName: OrganizationId
+                /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// Targets: organization
+                /// 
+                ///     Target organization    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
+                ///         DisplayName:
+                ///             (English - United States - 1033): Organization
+                ///         
+                ///         DisplayCollectionName:
+                ///             (English - United States - 1033): Organizations
+                ///         
+                ///         Description:
+                ///             (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string organizationid = "organizationid";
+
+                ///<summary>
+                /// SchemaName: OrganizationIdName
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired    AttributeOf 'organizationid'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 100
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string organizationidname = "organizationidname";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): Record Created On
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): Date and time that the record was migrated.
+                /// 
+                /// SchemaName: OverriddenCreatedOn
+                /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// DateTimeBehavior = UserLocal    CanChangeDateTimeBehavior = False
+                /// ImeMode = Inactive    Format = DateOnly
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   True
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string overriddencreatedon = "overriddencreatedon";
 
                 ///<summary>
                 /// DisplayName:
@@ -983,55 +1228,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 ///<summary>
                 /// DisplayName:
-                ///     (English - United States - 1033): Process Code
+                ///     (English - United States - 1033): Page Url
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Information about whether the import entity mapping needs to be processed.
+                ///     (English - United States - 1033): Type the URL which locates the page associated with this Navigation Setting record.
                 /// 
-                /// SchemaName: ProcessCode
-                /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
+                /// SchemaName: PageUrl
+                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
                 /// IsValidForCreate: True    IsValidForUpdate: True
-                /// IsValidForRead: True    IsValidForAdvancedFind: True
-                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet importentitymapping_processcode
-                /// DefaultFormValue = -1
-                /// PropertyName                   Value
-                /// CanBeSecuredForCreate          False
-                /// CanBeSecuredForRead            False
-                /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
-                /// IsCustomizable                 False
-                /// IsDataSourceSecret             False
-                /// IsFilterable                   False
-                /// IsGlobalFilterEnabled          False
-                /// IsPrimaryId                    False
-                /// IsPrimaryName                  False
-                /// IsRenameable                   False
-                /// IsRequiredForForm              False
-                /// IsRetrievable                  False
-                /// IsSearchable                   False
-                /// IsSortableEnabled              False
-                /// IsValidForForm                 True
-                /// IsValidForGrid                 True
-                ///</summary>
-                public const string processcode = "processcode";
-
-                ///<summary>
-                /// Description:
-                ///     (English - United States - 1033): Process code name for ProcessCode
-                /// 
-                /// SchemaName: ProcessCodeName
-                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'processcode'
-                /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
-                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MaxLength = 400
+                /// Format = Text    ImeMode = Auto    IsLocalizable = False
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
                 /// CanBeSecuredForUpdate          False
                 /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
+                /// IntroducedVersion              9.0.0.0
                 /// IsCustomizable                 False
                 /// IsDataSourceSecret             False
                 /// IsFilterable                   False
@@ -1046,7 +1260,254 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
-                //public const string processcodename = "processcodename";
+                public const string pageurl = "pageurl";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): Parent Navigation Setting Id
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): The Navigation Setting record that represents the group that this record belongs to.
+                /// 
+                /// SchemaName: ParentNavigationSettingId
+                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string parentnavigationsettingid = "parentnavigationsettingid";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): Privileges
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): Enter the Privilege Mask for the entity associated with this navigation setting page that will be the minimum requirement for the page to be made available to a user.
+                /// 
+                /// SchemaName: Privileges
+                /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MinValue = -2147483648    MaxValue = 2147483647
+                /// Format = None
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   True
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string privileges = "privileges";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): Progress State
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): Select the setup completion level for this Navigation Setting page.
+                /// 
+                /// SchemaName: ProgressState
+                /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// DefaultValue = False
+                /// 
+                /// DisplayName:
+                ///     (English - United States - 1033): Not Visited
+                /// FalseOption = 0
+                /// 
+                /// DisplayName:
+                ///     (English - United States - 1033): Visited
+                /// TrueOption = 1
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string progressstate = "progressstate";
+
+                ///<summary>
+                /// SchemaName: ProgressStateName
+                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'progressstate'
+                /// IsValidForCreate: False    IsValidForUpdate: False
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                //public const string progressstatename = "progressstatename";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): QuickOrder
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): Enter the position of this NavigationSetting as it should appear in the Quick Setup menu.
+                /// 
+                /// SchemaName: QuickSettingOrder
+                /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// MinValue = 0    MaxValue = 2147483647
+                /// Format = None
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   True
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string quicksettingorder = "quicksettingorder";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): Resource Id
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): The Web Resource that will be associated with this Navigation Setting record.
+                /// 
+                /// SchemaName: ResourceId
+                /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    True
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 False
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string resourceid = "resourceid";
+
+                ///<summary>
+                /// DisplayName:
+                ///     (English - United States - 1033): Group Type
+                /// 
+                /// Description:
+                ///     (English - United States - 1033): Select the type of group this Navigation Setting record represents. This determines which of the three in-app customization menus will contain this group.
+                /// 
+                /// SchemaName: SettingType
+                /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: None
+                /// IsValidForCreate: True    IsValidForUpdate: True
+                /// IsValidForRead: True    IsValidForAdvancedFind: False
+                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+                /// Local System  OptionSet navigationsetting_settingtype
+                /// DefaultFormValue = Null
+                /// PropertyName                   Value
+                /// CanBeSecuredForCreate          False
+                /// CanBeSecuredForRead            False
+                /// CanBeSecuredForUpdate          False
+                /// CanModifyAdditionalSettings    False
+                /// IntroducedVersion              9.0.0.0
+                /// IsCustomizable                 True
+                /// IsDataSourceSecret             False
+                /// IsFilterable                   False
+                /// IsGlobalFilterEnabled          False
+                /// IsPrimaryId                    False
+                /// IsPrimaryName                  False
+                /// IsRenameable                   False
+                /// IsRequiredForForm              False
+                /// IsRetrievable                  False
+                /// IsSearchable                   False
+                /// IsSortableEnabled              False
+                /// IsValidForForm                 False
+                /// IsValidForGrid                 False
+                ///</summary>
+                public const string settingtype = "settingtype";
 
                 ///<summary>
                 /// DisplayName:
@@ -1064,7 +1525,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
                 /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
+                /// CanModifyAdditionalSettings    False
                 /// IntroducedVersion              9.0.0.0
                 /// IsCustomizable                 False
                 /// IsDataSourceSecret             False
@@ -1084,174 +1545,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 ///<summary>
                 /// DisplayName:
-                ///     (English - United States - 1033): Source Entity Name
-                /// 
-                /// Description:
-                ///     (English - United States - 1033): Name of the source entity.
-                /// 
-                /// SchemaName: SourceEntityName
-                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: ApplicationRequired
-                /// IsValidForCreate: True    IsValidForUpdate: True
-                /// IsValidForRead: True    IsValidForAdvancedFind: True
-                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// MaxLength = 160
-                /// Format = Text    ImeMode = Auto    IsLocalizable = False
-                /// PropertyName                   Value
-                /// CanBeSecuredForCreate          False
-                /// CanBeSecuredForRead            False
-                /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
-                /// IsCustomizable                 False
-                /// IsDataSourceSecret             False
-                /// IsFilterable                   False
-                /// IsGlobalFilterEnabled          False
-                /// IsPrimaryId                    False
-                /// IsPrimaryName                  False
-                /// IsRenameable                   False
-                /// IsRequiredForForm              False
-                /// IsRetrievable                  True
-                /// IsSearchable                   True
-                /// IsSortableEnabled              False
-                /// IsValidForForm                 True
-                /// IsValidForGrid                 True
-                ///</summary>
-                public const string sourceentityname = "sourceentityname";
-
-                ///<summary>
-                /// DisplayName:
-                ///     (English - United States - 1033): Status
-                /// 
-                /// Description:
-                ///     (English - United States - 1033): Status of the import entity mapping.
-                /// 
-                /// SchemaName: StateCode
-                /// StateAttributeMetadata    AttributeType: State    AttributeTypeName: StateType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: False    IsValidForUpdate: False
-                /// IsValidForRead: True    IsValidForAdvancedFind: True
-                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
-                /// DefaultFormValue = 0
-                /// PropertyName                   Value
-                /// CanBeSecuredForCreate          False
-                /// CanBeSecuredForRead            False
-                /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
-                /// IsCustomizable                 False
-                /// IsDataSourceSecret             False
-                /// IsFilterable                   False
-                /// IsGlobalFilterEnabled          False
-                /// IsPrimaryId                    False
-                /// IsPrimaryName                  False
-                /// IsRenameable                   False
-                /// IsRequiredForForm              False
-                /// IsRetrievable                  False
-                /// IsSearchable                   False
-                /// IsSortableEnabled              False
-                /// IsValidForForm                 True
-                /// IsValidForGrid                 True
-                ///</summary>
-                public const string statecode = "statecode";
-
-                ///<summary>
-                /// Description:
-                ///     (English - United States - 1033): Status name of the import entity mapping.
-                /// 
-                /// SchemaName: StateCodeName
-                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'statecode'
-                /// IsValidForCreate: False    IsValidForUpdate: False
-                /// IsValidForRead: True    IsValidForAdvancedFind: False
-                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
-                /// PropertyName                   Value
-                /// CanBeSecuredForCreate          False
-                /// CanBeSecuredForRead            False
-                /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
-                /// IsCustomizable                 False
-                /// IsDataSourceSecret             False
-                /// IsFilterable                   False
-                /// IsGlobalFilterEnabled          False
-                /// IsPrimaryId                    False
-                /// IsPrimaryName                  False
-                /// IsRenameable                   False
-                /// IsRequiredForForm              False
-                /// IsRetrievable                  False
-                /// IsSearchable                   False
-                /// IsSortableEnabled              False
-                /// IsValidForForm                 False
-                /// IsValidForGrid                 False
-                ///</summary>
-                //public const string statecodename = "statecodename";
-
-                ///<summary>
-                /// DisplayName:
-                ///     (English - United States - 1033): Status Reason
-                /// 
-                /// Description:
-                ///     (English - United States - 1033): Reason for the status of the import entity mapping.
-                /// 
-                /// SchemaName: StatusCode
-                /// StatusAttributeMetadata    AttributeType: Status    AttributeTypeName: StatusType    RequiredLevel: SystemRequired
-                /// IsValidForCreate: True    IsValidForUpdate: True
-                /// IsValidForRead: True    IsValidForAdvancedFind: True
-                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
-                /// DefaultFormValue = -1
-                /// PropertyName                   Value
-                /// CanBeSecuredForCreate          False
-                /// CanBeSecuredForRead            False
-                /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
-                /// IsCustomizable                 False
-                /// IsDataSourceSecret             False
-                /// IsFilterable                   False
-                /// IsGlobalFilterEnabled          False
-                /// IsPrimaryId                    False
-                /// IsPrimaryName                  False
-                /// IsRenameable                   False
-                /// IsRequiredForForm              False
-                /// IsRetrievable                  False
-                /// IsSearchable                   False
-                /// IsSortableEnabled              False
-                /// IsValidForForm                 True
-                /// IsValidForGrid                 True
-                ///</summary>
-                public const string statuscode = "statuscode";
-
-                ///<summary>
-                /// Description:
-                ///     (English - United States - 1033): Name of the status reason of the import entity mapping.
-                /// 
-                /// SchemaName: StatusCodeName
-                /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'statuscode'
-                /// IsValidForCreate: False    IsValidForUpdate: False
-                /// IsValidForRead: True    IsValidForAdvancedFind: False
-                /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
-                /// PropertyName                   Value
-                /// CanBeSecuredForCreate          False
-                /// CanBeSecuredForRead            False
-                /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
-                /// IsCustomizable                 False
-                /// IsDataSourceSecret             False
-                /// IsFilterable                   False
-                /// IsGlobalFilterEnabled          False
-                /// IsPrimaryId                    False
-                /// IsPrimaryName                  False
-                /// IsRenameable                   False
-                /// IsRequiredForForm              False
-                /// IsRetrievable                  False
-                /// IsSearchable                   False
-                /// IsSortableEnabled              False
-                /// IsValidForForm                 False
-                /// IsValidForGrid                 False
-                ///</summary>
-                //public const string statuscodename = "statuscodename";
-
-                ///<summary>
-                /// DisplayName:
                 ///     (English - United States - 1033): Solution
                 /// 
                 /// Description:
@@ -1260,7 +1553,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// SchemaName: SupportingSolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
                 /// IsValidForCreate: False    IsValidForUpdate: False
-                /// IsValidForRead: False    IsValidForAdvancedFind: True
+                /// IsValidForRead: False    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -1280,45 +1573,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsSearchable                   False
                 /// IsSortableEnabled              False
                 /// IsValidForForm                 False
-                /// IsValidForGrid                 True
+                /// IsValidForGrid                 False
                 ///</summary>
                 public const string supportingsolutionid = "supportingsolutionid";
-
-                ///<summary>
-                /// DisplayName:
-                ///     (English - United States - 1033): Target Entity
-                /// 
-                /// Description:
-                ///     (English - United States - 1033): Name of the Microsoft Dynamics 365 entity.
-                /// 
-                /// SchemaName: TargetEntityName
-                /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
-                /// IsValidForCreate: True    IsValidForUpdate: True
-                /// IsValidForRead: True    IsValidForAdvancedFind: True
-                /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// MaxLength = 160
-                /// Format = Text    ImeMode = Auto    IsLocalizable = False
-                /// PropertyName                   Value
-                /// CanBeSecuredForCreate          False
-                /// CanBeSecuredForRead            False
-                /// CanBeSecuredForUpdate          False
-                /// CanModifyAdditionalSettings    True
-                /// IntroducedVersion              5.0.0.0
-                /// IsCustomizable                 False
-                /// IsDataSourceSecret             False
-                /// IsFilterable                   False
-                /// IsGlobalFilterEnabled          False
-                /// IsPrimaryId                    False
-                /// IsPrimaryName                  False
-                /// IsRenameable                   False
-                /// IsRequiredForForm              False
-                /// IsRetrievable                  False
-                /// IsSearchable                   False
-                /// IsSortableEnabled              False
-                /// IsValidForForm                 True
-                /// IsValidForGrid                 True
-                ///</summary>
-                public const string targetentityname = "targetentityname";
             }
 
             #endregion Attributes.
@@ -1327,148 +1584,64 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
             public static partial class OptionSets
             {
-                #region State and Status OptionSets.
-
-                ///<summary>
-                /// Attribute: statecode
-                /// 
-                /// DisplayName:
-                ///     (English - United States - 1033): Status
-                /// 
-                /// Description:
-                ///     (English - United States - 1033): Status of the import entity mapping.
-                ///</summary>
-                public enum statecode
-                {
-                    ///<summary>
-                    /// Default statuscode: Active_1, 1
-                    /// InvariantName: Active
-                    /// DisplayOrder: 1
-                    /// 
-                    /// DisplayName:
-                    ///     (English - United States - 1033): Active
-                    ///</summary>
-                    [System.Runtime.Serialization.EnumMemberAttribute()]
-                    Active_0 = 0,
-                }
-
-                ///<summary>
-                /// Attribute: statuscode
-                /// Value Format: Statecode_Statuscode
-                /// 
-                /// DisplayName:
-                ///     (English - United States - 1033): Status
-                /// 
-                /// Description:
-                ///     (English - United States - 1033): Status of the import entity mapping.
-                ///</summary>
-                public enum statuscode
-                {
-                    ///<summary>
-                    /// Linked Statecode: Active_0, 0
-                    /// DisplayOrder: 1
-                    /// 
-                    /// DisplayName:
-                    ///     (English - United States - 1033): Active
-                    ///</summary>
-                    [System.Runtime.Serialization.EnumMemberAttribute()]
-                    Active_0_Active_1 = 1,
-                }
-
-                #endregion State and Status OptionSets.
 
                 #region Picklist OptionSet OptionSets.
-
                 ///<summary>
                 /// Attribute:
-                ///     dedupe
+                ///     settingtype
                 /// 
                 /// DisplayName:
-                ///     (English - United States - 1033): Remove Duplicates
+                ///     (English - United States - 1033): Group Type
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Information about whether the entity needs to be processed to find and delete duplicate records.
+                ///     (English - United States - 1033): Select the type of group this Navigation Setting record represents. This determines which of the three in-app customization menus will contain this group.
                 /// 
-                /// Local System  OptionSet importentitymapping_dedupe
-                /// 
-                /// DisplayName:
-                ///     (English - United States - 1033): Detect Duplicates
+                /// Local System  OptionSet navigationsetting_settingtype
                 /// 
                 /// Description:
-                ///     (English - United States - 1033): Will control whether duplicates are eliminated for given entity
+                ///     (English - United States - 1033): Select the type of setting this Navigation Setting record represents. This determines which of the four in-app customization menus will contain this setting.
                 ///</summary>
-                public enum dedupe
+                public enum settingtype
                 {
                     ///<summary>
-                    /// 1
+                    /// 0
                     /// DisplayOrder: 1
                     /// 
                     /// DisplayName:
-                    ///     (English - United States - 1033): Ignore
+                    ///     (English - United States - 1033): Advanced Setup
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
-                    Ignore_1 = 1,
+                    Advanced_Setup_0 = 0,
 
-                    ///<summary>
-                    /// 2
-                    /// DisplayOrder: 2
-                    /// 
-                    /// DisplayName:
-                    ///     (English - United States - 1033): Eliminate
-                    ///</summary>
-                    [System.Runtime.Serialization.EnumMemberAttribute()]
-                    Eliminate_2 = 2,
-                }
-
-                ///<summary>
-                /// Attribute:
-                ///     processcode
-                /// 
-                /// DisplayName:
-                ///     (English - United States - 1033): Process Code
-                /// 
-                /// Description:
-                ///     (English - United States - 1033): Information about whether the import entity mapping needs to be processed.
-                /// 
-                /// Local System  OptionSet importentitymapping_processcode
-                /// 
-                /// DisplayName:
-                ///     (English - United States - 1033): Process Code
-                /// 
-                /// Description:
-                ///     (English - United States - 1033): Information about whether the import entity mapping needs to be processed.
-                ///</summary>
-                public enum processcode
-                {
                     ///<summary>
                     /// 1
-                    /// DisplayOrder: 1
-                    /// 
-                    /// DisplayName:
-                    ///     (English - United States - 1033): Process
-                    ///</summary>
-                    [System.Runtime.Serialization.EnumMemberAttribute()]
-                    Process_1 = 1,
-
-                    ///<summary>
-                    /// 2
                     /// DisplayOrder: 2
                     /// 
                     /// DisplayName:
-                    ///     (English - United States - 1033): Ignore
+                    ///     (English - United States - 1033): Basic Setup
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
-                    Ignore_2 = 2,
+                    Basic_Setup_1 = 1,
 
                     ///<summary>
-                    /// 3
+                    /// 2
                     /// DisplayOrder: 3
                     /// 
                     /// DisplayName:
-                    ///     (English - United States - 1033): Internal
+                    ///     (English - United States - 1033): Advanced Setup Summary
                     ///</summary>
                     [System.Runtime.Serialization.EnumMemberAttribute()]
-                    Internal_3 = 3,
+                    Advanced_Setup_Summary_2 = 2,
+
+                    ///<summary>
+                    /// 3
+                    /// DisplayOrder: 4
+                    /// 
+                    /// DisplayName:
+                    ///     (English - United States - 1033): Basic Setup Summary
+                    ///</summary>
+                    [System.Runtime.Serialization.EnumMemberAttribute()]
+                    Basic_Setup_Summary_3 = 3,
                 }
 
                 ///<summary>
@@ -1542,63 +1715,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             public static partial class ManyToOne
             {
                 ///<summary>
-                /// N:1 - Relationship ImportEntityMapping_ImportMap
+                /// N:1 - Relationship lk_navigationsetting_createdby
                 /// 
                 /// PropertyName                               Value
                 /// IsHierarchical                             False
-                /// ReferencedEntityNavigationPropertyName     ImportEntityMapping_ImportMap
-                /// ReferencingEntityNavigationPropertyName    importmapid
-                /// IsCustomizable                             False
+                /// ReferencedEntityNavigationPropertyName     systemuser_navigationsetting_createdby
+                /// ReferencingEntityNavigationPropertyName    navigationsetting_createdby
+                /// IsCustomizable                             True
                 /// IsCustomRelationship                       False
-                /// IsValidForAdvancedFind                     False
-                /// RelationshipType                           OneToManyRelationship
-                /// SecurityTypes                              Append
-                /// CascadeConfiguration.Assign                NoCascade
-                /// CascadeConfiguration.Delete                Cascade
-                /// CascadeConfiguration.Merge                 NoCascade
-                /// CascadeConfiguration.Reparent              NoCascade
-                /// CascadeConfiguration.Share                 NoCascade
-                /// CascadeConfiguration.Unshare               NoCascade
-                /// CascadeConfiguration.RollupView            NoCascade
-                /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
-                /// AssociatedMenuConfiguration.Group          Details
-                /// AssociatedMenuConfiguration.Order          null
-                /// 
-                /// ReferencedEntity importmap:    PrimaryIdAttribute importmapid    PrimaryNameAttribute name
-                ///     DisplayName:
-                ///         (English - United States - 1033): Data Map
-                ///     
-                ///     DisplayCollectionName:
-                ///         (English - United States - 1033): Data Maps
-                ///     
-                ///     Description:
-                ///         (English - United States - 1033): Data map used in import.
-                ///</summary>
-                public static partial class importentitymapping_importmap
-                {
-                    public const string Name = "ImportEntityMapping_ImportMap";
-
-                    public const string ReferencedEntity_importmap = "importmap";
-
-                    public const string ReferencedAttribute_importmapid = "importmapid";
-
-                    public const string ReferencedEntity_PrimaryNameAttribute_name = "name";
-
-                    public const string ReferencingEntity_importentitymapping = "importentitymapping";
-
-                    public const string ReferencingAttribute_importmapid = "importmapid";
-                }
-
-                ///<summary>
-                /// N:1 - Relationship lk_importentitymapping_createdby
-                /// 
-                /// PropertyName                               Value
-                /// IsHierarchical                             False
-                /// ReferencedEntityNavigationPropertyName     lk_importentitymapping_createdby
-                /// ReferencingEntityNavigationPropertyName    createdby
-                /// IsCustomizable                             False
-                /// IsCustomRelationship                       False
-                /// IsValidForAdvancedFind                     False
+                /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
                 /// SecurityTypes                              None
                 /// CascadeConfiguration.Assign                NoCascade
@@ -1608,7 +1733,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
                 /// CascadeConfiguration.RollupView            NoCascade
-                /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
+                /// AssociatedMenuConfiguration.Behavior       UseCollectionName
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
@@ -1622,9 +1747,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
-                public static partial class lk_importentitymapping_createdby
+                public static partial class lk_navigationsetting_createdby
                 {
-                    public const string Name = "lk_importentitymapping_createdby";
+                    public const string Name = "lk_navigationsetting_createdby";
 
                     public const string ReferencedEntity_systemuser = "systemuser";
 
@@ -1632,21 +1757,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                     public const string ReferencedEntity_PrimaryNameAttribute_fullname = "fullname";
 
-                    public const string ReferencingEntity_importentitymapping = "importentitymapping";
+                    public const string ReferencingEntity_navigationsetting = "navigationsetting";
 
                     public const string ReferencingAttribute_createdby = "createdby";
                 }
 
                 ///<summary>
-                /// N:1 - Relationship lk_importentitymapping_createdonbehalfby
+                /// N:1 - Relationship lk_navigationsetting_createdonbehalfby
                 /// 
                 /// PropertyName                               Value
                 /// IsHierarchical                             False
-                /// ReferencedEntityNavigationPropertyName     lk_importentitymapping_createdonbehalfby
-                /// ReferencingEntityNavigationPropertyName    createdonbehalfby
-                /// IsCustomizable                             False
+                /// ReferencedEntityNavigationPropertyName     systemuser_navigationsetting_createdonbehalfby
+                /// ReferencingEntityNavigationPropertyName    navigationsetting_createdonbehalfby
+                /// IsCustomizable                             True
                 /// IsCustomRelationship                       False
-                /// IsValidForAdvancedFind                     False
+                /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
                 /// SecurityTypes                              None
                 /// CascadeConfiguration.Assign                NoCascade
@@ -1656,7 +1781,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
                 /// CascadeConfiguration.RollupView            NoCascade
-                /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
+                /// AssociatedMenuConfiguration.Behavior       UseCollectionName
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
@@ -1670,9 +1795,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
-                public static partial class lk_importentitymapping_createdonbehalfby
+                public static partial class lk_navigationsetting_createdonbehalfby
                 {
-                    public const string Name = "lk_importentitymapping_createdonbehalfby";
+                    public const string Name = "lk_navigationsetting_createdonbehalfby";
 
                     public const string ReferencedEntity_systemuser = "systemuser";
 
@@ -1680,21 +1805,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                     public const string ReferencedEntity_PrimaryNameAttribute_fullname = "fullname";
 
-                    public const string ReferencingEntity_importentitymapping = "importentitymapping";
+                    public const string ReferencingEntity_navigationsetting = "navigationsetting";
 
                     public const string ReferencingAttribute_createdonbehalfby = "createdonbehalfby";
                 }
 
                 ///<summary>
-                /// N:1 - Relationship lk_importentitymapping_modifiedby
+                /// N:1 - Relationship lk_navigationsetting_modifiedby
                 /// 
                 /// PropertyName                               Value
                 /// IsHierarchical                             False
-                /// ReferencedEntityNavigationPropertyName     lk_importentitymapping_modifiedby
-                /// ReferencingEntityNavigationPropertyName    modifiedby
-                /// IsCustomizable                             False
+                /// ReferencedEntityNavigationPropertyName     systemuser_navigationsetting_modifiedby
+                /// ReferencingEntityNavigationPropertyName    navigationsetting_modifiedby
+                /// IsCustomizable                             True
                 /// IsCustomRelationship                       False
-                /// IsValidForAdvancedFind                     False
+                /// IsValidForAdvancedFind                     True
                 /// RelationshipType                           OneToManyRelationship
                 /// SecurityTypes                              None
                 /// CascadeConfiguration.Assign                NoCascade
@@ -1704,7 +1829,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// CascadeConfiguration.Share                 NoCascade
                 /// CascadeConfiguration.Unshare               NoCascade
                 /// CascadeConfiguration.RollupView            NoCascade
-                /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
+                /// AssociatedMenuConfiguration.Behavior       UseCollectionName
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
@@ -1718,9 +1843,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
-                public static partial class lk_importentitymapping_modifiedby
+                public static partial class lk_navigationsetting_modifiedby
                 {
-                    public const string Name = "lk_importentitymapping_modifiedby";
+                    public const string Name = "lk_navigationsetting_modifiedby";
 
                     public const string ReferencedEntity_systemuser = "systemuser";
 
@@ -1728,18 +1853,109 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                     public const string ReferencedEntity_PrimaryNameAttribute_fullname = "fullname";
 
-                    public const string ReferencingEntity_importentitymapping = "importentitymapping";
+                    public const string ReferencingEntity_navigationsetting = "navigationsetting";
 
                     public const string ReferencingAttribute_modifiedby = "modifiedby";
                 }
 
                 ///<summary>
-                /// N:1 - Relationship lk_importentitymapping_modifiedonbehalfby
+                /// N:1 - Relationship lk_navigationsetting_modifiedonbehalfby
                 /// 
                 /// PropertyName                               Value
                 /// IsHierarchical                             False
-                /// ReferencedEntityNavigationPropertyName     lk_importentitymapping_modifiedonbehalfby
-                /// ReferencingEntityNavigationPropertyName    modifiedonbehalfby
+                /// ReferencedEntityNavigationPropertyName     systemuser_navigationsetting_modifiedonbehalfby
+                /// ReferencingEntityNavigationPropertyName    navigationsetting_modifiedonbehalfby
+                /// IsCustomizable                             True
+                /// IsCustomRelationship                       False
+                /// IsValidForAdvancedFind                     True
+                /// RelationshipType                           OneToManyRelationship
+                /// SecurityTypes                              None
+                /// CascadeConfiguration.Assign                NoCascade
+                /// CascadeConfiguration.Delete                NoCascade
+                /// CascadeConfiguration.Merge                 NoCascade
+                /// CascadeConfiguration.Reparent              NoCascade
+                /// CascadeConfiguration.Share                 NoCascade
+                /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
+                /// AssociatedMenuConfiguration.Behavior       UseCollectionName
+                /// AssociatedMenuConfiguration.Group          Details
+                /// AssociatedMenuConfiguration.Order          null
+                /// 
+                /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
+                ///     DisplayName:
+                ///         (English - United States - 1033): User
+                ///     
+                ///     DisplayCollectionName:
+                ///         (English - United States - 1033): Users
+                ///     
+                ///     Description:
+                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///</summary>
+                public static partial class lk_navigationsetting_modifiedonbehalfby
+                {
+                    public const string Name = "lk_navigationsetting_modifiedonbehalfby";
+
+                    public const string ReferencedEntity_systemuser = "systemuser";
+
+                    public const string ReferencedAttribute_systemuserid = "systemuserid";
+
+                    public const string ReferencedEntity_PrimaryNameAttribute_fullname = "fullname";
+
+                    public const string ReferencingEntity_navigationsetting = "navigationsetting";
+
+                    public const string ReferencingAttribute_modifiedonbehalfby = "modifiedonbehalfby";
+                }
+
+                ///<summary>
+                /// N:1 - Relationship navigationsetting_appconfig
+                /// 
+                /// PropertyName                               Value
+                /// IsHierarchical                             False
+                /// ReferencedEntityNavigationPropertyName     appconfig_navigationsetting
+                /// ReferencingEntityNavigationPropertyName    navigationsetting_appconfig
+                /// IsCustomizable                             True
+                /// IsCustomRelationship                       False
+                /// IsValidForAdvancedFind                     True
+                /// RelationshipType                           OneToManyRelationship
+                /// SecurityTypes                              ParentChild
+                /// CascadeConfiguration.Assign                Cascade
+                /// CascadeConfiguration.Delete                Cascade
+                /// CascadeConfiguration.Merge                 NoCascade
+                /// CascadeConfiguration.Reparent              Cascade
+                /// CascadeConfiguration.Share                 Cascade
+                /// CascadeConfiguration.Unshare               Cascade
+                /// CascadeConfiguration.RollupView            NoCascade
+                /// AssociatedMenuConfiguration.Behavior       UseCollectionName
+                /// AssociatedMenuConfiguration.Group          Details
+                /// AssociatedMenuConfiguration.Order          null
+                /// 
+                /// ReferencedEntity appconfig:    PrimaryIdAttribute appconfigid
+                ///     DisplayName:
+                ///         (English - United States - 1033): App Configuration
+                ///     
+                ///     Description:
+                ///         (English - United States - 1033): Contains a mapping between an app configuration instance and an app, which defines the properties that can be customized for the app. Optionally, also contains navigation setting for an app. For internal use only.
+                ///</summary>
+                public static partial class navigationsetting_appconfig
+                {
+                    public const string Name = "navigationsetting_appconfig";
+
+                    public const string ReferencedEntity_appconfig = "appconfig";
+
+                    public const string ReferencedAttribute_appconfigid = "appconfigid";
+
+                    public const string ReferencingEntity_navigationsetting = "navigationsetting";
+
+                    public const string ReferencingAttribute_appconfigid = "appconfigid";
+                }
+
+                ///<summary>
+                /// N:1 - Relationship organization_navigationsetting
+                /// 
+                /// PropertyName                               Value
+                /// IsHierarchical                             False
+                /// ReferencedEntityNavigationPropertyName     organization_navigationsetting
+                /// ReferencingEntityNavigationPropertyName    organization_navigationsetting_navigationsetting
                 /// IsCustomizable                             False
                 /// IsCustomRelationship                       False
                 /// IsValidForAdvancedFind                     False
@@ -1756,83 +1972,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 /// 
-                /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
+                /// ReferencedEntity organization:    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///     DisplayName:
-                ///         (English - United States - 1033): User
+                ///         (English - United States - 1033): Organization
                 ///     
                 ///     DisplayCollectionName:
-                ///         (English - United States - 1033): Users
+                ///         (English - United States - 1033): Organizations
                 ///     
                 ///     Description:
-                ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
                 ///</summary>
-                public static partial class lk_importentitymapping_modifiedonbehalfby
+                public static partial class organization_navigationsetting
                 {
-                    public const string Name = "lk_importentitymapping_modifiedonbehalfby";
+                    public const string Name = "organization_navigationsetting";
 
-                    public const string ReferencedEntity_systemuser = "systemuser";
+                    public const string ReferencedEntity_organization = "organization";
 
-                    public const string ReferencedAttribute_systemuserid = "systemuserid";
+                    public const string ReferencedAttribute_organizationid = "organizationid";
 
-                    public const string ReferencedEntity_PrimaryNameAttribute_fullname = "fullname";
+                    public const string ReferencedEntity_PrimaryNameAttribute_name = "name";
 
-                    public const string ReferencingEntity_importentitymapping = "importentitymapping";
+                    public const string ReferencingEntity_navigationsetting = "navigationsetting";
 
-                    public const string ReferencingAttribute_modifiedonbehalfby = "modifiedonbehalfby";
+                    public const string ReferencingAttribute_organizationid = "organizationid";
                 }
             }
 
             #endregion Relationship ManyToOne - N:1.
-
-            #region Relationship OneToMany - 1:N.
-
-            public static partial class OneToMany
-            {
-                ///<summary>
-                /// 1:N - Relationship userentityinstancedata_importentitymapping
-                /// 
-                /// PropertyName                               Value
-                /// IsHierarchical                             False
-                /// ReferencedEntityNavigationPropertyName     userentityinstancedata_importentitymapping
-                /// ReferencingEntityNavigationPropertyName    objectid_importentitymapping
-                /// IsCustomizable                             False
-                /// IsCustomRelationship                       False
-                /// IsValidForAdvancedFind                     False
-                /// RelationshipType                           OneToManyRelationship
-                /// SecurityTypes                              None
-                /// CascadeConfiguration.Assign                NoCascade
-                /// CascadeConfiguration.Delete                Cascade
-                /// CascadeConfiguration.Merge                 NoCascade
-                /// CascadeConfiguration.Reparent              NoCascade
-                /// CascadeConfiguration.Share                 NoCascade
-                /// CascadeConfiguration.Unshare               NoCascade
-                /// CascadeConfiguration.RollupView            NoCascade
-                /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
-                /// AssociatedMenuConfiguration.Group          Details
-                /// AssociatedMenuConfiguration.Order          null
-                /// 
-                /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
-                ///     DisplayName:
-                ///         (English - United States - 1033): User Entity Instance Data
-                ///     
-                ///     Description:
-                ///         (English - United States - 1033): Per User item instance data
-                ///</summary>
-                public static partial class userentityinstancedata_importentitymapping
-                {
-                    public const string Name = "userentityinstancedata_importentitymapping";
-
-                    public const string ReferencedEntity_importentitymapping = "importentitymapping";
-
-                    public const string ReferencedAttribute_importentitymappingid = "importentitymappingid";
-
-                    public const string ReferencingEntity_userentityinstancedata = "userentityinstancedata";
-
-                    public const string ReferencingAttribute_objectid = "objectid";
-                }
-            }
-
-            #endregion Relationship OneToMany - 1:N.
         }
     }
 }

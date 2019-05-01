@@ -14,42 +14,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
     
     /// <summary>
     /// DisplayName:
-    ///     (English - United States - 1033): Import Entity Mapping
+    ///     (English - United States - 1033): Column Mapping
     /// 
     /// DisplayCollectionName:
-    ///     (English - United States - 1033): Import Entity Mappings
+    ///     (English - United States - 1033): Column Mappings
     /// 
     /// Description:
-    ///     (English - United States - 1033): Mapping for entities in a data map.
+    ///     (English - United States - 1033): Mapping for columns in a data map.
     /// </summary>
     [System.Runtime.Serialization.DataContractAttribute()]
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-    [Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute(ImportEntityMapping.EntityLogicalName)]
-    public partial class ImportEntityMapping : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+    [Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute(ColumnMapping.EntityLogicalName)]
+    public partial class ColumnMapping : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
     {
         
-        public const string EntityLogicalName = "importentitymapping";
+        public const string EntityLogicalName = "columnmapping";
         
-        public const string EntitySchemaName = "ImportEntityMapping";
+        public const string EntitySchemaName = "ColumnMapping";
         
-        public const int EntityTypeCode = 4428;
+        public const int EntityTypeCode = 4417;
         
-        public const string EntityPrimaryIdAttribute = "importentitymappingid";
+        public const string EntityPrimaryIdAttribute = "columnmappingid";
+        
+        public const string EntityPrimaryNameAttribute = "sourceattributename";
         
         /// <summary>
-        /// Default Constructor importentitymapping
+        /// Default Constructor columnmapping
         /// </summary>
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public ImportEntityMapping() : 
+        public ColumnMapping() : 
                 base(EntityLogicalName)
         {
         }
         
         /// <summary>
-        /// Constructor importentitymapping for populating via LINQ queries given a LINQ anonymous type object
+        /// Constructor columnmapping for populating via LINQ queries given a LINQ anonymous type object
         /// </summary>
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public ImportEntityMapping(object anonymousObject) : 
+        public ColumnMapping(object anonymousObject) : 
                 this()
         {
             if (anonymousObject == null)
@@ -122,7 +124,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         #region Primary Attributes
         /// <summary>
         /// Description:
-        ///     (English - United States - 1033): Unique identifier of the import entity mapping.
+        ///     (English - United States - 1033): Unique identifier of the column mapping.
         /// </summary>
         [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(EntityPrimaryIdAttribute)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -136,17 +138,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
-                this.ImportEntityMappingId = value;
+                this.ColumnMappingId = value;
             }
         }
         
         /// <summary>
         /// Description:
-        ///     (English - United States - 1033): Unique identifier of the import entity mapping.
+        ///     (English - United States - 1033): Unique identifier of the column mapping.
         /// </summary>
         [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(EntityPrimaryIdAttribute)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<System.Guid> ImportEntityMappingId
+        public System.Nullable<System.Guid> ColumnMappingId
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
@@ -156,7 +158,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
-                this.OnPropertyChanging(nameof(ImportEntityMappingId));
+                this.OnPropertyChanging(nameof(ColumnMappingId));
                 this.SetAttributeValue(EntityPrimaryIdAttribute, value);
                 if (value.HasValue)
                 {
@@ -166,12 +168,52 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 {
                     base.Id = System.Guid.Empty;
                 }
-                this.OnPropertyChanged(nameof(ImportEntityMappingId));
+                this.OnPropertyChanged(nameof(ColumnMappingId));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Source Attribute
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Name of the source attribute.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(EntityPrimaryNameAttribute)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public string SourceAttributeName
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                return this.GetAttributeValue<string>(EntityPrimaryNameAttribute);
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(SourceAttributeName));
+                this.SetAttributeValue(EntityPrimaryNameAttribute, value);
+                this.OnPropertyChanged(nameof(SourceAttributeName));
             }
         }
         #endregion
         
         #region Attributes
+        /// <summary>
+        /// Description:
+        ///     (English - United States - 1033): Unique identifier of the Column Mapping.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.columnmappingidunique)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<System.Guid> ColumnMappingIdUnique
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.columnmappingidunique);
+            }
+        }
+        
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Component State
@@ -179,14 +221,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         /// Description:
         ///     (English - United States - 1033): For internal use only.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.componentstate)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.componentstate)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue ComponentState
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.componentstate);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.componentstate);
             }
         }
         
@@ -195,31 +237,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///     (English - United States - 1033): Created By
         /// 
         /// Description:
-        ///     (English - United States - 1033): Unique identifier of the user who created the import entity mapping.
+        ///     (English - United States - 1033): Unique identifier of the user who created the column mapping.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.createdby)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.createdby)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference CreatedBy
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.createdby);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.createdby);
             }
         }
         
         /// <summary>
         /// Description:
-        ///     (English - United States - 1033): Date and time when the import entity mapping was created.
+        ///     (English - United States - 1033): Date and time when the column mapping was created.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.createdon)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.createdon)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<System.DateTime> CreatedOn
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.createdon);
+                return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.createdon);
             }
         }
         
@@ -228,56 +270,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///     (English - United States - 1033): Created By (Delegate)
         /// 
         /// Description:
-        ///     (English - United States - 1033): Unique identifier of the delegate user who created the importentitymapping.
+        ///     (English - United States - 1033): Unique identifier of the delegate user who created the columnmapping.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.createdonbehalfby)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.createdonbehalfby)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference CreatedOnBehalfBy
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.createdonbehalfby);
-            }
-        }
-        
-        /// <summary>
-        /// DisplayName:
-        ///     (English - United States - 1033): Remove Duplicates
-        /// 
-        /// Description:
-        ///     (English - United States - 1033): Information about whether the entity needs to be processed to find and delete duplicate records.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.dedupe)]
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Microsoft.Xrm.Sdk.OptionSetValue DeDupe
-        {
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            get
-            {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.dedupe);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(DeDupe));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.dedupe, value);
-                this.OnPropertyChanged(nameof(DeDupe));
-            }
-        }
-        
-        /// <summary>
-        /// Description:
-        ///     (English - United States - 1033): Unique identifier of the Import Entity Mapping.
-        /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.importentitymappingidunique)]
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<System.Guid> ImportEntityMappingIdUnique
-        {
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            get
-            {
-                return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.importentitymappingidunique);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.createdonbehalfby);
             }
         }
         
@@ -288,20 +290,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         /// Description:
         ///     (English - United States - 1033): Unique identifier of the associated data map.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.importmapid)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.importmapid)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference ImportMapId
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.importmapid);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.importmapid);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(ImportMapId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.importmapid, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.importmapid, value);
                 this.OnPropertyChanged(nameof(ImportMapId));
             }
         }
@@ -313,20 +315,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         /// Description:
         ///     (English - United States - 1033): Version in which the component is introduced.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.introducedversion)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.introducedversion)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string IntroducedVersion
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.introducedversion);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.introducedversion);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(IntroducedVersion));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.introducedversion, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.introducedversion, value);
                 this.OnPropertyChanged(nameof(IntroducedVersion));
             }
         }
@@ -338,14 +340,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         /// Description:
         ///     (English - United States - 1033): Information that specifies whether this component is managed.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.ismanaged)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.ismanaged)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<bool> IsManaged
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<bool>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.ismanaged);
+                return this.GetAttributeValue<System.Nullable<bool>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.ismanaged);
             }
         }
         
@@ -354,16 +356,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///     (English - United States - 1033): Modified By
         /// 
         /// Description:
-        ///     (English - United States - 1033): Unique identifier of the user who last modified the import entity mapping.
+        ///     (English - United States - 1033): Unique identifier of the user who last modified the column mapping.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.modifiedby)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.modifiedby)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference ModifiedBy
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.modifiedby);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.modifiedby);
             }
         }
         
@@ -372,16 +374,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///     (English - United States - 1033): Modified On
         /// 
         /// Description:
-        ///     (English - United States - 1033): Date and time when the import entity mapping was last modified.
+        ///     (English - United States - 1033): Date and time when the column mapping was last modified.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.modifiedon)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.modifiedon)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<System.DateTime> ModifiedOn
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.modifiedon);
+                return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.modifiedon);
             }
         }
         
@@ -390,16 +392,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///     (English - United States - 1033): Modified By (Delegate)
         /// 
         /// Description:
-        ///     (English - United States - 1033): Unique identifier of the delegate user who last modified the importentitymapping.
+        ///     (English - United States - 1033): Unique identifier of the delegate user who last modified the columnmapping.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.modifiedonbehalfby)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.modifiedonbehalfby)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference ModifiedOnBehalfBy
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.modifiedonbehalfby);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.modifiedonbehalfby);
             }
         }
         
@@ -410,14 +412,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         /// Description:
         ///     (English - United States - 1033): For internal use only.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.overwritetime)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.overwritetime)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<System.DateTime> OverwriteTime
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.overwritetime);
+                return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.overwritetime);
             }
         }
         
@@ -426,22 +428,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///     (English - United States - 1033): Process Code
         /// 
         /// Description:
-        ///     (English - United States - 1033): Information about whether the import entity mapping needs to be processed.
+        ///     (English - United States - 1033): Information about whether the column mapping needs to be processed.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.processcode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.processcode)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue ProcessCode
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.processcode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.processcode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(ProcessCode));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.processcode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.processcode, value);
                 this.OnPropertyChanged(nameof(ProcessCode));
             }
         }
@@ -453,14 +455,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         /// Description:
         ///     (English - United States - 1033): Unique identifier of the associated solution.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.solutionid)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.solutionid)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<System.Guid> SolutionId
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.solutionid);
+                return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.solutionid);
             }
         }
         
@@ -471,20 +473,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         /// Description:
         ///     (English - United States - 1033): Name of the source entity.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.sourceentityname)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.sourceentityname)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string SourceEntityName
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.sourceentityname);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.sourceentityname);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(SourceEntityName));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.sourceentityname, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.sourceentityname, value);
                 this.OnPropertyChanged(nameof(SourceEntityName));
             }
         }
@@ -494,16 +496,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///     (English - United States - 1033): Status
         /// 
         /// Description:
-        ///     (English - United States - 1033): Status of the import entity mapping.
+        ///     (English - United States - 1033): Status of the column mapping.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.statecode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.statecode)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public object StateCode
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<object>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.statecode);
+                return this.GetAttributeValue<object>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.statecode);
             }
         }
         
@@ -512,23 +514,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///     (English - United States - 1033): Status Reason
         /// 
         /// Description:
-        ///     (English - United States - 1033): Reason for the status of the import entity mapping.
+        ///     (English - United States - 1033): Reason for the status of the column mapping.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.statuscode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.statuscode)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue StatusCode
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.statuscode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.statuscode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(StatusCode));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.statuscode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.statuscode, value);
                 this.OnPropertyChanged(nameof(StatusCode));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Target Attribute
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Name of the Microsoft Dynamics 365 attribute.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.targetattributename)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public string TargetAttributeName
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.targetattributename);
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(TargetAttributeName));
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.targetattributename, value);
+                this.OnPropertyChanged(nameof(TargetAttributeName));
             }
         }
         
@@ -539,20 +566,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         /// Description:
         ///     (English - United States - 1033): Name of the Microsoft Dynamics 365 entity.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.targetentityname)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.targetentityname)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string TargetEntityName
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.targetentityname);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.targetentityname);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(TargetEntityName));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.targetentityname, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ColumnMapping.Schema.Attributes.targetentityname, value);
                 this.OnPropertyChanged(nameof(TargetEntityName));
             }
         }

@@ -238,9 +238,6 @@
         DependencyFeature = 160,
 
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        ImportMap = 166,
-
-        [System.Runtime.Serialization.EnumMemberAttribute()]
         EntityDataProvider = 181,
 
         [System.Runtime.Serialization.EnumMemberAttribute()]
@@ -271,6 +268,9 @@
         WebWizard = 210,
 
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        ImportEntityMapping = 208,
+        ImportMap = 208,
+
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        ImportEntityMapping = 166,
     }
 }
