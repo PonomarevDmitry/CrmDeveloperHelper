@@ -5,59 +5,14 @@
         Title="Create Web Resource" Height="535" Width="540" WindowStartupLocation="Manual"
         >
     <src:WindowBase.Resources>
-        <Style TargetType="{x:Type CheckBox}">
-            <Setter Property="Padding" Value="1"/>
-            <Setter Property="Margin" Value="5"/>
-
-            <Setter Property="Height" Value="Auto"/>
-
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-        </Style>
-
-        <Style TargetType="{x:Type ComboBox}">
-            <Setter Property="Padding" Value="1"/>
-            <Setter Property="Margin" Value="5"/>
-
-            <Setter Property="Height" Value="Auto"/>
-
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-        </Style>
-
-        <Style TargetType="{x:Type TextBox}">
-            <Setter Property="Padding" Value="1"/>
-            <Setter Property="Margin" Value="5"/>
-
-            <Setter Property="Height" Value="Auto"/>
-
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-        </Style>
-
-        <Style TargetType="{x:Type Button}">
-            <Setter Property="Padding" Value="5"/>
-            <Setter Property="Margin" Value="5"/>
-
-            <Setter Property="Height" Value="Auto"/>
-
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-        </Style>
-
-        <Style TargetType="{x:Type Label}">
-            <Setter Property="Padding" Value="1"/>
-            <Setter Property="Margin" Value="5"/>
-
-            <Setter Property="Height" Value="Auto"/>
-
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleWindows.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+            
+            
+        </ResourceDictionary>
     </src:WindowBase.Resources>
     <Grid Margin="5">
         <Grid.RowDefinitions>

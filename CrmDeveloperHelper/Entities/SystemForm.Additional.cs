@@ -8,6 +8,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 public const string formxml = "FormXml";
 
+                public const string formjson = "FormJson";
+
                 public const string name = "Name";
 
                 public const string objecttypecode = "EntityName";

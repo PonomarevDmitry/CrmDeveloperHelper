@@ -10,130 +10,73 @@
         WindowStartupLocation="Manual"
         >
     <src:WindowBase.Resources>
-        <BitmapImage x:Key="ImageCss" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_css.ico" />
-        <BitmapImage x:Key="ImageHtml" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_html.ico" />
-        <BitmapImage x:Key="ImageJS" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_js.ico" />
-        <BitmapImage x:Key="ImageImages" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_images.ico" />
-        <BitmapImage x:Key="ImageXml" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_xml.ico" />
-        <BitmapImage x:Key="ImageSilverlight" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_silverlight.ico" />
-        <BitmapImage x:Key="ImageFolder" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_folder.ico" />
-        <BitmapImage x:Key="ImageGif" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_gif.png" />
-        <BitmapImage x:Key="ImagePng" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_png.png" />
-        <BitmapImage x:Key="ImageSvg" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_svg.png" />
-        <BitmapImage x:Key="ImageResx" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_resx.png" />
+        <ResourceDictionary>
 
-        <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-            <MenuItem Header="Open WebResource in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleWindows.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
-            <Separator/>
-            <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+            <BitmapImage x:Key="ImageCss" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_css.ico" />
+            <BitmapImage x:Key="ImageHtml" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_html.ico" />
+            <BitmapImage x:Key="ImageJS" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_js.ico" />
+            <BitmapImage x:Key="ImageImages" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_images.ico" />
+            <BitmapImage x:Key="ImageXml" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_xml.ico" />
+            <BitmapImage x:Key="ImageSilverlight" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_silverlight.ico" />
+            <BitmapImage x:Key="ImageFolder" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_folder.ico" />
+            <BitmapImage x:Key="ImageGif" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_gif.png" />
+            <BitmapImage x:Key="ImagePng" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_png.png" />
+            <BitmapImage x:Key="ImageSvg" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_svg.png" />
+            <BitmapImage x:Key="ImageResx" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_resx.png" />
 
-            <Separator/>
-            <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
+            <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+                <MenuItem Header="Open WebResource in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
 
-            <Separator/>
-            <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
-            <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
-
-            <Separator/>
-            <MenuItem Header="Content Json" VerticalAlignment="Center" Click="mIExportWebResourceContentJson_Click" />
-            <MenuItem Header="Dependency Xml" VerticalAlignment="Center" Click="mIExportWebResourceDependencyXml_Click" />
-
-            <Separator x:Uid="controlChangeEntityAttribute"/>
-            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change WebResource Attribute" VerticalAlignment="Center">
-                <MenuItem Header="Content" VerticalAlignment="Center" Click="mIUpdateWebResourceContent_Click" />
-                <MenuItem Header="Content Json" VerticalAlignment="Center" Click="mIUpdateWebResourceContentJson_Click" />
-                <MenuItem Header="Dependency Xml" VerticalAlignment="Center" Click="mIUpdateWebResourceDependencyXml_Click" />
-            </MenuItem>
-
-            <Separator/>
-            <MenuItem Header="Publish WebResource" Click="btnPublishWebResource_Click"/>
-
-            <Separator/>
-            <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
-
-            <Separator/>
-            <MenuItem Header="Dependent Components">
-                <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
                 <Separator/>
-                <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
-            </MenuItem>
+                <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
 
-            <Separator/>
-            <MenuItem Header="Compare Information with other Organization">
-                <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
                 <Separator/>
-                <MenuItem Header="WebResources" Click="btnCompareWebResources_Click"/>
-            </MenuItem>
+                <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
 
-            <Separator/>
-            <MenuItem Header="Export All WebResource Information" Click="btnExportAll_Click"/>
-        </ContextMenu>
+                <Separator/>
+                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
+                <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
 
-        <Style TargetType="{x:Type CheckBox}">
-            <Setter Property="Padding" Value="2"/>
-            <Setter Property="Margin" Value="3"/>
+                <Separator/>
+                <MenuItem Header="Content Json" VerticalAlignment="Center" Click="mIExportWebResourceContentJson_Click" />
+                <MenuItem Header="Dependency Xml" VerticalAlignment="Center" Click="mIExportWebResourceDependencyXml_Click" />
 
-            <Setter Property="Height" Value="Auto"/>
+                <Separator x:Uid="controlChangeEntityAttribute"/>
+                <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change WebResource Attribute" VerticalAlignment="Center">
+                    <MenuItem Header="Content" VerticalAlignment="Center" Click="mIUpdateWebResourceContent_Click" />
+                    <MenuItem Header="Content Json" VerticalAlignment="Center" Click="mIUpdateWebResourceContentJson_Click" />
+                    <MenuItem Header="Dependency Xml" VerticalAlignment="Center" Click="mIUpdateWebResourceDependencyXml_Click" />
+                </MenuItem>
 
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-        </Style>
+                <Separator/>
+                <MenuItem Header="Publish WebResource" Click="btnPublishWebResource_Click"/>
 
-        <Style TargetType="{x:Type ComboBox}">
-            <Setter Property="Padding" Value="2"/>
-            <Setter Property="Margin" Value="3"/>
+                <Separator/>
+                <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
 
-            <Setter Property="Height" Value="Auto"/>
+                <Separator/>
+                <MenuItem Header="Dependent Components">
+                    <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                    <Separator/>
+                    <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
+                </MenuItem>
 
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-        </Style>
+                <Separator/>
+                <MenuItem Header="Compare Information with other Organization">
+                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="WebResources" Click="btnCompareWebResources_Click"/>
+                </MenuItem>
 
-        <Style TargetType="{x:Type TextBox}">
-            <Setter Property="Padding" Value="2"/>
-            <Setter Property="Margin" Value="3"/>
+                <Separator/>
+                <MenuItem Header="Export All WebResource Information" Click="btnExportAll_Click"/>
+            </ContextMenu>
 
-            <Setter Property="Height" Value="Auto"/>
-
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-        </Style>
-
-        <Style TargetType="{x:Type Button}">
-            <Setter Property="Padding" Value="2"/>
-            <Setter Property="Margin" Value="3"/>
-
-            <Setter Property="Height" Value="Auto"/>
-
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-        </Style>
-
-        <Style TargetType="{x:Type Label}">
-            <Setter Property="Padding" Value="2"/>
-            <Setter Property="Margin" Value="3"/>
-
-            <Setter Property="Height" Value="Auto"/>
-
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-        </Style>
-
-        <Style TargetType="{x:Type StatusBarItem}">
-            <Setter Property="Padding" Value="2"/>
-            <Setter Property="Margin" Value="3"/>
-        </Style>
-
-        <Style TargetType="{x:Type ProgressBar}">
-            <Setter Property="Padding" Value="2"/>
-            <Setter Property="Margin" Value="3"/>
-        </Style>
-
+        </ResourceDictionary>
     </src:WindowBase.Resources>
     <Grid>
 

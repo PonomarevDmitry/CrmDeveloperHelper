@@ -12,6 +12,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 public const string columnsetxml = "ColumnSetXml";
 
+                public const string layoutjson = "LayoutJson";
+
+                public const string offlinesqlquery = "OfflineSqlQuery";
+
                 public const string name = "Name";
 
                 public const string returnedtypecode = "EntityName";

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
@@ -33,55 +34,76 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string GetControlType()
         {
-            switch (this.ClassId)
+            if (Guid.TryParse(this.ClassId, out var tempGuid))
             {
-                case "{4273EDBD-AC1D-40d3-9FB2-095C621B552D}":
+                if (tempGuid == Guid.Parse("{4273EDBD-AC1D-40d3-9FB2-095C621B552D}"))
+                {
                     return "string";
-
-                case "{270BD3DB-D9AF-4782-9025-509E298DEC0A}":
+                }
+                else if (tempGuid == Guid.Parse("{270BD3DB-D9AF-4782-9025-509E298DEC0A}"))
+                {
                     return "lookup";
-
-                case "{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}":
+                }
+                else if (tempGuid == Guid.Parse("{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}"))
+                {
                     return "optionset";
-
-                case "{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}":
+                }
+                else if (tempGuid == Guid.Parse("{C3EFE0C3-0EC6-42be-8349-CBD9079DFD8E}"))
+                {
                     return "decimal";
-
-                case "{533B9E00-756B-4312-95A0-DC888637AC78}":
+                }
+                else if (tempGuid == Guid.Parse("{533B9E00-756B-4312-95A0-DC888637AC78}"))
+                {
                     return "money";
-
-                case "{E0DECE4B-6FC8-4a8f-A065-082708572369}":
+                }
+                else if (tempGuid == Guid.Parse("{E0DECE4B-6FC8-4a8f-A065-082708572369}"))
+                {
                     return "multistring";
-
-                case "{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}":
+                }
+                else if (tempGuid == Guid.Parse("{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}"))
+                {
                     return "date";
-
-                case "{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}":
+                }
+                else if (tempGuid == Guid.Parse("{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}"))
+                {
                     return "boolean";
-
-                case "{E7A81278-8635-4d9e-8D4D-59480B391C5B}":
+                }
+                else if (tempGuid == Guid.Parse("{E7A81278-8635-4d9e-8D4D-59480B391C5B}"))
+                {
                     return "SubGrid";
-
-                case "{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}":
+                }
+                else if (tempGuid == Guid.Parse("{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}"))
+                {
                     return "integer";
-
-                case "{9FDF5F91-88B1-47f4-AD53-C11EFC01A01D}":
+                }
+                else if (tempGuid == Guid.Parse("{9FDF5F91-88B1-47f4-AD53-C11EFC01A01D}"))
+                {
                     return "WebResource";
-
-                case "{5C5600E0-1D6E-4205-A272-BE80DA87FD42}":
+                }
+                else if (tempGuid == Guid.Parse("{5C5600E0-1D6E-4205-A272-BE80DA87FD42}"))
+                {
                     return "QuickViewForm";
-
-                case "{06375649-c143-495e-a496-c962e5b4488e}":
+                }
+                else if (tempGuid == Guid.Parse("{06375649-c143-495e-a496-c962e5b4488e}"))
+                {
                     return "NotesControl";
-
-                case "{5D68B988-0661-4db2-BC3E-17598AD3BE6C}":
+                }
+                else if (tempGuid == Guid.Parse("{5D68B988-0661-4db2-BC3E-17598AD3BE6C}"))
+                {
                     return "StatusCode";
-
-                case "{B0C6723A-8503-4fd7-BB28-C8A06AC933C2}":
+                }
+                else if (tempGuid == Guid.Parse("{B0C6723A-8503-4fd7-BB28-C8A06AC933C2}"))
+                {
                     return "booleanCheckBox";
+                }
+                else if (tempGuid == Guid.Parse("{4AA28AB7-9C13-4F57-A73D-AD894D048B5F}"))
+                {
+                    return "multiselectpicklist";
+                }
+                //else if (tempGuid == Guid.Parse())
+                //{
 
-                default:
-                    break;
+                //}
             }
 
             return "UnknownControl";

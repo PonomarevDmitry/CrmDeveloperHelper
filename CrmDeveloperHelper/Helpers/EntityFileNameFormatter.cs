@@ -29,7 +29,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return string.Format(WorkflowFormatFile, connectionName, entityName, category, name, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
-        internal static IReadOnlyCollection<string> WebResourceIgnoreFields = new ReadOnlyCollection<string>(new[] { WebResource.Schema.Attributes.content, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Attributes.dependencyxml });
+        internal static IReadOnlyCollection<string> WebResourceIgnoreFields = new ReadOnlyCollection<string>(new[] 
+        {
+            WebResource.Schema.Attributes.content
+            , WebResource.Schema.Attributes.contentjson
+            , WebResource.Schema.Attributes.dependencyxml
+        });
 
         private const string WebResourceFormatFile = "{0}.{1} {2} at {3}.{4}";
 
@@ -38,7 +43,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return string.Format(WebResourceFormatFile, connectionName, name, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
-        internal static IReadOnlyCollection<string> SystemFormIgnoreFields = new ReadOnlyCollection<string>(new[] { SystemForm.Schema.Attributes.formxml });
+        internal static IReadOnlyCollection<string> SystemFormIgnoreFields = new ReadOnlyCollection<string>(new[] 
+        {
+            SystemForm.Schema.Attributes.formxml
+            , SystemForm.Schema.Attributes.formjson
+        });
 
         private const string SystemFormFormatFile = "{0}.{1} SystemForm {2} - {3} at {4}.{5}";
 
@@ -95,7 +104,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private const string SavedQueryFormatFile = "{0}.{1} SavedQuery {2} - {3} at {4}.{5}";
 
-        internal static IReadOnlyCollection<string> SavedQueryIgnoreFields = new ReadOnlyCollection<string>(new[] { SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Attributes.columnsetxml });
+        internal static IReadOnlyCollection<string> SavedQueryIgnoreFields = new ReadOnlyCollection<string>(new[] 
+        {
+            SavedQuery.Schema.Attributes.fetchxml
+            , SavedQuery.Schema.Attributes.layoutxml
+            , SavedQuery.Schema.Attributes.columnsetxml
+            , SavedQuery.Schema.Attributes.layoutjson
+            , SavedQuery.Schema.Attributes.offlinesqlquery
+        });
 
         internal static string GetSavedQueryFileName(string connectionName, string entityName, string name, string fieldTitle, string extension)
         {

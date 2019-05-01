@@ -7,122 +7,143 @@
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
         Title="SystemForm Comparer" Height="538.662" Width="752" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
-        <clr:String x:Key="ConnectionName1">Connection 1</clr:String>
-        <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
-        <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-            <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
-            <MenuItem x:Uid="menuContextDifference" Header="Difference Form Description" Click="mIShowDifferenceFormDescription_Click" />
-            <MenuItem x:Uid="menuContextDifference" Header="Difference Form XML" Click="mIShowDifferenceFormXml_Click" />
-            <MenuItem x:Uid="menuContextDifference" Header="Difference Form WebResouces" Click="mIShowDifferenceWebResouces_Click" />
-            <Separator x:Uid="menuContextDifference"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleWindows.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
-            <MenuItem x:Uid="menuContextDifference" Header="Show Difference">
-                <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
-                <Separator/>
-                <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
-                <Separator/>
-                <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
-                <Separator/>
-                <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
-                <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
-                <Separator/>
-                <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
-                <Separator/>
-                <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
-            </MenuItem>
-            <Separator x:Uid="menuContextDifference"/>
+            <clr:String x:Key="ConnectionName1">Connection 1</clr:String>
+            <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
+            <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Form Description" Click="mIShowDifferenceFormDescription_Click" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Form XML" Click="mIShowDifferenceFormXml_Click" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Form Json" Click="mIShowDifferenceFormJson_Click" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Form WebResouces" Click="mIShowDifferenceWebResouces_Click" />
+                <Separator x:Uid="menuContextDifference"/>
 
-            <MenuItem Header="{DynamicResource ConnectionName1}">
-                <MenuItem Header="Open SystemForm in Web" VerticalAlignment="Center" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
-                <Separator/>
+                <MenuItem x:Uid="menuContextDifference" Header="Show Difference">
+                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
+                    <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
+                    <Separator/>
+                    <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
+                </MenuItem>
+                <Separator x:Uid="menuContextDifference"/>
 
-                <MenuItem Header="Create Entity Description" Click="mIExportSystemForm1EntityDescription_Click"/>
-                <MenuItem Header="Form Description" Click="mIExportSystemForm1FormDescription_Click" />
-                <MenuItem Header="Form XML" Click="mIExportSystemForm1FormXml_Click" />
-                <MenuItem Header="Download Form WebResouces" Click="mIExportSystemForm1DownloadWebResouces_Click" />
+                <MenuItem Header="{DynamicResource ConnectionName1}">
+                    <MenuItem Header="Open SystemForm in Web" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
+                    <Separator/>
 
-                <Separator/>
-                <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="miConnection1OpenEntityMetadataInWeb_Click" />
-                <Separator/>
-                <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="miConnection1OpenEntityInstanceListInWeb_Click" />
+                    <MenuItem Header="Create Entity Description" Click="mIExportSystemForm1EntityDescription_Click"/>
+                    <MenuItem Header="Form Description" Click="mIExportSystemForm1FormDescription_Click" />
+                    <MenuItem Header="Form XML" Click="mIExportSystemForm1FormXml_Click" />
+                    <MenuItem Header="Form Json" Click="mIExportSystemForm1FormJson_Click" />
+                    <MenuItem Header="Download Form WebResouces" Click="mIExportSystemForm1DownloadWebResouces_Click" />
 
-                <Separator/>
-                <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile1_Click"/>
-                <Separator/>
-                <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer1_Click"/>
-                <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer1_Click"/>
-                <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer1_Click"/>
-                <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer1_Click"/>
-                <Separator/>
-                <MenuItem Header="Entity SecurityRoles Explorer" Click="btnEntitySecurityRolesExplorer1_Click"/>
-                <Separator/>
-                <MenuItem Header="SecurityRoles Explorer" Click="btnSecurityRolesExplorer1_Click"/>
-                <Separator/>
-                <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets1_Click"/>
-                <Separator/>
-                <MenuItem Header="Forms" Click="btnSystemForms1_Click"/>
-                <MenuItem Header="Views" Click="btnSavedQuery1_Click"/>
-                <MenuItem Header="Charts" Click="btnSavedChart1_Click"/>
-                <Separator/>
-                <MenuItem Header="Workflows" Click="btnWorkflows1_Click"/>
-                <Separator/>
-                <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon1_Click"/>
-                <Separator/>
-                <MenuItem Header="Plugin Tree" Click="btnPluginTree1_Click"/>
-                <MenuItem Header="Message Tree" Click="btnMessageTree1_Click"/>
-                <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree1_Click"/>
-            </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="Open Entity Customization in Web" Click="miConnection1OpenEntityMetadataInWeb_Click" />
+                    <Separator/>
+                    <MenuItem Header="Open Entity List in Web" Click="miConnection1OpenEntityInstanceListInWeb_Click" />
 
-            <Separator x:Uid="menuContextConnection2"/>
-            <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}">
-                <MenuItem Header="Open SystemForm in Web" VerticalAlignment="Center" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
-                <Separator/>
+                    <Separator/>
+                    <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile1_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer1_Click"/>
+                    <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer1_Click"/>
+                    <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer1_Click"/>
+                    <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer1_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity SecurityRoles Explorer" Click="btnEntitySecurityRolesExplorer1_Click"/>
+                    <Separator/>
+                    <MenuItem Header="SecurityRoles Explorer" Click="btnSecurityRolesExplorer1_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets1_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Forms" Click="btnSystemForms1_Click"/>
+                    <MenuItem Header="Views" Click="btnSavedQuery1_Click"/>
+                    <MenuItem Header="Charts" Click="btnSavedChart1_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Workflows" Click="btnWorkflows1_Click"/>
+                    <Separator/>
+                    <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon1_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Plugin Tree" Click="btnPluginTree1_Click"/>
+                    <MenuItem Header="Message Tree" Click="btnMessageTree1_Click"/>
+                    <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree1_Click"/>
+                </MenuItem>
 
-                <MenuItem Header="Create Entity Description" Click="mIExportSystemForm2EntityDescription_Click"/>
-                <MenuItem Header="Form Description" Click="mIExportSystemForm2FormDescription_Click" />
-                <MenuItem Header="Form XML" Click="mIExportSystemForm2FormXml_Click" />
-                <MenuItem Header="Download Form WebResouces" Click="mIExportSystemForm2DownloadWebResouces_Click" />
+                <Separator x:Uid="menuContextConnection2"/>
+                <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}">
+                    <MenuItem Header="Open SystemForm in Web" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
+                    <Separator/>
 
-                <Separator/>
-                <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="miConnection2OpenEntityMetadataInWeb_Click" />
-                <Separator/>
-                <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="miConnection2OpenEntityInstanceListInWeb_Click" />
+                    <MenuItem Header="Create Entity Description" Click="mIExportSystemForm2EntityDescription_Click"/>
+                    <MenuItem Header="Form Description" Click="mIExportSystemForm2FormDescription_Click" />
+                    <MenuItem Header="Form XML" Click="mIExportSystemForm2FormXml_Click" />
+                    <MenuItem Header="Form Json" Click="mIExportSystemForm2FormJson_Click" />
+                    <MenuItem Header="Download Form WebResouces" Click="mIExportSystemForm2DownloadWebResouces_Click" />
 
-                <Separator/>
-                <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile2_Click"/>
-                <Separator/>
-                <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer2_Click"/>
-                <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer2_Click"/>
-                <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer2_Click"/>
-                <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer2_Click"/>
-                <Separator/>
-                <MenuItem Header="Entity SecurityRoles Explorer" Click="btnEntitySecurityRolesExplorer2_Click"/>
-                <Separator/>
-                <MenuItem Header="SecurityRoles Explorer" Click="btnSecurityRolesExplorer2_Click"/>
-                <Separator/>
-                <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets2_Click"/>
-                <Separator/>
-                <MenuItem Header="Forms" Click="btnSystemForms2_Click"/>
-                <MenuItem Header="Views" Click="btnSavedQuery2_Click"/>
-                <MenuItem Header="Charts" Click="btnSavedChart2_Click"/>
-                <Separator/>
-                <MenuItem Header="Workflows" Click="btnWorkflows2_Click"/>
-                <Separator/>
-                <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon2_Click"/>
-                <Separator/>
-                <MenuItem Header="Plugin Tree" Click="btnPluginTree2_Click"/>
-                <MenuItem Header="Message Tree" Click="btnMessageTree2_Click"/>
-                <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree2_Click"/>
-            </MenuItem>
-        </ContextMenu>
+                    <Separator/>
+                    <MenuItem Header="Open Entity Customization in Web" Click="miConnection2OpenEntityMetadataInWeb_Click" />
+                    <Separator/>
+                    <MenuItem Header="Open Entity List in Web" Click="miConnection2OpenEntityInstanceListInWeb_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile2_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer2_Click"/>
+                    <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer2_Click"/>
+                    <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer2_Click"/>
+                    <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer2_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity SecurityRoles Explorer" Click="btnEntitySecurityRolesExplorer2_Click"/>
+                    <Separator/>
+                    <MenuItem Header="SecurityRoles Explorer" Click="btnSecurityRolesExplorer2_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets2_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Forms" Click="btnSystemForms2_Click"/>
+                    <MenuItem Header="Views" Click="btnSavedQuery2_Click"/>
+                    <MenuItem Header="Charts" Click="btnSavedChart2_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Workflows" Click="btnWorkflows2_Click"/>
+                    <Separator/>
+                    <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon2_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Plugin Tree" Click="btnPluginTree2_Click"/>
+                    <MenuItem Header="Message Tree" Click="btnMessageTree2_Click"/>
+                    <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree2_Click"/>
+                </MenuItem>
+            </ContextMenu>
+
+        </ResourceDictionary>
+        
     </src:WindowBase.Resources>
     <Grid>
 
-        <ToolBar x:Name="toolBarHeader" Margin="0" VerticalAlignment="Top" Height="33">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="100*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ToolBar x:Name="toolBarHeader" Grid.Row="0">
             <Button Content="Options" Click="miOptions_Click"/>
         </ToolBar>
 
-        <Grid Height="25" Margin="10,38,10,0" VerticalAlignment="Top">
+        <Grid Grid.Row="1" Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="50*"/>
@@ -130,15 +151,28 @@
                 <ColumnDefinition Width="50*"/>
             </Grid.ColumnDefinitions>
 
-            <Label Content="Connection 1 to CRM:" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0" Grid.Column="0"/>
-            <ComboBox x:Name="cmBConnection1" IsReadOnly="True" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0"  Grid.Row="0" Grid.Column="1"/>
-            <Label Content="Connection 2 to CRM:" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0" Grid.Column="2"/>
-            <ComboBox x:Name="cmBConnection2" IsReadOnly="True" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0"  Grid.Row="0" Grid.Column="3"/>
+            <Label Content="Connection 1 to CRM:" Grid.Row="0" Grid.Column="0"/>
+            <ComboBox x:Name="cmBConnection1" Grid.Row="0" Grid.Column="1" SelectionChanged="cmBCurrentConnection_SelectionChanged"/>
+
+            <Label Content="Connection 2 to CRM:" Grid.Row="0" Grid.Column="2"/>
+            <ComboBox x:Name="cmBConnection2" Grid.Row="0" Grid.Column="3" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
         </Grid>
 
-        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Height="23"/>
-        <TextBox x:Name="txtBFilterEnitity" Height="23" Margin="51,68,10,0"   VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center"/>
-        <DataGrid x:Name="lstVwSystemForms" AutoGenerateColumns="False" Margin="10,96,10,93" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+        <Grid Grid.Row="2" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Content="Filter" Grid.Row="0" Grid.Column="0" />
+            <TextBox x:Name="txtBFilter" Grid.Row="0" Grid.Column="1" KeyDown="txtBFilterEnitity_KeyDown" />
+        </Grid>
+
+        <DataGrid x:Name="lstVwSystemForms" AutoGenerateColumns="False" Grid.Row="3" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -165,9 +199,23 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,62" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="26" Width="53"/>
-        <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,0,0,62" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Width="254" Height="26" />
-        <ToolBar Margin="0,0,0,24" VerticalAlignment="Bottom" Height="33">
+
+        <Grid Grid.Row="4" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="30*" />
+                <ColumnDefinition Width="50*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Content="Action" Grid.Row="0" Grid.Column="0" />
+            <ComboBox x:Name="cmBFileAction" Grid.Row="0" Grid.Column="1" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" SelectedIndex="0" />
+        </Grid>
+
+        <ToolBar  Grid.Row="5">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
@@ -182,48 +230,53 @@
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
                     <Button x:Name="btnShowDifferenceAll" Content="Show difference for All" Click="btnShowDifferenceAll_Click"/>
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                    <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                    <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
-                            <MenuItem x:Name="mIShowDifferenceEntityDescription" Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                            <MenuItem Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
                             <Separator/>
-                            <MenuItem x:Name="mIShowDifferenceFormDescription" Header="Form Description" Click="mIShowDifferenceFormDescription_Click" />
-                            <MenuItem x:Name="mIShowDifferenceFormXml" Header="Form XML" Click="mIShowDifferenceFormXml_Click" />
+                            <MenuItem Header="Form Description" Click="mIShowDifferenceFormDescription_Click" />
+                            <MenuItem Header="Form XML" Click="mIShowDifferenceFormXml_Click" />
+                            <MenuItem Header="Difference Form Json" Click="mIShowDifferenceFormJson_Click" />
                             <Separator/>
-                            <MenuItem x:Name="mIShowDifferenceWebResouces" Header="Form WebResouces" Click="mIShowDifferenceWebResouces_Click" />
+                            <MenuItem Header="Form WebResouces" Click="mIShowDifferenceWebResouces_Click" />
                         </MenuItem>
                     </Menu>
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                    <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                    <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection1" Header="Connection 1">
-                            <MenuItem x:Name="mIExportSystemForm1EntityDescription" Header="Create Entity Description" Click="mIExportSystemForm1EntityDescription_Click"/>
+                            <MenuItem Header="Create Entity Description" Click="mIExportSystemForm1EntityDescription_Click"/>
                             <Separator/>
-                            <MenuItem x:Name="mIExportSystemForm1FormDescription" Header="Form Description" Click="mIExportSystemForm1FormDescription_Click" />
-                            <MenuItem x:Name="mIExportSystemForm1FormXml" Header="Form XML" Click="mIExportSystemForm1FormXml_Click" />
+                            <MenuItem Header="Form Description" Click="mIExportSystemForm1FormDescription_Click" />
+                            <MenuItem Header="Form XML" Click="mIExportSystemForm1FormXml_Click" />
+                            <MenuItem Header="Form Json" Click="mIExportSystemForm1FormJson_Click" />
                             <Separator/>
                             <MenuItem x:Name="mIExportSystemForm1DownloadWebResouces" Header="Download Form WebResouces" Click="mIExportSystemForm1DownloadWebResouces_Click" />
                         </MenuItem>
                     </Menu>
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                    <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                    <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection2" Header="Connection 2">
-                            <MenuItem x:Name="mIExportSystemForm2EntityDescription" Header="Create Entity Description" Click="mIExportSystemForm2EntityDescription_Click"/>
+                            <MenuItem Header="Create Entity Description" Click="mIExportSystemForm2EntityDescription_Click"/>
                             <Separator/>
-                            <MenuItem x:Name="mIExportSystemForm2FormDescription" Header="Form Description" Click="mIExportSystemForm2FormDescription_Click" />
-                            <MenuItem x:Name="mIExportSystemForm2FormXml" Header="Form XML" Click="mIExportSystemForm2FormXml_Click" />
+                            <MenuItem Header="Form Description" Click="mIExportSystemForm2FormDescription_Click" />
+                            <MenuItem Header="Form XML" Click="mIExportSystemForm2FormXml_Click" />
+                            <MenuItem Header="Form Json" Click="mIExportSystemForm2FormJson_Click" />
                             <Separator/>
-                            <MenuItem x:Name="mIExportSystemForm2DownloadWebResouces" Header="Download Form WebResouces" Click="mIExportSystemForm2DownloadWebResouces_Click" />
+                            <MenuItem Header="Download Form WebResouces" Click="mIExportSystemForm2DownloadWebResouces_Click" />
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>
-                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
-                <Separator x:Name="sepClearEntityFilter" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="10,0,10,0" />
-                <Button x:Name="btnClearEntityFilter" Content="Clear Entity Filter" Click="btnClearEntityFilter_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Separator x:Name="sepClearEntityFilter" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="10,0" />
+                <Button x:Name="btnClearEntityFilter" Content="Clear Entity Filter" Click="btnClearEntityFilter_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
-        <StatusBar Height="24" VerticalAlignment="Bottom">
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-            <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+
+        <StatusBar Grid.Row="6">
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
+            <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>
 </src:WindowBase>

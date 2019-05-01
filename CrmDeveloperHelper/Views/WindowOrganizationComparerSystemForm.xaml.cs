@@ -85,13 +85,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!string.IsNullOrEmpty(filter))
             {
-                txtBFilterEnitity.Text = filter;
+                txtBFilter.Text = filter;
             }
 
-            txtBFilterEnitity.SelectionLength = 0;
-            txtBFilterEnitity.SelectionStart = txtBFilterEnitity.Text.Length;
+            txtBFilter.SelectionLength = 0;
+            txtBFilter.SelectionStart = txtBFilter.Text.Length;
 
-            txtBFilterEnitity.Focus();
+            txtBFilter.Focus();
 
             if (string.IsNullOrEmpty(_filterEntity))
             {
@@ -313,9 +313,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var textName = string.Empty;
 
-            txtBFilterEnitity.Dispatcher.Invoke(() =>
+            txtBFilter.Dispatcher.Invoke(() =>
             {
-                textName = txtBFilterEnitity.Text.Trim().ToLower();
+                textName = txtBFilter.Text.Trim().ToLower();
             });
 
             list = FilterList(list, textName);
@@ -541,14 +541,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             action(linked, showAllways);
         }
 
-        private Task<string> CreateFileAsync(ConnectionData connectionData, Guid formId, string entityName, string name, string fieldTitle, string formXml)
+        private Task<string> CreateFileAsync(ConnectionData connectionData, Guid formId, string entityName, string name, string fieldTitle, string extension, string formXml)
         {
-            return Task.Run(() => CreateFile(connectionData, formId, entityName, name, fieldTitle, formXml));
+            return Task.Run(() => CreateFile(connectionData, formId, entityName, name, fieldTitle, extension, formXml));
         }
 
-        private string CreateFile(ConnectionData connectionData, Guid formId, string entityName, string name, string fieldTitle, string formXml)
+        private string CreateFile(ConnectionData connectionData, Guid formId, string entityName, string name, string fieldTitle, string extension, string formXml)
         {
-            string fileName = EntityFileNameFormatter.GetSystemFormFileName(connectionData.Name, entityName, name, fieldTitle, "xml");
+            string fileName = EntityFileNameFormatter.GetSystemFormFileName(connectionData.Name, entityName, name, fieldTitle, extension);
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             if (!string.IsNullOrEmpty(formXml))
@@ -651,7 +651,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             await PerformShowingDifferenceEntityDescriptionAsync(linked, showAllways);
 
-            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SystemForm.Schema.Attributes.formxml, SystemForm.Schema.Headers.formxml);
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SystemForm.Schema.Attributes.formxml, SystemForm.Schema.Headers.formxml, "xml");
+
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, SystemForm.Schema.Attributes.formjson, SystemForm.Schema.Headers.formjson, "json");
         }
 
         private void mIShowDifferenceEntityDescription_Click(object sender, RoutedEventArgs e)
@@ -798,10 +800,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, SystemForm.Schema.Attributes.formxml, SystemForm.Schema.Headers.formxml, PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, SystemForm.Schema.Attributes.formxml, SystemForm.Schema.Headers.formxml, "xml", PerformShowingDifferenceSingleXmlAsync);
         }
 
-        private void ExecuteActionLinked(LinkedEntities<SystemForm> linked, bool showAllways, string fieldName, string fieldTitle, Func<LinkedEntities<SystemForm>, bool, string, string, Action<XElement>, Task> action, Action<XElement> actionXml = null)
+        private void mIShowDifferenceFormJson_Click(object sender, RoutedEventArgs e)
+        {
+            var link = GetSelectedEntity();
+
+            if (link == null)
+            {
+                return;
+            }
+
+            ExecuteActionLinked(link.Link, true, SystemForm.Schema.Attributes.formjson, SystemForm.Schema.Headers.formjson, "json", PerformShowingDifferenceSingleXmlAsync);
+        }
+
+        private void ExecuteActionLinked(LinkedEntities<SystemForm> linked, bool showAllways, string fieldName, string fieldTitle, string extension, Func<LinkedEntities<SystemForm>, bool, string, string, string, Action<XElement>, Task> action, Action<XElement> actionXml = null)
         {
             if (!this.IsControlsEnabled)
             {
@@ -824,10 +838,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
-            action(linked, showAllways, fieldName, fieldTitle, actionXml);
+            action(linked, showAllways, fieldName, fieldTitle, extension, actionXml);
         }
 
-        private async Task PerformShowingDifferenceSingleXmlAsync(LinkedEntities<SystemForm> linked, bool showAllways, string fieldName, string fieldTitle, Action<XElement> action = null)
+        private async Task PerformShowingDifferenceSingleXmlAsync(LinkedEntities<SystemForm> linked, bool showAllways, string fieldName, string fieldTitle, string extension, Action<XElement> action = null)
         {
             if (!this.IsControlsEnabled)
             {
@@ -854,8 +868,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2, false, action).IsEqual)
                     {
-                        string filePath1 = await CreateFileAsync(service1.ConnectionData, linked.Entity1.Id, linked.Entity1.ObjectTypeCode, linked.Entity1.Name, fieldTitle, xml1);
-                        string filePath2 = await CreateFileAsync(service2.ConnectionData, linked.Entity2.Id, linked.Entity2.ObjectTypeCode, linked.Entity2.Name, fieldTitle, xml2);
+                        string filePath1 = await CreateFileAsync(service1.ConnectionData, linked.Entity1.Id, linked.Entity1.ObjectTypeCode, linked.Entity1.Name, fieldTitle, extension, xml1);
+                        string filePath2 = await CreateFileAsync(service2.ConnectionData, linked.Entity2.Id, linked.Entity2.ObjectTypeCode, linked.Entity2.Name, fieldTitle, extension, xml2);
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
@@ -1010,7 +1024,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return localFilePath;
         }
 
-        private void ExecuteActionEntityField(Guid idSystemForm, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, Func<Guid, Func<Task<IOrganizationServiceExtented>>, string, string, Task> action)
+        private void ExecuteActionEntityField(Guid idSystemForm, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, string extension, Func<Guid, Func<Task<IOrganizationServiceExtented>>, string, string, string, Task> action)
         {
             if (!this.IsControlsEnabled)
             {
@@ -1028,10 +1042,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
-            action(idSystemForm, getService, fieldName, fieldTitle);
+            action(idSystemForm, getService, fieldName, fieldTitle, extension);
         }
 
-        private async Task PerformExportXmlToFileAsync(Guid idSystemForm, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle)
+        private async Task PerformExportXmlToFileAsync(Guid idSystemForm, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, string extension)
         {
             if (!this.IsControlsEnabled)
             {
@@ -1050,7 +1064,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = systemForm.GetAttributeValue<string>(fieldName);
 
-                string filePath = await CreateFileAsync(service.ConnectionData, idSystemForm, systemForm.ObjectTypeCode, systemForm.Name, fieldTitle, xmlContent);
+                string filePath = await CreateFileAsync(service.ConnectionData, idSystemForm, systemForm.ObjectTypeCode, systemForm.Name, fieldTitle, extension, xmlContent);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
@@ -1214,7 +1228,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntityField(link.Link.Entity1.Id, GetService1, SystemForm.Schema.Attributes.formxml, SystemForm.Schema.Headers.formxml, PerformExportXmlToFileAsync);
+            ExecuteActionEntityField(link.Link.Entity1.Id, GetService1, SystemForm.Schema.Attributes.formxml, SystemForm.Schema.Headers.formxml, "xml", PerformExportXmlToFileAsync);
         }
 
         private void mIExportSystemForm2FormXml_Click(object sender, RoutedEventArgs e)
@@ -1226,7 +1240,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntityField(link.Link.Entity2.Id, GetService2, SystemForm.Schema.Attributes.formxml, SystemForm.Schema.Headers.formxml, PerformExportXmlToFileAsync);
+            ExecuteActionEntityField(link.Link.Entity2.Id, GetService2, SystemForm.Schema.Attributes.formxml, SystemForm.Schema.Headers.formxml, "xml", PerformExportXmlToFileAsync);
+        }
+
+        private void mIExportSystemForm1FormJson_Click(object sender, RoutedEventArgs e)
+        {
+            var link = GetSelectedEntity();
+
+            if (link == null && link.Link.Entity1 != null)
+            {
+                return;
+            }
+
+            ExecuteActionEntityField(link.Link.Entity1.Id, GetService1, SystemForm.Schema.Attributes.formjson, SystemForm.Schema.Headers.formjson, "json", PerformExportXmlToFileAsync);
+        }
+
+        private void mIExportSystemForm2FormJson_Click(object sender, RoutedEventArgs e)
+        {
+            var link = GetSelectedEntity();
+
+            if (link == null && link.Link.Entity2 != null)
+            {
+                return;
+            }
+
+            ExecuteActionEntityField(link.Link.Entity2.Id, GetService2, SystemForm.Schema.Attributes.formjson, SystemForm.Schema.Headers.formjson, "json", PerformExportXmlToFileAsync);
         }
 
         private void mIExportSystemForm1DownloadWebResouces_Click(object sender, RoutedEventArgs e)
@@ -1656,7 +1694,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
-            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityName, entity?.FormName1 ?? txtBFilterEnitity.Text);
+            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityName, entity?.FormName1 ?? txtBFilter.Text);
         }
 
         private async void btnSavedQuery1_Click(object sender, RoutedEventArgs e)
@@ -1769,7 +1807,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService2();
 
-            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityName, entity?.FormName2 ?? txtBFilterEnitity.Text);
+            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityName, entity?.FormName2 ?? txtBFilter.Text);
         }
 
         private async void btnSavedQuery2_Click(object sender, RoutedEventArgs e)

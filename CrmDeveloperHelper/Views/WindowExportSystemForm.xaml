@@ -6,118 +6,157 @@
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
         Title="Export System Form's Xml" Height="538.662" Width="717" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
-        <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-            <MenuItem Header="Open SystemForm in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
-            <Separator/>
-            <MenuItem Header="Form Description" VerticalAlignment="Center" Click="mIExportSystemFormDescription_Click" />
-            
-            <Separator x:Uid="contMnEntity"/>
-            <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
-            
-            <Separator x:Uid="contMnEntity"/>
-            <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
-            
-            <Separator/>
-            <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleWindows.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
-            <Separator x:Uid="contMnEntity"/>
-            <MenuItem x:Uid="contMnEntity" Header="Create EntityMetadata JavaScript File based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFile_Click" />
-            
-            <Separator/>
-            <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
-            <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
+            <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+                <MenuItem Header="Open SystemForm in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
+                <Separator/>
+                <MenuItem Header="Form Description" VerticalAlignment="Center" Click="mIExportSystemFormDescription_Click" />
 
-            <Separator x:Uid="contMnEntity" />
-            <MenuItem x:Uid="contMnAddEntityIntoSolutionLast" Header="Add into Last Crm Solution">
-                <MenuItem x:Uid="contMnAddEntityIntoSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
-                <Separator/>
-                <MenuItem x:Uid="contMnAddEntityIntoSolutionLastDoNotIncludeSubcomponents" Header="Do Not Include Subcomponents" />
-                <Separator/>
-                <MenuItem x:Uid="contMnAddEntityIntoSolutionLastIncludeAsShellOnly" Header="Include As ShellOnly" />
-            </MenuItem>
-            <MenuItem x:Uid="contMnEntity" Header="Add into Crm Solution">
-                <MenuItem Header="Include Subcomponents" Click="AddIntoCrmSolutionIncludeSubcomponents_Click" />
-                <Separator/>
-                <MenuItem Header="Do Not Include Subcomponents" Click="AddIntoCrmSolutionDoNotIncludeSubcomponents_Click" />
-                <Separator/>
-                <MenuItem Header="Include As ShellOnly" Click="AddIntoCrmSolutionIncludeAsShellOnly_Click" />
-            </MenuItem>
+                <Separator x:Uid="contMnEntity"/>
+                <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
 
-            <Separator/>
-            <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIExportSystemFormFormXml_Click" />
-            <Separator x:Uid="controlChangeEntityAttribute" />
-            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm in Editor" Click="mIChangeEntityInEditor_Click"/>
-            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm Attribute" VerticalAlignment="Center">
-                <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIUpdateSystemFormFormXml_Click" />
-            </MenuItem>
-            <Separator/>
-            <MenuItem Header="Publish SystemForm" VerticalAlignment="Center" Click="mIPublishSystemForm_Click" />
-            <MenuItem x:Uid="contMnEntity" Header="Publish Entity" Click="btnPublishEntity_Click"/>
-            <Separator/>
-            <MenuItem Header="Download Form WebResouces" VerticalAlignment="Center" Click="mIExportSystemFormWebResources_Click" />
-            <Separator/>
-            <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
-            <Separator/>
-            <MenuItem Header="Dependent Components">
-                <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                <Separator x:Uid="contMnEntity"/>
+                <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
+
                 <Separator/>
-                <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
-            </MenuItem>
-            <Separator/>
-            <MenuItem Header="Get Other Entity Information">
-                <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
+                <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+
+                <Separator x:Uid="contMnEntity"/>
+                <MenuItem x:Uid="contMnEntity" Header="Create EntityMetadata JavaScript File based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFile_Click" />
+
                 <Separator/>
-                <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
-                <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
-                <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
-                <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
+                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
+                <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
+
+                <Separator x:Uid="contMnEntity" />
+                <MenuItem x:Uid="contMnAddEntityIntoSolutionLast" Header="Add into Last Crm Solution">
+                    <MenuItem x:Uid="contMnAddEntityIntoSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
+                    <Separator/>
+                    <MenuItem x:Uid="contMnAddEntityIntoSolutionLastDoNotIncludeSubcomponents" Header="Do Not Include Subcomponents" />
+                    <Separator/>
+                    <MenuItem x:Uid="contMnAddEntityIntoSolutionLastIncludeAsShellOnly" Header="Include As ShellOnly" />
+                </MenuItem>
+                <MenuItem x:Uid="contMnEntity" Header="Add into Crm Solution">
+                    <MenuItem Header="Include Subcomponents" Click="AddIntoCrmSolutionIncludeSubcomponents_Click" />
+                    <Separator/>
+                    <MenuItem Header="Do Not Include Subcomponents" Click="AddIntoCrmSolutionDoNotIncludeSubcomponents_Click" />
+                    <Separator/>
+                    <MenuItem Header="Include As ShellOnly" Click="AddIntoCrmSolutionIncludeAsShellOnly_Click" />
+                </MenuItem>
+
                 <Separator/>
-                <MenuItem Header="Entity SecurityRoles Explorer" Click="miEntitySecurityRolesExplorer_Click"/>
+                <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIExportSystemFormFormXml_Click" />
+                <MenuItem Header="Form Json" VerticalAlignment="Center" Click="mIExportSystemFormFormJson_Click" />
+                
+                <Separator x:Uid="controlChangeEntityAttribute" />
+                <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm in Editor" Click="mIChangeEntityInEditor_Click"/>
+                <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm Attribute" VerticalAlignment="Center">
+                    <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIUpdateSystemFormFormXml_Click" />
+                    <MenuItem Header="Form Json" VerticalAlignment="Center" Click="mIUpdateSystemFormFormJson_Click" />
+                </MenuItem>
+                
                 <Separator/>
-                <MenuItem Header="SecurityRoles Explorer" Click="miSecurityRolesExplorer_Click"/>
+                <MenuItem Header="Publish SystemForm" VerticalAlignment="Center" Click="mIPublishSystemForm_Click" />
+                <MenuItem x:Uid="contMnEntity" Header="Publish Entity" Click="btnPublishEntity_Click"/>
+                
                 <Separator/>
-                <MenuItem Header="Views" Click="btnSavedQuery_Click"/>
-                <MenuItem Header="Charts" Click="btnSavedChart_Click"/>
+                <MenuItem Header="Download Form WebResouces" VerticalAlignment="Center" Click="mIExportSystemFormWebResources_Click" />
+                
                 <Separator/>
-                <MenuItem Header="Workflows" Click="btnWorkflows_Click"/>
+                <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
+                
                 <Separator/>
-                <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click"/>
+                <MenuItem Header="Dependent Components">
+                    <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                    <Separator/>
+                    <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
+                </MenuItem>
+                
                 <Separator/>
-                <MenuItem Header="Plugin Tree" Click="btnPluginTree_Click"/>
-                <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
-                <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
-            </MenuItem>
-            <Separator/>
-            <MenuItem Header="Compare Information with other Organization">
-                <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                <MenuItem Header="Get Other Entity Information">
+                    <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
+                    <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
+                    <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
+                    <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity SecurityRoles Explorer" Click="miEntitySecurityRolesExplorer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="SecurityRoles Explorer" Click="miSecurityRolesExplorer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Views" Click="btnSavedQuery_Click"/>
+                    <MenuItem Header="Charts" Click="btnSavedChart_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Workflows" Click="btnWorkflows_Click"/>
+                    <Separator/>
+                    <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Plugin Tree" Click="btnPluginTree_Click"/>
+                    <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
+                    <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
+                </MenuItem>
+                
                 <Separator/>
-                <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
+                <MenuItem Header="Compare Information with other Organization">
+                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
+                    <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
+                    <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
+                    <Separator/>
+                    <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
+                </MenuItem>
+                
                 <Separator/>
-                <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
-                <Separator/>
-                <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
-                <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
-                <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
-                <Separator/>
-                <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
-                <Separator/>
-                <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
-            </MenuItem>
-            <Separator/>
-            <MenuItem Header="Export All Form Information" Click="btnExportAll_Click"/>
-        </ContextMenu>
+                <MenuItem Header="Export All Form Information" Click="btnExportAll_Click"/>
+            </ContextMenu>
+
+        </ResourceDictionary>
     </src:WindowBase.Resources>
     <Grid>
 
-        <ToolBar x:Name="toolBarHeader" Margin="0" VerticalAlignment="Top" Height="33">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="100*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ToolBar x:Name="toolBarHeader" Grid.Row="0">
             <Button Content="Options" Click="miOptions_Click"/>
         </ToolBar>
 
-        <Label Content="Folder" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="48,38,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" />
-        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Padding="0" VerticalContentAlignment="Center" Height="23"/>
-        <TextBox x:Name="txtBFilter" Height="23" Margin="48,66,10,0"   VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
-        <DataGrid x:Name="lstVwSystemForms" AutoGenerateColumns="False" Margin="10,94,10,99" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" >
+        <Grid Grid.Row="1" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Content="Folder" Grid.Row="0" Grid.Column="0" />
+            <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" Text="{Binding Path=FolderForExport}" />
+
+            <Label Content="Filter" Grid.Row="1" Grid.Column="0" />
+            <TextBox x:Name="txtBFilter" Grid.Row="1" Grid.Column="1" KeyDown="txtBFilterEnitity_KeyDown" />
+        </Grid>
+
+        <DataGrid x:Name="lstVwSystemForms" AutoGenerateColumns="False" Grid.Row="2" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" >
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -140,9 +179,23 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,69" VerticalAlignment="Bottom" Height="25" Padding="10,0" VerticalContentAlignment="Center"/>
-        <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="59,0,0,69" VerticalAlignment="Bottom" IsReadOnly="True" SelectedIndex="0" Height="25" Padding="10,0" HorizontalAlignment="Left" Width="254" VerticalContentAlignment="Center" />
-        <ToolBar Margin="0,0,0,31" VerticalAlignment="Bottom" Height="33">
+
+        <Grid Grid.Row="3" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="30*" />
+                <ColumnDefinition Width="50*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Content="Action" Grid.Row="0" Grid.Column="0" />
+            <ComboBox x:Name="cmBFileAction" Grid.Row="0" Grid.Column="1" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" SelectedIndex="0" />
+        </Grid>
+
+        <ToolBar Grid.Row="4">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
@@ -157,7 +210,8 @@
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
                     <Button x:Name="btnExportAll" Content="Export All Form Information" Click="btnExportAll_Click" />
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                    
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportSystemForm" Header="Export Form Information" VerticalAlignment="Center" SubmenuOpened="tSDDBExportSystemForm_SubmenuOpened">
                             <MenuItem Header="Open SystemForm in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
@@ -171,28 +225,38 @@
 
                             <Separator/>
                             <MenuItem Header="Create Entity JavaScript File based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFile_Click" />
+                            
                             <Separator/>
                             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
                             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
+                            
                             <Separator/>
                             <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIExportSystemFormFormXml_Click" />
+                            <MenuItem Header="Form Json" VerticalAlignment="Center" Click="mIExportSystemFormFormJson_Click" />
+                            
                             <Separator x:Uid="controlChangeEntityAttribute"/>
                             <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm Attribute" VerticalAlignment="Center">
                                 <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIUpdateSystemFormFormXml_Click" />
+                                <MenuItem Header="Form Json" VerticalAlignment="Center" Click="mIUpdateSystemFormFormJson_Click" />
                             </MenuItem>
+                            
                             <Separator/>
                             <MenuItem Header="Publish SystemForm" VerticalAlignment="Center" Click="mIPublishSystemForm_Click" />
                             <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
+                            
                             <Separator/>
                             <MenuItem Header="Download Form WebResouces" VerticalAlignment="Center" Click="mIExportSystemFormWebResources_Click" />
+                            
                             <Separator/>
                             <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
+                            
                             <Separator/>
                             <MenuItem Header="Dependent Components">
                                 <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
                                 <Separator/>
                                 <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
                             </MenuItem>
+                            
                             <Separator/>
                             <MenuItem Header="Get Other Entity Information">
                                 <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
@@ -217,6 +281,7 @@
                                 <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
                                 <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
                             </MenuItem>
+                            
                             <Separator/>
                             <MenuItem Header="Compare Information with other Organization">
                                 <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
@@ -236,17 +301,18 @@
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>
-                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
-                <Separator x:Name="sepClearEntityFilter" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="10,0,10,0" />
-                <Button x:Name="btnClearEntityFilter" Content="Clear Entity Filter" Click="btnClearEntityFilter_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Separator x:Name="sepClearEntityFilter" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="10,0" />
+                <Button x:Name="btnClearEntityFilter" Content="Clear Entity Filter" Click="btnClearEntityFilter_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
-        <StatusBar VerticalAlignment="Bottom">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+        <StatusBar Grid.Row="4">
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
+            <ComboBox x:Name="cmBCurrentConnection" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
             <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
-            <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>
 </src:WindowBase>

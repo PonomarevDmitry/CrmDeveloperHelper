@@ -369,17 +369,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async Task PerformExportMouseDoubleClick(string folder, Guid idSavedQuery, string entityName, string name)
-        {
-            //await PerformExportEntityDescription(folder, savedQuery);
-
-            await PerformExportXmlToFile(folder, idSavedQuery, entityName, name, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml);
-
-            await PerformExportXmlToFile(folder, idSavedQuery, entityName, name, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml);
-
-            await PerformExportXmlToFile(folder, idSavedQuery, entityName, name, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml);
-        }
-
         private void lstVwEntities_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateButtonsEnable();
@@ -496,14 +485,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             await PerformExportEntityDescription(folder, idSavedQuery, entityName, name);
 
-            await PerformExportXmlToFile(folder, idSavedQuery, entityName, name, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml);
+            await PerformExportXmlToFile(folder, idSavedQuery, entityName, name, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, "xml");
 
-            await PerformExportXmlToFile(folder, idSavedQuery, entityName, name, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml);
+            await PerformExportXmlToFile(folder, idSavedQuery, entityName, name, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, "xml");
 
-            await PerformExportXmlToFile(folder, idSavedQuery, entityName, name, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml);
+            await PerformExportXmlToFile(folder, idSavedQuery, entityName, name, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, "xml");
+
+            await PerformExportXmlToFile(folder, idSavedQuery, entityName, name, SavedQuery.Schema.Attributes.layoutjson, SavedQuery.Schema.Headers.layoutjson, "json");
+
+            await PerformExportXmlToFile(folder, idSavedQuery, entityName, name, SavedQuery.Schema.Attributes.offlinesqlquery, SavedQuery.Schema.Headers.offlinesqlquery, "sql");
         }
 
-        private async Task ExecuteActionEntity(Guid idSavedQuery, string entityName, string name, string fieldName, string fieldTitle, Func<string, Guid, string, string, string, string, Task> action)
+        private async Task ExecuteActionEntity(Guid idSavedQuery, string entityName, string name, string fieldName, string fieldTitle, string extension, Func<string, Guid, string, string, string, string, string, Task> action)
         {
             string folder = txtBFolder.Text.Trim();
 
@@ -523,10 +516,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
-            await action(folder, idSavedQuery, entityName, name, fieldName, fieldTitle);
+            await action(folder, idSavedQuery, entityName, name, fieldName, extension, fieldTitle);
         }
 
-        private async Task PerformExportXmlToFile(string folder, Guid idSavedQuery, string entityName, string name, string fieldName, string fieldTitle)
+        private async Task PerformExportXmlToFile(string folder, Guid idSavedQuery, string entityName, string name, string fieldName, string fieldTitle, string extension)
         {
             if (!this.IsControlsEnabled)
             {
@@ -545,7 +538,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = savedQuery.GetAttributeValue<string>(fieldName);
 
-                string filePath = await CreateFileAsync(folder, idSavedQuery, entityName, name, fieldTitle, xmlContent, "xml");
+                string filePath = await CreateFileAsync(folder, idSavedQuery, entityName, name, fieldTitle, xmlContent, extension);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
@@ -559,7 +552,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async Task PerformCopyToClipboardXmlToFileJavaScript(string folder, Guid idSavedQuery, string entityName, string name, string fieldName, string fieldTitle)
+        private async Task PerformCopyToClipboardXmlToFileJavaScript(string folder, Guid idSavedQuery, string entityName, string name, string fieldName, string fieldTitle, string extension)
         {
             if (!this.IsControlsEnabled)
             {
@@ -597,7 +590,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async Task PerformUpdateEntityField(string folder, Guid idSavedQuery, string entityName, string name, string fieldName, string fieldTitle)
+        private async Task PerformUpdateEntityField(string folder, Guid idSavedQuery, string entityName, string name, string fieldName, string fieldTitle, string extension)
         {
             if (!this.IsControlsEnabled)
             {
@@ -616,7 +609,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = savedQuery.GetAttributeValue<string>(fieldName);
 
-                string filePath = await CreateFileAsync(folder, idSavedQuery, entityName, name, fieldTitle + " BackUp", xmlContent, "xml");
+                string filePath = await CreateFileAsync(folder, idSavedQuery, entityName, name, fieldTitle + " BackUp", xmlContent, extension);
 
                 var newText = string.Empty;
                 bool? dialogResult = false;
@@ -705,7 +698,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, PerformExportXmlToFile);
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, "xml", PerformExportXmlToFile);
         }
 
         private void mIExportSavedQueryFetchXmlIntoJavaScript_Click(object sender, RoutedEventArgs e)
@@ -717,7 +710,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, PerformCopyToClipboardXmlToFileJavaScript);
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, "xml", PerformCopyToClipboardXmlToFileJavaScript);
         }
 
         private void mIExportSavedQueryLayoutXml_Click(object sender, RoutedEventArgs e)
@@ -729,7 +722,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, PerformExportXmlToFile);
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, "xml", PerformExportXmlToFile);
         }
 
         private void mIExportSavedQueryLayoutXmlIntoJavaScript_Click(object sender, RoutedEventArgs e)
@@ -741,7 +734,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, PerformCopyToClipboardXmlToFileJavaScript);
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, "xml", PerformCopyToClipboardXmlToFileJavaScript);
         }
 
         private void mIExportSavedQueryColumnSetXml_Click(object sender, RoutedEventArgs e)
@@ -753,7 +746,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, PerformExportXmlToFile);
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, "xml", PerformExportXmlToFile);
+        }
+
+        private void mIExportSavedQueryLayoutJson_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutjson, SavedQuery.Schema.Headers.layoutjson, "json", PerformExportXmlToFile);
+        }
+
+        private void mIExportSavedQueryOfflineSqlQuery_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.offlinesqlquery, SavedQuery.Schema.Headers.offlinesqlquery, "sql", PerformExportXmlToFile);
         }
 
         private void mIExportSavedQueryColumnSetXmlIntoJavaScript_Click(object sender, RoutedEventArgs e)
@@ -765,7 +782,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, PerformCopyToClipboardXmlToFileJavaScript);
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, "xml", PerformCopyToClipboardXmlToFileJavaScript);
         }
 
         private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
@@ -1117,7 +1134,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
 
-            ActivateControls(tSDDBExportSavedQuery.Items.OfType<Control>(), (nodeItem.SavedQuery.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
+            ActivateControls(tSDDBExportSavedQuery.Items.OfType<Control>(), nodeItem != null && (nodeItem.SavedQuery.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
         }
 
         #region Кнопки открытия других форм с информация о сущности.
@@ -1434,7 +1451,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, PerformUpdateEntityField);
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.fetchxml, SavedQuery.Schema.Headers.fetchxml, "xml", PerformUpdateEntityField);
         }
 
         private void mIUpdateSavedQueryLayoutXml_Click(object sender, RoutedEventArgs e)
@@ -1446,7 +1463,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, PerformUpdateEntityField);
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutxml, SavedQuery.Schema.Headers.layoutxml, "xml", PerformUpdateEntityField);
         }
 
         private void mIUpdateSavedQueryColumnSetXml_Click(object sender, RoutedEventArgs e)
@@ -1458,7 +1475,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, PerformUpdateEntityField);
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, "xml", PerformUpdateEntityField);
+        }
+
+        private void mIUpdateSavedQueryLayoutJson_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutjson, SavedQuery.Schema.Headers.layoutjson, "json", PerformUpdateEntityField);
+        }
+
+        private void mIUpdateSavedQueryOfflineSqlQuery_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.offlinesqlquery, SavedQuery.Schema.Headers.offlinesqlquery, "sql", PerformUpdateEntityField);
         }
 
         private void btnPublishEntity_Click(object sender, RoutedEventArgs e)

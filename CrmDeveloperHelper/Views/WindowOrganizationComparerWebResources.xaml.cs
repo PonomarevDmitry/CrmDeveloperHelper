@@ -487,7 +487,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , bool showAllways
             , string fieldName
             , string fieldTitle
-            , Func<LinkedEntities<WebResource>, bool, string, string, Task> action
+            , string extension
+            , Func<LinkedEntities<WebResource>, bool, string, string, string, Task> action
         )
         {
             if (!this.IsControlsEnabled)
@@ -506,7 +507,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
-            action(linked, showAllways, fieldName, fieldTitle);
+            action(linked, showAllways, fieldName, fieldTitle, extension);
         }
 
         private void mIShowDifferenceEntityDescription_Click(object sender, RoutedEventArgs e)
@@ -769,6 +770,127 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceWebResourcesCompletedFormat1, linked.Entity1.Name);
         }
 
+        private void mIShowDifferenceContentJson_Click(object sender, RoutedEventArgs e)
+        {
+            var link = GetSelectedEntity();
+
+            if (link == null)
+            {
+                return;
+            }
+
+            ExecuteActionLinked(link.Link, true, WebResource.Schema.Attributes.contentjson, SavedQuery.Schema.Headers.fetchxml, "json", PerformShowingDifferenceSingleXmlAsync);
+        }
+
+        private void mIShowDifferenceDependencyXml_Click(object sender, RoutedEventArgs e)
+        {
+            var link = GetSelectedEntity();
+
+            if (link == null)
+            {
+                return;
+            }
+
+            ExecuteActionLinked(link.Link, true, WebResource.Schema.Attributes.dependencyxml, SavedQuery.Schema.Headers.fetchxml, "xml", PerformShowingDifferenceSingleXmlAsync);
+        }
+
+        private async Task PerformShowingDifferenceSingleXmlAsync(LinkedEntities<WebResource> linked, bool showAllways, string fieldName, string fieldTitle, string extension)
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldFormat1, fieldName);
+
+            try
+            {
+                var service1 = await GetService1();
+                var service2 = await GetService2();
+
+                if (service1 != null && service2 != null)
+                {
+                    var repository1 = new WebResourceRepository(service1);
+                    var repository2 = new WebResourceRepository(service2);
+
+                    var webResource1 = await repository1.FindByIdAsync(linked.Entity1.Id, new ColumnSet(true));
+                    var webResource2 = await repository2.FindByIdAsync(linked.Entity2.Id, new ColumnSet(true));
+
+                    string xml1 = webResource1.GetAttributeValue<string>(fieldName);
+                    string xml2 = webResource2.GetAttributeValue<string>(fieldName);
+
+                    if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2, false).IsEqual)
+                    {
+                        string filePath1 = await CreateFileAsync(service1.ConnectionData, webResource1.Name, fieldTitle, extension, xml1);
+                        string filePath2 = await CreateFileAsync(service2.ConnectionData, webResource2.Name, fieldTitle, extension, xml2);
+
+                        if (File.Exists(filePath1) && File.Exists(filePath2))
+                        {
+                            this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
+                        }
+                        else
+                        {
+                            this._iWriteToOutput.PerformAction(service1.ConnectionData, filePath1);
+
+                            this._iWriteToOutput.PerformAction(service2.ConnectionData, filePath2);
+                        }
+                    }
+                }
+
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldCompletedFormat1, fieldName);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(null, ex);
+
+                ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceXmlForFieldFailedFormat1, fieldName);
+            }
+        }
+
+        private Task<string> CreateFileAsync(ConnectionData connectionData, string name, string fieldTitle, string xmlContent, string extension)
+        {
+            return Task.Run(() => CreateFile(connectionData, name, fieldTitle, xmlContent, extension));
+        }
+
+        private string CreateFile(ConnectionData connectionData, string name, string fieldTitle, string xmlContent, string extension)
+        {
+            name = Path.GetFileName(name);
+
+            if (connectionData == null)
+            {
+                return null;
+            }
+
+            string fileName = EntityFileNameFormatter.GetWebResourceFileName(connectionData.Name, name, fieldTitle, extension);
+            string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+            if (!string.IsNullOrEmpty(xmlContent))
+            {
+                try
+                {
+                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                    {
+                        xmlContent = doc.ToString();
+                    }
+
+                    File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
+
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, WebResource.Schema.EntityLogicalName, name, fieldTitle, filePath);
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+                }
+            }
+            else
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, WebResource.Schema.EntityLogicalName, name, fieldTitle);
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
+            }
+
+            return filePath;
+        }
+
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.Key == Key.F5)
@@ -916,6 +1038,102 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.WebResource, entity.Link.Entity2.Id);
             }
+        }
+
+        private void ExecuteActionEntity(Guid idWebResource, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, string extension, Func<Guid, Func<Task<IOrganizationServiceExtented>>, string, string, string, Task> action)
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(_commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                _commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(_commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, _commonConfig.FolderForExport);
+                _commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
+            action(idWebResource, getService, fieldName, fieldTitle, extension);
+        }
+
+        private void mIExportWebResource1ContentJson_Click(object sender, RoutedEventArgs e)
+        {
+            var link = GetSelectedEntity();
+
+            if (link == null && link.Link.Entity1 != null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, "json", PerformExportXmlToFileAsync);
+        }
+
+        private void mIExportWebResource2ContentJson_Click(object sender, RoutedEventArgs e)
+        {
+            var link = GetSelectedEntity();
+
+            if (link == null && link.Link.Entity2 != null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, "json", PerformExportXmlToFileAsync);
+        }
+
+        private void mIExportWebResource1DependencyXml_Click(object sender, RoutedEventArgs e)
+        {
+            var link = GetSelectedEntity();
+
+            if (link == null && link.Link.Entity1 != null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, "xml", PerformExportXmlToFileAsync);
+        }
+
+        private void mIExportWebResource2DependencyXml_Click(object sender, RoutedEventArgs e)
+        {
+            var link = GetSelectedEntity();
+
+            if (link == null && link.Link.Entity2 != null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, "xml", PerformExportXmlToFileAsync);
+        }
+
+        private async Task PerformExportXmlToFileAsync(Guid idWebResource, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, string extension)
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            ToggleControls(false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
+
+            var service = await getService();
+
+            if (service != null)
+            {
+                var repository = new WebResourceRepository(service);
+
+                var webResource = await repository.FindByIdAsync(idWebResource, new ColumnSet(true));
+
+                string xmlContent = webResource.GetAttributeValue<string>(fieldName);
+
+                string filePath = await CreateFileAsync(service.ConnectionData, webResource.Name, fieldTitle, extension, xmlContent);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+            }
+
+            ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat1, fieldName);
         }
     }
 }
