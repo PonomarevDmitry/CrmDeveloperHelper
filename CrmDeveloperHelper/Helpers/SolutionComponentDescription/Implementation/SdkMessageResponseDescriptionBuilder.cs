@@ -99,6 +99,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                             },
                         },
                     },
+
+                    new LinkEntity()
+                    {
+                        JoinOperator = JoinOperator.LeftOuter,
+
+                        LinkFromEntityName = SdkMessageResponse.EntityLogicalName,
+                        LinkFromAttributeName = SdkMessageResponse.Schema.Attributes.solutionid,
+
+                        LinkToEntityName = Solution.EntityLogicalName,
+                        LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
+
+                        EntityAlias = Solution.EntityLogicalName,
+
+                        Columns = new ColumnSet(Solution.Schema.Attributes.uniquename, Solution.Schema.Attributes.ismanaged),
+                    },
+
+                    new LinkEntity()
+                    {
+                        JoinOperator = JoinOperator.LeftOuter,
+
+                        LinkFromEntityName = SdkMessageResponse.EntityLogicalName,
+                        LinkFromAttributeName = SdkMessageResponse.Schema.Attributes.supportingsolutionid,
+
+                        LinkToEntityName = Solution.EntityLogicalName,
+                        LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
+
+                        EntityAlias = SupportingSolutionAlias,
+
+                        Columns = new ColumnSet(Solution.Schema.Attributes.uniquename, Solution.Schema.Attributes.ismanaged),
+                    },
                 },
             };
 
@@ -139,6 +169,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , { SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.name, "RequestName" }
                     , { SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.sdkmessagepairid + "." + SdkMessagePair.Schema.Attributes.@namespace, "Namespace" }
                     , { SdkMessageResponse.Schema.Attributes.customizationlevel, "CustomizationLevel" }
+                    , { "solution.uniquename", "SolutionName" }
+                    , { "solution.ismanaged", "SolutionIsManaged" }
+                    , { "suppsolution.uniquename", "SupportingName" }
+                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
                 };
         }
     }

@@ -113,6 +113,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                             },
                         },
                     },
+
+                    new LinkEntity()
+                    {
+                        JoinOperator = JoinOperator.LeftOuter,
+
+                        LinkFromEntityName = SdkMessageResponseField.EntityLogicalName,
+                        LinkFromAttributeName = SdkMessageResponseField.Schema.Attributes.solutionid,
+
+                        LinkToEntityName = Solution.EntityLogicalName,
+                        LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
+
+                        EntityAlias = Solution.EntityLogicalName,
+
+                        Columns = new ColumnSet(Solution.Schema.Attributes.uniquename, Solution.Schema.Attributes.ismanaged),
+                    },
+
+                    new LinkEntity()
+                    {
+                        JoinOperator = JoinOperator.LeftOuter,
+
+                        LinkFromEntityName = SdkMessageResponseField.EntityLogicalName,
+                        LinkFromAttributeName = SdkMessageResponseField.Schema.Attributes.supportingsolutionid,
+
+                        LinkToEntityName = Solution.EntityLogicalName,
+                        LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
+
+                        EntityAlias = SupportingSolutionAlias,
+
+                        Columns = new ColumnSet(Solution.Schema.Attributes.uniquename, Solution.Schema.Attributes.ismanaged),
+                    },
                 },
             };
 
@@ -165,6 +195,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , { SdkMessageResponseField.Schema.Attributes.formatter, "Formatter" }
                     , { SdkMessageResponseField.Schema.Attributes.parameterbindinginformation, "ParameterBindingInformation" }
                     , { SdkMessageResponseField.Schema.Attributes.customizationlevel, "CustomizationLevel" }
+                    , { "solution.uniquename", "SolutionName" }
+                    , { "solution.ismanaged", "SolutionIsManaged" }
+                    , { "suppsolution.uniquename", "SupportingName" }
+                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
                 };
         }
     }

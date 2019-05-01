@@ -61,6 +61,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         new ConditionExpression(this.EntityPrimaryIdAttribute, ConditionOperator.In, idsNotCached.ToArray()),
                     },
                 },
+
+                LinkEntities =
+                {
+                    new LinkEntity()
+                    {
+                        JoinOperator = JoinOperator.LeftOuter,
+
+                        LinkFromEntityName = SdkMessage.EntityLogicalName,
+                        LinkFromAttributeName = SdkMessage.Schema.Attributes.solutionid,
+
+                        LinkToEntityName = Solution.EntityLogicalName,
+                        LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
+
+                        EntityAlias = Solution.EntityLogicalName,
+
+                        Columns = new ColumnSet(Solution.Schema.Attributes.uniquename, Solution.Schema.Attributes.ismanaged),
+                    },
+
+                    new LinkEntity()
+                    {
+                        JoinOperator = JoinOperator.LeftOuter,
+
+                        LinkFromEntityName = SdkMessage.EntityLogicalName,
+                        LinkFromAttributeName = SdkMessage.Schema.Attributes.supportingsolutionid,
+
+                        LinkToEntityName = Solution.EntityLogicalName,
+                        LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
+
+                        EntityAlias = SupportingSolutionAlias,
+
+                        Columns = new ColumnSet(Solution.Schema.Attributes.uniquename, Solution.Schema.Attributes.ismanaged),
+                    },
+                },
             };
 
             return query;
@@ -114,6 +147,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , { SdkMessage.Schema.Attributes.isprivate, "IsPrivate" }
                     , { SdkMessage.Schema.Attributes.isreadonly, "IsReadOnly" }
                     , { SdkMessage.Schema.Attributes.isvalidforexecuteasync, "IsValidForExecuteAsync" }
+                    , { "solution.uniquename", "SolutionName" }
+                    , { "solution.ismanaged", "SolutionIsManaged" }
+                    , { "suppsolution.uniquename", "SupportingName" }
+                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
                 };
         }
     }
