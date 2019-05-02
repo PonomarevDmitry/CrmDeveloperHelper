@@ -78,12 +78,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadFromConfig();
 
-            txtBFilterEnitity.Text = entityFilter;
+            txtBFilter.Text = entityFilter;
 
-            txtBFilterEnitity.SelectionLength = 0;
-            txtBFilterEnitity.SelectionStart = txtBFilterEnitity.Text.Length;
+            txtBFilter.SelectionLength = 0;
+            txtBFilter.SelectionStart = txtBFilter.Text.Length;
 
-            txtBFilterEnitity.Focus();
+            txtBFilter.Focus();
 
             this._itemsSource = new ObservableCollection<LinkedEntityMetadata>();
 
@@ -263,9 +263,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string textName = string.Empty;
 
-            txtBFilterEnitity.Dispatcher.Invoke(() =>
+            txtBFilter.Dispatcher.Invoke(() =>
             {
-                textName = txtBFilterEnitity.Text.Trim().ToLower();
+                textName = txtBFilter.Text.Trim().ToLower();
             });
 
             list = FilterList(list, textName);

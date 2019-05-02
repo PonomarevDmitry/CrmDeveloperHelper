@@ -6,111 +6,118 @@
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
         Title="Export Entity Metadata" Height="538.662" Width="741" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
-        <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-            <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="miOpenEntityInWeb_Click" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleWindows.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
-            <Separator/>
-            <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="miOpenEntityListInWeb_Click" />
+            <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+                <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="miOpenEntityInWeb_Click" />
 
-            <Separator/>
-            <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution">
-                <MenuItem x:Uid="contMnAddIntoSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
                 <Separator/>
-                <MenuItem x:Uid="contMnAddIntoSolutionLastDoNotIncludeSubcomponents" Header="Do Not Include Subcomponents" />
-                <Separator/>
-                <MenuItem x:Uid="contMnAddIntoSolutionLastIncludeAsShellOnly" Header="Include As ShellOnly" />
-            </MenuItem>
-            <MenuItem Header="Add into Crm Solution">
-                <MenuItem Header="Include Subcomponents" Click="AddIntoCrmSolutionIncludeSubcomponents_Click" />
-                <Separator/>
-                <MenuItem Header="Do Not Include Subcomponents" Click="AddIntoCrmSolutionDoNotIncludeSubcomponents_Click" />
-                <Separator/>
-                <MenuItem Header="Include As ShellOnly" Click="AddIntoCrmSolutionIncludeAsShellOnly_Click" />
-            </MenuItem>
+                <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="miOpenEntityListInWeb_Click" />
 
-            <Separator/>
-            <MenuItem Header="Create Entity New Instance" Click="miCreateNewEntityInstance_Click"/>
+                <Separator/>
+                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution">
+                    <MenuItem x:Uid="contMnAddIntoSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
+                    <Separator/>
+                    <MenuItem x:Uid="contMnAddIntoSolutionLastDoNotIncludeSubcomponents" Header="Do Not Include Subcomponents" />
+                    <Separator/>
+                    <MenuItem x:Uid="contMnAddIntoSolutionLastIncludeAsShellOnly" Header="Include As ShellOnly" />
+                </MenuItem>
+                <MenuItem Header="Add into Crm Solution">
+                    <MenuItem Header="Include Subcomponents" Click="AddIntoCrmSolutionIncludeSubcomponents_Click" />
+                    <Separator/>
+                    <MenuItem Header="Do Not Include Subcomponents" Click="AddIntoCrmSolutionDoNotIncludeSubcomponents_Click" />
+                    <Separator/>
+                    <MenuItem Header="Include As ShellOnly" Click="AddIntoCrmSolutionIncludeAsShellOnly_Click" />
+                </MenuItem>
 
-            <Separator/>
-            <MenuItem Header="Create C# Metadata File" Click="miCreateCSharpFileSchemaMetadata_Click"/>
-            <MenuItem Header="Create C# ProxyClass File" Click="miCreateCSharpFileProxyClass_Click"/>
+                <Separator/>
+                <MenuItem Header="Create Entity New Instance" Click="miCreateNewEntityInstance_Click"/>
 
-            <Separator/>
-            <MenuItem Header="Create JavaScript Metadata File" Click="miCreateJavaScriptFile_Click"/>
+                <Separator/>
+                <MenuItem Header="Create C# Metadata File" Click="miCreateCSharpFileSchemaMetadata_Click"/>
+                <MenuItem Header="Create C# ProxyClass File" Click="miCreateCSharpFileProxyClass_Click"/>
 
-            <Separator/>
-            <MenuItem Header="Create File with Attributes Dependent Components" Click="miCreateFileAttributesDependentComponents_Click"/>
+                <Separator/>
+                <MenuItem Header="Create JavaScript Metadata File" Click="miCreateJavaScriptFile_Click"/>
 
-            <Separator/>
-            <MenuItem Header="Export Entity Xml" Click="miExportEntityXml_Click"/>
+                <Separator/>
+                <MenuItem Header="Create File with Attributes Dependent Components" Click="miCreateFileAttributesDependentComponents_Click"/>
 
-            <Separator/>
-            <MenuItem Header="Entity Ribbon">
-                <MenuItem Header="Export Entity Ribbon" Click="miExportEntityRibbon_Click" />
                 <Separator/>
-                <MenuItem Header="Export Entity RibbonDiffXml" Click="miExportEntityRibbonDiffXml_Click" />
-                <Separator/>
-                <MenuItem Header="Export Entity Ribbon Archive" Click="miExportEntityRibbonArchive_Click" />
-                <Separator/>
-                <MenuItem Header="Update Entity RibbonDiffXml" VerticalAlignment="Center" Click="miUpdateEntityRibbonDiffXml_Click"/>
-            </MenuItem>
+                <MenuItem Header="Export Entity Xml" Click="miExportEntityXml_Click"/>
 
-            <Separator/>
-            <MenuItem Header="Publish Entity" Click="miPublishEntity_Click"/>
+                <Separator/>
+                <MenuItem Header="Entity Ribbon">
+                    <MenuItem Header="Export Entity Ribbon" Click="miExportEntityRibbon_Click" />
+                    <Separator/>
+                    <MenuItem Header="Export Entity RibbonDiffXml" Click="miExportEntityRibbonDiffXml_Click" />
+                    <Separator/>
+                    <MenuItem Header="Export Entity Ribbon Archive" Click="miExportEntityRibbonArchive_Click" />
+                    <Separator/>
+                    <MenuItem Header="Update Entity RibbonDiffXml" VerticalAlignment="Center" Click="miUpdateEntityRibbonDiffXml_Click"/>
+                </MenuItem>
 
-            <Separator/>
-            <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="miOpenSolutionsContainingComponentInWindow_Click" />
+                <Separator/>
+                <MenuItem Header="Publish Entity" Click="miPublishEntity_Click"/>
 
-            <Separator/>
-            <MenuItem Header="Dependent Components">
-                <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="miOpenDependentComponentsInWeb_Click" />
                 <Separator/>
-                <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="miOpenDependentComponentsInWindow_Click" />
-            </MenuItem>
+                <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="miOpenSolutionsContainingComponentInWindow_Click" />
 
-            <Separator/>
-            <MenuItem Header="Get Other Entity Information">
-                <MenuItem Header="Entity Attribute Explorer" Click="miEntityAttributeExplorer_Click"/>
-                <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="miEntityRelationshipOneToManyExplorer_Click"/>
-                <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="miEntityRelationshipManyToManyExplorer_Click"/>
-                <MenuItem Header="Entity Key Explorer" Click="miEntityKeyExplorer_Click"/>
                 <Separator/>
-                <MenuItem Header="Entity SecurityRoles Explorer" Click="miEntitySecurityRolesExplorer_Click"/>
-                <Separator/>
-                <MenuItem Header="SecurityRoles Explorer" Click="miSecurityRolesExplorer_Click"/>
-                <Separator/>
-                <MenuItem Header="Global OptionSets" Click="miGlobalOptionSets_Click"/>
-                <Separator/>
-                <MenuItem Header="Forms" Click="miSystemForms_Click"/>
-                <MenuItem Header="Views" Click="miSavedQuery_Click"/>
-                <MenuItem Header="Charts" Click="miSavedChart_Click"/>
-                <Separator/>
-                <MenuItem Header="Workflows" Click="miWorkflows_Click"/>
-                <Separator/>
-                <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click"/>
-                <Separator/>
-                <MenuItem Header="Plugin Tree" Click="miPluginTree_Click"/>
-                <MenuItem Header="Message Tree" Click="miMessageTree_Click"/>
-                <MenuItem Header="Message Request Tree" Click="miMessageRequestTree_Click"/>
-            </MenuItem>
+                <MenuItem Header="Dependent Components">
+                    <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="miOpenDependentComponentsInWeb_Click" />
+                    <Separator/>
+                    <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="miOpenDependentComponentsInWindow_Click" />
+                </MenuItem>
 
-            <Separator/>
-            <MenuItem Header="Compare Information with other Organization">
-                <MenuItem Header="Organization Comparer" Click="miOrganizationComparer_Click"/>
                 <Separator/>
-                <MenuItem Header="Entity Metadata" Click="miCompareMetadataFile_Click"/>
+                <MenuItem Header="Get Other Entity Information">
+                    <MenuItem Header="Entity Attribute Explorer" Click="miEntityAttributeExplorer_Click"/>
+                    <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="miEntityRelationshipOneToManyExplorer_Click"/>
+                    <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="miEntityRelationshipManyToManyExplorer_Click"/>
+                    <MenuItem Header="Entity Key Explorer" Click="miEntityKeyExplorer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity SecurityRoles Explorer" Click="miEntitySecurityRolesExplorer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="SecurityRoles Explorer" Click="miSecurityRolesExplorer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Global OptionSets" Click="miGlobalOptionSets_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Forms" Click="miSystemForms_Click"/>
+                    <MenuItem Header="Views" Click="miSavedQuery_Click"/>
+                    <MenuItem Header="Charts" Click="miSavedChart_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Workflows" Click="miWorkflows_Click"/>
+                    <Separator/>
+                    <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Plugin Tree" Click="miPluginTree_Click"/>
+                    <MenuItem Header="Message Tree" Click="miMessageTree_Click"/>
+                    <MenuItem Header="Message Request Tree" Click="miMessageRequestTree_Click"/>
+                </MenuItem>
+
                 <Separator/>
-                <MenuItem Header="Global OptionSets" Click="miCompareGlobalOptionSets_Click"/>
-                <Separator/>
-                <MenuItem Header="Forms" Click="miCompareSystemForms_Click"/>
-                <MenuItem Header="Views" Click="miCompareSavedQuery_Click"/>
-                <MenuItem Header="Charts" Click="miCompareSavedChart_Click"/>
-                <Separator/>
-                <MenuItem Header="Workflows" Click="miCompareWorkflows_Click"/>
-                <Separator/>
-                <MenuItem Header="ApplicationRibbon" Click="miCompareApplicationRibbon_Click"/>
-            </MenuItem>
-        </ContextMenu>
+                <MenuItem Header="Compare Information with other Organization">
+                    <MenuItem Header="Organization Comparer" Click="miOrganizationComparer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity Metadata" Click="miCompareMetadataFile_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Global OptionSets" Click="miCompareGlobalOptionSets_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Forms" Click="miCompareSystemForms_Click"/>
+                    <MenuItem Header="Views" Click="miCompareSavedQuery_Click"/>
+                    <MenuItem Header="Charts" Click="miCompareSavedChart_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Workflows" Click="miCompareWorkflows_Click"/>
+                    <Separator/>
+                    <MenuItem Header="ApplicationRibbon" Click="miCompareApplicationRibbon_Click"/>
+                </MenuItem>
+            </ContextMenu>
+
+        </ResourceDictionary>
     </src:WindowBase.Resources>
     <DockPanel LastChildFill="True">
         <ToolBar x:Name="toolBarHeader" DockPanel.Dock="Top">
@@ -165,6 +172,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -198,11 +206,14 @@
             <Label Content="Namespace Classes" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
             <TextBox x:Name="txtBNamespaceClasses" Grid.Row="1" Grid.Column="2" Text="{Binding Path=SelectedItem.NamespaceClasses}"  />
 
-            <Label Content="Namespace JavaScript" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"/>
-            <TextBox x:Name="txtBNamespaceJavaScript" Grid.Row="2" Grid.Column="2" Text="{Binding Path=SelectedItem.NamespaceJavaScript}"  />
+            <Label Content="Namespace OptionSets" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" />
+            <TextBox x:Name="txtBNamespaceOptionSets" Grid.Row="2" Grid.Column="2" Text="{Binding Path=SelectedItem.NamespaceOptionSets}"  />
 
-            <Label Content="Filter"  Grid.Row="3" Grid.Column="0" />
-            <TextBox x:Name="txtBFilterEnitity" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" KeyDown="txtBFilterEnitity_KeyDown" />
+            <Label Content="Namespace JavaScript" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="txtBNamespaceJavaScript" Grid.Row="3" Grid.Column="2" Text="{Binding Path=SelectedItem.NamespaceJavaScript}"  />
+
+            <Label Content="Filter"  Grid.Row="4" Grid.Column="0" />
+            <TextBox x:Name="txtBFilterEnitity" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" KeyDown="txtBFilterEnitity_KeyDown" />
         </Grid>
 
         <StatusBar DockPanel.Dock="Bottom">
