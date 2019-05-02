@@ -270,6 +270,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         
         /// <summary>
         /// DisplayName:
+        ///     (English - United States - 1033): Component State
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): For internal use only.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SyncAttributeMapping.Schema.Attributes.componentstate)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate> ComponentStateEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SyncAttributeMapping.Schema.Attributes.componentstate);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
         ///     (English - United States - 1033): Computed Properties for one attribute
         /// 
         /// Description:
@@ -315,6 +342,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 this.OnPropertyChanging(nameof(DefaultSyncDirection));
                 this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SyncAttributeMapping.Schema.Attributes.defaultsyncdirection, value);
                 this.OnPropertyChanged(nameof(DefaultSyncDirection));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Sync Direction
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Default Sync Direction
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SyncAttributeMapping.Schema.Attributes.defaultsyncdirection)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.syncattributemapping_syncdirection> DefaultSyncDirectionEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SyncAttributeMapping.Schema.Attributes.defaultsyncdirection);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.syncattributemapping_syncdirection), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.syncattributemapping_syncdirection)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.syncattributemapping_syncdirection), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(DefaultSyncDirectionEnum));
+                this.OnPropertyChanging(nameof(DefaultSyncDirection));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SyncAttributeMapping.Schema.Attributes.defaultsyncdirection, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SyncAttributeMapping.Schema.Attributes.defaultsyncdirection, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(DefaultSyncDirection));
+                this.OnPropertyChanged(nameof(DefaultSyncDirectionEnum));
             }
         }
         
@@ -545,6 +615,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 this.OnPropertyChanging(nameof(SyncDirection));
                 this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SyncAttributeMapping.Schema.Attributes.syncdirection, value);
                 this.OnPropertyChanged(nameof(SyncDirection));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Sync Direction
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SyncAttributeMapping.Schema.Attributes.syncdirection)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.syncattributemapping_syncdirection> SyncDirectionEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SyncAttributeMapping.Schema.Attributes.syncdirection);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.syncattributemapping_syncdirection), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.syncattributemapping_syncdirection)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.syncattributemapping_syncdirection), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(SyncDirectionEnum));
+                this.OnPropertyChanging(nameof(SyncDirection));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SyncAttributeMapping.Schema.Attributes.syncdirection, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SyncAttributeMapping.Schema.Attributes.syncdirection, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(SyncDirection));
+                this.OnPropertyChanged(nameof(SyncDirectionEnum));
             }
         }
         #endregion

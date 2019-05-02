@@ -25900,6 +25900,186 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 }
 
                 ///<summary>
+                /// 1:N - Relationship lk_gbc_entity_test_createdby
+                /// 
+                /// PropertyName                               Value
+                /// IsHierarchical                             False
+                /// ReferencedEntityNavigationPropertyName     lk_gbc_entity_test_createdby
+                /// ReferencingEntityNavigationPropertyName    createdby
+                /// IsCustomizable                             True
+                /// IsCustomRelationship                       False
+                /// IsValidForAdvancedFind                     True
+                /// RelationshipType                           OneToManyRelationship
+                /// SecurityTypes                              None
+                /// CascadeConfiguration.Assign                NoCascade
+                /// CascadeConfiguration.Delete                NoCascade
+                /// CascadeConfiguration.Merge                 NoCascade
+                /// CascadeConfiguration.Reparent              NoCascade
+                /// CascadeConfiguration.Share                 NoCascade
+                /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
+                /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
+                /// AssociatedMenuConfiguration.Group          Details
+                /// AssociatedMenuConfiguration.Order          null
+                /// 
+                /// ReferencingEntity gbc_entity_test:    PrimaryIdAttribute gbc_entity_testid    PrimaryNameAttribute gbc_name
+                ///     DisplayName:
+                ///         (English - United States - 1033): Entity Test
+                ///     
+                ///     DisplayCollectionName:
+                ///         (English - United States - 1033): Entities Test
+                ///</summary>
+                public static partial class lk_gbc_entity_test_createdby
+                {
+                    public const string Name = "lk_gbc_entity_test_createdby";
+
+                    public const string ReferencedEntity_systemuser = "systemuser";
+
+                    public const string ReferencedAttribute_systemuserid = "systemuserid";
+
+                    public const string ReferencingEntity_gbc_entity_test = "gbc_entity_test";
+
+                    public const string ReferencingAttribute_createdby = "createdby";
+
+                    public const string ReferencingEntity_PrimaryNameAttribute_gbc_name = "gbc_name";
+                }
+
+                ///<summary>
+                /// 1:N - Relationship lk_gbc_entity_test_createdonbehalfby
+                /// 
+                /// PropertyName                               Value
+                /// IsHierarchical                             False
+                /// ReferencedEntityNavigationPropertyName     lk_gbc_entity_test_createdonbehalfby
+                /// ReferencingEntityNavigationPropertyName    createdonbehalfby
+                /// IsCustomizable                             True
+                /// IsCustomRelationship                       False
+                /// IsValidForAdvancedFind                     True
+                /// RelationshipType                           OneToManyRelationship
+                /// SecurityTypes                              None
+                /// CascadeConfiguration.Assign                NoCascade
+                /// CascadeConfiguration.Delete                NoCascade
+                /// CascadeConfiguration.Merge                 NoCascade
+                /// CascadeConfiguration.Reparent              NoCascade
+                /// CascadeConfiguration.Share                 NoCascade
+                /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
+                /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
+                /// AssociatedMenuConfiguration.Group          Details
+                /// AssociatedMenuConfiguration.Order          null
+                /// 
+                /// ReferencingEntity gbc_entity_test:    PrimaryIdAttribute gbc_entity_testid    PrimaryNameAttribute gbc_name
+                ///     DisplayName:
+                ///         (English - United States - 1033): Entity Test
+                ///     
+                ///     DisplayCollectionName:
+                ///         (English - United States - 1033): Entities Test
+                ///</summary>
+                public static partial class lk_gbc_entity_test_createdonbehalfby
+                {
+                    public const string Name = "lk_gbc_entity_test_createdonbehalfby";
+
+                    public const string ReferencedEntity_systemuser = "systemuser";
+
+                    public const string ReferencedAttribute_systemuserid = "systemuserid";
+
+                    public const string ReferencingEntity_gbc_entity_test = "gbc_entity_test";
+
+                    public const string ReferencingAttribute_createdonbehalfby = "createdonbehalfby";
+
+                    public const string ReferencingEntity_PrimaryNameAttribute_gbc_name = "gbc_name";
+                }
+
+                ///<summary>
+                /// 1:N - Relationship lk_gbc_entity_test_modifiedby
+                /// 
+                /// PropertyName                               Value
+                /// IsHierarchical                             False
+                /// ReferencedEntityNavigationPropertyName     lk_gbc_entity_test_modifiedby
+                /// ReferencingEntityNavigationPropertyName    modifiedby
+                /// IsCustomizable                             True
+                /// IsCustomRelationship                       False
+                /// IsValidForAdvancedFind                     True
+                /// RelationshipType                           OneToManyRelationship
+                /// SecurityTypes                              None
+                /// CascadeConfiguration.Assign                NoCascade
+                /// CascadeConfiguration.Delete                NoCascade
+                /// CascadeConfiguration.Merge                 NoCascade
+                /// CascadeConfiguration.Reparent              NoCascade
+                /// CascadeConfiguration.Share                 NoCascade
+                /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
+                /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
+                /// AssociatedMenuConfiguration.Group          Details
+                /// AssociatedMenuConfiguration.Order          null
+                /// 
+                /// ReferencingEntity gbc_entity_test:    PrimaryIdAttribute gbc_entity_testid    PrimaryNameAttribute gbc_name
+                ///     DisplayName:
+                ///         (English - United States - 1033): Entity Test
+                ///     
+                ///     DisplayCollectionName:
+                ///         (English - United States - 1033): Entities Test
+                ///</summary>
+                public static partial class lk_gbc_entity_test_modifiedby
+                {
+                    public const string Name = "lk_gbc_entity_test_modifiedby";
+
+                    public const string ReferencedEntity_systemuser = "systemuser";
+
+                    public const string ReferencedAttribute_systemuserid = "systemuserid";
+
+                    public const string ReferencingEntity_gbc_entity_test = "gbc_entity_test";
+
+                    public const string ReferencingAttribute_modifiedby = "modifiedby";
+
+                    public const string ReferencingEntity_PrimaryNameAttribute_gbc_name = "gbc_name";
+                }
+
+                ///<summary>
+                /// 1:N - Relationship lk_gbc_entity_test_modifiedonbehalfby
+                /// 
+                /// PropertyName                               Value
+                /// IsHierarchical                             False
+                /// ReferencedEntityNavigationPropertyName     lk_gbc_entity_test_modifiedonbehalfby
+                /// ReferencingEntityNavigationPropertyName    modifiedonbehalfby
+                /// IsCustomizable                             True
+                /// IsCustomRelationship                       False
+                /// IsValidForAdvancedFind                     True
+                /// RelationshipType                           OneToManyRelationship
+                /// SecurityTypes                              None
+                /// CascadeConfiguration.Assign                NoCascade
+                /// CascadeConfiguration.Delete                NoCascade
+                /// CascadeConfiguration.Merge                 NoCascade
+                /// CascadeConfiguration.Reparent              NoCascade
+                /// CascadeConfiguration.Share                 NoCascade
+                /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
+                /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
+                /// AssociatedMenuConfiguration.Group          Details
+                /// AssociatedMenuConfiguration.Order          null
+                /// 
+                /// ReferencingEntity gbc_entity_test:    PrimaryIdAttribute gbc_entity_testid    PrimaryNameAttribute gbc_name
+                ///     DisplayName:
+                ///         (English - United States - 1033): Entity Test
+                ///     
+                ///     DisplayCollectionName:
+                ///         (English - United States - 1033): Entities Test
+                ///</summary>
+                public static partial class lk_gbc_entity_test_modifiedonbehalfby
+                {
+                    public const string Name = "lk_gbc_entity_test_modifiedonbehalfby";
+
+                    public const string ReferencedEntity_systemuser = "systemuser";
+
+                    public const string ReferencedAttribute_systemuserid = "systemuserid";
+
+                    public const string ReferencingEntity_gbc_entity_test = "gbc_entity_test";
+
+                    public const string ReferencingAttribute_modifiedonbehalfby = "modifiedonbehalfby";
+
+                    public const string ReferencingEntity_PrimaryNameAttribute_gbc_name = "gbc_name";
+                }
+
+                ///<summary>
                 /// 1:N - Relationship lk_goal_createdby
                 /// 
                 /// PropertyName                               Value
@@ -62975,6 +63155,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     public const string ReferencingAttribute_owninguser = "owninguser";
 
                     public const string ReferencingEntity_PrimaryNameAttribute_subject = "subject";
+                }
+
+                ///<summary>
+                /// 1:N - Relationship user_gbc_entity_test
+                /// 
+                /// PropertyName                               Value
+                /// IsHierarchical                             False
+                /// ReferencedEntityNavigationPropertyName     user_gbc_entity_test
+                /// ReferencingEntityNavigationPropertyName    owninguser
+                /// IsCustomizable                             True
+                /// IsCustomRelationship                       False
+                /// IsValidForAdvancedFind                     True
+                /// RelationshipType                           OneToManyRelationship
+                /// SecurityTypes                              None
+                /// CascadeConfiguration.Assign                NoCascade
+                /// CascadeConfiguration.Delete                NoCascade
+                /// CascadeConfiguration.Merge                 NoCascade
+                /// CascadeConfiguration.Reparent              NoCascade
+                /// CascadeConfiguration.Share                 NoCascade
+                /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
+                /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
+                /// AssociatedMenuConfiguration.Group          Details
+                /// AssociatedMenuConfiguration.Order          null
+                /// 
+                /// ReferencingEntity gbc_entity_test:    PrimaryIdAttribute gbc_entity_testid    PrimaryNameAttribute gbc_name
+                ///     DisplayName:
+                ///         (English - United States - 1033): Entity Test
+                ///     
+                ///     DisplayCollectionName:
+                ///         (English - United States - 1033): Entities Test
+                ///</summary>
+                public static partial class user_gbc_entity_test
+                {
+                    public const string Name = "user_gbc_entity_test";
+
+                    public const string ReferencedEntity_systemuser = "systemuser";
+
+                    public const string ReferencedAttribute_systemuserid = "systemuserid";
+
+                    public const string ReferencingEntity_gbc_entity_test = "gbc_entity_test";
+
+                    public const string ReferencingAttribute_owninguser = "owninguser";
+
+                    public const string ReferencingEntity_PrimaryNameAttribute_gbc_name = "gbc_name";
                 }
 
                 ///<summary>

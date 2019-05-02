@@ -315,12 +315,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.componentstate);
             }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Component State
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): For internal use only
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.componentstate)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate> ComponentStateEnum
+        {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
+            get
             {
-                this.OnPropertyChanging(nameof(ComponentState));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.componentstate, value);
-                this.OnPropertyChanged(nameof(ComponentState));
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.componentstate);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
         
@@ -362,13 +382,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.createdby);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(CreatedBy));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.createdby, value);
-                this.OnPropertyChanged(nameof(CreatedBy));
-            }
         }
         
         /// <summary>
@@ -387,13 +400,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.createdon);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(CreatedOn));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.createdon, value);
-                this.OnPropertyChanged(nameof(CreatedOn));
-            }
         }
         
         /// <summary>
@@ -411,13 +417,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.createdonbehalfby);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(CreatedOnBehalfBy));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.createdonbehalfby, value);
-                this.OnPropertyChanged(nameof(CreatedOnBehalfBy));
             }
         }
         
@@ -461,13 +460,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.descriptor);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(Descriptor));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.descriptor, value);
-                this.OnPropertyChanged(nameof(Descriptor));
             }
         }
         
@@ -606,13 +598,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<bool>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.ismanaged);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(IsManaged));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.ismanaged, value);
-                this.OnPropertyChanged(nameof(IsManaged));
-            }
         }
         
         /// <summary>
@@ -630,13 +615,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.modifiedby);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(ModifiedBy));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.modifiedby, value);
-                this.OnPropertyChanged(nameof(ModifiedBy));
             }
         }
         
@@ -656,13 +634,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.modifiedon);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(ModifiedOn));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.modifiedon, value);
-                this.OnPropertyChanged(nameof(ModifiedOn));
-            }
         }
         
         /// <summary>
@@ -681,13 +652,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.modifiedonbehalfby);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(ModifiedOnBehalfBy));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.modifiedonbehalfby, value);
-                this.OnPropertyChanged(nameof(ModifiedOnBehalfBy));
-            }
         }
         
         /// <summary>
@@ -705,13 +669,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.organizationid);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(OrganizationId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.organizationid, value);
-                this.OnPropertyChanged(nameof(OrganizationId));
             }
         }
         
@@ -755,13 +712,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.overwritetime);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(OverwriteTime));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.overwritetime, value);
-                this.OnPropertyChanged(nameof(OverwriteTime));
             }
         }
         
@@ -831,13 +781,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.solutionid);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(SolutionId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.solutionid, value);
-                this.OnPropertyChanged(nameof(SolutionId));
-            }
         }
         
         /// <summary>
@@ -898,13 +841,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<long>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.versionnumber);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(VersionNumber));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppModule.Schema.Attributes.versionnumber, value);
-                this.OnPropertyChanged(nameof(VersionNumber));
             }
         }
         

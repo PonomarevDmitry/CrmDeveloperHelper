@@ -252,6 +252,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         
         /// <summary>
         /// DisplayName:
+        ///     (English - United States - 1033): Component State
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): For internal use only
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppConfig.Schema.Attributes.componentstate)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate> ComponentStateEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppConfig.Schema.Attributes.componentstate);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
         ///     (English - United States - 1033): Created By
         /// 
         /// Description:
@@ -500,12 +527,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         /// </summary>
         [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppConfig.Schema.Attributes.statecode)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public object StateCode
+        public Microsoft.Xrm.Sdk.OptionSetValue StateCode
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<object>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppConfig.Schema.Attributes.statecode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppConfig.Schema.Attributes.statecode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
@@ -513,6 +540,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 this.OnPropertyChanging(nameof(StateCode));
                 this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppConfig.Schema.Attributes.statecode, value);
                 this.OnPropertyChanged(nameof(StateCode));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Status
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Shows whether the app configuration is Active or Inactive. Inactive records are read-only and can't be edited unless they are reactivated.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppConfig.Schema.Attributes.statecode)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppConfig.Schema.OptionSets.statecode> StateCodeEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppConfig.Schema.Attributes.statecode);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppConfig.Schema.OptionSets.statecode), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppConfig.Schema.OptionSets.statecode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppConfig.Schema.OptionSets.statecode), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(StateCodeEnum));
+                this.OnPropertyChanging(nameof(StateCode));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppConfig.Schema.Attributes.statecode, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppConfig.Schema.Attributes.statecode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(StateCode));
+                this.OnPropertyChanged(nameof(StateCodeEnum));
             }
         }
         
@@ -538,6 +608,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 this.OnPropertyChanging(nameof(StatusCode));
                 this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppConfig.Schema.Attributes.statuscode, value);
                 this.OnPropertyChanged(nameof(StatusCode));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Status Reason
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Select the status.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppConfig.Schema.Attributes.statuscode)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppConfig.Schema.OptionSets.statuscode> StatusCodeEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppConfig.Schema.Attributes.statuscode);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppConfig.Schema.OptionSets.statuscode), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppConfig.Schema.OptionSets.statuscode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppConfig.Schema.OptionSets.statuscode), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(StatusCodeEnum));
+                this.OnPropertyChanging(nameof(StatusCode));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppConfig.Schema.Attributes.statuscode, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AppConfig.Schema.Attributes.statuscode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(StatusCode));
+                this.OnPropertyChanged(nameof(StatusCodeEnum));
             }
         }
         

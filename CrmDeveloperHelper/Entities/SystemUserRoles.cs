@@ -171,13 +171,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SystemUserRoles.Schema.Attributes.roleid);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(RoleId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SystemUserRoles.Schema.Attributes.roleid, value);
-                this.OnPropertyChanged(nameof(RoleId));
-            }
         }
         
         [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SystemUserRoles.Schema.Attributes.systemuserid)]
@@ -189,13 +182,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SystemUserRoles.Schema.Attributes.systemuserid);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(SystemUserId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SystemUserRoles.Schema.Attributes.systemuserid, value);
-                this.OnPropertyChanged(nameof(SystemUserId));
-            }
         }
         
         [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SystemUserRoles.Schema.Attributes.versionnumber)]
@@ -206,13 +192,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<long>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SystemUserRoles.Schema.Attributes.versionnumber);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(VersionNumber));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SystemUserRoles.Schema.Attributes.versionnumber, value);
-                this.OnPropertyChanged(nameof(VersionNumber));
             }
         }
         #endregion

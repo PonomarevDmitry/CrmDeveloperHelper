@@ -194,12 +194,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.componentstate);
             }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Component State
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): For internal use only.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.componentstate)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate> ComponentStateEnum
+        {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
+            get
             {
-                this.OnPropertyChanging(nameof(ComponentState));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.componentstate, value);
-                this.OnPropertyChanged(nameof(ComponentState));
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.componentstate);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
         
@@ -255,6 +275,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         
         /// <summary>
         /// DisplayName:
+        ///     (English - United States - 1033): Control Type
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Type of the control to which this trigger is bound
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.controltype)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.OptionSets.controltype> ControlTypeEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.controltype);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.OptionSets.controltype), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.OptionSets.controltype)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.OptionSets.controltype), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(ControlTypeEnum));
+                this.OnPropertyChanging(nameof(ControlType));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.controltype, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.controltype, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(ControlType));
+                this.OnPropertyChanged(nameof(ControlTypeEnum));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
         ///     (English - United States - 1033): Created By
         /// 
         /// Description:
@@ -268,13 +331,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.createdby);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(CreatedBy));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.createdby, value);
-                this.OnPropertyChanged(nameof(CreatedBy));
             }
         }
         
@@ -294,13 +350,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.createdon);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(CreatedOn));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.createdon, value);
-                this.OnPropertyChanged(nameof(CreatedOn));
-            }
         }
         
         /// <summary>
@@ -318,13 +367,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.createdonbehalfby);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(CreatedOnBehalfBy));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.createdonbehalfby, value);
-                this.OnPropertyChanged(nameof(CreatedOnBehalfBy));
             }
         }
         
@@ -419,13 +461,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<bool>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.ismanaged);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(IsManaged));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.ismanaged, value);
-                this.OnPropertyChanged(nameof(IsManaged));
-            }
         }
         
         /// <summary>
@@ -469,13 +504,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.modifiedby);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(ModifiedBy));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.modifiedby, value);
-                this.OnPropertyChanged(nameof(ModifiedBy));
-            }
         }
         
         /// <summary>
@@ -493,13 +521,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.modifiedon);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(ModifiedOn));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.modifiedon, value);
-                this.OnPropertyChanged(nameof(ModifiedOn));
             }
         }
         
@@ -519,13 +540,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.modifiedonbehalfby);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(ModifiedOnBehalfBy));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.modifiedonbehalfby, value);
-                this.OnPropertyChanged(nameof(ModifiedOnBehalfBy));
-            }
         }
         
         /// <summary>
@@ -543,13 +557,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.overwritetime);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(OverwriteTime));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.overwritetime, value);
-                this.OnPropertyChanged(nameof(OverwriteTime));
             }
         }
         
@@ -569,13 +576,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.ownerid);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(OwnerId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.ownerid, value);
-                this.OnPropertyChanged(nameof(OwnerId));
-            }
         }
         
         /// <summary>
@@ -594,13 +594,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.owningbusinessunit);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(OwningBusinessUnit));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.owningbusinessunit, value);
-                this.OnPropertyChanged(nameof(OwningBusinessUnit));
-            }
         }
         
         /// <summary>
@@ -618,13 +611,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.owninguser);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(OwningUser));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.owninguser, value);
-                this.OnPropertyChanged(nameof(OwningUser));
             }
         }
         
@@ -650,6 +636,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 this.OnPropertyChanging(nameof(PipelineStage));
                 this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.pipelinestage, value);
                 this.OnPropertyChanged(nameof(PipelineStage));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): PipelineStage
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Pipeline Stage to Execute Workflow Event Plugin.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.pipelinestage)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.OptionSets.pipelinestage> PipelineStageEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.pipelinestage);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.OptionSets.pipelinestage), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.OptionSets.pipelinestage)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.OptionSets.pipelinestage), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(PipelineStageEnum));
+                this.OnPropertyChanging(nameof(PipelineStage));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.pipelinestage, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.pipelinestage, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(PipelineStage));
+                this.OnPropertyChanged(nameof(PipelineStageEnum));
             }
         }
         
@@ -719,13 +748,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.processtriggeridunique);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(ProcessTriggerIdUnique));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.processtriggeridunique, value);
-                this.OnPropertyChanged(nameof(ProcessTriggerIdUnique));
-            }
         }
         
         /// <summary>
@@ -755,6 +777,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         
         /// <summary>
         /// DisplayName:
+        ///     (English - United States - 1033): Scope
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Scope level for PBL rules.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.scope)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.OptionSets.scope> ScopeEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.scope);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.OptionSets.scope), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.OptionSets.scope)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.OptionSets.scope), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(ScopeEnum));
+                this.OnPropertyChanging(nameof(Scope));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.scope, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.scope, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(Scope));
+                this.OnPropertyChanged(nameof(ScopeEnum));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
         ///     (English - United States - 1033): Solution
         /// 
         /// Description:
@@ -769,13 +834,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.solutionid);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(SolutionId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.solutionid, value);
-                this.OnPropertyChanged(nameof(SolutionId));
-            }
         }
         
         [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.versionnumber)]
@@ -786,13 +844,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<long>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.versionnumber);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(VersionNumber));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessTrigger.Schema.Attributes.versionnumber, value);
-                this.OnPropertyChanged(nameof(VersionNumber));
             }
         }
         #endregion

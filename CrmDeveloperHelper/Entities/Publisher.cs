@@ -259,6 +259,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         
         /// <summary>
         /// DisplayName:
+        ///     (English - United States - 1033): Address 1: Address Type
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Type of address for address 1, such as billing, shipping, or primary address.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.address1_addresstypecode)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.OptionSets.address1_addresstypecode> Address1_AddressTypeCodeEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.address1_addresstypecode);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.OptionSets.address1_addresstypecode), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.OptionSets.address1_addresstypecode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.OptionSets.address1_addresstypecode), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(Address1_AddressTypeCodeEnum));
+                this.OnPropertyChanging(nameof(Address1_AddressTypeCode));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.address1_addresstypecode, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.address1_addresstypecode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(Address1_AddressTypeCode));
+                this.OnPropertyChanged(nameof(Address1_AddressTypeCodeEnum));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
         ///     (English - United States - 1033): City
         /// 
         /// Description:
@@ -584,6 +627,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         
         /// <summary>
         /// DisplayName:
+        ///     (English - United States - 1033): Address 1: Shipping Method
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Method of shipment for address 1.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.address1_shippingmethodcode)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.OptionSets.address1_shippingmethodcode> Address1_ShippingMethodCodeEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.address1_shippingmethodcode);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.OptionSets.address1_shippingmethodcode), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.OptionSets.address1_shippingmethodcode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.OptionSets.address1_shippingmethodcode), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(Address1_ShippingMethodCodeEnum));
+                this.OnPropertyChanging(nameof(Address1_ShippingMethodCode));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.address1_shippingmethodcode, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.address1_shippingmethodcode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(Address1_ShippingMethodCode));
+                this.OnPropertyChanged(nameof(Address1_ShippingMethodCodeEnum));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
         ///     (English - United States - 1033): State/Province
         /// 
         /// Description:
@@ -779,6 +865,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 this.OnPropertyChanging(nameof(Address2_AddressTypeCode));
                 this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.address2_addresstypecode, value);
                 this.OnPropertyChanged(nameof(Address2_AddressTypeCode));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Address 2: Address Type
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Type of address for address 2. such as billing, shipping, or primary address.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.address2_addresstypecode)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.OptionSets.address2_addresstypecode> Address2_AddressTypeCodeEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.address2_addresstypecode);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.OptionSets.address2_addresstypecode), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.OptionSets.address2_addresstypecode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.OptionSets.address2_addresstypecode), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(Address2_AddressTypeCodeEnum));
+                this.OnPropertyChanging(nameof(Address2_AddressTypeCode));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.address2_addresstypecode, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.address2_addresstypecode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(Address2_AddressTypeCode));
+                this.OnPropertyChanged(nameof(Address2_AddressTypeCodeEnum));
             }
         }
         
@@ -1109,6 +1238,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         
         /// <summary>
         /// DisplayName:
+        ///     (English - United States - 1033): Address 2: Shipping Method
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Method of shipment for address 2.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.address2_shippingmethodcode)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.OptionSets.address2_shippingmethodcode> Address2_ShippingMethodCodeEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.address2_shippingmethodcode);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.OptionSets.address2_shippingmethodcode), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.OptionSets.address2_shippingmethodcode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.OptionSets.address2_shippingmethodcode), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(Address2_ShippingMethodCodeEnum));
+                this.OnPropertyChanging(nameof(Address2_ShippingMethodCode));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.address2_shippingmethodcode, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.address2_shippingmethodcode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(Address2_ShippingMethodCode));
+                this.OnPropertyChanged(nameof(Address2_ShippingMethodCodeEnum));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
         ///     (English - United States - 1033): Address 2: State/Province
         /// 
         /// Description:
@@ -1273,13 +1445,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.createdby);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(CreatedBy));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.createdby, value);
-                this.OnPropertyChanged(nameof(CreatedBy));
-            }
         }
         
         /// <summary>
@@ -1298,13 +1463,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.createdon);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(CreatedOn));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.createdon, value);
-                this.OnPropertyChanged(nameof(CreatedOn));
-            }
         }
         
         /// <summary>
@@ -1322,13 +1480,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.createdonbehalfby);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(CreatedOnBehalfBy));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.createdonbehalfby, value);
-                this.OnPropertyChanged(nameof(CreatedOnBehalfBy));
             }
         }
         
@@ -1466,13 +1617,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<long>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.entityimage_timestamp);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(EntityImage_Timestamp));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.entityimage_timestamp, value);
-                this.OnPropertyChanged(nameof(EntityImage_Timestamp));
-            }
         }
         
         [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.entityimage_url)]
@@ -1483,13 +1627,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.entityimage_url);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(EntityImage_URL));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.entityimage_url, value);
-                this.OnPropertyChanged(nameof(EntityImage_URL));
             }
         }
         
@@ -1509,13 +1646,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.entityimageid);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(EntityImageId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.entityimageid, value);
-                this.OnPropertyChanged(nameof(EntityImageId));
-            }
         }
         
         /// <summary>
@@ -1533,13 +1663,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<bool>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.isreadonly);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(IsReadonly));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.isreadonly, value);
-                this.OnPropertyChanged(nameof(IsReadonly));
             }
         }
         
@@ -1559,13 +1682,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.modifiedby);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(ModifiedBy));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.modifiedby, value);
-                this.OnPropertyChanged(nameof(ModifiedBy));
-            }
         }
         
         /// <summary>
@@ -1583,13 +1699,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.modifiedon);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(ModifiedOn));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.modifiedon, value);
-                this.OnPropertyChanged(nameof(ModifiedOn));
             }
         }
         
@@ -1609,13 +1718,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.modifiedonbehalfby);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(ModifiedOnBehalfBy));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.modifiedonbehalfby, value);
-                this.OnPropertyChanged(nameof(ModifiedOnBehalfBy));
-            }
         }
         
         /// <summary>
@@ -1634,13 +1736,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.organizationid);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(OrganizationId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.organizationid, value);
-                this.OnPropertyChanged(nameof(OrganizationId));
-            }
         }
         
         /// <summary>
@@ -1656,13 +1751,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.pinpointpublisherdefaultlocale);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(PinpointPublisherDefaultLocale));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.pinpointpublisherdefaultlocale, value);
-                this.OnPropertyChanged(nameof(PinpointPublisherDefaultLocale));
-            }
         }
         
         /// <summary>
@@ -1677,13 +1765,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<long>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.pinpointpublisherid);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(PinpointPublisherId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.pinpointpublisherid, value);
-                this.OnPropertyChanged(nameof(PinpointPublisherId));
             }
         }
         
@@ -1745,13 +1826,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<long>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.versionnumber);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(VersionNumber));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Publisher.Schema.Attributes.versionnumber, value);
-                this.OnPropertyChanged(nameof(VersionNumber));
             }
         }
         #endregion

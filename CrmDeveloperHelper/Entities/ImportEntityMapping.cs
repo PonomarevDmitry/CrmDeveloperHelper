@@ -192,6 +192,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         
         /// <summary>
         /// DisplayName:
+        ///     (English - United States - 1033): Component State
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): For internal use only.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.componentstate)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate> ComponentStateEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.componentstate);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
         ///     (English - United States - 1033): Created By
         /// 
         /// Description:
@@ -263,6 +290,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 this.OnPropertyChanging(nameof(DeDupe));
                 this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.dedupe, value);
                 this.OnPropertyChanged(nameof(DeDupe));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Remove Duplicates
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Information about whether the entity needs to be processed to find and delete duplicate records.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.dedupe)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.OptionSets.dedupe> DeDupeEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.dedupe);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.OptionSets.dedupe), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.OptionSets.dedupe)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.OptionSets.dedupe), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(DeDupeEnum));
+                this.OnPropertyChanging(nameof(DeDupe));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.dedupe, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.dedupe, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(DeDupe));
+                this.OnPropertyChanged(nameof(DeDupeEnum));
             }
         }
         
@@ -448,6 +518,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         
         /// <summary>
         /// DisplayName:
+        ///     (English - United States - 1033): Process Code
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Information about whether the import entity mapping needs to be processed.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.processcode)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.OptionSets.processcode> ProcessCodeEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.processcode);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.OptionSets.processcode), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.OptionSets.processcode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.OptionSets.processcode), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(ProcessCodeEnum));
+                this.OnPropertyChanging(nameof(ProcessCode));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.processcode, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.processcode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(ProcessCode));
+                this.OnPropertyChanged(nameof(ProcessCodeEnum));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
         ///     (English - United States - 1033): Solution
         /// 
         /// Description:
@@ -498,12 +611,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         /// </summary>
         [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.statecode)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public object StateCode
+        public Microsoft.Xrm.Sdk.OptionSetValue StateCode
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<object>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.statecode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.statecode);
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Status
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Status of the import entity mapping.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.statecode)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.OptionSets.statecode> StateCodeEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.statecode);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.OptionSets.statecode), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.OptionSets.statecode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.OptionSets.statecode), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
         
@@ -529,6 +669,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 this.OnPropertyChanging(nameof(StatusCode));
                 this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.statuscode, value);
                 this.OnPropertyChanged(nameof(StatusCode));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Status Reason
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Reason for the status of the import entity mapping.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.statuscode)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.OptionSets.statuscode> StatusCodeEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.statuscode);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.OptionSets.statuscode), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.OptionSets.statuscode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.OptionSets.statuscode), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(StatusCodeEnum));
+                this.OnPropertyChanging(nameof(StatusCode));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.statuscode, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImportEntityMapping.Schema.Attributes.statuscode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(StatusCode));
+                this.OnPropertyChanged(nameof(StatusCodeEnum));
             }
         }
         

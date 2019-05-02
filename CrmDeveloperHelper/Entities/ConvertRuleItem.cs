@@ -221,12 +221,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.componentstate);
             }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Component State
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): For internal use only.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.componentstate)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate> ComponentStateEnum
+        {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
+            get
             {
-                this.OnPropertyChanging(nameof(ComponentState));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.componentstate, value);
-                this.OnPropertyChanged(nameof(ComponentState));
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.componentstate);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
         
@@ -321,13 +341,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.convertruleitemidunique);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(ConvertRuleItemIdUnique));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.convertruleitemidunique, value);
-                this.OnPropertyChanged(nameof(ConvertRuleItemIdUnique));
-            }
         }
         
         /// <summary>
@@ -345,13 +358,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.createdby);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(CreatedBy));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.createdby, value);
-                this.OnPropertyChanged(nameof(CreatedBy));
             }
         }
         
@@ -371,13 +377,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.createdon);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(CreatedOn));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.createdon, value);
-                this.OnPropertyChanged(nameof(CreatedOn));
-            }
         }
         
         /// <summary>
@@ -395,13 +394,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.createdonbehalfby);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(CreatedOnBehalfBy));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.createdonbehalfby, value);
-                this.OnPropertyChanged(nameof(CreatedOnBehalfBy));
             }
         }
         
@@ -446,13 +438,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<decimal>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.exchangerate);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(ExchangeRate));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.exchangerate, value);
-                this.OnPropertyChanged(nameof(ExchangeRate));
-            }
         }
         
         /// <summary>
@@ -470,13 +455,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<bool>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.ismanaged);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(IsManaged));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.ismanaged, value);
-                this.OnPropertyChanged(nameof(IsManaged));
             }
         }
         
@@ -496,13 +474,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.modifiedby);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(ModifiedBy));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.modifiedby, value);
-                this.OnPropertyChanged(nameof(ModifiedBy));
-            }
         }
         
         /// <summary>
@@ -520,13 +491,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.modifiedon);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(ModifiedOn));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.modifiedon, value);
-                this.OnPropertyChanged(nameof(ModifiedOn));
             }
         }
         
@@ -546,13 +510,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.modifiedonbehalfby);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(ModifiedOnBehalfBy));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.modifiedonbehalfby, value);
-                this.OnPropertyChanged(nameof(ModifiedOnBehalfBy));
-            }
         }
         
         /// <summary>
@@ -570,13 +527,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.overwritetime);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(OverwriteTime));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.overwritetime, value);
-                this.OnPropertyChanged(nameof(OverwriteTime));
             }
         }
         
@@ -621,13 +571,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.owningbusinessunit);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(OwningBusinessUnit));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.owningbusinessunit, value);
-                this.OnPropertyChanged(nameof(OwningBusinessUnit));
-            }
         }
         
         /// <summary>
@@ -645,13 +588,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.owninguser);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(OwningUser));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.owninguser, value);
-                this.OnPropertyChanged(nameof(OwningUser));
             }
         }
         
@@ -746,13 +682,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.solutionid);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(SolutionId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.solutionid, value);
-                this.OnPropertyChanged(nameof(SolutionId));
-            }
         }
         
         /// <summary>
@@ -771,13 +700,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.transactioncurrencyid);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(TransactionCurrencyId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.transactioncurrencyid, value);
-                this.OnPropertyChanged(nameof(TransactionCurrencyId));
-            }
         }
         
         /// <summary>
@@ -795,13 +717,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<long>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.versionnumber);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(VersionNumber));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ConvertRuleItem.Schema.Attributes.versionnumber, value);
-                this.OnPropertyChanged(nameof(VersionNumber));
             }
         }
         

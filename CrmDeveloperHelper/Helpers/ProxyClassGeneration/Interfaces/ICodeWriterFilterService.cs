@@ -4,7 +4,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 {
     public interface ICodeWriterFilterService
     {
-        bool GenerateOptionSet(OptionSetMetadata optionSetMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider);
+        bool GenerateOptionSet(OptionSetMetadata optionSetMetadata, AttributeMetadata attributeMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider);
+
+        bool IgnoreOptionSet(OptionSetMetadata optionSetMetadata, AttributeMetadata attributeMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider);
 
         bool GenerateOption(OptionMetadata optionMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider);
 

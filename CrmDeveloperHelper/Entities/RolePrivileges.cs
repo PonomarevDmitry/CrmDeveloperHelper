@@ -207,12 +207,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.RolePrivileges.Schema.Attributes.componentstate);
             }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Component State
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): For internal use only.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.RolePrivileges.Schema.Attributes.componentstate)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate> ComponentStateEnum
+        {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
+            get
             {
-                this.OnPropertyChanging(nameof(ComponentState));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.RolePrivileges.Schema.Attributes.componentstate, value);
-                this.OnPropertyChanged(nameof(ComponentState));
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.RolePrivileges.Schema.Attributes.componentstate);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componentstate), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
         
@@ -224,13 +244,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<bool>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.RolePrivileges.Schema.Attributes.ismanaged);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(IsManaged));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.RolePrivileges.Schema.Attributes.ismanaged, value);
-                this.OnPropertyChanged(nameof(IsManaged));
             }
         }
         
@@ -249,13 +262,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.RolePrivileges.Schema.Attributes.overwritetime);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(OverwriteTime));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.RolePrivileges.Schema.Attributes.overwritetime, value);
-                this.OnPropertyChanged(nameof(OverwriteTime));
             }
         }
         
@@ -294,13 +300,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.RolePrivileges.Schema.Attributes.privilegeid);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(PrivilegeId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.RolePrivileges.Schema.Attributes.privilegeid, value);
-                this.OnPropertyChanged(nameof(PrivilegeId));
-            }
         }
         
         /// <summary>
@@ -316,13 +315,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.RolePrivileges.Schema.Attributes.roleid);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(RoleId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.RolePrivileges.Schema.Attributes.roleid, value);
-                this.OnPropertyChanged(nameof(RoleId));
-            }
         }
         
         /// <summary>
@@ -337,13 +329,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.RolePrivileges.Schema.Attributes.roleprivilegeidunique);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(RolePrivilegeIdUnique));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.RolePrivileges.Schema.Attributes.roleprivilegeidunique, value);
-                this.OnPropertyChanged(nameof(RolePrivilegeIdUnique));
             }
         }
         
@@ -363,13 +348,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.RolePrivileges.Schema.Attributes.solutionid);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(SolutionId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.RolePrivileges.Schema.Attributes.solutionid, value);
-                this.OnPropertyChanged(nameof(SolutionId));
-            }
         }
         
         [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.RolePrivileges.Schema.Attributes.versionnumber)]
@@ -380,13 +358,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<long>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.RolePrivileges.Schema.Attributes.versionnumber);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(VersionNumber));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.RolePrivileges.Schema.Attributes.versionnumber, value);
-                this.OnPropertyChanged(nameof(VersionNumber));
             }
         }
         #endregion

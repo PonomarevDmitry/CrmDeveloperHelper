@@ -136,7 +136,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
-                this.DependencyId = value;
+                base.Id = value;
             }
         }
         
@@ -155,21 +155,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(EntityPrimaryIdAttribute);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(DependencyId));
-                this.SetAttributeValue(EntityPrimaryIdAttribute, value);
-                if (value.HasValue)
-                {
-                    base.Id = value.Value;
-                }
-                else
-                {
-                    base.Id = System.Guid.Empty;
-                }
-                this.OnPropertyChanged(nameof(DependencyId));
             }
         }
         #endregion
@@ -191,12 +176,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.dependencytype);
             }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Dependency Type
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): The dependency type of the dependency.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.dependencytype)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.dependencytype> DependencyTypeEnum
+        {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
+            get
             {
-                this.OnPropertyChanging(nameof(DependencyType));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.dependencytype, value);
-                this.OnPropertyChanged(nameof(DependencyType));
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.dependencytype);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.dependencytype), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.dependencytype)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.dependencytype), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
         
@@ -208,13 +213,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.dependentcomponentbasesolutionid);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(DependentComponentBaseSolutionId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.dependentcomponentbasesolutionid, value);
-                this.OnPropertyChanged(nameof(DependentComponentBaseSolutionId));
             }
         }
         
@@ -234,13 +232,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.dependentcomponentnodeid);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(DependentComponentNodeId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.dependentcomponentnodeid, value);
-                this.OnPropertyChanged(nameof(DependentComponentNodeId));
-            }
         }
         
         [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.dependentcomponentobjectid)]
@@ -251,13 +242,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.dependentcomponentobjectid);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(DependentComponentObjectId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.dependentcomponentobjectid, value);
-                this.OnPropertyChanged(nameof(DependentComponentObjectId));
             }
         }
         
@@ -270,13 +254,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.dependentcomponentparentid);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(DependentComponentParentId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.dependentcomponentparentid, value);
-                this.OnPropertyChanged(nameof(DependentComponentParentId));
-            }
         }
         
         [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.dependentcomponenttype)]
@@ -288,12 +265,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.dependentcomponenttype);
             }
+        }
+        
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.dependentcomponenttype)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componenttype> DependentComponentTypeEnum
+        {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
+            get
             {
-                this.OnPropertyChanging(nameof(DependentComponentType));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.dependentcomponenttype, value);
-                this.OnPropertyChanged(nameof(DependentComponentType));
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.dependentcomponenttype);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componenttype), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componenttype)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componenttype), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
         
@@ -306,13 +296,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.requiredcomponentbasesolutionid);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(RequiredComponentBaseSolutionId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.requiredcomponentbasesolutionid, value);
-                this.OnPropertyChanged(nameof(RequiredComponentBaseSolutionId));
-            }
         }
         
         [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.requiredcomponentintroducedversion)]
@@ -323,13 +306,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<double>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.requiredcomponentintroducedversion);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(RequiredComponentIntroducedVersion));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.requiredcomponentintroducedversion, value);
-                this.OnPropertyChanged(nameof(RequiredComponentIntroducedVersion));
             }
         }
         
@@ -349,13 +325,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.requiredcomponentnodeid);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(RequiredComponentNodeId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.requiredcomponentnodeid, value);
-                this.OnPropertyChanged(nameof(RequiredComponentNodeId));
-            }
         }
         
         [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.requiredcomponentobjectid)]
@@ -366,13 +335,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.requiredcomponentobjectid);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(RequiredComponentObjectId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.requiredcomponentobjectid, value);
-                this.OnPropertyChanged(nameof(RequiredComponentObjectId));
             }
         }
         
@@ -385,13 +347,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.requiredcomponentparentid);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(RequiredComponentParentId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.requiredcomponentparentid, value);
-                this.OnPropertyChanged(nameof(RequiredComponentParentId));
-            }
         }
         
         [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.requiredcomponenttype)]
@@ -403,12 +358,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.requiredcomponenttype);
             }
+        }
+        
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.requiredcomponenttype)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componenttype> RequiredComponentTypeEnum
+        {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
+            get
             {
-                this.OnPropertyChanging(nameof(RequiredComponentType));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.requiredcomponenttype, value);
-                this.OnPropertyChanged(nameof(RequiredComponentType));
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.requiredcomponenttype);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componenttype), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componenttype)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componenttype), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
         
@@ -420,13 +388,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<long>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.versionnumber);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(VersionNumber));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Dependency.Schema.Attributes.versionnumber, value);
-                this.OnPropertyChanged(nameof(VersionNumber));
             }
         }
         #endregion

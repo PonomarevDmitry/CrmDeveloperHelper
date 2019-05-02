@@ -141,7 +141,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
-                this.OrganizationId = value;
+                base.Id = value;
             }
         }
         
@@ -160,21 +160,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(EntityPrimaryIdAttribute);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(OrganizationId));
-                this.SetAttributeValue(EntityPrimaryIdAttribute, value);
-                if (value.HasValue)
-                {
-                    base.Id = value.Value;
-                }
-                else
-                {
-                    base.Id = System.Guid.Empty;
-                }
-                this.OnPropertyChanged(nameof(OrganizationId));
             }
         }
         
@@ -793,13 +778,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<int>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.basecurrencyprecision);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(BaseCurrencyPrecision));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.basecurrencyprecision, value);
-                this.OnPropertyChanged(nameof(BaseCurrencyPrecision));
-            }
         }
         
         /// <summary>
@@ -817,13 +795,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.basecurrencysymbol);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(BaseCurrencySymbol));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.basecurrencysymbol, value);
-                this.OnPropertyChanged(nameof(BaseCurrencySymbol));
             }
         }
         
@@ -1165,13 +1136,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.createdby);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(CreatedBy));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.createdby, value);
-                this.OnPropertyChanged(nameof(CreatedBy));
-            }
         }
         
         /// <summary>
@@ -1190,13 +1154,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.createdon);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(CreatedOn));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.createdon, value);
-                this.OnPropertyChanged(nameof(CreatedOn));
-            }
         }
         
         /// <summary>
@@ -1214,13 +1171,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.createdonbehalfby);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(CreatedOnBehalfBy));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.createdonbehalfby, value);
-                this.OnPropertyChanged(nameof(CreatedOnBehalfBy));
             }
         }
         
@@ -1301,6 +1251,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         
         /// <summary>
         /// DisplayName:
+        ///     (English - United States - 1033): Display Currencies Using
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Indicates whether to display money fields with currency code or currency symbol.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.currencydisplayoption)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.currencydisplayoption> CurrencyDisplayOptionEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.currencydisplayoption);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.currencydisplayoption), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.currencydisplayoption)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.currencydisplayoption), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(CurrencyDisplayOptionEnum));
+                this.OnPropertyChanging(nameof(CurrencyDisplayOption));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.currencydisplayoption, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.currencydisplayoption, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(CurrencyDisplayOption));
+                this.OnPropertyChanged(nameof(CurrencyDisplayOptionEnum));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
         ///     (English - United States - 1033): Currency Format Code
         /// 
         /// Description:
@@ -1321,6 +1314,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 this.OnPropertyChanging(nameof(CurrencyFormatCode));
                 this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.currencyformatcode, value);
                 this.OnPropertyChanged(nameof(CurrencyFormatCode));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Currency Format Code
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Information about how currency symbols are placed throughout Microsoft Dynamics CRM.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.currencyformatcode)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.currencyformatcode> CurrencyFormatCodeEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.currencyformatcode);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.currencyformatcode), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.currencyformatcode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.currencyformatcode), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(CurrencyFormatCodeEnum));
+                this.OnPropertyChanging(nameof(CurrencyFormatCode));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.currencyformatcode, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.currencyformatcode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(CurrencyFormatCode));
+                this.OnPropertyChanged(nameof(CurrencyFormatCodeEnum));
             }
         }
         
@@ -1495,13 +1531,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<int>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.currentimportsequencenumber);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(CurrentImportSequenceNumber));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.currentimportsequencenumber, value);
-                this.OnPropertyChanged(nameof(CurrentImportSequenceNumber));
-            }
         }
         
         /// <summary>
@@ -1624,13 +1653,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<int>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.currentparsedtablenumber);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(CurrentParsedTableNumber));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.currentparsedtablenumber, value);
-                this.OnPropertyChanged(nameof(CurrentParsedTableNumber));
-            }
         }
         
         /// <summary>
@@ -1749,13 +1771,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<int>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.dayssincerecordlastmodifiedmaxvalue);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(DaysSinceRecordLastModifiedMaxValue));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.dayssincerecordlastmodifiedmaxvalue, value);
-                this.OnPropertyChanged(nameof(DaysSinceRecordLastModifiedMaxValue));
             }
         }
         
@@ -1936,6 +1951,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         
         /// <summary>
         /// DisplayName:
+        ///     (English - United States - 1033): Default Recurrence End Range Type
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Type of default recurrence end range date.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.defaultrecurrenceendrangetype)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.defaultrecurrenceendrangetype> DefaultRecurrenceEndRangeTypeEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.defaultrecurrenceendrangetype);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.defaultrecurrenceendrangetype), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.defaultrecurrenceendrangetype)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.defaultrecurrenceendrangetype), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(DefaultRecurrenceEndRangeTypeEnum));
+                this.OnPropertyChanging(nameof(DefaultRecurrenceEndRangeType));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.defaultrecurrenceendrangetype, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.defaultrecurrenceendrangetype, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(DefaultRecurrenceEndRangeType));
+                this.OnPropertyChanged(nameof(DefaultRecurrenceEndRangeTypeEnum));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
         ///     (English - United States - 1033): Default Theme Data
         /// 
         /// Description:
@@ -2000,13 +2058,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.disabledreason);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(DisabledReason));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.disabledreason, value);
-                this.OnPropertyChanged(nameof(DisabledReason));
-            }
         }
         
         /// <summary>
@@ -2061,6 +2112,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         
         /// <summary>
         /// DisplayName:
+        ///     (English - United States - 1033): Discount calculation method
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Discount calculation method for the QOOI product.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.discountcalculationmethod)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.discountcalculationmethod> DiscountCalculationMethodEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.discountcalculationmethod);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.discountcalculationmethod), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.discountcalculationmethod)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.discountcalculationmethod), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(DiscountCalculationMethodEnum));
+                this.OnPropertyChanging(nameof(DiscountCalculationMethod));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.discountcalculationmethod, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.discountcalculationmethod, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(DiscountCalculationMethod));
+                this.OnPropertyChanged(nameof(DiscountCalculationMethodEnum));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
         ///     (English - United States - 1033): Display Navigation Tour
         /// 
         /// Description:
@@ -2106,6 +2200,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 this.OnPropertyChanging(nameof(EmailConnectionChannel));
                 this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.emailconnectionchannel, value);
                 this.OnPropertyChanged(nameof(EmailConnectionChannel));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Email Connection Channel
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Select if you want to use the Email Router or server-side synchronization for email processing.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.emailconnectionchannel)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.emailconnectionchannel> EmailConnectionChannelEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.emailconnectionchannel);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.emailconnectionchannel), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.emailconnectionchannel)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.emailconnectionchannel), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(EmailConnectionChannelEnum));
+                this.OnPropertyChanging(nameof(EmailConnectionChannel));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.emailconnectionchannel, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.emailconnectionchannel, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(EmailConnectionChannel));
+                this.OnPropertyChanged(nameof(EmailConnectionChannelEnum));
             }
         }
         
@@ -2356,13 +2493,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<long>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.entityimage_timestamp);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(EntityImage_Timestamp));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.entityimage_timestamp, value);
-                this.OnPropertyChanged(nameof(EntityImage_Timestamp));
-            }
         }
         
         [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.entityimage_url)]
@@ -2373,13 +2503,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.entityimage_url);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(EntityImage_URL));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.entityimage_url, value);
-                this.OnPropertyChanged(nameof(EntityImage_URL));
             }
         }
         
@@ -2398,13 +2521,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.entityimageid);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(EntityImageId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.entityimageid, value);
-                this.OnPropertyChanged(nameof(EntityImageId));
             }
         }
         
@@ -2635,6 +2751,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         
         /// <summary>
         /// DisplayName:
+        ///     (English - United States - 1033): Format for Fiscal Period
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Format in which the fiscal period will be displayed.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.fiscalperiodformatperiod)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.fiscalperiodformatperiod> FiscalPeriodFormatPeriodEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.fiscalperiodformatperiod);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.fiscalperiodformatperiod), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.fiscalperiodformatperiod)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.fiscalperiodformatperiod), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(FiscalPeriodFormatPeriodEnum));
+                this.OnPropertyChanging(nameof(FiscalPeriodFormatPeriod));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.fiscalperiodformatperiod, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.fiscalperiodformatperiod, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(FiscalPeriodFormatPeriod));
+                this.OnPropertyChanged(nameof(FiscalPeriodFormatPeriodEnum));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
         ///     (English - United States - 1033): Fiscal Period Type
         /// 
         /// Description:
@@ -2674,13 +2833,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<bool>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.fiscalsettingsupdated);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(FiscalSettingsUpdated));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.fiscalsettingsupdated, value);
-                this.OnPropertyChanged(nameof(FiscalSettingsUpdated));
             }
         }
         
@@ -2761,6 +2913,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         
         /// <summary>
         /// DisplayName:
+        ///     (English - United States - 1033): Prefix for Fiscal Year
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Prefix for the display of the fiscal year.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.fiscalyearformatprefix)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.fiscalyearformatprefix> FiscalYearFormatPrefixEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.fiscalyearformatprefix);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.fiscalyearformatprefix), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.fiscalyearformatprefix)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.fiscalyearformatprefix), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(FiscalYearFormatPrefixEnum));
+                this.OnPropertyChanging(nameof(FiscalYearFormatPrefix));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.fiscalyearformatprefix, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.fiscalyearformatprefix, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(FiscalYearFormatPrefix));
+                this.OnPropertyChanged(nameof(FiscalYearFormatPrefixEnum));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
         ///     (English - United States - 1033): Suffix for Fiscal Year
         /// 
         /// Description:
@@ -2786,6 +2981,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         
         /// <summary>
         /// DisplayName:
+        ///     (English - United States - 1033): Suffix for Fiscal Year
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Suffix for the display of the fiscal year.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.fiscalyearformatsuffix)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.fiscalyearformatsuffix> FiscalYearFormatSuffixEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.fiscalyearformatsuffix);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.fiscalyearformatsuffix), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.fiscalyearformatsuffix)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.fiscalyearformatsuffix), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(FiscalYearFormatSuffixEnum));
+                this.OnPropertyChanging(nameof(FiscalYearFormatSuffix));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.fiscalyearformatsuffix, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.fiscalyearformatsuffix, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(FiscalYearFormatSuffix));
+                this.OnPropertyChanged(nameof(FiscalYearFormatSuffixEnum));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
         ///     (English - United States - 1033): Fiscal Year Format Year
         /// 
         /// Description:
@@ -2806,6 +3044,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 this.OnPropertyChanging(nameof(FiscalYearFormatYear));
                 this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.fiscalyearformatyear, value);
                 this.OnPropertyChanged(nameof(FiscalYearFormatYear));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Fiscal Year Format Year
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Format for the year.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.fiscalyearformatyear)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.fiscalyearformatyear> FiscalYearFormatYearEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.fiscalyearformatyear);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.fiscalyearformatyear), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.fiscalyearformatyear)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.fiscalyearformatyear), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(FiscalYearFormatYearEnum));
+                this.OnPropertyChanging(nameof(FiscalYearFormatYear));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.fiscalyearformatyear, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.fiscalyearformatyear, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(FiscalYearFormatYear));
+                this.OnPropertyChanged(nameof(FiscalYearFormatYearEnum));
             }
         }
         
@@ -2856,6 +3137,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 this.OnPropertyChanging(nameof(FullNameConventionCode));
                 this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.fullnameconventioncode, value);
                 this.OnPropertyChanged(nameof(FullNameConventionCode));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Full Name Display Order
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Order in which names are to be displayed throughout Microsoft CRM.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.fullnameconventioncode)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.fullnameconventioncode> FullNameConventionCodeEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.fullnameconventioncode);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.fullnameconventioncode), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.fullnameconventioncode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.fullnameconventioncode), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(FullNameConventionCodeEnum));
+                this.OnPropertyChanging(nameof(FullNameConventionCode));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.fullnameconventioncode, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.fullnameconventioncode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(FullNameConventionCode));
+                this.OnPropertyChanged(nameof(FullNameConventionCodeEnum));
             }
         }
         
@@ -3844,13 +4168,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<bool>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.isdisabled);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(IsDisabled));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.isdisabled, value);
-                this.OnPropertyChanged(nameof(IsDisabled));
-            }
         }
         
         /// <summary>
@@ -4653,6 +4970,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         
         /// <summary>
         /// DisplayName:
+        ///     (English - United States - 1033): ISV Integration Mode
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Indicates whether loading of Microsoft Dynamics 365 in a browser window that does not have address, tool, and menu bars is enabled.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.isvintegrationcode)]
+        [System.ObsoleteAttribute()]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.isvintegrationcode> ISVIntegrationCodeEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.isvintegrationcode);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.isvintegrationcode), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.isvintegrationcode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.isvintegrationcode), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(ISVIntegrationCodeEnum));
+                this.OnPropertyChanging(nameof(ISVIntegrationCode));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.isvintegrationcode, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.isvintegrationcode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(ISVIntegrationCode));
+                this.OnPropertyChanged(nameof(ISVIntegrationCodeEnum));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
         ///     (English - United States - 1033): Knowledge Article Prefix
         /// 
         /// Description:
@@ -5177,13 +5538,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<int>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.maxsupportedinternetexplorerversion);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(MaxSupportedInternetExplorerVersion));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.maxsupportedinternetexplorerversion, value);
-                this.OnPropertyChanged(nameof(MaxSupportedInternetExplorerVersion));
-            }
         }
         
         /// <summary>
@@ -5227,13 +5581,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<int>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.maxverboseloggingmailbox);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(MaxVerboseLoggingMailbox));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.maxverboseloggingmailbox, value);
-                this.OnPropertyChanged(nameof(MaxVerboseLoggingMailbox));
-            }
         }
         
         /// <summary>
@@ -5248,13 +5595,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<int>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.maxverboseloggingsynccycles);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(MaxVerboseLoggingSyncCycles));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.maxverboseloggingsynccycles, value);
-                this.OnPropertyChanged(nameof(MaxVerboseLoggingSyncCycles));
             }
         }
         
@@ -5368,13 +5708,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<int>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.mobileofflineminlicenseprod);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(MobileOfflineMinLicenseProd));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.mobileofflineminlicenseprod, value);
-                this.OnPropertyChanged(nameof(MobileOfflineMinLicenseProd));
-            }
         }
         
         /// <summary>
@@ -5389,13 +5722,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<int>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.mobileofflineminlicensetrial);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(MobileOfflineMinLicenseTrial));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.mobileofflineminlicensetrial, value);
-                this.OnPropertyChanged(nameof(MobileOfflineMinLicenseTrial));
             }
         }
         
@@ -5437,13 +5763,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.modifiedby);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(ModifiedBy));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.modifiedby, value);
-                this.OnPropertyChanged(nameof(ModifiedBy));
-            }
         }
         
         /// <summary>
@@ -5462,13 +5781,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.modifiedon);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(ModifiedOn));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.modifiedon, value);
-                this.OnPropertyChanged(nameof(ModifiedOn));
-            }
         }
         
         /// <summary>
@@ -5486,13 +5798,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.modifiedonbehalfby);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(ModifiedOnBehalfBy));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.modifiedonbehalfby, value);
-                this.OnPropertyChanged(nameof(ModifiedOnBehalfBy));
             }
         }
         
@@ -5543,6 +5848,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 this.OnPropertyChanging(nameof(NegativeFormatCode));
                 this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.negativeformatcode, value);
                 this.OnPropertyChanged(nameof(NegativeFormatCode));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Negative Format
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Information that specifies how negative numbers are displayed throughout Microsoft CRM.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.negativeformatcode)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.negativeformatcode> NegativeFormatCodeEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.negativeformatcode);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.negativeformatcode), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.negativeformatcode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.negativeformatcode), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(NegativeFormatCodeEnum));
+                this.OnPropertyChanging(nameof(NegativeFormatCode));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.negativeformatcode, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.negativeformatcode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(NegativeFormatCode));
+                this.OnPropertyChanged(nameof(NegativeFormatCodeEnum));
             }
         }
         
@@ -5787,12 +6135,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.organizationstate);
             }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Organization State
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Indicates the organization lifecycle state
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.organizationstate)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.organizationstate> OrganizationStateEnum
+        {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
+            get
             {
-                this.OnPropertyChanging(nameof(OrganizationState));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.organizationstate, value);
-                this.OnPropertyChanged(nameof(OrganizationState));
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.organizationstate);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.organizationstate), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.organizationstate)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.organizationstate), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
         
@@ -5862,13 +6230,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.parsedtablecolumnprefix);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(ParsedTableColumnPrefix));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.parsedtablecolumnprefix, value);
-                this.OnPropertyChanged(nameof(ParsedTableColumnPrefix));
-            }
         }
         
         /// <summary>
@@ -5886,13 +6247,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.parsedtableprefix);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(ParsedTablePrefix));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.parsedtableprefix, value);
-                this.OnPropertyChanged(nameof(ParsedTablePrefix));
             }
         }
         
@@ -5986,6 +6340,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 this.OnPropertyChanging(nameof(PluginTraceLogSetting));
                 this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.plugintracelogsetting, value);
                 this.OnPropertyChanged(nameof(PluginTraceLogSetting));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Plug-in Trace Log Setting
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Plug-in Trace Log Setting for the Organization.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.plugintracelogsetting)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.plugintracelogsetting> PluginTraceLogSettingEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.plugintracelogsetting);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.plugintracelogsetting), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.plugintracelogsetting)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.plugintracelogsetting), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(PluginTraceLogSettingEnum));
+                this.OnPropertyChanging(nameof(PluginTraceLogSetting));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.plugintracelogsetting, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.plugintracelogsetting, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(PluginTraceLogSetting));
+                this.OnPropertyChanged(nameof(PluginTraceLogSettingEnum));
             }
         }
         
@@ -6486,6 +6883,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         
         /// <summary>
         /// DisplayName:
+        ///     (English - United States - 1033): Report Script Errors
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Picklist for selecting the organization preference for reporting scripting errors.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.reportscripterrors)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.reportscripterrors> ReportScriptErrorsEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.reportscripterrors);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.reportscripterrors), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.reportscripterrors)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.reportscripterrors), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(ReportScriptErrorsEnum));
+                this.OnPropertyChanging(nameof(ReportScriptErrors));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.reportscripterrors, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.reportscripterrors, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(ReportScriptErrors));
+                this.OnPropertyChanged(nameof(ReportScriptErrorsEnum));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
         ///     (English - United States - 1033): Is Approval For Queue Email Required
         /// 
         /// Description:
@@ -6652,6 +7092,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         
         /// <summary>
         /// DisplayName:
+        ///     (English - United States - 1033): Scheduling engine for Appointments and Service Activities
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.schedulingengine)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.schedulingengine> SchedulingEngineEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.schedulingengine);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.schedulingengine), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.schedulingengine)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.schedulingengine), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(SchedulingEngineEnum));
+                this.OnPropertyChanging(nameof(SchedulingEngine));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.schedulingengine, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.schedulingengine, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(SchedulingEngine));
+                this.OnPropertyChanged(nameof(SchedulingEngineEnum));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
         ///     (English - United States - 1033): Customization Name Prefix
         /// 
         /// Description:
@@ -6788,6 +7268,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 this.OnPropertyChanging(nameof(SharePointDeploymentType));
                 this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.sharepointdeploymenttype, value);
                 this.OnPropertyChanged(nameof(SharePointDeploymentType));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Choose SharePoint Deployment Type
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Indicates which SharePoint deployment type is configured for Server to Server. (Online or On-Premises)
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.sharepointdeploymenttype)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.sharepointdeploymenttype> SharePointDeploymentTypeEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.sharepointdeploymenttype);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.sharepointdeploymenttype), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.sharepointdeploymenttype)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.sharepointdeploymenttype), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(SharePointDeploymentTypeEnum));
+                this.OnPropertyChanging(nameof(SharePointDeploymentType));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.sharepointdeploymenttype, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.sharepointdeploymenttype, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(SharePointDeploymentType));
+                this.OnPropertyChanged(nameof(SharePointDeploymentTypeEnum));
             }
         }
         
@@ -7214,6 +7737,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 this.OnPropertyChanging(nameof(SyncOptInSelectionStatus));
                 this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.syncoptinselectionstatus, value);
                 this.OnPropertyChanged(nameof(SyncOptInSelectionStatus));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Status of opt-in or opt-out operation for dynamics 365 azure sync.
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Indicates the status of the opt-in or opt-out operation for dynamics 365 azure sync.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.syncoptinselectionstatus)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.syncoptinselectionstatus> SyncOptInSelectionStatusEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.syncoptinselectionstatus);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.syncoptinselectionstatus), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.syncoptinselectionstatus)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.syncoptinselectionstatus), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(SyncOptInSelectionStatusEnum));
+                this.OnPropertyChanging(nameof(SyncOptInSelectionStatus));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.syncoptinselectionstatus, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.syncoptinselectionstatus, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(SyncOptInSelectionStatus));
+                this.OnPropertyChanged(nameof(SyncOptInSelectionStatusEnum));
             }
         }
         
@@ -7830,13 +8396,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.v3calloutconfighash);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(V3CalloutConfigHash));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.v3calloutconfighash, value);
-                this.OnPropertyChanged(nameof(V3CalloutConfigHash));
-            }
         }
         
         /// <summary>
@@ -7854,13 +8413,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<long>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.versionnumber);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(VersionNumber));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.versionnumber, value);
-                this.OnPropertyChanged(nameof(VersionNumber));
             }
         }
         
@@ -8030,6 +8582,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 this.OnPropertyChanging(nameof(YammerPostMethod));
                 this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.yammerpostmethod, value);
                 this.OnPropertyChanged(nameof(YammerPostMethod));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Internal Use Only
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.yammerpostmethod)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.yammerpostmethod> YammerPostMethodEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.yammerpostmethod);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.yammerpostmethod), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.yammerpostmethod)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.OptionSets.yammerpostmethod), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(YammerPostMethodEnum));
+                this.OnPropertyChanging(nameof(YammerPostMethod));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.yammerpostmethod, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Organization.Schema.Attributes.yammerpostmethod, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(YammerPostMethod));
+                this.OnPropertyChanged(nameof(YammerPostMethodEnum));
             }
         }
         

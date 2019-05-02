@@ -857,13 +857,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 Workflow = businessRule.Id,
 
-                IsActive = businessRule.StateCode == WorkflowState.Activated,
+                IsActive = businessRule.StateCodeEnum == Workflow.Schema.OptionSets.statecode.Activated_1,
 
                 ImageActive = _imageStep,
                 ImageInactive = _imageStepDisabled,
             };
 
-            nodeStep.Image = businessRule.StateCode == WorkflowState.Activated ? _imageStep : _imageStepDisabled;
+            nodeStep.Image = businessRule.StateCodeEnum == Workflow.Schema.OptionSets.statecode.Activated_1 ? _imageStep : _imageStepDisabled;
 
             return nodeStep;
         }
@@ -904,13 +904,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     Workflow = workflow.Id,
 
-                    IsActive = workflow.StateCode == WorkflowState.Activated,
+                    IsActive = workflow.StateCodeEnum == Workflow.Schema.OptionSets.statecode.Activated_1,
 
                     ImageActive = _imageBusinessProcess,
                     ImageInactive = _imageStepDisabled,
                 };
 
-                nodeStep.Image = workflow.StateCode == WorkflowState.Activated ? _imageBusinessProcess : _imageStepDisabled;
+                nodeStep.Image = workflow.StateCodeEnum == Workflow.Schema.OptionSets.statecode.Activated_1 ? _imageBusinessProcess : _imageStepDisabled;
             }
 
             return nodeStep;
@@ -928,11 +928,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             nodeStep.PluginType = step.EventHandler?.Id;
             nodeStep.MessageName = step.SdkMessageId?.Name;
             nodeStep.Step = step.Id;
-            nodeStep.IsActive = step.StateCode == SdkMessageProcessingStepState.Enabled;
+            nodeStep.IsActive = step.StateCodeEnum == SdkMessageProcessingStep.Schema.OptionSets.statecode.Enabled_0;
             nodeStep.ImageActive = _imageStep;
             nodeStep.ImageInactive = _imageStepDisabled;
 
-            nodeStep.Image = step.StateCode == SdkMessageProcessingStepState.Enabled ? _imageStep : _imageStepDisabled;
+            nodeStep.Image = step.StateCodeEnum == SdkMessageProcessingStep.Schema.OptionSets.statecode.Enabled_0 ? _imageStep : _imageStepDisabled;
         }
 
         private void FillNodeImageInformation(PluginTreeViewItem nodeImage, SdkMessageProcessingStepImage image, string entityName, string messageName, Guid? idPluginType, Guid? idPluginAssembly)
@@ -2554,7 +2554,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 referenceToChangeState = new EntityReference(SdkMessageProcessingStep.EntityLogicalName, nodeItem.Step.Value);
 
-                state = nodeItem.IsActive ? (int)SdkMessageProcessingStepState.Disabled : (int)SdkMessageProcessingStepState.Enabled;
+                state = nodeItem.IsActive ? (int)SdkMessageProcessingStep.Schema.OptionSets.statecode.Disabled_1 : (int)SdkMessageProcessingStep.Schema.OptionSets.statecode.Enabled_0;
                 status = nodeItem.IsActive ? (int)SdkMessageProcessingStep.Schema.OptionSets.statuscode.Disabled_1_Disabled_2 : (int)SdkMessageProcessingStep.Schema.OptionSets.statuscode.Enabled_0_Enabled_1;
             }
             else if (nodeItem.ComponentType == ComponentType.Workflow
@@ -2563,7 +2563,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 referenceToChangeState = new EntityReference(Workflow.EntityLogicalName, nodeItem.Workflow.Value);
 
-                state = nodeItem.IsActive ? (int)WorkflowState.Draft : (int)WorkflowState.Activated;
+                state = nodeItem.IsActive ? (int)Workflow.Schema.OptionSets.statecode.Draft_0 : (int)Workflow.Schema.OptionSets.statecode.Activated_1;
                 status = nodeItem.IsActive ? (int)Workflow.Schema.OptionSets.statuscode.Draft_0_Draft_1 : (int)Workflow.Schema.OptionSets.statuscode.Activated_1_Activated_2;
             }
 

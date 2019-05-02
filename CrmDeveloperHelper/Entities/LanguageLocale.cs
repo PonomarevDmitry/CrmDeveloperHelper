@@ -12,17 +12,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 {
     
     
-    [System.Runtime.Serialization.DataContractAttribute()]
-    public enum LanguageLocaleState
-    {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Active = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Inactive = 1,
-    }
-    
     /// <summary>
     /// DisplayName:
     ///     (English - United States - 1033): Language
@@ -193,13 +182,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<string>(EntityPrimaryNameAttribute);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(Name));
-                this.SetAttributeValue(EntityPrimaryNameAttribute, value);
-                this.OnPropertyChanged(nameof(Name));
-            }
         }
         #endregion
         
@@ -217,13 +199,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.Attributes.code);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(Code));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.Attributes.code, value);
-                this.OnPropertyChanged(nameof(Code));
-            }
         }
         
         /// <summary>
@@ -238,13 +213,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.Attributes.language);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(Language));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.Attributes.language, value);
-                this.OnPropertyChanged(nameof(Language));
             }
         }
         
@@ -286,13 +254,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.Attributes.organizationid);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(OrganizationId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.Attributes.organizationid, value);
-                this.OnPropertyChanged(nameof(OrganizationId));
-            }
         }
         
         /// <summary>
@@ -308,12 +269,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.Attributes.region);
             }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): State Code
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.Attributes.statecode)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public Microsoft.Xrm.Sdk.OptionSetValue statecode
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.Attributes.statecode);
+            }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
-                this.OnPropertyChanging(nameof(Region));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.Attributes.region, value);
-                this.OnPropertyChanged(nameof(Region));
+                this.OnPropertyChanging(nameof(statecode));
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.Attributes.statecode, value);
+                this.OnPropertyChanged(nameof(statecode));
             }
         }
         
@@ -323,15 +299,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         /// </summary>
         [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.Attributes.statecode)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocaleState> statecode
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.OptionSets.statecode> statecodeEnum
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
                 Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.Attributes.statecode);
-                if ((optionSet != null))
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.OptionSets.statecode), optionSet.Value)))
                 {
-                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocaleState)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocaleState), optionSet.Value)));
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.OptionSets.statecode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.OptionSets.statecode), optionSet.Value)));
                 }
                 else
                 {
@@ -341,6 +318,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
+                this.OnPropertyChanging(nameof(statecodeEnum));
                 this.OnPropertyChanging(nameof(statecode));
                 if ((value == null))
                 {
@@ -351,6 +329,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.Attributes.statecode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
                 }
                 this.OnPropertyChanged(nameof(statecode));
+                this.OnPropertyChanged(nameof(statecodeEnum));
             }
         }
         
@@ -376,6 +355,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             }
         }
         
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Language Status Code
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.Attributes.statuscode)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.OptionSets.statuscode> statuscodeEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.Attributes.statuscode);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.OptionSets.statuscode), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.OptionSets.statuscode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.OptionSets.statuscode), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(statuscodeEnum));
+                this.OnPropertyChanging(nameof(statuscode));
+                if ((value == null))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.Attributes.statuscode, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.Attributes.statuscode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                }
+                this.OnPropertyChanged(nameof(statuscode));
+                this.OnPropertyChanged(nameof(statuscodeEnum));
+            }
+        }
+        
         [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.Attributes.versionnumber)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<long> VersionNumber
@@ -384,13 +403,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<long>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.Attributes.versionnumber);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(VersionNumber));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.LanguageLocale.Schema.Attributes.versionnumber, value);
-                this.OnPropertyChanged(nameof(VersionNumber));
             }
         }
         #endregion

@@ -92,7 +92,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                 //    OptionSetMetadataBase attributeOptionSet = TypeMappingService.GetAttributeOptionSet(attributeMetadata);
                 //    if (attributeOptionSet != null)
                 //    {
-                //        CodeTypeReference codeTypeReference = this.BuildCodeTypeReferenceForOptionSet(attributeMetadata.LogicalName, entityMetadata, attributeOptionSet, iCodeGenerationServiceProvider);
+                //        CodeTypeReference codeTypeReference = this.BuildCodeTypeReferenceForOptionSet(attributeMetadata.LogicalName, entityMetadata, attributeMetadata, attributeOptionSet, iCodeGenerationServiceProvider);
                 //        if (!codeTypeReference.BaseType.Equals("System.Object"))
                 //        {
                 //            return codeTypeReference;
@@ -137,11 +137,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         private CodeTypeReference BuildCodeTypeReferenceForOptionSet(
             string attributeName
             , EntityMetadata entityMetadata
+            , AttributeMetadata attributeMetadata
             , OptionSetMetadata attributeOptionSet
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateOptionSet(attributeOptionSet, iCodeGenerationServiceProvider))
+            if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateOptionSet(attributeOptionSet, attributeMetadata, iCodeGenerationServiceProvider))
             {
                 string nameForOptionSet = iCodeGenerationServiceProvider.NamingService.GetNameForOptionSet(entityMetadata, attributeOptionSet, iCodeGenerationServiceProvider);
 

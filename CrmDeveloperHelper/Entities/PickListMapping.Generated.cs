@@ -1370,67 +1370,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     Unmapped_4 = 4,
                 }
 
-                ///<summary>
-                /// Attribute:
-                ///     componentstate
-                /// 
-                /// DisplayName:
-                ///     (English - United States - 1033): Component State
-                /// 
-                /// Description:
-                ///     (English - United States - 1033): The state of this component.
-                /// 
-                /// Global System  OptionSet componentstate
-                /// 
-                /// DisplayName:
-                ///     (English - United States - 1033): Component State
-                /// 
-                /// Description:
-                ///     (English - United States - 1033): For internal use only.
-                ///</summary>
-                public enum componentstate
-                {
-                    ///<summary>
-                    /// 0
-                    /// DisplayOrder: 1
-                    /// 
-                    /// DisplayName:
-                    ///     (English - United States - 1033): Published
-                    ///</summary>
-                    [System.Runtime.Serialization.EnumMemberAttribute()]
-                    Published_0 = 0,
-
-                    ///<summary>
-                    /// 1
-                    /// DisplayOrder: 2
-                    /// 
-                    /// DisplayName:
-                    ///     (English - United States - 1033): Unpublished
-                    ///</summary>
-                    [System.Runtime.Serialization.EnumMemberAttribute()]
-                    Unpublished_1 = 1,
-
-                    ///<summary>
-                    /// 2
-                    /// DisplayOrder: 3
-                    /// 
-                    /// DisplayName:
-                    ///     (English - United States - 1033): Deleted
-                    ///</summary>
-                    [System.Runtime.Serialization.EnumMemberAttribute()]
-                    Deleted_2 = 2,
-
-                    ///<summary>
-                    /// 3
-                    /// DisplayOrder: 4
-                    /// 
-                    /// DisplayName:
-                    ///     (English - United States - 1033): Deleted Unpublished
-                    ///</summary>
-                    [System.Runtime.Serialization.EnumMemberAttribute()]
-                    Deleted_Unpublished_3 = 3,
-                }
-
                 #endregion Picklist OptionSets.
             }
 

@@ -139,7 +139,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
-                this.InvalidDependencyId = value;
+                base.Id = value;
             }
         }
         
@@ -158,21 +158,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(EntityPrimaryIdAttribute);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(InvalidDependencyId));
-                this.SetAttributeValue(EntityPrimaryIdAttribute, value);
-                if (value.HasValue)
-                {
-                    base.Id = value.Value;
-                }
-                else
-                {
-                    base.Id = System.Guid.Empty;
-                }
-                this.OnPropertyChanged(nameof(InvalidDependencyId));
             }
         }
         #endregion
@@ -194,13 +179,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.InvalidDependency.Schema.Attributes.existingcomponentid);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(ExistingComponentId));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.InvalidDependency.Schema.Attributes.existingcomponentid, value);
-                this.OnPropertyChanged(nameof(ExistingComponentId));
-            }
         }
         
         /// <summary>
@@ -219,12 +197,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.InvalidDependency.Schema.Attributes.existingcomponenttype);
             }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Existing Object's Component Type
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): Component type of the object that has an invalid dependency
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.InvalidDependency.Schema.Attributes.existingcomponenttype)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componenttype> ExistingComponentTypeEnum
+        {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
+            get
             {
-                this.OnPropertyChanging(nameof(ExistingComponentType));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.InvalidDependency.Schema.Attributes.existingcomponenttype, value);
-                this.OnPropertyChanged(nameof(ExistingComponentType));
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.InvalidDependency.Schema.Attributes.existingcomponenttype);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componenttype), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componenttype)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componenttype), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
         
@@ -244,12 +242,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.InvalidDependency.Schema.Attributes.existingdependencytype);
             }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Weight
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): The dependency type of the invalid dependency.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.InvalidDependency.Schema.Attributes.existingdependencytype)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.dependencytype> ExistingDependencyTypeEnum
+        {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
+            get
             {
-                this.OnPropertyChanging(nameof(ExistingDependencyType));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.InvalidDependency.Schema.Attributes.existingdependencytype, value);
-                this.OnPropertyChanged(nameof(ExistingDependencyType));
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.InvalidDependency.Schema.Attributes.existingdependencytype);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.dependencytype), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.dependencytype)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.dependencytype), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
         
@@ -268,13 +286,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<bool>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.InvalidDependency.Schema.Attributes.isexistingnoderequiredcomponent);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(IsExistingNodeRequiredComponent));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.InvalidDependency.Schema.Attributes.isexistingnoderequiredcomponent, value);
-                this.OnPropertyChanged(nameof(IsExistingNodeRequiredComponent));
             }
         }
         
@@ -312,13 +323,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.InvalidDependency.Schema.Attributes.missingcomponentinfo);
             }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(MissingComponentInfo));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.InvalidDependency.Schema.Attributes.missingcomponentinfo, value);
-                this.OnPropertyChanged(nameof(MissingComponentInfo));
-            }
         }
         
         /// <summary>
@@ -336,13 +340,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             get
             {
                 return this.GetAttributeValue<System.Nullable<int>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.InvalidDependency.Schema.Attributes.missingcomponentlookuptype);
-            }
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
-            {
-                this.OnPropertyChanging(nameof(MissingComponentLookupType));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.InvalidDependency.Schema.Attributes.missingcomponentlookuptype, value);
-                this.OnPropertyChanged(nameof(MissingComponentLookupType));
             }
         }
         
@@ -362,12 +359,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.InvalidDependency.Schema.Attributes.missingcomponenttype);
             }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Type Code
+        /// 
+        /// Description:
+        ///     (English - United States - 1033): The object type code of the missing component.
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.InvalidDependency.Schema.Attributes.missingcomponenttype)]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componenttype> MissingComponentTypeEnum
+        {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            set
+            get
             {
-                this.OnPropertyChanging(nameof(MissingComponentType));
-                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.InvalidDependency.Schema.Attributes.missingcomponenttype, value);
-                this.OnPropertyChanged(nameof(MissingComponentType));
+                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.InvalidDependency.Schema.Attributes.missingcomponenttype);
+                if (((optionSet != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componenttype), optionSet.Value)))
+                {
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componenttype)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets.componenttype), optionSet.Value)));
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
         #endregion

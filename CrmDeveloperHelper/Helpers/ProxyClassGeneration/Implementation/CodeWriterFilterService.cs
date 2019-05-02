@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xrm.Sdk.Metadata;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 {
@@ -29,9 +30,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         public bool GenerateOptionSet(
             OptionSetMetadata optionSetMetadata
+            , AttributeMetadata attributeMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
+            if (IgnoreOptionSet(optionSetMetadata, attributeMetadata, iCodeGenerationServiceProvider))
+            {
+                return false;
+            }
+
             if (optionSetMetadata.OptionSetType == OptionSetType.State
                 || optionSetMetadata.OptionSetType == OptionSetType.Status
             )
@@ -47,6 +54,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             {
                 return _config.GenerateLocalOptionSet;
             }
+        }
+
+        public bool IgnoreOptionSet(
+            OptionSetMetadata optionSetMetadata
+            , AttributeMetadata attributeMetadata
+            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
+        )
+        {
+            if (optionSetMetadata.Options == null
+                || !optionSetMetadata.Options.Any(o => o.Value.HasValue)
+            )
+            {
+                return true;
+            }
+
+            if (attributeMetadata != null
+                && CreateFileHandler.IgnoreAttribute(attributeMetadata.EntityLogicalName, attributeMetadata.LogicalName)
+            )
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public bool GenerateOption(

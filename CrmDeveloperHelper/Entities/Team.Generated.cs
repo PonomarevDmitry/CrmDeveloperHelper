@@ -4653,6 +4653,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 }
 
                 ///<summary>
+                /// 1:N - Relationship team_gbc_entity_test
+                /// 
+                /// PropertyName                               Value
+                /// IsHierarchical                             False
+                /// ReferencedEntityNavigationPropertyName     team_gbc_entity_test
+                /// ReferencingEntityNavigationPropertyName    owningteam
+                /// IsCustomizable                             True
+                /// IsCustomRelationship                       False
+                /// IsValidForAdvancedFind                     True
+                /// RelationshipType                           OneToManyRelationship
+                /// SecurityTypes                              None
+                /// CascadeConfiguration.Assign                NoCascade
+                /// CascadeConfiguration.Delete                NoCascade
+                /// CascadeConfiguration.Merge                 NoCascade
+                /// CascadeConfiguration.Reparent              NoCascade
+                /// CascadeConfiguration.Share                 NoCascade
+                /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
+                /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
+                /// AssociatedMenuConfiguration.Group          Details
+                /// AssociatedMenuConfiguration.Order          null
+                /// 
+                /// ReferencingEntity gbc_entity_test:    PrimaryIdAttribute gbc_entity_testid    PrimaryNameAttribute gbc_name
+                ///     DisplayName:
+                ///         (English - United States - 1033): Entity Test
+                ///     
+                ///     DisplayCollectionName:
+                ///         (English - United States - 1033): Entities Test
+                ///</summary>
+                public static partial class team_gbc_entity_test
+                {
+                    public const string Name = "team_gbc_entity_test";
+
+                    public const string ReferencedEntity_team = "team";
+
+                    public const string ReferencedAttribute_teamid = "teamid";
+
+                    public const string ReferencingEntity_gbc_entity_test = "gbc_entity_test";
+
+                    public const string ReferencingAttribute_owningteam = "owningteam";
+
+                    public const string ReferencingEntity_PrimaryNameAttribute_gbc_name = "gbc_name";
+                }
+
+                ///<summary>
                 /// 1:N - Relationship team_goal
                 /// 
                 /// PropertyName                               Value

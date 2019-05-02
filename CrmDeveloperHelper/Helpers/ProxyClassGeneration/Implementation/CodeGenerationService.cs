@@ -233,7 +233,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             foreach (var OptionSetMetadata in optionSetMetadata)
             {
-                if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateOptionSet(OptionSetMetadata, iCodeGenerationServiceProvider)
+                if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateOptionSet(OptionSetMetadata, null, iCodeGenerationServiceProvider)
                     && OptionSetMetadata.IsGlobal.HasValue
                     && OptionSetMetadata.IsGlobal.Value
                 )
@@ -411,7 +411,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                         var attributeOptionSet = TypeMappingService.GetAttributeOptionSet(attributeMetadata);
 
                         if (attributeOptionSet != null
-                            && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateOptionSet(attributeOptionSet, iCodeGenerationServiceProvider)
+                            && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateOptionSet(attributeOptionSet, attributeMetadata, iCodeGenerationServiceProvider)
                         )
                         {
                             CodeTypeDeclaration codeTypeDeclarationOptionSet = this.BuildOptionSet(entityMetadata, attributeOptionSet, iCodeGenerationServiceProvider);
@@ -450,7 +450,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                             }
                         }
 
-                        if (attributeOptionSet != null && proxyClassAttributeEnums != Model.ProxyClassAttributeEnums.NotNeeded)
+                        if (attributeOptionSet != null
+                            && !iCodeGenerationServiceProvider.CodeWriterFilterService.IgnoreOptionSet(attributeOptionSet, attributeMetadata, iCodeGenerationServiceProvider)
+                            && proxyClassAttributeEnums != Model.ProxyClassAttributeEnums.NotNeeded
+                        )
                         {
                             string baseAttributeName = string.Empty;
 
@@ -533,8 +536,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                 || attributeMetadata is StatusAttributeMetadata
             )
             {
-                return _config.GenerateAttributesEnumsStateStatusUseSchemaEnum 
-                    ? ProxyClassAttributeEnumsGlobalOptionSetLocation.InClassSchema 
+                return _config.GenerateAttributesEnumsStateStatusUseSchemaEnum
+                    ? ProxyClassAttributeEnumsGlobalOptionSetLocation.InClassSchema
                     : ProxyClassAttributeEnumsGlobalOptionSetLocation.InClassesNamespace;
             }
 

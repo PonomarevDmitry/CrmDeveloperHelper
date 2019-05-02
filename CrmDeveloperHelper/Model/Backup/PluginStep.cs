@@ -134,7 +134,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model.Backup
                 result.SecondaryEntity = "none";
             }
 
-            result.StateCode = (int)entStep.StateCode.GetValueOrDefault();
+            result.StateCode = entStep.StateCode.Value;
             result.StatusCode = entStep.StatusCode.Value;
 
             result.StateCodeName = entStep.FormattedValues[Entities.SdkMessageProcessingStep.Schema.Attributes.statecode];
