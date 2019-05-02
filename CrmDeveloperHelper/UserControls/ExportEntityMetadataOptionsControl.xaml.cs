@@ -49,6 +49,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             chBProxyClassesMakeAllPropertiesEditable.DataContext = _commonConfig;
             chBProxyClassesAddConstructorWithAnonymousTypeObject.DataContext = _commonConfig;
 
+            cmBAttributesProxyClassEnumsStateStatus.DataContext = _commonConfig;
+            cmBAttributesProxyClassEnumsLocal.DataContext = _commonConfig;
+            cmBAttributesProxyClassEnumsGlobal.DataContext = _commonConfig;
+
+            chBAttributesProxyClassEnumsUseSchemaStateStatusEnum.DataContext = _commonConfig;
+            chBAttributesProxyClassEnumsUseSchemaLocalEnum.DataContext = _commonConfig;
+            cmBAttributesProxyClassEnumsUseSchemaGlobalEnum.DataContext = _commonConfig;
+
             chBAttributesSchema.DataContext = _commonConfig;
             chBManyToOneSchema.DataContext = _commonConfig;
             chBManyToManySchema.DataContext = _commonConfig;

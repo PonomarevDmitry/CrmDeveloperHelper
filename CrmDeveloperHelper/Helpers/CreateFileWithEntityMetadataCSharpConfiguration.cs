@@ -5,61 +5,79 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public class CreateFileWithEntityMetadataCSharpConfiguration
     {
-        public string EntityName { get; private set; }
+        public string EntityName { get; }
 
-        public string TabSpacer { get; private set; }
+        public string TabSpacer { get; }
 
-        public bool UseSchemaConstInCSharpAttributes { get; private set; }
+        public string NamespaceClasses { get; }
 
-        public bool GenerateAttributes { get; private set; }
+        public string NamespaceGlobalOptionSets { get; }
 
-        public bool GenerateAttributesWithNameOf { get; private set; }
+        public bool UseSchemaConstInCSharpAttributes { get; }
 
-        public bool GenerateStatus { get; private set; }
+        public bool GenerateAttributes { get; }
 
-        public bool GenerateLocalOptionSet { get; private set; }
+        public bool GenerateAttributesWithNameOf { get; }
 
-        public bool GenerateGlobalOptionSet { get; private set; }
+        public ProxyClassAttributeEnums GenerateAttributesEnumsStateStatus { get; }
 
-        public bool GenerateOneToMany { get; private set; }
+        public ProxyClassAttributeEnums GenerateAttributesEnumsLocal { get; }
 
-        public bool GenerateManyToOne { get; private set; }
+        public ProxyClassAttributeEnums GenerateAttributesEnumsGlobal { get; }
 
-        public bool GenerateManyToMany { get; private set; }
+        public bool GenerateAttributesEnumsStateStatusUseSchemaEnum { get; }
 
-        public bool GenerateKeys { get; private set; }
+        public bool GenerateAttributesEnumsLocalUseSchemaEnum { get; }
 
-        public bool GenerateIntoSchemaClass { get; private set; }
+        public ProxyClassAttributeEnumsGlobalOptionSetLocation GenerateAttributesEnumsGlobalUseSchemaEnum { get; }
 
-        public bool GenerateWithDebuggerNonUserCode { get; private set; }
+        public bool GenerateStatus { get; }
 
-        public bool AllDescriptions { get; private set; }
+        public bool GenerateLocalOptionSet { get; }
 
-        public bool WithDependentComponents { get; private set; }
+        public bool GenerateGlobalOptionSet { get; }
 
-        public ConstantType ConstantType { get; private set; }
+        public bool GenerateOneToMany { get; }
 
-        public OptionSetExportType OptionSetExportType { get; private set; }
+        public bool GenerateManyToOne { get; }
+
+        public bool GenerateManyToMany { get; }
+
+        public bool GenerateKeys { get; }
+
+        public bool GenerateIntoSchemaClass { get; }
+
+        public bool GenerateWithDebuggerNonUserCode { get; }
+
+        public bool AllDescriptions { get; }
+
+        public bool WithDependentComponents { get; }
+
+        public ConstantType ConstantType { get; }
+
+        public OptionSetExportType OptionSetExportType { get; }
 
         public EntityMetadata EntityMetadata { get; set; }
 
-        public bool WithManagedInfo { get; private set; }
+        public bool WithManagedInfo { get; }
 
-        public bool WithoutObsoleteAttribute { get; private set; }
+        public bool WithoutObsoleteAttribute { get; }
 
-        public bool MakeAllPropertiesEditable { get; private set; }
+        public bool MakeAllPropertiesEditable { get; }
 
-        public bool AddConstructorWithAnonymousTypeObject { get; private set; }
+        public bool AddConstructorWithAnonymousTypeObject { get; }
 
-        public bool GenerateMessages { get; private set; }
+        public bool GenerateMessages { get; }
 
-        public bool GenerateCustomActions { get; private set; }
+        public bool GenerateCustomActions { get; }
 
-        public bool GenerateServiceContext { get; private set; }
+        public bool GenerateServiceContext { get; }
 
         public CreateFileWithEntityMetadataCSharpConfiguration(
             string entityName
             , string tabSpacer
+            , string namespaceClasses
+            , string namespaceGlobalOptionSets
             , bool generateAttributes
             , bool generateStatus
             , bool generateLocalOptionSet
@@ -80,10 +98,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , bool withoutObsoleteAttribute
             , bool makeAllPropertiesEditable
             , bool addConstructorWithAnonymousTypeObject
+
+            , ProxyClassAttributeEnums generateAttributesEnumsStateStatus
+            , ProxyClassAttributeEnums generateAttributesEnumsLocal
+            , ProxyClassAttributeEnums generateAttributesEnumsGlobal
+
+            , bool generateAttributesEnumsStateStatusUseSchemaEnum
+            , bool generateAttributesEnumsLocalUseSchemaEnum
+            , ProxyClassAttributeEnumsGlobalOptionSetLocation generateAttributesEnumsGlobalUseSchemaEnum
         )
         {
             this.EntityName = entityName.ToLower();
             this.TabSpacer = tabSpacer;
+            this.NamespaceClasses = namespaceClasses;
+            this.NamespaceGlobalOptionSets = namespaceGlobalOptionSets;
+
             this.GenerateAttributes = generateAttributes;
             this.GenerateAttributesWithNameOf = generateAttributesWithNameOf;
             this.GenerateStatus = generateStatus;
@@ -106,6 +135,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this.WithoutObsoleteAttribute = withoutObsoleteAttribute;
             this.MakeAllPropertiesEditable = makeAllPropertiesEditable;
             this.AddConstructorWithAnonymousTypeObject = addConstructorWithAnonymousTypeObject;
+
+            this.GenerateAttributesEnumsStateStatus = generateAttributesEnumsStateStatus;
+            this.GenerateAttributesEnumsLocal = generateAttributesEnumsLocal;
+            this.GenerateAttributesEnumsGlobal = generateAttributesEnumsGlobal;
+
+            this.GenerateAttributesEnumsStateStatusUseSchemaEnum = generateAttributesEnumsStateStatusUseSchemaEnum;
+            this.GenerateAttributesEnumsLocalUseSchemaEnum = generateAttributesEnumsLocalUseSchemaEnum;
+            this.GenerateAttributesEnumsGlobalUseSchemaEnum = generateAttributesEnumsGlobalUseSchemaEnum;
         }
     }
 }

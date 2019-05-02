@@ -28,26 +28,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         //}
 
         public bool GenerateOptionSet(
-            OptionSetMetadataBase optionSetMetadata
+            OptionSetMetadata optionSetMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
+            if (optionSetMetadata.OptionSetType == OptionSetType.State
+                || optionSetMetadata.OptionSetType == OptionSetType.Status
+            )
+            {
+                return _config.GenerateStatus;
+            }
+
             if (optionSetMetadata.IsGlobal.GetValueOrDefault())
             {
-                if (!_config.GenerateGlobalOptionSet)
-                {
-                    return false;
-                }
+                return _config.GenerateGlobalOptionSet;
             }
             else
             {
-                if (!_config.GenerateLocalOptionSet)
-                {
-                    return false;
-                }
+                return _config.GenerateLocalOptionSet;
             }
-
-            return optionSetMetadata.OptionSetType.Value == OptionSetType.State;
         }
 
         public bool GenerateOption(

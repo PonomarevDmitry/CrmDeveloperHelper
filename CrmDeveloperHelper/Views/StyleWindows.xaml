@@ -71,6 +71,8 @@
     <Style TargetType="{x:Type StatusBarItem}">
         <Setter Property="Padding" Value="2"/>
         <Setter Property="Margin" Value="2"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
     <Style TargetType="{x:Type ProgressBar}">

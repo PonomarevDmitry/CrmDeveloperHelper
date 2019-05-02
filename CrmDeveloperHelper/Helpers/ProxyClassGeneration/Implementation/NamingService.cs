@@ -49,7 +49,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         public string GetNameForOptionSet(
             EntityMetadata entityMetadata
-            , OptionSetMetadataBase optionSetMetadata
+            , OptionSetMetadata optionSetMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
@@ -58,15 +58,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                 return this._knowNames[optionSetMetadata.MetadataId.Value.ToString()];
             }
 
-            string str = optionSetMetadata.OptionSetType.Value != OptionSetType.State ? this.CreateValidTypeName(optionSetMetadata.Name) : this.CreateValidTypeName(entityMetadata.SchemaName + "State");
+            string name = GetNameForOptionSetInternal(entityMetadata, optionSetMetadata, iCodeGenerationServiceProvider);
 
-            this._knowNames.Add(optionSetMetadata.MetadataId.Value.ToString(), str);
+            name = this.CreateValidTypeName(name);
 
-            return str;
+            this._knowNames.Add(optionSetMetadata.MetadataId.Value.ToString(), name);
+
+            return name;
+        }
+
+        private string GetNameForOptionSetInternal(
+            EntityMetadata entityMetadata
+            , OptionSetMetadata optionSetMetadata
+            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
+        )
+        {
+            if (optionSetMetadata.OptionSetType == OptionSetType.State)
+            {
+                return entityMetadata.SchemaName + "_StateCode";
+            }
+
+            if (optionSetMetadata.OptionSetType == OptionSetType.Status)
+            {
+                return entityMetadata.SchemaName + "_StatusCode";
+            }
+
+            return optionSetMetadata.Name;
         }
 
         public string GetNameForOption(
-            OptionSetMetadataBase optionSetMetadata
+            OptionSetMetadata optionSetMetadata
             , OptionMetadata optionMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
@@ -77,7 +98,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             }
 
             string name = string.Empty;
+
             StateOptionMetadata stateOptionMetadata = optionMetadata as StateOptionMetadata;
+
             if (stateOptionMetadata != null)
             {
                 name = stateOptionMetadata.InvariantName;
@@ -92,6 +115,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                     }
                 }
             }
+
             if (string.IsNullOrEmpty(name))
             {
                 name = string.Format(CultureInfo.InvariantCulture, "UnknownLabel{0}", (object)optionMetadata.Value.Value);
@@ -340,12 +364,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return new[] { "Constructor" };
         }
 
-        public IEnumerable<string> GetCommentsForOptionSet(EntityMetadata entityMetadata, OptionSetMetadataBase optionSetMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public IEnumerable<string> GetCommentsForOptionSet(EntityMetadata entityMetadata, OptionSetMetadata optionSetMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
             return Enumerable.Empty<string>();
         }
 
-        public IEnumerable<string> GetCommentsForOption(OptionSetMetadataBase optionSetMetadata, OptionMetadata optionMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public IEnumerable<string> GetCommentsForOption(OptionSetMetadata optionSetMetadata, OptionMetadata optionMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
             return Enumerable.Empty<string>();
         }

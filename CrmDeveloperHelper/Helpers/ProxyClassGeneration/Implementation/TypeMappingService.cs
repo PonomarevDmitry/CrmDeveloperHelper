@@ -9,46 +9,54 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 {
     internal sealed class TypeMappingService : ITypeMappingService
     {
-        private readonly Dictionary<AttributeTypeCode, Type> _attributeTypeMapping;
         private readonly string _namespace;
 
         internal TypeMappingService(string @namespace)
         {
             this._namespace = @namespace;
-
-            this._attributeTypeMapping = new Dictionary<AttributeTypeCode, Type>
-            {
-                { AttributeTypeCode.Boolean, typeof(bool) },
-
-                { AttributeTypeCode.ManagedProperty, typeof(BooleanManagedProperty) },
-                { AttributeTypeCode.CalendarRules, typeof(object) },
-
-                { AttributeTypeCode.DateTime, typeof(DateTime) },
-
-                { AttributeTypeCode.Double, typeof(double) },
-                { AttributeTypeCode.Integer, typeof(int) },
-                { AttributeTypeCode.BigInt, typeof(long) },
-
-                { AttributeTypeCode.Decimal, typeof(decimal) },
-                { AttributeTypeCode.Money, typeof(Money) },
-
-                { AttributeTypeCode.EntityName, typeof(string) },
-
-                { AttributeTypeCode.Customer, typeof(EntityReference) },
-                { AttributeTypeCode.Lookup, typeof(EntityReference) },
-                { AttributeTypeCode.Owner, typeof(EntityReference) },
-
-                { AttributeTypeCode.Memo, typeof(string) },
-                { AttributeTypeCode.String, typeof(string) },
-
-                { AttributeTypeCode.Uniqueidentifier, typeof(Guid) }
-            };
         }
 
         public CodeTypeReference GetTypeForEntity(EntityMetadata entityMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
             return this.TypeRef(iCodeGenerationServiceProvider.NamingService.GetNameForEntity(entityMetadata, iCodeGenerationServiceProvider));
         }
+
+        public CodeTypeReference GetTypeForOptionSet(EntityMetadata entityMetadata, OptionSetMetadata optionSetMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        {
+            return this.TypeRef(iCodeGenerationServiceProvider.NamingService.GetNameForOptionSet(entityMetadata, optionSetMetadata, iCodeGenerationServiceProvider));
+        }
+
+        private static readonly Dictionary<AttributeTypeCode, Type> _attributeTypeMapping = new Dictionary<AttributeTypeCode, Type>
+        {
+            { AttributeTypeCode.Boolean, typeof(bool) },
+
+            { AttributeTypeCode.ManagedProperty, typeof(BooleanManagedProperty) },
+            { AttributeTypeCode.CalendarRules, typeof(object) },
+
+            { AttributeTypeCode.DateTime, typeof(DateTime) },
+
+            { AttributeTypeCode.Double, typeof(double) },
+            { AttributeTypeCode.Integer, typeof(int) },
+            { AttributeTypeCode.BigInt, typeof(long) },
+
+            { AttributeTypeCode.Decimal, typeof(decimal) },
+            { AttributeTypeCode.Money, typeof(Money) },
+
+            { AttributeTypeCode.EntityName, typeof(string) },
+
+            { AttributeTypeCode.Customer, typeof(EntityReference) },
+            { AttributeTypeCode.Lookup, typeof(EntityReference) },
+            { AttributeTypeCode.Owner, typeof(EntityReference) },
+
+            { AttributeTypeCode.Memo, typeof(string) },
+            { AttributeTypeCode.String, typeof(string) },
+
+            { AttributeTypeCode.Picklist, typeof(OptionSetValue) },
+            { AttributeTypeCode.State, typeof(OptionSetValue) },
+            { AttributeTypeCode.Status, typeof(OptionSetValue) },
+
+            { AttributeTypeCode.Uniqueidentifier, typeof(Guid) }
+        };
 
         public CodeTypeReference GetTypeForAttributeType(
             EntityMetadata entityMetadata
@@ -61,102 +69,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             if (attributeMetadata.AttributeType.HasValue)
             {
                 AttributeTypeCode key = attributeMetadata.AttributeType.Value;
-                if (this._attributeTypeMapping.ContainsKey(key))
-                {
-                    type = this._attributeTypeMapping[key];
-                }
-                else
-                {
-                    if (key == AttributeTypeCode.PartyList)
-                    {
-                        return this.BuildCodeTypeReferenceForPartyList(iCodeGenerationServiceProvider);
-                    }
 
-                    if (attributeMetadata is ImageAttributeMetadata)
-                    {
-                        type = typeof(byte[]);
-                    }
-                    else if (attributeMetadata is MultiSelectPicklistAttributeMetadata)
-                    {
-                        type = typeof(OptionSetValueCollection);
-                    }
-                    else
-                    {
-                        OptionSetMetadataBase attributeOptionSet = TypeMappingService.GetAttributeOptionSet(attributeMetadata);
-                        if (attributeOptionSet != null)
-                        {
-                            CodeTypeReference codeTypeReference = this.BuildCodeTypeReferenceForOptionSet(attributeMetadata.LogicalName, entityMetadata, attributeOptionSet, iCodeGenerationServiceProvider);
-                            if (!codeTypeReference.BaseType.Equals("System.Object"))
-                            {
-                                return codeTypeReference;
-                            }
-
-                            if (key.Equals(AttributeTypeCode.Picklist) || key.Equals(AttributeTypeCode.Status))
-                            {
-                                type = typeof(OptionSetValue);
-                                if (type.IsValueType)
-                                {
-                                    type = typeof(Nullable<>).MakeGenericType(type);
-                                }
-                            }
-                        }
-                    }
+                if (key == AttributeTypeCode.PartyList)
+                {
+                    return this.BuildCodeTypeReferenceForPartyList(iCodeGenerationServiceProvider);
                 }
 
-                if (type.IsValueType)
+                if (_attributeTypeMapping.ContainsKey(key))
                 {
-                    type = typeof(Nullable<>).MakeGenericType(type);
+                    type = _attributeTypeMapping[key];
                 }
+                else if (attributeMetadata is ImageAttributeMetadata)
+                {
+                    type = typeof(byte[]);
+                }
+                else if (attributeMetadata is MultiSelectPicklistAttributeMetadata)
+                {
+                    type = typeof(OptionSetValueCollection);
+                }
+                //else
+                //{
+                //    OptionSetMetadataBase attributeOptionSet = TypeMappingService.GetAttributeOptionSet(attributeMetadata);
+                //    if (attributeOptionSet != null)
+                //    {
+                //        CodeTypeReference codeTypeReference = this.BuildCodeTypeReferenceForOptionSet(attributeMetadata.LogicalName, entityMetadata, attributeOptionSet, iCodeGenerationServiceProvider);
+                //        if (!codeTypeReference.BaseType.Equals("System.Object"))
+                //        {
+                //            return codeTypeReference;
+                //        }
+
+                //        if (key.Equals(AttributeTypeCode.Picklist) || key.Equals(AttributeTypeCode.Status))
+                //        {
+                //            type = typeof(OptionSetValue);
+                //        }
+                //    }
+                //}
+            }
+
+            if (type.IsValueType)
+            {
+                type = typeof(Nullable<>).MakeGenericType(type);
             }
 
             return TypeMappingService.TypeRef(type);
-        }
-
-        public CodeTypeReference GetTypeForRelationship(
-            RelationshipMetadataBase relationshipMetadata
-            , EntityMetadata otherEntityMetadata
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
-        {
-            return this.TypeRef(iCodeGenerationServiceProvider.NamingService.GetNameForEntity(otherEntityMetadata, iCodeGenerationServiceProvider));
-        }
-
-        public CodeTypeReference GetTypeForRequestField(CodeGenerationSdkMessageRequest request, Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageRequestField requestField, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
-        {
-            var isGeneric = request.MessagePair.Message.IsGeneric(requestField);
-
-            return this.GetTypeForField(requestField.ClrParser, isGeneric);
-        }
-
-        public CodeTypeReference GetTypeForResponseField(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageResponseField responseField, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
-        {
-            return this.GetTypeForField(responseField.ClrFormatter, false);
-        }
-
-        private CodeTypeReference BuildCodeTypeReferenceForOptionSet(
-            string attributeName
-            , EntityMetadata entityMetadata
-            , OptionSetMetadataBase attributeOptionSet
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
-        {
-            if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateOptionSet(attributeOptionSet, iCodeGenerationServiceProvider))
-            {
-                string nameForOptionSet = iCodeGenerationServiceProvider.NamingService.GetNameForOptionSet(entityMetadata, attributeOptionSet, iCodeGenerationServiceProvider);
-
-                CodeGenerationType typeForOptionSet = iCodeGenerationServiceProvider.CodeGenerationService.GetTypeForOptionSet(entityMetadata, attributeOptionSet, iCodeGenerationServiceProvider);
-
-                switch (typeForOptionSet)
-                {
-                    case CodeGenerationType.Class:
-                        return this.TypeRef(nameForOptionSet);
-
-                    case CodeGenerationType.Enum:
-                    case CodeGenerationType.Struct:
-                        return TypeMappingService.TypeRef(typeof(Nullable<>), this.TypeRef(nameForOptionSet));
-                }
-            }
-            return TypeMappingService.TypeRef(typeof(object));
         }
 
         private CodeTypeReference BuildCodeTypeReferenceForPartyList(ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
@@ -179,13 +134,55 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return TypeMappingService.TypeRef(typeof(IEnumerable<>), this.TypeRef(iCodeGenerationServiceProvider.NamingService.GetNameForEntity(entityMetadata, iCodeGenerationServiceProvider)));
         }
 
-        internal static OptionSetMetadataBase GetAttributeOptionSet(AttributeMetadata attribute)
+        private CodeTypeReference BuildCodeTypeReferenceForOptionSet(
+            string attributeName
+            , EntityMetadata entityMetadata
+            , OptionSetMetadata attributeOptionSet
+            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
+        )
         {
-            if (attribute is BooleanAttributeMetadata booleanAttributeMetadata)
+            if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateOptionSet(attributeOptionSet, iCodeGenerationServiceProvider))
             {
-                return booleanAttributeMetadata.OptionSet;
-            }
+                string nameForOptionSet = iCodeGenerationServiceProvider.NamingService.GetNameForOptionSet(entityMetadata, attributeOptionSet, iCodeGenerationServiceProvider);
 
+                CodeGenerationType typeForOptionSet = iCodeGenerationServiceProvider.CodeGenerationService.GetTypeForOptionSet(entityMetadata, attributeOptionSet, iCodeGenerationServiceProvider);
+
+                switch (typeForOptionSet)
+                {
+                    case CodeGenerationType.Class:
+                        return this.TypeRef(nameForOptionSet);
+
+                    case CodeGenerationType.Enum:
+                    case CodeGenerationType.Struct:
+                        return TypeMappingService.TypeRef(typeof(Nullable<>), this.TypeRef(nameForOptionSet));
+                }
+            }
+            return TypeMappingService.TypeRef(typeof(object));
+        }
+
+        public CodeTypeReference GetTypeForRelationship(
+            RelationshipMetadataBase relationshipMetadata
+            , EntityMetadata otherEntityMetadata
+            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
+        )
+        {
+            return this.TypeRef(iCodeGenerationServiceProvider.NamingService.GetNameForEntity(otherEntityMetadata, iCodeGenerationServiceProvider));
+        }
+
+        public CodeTypeReference GetTypeForRequestField(CodeGenerationSdkMessageRequest request, Entities.SdkMessageRequestField requestField, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        {
+            var isGeneric = request.MessagePair.Message.IsGeneric(requestField);
+
+            return this.GetTypeForField(requestField.ClrParser, isGeneric);
+        }
+
+        public CodeTypeReference GetTypeForResponseField(Entities.SdkMessageResponseField responseField, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        {
+            return this.GetTypeForField(responseField.ClrFormatter, false);
+        }
+
+        public static OptionSetMetadata GetAttributeOptionSet(AttributeMetadata attribute)
+        {
             if (attribute is EnumAttributeMetadata enumAttributeMetadata)
             {
                 return enumAttributeMetadata.OptionSet;

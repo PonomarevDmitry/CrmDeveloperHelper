@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Client;
 using Microsoft.Xrm.Sdk.Metadata;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
@@ -44,7 +45,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         public Task WriteEntitiesFileAsync(
             IEnumerable<EntityMetadata> entities
-            , IEnumerable<OptionSetMetadataBase> optionSets
+            , IEnumerable<OptionSetMetadata> optionSets
             , IEnumerable<CodeGenerationSdkMessage> messages
             , string outputFilePath
             , string outputNamespace
@@ -79,7 +80,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         private void WriteEntitiesFile(
             IEnumerable<EntityMetadata> entities
-            , IEnumerable<OptionSetMetadataBase> optionSets
+            , IEnumerable<OptionSetMetadata> optionSets
             , IEnumerable<CodeGenerationSdkMessage> messages
             , string outputFilePath
             , string outputNamespace
@@ -91,7 +92,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             codeNamespace.Types.AddRange(this.BuildEntities(entities, iCodeGenerationServiceProvider));
 
-            codeNamespace.Types.AddRange(this.BuildOptionSets(optionSets, iCodeGenerationServiceProvider));
+            codeNamespace.Types.AddRange(this.BuildGlobalOptionSets(optionSets, iCodeGenerationServiceProvider));
 
             codeNamespace.Types.AddRange(this.BuildMessages(messages, iCodeGenerationServiceProvider));
 
@@ -164,7 +165,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         public CodeGenerationType GetTypeForOptionSet(
             EntityMetadata entityMetadata
-            , OptionSetMetadataBase optionSetMetadata
+            , OptionSetMetadata optionSetMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
@@ -172,7 +173,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         }
 
         public CodeGenerationType GetTypeForOption(
-            OptionSetMetadataBase optionSetMetadata
+            OptionSetMetadata optionSetMetadata
             , OptionMetadata optionMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
@@ -223,21 +224,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return CodeGenerationType.Property;
         }
 
-        private CodeTypeDeclarationCollection BuildOptionSets(
-            IEnumerable<OptionSetMetadataBase> optionSetMetadata
+        private CodeTypeDeclarationCollection BuildGlobalOptionSets(
+            IEnumerable<OptionSetMetadata> optionSetMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
             var declarationCollection = new CodeTypeDeclarationCollection();
 
-            foreach (var optionSetMetadataBase in optionSetMetadata)
+            foreach (var OptionSetMetadata in optionSetMetadata)
             {
-                if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateOptionSet(optionSetMetadataBase, iCodeGenerationServiceProvider)
-                    && optionSetMetadataBase.IsGlobal.HasValue
-                    && optionSetMetadataBase.IsGlobal.Value
+                if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateOptionSet(OptionSetMetadata, iCodeGenerationServiceProvider)
+                    && OptionSetMetadata.IsGlobal.HasValue
+                    && OptionSetMetadata.IsGlobal.Value
                 )
                 {
-                    var codeTypeDeclaration = this.BuildOptionSet(null, optionSetMetadataBase, iCodeGenerationServiceProvider);
+                    var codeTypeDeclaration = this.BuildOptionSet(null, OptionSetMetadata, iCodeGenerationServiceProvider);
                     if (codeTypeDeclaration != null)
                     {
                         declarationCollection.Add(codeTypeDeclaration);
@@ -249,24 +250,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         }
 
         private CodeTypeDeclaration BuildOptionSet(
-            EntityMetadata entity
-            , OptionSetMetadataBase optionSet
+            EntityMetadata entityMetadata
+            , OptionSetMetadata optionSetMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            var codeTypeDeclaration = this.Enum(iCodeGenerationServiceProvider.NamingService.GetNameForOptionSet(entity, optionSet, iCodeGenerationServiceProvider), Attribute(typeof(DataContractAttribute)));
+            var codeTypeDeclaration = this.Enum(iCodeGenerationServiceProvider.NamingService.GetNameForOptionSet(entityMetadata, optionSetMetadata, iCodeGenerationServiceProvider), Attribute(typeof(DataContractAttribute)));
 
-            var optionSetMetadata = optionSet as OptionSetMetadata;
-            if (optionSetMetadata == null)
-            {
-                return null;
-            }
+            codeTypeDeclaration.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForOptionSet(entityMetadata, optionSetMetadata, iCodeGenerationServiceProvider)));
 
             foreach (var option in optionSetMetadata.Options)
             {
                 if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateOption(option, iCodeGenerationServiceProvider))
                 {
-                    codeTypeDeclaration.Members.Add(this.BuildOption(optionSet, option, iCodeGenerationServiceProvider));
+                    codeTypeDeclaration.Members.Add(this.BuildOption(optionSetMetadata, option, iCodeGenerationServiceProvider));
                 }
             }
 
@@ -274,12 +271,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         }
 
         private CodeTypeMember BuildOption(
-            OptionSetMetadataBase optionSet
+            OptionSetMetadata optionSetMetadata
             , OptionMetadata option
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            var codeMemberField = this.Field(iCodeGenerationServiceProvider.NamingService.GetNameForOption(optionSet, option, iCodeGenerationServiceProvider), typeof(int), option.Value.Value, Attribute(typeof(EnumMemberAttribute)));
+            var codeMemberField = this.Field(iCodeGenerationServiceProvider.NamingService.GetNameForOption(optionSetMetadata, option, iCodeGenerationServiceProvider), typeof(int), option.Value.Value, Attribute(typeof(EnumMemberAttribute)));
+
+            codeMemberField.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForOption(optionSetMetadata, option, iCodeGenerationServiceProvider)));
+
             return codeMemberField;
         }
 
@@ -360,7 +360,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                         }
                         memberCollection.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(attributeMember));
 
-                        attributeMember = this.BuildAttributeProperty(entityMetadata, attributeMetadata, primatyIdAttributeRef, iCodeGenerationServiceProvider);
+                        attributeMember = this.BuildAttributePropertyOnBaseType(entityMetadata, attributeMetadata, primatyIdAttributeRef, iCodeGenerationServiceProvider);
 
                         if (attributeMember != null && startPrimaryAttributes == null)
                         {
@@ -380,7 +380,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                         && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateAttribute(attributeMetadata, iCodeGenerationServiceProvider)
                     )
                     {
-                        var attributeMember = this.BuildAttributeProperty(entityMetadata, attributeMetadata, primatyNameAttributeRef, iCodeGenerationServiceProvider);
+                        var attributeMember = this.BuildAttributePropertyOnBaseType(entityMetadata, attributeMetadata, primatyNameAttributeRef, iCodeGenerationServiceProvider);
 
                         if (attributeMember != null && startPrimaryAttributes == null)
                         {
@@ -403,35 +403,113 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
                 foreach (var attributeMetadata in entityMetadata.Attributes.OrderBy(metadata => metadata.LogicalName))
                 {
-                    CodeMemberProperty attributeMember = null;
-
-                    string attributePropertyName = iCodeGenerationServiceProvider.NamingService.GetNameForAttribute(entityMetadata, attributeMetadata, iCodeGenerationServiceProvider);
-
-                    CodeExpression attributeNameRef = this.BuildAttributeNameRef(entityMetadata, attributePropertyName, attributeMetadata.LogicalName, iCodeGenerationServiceProvider);
-
                     if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateAttribute(attributeMetadata, iCodeGenerationServiceProvider)
                         && !string.Equals(entityMetadata.PrimaryIdAttribute, attributeMetadata.LogicalName, StringComparison.InvariantCultureIgnoreCase)
                         && !string.Equals(entityMetadata.PrimaryNameAttribute, attributeMetadata.LogicalName, StringComparison.InvariantCultureIgnoreCase)
                     )
                     {
-                        attributeMember = this.BuildAttributeProperty(entityMetadata, attributeMetadata, attributeNameRef, iCodeGenerationServiceProvider);
-                    }
+                        var attributeOptionSet = TypeMappingService.GetAttributeOptionSet(attributeMetadata);
 
-                    var codeTypeDeclaration = this.BuildAttributeOptionSet(entityMetadata, attributeMetadata, attributeMember, attributeNameRef, iCodeGenerationServiceProvider);
-                    if (codeTypeDeclaration != null)
-                    {
-                        declarationCollection.Add(codeTypeDeclaration);
-                    }
-
-                    if (attributeMember != null)
-                    {
-                        if (startAttributes == null)
+                        if (attributeOptionSet != null
+                            && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateOptionSet(attributeOptionSet, iCodeGenerationServiceProvider)
+                        )
                         {
-                            startAttributes = new CodeRegionDirective(CodeRegionMode.Start, "Attributes");
-                            attributeMember.StartDirectives.Add(startAttributes);
+                            CodeTypeDeclaration codeTypeDeclarationOptionSet = this.BuildOptionSet(entityMetadata, attributeOptionSet, iCodeGenerationServiceProvider);
+                            if (codeTypeDeclarationOptionSet != null)
+                            {
+                                declarationCollection.Add(codeTypeDeclarationOptionSet);
+                            }
                         }
 
-                        memberCollection.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(attributeMember));
+                        string attributePropertyName = iCodeGenerationServiceProvider.NamingService.GetNameForAttribute(entityMetadata, attributeMetadata, iCodeGenerationServiceProvider);
+                        CodeExpression attributeNameRef = this.BuildAttributeNameRef(entityMetadata, attributePropertyName, attributeMetadata.LogicalName, iCodeGenerationServiceProvider);
+
+                        ProxyClassAttributeEnums proxyClassAttributeEnums = GetProxyClassAttributeEnums(attributeMetadata, attributeOptionSet);
+                        ProxyClassAttributeEnumsGlobalOptionSetLocation proxyClassAttributeEnumsGlobalOptionSetLocation = GetProxyClassAttributeEnumsGlobalOptionSetLocation(attributeMetadata, attributeOptionSet);
+
+                        if (attributeOptionSet == null
+                            || (attributeOptionSet != null && proxyClassAttributeEnums != Model.ProxyClassAttributeEnums.InsteadOfOptionSet)
+                        )
+                        {
+                            CodeMemberProperty attributeMember = this.BuildAttributePropertyOnBaseType(
+                                entityMetadata
+                                , attributeMetadata
+                                , attributeNameRef
+                                , iCodeGenerationServiceProvider
+                            );
+
+                            if (attributeMember != null)
+                            {
+                                if (startAttributes == null)
+                                {
+                                    startAttributes = new CodeRegionDirective(CodeRegionMode.Start, "Attributes");
+                                    attributeMember.StartDirectives.Add(startAttributes);
+                                }
+
+                                memberCollection.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(attributeMember));
+                            }
+                        }
+
+                        if (attributeOptionSet != null && proxyClassAttributeEnums != Model.ProxyClassAttributeEnums.NotNeeded)
+                        {
+                            string baseAttributeName = string.Empty;
+
+                            if (proxyClassAttributeEnums == Model.ProxyClassAttributeEnums.AddWithNameAttributeEnum)
+                            {
+                                baseAttributeName = attributePropertyName;
+                                attributePropertyName += "Enum";
+                            }
+
+                            string enumTypeName = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForOptionSet(entityMetadata, attributeOptionSet, iCodeGenerationServiceProvider).BaseType;
+
+                            if (proxyClassAttributeEnumsGlobalOptionSetLocation == Model.ProxyClassAttributeEnumsGlobalOptionSetLocation.InClassSchema)
+                            {
+                                var typeRef = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata, iCodeGenerationServiceProvider);
+
+                                enumTypeName = $"{typeRef.BaseType}.Schema.OptionSets.";
+
+                                if (attributeOptionSet.IsGlobal.GetValueOrDefault())
+                                {
+                                    enumTypeName += attributeOptionSet.Name.ToLower();
+                                }
+                                else
+                                {
+                                    enumTypeName += attributeMetadata.LogicalName;
+                                }
+                            }
+                            else if (proxyClassAttributeEnumsGlobalOptionSetLocation == Model.ProxyClassAttributeEnumsGlobalOptionSetLocation.InGlobalOptionSetNamespace)
+                            {
+                                enumTypeName = attributeOptionSet.Name.ToLower();
+
+                                if (!string.IsNullOrEmpty(_config.NamespaceGlobalOptionSets))
+                                {
+                                    enumTypeName = $"{_config.NamespaceGlobalOptionSets}.{enumTypeName}";
+                                }
+                            }
+
+                            CodeTypeReference forAttributeType = TypeRef(typeof(Nullable<>), TypeRef(enumTypeName));
+
+                            CodeMemberProperty attributeMember = this.BuildAttributePropertyOnEnum(
+                                entityMetadata
+                                , attributeMetadata
+                                , attributePropertyName
+                                , baseAttributeName
+                                , attributeNameRef
+                                , forAttributeType
+                                , iCodeGenerationServiceProvider
+                            );
+
+                            if (attributeMember != null)
+                            {
+                                if (startAttributes == null)
+                                {
+                                    startAttributes = new CodeRegionDirective(CodeRegionMode.Start, "Attributes");
+                                    attributeMember.StartDirectives.Add(startAttributes);
+                                }
+
+                                memberCollection.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(attributeMember));
+                            }
+                        }
                     }
                 }
 
@@ -442,6 +520,58 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             }
 
             return memberCollection;
+        }
+
+        private ProxyClassAttributeEnumsGlobalOptionSetLocation GetProxyClassAttributeEnumsGlobalOptionSetLocation(AttributeMetadata attributeMetadata, OptionSetMetadata attributeOptionSet)
+        {
+            if (attributeOptionSet == null)
+            {
+                return ProxyClassAttributeEnumsGlobalOptionSetLocation.InClassesNamespace;
+            }
+
+            if (attributeMetadata is StateAttributeMetadata
+                || attributeMetadata is StatusAttributeMetadata
+            )
+            {
+                return _config.GenerateAttributesEnumsStateStatusUseSchemaEnum 
+                    ? ProxyClassAttributeEnumsGlobalOptionSetLocation.InClassSchema 
+                    : ProxyClassAttributeEnumsGlobalOptionSetLocation.InClassesNamespace;
+            }
+
+            if (attributeOptionSet.IsGlobal.GetValueOrDefault())
+            {
+                return _config.GenerateAttributesEnumsGlobalUseSchemaEnum;
+            }
+            else
+            {
+                return _config.GenerateAttributesEnumsLocalUseSchemaEnum
+                    ? ProxyClassAttributeEnumsGlobalOptionSetLocation.InClassSchema
+                    : ProxyClassAttributeEnumsGlobalOptionSetLocation.InClassesNamespace;
+            }
+        }
+
+        private ProxyClassAttributeEnums GetProxyClassAttributeEnums(AttributeMetadata attributeMetadata, OptionSetMetadata attributeOptionSet)
+        {
+            if (attributeOptionSet == null)
+            {
+                return ProxyClassAttributeEnums.NotNeeded;
+            }
+
+            if (attributeMetadata is StateAttributeMetadata
+                || attributeMetadata is StatusAttributeMetadata
+            )
+            {
+                return _config.GenerateAttributesEnumsStateStatus;
+            }
+
+            if (attributeOptionSet.IsGlobal.GetValueOrDefault())
+            {
+                return _config.GenerateAttributesEnumsGlobal;
+            }
+            else
+            {
+                return _config.GenerateAttributesEnumsLocal;
+            }
         }
 
         private void InitializeEntityClass(
@@ -569,19 +699,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return codeConstructor;
         }
 
-        private CodeMemberProperty BuildAttributeProperty(
+        private CodeMemberProperty BuildAttributePropertyOnBaseType(
             EntityMetadata entityMetadata
             , AttributeMetadata attributeMetadata
             , CodeExpression attributeNameRef
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            var forAttributeType = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForAttributeType(entityMetadata, attributeMetadata, iCodeGenerationServiceProvider);
+            CodeTypeReference forAttributeType = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForAttributeType(entityMetadata, attributeMetadata, iCodeGenerationServiceProvider);
 
-            var codeMemberProperty = this.PropertyGet(forAttributeType, iCodeGenerationServiceProvider.NamingService.GetNameForAttributeAsEntityProperty(entityMetadata, attributeMetadata, iCodeGenerationServiceProvider));
+            string propertyName = iCodeGenerationServiceProvider.NamingService.GetNameForAttributeAsEntityProperty(entityMetadata, attributeMetadata, iCodeGenerationServiceProvider);
 
-            codeMemberProperty.HasSet = _config.MakeAllPropertiesEditable || attributeMetadata.IsValidForCreate.GetValueOrDefault() || attributeMetadata.IsValidForUpdate.GetValueOrDefault();
-            codeMemberProperty.HasGet = attributeMetadata.IsValidForRead.GetValueOrDefault() || codeMemberProperty.HasSet;
+            var codeMemberProperty = BuildAttributePropertyCommon(entityMetadata, attributeMetadata, propertyName, attributeNameRef, forAttributeType, iCodeGenerationServiceProvider);
 
             if (codeMemberProperty.HasGet)
             {
@@ -592,6 +721,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             {
                 codeMemberProperty.SetStatements.AddRange(this.BuildAttributeSet(entityMetadata, attributeMetadata, codeMemberProperty.Name, attributeNameRef));
             }
+
+            return codeMemberProperty;
+        }
+
+        private CodeMemberProperty BuildAttributePropertyOnEnum(
+            EntityMetadata entityMetadata
+            , AttributeMetadata attributeMetadata
+            , string propertyName
+            , string basePropertyName
+            , CodeExpression attributeNameRef
+            , CodeTypeReference forAttributeType
+            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
+        )
+        {
+            var codeMemberProperty = BuildAttributePropertyCommon(entityMetadata, attributeMetadata, propertyName, attributeNameRef, forAttributeType, iCodeGenerationServiceProvider);
+
+            if (codeMemberProperty.HasGet)
+            {
+                codeMemberProperty.GetStatements.AddRange(this.BuildEnumAttributeGet(attributeNameRef, forAttributeType));
+            }
+
+            if (codeMemberProperty.HasSet)
+            {
+                codeMemberProperty.SetStatements.AddRange(this.BuildEnumAttributeSet(attributeNameRef, propertyName, basePropertyName));
+            }
+
+            return codeMemberProperty;
+        }
+
+        private CodeMemberProperty BuildAttributePropertyCommon(
+            EntityMetadata entityMetadata
+            , AttributeMetadata attributeMetadata
+            , string propertyName
+            , CodeExpression attributeNameRef
+            , CodeTypeReference forAttributeType
+            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
+        )
+        {
+            var codeMemberProperty = this.BuildClassProperty(forAttributeType, propertyName);
+
+            codeMemberProperty.HasSet = _config.MakeAllPropertiesEditable || attributeMetadata.IsValidForCreate.GetValueOrDefault() || attributeMetadata.IsValidForUpdate.GetValueOrDefault();
+            codeMemberProperty.HasGet = attributeMetadata.IsValidForRead.GetValueOrDefault() || codeMemberProperty.HasSet;
 
             codeMemberProperty.CustomAttributes.Add(Attribute(AttributeLogicalNameAttribute, AttributeArg(attributeNameRef)));
 
@@ -788,7 +959,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            var codeMemberProperty = this.PropertyGet(TypeRef(typeof(Guid)), "Id");
+            var codeMemberProperty = this.BuildClassProperty(TypeRef(typeof(Guid)), "Id");
 
             codeMemberProperty.CustomAttributes.Add(Attribute(AttributeLogicalNameAttribute, AttributeArg(attributeNameRef)));
 
@@ -818,55 +989,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return codeMemberProperty;
         }
 
-        private CodeTypeDeclaration BuildAttributeOptionSet(
-            EntityMetadata entity
-            , AttributeMetadata attribute
-            , CodeMemberProperty attributeMember
-            , CodeExpression attributeNameRef
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
-        {
-            var attributeOptionSet = TypeMappingService.GetAttributeOptionSet(attribute);
-
-            if (attributeOptionSet == null
-                || !iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateOptionSet(attributeOptionSet, iCodeGenerationServiceProvider)
-            )
-            {
-                return null;
-            }
-
-            var codeTypeDeclaration = this.BuildOptionSet(entity, attributeOptionSet, iCodeGenerationServiceProvider);
-            if (codeTypeDeclaration == null)
-            {
-                return null;
-            }
-
-            this.UpdateAttributeMemberStatements(attributeNameRef, attributeMember);
-
-            return codeTypeDeclaration;
-        }
-
-        private void UpdateAttributeMemberStatements(
-            CodeExpression attributeNameRef
-            , CodeMemberProperty attributeMember
-        )
-        {
-            if (attributeMember.HasGet)
-            {
-                attributeMember.GetStatements.Clear();
-                attributeMember.GetStatements.AddRange(BuildOptionSetAttributeGet(attributeNameRef, attributeMember.Type));
-            }
-
-            if (!attributeMember.HasSet)
-            {
-                return;
-            }
-
-            attributeMember.SetStatements.Clear();
-            attributeMember.SetStatements.AddRange(this.BuildOptionSetAttributeSet(attributeNameRef, attributeMember.Name));
-        }
-
-        private static CodeStatementCollection BuildOptionSetAttributeGet(
+        private CodeStatementCollection BuildEnumAttributeGet(
             CodeExpression attributeNameRef
             , CodeTypeReference attributeType
         )
@@ -879,22 +1002,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             return new CodeStatementCollection(new CodeStatement[2]
             {
-                Var(typeof (OptionSetValue), "optionSet", ThisMethodInvoke("GetAttributeValue", TypeRef(typeof (OptionSetValue)), attributeNameRef)),
-                If(NotNull(VarRef("optionSet")), Return(Cast(codeTypeReference, ConvertEnum(codeTypeReference, "optionSet"))), Return(Null()))
+                Var(typeof(OptionSetValue), "optionSet", ThisMethodInvoke("GetAttributeValue", TypeRef(typeof(OptionSetValue)), attributeNameRef)),
+                If(And(NotNull(VarRef("optionSet")), EnumIsDefined(codeTypeReference, "optionSet"))
+                    , Return(Cast(codeTypeReference, ConvertEnum(codeTypeReference, "optionSet")))
+                    , Return(Null())
+                ),
             });
         }
 
-        private CodeStatementCollection BuildOptionSetAttributeSet(
+        private CodeStatementCollection BuildEnumAttributeSet(
             CodeExpression attributeNameRef
             , string propertyName
+            , string baseAttributeName
         )
         {
-            return new CodeStatementCollection()
+            var result = new CodeStatementCollection()
             {
                 this.InvokeOnPropertyChanging(propertyName),
-                If(ValueNull(), ThisMethodInvoke("SetAttributeValue", attributeNameRef, Null()), ThisMethodInvoke("SetAttributeValue", attributeNameRef, New(TypeRef(typeof(OptionSetValue)), (CodeExpression)Cast(TypeRef(typeof(int)), VarRef("value"))))),
-                this.InvokeOnPropertyChanged(propertyName),
             };
+
+            if (!string.IsNullOrEmpty(baseAttributeName))
+            {
+                result.Add(this.InvokeOnPropertyChanging(baseAttributeName));
+            }
+
+            result.Add(If(ValueNull(), ThisMethodInvoke("SetAttributeValue", attributeNameRef, Null()), ThisMethodInvoke("SetAttributeValue", attributeNameRef, New(TypeRef(typeof(OptionSetValue)), (CodeExpression)Cast(TypeRef(typeof(int)), VarRef("value"))))));
+
+            if (!string.IsNullOrEmpty(baseAttributeName))
+            {
+                result.Add(this.InvokeOnPropertyChanged(baseAttributeName));
+            }
+
+            result.Add(this.InvokeOnPropertyChanged(propertyName));
+
+            return result;
         }
 
         private CodeTypeMemberCollection BuildOneToManyRelationships(
@@ -968,7 +1109,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            var codeMemberProperty = this.PropertyGet(IEnumerable(iCodeGenerationServiceProvider.TypeMappingService.GetTypeForRelationship(oneToMany, otherEntity, iCodeGenerationServiceProvider)), "CalendarRules");
+            var codeMemberProperty = this.BuildClassProperty(IEnumerable(iCodeGenerationServiceProvider.TypeMappingService.GetTypeForRelationship(oneToMany, otherEntity, iCodeGenerationServiceProvider)), "CalendarRules");
 
             var nullable = oneToMany.ReferencingEntity == entityMetadata.LogicalName ? new EntityRole?(EntityRole.Referenced) : new EntityRole?();
 
@@ -1003,7 +1144,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             var entityRole = oneToMany.ReferencingEntity == entityMetadata.LogicalName ? new EntityRole?(EntityRole.Referenced) : new EntityRole?();
 
-            var codeMemberProperty = this.PropertyGet(IEnumerable(typeForRelationship), iCodeGenerationServiceProvider.NamingService.GetNameForRelationship(entityMetadata, oneToMany, entityRole, iCodeGenerationServiceProvider));
+            var codeMemberProperty = this.BuildClassProperty(IEnumerable(typeForRelationship), iCodeGenerationServiceProvider.NamingService.GetNameForRelationship(entityMetadata, oneToMany, entityRole, iCodeGenerationServiceProvider));
 
             var relationshipNameRef = this.BuildRelationshipNameRef(entityMetadata, "OneToMany", oneToMany.SchemaName, iCodeGenerationServiceProvider);
 
@@ -1116,7 +1257,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         {
             var typeForRelationship = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForRelationship(manyToMany, otherEntityMetadata, iCodeGenerationServiceProvider);
 
-            var codeMemberProperty = this.PropertyGet(IEnumerable(typeForRelationship), propertyName);
+            var codeMemberProperty = this.BuildClassProperty(IEnumerable(typeForRelationship), propertyName);
 
             var relationshipNameRef = this.BuildRelationshipNameRef(entityMetadata, "ManyToMany", manyToMany.SchemaName, iCodeGenerationServiceProvider);
 
@@ -1202,7 +1343,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             var relationshipNameRef = this.BuildRelationshipNameRef(entityMetadata, "ManyToOne", manyToOne.SchemaName, iCodeGenerationServiceProvider);
 
-            var codeMemberProperty = this.PropertyGet(typeForRelationship, iCodeGenerationServiceProvider.NamingService.GetNameForRelationship(entityMetadata, manyToOne, entityRole, iCodeGenerationServiceProvider));
+            var codeMemberProperty = this.BuildClassProperty(typeForRelationship, iCodeGenerationServiceProvider.NamingService.GetNameForRelationship(entityMetadata, manyToOne, entityRole, iCodeGenerationServiceProvider));
+
             codeMemberProperty.GetStatements.Add(BuildRelationshipGet("GetRelatedEntity", relationshipNameRef, typeForRelationship, entityRole));
 
             if (_config.MakeAllPropertiesEditable
@@ -1330,7 +1472,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         {
             var typeForEntity = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entity, iCodeGenerationServiceProvider);
 
-            var codeMemberProperty = this.PropertyGet(IQueryable(typeForEntity), iCodeGenerationServiceProvider.NamingService.GetNameForEntitySet(entity, iCodeGenerationServiceProvider), (CodeStatement)Return(ThisMethodInvoke("CreateQuery", typeForEntity)));
+            var codeMemberProperty = this.BuildClassProperty(IQueryable(typeForEntity), iCodeGenerationServiceProvider.NamingService.GetNameForEntitySet(entity, iCodeGenerationServiceProvider), (CodeStatement)Return(ThisMethodInvoke("CreateQuery", typeForEntity)));
 
             codeMemberProperty.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForEntitySet(entity, iCodeGenerationServiceProvider)));
 
@@ -1477,7 +1619,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         {
             var typeForRequestField = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForRequestField(request, field, iCodeGenerationServiceProvider);
 
-            var codeMemberProperty = this.PropertyGet(typeForRequestField, iCodeGenerationServiceProvider.NamingService.GetNameForRequestField(request, field, iCodeGenerationServiceProvider));
+            var codeMemberProperty = this.BuildClassProperty(typeForRequestField, iCodeGenerationServiceProvider.NamingService.GetNameForRequestField(request, field, iCodeGenerationServiceProvider));
 
             codeMemberProperty.HasSet = true;
             codeMemberProperty.HasGet = true;
@@ -1516,7 +1658,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         {
             var forResponseField = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForResponseField(field, iCodeGenerationServiceProvider);
 
-            var codeMemberProperty = this.PropertyGet(forResponseField, iCodeGenerationServiceProvider.NamingService.GetNameForResponseField(response, field, iCodeGenerationServiceProvider));
+            var codeMemberProperty = this.BuildClassProperty(forResponseField, iCodeGenerationServiceProvider.NamingService.GetNameForResponseField(response, field, iCodeGenerationServiceProvider));
 
             codeMemberProperty.HasSet = _config.MakeAllPropertiesEditable;
             codeMemberProperty.HasGet = true;
@@ -1601,9 +1743,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return codeTypeDeclaration;
         }
 
+        private static CodeTypeReference TypeRef(string typeName)
+        {
+            return new CodeTypeReference(typeName);
+        }
+
         private static CodeTypeReference TypeRef(Type type)
         {
             return new CodeTypeReference(type);
+        }
+
+        private static CodeTypeReference TypeRef(Type type, CodeTypeReference typeParameter)
+        {
+            return new CodeTypeReference(type.FullName, new CodeTypeReference[1]
+            {
+                typeParameter
+            });
         }
 
         private static CodeAttributeDeclaration Attribute(Type type, params CodeAttributeArgument[] args)
@@ -1684,7 +1839,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return new CodeAttributeArgument(value);
         }
 
-        private CodeMemberProperty PropertyGet(
+        private CodeMemberProperty BuildClassProperty(
             CodeTypeReference type
             , string propertyName
             , params CodeStatement[] stmts
@@ -2119,12 +2274,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return new CodeMethodReturnStatement(expression);
         }
 
+        private static CodeMethodInvokeExpression EnumIsDefined(CodeTypeReference type, string variableName)
+        {
+            return new CodeMethodInvokeExpression(new CodeTypeReferenceExpression(TypeRef(typeof(Enum))), "IsDefined", new CodeExpression[2]
+            {
+                new CodeTypeOfExpression(type),
+                new CodePropertyReferenceExpression(VarRef(variableName), "Value")
+            });
+        }
+
         private static CodeMethodInvokeExpression ConvertEnum(CodeTypeReference type, string variableName)
         {
             return new CodeMethodInvokeExpression(new CodeTypeReferenceExpression(TypeRef(typeof(Enum))), "ToObject", new CodeExpression[2]
             {
                 new CodeTypeOfExpression(type),
-                new CodePropertyReferenceExpression( VarRef(variableName), "Value")
+                new CodePropertyReferenceExpression(VarRef(variableName), "Value")
             });
         }
 

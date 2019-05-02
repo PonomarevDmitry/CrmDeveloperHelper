@@ -779,6 +779,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var config = new CreateFileWithEntityMetadataCSharpConfiguration(
                     entityMetadata.EntityLogicalName
                     , tabSpacer
+                    , service.ConnectionData.NamespaceClasses
+                    , service.ConnectionData.NamespaceOptionSets
                     , _commonConfig.GenerateAttributesSchema
                     , _commonConfig.GenerateStatusOptionSetSchema
                     , _commonConfig.GenerateLocalOptionSetSchema
@@ -799,6 +801,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , _commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
                     , _commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
                     , _commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
+
+                    , _commonConfig.GenerateAttributesProxyClassEnumsStateStatus
+                    , _commonConfig.GenerateAttributesProxyClassEnumsLocal
+                    , _commonConfig.GenerateAttributesProxyClassEnumsGlobal
+
+                    , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum
+                    , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaLocalEnum
+                    , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum
                 );
 
                 string fileName = string.Format("{0}.{1}.Generated.cs", service.ConnectionData.Name, entityMetadata.EntityMetadata.SchemaName);
@@ -879,6 +889,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var config = new CreateFileWithEntityMetadataCSharpConfiguration(
                     entityMetadata.EntityLogicalName
                     , tabSpacer
+                    , service.ConnectionData.NamespaceClasses
+                    , service.ConnectionData.NamespaceOptionSets
                     , _commonConfig.GenerateAttributesProxyClass
                     , _commonConfig.GenerateStatusOptionSetProxyClass
                     , _commonConfig.GenerateLocalOptionSetProxyClass
@@ -899,6 +911,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , _commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
                     , _commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
                     , _commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
+
+                    , _commonConfig.GenerateAttributesProxyClassEnumsStateStatus
+                    , _commonConfig.GenerateAttributesProxyClassEnumsLocal
+                    , _commonConfig.GenerateAttributesProxyClassEnumsGlobal
+
+                    , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum
+                    , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaLocalEnum
+                    , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum
                 );
 
                 string fileName = string.Format("{0}.{1}.cs", service.ConnectionData.Name, entityMetadata.EntityMetadata.SchemaName);

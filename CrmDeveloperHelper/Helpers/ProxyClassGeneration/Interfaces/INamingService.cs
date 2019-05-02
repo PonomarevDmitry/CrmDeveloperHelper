@@ -8,12 +8,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
     {
         string GetNameForOptionSet(
             EntityMetadata entityMetadata
-            , OptionSetMetadataBase optionSetMetadata
+            , OptionSetMetadata optionSetMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         );
 
         string GetNameForOption(
-            OptionSetMetadataBase optionSetMetadata
+            OptionSetMetadata optionSetMetadata
             , OptionMetadata optionMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         );
@@ -92,12 +92,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         IEnumerable<string> GetCommentsForOptionSet(
             EntityMetadata entityMetadata
-            , OptionSetMetadataBase optionSetMetadata
+            , OptionSetMetadata optionSetMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         );
 
         IEnumerable<string> GetCommentsForOption(
-            OptionSetMetadataBase optionSetMetadata
+            OptionSetMetadata optionSetMetadata
             , OptionMetadata optionMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         );

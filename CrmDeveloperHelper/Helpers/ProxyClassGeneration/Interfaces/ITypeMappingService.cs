@@ -10,6 +10,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         );
 
+        CodeTypeReference GetTypeForOptionSet(
+            EntityMetadata entityMetadata
+            , OptionSetMetadata optionSetMetadata
+            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
+        );
+
         CodeTypeReference GetTypeForAttributeType(
             EntityMetadata entityMetadata
             , AttributeMetadata attributeMetadata
@@ -24,12 +30,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         CodeTypeReference GetTypeForRequestField(
             CodeGenerationSdkMessageRequest request
-            , Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageRequestField requestField
+            , Entities.SdkMessageRequestField requestField
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         );
 
         CodeTypeReference GetTypeForResponseField(
-            Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageResponseField responseField
+            Entities.SdkMessageResponseField responseField
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         );
     }

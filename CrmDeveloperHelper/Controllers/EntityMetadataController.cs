@@ -413,6 +413,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         var config = new CreateFileWithEntityMetadataCSharpConfiguration(
                             metadata.LogicalName
                             , tabSpacer
+                            , connectionData.NamespaceClasses
+                            , connectionData.NamespaceOptionSets
                             , commonConfig.GenerateAttributesSchema
                             , commonConfig.GenerateStatusOptionSetSchema
                             , commonConfig.GenerateLocalOptionSetSchema
@@ -433,6 +435,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             , commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
                             , commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
                             , commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
+
+                            , commonConfig.GenerateAttributesProxyClassEnumsStateStatus
+                            , commonConfig.GenerateAttributesProxyClassEnumsLocal
+                            , commonConfig.GenerateAttributesProxyClassEnumsGlobal
+
+                            , commonConfig.GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum
+                            , commonConfig.GenerateAttributesProxyClassEnumsUseSchemaLocalEnum
+                            , commonConfig.GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum
                         )
                         {
                             EntityMetadata = metadata
@@ -562,6 +572,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         var config = new CreateFileWithEntityMetadataCSharpConfiguration(
                             metadata.LogicalName
                             , tabSpacer
+                            , connectionData.NamespaceClasses
+                            , connectionData.NamespaceOptionSets
                             , commonConfig.GenerateAttributesProxyClass
                             , commonConfig.GenerateStatusOptionSetProxyClass
                             , commonConfig.GenerateLocalOptionSetProxyClass
@@ -582,6 +594,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             , commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
                             , commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
                             , commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
+
+                            , commonConfig.GenerateAttributesProxyClassEnumsStateStatus
+                            , commonConfig.GenerateAttributesProxyClassEnumsLocal
+                            , commonConfig.GenerateAttributesProxyClassEnumsGlobal
+
+                            , commonConfig.GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum
+                            , commonConfig.GenerateAttributesProxyClassEnumsUseSchemaLocalEnum
+                            , commonConfig.GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum
                         )
                         {
                             EntityMetadata = metadata

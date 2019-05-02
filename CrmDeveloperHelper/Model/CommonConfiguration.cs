@@ -459,6 +459,84 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        private ProxyClassAttributeEnums _GenerateAttributesProxyClassEnumsStateStatus = ProxyClassAttributeEnums.NotNeeded;
+        [DataMember]
+        public ProxyClassAttributeEnums GenerateAttributesProxyClassEnumsStateStatus
+        {
+            get => _GenerateAttributesProxyClassEnumsStateStatus;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateAttributesProxyClassEnumsStateStatus));
+                this._GenerateAttributesProxyClassEnumsStateStatus = value;
+                this.OnPropertyChanged(nameof(GenerateAttributesProxyClassEnumsStateStatus));
+            }
+        }
+
+        private ProxyClassAttributeEnums _GenerateAttributesProxyClassEnumsLocal = ProxyClassAttributeEnums.NotNeeded;
+        [DataMember]
+        public ProxyClassAttributeEnums GenerateAttributesProxyClassEnumsLocal
+        {
+            get => _GenerateAttributesProxyClassEnumsLocal;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateAttributesProxyClassEnumsLocal));
+                this._GenerateAttributesProxyClassEnumsLocal = value;
+                this.OnPropertyChanged(nameof(GenerateAttributesProxyClassEnumsLocal));
+            }
+        }
+
+        private ProxyClassAttributeEnums _GenerateAttributesProxyClassEnumsGlobal = ProxyClassAttributeEnums.NotNeeded;
+        [DataMember]
+        public ProxyClassAttributeEnums GenerateAttributesProxyClassEnumsGlobal
+        {
+            get => _GenerateAttributesProxyClassEnumsGlobal;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateAttributesProxyClassEnumsGlobal));
+                this._GenerateAttributesProxyClassEnumsGlobal = value;
+                this.OnPropertyChanged(nameof(GenerateAttributesProxyClassEnumsGlobal));
+            }
+        }
+
+        private bool _GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum = true;
+        [DataMember]
+        public bool GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum
+        {
+            get => _GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum));
+                this._GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum = value;
+                this.OnPropertyChanged(nameof(GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum));
+            }
+        }
+
+        private bool _GenerateAttributesProxyClassEnumsUseSchemaLocalEnum = true;
+        [DataMember]
+        public bool GenerateAttributesProxyClassEnumsUseSchemaLocalEnum
+        {
+            get => _GenerateAttributesProxyClassEnumsUseSchemaLocalEnum;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateAttributesProxyClassEnumsUseSchemaLocalEnum));
+                this._GenerateAttributesProxyClassEnumsUseSchemaLocalEnum = value;
+                this.OnPropertyChanged(nameof(GenerateAttributesProxyClassEnumsUseSchemaLocalEnum));
+            }
+        }
+
+        private ProxyClassAttributeEnumsGlobalOptionSetLocation _GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum = ProxyClassAttributeEnumsGlobalOptionSetLocation.InGlobalOptionSetNamespace;
+        [DataMember]
+        public ProxyClassAttributeEnumsGlobalOptionSetLocation GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum
+        {
+            get => _GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum));
+                this._GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum = value;
+                this.OnPropertyChanged(nameof(GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum));
+            }
+        }
+
         private bool _GenerateManyToOneProxyClass = false;
         /// <summary>
         /// Генерировать связи Many To One (N:1) в файле с метаданными сущности

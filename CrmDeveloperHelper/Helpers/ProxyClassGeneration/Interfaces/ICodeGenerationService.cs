@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
     {
         Task WriteEntitiesFileAsync(
             IEnumerable<EntityMetadata> entities
-            , IEnumerable<OptionSetMetadataBase> optionSets
+            , IEnumerable<OptionSetMetadata> optionSets
             , IEnumerable<CodeGenerationSdkMessage> messages
             , string outputFilePath
             , string outputNamespace
@@ -35,12 +35,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         CodeGenerationType GetTypeForOptionSet(
             EntityMetadata entityMetadata
-            , OptionSetMetadataBase optionSetMetadata
+            , OptionSetMetadata optionSetMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         );
 
         CodeGenerationType GetTypeForOption(
-            OptionSetMetadataBase optionSetMetadata
+            OptionSetMetadata optionSetMetadata
             , OptionMetadata optionMetadata
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         );
@@ -63,13 +63,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         CodeGenerationType GetTypeForRequestField(
             CodeGenerationSdkMessageRequest request
-            , Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageRequestField requestField
+            , Entities.SdkMessageRequestField requestField
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         );
 
         CodeGenerationType GetTypeForResponseField(
             CodeGenerationSdkMessageResponse response
-            , Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageResponseField responseField
+            , Entities.SdkMessageResponseField responseField
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         );
     }
