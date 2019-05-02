@@ -289,7 +289,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Создание файла с глобальными OptionSet-ами.
 
-        public async Task ExecuteCreatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        public async Task ExecuteCreatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, string selection, EnvDTE.SelectedItem selectedItem)
         {
             string operation = string.Format(Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat1, connectionData?.Name);
 
@@ -318,14 +318,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-                WindowHelper.OpenGlobalOptionSetsWindow(
-                    this._iWriteToOutput
-                    , service
-                    , commonConfig
-                    , null
-                    , null
-                    , selection
-                    );
+                WindowHelper.OpenGlobalOptionSetsWindow(this._iWriteToOutput, service, commonConfig, selection, selectedItem);
             }
             catch (Exception ex)
             {
@@ -896,14 +889,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         return;
                     }
 
-                    WindowHelper.OpenGlobalOptionSetsWindow(
-                        this._iWriteToOutput
-                        , tempService
-                        , commonConfig
-                        , null
-                        , filePath
-                        , selection
-                        );
+                    WindowHelper.OpenGlobalOptionSetsWindow(this._iWriteToOutput, tempService, commonConfig, selection, filePath, false);
                 }
             }
         }

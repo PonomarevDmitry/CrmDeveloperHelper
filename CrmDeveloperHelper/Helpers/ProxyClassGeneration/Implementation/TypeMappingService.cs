@@ -183,7 +183,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         public static OptionSetMetadata GetAttributeOptionSet(AttributeMetadata attribute)
         {
-            if (attribute is EnumAttributeMetadata enumAttributeMetadata)
+            if (attribute is EnumAttributeMetadata enumAttributeMetadata
+                && !(attribute is EntityNameAttributeMetadata)
+            )
             {
                 return enumAttributeMetadata.OptionSet;
             }

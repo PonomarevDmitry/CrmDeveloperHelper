@@ -411,6 +411,7 @@
 
       <Group guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata" priority="0x060B" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata_MenuEntityDyn_GroupConnection" priority="0x060B" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata_MenuGlobalOptionSetDyn_GroupConnection" priority="0x060B" />
 
       <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate" priority="0x060B" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate_MenuConnectionDyn_Group" priority="0x060B" />
@@ -1136,6 +1137,12 @@
         <Strings>
           <ButtonText>C# or JavaScript EntityMetadata File</ButtonText>
           <MenuText>C# or JavaScript EntityMetadata File</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata_MenuGlobalOptionSetDyn" priority="0x0209" type="Menu">
+        <Strings>
+          <ButtonText>C# or JavaScript Global OptionSet File</ButtonText>
+          <MenuText>C# or JavaScript Global OptionSet File</MenuText>
         </Strings>
       </Menu>
 
@@ -4944,6 +4951,15 @@
           <ButtonText>EntityMetadata File Placeholder</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidDynamicCommandSet" id="FolderAddGlobalOptionSetFileInConnectionCommandId" priority="0x0120" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Global OptionSet File Placeholder</ButtonText>
+        </Strings>
+      </Button>
 
       <Button guid="guidCommandSet" id="ProjectUpdatePluginAssemblyCommandId" priority="0x0121" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -7090,8 +7106,11 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata_MenuEntityDyn" priority="0x060B">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata" />
     </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata_MenuGlobalOptionSetDyn" priority="0x061B">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata" />
+    </CommandPlacement>
 
-
+    
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate" priority="0x060A">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
     </CommandPlacement>
@@ -10597,7 +10616,12 @@
       <Parent guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata_MenuEntityDyn_GroupConnection" />
     </CommandPlacement>
 
-
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata_MenuGlobalOptionSetDyn_GroupConnection" priority="0x0121">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata_MenuGlobalOptionSetDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FolderAddGlobalOptionSetFileInConnectionCommandId" priority="0x0121">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata_MenuGlobalOptionSetDyn_GroupConnection" />
+    </CommandPlacement>
 
 
 
@@ -11389,6 +11413,9 @@
       <IDSymbol name="folderMenuFolder_GroupMetadata_MenuEntityDyn" value="0x12F5" />
       <IDSymbol name="folderMenuFolder_GroupMetadata_MenuEntityDyn_GroupConnection" value="0x12F6" />
 
+      <IDSymbol name="folderMenuFolder_GroupMetadata_MenuGlobalOptionSetDyn" value="0x1314" />
+      <IDSymbol name="folderMenuFolder_GroupMetadata_MenuGlobalOptionSetDyn_GroupConnection" value="0x1315" />
+
       <IDSymbol name="folderMenuProject" value="0x10F9" />
 
       <IDSymbol name="folderMenuProject_GroupUpdate" value="0x128D" />
@@ -12021,8 +12048,9 @@
       <IDSymbol name="CommonImportJobExplorerInConnectionCommandId" value="8700" />
 
       <IDSymbol name="FolderAddEntityMetadataFileInConnectionCommandId" value="8900" />
+      <IDSymbol name="FolderAddGlobalOptionSetFileInConnectionCommandId" value="9350" />
 
-      <!-- 9350 -->
+      <!-- 9400 -->
 
     </GuidSymbol>
 
@@ -12572,7 +12600,7 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x1314 -->
+    <!-- 0x1316 -->
 
     <!-- Commands -->
     <!-- 0x21A1 -->

@@ -660,8 +660,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig
                 , optionSets
                 , string.Empty
-                , string.Empty
-                );
+            );
         }
 
         private async void btnSystemForms_Click(object sender, RoutedEventArgs e)

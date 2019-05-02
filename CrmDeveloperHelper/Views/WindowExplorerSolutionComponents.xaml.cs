@@ -1541,10 +1541,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput
                 , _service
                 , _commonConfig
-                , null
-                , string.Empty
-                , string.Empty
-                );
+            );
         }
 
         private void btnSystemForms_Click(object sender, RoutedEventArgs e)

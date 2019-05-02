@@ -1189,9 +1189,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , service
                 , _commonConfig
                 , optionSets
-                , string.Empty
                 , entity?.Name ?? txtBFilter.Text
-                );
+            );
         }
 
         private async void btnSystemForms1_Click(object sender, RoutedEventArgs e)
@@ -1295,9 +1294,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , service
                 , _commonConfig
                 , optionSets
-                , string.Empty
                 , entity?.Name ?? txtBFilter.Text
-                );
+            );
         }
 
         private async void btnSystemForms2_Click(object sender, RoutedEventArgs e)

@@ -285,6 +285,7 @@
     <Compile Include="Commands\FileXmlRemoveXsdSchemaCommand.cs" />
     <Compile Include="Commands\FileXmlSetXsdSchemaCommand.cs" />
     <Compile Include="Commands\FolderAddEntityMetadataFileInConnectionCommand.cs" />
+    <Compile Include="Commands\FolderAddGlobalOptionSetFileInConnectionCommand.cs" />
     <Compile Include="Commands\FolderCSharpProjectPluginAssemblyAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\FolderCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\FolderCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand.cs" />

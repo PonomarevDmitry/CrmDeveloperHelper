@@ -1043,7 +1043,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var contr = new EntityMetadataController(this._iWriteToOutput);
 
-                        contr.ExecuteCreatingFileWithGlobalOptionSets(connection1, _commonConfig, null);
+                        contr.ExecuteCreatingFileWithGlobalOptionSets(connection1, _commonConfig, null, null);
                     }
                     catch (Exception ex)
                     {

@@ -1385,10 +1385,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput
                 , service
                 , _commonConfig
-                , null
-                , string.Empty
-                , string.Empty
-                );
+            );
         }
 
         private async void btnSystemForms1_Click(object sender, RoutedEventArgs e)
@@ -1498,10 +1495,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput
                 , service
                 , _commonConfig
-                , null
-                , string.Empty
-                , string.Empty
-                );
+            );
         }
 
         private async void btnSystemForms2_Click(object sender, RoutedEventArgs e)

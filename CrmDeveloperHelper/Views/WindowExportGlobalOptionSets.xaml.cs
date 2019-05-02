@@ -31,6 +31,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly CommonConfiguration _commonConfig;
 
         private readonly string _filePath;
+        private readonly bool _isJavaScript;
+        private readonly EnvDTE.SelectedItem _selectedItem;
 
         private readonly ObservableCollection<OptionSetMetadataListViewItem> _itemsSource;
 
@@ -46,8 +48,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , IEnumerable<OptionSetMetadata> optionSets
-            , string filePath
             , string selection
+            , string filePath
+            , bool isJavaScript
+            , EnvDTE.SelectedItem selectedItem
         )
         {
             this.IncreaseInit();
@@ -57,6 +61,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput = iWriteToOutput;
             this._commonConfig = commonConfig;
             this._filePath = filePath;
+            this._isJavaScript = isJavaScript;
+            this._selectedItem = selectedItem;
 
             _connectionCache[service.ConnectionData.ConnectionId] = service;
 
@@ -95,6 +101,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 txtBFolder.IsReadOnly = true;
                 txtBFolder.Background = SystemColors.InactiveSelectionHighlightBrush;
                 txtBFolder.Text = Path.GetDirectoryName(_filePath);
+            }
+            else if (this._selectedItem != null)
+            {
+                string exportFolder = string.Empty;
+
+                if (_selectedItem.ProjectItem != null)
+                {
+                    exportFolder = _selectedItem.ProjectItem.FileNames[1];
+                }
+                else if (_selectedItem.Project != null)
+                {
+                    string relativePath = DTEHelper.GetRelativePath(_selectedItem.Project);
+
+                    string solutionPath = Path.GetDirectoryName(_selectedItem.DTE.Solution.FullName);
+
+                    exportFolder = Path.Combine(solutionPath, relativePath);
+                }
+
+                if (!Directory.Exists(exportFolder))
+                {
+                    Directory.CreateDirectory(exportFolder);
+                }
+
+                txtBFolder.IsReadOnly = true;
+                txtBFolder.Background = SystemColors.InactiveSelectionHighlightBrush;
+                txtBFolder.Text = exportFolder;
+            }
+            else
+            {
+                Binding binding = new Binding
+                {
+                    Path = new PropertyPath("FolderForExport")
+                };
+                BindingOperations.SetBinding(txtBFolder, TextBox.TextProperty, binding);
+
+                txtBFolder.DataContext = _commonConfig;
             }
 
             if (optionSets != null)
@@ -468,40 +510,66 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 bool allDescriptions = _commonConfig.AllDescriptions;
                 bool withManagedInfo = _commonConfig.SolutionComponentWithManagedInfo;
 
-                string filePath = null;
+                string fileName = null;
 
-                if (!string.IsNullOrEmpty(_filePath))
+                if (optionSets.Count() == 1)
                 {
-                    filePath = _filePath;
+                    fileName = string.Format("{0}.{1}.Generated.cs", service.ConnectionData.Name, optionSets.First().Name);
                 }
                 else
                 {
+                    fileName = string.Format("{0}.GlobalOptionSets.cs", service.ConnectionData.Name);
+                }
+
+                if (this._selectedItem != null)
+                {
                     if (optionSets.Count() == 1)
                     {
-                        string fileName = string.Format("{0}.{1}.Generated.cs", service.ConnectionData.Name, optionSets.First().Name);
-                        filePath = Path.Combine(folder, fileName);
+                        fileName = string.Format("{0}.Generated.cs", optionSets.First().Name);
                     }
                     else
                     {
-                        string fileName = string.Format("{0}.GlobalOptionSets.cs", service.ConnectionData.Name);
-                        filePath = Path.Combine(folder, fileName);
+                        fileName = "GlobalOptionSets.cs";
                     }
+                }
+
+                string filePath = Path.Combine(folder, fileName);
+
+                if (!_isJavaScript && !string.IsNullOrEmpty(_filePath))
+                {
+                    filePath = _filePath;
                 }
 
                 service.ConnectionData.NamespaceOptionSets = nameSpace;
 
                 using (var handler = new CreateGlobalOptionSetsFileCSharpHandler(
-                                    service
-                                    , _iWriteToOutput
-                                    , tabSpacer
-                                    , constantType
-                                    , optionSetExportType
-                                    , withDependentComponents
-                                    , withManagedInfo
-                                    , allDescriptions
-                                    ))
+                    service
+                    , _iWriteToOutput
+                    , tabSpacer
+                    , constantType
+                    , optionSetExportType
+                    , withDependentComponents
+                    , withManagedInfo
+                    , allDescriptions
+                ))
                 {
                     await handler.CreateFileAsync(filePath, optionSets);
+                }
+
+                if (this._selectedItem != null)
+                {
+                    if (_selectedItem.ProjectItem != null)
+                    {
+                        _selectedItem.ProjectItem.ProjectItems.AddFromFileCopy(filePath);
+
+                        _selectedItem.ProjectItem.ContainingProject.Save();
+                    }
+                    else if (_selectedItem.Project != null)
+                    {
+                        _selectedItem.Project.ProjectItems.AddFromFile(filePath);
+
+                        _selectedItem.Project.Save();
+                    }
                 }
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, optionSetsName, filePath);
@@ -566,17 +634,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 bool withDependentComponents = _commonConfig.GlobalOptionSetsWithDependentComponents;
 
-                string filePath = null;
+                string fileName = null;
 
                 if (optionSets.Count() == 1)
                 {
-                    string fileName = string.Format("{0}.{1}.generated.js", service.ConnectionData.Name, optionSets.First().Name);
-                    filePath = Path.Combine(folder, fileName);
+                    fileName = string.Format("{0}.{1}.generated.js", service.ConnectionData.Name, optionSets.First().Name);
                 }
                 else
                 {
-                    string fileName = string.Format("{0}.globaloptionsets.js", service.ConnectionData.Name);
-                    filePath = Path.Combine(folder, fileName);
+                    fileName = string.Format("{0}.globaloptionsets.js", service.ConnectionData.Name);
+                }
+
+                if (this._selectedItem != null)
+                {
+                    if (optionSets.Count() == 1)
+                    {
+                        fileName = string.Format("{0}.generated.js", optionSets.First().Name);
+                    }
+                    else
+                    {
+                        fileName = "globaloptionsets.js";
+                    }
+                }
+
+                string filePath = Path.Combine(folder, fileName);
+
+                if (_isJavaScript && !string.IsNullOrEmpty(_filePath))
+                {
+                    filePath = _filePath;
                 }
 
                 service.ConnectionData.NamespaceOptionSets = nameSpace;
@@ -586,9 +671,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , _iWriteToOutput
                     , tabSpacer
                     , withDependentComponents
-                    ))
+                ))
                 {
                     await handler.CreateFileAsync(filePath, optionSets);
+                }
+
+                if (this._selectedItem != null)
+                {
+                    if (_selectedItem.ProjectItem != null)
+                    {
+                        _selectedItem.ProjectItem.ProjectItems.AddFromFileCopy(filePath);
+
+                        _selectedItem.ProjectItem.ContainingProject.Save();
+                    }
+                    else if (_selectedItem.Project != null)
+                    {
+                        _selectedItem.Project.ProjectItems.AddFromFile(filePath);
+
+                        _selectedItem.Project.Save();
+                    }
                 }
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, optionSetsName, filePath);
@@ -615,7 +716,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null)
                 {
-                    CreateCSharpFile(new[] { item.OptionSetMetadata });
+                    if (_isJavaScript && !string.IsNullOrEmpty(_filePath))
+                    {
+                        CreateJavaScriptFile(new[] { item.OptionSetMetadata });
+                    }
+                    else
+                    {
+                        CreateCSharpFile(new[] { item.OptionSetMetadata });
+                    }
                 }
             }
         }

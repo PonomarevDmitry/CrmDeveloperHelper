@@ -1051,13 +1051,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartCreatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        public void StartCreatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, string selection, EnvDTE.SelectedItem selectedItem)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._entityMetadataController.ExecuteCreatingFileWithGlobalOptionSets(connectionData, commonConfig, selection);
+                    this._entityMetadataController.ExecuteCreatingFileWithGlobalOptionSets(connectionData, commonConfig, selection, selectedItem);
                 }
                 catch (Exception ex)
                 {

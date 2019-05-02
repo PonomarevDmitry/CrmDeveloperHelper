@@ -981,12 +981,66 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , IEnumerable<OptionSetMetadata> optionSets
-            , string filePath = null
-            , string selection = null
-            )
+        )
         {
+            OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, null, null, null, false, null);
+        }
 
+        public static void OpenGlobalOptionSetsWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filter
+        )
+        {
+            OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, null, filter, null, false, null);
+        }
+
+        public static void OpenGlobalOptionSetsWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filter
+            , EnvDTE.SelectedItem selectedItem
+        )
+        {
+            OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, null, filter, null, false, selectedItem);
+        }
+
+        public static void OpenGlobalOptionSetsWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filter
+            , string filePath
+            , bool isJavaScript
+        )
+        {
+            OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, null, filter, filePath, isJavaScript, null);
+        }
+
+        public static void OpenGlobalOptionSetsWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , IEnumerable<OptionSetMetadata> optionSets
+            , string filter
+        )
+        {
+            OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, optionSets, filter, null, false, null);
+        }
+
+        public static void OpenGlobalOptionSetsWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , IEnumerable<OptionSetMetadata> optionSets
+            , string filter
+            , string filePath
+            , bool isJavaScript
+            , EnvDTE.SelectedItem selectedItem
+        )
+        {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
                 try
@@ -996,8 +1050,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , service
                         , commonConfig
                         , optionSets
+                        , filter
                         , filePath
-                        , selection
+                        , isJavaScript
+                        , selectedItem
                       );
 
                     form.ShowDialog();

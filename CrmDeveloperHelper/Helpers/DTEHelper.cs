@@ -3058,15 +3058,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleExportGlobalOptionSets()
         {
+            HandleExportGlobalOptionSets(null, null);
+        }
+
+        public void HandleExportGlobalOptionSets(ConnectionData connectionData, SelectedItem selectedItem)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
+
             string selection = GetSelectedText();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
@@ -3075,7 +3084,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartCreatingFileWithGlobalOptionSets(connectionData, commonConfig, selection);
+                    Controller.StartCreatingFileWithGlobalOptionSets(connectionData, commonConfig, selection, selectedItem);
                 }
                 catch (Exception ex)
                 {

@@ -6,59 +6,90 @@
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
         Title="Create Global OptionSets File" Height="525.667" Width="591.667" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
-        <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-            <MenuItem Header="Open OptionSet Customization in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
-            <Separator/>
-            <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
-            <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
-            <Separator/>
-            <MenuItem Header="Create C# File for OptionSet" Click="btnCreateCSharpFileForSingleOptionSet_Click" />
-            <MenuItem Header="Create JavaScript File for OptionSet" Click="btnCreateJavaScriptFileForSingleOptionSet_Click" />
-            <Separator/>
-            <MenuItem Header="Publish OptionSet" Click="btnPublishOptionSet_Click"/>
-            <Separator/>
-            <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
-            <Separator/>
-            <MenuItem Header="Dependent Components">
-                <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleWindows.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+                <MenuItem Header="Open OptionSet Customization in Web" Click="mIOpenInWeb_Click" />
                 <Separator/>
-                <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
-            </MenuItem>
-            <Separator/>
-            <MenuItem Header="Compare Information with other Organization">
-                <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution"  />
+                <MenuItem Header="Add into Crm Solution" Click="AddIntoCrmSolution_Click" />
                 <Separator/>
-                <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
+                <MenuItem Header="Create C# File for OptionSet" Click="btnCreateCSharpFileForSingleOptionSet_Click" />
+                <MenuItem Header="Create JavaScript File for OptionSet" Click="btnCreateJavaScriptFileForSingleOptionSet_Click" />
                 <Separator/>
-                <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
+                <MenuItem Header="Publish OptionSet" Click="btnPublishOptionSet_Click"/>
                 <Separator/>
-                <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
-                <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
-                <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
+                <MenuItem Header="Open Solutions Containing Component in Window" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
                 <Separator/>
-                <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
+                <MenuItem Header="Dependent Components">
+                    <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
+                    <Separator/>
+                    <MenuItem Header="Open Dependent Components in Window" Click="mIOpenDependentComponentsInWindow_Click" />
+                </MenuItem>
                 <Separator/>
-                <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
-            </MenuItem>
-        </ContextMenu>
-        <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
+                <MenuItem Header="Compare Information with other Organization">
+                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
+                    <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
+                    <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
+                    <Separator/>
+                    <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
+                </MenuItem>
+            </ContextMenu>
+            <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
+
+        </ResourceDictionary>
     </src:WindowBase.Resources>
     <Grid>
 
-        <ToolBar x:Name="toolBarHeader" Margin="0" VerticalAlignment="Top" Height="33">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            
+            <RowDefinition Height="100*" />
+            
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ToolBar x:Name="toolBarHeader" Grid.Row="0">
             <Button Content="Options" Click="miOptions_Click"/>
         </ToolBar>
 
-        <Label Content="Folder" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="26" Margin="87,38,10,0"   VerticalAlignment="Top" TabIndex="2147483647" VerticalContentAlignment="Center"/>
+        <Grid Grid.Row="1" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100*" />
+            </Grid.ColumnDefinitions>
 
-        <Label Content="Namespace" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBNamespace" Text="{Binding Path=SelectedItem.NamespaceOptionSets}" Height="26" Margin="87,69,10,0" VerticalAlignment="Top" TabIndex="2147483647" VerticalContentAlignment="Center"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="54"/>
-        <TextBox x:Name="txtBFilter" Height="26" Margin="87,100,10,0" TextWrapping="NoWrap" VerticalAlignment="Top" KeyDown="txtBFilter_KeyDown" VerticalContentAlignment="Center" />
+            <Label Content="Folder" Grid.Row="0" Grid.Column="0" />
+            <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" />
 
-        <DataGrid x:Name="lstVwOptionSets" AutoGenerateColumns="False" Margin="10,131,10,99" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwOptionSets_MouseDoubleClick" SelectionChanged="lstVwOptionSets_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+            <Label Content="Namespace" Grid.Row="1" Grid.Column="0"/>
+            <TextBox x:Name="txtBNamespace" Grid.Row="1" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceOptionSets}" />
+
+            <Label Content="Filter" Grid.Row="2" Grid.Column="0" />
+            <TextBox x:Name="txtBFilter" Grid.Row="2" Grid.Column="1" KeyDown="txtBFilter_KeyDown" />
+        </Grid>
+
+        <DataGrid x:Name="lstVwOptionSets" AutoGenerateColumns="False" Grid.Row="2" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwOptionSets_MouseDoubleClick" SelectionChanged="lstVwOptionSets_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -77,9 +108,23 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,69" Padding="10,0" VerticalAlignment="Bottom" Height="25" VerticalContentAlignment="Center"/>
-        <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="69,0,0,69" Padding="10,0" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Width="254" VerticalContentAlignment="Center" VerticalAlignment="Bottom" Height="25" />
-        <ToolBar Margin="0,0,0,31" VerticalAlignment="Bottom" Height="33">
+
+        <Grid Grid.Row="3" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="30*" />
+                <ColumnDefinition Width="50*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Content="Action" Grid.Row="0" Grid.Column="0" />
+            <ComboBox x:Name="cmBFileAction" Grid.Row="0" Grid.Column="1" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" SelectedIndex="0" />
+        </Grid>
+
+        <ToolBar Grid.Row="4">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
@@ -93,7 +138,7 @@
                     </Style>
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
-                    <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                    <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBSingleOptionSet" Header="Single Global OptionSet">
                             <MenuItem x:Name="btnCreateCSharpFileForSingleOptionSet" Header="Create C# File for OptionSet" Click="btnCreateCSharpFileForSingleOptionSet_Click" />
                             <Separator/>
@@ -101,25 +146,29 @@
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>
-                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
-                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" HorizontalAlignment="Right" DockPanel.Dock="Right" />
-                <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                
+                <Button Content="Close" Click="Button_Click" DockPanel.Dock="Right"/>
+                
+                <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" DockPanel.Dock="Right" />
+                <Menu Background="{x:Null}" DockPanel.Dock="Right">
                     <MenuItem x:Name="tSDDBGlobalOptionSets" Header="All Global OptionSets">
                         <MenuItem x:Name="tSBCreateCSharpFile" Header="Create C# File" Click="btnCreateCSharpFile_Click" />
                         <Separator/>
                         <MenuItem x:Name="tSBCreateJavaScriptFile" Header="Create JavaScript File" Click="btnCreateJavaScriptFile_Click" />
                     </MenuItem>
                 </Menu>
-                <Separator x:Name="sepClearEntityFilter" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="10,0,10,0" />
-                <Button x:Name="btnClearEntityFilter" Content="Clear Entity Filter" Click="btnClearEntityFilter_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                
+                <Separator x:Name="sepClearEntityFilter" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" DockPanel.Dock="Right" Margin="10,0" />
+                <Button x:Name="btnClearEntityFilter" Content="Clear Entity Filter" Click="btnClearEntityFilter_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
-        <StatusBar VerticalAlignment="Bottom">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="25" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+
+        <StatusBar Grid.Row="5">
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
+            <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>
             <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
-            <StatusBarItem x:Name="stBIStatus" Content="" VerticalAlignment="Top"/>
+            <StatusBarItem x:Name="stBIStatus" Content="" />
         </StatusBar>
     </Grid>
 </src:WindowBase>

@@ -141,13 +141,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
+                Binding binding = new Binding
                 {
-                    Binding binding = new Binding
-                    {
-                        Path = new PropertyPath("FolderForExport")
-                    };
-                    BindingOperations.SetBinding(txtBFolder, TextBox.TextProperty, binding);
-                }
+                    Path = new PropertyPath("FolderForExport")
+                };
+                BindingOperations.SetBinding(txtBFolder, TextBox.TextProperty, binding);
 
                 txtBFolder.DataContext = _commonConfig;
             }
@@ -514,8 +512,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig
                 , optionSets
                 , string.Empty
-                , string.Empty
-                );
+            );
         }
 
         private async void miSystemForms_Click(object sender, RoutedEventArgs e)

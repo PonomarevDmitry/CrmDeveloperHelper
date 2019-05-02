@@ -281,7 +281,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FolderAddPluginConfigurationFileCommand.Initialize(this);
             FolderAddSolutionFileCommand.Initialize(this);
             FolderAddEntityMetadataFileInConnectionCommand.Initialize(this);
-
+            FolderAddGlobalOptionSetFileInConnectionCommand.Initialize(this);
 
 
 
