@@ -25,7 +25,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         {
             CommonHandlers.ActionBeforeQueryStatusActiveDocumentReport(command, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CodeReportDownloadCommand);
+            if (menuCommand.Enabled)
+            {
+                CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CodeReportDownloadCommand);
+            }
         }
     }
 }

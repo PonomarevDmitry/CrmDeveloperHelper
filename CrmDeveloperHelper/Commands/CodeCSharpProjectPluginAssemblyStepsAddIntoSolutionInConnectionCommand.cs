@@ -70,7 +70,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp(this, menuCommand);
 
-                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentContainingProject(this, menuCommand, FileOperations.SupportsCSharpType);
+                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentContainingProject(this, menuCommand);
                     }
                 }
             }

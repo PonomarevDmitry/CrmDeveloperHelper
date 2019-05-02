@@ -90,14 +90,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 if (sender is OleMenuCommand menuCommand)
                 {
                     menuCommand.Enabled = menuCommand.Visible = true;
-
-                    string custom = this._isCustom ? " " + Properties.CommandNames.CodeReportShowDifferenceCommandCustom : string.Empty;
-
-                    string name = string.Format(Properties.CommandNames.CodeReportShowDifferenceCommandFormat2, _fieldTitle, custom);
                     
                     CommonHandlers.ActionBeforeQueryStatusActiveDocumentReport(this, menuCommand);
 
-                    CommonHandlers.CorrectCommandNameForConnectionName(this, menuCommand, name);
+                    if (menuCommand.Enabled)
+                    {
+                        string custom = this._isCustom ? " " + Properties.CommandNames.CodeReportShowDifferenceCommandCustom : string.Empty;
+
+                        string name = string.Format(Properties.CommandNames.CodeReportShowDifferenceCommandFormat2, _fieldTitle, custom);
+
+                        CommonHandlers.CorrectCommandNameForConnectionName(this, menuCommand, name);
+                    }
                 }
             }
             catch (Exception ex)

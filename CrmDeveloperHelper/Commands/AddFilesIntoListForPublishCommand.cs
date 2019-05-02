@@ -6,12 +6,13 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
     class AddFilesIntoListForPublishCommand : IServiceProviderOwner
     {
-        private readonly Func<DTEHelper, List<SelectedFile>> _listGetter;
+        private readonly Func<DTEHelper, IEnumerable<SelectedFile>> _listGetter;
         private readonly Package _package;
         private readonly Guid _guidCommandset;
         private readonly int _idCommand;
@@ -24,7 +25,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             Package package
             , Guid guidCommandset
             , int idCommand
-            , Func<DTEHelper, List<SelectedFile>> listGetter
+            , Func<DTEHelper, IEnumerable<SelectedFile>> listGetter
             , OpenFilesType openFilesType
             , Action<IServiceProviderOwner, OleMenuCommand> actionBeforeQueryStatus
         )
@@ -100,9 +101,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             , { PackageIds.FolderAddIntoPublishListFilesWithMirrorComplexCommandId, OpenFilesType.WithMirrorComplex }
         };
 
-        private static ConcurrentDictionary<Tuple<Func<DTEHelper, List<SelectedFile>>, OpenFilesType>, AddFilesIntoListForPublishCommand> _instances = new ConcurrentDictionary<Tuple<Func<DTEHelper, List<SelectedFile>>, OpenFilesType>, AddFilesIntoListForPublishCommand>();
+        private static ConcurrentDictionary<Tuple<Func<DTEHelper, IEnumerable<SelectedFile>>, OpenFilesType>, AddFilesIntoListForPublishCommand> _instances = new ConcurrentDictionary<Tuple<Func<DTEHelper, IEnumerable<SelectedFile>>, OpenFilesType>, AddFilesIntoListForPublishCommand>();
 
-        public static AddFilesIntoListForPublishCommand Instance(Func<DTEHelper, List<SelectedFile>> listGetter, OpenFilesType openFilesType)
+        public static AddFilesIntoListForPublishCommand Instance(Func<DTEHelper, IEnumerable<SelectedFile>> listGetter, OpenFilesType openFilesType)
         {
             var key = Tuple.Create(listGetter, openFilesType);
 
@@ -120,21 +121,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             {
                 var command = new AddFilesIntoListForPublishCommand(package, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetOpenedDocuments, item.Item2, ActionBeforeQueryStatusActionBeforeQueryStatusOpenedDocumentsWebResourceConnectionIsNotReadOnly);
 
-                _instances.TryAdd(Tuple.Create((Func<DTEHelper, List<SelectedFile>>)CommonHandlers.GetOpenedDocuments, item.Item2), command);
+                _instances.TryAdd(Tuple.Create((Func<DTEHelper, IEnumerable<SelectedFile>>)CommonHandlers.GetOpenedDocuments, item.Item2), command);
             }
 
             foreach (var item in _commandsFile)
             {
                 var command = new AddFilesIntoListForPublishCommand(package, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetSelectedFiles, item.Item2, ActionBeforeQueryStatusSolutionExplorerWebResourceAnyConnectionIsNotReadOnly);
 
-                _instances.TryAdd(Tuple.Create((Func<DTEHelper, List<SelectedFile>>)CommonHandlers.GetSelectedFiles, item.Item2), command);
+                _instances.TryAdd(Tuple.Create((Func<DTEHelper, IEnumerable<SelectedFile>>)CommonHandlers.GetSelectedFiles, item.Item2), command);
             }
 
             foreach (var item in _commandsFolder)
             {
                 var command = new AddFilesIntoListForPublishCommand(package, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetSelectedFilesRecursive, item.Item2, ActionBeforeQueryStatusSolutionExplorerWebResourceRecursiveConnectionIsNotReadOnly);
 
-                _instances.TryAdd(Tuple.Create((Func<DTEHelper, List<SelectedFile>>)CommonHandlers.GetSelectedFilesRecursive, item.Item2), command);
+                _instances.TryAdd(Tuple.Create((Func<DTEHelper, IEnumerable<SelectedFile>>)CommonHandlers.GetSelectedFilesRecursive, item.Item2), command);
             }
         }
 
@@ -195,7 +196,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                 var helper = DTEHelper.Create(applicationObject);
 
-                List<SelectedFile> selectedFiles = _listGetter(helper);
+                List<SelectedFile> selectedFiles = _listGetter(helper).ToList();
 
                 if (selectedFiles.Count > 0)
                 {

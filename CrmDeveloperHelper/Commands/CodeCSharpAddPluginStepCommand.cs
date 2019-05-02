@@ -25,7 +25,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         {
             CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp(command, menuCommand);
 
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentContainingProject(command, menuCommand, FileOperations.SupportsCSharpType);
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentContainingProject(command, menuCommand);
 
             CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CodeCSharpAddPluginStepCommand);
         }

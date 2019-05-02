@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.Caching;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
@@ -34,29 +35,53 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         {
             get
             {
-                if (this._currentSolutionConfiguration != null && this._currentSolutionConfiguration.SelectedConnectionId.HasValue)
+                ObjectCache cache = MemoryCache.Default;
+                const string cacheName = nameof(CurrentConnectionData);
+
+                ConnectionData result = null;
+
+                if (cache.Contains(cacheName))
                 {
-                    foreach (var item in this.Connections)
-                    {
-                        item.IsCurrentConnection = false;
-                    }
+                    result = cache.Get(cacheName) as ConnectionData;
+                }
+                else
+                {
+                    result = GetCurrentConnectionDataInternal();
 
-                    var connection = this.Connections.FirstOrDefault(c => c.ConnectionId == this._currentSolutionConfiguration.SelectedConnectionId.Value);
-
-                    if (connection == null)
+                    cache.Set(cacheName, result, new CacheItemPolicy()
                     {
-                        this._currentSolutionConfiguration.SelectedConnectionId = null;
-                    }
-                    else
-                    {
-                        connection.IsCurrentConnection = true;
-                    }
-
-                    return connection;
+                        AbsoluteExpiration = DateTimeOffset.Now.Add(_cacheItemSpan),
+                    });
                 }
 
-                return null;
+                return result;
             }
+        }
+
+        private ConnectionData GetCurrentConnectionDataInternal()
+        {
+            if (this._currentSolutionConfiguration != null && this._currentSolutionConfiguration.SelectedConnectionId.HasValue)
+            {
+                foreach (var item in this.Connections)
+                {
+                    item.IsCurrentConnection = false;
+                }
+
+                var connection = this.Connections.FirstOrDefault(c => c.ConnectionId == this._currentSolutionConfiguration.SelectedConnectionId.Value);
+
+                if (connection == null)
+                {
+                    this._currentSolutionConfiguration.SelectedConnectionId = null;
+                }
+                else
+                {
+                    connection.IsCurrentConnection = true;
+                }
+
+                return connection;
+            }
+
+            return null;
         }
 
         [DataMember]
@@ -527,14 +552,66 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        private static readonly TimeSpan _cacheItemSpan = TimeSpan.FromSeconds(5);
+
         public List<ConnectionData> GetConnectionsWithoutCurrent()
+        {
+            ObjectCache cache = MemoryCache.Default;
+            const string cacheName = nameof(GetConnectionsWithoutCurrent);
+
+            List<ConnectionData> result = null;
+
+            if (cache.Contains(cacheName))
+            {
+                result = (List<ConnectionData>)cache.Get(cacheName);
+            }
+            else
+            {
+                result = GetConnectionsWithoutCurrentInternal();
+
+                cache.Set(cacheName, result, new CacheItemPolicy()
+                {
+                    AbsoluteExpiration = DateTimeOffset.Now.Add(_cacheItemSpan),
+                });
+            }
+
+            return result;
+        }
+
+        private List<ConnectionData> GetConnectionsWithoutCurrentInternal()
         {
             return this.Connections.Where(c => this.CurrentConnectionData?.ConnectionId != c.ConnectionId).ToList();
         }
 
         public List<ConnectionData> GetConnectionsByGroupWithoutCurrent()
         {
-            if (this.CurrentConnectionData == null || string.IsNullOrEmpty(this.CurrentConnectionData.GroupName))
+            ObjectCache cache = MemoryCache.Default;
+            const string cacheName = nameof(GetConnectionsByGroupWithoutCurrent);
+
+            List<ConnectionData> result = null;
+
+            if (cache.Contains(cacheName))
+            {
+                result = (List<ConnectionData>)cache.Get(cacheName);
+            }
+            else
+            {
+                result = GetConnectionsByGroupWithoutCurrentInternal();
+
+                cache.Set(cacheName, result, new CacheItemPolicy()
+                {
+                    AbsoluteExpiration = DateTimeOffset.Now.Add(_cacheItemSpan),
+                });
+            }
+
+            return result;
+        }
+
+        private List<ConnectionData> GetConnectionsByGroupWithoutCurrentInternal()
+        {
+            if (this.CurrentConnectionData == null
+                || string.IsNullOrEmpty(this.CurrentConnectionData.GroupName)
+            )
             {
                 return new List<ConnectionData>();
             }
@@ -546,6 +623,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         }
 
         public List<ConnectionData> GetConnectionsByGroupWithCurrent()
+        {
+            ObjectCache cache = MemoryCache.Default;
+            const string cacheName = nameof(GetConnectionsByGroupWithCurrent);
+
+            List<ConnectionData> result = null;
+
+            if (cache.Contains(cacheName))
+            {
+                result = (List<ConnectionData>)cache.Get(cacheName);
+            }
+            else
+            {
+                result = GetConnectionsByGroupWithCurrentInternal();
+
+                cache.Set(cacheName, result, new CacheItemPolicy()
+                {
+                    AbsoluteExpiration = DateTimeOffset.Now.Add(_cacheItemSpan),
+                });
+            }
+
+            return result;
+        }
+
+        private List<ConnectionData> GetConnectionsByGroupWithCurrentInternal()
         {
             if (this.CurrentConnectionData == null)
             {
@@ -559,10 +660,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             return this.Connections.Where(c =>
                 string.Equals(this.CurrentConnectionData.GroupName, c.GroupName, StringComparison.InvariantCultureIgnoreCase)
-                ).ToList();
+            ).ToList();
         }
 
         public TupleList<ConnectionData, ConnectionData> GetConnectionPairsByGroup()
+        {
+            ObjectCache cache = MemoryCache.Default;
+            const string cacheName = nameof(GetConnectionPairsByGroup);
+
+            TupleList<ConnectionData, ConnectionData> result = null;
+
+            if (cache.Contains(cacheName))
+            {
+                result = (TupleList<ConnectionData, ConnectionData>)cache.Get(cacheName);
+            }
+            else
+            {
+                result = GetConnectionPairsByGroupInternal();
+
+                cache.Set(cacheName, result, new CacheItemPolicy()
+                {
+                    AbsoluteExpiration = DateTimeOffset.Now.Add(_cacheItemSpan),
+                });
+            }
+
+            return result;
+        }
+
+        private TupleList<ConnectionData, ConnectionData> GetConnectionPairsByGroupInternal()
         {
             var connectionsList = GetConnectionsByGroupWithCurrent();
 

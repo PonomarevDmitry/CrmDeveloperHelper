@@ -770,7 +770,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsCSharpType, false);
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsCSharpType, false).Take(2).ToList();
 
             var connectionData = crmConfig.CurrentConnectionData;
 
@@ -815,7 +815,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 connectionData = crmConfig.CurrentConnectionData;
             }
 
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsReportType, false);
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsReportType, false).Take(2).ToList();
 
             if (connectionData != null && commonConfig != null && selectedFiles.Count == 1)
             {
@@ -839,7 +839,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsReportType, false);
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsReportType, false).Take(2).ToList();
 
             if (connectionData1 != null && connectionData2 != null && connectionData1 != connectionData2 && commonConfig != null && selectedFiles.Count == 1)
             {
@@ -866,7 +866,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsReportType, false);
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsReportType, false).Take(2).ToList();
 
             var connectionData = crmConfig.CurrentConnectionData;
 
@@ -895,7 +895,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsReportType, false);
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsReportType, false).Take(2).ToList();
 
             var connectionData = crmConfig.CurrentConnectionData;
 
@@ -931,7 +931,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 connectionData = crmConfig.CurrentConnectionData;
             }
 
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsReportType, false);
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsReportType, false).Take(2).ToList();
 
             if (connectionData != null && commonConfig != null && selectedFiles.Count == 1)
             {
@@ -1071,7 +1071,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 connectionData = crmConfig.CurrentConnectionData;
             }
 
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceTextType, false);
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceTextType, false).Take(2).ToList();
 
             if (connectionData != null && commonConfig != null && selectedFiles.Count == 1)
             {
@@ -1443,7 +1443,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceTextType, false);
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceTextType, false).Take(2).ToList();
 
             if (connectionData1 != null && connectionData2 != null && connectionData1 != connectionData2 && commonConfig != null && selectedFiles.Count == 1)
             {
@@ -1490,7 +1490,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceType, false);
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceType, false).Take(2).ToList();
 
             var connectionData = crmConfig.CurrentConnectionData;
 
@@ -1526,7 +1526,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 connectionData = crmConfig.CurrentConnectionData;
             }
 
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceType, false);
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsWebResourceType, false).Take(2).ToList();
 
             if (connectionData != null && commonConfig != null && selectedFiles.Count == 1)
             {
@@ -1741,7 +1741,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             CheckWishToChangeCurrentConnection(connectionData);
 
-            List<SelectedFile> selectedFiles = this.GetSelectedFilesFromListForPublish();
+            List<SelectedFile> selectedFiles = this.GetSelectedFilesFromListForPublish().ToList();
 
             if (selectedFiles.Count > 0)
             {
@@ -2670,7 +2670,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsXmlType, false);
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsXmlType, false).Take(2).ToList();
 
             string filePath = string.Empty;
 
@@ -2697,7 +2697,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandlePluginConfigurationPluginTypeDescription()
         {
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsXmlType, false);
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsXmlType, false).Take(2).ToList();
 
             string filePath = string.Empty;
 
@@ -2733,7 +2733,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsXmlType, false);
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsXmlType, false).Take(2).ToList();
 
             string filePath = string.Empty;
 
@@ -2766,7 +2766,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             ConnectionConfiguration crmConfig = Model.ConnectionConfiguration.Get();
 
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsXmlType, false);
+            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsXmlType, false).Take(2).ToList();
 
             string filePath = string.Empty;
 

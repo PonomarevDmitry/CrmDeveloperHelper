@@ -99,6 +99,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 }
 
                 this._CompareProgram = value;
+                UpdateDifferenceProgramExists();
+                UpdateDifferenceThreeWayAvaliable();
                 this.OnPropertyChanged(nameof(CompareProgram));
             }
         }
@@ -121,6 +123,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 }
 
                 this._TextEditorProgram = value;
+                UpdateTextEditorProgramExists();
                 this.OnPropertyChanged(nameof(TextEditorProgram));
             }
         }
@@ -143,6 +146,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 }
 
                 this._CompareArgumentsFormat = value;
+                UpdateDifferenceProgramExists();
                 this.OnPropertyChanged(nameof(CompareArgumentsFormat));
             }
         }
@@ -162,6 +166,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 }
 
                 this._CompareArgumentsThreeWayFormat = value;
+                UpdateDifferenceThreeWayAvaliable();
                 this.OnPropertyChanged(nameof(CompareArgumentsThreeWayFormat));
             }
         }
@@ -1215,6 +1220,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 notExists.ForEach(e => this.Utils.Remove(e));
             }
+
+            UpdateTextEditorProgramExists();
+            UpdateDifferenceProgramExists();
+            UpdateDifferenceThreeWayAvaliable();
         }
 
         /// <summary>
@@ -1312,19 +1321,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             Save(this.Path);
         }
 
-        public bool TextEditorProgramExists()
+        private bool _TextEditorProgramExists = false;
+
+        public bool TextEditorProgramExists() => _TextEditorProgramExists;
+
+        private void UpdateTextEditorProgramExists()
         {
-            return !string.IsNullOrEmpty(this.TextEditorProgram) && File.Exists(this.TextEditorProgram);
+            _TextEditorProgramExists = !string.IsNullOrEmpty(this.TextEditorProgram) && File.Exists(this.TextEditorProgram);
         }
 
-        public bool DifferenceProgramExists()
+        private bool _DifferenceProgramExists = false;
+
+        public bool DifferenceProgramExists() => _DifferenceProgramExists;
+
+        private void UpdateDifferenceProgramExists()
         {
-            return !string.IsNullOrEmpty(this.CompareProgram) && File.Exists(this.CompareProgram) && !string.IsNullOrEmpty(this.CompareArgumentsFormat);
+            _DifferenceProgramExists = !string.IsNullOrEmpty(this.CompareProgram) && File.Exists(this.CompareProgram) && !string.IsNullOrEmpty(this.CompareArgumentsFormat);
         }
 
-        public bool DifferenceThreeWayAvaliable()
+        private bool _DifferenceThreeWayAvaliable = false;
+
+        public bool DifferenceThreeWayAvaliable() => _DifferenceThreeWayAvaliable;
+
+        private void UpdateDifferenceThreeWayAvaliable()
         {
-            return !string.IsNullOrEmpty(this.CompareProgram) && File.Exists(this.CompareProgram) && !string.IsNullOrEmpty(this.CompareArgumentsThreeWayFormat);
+            _DifferenceThreeWayAvaliable = !string.IsNullOrEmpty(this.CompareProgram) && File.Exists(this.CompareProgram) && !string.IsNullOrEmpty(this.CompareArgumentsThreeWayFormat);
         }
 
         public Microsoft.Crm.Sdk.Messages.RibbonLocationFilters GetRibbonLocationFilters()

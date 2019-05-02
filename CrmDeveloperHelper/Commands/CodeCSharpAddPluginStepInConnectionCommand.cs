@@ -4,6 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.ComponentModel.Design;
+using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
@@ -69,7 +70,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp(this, menuCommand);
 
-                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentContainingProject(this, menuCommand, FileOperations.SupportsCSharpType);
+                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentContainingProject(this, menuCommand);
                     }
                 }
             }

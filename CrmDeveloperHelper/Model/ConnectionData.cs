@@ -53,6 +53,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                 this.OnPropertyChanging(nameof(IsCurrentConnection));
                 this._IsCurrentConnection = value;
+                UpdateNameWithCurrentMark();
                 this.OnPropertyChanged(nameof(IsCurrentConnection));
             }
         }
@@ -110,11 +111,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
                 this.OnPropertyChanging(nameof(Name));
                 this._Name = value;
+                UpdateNameWithCurrentMark();
                 this.OnPropertyChanged(nameof(Name));
             }
         }
 
-        public string NameWithCurrentMark => Name + (this.IsCurrentConnection ? " (Current)" : string.Empty);
+        public string NameWithCurrentMark { get; private set; }
+
+        private void UpdateNameWithCurrentMark()
+        {
+            this.NameWithCurrentMark = _Name + (this._IsCurrentConnection ? " (Current)" : string.Empty);
+        }
 
         private string _GroupName;
         /// <summary>
@@ -946,6 +953,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     Name = "Default",
                 });
             }
+
+            UpdateNameWithCurrentMark();
         }
 
         public Task LoadIntellisenseAsync()

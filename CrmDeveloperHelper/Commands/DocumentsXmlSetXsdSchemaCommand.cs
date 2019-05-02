@@ -96,7 +96,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     DTEHelper helper = DTEHelper.Create(applicationObject);
 
-                    List<EnvDTE.Document> listDocuments = helper.GetOpenedDocumentsAsDocument(FileOperations.SupportsXmlType);
+                    var listDocuments = helper.GetOpenedDocumentsAsDocument(FileOperations.SupportsXmlType);
 
                     if (listDocuments.Any())
                     {

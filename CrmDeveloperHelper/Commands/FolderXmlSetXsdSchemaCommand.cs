@@ -95,7 +95,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     DTEHelper helper = DTEHelper.Create(applicationObject);
 
-                    var listFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsXmlType, true);
+                    var listFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsXmlType, true).ToList();
 
                     if (listFiles.Any())
                     {

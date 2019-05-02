@@ -19,13 +19,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         private static void ActionExecute(DTEHelper helper)
         {
-            var listFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsXmlType, true);
+            var listFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsXmlType, true).ToList();
 
             if (listFiles.Any())
             {
-                foreach (var document in listFiles)
+                foreach (var document in listFiles.Where(s => s.Document != null && s.Document.ActiveWindow != null && s.Document.ActiveWindow.Visible).Select(s => s.Document))
                 {
-                    //ContentCoparerHelper.RemoveXsdSchemaInDocument(document);
+                    ContentCoparerHelper.RemoveXsdSchemaInDocument(document);
+                }
+
+                foreach (var filePath in listFiles.Where(s => !(s.Document != null && s.Document.ActiveWindow != null && s.Document.ActiveWindow.Visible)).Select(s => s.FilePath))
+                {
+                    ContentCoparerHelper.RemoveXsdSchemaInFile(filePath);
                 }
             }
         }

@@ -55,30 +55,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 {
                     menuCommand.Enabled = menuCommand.Visible = false;
 
-                    var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
-                    if (applicationObject == null)
+                    var connectionConfig = ConnectionConfiguration.Get();
+
+                    if (connectionConfig.CurrentConnectionData != null)
                     {
-                        return;
-                    }
+                        var connectionData = connectionConfig.CurrentConnectionData;
 
-                    var visible = CommonHandlers.CheckInPublishListAny(applicationObject, this.ServiceProvider, FileOperations.SupportsWebResourceTextType);
+                        var index = menuCommand.CommandID.ID - _baseIdStart;
 
-                    if (visible)
-                    {
-                        var connectionConfig = ConnectionConfiguration.Get();
-
-                        if (connectionConfig.CurrentConnectionData != null)
+                        if (0 <= index && index < connectionData.LastSelectedSolutionsUniqueName.Count)
                         {
-                            var connectionData = connectionConfig.CurrentConnectionData;
+                            menuCommand.Text = connectionData.LastSelectedSolutionsUniqueName.ElementAt(index);
 
-                            var index = menuCommand.CommandID.ID - _baseIdStart;
+                            menuCommand.Enabled = menuCommand.Visible = true;
 
-                            if (0 <= index && index < connectionData.LastSelectedSolutionsUniqueName.Count)
-                            {
-                                menuCommand.Text = connectionData.LastSelectedSolutionsUniqueName.ElementAt(index);
-
-                                menuCommand.Enabled = menuCommand.Visible = true;
-                            }
+                            CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceTextAny(this, menuCommand);
                         }
                     }
                 }
@@ -119,7 +110,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         var helper = DTEHelper.Create(applicationObject);
 
-                        List<SelectedFile> selectedFiles = helper.GetSelectedFilesFromListForPublish();
+                        List<SelectedFile> selectedFiles = helper.GetSelectedFilesFromListForPublish().ToList();
 
                         if (selectedFiles.Count > 0)
                         {

@@ -36,7 +36,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                && ApplicationObject.ActiveWindow.Type == vsWindowType.vsWindowTypeSolutionExplorer
                && ApplicationObject.SelectedItems != null)
             {
-                var items = ApplicationObject.SelectedItems.Cast<SelectedItem>().ToList();
+                var items = ApplicationObject.SelectedItems.Cast<SelectedItem>().Take(2).ToList();
 
                 if (items.Count == 1)
                 {
@@ -64,10 +64,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
-        public List<SelectedFile> GetOpenedFileInCodeWindow(Func<string, bool> checkerFunction)
+        public IEnumerable<SelectedFile> GetOpenedFileInCodeWindow(Func<string, bool> checkerFunction)
         {
-            List<SelectedFile> selectedFiles = new List<SelectedFile>();
-
             if (ApplicationObject.ActiveWindow != null
                 && ApplicationObject.ActiveWindow.Type == vsWindowType.vsWindowTypeDocument
                 && ApplicationObject.ActiveWindow.Document != null
@@ -77,11 +75,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (checkerFunction(path))
                 {
-                    selectedFiles.Add(new SelectedFile(path, GetFriendlyPath(path)));
+                    yield return new SelectedFile(path, GetFriendlyPath(path));
                 }
             }
-
-            return selectedFiles;
         }
 
         public EnvDTE.Document GetOpenedDocumentInCodeWindow(Func<string, bool> checkerFunction)
@@ -104,14 +100,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
-        public List<SelectedFile> GetOpenedDocuments(Func<string, bool> checkerFunction)
+        public IEnumerable<SelectedFile> GetOpenedDocuments(Func<string, bool> checkerFunction)
         {
-            List<SelectedFile> selectedFiles = new List<SelectedFile>();
-
             if (ApplicationObject.ActiveWindow != null
                 && ApplicationObject.ActiveWindow.Type == vsWindowType.vsWindowTypeDocument
                 && ApplicationObject.ActiveWindow.Document != null
-                )
+            )
             {
                 foreach (var document in ApplicationObject.Documents.OfType<EnvDTE.Document>())
                 {
@@ -131,23 +125,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         if (checkerFunction(path))
                         {
-                            selectedFiles.Add(new SelectedFile(path, GetFriendlyPath(path)));
+                            yield return new SelectedFile(path, GetFriendlyPath(path));
                         }
                     }
                 }
             }
-
-            return selectedFiles;
         }
 
-        public List<EnvDTE.Document> GetOpenedDocumentsAsDocument(Func<string, bool> checkerFunction)
+        public IEnumerable<EnvDTE.Document> GetOpenedDocumentsAsDocument(Func<string, bool> checkerFunction)
         {
-            List<EnvDTE.Document> selectedFiles = new List<EnvDTE.Document>();
-
             if (ApplicationObject.ActiveWindow != null
                 && ApplicationObject.ActiveWindow.Type == vsWindowType.vsWindowTypeDocument
                 && ApplicationObject.ActiveWindow.Document != null
-                )
+            )
             {
                 foreach (var document in ApplicationObject.Documents.OfType<EnvDTE.Document>())
                 {
@@ -167,19 +157,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         if (checkerFunction(path))
                         {
-                            selectedFiles.Add(document);
+                            yield return document;
                         }
                     }
                 }
             }
-
-            return selectedFiles;
         }
 
-        public List<SelectedFile> GetSelectedFilesInSolutionExplorer(Func<string, bool> checkerFunction, bool recursive)
+        public IEnumerable<SelectedFile> GetSelectedFilesInSolutionExplorer(Func<string, bool> checkerFunction, bool recursive)
         {
-            List<SelectedFile> selectedFiles = new List<SelectedFile>();
-
             if (ApplicationObject.ActiveWindow != null
                && ApplicationObject.ActiveWindow.Type == vsWindowType.vsWindowTypeSolutionExplorer
                && ApplicationObject.SelectedItems != null
@@ -189,7 +175,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 HashSet<string> hash = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
-                items.ForEach(item =>
+                foreach (var item in items)
                 {
                     if (item.ProjectItem != null)
                     {
@@ -200,31 +186,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             && hash.Add(path)
                         )
                         {
-                            selectedFiles.Add(new SelectedFile(path, GetFriendlyPath(path))
+                            yield return new SelectedFile(path, GetFriendlyPath(path))
                             {
                                 Document = item.ProjectItem.Document,
-                            });
+                            };
                         }
 
                         if (recursive)
                         {
-                            FillHashSubProjectItems(selectedFiles, hash, item.ProjectItem.ProjectItems, checkerFunction);
+                            foreach (var subItem in FillHashSubProjectItems(hash, item.ProjectItem.ProjectItems, checkerFunction))
+                            {
+                                yield return subItem;
+                            }
                         }
                     }
 
                     if (recursive && item.Project != null)
                     {
-                        FillHashSubProjectItems(selectedFiles, hash, item.Project.ProjectItems, checkerFunction);
+                        foreach (var subItem in FillHashSubProjectItems(hash, item.Project.ProjectItems, checkerFunction))
+                        {
+                            yield return subItem;
+                        }
                     }
-                });
+                }
             }
-
-            selectedFiles.Sort((x, y) => x.FilePath.CompareTo(y.FilePath));
-
-            return selectedFiles;
         }
 
-        private void FillHashSubProjectItems(List<SelectedFile> selectedFiles, HashSet<string> hash, ProjectItems projectItems, Func<string, bool> checkerFunction)
+        private IEnumerable<SelectedFile> FillHashSubProjectItems(HashSet<string> hash, ProjectItems projectItems, Func<string, bool> checkerFunction)
         {
             if (projectItems != null)
             {
@@ -235,19 +223,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     if (!string.IsNullOrEmpty(path)
                           && checkerFunction(path)
                           && hash.Add(path)
-                      )
+                    )
                     {
-                        selectedFiles.Add(new SelectedFile(path, GetFriendlyPath(path))
+                        yield return new SelectedFile(path, GetFriendlyPath(path))
                         {
                             Document = projItem.Document,
-                        });
+                        };
                     }
 
-                    FillHashSubProjectItems(selectedFiles, hash, projItem.ProjectItems, checkerFunction);
+                    foreach (var subItem in FillHashSubProjectItems(hash, projItem.ProjectItems, checkerFunction))
+                    {
+                        yield return subItem;
+                    }
 
                     if (projItem.SubProject != null)
                     {
-                        FillHashSubProjectItems(selectedFiles, hash, projItem.SubProject.ProjectItems, checkerFunction);
+                        foreach (var subItem in FillHashSubProjectItems(hash, projItem.SubProject.ProjectItems, checkerFunction))
+                        {
+                            yield return subItem;
+                        }
                     }
                 }
             }
@@ -337,7 +331,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private IEnumerable<ProjectItem> GetSubProjectItems(HashSet<string> hash, ProjectItems projectItems, Func<string, bool> checkerFunction)
+        public IEnumerable<ProjectItem> GetSubProjectItems(HashSet<string> hash, ProjectItems projectItems, Func<string, bool> checkerFunction)
         {
             if (projectItems == null)
             {
@@ -378,14 +372,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         /// Файл в окне редактирования или выделенные файлы в Solution Explorer.
         /// </summary>
         /// <returns></returns>
-        public List<SelectedFile> GetSelectedFilesAll(Func<string, bool> checkerFunction, bool recursive)
+        public IEnumerable<SelectedFile> GetSelectedFilesAll(Func<string, bool> checkerFunction, bool recursive)
         {
-            List<SelectedFile> selectedFiles = new List<SelectedFile>();
+            foreach (var item in GetOpenedFileInCodeWindow(checkerFunction))
+            {
+                yield return item;
+            }
 
-            selectedFiles.AddRange(GetOpenedFileInCodeWindow(checkerFunction));
-            selectedFiles.AddRange(GetSelectedFilesInSolutionExplorer(checkerFunction, recursive));
-
-            return selectedFiles;
+            foreach (var item in GetSelectedFilesInSolutionExplorer(checkerFunction, recursive))
+            {
+                yield return item;
+            }
         }
 
         private string GetFriendlyPath(string filePath)
@@ -408,7 +405,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 && ApplicationObject.ActiveWindow.Type == vsWindowType.vsWindowTypeSolutionExplorer
                 && ApplicationObject.SelectedItems != null)
             {
-                var items = ApplicationObject.SelectedItems.Cast<SelectedItem>().ToList();
+                var items = ApplicationObject.SelectedItems.Cast<SelectedItem>().Take(2).ToList();
 
                 if (items.Count == 1)
                 {
@@ -453,21 +450,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     .Where(e => e.Project != null)
                     .Select(e => e.Project)
                     .Distinct()
-                    .ToList();
+                    ;
 
-                return items;
+                foreach (var item in items)
+                {
+                    yield return item;
+                }
             }
-
-            return Enumerable.Empty<EnvDTE.Project>();
         }
 
-        public List<SelectedFile> GetSelectedFilesFromListForPublish()
+        public IEnumerable<SelectedFile> GetSelectedFilesFromListForPublish()
         {
-            List<SelectedFile> selectedFiles = new List<SelectedFile>();
-
-            selectedFiles.AddRange(_ListForPublish.OrderBy(s => s).Select(path => new SelectedFile(path, GetFriendlyPath(path))));
-
-            return selectedFiles;
+            foreach (var item in _ListForPublish.Select(path => new SelectedFile(path, GetFriendlyPath(path))))
+            {
+                yield return item;
+            }
         }
     }
 }
