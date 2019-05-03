@@ -48,10 +48,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 {
                     result = GetCurrentConnectionDataInternal();
 
-                    cache.Set(cacheName, result, new CacheItemPolicy()
+                    if (result != null)
                     {
-                        AbsoluteExpiration = DateTimeOffset.Now.Add(_cacheItemSpan),
-                    });
+                        cache.Set(cacheName, result, new CacheItemPolicy()
+                        {
+                            AbsoluteExpiration = DateTimeOffset.Now.Add(_cacheItemSpan),
+                        });
+                    }
                 }
 
                 return result;
@@ -294,63 +297,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 }
             }
 
-            if (File.Exists(filePath))
-            {
-                DataContractSerializer ser = new DataContractSerializer(typeof(ConnectionConfigurationBackward));
-
-                using (Mutex mutex = new Mutex(false, FileOperations.GetMutexName(filePath)))
-                {
-                    try
-                    {
-                        mutex.WaitOne();
-
-                        using (var sr = File.OpenRead(filePath))
-                        {
-                            var temp = ser.ReadObject(sr) as ConnectionConfigurationBackward;
-
-                            if (temp.ArchiveConnections != null && temp.ArchiveConnections.Any())
-                            {
-                                foreach (var item in temp.ArchiveConnections)
-                                {
-                                    item.Save();
-                                }
-
-                                if (result != null)
-                                {
-                                    result.ArchiveConnectionsGuids.AddRange(temp.ArchiveConnections.Select(c => c.ConnectionId));
-                                }
-                            }
-
-                            if (temp.Connections != null && temp.Connections.Any())
-                            {
-                                foreach (var item in temp.Connections)
-                                {
-                                    item.Save();
-                                }
-
-                                if (result != null)
-                                {
-                                    result.ConnectionsGuids.AddRange(temp.Connections.Select(c => c.ConnectionId));
-                                }
-                            }
-
-                            if (result != null)
-                            {
-                                result.LoadConnectionsFromDisk();
-                            }
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        //DTEHelper.WriteExceptionToOutput(ex);
-                    }
-                    finally
-                    {
-                        mutex.ReleaseMutex();
-                    }
-                }
-            }
-
             return result;
         }
 
@@ -569,10 +515,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 result = GetConnectionsWithoutCurrentInternal();
 
-                cache.Set(cacheName, result, new CacheItemPolicy()
+                if (result != null)
                 {
-                    AbsoluteExpiration = DateTimeOffset.Now.Add(_cacheItemSpan),
-                });
+                    cache.Set(cacheName, result, new CacheItemPolicy()
+                    {
+                        AbsoluteExpiration = DateTimeOffset.Now.Add(_cacheItemSpan),
+                    });
+                }
             }
 
             return result;
@@ -598,10 +547,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 result = GetConnectionsByGroupWithoutCurrentInternal();
 
-                cache.Set(cacheName, result, new CacheItemPolicy()
+                if (result != null)
                 {
-                    AbsoluteExpiration = DateTimeOffset.Now.Add(_cacheItemSpan),
-                });
+                    cache.Set(cacheName, result, new CacheItemPolicy()
+                    {
+                        AbsoluteExpiration = DateTimeOffset.Now.Add(_cacheItemSpan),
+                    });
+                }
             }
 
             return result;
@@ -637,10 +589,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 result = GetConnectionsByGroupWithCurrentInternal();
 
-                cache.Set(cacheName, result, new CacheItemPolicy()
+                if (result != null)
                 {
-                    AbsoluteExpiration = DateTimeOffset.Now.Add(_cacheItemSpan),
-                });
+                    cache.Set(cacheName, result, new CacheItemPolicy()
+                    {
+                        AbsoluteExpiration = DateTimeOffset.Now.Add(_cacheItemSpan),
+                    });
+                }
             }
 
             return result;
@@ -678,10 +633,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 result = GetConnectionPairsByGroupInternal();
 
-                cache.Set(cacheName, result, new CacheItemPolicy()
+                if (result != null)
                 {
-                    AbsoluteExpiration = DateTimeOffset.Now.Add(_cacheItemSpan),
-                });
+                    cache.Set(cacheName, result, new CacheItemPolicy()
+                    {
+                        AbsoluteExpiration = DateTimeOffset.Now.Add(_cacheItemSpan),
+                    });
+                }
             }
 
             return result;
