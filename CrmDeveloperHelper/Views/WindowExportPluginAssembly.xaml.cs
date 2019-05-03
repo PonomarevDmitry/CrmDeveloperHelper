@@ -392,6 +392,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteAction(entity.Id, entity.Name, PerformExportEntityDescription);
         }
 
+        private void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.Id, entity.Name, PerformEntityEditor);
+        }
+
+        private void mIDeletePluginAssembly_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.Id, entity.Name, PerformDeleteEntity);
+        }
+
         private void mIExportPluginAssemblyBinaryContent_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
@@ -447,6 +471,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
             ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingEntityDescriptionCompleted);
+        }
+
+        private async Task PerformEntityEditor(string folder, Guid idPluginAssembly, string name)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, PluginAssembly.EntityLogicalName, idPluginAssembly);
+        }
+
+        private async Task PerformDeleteEntity(string folder, Guid idPluginAssembly, string name)
+        {
+            string message = string.Format(Properties.MessageBoxStrings.AreYouSureDeleteSdkObjectFormat2, PluginAssembly.EntityLogicalName, name);
+
+            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                var service = await GetService();
+
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.DeletingEntitiesFormat2, service.ConnectionData.Name, PluginAssembly.EntityLogicalName);
+
+                try
+                {
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.DeletingEntity);
+                    _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, PluginAssembly.EntityLogicalName, idPluginAssembly);
+
+                    await service.DeleteAsync(PluginAssembly.EntityLogicalName, idPluginAssembly);
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                }
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.DeletingEntitiesCompletedFormat2, service.ConnectionData.Name, PluginAssembly.EntityLogicalName);
+
+                ShowExistingPluginAssemblies();
+            }
         }
 
         private async Task ExecuteExportAssembly(string folder, Guid idAssembly, string name)

@@ -12,6 +12,10 @@
             <Separator/>
             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
 
+            <Separator />
+            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Chart in Editor" Click="mIChangeEntityInEditor_Click"/>
+            <MenuItem Header="Delete Chart" VerticalAlignment="Center" Click="mIDeleteChart_Click" />
+
             <Separator x:Uid="contMnEntity"/>
             <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
             <Separator x:Uid="contMnEntity"/>
@@ -42,7 +46,6 @@
             <MenuItem Header="Presentation Description" VerticalAlignment="Center" Click="mIExportSystemChartPresentationDescription_Click"/>
 
             <Separator x:Uid="controlChangeEntityAttribute"/>
-            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Chart in Editor" Click="mIChangeEntityInEditor_Click"/>
             <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Chart Attribute" VerticalAlignment="Center">
                 <MenuItem Header="Data Description" VerticalAlignment="Center" Click="mIUpdateSystemChartDataDescription_Click"/>
                 <MenuItem Header="Presentation Description" VerticalAlignment="Center" Click="mIUpdateSystemChartPresentationDescription_Click"/>
@@ -156,8 +159,9 @@
                             <Separator/>
                             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
 
-                            <Separator/>
-                            <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
+                            <Separator />
+                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Chart in Editor" Click="mIChangeEntityInEditor_Click"/>
+                            <MenuItem Header="Delete Chart" VerticalAlignment="Center" Click="mIDeleteChart_Click" />
 
                             <Separator/>
                             <MenuItem Header="Data Description" VerticalAlignment="Center" Click="mIExportSystemChartDataDescription_Click"/>

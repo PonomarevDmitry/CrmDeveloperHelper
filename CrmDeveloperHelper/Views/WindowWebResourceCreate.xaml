@@ -61,7 +61,7 @@
         </Grid>
 
         <Label Content="Web Resource Description" Grid.Row="7" />
-        <TextBox x:Name="txtBDescription" Grid.Row="8" AcceptsReturn="True" AutoWordSelection="True" />
+        <TextBox x:Name="txtBDescription" Grid.Row="8" AcceptsReturn="True" AutoWordSelection="True" VerticalContentAlignment="Top" />
 
         <Grid Grid.Row="9" Margin="0" >
             <Grid.ColumnDefinitions>

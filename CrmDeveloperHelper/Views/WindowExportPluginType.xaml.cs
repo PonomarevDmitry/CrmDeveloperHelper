@@ -363,6 +363,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteAction(entity.Id, entity.TypeName, PerformExportEntityDescription);
         }
 
+        private void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.Id, entity.TypeName, PerformEntityEditor);
+        }
+
+        private void mIDeletePluginType_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.Id, entity.TypeName, PerformDeleteEntity);
+        }
+
         private async Task PerformExportPluginTypeDescription(string folder, Guid idPluginType, string name)
         {
             var service = await GetService();
@@ -392,17 +416,55 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (hasDescription)
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, PluginType.Schema.EntityLogicalName, name, "Description", filePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, PluginType.EntityLogicalName, name, "Description", filePath);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
             else
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, PluginType.Schema.EntityLogicalName, name, "Description");
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, PluginType.EntityLogicalName, name, "Description");
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
             }
 
             ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingPluginTypeDescriptionCompletedFormat1, name);
+        }
+
+        private async Task PerformEntityEditor(string folder, Guid idPluginType, string name)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, PluginType.EntityLogicalName, idPluginType);
+        }
+
+        private async Task PerformDeleteEntity(string folder, Guid idPluginType, string name)
+        {
+            string message = string.Format(Properties.MessageBoxStrings.AreYouSureDeleteSdkObjectFormat2, PluginType.EntityLogicalName, name);
+
+            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                var service = await GetService();
+
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.DeletingEntitiesFormat2, service.ConnectionData.Name, PluginType.EntityLogicalName);
+
+                try
+                {
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.DeletingEntity);
+                    _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, PluginType.EntityLogicalName, idPluginType);
+
+                    await service.DeleteAsync(PluginType.EntityLogicalName, idPluginType);
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                }
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.DeletingEntitiesCompletedFormat2, service.ConnectionData.Name, PluginType.EntityLogicalName);
+
+                ShowExistingPluginTypes();
+            }
         }
 
         private async Task PerformExportEntityDescription(string folder, Guid idPluginType, string name)

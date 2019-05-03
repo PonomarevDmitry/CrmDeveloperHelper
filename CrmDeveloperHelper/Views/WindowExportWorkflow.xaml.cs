@@ -1,3 +1,4 @@
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
@@ -117,7 +118,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 cmBCategory.Items.Add(string.Empty);
 
-                if (attributeCategory != null 
+                if (attributeCategory != null
                     && attributeCategory is EnumAttributeMetadata picklist
                     && picklist.OptionSet != null
                 )
@@ -153,7 +154,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 cmBMode.Items.Add(string.Empty);
 
-                if (attributeMode != null 
+                if (attributeMode != null
                     && attributeMode is EnumAttributeMetadata picklist
                     && picklist.OptionSet != null
                 )
@@ -345,6 +346,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             , Workflow.Schema.Attributes.uniquename
                             , Workflow.Schema.Attributes.primaryentity
                             , Workflow.Schema.Attributes.iscustomizable
+                            , Workflow.Schema.Attributes.statecode
                             , Workflow.Schema.Attributes.statuscode
                         ));
                 }
@@ -1099,6 +1101,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteAction(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], PerformEntityEditor);
         }
 
+        private async void mIChangeStateWorkflow_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], PerformChangeStateWorkflow);
+        }
+
+        private void mIDeleteWorkflow_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], PerformDeleteEntity);
+        }
+
         private async void mIExportWorkflowShowDifferenceXamlAndCorrectedXaml_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
@@ -1204,6 +1230,64 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, Workflow.EntityLogicalName, idWorkflow);
+        }
+
+        private async Task PerformDeleteEntity(string folder, Guid idWorkflow, string entityName, string name, string category)
+        {
+            string message = string.Format(Properties.MessageBoxStrings.AreYouSureDeleteSdkObjectFormat2, Workflow.EntityLogicalName, name);
+
+            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                var service = await GetService();
+
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.DeletingEntitiesFormat2, service.ConnectionData.Name, Workflow.EntityLogicalName);
+
+                try
+                {
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.DeletingEntity);
+                    _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, Workflow.EntityLogicalName, idWorkflow);
+
+                    await service.DeleteAsync(Workflow.EntityLogicalName, idWorkflow);
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                }
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.DeletingEntitiesCompletedFormat2, service.ConnectionData.Name, Workflow.EntityLogicalName);
+
+                ShowExistingWorkflows();
+            }
+        }
+
+        private async Task PerformChangeStateWorkflow(string folder, Guid idWorkflow, string entityName, string name, string category)
+        {
+            var service = await GetService();
+
+            var repository = new WorkflowRepository(service);
+
+            var workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(true));
+
+            int state = workflow.StatusCodeEnum == Workflow.Schema.OptionSets.statuscode.Activated_1_Activated_2 ? (int)Workflow.Schema.OptionSets.statecode.Draft_0 : (int)Workflow.Schema.OptionSets.statecode.Activated_1;
+            int status = workflow.StatusCodeEnum == Workflow.Schema.OptionSets.statuscode.Activated_1_Activated_2 ? (int)Workflow.Schema.OptionSets.statuscode.Draft_0_Draft_1 : (int)Workflow.Schema.OptionSets.statuscode.Activated_1_Activated_2;
+
+            try
+            {
+                await service.ExecuteAsync(new Microsoft.Crm.Sdk.Messages.SetStateRequest()
+                {
+                    EntityMoniker = new EntityReference(Workflow.EntityLogicalName, idWorkflow),
+                    State = new OptionSetValue(state),
+                    Status = new OptionSetValue(status),
+                });
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+            }
+
+            ShowExistingWorkflows();
         }
 
         private void btnClearEntityFilter_Click(object sender, RoutedEventArgs e)
@@ -1471,20 +1555,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             FillLastSolutionItems(connectionData, items, hasEntity, AddIntoCrmSolutionLastIncludeAsShellOnly_Click, "contMnAddEntityIntoSolutionLastIncludeAsShellOnly");
 
             ActivateControls(items, hasEntity && connectionData.LastSelectedSolutionsUniqueName != null && connectionData.LastSelectedSolutionsUniqueName.Any(), "contMnAddEntityIntoSolutionLast");
+
+            SetControlsName(items, GetChangeStateName(nodeItem.Workflow), "contMnChangeState");
+        }
+
+        private string GetChangeStateName(Workflow workflow)
+        {
+            if (workflow == null)
+            {
+                return "ChangeState";
+            }
+
+            return workflow.StatusCodeEnum == Workflow.Schema.OptionSets.statuscode.Activated_1_Activated_2 ? "Deactivate Workflow" : "Activate Workflow";
         }
 
         private void tSDDBExportWorkflow_SubmenuOpened(object sender, RoutedEventArgs e)
         {
-            ConnectionData connectionData = null;
+            var workflow = GetSelectedEntity();
 
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ActivateControls(tSDDBExportWorkflow.Items.OfType<Control>(), (workflow?.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
 
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
-
-            ActivateControls(tSDDBExportWorkflow.Items.OfType<Control>(), (nodeItem.Workflow.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
+            SetControlsName(tSDDBExportWorkflow.Items.OfType<Control>(), GetChangeStateName(workflow), "contMnChangeState");
         }
 
         #region Кнопки открытия других форм с информация о сущности.

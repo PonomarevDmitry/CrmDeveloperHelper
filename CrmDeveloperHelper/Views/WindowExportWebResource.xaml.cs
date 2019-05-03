@@ -499,6 +499,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformEntityEditor);
         }
 
+        private void mIDeleteWebResource_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null || entity.WebResourceId == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.WebResourceId.Value, entity.Name, PerformDeleteWebResource);
+        }
+
         private async Task PerformExportEntityDescription(string folder, Guid idWebResource, string name)
         {
             var service = await GetService();
@@ -542,6 +554,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, WebResource.EntityLogicalName, idWebResource);
+        }
+
+        private async Task PerformDeleteWebResource(string folder, Guid idWebResource, string name)
+        {
+            string message = string.Format(Properties.MessageBoxStrings.AreYouSureDeleteSdkObjectFormat2, WebResource.EntityLogicalName, name);
+
+            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                var service = await GetService();
+
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.DeletingEntitiesFormat2, service.ConnectionData.Name, WebResource.EntityLogicalName);
+
+                try
+                {
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.DeletingEntity);
+                    _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, WebResource.EntityLogicalName, idWebResource);
+
+                    await service.DeleteAsync(WebResource.EntityLogicalName, idWebResource);
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                }
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.DeletingEntitiesCompletedFormat2, service.ConnectionData.Name, WebResource.EntityLogicalName);
+
+                ShowExistingWebResources();
+            }
         }
 
         private void trVWebResources_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -873,16 +914,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSDDBExportWebResource_SubmenuOpened(object sender, RoutedEventArgs e)
         {
-            ConnectionData connectionData = null;
+            var nodeItem = GetSelectedEntity();
 
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
-
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityTreeViewItem;
-
-            ActivateControls(tSDDBExportWebResource.Items.OfType<Control>(), (nodeItem.WebResource?.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
+            ActivateControls(tSDDBExportWebResource.Items.OfType<Control>(), (nodeItem?.WebResource?.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
         }
 
         private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)

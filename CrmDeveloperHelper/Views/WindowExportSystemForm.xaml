@@ -25,6 +25,11 @@
                 <Separator/>
                 <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
 
+                <Separator />
+                <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm in Editor" Click="mIChangeEntityInEditor_Click"/>
+                <MenuItem x:Uid="contMnChangeState" Header="ChangeState" VerticalAlignment="Center" Click="mIChangeStateSystemForm_Click" />
+                <MenuItem Header="Delete SystemForm" VerticalAlignment="Center" Click="mIDeleteSystemForm_Click" />
+
                 <Separator x:Uid="contMnEntity"/>
                 <MenuItem x:Uid="contMnEntity" Header="Create EntityMetadata JavaScript File based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFile_Click" />
 
@@ -53,7 +58,6 @@
                 <MenuItem Header="Form Json" VerticalAlignment="Center" Click="mIExportSystemFormFormJson_Click" />
                 
                 <Separator x:Uid="controlChangeEntityAttribute" />
-                <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm in Editor" Click="mIChangeEntityInEditor_Click"/>
                 <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm Attribute" VerticalAlignment="Center">
                     <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIUpdateSystemFormFormXml_Click" />
                     <MenuItem Header="Form Json" VerticalAlignment="Center" Click="mIUpdateSystemFormFormJson_Click" />
@@ -217,11 +221,14 @@
                             <MenuItem Header="Open SystemForm in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
                             <Separator/>
                             <MenuItem Header="Form Description" VerticalAlignment="Center" Click="mIExportSystemFormDescription_Click" />
+                            
                             <Separator/>
                             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
 
                             <Separator/>
-                            <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
+                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm in Editor" Click="mIChangeEntityInEditor_Click"/>
+                            <MenuItem x:Uid="contMnChangeState" Header="ChangeState" VerticalAlignment="Center" Click="mIChangeStateSystemForm_Click" />
+                            <MenuItem Header="Delete SystemForm" VerticalAlignment="Center" Click="mIDeleteSystemForm_Click" />
 
                             <Separator/>
                             <MenuItem Header="Create Entity JavaScript File based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFile_Click" />

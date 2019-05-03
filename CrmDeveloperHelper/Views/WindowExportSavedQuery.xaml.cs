@@ -1,4 +1,5 @@
 using Microsoft.Crm.Sdk.Messages;
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
@@ -809,6 +810,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteAction(entity.Id, entity.ReturnedTypeCode, entity.Name, PerformEntityEditor);
         }
 
+        private void mIChangeStateSavedQuery_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.Id, entity.ReturnedTypeCode, entity.Name, PerformChangeStateSavedQuery);
+        }
+
+        private void mIDeleteSavedQuery_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.Id, entity.ReturnedTypeCode, entity.Name, PerformDeleteEntity);
+        }
+
         private async Task PerformExportEntityDescription(string folder, Guid idSavedQuery, string entityName, string name)
         {
             var service = await GetService();
@@ -850,6 +875,64 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, SavedQuery.EntityLogicalName, idSavedQuery);
+        }
+
+        private async Task PerformChangeStateSavedQuery(string folder, Guid idSavedQuery, string entityName, string name)
+        {
+            var service = await GetService();
+
+            var repository = new SavedQueryRepository(service);
+
+            var savedQuery = await repository.GetByIdAsync(idSavedQuery, new ColumnSet(true));
+
+            int state = savedQuery.StatusCodeEnum == SavedQuery.Schema.OptionSets.statuscode.Active_0_Active_1 ? (int)SavedQuery.Schema.OptionSets.statecode.Inactive_1 : (int)SavedQuery.Schema.OptionSets.statecode.Active_0;
+            int status = savedQuery.StatusCodeEnum == SavedQuery.Schema.OptionSets.statuscode.Active_0_Active_1 ? (int)SavedQuery.Schema.OptionSets.statuscode.Inactive_1_Inactive_2 : (int)SavedQuery.Schema.OptionSets.statuscode.Active_0_Active_1;
+
+            try
+            {
+                await service.ExecuteAsync(new SetStateRequest()
+                {
+                    EntityMoniker = new EntityReference(SavedQuery.EntityLogicalName, idSavedQuery),
+                    State = new OptionSetValue(state),
+                    Status = new OptionSetValue(status),
+                });
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+            }
+
+            ShowExistingSavedQueries();
+        }
+
+        private async Task PerformDeleteEntity(string folder, Guid idSavedQuery, string entityName, string name)
+        {
+            string message = string.Format(Properties.MessageBoxStrings.AreYouSureDeleteSdkObjectFormat2, SavedQuery.EntityLogicalName, name);
+
+            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                var service = await GetService();
+
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.DeletingEntitiesFormat2, service.ConnectionData.Name, SavedQuery.EntityLogicalName);
+
+                try
+                {
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.DeletingEntity);
+                    _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, SavedQuery.EntityLogicalName, idSavedQuery);
+
+                    await service.DeleteAsync(SavedQuery.EntityLogicalName, idSavedQuery);
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                }
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.DeletingEntitiesCompletedFormat2, service.ConnectionData.Name, SavedQuery.EntityLogicalName);
+
+                ShowExistingSavedQueries();
+            }
         }
 
         private void btnClearEntityFilter_Click(object sender, RoutedEventArgs e)
@@ -1121,20 +1204,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             FillLastSolutionItems(connectionData, items, hasEntity, AddIntoCrmSolutionLastIncludeAsShellOnly_Click, "contMnAddEntityIntoSolutionLastIncludeAsShellOnly");
 
             ActivateControls(items, hasEntity && connectionData.LastSelectedSolutionsUniqueName != null && connectionData.LastSelectedSolutionsUniqueName.Any(), "contMnAddEntityIntoSolutionLast");
+
+            SetControlsName(items, GetChangeStateName(nodeItem.SavedQuery), "contMnChangeState");
+        }
+
+        private string GetChangeStateName(SavedQuery savedQuery)
+        {
+            if (savedQuery == null)
+            {
+                return "ChangeState";
+            }
+
+            return savedQuery.StatusCodeEnum == SavedQuery.Schema.OptionSets.statuscode.Active_0_Active_1 ? "Deactivate SavedQuery" : "Activate SavedQuery";
         }
 
         private void tSDDBExportSavedQuery_SubmenuOpened(object sender, RoutedEventArgs e)
         {
-            ConnectionData connectionData = null;
+            var savedQuery = GetSelectedEntity();
 
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ActivateControls(tSDDBExportSavedQuery.Items.OfType<Control>(), (savedQuery?.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
 
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
-
-            ActivateControls(tSDDBExportSavedQuery.Items.OfType<Control>(), nodeItem != null && (nodeItem.SavedQuery.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
+            SetControlsName(tSDDBExportSavedQuery.Items.OfType<Control>(), GetChangeStateName(savedQuery), "contMnChangeState");
         }
 
         #region Кнопки открытия других форм с информация о сущности.

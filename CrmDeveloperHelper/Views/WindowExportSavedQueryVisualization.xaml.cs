@@ -661,6 +661,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteAction(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, PerformEntityEditor);
         }
 
+        private void mIDeleteChart_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteAction(entity.Id, entity.PrimaryEntityTypeCode, entity.Name, PerformDeleteEntity);
+        }
+
         private async Task PerformExportEntityDescription(string folder, Guid idSavedQueryVisualization, string entityName, string name)
         {
             var service = await GetService();
@@ -702,6 +714,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, SavedQueryVisualization.EntityLogicalName, idSavedQueryVisualization);
+        }
+
+        private async Task PerformDeleteEntity(string folder, Guid idSavedQueryVisualization, string entityName, string name)
+        {
+            string message = string.Format(Properties.MessageBoxStrings.AreYouSureDeleteSdkObjectFormat2, SavedQueryVisualization.EntityLogicalName, name);
+
+            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                var service = await GetService();
+
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.DeletingEntitiesFormat2, service.ConnectionData.Name, SavedQueryVisualization.EntityLogicalName);
+
+                try
+                {
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.DeletingEntity);
+                    _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, SavedQueryVisualization.EntityLogicalName, idSavedQueryVisualization);
+
+                    await service.DeleteAsync(SavedQueryVisualization.EntityLogicalName, idSavedQueryVisualization);
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                }
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.DeletingEntitiesCompletedFormat2, service.ConnectionData.Name, SavedQueryVisualization.EntityLogicalName);
+
+                ShowExistingCharts();
+            }
         }
 
         private void btnClearEntityFilter_Click(object sender, RoutedEventArgs e)
@@ -937,16 +978,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSDDBExportChart_SubmenuOpened(object sender, RoutedEventArgs e)
         {
-            ConnectionData connectionData = null;
+            var savedQueryVisualization = GetSelectedEntity();
 
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
-
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
-
-            ActivateControls(tSDDBExportChart.Items.OfType<Control>(), (nodeItem.SavedQueryVisualization.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
+            ActivateControls(tSDDBExportChart.Items.OfType<Control>(), (savedQueryVisualization?.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
         }
 
         #region Кнопки открытия других форм с информация о сущности.

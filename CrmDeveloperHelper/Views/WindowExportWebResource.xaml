@@ -29,40 +29,41 @@
             <BitmapImage x:Key="ImageResx" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_resx.png" />
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-                <MenuItem Header="Open WebResource in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
+                <MenuItem Header="Open WebResource in Web" Click="mIOpenInWeb_Click" />
 
                 <Separator/>
-                <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
                 <Separator/>
-                <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
+                <MenuItem Header="Change WebResource in Editor" Click="mIChangeEntityInEditor_Click"/>
+                <MenuItem Header="Delete WebResource" Click="mIDeleteWebResource_Click" />
 
                 <Separator/>
-                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
-                <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
+                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" />
+                <MenuItem Header="Add into Crm Solution" Click="AddIntoCrmSolution_Click" />
 
                 <Separator/>
-                <MenuItem Header="Content Json" VerticalAlignment="Center" Click="mIExportWebResourceContentJson_Click" />
-                <MenuItem Header="Dependency Xml" VerticalAlignment="Center" Click="mIExportWebResourceDependencyXml_Click" />
+                <MenuItem Header="Content Json" Click="mIExportWebResourceContentJson_Click" />
+                <MenuItem Header="Dependency Xml" Click="mIExportWebResourceDependencyXml_Click" />
 
                 <Separator x:Uid="controlChangeEntityAttribute"/>
-                <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change WebResource Attribute" VerticalAlignment="Center">
-                    <MenuItem Header="Content" VerticalAlignment="Center" Click="mIUpdateWebResourceContent_Click" />
-                    <MenuItem Header="Content Json" VerticalAlignment="Center" Click="mIUpdateWebResourceContentJson_Click" />
-                    <MenuItem Header="Dependency Xml" VerticalAlignment="Center" Click="mIUpdateWebResourceDependencyXml_Click" />
+                <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change WebResource Attribute">
+                    <MenuItem Header="Content" Click="mIUpdateWebResourceContent_Click" />
+                    <MenuItem Header="Content Json" Click="mIUpdateWebResourceContentJson_Click" />
+                    <MenuItem Header="Dependency Xml" Click="mIUpdateWebResourceDependencyXml_Click" />
                 </MenuItem>
 
                 <Separator/>
                 <MenuItem Header="Publish WebResource" Click="btnPublishWebResource_Click"/>
 
                 <Separator/>
-                <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
+                <MenuItem Header="Open Solutions Containing Component in Window" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
 
                 <Separator/>
                 <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                    <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
                     <Separator/>
-                    <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
+                    <MenuItem Header="Open Dependent Components in Window" Click="mIOpenDependentComponentsInWindow_Click" />
                 </MenuItem>
 
                 <Separator/>
@@ -162,41 +163,42 @@
                 <ToolBarPanel Orientation="Horizontal" >
                     <Button x:Name="btnExportAll" Content="Export All WebResource Information" Click="btnExportAll_Click" />
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                    <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                        <MenuItem x:Name="tSDDBExportWebResource" Header="Download WebResource" VerticalAlignment="Center" SubmenuOpened="tSDDBExportWebResource_SubmenuOpened">
-                            <MenuItem Header="Open WebResource in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
+                    <Menu Background="{x:Null}">
+                        <MenuItem x:Name="tSDDBExportWebResource" Header="Download WebResource" SubmenuOpened="tSDDBExportWebResource_SubmenuOpened">
+                            <MenuItem Header="Open WebResource in Web" Click="mIOpenInWeb_Click" />
                             <Separator/>
-                            <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+                            <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
                             <Separator/>
-                            <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
+                            <MenuItem Header="Change WebResource in Editor" Click="mIChangeEntityInEditor_Click"/>
+                            <MenuItem Header="Delete WebResource" Click="mIDeleteWebResource_Click" />
 
                             <Separator/>
-                            <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
-                            <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
+                            <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" />
+                            <MenuItem Header="Add into Crm Solution" Click="AddIntoCrmSolution_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Content Json" VerticalAlignment="Center" Click="mIExportWebResourceContentJson_Click" />
-                            <MenuItem Header="Dependency Xml" VerticalAlignment="Center" Click="mIExportWebResourceDependencyXml_Click" />
+                            <MenuItem Header="Content Json" Click="mIExportWebResourceContentJson_Click" />
+                            <MenuItem Header="Dependency Xml" Click="mIExportWebResourceDependencyXml_Click" />
 
                             <Separator x:Uid="controlChangeEntityAttribute"/>
-                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change WebResource Attribute" VerticalAlignment="Center">
-                                <MenuItem Header="Content" VerticalAlignment="Center" Click="mIUpdateWebResourceContent_Click" />
-                                <MenuItem Header="Content Json" VerticalAlignment="Center" Click="mIUpdateWebResourceContentJson_Click" />
-                                <MenuItem Header="Dependency Xml" VerticalAlignment="Center" Click="mIUpdateWebResourceDependencyXml_Click" />
+                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change WebResource Attribute" >
+                                <MenuItem Header="Content" Click="mIUpdateWebResourceContent_Click" />
+                                <MenuItem Header="Content Json" Click="mIUpdateWebResourceContentJson_Click" />
+                                <MenuItem Header="Dependency Xml" Click="mIUpdateWebResourceDependencyXml_Click" />
                             </MenuItem>
 
                             <Separator/>
                             <MenuItem Header="Publish WebResource" Click="btnPublishWebResource_Click"/>
 
                             <Separator/>
-                            <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
+                            <MenuItem Header="Open Solutions Containing Component in Window" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
 
                             <Separator/>
                             <MenuItem Header="Dependent Components">
-                                <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                                <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
                                 <Separator/>
-                                <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
+                                <MenuItem Header="Open Dependent Components in Window" Click="mIOpenDependentComponentsInWindow_Click" />
                             </MenuItem>
                         </MenuItem>
                     </Menu>

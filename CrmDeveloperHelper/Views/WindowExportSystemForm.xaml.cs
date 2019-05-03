@@ -1,3 +1,4 @@
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
@@ -699,6 +700,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformEntityEditor);
         }
 
+        private void mIChangeStateSystemForm_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformChangeStateSystemForm);
+        }
+
+        private void mIDeleteSystemForm_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformDeleteEntity);
+        }
+
         private async Task PerformExportEntityDescriptionAsync(string folder, Guid idSystemForm, string entityName, string name)
         {
             var service = await GetService();
@@ -740,6 +765,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, SystemForm.EntityLogicalName, idSystemForm);
+        }
+
+        private async Task PerformChangeStateSystemForm(string folder, Guid idSystemForm, string entityName, string name)
+        {
+            var service = await GetService();
+
+            var repository = new SystemFormRepository(service);
+
+            var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(true));
+
+            int state = systemForm.FormActivationStateEnum == SystemForm.Schema.OptionSets.formactivationstate.Active_1 ? (int)SystemForm.Schema.OptionSets.formactivationstate.Inactive_0 : (int)SystemForm.Schema.OptionSets.formactivationstate.Active_1;
+
+            try
+            {
+                var updateEntity = new Entity(SystemForm.EntityLogicalName)
+                {
+                    Id = idSystemForm,
+                };
+
+                updateEntity.Attributes[SystemForm.Schema.Attributes.formactivationstate] = new OptionSetValue(state);
+
+                await service.UpdateAsync(updateEntity);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+            }
+
+            ShowExistingSystemForms();
+        }
+
+        private async Task PerformDeleteEntity(string folder, Guid idSystemForm, string entityName, string name)
+        {
+            string message = string.Format(Properties.MessageBoxStrings.AreYouSureDeleteSdkObjectFormat2, SystemForm.EntityLogicalName, name);
+
+            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                var service = await GetService();
+
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.DeletingEntitiesFormat2, service.ConnectionData.Name, SystemForm.EntityLogicalName);
+
+                try
+                {
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.DeletingEntity);
+                    _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, SystemForm.EntityLogicalName, idSystemForm);
+
+                    await service.DeleteAsync(SystemForm.EntityLogicalName, idSystemForm);
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                }
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.DeletingEntitiesCompletedFormat2, service.ConnectionData.Name, SystemForm.EntityLogicalName);
+
+                ShowExistingSystemForms();
+            }
         }
 
         private void mIPublishSystemForm_Click(object sender, RoutedEventArgs e)
@@ -1324,20 +1408,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             FillLastSolutionItems(connectionData, items, hasEntity, AddIntoCrmSolutionLastIncludeAsShellOnly_Click, "contMnAddEntityIntoSolutionLastIncludeAsShellOnly");
 
             ActivateControls(items, hasEntity && connectionData.LastSelectedSolutionsUniqueName != null && connectionData.LastSelectedSolutionsUniqueName.Any(), "contMnAddEntityIntoSolutionLast");
+
+            SetControlsName(items, GetChangeStateName(nodeItem.SystemForm), "contMnChangeState");
+        }
+
+        private string GetChangeStateName(SystemForm systemForm)
+        {
+            if (systemForm == null)
+            {
+                return "ChangeState";
+            }
+
+            return systemForm.FormActivationStateEnum == SystemForm.Schema.OptionSets.formactivationstate.Active_1 ? "Deactivate SystemForm" : "Activate SystemForm";
         }
 
         private void tSDDBExportSystemForm_SubmenuOpened(object sender, RoutedEventArgs e)
         {
-            ConnectionData connectionData = null;
+            var systemForm = GetSelectedEntity();
 
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ActivateControls(tSDDBExportSystemForm.Items.OfType<Control>(), (systemForm?.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
 
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
-
-            ActivateControls(tSDDBExportSystemForm.Items.OfType<Control>(), (nodeItem.SystemForm.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
+            SetControlsName(tSDDBExportSystemForm.Items.OfType<Control>(), GetChangeStateName(systemForm), "contMnChangeState");
         }
 
         #region Кнопки открытия других форм с информация о сущности.

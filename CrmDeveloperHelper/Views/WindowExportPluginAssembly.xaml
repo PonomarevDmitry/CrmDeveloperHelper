@@ -6,50 +6,91 @@
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
         Title="Export Plugin Assembly Description" Height="538.662" Width="717" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
-        <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-            <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
-            <Separator/>
-            
-            <MenuItem Header="Open Plugin Tree" VerticalAlignment="Center" Click="mIOpenPluginTree_Click" />
-            <Separator/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleWindows.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
-            <MenuItem Header="Update Plugin Assembly" VerticalAlignment="Center" Click="mIUpdatePluginAssembly_Click" />
-            <Separator/>
-            
-            <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add PluginAssembly into Last Crm Solution" VerticalAlignment="Center"  />
-            <MenuItem Header="Add PluginAssembly into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
-            <Separator/>
-            <MenuItem x:Uid="contMnAddPluginAssemblyStepsIntoSolutionLast" Header="Add Steps for PluginAssembly into Last Crm Solution" VerticalAlignment="Center"  />
-            <MenuItem Header="Add Steps for PluginAssembly into Crm Solution" VerticalAlignment="Center" Click="mIAddAssemblyStepsIntoSolution_Click" />
-            <Separator/>
-            <MenuItem Header="Compare with Local Assembly" VerticalAlignment="Center" Click="mICompareWithLocalAssembly_Click" />
-            <Separator/>
-            <MenuItem Header="Plugin Assembly Description" VerticalAlignment="Center" Click="mICreatePluginAssemblyDescription_Click"/>
-            <MenuItem Header="Assembly Binary Content" VerticalAlignment="Center" Click="mIExportPluginAssemblyBinaryContent_Click"/>
-            <Separator/>
-            <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
-            <Separator/>
-            <MenuItem Header="Dependent Components">
-                <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+            <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+
                 <Separator/>
-                <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
-            </MenuItem>
-            <Separator/>
-            <MenuItem Header="Compare Information with other Organization">
-                <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                <MenuItem Header="Open Plugin Tree" Click="mIOpenPluginTree_Click" />
+
                 <Separator/>
-                <MenuItem Header="Plugin Assemblies" Click="btnComparePluginAssemblies_Click"/>
-            </MenuItem>
-            <Separator/>
-            <MenuItem Header="Export all Plugin Assembly Information" Click="btnExportAll_Click"/>
-        </ContextMenu>
+                <MenuItem Header="Update Plugin Assembly" Click="mIUpdatePluginAssembly_Click" />
+
+                <Separator />
+                <MenuItem Header="Change Plugin Assembly in Editor" Click="mIChangeEntityInEditor_Click"/>
+                <MenuItem Header="Delete Plugin Assembly" Click="mIDeletePluginAssembly_Click" />
+
+                <Separator/>
+                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add PluginAssembly into Last Crm Solution" />
+                <MenuItem Header="Add PluginAssembly into Crm Solution" Click="AddIntoCrmSolution_Click" />
+
+                <Separator/>
+                <MenuItem x:Uid="contMnAddPluginAssemblyStepsIntoSolutionLast" Header="Add Steps for PluginAssembly into Last Crm Solution" />
+                <MenuItem Header="Add Steps for PluginAssembly into Crm Solution" Click="mIAddAssemblyStepsIntoSolution_Click" />
+
+                <Separator/>
+                <MenuItem Header="Compare with Local Assembly" Click="mICompareWithLocalAssembly_Click" />
+
+                <Separator/>
+                <MenuItem Header="Plugin Assembly Description" Click="mICreatePluginAssemblyDescription_Click"/>
+                <MenuItem Header="Export Assembly Binary Content" Click="mIExportPluginAssemblyBinaryContent_Click"/>
+
+                <Separator/>
+                <MenuItem Header="Open Solutions Containing Component in Window" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
+
+                <Separator/>
+                <MenuItem Header="Dependent Components">
+                    <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
+                    <Separator/>
+                    <MenuItem Header="Open Dependent Components in Window" Click="mIOpenDependentComponentsInWindow_Click" />
+                </MenuItem>
+
+                <Separator/>
+                <MenuItem Header="Compare Information with other Organization">
+                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Plugin Assemblies" Click="btnComparePluginAssemblies_Click"/>
+                </MenuItem>
+
+                <Separator/>
+                <MenuItem Header="Export all Plugin Assembly Information" Click="btnExportAll_Click"/>
+            </ContextMenu>
+
+        </ResourceDictionary>
     </src:WindowBase.Resources>
     <Grid>
-        <Label Content="Folder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="23" Padding="0" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="48,10,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" />
-        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBFilter" Height="23" Margin="48,38,10,0"   VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
-        <DataGrid x:Name="lstVwPluginAssemblies" AutoGenerateColumns="False" Margin="10,66,10,99" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="100*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Content="Folder" Grid.Row="0" Grid.Column="0" />
+            <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" Text="{Binding Path=FolderForExport}" />
+
+            <Label Content="Filter" Grid.Row="1" Grid.Column="0" />
+            <TextBox x:Name="txtBFilter" Grid.Row="1" Grid.Column="1" KeyDown="txtBFilterEnitity_KeyDown" />
+        </Grid>
+
+        <DataGrid x:Name="lstVwPluginAssemblies" AutoGenerateColumns="False" Grid.Row="1" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -66,9 +107,23 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,69" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="25" Width="53"/>
-        <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,0,0,69" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Height="25" Width="254" />
-        <ToolBar Margin="0,0,0,31" VerticalAlignment="Bottom" Height="33">
+
+        <Grid Grid.Row="2" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="30*" />
+                <ColumnDefinition Width="50*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Content="Action" Grid.Row="0" Grid.Column="0" />
+            <ComboBox x:Name="cmBFileAction" Grid.Row="0" Grid.Column="1" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" SelectedIndex="0" />
+        </Grid>
+
+        <ToolBar Grid.Row="3">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
@@ -83,37 +138,52 @@
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
                     <Button x:Name="btnExportAll" Content="Export all Plugin Assembly Info" Click="btnExportAll_Click" />
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                    <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                        <MenuItem x:Name="tSDDBExportPluginAssembly" Header="Export Plugin Assembly Information" VerticalAlignment="Center">
-                            <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                    <Menu Background="{x:Null}">
+                        <MenuItem x:Name="tSDDBExportPluginAssembly" Header="Export Plugin Assembly Information">
+                            <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+                            
                             <Separator/>
-                            <MenuItem x:Name="mICompareWithLocalAssembly"  Header="Compare with Local Assembly" VerticalAlignment="Center" Click="mICompareWithLocalAssembly_Click" />
+                            <MenuItem x:Name="mICompareWithLocalAssembly"  Header="Compare with Local Assembly" Click="mICompareWithLocalAssembly_Click" />
+
                             <Separator/>
-                            <MenuItem x:Name="mICreatePluginAssemblyDescription" Header="Plugin Assembly Description" VerticalAlignment="Center" Click="mICreatePluginAssemblyDescription_Click"/>
-                            <MenuItem x:Name="mIExportPluginAssemblyBinaryContent" Header="Assembly Binary Content" VerticalAlignment="Center" Click="mIExportPluginAssemblyBinaryContent_Click"/>
+                            <MenuItem Header="Open Plugin Tree" Click="mIOpenPluginTree_Click" />
+
                             <Separator/>
-                            <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
+                            <MenuItem Header="Update Plugin Assembly" Click="mIUpdatePluginAssembly_Click" />
+
+                            <Separator />
+                            <MenuItem Header="Change Plugin Assembly in Editor" Click="mIChangeEntityInEditor_Click"/>
+                            <MenuItem Header="Delete Plugin Assembly" Click="mIDeletePluginAssembly_Click" />
+
+                            <Separator/>
+                            <MenuItem x:Name="mICreatePluginAssemblyDescription" Header="Plugin Assembly Description" Click="mICreatePluginAssemblyDescription_Click"/>
+                            <MenuItem x:Name="mIExportPluginAssemblyBinaryContent" Header="Export Assembly Binary Content" Click="mIExportPluginAssemblyBinaryContent_Click"/>
+                            
+                            <Separator/>
+                            <MenuItem Header="Open Solutions Containing Component in Window" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
+                            
                             <Separator/>
                             <MenuItem Header="Dependent Components">
-                                <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                                <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
                                 <Separator/>
-                                <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
+                                <MenuItem Header="Open Dependent Components in Window" Click="mIOpenDependentComponentsInWindow_Click" />
                             </MenuItem>
                         </MenuItem>
                     </Menu>
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Button x:Name="btnNewPluginAssembly" Content="Register Plugin Assembly" Click="btnNewPluginAssembly_Click" />
                 </ToolBarPanel>
-                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
-        <StatusBar VerticalAlignment="Bottom">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+
+        <StatusBar Grid.Row="4">
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection"/>
+            <ComboBox x:Name="cmBCurrentConnection" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>
             <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
-            <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus"/>
         </StatusBar>
     </Grid>
 </src:WindowBase>

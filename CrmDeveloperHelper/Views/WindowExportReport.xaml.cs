@@ -583,13 +583,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteAction(entity.Id, entity.Name, entity.FileName, PerformEntityEditor);
         }
 
-        private async Task PerformEntityEditor(string folder, Guid idReport, string name, string filename)
+        private void mIDeleteReport_Click(object sender, RoutedEventArgs e)
         {
-            var service = await GetService();
+            var entity = GetSelectedEntity();
 
-            _commonConfig.Save();
+            if (entity == null)
+            {
+                return;
+            }
 
-            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, Report.EntityLogicalName, idReport);
+            ExecuteAction(entity.Id, entity.Name, entity.FileName, PerformDeleteEntity);
         }
 
         private async Task PerformExportEntityDescription(string folder, Guid idReport, string name, string filename)
@@ -623,6 +626,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
                 ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingEntityDescriptionFailed);
+            }
+        }
+
+        private async Task PerformEntityEditor(string folder, Guid idReport, string name, string filename)
+        {
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, Report.EntityLogicalName, idReport);
+        }
+
+        private async Task PerformDeleteEntity(string folder, Guid idReport, string name, string filename)
+        {
+            string message = string.Format(Properties.MessageBoxStrings.AreYouSureDeleteSdkObjectFormat2, Report.EntityLogicalName, name);
+
+            if (MessageBox.Show(message, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                var service = await GetService();
+
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.DeletingEntitiesFormat2, service.ConnectionData.Name, Report.EntityLogicalName);
+
+                try
+                {
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.DeletingEntity);
+                    _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, Report.EntityLogicalName, idReport);
+
+                    await service.DeleteAsync(Report.EntityLogicalName, idReport);
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                }
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.DeletingEntitiesCompletedFormat2, service.ConnectionData.Name, Report.EntityLogicalName);
+
+                ShowExistingReports();
             }
         }
 
@@ -898,16 +939,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSDDBExportReport_SubmenuOpened(object sender, RoutedEventArgs e)
         {
-            ConnectionData connectionData = null;
+            var report = GetSelectedEntity();
 
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
-
-            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityViewItem;
-
-            ActivateControls(tSDDBExportReport.Items.OfType<Control>(), (nodeItem.Report.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
+            ActivateControls(tSDDBExportReport.Items.OfType<Control>(), (report?.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
         }
 
         private async void mIOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
