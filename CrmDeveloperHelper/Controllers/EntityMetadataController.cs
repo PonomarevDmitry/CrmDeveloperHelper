@@ -406,8 +406,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         var config = new CreateFileWithEntityMetadataCSharpConfiguration(
                             metadata.LogicalName
                             , tabSpacer
-                            , connectionData.NamespaceClasses
-                            , connectionData.NamespaceOptionSets
+                            , connectionData.NamespaceClassesCSharp
+                            , connectionData.NamespaceOptionSetsCSharp
                             , commonConfig.GenerateAttributesSchema
                             , commonConfig.GenerateStatusOptionSetSchema
                             , commonConfig.GenerateLocalOptionSetSchema
@@ -449,7 +449,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
                         INamingService namingService = new NamingService(service.ConnectionData.ServiceContextName, config);
-                        ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClasses);
+                        ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClassesCSharp);
                         ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
                         IMetadataProviderService metadataProviderService = new MetadataProviderService(repository);
 
@@ -565,8 +565,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         var config = new CreateFileWithEntityMetadataCSharpConfiguration(
                             metadata.LogicalName
                             , tabSpacer
-                            , connectionData.NamespaceClasses
-                            , connectionData.NamespaceOptionSets
+                            , connectionData.NamespaceClassesCSharp
+                            , connectionData.NamespaceOptionSetsCSharp
                             , commonConfig.GenerateAttributesProxyClass
                             , commonConfig.GenerateStatusOptionSetProxyClass
                             , commonConfig.GenerateLocalOptionSetProxyClass
@@ -608,7 +608,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
                         INamingService namingService = new NamingService(service.ConnectionData.ServiceContextName, config);
-                        ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClasses);
+                        ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClassesCSharp);
                         ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
                         IMetadataProviderService metadataProviderService = new MetadataProviderService(repository);
 
@@ -622,7 +622,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             VerbatimOrder = true,
                         };
 
-                        await codeGenerationService.WriteEntityFileAsync(metadata, filePath, service.ConnectionData.NamespaceClasses, options, codeGenerationServiceProvider);
+                        await codeGenerationService.WriteEntityFileAsync(metadata, filePath, service.ConnectionData.NamespaceClassesCSharp, options, codeGenerationServiceProvider);
 
                         this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, connectionData.Name, config.EntityName, filePath);
 

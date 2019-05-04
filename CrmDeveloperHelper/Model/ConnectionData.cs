@@ -493,17 +493,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private string _NamespaceClasses;
+        private string _NamespaceClassesCSharp;
         /// <summary>
         /// Пространство имен для класса с метаданными сущности
         /// </summary>
         [DataMember]
-        public string NamespaceClasses
+        public string NamespaceClassesCSharp
         {
-            get => _NamespaceClasses;
+            get => _NamespaceClassesCSharp;
             set
             {
-                this.OnPropertyChanging(nameof(NamespaceClasses));
+                this.OnPropertyChanging(nameof(NamespaceClassesCSharp));
 
                 if (!string.IsNullOrEmpty(value))
                 {
@@ -514,19 +514,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     value = string.Empty;
                 }
 
-                this._NamespaceClasses = value;
-                this.OnPropertyChanged(nameof(NamespaceClasses));
+                this._NamespaceClassesCSharp = value;
+                this.OnPropertyChanged(nameof(NamespaceClassesCSharp));
             }
         }
 
-        private string _NamespaceOptionSets;
+        private string _NamespaceClassesJavaScript;
         [DataMember]
-        public string NamespaceOptionSets
+        public string NamespaceClassesJavaScript
         {
-            get => _NamespaceOptionSets;
+            get => _NamespaceClassesJavaScript;
             set
             {
-                this.OnPropertyChanging(nameof(NamespaceOptionSets));
+                this.OnPropertyChanging(nameof(NamespaceClassesJavaScript));
 
                 if (!string.IsNullOrEmpty(value))
                 {
@@ -537,19 +537,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     value = string.Empty;
                 }
 
-                this._NamespaceOptionSets = value;
-                this.OnPropertyChanged(nameof(NamespaceOptionSets));
+                this._NamespaceClassesJavaScript = value;
+                this.OnPropertyChanged(nameof(NamespaceClassesJavaScript));
             }
         }
 
-        private string _NamespaceJavaScript;
+        private string _NamespaceOptionSetsCSharp;
         [DataMember]
-        public string NamespaceJavaScript
+        public string NamespaceOptionSetsCSharp
         {
-            get => _NamespaceJavaScript;
+            get => _NamespaceOptionSetsCSharp;
             set
             {
-                this.OnPropertyChanging(nameof(NamespaceJavaScript));
+                this.OnPropertyChanging(nameof(NamespaceOptionSetsCSharp));
 
                 if (!string.IsNullOrEmpty(value))
                 {
@@ -560,8 +560,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     value = string.Empty;
                 }
 
-                this._NamespaceJavaScript = value;
-                this.OnPropertyChanged(nameof(NamespaceJavaScript));
+                this._NamespaceOptionSetsCSharp = value;
+                this.OnPropertyChanged(nameof(NamespaceOptionSetsCSharp));
+            }
+        }
+
+        private string _NamespaceOptionSetsJavaScript;
+        [DataMember]
+        public string NamespaceOptionSetsJavaScript
+        {
+            get => _NamespaceOptionSetsJavaScript;
+            set
+            {
+                this.OnPropertyChanging(nameof(NamespaceOptionSetsJavaScript));
+
+                if (!string.IsNullOrEmpty(value))
+                {
+                    value = value.Trim();
+                }
+                else
+                {
+                    value = string.Empty;
+                }
+
+                this._NamespaceOptionSetsJavaScript = value;
+                this.OnPropertyChanged(nameof(NamespaceOptionSetsJavaScript));
             }
         }
 
@@ -863,8 +886,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.TraceReaderLastFolders = new ObservableCollection<string>();
             this.TraceReaderSelectedFolders = new ObservableCollection<string>();
 
-            this.NamespaceClasses = nameof(NamespaceClasses);
-            this.NamespaceOptionSets = nameof(NamespaceOptionSets);
+            this.NamespaceClassesCSharp = nameof(NamespaceClassesCSharp);
+            this.NamespaceOptionSetsCSharp = nameof(NamespaceOptionSetsCSharp);
             this.ServiceContextName = "XrmServiceContext";
         }
 
@@ -1006,8 +1029,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 OrganizationUrl = this.OrganizationUrl,
                 UniqueOrgName = this.UniqueOrgName,
 
-                NamespaceClasses = this.NamespaceClasses,
-                NamespaceOptionSets = this.NamespaceOptionSets,
+                NamespaceClassesCSharp = this.NamespaceClassesCSharp,
+                NamespaceOptionSetsCSharp = this.NamespaceOptionSetsCSharp,
                 ServiceContextName = this.ServiceContextName,
 
                 ConnectionConfiguration = this.ConnectionConfiguration,
@@ -1751,8 +1774,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.DefaultLanguage = diskData.DefaultLanguage;
             this.InstalledLanguagePacks = diskData.InstalledLanguagePacks;
             this.BaseCurrency = diskData.BaseCurrency;
-            this.NamespaceClasses = diskData.NamespaceClasses;
-            this.NamespaceOptionSets = diskData.NamespaceOptionSets;
+            this.NamespaceClassesCSharp = diskData.NamespaceClassesCSharp;
+            this.NamespaceOptionSetsCSharp = diskData.NamespaceOptionSetsCSharp;
             this.ServiceContextName = diskData.ServiceContextName;
             this.InteractiveLogin = diskData.InteractiveLogin;
             this.GenerateActions = diskData.GenerateActions;

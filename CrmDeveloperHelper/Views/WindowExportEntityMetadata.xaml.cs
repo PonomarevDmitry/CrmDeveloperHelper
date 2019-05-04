@@ -171,9 +171,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadFromConfig()
         {
-            txtBNamespaceClasses.DataContext = cmBCurrentConnection;
-            txtBNamespaceJavaScript.DataContext = cmBCurrentConnection;
-            txtBNamespaceOptionSets.DataContext = cmBCurrentConnection;
+            txtBNamespaceClassesCSharp.DataContext = cmBCurrentConnection;
+            txtBNamespaceClassesJavaScript.DataContext = cmBCurrentConnection;
+
+            txtBNamespaceOptionSetsCSharp.DataContext = cmBCurrentConnection;
+            txtBNamespaceOptionSetsJavaScript.DataContext = cmBCurrentConnection;
 
             cmBFileAction.DataContext = _commonConfig;
         }
@@ -776,8 +778,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var config = new CreateFileWithEntityMetadataCSharpConfiguration(
                     entityMetadata.EntityLogicalName
                     , tabSpacer
-                    , service.ConnectionData.NamespaceClasses
-                    , service.ConnectionData.NamespaceOptionSets
+                    , service.ConnectionData.NamespaceClassesCSharp
+                    , service.ConnectionData.NamespaceOptionSetsCSharp
                     , _commonConfig.GenerateAttributesSchema
                     , _commonConfig.GenerateStatusOptionSetSchema
                     , _commonConfig.GenerateLocalOptionSetSchema
@@ -826,7 +828,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
                 INamingService namingService = new NamingService(service.ConnectionData.ServiceContextName, config);
-                ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClasses);
+                ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClassesCSharp);
                 ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
                 IMetadataProviderService metadataProviderService = new MetadataProviderService(repository);
 
@@ -886,8 +888,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var config = new CreateFileWithEntityMetadataCSharpConfiguration(
                     entityMetadata.EntityLogicalName
                     , tabSpacer
-                    , service.ConnectionData.NamespaceClasses
-                    , service.ConnectionData.NamespaceOptionSets
+                    , service.ConnectionData.NamespaceClassesCSharp
+                    , service.ConnectionData.NamespaceOptionSetsCSharp
                     , _commonConfig.GenerateAttributesProxyClass
                     , _commonConfig.GenerateStatusOptionSetProxyClass
                     , _commonConfig.GenerateLocalOptionSetProxyClass
@@ -936,7 +938,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
                 INamingService namingService = new NamingService(service.ConnectionData.ServiceContextName, config);
-                ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClasses);
+                ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClassesCSharp);
                 ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
                 IMetadataProviderService metadataProviderService = new MetadataProviderService(repository);
 
@@ -952,7 +954,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     VerbatimOrder = true,
                 };
 
-                await codeGenerationService.WriteEntityFileAsync(entityMetadataFull, filePath, service.ConnectionData.NamespaceClasses, options, codeGenerationServiceProvider);
+                await codeGenerationService.WriteEntityFileAsync(entityMetadataFull, filePath, service.ConnectionData.NamespaceClassesCSharp, options, codeGenerationServiceProvider);
 
                 if (this._selectedItem != null)
                 {

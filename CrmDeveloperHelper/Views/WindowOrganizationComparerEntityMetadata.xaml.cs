@@ -102,14 +102,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadFromConfig()
         {
-            txtBNamespaceClasses1.DataContext = cmBConnection1;
-            txtBNamespaceClasses2.DataContext = cmBConnection2;
+            txtBNamespaceClassesCSharp1.DataContext = cmBConnection1;
+            txtBNamespaceClassesCSharp2.DataContext = cmBConnection2;
 
-            txtBNamespaceOptionSets1.DataContext = cmBConnection1;
-            txtBNamespaceOptionSets2.DataContext = cmBConnection2;
+            txtBNamespaceClassesJavaScript1.DataContext = cmBConnection1;
+            txtBNamespaceClassesJavaScript2.DataContext = cmBConnection2;
 
-            txtBNamespaceJavaScript1.DataContext = cmBConnection1;
-            txtBNamespaceJavaScript2.DataContext = cmBConnection2;
+            txtBNamespaceOptionSetsCSharp1.DataContext = cmBConnection1;
+            txtBNamespaceOptionSetsCSharp2.DataContext = cmBConnection2;
+
+            txtBNamespaceOptionSetsJavaScript1.DataContext = cmBConnection1;
+            txtBNamespaceOptionSetsJavaScript2.DataContext = cmBConnection2;
 
             cmBFileAction.DataContext = _commonConfig;
         }
@@ -496,8 +499,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             INamingService namingService1 = new NamingService(service1.ConnectionData.ServiceContextName, config1);
             INamingService namingService2 = new NamingService(service2.ConnectionData.ServiceContextName, config2);
 
-            ITypeMappingService typeMappingService1 = new TypeMappingService(service1.ConnectionData.NamespaceClasses);
-            ITypeMappingService typeMappingService2 = new TypeMappingService(service2.ConnectionData.NamespaceClasses);
+            ITypeMappingService typeMappingService1 = new TypeMappingService(service1.ConnectionData.NamespaceClassesCSharp);
+            ITypeMappingService typeMappingService2 = new TypeMappingService(service2.ConnectionData.NamespaceClassesCSharp);
 
             IMetadataProviderService metadataProviderService1 = new MetadataProviderService(repository1);
             IMetadataProviderService metadataProviderService2 = new MetadataProviderService(repository2);
@@ -603,8 +606,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             INamingService namingService1 = new NamingService(service1.ConnectionData.ServiceContextName, config1);
             INamingService namingService2 = new NamingService(service2.ConnectionData.ServiceContextName, config2);
 
-            ITypeMappingService typeMappingService1 = new TypeMappingService(service1.ConnectionData.NamespaceClasses);
-            ITypeMappingService typeMappingService2 = new TypeMappingService(service2.ConnectionData.NamespaceClasses);
+            ITypeMappingService typeMappingService1 = new TypeMappingService(service1.ConnectionData.NamespaceClassesCSharp);
+            ITypeMappingService typeMappingService2 = new TypeMappingService(service2.ConnectionData.NamespaceClassesCSharp);
 
             IMetadataProviderService metadataProviderService1 = new MetadataProviderService(repository1);
             IMetadataProviderService metadataProviderService2 = new MetadataProviderService(repository2);
@@ -623,11 +626,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 VerbatimOrder = true,
             };
 
-            var task1 = codeGenerationService1.WriteEntityFileAsync(entityMetadataFull1, filePath1, service1.ConnectionData.NamespaceClasses, options, codeGenerationServiceProvider1);
+            var task1 = codeGenerationService1.WriteEntityFileAsync(entityMetadataFull1, filePath1, service1.ConnectionData.NamespaceClassesCSharp, options, codeGenerationServiceProvider1);
 
             if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
             {
-                await codeGenerationService2.WriteEntityFileAsync(entityMetadataFull2, filePath2, service2.ConnectionData.NamespaceClasses, options, codeGenerationServiceProvider2);
+                await codeGenerationService2.WriteEntityFileAsync(entityMetadataFull2, filePath2, service2.ConnectionData.NamespaceClassesCSharp, options, codeGenerationServiceProvider2);
             }
 
             this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service1.ConnectionData.Name, linkedEntityMetadata.LogicalName, filePath1);
@@ -661,8 +664,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             (
                 entityName
                 , tabSpacer
-                , connectionData.NamespaceClasses
-                , connectionData.NamespaceOptionSets
+                , connectionData.NamespaceClassesCSharp
+                , connectionData.NamespaceOptionSetsCSharp
                 , _commonConfig.GenerateAttributesSchema
                 , _commonConfig.GenerateStatusOptionSetSchema
                 , _commonConfig.GenerateLocalOptionSetSchema
@@ -704,8 +707,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             (
                 entityName
                 , tabSpacer
-                , connectionData.NamespaceClasses
-                , connectionData.NamespaceOptionSets
+                , connectionData.NamespaceClassesCSharp
+                , connectionData.NamespaceOptionSetsCSharp
                 , _commonConfig.GenerateAttributesProxyClass
                 , _commonConfig.GenerateStatusOptionSetProxyClass
                 , _commonConfig.GenerateLocalOptionSetProxyClass
@@ -903,7 +906,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
                 INamingService namingService = new NamingService(service.ConnectionData.ServiceContextName, config);
-                ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClasses);
+                ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClassesCSharp);
                 ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
                 IMetadataProviderService metadataProviderService = new MetadataProviderService(repository);
 
@@ -995,7 +998,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
                 INamingService namingService = new NamingService(service.ConnectionData.ServiceContextName, config);
-                ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClasses);
+                ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClassesCSharp);
                 ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
                 IMetadataProviderService metadataProviderService = new MetadataProviderService(repository);
 
@@ -1011,7 +1014,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     VerbatimOrder = true,
                 };
 
-                await codeGenerationService.WriteEntityFileAsync(entityMetadataFull, filePath, service.ConnectionData.NamespaceClasses, options, codeGenerationServiceProvider);
+                await codeGenerationService.WriteEntityFileAsync(entityMetadataFull, filePath, service.ConnectionData.NamespaceClassesCSharp, options, codeGenerationServiceProvider);
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
 

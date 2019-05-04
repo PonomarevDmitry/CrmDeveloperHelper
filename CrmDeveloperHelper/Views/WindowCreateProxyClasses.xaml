@@ -15,7 +15,7 @@
         <Label Content="Crm Svc Util" HorizontalAlignment="Left" Margin="10,142,0,0" VerticalAlignment="Top" Height="26" Width="141"/>
         <ComboBox x:Name="cmBCrmSvcUtil" Margin="10,168,10,0" VerticalAlignment="Top"/>
         <Label Content="Namespace" HorizontalAlignment="Left" Margin="10,195,0,0" VerticalAlignment="Top" Height="26" Width="131"/>
-        <TextBox x:Name="txtBNamespace" Text="{Binding Path=NamespaceClasses}" Height="23" Margin="146,199,0,0"  VerticalAlignment="Top" TabIndex="2147483647" HorizontalAlignment="Left" Width="327"/>
+        <TextBox x:Name="txtBNamespace" Text="{Binding Path=NamespaceClassesCSharp}" Height="23" Margin="146,199,0,0"  VerticalAlignment="Top" TabIndex="2147483647" HorizontalAlignment="Left" Width="327"/>
         <Label Content="Service Context Name" HorizontalAlignment="Left" Margin="10,226,0,0" VerticalAlignment="Top" Height="26" Width="131"/>
         <TextBox x:Name="txtBServiceContextName" Text="{Binding Path=ServiceContextName}" Height="23" Margin="146,230,0,0"  VerticalAlignment="Top" TabIndex="2147483647" HorizontalAlignment="Left" Width="327"/>
         <CheckBox x:Name="chBGenerateActions" IsChecked="{Binding Path=GenerateActions}" Content="Generate Actions" HorizontalAlignment="Left" Margin="488,201,0,0" VerticalAlignment="Top" Width="127"/>

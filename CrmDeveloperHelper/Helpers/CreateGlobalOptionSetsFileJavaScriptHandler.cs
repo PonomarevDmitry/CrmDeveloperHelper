@@ -15,14 +15,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public class CreateGlobalOptionSetsFileJavaScriptHandler : CreateFileHandler
     {
-        private IOrganizationServiceExtented _service;
-        private bool _withDependentComponents;
+        private readonly IOrganizationServiceExtented _service;
+        private readonly bool _withDependentComponents;
 
-        SolutionComponentDescriptor _descriptor;
-        DependencyDescriptionHandler _descriptorHandler;
-        DependencyRepository _dependencyRepository;
+        private readonly SolutionComponentDescriptor _descriptor;
+        private readonly DependencyDescriptionHandler _descriptorHandler;
+        private readonly DependencyRepository _dependencyRepository;
 
-        private StringMapRepository _repositoryStringMap;
+        private readonly StringMapRepository _repositoryStringMap;
 
         private readonly IWriteToOutput _iWriteToOutput;
 
@@ -40,7 +40,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this._descriptor = new SolutionComponentDescriptor(_service);
             this._dependencyRepository = new DependencyRepository(this._service);
             this._descriptorHandler = new DependencyDescriptionHandler(this._descriptor);
-            _repositoryStringMap = new StringMapRepository(_service);
+
+            this._repositoryStringMap = new StringMapRepository(_service);
         }
 
         public Task CreateFileAsync(string filePath, IEnumerable<OptionSetMetadata> optionSets)
@@ -60,9 +61,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteLine();
 
-            string tempNamespace = !string.IsNullOrEmpty(this._service.ConnectionData.NamespaceOptionSets) ? this._service.ConnectionData.NamespaceOptionSets + "." : string.Empty;
+            string tempNamespace = !string.IsNullOrEmpty(this._service.ConnectionData.NamespaceOptionSetsCSharp) ? this._service.ConnectionData.NamespaceOptionSetsCSharp + "." : string.Empty;
 
-            WriteLine(string.Format("{0}GlobalOptionSets = (new function () ", tempNamespace) + "{");
+            WriteLine("{0}GlobalOptionSets = (new function () {{", tempNamespace);
 
             await WriteRegularOptionSets(optionSets);
 
@@ -79,12 +80,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private void WriteNamespace()
         {
-            if (string.IsNullOrEmpty(this._service.ConnectionData.NamespaceOptionSets))
+            if (string.IsNullOrEmpty(this._service.ConnectionData.NamespaceOptionSetsCSharp))
             {
                 return;
             }
 
-            string[] split = this._service.ConnectionData.NamespaceOptionSets.Split('.');
+            string[] split = this._service.ConnectionData.NamespaceOptionSetsCSharp.Split('.');
 
             StringBuilder str = new StringBuilder();
 

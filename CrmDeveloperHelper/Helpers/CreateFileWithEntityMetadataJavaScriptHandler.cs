@@ -70,7 +70,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             StartWriting(filePath);
 
-            string jsNamespace = this._service.ConnectionData.NamespaceJavaScript;
+            string jsNamespace = this._service.ConnectionData.NamespaceClassesJavaScript;
             string className = (!string.IsNullOrEmpty(jsNamespace) ? jsNamespace + "." : string.Empty) + _entityMetadata.LogicalName;
 
             if (_config.GenerateIntoSchemaClass)

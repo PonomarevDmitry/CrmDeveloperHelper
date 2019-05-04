@@ -165,19 +165,63 @@
             </Menu>
         </ToolBar>
 
+        <Expander DockPanel.Dock="Top" Margin="10,5" Header="Namespaces">
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"  />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Grid.Resources>
+                    <Style TargetType="{x:Type Label}">
+                        <Setter Property="Padding" Value="2"/>
+                        <Setter Property="Margin" Value="0,3,3,3"/>
+
+                        <Setter Property="VerticalAlignment" Value="Stretch"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    </Style>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Setter Property="Padding" Value="2"/>
+                        <Setter Property="Margin" Value="3,3,0,3"/>
+
+                        <Setter Property="VerticalAlignment" Value="Stretch"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    </Style>
+                </Grid.Resources>
+
+                <Label Content="Namespace Classes C#" Grid.Row="0" Grid.Column="0" />
+                <TextBox x:Name="txtBNamespaceClassesCSharp" Grid.Row="0" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceClassesCSharp}"  />
+
+                <Label Content="Namespace Classes JavaScript" Grid.Row="1" Grid.Column="0" />
+                <TextBox x:Name="txtBNamespaceClassesJavaScript" Grid.Row="1" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceClassesJavaScript}"  />
+
+                <Label Content="Namespace OptionSets C#" Grid.Row="2" Grid.Column="0" />
+                <TextBox x:Name="txtBNamespaceOptionSetsCSharp" Grid.Row="2" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceOptionSetsCSharp}"  />
+
+                <Label Content="Namespace OptionSets JavaScript" Grid.Row="3" Grid.Column="0" />
+                <TextBox x:Name="txtBNamespaceOptionSetsJavaScript" Grid.Row="3" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceOptionSetsJavaScript}"  />
+            </Grid>
+        </Expander>
+
         <Grid Margin="10,5" DockPanel.Dock="Top">
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"  />
-                <ColumnDefinition Width="Auto" MinWidth="50" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
@@ -201,19 +245,10 @@
             </Grid.Resources>
 
             <Label Content="Folder" Grid.Row="0" Grid.Column="0" />
-            <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" />
+            <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" />
 
-            <Label Content="Namespace Classes" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
-            <TextBox x:Name="txtBNamespaceClasses" Grid.Row="1" Grid.Column="2" Text="{Binding Path=SelectedItem.NamespaceClasses}"  />
-
-            <Label Content="Namespace OptionSets" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" />
-            <TextBox x:Name="txtBNamespaceOptionSets" Grid.Row="2" Grid.Column="2" Text="{Binding Path=SelectedItem.NamespaceOptionSets}"  />
-
-            <Label Content="Namespace JavaScript" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"/>
-            <TextBox x:Name="txtBNamespaceJavaScript" Grid.Row="3" Grid.Column="2" Text="{Binding Path=SelectedItem.NamespaceJavaScript}"  />
-
-            <Label Content="Filter"  Grid.Row="4" Grid.Column="0" />
-            <TextBox x:Name="txtBFilterEnitity" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" KeyDown="txtBFilterEnitity_KeyDown" />
+            <Label Content="Filter"  Grid.Row="1" Grid.Column="0" />
+            <TextBox x:Name="txtBFilterEnitity" Grid.Row="1" Grid.Column="1" KeyDown="txtBFilterEnitity_KeyDown" />
         </Grid>
 
         <StatusBar DockPanel.Dock="Bottom">

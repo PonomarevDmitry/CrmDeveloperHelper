@@ -197,9 +197,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             connectionData.User = cmBUser.SelectedItem as ConnectionUserData;
 
-            connectionData.NamespaceClasses = this.txtBNamespaceClasses.Text.Trim();
-            connectionData.NamespaceOptionSets = this.txtBNamespaceOptionSets.Text.Trim();
-            connectionData.NamespaceJavaScript = this.txtBNamespaceJavaScript.Text.Trim();
+            connectionData.NamespaceClassesCSharp = this.txtBNamespaceClassesCSharp.Text.Trim();
+            connectionData.NamespaceClassesJavaScript = this.txtBNamespaceClassesJavaScript.Text.Trim();
+
+            connectionData.NamespaceOptionSetsCSharp = this.txtBNamespaceOptionSetsCSharp.Text.Trim();
+            connectionData.NamespaceOptionSetsJavaScript = this.txtBNamespaceOptionSetsJavaScript.Text.Trim();
 
             connectionData.IsReadOnly = chBIsReadOnly.IsChecked.GetValueOrDefault();
         }
@@ -212,9 +214,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBOrganizationServiceUrl.Text = connectionData.OrganizationUrl;
             txtBUniqueOrganizationName.Text = connectionData.UniqueOrgName;
 
-            txtBNamespaceClasses.Text = connectionData.NamespaceClasses;
-            txtBNamespaceOptionSets.Text = connectionData.NamespaceOptionSets;
-            txtBNamespaceJavaScript.Text = connectionData.NamespaceJavaScript;
+            txtBNamespaceClassesCSharp.Text = connectionData.NamespaceClassesCSharp;
+            txtBNamespaceClassesJavaScript.Text = connectionData.NamespaceClassesJavaScript;
+
+            txtBNamespaceOptionSetsCSharp.Text = connectionData.NamespaceOptionSetsCSharp;
+            txtBNamespaceOptionSetsJavaScript.Text = connectionData.NamespaceOptionSetsJavaScript;
 
             chBIsReadOnly.IsChecked = connectionData.IsReadOnly;
 

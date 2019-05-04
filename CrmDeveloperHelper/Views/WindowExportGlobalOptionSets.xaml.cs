@@ -179,7 +179,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadFromConfig()
         {
-            txtBNamespace.DataContext = cmBCurrentConnection;
+            txtBNamespaceOptionSetsCSharp.DataContext = cmBCurrentConnection;
+            txtBNamespaceOptionSetsJavaScript.DataContext = cmBCurrentConnection;
 
             cmBFileAction.DataContext = _commonConfig;
 
@@ -504,7 +505,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var optionSetExportType = _commonConfig.OptionSetExportType;
 
                 string folder = txtBFolder.Text.Trim();
-                string nameSpace = txtBNamespace.Text.Trim();
+                string nameSpace = txtBNamespaceOptionSetsCSharp.Text.Trim();
 
                 bool withDependentComponents = _commonConfig.GlobalOptionSetsWithDependentComponents;
                 bool allDescriptions = _commonConfig.AllDescriptions;
@@ -540,7 +541,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     filePath = _filePath;
                 }
 
-                service.ConnectionData.NamespaceOptionSets = nameSpace;
+                service.ConnectionData.NamespaceOptionSetsCSharp = nameSpace;
 
                 using (var handler = new CreateGlobalOptionSetsFileCSharpHandler(
                     service
@@ -630,7 +631,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
 
                 string folder = txtBFolder.Text.Trim();
-                string nameSpace = txtBNamespace.Text.Trim();
+                string nameSpace = txtBNamespaceOptionSetsJavaScript.Text.Trim();
 
                 bool withDependentComponents = _commonConfig.GlobalOptionSetsWithDependentComponents;
 
@@ -664,7 +665,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     filePath = _filePath;
                 }
 
-                service.ConnectionData.NamespaceOptionSets = nameSpace;
+                service.ConnectionData.NamespaceOptionSetsCSharp = nameSpace;
 
                 using (var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
                     service

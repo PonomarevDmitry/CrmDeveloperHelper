@@ -51,7 +51,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteLine();
 
-            string tempNamespace = !string.IsNullOrEmpty(this._service.ConnectionData.NamespaceJavaScript) ? this._service.ConnectionData.NamespaceJavaScript + "." : string.Empty;
+            string tempNamespace = !string.IsNullOrEmpty(this._service.ConnectionData.NamespaceClassesJavaScript) ? this._service.ConnectionData.NamespaceClassesJavaScript + "." : string.Empty;
 
             WriteLine(string.Format("{0}{1} = (new function () ", tempNamespace, _entityMetadata.LogicalName) + "{");
 
@@ -175,12 +175,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private void WriteNamespace()
         {
-            if (string.IsNullOrEmpty(this._service.ConnectionData.NamespaceJavaScript))
+            if (string.IsNullOrEmpty(this._service.ConnectionData.NamespaceClassesJavaScript))
             {
                 return;
             }
 
-            string[] split = this._service.ConnectionData.NamespaceJavaScript.Split('.');
+            string[] split = this._service.ConnectionData.NamespaceClassesJavaScript.Split('.');
 
             StringBuilder str = new StringBuilder();
 
