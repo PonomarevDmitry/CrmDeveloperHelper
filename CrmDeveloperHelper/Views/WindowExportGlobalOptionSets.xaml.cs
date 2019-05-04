@@ -220,7 +220,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         bool enabled = this.IsControlsEnabled && this.lstVwOptionSets.SelectedItems.Count > 0;
 
-                        UIElement[] list = { tSDDBSingleOptionSet, btnCreateJavaScriptFileForSingleOptionSet, btnCreateCSharpFileForSingleOptionSet };
+                        UIElement[] list = 
+                        {
+                            tSDDBSingleOptionSet
+                            , btnCreateCSharpFileForSingleOptionSet
+                            , btnCreateJavaScriptFileForSingleOptionSetJsonObject
+                        };
 
                         foreach (var button in list)
                         {
@@ -231,7 +236,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         bool enabled = this.IsControlsEnabled;
 
-                        UIElement[] list = { tSDDBGlobalOptionSets, tSBCreateCSharpFile, tSBCreateJavaScriptFile };
+                        UIElement[] list = 
+                        {
+                            tSDDBGlobalOptionSets
+                            , tSBCreateCSharpFile
+                            , tSBCreateJavaScriptFileJsonObject
+                        };
 
                         foreach (var button in list)
                         {
@@ -439,7 +449,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, this.tSBCreateCSharpFile, this.tSBCreateJavaScriptFile);
+            ToggleControl(this.tSProgressBar
+                , cmBCurrentConnection
+                , btnSetCurrentConnection
+                , this.tSBCreateCSharpFile
+                , this.tSBCreateJavaScriptFileJsonObject
+            );
 
             UpdateButtonsEnable();
         }
@@ -589,11 +604,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat1, optionSetsName);
         }
 
-        private async void btnCreateJavaScriptFile_Click(object sender, RoutedEventArgs e)
+        private async void btnCreateJavaScriptFileJsonObject_Click(object sender, RoutedEventArgs e)
         {
             var connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
 
-            if (connectionData != null && _cacheOptionSetMetadata.ContainsKey(connectionData.ConnectionId))
+            if (connectionData != null
+                && _cacheOptionSetMetadata.ContainsKey(connectionData.ConnectionId)
+            )
             {
                 await CreateJavaScriptFile(_cacheOptionSetMetadata[connectionData.ConnectionId]);
             }
@@ -778,7 +795,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await CreateCSharpFile(new[] { entity.OptionSetMetadata });
         }
 
-        private async void btnCreateJavaScriptFileForSingleOptionSet_Click(object sender, RoutedEventArgs e)
+        private async void btnCreateJavaScriptFileForSingleOptionSetJsonObject_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 

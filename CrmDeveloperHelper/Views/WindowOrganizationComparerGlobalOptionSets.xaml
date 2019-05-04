@@ -17,7 +17,8 @@
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
                 <MenuItem x:Uid="menuContextDifference" Header="Difference C# File Single OptionSet" Click="btnDifferenceCSharpFileSingle_Click" />
-                <MenuItem x:Uid="menuContextDifference" Header="Difference JavaScript File Single OptionSet" Click="btnDifferenceJavaScriptFileSingle_Click" />
+                <Separator x:Uid="menuContextDifference" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference JavaScript File Json Object Single OptionSet" Click="btnDifferenceJavaScriptFileSingleJsonObject_Click" />
                 <Separator x:Uid="menuContextDifference" />
                 <MenuItem x:Uid="menuContextDifference" Header="Show Difference">
                     <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
@@ -39,7 +40,8 @@
                     <Separator/>
 
                     <MenuItem Header="Create C# File Single OptionSets" Click="btnConnection1CSharpSingle_Click" />
-                    <MenuItem Header="Create JavaScript File Single OptionSet" Click="btnConnection1JavaScriptSingle_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Create JavaScript File Json Object Single OptionSet" Click="btnConnection1JavaScriptSingleJsonObject_Click"/>
                     <Separator/>
                     <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile1_Click"/>
                     <Separator/>
@@ -73,7 +75,8 @@
                     <Separator/>
 
                     <MenuItem Header="Create C# File Single OptionSets"  Click="btnConnection2CSharpSingle_Click" />
-                    <MenuItem Header="Create JavaScript File Single OptionSet" Click="btnConnection2JavaScriptSingle_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Create JavaScript Json Object File Single OptionSet" Click="btnConnection2JavaScriptSingleJsonObject_Click"/>
                     <Separator/>
                     <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile2_Click"/>
                     <Separator/>
@@ -219,33 +222,42 @@
                 <ToolBarPanel Orientation="Horizontal" >
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
-                            <MenuItem x:Name="btnDifferenceCSharpFileSingle" Header="C# File Single OptionSet" Click="btnDifferenceCSharpFileSingle_Click" />
-                            <MenuItem x:Name="btnDifferenceJavaScriptFileSingle" Header="JavaScript File Single OptionSet" Click="btnDifferenceJavaScriptFileSingle_Click" />
+                            <MenuItem Header="C# File Single OptionSet" Click="btnDifferenceCSharpFileSingle_Click" />
+                            <Separator />
+                            <MenuItem Header="Difference JavaScript File Json Object Single OptionSet" Click="btnDifferenceJavaScriptFileSingleJsonObject_Click" />
                             <Separator/>
-                            <MenuItem x:Name="btnDifferenceCSharpFile" Header="C# File All OptionSets" Click="btnDifferenceCSharpFile_Click"  />
-                            <MenuItem x:Name="btnDifferenceJavaScriptFile" Header="JavaScript File All OptionSets" Click="btnDifferenceJavaScriptFile_Click"/>
+                            <MenuItem Header="C# File All OptionSets" Click="btnDifferenceCSharpFile_Click"  />
+                            <Separator/>
+                            <MenuItem Header="JavaScript File Json Object All OptionSets" Click="btnDifferenceJavaScriptFileJsonObject_Click"/>
                         </MenuItem>
                     </Menu>
+                    
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection1" Header="Connection 1">
-                            <MenuItem x:Name="btnConnection1CSharpSingle" Header="Create C# File Single OptionSets" Click="btnConnection1CSharpSingle_Click"  />
-                            <MenuItem x:Name="btnConnection1JavaScriptSingle" Header="Create JavaScript File Single OptionSet" Click="btnConnection1JavaScriptSingle_Click" />
+                            <MenuItem Header="Create C# File Single OptionSets" Click="btnConnection1CSharpSingle_Click"  />
                             <Separator/>
-                            <MenuItem x:Name="btnConnection1CSharp" Header="Create C# File All OptionSets" Click="btnConnection1CSharp_Click"  />
-                            <MenuItem x:Name="btnConnection1JavaScript" Header="Create JavaScript File All OptionSets" Click="btnConnection1JavaScript_Click" />
+                            <MenuItem Header="Create JavaScript File Json Object Single OptionSet" Click="btnConnection1JavaScriptSingleJsonObject_Click"/>
+                            <Separator/>
+                            <MenuItem Header="Create C# File All OptionSets" Click="btnConnection1CSharp_Click"  />
+                            <Separator/>
+                            <MenuItem Header="Create JavaScript File Json Object All OptionSets" Click="btnConnection1JavaScriptJsonObject_Click" />
                         </MenuItem>
                     </Menu>
+                    
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection2" Header="Connection 2">
-                            <MenuItem x:Name="btnConnection2CSharpSingle" Header="Create C# File Single OptionSets"  Click="btnConnection2CSharpSingle_Click" />
-                            <MenuItem x:Name="btnConnection2JavaScriptSingle" Header="Create JavaScript File Single OptionSet" Click="btnConnection2JavaScriptSingle_Click" />
+                            <MenuItem Header="Create C# File Single OptionSets"  Click="btnConnection2CSharpSingle_Click" />
                             <Separator/>
-                            <MenuItem x:Name="btnConnection2CSharp" Header="Create C# File All OptionSets" Click="btnConnection2CSharp_Click" />
-                            <MenuItem x:Name="btnConnection2JavaScript" Header="Create JavaScript File All OptionSets" Click="btnConnection2JavaScript_Click" />
+                            <MenuItem Header="Create JavaScript File Json Object Single OptionSet" Click="btnConnection2JavaScriptSingleJsonObject_Click"/>
+                            <Separator/>
+                            <MenuItem Header="Create C# File All OptionSets" Click="btnConnection2CSharp_Click" />
+                            <Separator/>
+                            <MenuItem Header="Create JavaScript File Json Object All OptionSets" Click="btnConnection2JavaScriptJsonObject_Click" />
                         </MenuItem>
                     </Menu>
+                    
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                     <Label Content="Action" HorizontalAlignment="Left" Padding="10,0" VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
                     <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" IsReadOnly="True" Padding="10,0" Width="180" SelectedIndex="0" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" />

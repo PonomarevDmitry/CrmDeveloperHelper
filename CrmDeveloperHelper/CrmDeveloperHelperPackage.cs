@@ -71,6 +71,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeJavaScriptUpdateEntityMetadataFileCommand.Initialize(this);
             CodeJavaScriptUpdateEntityMetadataFileWithSelectCommand.Initialize(this);
 
+            CodeJavaScriptUpdateGlobalOptionSetSingleFileCommand.Initialize(this);
+            CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand.Initialize(this);
+
+            CodeJavaScriptUpdateGlobalOptionSetAllFileCommand.Initialize(this);
+
             CodeXmlExecuteFetchXmlRequestCommand.Initialize(this);
             CodeXmlExecuteFetchXmlRequestInConnectionsCommand.Initialize(this);
             CodeXmlConvertFetchXmlToJavaScriptCodeCommand.Initialize(this);
@@ -196,6 +201,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileJavaScriptUpdateEntityMetadataFileCommand.Initialize(this);
             FileJavaScriptUpdateEntityMetadataFileWithSelectCommand.Initialize(this);
 
+            FileJavaScriptUpdateGlobalOptionSetSingleFileCommand.Initialize(this);
+            FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand.Initialize(this);
+
+            FileJavaScriptUpdateGlobalOptionSetAllFileCommand.Initialize(this);
+
             FileReportDownloadCommand.Initialize(this);
             FileReportLinkClearCommand.Initialize(this);
             FileReportLinkCreateCommand.Initialize(this);
@@ -252,6 +262,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             DocumentsWebResourceAddIntoSolutionInConnectionCommand.Initialize(this);
 
             DocumentsJavaScriptUpdateEntityMetadataFileCommand.Initialize(this);
+            DocumentsJavaScriptUpdateGlobalOptionSetSingleFileCommand.Initialize(this);
 
             DocumentsReportLinkClearCommand.Initialize(this);
 
@@ -304,6 +315,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FolderWebResourceAddIntoSolutionInConnectionCommand.Initialize(this);
 
             FolderJavaScriptUpdateEntityMetadataFileCommand.Initialize(this);
+            FolderJavaScriptUpdateGlobalOptionSetSingleFileCommand.Initialize(this);
 
             FolderCSharpProjectPluginAssemblyAddIntoSolutionInConnectionCommand.Initialize(this);
             FolderCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.Initialize(this);

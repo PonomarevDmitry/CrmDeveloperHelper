@@ -1074,7 +1074,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._entityMetadataController.ExecuteUpdatingFileWithGlobalOptionSets(connectionData, commonConfig, selectedFiles, withSelect);
+                    this._entityMetadataController.ExecuteUpdatingFileWithGlobalOptionSetCSharp(connectionData, commonConfig, selectedFiles, withSelect);
                 }
                 catch (Exception ex)
                 {
@@ -1126,6 +1126,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 try
                 {
                     this._entityMetadataController.ExecuteUpdateFileWithEntityMetadataJavaScript(selectedFiles, connectionData, commonConfig, selectEntity);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartUpdatingFileWithGlobalOptionSetSingleJavaScript(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._entityMetadataController.ExecuteUpdatingFileWithGlobalOptionSetSingleJavaScript(connectionData, commonConfig, selectedFiles, selectEntity);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartUpdatingFileWithGlobalOptionSetAllJavaScript(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._entityMetadataController.ExecuteUpdatingFileWithGlobalOptionSetAllJavaScript(connectionData, commonConfig, selectedFile);
                 }
                 catch (Exception ex)
                 {

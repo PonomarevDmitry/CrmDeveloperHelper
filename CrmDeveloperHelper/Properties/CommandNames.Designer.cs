@@ -106,7 +106,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update Global OptionSets File with Select.
+        ///   Looks up a localized string similar to Update Single Global OptionSet File with Select.
         /// </summary>
         internal static string CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommand {
             get {
@@ -133,11 +133,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update Global OptionSets File with Select.
+        ///   Looks up a localized string similar to Update Single Global OptionSet File with Select.
         /// </summary>
-        internal static string CodeJavaScriptUpdateGlobalOptionSetsFileWithSelectCommand {
+        internal static string CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand {
             get {
-                return ResourceManager.GetString("CodeJavaScriptUpdateGlobalOptionSetsFileWithSelectCommand", resourceCulture);
+                return ResourceManager.GetString("CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand", resourceCulture);
             }
         }
         
@@ -612,9 +612,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Update Global OptionSets File with Select.
         /// </summary>
-        internal static string FileJavaScriptUpdateGlobalOptionSetsFileWithSelectCommand {
+        internal static string FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand {
             get {
-                return ResourceManager.GetString("FileJavaScriptUpdateGlobalOptionSetsFileWithSelectCommand", resourceCulture);
+                return ResourceManager.GetString("FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand", resourceCulture);
             }
         }
         

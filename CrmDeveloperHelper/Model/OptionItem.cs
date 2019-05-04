@@ -58,7 +58,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 string langCode = string.Empty;
 
-                strValue.AppendFormat(", 'text': '{0}'", this.Label.UserLocalizedLabel.Label);
+                strValue.AppendFormat(", 'text': '{0}'", this.Label.UserLocalizedLabel.Label.Replace("'", @"\'"));
             }
 
             if (this.DisplayOrder.HasValue)
@@ -80,7 +80,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     {
                         string langCode = string.Empty;
 
-                        strValue.AppendFormat(", 'name{0}': '{1}'", item.LanguageCode, item.Label);
+                        strValue.AppendFormat(", 'name{0}': '{1}'", item.LanguageCode, item.Label.Replace("'", @"\'"));
 
                         hashShowed.Add(item.Label);
                     }

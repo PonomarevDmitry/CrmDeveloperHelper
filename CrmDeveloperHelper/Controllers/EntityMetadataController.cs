@@ -776,9 +776,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Обновление файла с мета-данными сущности JavaScript.
 
-        #region Обновление файла с глобальными OptionSet-ами.
+        #region Обновление файла с глобальными OptionSet-ами C#.
 
-        public async Task ExecuteUpdatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
+        public async Task ExecuteUpdatingFileWithGlobalOptionSetCSharp(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingFileWithGlobalOptionSetsFormat1, connectionData?.Name);
 
@@ -786,7 +786,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdatingFileWithGlobalOptionSets(connectionData, commonConfig, selectedFiles, withSelect);
+                await UpdatingFileWithGlobalOptionSetCSharp(connectionData, commonConfig, selectedFiles, withSelect);
             }
             catch (Exception ex)
             {
@@ -798,7 +798,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
+        private async Task UpdatingFileWithGlobalOptionSetCSharp(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
             if (connectionData == null)
             {
@@ -860,7 +860,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                                    , commonConfig.GlobalOptionSetsWithDependentComponents
                                    , commonConfig.SolutionComponentWithManagedInfo
                                    , commonConfig.AllDescriptions
-                                   ))
+                        ))
                         {
                             await handler.CreateFileAsync(filePath, new[] { metadata });
                         }
@@ -894,7 +894,199 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        #endregion Обновление файла с глобальными OptionSet-ами.
+        #endregion Обновление файла с глобальными OptionSet-ами C#.
+
+        #region Обновление файла с глобальными OptionSet-ами JavaScript Single.
+
+        public async Task ExecuteUpdatingFileWithGlobalOptionSetSingleJavaScript(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
+        {
+            string operation = string.Format(Properties.OperationNames.UpdatingFileWithGlobalOptionSetsFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await UpdatingFileWithGlobalOptionSetSingleJavaScript(connectionData, commonConfig, selectedFiles, withSelect);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task UpdatingFileWithGlobalOptionSetSingleJavaScript(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            var descriptor = new SolutionComponentDescriptor(service);
+            descriptor.SetSettings(commonConfig);
+
+            foreach (var selFile in selectedFiles)
+            {
+                var filePath = selFile.FilePath;
+
+                if (!File.Exists(filePath))
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, filePath);
+                    continue;
+                }
+
+                var selection = Path.GetFileNameWithoutExtension(filePath);
+                selection = selection.Split('.').FirstOrDefault();
+
+                bool tempWithSelect = withSelect;
+
+                if (!tempWithSelect)
+                {
+                    var metadata = descriptor.MetadataSource.GetOptionSetMetadata(selection.ToLower());
+
+                    if (metadata != null)
+                    {
+                        string operation = string.Format(Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat2, connectionData?.Name, metadata.Name);
+
+                        this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+                        string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.IndentType, commonConfig.SpaceCount);
+
+                        using (var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
+                            service
+                            , _iWriteToOutput
+                            , tabSpacer
+                            , commonConfig.GlobalOptionSetsWithDependentComponents
+                        ))
+                        {
+                            await handler.CreateFileAsync(filePath, new[] { metadata });
+                        }
+
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, metadata.Name, filePath);
+
+                        this._iWriteToOutput.WriteToOutputFilePathUri(connectionData, filePath);
+
+                        this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+
+                        continue;
+                    }
+                    else
+                    {
+                        tempWithSelect = true;
+                    }
+                }
+
+                if (tempWithSelect)
+                {
+                    var tempService = await QuickConnection.ConnectAsync(connectionData);
+
+                    if (tempService == null)
+                    {
+                        _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                        return;
+                    }
+
+                    WindowHelper.OpenGlobalOptionSetsWindow(this._iWriteToOutput, tempService, commonConfig, selection, filePath, true);
+                }
+            }
+        }
+
+        #endregion Обновление файла с глобальными OptionSet-ами JavaScript Single.
+
+        #region Обновление файла с глобальными OptionSet-ами JavaScript All.
+
+        public async Task ExecuteUpdatingFileWithGlobalOptionSetAllJavaScript(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        {
+            string operation = string.Format(Properties.OperationNames.UpdatingFileWithGlobalOptionSetsFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await UpdatingFileWithGlobalOptionSetAllJavaScript(connectionData, commonConfig, selectedFile);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task UpdatingFileWithGlobalOptionSetAllJavaScript(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            OptionSetRepository repository = new OptionSetRepository(service);
+
+            var optionSets = await repository.GetOptionSetsAsync();
+
+            string optionSetsName = string.Join(",", optionSets.Select(o => o.Name).OrderBy(s => s));
+
+            string operation = string.Format(Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat2, connectionData?.Name, optionSetsName);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.IndentType, commonConfig.SpaceCount);
+
+            using (var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
+                service
+                , _iWriteToOutput
+                , tabSpacer
+                , commonConfig.GlobalOptionSetsWithDependentComponents
+            ))
+            {
+                await handler.CreateFileAsync(selectedFile.FilePath, optionSets.OrderBy(o => o.Name));
+            }
+
+            this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, optionSetsName, selectedFile.FilePath);
+
+            this._iWriteToOutput.WriteToOutputFilePathUri(connectionData, selectedFile.FilePath);
+
+            this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+        }
+
+        #endregion Обновление файла с глобальными OptionSet-ами JavaScript All.
 
         public async Task ExecuteDifferenceRibbon(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
         {

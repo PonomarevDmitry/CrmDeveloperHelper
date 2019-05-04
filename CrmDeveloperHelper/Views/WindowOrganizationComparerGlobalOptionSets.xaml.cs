@@ -503,7 +503,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void btnDifferenceJavaScriptFile_Click(object sender, RoutedEventArgs e)
+        private async void btnDifferenceJavaScriptFileJsonObject_Click(object sender, RoutedEventArgs e)
         {
             var service1 = await GetService1();
             var service2 = await GetService2();
@@ -519,7 +519,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void btnDifferenceJavaScriptFileSingle_Click(object sender, RoutedEventArgs e)
+        private async void btnDifferenceJavaScriptFileSingleJsonObject_Click(object sender, RoutedEventArgs e)
         {
             var link = GetSelectedEntity();
 
@@ -751,7 +751,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat1, optionSetsName);
         }
 
-        private void btnConnection1JavaScript_Click(object sender, RoutedEventArgs e)
+        private void btnConnection1JavaScriptJsonObject_Click(object sender, RoutedEventArgs e)
         {
             ConnectionData connection1 = cmBConnection1.SelectedItem as ConnectionData;
 
@@ -761,7 +761,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void btnConnection2JavaScript_Click(object sender, RoutedEventArgs e)
+        private void btnConnection2JavaScriptJsonObject_Click(object sender, RoutedEventArgs e)
         {
             ConnectionData connection2 = cmBConnection2.SelectedItem as ConnectionData;
 
@@ -771,7 +771,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void btnConnection1JavaScriptSingle_Click(object sender, RoutedEventArgs e)
+        private void btnConnection1JavaScriptSingleJsonObject_Click(object sender, RoutedEventArgs e)
         {
             var link = GetSelectedEntity();
 
@@ -785,7 +785,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             CreateGlobalOptionSetsJavaScriptFile(GetService1, txtBNamespaceJavaScript1.Text.Trim(), optionSets);
         }
 
-        private void btnConnection2JavaScriptSingle_Click(object sender, RoutedEventArgs e)
+        private void btnConnection2JavaScriptSingleJsonObject_Click(object sender, RoutedEventArgs e)
         {
             var link = GetSelectedEntity();
 

@@ -31,7 +31,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , IWriteToOutput iWriteToOutput
             , string tabSpacer
             , bool withDependentComponents
-            ) : base(tabSpacer, true)
+        ) : base(tabSpacer, true)
         {
             this._service = service;
             this._iWriteToOutput = iWriteToOutput;
@@ -59,21 +59,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteNamespace();
 
-            WriteLine();
-
             string tempNamespace = !string.IsNullOrEmpty(this._service.ConnectionData.NamespaceOptionSetsCSharp) ? this._service.ConnectionData.NamespaceOptionSetsCSharp + "." : string.Empty;
 
-            WriteLine("{0}GlobalOptionSets = (new function () {{", tempNamespace);
-
-            await WriteRegularOptionSets(optionSets);
-
-            WriteLine();
-            WriteLine("var pthis = this;");
-
-            WriteLine();
-            WriteLine("return pthis;");
-
-            Write("}());");
+            await WriteRegularOptionSets(tempNamespace, optionSets);
 
             EndWriting();
         }
@@ -105,15 +93,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        private async Task WriteRegularOptionSets(IEnumerable<OptionSetMetadata> optionSets)
+        private async Task WriteRegularOptionSets(string tempNamespace, IEnumerable<OptionSetMetadata> optionSets)
         {
-            foreach (var optionSetMetadata in optionSets)
+            foreach (var optionSetMetadata in optionSets.OrderBy(o => o.Name))
             {
-                await GenerateOptionSetEnums(optionSetMetadata);
+                await GenerateOptionSetEnums(tempNamespace, optionSetMetadata);
             }
         }
 
-        private async Task GenerateOptionSetEnums(OptionSetMetadata optionSet)
+        private async Task GenerateOptionSetEnums(string tempNamespace, OptionSetMetadata optionSet)
         {
             var dependent = await _dependencyRepository.GetDependentComponentsAsync((int)ComponentType.OptionSet, optionSet.MetadataId.Value);
 
@@ -157,13 +145,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
+            string objectName = string.Format("{0}{1}Enum", tempNamespace, optionSet.Name);
+
             if (CreateFileHandler.IgnoreGlobalOptionSet(optionSet.Name))
             {
-                WriteLine("//var {0}Enum", optionSet.Name);
+                WriteLine("// {0}", objectName);
                 return;
             }
 
-            WriteLine(string.Format("var {0}Enum =", optionSet.Name) + " {");
+            WriteLine(string.Format("{0} =", objectName) + " {");
 
             WriteLine();
 

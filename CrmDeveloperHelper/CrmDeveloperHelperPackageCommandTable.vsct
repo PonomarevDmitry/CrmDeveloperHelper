@@ -44,6 +44,10 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCompareFile" priority="0x0603"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupEntityMetadata" priority="0x0603"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupEntityMetadata_MenuConnectionDyn_Group" priority="0x0603"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetSingle" priority="0x0603"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn_Group" priority="0x0603"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetAll" priority="0x0603"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn_Group" priority="0x0603"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCompareFile_MenuConnectionDyn_Group" priority="0x0603"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCheckFileEncoding" priority="0x0604"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupDownloadWebResource" priority="0x0605"/>
@@ -180,6 +184,8 @@
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupCompareFile_MenuConnectionWithDetailsDyn_Group" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEntityMetadata" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEntityMetadata_MenuSchemaDyn_Group" priority="0x0602" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupGlobalOptionSetSingle" priority="0x0602" />
+      <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupGlobalOptionSetSingle_MenuSchemaDyn_Group" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupByText" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference_GroupWithChanges" priority="0x0601" />
@@ -253,6 +259,10 @@
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupCompareFile_MenuConnectionWithDetailsDyn_Group" priority="0x0604" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEntityMetadata" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEntityMetadata_MenuConnectionDyn_Group" priority="0x0602" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetSingle" priority="0x0602" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn_Group" priority="0x0602" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetAll" priority="0x0602" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn_Group" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd" priority="0x0605" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding" priority="0x0608" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" priority="0x0608" />
@@ -364,6 +374,10 @@
 
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata" priority="0x060A" />
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn_Group" priority="0x060A" />
+
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle" priority="0x060A" />
+      <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuConnection_Group" priority="0x060A" />
+      
 
       <Group guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd" priority="0x0605" />
 
@@ -709,7 +723,19 @@
         </Strings>
       </Menu>
 
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn" priority="0x0203" type="Menu">
+        <Strings>
+          <ButtonText>Update Single Global OptionSet File</ButtonText>
+          <MenuText>Update Single Global OptionSet File</MenuText>
+        </Strings>
+      </Menu>
 
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn" priority="0x0203" type="Menu">
+        <Strings>
+          <ButtonText>Update All Global OptionSets File</ButtonText>
+          <MenuText>Update All Global OptionSets File</MenuText>
+        </Strings>
+      </Menu>
 
 
 
@@ -899,9 +925,15 @@
           <MenuText>Update EntityMetadata File</MenuText>
         </Strings>
       </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupGlobalOptionSetSingle_MenuSchemaDyn" priority="0x0107" type="Menu">
+        <Strings>
+          <ButtonText>Update Single Global OptionSet File</ButtonText>
+          <MenuText>Update Single Global OptionSet File</MenuText>
+        </Strings>
+      </Menu>
 
 
-
+      
       <Menu guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd_MenuMultiDifference" priority="0x0201" type="Menu">
         <Strings>
           <ButtonText>Multi Difference</ButtonText>
@@ -1023,6 +1055,22 @@
         </Strings>
       </Menu>
 
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn" priority="0x0203" type="Menu">
+        <Strings>
+          <ButtonText>Update Single Global OptionSet File</ButtonText>
+          <MenuText>Update Single Global OptionSet File</MenuText>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn" priority="0x0203" type="Menu">
+        <Strings>
+          <ButtonText>Update All Global OptionSets File</ButtonText>
+          <MenuText>Update All Global OptionSets File</MenuText>
+        </Strings>
+      </Menu>
+
+
+      
 
       <Menu guid="guidGroupAndMenuSet" id="fileMenuReport" priority="0x0205" type="Menu">
         <Strings>
@@ -1694,8 +1742,13 @@
         </Strings>
       </Menu>
 
-
-
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuConnection" priority="0x0107" type="Menu">
+        <Strings>
+          <ButtonText>Update Single Global OptionSet Files (Recursive)</ButtonText>
+          <MenuText>Update Single Global OptionSet Files (Recursive)</MenuText>
+        </Strings>
+      </Menu>
+      
 
 
 
@@ -3202,7 +3255,32 @@
         </Strings>
       </Button>
 
+      <Button guid="guidDynamicCommandSet" id="CodeJavaScriptUpdateGlobalOptionSetSingleFileCommandId" priority="0x0101" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Update Single Global OptionSet File Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId" priority="0x0102" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Update Single Global OptionSet File with Select Entity</ButtonText>
+        </Strings>
+      </Button>
 
+      <Button guid="guidDynamicCommandSet" id="CodeJavaScriptUpdateGlobalOptionSetAllFileCommandId" priority="0x0101" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Update All Global OptionSets File Placeholder</ButtonText>
+        </Strings>
+      </Button>
 
 
 
@@ -3447,6 +3525,16 @@
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
           <ButtonText>Update EntityMetadata File Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidDynamicCommandSet" id="DocumentsJavaScriptUpdateGlobalOptionSetSingleFileCommandId" priority="0x0111" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Update Single Global OptionSet File Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4112,6 +4200,33 @@
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
           <ButtonText>Update EntityMetadata File with Select Entity</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidDynamicCommandSet" id="FileJavaScriptUpdateGlobalOptionSetSingleFileCommandId" priority="0x0111" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Update Single Global OptionSet File Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId" priority="0x0112" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Update Single Global OptionSet File with Select Entity</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidDynamicCommandSet" id="FileJavaScriptUpdateGlobalOptionSetAllFileCommandId" priority="0x0111" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Update All Global OptionSets File Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4925,6 +5040,16 @@
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
           <ButtonText>Update EntityMetadata File (Recursive) Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidDynamicCommandSet" id="FolderJavaScriptUpdateGlobalOptionSetSingleFileCommandId" priority="0x011F" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Update Single Global OptionSet File (Recursive) Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -6275,37 +6400,43 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupPublish" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference" priority="0x0601">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference" priority="0x0610">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple" priority="0x0602">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple" priority="0x0620">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceCustom" priority="0x0603">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceCustom" priority="0x0630">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDependentComponents" priority="0x0604">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDependentComponents" priority="0x0640">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCompareFile" priority="0x0605">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCompareFile" priority="0x0650">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupEntityMetadata" priority="0x0607">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupEntityMetadata" priority="0x0660">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCheckFileEncoding" priority="0x0606">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetSingle" priority="0x0670">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupDownloadWebResource" priority="0x0607">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetAll" priority="0x0680">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb" priority="0x0608">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCheckFileEncoding" priority="0x0690">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupAddIntoSolution" priority="0x0609">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupDownloadWebResource" priority="0x06A0">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLastLink" priority="0x060A">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb" priority="0x06B0">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupAddIntoSolution" priority="0x06C0">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupLastLink" priority="0x06D0">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
 
@@ -6426,28 +6557,31 @@
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupPublish" priority="0x0601">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupPublish" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupShowDependentComponents" priority="0x0602">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupShowDependentComponents" priority="0x0610">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupCompareFile" priority="0x0603">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupCompareFile" priority="0x0620">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd" priority="0x0604">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupOpenMultiAdd" priority="0x0630">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEntityMetadata" priority="0x0608">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEntityMetadata" priority="0x0640">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEncoding" priority="0x0605">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupGlobalOptionSetSingle" priority="0x0650">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupAddIntoSolution" priority="0x0605">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEncoding" priority="0x0660">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLastLink" priority="0x0606">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupAddIntoSolution" priority="0x0670">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupLastLink" priority="0x0680">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource" />
     </CommandPlacement>
 
@@ -6638,43 +6772,49 @@
 
 
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupPublish" priority="0x0601">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupPublish" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference" priority="0x0603">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference" priority="0x0610">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple" priority="0x0604">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceMultiple" priority="0x0620">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDependentComponents" priority="0x0605">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDependentComponents" priority="0x0630">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceCustom" priority="0x0606">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifferenceCustom" priority="0x0640">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupCompareFile" priority="0x0607">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupCompareFile" priority="0x0650">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd" priority="0x0608">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd" priority="0x0660">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEntityMetadata" priority="0x0607">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEntityMetadata" priority="0x0670">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding" priority="0x0609">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetSingle" priority="0x0680">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupDownload" priority="0x060A">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetAll" priority="0x0690">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb" priority="0x060B">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding" priority="0x06A0">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupAddIntoSolution" priority="0x060C">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupDownload" priority="0x06B0">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLastLink" priority="0x060D">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb" priority="0x06C0">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupAddIntoSolution" priority="0x06D0">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLastLink" priority="0x06E0">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
 
@@ -6838,28 +6978,31 @@
 
 
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupPublish" priority="0x0601">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupPublish" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupShowDependentComponents" priority="0x0603">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupShowDependentComponents" priority="0x0610">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupCompareFile" priority="0x0604">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupCompareFile" priority="0x0620">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd" priority="0x0605">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupOpenMultiAdd" priority="0x0630">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata" priority="0x0609">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata" priority="0x0640">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEncoding" priority="0x0606">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle" priority="0x0650">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupAddIntoSolution" priority="0x0606">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEncoding" priority="0x0660">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLastLink" priority="0x0608">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupAddIntoSolution" priority="0x0670">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupLastLink" priority="0x0680">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource" />
     </CommandPlacement>
 
@@ -8007,6 +8150,17 @@
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupEntityMetadata" />
     </CommandPlacement>
 
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn" priority="0x0100">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetSingle" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId" priority="0x0110">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetSingle" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn" priority="0x0100">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetAll" />
+    </CommandPlacement>
+
     <CommandPlacement guid="guidCommandSet" id="CodeWebResourceCheckEncodingCommandId" priority="0x0104">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCheckFileEncoding" />
     </CommandPlacement>
@@ -8539,6 +8693,10 @@
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEntityMetadata" />
     </CommandPlacement>
 
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupGlobalOptionSetSingle_MenuSchemaDyn" priority="0x0111">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupGlobalOptionSetSingle" />
+    </CommandPlacement>
+
     <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupAddIntoSolution_MenuAddIntoSolution" priority="0x0112">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupAddIntoSolution" />
     </CommandPlacement>
@@ -8835,14 +8993,24 @@
 
 
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEntityMetadata_MenuConnectionDyn" priority="0x0111">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEntityMetadata_MenuConnectionDyn" priority="0x0100">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEntityMetadata" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileJavaScriptUpdateEntityMetadataFileWithSelectCommandId" priority="0x0112">
+    <CommandPlacement guid="guidCommandSet" id="FileJavaScriptUpdateEntityMetadataFileWithSelectCommandId" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEntityMetadata" />
     </CommandPlacement>
 
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn" priority="0x0120">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetSingle" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId" priority="0x0130">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetSingle" />
+    </CommandPlacement>
 
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn" priority="0x0120">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetAll" />
+    </CommandPlacement>
+    
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding_MenuCommands" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding" />
@@ -9224,11 +9392,13 @@
     </CommandPlacement>
 
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn" priority="0x011F">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn" priority="0x0100">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata" />
     </CommandPlacement>
-
-
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuConnection" priority="0x0110">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle" />
+    </CommandPlacement>
+    
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEncoding_MenuCommands" priority="0x0119">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEncoding" />
@@ -9796,6 +9966,20 @@
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupEntityMetadata_MenuConnectionDyn_Group" />
     </CommandPlacement>
 
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn_Group" priority="0x0100">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeJavaScriptUpdateGlobalOptionSetSingleFileCommandId" priority="0x0110">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn_Group" priority="0x0100">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeJavaScriptUpdateGlobalOptionSetAllFileCommandId" priority="0x0110">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn_Group" />
+    </CommandPlacement>
+
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenInWebDyn_Group" priority="0x0105">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenInWebDyn" />
     </CommandPlacement>
@@ -10116,11 +10300,18 @@
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupCompareFile_MenuConnectionWithDetailsDyn_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEntityMetadata_MenuSchemaDyn_Group" priority="0x0111">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEntityMetadata_MenuSchemaDyn_Group" priority="0x0100">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEntityMetadata_MenuSchemaDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsJavaScriptUpdateEntityMetadataFileCommandId" priority="0x0111">
+    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsJavaScriptUpdateEntityMetadataFileCommandId" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupEntityMetadata_MenuSchemaDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupGlobalOptionSetSingle_MenuSchemaDyn_Group" priority="0x0120">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupGlobalOptionSetSingle_MenuSchemaDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="DocumentsJavaScriptUpdateGlobalOptionSetSingleFileCommandId" priority="0x0130">
+      <Parent guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupGlobalOptionSetSingle_MenuSchemaDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="documentsMenuWebResource_GroupAddIntoSolution_MenuAddIntoSolution_GroupLastSolution_MenuLastSolutionDyn" priority="0x0112">
@@ -10275,6 +10466,20 @@
     </CommandPlacement>
     <CommandPlacement guid="guidDynamicCommandSet" id="FileJavaScriptUpdateEntityMetadataFileCommandId" priority="0x0111">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEntityMetadata_MenuConnectionDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn_Group" priority="0x0111">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileJavaScriptUpdateGlobalOptionSetSingleFileCommandId" priority="0x0111">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn_Group" priority="0x0111">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileJavaScriptUpdateGlobalOptionSetAllFileCommandId" priority="0x0111">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenInWebDyn_Group" priority="0x0110">
@@ -10473,12 +10678,22 @@
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupCompareFile_MenuConnectionWithDetailsDyn_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn_Group" priority="0x011F">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn_Group" priority="0x0100">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FolderJavaScriptUpdateEntityMetadataFileCommandId" priority="0x011F">
+    <CommandPlacement guid="guidDynamicCommandSet" id="FolderJavaScriptUpdateEntityMetadataFileCommandId" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn_Group" />
     </CommandPlacement>
+    
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuConnection_Group" priority="0x0120">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuConnection" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FolderJavaScriptUpdateGlobalOptionSetSingleFileCommandId" priority="0x0130">
+      <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuConnection_Group" />
+    </CommandPlacement>
+
+
+    
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupAddIntoSolution_MenuAddIntoSolution_GroupLastSolution_MenuLastSolutionDyn" priority="0x011C">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuWebResource_GroupAddIntoSolution_MenuAddIntoSolution_GroupLastSolution" />
@@ -10716,6 +10931,14 @@
       <IDSymbol name="codeMenuWebResource_GroupEntityMetadata" value="0x12F7" />
       <IDSymbol name="codeMenuWebResource_GroupEntityMetadata_MenuConnectionDyn" value="0x12F8" />
       <IDSymbol name="codeMenuWebResource_GroupEntityMetadata_MenuConnectionDyn_Group" value="0x12F9" />
+
+      <IDSymbol name="codeMenuWebResource_GroupGlobalOptionSetSingle" value="0x131E" />
+      <IDSymbol name="codeMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn" value="0x131F" />
+      <IDSymbol name="codeMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn_Group" value="0x1320" />
+
+      <IDSymbol name="codeMenuWebResource_GroupGlobalOptionSetAll" value="0x1321" />
+      <IDSymbol name="codeMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn" value="0x1322" />
+      <IDSymbol name="codeMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn_Group" value="0x1323" />
 
       <IDSymbol name="codeMenuWebResource_GroupCheckFileEncoding" value="0x1005" />
       <IDSymbol name="codeMenuWebResource_GroupDownloadWebResource" value="0x1006" />
@@ -10974,12 +11197,12 @@
       <IDSymbol name="documentsMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" value="0x117A" />
 
       <IDSymbol name="documentsMenuWebResource_GroupEntityMetadata" value="0x12FA" />
-
       <IDSymbol name="documentsMenuWebResource_GroupEntityMetadata_MenuSchemaDyn" value="0x12FB" />
       <IDSymbol name="documentsMenuWebResource_GroupEntityMetadata_MenuSchemaDyn_Group" value="0x12FC" />
 
-      <IDSymbol name="documentsMenuWebResource_GroupEntityMetadata_MenuGlobalOptionSetsDyn" value="0x12FD" />
-      <IDSymbol name="documentsMenuWebResource_GroupEntityMetadata_MenuGlobalOptionSetsDyn_Group" value="0x12FE" />
+      <IDSymbol name="documentsMenuWebResource_GroupGlobalOptionSetSingle" value="0x131C" />
+      <IDSymbol name="documentsMenuWebResource_GroupGlobalOptionSetSingle_MenuSchemaDyn" value="0x12FD" />
+      <IDSymbol name="documentsMenuWebResource_GroupGlobalOptionSetSingle_MenuSchemaDyn_Group" value="0x12FE" />
 
       <IDSymbol name="documentsMenuWebResource_GroupEncoding" value="0x117B" />
       <IDSymbol name="documentsMenuWebResource_GroupEncoding_MenuCommands" value="0x117C" />
@@ -11151,10 +11374,14 @@
       <IDSymbol name="fileMenuWebResource_GroupEntityMetadata" value="0x12FF" />
       <IDSymbol name="fileMenuWebResource_GroupEntityMetadata_MenuConnectionDyn" value="0x1300" />
       <IDSymbol name="fileMenuWebResource_GroupEntityMetadata_MenuConnectionDyn_Group" value="0x1301" />
+
+      <IDSymbol name="fileMenuWebResource_GroupGlobalOptionSetSingle" value="0x1319" />
+      <IDSymbol name="fileMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn" value="0x131A" />
+      <IDSymbol name="fileMenuWebResource_GroupGlobalOptionSetSingle_MenuConnectionDyn_Group" value="0x131B" />
       
-      <IDSymbol name="fileMenuWebResource_GroupGlobalOptionSets" value="0x1302" />
-      <IDSymbol name="fileMenuWebResource_GroupGlobalOptionSets_MenuConnectionDyn" value="0x1303" />
-      <IDSymbol name="fileMenuWebResource_GroupGlobalOptionSets_MenuConnectionDyn_Group" value="0x1304" />
+      <IDSymbol name="fileMenuWebResource_GroupGlobalOptionSetAll" value="0x1302" />
+      <IDSymbol name="fileMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn" value="0x1303" />
+      <IDSymbol name="fileMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn_Group" value="0x1304" />
 
       <IDSymbol name="fileMenuWebResource_GroupEncoding" value="0x1025" />
       <IDSymbol name="fileMenuWebResource_GroupEncoding_MenuCommands" value="0x1189" />
@@ -11342,13 +11569,13 @@
       <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithChanges" value="0x1074" />
       <IDSymbol name="folderMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" value="0x1075" />
 
-      <IDSymbol name="folderMenuWebResource_GroupEntityMetadata" value="0x1305" />
-      
+      <IDSymbol name="folderMenuWebResource_GroupEntityMetadata" value="0x1305" />      
       <IDSymbol name="folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn" value="0x1306" />
       <IDSymbol name="folderMenuWebResource_GroupEntityMetadata_MenuEntityDyn_Group" value="0x1307" />
-      
-      <IDSymbol name="folderMenuWebResource_GroupEntityMetadata_MenuGlobalOptionSetsDyn" value="0x1308" />
-      <IDSymbol name="folderMenuWebResource_GroupEntityMetadata_MenuGlobalOptionSetsDyn_Group" value="0x1309" />
+
+      <IDSymbol name="folderMenuWebResource_GroupGlobalOptionSetSingle" value="0x131D" />
+      <IDSymbol name="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuConnection" value="0x1308" />
+      <IDSymbol name="folderMenuWebResource_GroupGlobalOptionSetSingle_MenuConnection_Group" value="0x1309" />
 
       <IDSymbol name="folderMenuWebResource_GroupEncoding" value="0x1076" />
       <IDSymbol name="folderMenuWebResource_GroupEncoding_MenuCommands" value="0x118B" />
@@ -12003,6 +12230,14 @@
       <IDSymbol name="FileJavaScriptUpdateEntityMetadataFileCommandId" value="9050" />
       <IDSymbol name="FolderJavaScriptUpdateEntityMetadataFileCommandId" value="9100" />
 
+      <IDSymbol name="CodeJavaScriptUpdateGlobalOptionSetSingleFileCommandId" value="9400" />
+      <IDSymbol name="DocumentsJavaScriptUpdateGlobalOptionSetSingleFileCommandId" value="9450" />
+      <IDSymbol name="FileJavaScriptUpdateGlobalOptionSetSingleFileCommandId" value="9500" />
+      <IDSymbol name="FolderJavaScriptUpdateGlobalOptionSetSingleFileCommandId" value="9550" />
+
+      <IDSymbol name="CodeJavaScriptUpdateGlobalOptionSetAllFileCommandId" value="9600" />
+      <IDSymbol name="FileJavaScriptUpdateGlobalOptionSetAllFileCommandId" value="9650" />
+
       <IDSymbol name="CodeCSharpUpdateGlobalOptionSetsFileCommandId" value="7050" />
       <IDSymbol name="DocumentsCSharpUpdateGlobalOptionSetsFileCommandId" value="7100" />
       <IDSymbol name="FileCSharpUpdateGlobalOptionSetsFileCommandId" value="7150" />
@@ -12050,7 +12285,7 @@
       <IDSymbol name="FolderAddEntityMetadataFileInConnectionCommandId" value="8900" />
       <IDSymbol name="FolderAddGlobalOptionSetFileInConnectionCommandId" value="9350" />
 
-      <!-- 9400 -->
+      <!-- 9700 -->
 
     </GuidSymbol>
 
@@ -12165,6 +12400,7 @@
       <IDSymbol name="CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommandId" value="0x2012" />
 
       <IDSymbol name="CodeJavaScriptUpdateEntityMetadataFileWithSelectCommandId" value="0x219D" />
+      <IDSymbol name="CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId" value="0x21A1" />
 
 
 
@@ -12356,6 +12592,7 @@
       <IDSymbol name="FileCSharpUpdateGlobalOptionSetsFileWithSelectCommandId" value="0x205C" />
 
       <IDSymbol name="FileJavaScriptUpdateEntityMetadataFileWithSelectCommandId" value="0x219E" />
+      <IDSymbol name="FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId" value="0x21A2" />
 
 
 
@@ -12600,10 +12837,10 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x1316 -->
+    <!-- 0x1324 -->
 
     <!-- Commands -->
-    <!-- 0x21A1 -->
+    <!-- 0x21A3 -->
 
 
   </Symbols>
