@@ -1,5 +1,5 @@
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.GlobalOptionSets
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
 {
 
     ///<summary>
