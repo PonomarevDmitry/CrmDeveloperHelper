@@ -986,9 +986,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         }
 
         [DataMember]
-        public ObservableCollection<CrmSvcUtil> Utils { get; private set; }
-
-        [DataMember]
         public ConcurrentDictionary<string, FileAction> FileActionsByExtensions { get; private set; }
 
         private const string defaultPluginConfigurationFileName = "Plugins Configuration";
@@ -999,7 +996,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.PluginConfigurationFileName = defaultPluginConfigurationFileName;
             this.FormsEventsFileName = defaultFormsEventsFileName;
 
-            this.Utils = new ObservableCollection<CrmSvcUtil>();
             this.FileActionsByExtensions = new ConcurrentDictionary<string, FileAction>(StringComparer.InvariantCultureIgnoreCase);
         }
 
@@ -1185,12 +1181,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.SolutionComponentWithSolutionInfo = diskData.SolutionComponentWithSolutionInfo;
             this.SolutionComponentWithUrl = diskData.SolutionComponentWithUrl;
 
-            this.Utils.Clear();
-            foreach (var item in diskData.Utils)
-            {
-                this.Utils.Add(item);
-            }
-
             this.FileActionsByExtensions.Clear();
             foreach (var key in diskData.FileActionsByExtensions.Keys)
             {
@@ -1201,11 +1191,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [OnDeserializing]
         private void BeforeDeserialize(StreamingContext context)
         {
-            if (this.Utils == null)
-            {
-                this.Utils = new ObservableCollection<CrmSvcUtil>();
-            }
-
             if (this.FileActionsByExtensions == null)
             {
                 this.FileActionsByExtensions = new ConcurrentDictionary<string, FileAction>(StringComparer.InvariantCultureIgnoreCase);
@@ -1215,12 +1200,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         [OnDeserialized]
         private void AfterDeserialize(StreamingContext context)
         {
-            var notExists = this.Utils.Where(e => !File.Exists(e.Path)).ToList();
-            if (notExists.Any())
-            {
-                notExists.ForEach(e => this.Utils.Remove(e));
-            }
-
             UpdateTextEditorProgramExists();
             UpdateDifferenceProgramExists();
             UpdateDifferenceThreeWayAvaliable();
@@ -1232,18 +1211,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
         /// <param name="filePath"></param>
         private void Save(string filePath)
         {
-            var notExists = this.Utils.Where(e => !File.Exists(e.Path)).ToList();
-            if (notExists.Any())
-            {
-                notExists.ForEach(e => this.Utils.Remove(e));
-            }
-
-            foreach (var item in this.Utils)
-            {
-                FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(item.Path);
-                item.Version = string.Format("{0}.{1}.{2}.{3}", versionInfo.ProductMajorPart, versionInfo.ProductMinorPart, versionInfo.ProductPrivatePart, versionInfo.ProductBuildPart);
-            }
-
             DataContractSerializer ser = new DataContractSerializer(typeof(CommonConfiguration));
 
             byte[] fileBody = null;

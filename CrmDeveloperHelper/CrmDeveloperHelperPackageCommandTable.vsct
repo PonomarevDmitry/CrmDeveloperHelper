@@ -161,8 +161,6 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddPluginStep" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddPluginStep_MenuConnectionDyn_Group" priority="0x0601" />
 
-      <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupProxyClasses" priority="0x0601" />
-
       <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadataProxyClass" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadataProxyClass_MenuConnectionDyn_Group" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadataSchema" priority="0x0602" />
@@ -334,7 +332,6 @@
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep_MenuConnectionDyn_Group" priority="0x0601" />
 
-      <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupProxyClasses" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadataProxyClass" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadataProxyClass_MenuConnectionDyn_Group" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadataSchema" priority="0x0602" />
@@ -3182,13 +3179,6 @@
       </Button>
 
 
-      <Button guid="guidCommandSet" id="CodeCSharpUpdateProxyClassesCommandId" priority="0x0100" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>TextChanges</CommandFlag>
-        <Strings>
-          <ButtonText>Update Proxy Classes</ButtonText>
-        </Strings>
-      </Button>
       <Button guid="guidDynamicCommandSet" id="CodeCSharpUpdateEntityMetadataFileSchemaCommandId" priority="0x0101" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -4130,13 +4120,6 @@
 
 
 
-      <Button guid="guidCommandSet" id="FileCSharpUpdateProxyClassesCommandId" priority="0x0110" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <CommandFlag>TextChanges</CommandFlag>
-        <Strings>
-          <ButtonText>Update Proxy Classes</ButtonText>
-        </Strings>
-      </Button>
       <Button guid="guidDynamicCommandSet" id="FileCSharpUpdateEntityMetadataFileSchemaCommandId" priority="0x0111" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -6529,31 +6512,28 @@
 
 
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyUpdate" priority="0x05FF">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyUpdate" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyCompare" priority="0x0600">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginAssemblyCompare" priority="0x0610">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddIntoSolution" priority="0x0601">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddIntoSolution" priority="0x0620">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginDescription" priority="0x0604">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginDescription" priority="0x0630">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddPluginStep" priority="0x0605">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupAddPluginStep" priority="0x0640">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupProxyClasses" priority="0x0606">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadataProxyClass" priority="0x0650">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadataProxyClass" priority="0x0607">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadataSchema" priority="0x0660">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadataSchema" priority="0x0608">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupGlobalOptionSets" priority="0x0609">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupGlobalOptionSets" priority="0x0670">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp" />
     </CommandPlacement>
 
@@ -6894,31 +6874,28 @@
 
 
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate" priority="0x05FF">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyUpdate" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyCompare" priority="0x0600">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginAssemblyCompare" priority="0x0610">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddIntoSolution" priority="0x0601">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddIntoSolution" priority="0x0620">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginDescription" priority="0x0604">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginDescription" priority="0x0630">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep" priority="0x0605">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddPluginStep" priority="0x0640">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupProxyClasses" priority="0x0606">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadataProxyClass" priority="0x0650">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadataProxyClass" priority="0x0607">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadataSchema" priority="0x0660">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadataSchema" priority="0x0608">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets" priority="0x0609">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupGlobalOptionSets" priority="0x0670">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp" />
     </CommandPlacement>
 
@@ -8533,10 +8510,6 @@
 
 
 
-    <CommandPlacement guid="guidCommandSet" id="CodeCSharpUpdateProxyClassesCommandId" priority="0x0100">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupProxyClasses" />
-    </CommandPlacement>
-
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadataProxyClass_MenuConnectionDyn" priority="0x0101">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupEntityMetadataProxyClass" />
     </CommandPlacement>
@@ -9180,9 +9153,6 @@
 
 
 
-    <CommandPlacement guid="guidCommandSet" id="FileCSharpUpdateProxyClassesCommandId" priority="0x0110">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupProxyClasses" />
-    </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadataProxyClass_MenuConnectionDyn" priority="0x0111">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupEntityMetadataProxyClass" />
@@ -11102,8 +11072,6 @@
       <IDSymbol name="codeMenuCSharp_GroupAddPluginStep_MenuConnectionDyn" value="0x1275" />
       <IDSymbol name="codeMenuCSharp_GroupAddPluginStep_MenuConnectionDyn_Group" value="0x1276" />
 
-      <IDSymbol name="codeMenuCSharp_GroupProxyClasses" value="0x1008" />
-
       <IDSymbol name="codeMenuCSharp_GroupEntityMetadataProxyClass" value="0x130A" />
       <IDSymbol name="codeMenuCSharp_GroupEntityMetadataProxyClass_MenuConnectionDyn" value="0x130B" />
       <IDSymbol name="codeMenuCSharp_GroupEntityMetadataProxyClass_MenuConnectionDyn_Group" value="0x130C" />
@@ -11450,8 +11418,6 @@
       <IDSymbol name="fileMenuCSharp_GroupAddPluginStep" value="0x1271" />
       <IDSymbol name="fileMenuCSharp_GroupAddPluginStep_MenuConnectionDyn" value="0x1272" />
       <IDSymbol name="fileMenuCSharp_GroupAddPluginStep_MenuConnectionDyn_Group" value="0x1273" />
-
-      <IDSymbol name="fileMenuCSharp_GroupProxyClasses" value="0x102B" />
 
       <IDSymbol name="fileMenuCSharp_GroupEntityMetadataProxyClass" value="0x102C" />
       <IDSymbol name="fileMenuCSharp_GroupEntityMetadataProxyClass_MenuConnectionDyn" value="0x127B" />
@@ -12394,7 +12360,6 @@
 
 
 
-      <IDSymbol name="CodeCSharpUpdateProxyClassesCommandId" value="0x200E" />
       <IDSymbol name="CodeCSharpUpdateEntityMetadataFileSchemaWithSelectCommandId" value="0x2010" />
       <IDSymbol name="CodeCSharpUpdateEntityMetadataFileProxyClassWithSelectCommandId" value="0x219F" />
       <IDSymbol name="CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommandId" value="0x2012" />
@@ -12584,8 +12549,6 @@
       <IDSymbol name="FileCSharpPluginTypeDescriptionCommandId" value="0x2136" />
       <IDSymbol name="FileCSharpPluginAssemblyDescriptionCommandId" value="0x2137" />
       <IDSymbol name="FileCSharpPluginTreeCommandId" value="0x2176" />
-
-      <IDSymbol name="FileCSharpUpdateProxyClassesCommandId" value="0x2058" />
 
       <IDSymbol name="FileCSharpUpdateEntityMetadataFileSchemaWithSelectCommandId" value="0x205A" />
       <IDSymbol name="FileCSharpUpdateEntityMetadataFileProxyClassWithSelectCommandId" value="0x21A0" />

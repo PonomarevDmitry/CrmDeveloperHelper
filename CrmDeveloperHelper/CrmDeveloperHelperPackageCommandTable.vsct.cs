@@ -173,7 +173,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int codeMenuCSharp_GroupAddPluginStep = 0x1274;
         public const int codeMenuCSharp_GroupAddPluginStep_MenuConnectionDyn = 0x1275;
         public const int codeMenuCSharp_GroupAddPluginStep_MenuConnectionDyn_Group = 0x1276;
-        public const int codeMenuCSharp_GroupProxyClasses = 0x1008;
         public const int codeMenuCSharp_GroupEntityMetadataProxyClass = 0x130A;
         public const int codeMenuCSharp_GroupEntityMetadataProxyClass_MenuConnectionDyn = 0x130B;
         public const int codeMenuCSharp_GroupEntityMetadataProxyClass_MenuConnectionDyn_Group = 0x130C;
@@ -372,7 +371,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int fileMenuCSharp_GroupAddPluginStep = 0x1271;
         public const int fileMenuCSharp_GroupAddPluginStep_MenuConnectionDyn = 0x1272;
         public const int fileMenuCSharp_GroupAddPluginStep_MenuConnectionDyn_Group = 0x1273;
-        public const int fileMenuCSharp_GroupProxyClasses = 0x102B;
         public const int fileMenuCSharp_GroupEntityMetadataProxyClass = 0x102C;
         public const int fileMenuCSharp_GroupEntityMetadataProxyClass_MenuConnectionDyn = 0x127B;
         public const int fileMenuCSharp_GroupEntityMetadataProxyClass_MenuConnectionDyn_Group = 0x127C;
@@ -929,7 +927,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeCSharpPluginTypeDescriptionCommandId = 0x2134;
         public const int CodeCSharpPluginAssemblyDescriptionCommandId = 0x2135;
         public const int CodeCSharpPluginTreeCommandId = 0x2175;
-        public const int CodeCSharpUpdateProxyClassesCommandId = 0x200E;
         public const int CodeCSharpUpdateEntityMetadataFileSchemaWithSelectCommandId = 0x2010;
         public const int CodeCSharpUpdateEntityMetadataFileProxyClassWithSelectCommandId = 0x219F;
         public const int CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommandId = 0x2012;
@@ -1014,7 +1011,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int FileCSharpPluginTypeDescriptionCommandId = 0x2136;
         public const int FileCSharpPluginAssemblyDescriptionCommandId = 0x2137;
         public const int FileCSharpPluginTreeCommandId = 0x2176;
-        public const int FileCSharpUpdateProxyClassesCommandId = 0x2058;
         public const int FileCSharpUpdateEntityMetadataFileSchemaWithSelectCommandId = 0x205A;
         public const int FileCSharpUpdateEntityMetadataFileProxyClassWithSelectCommandId = 0x21A0;
         public const int FileCSharpUpdateGlobalOptionSetsFileWithSelectCommandId = 0x205C;

@@ -26,7 +26,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         private readonly ExportPluginConfigurationController _exportPluginConfigurationController;
         private readonly CheckPluginController _checkPluginController;
         private readonly PluginTypeDescriptionController _pluginTypeDescriptionController;
-        private readonly CrmSvcUtilController _crmSvcUtilController;
         private readonly CheckManagedEntitiesController _checkManagedEntitiesController;
         private readonly OpenFilesController _openFilesController;
         private readonly ReportController _reportController;
@@ -53,7 +52,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._exportPluginConfigurationController = new ExportPluginConfigurationController(outputWindow);
             this._checkPluginController = new CheckPluginController(outputWindow);
             this._pluginTypeDescriptionController = new PluginTypeDescriptionController(outputWindow);
-            this._crmSvcUtilController = new CrmSvcUtilController(outputWindow);
             this._checkManagedEntitiesController = new CheckManagedEntitiesController(outputWindow);
             this._openFilesController = new OpenFilesController(outputWindow);
             this._reportController = new ReportController(outputWindow);
@@ -1721,23 +1719,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 try
                 {
                     this._exportPluginConfigurationController.ExecuteExportingPluginConfigurationIntoFolder(selectedItem, connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        public void UpdateProxyClasses(string filePath, ConnectionData connectionData, CommonConfiguration commonConfig)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._crmSvcUtilController.ExecuteUpdatingProxyClasses(filePath, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {

@@ -140,7 +140,6 @@
     <Compile Include="Commands\CodeCSharpUpdateEntityMetadataFileSchemaWithSelectCommand.cs" />
     <Compile Include="Commands\CodeCSharpUpdateGlobalOptionSetsFileCommand.cs" />
     <Compile Include="Commands\CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommand.cs" />
-    <Compile Include="Commands\CodeCSharpUpdateProxyClassesCommand.cs" />
     <Compile Include="Commands\CodeWebResourceShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\CodeWebResourceShowDifferenceThreeFileCommand.cs" />
     <Compile Include="Commands\CodeWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
@@ -523,7 +522,6 @@
     <Compile Include="Commands\FileCSharpUpdateEntityMetadataFileSchemaWithSelectCommand.cs" />
     <Compile Include="Commands\FileCSharpUpdateGlobalOptionSetsFileCommand.cs" />
     <Compile Include="Commands\FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand.cs" />
-    <Compile Include="Commands\FileCSharpUpdateProxyClassesCommand.cs" />
     <Compile Include="Commands\ListForPublishClearListCommand.cs" />
     <Compile Include="Commands\ListForPublishFilesAddCommand.cs" />
     <Compile Include="Commands\ListForPublishCompareCommand.cs" />
@@ -534,7 +532,6 @@
     <Compile Include="Controllers\CheckManagedEntitiesController.cs" />
     <Compile Include="Controllers\CheckPluginController.cs" />
     <Compile Include="Controllers\CompareController.cs" />
-    <Compile Include="Controllers\CrmSvcUtilController.cs" />
     <Compile Include="Controllers\DifferenceController.cs" />
     <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\EntityMetadataController.cs" />
@@ -915,7 +912,6 @@
     <Compile Include="Model\ConnectionUserData.cs" />
     <Compile Include="Model\ConstantType.cs" />
     <Compile Include="Model\ContentCopareResult.cs" />
-    <Compile Include="Model\CrmSvcUtil.cs" />
     <Compile Include="Model\ElementForPublish.cs" />
     <Compile Include="Model\EntityKeyMetadataViewItem.cs" />
     <Compile Include="Model\EntityMetadataListViewItem.cs" />
@@ -1168,9 +1164,6 @@
     </Compile>
     <Compile Include="Views\WindowConfirmPublish.xaml.cs">
       <DependentUpon>WindowConfirmPublish.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\WindowCreateProxyClasses.xaml.cs">
-      <DependentUpon>WindowCreateProxyClasses.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowCrmConnectionCard.xaml.cs">
       <DependentUpon>WindowCrmConnectionCard.xaml</DependentUpon>
@@ -1833,10 +1826,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowConfirmPublish.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\WindowCreateProxyClasses.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

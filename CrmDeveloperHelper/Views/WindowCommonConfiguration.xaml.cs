@@ -30,10 +30,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            BindingOperations.EnableCollectionSynchronization(this._config.Utils, sysObjectUtils);
-
-            lstVwUtils.ItemsSource = this._config.Utils;
-
             foreach (var extension in _config.FileActionsByExtensions.Keys.OrderBy(s => s))
             {
                 _sourceFileActions.Add(new ListViewItem()
@@ -46,17 +42,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             lstVwFileActions.ItemsSource = _sourceFileActions;
 
             LoadFields();
-        }
-
-        protected override void OnClosed(EventArgs e)
-        {
-            BindingOperations.ClearAllBindings(lstVwUtils);
-
-            lstVwUtils.Items.DetachFromSourceCollection();
-
-            lstVwUtils.ItemsSource = null;
-
-            base.OnClosed(e);
         }
 
         private void LoadFields()
@@ -294,113 +279,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     txtBFolderForExport.Text = dialog.SelectedPath;
                 }
             }
-        }
-
-        private void tSBCreate_Click(object sender, RoutedEventArgs e)
-        {
-            var openFileDialog1 = new Microsoft.Win32.OpenFileDialog
-            {
-                Filter = "Crm Scv Util (CrmScvUtil.exe)|*.exe",
-                FilterIndex = 1,
-                RestoreDirectory = true
-            };
-
-            if (openFileDialog1.ShowDialog().GetValueOrDefault())
-            {
-                try
-                {
-                    CrmSvcUtil util = new CrmSvcUtil
-                    {
-                        Path = openFileDialog1.FileName,
-                        Id = Guid.NewGuid()
-                    };
-
-                    FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(util.Path);
-                    util.Version = string.Format("{0}.{1}.{2}.{3}", versionInfo.ProductMajorPart, versionInfo.ProductMinorPart, versionInfo.ProductPrivatePart, versionInfo.ProductBuildPart);
-
-                    this._config.Utils.Add(util);
-                }
-                catch (Exception ex)
-                {
-                    Helpers.DTEHelper.WriteExceptionToOutput(null, ex);
-#if DEBUG
-                    if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break();
-#endif
-                }
-            }
-        }
-
-        private void tSBUp_Click(object sender, RoutedEventArgs e)
-        {
-            if (lstVwUtils.SelectedItems.Count == 1)
-            {
-                CrmSvcUtil util = lstVwUtils.SelectedItem as CrmSvcUtil;
-
-                int index = _config.Utils.IndexOf(util);
-
-                if (index != 0)
-                {
-                    _config.Utils.Move(index, index - 1);
-                }
-
-                lstVwUtils.SelectedItem = util;
-            }
-        }
-
-        private void tSBDown_Click(object sender, RoutedEventArgs e)
-        {
-            if (lstVwUtils.SelectedItems.Count == 1)
-            {
-                CrmSvcUtil util = lstVwUtils.SelectedItem as CrmSvcUtil;
-
-                int index = _config.Utils.IndexOf(util);
-
-                if (index != _config.Utils.Count - 1)
-                {
-                    _config.Utils.Move(index, index + 1);
-                }
-
-                lstVwUtils.SelectedItem = util;
-            }
-        }
-
-        private void tSBDelete_Click(object sender, RoutedEventArgs e)
-        {
-            if (lstVwUtils.SelectedItems.Count == 1)
-            {
-                CrmSvcUtil util = lstVwUtils.SelectedItems[0] as CrmSvcUtil;
-
-                if (MessageBox.Show(Properties.MessageBoxStrings.DeleteCrmSvcUtil, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
-                {
-                    _config.Utils.Remove(util);
-                }
-            }
-        }
-
-        private void lstVwUtils_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            UpdateButtonsEnable();
-        }
-
-        private void UpdateButtonsEnable()
-        {
-            this.lstVwUtils.Dispatcher.Invoke(() =>
-            {
-                try
-                {
-                    bool enabled = this.lstVwUtils.SelectedItems.Count > 0;
-
-                    UIElement[] list = { tSBDelete, tSBUp, tSBDown };
-
-                    foreach (var button in list)
-                    {
-                        button.IsEnabled = enabled;
-                    }
-                }
-                catch (Exception)
-                {
-                }
-            });
         }
 
         private class ListViewItem

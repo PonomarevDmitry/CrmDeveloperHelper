@@ -825,46 +825,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleUpdateProxyClasses()
-        {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
-            {
-                return;
-            }
-
-            List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsCSharpType, false).Take(2).ToList();
-
-            var connectionData = crmConfig.CurrentConnectionData;
-
-            if (connectionData != null && selectedFiles.Count == 1)
-            {
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                string filePath = selectedFiles[0].FilePath;
-
-                var form = new WindowCreateProxyClasses(commonConfig, crmConfig, filePath);
-
-                if (form.ShowDialog().GetValueOrDefault())
-                {
-                    ActivateOutputWindow(connectionData);
-                    WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                    CheckWishToChangeCurrentConnection(connectionData);
-
-                    try
-                    {
-                        Controller.UpdateProxyClasses(filePath, connectionData, commonConfig);
-                    }
-                    catch (Exception ex)
-                    {
-                        WriteErrorToOutput(connectionData, ex);
-                    }
-                }
-            }
-        }
-
         public void HandleReportDifferenceCommand(ConnectionData connectionData, string fieldName, string fieldTitle, bool isCustom)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
