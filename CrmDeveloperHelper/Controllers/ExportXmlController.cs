@@ -1209,12 +1209,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             await service.UpdateAsync(updateEntity);
 
+            var repositoryPublish = new PublishActionsRepository(service);
+
             _iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.PublishingSystemFormFormat3, service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name);
+            await repositoryPublish.PublishDashboardsAsync(new[] { formId });
 
+            if (!string.IsNullOrEmpty(systemForm.ObjectTypeCode)
+                && !string.Equals(systemForm.ObjectTypeCode, "none", StringComparison.InvariantCultureIgnoreCase)
+            )
             {
-                var repositoryPublish = new PublishActionsRepository(service);
-
-                await repositoryPublish.PublishDashboardsAsync(new[] { formId });
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, systemForm.ObjectTypeCode);
+                await repositoryPublish.PublishEntitiesAsync(new[] { systemForm.ObjectTypeCode });
             }
         }
 

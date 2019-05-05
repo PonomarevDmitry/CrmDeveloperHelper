@@ -658,12 +658,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await service.UpdateAsync(updateEntity);
 
+                var repositoryPublish = new PublishActionsRepository(service);
+
                 UpdateStatus(service.ConnectionData, Properties.WindowStatusStrings.PublishingSystemFormFormat3, service.ConnectionData.Name, entityName, name);
+                await repositoryPublish.PublishDashboardsAsync(new[] { idSystemForm });
 
+                if (!string.IsNullOrEmpty(entityName)
+                    && !string.Equals(entityName, "none", StringComparison.InvariantCultureIgnoreCase)
+                )
                 {
-                    var repositoryPublish = new PublishActionsRepository(service);
-
-                    await repositoryPublish.PublishDashboardsAsync(new[] { idSystemForm });
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
+                    await repositoryPublish.PublishEntitiesAsync(new[] { entityName });
                 }
 
                 ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat2, service.ConnectionData.Name, fieldName);
@@ -785,8 +790,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 };
 
                 updateEntity.Attributes[SystemForm.Schema.Attributes.formactivationstate] = new OptionSetValue(state);
-
                 await service.UpdateAsync(updateEntity);
+
+                var repositoryPublish = new PublishActionsRepository(service);
+
+                UpdateStatus(service.ConnectionData, Properties.WindowStatusStrings.PublishingSystemFormFormat3, service.ConnectionData.Name, entityName, name);
+                await repositoryPublish.PublishDashboardsAsync(new[] { idSystemForm });
+
+                if (!string.IsNullOrEmpty(entityName)
+                    && !string.Equals(entityName, "none", StringComparison.InvariantCultureIgnoreCase)
+                )
+                {
+                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
+                    await repositoryPublish.PublishEntitiesAsync(new[] { entityName });
+                }
             }
             catch (Exception ex)
             {
@@ -851,10 +868,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.PublishingSystemFormFormat3, service.ConnectionData.Name, entityName, name);
 
+            var repository = new PublishActionsRepository(service);
+
             try
             {
-                var repository = new PublishActionsRepository(service);
-
                 await repository.PublishDashboardsAsync(new[] { idSystemForm });
 
                 ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.PublishingSystemFormCompletedFormat3, service.ConnectionData.Name, entityName, name);
@@ -864,6 +881,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
 
                 ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.PublishingSystemFormFailedFormat3, service.ConnectionData.Name, entityName, name);
+            }
+
+            if (!string.IsNullOrEmpty(entityName)
+                    && !string.Equals(entityName, "none", StringComparison.InvariantCultureIgnoreCase)
+                )
+            {
+                try
+                {
+                    await repository.PublishEntitiesAsync(new[] { entityName });
+
+                    ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat2, service.ConnectionData.Name, entityName);
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                    ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat2, service.ConnectionData.Name, entityName);
+                }
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.PublishingSystemFormFormat3, service.ConnectionData.Name, entityName, name);
