@@ -1253,6 +1253,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
+        public void StartExportCustomControl(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteExportingCustomControl(selection, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
         public void StartExportWorkflow(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>

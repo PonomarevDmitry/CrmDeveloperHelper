@@ -395,6 +395,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonExportPluginAssemblyDescriptionCommand.Initialize(this);
             CommonExportPluginTypeDescriptionCommand.Initialize(this);
             CommonExportReportCommand.Initialize(this);
+            CommonExportCustomControlCommand.Initialize(this);
             CommonExportApplicationRibbonXmlCommand.Initialize(this);
             CommonExportSiteMapCommand.Initialize(this);
 

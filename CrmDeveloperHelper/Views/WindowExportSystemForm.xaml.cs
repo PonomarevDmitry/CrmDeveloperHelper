@@ -627,28 +627,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     return;
                 }
 
-                newText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
-
-                UpdateStatus(service.ConnectionData, Properties.WindowStatusStrings.ValidatingXmlForFieldFormat1, fieldName);
-
-                if (!ContentCoparerHelper.TryParseXmlDocument(newText, out var doc))
+                if (string.Equals(fieldName, SystemForm.Schema.Attributes.formxml))
                 {
-                    ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.TextIsNotValidXml);
+                    newText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
 
-                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
-                    return;
+                    UpdateStatus(service.ConnectionData, Properties.WindowStatusStrings.ValidatingXmlForFieldFormat1, fieldName);
+
+                    if (!ContentCoparerHelper.TryParseXmlDocument(newText, out var doc))
+                    {
+                        ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.TextIsNotValidXml);
+
+                        _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                        return;
+                    }
+
+                    bool validateResult = await SystemFormRepository.ValidateXmlDocumentAsync(service.ConnectionData, _iWriteToOutput, doc);
+
+                    if (!validateResult)
+                    {
+                        ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ValidatingXmlForFieldFailedFormat1, fieldName);
+
+                        return;
+                    }
+
+                    newText = doc.ToString(SaveOptions.DisableFormatting);
                 }
-
-                bool validateResult = await SystemFormRepository.ValidateXmlDocumentAsync(service.ConnectionData, _iWriteToOutput, doc);
-
-                if (!validateResult)
-                {
-                    ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ValidatingXmlForFieldFailedFormat1, fieldName);
-
-                    return;
-                }
-
-                newText = doc.ToString(SaveOptions.DisableFormatting);
 
                 var updateEntity = new SystemForm
                 {

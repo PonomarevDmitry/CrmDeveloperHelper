@@ -192,6 +192,7 @@
     <Compile Include="Commands\CommonEntityRelationshipManyToManyExplorerCommand.cs" />
     <Compile Include="Commands\CommonEntityRelationshipOneToManyExplorerCommand.cs" />
     <Compile Include="Commands\CommonEntitySecurityRolesExplorerCommand.cs" />
+    <Compile Include="Commands\CommonExportCustomControlCommand.cs" />
     <Compile Include="Commands\CommonExportDefaultSitemapsCommand.cs" />
     <Compile Include="Commands\CommonExportOpenLastSelectedSolutionCommand.cs" />
     <Compile Include="Commands\CommonExportXsdSchemasCommand.cs" />
@@ -379,6 +380,7 @@
     <Compile Include="Entities\ComplexControl.Additional.cs" />
     <Compile Include="Entities\ComplexControl.cs" />
     <Compile Include="Entities\ComplexControl.Generated.cs" />
+    <Compile Include="Entities\CustomControl.Additional.cs" />
     <Compile Include="Entities\CustomControlResource.cs" />
     <Compile Include="Entities\CustomControlResource.Generated.cs" />
     <Compile Include="Entities\DependencyFeature.cs" />
@@ -1031,6 +1033,7 @@
     <Compile Include="Repository\ConnectionRoleObjectTypeCodeRepository.cs" />
     <Compile Include="Repository\ConnectionRoleRepository.cs" />
     <Compile Include="Repository\ContractTemplateRepository.cs" />
+    <Compile Include="Repository\CustomControlRepository.cs" />
     <Compile Include="Repository\DependencyNodeRepository.cs" />
     <Compile Include="Repository\DependencyRepository.cs" />
     <Compile Include="Repository\DiscoveryServiceRepository.cs" />
@@ -1213,6 +1216,9 @@
     </Compile>
     <Compile Include="Views\WindowExplorerSolutionComponents.xaml.cs">
       <DependentUpon>WindowExplorerSolutionComponents.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowExportCustomControl.xaml.cs">
+      <DependentUpon>WindowExportCustomControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowExportEntityMetadata.xaml.cs">
       <DependentUpon>WindowExportEntityMetadata.xaml</DependentUpon>
@@ -1890,6 +1896,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowExplorerSolutionComponents.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExportCustomControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

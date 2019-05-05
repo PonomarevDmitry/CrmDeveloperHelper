@@ -3493,6 +3493,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleExportCustomControl()
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+            string selection = GetSelectedText();
+
+            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            {
+                return;
+            }
+
+            var connectionData = crmConfig.CurrentConnectionData;
+
+            if (connectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                try
+                {
+                    Controller.StartExportCustomControl(selection, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
         public void HandleExportSystemSavedQuery()
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();

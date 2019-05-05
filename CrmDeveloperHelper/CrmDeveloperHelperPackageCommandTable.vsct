@@ -5829,6 +5829,13 @@
         </Strings>
       </Button>
 
+      <Button guid="guidCommandSet" id="CommonExportCustomControlCommandId" priority="0x012B" type="Button">
+        <Strings>
+          <ButtonText>CustomControl</ButtonText>
+        </Strings>
+      </Button>
+
+
       <Button guid="guidCommandSet" id="CommonSolutionExplorerCommandId" priority="0x012C" type="Button">
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
@@ -8029,24 +8036,27 @@
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExport_GroupGlobalOptionSets" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="CommonExportSiteMapCommandId" priority="0x0127">
+    <CommandPlacement guid="guidCommandSet" id="CommonExportSiteMapCommandId" priority="0x0100">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExport_GroupOther1" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonExportFormEventsCommandId" priority="0x0128">
+    <CommandPlacement guid="guidCommandSet" id="CommonExportFormEventsCommandId" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExport_GroupOther1" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="CommonExportWebResourceCommandId" priority="0x0129">
+    <CommandPlacement guid="guidCommandSet" id="CommonExportWebResourceCommandId" priority="0x0100">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExport_GroupOther2" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonExportWorkflowCommandId" priority="0x012A">
+    <CommandPlacement guid="guidCommandSet" id="CommonExportWorkflowCommandId" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExport_GroupOther2" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonExportReportCommandId" priority="0x012B">
+    <CommandPlacement guid="guidCommandSet" id="CommonExportReportCommandId" priority="0x0120">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExport_GroupOther2" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonExportCustomControlCommandId" priority="0x0130">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExport_GroupOther2" />
     </CommandPlacement>
 
-
+    
     <CommandPlacement guid="guidCommandSet" id="CommonOpenSolutionImageCommandId" priority="0x0120">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands" />
     </CommandPlacement>
@@ -12454,7 +12464,7 @@
       <IDSymbol name="CommonExportSystemSavedQueryXmlCommandId" value="0x2033" />
       <IDSymbol name="CommonExportSystemSavedQueryVisualizationXmlCommandId" value="0x2034" />
 
-
+      
 
       <IDSymbol name="CommonExportPluginTypeDescriptionCommandId" value="0x2035" />
       <IDSymbol name="CommonExportPluginAssemblyDescriptionCommandId" value="0x2036" />
@@ -12480,6 +12490,9 @@
       <IDSymbol name="CommonExportWebResourceCommandId" value="0x203C" />
       <IDSymbol name="CommonExportWorkflowCommandId" value="0x203D" />
       <IDSymbol name="CommonExportReportCommandId" value="0x203E" />
+
+      <IDSymbol name="CommonExportCustomControlCommandId" value="0x21A3" />
+
       <IDSymbol name="CommonSolutionExplorerCommandId" value="0x203F" />
       <IDSymbol name="CommonOpenSolutionImageCommandId" value="0x2170" />
       <IDSymbol name="CommonOpenSolutionDifferenceImageCommandId" value="0x2196" />
@@ -12803,7 +12816,7 @@
     <!-- 0x1324 -->
 
     <!-- Commands -->
-    <!-- 0x21A3 -->
+    <!-- 0x21A4 -->
 
 
   </Symbols>

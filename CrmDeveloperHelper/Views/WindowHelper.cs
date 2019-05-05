@@ -414,7 +414,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , string filterEntityName = null
             , string selection = null
-            )
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -425,8 +425,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , service
                         , commonConfig
                         , filterEntityName
-                        , string.Empty
-                        );
+                        , selection
+                    );
 
                     form.ShowDialog();
                 }
@@ -447,7 +447,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , string filterEntityName = null
             , string selection = null
-            )
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -458,8 +458,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , service
                         , commonConfig
                         , filterEntityName
-                        , string.Empty
-                        );
+                        , selection
+                    );
 
                     form.ShowDialog();
                 }
@@ -480,7 +480,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , string filterEntityName = null
             , string selection = null
-            )
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -491,8 +491,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , service
                         , commonConfig
                         , filterEntityName
-                        , string.Empty
-                        );
+                        , selection
+                    );
 
                     form.ShowDialog();
                 }
@@ -513,7 +513,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , string filterEntityName = null
             , string selection = null
-            )
+        )
         {
 
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -526,7 +526,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , commonConfig
                         , filterEntityName
                         , selection
-                        );
+                    );
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
+        public static void OpenCustomControlWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filter
+        )
+        {
+            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowExportCustomControl(
+                        iWriteToOutput
+                        , service
+                        , commonConfig
+                        , filter
+                    );
 
                     form.ShowDialog();
                 }
@@ -1895,6 +1926,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 case ComponentType.RibbonCustomization:
                     OpenApplicationRibbonWindow(iWriteToOutput, service, commonConfig);
+                    break;
+
+                case ComponentType.CustomControl:
+                    OpenCustomControlWindow(iWriteToOutput, service, commonConfig, componentName);
                     break;
             }
         }

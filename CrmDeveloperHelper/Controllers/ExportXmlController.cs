@@ -528,6 +528,56 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Экспортирование информации об организации.
 
+        #region Экспортирование CustomControl.
+
+        public async Task ExecuteExportingCustomControl(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.ExportingSystemFormXmlFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await ExportingCustomControl(selection, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task ExportingCustomControl(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            WindowHelper.OpenCustomControlWindow(this._iWriteToOutput, service, commonConfig, selection);
+        }
+
+        #endregion Экспортирование CustomControl.
+
         #region Trace Reader.
 
         public async Task ExecuteShowingTraceReader(ConnectionData connectionData, CommonConfiguration commonConfig)

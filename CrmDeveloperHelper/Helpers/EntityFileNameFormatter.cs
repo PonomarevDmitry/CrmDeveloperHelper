@@ -20,6 +20,80 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss");
         }
 
+        internal static IReadOnlyCollection<string> CustomControlIgnoreFields = new ReadOnlyCollection<string>(new[]
+        {
+            CustomControl.Schema.Attributes.manifest
+            , CustomControl.Schema.Attributes.clientjson
+        });
+
+        internal static IReadOnlyCollection<string> WebResourceIgnoreFields = new ReadOnlyCollection<string>(new[]
+        {
+            WebResource.Schema.Attributes.content
+            , WebResource.Schema.Attributes.contentjson
+            , WebResource.Schema.Attributes.dependencyxml
+        });
+
+        internal static IReadOnlyCollection<string> SystemFormIgnoreFields = new ReadOnlyCollection<string>(new[]
+        {
+            SystemForm.Schema.Attributes.formxml
+            , SystemForm.Schema.Attributes.formjson
+        });
+
+        internal static IReadOnlyCollection<string> SavedQueryVisualizationIgnoreFields = new ReadOnlyCollection<string>(new[]
+        {
+            SavedQueryVisualization.Schema.Attributes.datadescription
+            , SavedQueryVisualization.Schema.Attributes.presentationdescription
+        });
+
+        internal static IReadOnlyCollection<string> SiteMapIgnoreFields = new ReadOnlyCollection<string>(new[] 
+        {
+            SiteMap.Schema.Attributes.sitemapxml
+        });
+
+        internal static IReadOnlyCollection<string> SavedQueryIgnoreFields = new ReadOnlyCollection<string>(new[]
+        {
+            SavedQuery.Schema.Attributes.fetchxml
+            , SavedQuery.Schema.Attributes.layoutxml
+            , SavedQuery.Schema.Attributes.columnsetxml
+            , SavedQuery.Schema.Attributes.layoutjson
+            , SavedQuery.Schema.Attributes.offlinesqlquery
+        });
+
+        internal static IReadOnlyCollection<string> ReportIgnoreFields = new ReadOnlyCollection<string>(new[]
+        {
+            Report.Schema.Attributes.bodytext
+            , Report.Schema.Attributes.originalbodytext
+            , Report.Schema.Attributes.bodybinary
+            , Report.Schema.Attributes.defaultfilter
+            , Report.Schema.Attributes.customreportxml
+            , Report.Schema.Attributes.schedulexml
+            , Report.Schema.Attributes.queryinfo
+        });
+
+        internal static IReadOnlyCollection<string> PluginAssemblyIgnoreFields = new ReadOnlyCollection<string>(new[] 
+        {
+            PluginAssembly.Schema.Attributes.content
+        });
+
+        internal static IReadOnlyCollection<string> OrganizationIgnoreFields = new ReadOnlyCollection<string>(new[]
+        {
+            Organization.Schema.Attributes.defaultemailsettings
+            , Organization.Schema.Attributes.externalpartycorrelationkeys
+            , Organization.Schema.Attributes.externalpartyentitysettings
+            , Organization.Schema.Attributes.featureset
+            , Organization.Schema.Attributes.kmsettings
+            , Organization.Schema.Attributes.referencesitemapxml
+            , Organization.Schema.Attributes.sitemapxml
+            , Organization.Schema.Attributes.defaultthemedata
+            , Organization.Schema.Attributes.highcontrastthemedata
+            , Organization.Schema.Attributes.slapausestates
+        });
+
+        internal static IReadOnlyCollection<string> ImportJobIgnoreFields = new ReadOnlyCollection<string>(new[]
+        {
+            ImportJob.Schema.Attributes.data
+        });
+
         private const string WorkflowFormatFile = "{0}.{1} Workflow {2} - {3} - {4} at {5}.{6}";
 
         internal static IReadOnlyList<string> WorkflowIgnoreFields = new ReadOnlyCollection<string>(new[] { Workflow.Schema.Attributes.xaml, Workflow.Schema.Attributes.inputparameters, Workflow.Schema.Attributes.clientdata });
@@ -29,13 +103,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return string.Format(WorkflowFormatFile, connectionName, entityName, category, name, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
-        internal static IReadOnlyCollection<string> WebResourceIgnoreFields = new ReadOnlyCollection<string>(new[] 
-        {
-            WebResource.Schema.Attributes.content
-            , WebResource.Schema.Attributes.contentjson
-            , WebResource.Schema.Attributes.dependencyxml
-        });
-
         private const string WebResourceFormatFile = "{0}.{1} {2} at {3}.{4}";
 
         internal static string GetWebResourceFileName(string connectionName, string name, string fieldTitle, string extension)
@@ -43,11 +110,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return string.Format(WebResourceFormatFile, connectionName, name, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
-        internal static IReadOnlyCollection<string> SystemFormIgnoreFields = new ReadOnlyCollection<string>(new[] 
+        private const string CustomControlFormatFile = "{0}.{1} {2} at {3}.{4}";
+
+        internal static string GetCustomControlFileName(string connectionName, string name, string fieldTitle, string extension)
         {
-            SystemForm.Schema.Attributes.formxml
-            , SystemForm.Schema.Attributes.formjson
-        });
+            return string.Format(CustomControlFormatFile, connectionName, name, fieldTitle, GetDateString(), extension.Trim('.'));
+        }
 
         private const string SystemFormFormatFile = "{0}.{1} SystemForm {2} - {3} at {4}.{5}";
 
@@ -86,8 +154,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private const string SiteMapFormatFile = "{0}.SiteMap{1} {2} - {3} at {4}.{5}";
 
-        internal static IReadOnlyCollection<string> SiteMapIgnoreFields = new ReadOnlyCollection<string>(new[] { SiteMap.Schema.Attributes.sitemapxml });
-
         internal static string GetSiteMapFileName(string connectionName, string name, Guid id, string fieldTitle, string extension)
         {
             return string.Format(SiteMapFormatFile, connectionName, name, id, fieldTitle, GetDateString(), extension.Trim('.'));
@@ -95,23 +161,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private const string SavedQueryVisualizationFormatFile = "{0}.{1} SystemChart {2} - {3} at {4}.{5}";
 
-        internal static IReadOnlyCollection<string> SavedQueryVisualizationIgnoreFields = new ReadOnlyCollection<string>(new[] { SavedQueryVisualization.Schema.Attributes.datadescription, SavedQueryVisualization.Schema.Attributes.presentationdescription });
-
         internal static string GetSavedQueryVisualizationFileName(string connectionName, string entityName, string name, string fieldTitle, string extension)
         {
             return string.Format(SavedQueryVisualizationFormatFile, connectionName, entityName, name, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
         private const string SavedQueryFormatFile = "{0}.{1} SavedQuery {2} - {3} at {4}.{5}";
-
-        internal static IReadOnlyCollection<string> SavedQueryIgnoreFields = new ReadOnlyCollection<string>(new[] 
-        {
-            SavedQuery.Schema.Attributes.fetchxml
-            , SavedQuery.Schema.Attributes.layoutxml
-            , SavedQuery.Schema.Attributes.columnsetxml
-            , SavedQuery.Schema.Attributes.layoutjson
-            , SavedQuery.Schema.Attributes.offlinesqlquery
-        });
 
         internal static string GetSavedQueryFileName(string connectionName, string entityName, string name, string fieldTitle, string extension)
         {
@@ -176,17 +231,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private const string ReportFormatFile = "{0}.Report {1} - {2} - {3} at {4}.{5}";
 
-        internal static IReadOnlyCollection<string> ReportIgnoreFields = new ReadOnlyCollection<string>(new[]
-        {
-            Report.Schema.Attributes.bodytext
-            , Report.Schema.Attributes.originalbodytext
-            , Report.Schema.Attributes.bodybinary
-            , Report.Schema.Attributes.defaultfilter
-            , Report.Schema.Attributes.customreportxml
-            , Report.Schema.Attributes.schedulexml
-            , Report.Schema.Attributes.queryinfo
-        });
-
         internal static string GetReportFileName(string connectionName, string name, Guid id, string fieldTitle, string extension)
         {
             return string.Format(ReportFormatFile, connectionName, name, id.ToString(), fieldTitle, GetDateString(), extension.Trim('.'));
@@ -201,28 +245,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private const string PluginAssemblyFormatFileTxt = "{0}.PluginAssembly {1} - {2} at {3}.{4}";
 
-        internal static IReadOnlyCollection<string> PluginAssemblyIgnoreFields = new ReadOnlyCollection<string>(new[] { PluginAssembly.Schema.Attributes.content });
-
         internal static string GetPluginAssemblyFileName(string connectionName, string name, string fieldTitle, string extension)
         {
             return string.Format(PluginAssemblyFormatFileTxt, connectionName, name, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
         private const string OrganizationFormatFile = "{0}.Organization {1} - {2} at {3}.{4}";
-
-        internal static IReadOnlyCollection<string> OrganizationIgnoreFields = new ReadOnlyCollection<string>(new[]
-        {
-            Organization.Schema.Attributes.defaultemailsettings
-            , Organization.Schema.Attributes.externalpartycorrelationkeys
-            , Organization.Schema.Attributes.externalpartyentitysettings
-            , Organization.Schema.Attributes.featureset
-            , Organization.Schema.Attributes.kmsettings
-            , Organization.Schema.Attributes.referencesitemapxml
-            , Organization.Schema.Attributes.sitemapxml
-            , Organization.Schema.Attributes.defaultthemedata
-            , Organization.Schema.Attributes.highcontrastthemedata
-            , Organization.Schema.Attributes.slapausestates
-        });
 
         internal static string GetOrganizationFileName(string connectionName, string name, string fieldTitle, string extension)
         {
@@ -298,11 +326,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             return string.Format(TeamFormatFileTxt, connectionName, name, fieldTitle, GetDateString(), extension.Trim('.'));
         }
-
-        internal static IReadOnlyCollection<string> ImportJobIgnoreFields = new ReadOnlyCollection<string>(new[]
-        {
-            ImportJob.Schema.Attributes.data
-        });
 
         private const string ImportJobFormatFileTxt = "{0}.ImportJob {1}{2} - {3} at {4}.{5}";
 
