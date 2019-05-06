@@ -12,6 +12,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -122,6 +123,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
+        private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
+        {
+            this.ChangeInitByEnabled(enabled);
+
+            UpdateStatus(connectionData, statusFormat, args);
+
+            ToggleControl(tSProgressBar
+                , mICreate
+            );
+
+            UpdateButtonsConnection();
+            UpdateButtonsUsers();
+            UpdateButtonsConnectionArchive();
+        }
+
         private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)
         {
             string message = format;
@@ -150,7 +166,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this.lstVwConnections.SelectedItems.Count > 0;
+                    bool enabled = IsControlsEnabled && this.lstVwConnections.SelectedItems.Count > 0;
 
                     UIElement[] list = { tSBEdit, tSBCreateCopy, tSBMoveToArchive, tSBUp, tSBDown, tSBTestConnection };
 
@@ -176,7 +192,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this.lstVwArchiveConnections.SelectedItems.Count > 0;
+                    bool enabled = IsControlsEnabled && this.lstVwArchiveConnections.SelectedItems.Count > 0;
 
                     UIElement[] list = { tSBArchiveEdit, tSBArchiveTestConnection, tSBArchiveUp, tSBArchiveDown, tSBArchiveDelete, tSBArchiveReturnToConnectionList };
 
@@ -202,7 +218,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this.lstVwUsers.SelectedItems.Count > 0;
+                    bool enabled = IsControlsEnabled && this.lstVwUsers.SelectedItems.Count > 0;
 
                     UIElement[] list = { tSBDeleteUser, tSBEditUser, tSBUserDown, tSBUserUp };
 
@@ -295,6 +311,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBCreate_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             ConnectionData connectionData = new ConnectionData()
             {
                 ConnectionConfiguration = _crmConfig,
@@ -321,6 +342,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBEdit_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             if (lstVwConnections.SelectedItems.Count == 1)
             {
                 ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
@@ -343,6 +369,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBCreateCopy_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             if (lstVwConnections.SelectedItems.Count == 1)
             {
                 ConnectionData oldconnectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
@@ -371,6 +402,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBLoadFromFile_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             string selectedPath = string.Empty;
             var t = new Thread(() =>
             {
@@ -455,6 +491,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void tSBTestConnection_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             if (lstVwConnections.SelectedItems.Count != 1)
             {
                 return;
@@ -462,7 +503,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
 
-            UpdateStatus(connectionData, Properties.WindowStatusStrings.StartTestingConnectionFormat1, connectionData.Name);
+            ToggleControls(connectionData, false, Properties.WindowStatusStrings.StartTestingConnectionFormat1, connectionData.Name);
 
             var testResult = await QuickConnection.TestConnectAsync(connectionData, this._iWriteToOutput);
 
@@ -473,16 +514,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData.Save();
                 this._crmConfig.Save();
 
-                UpdateStatus(connectionData, Properties.WindowStatusStrings.ConnectedSuccessfullyFormat1, connectionData.Name);
+                ToggleControls(connectionData, true, Properties.WindowStatusStrings.ConnectedSuccessfullyFormat1, connectionData.Name);
             }
             else
             {
-                UpdateStatus(connectionData, Properties.WindowStatusStrings.ConnectionFailedFormat1, connectionData.Name);
+                ToggleControls(connectionData, true, Properties.WindowStatusStrings.ConnectionFailedFormat1, connectionData.Name);
             }
         }
 
         private void tSBUp_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             if (lstVwConnections.SelectedItems.Count == 1)
             {
                 ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
@@ -508,6 +554,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBDown_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             if (lstVwConnections.SelectedItems.Count == 1)
             {
                 ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
@@ -551,6 +602,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBSelectConnection_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             if (lstVwConnections.SelectedItems.Count == 1)
             {
                 ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
@@ -570,6 +626,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBMoveToArchive_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             if (lstVwConnections.SelectedItems.Count == 1)
             {
                 ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
@@ -615,6 +676,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBCreateUser_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             var user = new ConnectionUserData();
 
             var form = new WindowCrmConnectionUserCard(user);
@@ -631,6 +697,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBEditUser_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             if (lstVwUsers.SelectedItems.Count == 1)
             {
                 ConnectionUserData user = lstVwUsers.SelectedItems[0] as ConnectionUserData;
@@ -663,6 +734,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBDeleteUser_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             if (lstVwUsers.SelectedItems.Count == 1)
             {
                 ConnectionUserData user = lstVwUsers.SelectedItems[0] as ConnectionUserData;
@@ -682,6 +758,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBUserUp_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             if (lstVwUsers.SelectedItems.Count == 1)
             {
                 ConnectionUserData user = lstVwUsers.SelectedItems[0] as ConnectionUserData;
@@ -704,6 +785,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBUserDown_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             if (lstVwUsers.SelectedItems.Count == 1)
             {
                 ConnectionUserData user = lstVwUsers.SelectedItems[0] as ConnectionUserData;
@@ -726,6 +812,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBArchiveEdit_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             if (lstVwArchiveConnections.SelectedItems.Count == 1)
             {
                 ConnectionData connectionData = lstVwArchiveConnections.SelectedItems[0] as ConnectionData;
@@ -745,6 +836,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void tSBArchiveTestConnection_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             if (lstVwArchiveConnections.SelectedItems.Count != 1)
             {
                 return;
@@ -752,7 +848,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ConnectionData connectionData = lstVwArchiveConnections.SelectedItems[0] as ConnectionData;
 
-            UpdateStatus(connectionData, Properties.WindowStatusStrings.StartTestingConnectionFormat1, connectionData.Name);
+            ToggleControls(connectionData, false, Properties.WindowStatusStrings.StartTestingConnectionFormat1, connectionData.Name);
 
             var testResult = await QuickConnection.TestConnectAsync(connectionData, this._iWriteToOutput);
 
@@ -761,16 +857,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData.Save();
                 this._crmConfig.Save();
 
-                UpdateStatus(connectionData, Properties.WindowStatusStrings.ConnectedSuccessfullyFormat1, connectionData.Name);
+                ToggleControls(connectionData, true, Properties.WindowStatusStrings.ConnectedSuccessfullyFormat1, connectionData.Name);
             }
             else
             {
-                UpdateStatus(connectionData, Properties.WindowStatusStrings.ConnectionFailedFormat1, connectionData.Name);
+                ToggleControls(connectionData, true, Properties.WindowStatusStrings.ConnectionFailedFormat1, connectionData.Name);
             }
         }
 
         private void tSBArchiveUp_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             if (lstVwArchiveConnections.SelectedItems.Count == 1)
             {
                 ConnectionData connectionData = lstVwArchiveConnections.SelectedItems[0] as ConnectionData;
@@ -793,6 +894,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBArchiveDown_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             if (lstVwArchiveConnections.SelectedItems.Count == 1)
             {
                 ConnectionData connectionData = lstVwArchiveConnections.SelectedItems[0] as ConnectionData;
@@ -815,6 +921,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBArchiveDelete_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             if (lstVwArchiveConnections.SelectedItems.Count == 1)
             {
                 ConnectionData connectionData = lstVwArchiveConnections.SelectedItems[0] as ConnectionData;
@@ -846,6 +957,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBArchiveReturnToConnectionList_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             ConnectionData connectionData = lstVwArchiveConnections.SelectedItems[0] as ConnectionData;
 
             string message = string.Format(Properties.MessageBoxStrings.ReturnCRMConnectionToConnectionListFormat1, connectionData.Name);
@@ -869,6 +985,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void bntSelect_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             if (sender is Button button)
             {
                 if (((FrameworkElement)e.OriginalSource).DataContext is ConnectionData item)
@@ -893,7 +1014,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    bool enabled = this.lstVwOrganizations.SelectedItems.Count > 0;
+                    bool enabled = this.IsControlsEnabled && this.lstVwOrganizations.SelectedItems.Count > 0;
 
                     UIElement[] list = { tSBCreateConnectionFromOrganization };
 
@@ -910,6 +1031,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBCreateConnectionFromOrganization_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             UpdateButtonsDiscoveryOrganization();
         }
 
@@ -928,6 +1054,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void bntCreateConnectionFromOrganization_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             if (sender is Button button)
             {
                 if (((FrameworkElement)e.OriginalSource).DataContext is OrganizationDetailViewItem detail)
@@ -980,6 +1111,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void CmBDiscoveryServiceUrl_KeyDown(object sender, KeyEventArgs e)
         {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
             if (e.Key != Key.Enter)
             {
                 return;
@@ -999,18 +1135,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!Uri.TryCreate(discoveryServiceUrl, UriKind.Absolute, out Uri discoveryServiceUri))
             {
+                _iWriteToOutput.WriteToOutput(null, Properties.WindowStatusStrings.DiscoveryServiceCouldNotBeReceived);
+                _iWriteToOutput.ActivateOutputWindow(null);
                 return;
             }
+
+            ToggleControls(null, false, Properties.WindowStatusStrings.DiscoveringOrganizations);
 
             try
             {
                 this._itemsSource.Clear();
 
-                var serviceManagement = ServiceConfigurationFactory.CreateManagement<IDiscoveryService>(discoveryServiceUri);
+                var serviceManagement = await CreateManagementAsync(discoveryServiceUri);
 
                 if (serviceManagement == null)
                 {
-                    _iWriteToOutput.WriteToOutput(null, Properties.WindowStatusStrings.DiscoveryServiceConfigurationCouldNotBeReceived);
+                    ToggleControls(null, true, Properties.WindowStatusStrings.DiscoveryServiceConfigurationCouldNotBeReceived);
                     _iWriteToOutput.ActivateOutputWindow(null);
                     return;
                 }
@@ -1021,7 +1161,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (discoveryService == null)
                 {
-                    _iWriteToOutput.WriteToOutput(null, Properties.WindowStatusStrings.DiscoveryServiceCouldNotBeReceived);
+                    ToggleControls(null, true, Properties.WindowStatusStrings.DiscoveryServiceCouldNotBeReceived);
                     _iWriteToOutput.ActivateOutputWindow(null);
                     return;
                 }
@@ -1030,17 +1170,56 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var orgs = await repository.DiscoverOrganizationsAsync();
 
+                this._itemsSource.Clear();
+
                 foreach (var org in orgs.OrderBy(o => o.UniqueName).ThenBy(o => o.OrganizationId))
                 {
                     var viewItem = new OrganizationDetailViewItem(discoveryServiceUri, user, org);
 
                     this._itemsSource.Add(viewItem);
                 }
+
+                ToggleControls(null, true, Properties.WindowStatusStrings.DiscoveringOrganizationsCompleted);
             }
             catch (Exception ex)
             {
+                ToggleControls(null, true, Properties.WindowStatusStrings.DiscoveringOrganizationsFailed);
                 _iWriteToOutput.WriteErrorToOutput(null, ex);
             }
+        }
+
+        private Task<IServiceManagement<IDiscoveryService>> CreateManagementAsync(Uri discoveryServiceUri)
+        {
+            return Task.Run(() => CreateManagement(discoveryServiceUri));
+        }
+
+        private IServiceManagement<IDiscoveryService> CreateManagement(Uri discoveryServiceUri)
+        {
+            return ServiceConfigurationFactory.CreateManagement<IDiscoveryService>(discoveryServiceUri);
+        }
+
+        private void tSBSelectConnectionFileInFolder_Click(object sender, RoutedEventArgs e)
+        {
+            var connectionData = ((FrameworkElement)e.OriginalSource).DataContext as ConnectionData;
+
+            if (connectionData == null)
+            {
+                return;
+            }
+
+            _iWriteToOutput.SelectFileInFolder(connectionData, connectionData.Path);
+        }
+
+        private void tSBCopyConnectionId_Click(object sender, RoutedEventArgs e)
+        {
+            var connectionData = ((FrameworkElement)e.OriginalSource).DataContext as ConnectionData;
+
+            if (connectionData == null)
+            {
+                return;
+            }
+
+            Clipboard.SetText(connectionData.ConnectionId.ToString());
         }
     }
 }

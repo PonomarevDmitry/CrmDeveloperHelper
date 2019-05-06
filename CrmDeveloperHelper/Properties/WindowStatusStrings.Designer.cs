@@ -1330,6 +1330,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Discovering Organizations....
+        /// </summary>
+        internal static string DiscoveringOrganizations {
+            get {
+                return ResourceManager.GetString("DiscoveringOrganizations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discovering Organizations completed..
+        /// </summary>
+        internal static string DiscoveringOrganizationsCompleted {
+            get {
+                return ResourceManager.GetString("DiscoveringOrganizationsCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discovering Organizations failed..
+        /// </summary>
+        internal static string DiscoveringOrganizationsFailed {
+            get {
+                return ResourceManager.GetString("DiscoveringOrganizationsFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DiscoveryService Configuration could not be received..
         /// </summary>
         internal static string DiscoveryServiceConfigurationCouldNotBeReceived {

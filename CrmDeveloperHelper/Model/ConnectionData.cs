@@ -35,7 +35,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         private FileSystemWatcher _watcher = null;
 
-        private string Path { get; set; }
+        public string Path { get; private set; }
 
         public ConnectionConfiguration ConnectionConfiguration { get; set; }
 

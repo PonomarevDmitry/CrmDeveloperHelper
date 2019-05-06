@@ -1511,7 +1511,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 text = Regex.Replace(text, patternSchemaLocation, string.Empty, RegexOptions.IgnoreCase);
             }
 
-            File.WriteAllText(filePath, text);
+            File.WriteAllText(filePath, text, new UTF8Encoding(false));
         }
 
         internal static void ReplaceXsdSchemaInFile(string filePath, string[] fileNamesColl)
@@ -1525,7 +1525,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             text = SetXsdSchema(text, fileNamesColl);
 
-            File.WriteAllText(filePath, text);
+            File.WriteAllText(filePath, text, new UTF8Encoding(false));
         }
     }
 }

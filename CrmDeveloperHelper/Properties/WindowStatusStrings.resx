@@ -1512,4 +1512,15 @@
     <value>Saving Entity Instance {0} - {1}...</value>
   </data>
 
+  <data name="DiscoveringOrganizations" xml:space="preserve">
+    <value>Discovering Organizations...</value>
+  </data>
+  <data name="DiscoveringOrganizationsCompleted" xml:space="preserve">
+    <value>Discovering Organizations completed.</value>
+  </data>
+  <data name="DiscoveringOrganizationsFailed" xml:space="preserve">
+    <value>Discovering Organizations failed.</value>
+  </data>
+
+  
 </root>
