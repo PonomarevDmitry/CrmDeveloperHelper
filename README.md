@@ -26,7 +26,7 @@ Download this extension from the [VS Marketplace](https://marketplace.visualstud
   - Plugin Information
 - **Comparing CRM Organizations**
 
-[Wiki](wiki)
+[Wiki](https://github.com/PonomarevDmitry/CrmDeveloperHelper/wiki)
 
 ## License
 [GNU GENERAL PUBLIC LICENSE](LICENSE.md)
