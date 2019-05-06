@@ -1298,11 +1298,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     && intellisense.Entities.ContainsKey(entityName)
                     && intellisense.Entities[entityName].Attributes != null
                     && intellisense.Entities[entityName].Attributes.Any()
-                    )
+                )
                 {
                     var keys = intellisense.Entities[entityName].Attributes.Keys.ToList();
 
-                    return new HashSet<string>(keys);
+                    return new HashSet<string>(keys, StringComparer.InvariantCultureIgnoreCase);
                 }
             }
 
@@ -1319,7 +1319,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     && intellisense.Entities.ContainsKey(entityName)
                     && intellisense.Entities[entityName].Attributes != null
                     && intellisense.Entities[entityName].Attributes.Any()
-                    )
+                )
                 {
                     return intellisense.Entities[entityName];
                 }
