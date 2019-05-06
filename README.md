@@ -26,28 +26,7 @@ Download this extension from the [VS Marketplace](https://marketplace.visualstud
   - Plugin Information
 - **Comparing CRM Organizations**
 
-### Intellisense for Fetch
-  - session for entity name
-  - session for entity attribute
-  - session for condition attribute  
-![Entity](_readme/intellisense-fetch-attribute.gif)
-  - session for boolean attribute value
-![Boolean Value](_readme/intellisense-fetch-booleanvalue.gif)
-  - session for picklist attribute value
-![Picklist Value](_readme/intellisense-fetch-picklistvalue.gif)
-  - session for link-entity name
-  - session for link-entity from attribute
-  - session for link-entity to attribute  
-![Linked-Entity Name](_readme/intellisense-fetch-entitynamevalue.gif)
-  - session for entity name attribute value
-![Entity Name Value](_readme/intellisense-fetch-entitynamevalue.gif)
-
-### FetchExecutor
-![Entity](_readme/intellisense-fetch-attribute.gif)
-
-### WebResources
-  - creating webresource from code window
-![Creating WebResource](_readme/webresource_code_create.gif)
+[Wiki](wiki)
 
 ## License
 [GNU GENERAL PUBLIC LICENSE](LICENSE.md)
