@@ -195,6 +195,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileWebResourceUpdateContentPublishEqualByTextCommand.Initialize(this);
             FileWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(this);
 
+            FileJavaScriptMinifyCommand.Initialize(this);
+
             FileWebResourceAddIntoSolutionLastCommand.Initialize(this);
             FileWebResourceAddIntoSolutionInConnectionCommand.Initialize(this);
 
@@ -257,6 +259,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             DocumentsWebResourceUpdateContentPublishEqualByTextCommand.Initialize(this);
             DocumentsWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(this);
 
+            DocumentsJavaScriptMinifyCommand.Initialize(this);
+
             DocumentsWebResourceAddIntoSolutionLastCommand.Initialize(this);
             DocumentsWebResourceAddIntoSolutionInConnectionCommand.Initialize(this);
 
@@ -309,6 +313,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FolderWebResourceUpdateContentPublishCommand.Initialize(this);
             FolderWebResourceUpdateContentPublishEqualByTextCommand.Initialize(this);
             FolderWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(this);
+
+            FolderJavaScriptMinifyCommand.Initialize(this);
 
             FolderWebResourceAddIntoSolutionLastCommand.Initialize(this);
             FolderWebResourceAddIntoSolutionInConnectionCommand.Initialize(this);

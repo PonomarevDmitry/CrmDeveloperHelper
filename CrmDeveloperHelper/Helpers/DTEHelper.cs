@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Resources;
 using System.Xml.Linq;
@@ -4094,6 +4095,81 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
                 }
             }
+        }
+
+        public void MinifyDocuments(IEnumerable<Document> documents)
+        {
+            if (!documents.Any())
+            {
+                return;
+            }
+
+            var minifier = new Microsoft.Ajax.Utilities.Minifier();
+
+            foreach (var document in documents)
+            {
+                if (document != null
+                    && document.ProjectItem != null
+                //&& document.ProjectItem.ContainingProject != null
+                //&& document.ProjectItem.ContainingProject.ProjectItems != null
+                )
+                {
+                    string newFileName = Path.GetFileNameWithoutExtension(document.FullName) + ".min" + Path.GetExtension(document.FullName);
+                    string newFilePath = Path.Combine(Path.GetDirectoryName(document.FullName), newFileName);
+
+                    string fileContent = File.ReadAllText(document.FullName);
+
+                    var minifiedString = minifier.MinifyJavaScript(fileContent);
+
+                    File.WriteAllText(newFilePath, minifiedString, new UTF8Encoding(false));
+
+                    document.ProjectItem.ProjectItems.AddFromFile(newFilePath);
+
+                    //document.ProjectItem.Collection.AddFromFile(newFilePath);
+
+                    this.WriteToOutputFilePathUri(null, newFilePath);
+                }
+            }
+
+            this.ActivateOutputWindow(null);
+        }
+
+        public void MinifyDocuments(IEnumerable<ProjectItem> projectItems)
+        {
+            if (!projectItems.Any())
+            {
+                return;
+            }
+
+            var minifier = new Microsoft.Ajax.Utilities.Minifier();
+
+            foreach (var file in projectItems)
+            {
+                if (file != null
+                //&& file.ContainingProject != null
+                //&& file.ContainingProject.ProjectItems != null
+                )
+                {
+                    string filePath = file.FileNames[1];
+
+                    string newFileName = Path.GetFileNameWithoutExtension(filePath) + ".min" + Path.GetExtension(filePath);
+                    string newFilePath = Path.Combine(Path.GetDirectoryName(filePath), newFileName);
+
+                    string fileContent = File.ReadAllText(filePath);
+
+                    var minifiedString = minifier.MinifyJavaScript(fileContent);
+
+                    File.WriteAllText(newFilePath, minifiedString, new UTF8Encoding(false));
+
+                    file.ProjectItems.AddFromFile(newFilePath);
+
+                    //file.Collection.AddFromFile(newFilePath);
+
+                    this.WriteToOutputFilePathUri(null, newFilePath);
+                }
+            }
+
+            this.ActivateOutputWindow(null);
         }
 
         public void HandleOpenXsdSchemaFolder()

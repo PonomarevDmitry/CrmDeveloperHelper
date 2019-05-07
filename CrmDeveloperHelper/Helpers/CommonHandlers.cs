@@ -628,6 +628,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        internal static void ActionBeforeQueryStatusActiveDocumentSupportsMinification(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        {
+            ObjectCache cache = MemoryCache.Default;
+            const string cacheName = nameof(ActionBeforeQueryStatusActiveDocumentSupportsMinification);
+
+            bool visible = false;
+
+            if (cache.Contains(cacheName))
+            {
+                visible = (bool)cache.Get(cacheName);
+            }
+            else
+            {
+                if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
+                {
+                    visible = CheckActiveDocumentExtension(applicationObject, FileOperations.SupportsMinification);
+                }
+
+                cache.Set(cacheName, visible, new CacheItemPolicy()
+                {
+                    AbsoluteExpiration = DateTimeOffset.Now.Add(_cacheItemSpan),
+                });
+            }
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
         internal static void ActionBeforeQueryStatusActiveDocumentContainingProject(IServiceProviderOwner command, OleMenuCommand menuCommand)
         {
             ObjectCache cache = MemoryCache.Default;
@@ -889,6 +919,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        internal static void ActionBeforeQueryStatusOpenedDocumentsSupportsMinification(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        {
+            ObjectCache cache = MemoryCache.Default;
+            const string cacheName = nameof(ActionBeforeQueryStatusOpenedDocumentsSupportsMinification);
+
+            bool visible = false;
+
+            if (cache.Contains(cacheName))
+            {
+                visible = (bool)cache.Get(cacheName);
+            }
+            else
+            {
+                if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
+                {
+                    visible = CheckOpenedDocumentsExtension(applicationObject, FileOperations.SupportsMinification);
+                }
+
+                cache.Set(cacheName, visible, new CacheItemPolicy()
+                {
+                    AbsoluteExpiration = DateTimeOffset.Now.Add(_cacheItemSpan),
+                });
+            }
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
         internal static void ActionBeforeQueryStatusOpenedDocumentsXml(IServiceProviderOwner command, OleMenuCommand menuCommand)
         {
             ObjectCache cache = MemoryCache.Default;
@@ -1069,6 +1129,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        internal static void ActionBeforeQueryStatusSolutionExplorerSupportsMinificationAny(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        {
+            ObjectCache cache = MemoryCache.Default;
+            const string cacheName = nameof(ActionBeforeQueryStatusSolutionExplorerSupportsMinificationAny);
+
+            bool visible = false;
+
+            if (cache.Contains(cacheName))
+            {
+                visible = (bool)cache.Get(cacheName);
+            }
+            else
+            {
+                if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
+                {
+                    visible = CheckInSolutionExplorerAny(applicationObject, FileOperations.SupportsMinification);
+                }
+
+                cache.Set(cacheName, visible, new CacheItemPolicy()
+                {
+                    AbsoluteExpiration = DateTimeOffset.Now.Add(_cacheItemSpan),
+                });
+            }
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
         internal static void ActionBeforeQueryStatusSolutionExplorerJavaScriptRecursive(IServiceProviderOwner command, OleMenuCommand menuCommand)
         {
             ObjectCache cache = MemoryCache.Default;
@@ -1085,6 +1175,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
                 {
                     visible = CheckInSolutionExplorerRecursive(applicationObject, FileOperations.SupportsJavaScriptType);
+                }
+
+                cache.Set(cacheName, visible, new CacheItemPolicy()
+                {
+                    AbsoluteExpiration = DateTimeOffset.Now.Add(_cacheItemSpan),
+                });
+            }
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
+        internal static void ActionBeforeQueryStatusSolutionExplorerSupportsMinificationRecursive(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        {
+            ObjectCache cache = MemoryCache.Default;
+            const string cacheName = nameof(ActionBeforeQueryStatusSolutionExplorerSupportsMinificationRecursive);
+
+            bool visible = false;
+
+            if (cache.Contains(cacheName))
+            {
+                visible = (bool)cache.Get(cacheName);
+            }
+            else
+            {
+                if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
+                {
+                    visible = CheckInSolutionExplorerRecursive(applicationObject, FileOperations.SupportsMinification);
                 }
 
                 cache.Set(cacheName, visible, new CacheItemPolicy()

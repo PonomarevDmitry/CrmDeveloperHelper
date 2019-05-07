@@ -110,9 +110,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             ".xap"
         };
 
-        private static HashSet<string> _SupportedExtensionsWebResourceText = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase) { ".htm", ".html", ".css", ".js", ".xml", ".xsl, .xslt", ".svg" };
+        private static readonly HashSet<string> _SupportedExtensionsWebResourceText = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase) { ".htm", ".html", ".css", ".js", ".xml", ".xsl, .xslt", ".svg", ".resx" };
 
-        private static HashSet<string> _SupportedReportType = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase) { ".rdl", ".rdlc" };
+        private static readonly HashSet<string> _SupportedReportType = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase) { ".rdl", ".rdlc" };
+
+        private static readonly HashSet<string> _SupportedMinification = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase) { ".js", ".css" };
 
         private const string _SupportedCSharpFile = ".cs";
         private const string _SupportedJavaScriptFile = ".js";
@@ -179,14 +181,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public static bool SupportsJavaScriptType(string path)
         {
-            bool result = false;
-
             if (!string.IsNullOrEmpty(path))
             {
-                result = path.EndsWith(_SupportedJavaScriptFile, StringComparison.InvariantCultureIgnoreCase);
+                return path.EndsWith(_SupportedJavaScriptFile, StringComparison.InvariantCultureIgnoreCase);
             }
 
-            return result;
+            return false;
+        }
+
+        public static bool SupportsMinification(string path)
+        {
+            if (!string.IsNullOrEmpty(path))
+            {
+                string extension = Path.GetExtension(path);
+
+                if (_SupportedMinification.Contains(extension))
+                {
+                    string filename = Path.GetFileNameWithoutExtension(path);
+
+                    if (!filename.EndsWith(".min", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         public static bool SupportsXmlType(string path)

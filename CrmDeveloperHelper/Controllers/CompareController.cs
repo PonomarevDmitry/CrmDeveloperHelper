@@ -204,6 +204,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     var webresource = WebResourceRepository.FindWebResourceInDictionary(dict, name, gr.Key);
 
+                    if (webresource == null)
+                    {
+                        string fileNameMinified = Path.GetFileNameWithoutExtension(selectedFile.FriendlyFilePath);
+
+                        if (fileNameMinified.EndsWith(".min", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            string newFriendlyPath = Path.Combine(Path.GetDirectoryName(selectedFile.FriendlyFilePath), fileNameMinified.Substring(0, fileNameMinified.Length - 4) + Path.GetExtension(selectedFile.FriendlyFilePath));
+
+                            var tempDict = webResourceRepository.FindMultiple(gr.Key, new[] { newFriendlyPath }
+                                , new ColumnSet
+                                (
+                                    WebResource.Schema.EntityPrimaryIdAttribute
+                                    , WebResource.Schema.Attributes.name
+                                    , WebResource.Schema.Attributes.webresourcetype
+                                )
+                            );
+
+                            webresource = WebResourceRepository.FindWebResourceInDictionary(tempDict, newFriendlyPath.ToLower(), gr.Key);
+                        }
+                    }
+
                     if (webresource != null)
                     {
                         // Запоминается файл
@@ -865,6 +886,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     string name = selectedFile.FriendlyFilePath.ToLower();
 
                     var webresource = WebResourceRepository.FindWebResourceInDictionary(dict, name, gr.Key);
+
+                    if (webresource == null)
+                    {
+                        string fileNameMinified = Path.GetFileNameWithoutExtension(selectedFile.FriendlyFilePath);
+
+                        if (fileNameMinified.EndsWith(".min", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            string newFriendlyPath = Path.Combine(Path.GetDirectoryName(selectedFile.FriendlyFilePath), fileNameMinified.Substring(0, fileNameMinified.Length - 4) + Path.GetExtension(selectedFile.FriendlyFilePath));
+
+                            var tempDict = webResourceRepository.FindMultiple(gr.Key, new[] { newFriendlyPath }
+                                , new ColumnSet
+                                (
+                                    WebResource.Schema.EntityPrimaryIdAttribute
+                                    , WebResource.Schema.Attributes.name
+                                    , WebResource.Schema.Attributes.webresourcetype
+                                )
+                            );
+
+                            webresource = WebResourceRepository.FindWebResourceInDictionary(tempDict, newFriendlyPath.ToLower(), gr.Key);
+                        }
+                    }
 
                     if (webresource != null)
                     {

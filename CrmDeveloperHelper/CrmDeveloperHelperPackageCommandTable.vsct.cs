@@ -1194,6 +1194,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeCSharpAddPluginStepCommandId = 0x218C;
         public const int FileCSharpAddPluginStepCommandId = 0x218D;
         public const int CodeJavaScriptMinifyCommandId = 0x21A4;
+        public const int DocumentsJavaScriptMinifyCommandId = 0x21A6;
         public const int FileJavaScriptMinifyCommandId = 0x21A5;
+        public const int FolderJavaScriptMinifyCommandId = 0x21A7;
     }
 }

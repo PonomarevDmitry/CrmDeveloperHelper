@@ -238,6 +238,7 @@
     <Compile Include="Commands\DocumentsCSharpProjectPluginAssemblyStepsAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\DocumentsCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\DocumentsCSharpUpdateEntityMetadataFileProxyClassCommand.cs" />
+    <Compile Include="Commands\DocumentsJavaScriptMinifyCommand.cs" />
     <Compile Include="Commands\DocumentsJavaScriptUpdateEntityMetadataFileCommand.cs" />
     <Compile Include="Commands\DocumentsJavaScriptUpdateGlobalOptionSetSingleFileCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceAddIntoSolutionInConnectionCommand.cs" />
@@ -301,6 +302,7 @@
     <Compile Include="Commands\FolderCSharpProjectPluginTypeStepsAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\FolderCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\FolderCSharpUpdateEntityMetadataFileProxyClassCommand.cs" />
+    <Compile Include="Commands\FolderJavaScriptMinifyCommand.cs" />
     <Compile Include="Commands\FolderJavaScriptUpdateEntityMetadataFileCommand.cs" />
     <Compile Include="Commands\FolderJavaScriptUpdateGlobalOptionSetSingleFileCommand.cs" />
     <Compile Include="Commands\FolderWebResourceAddIntoSolutionLastCommand.cs" />

@@ -971,7 +971,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             Dictionary<string, string> webResourceDescriptions = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
 
-            WebResourceRepository repositoryWebResource = new WebResourceRepository(service);
+            WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
             FormatTextTableHandler tableWithoutDependenComponents = new FormatTextTableHandler();
             tableWithoutDependenComponents.SetHeader("FilePath", "Web Resource Name", "Web Resource Type");
@@ -982,7 +982,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 var names = gr.Select(sel => sel.FriendlyFilePath).ToArray();
 
-                var dict = repositoryWebResource.FindMultiple(gr.Key, names);
+                var dict = webResourceRepository.FindMultiple(gr.Key, names);
 
                 foreach (var selectedFile in gr)
                 {
@@ -994,11 +994,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         if (webresource == null)
                         {
+                            string fileNameMinified = Path.GetFileNameWithoutExtension(selectedFile.FriendlyFilePath);
+
+                            if (fileNameMinified.EndsWith(".min", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                string newFriendlyPath = Path.Combine(Path.GetDirectoryName(selectedFile.FriendlyFilePath), fileNameMinified.Substring(0, fileNameMinified.Length - 4) + Path.GetExtension(selectedFile.FriendlyFilePath));
+
+                                var tempDict = webResourceRepository.FindMultiple(gr.Key, new[] { newFriendlyPath }
+                                    , new ColumnSet
+                                    (
+                                        WebResource.Schema.EntityPrimaryIdAttribute
+                                        , WebResource.Schema.Attributes.name
+                                        , WebResource.Schema.Attributes.webresourcetype
+                                    )
+                                );
+
+                                webresource = WebResourceRepository.FindWebResourceInDictionary(tempDict, newFriendlyPath.ToLower(), gr.Key);
+                            }
+                        }
+
+                        if (webresource == null)
+                        {
                             Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
 
                             if (webId.HasValue)
                             {
-                                webresource = await repositoryWebResource.FindByIdAsync(webId.Value);
+                                webresource = await webResourceRepository.FindByIdAsync(webId.Value);
 
                                 if (webresource != null)
                                 {
