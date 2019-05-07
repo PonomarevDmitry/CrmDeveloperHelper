@@ -1195,5 +1195,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int DocumentsAddIntoPublishListFilesWithMirrorComplexCommandId = 0x20FC;
         public const int CodeCSharpAddPluginStepCommandId = 0x218C;
         public const int FileCSharpAddPluginStepCommandId = 0x218D;
+        public const int CodeJavaScriptMinifyCommandId = 0x21A4;
+        public const int FileJavaScriptMinifyCommandId = 0x21A5;
     }
 }

@@ -2368,6 +2368,12 @@
           <ButtonText>Publish File Placeholder</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="CodeJavaScriptMinifyCommandId" priority="0x00FE" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Minify JavaScript</ButtonText>
+        </Strings>
+      </Button>
       <Button guid="guidCommandSet" id="CodeXmlExecuteFetchXmlRequestCommandId" priority="0x00FF" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
@@ -3698,7 +3704,14 @@
           <ButtonText>Publish equal by Text Placeholder</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="FileJavaScriptMinifyCommandId" priority="0x0110" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Minify JavaScript</ButtonText>
+        </Strings>
+      </Button>
 
+      
       <Button guid="guidCommandSet" id="FileWebResourceShowDifferenceCommandId" priority="0x0110" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
@@ -8093,6 +8106,9 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupPublish_MenuPublishDyn" priority="0x0100">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupPublish" />
     </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CodeJavaScriptMinifyCommandId" priority="0x0130">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupPublish" />
+    </CommandPlacement>
 
     <CommandPlacement guid="guidCommandSet" id="CodeWebResourceShowDifferenceCommandId" priority="0x0101">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifference" />
@@ -8785,9 +8801,13 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupPublish_MenuPublishDyn" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupPublish" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupPublish_MenuPublishEqualByTextDyn" priority="0x0111">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupPublish_MenuPublishEqualByTextDyn" priority="0x0120">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupPublish" />
     </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="FileJavaScriptMinifyCommandId" priority="0x0130">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupPublish" />
+    </CommandPlacement>
+    
 
     <CommandPlacement guid="guidCommandSet" id="FileWebResourceShowDifferenceCommandId" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupShowDifference" />
@@ -12797,8 +12817,8 @@
       <IDSymbol name="CodeCSharpAddPluginStepCommandId" value="0x218C" />
       <IDSymbol name="FileCSharpAddPluginStepCommandId" value="0x218D" />
 
-
-
+      <IDSymbol name="CodeJavaScriptMinifyCommandId" value="0x21A4" />
+      <IDSymbol name="FileJavaScriptMinifyCommandId" value="0x21A5" />
 
 
 
@@ -12816,7 +12836,7 @@
     <!-- 0x1324 -->
 
     <!-- Commands -->
-    <!-- 0x21A4 -->
+    <!-- 0x21A6 -->
 
 
   </Symbols>

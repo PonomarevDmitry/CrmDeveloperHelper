@@ -102,6 +102,7 @@
     <Compile Include="Commands\CodeCSharpProjectUpdatePluginAssemblyInConnectionCommand.cs" />
     <Compile Include="Commands\CodeCSharpUpdateEntityMetadataFileProxyClassCommand.cs" />
     <Compile Include="Commands\CodeCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand.cs" />
+    <Compile Include="Commands\CodeJavaScriptMinifyCommand.cs" />
     <Compile Include="Commands\CodeJavaScriptUpdateEntityMetadataFileCommand.cs" />
     <Compile Include="Commands\CodeJavaScriptUpdateEntityMetadataFileWithSelectCommand.cs" />
     <Compile Include="Commands\CodeJavaScriptUpdateGlobalOptionSetAllFileCommand.cs" />
@@ -274,6 +275,7 @@
     <Compile Include="Commands\FileCSharpProjectUpdatePluginAssemblyInConnectionCommand.cs" />
     <Compile Include="Commands\FileCSharpUpdateEntityMetadataFileProxyClassCommand.cs" />
     <Compile Include="Commands\FileCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand.cs" />
+    <Compile Include="Commands\FileJavaScriptMinifyCommand.cs" />
     <Compile Include="Commands\FileJavaScriptUpdateEntityMetadataFileCommand.cs" />
     <Compile Include="Commands\FileJavaScriptUpdateEntityMetadataFileWithSelectCommand.cs" />
     <Compile Include="Commands\FileJavaScriptUpdateGlobalOptionSetAllFileCommand.cs" />
@@ -1524,6 +1526,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="AjaxMin, Version=5.14.5506.26196, Culture=neutral, PublicKeyToken=21ef50ce11b5d80f, processorArchitecture=MSIL">
+      <HintPath>..\packages\AjaxMin.5.14.5506.26202\lib\net40\AjaxMin.dll</HintPath>
+    </Reference>
     <Reference Include="envdte, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>

@@ -76,6 +76,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CodeJavaScriptUpdateGlobalOptionSetAllFileCommand.Initialize(this);
 
+            CodeJavaScriptMinifyCommand.Initialize(this);
+
             CodeXmlExecuteFetchXmlRequestCommand.Initialize(this);
             CodeXmlExecuteFetchXmlRequestInConnectionsCommand.Initialize(this);
             CodeXmlConvertFetchXmlToJavaScriptCodeCommand.Initialize(this);
