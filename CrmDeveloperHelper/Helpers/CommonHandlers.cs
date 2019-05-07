@@ -12,7 +12,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public static class CommonHandlers
     {
-        private static readonly TimeSpan _cacheItemSpan = TimeSpan.FromSeconds(5);
+        private static readonly TimeSpan _cacheItemSpan = TimeSpan.FromSeconds(1);
 
         private static bool CheckActiveDocumentExtension(EnvDTE80.DTE2 applicationObject, Func<string, bool> checker)
         {
