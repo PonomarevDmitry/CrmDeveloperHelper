@@ -17,7 +17,7 @@
 - ribbons
 - solutions
 - work with solutions (copy components from one to another, create solution descriptions, export solutions)</Description>
-        <MoreInfo>https://marketplace.visualstudio.com/items?itemName=NaviconPonomarevDmitry.CrmDeveloperHelper</MoreInfo>
+        <MoreInfo>https://github.com/PonomarevDmitry/CrmDeveloperHelper/wiki</MoreInfo>
         <Icon>Resources\CrmDeveloperHelperPackage.ico</Icon>
         <Tags>Microsoft Dynamics 365, Dynamics CRM 2011, Dynamics CRM 2013, Dynamics CRM 2015, Dynamics CRM 2016</Tags>
     </Metadata>
