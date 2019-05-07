@@ -40,7 +40,6 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuOneByOneDyn_Group" priority="0x0601"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWayDyn_Group" priority="0x0601"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceCustom" priority="0x0601"/>
-      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDependentComponents" priority="0x0602"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCompareFile" priority="0x0603"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupEntityMetadata" priority="0x0603"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupEntityMetadata_MenuConnectionDyn_Group" priority="0x0603"/>
@@ -2741,12 +2740,6 @@
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
           <ButtonText>Show Three Way Difference Placeholder</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="CodeWebResourceShowDependentComponentsCommandId" priority="0x0102" type="Button">
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <Strings>
-          <ButtonText>Show Dependent Components</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CodeWebResourceCompareWithDetailsCommandId" priority="0x0103" type="Button">
@@ -6399,9 +6392,6 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceCustom" priority="0x0630">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDependentComponents" priority="0x0640">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
-    </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCompareFile" priority="0x0650">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
@@ -8116,10 +8106,6 @@
 
     <CommandPlacement guid="guidCommandSet" id="CodeWebResourceShowDifferenceCustomCommandId" priority="0x0102">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDifferenceCustom" />
-    </CommandPlacement>
-
-    <CommandPlacement guid="guidCommandSet" id="CodeWebResourceShowDependentComponentsCommandId" priority="0x0102">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupShowDependentComponents" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidCommandSet" id="CodeWebResourceCompareWithDetailsCommandId" priority="0x0102">
@@ -10902,8 +10888,6 @@
       <IDSymbol name="codeMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWayDyn" value="0x1162" />
       <IDSymbol name="codeMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWayDyn_Group" value="0x1163" />
 
-      <IDSymbol name="codeMenuWebResource_GroupShowDependentComponents" value="0x1003" />
-
       <IDSymbol name="codeMenuWebResource_GroupCompareFile" value="0x1004" />
       <IDSymbol name="codeMenuWebResource_GroupCompareFile_MenuConnectionDyn" value="0x122C" />
       <IDSymbol name="codeMenuWebResource_GroupCompareFile_MenuConnectionDyn_Group" value="0x122D" />
@@ -12289,8 +12273,6 @@
 
       <IDSymbol name="CodeWebResourceShowDifferenceCommandId" value="0x2001" />
       <IDSymbol name="CodeWebResourceShowDifferenceCustomCommandId" value="0x2002" />
-
-      <IDSymbol name="CodeWebResourceShowDependentComponentsCommandId" value="0x2003" />
 
       <IDSymbol name="CodeWebResourceCompareWithDetailsCommandId" value="0x2004" />
 
