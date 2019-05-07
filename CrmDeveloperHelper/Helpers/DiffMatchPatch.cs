@@ -854,12 +854,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             int length = 1;
             while (true)
             {
-                string pattern = text1.Substring(text_length - length);
-                int found = text2.IndexOf(pattern, StringComparison.InvariantCultureIgnoreCase);
+                int found = -1;
+
+                if (text_length - length >= 0)
+                {
+                    string pattern = text1.Substring(text_length - length);
+                    found = text2.IndexOf(pattern, StringComparison.InvariantCultureIgnoreCase);
+                }
+
                 if (found == -1)
                 {
                     return best;
                 }
+
                 length += found;
                 if (found == 0 || text1.Substring(text_length - length) ==
                     text2.Substring(0, length))
