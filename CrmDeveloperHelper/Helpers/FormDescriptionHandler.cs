@@ -380,7 +380,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             {
                                 var role = _descriptor.GetEntity<Role>((int)ComponentType.Role, tempId);
 
-                                if (role.RoleTemplateId != null)
+                                if (role != null && role.RoleTemplateId != null)
                                 {
                                     attrId.Value = role.RoleTemplateId.Id.ToString().ToLower();
                                 }
