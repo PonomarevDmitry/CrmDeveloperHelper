@@ -58,7 +58,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int codeMenuWebResource_GroupShowDifferenceMultiple_MenuOneByOneDyn_Group = 0x118E;
         public const int codeMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWayDyn = 0x1162;
         public const int codeMenuWebResource_GroupShowDifferenceMultiple_MenuThreeWayDyn_Group = 0x1163;
-        public const int codeMenuWebResource_GroupShowDependentComponents = 0x1003;
         public const int codeMenuWebResource_GroupCompareFile = 0x1004;
         public const int codeMenuWebResource_GroupCompareFile_MenuConnectionDyn = 0x122C;
         public const int codeMenuWebResource_GroupCompareFile_MenuConnectionDyn_Group = 0x122D;
@@ -887,7 +886,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeWebResourceUpdateContentPublishCommandId = 0x2000;
         public const int CodeWebResourceShowDifferenceCommandId = 0x2001;
         public const int CodeWebResourceShowDifferenceCustomCommandId = 0x2002;
-        public const int CodeWebResourceShowDependentComponentsCommandId = 0x2003;
         public const int CodeWebResourceCompareWithDetailsCommandId = 0x2004;
         public const int CodeWebResourceCheckEncodingCommandId = 0x2005;
         public const int CodeWebResourceDownloadCommandId = 0x2006;

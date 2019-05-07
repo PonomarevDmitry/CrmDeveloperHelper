@@ -61,7 +61,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeWebResourceOpenInWebCommand.Initialize(this);
             CodeWebResourceLinkClearCommand.Initialize(this);
             CodeWebResourceLinkCreateCommand.Initialize(this);
-            CodeWebResourceShowDependentComponentsCommand.Initialize(this);
             CodeWebResourceUpdateContentPublishCommand.Initialize(this);
             CodeWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(this);
 

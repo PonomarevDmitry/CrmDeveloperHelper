@@ -136,7 +136,6 @@
     <Compile Include="Commands\CodeWebResourceDownloadCommand.cs" />
     <Compile Include="Commands\CodeReportShowDifferenceCommand.cs" />
     <Compile Include="Commands\CodeReportDownloadCommand.cs" />
-    <Compile Include="Commands\CodeWebResourceShowDependentComponentsCommand.cs" />
     <Compile Include="Commands\CodeCSharpUpdateEntityMetadataFileSchemaCommand.cs" />
     <Compile Include="Commands\CodeCSharpUpdateEntityMetadataFileSchemaWithSelectCommand.cs" />
     <Compile Include="Commands\CodeCSharpUpdateGlobalOptionSetsFileCommand.cs" />
