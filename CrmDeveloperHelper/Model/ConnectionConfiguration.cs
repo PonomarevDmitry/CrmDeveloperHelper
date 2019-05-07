@@ -498,7 +498,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private static readonly TimeSpan _cacheItemSpan = TimeSpan.FromSeconds(5);
+        private static readonly TimeSpan _cacheItemSpan = TimeSpan.FromSeconds(1);
 
         public List<ConnectionData> GetConnectionsWithoutCurrent()
         {
