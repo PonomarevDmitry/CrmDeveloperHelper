@@ -1,6 +1,7 @@
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
@@ -25,7 +26,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected readonly string _entityName;
 
-        protected readonly ReadOnlyCollection<Guid> _entityIds;
+        protected readonly HashSet<string> _ignoredAttributes = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+        protected readonly IReadOnlyCollection<Guid> _entityIds;
 
         protected readonly IOrganizationServiceExtented _service;
 
@@ -62,13 +65,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.tSSLblConnectionName.Content = this._service.ConnectionData.Name;
 
+            WindowEntityEditor.FillIgnoredAttributes(_entityName, _ignoredAttributes);
+
             DecreaseInit();
 
             txtBFilterAttribute.SelectionStart = txtBFilterAttribute.Text.Length;
             txtBFilterAttribute.SelectionLength = 0;
             txtBFilterAttribute.Focus();
 
-            this._attributeChecker = a => a.IsValidForUpdate.GetValueOrDefault();
+            this._attributeChecker = a => a.IsValidForUpdate.GetValueOrDefault() && !_ignoredAttributes.Contains(a.LogicalName);
 
             RetrieveEntityInformation();
         }

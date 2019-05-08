@@ -1,6 +1,7 @@
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
@@ -27,6 +28,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         protected readonly Guid _entityId;
 
         protected readonly IOrganizationServiceExtented _service;
+
+        protected readonly HashSet<string> _ignoredAttributes = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
         private EntityMetadata _entityMetadata;
 
@@ -62,6 +65,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.tSSLblConnectionName.Content = this._service.ConnectionData.Name;
 
+            FillIgnoredAttributes(_entityName, _ignoredAttributes);
+
             ActivateControls(mIEntityInformation.Items.OfType<Control>(), false, "mIEntityInstance");
 
             DecreaseInit();
@@ -70,9 +75,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBFilterAttribute.SelectionLength = 0;
             txtBFilterAttribute.Focus();
 
-            this._attributeChecker = a => a.IsValidForCreate.GetValueOrDefault();
+            this._attributeChecker = a => a.IsValidForCreate.GetValueOrDefault() && !_ignoredAttributes.Contains(a.LogicalName);
 
             RetrieveEntityInformation();
+        }
+
+        public static void FillIgnoredAttributes(string entityName, HashSet<string> ignoredAttributes)
+        {
+            switch (entityName.ToLower())
+            {
+                case PluginAssembly.EntityLogicalName:
+                    ignoredAttributes.Add(PluginAssembly.Schema.Attributes.content);
+                    break;
+            }
         }
 
         private async Task RetrieveEntityInformation()
@@ -105,7 +120,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                             SetWindowTitle(string.Format("Edit Entity {0} - {1}", _entityName, _entityId));
 
-                            this._attributeChecker = a => a.IsValidForUpdate.GetValueOrDefault();
+                            this._attributeChecker = a => a.IsValidForUpdate.GetValueOrDefault() && !_ignoredAttributes.Contains(a.LogicalName);
 
                             foreach (var attributeValue in this._entityInstance.Attributes.OrderBy(a => a.Key))
                             {

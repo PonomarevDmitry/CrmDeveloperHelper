@@ -6,83 +6,101 @@
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
         Title="Plugin Tree" Height="538.662" Width="746" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
-        <BitmapImage x:Key="ImagePluginAssembly" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/assembly.gif" />
-        <BitmapImage x:Key="ImageEntity" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Entity.png" />
-        <BitmapImage x:Key="ImageImage" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/image.gif" />
-        <BitmapImage x:Key="ImageMessage" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/message.gif" />
-        <BitmapImage x:Key="ImagePluginType" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/plugin.gif" />
-        <BitmapImage x:Key="ImageStage" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Stage.gif" />
-        <BitmapImage x:Key="ImageStep" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Step.gif" />
-        <BitmapImage x:Key="ImageStepDisabled" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/stepdisabled.gif" />
-        <BitmapImage x:Key="ImageBusinessRule" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/BusinessRule.png" />
-        <BitmapImage x:Key="ImageBusinessProcess" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/BusinessProcess.png" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleWindows.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
-        <BitmapImage x:Key="ImageWorkflowActivity" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/workflowactivity.gif" />
+            <BitmapImage x:Key="ImagePluginAssembly" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/assembly.gif" />
+            <BitmapImage x:Key="ImageEntity" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Entity.png" />
+            <BitmapImage x:Key="ImageImage" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/image.gif" />
+            <BitmapImage x:Key="ImageMessage" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/message.gif" />
+            <BitmapImage x:Key="ImagePluginType" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/plugin.gif" />
+            <BitmapImage x:Key="ImageStage" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Stage.gif" />
+            <BitmapImage x:Key="ImageStep" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Step.gif" />
+            <BitmapImage x:Key="ImageStepDisabled" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/stepdisabled.gif" />
+            <BitmapImage x:Key="ImageBusinessRule" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/BusinessRule.png" />
+            <BitmapImage x:Key="ImageBusinessProcess" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/BusinessProcess.png" />
 
-        <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+            <BitmapImage x:Key="ImageWorkflowActivity" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/workflowactivity.gif" />
 
-            <MenuItem x:Uid="contMnOpenInWeb" Header="Open in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
-            <Separator x:Uid="contMnOpenInWeb" />
+            <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
-            <MenuItem x:Uid="contMnCreateDescription" Header="Create Description" VerticalAlignment="Center" Click="mICreateDescription_Click"/>
-            <Separator x:Uid="contMnCreateDescription" />
+                <MenuItem x:Uid="contMnOpenInWeb" Header="Open in Web" Click="mIOpenInWeb_Click"/>
+                <Separator x:Uid="contMnOpenInWeb" />
 
-            <MenuItem x:Uid="contMnCompareWithLocalAssembly" Header="Compare with Local Assembly" VerticalAlignment="Center" Click="mICompareWithLocalAssembly_Click"/>
-            <Separator x:Uid="contMnCompareWithLocalAssembly" />
+                <MenuItem x:Uid="contMnCreateDescription" Header="Create Description" Click="mICreateDescription_Click"/>
+                <Separator x:Uid="contMnCreateDescription" />
 
-            <MenuItem x:Uid="contMnAddPluginStep" Header="Add Plugin Step" VerticalAlignment="Center" Click="mIAddPluginStep_Click" />
-            <Separator x:Uid="contMnAddPluginStep" />
+                <MenuItem x:Uid="contMnCompareWithLocalAssembly" Header="Compare with Local Assembly" Click="mICompareWithLocalAssembly_Click"/>
+                <Separator x:Uid="contMnCompareWithLocalAssembly" />
 
-            <MenuItem x:Uid="contMnAddPluginStepImage" Header="Add Plugin Step Image" VerticalAlignment="Center" Click="mIAddPluginStepImage_Click" />
-            <Separator x:Uid="contMnAddPluginStepImage" />
+                <MenuItem x:Uid="contMnAddPluginStep" Header="Add Plugin Step" Click="mIAddPluginStep_Click" />
+                <Separator x:Uid="contMnAddPluginStep" />
 
-            <MenuItem x:Uid="contMnUpdate" Header="Update" VerticalAlignment="Center" Click="mIUpdateSdkObject_Click" />
-            <Separator x:Uid="contMnUpdate" />
+                <MenuItem x:Uid="contMnAddPluginStepImage" Header="Add Plugin Step Image" Click="mIAddPluginStepImage_Click" />
+                <Separator x:Uid="contMnAddPluginStepImage" />
 
-            <MenuItem x:Uid="contMnChangeState" Header="ChangeState" VerticalAlignment="Center" Click="mIChangeStateSdkObject_Click" />
-            <Separator x:Uid="contMnChangeState" />
+                <MenuItem x:Uid="contMnUpdate" Header="Update" Click="mIUpdateSdkObject_Click" />
+                <Separator x:Uid="contMnUpdate" />
 
-            <MenuItem x:Uid="contMnDelete" Header="Delete" VerticalAlignment="Center" Click="mIDeleteSdkObject_Click" />
-            <Separator x:Uid="contMnDelete" />
+                <MenuItem x:Uid="contMnChangeState" Header="ChangeState" Click="mIChangeStateSdkObject_Click" />
+                <Separator x:Uid="contMnChangeState" />
 
-            <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
-            <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
-            <MenuItem x:Uid="contMnEntity" Header="Open Entity Explorer" VerticalAlignment="Center" Click="mIOpenEntityExplorer_Click" />
-            <MenuItem x:Uid="contMnEntity" Header="Publish Entity" Click="btnPublishEntity_Click"/>
-            <Separator x:Uid="contMnEntity" />
+                <MenuItem x:Uid="contMnDelete" Header="Delete" Click="mIDeleteSdkObject_Click" />
+                <Separator x:Uid="contMnDelete" />
 
-            <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
-            <MenuItem x:Uid="contMnAddIntoSolution"     Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
-            <Separator x:Uid="contMnAddIntoSolution"/>
-            
-            <MenuItem x:Uid="contMnAddPluginTypeStepsIntoSolutionLast" Header="Add Steps for PluginType into Last Crm Solution" VerticalAlignment="Center"  />
-            <MenuItem x:Uid="contMnAddPluginTypeStepsIntoSolution"     Header="Add Steps for PluginType into Crm Solution" VerticalAlignment="Center" Click="mIAddPluginTypeStepsIntoSolution_Click" />
-            <Separator x:Uid="contMnAddPluginTypeStepsIntoSolution" />
-            
-            <MenuItem x:Uid="contMnAddPluginAssemblyIntoSolutionLast" Header="Add PluginAssembly into Last Crm Solution" VerticalAlignment="Center"  />
-            <MenuItem x:Uid="contMnAddPluginAssemblyIntoSolution" Header="Add PluginAssembly into Crm Solution" VerticalAlignment="Center" Click="AddAssemblyIntoCrmSolution_Click" />
-            <Separator x:Uid="contMnAddPluginAssemblyIntoSolution" />
-            
-            <MenuItem x:Uid="contMnAddPluginAssemblyStepsIntoSolutionLast" Header="Add Steps for PluginAssembly into Last Crm Solution" VerticalAlignment="Center"  />
-            <MenuItem x:Uid="contMnAddPluginAssemblyStepsIntoSolution" Header="Add Steps for PluginAssembly into Crm Solution" VerticalAlignment="Center" Click="mIAddAssemblyStepsIntoSolution_Click" />
-            <Separator x:Uid="contMnAddPluginAssemblyStepsIntoSolution"/>
+                <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
+                <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
+                <MenuItem x:Uid="contMnEntity" Header="Open Entity Explorer" Click="mIOpenEntityExplorer_Click" />
+                <MenuItem x:Uid="contMnEntity" Header="Publish Entity" Click="btnPublishEntity_Click"/>
+                <Separator x:Uid="contMnEntity" />
 
-            <MenuItem x:Uid="contMnSdkMessage" Header="Open Sdk Message Tree" VerticalAlignment="Center" Click="mIOpenSdkMessageTree_Click" />
-            <MenuItem x:Uid="contMnSdkMessage" Header="Open Sdk Message Request Tree" VerticalAlignment="Center" Click="mIOpenSdkMessageRequestTree_Click" />
-            <Separator x:Uid="contMnSdkMessage" />
+                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" />
+                <MenuItem x:Uid="contMnAddIntoSolution"     Header="Add into Crm Solution" Click="AddIntoCrmSolution_Click" />
+                <Separator x:Uid="contMnAddIntoSolution"/>
 
-            <MenuItem x:Uid="contMnWorkflowExlorer" Header="Open Workflow Explorer" VerticalAlignment="Center" Click="mIOpenWorkflowExplorer_Click" />
-            <Separator x:Uid="contMnWorkflowExlorer" />
+                <MenuItem x:Uid="contMnAddPluginTypeStepsIntoSolutionLast" Header="Add Steps for PluginType into Last Crm Solution"  />
+                <MenuItem x:Uid="contMnAddPluginTypeStepsIntoSolution"     Header="Add Steps for PluginType into Crm Solution" Click="mIAddPluginTypeStepsIntoSolution_Click" />
+                <Separator x:Uid="contMnAddPluginTypeStepsIntoSolution" />
 
-            <MenuItem x:Uid="contMnDependentComponents" Header="Dependent Components">
-                <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
-                <Separator/>
-                <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
-            </MenuItem>
-        </ContextMenu>
+                <MenuItem x:Uid="contMnAddPluginAssemblyIntoSolutionLast" Header="Add PluginAssembly into Last Crm Solution"  />
+                <MenuItem x:Uid="contMnAddPluginAssemblyIntoSolution" Header="Add PluginAssembly into Crm Solution" Click="AddAssemblyIntoCrmSolution_Click" />
+                <Separator x:Uid="contMnAddPluginAssemblyIntoSolution" />
+
+                <MenuItem x:Uid="contMnAddPluginAssemblyStepsIntoSolutionLast" Header="Add Steps for PluginAssembly into Last Crm Solution"  />
+                <MenuItem x:Uid="contMnAddPluginAssemblyStepsIntoSolution" Header="Add Steps for PluginAssembly into Crm Solution" Click="mIAddAssemblyStepsIntoSolution_Click" />
+                <Separator x:Uid="contMnAddPluginAssemblyStepsIntoSolution"/>
+
+                <MenuItem x:Uid="contMnSdkMessage" Header="Open Sdk Message Tree" Click="mIOpenSdkMessageTree_Click" />
+                <MenuItem x:Uid="contMnSdkMessage" Header="Open Sdk Message Request Tree" Click="mIOpenSdkMessageRequestTree_Click" />
+                <Separator x:Uid="contMnSdkMessage" />
+
+                <MenuItem x:Uid="contMnWorkflowExlorer" Header="Open Workflow Explorer" Click="mIOpenWorkflowExplorer_Click" />
+                <Separator x:Uid="contMnWorkflowExlorer" />
+
+                <MenuItem x:Uid="contMnDependentComponents" Header="Dependent Components">
+                    <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
+                    <Separator/>
+                    <MenuItem Header="Open Dependent Components in Window" Click="mIOpenDependentComponentsInWindow_Click" />
+                </MenuItem>
+            </ContextMenu>
+
+        </ResourceDictionary>
     </src:WindowBase.Resources>
     <Grid>
-        <Grid Margin="10,10,10,0" VerticalAlignment="Top">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+
+            <RowDefinition Height="100*" />
+
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
@@ -93,19 +111,19 @@
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="10*"/>
-
             </Grid.ColumnDefinitions>
-            
-            <Label Content="Entity Name" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-            <ComboBox x:Name="cmBEntityName" Height="23" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Grid.Row="0" Grid.Column="1" KeyDown="txtBFilter_KeyDown" VerticalContentAlignment="Center" VerticalAlignment="Center" />
-            
-            <Label Content="Plugin Name" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="2"/>
-            <TextBox x:Name="txtBPluginTypeFilter" Height="23"  TextWrapping="NoWrap"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="3" KeyDown="txtBFilter_KeyDown" VerticalContentAlignment="Center" />
-            
-            <Label Content="Message" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="4"/>
-            <TextBox x:Name="txtBMessageFilter" Height="23"  TextWrapping="NoWrap"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="5" KeyDown="txtBFilter_KeyDown" VerticalContentAlignment="Center" />
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Entity Name"/>
+            <ComboBox Grid.Row="0" Grid.Column="1" x:Name="cmBEntityName" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" KeyDown="txtBFilter_KeyDown" />
+
+            <Label Grid.Row="0" Grid.Column="2" Content="Plugin Name"/>
+            <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtBPluginTypeFilter" TextWrapping="NoWrap"  KeyDown="txtBFilter_KeyDown" />
+
+            <Label Grid.Row="0" Grid.Column="4" Content="Message"/>
+            <TextBox Grid.Row="0" Grid.Column="5" x:Name="txtBMessageFilter" TextWrapping="NoWrap" KeyDown="txtBFilter_KeyDown" />
         </Grid>
-        <Grid HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top">
+
+        <Grid Grid.Row="1" Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
@@ -117,49 +135,43 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <CheckBox x:Name="chBStagePreValidation" Grid.Column="0" Grid.Row="0" Content="10 - Pre Validation" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" VerticalContentAlignment="Center" />
-            <CheckBox x:Name="chBStagePre" Grid.Column="1" Grid.Row="0" Content="20 - Pre" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" VerticalContentAlignment="Center" />
-            <CheckBox x:Name="chBStagePostSync" Grid.Column="2" Grid.Row="0" Content="40 - Post Sync" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" VerticalContentAlignment="Center" />
-            <CheckBox x:Name="chBStagePostAsync" Grid.Column="3" Grid.Row="0" Content="40 - Post Async" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+            <CheckBox x:Name="chBStagePreValidation" Grid.Column="0" Grid.Row="0" Content="10 - Pre Validation"  />
+            <CheckBox x:Name="chBStagePre" Grid.Column="1" Grid.Row="0" Content="20 - Pre"  />
+            <CheckBox x:Name="chBStagePostSync" Grid.Column="2" Grid.Row="0" Content="40 - Post Sync"  />
+            <CheckBox x:Name="chBStagePostAsync" Grid.Column="3" Grid.Row="0" Content="40 - Post Async"  />
 
-            <CheckBox x:Name="chBBusinessRules" Grid.Column="4" Grid.Row="0" Content="Business Rules" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" VerticalContentAlignment="Center" />
-            <CheckBox x:Name="chBBusinessProcesses" Grid.Column="5" Grid.Row="0" Content="Business Processes" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+            <CheckBox x:Name="chBBusinessRules" Grid.Column="4" Grid.Row="0" Content="Business Rules"  />
+            <CheckBox x:Name="chBBusinessProcesses" Grid.Column="5" Grid.Row="0" Content="Business Processes"  />
         </Grid>
-        <GroupBox Header="Plugin Tree" Margin="10,71,10,69">
+
+        <GroupBox Header="Plugin Tree" Grid.Row="2" Margin="5">
             <DockPanel LastChildFill="True">
-                <ToolBar VerticalAlignment="Top" DockPanel.Dock="Top" >
+                <ToolBar DockPanel.Dock="Top" >
                     <ToolBarPanel Orientation="Horizontal">
                         <ToolBarPanel.Resources>
                             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-                                <Setter Property="Margin" Value="2" />
-                                <Setter Property="Padding" Value="4" />
-                                <Setter Property="VerticalAlignment" Value="Center" />
                             </Style>
                             <Style TargetType="{x:Type MenuItem}">
-                                <Setter Property="Margin" Value="2" />
-                                <Setter Property="Padding" Value="4" />
-                                <Setter Property="VerticalAlignment" Value="Center" />
                             </Style>
                             <Style TargetType="{x:Type Menu}" BasedOn="{StaticResource {x:Static ToolBar.MenuStyleKey}}">
-                                <Setter Property="Margin" Value="2" />
-                                <Setter Property="Padding" Value="4" />
                                 <Setter Property="Background" Value="{x:Null}" />
-                                <Setter Property="VerticalAlignment" Value="Center" />
                             </Style>
                         </ToolBarPanel.Resources>
                         <Menu x:Name="menuView" IsEnabled="False">
-                            <MenuItem Header="View" HorizontalAlignment="Left" >
+                            <MenuItem Header="View" >
                                 <RadioButton x:Name="rBViewByEntity" GroupName="View" Content="Display By Entity" IsChecked="True" Checked="rBViewByEntity_Checked"/>
                                 <RadioButton x:Name="rBViewByAssembly" GroupName="View" Content="Display By Assembly" Checked="rBViewByAssembly_Checked"/>
                                 <RadioButton x:Name="rBViewByMessage" GroupName="View" Content="Display By Message" Checked="rBViewByMessage_Checked"/>
                             </MenuItem>
                         </Menu>
-                        <Button x:Name="tSBCreateDescription" HorizontalAlignment="Left" Content="Create Description" Click="tSBCreateDescription_Click" IsEnabled="False"  />
-                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                        <Button x:Name="tSBRegisterAssembly" HorizontalAlignment="Left" Content="Register New Assembly" Click="tSBRegisterAssembly_Click" />
-                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                        <Button x:Name="tSBCollapseAll" HorizontalAlignment="Left" Content="Collapse All" Click="tSBCollapseAll_Click" IsEnabled="False" />
-                        <Button x:Name="tSBExpandAll" HorizontalAlignment="Left" Content="Expand All" Click="tSBExpandAll_Click" IsEnabled="False" />
+                        <Button x:Name="tSBCreateDescription" Content="Create Description" Click="tSBCreateDescription_Click" IsEnabled="False"  />
+                        
+                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                        <Button x:Name="tSBRegisterAssembly" Content="Register New Assembly" Click="tSBRegisterAssembly_Click" />
+                        
+                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                        <Button x:Name="tSBCollapseAll" Content="Collapse All" Click="tSBCollapseAll_Click" IsEnabled="False" />
+                        <Button x:Name="tSBExpandAll" Content="Expand All" Click="tSBExpandAll_Click" IsEnabled="False" />
                     </ToolBarPanel>
 
                 </ToolBar>
@@ -171,8 +183,8 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <Image Width="16" Height="16" Grid.Column="0" Source="{Binding Image}" Margin="5,2,5,2" />
-                                <TextBlock Grid.Column="1" Text="{Binding Path=Name}" Margin="5,2,5,2" Padding="2" />
+                                <Image Width="16" Height="16" Grid.Column="0" Source="{Binding Image}" Margin="5,2" />
+                                <TextBlock Grid.Column="1" Text="{Binding Path=Name}" Margin="5,2" Padding="2" />
                             </Grid>
                         </HierarchicalDataTemplate>
                     </TreeView.ItemTemplate>
@@ -186,7 +198,8 @@
                 </TreeView>
             </DockPanel>
         </GroupBox>
-        <ToolBar Margin="0,0,0,31" VerticalAlignment="Bottom" Height="33">
+
+        <ToolBar Grid.Row="3">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
@@ -202,18 +215,19 @@
                     </Style>
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
-                    <Label Content="Action" HorizontalAlignment="Left" Padding="10,0"  VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
-                    <ComboBox x:Name="cmBFileAction"  SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" VerticalAlignment="Stretch" Padding="10,0"  IsReadOnly="True" Width="260" SelectedIndex="0" HorizontalAlignment="Left"  VerticalContentAlignment="Center" />
+                    <Label Content="Action" />
+                    <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" IsReadOnly="True" Width="260" SelectedIndex="0" />
                 </ToolBarPanel>
-                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
-        <StatusBar VerticalAlignment="Bottom">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+
+        <StatusBar Grid.Row="4">
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
+            <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="25" />
             <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
-            <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>
 </src:WindowBase>
