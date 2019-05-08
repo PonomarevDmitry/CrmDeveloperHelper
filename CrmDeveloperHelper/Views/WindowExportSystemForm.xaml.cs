@@ -117,6 +117,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBFileAction.DataContext = _commonConfig;
 
             txtBFolder.DataContext = _commonConfig;
+
+            txtBNamespaceClassesJavaScript.DataContext = cmBCurrentConnection;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -428,6 +430,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             await action(folder, idSystemForm, entityName, name);
+        }
+
+        private async Task ExecuteJavaScriptObjectTypeAsync(Guid idSystemForm, string entityName, string name, JavaScriptObjectType javaScriptObjectType, Func<string, Guid, string, string, JavaScriptObjectType, Task> action)
+        {
+            string folder = txtBFolder.Text.Trim();
+
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(folder))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(folder))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
+            await action(folder, idSystemForm, entityName, name, javaScriptObjectType);
         }
 
         private Task<string> CreateFileAsync(string folder, Guid formId, string entityName, string name, string fieldTitle, string extension, string formXml)
@@ -1142,7 +1167,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return localFilePath;
         }
 
-        private void mIExportSystemFormEntityJavaScriptFile_Click(object sender, RoutedEventArgs e)
+        private void mIExportSystemFormEntityJavaScriptFileJsonObject_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1151,10 +1176,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionAsync(entity.Id, entity.ObjectTypeCode, entity.Name, PerformCreateEntityJavaScriptFileBasedOnForm);
+            ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.JsonObject, PerformCreateEntityJavaScriptFileBasedOnForm);
         }
 
-        private async Task PerformCreateEntityJavaScriptFileBasedOnForm(string folder, Guid idSystemForm, string entityName, string name)
+        private void mIExportSystemFormEntityJavaScriptFileAnonymousConstructor_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.AnonymousConstructor, PerformCreateEntityJavaScriptFileBasedOnForm);
+        }
+
+        private void mIExportSystemFormEntityJavaScriptFileTypeConstructor_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteJavaScriptObjectTypeAsync(entity.Id, entity.ObjectTypeCode, entity.Name, JavaScriptObjectType.TypeConstructor, PerformCreateEntityJavaScriptFileBasedOnForm);
+        }
+
+        private async Task PerformCreateEntityJavaScriptFileBasedOnForm(string folder, Guid idSystemForm, string entityName, string name, JavaScriptObjectType javaScriptObjectType)
         {
             var service = await GetService();
 
@@ -1192,7 +1241,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     string filePath = Path.Combine(folder, fileName);
 
-                    using (var handlerCreate = new CreateFormTabsJavaScriptHandler(config, service))
+                    using (var handlerCreate = new CreateFormTabsJavaScriptHandler(config, javaScriptObjectType, service))
                     {
                         await handlerCreate.CreateFileAsync(filePath, tabs);
                     }
