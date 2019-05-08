@@ -41,6 +41,9 @@
                 <MenuItem x:Uid="contMnAddPluginStepImage" Header="Add Plugin Step Image" Click="mIAddPluginStepImage_Click" />
                 <Separator x:Uid="contMnAddPluginStepImage" />
 
+                <MenuItem x:Uid="contMnEditor" Header="Edit in Editor" Click="mIEditInEditor_Click" />
+                <Separator x:Uid="contMnEditor" />
+
                 <MenuItem x:Uid="contMnUpdate" Header="Update" Click="mIUpdateSdkObject_Click" />
                 <Separator x:Uid="contMnUpdate" />
 
@@ -135,6 +138,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
+            
             <CheckBox x:Name="chBStagePreValidation" Grid.Column="0" Grid.Row="0" Content="10 - Pre Validation"  />
             <CheckBox x:Name="chBStagePre" Grid.Column="1" Grid.Row="0" Content="20 - Pre"  />
             <CheckBox x:Name="chBStagePostSync" Grid.Column="2" Grid.Row="0" Content="40 - Post Sync"  />
@@ -224,8 +228,8 @@
 
         <StatusBar Grid.Row="4">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
-            <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="25" />
+            <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
             <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
             <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>

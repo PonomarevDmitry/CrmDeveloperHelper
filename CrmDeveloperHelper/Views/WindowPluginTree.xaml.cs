@@ -1246,6 +1246,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return "Update";
         }
 
+        private string GetEditName(PluginTreeViewItem item)
+        {
+            if (item == null)
+            {
+                return "Edit in Editor";
+            }
+
+            if (item.PluginAssembly.HasValue && item.ComponentType == ComponentType.PluginAssembly)
+            {
+                return "Edit Plugin Assembly in Editor";
+            }
+
+            if (item.PluginType.HasValue && item.ComponentType == ComponentType.PluginType)
+            {
+                return "Edit Plugin Type in Editor";
+            }
+
+            if (item.Step.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStep)
+            {
+                return "Edit Step in Editor";
+            }
+
+            if (item.StepImage.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStepImage)
+            {
+                return "Edit Image in Editor";
+            }
+
+            if (item.Workflow.HasValue && item.ComponentType == ComponentType.Workflow)
+            {
+                return "Edit Workflow in Editor";
+            }
+
+            return "Edit in Editor";
+        }
+
         private string GetChangeStateName(PluginTreeViewItem item)
         {
             if (item == null)
@@ -1800,6 +1835,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ActivateControls(items, isPluginAssembly || isStep || isStepImage, "contMnUpdate");
             SetControlsName(items, GetUpdateName(nodeItem), "contMnUpdate");
+
+            ActivateControls(items, nodeItem.GetId().HasValue, "contMnEditor");
+            SetControlsName(items, GetEditName(nodeItem), "contMnEditor");
 
             ActivateControls(items, isWorkflow || isStep, "contMnChangeState");
             SetControlsName(items, GetChangeStateName(nodeItem), "contMnChangeState");
@@ -2533,6 +2571,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     });
                 }
             }
+        }
+
+        private async void mIEditInEditor_Click(object sender, RoutedEventArgs e)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+
+            if (nodeItem == null
+                || !nodeItem.GetId().HasValue
+                || string.IsNullOrEmpty(nodeItem.GetEntityName())
+            )
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            _commonConfig.Save();
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, nodeItem.GetEntityName(), nodeItem.GetId().Value);
         }
 
         private async void mIChangeStateSdkObject_Click(object sender, RoutedEventArgs e)

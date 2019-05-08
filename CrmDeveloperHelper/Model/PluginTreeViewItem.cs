@@ -269,6 +269,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             return null;
         }
 
+        public string GetEntityName()
+        {
+            if (this.PluginAssembly.HasValue && this.ComponentType == Entities.ComponentType.PluginAssembly)
+            {
+                return Entities.PluginAssembly.EntityLogicalName;
+            }
+
+            if (this.PluginType.HasValue && this.ComponentType == Entities.ComponentType.PluginType)
+            {
+                return Entities.PluginType.EntityLogicalName;
+            }
+
+            if (this.Step.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageProcessingStep)
+            {
+                return Entities.SdkMessageProcessingStep.EntityLogicalName;
+            }
+
+            if (this.StepImage.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageProcessingStepImage)
+            {
+                return Entities.SdkMessageProcessingStepImage.EntityLogicalName;
+            }
+
+            if (this.Workflow.HasValue && this.ComponentType == Entities.ComponentType.Workflow)
+            {
+                return Entities.Workflow.EntityLogicalName;
+            }
+
+            return null;
+        }
+
         public void CorrectImage()
         {
             if (this.IsActive && this.ImageActive != null)
