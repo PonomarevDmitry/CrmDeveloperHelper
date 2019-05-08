@@ -4,7 +4,7 @@
         xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
         xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
-        Title="Create Global OptionSets File" Height="525.667" Width="591.667" WindowStartupLocation="Manual">
+        Title="Global OptionSets Explorer" Height="525.667" Width="591.667" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

@@ -4,7 +4,7 @@
         xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
         xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
-        Title="Export Report Information" Height="538.662" Width="922.5" WindowStartupLocation="Manual">
+        Title="Report Explorer" Height="538.662" Width="922.5" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
