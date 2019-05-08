@@ -162,14 +162,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 entityId = tempId;
             }
 
-            entity.Id = entityId;
-
             if (entityId == Guid.Empty)
             {
                 return await CreateAsync(entity);
             }
             else
             {
+                entity.Id = entityId;
+
                 var exists = await RetrieveByQueryAsync<Entity>(entity.LogicalName, entityId, new ColumnSet(false));
 
                 if (exists != null)
