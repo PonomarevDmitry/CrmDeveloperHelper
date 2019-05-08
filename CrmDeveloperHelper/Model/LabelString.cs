@@ -13,5 +13,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         [DataMember]
         public string Value { get; set; }
+
+        public string GetValueJavaScript()
+        {
+            if (!string.IsNullOrEmpty(this.Value))
+            {
+                return this.Value.Replace("'", @"\'");
+            }
+
+            return string.Empty;
+        }
     }
 }

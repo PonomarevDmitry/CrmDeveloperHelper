@@ -18,16 +18,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     {
         private EntityMetadata _entityMetadata;
 
-        public IOrganizationServiceExtented _service;
-        private CreateFileWithEntityMetadataJavaScriptConfiguration _config;
+        private readonly IOrganizationServiceExtented _service;
+        private readonly CreateFileWithEntityMetadataJavaScriptConfiguration _config;
+        private readonly JavaScriptObjectType _javaScriptObjectType;
 
         public CreateFormTabsJavaScriptHandler(
             CreateFileWithEntityMetadataJavaScriptConfiguration config
+            , JavaScriptObjectType javaScriptObjectType
             , IOrganizationServiceExtented service
         ) : base(config.TabSpacer, true)
         {
             this._config = config;
             this._service = service;
+            this._javaScriptObjectType = javaScriptObjectType;
         }
 
         public Task CreateFileAsync(string filePath, List<FormTab> tabs)
@@ -53,7 +56,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string tempNamespace = !string.IsNullOrEmpty(this._service.ConnectionData.NamespaceClassesJavaScript) ? this._service.ConnectionData.NamespaceClassesJavaScript + "." : string.Empty;
 
-            WriteLine(string.Format("{0}{1} = (new function () ", tempNamespace, _entityMetadata.LogicalName) + "{");
+            string objectName = string.Format("{0}{1}_form_main", tempNamespace, _entityMetadata.LogicalName);
+
+            string objectDeclaration = !string.IsNullOrEmpty(tempNamespace) ? objectName : "var " + objectName;
+
+            string constructorName = GetConstructorName(objectName);
+
+            WriteObjectStart(objectDeclaration, constructorName);
 
             WriteTabs(tabs);
 
@@ -61,21 +70,130 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteWebResources(tabs);
 
-            WriteLine();
-            WriteLine(JavaScriptCommonConstants);
-            WriteLine();
-            WriteLine(JavaScriptCommonFunctions);
-            WriteLine();
+            WriteConstantsAndFunctions(objectName);
 
-            WriteLine();
-            WriteLine("var pthis = this;");
-
-            WriteLine();
-            WriteLine("return pthis;");
-
-            Write("}());");
+            WriteObjectEnd(objectDeclaration, constructorName);
 
             EndWriting();
+        }
+
+        private void WriteConstantsAndFunctions(string objectName)
+        {
+            WriteLine();
+            WriteElementNameStart("FormTypeEnum", "{");
+            WriteLine(JavaScriptBodyFormTypeEnum);
+            WriteElementNameEnd();
+
+            WriteLine();
+            WriteElementNameStart("RequiredLevelEnum", "{");
+            WriteLine(JavaScriptBodyRequiredLevelEnum);
+            WriteElementNameEnd();
+
+            WriteLine();
+            WriteElementNameStart("SubmitModeEnum", "{");
+            WriteLine(JavaScriptBodySubmitModeEnum);
+            WriteElementNameEnd();
+
+            WriteLine();
+            WriteElementNameStart("writeToConsoleInfo", "function (message) {");
+            WriteLine(JavaScriptFunctionsWriteToConsoleInfo);
+            WriteElementNameEnd();
+
+            WriteLine();
+            WriteElementNameStart("writeToConsoleError", "function (message) {");
+            WriteLine(JavaScriptFunctionsWriteToConsoleError);
+            WriteElementNameEnd();
+
+            string functionUse = GetFunctionAddress(objectName, "writeToConsoleError");
+
+            WriteLine();
+            WriteElementNameStart("handleError", "function (e) {");
+            WriteLine(JavaScriptFunctionsHandleError, functionUse);
+            WriteElementNameEnd();
+        }
+
+        private string GetFunctionAddress(string objectName, string functionName)
+        {
+            switch (this._javaScriptObjectType)
+            {
+                case JavaScriptObjectType.JsonObject:
+                    return string.Format("{0}.{1}", objectName, functionName);
+
+                case JavaScriptObjectType.AnonymousConstructor:
+                case JavaScriptObjectType.TypeConstructor:
+                default:
+                    return functionName;
+            }
+        }
+
+        private void WriteObjectStart(string objectDeclaration, string constructorName)
+        {
+            switch (this._javaScriptObjectType)
+            {
+                case JavaScriptObjectType.TypeConstructor:
+                    {
+                        WriteLine(string.Format("var {0} = function () {{", constructorName));
+
+                        WriteLine();
+                        WriteLine("var pthis = this;");
+
+                        WriteLine();
+                        WriteLine(string.Format("pthis.__class_name = '{0}';", constructorName));
+                        WriteLine(string.Format("pthis.constructor = {0};", constructorName));
+                    }
+                    break;
+
+                case JavaScriptObjectType.JsonObject:
+                    {
+                        WriteLine(string.Format("{0} = {{", objectDeclaration));
+                    }
+                    break;
+
+                case JavaScriptObjectType.AnonymousConstructor:
+                default:
+                    {
+                        WriteLine(string.Format("{0} = (new function () {{", objectDeclaration));
+                    }
+                    break;
+            }
+        }
+
+        private void WriteObjectEnd(string objectDeclaration, string constructorName)
+        {
+            switch (this._javaScriptObjectType)
+            {
+                case JavaScriptObjectType.TypeConstructor:
+                    {
+                        WriteLine("};");
+                        WriteLine();
+                        WriteLine("{0} = new {1}();", objectDeclaration, constructorName);
+                    }
+                    break;
+                case JavaScriptObjectType.JsonObject:
+                    {
+                        Write("};");
+                    }
+                    break;
+
+                case JavaScriptObjectType.AnonymousConstructor:
+                default:
+                    {
+                        WriteLine();
+                        WriteLine();
+                        WriteLine("var pthis = this;");
+
+                        WriteLine();
+                        WriteLine("return pthis;");
+
+                        Write("}());");
+                    }
+                    break;
+            }
+        }
+
+        private string GetConstructorName(string objectName)
+        {
+            return string.Format("{0}FormMain", _entityMetadata.LogicalName);
         }
 
         private void WriteWebResources(List<FormTab> tabs)
@@ -87,14 +205,55 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            WriteLine("var WebResources = {");
+            WriteLine();
+            WriteElementNameStart("WebResources", "{");
 
             foreach (var control in webResouces)
             {
                 WriteLine("'{0}': '{0}',", control.Name);
             }
 
-            WriteLine("};");
+            WriteElementNameEnd();
+        }
+
+        private void WriteElementNameStart(string elementName, string elementExpression)
+        {
+            switch (this._javaScriptObjectType)
+            {
+                case JavaScriptObjectType.JsonObject:
+                    {
+                        WriteLine("'{0}': {1}", elementName, elementExpression);
+                    }
+                    break;
+
+                case JavaScriptObjectType.AnonymousConstructor:
+                case JavaScriptObjectType.TypeConstructor:
+                default:
+                    {
+                        WriteLine("var {0} = {1}", elementName, elementExpression);
+                    }
+                    break;
+            }
+        }
+
+        private void WriteElementNameEnd()
+        {
+            switch (this._javaScriptObjectType)
+            {
+                case JavaScriptObjectType.JsonObject:
+                    {
+                        WriteLine("},");
+                    }
+                    break;
+
+                case JavaScriptObjectType.AnonymousConstructor:
+                case JavaScriptObjectType.TypeConstructor:
+                default:
+                    {
+                        WriteLine("};");
+                    }
+                    break;
+            }
         }
 
         private void WriteSubgrids(List<FormTab> tabs)
@@ -106,14 +265,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            WriteLine("var SubGrids = {");
+            WriteLine();
+            WriteElementNameStart("SubGrids", "{");
 
             foreach (var control in subgrids)
             {
                 WriteLine("'{0}': '{0}',", control.Name);
             }
 
-            WriteLine("};");
+            WriteElementNameEnd();
         }
 
         private void WriteTabs(List<FormTab> tabs)
@@ -123,7 +283,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            WriteLine("var Tabs = {");
+            WriteLine();
+            WriteElementNameStart("Tabs", "{");
 
             foreach (var tab in tabs)
             {
@@ -139,7 +300,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 foreach (var label in tab.Labels)
                 {
-                    WriteLine("'Label{0}': '{1}',", label.LanguageCode, label.Value);
+                    WriteLine("'Label{0}': '{1}',", label.LanguageCode, label.GetValueJavaScript());
                 }
 
                 if (tab.Sections.Any())
@@ -158,7 +319,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         foreach (var label in section.Labels)
                         {
-                            WriteLine("'Label{0}': '{1}',", label.LanguageCode, label.Value);
+                            WriteLine("'Label{0}': '{1}',", label.LanguageCode, label.GetValueJavaScript());
                         }
 
                         WriteLine("},");
@@ -170,7 +331,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 WriteLine("},");
             }
 
-            WriteLine("};");
+            WriteElementNameEnd();
         }
 
         private void WriteNamespace()
@@ -210,5 +371,73 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
         }
+
+        public const string JavaScriptTry =
+@"try {";
+
+        public const string JavaScriptCatch =
+@"} catch (e) {
+handleError(e);
+
+throw e;
+}";
+
+        public const string JavaScriptBodyFormTypeEnum =
+@"'Undefined': 0,
+'Create': 1,
+'Update': 2,
+'ReadOnly': 3,
+'Disabled': 4,
+'Bulk Edit': 6,";
+
+        public const string JavaScriptBodyRequiredLevelEnum =
+@"'none': 'none',
+'required': 'required',
+'recommended': 'recommended',";
+
+        public const string JavaScriptBodySubmitModeEnum =
+@"'always': 'always',
+'never': 'never',
+'dirty': 'dirty'";
+
+        public const string JavaScriptFunctionsHandleError =
+@"if (!e.HandledByConsole) {{
+
+if (typeof window != 'undefined' && typeof window.console != 'undefined' && typeof window.console.error == 'function') {{
+
+if (typeof e.name == 'string') {{ {0}(e.name); }}
+if (typeof e.fileName == 'string') {{ {0}(e.fileName); }}
+if (typeof e.lineNumber != 'undefined') {{ {0}(e.lineNumber); }}
+if (typeof e.message == 'string') {{ {0}(e.message); }}
+if (typeof e.description == 'string') {{ {0}(e.description); }}
+if (typeof e.stack == 'string') {{ {0}(e.stack); }}
+
+e.HandledByConsole = true;
+
+debugger;
+
+if (typeof e.message == 'string' && e.message != '') {{
+var message = e.message;
+}}
+
+if (typeof e.description == 'string' && e.description != '') {{
+var message = e.description;
+}}
+
+if (typeof message != 'undefined') {{
+Xrm.Utility.alertDialog('Возникла ошибка: ' + message);
+}}
+}}
+}}";
+
+        public const string JavaScriptFunctionsWriteToConsoleInfo =
+@"if (typeof window != 'undefined' && typeof window.console != 'undefined' && typeof window.console.info == 'function') {
+window.console.info(message);
+}";
+
+        public const string JavaScriptFunctionsWriteToConsoleError =
+@"if (typeof window != 'undefined' && typeof window.console != 'undefined' && typeof window.console.error == 'function') {
+window.console.error(message);
+}";
     }
 }
