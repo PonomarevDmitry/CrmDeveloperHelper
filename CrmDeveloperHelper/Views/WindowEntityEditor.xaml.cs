@@ -87,6 +87,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 case PluginAssembly.EntityLogicalName:
                     ignoredAttributes.Add(PluginAssembly.Schema.Attributes.content);
                     break;
+
+                case WebResource.EntityLogicalName:
+                    ignoredAttributes.Add(WebResource.Schema.Attributes.content);
+                    break;
             }
         }
 

@@ -1244,6 +1244,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+                /// ManagedPropertyLogicalName = iscustomizableanddeletable    ValueAttributeTypeCode = Boolean
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -4476,6 +4477,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     public const string ReferencingAttribute_processid = "processid";
 
                     public const string ReferencingEntity_PrimaryNameAttribute_name = "name";
+                }
+
+                ///<summary>
+                /// 1:N - Relationship lk_gbc_test_processid
+                /// 
+                /// PropertyName                               Value
+                /// IsHierarchical                             False
+                /// ReferencedEntityNavigationPropertyName     lk_gbc_test_processid
+                /// ReferencingEntityNavigationPropertyName    processid
+                /// IsCustomizable                             True
+                /// IsCustomRelationship                       False
+                /// IsValidForAdvancedFind                     True
+                /// RelationshipType                           OneToManyRelationship
+                /// SecurityTypes                              Append
+                /// CascadeConfiguration.Assign                NoCascade
+                /// CascadeConfiguration.Delete                NoCascade
+                /// CascadeConfiguration.Merge                 NoCascade
+                /// CascadeConfiguration.Reparent              NoCascade
+                /// CascadeConfiguration.Share                 NoCascade
+                /// CascadeConfiguration.Unshare               NoCascade
+                /// CascadeConfiguration.RollupView            NoCascade
+                /// AssociatedMenuConfiguration.Behavior       DoNotDisplay
+                /// AssociatedMenuConfiguration.Group          Details
+                /// AssociatedMenuConfiguration.Order          null
+                /// 
+                /// ReferencingEntity gbc_test:    PrimaryIdAttribute businessprocessflowinstanceid    PrimaryNameAttribute bpf_name
+                ///     DisplayName:
+                ///         (English - United States - 1033): Test
+                ///     
+                ///     Description:
+                ///         (English - United States - 1033): Base entity for process Test
+                ///</summary>
+                public static partial class lk_gbc_test_processid
+                {
+                    public const string Name = "lk_gbc_test_processid";
+
+                    public const string ReferencedEntity_workflow = "workflow";
+
+                    public const string ReferencedAttribute_workflowid = "workflowid";
+
+                    public const string ReferencingEntity_gbc_test = "gbc_test";
+
+                    public const string ReferencingAttribute_processid = "processid";
+
+                    public const string ReferencingEntity_PrimaryNameAttribute_bpf_name = "bpf_name";
                 }
 
                 ///<summary>

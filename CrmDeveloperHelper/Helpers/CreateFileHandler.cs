@@ -777,7 +777,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (attrib is ManagedPropertyAttributeMetadata managedAttrib)
             {
+                string managedPropertyLogicalName = string.Format("ManagedPropertyLogicalName = {0}", managedAttrib.ManagedPropertyLogicalName);
+                string valueAttributeTypeCode = string.Format("ValueAttributeTypeCode = {0}", managedAttrib.ValueAttributeTypeCode);
 
+                string parentAttributeName = string.Empty;
+                string parentComponentType = string.Empty;
+                string parentComponentTypeName = string.Empty;
+
+                if (!string.IsNullOrEmpty(managedAttrib.ParentAttributeName))
+                {
+                    parentAttributeName = string.Format("ParentAttributeName = {0}", managedAttrib.ParentAttributeName);
+                }
+
+                if (managedAttrib.ParentComponentType.HasValue && managedAttrib.ParentComponentType != ManagedPropertyAttributeMetadata.EmptyParentComponentType)
+                {
+                    parentComponentType = string.Format("ParentComponentType = {0}", managedAttrib.ParentComponentType.ToString());
+                    parentComponentTypeName = string.Format("ParentComponentTypeName = {0}", SolutionComponent.GetComponentTypeName(managedAttrib.ParentComponentType.GetValueOrDefault()));
+                }
+
+                AddStringIntoList(result, tabSpacer, managedPropertyLogicalName, valueAttributeTypeCode);
+                AddStringIntoList(result, tabSpacer, parentAttributeName, parentComponentType, parentComponentTypeName);
             }
 
             if (attrib is LookupAttributeMetadata lookupAttrib)

@@ -1087,6 +1087,9 @@
     <Compile Include="Repository\WorkflowRepository.cs" />
     <Compile Include="ToolWindowPanes\FetchXmlExecutorToolWindowPane.cs" />
     <Compile Include="UserControls\AttributeMetadataControls\AttributeMetadataControlFactory.cs" />
+    <Compile Include="UserControls\AttributeMetadataControls\BooleanManagedPropertyAttributeMetadataControl.xaml.cs">
+      <DependentUpon>BooleanManagedPropertyAttributeMetadataControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\AttributeMetadataControls\DateTimeAttributeMetadataControl.xaml.cs">
       <DependentUpon>DateTimeAttributeMetadataControl.xaml</DependentUpon>
     </Compile>
@@ -1722,6 +1725,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="UserControls\AttributeMetadataControls\BooleanManagedPropertyAttributeMetadataControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserControls\AttributeMetadataControls\DateTimeAttributeMetadataControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

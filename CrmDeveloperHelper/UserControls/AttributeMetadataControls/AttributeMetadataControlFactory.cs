@@ -121,6 +121,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                 return new BooleanAttributeMetadataControl(fillAllways, boolAttrib, initialValue);
             }
 
+            if (attributeMetadata is ManagedPropertyAttributeMetadata managedPropertyAttributeMetadata)
+            {
+                if (managedPropertyAttributeMetadata.ValueAttributeTypeCode == AttributeTypeCode.Boolean)
+                {
+                    BooleanManagedProperty initialValue = null;
+
+                    if (value != null && value is BooleanManagedProperty booleanManagedProperty)
+                    {
+                        initialValue = booleanManagedProperty;
+                    }
+
+                    return new BooleanManagedPropertyAttributeMetadataControl(fillAllways, managedPropertyAttributeMetadata, initialValue);
+                }
+            }
+
             if (attributeMetadata is PicklistAttributeMetadata picklistAttrib)
             {
                 int? initialValue = null;
