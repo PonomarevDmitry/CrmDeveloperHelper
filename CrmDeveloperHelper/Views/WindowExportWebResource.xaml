@@ -49,6 +49,7 @@
                 <Separator x:Uid="controlChangeEntityAttribute"/>
                 <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change WebResource Attribute">
                     <MenuItem Header="Content" Click="mIUpdateWebResourceContent_Click" />
+                    <MenuItem Header="Content from File" Click="mIUpdateWebResourceContentFromFile_Click" />
                     <MenuItem Header="Content Json" Click="mIUpdateWebResourceContentJson_Click" />
                     <MenuItem Header="Dependency Xml" Click="mIUpdateWebResourceDependencyXml_Click" />
                 </MenuItem>
@@ -184,6 +185,7 @@
                             <Separator x:Uid="controlChangeEntityAttribute"/>
                             <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change WebResource Attribute" >
                                 <MenuItem Header="Content" Click="mIUpdateWebResourceContent_Click" />
+                                <MenuItem Header="Content from File" Click="mIUpdateWebResourceContentFromFile_Click" />
                                 <MenuItem Header="Content Json" Click="mIUpdateWebResourceContentJson_Click" />
                                 <MenuItem Header="Dependency Xml" Click="mIUpdateWebResourceDependencyXml_Click" />
                             </MenuItem>

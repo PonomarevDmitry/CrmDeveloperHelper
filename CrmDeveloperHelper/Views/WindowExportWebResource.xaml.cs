@@ -821,6 +821,99 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private async Task PerformUpdateEntityFieldFromFile(string folder, Guid idWebResource, string name, string fieldName, string fieldTitle, string extension)
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.UpdatingFieldFormat2, service.ConnectionData.Name, fieldName);
+
+            try
+            {
+                WebResourceRepository webResourceRepository = new WebResourceRepository(service);
+
+                var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(true));
+
+                var allExtensions = WebResourceRepository.GetTypeAllExtensions(webresource.WebResourceType.Value);
+
+                string filter = string.Format("({0})|{1}"
+                    , string.Join(";", allExtensions.Select(s => string.Format("{0}", s)))
+                    , string.Join(";", allExtensions.Select(s => string.Format("*{0}", s)))
+                );
+
+                bool? dialogResult = false;
+                string selectedFilePath = string.Empty;
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    var openFileDialog1 = new Microsoft.Win32.OpenFileDialog
+                    {
+                        Filter = filter,
+                        FilterIndex = 1,
+                        RestoreDirectory = true,
+                        Multiselect = false,
+                    };
+
+                    dialogResult = openFileDialog1.ShowDialog();
+
+                    selectedFilePath = openFileDialog1.FileName;
+                });
+
+                if (string.IsNullOrEmpty(selectedFilePath)
+                    || dialogResult.GetValueOrDefault() == false
+                    || !File.Exists(selectedFilePath)
+                )
+                {
+                    ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat2, service.ConnectionData.Name, fieldName);
+                    return;
+                }
+
+                byte[] bytes = File.ReadAllBytes(selectedFilePath);
+
+                {
+                    string webResourceFileName = WebResourceRepository.GetWebResourceFileName(webresource);
+
+                    var contentWebResource = webresource.Content ?? string.Empty;
+
+                    var array = Convert.FromBase64String(contentWebResource);
+
+                    string fileName = string.Format("{0}.{1} BackUp at {2}{3}", service.ConnectionData.Name, Path.GetFileNameWithoutExtension(webResourceFileName), DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"), Path.GetExtension(webResourceFileName));
+                    string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                    File.WriteAllBytes(filePath, array);
+                }
+                
+
+                var updateEntity = new WebResource
+                {
+                    Id = idWebResource
+                };
+                updateEntity.Attributes[fieldName] = Convert.ToBase64String(bytes);
+
+                await service.UpdateAsync(updateEntity);
+
+                UpdateStatus(service.ConnectionData, Properties.WindowStatusStrings.PublishingWebResourceFormat2, service.ConnectionData.Name, name);
+
+                {
+                    var repositoryPublish = new PublishActionsRepository(service);
+
+                    await repositoryPublish.PublishWebResourcesAsync(new[] { idWebResource });
+                }
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.UpdatingFieldCompletedFormat2, service.ConnectionData.Name, fieldName);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.UpdatingFieldFailedFormat2, service.ConnectionData.Name, fieldName);
+            }
+        }
+
         private Task<string> CreateFileAsync(string folder, string name, string fieldTitle, string xmlContent, string extension)
         {
             return Task.Run(() => CreateFile(folder, name, fieldTitle, xmlContent, extension));
@@ -1126,6 +1219,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.content, WebResource.Schema.Headers.content, "js", PerformUpdateEntityField);
+        }
+
+        private void mIUpdateWebResourceContentFromFile_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null || entity.WebResourceId == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.WebResourceId.Value, entity.Name, WebResource.Schema.Attributes.content, WebResource.Schema.Headers.content, "js", PerformUpdateEntityFieldFromFile);
         }
 
         private void mIUpdateWebResourceContentJson_Click(object sender, RoutedEventArgs e)

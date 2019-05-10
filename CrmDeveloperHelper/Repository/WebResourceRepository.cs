@@ -28,20 +28,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         (
             new Dictionary<string, int>(StringComparer.InvariantCultureIgnoreCase)
             {
-                {".html", (int)WebResource.Schema.OptionSets.webresourcetype.Webpage_HTML_1},
-                {".htm",  (int)WebResource.Schema.OptionSets.webresourcetype.Webpage_HTML_1},
-                {".css",  (int)WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_CSS_2},
-                {".js",   (int)WebResource.Schema.OptionSets.webresourcetype.Script_JScript_3},
-                {".xml",  (int)WebResource.Schema.OptionSets.webresourcetype.Data_XML_4},
-                {".png",  (int)WebResource.Schema.OptionSets.webresourcetype.PNG_format_5},
-                {".jpg",  (int)WebResource.Schema.OptionSets.webresourcetype.JPG_format_6},
-                {".gif",  (int)WebResource.Schema.OptionSets.webresourcetype.GIF_format_7},
-                {".xap",  (int)WebResource.Schema.OptionSets.webresourcetype.Silverlight_XAP_8},
-                {".xslt", (int)WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_XSL_9},
-                {".xsl",  (int)WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_XSL_9},
-                {".ico",  (int)WebResource.Schema.OptionSets.webresourcetype.ICO_format_10},
-                {".svg",  (int)WebResource.Schema.OptionSets.webresourcetype.Vector_format_SVG_11},
-                {".resx",  (int)WebResource.Schema.OptionSets.webresourcetype.String_RESX_12},
+                { ".html", (int)WebResource.Schema.OptionSets.webresourcetype.Webpage_HTML_1 },
+                { ".htm",  (int)WebResource.Schema.OptionSets.webresourcetype.Webpage_HTML_1 },
+
+                { ".css",  (int)WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_CSS_2 },
+                { ".js",   (int)WebResource.Schema.OptionSets.webresourcetype.Script_JScript_3 },
+                { ".xml",  (int)WebResource.Schema.OptionSets.webresourcetype.Data_XML_4 },
+                { ".png",  (int)WebResource.Schema.OptionSets.webresourcetype.PNG_format_5 },
+                { ".jpg",  (int)WebResource.Schema.OptionSets.webresourcetype.JPG_format_6 },
+                { ".gif",  (int)WebResource.Schema.OptionSets.webresourcetype.GIF_format_7 },
+                { ".xap",  (int)WebResource.Schema.OptionSets.webresourcetype.Silverlight_XAP_8 },
+
+                { ".xslt", (int)WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_XSL_9 },
+                { ".xsl",  (int)WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_XSL_9 },
+
+                { ".ico",  (int)WebResource.Schema.OptionSets.webresourcetype.ICO_format_10 },
+                { ".svg",  (int)WebResource.Schema.OptionSets.webresourcetype.Vector_format_SVG_11 },
+                { ".resx",  (int)WebResource.Schema.OptionSets.webresourcetype.String_RESX_12 },
 
             }
             , StringComparer.InvariantCultureIgnoreCase
