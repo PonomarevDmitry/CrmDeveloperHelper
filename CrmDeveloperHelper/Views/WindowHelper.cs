@@ -286,6 +286,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , string entityName
             , Guid entityId
+            , Action actionAfterSave = null
         )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -298,6 +299,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , commonConfig
                         , entityName
                         , entityId
+                        , actionAfterSave
                     );
 
                     form.ShowDialog();

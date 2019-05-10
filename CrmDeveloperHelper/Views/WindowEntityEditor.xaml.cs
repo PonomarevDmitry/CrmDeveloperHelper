@@ -29,6 +29,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected readonly IOrganizationServiceExtented _service;
 
+        private readonly Action _actionAfterSave;
+
         protected readonly HashSet<string> _ignoredAttributes = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
         private EntityMetadata _entityMetadata;
@@ -47,6 +49,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , string entityName
             , Guid entityId
+            , Action actionAfterSave
         )
         {
             IncreaseInit();
@@ -62,6 +65,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._commonConfig = commonConfig;
             this._entityName = entityName;
             this._entityId = entityId;
+            this._actionAfterSave = actionAfterSave;
 
             this.tSSLblConnectionName.Content = this._service.ConnectionData.Name;
 
@@ -375,6 +379,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 await _service.UpsertAsync(updateEntity);
 
                 ToggleControls(true, Properties.WindowStatusStrings.SavingEntityCompletedFormat1, _entityName);
+
+                if (_actionAfterSave != null)
+                {
+                    _actionAfterSave();
+                }
 
                 this.Close();
             }

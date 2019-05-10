@@ -553,7 +553,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, WebResource.EntityLogicalName, idWebResource);
+            var repositoryPublish = new PublishActionsRepository(service);
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, WebResource.EntityLogicalName, idWebResource, async () => await repositoryPublish.PublishWebResourcesAsync(new[] { idWebResource }));
         }
 
         private async Task PerformDeleteWebResource(string folder, Guid idWebResource, string name)
@@ -886,7 +888,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     File.WriteAllBytes(filePath, array);
                 }
-                
+
 
                 var updateEntity = new WebResource
                 {
