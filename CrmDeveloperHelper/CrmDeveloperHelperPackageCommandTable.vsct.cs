@@ -71,7 +71,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int codeMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn = 0x1322;
         public const int codeMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn_Group = 0x1323;
         public const int codeMenuWebResource_GroupCheckFileEncoding = 0x1005;
-        public const int codeMenuWebResource_GroupDownloadWebResource = 0x1006;
+        public const int codeMenuWebResource_GroupExplorer = 0x1006;
         public const int codeMenuWebResource_GroupOpenInWeb = 0x107D;
         public const int codeMenuWebResource_GroupOpenInWeb_MenuOpenInWebDyn = 0x113C;
         public const int codeMenuWebResource_GroupOpenInWeb_MenuOpenInWebDyn_Group = 0x113D;
@@ -151,7 +151,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int codeMenuReport_GroupShowDifferenceBodyTextMultiple_MenuThreeWayDyn = 0x1211;
         public const int codeMenuReport_GroupShowDifferenceBodyTextMultiple_MenuThreeWayDyn_Group = 0x1212;
         public const int codeMenuReport_GroupLastLink = 0x100D;
-        public const int codeMenuReport_GroupDownload = 0x100E;
+        public const int codeMenuReport_GroupExplorer = 0x100E;
         public const int codeMenuReport_GroupOpenInWeb = 0x10F2;
         public const int codeMenuReport_GroupOpenInWeb_MenuOpenInWebDyn = 0x1144;
         public const int codeMenuReport_GroupOpenInWeb_MenuOpenInWebDyn_Group = 0x1145;
@@ -329,7 +329,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int fileMenuWebResource_GroupEncoding = 0x1025;
         public const int fileMenuWebResource_GroupEncoding_MenuCommands = 0x1189;
         public const int fileMenuWebResource_GroupEncoding_MenuCommands_GroupCommands = 0x118A;
-        public const int fileMenuWebResource_GroupDownload = 0x1026;
+        public const int fileMenuWebResource_GroupExplorer = 0x1026;
         public const int fileMenuWebResource_GroupOpenInWeb = 0x107E;
         public const int fileMenuWebResource_GroupOpenInWeb_MenuOpenInWebDyn = 0x114C;
         public const int fileMenuWebResource_GroupOpenInWeb_MenuOpenInWebDyn_Group = 0x114D;
@@ -357,7 +357,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int fileMenuReport_GroupOpenInWeb_MenuOpenDependentInWindowDyn_Group = 0x1159;
         public const int fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn = 0x115A;
         public const int fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn_Group = 0x115B;
-        public const int fileMenuReport_GroupDownload = 0x10FD;
+        public const int fileMenuReport_GroupExplorer = 0x10FD;
         public const int fileMenuReport_GroupAddIntoSolution = 0x10F6;
         public const int fileMenuReport_GroupAddIntoSolution_MenuAddIntoSolution = 0x12AE;
         public const int fileMenuReport_GroupAddIntoSolution_MenuAddIntoSolution_GroupLastSolution = 0x12CA;
@@ -888,7 +888,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeWebResourceShowDifferenceCustomCommandId = 0x2002;
         public const int CodeWebResourceCompareWithDetailsCommandId = 0x2004;
         public const int CodeWebResourceCheckEncodingCommandId = 0x2005;
-        public const int CodeWebResourceDownloadCommandId = 0x2006;
+        public const int CodeWebResourceExplorerCommandId = 0x2006;
         public const int CodeWebResourceLinkCreateCommandId = 0x2007;
         public const int CodeWebResourceLinkClearCommandId = 0x2008;
         public const int CodeXmlExecuteFetchXmlRequestCommandId = 0x2160;
@@ -918,7 +918,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeReportShowDifferenceOriginalBodyTextCustomCommandId = 0x200C;
         public const int CodeReportShowDifferenceBodyTextCommandId = 0x216A;
         public const int CodeReportShowDifferenceBodyTextCustomCommandId = 0x216B;
-        public const int CodeReportDownloadCommandId = 0x200D;
+        public const int CodeReportExplorerCommandId = 0x200D;
         public const int CodeReportUpdateCommandId = 0x2128;
         public const int CodeCSharpProjectUpdatePluginAssemblyCommandId = 0x2192;
         public const int CodeCSharpProjectCompareToCrmAssemblyCommandId = 0x2140;
@@ -998,11 +998,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int FileWebResourceCheckEncodingOpenFilesCommandId = 0x204F;
         public const int FileWebResourceCheckEncodingCompareFilesCommandId = 0x2050;
         public const int FileWebResourceCheckEncodingCompareWithDetailsFilesCommandId = 0x2051;
-        public const int FileWebResourceDownloadCommandId = 0x2052;
+        public const int FileWebResourceExplorerCommandId = 0x2052;
         public const int FileWebResourceLinkCreateCommandId = 0x2053;
         public const int FileWebResourceLinkClearCommandId = 0x2054;
         public const int FileReportUpdateCommandId = 0x2129;
-        public const int FileReportDownloadCommandId = 0x2055;
+        public const int FileReportExplorerCommandId = 0x2055;
         public const int FileReportLinkCreateCommandId = 0x2056;
         public const int FileReportLinkClearCommandId = 0x2057;
         public const int FileCSharpProjectUpdatePluginAssemblyCommandId = 0x2193;

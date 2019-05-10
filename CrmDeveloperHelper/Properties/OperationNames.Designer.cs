@@ -979,24 +979,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Downloading Report.
-        /// </summary>
-        internal static string DownloadingReportFormat1 {
-            get {
-                return ResourceManager.GetString("DownloadingReportFormat1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} - Downloading WebResource.
-        /// </summary>
-        internal static string DownloadingWebResourceFormat1 {
-            get {
-                return ResourceManager.GetString("DownloadingWebResourceFormat1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} - Editing CRM Objects by Id &apos;{1}&apos;, entityName &apos;{2}&apos;, entityTypeCode &apos;{3}&apos;.
         /// </summary>
         internal static string EditingCRMObjectsByIdEntityNameEntityTypeCodeFormat4 {
@@ -1357,6 +1339,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Opening Report Explorer.
+        /// </summary>
+        internal static string OpeningReportExplorerFormat1 {
+            get {
+                return ResourceManager.GetString("OpeningReportExplorerFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Opening Report.
         /// </summary>
         internal static string OpeningReportFormat1 {
@@ -1398,6 +1389,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string OpeningTeamsExplorerFormat1 {
             get {
                 return ResourceManager.GetString("OpeningTeamsExplorerFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Opening WebResource Explorer.
+        /// </summary>
+        internal static string OpeningWebResourceExplorerFormat1 {
+            get {
+                return ResourceManager.GetString("OpeningWebResourceExplorerFormat1", resourceCulture);
             }
         }
         

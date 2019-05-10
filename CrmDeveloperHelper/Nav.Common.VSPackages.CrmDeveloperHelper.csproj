@@ -132,9 +132,9 @@
     <Compile Include="Commands\CodeReportUpdateCommand.cs" />
     <Compile Include="Commands\CodeWebResourceShowDifferenceCommand.cs" />
     <Compile Include="Commands\CodeWebResourceShowDifferenceCustomCommand.cs" />
-    <Compile Include="Commands\CodeWebResourceDownloadCommand.cs" />
+    <Compile Include="Commands\CodeWebResourceExplorerCommand.cs" />
     <Compile Include="Commands\CodeReportShowDifferenceCommand.cs" />
-    <Compile Include="Commands\CodeReportDownloadCommand.cs" />
+    <Compile Include="Commands\CodeReportExplorerCommand.cs" />
     <Compile Include="Commands\CodeCSharpUpdateEntityMetadataFileSchemaCommand.cs" />
     <Compile Include="Commands\CodeCSharpUpdateEntityMetadataFileSchemaWithSelectCommand.cs" />
     <Compile Include="Commands\CodeCSharpUpdateGlobalOptionSetsFileCommand.cs" />
@@ -508,8 +508,8 @@
     <Compile Include="Commands\FileWebResourceCheckEncodingOpenFilesCommand.cs" />
     <Compile Include="Commands\FileWebResourceCompareCommand.cs" />
     <Compile Include="Commands\FileWebResourceCompareWithDetailsCommand.cs" />
-    <Compile Include="Commands\FileReportDownloadCommand.cs" />
-    <Compile Include="Commands\FileWebResourceDownloadCommand.cs" />
+    <Compile Include="Commands\FileReportExplorerCommand.cs" />
+    <Compile Include="Commands\FileWebResourceExplorerCommand.cs" />
     <Compile Include="Commands\FileReportLinkClearCommand.cs" />
     <Compile Include="Commands\FileReportLinkCreateCommand.cs" />
     <Compile Include="Commands\FileWebResourceLinkClearCommand.cs" />
@@ -534,7 +534,7 @@
     <Compile Include="Controllers\CheckPluginController.cs" />
     <Compile Include="Controllers\CompareController.cs" />
     <Compile Include="Controllers\DifferenceController.cs" />
-    <Compile Include="Controllers\DownloadController.cs" />
+    <Compile Include="Controllers\ExplorerController.cs" />
     <Compile Include="Controllers\EntityMetadataController.cs" />
     <Compile Include="Controllers\ExportPluginConfigurationController.cs" />
     <Compile Include="Controllers\ExportXmlController.cs" />
@@ -2145,8 +2145,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Properties\CommandNames.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>CommandNames.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>CommandNames.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\MessageBoxStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>

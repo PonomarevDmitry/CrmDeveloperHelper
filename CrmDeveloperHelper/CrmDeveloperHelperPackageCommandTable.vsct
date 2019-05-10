@@ -49,7 +49,7 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn_Group" priority="0x0603"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCompareFile_MenuConnectionDyn_Group" priority="0x0603"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCheckFileEncoding" priority="0x0604"/>
-      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupDownloadWebResource" priority="0x0605"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupExplorer" priority="0x0605"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb" priority="0x0605"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenInWebDyn_Group" priority="0x0605"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" priority="0x0605"/>
@@ -123,7 +123,7 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceBodyTextMultiple_MenuOneByOneDyn_Group" priority="0x0601"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceBodyTextMultiple_MenuThreeWayDyn_Group" priority="0x0601"/>
 
-      <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupDownload" priority="0x0602" />
+      <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupExplorer" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenInWebDyn_Group" priority="0x0605"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" priority="0x0605"/>
@@ -263,7 +263,7 @@
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd" priority="0x0605" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding" priority="0x0608" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" priority="0x0608" />
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupDownload" priority="0x0609" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupExplorer" priority="0x0609" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb" priority="0x0609" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenInWebDyn_Group" priority="0x0605"/>
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" priority="0x0605"/>
@@ -297,7 +297,7 @@
       <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" priority="0x0605"/>
       <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInWindowDyn_Group" priority="0x0605"/>
       <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn_Group" priority="0x0605"/>
-      <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupDownload" priority="0x0601" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupExplorer" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupAddIntoSolution" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupAddIntoSolution_MenuAddIntoSolution_GroupLastSolution" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupAddIntoSolution_MenuAddIntoSolution_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x0601" />
@@ -2767,11 +2767,11 @@
           <ButtonText>Check Encoding for UTF8</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="CodeWebResourceDownloadCommandId" priority="0x0105" type="Button">
+      <Button guid="guidCommandSet" id="CodeWebResourceExplorerCommandId" priority="0x0105" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Download WebResource</ButtonText>
+          <ButtonText>WebResource Explorer</ButtonText>
         </Strings>
       </Button>
 
@@ -2961,11 +2961,11 @@
 
 
 
-      <Button guid="guidCommandSet" id="CodeReportDownloadCommandId" priority="0x0102" type="Button">
+      <Button guid="guidCommandSet" id="CodeReportExplorerCommandId" priority="0x0102" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Download Report</ButtonText>
+          <ButtonText>Report Explorer</ButtonText>
         </Strings>
       </Button>
 
@@ -3810,11 +3810,11 @@
         </Strings>
       </Button>
 
-      <Button guid="guidCommandSet" id="FileWebResourceDownloadCommandId" priority="0x0110" type="Button">
+      <Button guid="guidCommandSet" id="FileWebResourceExplorerCommandId" priority="0x0110" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Download WebResource</ButtonText>
+          <ButtonText>WebResource Explorer</ButtonText>
         </Strings>
       </Button>
 
@@ -3899,11 +3899,11 @@
           <ButtonText>Update Report in Crm</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="FileReportDownloadCommandId" priority="0x0110" type="Button">
+      <Button guid="guidCommandSet" id="FileReportExplorerCommandId" priority="0x0110" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Download Report</ButtonText>
+          <ButtonText>Report Explorer</ButtonText>
         </Strings>
       </Button>
 
@@ -6407,7 +6407,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCheckFileEncoding" priority="0x0690">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupDownloadWebResource" priority="0x06A0">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupExplorer" priority="0x06A0">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb" priority="0x06B0">
@@ -6493,7 +6493,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceBodyTextMultiple" priority="0x0604">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupDownload" priority="0x0605">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupExplorer" priority="0x0605">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb" priority="0x0606">
@@ -6782,7 +6782,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupEncoding" priority="0x06A0">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupDownload" priority="0x06B0">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupExplorer" priority="0x06B0">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb" priority="0x06C0">
@@ -6859,7 +6859,7 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb" priority="0x0601">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupDownload" priority="0x0601">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupExplorer" priority="0x0601">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupAddIntoSolution" priority="0x0601">
@@ -8138,8 +8138,8 @@
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupCheckFileEncoding" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="CodeWebResourceDownloadCommandId" priority="0x0105">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupDownloadWebResource" />
+    <CommandPlacement guid="guidCommandSet" id="CodeWebResourceExplorerCommandId" priority="0x0105">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupExplorer" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenInWebDyn" priority="0x0105">
@@ -8379,8 +8379,8 @@
 
 
 
-    <CommandPlacement guid="guidCommandSet" id="CodeReportDownloadCommandId" priority="0x0102">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupDownload" />
+    <CommandPlacement guid="guidCommandSet" id="CodeReportExplorerCommandId" priority="0x0102">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupExplorer" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenInWebDyn" priority="0x0102">
@@ -9001,8 +9001,8 @@
     </CommandPlacement>
 
 
-    <CommandPlacement guid="guidCommandSet" id="FileWebResourceDownloadCommandId" priority="0x0110">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupDownload" />
+    <CommandPlacement guid="guidCommandSet" id="FileWebResourceExplorerCommandId" priority="0x0110">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupExplorer" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenInWebDyn" priority="0x0110">
@@ -9055,8 +9055,8 @@
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="FileReportDownloadCommandId" priority="0x0110">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupDownload" />
+    <CommandPlacement guid="guidCommandSet" id="FileReportExplorerCommandId" priority="0x0110">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupExplorer" />
     </CommandPlacement>
 
 
@@ -10905,7 +10905,7 @@
       <IDSymbol name="codeMenuWebResource_GroupGlobalOptionSetAll_MenuConnectionDyn_Group" value="0x1323" />
 
       <IDSymbol name="codeMenuWebResource_GroupCheckFileEncoding" value="0x1005" />
-      <IDSymbol name="codeMenuWebResource_GroupDownloadWebResource" value="0x1006" />
+      <IDSymbol name="codeMenuWebResource_GroupExplorer" value="0x1006" />
       <IDSymbol name="codeMenuWebResource_GroupOpenInWeb" value="0x107D" />
 
       <IDSymbol name="codeMenuWebResource_GroupOpenInWeb_MenuOpenInWebDyn" value="0x113C" />
@@ -11033,7 +11033,7 @@
       <IDSymbol name="codeMenuReport_GroupShowDifferenceBodyTextMultiple_MenuThreeWayDyn_Group" value="0x1212" />
 
       <IDSymbol name="codeMenuReport_GroupLastLink" value="0x100D" />
-      <IDSymbol name="codeMenuReport_GroupDownload" value="0x100E" />
+      <IDSymbol name="codeMenuReport_GroupExplorer" value="0x100E" />
 
       <IDSymbol name="codeMenuReport_GroupOpenInWeb" value="0x10F2" />
 
@@ -11349,7 +11349,7 @@
       <IDSymbol name="fileMenuWebResource_GroupEncoding_MenuCommands" value="0x1189" />
       <IDSymbol name="fileMenuWebResource_GroupEncoding_MenuCommands_GroupCommands" value="0x118A" />
 
-      <IDSymbol name="fileMenuWebResource_GroupDownload" value="0x1026" />
+      <IDSymbol name="fileMenuWebResource_GroupExplorer" value="0x1026" />
       <IDSymbol name="fileMenuWebResource_GroupOpenInWeb" value="0x107E" />
 
       <IDSymbol name="fileMenuWebResource_GroupOpenInWeb_MenuOpenInWebDyn" value="0x114C" />
@@ -11392,7 +11392,7 @@
       <IDSymbol name="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn" value="0x115A" />
       <IDSymbol name="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn_Group" value="0x115B" />
 
-      <IDSymbol name="fileMenuReport_GroupDownload" value="0x10FD" />
+      <IDSymbol name="fileMenuReport_GroupExplorer" value="0x10FD" />
 
       <IDSymbol name="fileMenuReport_GroupAddIntoSolution" value="0x10F6" />
 
@@ -12278,7 +12278,7 @@
 
       <IDSymbol name="CodeWebResourceCheckEncodingCommandId" value="0x2005" />
 
-      <IDSymbol name="CodeWebResourceDownloadCommandId" value="0x2006" />
+      <IDSymbol name="CodeWebResourceExplorerCommandId" value="0x2006" />
 
       <IDSymbol name="CodeWebResourceLinkCreateCommandId" value="0x2007" />
       <IDSymbol name="CodeWebResourceLinkClearCommandId" value="0x2008" />
@@ -12331,7 +12331,7 @@
       <IDSymbol name="CodeReportShowDifferenceBodyTextCommandId" value="0x216A" />
       <IDSymbol name="CodeReportShowDifferenceBodyTextCustomCommandId" value="0x216B" />
 
-      <IDSymbol name="CodeReportDownloadCommandId" value="0x200D" />
+      <IDSymbol name="CodeReportExplorerCommandId" value="0x200D" />
 
 
 
@@ -12520,7 +12520,7 @@
       <IDSymbol name="FileWebResourceCheckEncodingCompareFilesCommandId" value="0x2050" />
       <IDSymbol name="FileWebResourceCheckEncodingCompareWithDetailsFilesCommandId" value="0x2051" />
 
-      <IDSymbol name="FileWebResourceDownloadCommandId" value="0x2052" />
+      <IDSymbol name="FileWebResourceExplorerCommandId" value="0x2052" />
 
       <IDSymbol name="FileWebResourceLinkCreateCommandId" value="0x2053" />
       <IDSymbol name="FileWebResourceLinkClearCommandId" value="0x2054" />
@@ -12530,7 +12530,7 @@
 
       <IDSymbol name="FileReportUpdateCommandId" value="0x2129" />
 
-      <IDSymbol name="FileReportDownloadCommandId" value="0x2055" />
+      <IDSymbol name="FileReportExplorerCommandId" value="0x2055" />
 
 
       <IDSymbol name="FileReportLinkCreateCommandId" value="0x2056" />

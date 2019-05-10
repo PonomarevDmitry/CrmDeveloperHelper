@@ -4,21 +4,21 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class CodeReportDownloadCommand : AbstractCommand
+    internal sealed class CodeReportExplorerCommand : AbstractCommand
     {
-        private CodeReportDownloadCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeReportDownloadCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CodeReportExplorerCommand(Package package)
+            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeReportExplorerCommandId, ActionExecute, ActionBeforeQueryStatus) { }
 
-        public static CodeReportDownloadCommand Instance { get; private set; }
+        public static CodeReportExplorerCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new CodeReportDownloadCommand(package);
+            Instance = new CodeReportExplorerCommand(package);
         }
 
         private static void ActionExecute(DTEHelper helper)
         {
-            helper.HandleReportDownloadCommand();
+            helper.HandleOpenReportExplorerCommand();
         }
 
         private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
@@ -27,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
             if (menuCommand.Enabled)
             {
-                CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CodeReportDownloadCommand);
+                CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CodeReportExplorerCommand);
             }
         }
     }

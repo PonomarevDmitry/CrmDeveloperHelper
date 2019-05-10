@@ -3245,7 +3245,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenExportWebResourcesWindow(this._iWriteToOutput, service, _commonConfig, string.Empty);
+            WindowHelper.OpenWebResourceExplorerWindow(this._iWriteToOutput, service, _commonConfig, string.Empty);
         }
 
         private async void btnExportReport_Click(object sender, RoutedEventArgs e)
@@ -3254,7 +3254,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenExportReportWindow(this._iWriteToOutput, service, _commonConfig, string.Empty);
+            WindowHelper.OpenReportExplorerWindow(this._iWriteToOutput, service, _commonConfig, string.Empty);
         }
 
         private async void btnPluginAssembly_Click(object sender, RoutedEventArgs e)

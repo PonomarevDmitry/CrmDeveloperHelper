@@ -142,11 +142,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Download Report.
+        ///   Looks up a localized string similar to Report Explorer.
         /// </summary>
-        internal static string CodeReportDownloadCommand {
+        internal static string CodeReportExplorerCommand {
             get {
-                return ResourceManager.GetString("CodeReportDownloadCommand", resourceCulture);
+                return ResourceManager.GetString("CodeReportExplorerCommand", resourceCulture);
             }
         }
         
@@ -187,11 +187,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Download WebResource.
+        ///   Looks up a localized string similar to WebResource Explorer.
         /// </summary>
-        internal static string CodeWebResourceDownloadCommand {
+        internal static string CodeWebResourceExplorerCommand {
             get {
-                return ResourceManager.GetString("CodeWebResourceDownloadCommand", resourceCulture);
+                return ResourceManager.GetString("CodeWebResourceExplorerCommand", resourceCulture);
             }
         }
         
@@ -619,11 +619,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Download Report.
+        ///   Looks up a localized string similar to Report Explorer.
         /// </summary>
-        internal static string FileReportDownloadCommand {
+        internal static string FileReportExplorerCommand {
             get {
-                return ResourceManager.GetString("FileReportDownloadCommand", resourceCulture);
+                return ResourceManager.GetString("FileReportExplorerCommand", resourceCulture);
             }
         }
         
@@ -655,11 +655,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Download WebResource.
+        ///   Looks up a localized string similar to WebResource Explorer.
         /// </summary>
-        internal static string FileWebResourceDownloadCommand {
+        internal static string FileWebResourceExplorerCommand {
             get {
-                return ResourceManager.GetString("FileWebResourceDownloadCommand", resourceCulture);
+                return ResourceManager.GetString("FileWebResourceExplorerCommand", resourceCulture);
             }
         }
         

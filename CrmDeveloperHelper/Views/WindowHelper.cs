@@ -1100,12 +1100,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenExportReportWindow(
+        public static void OpenReportExplorerWindow(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , string selection = null
-            )
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -1160,12 +1160,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenExportWebResourcesWindow(
+        public static void OpenWebResourceExplorerWindow(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string selection = null
-            )
+        )
+        {
+            OpenWebResourceExplorerWindow(iWriteToOutput, service, commonConfig, null);
+        }
+
+        public static void OpenWebResourceExplorerWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string selection
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -1869,11 +1878,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     break;
 
                 case ComponentType.Report:
-                    OpenExportReportWindow(iWriteToOutput, service, commonConfig, componentName);
+                    OpenReportExplorerWindow(iWriteToOutput, service, commonConfig, componentName);
                     break;
 
                 case ComponentType.WebResource:
-                    OpenExportWebResourcesWindow(iWriteToOutput, service, commonConfig, componentName);
+                    OpenWebResourceExplorerWindow(iWriteToOutput, service, commonConfig, componentName);
                     break;
 
                 case ComponentType.SiteMap:

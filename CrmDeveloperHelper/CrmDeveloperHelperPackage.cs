@@ -57,7 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeWebResourceShowDifferenceCustomCommand.Initialize(this);
             CodeWebResourceShowDifferenceInConnectionGroupCommand.Initialize(this);
             CodeWebResourceShowDifferenceThreeFileCommand.Initialize(this);
-            CodeWebResourceDownloadCommand.Initialize(this);
+            CodeWebResourceExplorerCommand.Initialize(this);
             CodeWebResourceOpenInWebCommand.Initialize(this);
             CodeWebResourceLinkClearCommand.Initialize(this);
             CodeWebResourceLinkCreateCommand.Initialize(this);
@@ -132,7 +132,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeReportShowDifferenceCommand.Initialize(this);
             CodeReportShowDifferenceInConnectionGroupCommand.Initialize(this);
             CodeReportShowDifferenceThreeFileCommand.Initialize(this);
-            CodeReportDownloadCommand.Initialize(this);
+            CodeReportExplorerCommand.Initialize(this);
             CodeReportOpenInWebCommand.Initialize(this);
 
             CodeReportAddIntoSolutionLastCommand.Initialize(this);
@@ -180,7 +180,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileWebResourceCompareCommand.Initialize(this);
             FileWebResourceCompareWithDetailsCommand.Initialize(this);
             FileWebResourceCompareInConnectionGroupCommand.Initialize(this);
-            FileWebResourceDownloadCommand.Initialize(this);
+            FileWebResourceExplorerCommand.Initialize(this);
             FileWebResourceOpenInWebCommand.Initialize(this);
             FileWebResourceLinkClearCommand.Initialize(this);
             FileWebResourceLinkCreateCommand.Initialize(this);
@@ -204,7 +204,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             FileJavaScriptUpdateGlobalOptionSetAllFileCommand.Initialize(this);
 
-            FileReportDownloadCommand.Initialize(this);
+            FileReportExplorerCommand.Initialize(this);
             FileReportLinkClearCommand.Initialize(this);
             FileReportLinkCreateCommand.Initialize(this);
             FileReportUpdateCommand.Initialize(this);

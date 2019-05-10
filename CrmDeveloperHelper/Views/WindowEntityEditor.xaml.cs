@@ -619,14 +619,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenExportWebResourcesWindow(this._iWriteToOutput, _service, _commonConfig, string.Empty);
+            WindowHelper.OpenWebResourceExplorerWindow(this._iWriteToOutput, _service, _commonConfig, string.Empty);
         }
 
         private void btnExportReport_Click(object sender, RoutedEventArgs e)
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenExportReportWindow(this._iWriteToOutput, _service, _commonConfig, string.Empty);
+            WindowHelper.OpenReportExplorerWindow(this._iWriteToOutput, _service, _commonConfig, string.Empty);
         }
 
         private void btnPluginAssembly_Click(object sender, RoutedEventArgs e)

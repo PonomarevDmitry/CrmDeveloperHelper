@@ -910,7 +910,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleReportDownloadCommand()
+        public void HandleOpenReportExplorerCommand()
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -932,7 +932,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartDownloadCustomReport(connectionData, commonConfig, selectedFile.FileName);
+                    Controller.StartOpenReportExplorer(connectionData, commonConfig, selectedFile.FileName);
                 }
                 catch (Exception ex)
                 {
@@ -1505,7 +1505,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleWebResourceDownloadCommand()
+        public void HandleOpenWebResourceExplorerCommand()
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -1527,7 +1527,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartDownloadCustomWebResource(connectionData, commonConfig, selectedFile.FileName);
+                    Controller.StartOpenWebResourceExplorer(connectionData, commonConfig, selectedFile.FileName);
                 }
                 catch (Exception ex)
                 {
@@ -3256,7 +3256,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartDownloadCustomReport(connectionData, commonConfig, selection);
+                    Controller.StartOpenReportExplorer(connectionData, commonConfig, selection);
                 }
                 catch (Exception ex)
                 {
@@ -3596,7 +3596,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartDownloadCustomWebResource(connectionData, commonConfig, selection);
+                    Controller.StartOpenWebResourceExplorer(connectionData, commonConfig, selection);
                 }
                 catch (Exception ex)
                 {

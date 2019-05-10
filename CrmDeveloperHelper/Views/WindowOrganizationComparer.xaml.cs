@@ -1016,9 +1016,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        ExportXmlController contr = new ExportXmlController(this._iWriteToOutput);
+                        ExplorerController contr = new ExplorerController(this._iWriteToOutput);
 
-                        contr.ExecuteExportingSitemapXml(connection1, _commonConfig);
+                        contr.ExecuteOpeningSitemapExplorer(connection1, _commonConfig);
                     }
                     catch (Exception ex)
                     {
@@ -1317,9 +1317,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        ExportXmlController contr = new ExportXmlController(this._iWriteToOutput);
+                        ExplorerController contr = new ExplorerController(this._iWriteToOutput);
 
-                        contr.ExecuteExportingApplicationRibbonXml(string.Empty, connection1, _commonConfig);
+                        contr.ExecuteOpeningApplicationRibbonExplorer(string.Empty, connection1, _commonConfig);
                     }
                     catch (Exception ex)
                     {
@@ -1342,9 +1342,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        ExportXmlController contr = new ExportXmlController(this._iWriteToOutput);
+                        ExplorerController contr = new ExplorerController(this._iWriteToOutput);
 
-                        contr.ExecuteExportingWorkflow(string.Empty, connection1, _commonConfig);
+                        contr.ExecuteOpeningWorkflowExplorer(string.Empty, connection1, _commonConfig);
                     }
                     catch (Exception ex)
                     {
@@ -1367,9 +1367,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        ExportXmlController contr = new ExportXmlController(this._iWriteToOutput);
+                        ExplorerController contr = new ExplorerController(this._iWriteToOutput);
 
-                        contr.ExecuteExportingSystemFormXml(string.Empty, connection1, _commonConfig);
+                        contr.ExecuteOpeningSystemFormExplorer(string.Empty, connection1, _commonConfig);
                     }
                     catch (Exception ex)
                     {
@@ -1392,9 +1392,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        ExportXmlController contr = new ExportXmlController(this._iWriteToOutput);
+                        ExplorerController contr = new ExplorerController(this._iWriteToOutput);
 
-                        contr.ExecuteExportingSystemSavedQueryXml(string.Empty, connection1, _commonConfig);
+                        contr.ExecuteOpeningSystemSavedQueryExplorer(string.Empty, connection1, _commonConfig);
                     }
                     catch (Exception ex)
                     {
@@ -1417,9 +1417,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        ExportXmlController contr = new ExportXmlController(this._iWriteToOutput);
+                        ExplorerController contr = new ExplorerController(this._iWriteToOutput);
 
-                        contr.ExecuteExportingSystemSavedQueryVisualizationXml(string.Empty, connection1, _commonConfig);
+                        contr.ExecuteOpeningSystemSavedQueryVisualizationExplorer(string.Empty, connection1, _commonConfig);
                     }
                     catch (Exception ex)
                     {
@@ -1442,9 +1442,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        DownloadController contr = new DownloadController(this._iWriteToOutput);
+                        ExplorerController contr = new ExplorerController(this._iWriteToOutput);
 
-                        contr.ExecuteDownloadCustomWebResources(connection1, _commonConfig, string.Empty);
+                        contr.ExecuteOpeningWebResourceExplorer(connection1, _commonConfig, string.Empty);
                     }
                     catch (Exception ex)
                     {
@@ -1467,9 +1467,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        DownloadController contr = new DownloadController(this._iWriteToOutput);
+                        ExplorerController contr = new ExplorerController(this._iWriteToOutput);
 
-                        contr.ExecuteDownloadCustomReport(connection1, _commonConfig, string.Empty);
+                        contr.ExecuteOpeningReportExplorer(connection1, _commonConfig, string.Empty);
                     }
                     catch (Exception ex)
                     {
@@ -1823,9 +1823,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        var contr = new ExportXmlController(this._iWriteToOutput);
+                        var contr = new ExplorerController(this._iWriteToOutput);
 
-                        contr.ExecuteExportingOrganizationInformation(connection1, _commonConfig);
+                        contr.ExecuteOpeningOrganizationExplorer(connection1, _commonConfig);
                     }
                     catch (Exception ex)
                     {

@@ -225,11 +225,11 @@
   <data name="DifferenceWebResourceFormat1" xml:space="preserve">
     <value>{0} - Difference WebResource</value>
   </data>
-  <data name="DownloadingReportFormat1" xml:space="preserve">
-    <value>{0} - Downloading Report</value>
+  <data name="OpeningReportExplorerFormat1" xml:space="preserve">
+    <value>{0} - Opening Report Explorer</value>
   </data>
-  <data name="DownloadingWebResourceFormat1" xml:space="preserve">
-    <value>{0} - Downloading WebResource</value>
+  <data name="OpeningWebResourceExplorerFormat1" xml:space="preserve">
+    <value>{0} - Opening WebResource Explorer</value>
   </data>
   <data name="ExportingCRMSolutionFormat1" xml:space="preserve">
     <value>{0} - Exporting CRM Solution</value>

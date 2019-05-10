@@ -4,28 +4,28 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class FileReportDownloadCommand : AbstractCommand
+    internal sealed class FileReportExplorerCommand : AbstractCommand
     {
-        private FileReportDownloadCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FileReportDownloadCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private FileReportExplorerCommand(Package package)
+            : base(package, PackageGuids.guidCommandSet, PackageIds.FileReportExplorerCommandId, ActionExecute, ActionBeforeQueryStatus) { }
 
-        public static FileReportDownloadCommand Instance { get; private set; }
+        public static FileReportExplorerCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new FileReportDownloadCommand(package);
+            Instance = new FileReportExplorerCommand(package);
         }
 
         private static void ActionExecute(DTEHelper helper)
         {
-            helper.HandleReportDownloadCommand();
+            helper.HandleOpenReportExplorerCommand();
         }
 
         private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
         {
             CommonHandlers.ActionBeforeQueryStatusSolutionExplorerReportSingle(command, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.FileReportDownloadCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.FileReportExplorerCommand);
         }
     }
 }

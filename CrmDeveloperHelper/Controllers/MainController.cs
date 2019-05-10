@@ -17,7 +17,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         private readonly PublishController _publishController;
         private readonly CompareController _compareController;
         private readonly DifferenceController _differenceController;
-        private readonly DownloadController _downloadController;
+        private readonly ExplorerController _explorerController;
         private readonly CheckController _checkController;
         private readonly ExportXmlController _exportXmlController;
         private readonly PluginTreeController _pluginTreeController;
@@ -42,7 +42,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._publishController = new PublishController(outputWindow);
             this._compareController = new CompareController(outputWindow);
-            this._downloadController = new DownloadController(outputWindow);
+            this._explorerController = new ExplorerController(outputWindow);
             this._checkController = new CheckController(outputWindow);
             this._exportXmlController = new ExportXmlController(outputWindow);
             this._pluginTreeController = new PluginTreeController(outputWindow);
@@ -479,13 +479,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartDownloadCustomWebResource(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        public void StartOpenWebResourceExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._downloadController.ExecuteDownloadCustomWebResources(connectionData, commonConfig, selection);
+                    this._explorerController.ExecuteOpeningWebResourceExplorer(connectionData, commonConfig, selection);
                 }
                 catch (Exception ex)
                 {
@@ -496,13 +496,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartDownloadCustomReport(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        public void StartOpenReportExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._downloadController.ExecuteDownloadCustomReport(connectionData, commonConfig, selection);
+                    this._explorerController.ExecuteOpeningReportExplorer(connectionData, commonConfig, selection);
                 }
                 catch (Exception ex)
                 {
@@ -868,7 +868,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._exportXmlController.ExecuteExportingApplicationRibbonXml(selection, connectionData, commonConfig);
+                    this._explorerController.ExecuteOpeningApplicationRibbonExplorer(selection, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -1174,7 +1174,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._exportXmlController.ExecuteExportingSitemapXml(connectionData, commonConfig);
+                    this._explorerController.ExecuteOpeningSitemapExplorer(connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -1191,7 +1191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._exportXmlController.ExecuteExportingOrganizationInformation(connectionData, commonConfig);
+                    this._explorerController.ExecuteOpeningOrganizationExplorer(connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -1208,7 +1208,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._exportXmlController.ExecuteExportingSystemSavedQueryXml(selection, connectionData, commonConfig);
+                    this._explorerController.ExecuteOpeningSystemSavedQueryExplorer(selection, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -1225,7 +1225,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._exportXmlController.ExecuteExportingSystemSavedQueryVisualizationXml(selection, connectionData, commonConfig);
+                    this._explorerController.ExecuteOpeningSystemSavedQueryVisualizationExplorer(selection, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -1242,7 +1242,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._exportXmlController.ExecuteExportingSystemFormXml(selection, connectionData, commonConfig);
+                    this._explorerController.ExecuteOpeningSystemFormExplorer(selection, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -1259,7 +1259,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._exportXmlController.ExecuteExportingCustomControl(selection, connectionData, commonConfig);
+                    this._explorerController.ExecuteOpeningCustomControlExplorer(selection, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -1276,7 +1276,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._exportXmlController.ExecuteExportingWorkflow(selection, connectionData, commonConfig);
+                    this._explorerController.ExecuteOpeningWorkflowExplorer(selection, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -1854,7 +1854,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._exportXmlController.ExecuteShowingTraceReader(connectionData, commonConfig);
+                    this._explorerController.ExecuteOpeningTraceReader(connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {

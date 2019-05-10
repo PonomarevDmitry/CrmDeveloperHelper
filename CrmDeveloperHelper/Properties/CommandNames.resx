@@ -144,8 +144,8 @@
   <data name="CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand" xml:space="preserve">
     <value>Update Single Global OptionSet File with Select</value>
   </data>
-  <data name="CodeReportDownloadCommand" xml:space="preserve">
-    <value>Download Report</value>
+  <data name="CodeReportExplorerCommand" xml:space="preserve">
+    <value>Report Explorer</value>
   </data>
   <data name="CodeReportShowDifferenceCommandCustom" xml:space="preserve">
     <value>with Select</value>
@@ -159,8 +159,8 @@
   <data name="CodeWebResourceCompareWithDetailsCommand" xml:space="preserve">
     <value>Compare File with details</value>
   </data>
-  <data name="CodeWebResourceDownloadCommand" xml:space="preserve">
-    <value>Download WebResource</value>
+  <data name="CodeWebResourceExplorerCommand" xml:space="preserve">
+    <value>WebResource Explorer</value>
   </data>
   <data name="CodeWebResourceShowDifferenceCommand" xml:space="preserve">
     <value>Show Difference</value>
@@ -303,8 +303,8 @@
   <data name="FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand" xml:space="preserve">
     <value>Update Global OptionSets File with Select</value>
   </data>
-  <data name="FileReportDownloadCommand" xml:space="preserve">
-    <value>Download Report</value>
+  <data name="FileReportExplorerCommand" xml:space="preserve">
+    <value>Report Explorer</value>
   </data>
   <data name="FileReportUpdateCommand" xml:space="preserve">
     <value>Update Report in Crm</value>
@@ -315,8 +315,8 @@
   <data name="FileWebResourceCompareWithDetailsCommand" xml:space="preserve">
     <value>Compare Files with details</value>
   </data>
-  <data name="FileWebResourceDownloadCommand" xml:space="preserve">
-    <value>Download WebResource</value>
+  <data name="FileWebResourceExplorerCommand" xml:space="preserve">
+    <value>WebResource Explorer</value>
   </data>
   <data name="FileWebResourceShowDifferenceCommand" xml:space="preserve">
     <value>Show Difference</value>
