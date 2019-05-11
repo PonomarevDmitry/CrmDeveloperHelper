@@ -237,74 +237,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
         }
 
-        public Task<List<WebResource>> GetListAsync(string name, ColumnSet columnSet = null)
+        public Task<List<WebResource>> GetListSupportsTextAsync(string name, int? webResourceType, bool? managed, bool? hidden, ColumnSet columnSet)
         {
-            return Task.Run(() => GetList(name));
+            return Task.Run(() => GetListSupportsText(name, webResourceType, managed, hidden, columnSet));
         }
 
-        private List<WebResource> GetList(string name, ColumnSet columnSet = null)
-        {
-            QueryExpression query = new QueryExpression()
-            {
-                NoLock = true,
-
-                EntityName = WebResource.EntityLogicalName,
-
-                ColumnSet = columnSet ?? new ColumnSet(GetAttributes(_service)),
-
-                Orders =
-                {
-                    new OrderExpression(WebResource.Schema.Attributes.name, OrderType.Ascending),
-                },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
-            };
-
-            //qe.Criteria.AddCondition("ismanaged", ConditionOperator.Equal, false);
-            //query.Criteria.AddCondition("iscustomizable", ConditionOperator.Equal, true);
-
-            if (!string.IsNullOrEmpty(name))
-            {
-                query.Criteria.AddCondition(WebResource.Schema.Attributes.name, ConditionOperator.Like, "%" + name + "%");
-            }
-
-            List<WebResource> result = new List<WebResource>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<WebResource>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
-        }
-
-        public Task<List<WebResource>> GetListSupportsTextAsync(string name = null, ColumnSet columnSet = null)
-        {
-            return Task.Run(() => GetListSupportsText(name, columnSet));
-        }
-
-        private List<WebResource> GetListSupportsText(string name, ColumnSet columnSet)
+        private List<WebResource> GetListSupportsText(string name, int? webResourceType, bool? managed, bool? hidden, ColumnSet columnSet)
         {
             //Criteria =
             //    {
@@ -320,7 +258,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             //        }
             //},
 
-            var result = GetList(name, columnSet).Where(w => w.WebResourceType != null &&
+            var result = GetListAll(name, webResourceType, managed, hidden, columnSet).Where(w => w.WebResourceType != null &&
                 (
                     w.WebResourceType.Value == (int)WebResource.Schema.OptionSets.webresourcetype.Webpage_HTML_1
                     || w.WebResourceType.Value == (int)WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_CSS_2
@@ -337,10 +275,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         public Task<List<WebResource>> GetListAllAsync(string name = null, ColumnSet columnSet = null)
         {
-            return Task.Run(() => GetListAll(name, columnSet));
+            return Task.Run(() => GetListAll(name, null, null, null, columnSet));
         }
 
-        private List<WebResource> GetListAll(string name, ColumnSet columnSet)
+        public Task<List<WebResource>> GetListAllAsync(string name, int? webResourceType, bool? managed, bool? hidden, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetListAll(name, webResourceType, managed, hidden, columnSet));
+        }
+
+        private List<WebResource> GetListAll(string name, int? webResourceType, bool? managed, bool? hidden, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {
@@ -401,6 +344,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             if (!string.IsNullOrEmpty(name))
             {
                 query.Criteria.AddCondition(WebResource.Schema.Attributes.name, ConditionOperator.Like, "%" + name + "%");
+            }
+
+            if (webResourceType.HasValue)
+            {
+                query.Criteria.AddCondition(WebResource.Schema.Attributes.webresourcetype, ConditionOperator.Equal, webResourceType.Value);
+            }
+
+            if (hidden.HasValue)
+            {
+                query.Criteria.AddCondition(WebResource.Schema.Attributes.ishidden, ConditionOperator.Equal, hidden.Value);
+            }
+
+            if (managed.HasValue)
+            {
+                query.Criteria.AddCondition(WebResource.Schema.Attributes.ismanaged, ConditionOperator.Equal, managed.Value);
             }
 
             List<WebResource> result = new List<WebResource>();

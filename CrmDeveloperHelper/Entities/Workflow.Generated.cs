@@ -3614,6 +3614,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// Description:
                 ///     (English - United States - 1033): Category of the process.
                 ///</summary>
+                [System.ComponentModel.TypeConverter("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum category
                 {
                     ///<summary>
@@ -3623,6 +3624,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Workflow
                     ///</summary>
+                    [System.ComponentModel.Description("Workflow")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Workflow_0 = 0,
 
@@ -3633,6 +3635,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Dialog
                     ///</summary>
+                    [System.ComponentModel.Description("Dialog")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Dialog_1 = 1,
 
@@ -3643,6 +3646,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Business Rule
                     ///</summary>
+                    [System.ComponentModel.Description("Business Rule")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Business_Rule_2 = 2,
 
@@ -3653,6 +3657,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Action
                     ///</summary>
+                    [System.ComponentModel.Description("Action")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Action_3 = 3,
 
@@ -3663,6 +3668,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Business Process Flow
                     ///</summary>
+                    [System.ComponentModel.Description("Business Process Flow")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Business_Process_Flow_4 = 4,
                 }
@@ -3685,6 +3691,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// Description:
                 ///     (English - United States - 1033): Mode of the process.
                 ///</summary>
+                [System.ComponentModel.TypeConverter("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum mode
                 {
                     ///<summary>
@@ -3694,6 +3701,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Background
                     ///</summary>
+                    [System.ComponentModel.Description("Background")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Background_0 = 0,
 
@@ -3704,6 +3712,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Real-time
                     ///</summary>
+                    [System.ComponentModel.Description("Real-time")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Real_time_1 = 1,
                 }

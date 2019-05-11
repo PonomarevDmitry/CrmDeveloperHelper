@@ -134,8 +134,9 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            
             <RowDefinition Height="100*" />
+            
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -145,35 +146,33 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="100*" />
+
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
             <Label Content="Folder" Grid.Row="0" Grid.Column="0" />
-            <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" Text="{Binding Path=FolderForExport}" />
+            <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="7" Text="{Binding Path=FolderForExport}" />
+
+            <Label Content="Filter" Grid.Row="1" Grid.Column="0" />
+            <TextBox x:Name="txtBFilter" Grid.Row="1" Grid.Column="1" KeyDown="txtBFilterEnitity_KeyDown" />
+
+            <Label Content="Category" Grid.Row="1" Grid.Column="2" />
+            <ComboBox x:Name="cmBCategory" Grid.Row="1" Grid.Column="3" IsEditable="False" SelectionChanged="cmBCategory_SelectionChanged" HorizontalContentAlignment="Stretch" />
+
+            <Label Content="Mode" Grid.Row="1" Grid.Column="4" />
+            <ComboBox x:Name="cmBMode" Grid.Row="1" Grid.Column="5" IsEditable="False" SelectionChanged="cmBCategory_SelectionChanged" HorizontalContentAlignment="Stretch" />
         </Grid>
 
-        <Grid Grid.Row="1" Margin="5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="100*" />
-                
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="200" />
-                
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="150" />
-            </Grid.ColumnDefinitions>
-
-            <Label Content="Filter" Grid.Column="0" />
-            <TextBox x:Name="txtBFilter" Grid.Column="1" KeyDown="txtBFilterEnitity_KeyDown" />
-
-            <Label Content="Category" Grid.Column="2" />
-            <ComboBox x:Name="cmBCategory" Grid.Column="3" IsEditable="False" SelectionChanged="cmBCategory_SelectionChanged" />
-
-            <Label Content="Mode" Grid.Column="4" />
-            <ComboBox x:Name="cmBMode" Grid.Column="5" IsEditable="False" SelectionChanged="cmBCategory_SelectionChanged" />
-        </Grid>
-
-        <DataGrid x:Name="lstVwWorkflows" AutoGenerateColumns="False" Grid.Row="2" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+        <DataGrid x:Name="lstVwWorkflows" AutoGenerateColumns="False" Grid.Row="1" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -199,7 +198,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Grid Grid.Row="3" Margin="5">
+        <Grid Grid.Row="2" Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="30*" />
@@ -214,7 +213,7 @@
             <ComboBox x:Name="cmBFileAction" Grid.Row="0" Grid.Column="1" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" SelectedIndex="0" />
         </Grid>
 
-        <ToolBar Grid.Row="4">
+        <ToolBar Grid.Row="3">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
@@ -333,7 +332,7 @@
             </DockPanel>
         </ToolBar>
 
-        <StatusBar Grid.Row="5">
+        <StatusBar Grid.Row="4">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />

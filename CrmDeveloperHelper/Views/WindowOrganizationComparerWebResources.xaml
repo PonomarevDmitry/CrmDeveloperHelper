@@ -5,6 +5,7 @@
         xmlns:clr="clr-namespace:System;assembly=mscorlib"
         xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         Title="WebResource Comparer" Height="538.662" Width="752" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
         <ResourceDictionary>
@@ -83,6 +84,15 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="100*" />
+
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -91,6 +101,39 @@
 
             <Label Content="Filter" Grid.Row="0" Grid.Column="0" />
             <TextBox x:Name="txtBFilter" Grid.Row="0" Grid.Column="1" KeyDown="txtBFilterEnitity_KeyDown" />
+
+            <Label Content="Type" Grid.Row="0" Grid.Column="2" />
+            <ComboBox x:Name="cmBType" Grid.Row="0" Grid.Column="3" SelectionChanged="comboBox_SelectionChanged" />
+
+            <Label Content="Managed" Grid.Row="0" Grid.Column="4" />
+            <ComboBox x:Name="cmBManaged" Grid.Row="0" Grid.Column="5" IsEditable="False" SelectedIndex="0" SelectionChanged="comboBox_SelectionChanged" Width="Auto">
+                <ComboBoxItem Content="All" />
+                <ComboBoxItem Content="Managed">
+                    <ComboBoxItem.Tag>
+                        <system:Boolean>True</system:Boolean>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+                <ComboBoxItem Content="UnManaged">
+                    <ComboBoxItem.Tag>
+                        <system:Boolean>False</system:Boolean>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+            </ComboBox>
+
+            <Label Content="Hidden" Grid.Row="0" Grid.Column="6" />
+            <ComboBox x:Name="cmBHidden" Grid.Row="0" Grid.Column="7" IsEditable="False" SelectedIndex="0" SelectionChanged="comboBox_SelectionChanged" Width="Auto">
+                <ComboBoxItem Content="All" />
+                <ComboBoxItem Content="Hidden">
+                    <ComboBoxItem.Tag>
+                        <system:Boolean>True</system:Boolean>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+                <ComboBoxItem Content="Visible">
+                    <ComboBoxItem.Tag>
+                        <system:Boolean>False</system:Boolean>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+            </ComboBox>
         </Grid>
 
         <DataGrid x:Name="lstVwWebResources" Grid.Row="2" Margin="5" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">

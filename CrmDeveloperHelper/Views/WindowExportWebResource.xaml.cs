@@ -6,6 +6,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -30,6 +31,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly CommonConfiguration _commonConfig;
 
+        private readonly ObservableCollection<EntityTreeViewItem> _webResourceTree = new ObservableCollection<EntityTreeViewItem>();
+
         private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
         private readonly Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
 
@@ -53,6 +56,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
+            //ItemsSource="{Binding Source={helpers:EnumBindingSource {helpers:NullableType {x:Type entities:WebResource+Schema+OptionSets+webresourcetype}}}}" 
+            cmBType.ItemsSource = new EnumBindingSourceExtension(typeof(WebResource.Schema.OptionSets.webresourcetype?)).ProvideValue(null) as IEnumerable;
+
             LoadFromConfig();
 
             LoadImages();
@@ -69,6 +75,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
+
+            trVWebResources.ItemsSource = _webResourceTree;
 
             this.DecreaseInit();
 
@@ -192,13 +200,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingWebResources);
 
-            this.trVWebResources.ItemsSource = null;
+            this.trVWebResources.Dispatcher.Invoke(() =>
+            {
+                _webResourceTree.Clear();
+            });
 
             string textName = string.Empty;
+            bool? hidden = null;
+            bool? managed = null;
+            int? webResourceType = null;
 
-            txtBFilter.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke(() =>
             {
                 textName = txtBFilter.Text.Trim().ToLower();
+
+                if (cmBManaged.SelectedItem is ComboBoxItem comboBoxItemManaged
+                    && comboBoxItemManaged.Tag != null
+                    && comboBoxItemManaged.Tag is bool boolManaged
+                )
+                {
+                    managed = boolManaged;
+                }
+
+                if (cmBHidden.SelectedItem is ComboBoxItem comboBoxItemHidden
+                    && comboBoxItemHidden.Tag != null
+                    && comboBoxItemHidden.Tag is bool boolHidden
+                )
+                {
+                    hidden = boolHidden;
+                }
+
+                if (cmBType.SelectedItem is WebResource.Schema.OptionSets.webresourcetype webresourcetype)
+                {
+                    webResourceType = (int)webresourcetype;
+                }
             });
 
             IEnumerable<WebResource> list = Enumerable.Empty<WebResource>();
@@ -208,7 +243,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (service != null)
                 {
                     WebResourceRepository repository = new WebResourceRepository(service);
-                    list = await repository.GetListAllAsync(textName, new ColumnSet(WebResource.Schema.Attributes.name, WebResource.Schema.Attributes.webresourcetype, WebResource.Schema.Attributes.ismanaged, WebResource.Schema.Attributes.ishidden, WebResource.Schema.Attributes.iscustomizable));
+                    list = await repository.GetListAllAsync(
+                        textName
+                        , webResourceType
+                        , managed
+                        , hidden
+                        , new ColumnSet
+                        (
+                            WebResource.Schema.Attributes.name
+                            , WebResource.Schema.Attributes.displayname
+                            , WebResource.Schema.Attributes.webresourcetype
+                            , WebResource.Schema.Attributes.ismanaged
+                            , WebResource.Schema.Attributes.ishidden
+                            , WebResource.Schema.Attributes.iscustomizable
+                        )
+                    );
                 }
             }
             catch (Exception ex)
@@ -216,49 +265,53 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
-            LoadWebResources(list);
-
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingWebResourcesCompletedFormat1, list.Count());
-        }
-
-        private void LoadWebResources(IEnumerable<WebResource> results)
-        {
-            ObservableCollection<EntityTreeViewItem> list = new ObservableCollection<EntityTreeViewItem>();
-
-            var groupList = results
-                    .GroupBy(a => a.WebResourceType.Value)
-                    .OrderBy(a => a.Key);
-
-            foreach (var group in groupList)
-            {
-                var groupName = group.First().FormattedValues[WebResource.Schema.Attributes.webresourcetype];
-
-                BitmapImage image = null;
-
-                if (_typeImageMapping.ContainsKey(group.Key))
-                {
-                    image = _typeImageMapping[group.Key];
-                }
-
-                var node = new EntityTreeViewItem(groupName, null, image);
-
-                var nodeEntity = TreeNodeEntity.Convert(group);
-
-                FullfillTreeNode(node, nodeEntity, image);
-
-                list.Add(node);
-            }
-
-            ExpandNode(list);
-
             this.trVWebResources.Dispatcher.Invoke(() =>
             {
                 this.trVWebResources.BeginInit();
+            });
 
-                this.trVWebResources.ItemsSource = list;
+            try
+            {
+                var groupList = list
+                    .GroupBy(a => a.WebResourceType.Value)
+                    .OrderBy(a => a.Key);
 
+                foreach (var group in groupList)
+                {
+                    var groupName = group.First().FormattedValues[WebResource.Schema.Attributes.webresourcetype];
+
+                    BitmapImage image = null;
+
+                    if (_typeImageMapping.ContainsKey(group.Key))
+                    {
+                        image = _typeImageMapping[group.Key];
+                    }
+
+                    var node = new EntityTreeViewItem(groupName, null, image);
+
+                    var nodeEntity = TreeNodeEntity.Convert(group);
+
+                    FullfillTreeNode(node, nodeEntity, image);
+
+                    this.trVWebResources.Dispatcher.Invoke(() =>
+                    {
+                        _webResourceTree.Add(node);
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+            }
+
+            ExpandNode(_webResourceTree);
+
+            this.trVWebResources.Dispatcher.Invoke(() =>
+            {
                 this.trVWebResources.EndInit();
             });
+
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingWebResourcesCompletedFormat1, list.Count());
         }
 
         private void ExpandNode(ObservableCollection<EntityTreeViewItem> list)
@@ -327,6 +380,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 node.Description = node.Items.Count.ToString();
             }
+
+            if (node.Items.Count == 1)
+            {
+                node.IsExpanded = true;
+            }
         }
 
         private void UpdateStatus(ConnectionData connectionData, string format, params object[] args)
@@ -352,7 +410,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection);
+            ToggleControl(this.tSProgressBar
+                , cmBCurrentConnection
+                , btnSetCurrentConnection
+                , cmBType
+                , cmBManaged
+                , cmBHidden
+            );
 
             UpdateButtonsEnable();
         }
@@ -1288,6 +1352,65 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
             SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
+        }
+
+        private void mIExpandNodes_Click(object sender, RoutedEventArgs e)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityTreeViewItem;
+
+            if (nodeItem == null)
+            {
+                return;
+            }
+
+            ChangeExpandedInEntityTreeViewItems(new[] { nodeItem }, true);
+        }
+
+        private void mICollapseNodes_Click(object sender, RoutedEventArgs e)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityTreeViewItem;
+
+            if (nodeItem == null)
+            {
+                return;
+            }
+
+            ChangeExpandedInEntityTreeViewItems(new[] { nodeItem }, false);
+        }
+
+        private void hypLinkExpandAll_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            ChangeExpandedInEntityTreeViewItems(_webResourceTree, true);
+        }
+
+        private void hypLinkCollapseAll_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            ChangeExpandedInEntityTreeViewItems(_webResourceTree, false);
+        }
+
+        private void ChangeExpandedInEntityTreeViewItems(IEnumerable<EntityTreeViewItem> items, bool isExpanded)
+        {
+            if (items == null)
+            {
+                return;
+            }
+
+            foreach (var item in items)
+            {
+                item.IsExpanded = isExpanded;
+
+                ChangeExpandedInEntityTreeViewItems(item.Items, isExpanded);
+            }
+        }
+
+        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            ShowExistingWebResources();
         }
     }
 }

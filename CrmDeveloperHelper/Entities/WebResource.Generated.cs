@@ -1453,6 +1453,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// Description:
                 ///     (English - United States - 1033): Drop-down list for selecting the type of the web resource.
                 ///</summary>
+                [System.ComponentModel.TypeConverter("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum webresourcetype
                 {
                     ///<summary>
@@ -1462,6 +1463,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Webpage (HTML)
                     ///</summary>
+                    [System.ComponentModel.Description("Webpage (HTML)")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Webpage_HTML_1 = 1,
 
@@ -1472,6 +1474,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Style Sheet (CSS)
                     ///</summary>
+                    [System.ComponentModel.Description("Style Sheet (CSS)")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Style_Sheet_CSS_2 = 2,
 
@@ -1482,6 +1485,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Script (JScript)
                     ///</summary>
+                    [System.ComponentModel.Description("Script (JScript)")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Script_JScript_3 = 3,
 
@@ -1492,6 +1496,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Data (XML)
                     ///</summary>
+                    [System.ComponentModel.Description("Data (XML)")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Data_XML_4 = 4,
 
@@ -1502,6 +1507,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): PNG format
                     ///</summary>
+                    [System.ComponentModel.Description("PNG format")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     PNG_format_5 = 5,
 
@@ -1512,6 +1518,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): JPG format
                     ///</summary>
+                    [System.ComponentModel.Description("JPG format")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     JPG_format_6 = 6,
 
@@ -1522,6 +1529,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): GIF format
                     ///</summary>
+                    [System.ComponentModel.Description("GIF format")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     GIF_format_7 = 7,
 
@@ -1532,6 +1540,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Silverlight (XAP)
                     ///</summary>
+                    [System.ComponentModel.Description("Silverlight (XAP)")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Silverlight_XAP_8 = 8,
 
@@ -1542,6 +1551,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Style Sheet (XSL)
                     ///</summary>
+                    [System.ComponentModel.Description("Style Sheet (XSL)")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Style_Sheet_XSL_9 = 9,
 
@@ -1552,6 +1562,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): ICO format
                     ///</summary>
+                    [System.ComponentModel.Description("ICO format")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     ICO_format_10 = 10,
 
@@ -1562,6 +1573,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Vector format (SVG)
                     ///</summary>
+                    [System.ComponentModel.Description("Vector format (SVG)")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Vector_format_SVG_11 = 11,
 
@@ -1572,6 +1584,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): String (RESX)
                     ///</summary>
+                    [System.ComponentModel.Description("String (RESX)")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     String_RESX_12 = 12,
                 }

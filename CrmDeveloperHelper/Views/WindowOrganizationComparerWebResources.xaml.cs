@@ -5,6 +5,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -49,6 +50,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             BindingOperations.EnableCollectionSynchronization(connection1.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InitializeComponent();
+
+            cmBType.ItemsSource = new EnumBindingSourceExtension(typeof(WebResource.Schema.OptionSets.webresourcetype?)).ProvideValue(null) as IEnumerable;
 
             tSDDBConnection1.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection1.Name);
             tSDDBConnection2.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection2.Name);
@@ -158,15 +161,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.WindowStatusStrings.LoadingWebResources);
 
-            var textName = string.Empty;
+            string textName = string.Empty;
+            bool? hidden = null;
+            bool? managed = null;
+            int? webResourceType = null;
 
-            txtBFilter.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke(() =>
             {
                 textName = txtBFilter.Text.Trim().ToLower();
+
+                if (cmBManaged.SelectedItem is ComboBoxItem comboBoxItemManaged
+                    && comboBoxItemManaged.Tag != null
+                    && comboBoxItemManaged.Tag is bool boolManaged
+                )
+                {
+                    managed = boolManaged;
+                }
+
+                if (cmBHidden.SelectedItem is ComboBoxItem comboBoxItemHidden
+                    && comboBoxItemHidden.Tag != null
+                    && comboBoxItemHidden.Tag is bool boolHidden
+                )
+                {
+                    hidden = boolHidden;
+                }
+
+                if (cmBType.SelectedItem is WebResource.Schema.OptionSets.webresourcetype webresourcetype)
+                {
+                    webResourceType = (int)webresourcetype;
+                }
             });
 
             this._itemsSource.Clear();
-
 
             IEnumerable<LinkedEntities<WebResource>> list = Enumerable.Empty<LinkedEntities<WebResource>>();
 
@@ -177,7 +203,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (service1 != null && service2 != null)
                 {
-                    var columnSet = new ColumnSet(WebResource.Schema.Attributes.name, WebResource.Schema.Attributes.displayname, WebResource.Schema.Attributes.webresourcetype, WebResource.Schema.Attributes.ismanaged, WebResource.Schema.Attributes.ishidden);
+                    var columnSet = new ColumnSet
+                    (
+                        WebResource.Schema.Attributes.name
+                        , WebResource.Schema.Attributes.displayname
+                        , WebResource.Schema.Attributes.webresourcetype
+                        , WebResource.Schema.Attributes.ismanaged
+                        , WebResource.Schema.Attributes.ishidden
+                    );
 
                     List<LinkedEntities<WebResource>> temp = new List<LinkedEntities<WebResource>>();
 
@@ -186,8 +219,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         var repository1 = new WebResourceRepository(service1);
                         var repository2 = new WebResourceRepository(service2);
 
-                        var task1 = repository1.GetListSupportsTextAsync(textName, columnSet);
-                        var task2 = repository2.GetListSupportsTextAsync(textName, columnSet);
+                        var task1 = repository1.GetListSupportsTextAsync(textName, webResourceType, managed, hidden, columnSet);
+                        var task2 = repository2.GetListSupportsTextAsync(textName, webResourceType, managed, hidden, columnSet);
 
                         var list1 = await task1;
                         var list2 = await task2;
@@ -208,7 +241,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var repository1 = new WebResourceRepository(service1);
 
-                        var task1 = repository1.GetListSupportsTextAsync(textName, columnSet);
+                        var task1 = repository1.GetListSupportsTextAsync(textName, webResourceType, managed, hidden, columnSet);
 
                         var list1 = await task1;
 
@@ -344,7 +377,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(this.tSProgressBar, this.cmBConnection1, this.cmBConnection2);
+            ToggleControl(this.tSProgressBar
+                , this.cmBConnection1
+                , this.cmBConnection2
+                , this.cmBType
+                , this.cmBManaged
+                , this.cmBHidden
+            );
 
             UpdateButtonsEnable();
         }
@@ -1134,6 +1173,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat1, fieldName);
+        }
+
+        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            ShowExistingWebResources();
         }
     }
 }

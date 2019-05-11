@@ -5,6 +5,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -53,6 +54,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             BindingOperations.EnableCollectionSynchronization(connection1.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InitializeComponent();
+
+            cmBCategory.ItemsSource = new EnumBindingSourceExtension(typeof(Workflow.Schema.OptionSets.category?)).ProvideValue(null) as IEnumerable;
+            cmBMode.ItemsSource = new EnumBindingSourceExtension(typeof(Workflow.Schema.OptionSets.mode?)).ProvideValue(null) as IEnumerable;
 
             this._iWriteToOutput = iWriteToOutput;
 
@@ -182,6 +186,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._itemsSource.Clear();
 
+            int? category = null;
+
+            cmBCategory.Dispatcher.Invoke(() =>
+            {
+                if (cmBCategory.SelectedItem is Workflow.Schema.OptionSets.category comboBoxItem)
+                {
+                    category = (int)comboBoxItem;
+                }
+            });
+
+            int? mode = null;
+
+            cmBMode.Dispatcher.Invoke(() =>
+            {
+                if (cmBMode.SelectedItem is Workflow.Schema.OptionSets.mode comboBoxItem)
+                {
+                    mode = (int)comboBoxItem;
+                }
+            });
+
             IEnumerable<LinkedEntities<Workflow>> list = Enumerable.Empty<LinkedEntities<Workflow>>();
 
             try
@@ -206,8 +230,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         var repository1 = new WorkflowRepository(service1);
                         var repository2 = new WorkflowRepository(service2);
 
-                        var task1 = repository1.GetListAsync(_filterEntity, null, null, columnSet);
-                        var task2 = repository2.GetListAsync(_filterEntity, null, null, columnSet);
+                        var task1 = repository1.GetListAsync(_filterEntity, category, mode, columnSet);
+                        var task2 = repository2.GetListAsync(_filterEntity, category, mode, columnSet);
 
                         TranslationRepository.GetDefaultTranslationFromCacheAsync(service1.ConnectionData.ConnectionId, service1);
                         TranslationRepository.GetDefaultTranslationFromCacheAsync(service2.ConnectionData.ConnectionId, service2);
@@ -231,7 +255,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var repository1 = new WorkflowRepository(service1);
 
-                        var task1 = repository1.GetListAsync(_filterEntity, null, null, columnSet);
+                        var task1 = repository1.GetListAsync(_filterEntity, category, mode, columnSet);
 
                         TranslationRepository.GetDefaultTranslationFromCacheAsync(service1.ConnectionData.ConnectionId, service1);
 
@@ -392,7 +416,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(statusFormat, args);
 
-            ToggleControl(this.tSProgressBar, this.cmBConnection1, this.cmBConnection2);
+            ToggleControl(this.tSProgressBar
+                , this.cmBConnection1
+                , this.cmBConnection2
+                , this.cmBCategory
+                , this.cmBMode
+            );
 
             UpdateButtonsEnable();
         }
@@ -1718,6 +1747,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.Workflow, entity.Link.Entity2.Id);
             }
+        }
+
+        private void cmBCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ShowExistingWorkflows();
         }
     }
 }
