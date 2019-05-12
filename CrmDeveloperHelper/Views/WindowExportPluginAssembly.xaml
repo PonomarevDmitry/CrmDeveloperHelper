@@ -16,6 +16,7 @@
 
                 <Separator/>
                 <MenuItem Header="Open Plugin Tree" Click="mIOpenPluginTree_Click" />
+                <MenuItem Header="Open PluginType Explorer" Click="mIOpenPluginTypeExplorer_Click" />
 
                 <Separator/>
                 <MenuItem Header="Update Plugin Assembly" Click="mIUpdatePluginAssembly_Click" />
@@ -148,6 +149,7 @@
 
                             <Separator/>
                             <MenuItem Header="Open Plugin Tree" Click="mIOpenPluginTree_Click" />
+                            <MenuItem Header="Open PluginType Explorer" Click="mIOpenPluginTypeExplorer_Click" />
 
                             <Separator/>
                             <MenuItem Header="Update Plugin Assembly" Click="mIUpdatePluginAssembly_Click" />

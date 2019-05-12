@@ -364,8 +364,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private async Task PerformExportAllXml(string folder, Guid idPluginAssembly, string name)
         {
             await PerformExportAssemblyDescription(folder, idPluginAssembly, name);
-
-            //await PerformExportEntityDescription(folder, idPluginAssembly, name);
         }
 
         private void mICreatePluginAssemblyDescription_Click(object sender, RoutedEventArgs e)
@@ -763,7 +761,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , (int)ComponentType.PluginAssembly
                 , entity.Id
                 , null
-                );
+            );
         }
 
         private async void mIOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
@@ -839,11 +837,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var entity = GetSelectedEntity();
 
-            if (entity == null)
-            {
-                return;
-            }
-
             _commonConfig.Save();
 
             var service = await GetService();
@@ -853,8 +846,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , service
                 , _commonConfig
                 , null
-                , entity.Name
+                , entity?.Name
                 , null
+            );
+        }
+
+        private async void mIOpenPluginTypeExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenPluginTypeWindow(
+                _iWriteToOutput
+                , service
+                , _commonConfig
+                , entity?.Name
             );
         }
 
