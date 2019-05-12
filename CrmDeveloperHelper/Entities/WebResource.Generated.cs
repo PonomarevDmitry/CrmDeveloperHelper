@@ -133,6 +133,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Web Resource Identifier")]
                 public const string webresourceid = "webresourceid";
 
                 ///<summary>
@@ -169,6 +170,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Name")]
                 public const string name = "name";
 
                 ///<summary>
@@ -204,6 +206,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Can Be Deleted")]
                 public const string canbedeleted = "canbedeleted";
 
                 ///<summary>
@@ -246,6 +249,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Component State")]
                 public const string componentstate = "componentstate";
 
                 ///<summary>
@@ -279,6 +283,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Bytes of the web resource, in Base64 format.")]
                 public const string content = "content";
 
                 ///<summary>
@@ -312,6 +317,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Json representation of the content of the resource.")]
                 public const string contentjson = "contentjson";
 
                 ///<summary>
@@ -357,6 +363,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By")]
                 public const string createdby = "createdby";
 
                 ///<summary>
@@ -393,6 +400,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created On")]
                 public const string createdon = "createdon";
 
                 ///<summary>
@@ -438,6 +446,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By (Delegate)")]
                 public const string createdonbehalfby = "createdonbehalfby";
 
                 ///<summary>
@@ -534,6 +543,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("DependencyXML")]
                 public const string dependencyxml = "dependencyxml";
 
                 ///<summary>
@@ -570,6 +580,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Description")]
                 public const string description = "description";
 
                 ///<summary>
@@ -606,6 +617,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Display Name")]
                 public const string displayname = "displayname";
 
                 ///<summary>
@@ -642,6 +654,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Introduced Version")]
                 public const string introducedversion = "introducedversion";
 
                 ///<summary>
@@ -685,6 +698,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Is Available For Mobile Offline")]
                 public const string isavailableformobileoffline = "isavailableformobileoffline";
 
                 ///<summary>
@@ -720,6 +734,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Customizable")]
                 public const string iscustomizable = "iscustomizable";
 
                 ///<summary>
@@ -763,6 +778,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Is Enabled For Mobile Client")]
                 public const string isenabledformobileclient = "isenabledformobileclient";
 
                 ///<summary>
@@ -798,6 +814,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Hidden")]
                 public const string ishidden = "ishidden";
 
                 ///<summary>
@@ -899,6 +916,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Language")]
                 public const string languagecode = "languagecode";
 
                 ///<summary>
@@ -944,6 +962,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By")]
                 public const string modifiedby = "modifiedby";
 
                 ///<summary>
@@ -980,6 +999,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified On")]
                 public const string modifiedon = "modifiedon";
 
                 ///<summary>
@@ -1025,6 +1045,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By (Delegate)")]
                 public const string modifiedonbehalfby = "modifiedonbehalfby";
 
                 ///<summary>
@@ -1130,6 +1151,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Organization")]
                 public const string organizationid = "organizationid";
 
                 ///<summary>
@@ -1196,6 +1218,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Record Overwrite Time")]
                 public const string overwritetime = "overwritetime";
 
                 ///<summary>
@@ -1232,6 +1255,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Silverlight Version")]
                 public const string silverlightversion = "silverlightversion";
 
                 ///<summary>
@@ -1266,6 +1290,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string solutionid = "solutionid";
 
                 ///<summary>
@@ -1300,6 +1325,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string supportingsolutionid = "supportingsolutionid";
 
                 ///<summary>
@@ -1360,6 +1386,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("For internal use only.")]
                 public const string webresourceidunique = "webresourceidunique";
 
                 ///<summary>
@@ -1396,6 +1423,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Type")]
                 public const string webresourcetype = "webresourcetype";
 
                 ///<summary>
@@ -1454,6 +1482,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (English - United States - 1033): Drop-down list for selecting the type of the web resource.
                 ///</summary>
                 [System.ComponentModel.TypeConverter("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
+                [System.ComponentModel.DescriptionAttribute("Type")]
                 public enum webresourcetype
                 {
                     ///<summary>
@@ -1463,7 +1492,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Webpage (HTML)
                     ///</summary>
-                    [System.ComponentModel.Description("Webpage (HTML)")]
+                    [System.ComponentModel.DescriptionAttribute("Webpage (HTML)")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Webpage_HTML_1 = 1,
 
@@ -1474,7 +1503,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Style Sheet (CSS)
                     ///</summary>
-                    [System.ComponentModel.Description("Style Sheet (CSS)")]
+                    [System.ComponentModel.DescriptionAttribute("Style Sheet (CSS)")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Style_Sheet_CSS_2 = 2,
 
@@ -1485,7 +1514,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Script (JScript)
                     ///</summary>
-                    [System.ComponentModel.Description("Script (JScript)")]
+                    [System.ComponentModel.DescriptionAttribute("Script (JScript)")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Script_JScript_3 = 3,
 
@@ -1496,7 +1525,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Data (XML)
                     ///</summary>
-                    [System.ComponentModel.Description("Data (XML)")]
+                    [System.ComponentModel.DescriptionAttribute("Data (XML)")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Data_XML_4 = 4,
 
@@ -1507,7 +1536,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): PNG format
                     ///</summary>
-                    [System.ComponentModel.Description("PNG format")]
+                    [System.ComponentModel.DescriptionAttribute("PNG format")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     PNG_format_5 = 5,
 
@@ -1518,7 +1547,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): JPG format
                     ///</summary>
-                    [System.ComponentModel.Description("JPG format")]
+                    [System.ComponentModel.DescriptionAttribute("JPG format")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     JPG_format_6 = 6,
 
@@ -1529,7 +1558,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): GIF format
                     ///</summary>
-                    [System.ComponentModel.Description("GIF format")]
+                    [System.ComponentModel.DescriptionAttribute("GIF format")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     GIF_format_7 = 7,
 
@@ -1540,7 +1569,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Silverlight (XAP)
                     ///</summary>
-                    [System.ComponentModel.Description("Silverlight (XAP)")]
+                    [System.ComponentModel.DescriptionAttribute("Silverlight (XAP)")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Silverlight_XAP_8 = 8,
 
@@ -1551,7 +1580,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Style Sheet (XSL)
                     ///</summary>
-                    [System.ComponentModel.Description("Style Sheet (XSL)")]
+                    [System.ComponentModel.DescriptionAttribute("Style Sheet (XSL)")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Style_Sheet_XSL_9 = 9,
 
@@ -1562,7 +1591,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): ICO format
                     ///</summary>
-                    [System.ComponentModel.Description("ICO format")]
+                    [System.ComponentModel.DescriptionAttribute("ICO format")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     ICO_format_10 = 10,
 
@@ -1573,7 +1602,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Vector format (SVG)
                     ///</summary>
-                    [System.ComponentModel.Description("Vector format (SVG)")]
+                    [System.ComponentModel.DescriptionAttribute("Vector format (SVG)")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Vector_format_SVG_11 = 11,
 
@@ -1584,7 +1613,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): String (RESX)
                     ///</summary>
-                    [System.ComponentModel.Description("String (RESX)")]
+                    [System.ComponentModel.DescriptionAttribute("String (RESX)")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     String_RESX_12 = 12,
                 }
@@ -1631,6 +1660,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_webresourcebase_createdonbehalfby")]
                 public static partial class lk_webresourcebase_createdonbehalfby
                 {
                     public const string Name = "lk_webresourcebase_createdonbehalfby";
@@ -1679,6 +1709,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_webresourcebase_modifiedonbehalfby")]
                 public static partial class lk_webresourcebase_modifiedonbehalfby
                 {
                     public const string Name = "lk_webresourcebase_modifiedonbehalfby";
@@ -1727,6 +1758,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship webresource_createdby")]
                 public static partial class webresource_createdby
                 {
                     public const string Name = "webresource_createdby";
@@ -1775,6 +1807,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship webresource_modifiedby")]
                 public static partial class webresource_modifiedby
                 {
                     public const string Name = "webresource_modifiedby";
@@ -1823,6 +1856,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship webresource_organization")]
                 public static partial class webresource_organization
                 {
                     public const string Name = "webresource_organization";
@@ -1878,6 +1912,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Information that's used to set custom visual theme options for client applications.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship lk_theme_logoid")]
                 public static partial class lk_theme_logoid
                 {
                     public const string Name = "lk_theme_logoid";
@@ -1926,6 +1961,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): A solution which contains CRM customizations.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship solution_configuration_webresource")]
                 public static partial class solution_configuration_webresource
                 {
                     public const string Name = "solution_configuration_webresource";
@@ -1971,6 +2007,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Per User item instance data
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship userentityinstancedata_webresource")]
                 public static partial class userentityinstancedata_webresource
                 {
                     public const string Name = "userentityinstancedata_webresource";
@@ -2017,6 +2054,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): System chart attached to an entity.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship webresource_savedqueryvisualizations")]
                 public static partial class webresource_savedqueryvisualizations
                 {
                     public const string Name = "webresource_savedqueryvisualizations";
@@ -2065,6 +2103,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Chart attached to an entity.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship webresource_userqueryvisualizations")]
                 public static partial class webresource_userqueryvisualizations
                 {
                     public const string Name = "webresource_userqueryvisualizations";

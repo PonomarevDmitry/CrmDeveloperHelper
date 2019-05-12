@@ -435,6 +435,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        private bool _GenerateAddDescriptionAttribute = true;
+        [DataMember]
+        public bool GenerateAddDescriptionAttribute
+        {
+            get => _GenerateAddDescriptionAttribute;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateAddDescriptionAttribute));
+                this._GenerateAddDescriptionAttribute = value;
+                this.OnPropertyChanged(nameof(GenerateAddDescriptionAttribute));
+            }
+        }
+
+        private bool _GenerateProxyClassAddDescriptionAttribute = true;
+        [DataMember]
+        public bool GenerateProxyClassAddDescriptionAttribute
+        {
+            get => _GenerateProxyClassAddDescriptionAttribute;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateProxyClassAddDescriptionAttribute));
+                this._GenerateProxyClassAddDescriptionAttribute = value;
+                this.OnPropertyChanged(nameof(GenerateProxyClassAddDescriptionAttribute));
+            }
+        }
+
         private bool _GenerateAttributesProxyClass = true;
         /// <summary>
         /// Генерировать атрибуты в файле с метаданными сущности

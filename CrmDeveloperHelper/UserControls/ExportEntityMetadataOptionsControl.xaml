@@ -170,6 +170,7 @@
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
 
                         <Grid.ColumnDefinitions>
@@ -182,14 +183,16 @@
                         <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chBLocalOptionSetsProxyClass" IsChecked="{Binding Path=GenerateLocalOptionSetProxyClass}" Content="Local OptionSets" />
                         <CheckBox Grid.Row="0" Grid.Column="2" x:Name="chBGlobalOptionSetsProxyClass" IsChecked="{Binding Path=GenerateGlobalOptionSetProxyClass}" Content="Global OptionSets" />
 
-                        <CheckBox Grid.Row="1" Grid.Column="0" x:Name="chBProxyClassWithDebuggerNonUserCode" IsChecked="{Binding Path=GenerateProxyClassesWithDebuggerNonUserCode}" Content="Add DebuggerNonUserCode Attribute" />
-                        <CheckBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" x:Name="chBAttributesProxyClassWithNameOf" IsChecked="{Binding Path=GenerateAttributesProxyClassWithNameOf}" Content="Notify Property Change with nameof" />
+                        <CheckBox Grid.Row="1" Grid.Column="0" x:Name="chBProxyClassAddDescriptionAttribute" IsChecked="{Binding Path=GenerateProxyClassAddDescriptionAttribute}" Content="Add Description Attribute" />
 
-                        <CheckBox Grid.Row="2" Grid.Column="0" x:Name="chBProxyClassUseSchemaConstInCSharpAttributes" IsChecked="{Binding Path=GenerateProxyClassesUseSchemaConstInCSharpAttributes}" Content="Use Schema Const In C# Attributes" />
-                        <CheckBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="chBProxyClassesMakeAllPropertiesEditable" IsChecked="{Binding Path=GenerateProxyClassesMakeAllPropertiesEditable}" Content="Make All Properties Editable" />
+                        <CheckBox Grid.Row="2" Grid.Column="0" x:Name="chBProxyClassWithDebuggerNonUserCode" IsChecked="{Binding Path=GenerateProxyClassesWithDebuggerNonUserCode}" Content="Add DebuggerNonUserCode Attribute" />
+                        <CheckBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="chBAttributesProxyClassWithNameOf" IsChecked="{Binding Path=GenerateAttributesProxyClassWithNameOf}" Content="Notify Property Change with nameof" />
 
-                        <CheckBox Grid.Row="3" Grid.Column="0" x:Name="chBProxyClassesWithoutObsoleteAttribute" IsChecked="{Binding Path=GenerateProxyClassesWithoutObsoleteAttribute}" Content="Without ObsoleteAttribute" />
-                        <CheckBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="chBProxyClassesAddConstructorWithAnonymousTypeObject" IsChecked="{Binding Path=GenerateProxyClassesAddConstructorWithAnonymousTypeObject}" Content="Add Constructor With AnonymousType Object" />
+                        <CheckBox Grid.Row="3" Grid.Column="0" x:Name="chBProxyClassUseSchemaConstInCSharpAttributes" IsChecked="{Binding Path=GenerateProxyClassesUseSchemaConstInCSharpAttributes}" Content="Use Schema Const In C# Attributes" />
+                        <CheckBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="chBProxyClassesMakeAllPropertiesEditable" IsChecked="{Binding Path=GenerateProxyClassesMakeAllPropertiesEditable}" Content="Make All Properties Editable" />
+
+                        <CheckBox Grid.Row="4" Grid.Column="0" x:Name="chBProxyClassesWithoutObsoleteAttribute" IsChecked="{Binding Path=GenerateProxyClassesWithoutObsoleteAttribute}" Content="Without ObsoleteAttribute" />
+                        <CheckBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" x:Name="chBProxyClassesAddConstructorWithAnonymousTypeObject" IsChecked="{Binding Path=GenerateProxyClassesAddConstructorWithAnonymousTypeObject}" Content="Add Constructor With AnonymousType Object" />
 
                     </Grid>
                 </StackPanel>
@@ -225,9 +228,16 @@
                             <ColumnDefinition Width="60*" />
                         </Grid.ColumnDefinitions>
 
-                        <CheckBox Grid.Column="0" x:Name="chBStatusSchema" IsChecked="{Binding Path=GenerateStatusOptionSetSchema}" Content="Status and StatusReason OptionSets" />
-                        <CheckBox Grid.Column="1" x:Name="chBLocalOptionSetsSchema" IsChecked="{Binding Path=GenerateLocalOptionSetSchema}" Content="Local OptionSets" />
-                        <CheckBox Grid.Column="2" x:Name="chBGlobalOptionSetsSchema" IsChecked="{Binding Path=GenerateGlobalOptionSetSchema}" Content="Global OptionSets" />
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <CheckBox Grid.Row="0" Grid.Column="0" x:Name="chBStatusSchema" IsChecked="{Binding Path=GenerateStatusOptionSetSchema}" Content="Status and StatusReason OptionSets" />
+                        <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chBLocalOptionSetsSchema" IsChecked="{Binding Path=GenerateLocalOptionSetSchema}" Content="Local OptionSets" />
+                        <CheckBox Grid.Row="0" Grid.Column="2" x:Name="chBGlobalOptionSetsSchema" IsChecked="{Binding Path=GenerateGlobalOptionSetSchema}" Content="Global OptionSets" />
+
+                        <CheckBox Grid.Row="1" Grid.Column="0" x:Name="chBAddDescriptionAttribute" IsChecked="{Binding Path=GenerateAddDescriptionAttribute}" Content="Add Description Attribute" />
                     </Grid>
 
                     <Grid>

@@ -436,6 +436,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             , commonConfig.GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum
                             , commonConfig.GenerateAttributesProxyClassEnumsUseSchemaLocalEnum
                             , commonConfig.GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum
+
+                            , commonConfig.GenerateAddDescriptionAttribute
                         )
                         {
                             EntityMetadata = metadata
@@ -595,6 +597,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             , commonConfig.GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum
                             , commonConfig.GenerateAttributesProxyClassEnumsUseSchemaLocalEnum
                             , commonConfig.GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum
+
+                            , commonConfig.GenerateProxyClassAddDescriptionAttribute
                         )
                         {
                             EntityMetadata = metadata

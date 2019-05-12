@@ -73,6 +73,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public bool GenerateServiceContext { get; }
 
+        public bool AddDescriptionAttribute { get; }
+
         public CreateFileWithEntityMetadataCSharpConfiguration(
             string entityName
             , string tabSpacer
@@ -106,6 +108,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , bool generateAttributesEnumsStateStatusUseSchemaEnum
             , bool generateAttributesEnumsLocalUseSchemaEnum
             , ProxyClassAttributeEnumsGlobalOptionSetLocation generateAttributesEnumsGlobalUseSchemaEnum
+
+            , bool addDescriptionAttribute
         )
         {
             this.EntityName = entityName.ToLower();
@@ -143,6 +147,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this.GenerateAttributesEnumsStateStatusUseSchemaEnum = generateAttributesEnumsStateStatusUseSchemaEnum;
             this.GenerateAttributesEnumsLocalUseSchemaEnum = generateAttributesEnumsLocalUseSchemaEnum;
             this.GenerateAttributesEnumsGlobalUseSchemaEnum = generateAttributesEnumsGlobalUseSchemaEnum;
+
+            this.AddDescriptionAttribute = addDescriptionAttribute;
         }
     }
 }

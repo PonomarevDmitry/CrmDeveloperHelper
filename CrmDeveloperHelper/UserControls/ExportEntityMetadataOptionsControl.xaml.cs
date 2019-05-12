@@ -57,6 +57,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             chBAttributesProxyClassEnumsUseSchemaLocalEnum.DataContext = _commonConfig;
             cmBAttributesProxyClassEnumsUseSchemaGlobalEnum.DataContext = _commonConfig;
 
+            chBAddDescriptionAttribute.DataContext = _commonConfig;
+            chBProxyClassAddDescriptionAttribute.DataContext = _commonConfig;
+
             chBAttributesSchema.DataContext = _commonConfig;
             chBManyToOneSchema.DataContext = _commonConfig;
             chBManyToManySchema.DataContext = _commonConfig;

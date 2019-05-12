@@ -455,6 +455,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 str = "//" + str;
             }
 
+            if (!ignore)
+            {
+                if (_config.AddDescriptionAttribute)
+                {
+                    string description = CreateFileHandler.GetLocalizedLabel(attributeMetadata.DisplayName);
+
+                    if (string.IsNullOrEmpty(description))
+                    {
+                        description = CreateFileHandler.GetLocalizedLabel(attributeMetadata.Description);
+                    }
+
+                    if (!string.IsNullOrEmpty(description))
+                    {
+                        WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", description);
+                    }
+                }
+            }
+
             WriteLine(str);
         }
 
@@ -529,8 +547,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private bool HasOptionSets()
         {
-            var stateAttr = _entityMetadata.Attributes.OfType<StateAttributeMetadata>().FirstOrDefault();
-            var statusAttr = _entityMetadata.Attributes.OfType<StatusAttributeMetadata>().FirstOrDefault();
+            if (_config.GenerateStatus)
+            {
+                var stateAttr = _entityMetadata.Attributes.OfType<StateAttributeMetadata>().FirstOrDefault();
+                var statusAttr = _entityMetadata.Attributes.OfType<StatusAttributeMetadata>().FirstOrDefault();
+
+                if (stateAttr != null || statusAttr != null)
+                {
+                    return true;
+                }
+            }
 
             var picklists = _entityMetadata
                 .Attributes
@@ -539,9 +565,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 .Where(p => p.OptionSet != null)
                 .Where(p => (p.OptionSet.IsGlobal.GetValueOrDefault() && this._config.GenerateGlobalOptionSet)
                     || (!p.OptionSet.IsGlobal.GetValueOrDefault() && this._config.GenerateLocalOptionSet))
-                ;
+            ;
 
-            return stateAttr != null || statusAttr != null || picklists.Any();
+            if (picklists.Any())
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private async Task<bool> WriteRegularOptionSets(bool first)
@@ -641,6 +672,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteSummary(stateAttr.DisplayName, stateAttr.Description, headers, null);
 
+            if (_config.AddDescriptionAttribute)
+            {
+                string description = CreateFileHandler.GetLocalizedLabel(stateAttr.DisplayName);
+
+                if (string.IsNullOrEmpty(description))
+                {
+                    description = CreateFileHandler.GetLocalizedLabel(stateAttr.Description);
+                }
+
+                if (!string.IsNullOrEmpty(description))
+                {
+                    WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", description);
+                }
+            }
+
             if (_config.OptionSetExportType == OptionSetExportType.Enums)
             {
                 WriteLine("public enum statecode");
@@ -674,6 +720,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 WriteSummary(item.Label, item.Description, header, null);
 
+                if (_config.AddDescriptionAttribute)
+                {
+                    string description = CreateFileHandler.GetLocalizedLabel(item.Label);
+
+                    if (string.IsNullOrEmpty(description))
+                    {
+                        description = CreateFileHandler.GetLocalizedLabel(item.Description);
+                    }
+
+                    if (!string.IsNullOrEmpty(description))
+                    {
+                        WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", description);
+                    }
+                }
+
                 var str = item.MakeStrings();
 
                 if (_config.OptionSetExportType == OptionSetExportType.Enums)
@@ -702,6 +763,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             headers.Add("Value Format: Statecode_Statuscode");
 
             WriteSummary(stateAttr.DisplayName, stateAttr.Description, headers, null);
+
+            if (_config.AddDescriptionAttribute)
+            {
+                string description = CreateFileHandler.GetLocalizedLabel(statusAttr.DisplayName);
+
+                if (string.IsNullOrEmpty(description))
+                {
+                    description = CreateFileHandler.GetLocalizedLabel(statusAttr.Description);
+                }
+
+                if (!string.IsNullOrEmpty(description))
+                {
+                    WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", description);
+                }
+            }
+
             if (_config.OptionSetExportType == OptionSetExportType.Enums)
             {
                 WriteLine("public enum statuscode");
@@ -734,6 +811,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 WriteSummary(item.Label, item.Description, header, null);
+
+                if (_config.AddDescriptionAttribute)
+                {
+                    string description = CreateFileHandler.GetLocalizedLabel(item.Label);
+
+                    if (string.IsNullOrEmpty(description))
+                    {
+                        description = CreateFileHandler.GetLocalizedLabel(item.Description);
+                    }
+
+                    if (!string.IsNullOrEmpty(description))
+                    {
+                        WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", description);
+                    }
+                }
 
                 var str = item.MakeStrings();
 
@@ -835,7 +927,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 bool ignore = attributeList.Any(a => IgnoreAttribute(_entityMetadata.LogicalName, a.LogicalName));
 
-                string str = "";
+                string str = string.Empty;
 
                 if (ignore)
                 {
@@ -860,6 +952,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 else
                 {
                     str += string.Format("public static partial class {0}", enumName);
+                }
+
+                if (!ignore)
+                {
+                    if (_config.AddDescriptionAttribute)
+                    {
+                        string description = CreateFileHandler.GetLocalizedLabel(optionSet.DisplayName);
+
+                        if (string.IsNullOrEmpty(description))
+                        {
+                            description = CreateFileHandler.GetLocalizedLabel(optionSet.Description);
+                        }
+
+                        if (!string.IsNullOrEmpty(description))
+                        {
+                            WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", description);
+                        }
+                    }
                 }
 
                 WriteLine(str);
@@ -892,6 +1002,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 WriteSummary(item.Label, item.Description, header, null);
+
+                if (_config.AddDescriptionAttribute)
+                {
+                    string description = CreateFileHandler.GetLocalizedLabel(item.Label);
+
+                    if (string.IsNullOrEmpty(description))
+                    {
+                        description = CreateFileHandler.GetLocalizedLabel(item.Description);
+                    }
+
+                    if (!string.IsNullOrEmpty(description))
+                    {
+                        WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", description);
+                    }
+                }
 
                 var str = item.MakeStrings();
 
@@ -930,9 +1055,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 if (first) { first = false; } else { WriteLine(); }
 
+                string relationDescription = string.Format("{0} - Relationship {1}", relationTypeName, relationship.SchemaName);
+
                 List<string> lines = new List<string>
                 {
-                    string.Format("{0} - Relationship {1}", relationTypeName, relationship.SchemaName)
+                    relationDescription
                 };
 
                 {
@@ -1022,6 +1149,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 WriteSummaryStrings(lines);
+
+                if (_config.AddDescriptionAttribute)
+                {
+                    if (!string.IsNullOrEmpty(relationDescription))
+                    {
+                        WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", relationDescription);
+                    }
+                }
 
                 WriteLine("public static partial class {0}", relationship.SchemaName.ToLower());
                 WriteLine("{");
@@ -1160,9 +1295,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 if (first) { first = false; } else { WriteLine(); }
 
+                string relationDescription = string.Format("N:N - Relationship {0}", relationship.SchemaName);
+
                 List<string> lines = new List<string>
                 {
-                    string.Format("N:N - Relationship {0}", relationship.SchemaName)
+                    relationDescription
                 };
 
                 {
@@ -1250,6 +1387,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 //}
 
                 WriteSummaryStrings(lines);
+
+                if (_config.AddDescriptionAttribute)
+                {
+                    if (!string.IsNullOrEmpty(relationDescription))
+                    {
+                        WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", relationDescription);
+                    }
+                }
 
                 WriteLine("public static partial class {0}", relationship.SchemaName.ToLower());
                 WriteLine("{");
@@ -1430,6 +1575,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 lines.AddRange(table.GetFormatedLines(false));
 
                 WriteSummaryStrings(lines);
+
+                if (_config.AddDescriptionAttribute)
+                {
+                    string description = CreateFileHandler.GetLocalizedLabel(key.DisplayName);
+
+                    if (!string.IsNullOrEmpty(description))
+                    {
+                        WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", description);
+                    }
+                }
 
                 WriteLine("public static partial class {0}", key.LogicalName.ToLower());
                 WriteLine("{");

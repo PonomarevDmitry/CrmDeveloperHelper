@@ -143,6 +143,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Process")]
                 public const string workflowid = "workflowid";
 
                 ///<summary>
@@ -179,6 +180,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Process Name")]
                 public const string name = "name";
 
                 ///<summary>
@@ -224,6 +226,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Active Process ID")]
                 public const string activeworkflowid = "activeworkflowid";
 
                 ///<summary>
@@ -297,6 +300,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Delete Job On Completion")]
                 public const string asyncautodelete = "asyncautodelete";
 
                 ///<summary>
@@ -361,6 +365,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Business Process Type")]
                 public const string businessprocesstype = "businessprocesstype";
 
                 ///<summary>
@@ -425,6 +430,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Category")]
                 public const string category = "category";
 
                 ///<summary>
@@ -489,6 +495,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Client Data")]
                 public const string clientdata = "clientdata";
 
                 ///<summary>
@@ -531,6 +538,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Component State")]
                 public const string componentstate = "componentstate";
 
                 ///<summary>
@@ -576,6 +584,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By")]
                 public const string createdby = "createdby";
 
                 ///<summary>
@@ -672,6 +681,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created On")]
                 public const string createdon = "createdon";
 
                 ///<summary>
@@ -717,6 +727,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By (Delegate)")]
                 public const string createdonbehalfby = "createdonbehalfby";
 
                 ///<summary>
@@ -819,6 +830,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Create Stage")]
                 public const string createstage = "createstage";
 
                 ///<summary>
@@ -889,6 +901,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Delete stage")]
                 public const string deletestage = "deletestage";
 
                 ///<summary>
@@ -953,6 +966,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Description")]
                 public const string description = "description";
 
                 ///<summary>
@@ -988,6 +1002,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Default Image")]
                 public const string entityimage = "entityimage";
 
                 ///<summary>
@@ -1081,6 +1096,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Entity Image Id")]
                 public const string entityimageid = "entityimageid";
 
                 ///<summary>
@@ -1115,6 +1131,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Form ID")]
                 public const string formid = "formid";
 
                 ///<summary>
@@ -1151,6 +1168,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Input Parameters")]
                 public const string inputparameters = "inputparameters";
 
                 ///<summary>
@@ -1187,6 +1205,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Introduced Version")]
                 public const string introducedversion = "introducedversion";
 
                 ///<summary>
@@ -1230,6 +1249,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Is CRM Process")]
                 public const string iscrmuiworkflow = "iscrmuiworkflow";
 
                 ///<summary>
@@ -1265,6 +1285,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Customizable")]
                 public const string iscustomizable = "iscustomizable";
 
                 ///<summary>
@@ -1308,6 +1329,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Is Managed")]
                 public const string ismanaged = "ismanaged";
 
                 ///<summary>
@@ -1379,6 +1401,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Is Transacted")]
                 public const string istransacted = "istransacted";
 
                 ///<summary>
@@ -1443,6 +1466,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Language")]
                 public const string languagecode = "languagecode";
 
                 ///<summary>
@@ -1479,6 +1503,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Mode")]
                 public const string mode = "mode";
 
                 ///<summary>
@@ -1552,6 +1577,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By")]
                 public const string modifiedby = "modifiedby";
 
                 ///<summary>
@@ -1648,6 +1674,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified On")]
                 public const string modifiedon = "modifiedon";
 
                 ///<summary>
@@ -1693,6 +1720,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By (Delegate)")]
                 public const string modifiedonbehalfby = "modifiedonbehalfby";
 
                 ///<summary>
@@ -1796,6 +1824,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Run as On Demand")]
                 public const string ondemand = "ondemand";
 
                 ///<summary>
@@ -1860,6 +1889,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Record Overwrite Time")]
                 public const string overwritetime = "overwritetime";
 
                 ///<summary>
@@ -1905,6 +1935,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Owner")]
                 public const string ownerid = "ownerid";
 
                 ///<summary>
@@ -2038,6 +2069,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Owning Business Unit")]
                 public const string owningbusinessunit = "owningbusinessunit";
 
                 ///<summary>
@@ -2113,6 +2145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Owning Team")]
                 public const string owningteam = "owningteam";
 
                 ///<summary>
@@ -2158,6 +2191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Owning User")]
                 public const string owninguser = "owninguser";
 
                 ///<summary>
@@ -2203,6 +2237,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Parent Process ID")]
                 public const string parentworkflowid = "parentworkflowid";
 
                 ///<summary>
@@ -2275,6 +2310,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Unique identifier of the plug-in type.")]
                 public const string plugintypeid = "plugintypeid";
 
                 ///<summary>
@@ -2311,6 +2347,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Primary Entity")]
                 public const string primaryentity = "primaryentity";
 
                 ///<summary>
@@ -2375,6 +2412,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Process Order")]
                 public const string processorder = "processorder";
 
                 ///<summary>
@@ -2411,6 +2449,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Role assignment for Process")]
                 public const string processroleassignment = "processroleassignment";
 
                 ///<summary>
@@ -2447,6 +2486,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Rank")]
                 public const string rank = "rank";
 
                 ///<summary>
@@ -2481,6 +2521,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Renderer Type")]
                 public const string rendererobjecttypecode = "rendererobjecttypecode";
 
                 ///<summary>
@@ -2523,6 +2564,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Run As User")]
                 public const string runas = "runas";
 
                 ///<summary>
@@ -2587,6 +2629,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Scope")]
                 public const string scope = "scope";
 
                 ///<summary>
@@ -2660,6 +2703,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("SDK Message")]
                 public const string sdkmessageid = "sdkmessageid";
 
                 ///<summary>
@@ -2694,6 +2738,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string solutionid = "solutionid";
 
                 ///<summary>
@@ -2729,6 +2774,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Status")]
                 public const string statecode = "statecode";
 
                 ///<summary>
@@ -2792,6 +2838,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Status Reason")]
                 public const string statuscode = "statuscode";
 
                 ///<summary>
@@ -2863,6 +2910,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Is Child Process")]
                 public const string subprocess = "subprocess";
 
                 ///<summary>
@@ -2925,6 +2973,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string supportingsolutionid = "supportingsolutionid";
 
                 ///<summary>
@@ -2968,6 +3017,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Log upon Failure")]
                 public const string syncworkflowlogonfailure = "syncworkflowlogonfailure";
 
                 ///<summary>
@@ -3039,6 +3089,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Trigger On Create")]
                 public const string triggeroncreate = "triggeroncreate";
 
                 ///<summary>
@@ -3110,6 +3161,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Trigger On Delete")]
                 public const string triggerondelete = "triggerondelete";
 
                 ///<summary>
@@ -3174,6 +3226,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Trigger On Update Attribute List")]
                 public const string triggeronupdateattributelist = "triggeronupdateattributelist";
 
                 ///<summary>
@@ -3210,6 +3263,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Type")]
                 public const string type = "type";
 
                 ///<summary>
@@ -3274,6 +3328,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("UI Data")]
                 public const string uidata = "uidata";
 
                 ///<summary>
@@ -3310,6 +3365,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Unique Name")]
                 public const string uniquename = "uniquename";
 
                 ///<summary>
@@ -3352,6 +3408,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Update Stage")]
                 public const string updatestage = "updatestage";
 
                 ///<summary>
@@ -3440,6 +3497,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("For internal use only.")]
                 public const string workflowidunique = "workflowidunique";
 
                 ///<summary>
@@ -3473,6 +3531,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("XAML that defines the process.")]
                 public const string xaml = "xaml";
             }
 
@@ -3493,6 +3552,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// Description:
                 ///     (English - United States - 1033): Status of the process.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Status")]
                 public enum statecode
                 {
                     ///<summary>
@@ -3503,6 +3563,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Draft
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Draft")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Draft_0 = 0,
 
@@ -3514,6 +3575,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Activated
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Activated")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Activated_1 = 1,
                 }
@@ -3528,6 +3590,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// Description:
                 ///     (English - United States - 1033): Status of the process.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Status Reason")]
                 public enum statuscode
                 {
                     ///<summary>
@@ -3537,6 +3600,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Draft
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Draft")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Draft_0_Draft_1 = 1,
 
@@ -3547,6 +3611,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Activated
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Activated")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Activated_1_Activated_2 = 2,
                 }
@@ -3573,6 +3638,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// Description:
                 ///     (English - United States - 1033): Business Process Type.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Business Process Type")]
                 public enum businessprocesstype
                 {
                     ///<summary>
@@ -3582,6 +3648,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Business Flow
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Business Flow")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Business_Flow_0 = 0,
 
@@ -3592,6 +3659,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Task Flow
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Task Flow")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Task_Flow_1 = 1,
                 }
@@ -3615,6 +3683,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (English - United States - 1033): Category of the process.
                 ///</summary>
                 [System.ComponentModel.TypeConverter("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
+                [System.ComponentModel.DescriptionAttribute("Category")]
                 public enum category
                 {
                     ///<summary>
@@ -3624,7 +3693,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Workflow
                     ///</summary>
-                    [System.ComponentModel.Description("Workflow")]
+                    [System.ComponentModel.DescriptionAttribute("Workflow")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Workflow_0 = 0,
 
@@ -3635,7 +3704,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Dialog
                     ///</summary>
-                    [System.ComponentModel.Description("Dialog")]
+                    [System.ComponentModel.DescriptionAttribute("Dialog")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Dialog_1 = 1,
 
@@ -3646,7 +3715,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Business Rule
                     ///</summary>
-                    [System.ComponentModel.Description("Business Rule")]
+                    [System.ComponentModel.DescriptionAttribute("Business Rule")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Business_Rule_2 = 2,
 
@@ -3657,7 +3726,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Action
                     ///</summary>
-                    [System.ComponentModel.Description("Action")]
+                    [System.ComponentModel.DescriptionAttribute("Action")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Action_3 = 3,
 
@@ -3668,7 +3737,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Business Process Flow
                     ///</summary>
-                    [System.ComponentModel.Description("Business Process Flow")]
+                    [System.ComponentModel.DescriptionAttribute("Business Process Flow")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Business_Process_Flow_4 = 4,
                 }
@@ -3692,6 +3761,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (English - United States - 1033): Mode of the process.
                 ///</summary>
                 [System.ComponentModel.TypeConverter("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
+                [System.ComponentModel.DescriptionAttribute("Mode")]
                 public enum mode
                 {
                     ///<summary>
@@ -3701,7 +3771,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Background
                     ///</summary>
-                    [System.ComponentModel.Description("Background")]
+                    [System.ComponentModel.DescriptionAttribute("Background")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Background_0 = 0,
 
@@ -3712,7 +3782,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Real-time
                     ///</summary>
-                    [System.ComponentModel.Description("Real-time")]
+                    [System.ComponentModel.DescriptionAttribute("Real-time")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Real_time_1 = 1,
                 }
@@ -3735,6 +3805,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// Description:
                 ///     (English - United States - 1033): Workflow scope.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Scope")]
                 public enum scope
                 {
                     ///<summary>
@@ -3744,6 +3815,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): User
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("User")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     User_1 = 1,
 
@@ -3754,6 +3826,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Business Unit
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Business Unit")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Business_Unit_2 = 2,
 
@@ -3764,6 +3837,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Parent: Child Business Units
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Parent: Child Business Units")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Parent_Child_Business_Units_3 = 3,
 
@@ -3774,6 +3848,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Organization
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Organization")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Organization_4 = 4,
                 }
@@ -3796,6 +3871,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// Description:
                 ///     (English - United States - 1033): Workflow type.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Type")]
                 public enum type
                 {
                     ///<summary>
@@ -3805,6 +3881,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Definition
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Definition")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Definition_1 = 1,
 
@@ -3815,6 +3892,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Activation
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Activation")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Activation_2 = 2,
 
@@ -3825,6 +3903,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// DisplayName:
                     ///     (English - United States - 1033): Template
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Template")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Template_3 = 3,
                 }
@@ -3871,6 +3950,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Business, division, or department in the Microsoft Dynamics 365 database.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship business_unit_workflow")]
                 public static partial class business_unit_workflow
                 {
                     public const string Name = "business_unit_workflow";
@@ -3919,6 +3999,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Group of undeleted system users and undeleted teams. Owners can be used to control access to specific objects.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship owner_workflows")]
                 public static partial class owner_workflows
                 {
                     public const string Name = "owner_workflows";
@@ -3967,6 +4048,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship system_user_workflow")]
                 public static partial class system_user_workflow
                 {
                     public const string Name = "system_user_workflow";
@@ -4015,6 +4097,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship team_workflow")]
                 public static partial class team_workflow
                 {
                     public const string Name = "team_workflow";
@@ -4053,6 +4136,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship workflow_active_workflow")]
                 public static partial class workflow_active_workflow
                 {
                     public const string Name = "workflow_active_workflow";
@@ -4099,6 +4183,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship workflow_createdby")]
                 public static partial class workflow_createdby
                 {
                     public const string Name = "workflow_createdby";
@@ -4147,6 +4232,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship workflow_createdonbehalfby")]
                 public static partial class workflow_createdonbehalfby
                 {
                     public const string Name = "workflow_createdonbehalfby";
@@ -4195,6 +4281,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): For internal use only.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship workflow_entityimage")]
                 public static partial class workflow_entityimage
                 {
                     public const string Name = "workflow_entityimage";
@@ -4241,6 +4328,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship workflow_modifiedby")]
                 public static partial class workflow_modifiedby
                 {
                     public const string Name = "workflow_modifiedby";
@@ -4289,6 +4377,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship workflow_modifiedonbehalfby")]
                 public static partial class workflow_modifiedonbehalfby
                 {
                     public const string Name = "workflow_modifiedonbehalfby";
@@ -4327,6 +4416,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship workflow_parent_workflow")]
                 public static partial class workflow_parent_workflow
                 {
                     public const string Name = "workflow_parent_workflow";
@@ -4380,6 +4470,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Defines the individual conditions required for creating records automatically.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship convertruleitembase_workflowid")]
                 public static partial class convertruleitembase_workflowid
                 {
                     public const string Name = "convertruleitembase_workflowid";
@@ -4428,6 +4519,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Process whose execution can proceed independently or in the background.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship lk_asyncoperation_workflowactivationid")]
                 public static partial class lk_asyncoperation_workflowactivationid
                 {
                     public const string Name = "lk_asyncoperation_workflowactivationid";
@@ -4473,6 +4565,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Expired Process Business Process Flow
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship lk_expiredprocess_processid")]
                 public static partial class lk_expiredprocess_processid
                 {
                     public const string Name = "lk_expiredprocess_processid";
@@ -4518,6 +4611,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Base entity for process Test
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship lk_gbc_test_processid")]
                 public static partial class lk_gbc_test_processid
                 {
                     public const string Name = "lk_gbc_test_processid";
@@ -4563,6 +4657,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Lead To Opportunity Sales Process Business Process Flow
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship lk_leadtoopportunitysalesprocess_processid")]
                 public static partial class lk_leadtoopportunitysalesprocess_processid
                 {
                     public const string Name = "lk_leadtoopportunitysalesprocess_processid";
@@ -4608,6 +4703,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): New Process Business Process Flow
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship lk_newprocess_processid")]
                 public static partial class lk_newprocess_processid
                 {
                     public const string Name = "lk_newprocess_processid";
@@ -4653,6 +4749,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Opportunity Sales Process Business Process Flow
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship lk_opportunitysalesprocess_processid")]
                 public static partial class lk_opportunitysalesprocess_processid
                 {
                     public const string Name = "lk_opportunitysalesprocess_processid";
@@ -4698,6 +4795,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Phone To Case Process Business Process Flow
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship lk_phonetocaseprocess_processid")]
                 public static partial class lk_phonetocaseprocess_processid
                 {
                     public const string Name = "lk_phonetocaseprocess_processid";
@@ -4746,6 +4844,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Information that is generated when a dialog is run. Every time that you run a dialog, a dialog session is created.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship lk_processsession_processid")]
                 public static partial class lk_processsession_processid
                 {
                     public const string Name = "lk_processsession_processid";
@@ -4791,6 +4890,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Translation Process Business Process Flow
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship lk_translationprocess_processid")]
                 public static partial class lk_translationprocess_processid
                 {
                     public const string Name = "lk_translationprocess_processid";
@@ -4839,6 +4939,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Stage associated with a process.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship process_processstage")]
                 public static partial class process_processstage
                 {
                     public const string Name = "process_processstage";
@@ -4887,6 +4988,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Trigger that invoke a rule.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship process_processtrigger")]
                 public static partial class process_processtrigger
                 {
                     public const string Name = "process_processtrigger";
@@ -4933,6 +5035,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Contains information about the tracked service-level KPIs for cases that belong to different customers.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship slabase_workflowid")]
                 public static partial class slabase_workflowid
                 {
                     public const string Name = "slabase_workflowid";
@@ -4981,6 +5084,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Contains information about a tracked support KPI for a specific customer.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship slaitembase_workflowid")]
                 public static partial class slaitembase_workflowid
                 {
                     public const string Name = "slaitembase_workflowid";
@@ -5024,6 +5128,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Per User item instance data
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship userentityinstancedata_workflow")]
                 public static partial class userentityinstancedata_workflow
                 {
                     public const string Name = "userentityinstancedata_workflow";
@@ -5060,6 +5165,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship workflow_active_workflow")]
                 public static partial class workflow_active_workflow
                 {
                     public const string Name = "workflow_active_workflow";
@@ -5106,6 +5212,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Note that is attached to one or more objects, including other notes.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship Workflow_Annotation")]
                 public static partial class workflow_annotation
                 {
                     public const string Name = "Workflow_Annotation";
@@ -5154,6 +5261,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Dependencies for a process.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship workflow_dependencies")]
                 public static partial class workflow_dependencies
                 {
                     public const string Name = "workflow_dependencies";
@@ -5190,6 +5298,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship workflow_parent_workflow")]
                 public static partial class workflow_parent_workflow
                 {
                     public const string Name = "workflow_parent_workflow";
@@ -5236,6 +5345,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Define Routing Rule to route cases to right people at the right time
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship Workflow_routingrule")]
                 public static partial class workflow_routingrule
                 {
                     public const string Name = "Workflow_routingrule";
@@ -5284,6 +5394,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Failure reason and other detailed information for a record that failed to sync.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship Workflow_SyncErrors")]
                 public static partial class workflow_syncerrors
                 {
                     public const string Name = "Workflow_SyncErrors";
@@ -5332,6 +5443,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Defines the settings for automatic record creation.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship workflowid_convertrule")]
                 public static partial class workflowid_convertrule
                 {
                     public const string Name = "workflowid_convertrule";
@@ -5380,6 +5492,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Description:
                 ///         (English - United States - 1033): Defines the rules for automatically associating channel access profiles to external party records.For internal use only
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship workflowid_profilerule")]
                 public static partial class workflowid_profilerule
                 {
                     public const string Name = "workflowid_profilerule";

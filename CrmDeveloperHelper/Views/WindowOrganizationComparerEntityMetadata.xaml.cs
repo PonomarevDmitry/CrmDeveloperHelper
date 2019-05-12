@@ -694,6 +694,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum
                 , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaLocalEnum
                 , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum
+
+                , _commonConfig.GenerateAddDescriptionAttribute
             );
 
             return result;
@@ -737,6 +739,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum
                 , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaLocalEnum
                 , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum
+
+                , _commonConfig.GenerateProxyClassAddDescriptionAttribute
             );
 
             return result;

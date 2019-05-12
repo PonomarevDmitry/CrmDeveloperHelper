@@ -808,6 +808,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum
                     , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaLocalEnum
                     , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum
+
+                    , _commonConfig.GenerateAddDescriptionAttribute
                 );
 
                 string fileName = string.Format("{0}.{1}.Generated.cs", service.ConnectionData.Name, entityMetadata.EntityMetadata.SchemaName);
@@ -918,6 +920,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum
                     , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaLocalEnum
                     , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum
+
+                    , _commonConfig.GenerateProxyClassAddDescriptionAttribute
                 );
 
                 string fileName = string.Format("{0}.{1}.cs", service.ConnectionData.Name, entityMetadata.EntityMetadata.SchemaName);
