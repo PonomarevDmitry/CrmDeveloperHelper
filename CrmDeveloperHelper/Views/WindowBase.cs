@@ -601,5 +601,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             return excelKey != null;
         }
+
+        protected void SetButtonClearFilterVisibility(string filterEntityName, Button btnClearEntityFilter, Separator sepClearEntityFilter)
+        {
+            if (!string.IsNullOrEmpty(filterEntityName))
+            {
+                btnClearEntityFilter.Content = string.Format("Clear {0} Filter", filterEntityName);
+
+                btnClearEntityFilter.IsEnabled = sepClearEntityFilter.IsEnabled = true;
+                btnClearEntityFilter.Visibility = sepClearEntityFilter.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                btnClearEntityFilter.IsEnabled = sepClearEntityFilter.IsEnabled = false;
+                btnClearEntityFilter.Visibility = sepClearEntityFilter.Visibility = Visibility.Collapsed;
+            }
+        }
     }
 }

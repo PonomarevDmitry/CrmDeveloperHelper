@@ -1192,6 +1192,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , service
                 , _commonConfig
                 , optionSets
+                , null
                 , entity?.Name ?? txtBFilter.Text
             );
         }
@@ -1297,6 +1298,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , service
                 , _commonConfig
                 , optionSets
+                , null
                 , entity?.Name ?? txtBFilter.Text
             );
         }

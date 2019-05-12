@@ -513,6 +513,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , service
                 , _commonConfig
                 , optionSets
+                , entityMetadata?.LogicalName
                 , string.Empty
             );
         }

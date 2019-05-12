@@ -135,7 +135,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            
             <RowDefinition Height="100*" />
+
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -322,7 +325,7 @@
                 <Button x:Name="btnClearEntityFilter" Content="Clear Entity Filter" Click="btnClearEntityFilter_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
-        <StatusBar Grid.Row="4">
+        <StatusBar Grid.Row="5">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
             <ComboBox x:Name="cmBCurrentConnection" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />

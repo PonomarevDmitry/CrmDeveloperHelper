@@ -84,11 +84,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 txtBFilter.Text = selection;
             }
 
-            if (string.IsNullOrEmpty(_filterEntity))
-            {
-                btnClearEntityFilter.IsEnabled = sepClearEntityFilter.IsEnabled = false;
-                btnClearEntityFilter.Visibility = sepClearEntityFilter.Visibility = Visibility.Collapsed;
-            }
+            SetButtonClearFilterVisibility(_filterEntity, btnClearEntityFilter, sepClearEntityFilter);
 
             txtBFilter.SelectionLength = 0;
             txtBFilter.SelectionStart = txtBFilter.Text.Length;
@@ -939,8 +935,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._filterEntity = null;
 
-            btnClearEntityFilter.IsEnabled = sepClearEntityFilter.IsEnabled = false;
-            btnClearEntityFilter.Visibility = sepClearEntityFilter.Visibility = Visibility.Collapsed;
+            SetButtonClearFilterVisibility(_filterEntity, btnClearEntityFilter, sepClearEntityFilter);
 
             ShowExistingSavedQueries();
         }

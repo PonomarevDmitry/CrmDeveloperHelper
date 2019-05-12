@@ -42,12 +42,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly Popup _optionsPopup;
 
         private HashSet<string> _selectedOptionSets;
+        private string _filterEntityName;
 
         public WindowExportGlobalOptionSets(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , IEnumerable<OptionSetMetadata> optionSets
+            , string filterEntityName
             , string selection
             , string filePath
             , bool isJavaScript
@@ -71,6 +73,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (optionSets != null)
             {
                 _cacheOptionSetMetadata[service.ConnectionData.ConnectionId] = optionSets;
+                this._filterEntityName = filterEntityName;
 
                 this._selectedOptionSets = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -139,16 +142,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 txtBFolder.DataContext = _commonConfig;
             }
 
-            if (optionSets != null)
-            {
-                btnClearEntityFilter.IsEnabled = sepClearEntityFilter.IsEnabled = true;
-                btnClearEntityFilter.Visibility = sepClearEntityFilter.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                btnClearEntityFilter.IsEnabled = sepClearEntityFilter.IsEnabled = false;
-                btnClearEntityFilter.Visibility = sepClearEntityFilter.Visibility = Visibility.Collapsed;
-            }
+            SetButtonClearFilterVisibility(_filterEntityName, btnClearEntityFilter, sepClearEntityFilter);
 
             txtBFilter.Text = selection;
             txtBFilter.SelectionLength = 0;
@@ -859,9 +853,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._cacheOptionSetMetadata.Clear();
             this._selectedOptionSets = null;
+            this._filterEntityName = null;
 
-            btnClearEntityFilter.IsEnabled = sepClearEntityFilter.IsEnabled = false;
-            btnClearEntityFilter.Visibility = sepClearEntityFilter.Visibility = Visibility.Collapsed;
+            SetButtonClearFilterVisibility(_filterEntityName, btnClearEntityFilter, sepClearEntityFilter);
 
             ShowExistingOptionSets();
         }

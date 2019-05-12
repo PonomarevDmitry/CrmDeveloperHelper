@@ -846,6 +846,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , service
                 , _commonConfig
                 , optionSets
+                , entity.LogicalName
                 , string.Empty
             );
         }

@@ -1016,7 +1016,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
         )
         {
-            OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, null, null, null, false, null);
+            OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, null, null, null, null, false, null);
         }
 
         public static void OpenGlobalOptionSetsWindow(
@@ -1026,7 +1026,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string filter
         )
         {
-            OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, null, filter, null, false, null);
+            OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, null, null, filter, null, false, null);
         }
 
         public static void OpenGlobalOptionSetsWindow(
@@ -1037,7 +1037,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , EnvDTE.SelectedItem selectedItem
         )
         {
-            OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, null, filter, null, false, selectedItem);
+            OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, null, null, filter, null, false, selectedItem);
         }
 
         public static void OpenGlobalOptionSetsWindow(
@@ -1049,7 +1049,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , bool isJavaScript
         )
         {
-            OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, null, filter, filePath, isJavaScript, null);
+            OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, null, null, filter, filePath, isJavaScript, null);
         }
 
         public static void OpenGlobalOptionSetsWindow(
@@ -1057,10 +1057,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , IEnumerable<OptionSetMetadata> optionSets
+            , string filterEntityName
             , string filter
         )
         {
-            OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, optionSets, filter, null, false, null);
+            OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, optionSets, filterEntityName, filter, null, false, null);
         }
 
         public static void OpenGlobalOptionSetsWindow(
@@ -1068,6 +1069,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , IEnumerable<OptionSetMetadata> optionSets
+            , string filterEntityName
             , string filter
             , string filePath
             , bool isJavaScript
@@ -1083,6 +1085,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , service
                         , commonConfig
                         , optionSets
+                        , filterEntityName
                         , filter
                         , filePath
                         , isJavaScript
@@ -1837,7 +1840,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     break;
 
                 case ComponentType.OptionSet:
-                    OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, null, componentName);
+                    OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, componentName);
                     break;
 
                 case ComponentType.EntityRelationship:

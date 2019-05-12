@@ -81,11 +81,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Resources["ConnectionName1"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection1.Name);
             this.Resources["ConnectionName2"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection2.Name);
 
-            if (string.IsNullOrEmpty(_filterEntity))
-            {
-                btnClearEntityFilter.IsEnabled = sepClearEntityFilter.IsEnabled = false;
-                btnClearEntityFilter.Visibility = sepClearEntityFilter.Visibility = Visibility.Collapsed;
-            }
+            SetButtonClearFilterVisibility(_filterEntity, btnClearEntityFilter, sepClearEntityFilter);
 
             LoadFromConfig();
 
@@ -1085,8 +1081,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._filterEntity = null;
 
-            btnClearEntityFilter.IsEnabled = sepClearEntityFilter.IsEnabled = false;
-            btnClearEntityFilter.Visibility = sepClearEntityFilter.Visibility = Visibility.Collapsed;
+            SetButtonClearFilterVisibility(_filterEntity, btnClearEntityFilter, sepClearEntityFilter);
 
             ShowExistingSavedQueries();
         }
