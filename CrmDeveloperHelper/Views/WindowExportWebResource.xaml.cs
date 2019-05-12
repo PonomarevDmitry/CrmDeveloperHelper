@@ -1363,7 +1363,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ChangeExpandedInEntityTreeViewItems(new[] { nodeItem }, true);
+            ChangeExpandedInTreeViewItems(new[] { nodeItem }, true);
         }
 
         private void mICollapseNodes_Click(object sender, RoutedEventArgs e)
@@ -1375,22 +1375,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ChangeExpandedInEntityTreeViewItems(new[] { nodeItem }, false);
+            ChangeExpandedInTreeViewItems(new[] { nodeItem }, false);
         }
 
         private void hypLinkExpandAll_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
-            ChangeExpandedInEntityTreeViewItems(_webResourceTree, true);
+            ChangeExpandedInTreeViewItems(_webResourceTree, true);
         }
 
         private void hypLinkCollapseAll_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
-            ChangeExpandedInEntityTreeViewItems(_webResourceTree, false);
+            ChangeExpandedInTreeViewItems(_webResourceTree, false);
         }
 
-        private void ChangeExpandedInEntityTreeViewItems(IEnumerable<EntityTreeViewItem> items, bool isExpanded)
+        private void ChangeExpandedInTreeViewItems(IEnumerable<EntityTreeViewItem> items, bool isExpanded)
         {
-            if (items == null)
+            if (items == null || !items.Any())
             {
                 return;
             }
@@ -1399,7 +1399,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 item.IsExpanded = isExpanded;
 
-                ChangeExpandedInEntityTreeViewItems(item.Items, isExpanded);
+                ChangeExpandedInTreeViewItems(item.Items, isExpanded);
             }
         }
 

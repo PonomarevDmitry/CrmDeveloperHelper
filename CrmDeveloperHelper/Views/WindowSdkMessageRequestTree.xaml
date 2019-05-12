@@ -6,15 +6,39 @@
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
         Title="Sdk Message Request Tree" Height="538.662" Width="717" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
-        <BitmapImage x:Key="ImageEntity" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Entity.png" />
-        <BitmapImage x:Key="ImageMessage" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/message.gif" />
-        <BitmapImage x:Key="ImageField" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Field.png" />
-        <BitmapImage x:Key="ImageRequest" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Request.png" />
-        <BitmapImage x:Key="ImageResponse" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Response.png" />
-        <BitmapImage x:Key="ImageNamespace" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Namespace.png" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleWindows.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <BitmapImage x:Key="ImageEntity" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Entity.png" />
+            <BitmapImage x:Key="ImageMessage" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/message.gif" />
+            <BitmapImage x:Key="ImageField" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Field.png" />
+            <BitmapImage x:Key="ImageRequest" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Request.png" />
+            <BitmapImage x:Key="ImageResponse" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Response.png" />
+            <BitmapImage x:Key="ImageNamespace" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Namespace.png" />
+
+            <ContextMenu x:Key="listContextMenu">
+
+                <MenuItem Header="Expand Nodes" Click="mIExpandNodes_Click" />
+                <MenuItem Header="Collapse Nodes" Click="mICollapseNodes_Click" />
+
+            </ContextMenu>
+
+        </ResourceDictionary>
     </src:WindowBase.Resources>
     <Grid>
-        <Grid Margin="10,10,10,0" VerticalAlignment="Top">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+
+            <RowDefinition Height="100*" />
+
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
@@ -24,47 +48,39 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            
-            <Label Content="Entity Name" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-            <ComboBox x:Name="cmBEntityName" Height="23" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Grid.Row="0" Grid.Column="1" KeyDown="txtBFilter_KeyDown" VerticalContentAlignment="Center" VerticalAlignment="Center" />
-            
-            <Label Content="Message" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="2"/>
-            <TextBox x:Name="txtBMessageFilter" Height="23"  TextWrapping="NoWrap"  VerticalAlignment="Center" Grid.Row="0" Grid.Column="3" KeyDown="txtBFilter_KeyDown" VerticalContentAlignment="Center"/>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Entity Name"/>
+            <ComboBox Grid.Row="0" Grid.Column="1" x:Name="cmBEntityName" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" KeyDown="txtBFilter_KeyDown" />
+
+            <Label Grid.Row="0" Grid.Column="2" Content="Message"/>
+            <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtBMessageFilter" TextWrapping="NoWrap" KeyDown="txtBFilter_KeyDown"/>
         </Grid>
-        <GroupBox Header="Sdk Message Request Tree" Margin="10,41,10,69">
+
+        <GroupBox Header="Sdk Message Request Tree" Grid.Row="1" Margin="5">
             <DockPanel LastChildFill="True">
-                <ToolBar VerticalAlignment="Top" DockPanel.Dock="Top" >
+                <ToolBar DockPanel.Dock="Top" >
                     <ToolBarPanel Orientation="Horizontal">
                         <ToolBarPanel.Resources>
                             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-                                <Setter Property="Margin" Value="2" />
-                                <Setter Property="Padding" Value="4" />
-                                <Setter Property="VerticalAlignment" Value="Center" />
-                            </Style>
-                            <Style TargetType="{x:Type MenuItem}">
-                                <Setter Property="Margin" Value="2" />
-                                <Setter Property="Padding" Value="4" />
-                                <Setter Property="VerticalAlignment" Value="Center" />
                             </Style>
                             <Style TargetType="{x:Type Menu}" BasedOn="{StaticResource {x:Static ToolBar.MenuStyleKey}}">
-                                <Setter Property="Margin" Value="2" />
-                                <Setter Property="Padding" Value="4" />
                                 <Setter Property="Background" Value="{x:Null}" />
-                                <Setter Property="VerticalAlignment" Value="Center" />
                             </Style>
                         </ToolBarPanel.Resources>
                         <Menu x:Name="menuView" IsEnabled="False">
-                            <MenuItem Header="View" HorizontalAlignment="Left" >
+                            <MenuItem Header="View">
                                 <RadioButton x:Name="rBViewByEntityMessageNamespace" GroupName="View" Content="Display By Entity -> Message -> Namespace" Checked="rBViewByEntityMessageNamespace_Checked" IsChecked="True"/>
                                 <RadioButton x:Name="rBViewByMessageEntityNamespace" GroupName="View" Content="Display By Message -> Entity -> Namespace" Checked="rBViewByMessageEntityNamespace_Checked"/>
                                 <RadioButton x:Name="rBViewByNamespaceEntityMessage" GroupName="View" Content="Display By Namespace -> Entity -> Message" Checked="rBViewByNamespaceEntityMessage_Checked" />
                                 <RadioButton x:Name="rBViewByNamespaceMessageEntity" GroupName="View" Content="Display By Namespace -> Message -> Entity" Checked="rBViewByNamespaceMessageEntity_Checked"/>
                             </MenuItem>
                         </Menu>
-                        <Button x:Name="tSBCreateDescription" HorizontalAlignment="Left" Content="Create Description" Click="tSBCreateDescription_Click" IsEnabled="False"  />
+                        
+                        <Button x:Name="tSBCreateDescription" Content="Create Description" Click="tSBCreateDescription_Click" IsEnabled="False"  />
+                        
                         <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                        <Button x:Name="tSBCollapseAll" HorizontalAlignment="Left" Content="Collapse All" Click="tSBCollapseAll_Click" IsEnabled="False" />
-                        <Button x:Name="tSBExpandAll" HorizontalAlignment="Left" Content="Expand All" Click="tSBExpandAll_Click" IsEnabled="False" />
+                        <Button x:Name="tSBCollapseAll" Content="Collapse All" Click="tSBCollapseAll_Click" IsEnabled="False" />
+                        <Button x:Name="tSBExpandAll" Content="Expand All" Click="tSBExpandAll_Click" IsEnabled="False" />
                     </ToolBarPanel>
                 </ToolBar>
                 <TreeView x:Name="trVSdkMessageRequestTree" SelectedItemChanged="trVSdkMessageRequestTree_SelectedItemChanged">
@@ -82,15 +98,17 @@
                     </TreeView.Resources>
                     <TreeView.ItemContainerStyle>
                         <Style TargetType="TreeViewItem">
-                            <Setter Property="IsSelected" Value="{Binding IsSelected}" />
-                            <Setter Property="IsExpanded" Value="{Binding IsExpanded}" />
+                            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <Setter Property="ToolTip" Value="{Binding Tooltip}" />
+                            <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
                         </Style>
                     </TreeView.ItemContainerStyle>
                 </TreeView>
             </DockPanel>
         </GroupBox>
-        <ToolBar Margin="0,0,0,31" VerticalAlignment="Bottom" Height="33">
+
+        <ToolBar Grid.Row="2">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
@@ -99,25 +117,24 @@
             <DockPanel>
                 <DockPanel.Resources>
                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-                        <Setter Property="Margin" Value="6,2" />
-                        <Setter Property="Padding" Value="3" />
                     </Style>
                     <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Static ToolBar.ComboBoxStyleKey}}">
                     </Style>
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
-                    <Label Content="Action" HorizontalAlignment="Left" Padding="10,0"  VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
-                    <ComboBox x:Name="cmBFileAction"  SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" VerticalAlignment="Stretch" Padding="10,0" IsReadOnly="True" Width="260" SelectedIndex="0" HorizontalAlignment="Left"  VerticalContentAlignment="Center" />
+                    <Label Content="Action" Padding="10,0"/>
+                    <ComboBox x:Name="cmBFileAction"  SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Padding="10,0" IsReadOnly="True" Width="260" SelectedIndex="0" />
                 </ToolBarPanel>
-                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
-        <StatusBar VerticalAlignment="Bottom">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+
+        <StatusBar Grid.Row="3">
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection"/>
+            <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>
             <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
-            <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>
 </src:WindowBase>

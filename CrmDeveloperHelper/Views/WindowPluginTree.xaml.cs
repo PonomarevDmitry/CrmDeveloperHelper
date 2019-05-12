@@ -34,6 +34,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Dictionary<Guid, List<SdkMessageFilter>> _cacheMessageFilters = new Dictionary<Guid, List<SdkMessageFilter>>();
 
+        private readonly ObservableCollection<PluginTreeViewItem> _pluginTree = new ObservableCollection<PluginTreeViewItem>();
+
         private View _currentView = View.ByEntity;
 
         private BitmapImage _imagePluginAssembly;
@@ -70,10 +72,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
-            this._iWriteToOutput = iWriteToOutput;
-            this._commonConfig = commonConfig;
+            this._iWriteToOutput = iWriteToOutput ?? throw new ArgumentNullException(nameof(iWriteToOutput));
+            this._commonConfig = commonConfig ?? throw new ArgumentNullException(nameof(commonConfig));
 
-            _connectionCache[service.ConnectionData.ConnectionId] = service;
+            _connectionCache[service.ConnectionData.ConnectionId] = service ?? throw new ArgumentNullException(nameof(service));
 
             BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
@@ -96,12 +98,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
+            trVPluginTree.ItemsSource = _pluginTree;
+
             this.DecreaseInit();
 
-            if (service != null)
-            {
-                ShowExistingPlugins();
-            }
+            ShowExistingPlugins();
         }
 
         private void LoadFromConfig()
@@ -281,7 +282,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingPlugins);
 
-            this.trVPluginTree.ItemsSource = null;
+            this.trVPluginTree.Dispatcher.Invoke(() =>
+            {
+                _pluginTree.Clear();
+
+                this.trVPluginTree.BeginInit();
+            });
 
             string entityName = string.Empty;
             string messageName = string.Empty;
@@ -299,8 +305,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 withBusinessProcesses = chBBusinessProcesses.IsChecked.GetValueOrDefault();
             });
 
-            ObservableCollection<PluginTreeViewItem> list = null;
-
             var stages = GetStages();
 
             try
@@ -312,20 +316,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     switch (_currentView)
                     {
                         case View.ByAssembly:
-                            list = await FillTreeByAssembly(service, stages, pluginTypeName, messageName, entityName);
+                            await FillTreeByAssembly(service, stages, pluginTypeName, messageName, entityName);
                             break;
 
                         case View.ByMessage:
-                            list = await FillTreeByMessage(service, stages, pluginTypeName, messageName, entityName);
+                            await FillTreeByMessage(service, stages, pluginTypeName, messageName, entityName);
                             break;
 
                         case View.ByEntity:
                         default:
-                            list = await FillTreeByEntity(service, stages, pluginTypeName, messageName, entityName, withBusinessRules, withBusinessProcesses);
+                            await FillTreeByEntity(service, stages, pluginTypeName, messageName, entityName, withBusinessRules, withBusinessProcesses);
                             break;
                     }
 
-                    ExpandNodes(list);
+                    ExpandNodes(_pluginTree);
 
                     if (!_cacheMessageFilters.ContainsKey(service.ConnectionData.ConnectionId))
                     {
@@ -341,17 +345,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
-            if (list != null)
+            this.trVPluginTree.Dispatcher.Invoke(() =>
             {
-                this.trVPluginTree.Dispatcher.Invoke(() =>
-                {
-                    this.trVPluginTree.BeginInit();
-
-                    this.trVPluginTree.ItemsSource = list;
-
-                    this.trVPluginTree.EndInit();
-                });
-            }
+                this.trVPluginTree.EndInit();
+            });
 
             ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingPluginsCompleted);
         }
@@ -451,7 +448,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , Workflow.Schema.Attributes.triggerondelete
         );
 
-        private async Task<ObservableCollection<PluginTreeViewItem>> FillTreeByEntity(
+        private async Task FillTreeByEntity(
             IOrganizationServiceExtented service
             , List<PluginStage> stages
             , string pluginTypeNameFilter
@@ -508,15 +505,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ObservableCollection<PluginTreeViewItem> result = new ObservableCollection<PluginTreeViewItem>();
-
             foreach (var entityName in listEntities.OrderBy(s => s))
             {
                 var grEntity = processingSteps.Where(e => string.Equals(e.EntityName, entityName, StringComparison.InvariantCultureIgnoreCase));
 
                 PluginTreeViewItem nodeEntity = CreateNodeEntity(entityName, grEntity.Where(e => e.Entity is SdkMessageProcessingStep).Select(e => e.Entity as SdkMessageProcessingStep));
-
-                result.Add(nodeEntity);
 
                 if (businessRules != null)
                 {
@@ -605,26 +598,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     nodeMessage.IsExpanded = true;
                 }
-            }
 
-            return result;
+                this.Dispatcher.Invoke(() =>
+                {
+                    _pluginTree.Add(nodeEntity);
+                });
+            }
         }
 
-        private async Task<ObservableCollection<PluginTreeViewItem>> FillTreeByMessage(IOrganizationServiceExtented service, List<PluginStage> stages, string pluginTypeName, string messageName, string entityName)
+        private async Task FillTreeByMessage(IOrganizationServiceExtented service, List<PluginStage> stages, string pluginTypeName, string messageName, string entityName)
         {
             PluginSearchRepository repository = new PluginSearchRepository(service);
 
             PluginSearchResult searchResult = await repository.FindAllAsync(stages, pluginTypeName, messageName, entityName);
-
-            ObservableCollection<PluginTreeViewItem> result = new ObservableCollection<PluginTreeViewItem>();
 
             var groupsByMessage = searchResult.SdkMessageProcessingStep.GroupBy(ent => ent.SdkMessageId?.Name ?? "Unknown").OrderBy(mess => mess.Key, new MessageComparer());
 
             foreach (var grMessage in groupsByMessage)
             {
                 var nodeMessage = CreateNodeMessage(grMessage.Key, grMessage);
-
-                result.Add(nodeMessage);
 
                 var groupsByEntity = grMessage.GroupBy(ent => ent.PrimaryObjectTypeCodeName).OrderBy(e => e.Key);
 
@@ -690,15 +682,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }
                     }
                 }
-            }
 
-            return result;
+                this.Dispatcher.Invoke(() =>
+                {
+                    _pluginTree.Add(nodeMessage);
+                });
+            }
         }
 
-        private async Task<ObservableCollection<PluginTreeViewItem>> FillTreeByAssembly(IOrganizationServiceExtented service, List<PluginStage> stages, string pluginTypeName, string messageName, string entityName)
+        private async Task FillTreeByAssembly(IOrganizationServiceExtented service, List<PluginStage> stages, string pluginTypeName, string messageName, string entityName)
         {
-            ObservableCollection<PluginTreeViewItem> result = new ObservableCollection<PluginTreeViewItem>();
-
             var repositoryPluginType = new PluginTypeRepository(service);
             var repository = new PluginSearchRepository(service);
 
@@ -712,7 +705,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             foreach (var assemblyGroup in assemblyList.OrderBy(a => a.Key.Name))
             {
                 PluginTreeViewItem nodeAssembly = CreateNodeAssembly(assemblyGroup.Key.Name, assemblyGroup.Key.Id);
-                result.Add(nodeAssembly);
 
                 foreach (var pluginType in assemblyGroup.OrderBy(p => p.IsWorkflowActivity.GetValueOrDefault()).ThenBy(p => p.TypeName))
                 {
@@ -802,9 +794,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }
                     }
                 }
-            }
 
-            return result;
+                this.Dispatcher.Invoke(() =>
+                {
+                    _pluginTree.Add(nodeAssembly);
+                });
+            }
         }
 
         private PluginTreeViewItem CreateNodeAssembly(string assemblyName, Guid? idPluginAssembly)
@@ -1414,7 +1409,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ChangeExpandedAll(false);
+            ChangeExpandedInTreeViewItems(_pluginTree, false);
         }
 
         private void tSBExpandAll_Click(object sender, RoutedEventArgs e)
@@ -1424,27 +1419,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ChangeExpandedAll(true);
+            ChangeExpandedInTreeViewItems(_pluginTree, true);
         }
 
-        private void ChangeExpandedAll(bool isExpanded)
+        private void mIExpandNodes_Click(object sender, RoutedEventArgs e)
         {
-            if (trVPluginTree.Items != null)
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+
+            if (nodeItem == null)
             {
-                foreach (PluginTreeViewItem item in trVPluginTree.Items)
-                {
-                    RecursiveExpandedAll(item, isExpanded);
-                }
+                return;
             }
+
+            ChangeExpandedInTreeViewItems(new[] { nodeItem }, true);
         }
 
-        private void RecursiveExpandedAll(PluginTreeViewItem item, bool isExpanded)
+        private void mICollapseNodes_Click(object sender, RoutedEventArgs e)
         {
-            item.IsExpanded = isExpanded;
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
-            foreach (var child in item.Items)
+            if (nodeItem == null)
             {
-                RecursiveExpandedAll(child, isExpanded);
+                return;
+            }
+
+            ChangeExpandedInTreeViewItems(new[] { nodeItem }, false);
+        }
+
+        private void ChangeExpandedInTreeViewItems(IEnumerable<PluginTreeViewItem> items, bool isExpanded)
+        {
+            if (items == null || !items.Any())
+            {
+                return;
+            }
+
+            foreach (var item in items)
+            {
+                item.IsExpanded = isExpanded;
+
+                ChangeExpandedInTreeViewItems(item.Items, isExpanded);
             }
         }
 

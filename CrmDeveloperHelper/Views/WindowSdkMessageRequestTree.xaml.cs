@@ -28,6 +28,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
 
+        private readonly ObservableCollection<SdkMessageRequestTreeViewItem> _messageTree = new ObservableCollection<SdkMessageRequestTreeViewItem>();
+
         private View _currentView = View.ByEntityMessageNamespace;
 
         private BitmapImage _imageEntity;
@@ -53,16 +55,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , string entityFilter
             , string messageFilter
-            )
+        )
         {
             this.IncreaseInit();
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
-            this._iWriteToOutput = iWriteToOutput;
-            this._commonConfig = commonConfig;
+            this._iWriteToOutput = iWriteToOutput ?? throw new ArgumentNullException(nameof(iWriteToOutput));
+            this._commonConfig = commonConfig ?? throw new ArgumentNullException(nameof(commonConfig));
 
-            _connectionCache[service.ConnectionData.ConnectionId] = service;
+            _connectionCache[service.ConnectionData.ConnectionId] = service ?? throw new ArgumentNullException(nameof(service));
 
             BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
@@ -82,12 +84,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
+            trVSdkMessageRequestTree.ItemsSource = _messageTree;
+
             this.DecreaseInit();
 
-            if (service != null)
-            {
-                ShowExistingSdkMessageRequests();
-            }
+            ShowExistingSdkMessageRequests();
         }
 
         private void LoadFromConfig()
@@ -243,7 +244,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingSdkMessageRequests);
 
-            this.trVSdkMessageRequestTree.ItemsSource = null;
+            this.trVSdkMessageRequestTree.Dispatcher.Invoke(() =>
+            {
+                _messageTree.Clear();
+            });
 
             string entityName = string.Empty;
             string messageName = string.Empty;
@@ -271,14 +275,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (search != null)
             {
-                ObservableCollection<SdkMessageRequestTreeViewItem> list = LoadSdkMessageRequests(search, _currentView);
-
                 this.trVSdkMessageRequestTree.Dispatcher.Invoke(() =>
                 {
                     this.trVSdkMessageRequestTree.BeginInit();
+                });
 
-                    this.trVSdkMessageRequestTree.ItemsSource = list;
+                switch (_currentView)
+                {
+                    case View.ByNamespaceEntityMessage:
+                        FillTreeByNamespaceEntityMessage(search);
+                        break;
 
+                    case View.ByNamespaceMessageEntity:
+                        FillTreeByNamespaceMessageEntity(search);
+                        break;
+
+                    case View.ByMessageEntityNamespace:
+                        FillTreeByMessageEntityNamespace(search);
+                        break;
+
+                    case View.ByEntityMessageNamespace:
+                    default:
+                        FillTreeByEntityMessageNamespace(search);
+                        break;
+                }
+
+                ExpandNodes(_messageTree);
+
+                this.trVSdkMessageRequestTree.Dispatcher.Invoke(() =>
+                {
                     this.trVSdkMessageRequestTree.EndInit();
                 });
             }
@@ -286,45 +311,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingSdkMessageRequestsCompleted);
         }
 
-        private ObservableCollection<SdkMessageRequestTreeViewItem> LoadSdkMessageRequests(SdkMessageSearchResult search, View currentView)
+        private void FillTreeByEntityMessageNamespace(SdkMessageSearchResult search)
         {
-            ObservableCollection<SdkMessageRequestTreeViewItem> list = null;
-
-            switch (currentView)
-            {
-                case View.ByNamespaceEntityMessage:
-                    list = FillTreeByNamespaceEntityMessage(search);
-                    break;
-
-                case View.ByNamespaceMessageEntity:
-                    list = FillTreeByNamespaceMessageEntity(search);
-                    break;
-
-                case View.ByMessageEntityNamespace:
-                    list = FillTreeByMessageEntityNamespace(search);
-                    break;
-
-                case View.ByEntityMessageNamespace:
-                default:
-                    list = FillTreeByEntityMessageNamespace(search);
-                    break;
-            }
-
-            ExpandNodes(list);
-
-            return list;
-        }
-
-        private ObservableCollection<SdkMessageRequestTreeViewItem> FillTreeByEntityMessageNamespace(SdkMessageSearchResult search)
-        {
-            ObservableCollection<SdkMessageRequestTreeViewItem> list = new ObservableCollection<SdkMessageRequestTreeViewItem>();
-
             var groupsByEnity = search.Requests.GroupBy(ent => ent.PrimaryObjectTypeCode ?? "none").OrderBy(gr => gr.Key);
 
             foreach (var grEntity in groupsByEnity)
             {
                 SdkMessageRequestTreeViewItem nodeEntity = CreateNodeEntity(grEntity.Key, grEntity);
-                list.Add(nodeEntity);
 
                 var groupsByMessages = grEntity.GroupBy(ent => ent.SdkMessageName).OrderBy(mess => mess.Key, new MessageComparer());
 
@@ -347,21 +340,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     ExpandNode(nodeMessage);
                 }
-            }
 
-            return list;
+                this.Dispatcher.Invoke(() =>
+                {
+                    _messageTree.Add(nodeEntity);
+                });
+            }
         }
 
-        private ObservableCollection<SdkMessageRequestTreeViewItem> FillTreeByMessageEntityNamespace(SdkMessageSearchResult search)
+        private void FillTreeByMessageEntityNamespace(SdkMessageSearchResult search)
         {
-            ObservableCollection<SdkMessageRequestTreeViewItem> list = new ObservableCollection<SdkMessageRequestTreeViewItem>();
-
             var groupsByMessage = search.Requests.GroupBy(ent => ent.SdkMessageName).OrderBy(mess => mess.Key, new MessageComparer());
 
             foreach (var grMessage in groupsByMessage)
             {
                 var nodeMessage = CreateNodeMessage(grMessage.Key, grMessage);
-                list.Add(nodeMessage);
 
                 var groupsByEntity = grMessage.GroupBy(ent => ent.PrimaryObjectTypeCode ?? "none").OrderBy(e => e.Key);
 
@@ -382,21 +375,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         ExpandNode(nodeNamespace);
                     }
                 }
-            }
 
-            return list;
+                this.Dispatcher.Invoke(() =>
+                {
+                    _messageTree.Add(nodeMessage);
+                });
+            }
         }
 
-        private ObservableCollection<SdkMessageRequestTreeViewItem> FillTreeByNamespaceEntityMessage(SdkMessageSearchResult search)
+        private void FillTreeByNamespaceEntityMessage(SdkMessageSearchResult search)
         {
-            ObservableCollection<SdkMessageRequestTreeViewItem> list = new ObservableCollection<SdkMessageRequestTreeViewItem>();
-
             var groupsByNamespace = search.Requests.GroupBy(ent => ent.Namespace).OrderBy(e => e.Key);
 
             foreach (var grNamespace in groupsByNamespace)
             {
                 SdkMessageRequestTreeViewItem nodeNamespace = CreateNodeNamespace(grNamespace.Key);
-                list.Add(nodeNamespace);
 
                 var groupsByEntity = grNamespace.GroupBy(ent => ent.PrimaryObjectTypeCode ?? "none").OrderBy(e => e.Key);
 
@@ -419,21 +412,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     ExpandNode(nodeEntity);
                 }
-            }
 
-            return list;
+                this.Dispatcher.Invoke(() =>
+                {
+                    _messageTree.Add(nodeNamespace);
+                });
+            }
         }
 
-        private ObservableCollection<SdkMessageRequestTreeViewItem> FillTreeByNamespaceMessageEntity(SdkMessageSearchResult search)
+        private void FillTreeByNamespaceMessageEntity(SdkMessageSearchResult search)
         {
-            ObservableCollection<SdkMessageRequestTreeViewItem> list = new ObservableCollection<SdkMessageRequestTreeViewItem>();
-
             var groupsByNamespace = search.Requests.GroupBy(ent => ent.Namespace).OrderBy(e => e.Key);
 
             foreach (var grNamespace in groupsByNamespace)
             {
                 SdkMessageRequestTreeViewItem nodeNamespace = CreateNodeNamespace(grNamespace.Key);
-                list.Add(nodeNamespace);
 
                 var groupsByMessage = grNamespace.GroupBy(ent => ent.SdkMessageName).OrderBy(mess => mess.Key, new MessageComparer());
 
@@ -456,9 +449,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     ExpandNode(nodeMessage);
                 }
-            }
 
-            return list;
+                this.Dispatcher.Invoke(() =>
+                {
+                    _messageTree.Add(nodeNamespace);
+                });
+            }
         }
 
         private void FillRequests(SdkMessageSearchResult search, SdkMessageRequestTreeViewItem nodeParent, IEnumerable<SdkMessageRequest> requests)
@@ -781,7 +777,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ChangeExpandedAll(false);
+            ChangeExpandedInTreeViewItems(_messageTree, false);
         }
 
         private void tSBExpandAll_Click(object sender, RoutedEventArgs e)
@@ -791,31 +787,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ChangeExpandedAll(true);
+            ChangeExpandedInTreeViewItems(_messageTree, true);
         }
 
-        private void ChangeExpandedAll(bool isExpanded)
+        private void mIExpandNodes_Click(object sender, RoutedEventArgs e)
         {
-            trVSdkMessageRequestTree.BeginInit();
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as SdkMessageRequestTreeViewItem;
 
-            if (trVSdkMessageRequestTree.Items != null)
+            if (nodeItem == null)
             {
-                foreach (SdkMessageRequestTreeViewItem item in trVSdkMessageRequestTree.Items)
-                {
-                    RecursiveExpandedAll(item, isExpanded);
-                }
+                return;
             }
 
-            trVSdkMessageRequestTree.EndInit();
+            ChangeExpandedInTreeViewItems(new[] { nodeItem }, true);
         }
 
-        private void RecursiveExpandedAll(SdkMessageRequestTreeViewItem item, bool isExpanded)
+        private void mICollapseNodes_Click(object sender, RoutedEventArgs e)
         {
-            item.IsExpanded = isExpanded;
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as SdkMessageRequestTreeViewItem;
 
-            foreach (var child in item.Items)
+            if (nodeItem == null)
             {
-                RecursiveExpandedAll(child, isExpanded);
+                return;
+            }
+
+            ChangeExpandedInTreeViewItems(new[] { nodeItem }, false);
+        }
+
+        private void ChangeExpandedInTreeViewItems(IEnumerable<SdkMessageRequestTreeViewItem> items, bool isExpanded)
+        {
+            if (items == null || !items.Any())
+            {
+                return;
+            }
+
+            foreach (var item in items)
+            {
+                item.IsExpanded = isExpanded;
+
+                ChangeExpandedInTreeViewItems(item.Items, isExpanded);
             }
         }
 
