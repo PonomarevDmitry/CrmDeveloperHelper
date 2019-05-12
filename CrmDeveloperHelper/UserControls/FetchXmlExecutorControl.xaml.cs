@@ -1518,7 +1518,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                     _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExecutingOnEntityWorkflowFormat1, workflow.Name);
                     _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, entityName, id);
 
-                    await service.ExecuteAsync(request);
+                    await service.ExecuteAsync<ExecuteWorkflowResponse>(request);
                 }
                 catch (Exception ex)
                 {
@@ -1658,7 +1658,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                     _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.AssigningEntityToUserFormat1, user.FullName);
                     _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, entityName, id);
 
-                    await service.ExecuteAsync(request);
+                    await service.ExecuteAsync<AssignResponse>(request);
                 }
                 catch (Exception ex)
                 {
@@ -1797,7 +1797,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                     _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.AssigningEntityToTeamFormat1, team.Name);
                     _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, entityName, id);
 
-                    await service.ExecuteAsync(request);
+                    await service.ExecuteAsync<AssignResponse>(request);
                 }
                 catch (Exception ex)
                 {
@@ -2034,7 +2034,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                     _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.SettingEntityStateFormat2, statusOptionMetadata.State, statusOptionMetadata.Value);
                     _iWriteToOutput.WriteToOutputEntityInstance(service.ConnectionData, entityName, id);
 
-                    await service.ExecuteAsync(request);
+                    await service.ExecuteAsync<SetStateResponse>(request);
                 }
                 catch (Exception ex)
                 {

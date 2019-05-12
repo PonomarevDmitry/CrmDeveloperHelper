@@ -1188,7 +1188,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                await service.ExecuteAsync(new Microsoft.Crm.Sdk.Messages.SetStateRequest()
+                await service.ExecuteAsync<Microsoft.Crm.Sdk.Messages.SetStateResponse>(new Microsoft.Crm.Sdk.Messages.SetStateRequest()
                 {
                     EntityMoniker = new EntityReference(Workflow.EntityLogicalName, idWorkflow),
                     State = new OptionSetValue(state),

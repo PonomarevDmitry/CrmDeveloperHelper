@@ -377,7 +377,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 try
                 {
-                    await _comparerSource.Service2.ExecuteAsync(new SetStateRequest()
+                    await _comparerSource.Service2.ExecuteAsync<SetStateResponse>(new SetStateRequest()
                     {
                         EntityMoniker = workflow.ToEntityReference(),
 
@@ -388,7 +388,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 catch (Exception ex)
                 {
                     var desc = DTEHelper.GetExceptionDescription(ex);
-
+                    
                     workflow.FormattedValues.TryGetValue(Workflow.Schema.Attributes.category, out string categoryName2);
                     workflow.FormattedValues.TryGetValue(Workflow.Schema.Attributes.statuscode, out string statusCode2);
 
@@ -417,7 +417,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 try
                 {
-                    await _comparerSource.Service2.ExecuteAsync(new SetStateRequest()
+                    await _comparerSource.Service2.ExecuteAsync<SetStateResponse>(new SetStateRequest()
                     {
                         EntityMoniker = workflow.ToEntityReference(),
 
@@ -637,7 +637,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 try
                 {
-                    await _comparerSource.Service2.ExecuteAsync(new SetStateRequest()
+                    await _comparerSource.Service2.ExecuteAsync<SetStateResponse>(new SetStateRequest()
                     {
                         EntityMoniker = step.ToEntityReference(),
 
@@ -676,7 +676,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 try
                 {
-                    await _comparerSource.Service2.ExecuteAsync(new SetStateRequest()
+                    await _comparerSource.Service2.ExecuteAsync<SetStateResponse>(new SetStateRequest()
                     {
                         EntityMoniker = step.ToEntityReference(),
 

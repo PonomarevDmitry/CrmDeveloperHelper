@@ -219,7 +219,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (!idOrganization.HasValue)
                 {
-                    WhoAmIResponse whoresponse = (WhoAmIResponse)service.Execute(new WhoAmIRequest());
+                    WhoAmIResponse whoresponse = await service.ExecuteAsync<WhoAmIResponse>(new WhoAmIRequest());
 
                     idOrganization = whoresponse.OrganizationId;
                 }
@@ -241,7 +241,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     }
 
                     var request = new RetrieveInstalledLanguagePacksRequest();
-                    var response = (RetrieveInstalledLanguagePacksResponse)service.Execute(request);
+                    var response = await service.ExecuteAsync<RetrieveInstalledLanguagePacksResponse>(request);
 
                     var rep = new EntityMetadataRepository(service);
 

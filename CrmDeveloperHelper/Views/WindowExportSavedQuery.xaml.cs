@@ -890,7 +890,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                await service.ExecuteAsync(new SetStateRequest()
+                await service.ExecuteAsync<SetStateResponse>(new SetStateRequest()
                 {
                     EntityMoniker = new EntityReference(SavedQuery.EntityLogicalName, idSavedQuery),
                     State = new OptionSetValue(state),

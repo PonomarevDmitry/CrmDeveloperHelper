@@ -185,9 +185,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        public Task<OrganizationResponse> ExecuteAsync(OrganizationRequest request)
+        public Task<T> ExecuteAsync<T>(OrganizationRequest request) where T : OrganizationResponse
         {
-            return Task.Run(() => Execute(request));
+            return Task.Run(() => (T)Execute(request));
         }
 
         public OrganizationResponse Execute(OrganizationRequest request)

@@ -1159,7 +1159,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 var repository = new EntityMetadataRepository(service);
 
-                var entityMetadata = repository.GetEntityMetadata(entityName);
+                var entityMetadata = await repository.GetEntityMetadataAsync(entityName);
 
                 if (entityMetadata == null)
                 {
@@ -1290,7 +1290,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 var repository = new EntityMetadataRepository(service);
 
-                entityMetadata = repository.GetEntityMetadata(entityName);
+                entityMetadata = await repository.GetEntityMetadataAsync(entityName);
 
                 if (entityMetadata == null)
                 {
@@ -1436,7 +1436,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 var repository = new EntityMetadataRepository(service);
 
-                entityMetadata = repository.GetEntityMetadata(entityName);
+                entityMetadata = await repository.GetEntityMetadataAsync(entityName);
 
                 if (entityMetadata == null)
                 {

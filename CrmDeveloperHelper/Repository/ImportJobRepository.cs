@@ -116,7 +116,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 ImportJobId = idImportJob
             };
 
-            var importLogResponse = (RetrieveFormattedImportJobResultsResponse)await _service.ExecuteAsync(importLogRequest);
+            var importLogResponse = await _service.ExecuteAsync<RetrieveFormattedImportJobResultsResponse>(importLogRequest);
 
             return importLogResponse.FormattedResults;
         }

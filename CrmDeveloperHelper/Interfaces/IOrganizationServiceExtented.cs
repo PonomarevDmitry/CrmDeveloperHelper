@@ -28,6 +28,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 
         Task<Guid> UpsertAsync(Entity entity);
 
-        Task<OrganizationResponse> ExecuteAsync(OrganizationRequest request);
+        Task<T> ExecuteAsync<T>(OrganizationRequest request) where T : OrganizationResponse;
     }
 }

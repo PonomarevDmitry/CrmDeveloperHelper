@@ -9,7 +9,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
     {
         private readonly HashSet<string> _excludedNamespaces = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
-        private readonly string _messageNamespace;
+        private readonly string _messageNamespace = string.Empty;
 
         private readonly CreateFileWithEntityMetadataCSharpConfiguration _config;
 
