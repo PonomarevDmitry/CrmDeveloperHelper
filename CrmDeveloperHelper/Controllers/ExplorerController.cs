@@ -366,8 +366,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion System Chart (Saved Query Visualization) Xml.
 
-
-
         #region Экспортирование Workflow.
 
         public async Task ExecuteOpeningWorkflowExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
@@ -567,5 +565,265 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Trace Reader.
+
+        #region PluginType Explorer
+
+        public async Task ExecuteOpeningPluginTypeExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        {
+            string operation = string.Format(Properties.OperationNames.CreatingPluginTypeDescriptionFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await OpeningPluginTypeExplorer(connectionData, commonConfig, selection);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task OpeningPluginTypeExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            WindowHelper.OpenPluginTypeWindow(
+                this._iWriteToOutput
+                , service
+                , commonConfig
+                , selection
+            );
+        }
+
+        #endregion PluginType Explorer
+
+        #region PluginAssembly Explorer
+
+        public async Task ExecuteOpeningPluginAssemblyExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        {
+            string operation = string.Format(Properties.OperationNames.ExportingPluginAssemblyFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await OpeningPluginAssemblyExplorer(connectionData, commonConfig, selection);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task OpeningPluginAssemblyExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            WindowHelper.OpenPluginAssemblyWindow(
+                this._iWriteToOutput
+                , service
+                , commonConfig
+                , selection
+            );
+        }
+
+        #endregion PluginAssembly Explorer
+
+        #region Plugin Tree
+
+        public async Task ExecuteShowingPluginTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string pluginTypeFilter, string messageFilter)
+        {
+            string operation = string.Format(Properties.OperationNames.ShowingPluginTreeFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await ShowingPluginTree(connectionData, commonConfig, entityFilter, pluginTypeFilter, messageFilter);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task ShowingPluginTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string pluginTypeFilter, string messageFilter)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            WindowHelper.OpenPluginTreeWindow(this._iWriteToOutput, service, commonConfig, entityFilter, pluginTypeFilter, messageFilter);
+        }
+
+        #endregion Plugin Tree
+
+        #region SdkMessage Tree
+
+        public async Task ExecuteShowingSdkMessageTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter)
+        {
+            string operation = string.Format(Properties.OperationNames.ShowingSdkMessageTreeFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await ShowingSdkMessageTree(connectionData, commonConfig, entityFilter, messageFilter);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task ShowingSdkMessageTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            WindowHelper.OpenSdkMessageTreeWindow(this._iWriteToOutput, service, commonConfig, entityFilter, messageFilter);
+        }
+
+        #endregion SdkMessage Tree
+
+        #region SdkMessageRequest Tree
+
+        public async Task ExecuteShowingSdkMessageRequestTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter)
+        {
+            string operation = string.Format(Properties.OperationNames.ShowingSdkMessageRequestTreeFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await ShowingSdkMessageRequestTree(connectionData, commonConfig, entityFilter, messageFilter);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task ShowingSdkMessageRequestTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, commonConfig, entityFilter, messageFilter);
+        }
+
+        #endregion SdkMessageRequest Tree
     }
 }

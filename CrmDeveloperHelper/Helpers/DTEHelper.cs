@@ -3144,14 +3144,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleExportPluginAssembly()
+        public void HandleOpenPluginAssemblyExplorer()
         {
             string selection = GetSelectedText();
 
-            HandleExportPluginAssembly(selection);
+            HandleOpenPluginAssemblyExplorer(selection);
         }
 
-        public void HandleExportPluginAssembly(string selection)
+        public void HandleOpenPluginAssemblyExplorer(string selection)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -3169,7 +3169,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartExportPluginAssembly(selection, connectionData, commonConfig);
+                    Controller.StartOpenPluginAssemblyExplorer(selection, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -3178,7 +3178,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleExportPluginTypeDescription(string selection)
+        public void HandleOpenPluginTypeExplorer(string selection)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -3196,7 +3196,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartExportPluginTypeDescription(selection, connectionData, commonConfig);
+                    Controller.StartOpenPluginTypeExplorer(selection, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {

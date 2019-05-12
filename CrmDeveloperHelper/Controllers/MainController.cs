@@ -20,12 +20,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         private readonly ExplorerController _explorerController;
         private readonly CheckController _checkController;
         private readonly ExportXmlController _exportXmlController;
-        private readonly PluginTreeController _pluginTreeController;
+        private readonly PluginConfigurationController _pluginConfigurationController;
         private readonly SolutionController _solutionController;
         private readonly EntityMetadataController _entityMetadataController;
         private readonly ExportPluginConfigurationController _exportPluginConfigurationController;
         private readonly CheckPluginController _checkPluginController;
-        private readonly PluginTypeDescriptionController _pluginTypeDescriptionController;
+        private readonly PluginController _pluginController;
         private readonly CheckManagedEntitiesController _checkManagedEntitiesController;
         private readonly OpenFilesController _openFilesController;
         private readonly ReportController _reportController;
@@ -45,13 +45,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._explorerController = new ExplorerController(outputWindow);
             this._checkController = new CheckController(outputWindow);
             this._exportXmlController = new ExportXmlController(outputWindow);
-            this._pluginTreeController = new PluginTreeController(outputWindow);
+            this._pluginConfigurationController = new PluginConfigurationController(outputWindow);
             this._differenceController = new DifferenceController(outputWindow);
             this._solutionController = new SolutionController(outputWindow);
             this._entityMetadataController = new EntityMetadataController(outputWindow);
             this._exportPluginConfigurationController = new ExportPluginConfigurationController(outputWindow);
             this._checkPluginController = new CheckPluginController(outputWindow);
-            this._pluginTypeDescriptionController = new PluginTypeDescriptionController(outputWindow);
+            this._pluginController = new PluginController(outputWindow);
             this._checkManagedEntitiesController = new CheckManagedEntitiesController(outputWindow);
             this._openFilesController = new OpenFilesController(outputWindow);
             this._reportController = new ReportController(outputWindow);
@@ -896,13 +896,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartExportPluginTypeDescription(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartOpenPluginTypeExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._pluginTypeDescriptionController.ExecuteCreatingPluginTypeDescription(connectionData, commonConfig, selection);
+                    this._explorerController.ExecuteOpeningPluginTypeExplorer(connectionData, commonConfig, selection);
                 }
                 catch (Exception ex)
                 {
@@ -919,7 +919,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._pluginTypeDescriptionController.ExecuteAddingPluginStepForType(connectionData, commonConfig, pluginTypeName);
+                    this._pluginController.ExecuteAddingPluginStepForType(connectionData, commonConfig, pluginTypeName);
                 }
                 catch (Exception ex)
                 {
@@ -930,13 +930,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartExportPluginAssembly(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartOpenPluginAssemblyExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._pluginTypeDescriptionController.ExecuteExportingPluginAssembly(connectionData, commonConfig, selection);
+                    this._explorerController.ExecuteOpeningPluginAssemblyExplorer(connectionData, commonConfig, selection);
                 }
                 catch (Exception ex)
                 {
@@ -1446,7 +1446,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._pluginTypeDescriptionController.ExecuteComparingAssemblyAndCrmSolution(connectionData, commonConfig, projectName, defaultOutputFilePath);
+                    this._pluginController.ExecuteComparingAssemblyAndCrmSolution(connectionData, commonConfig, projectName, defaultOutputFilePath);
                 }
                 catch (Exception ex)
                 {
@@ -1463,7 +1463,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._pluginTypeDescriptionController.ExecuteUpdatingPluginAssembly(connectionData, commonConfig, project, defaultOutputFilePath);
+                    this._pluginController.ExecuteUpdatingPluginAssembly(connectionData, commonConfig, project, defaultOutputFilePath);
                 }
                 catch (Exception ex)
                 {
@@ -1480,7 +1480,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._pluginTypeDescriptionController.ExecuteRegisterPluginAssembly(connectionData, commonConfig, project, defaultOutputFilePath);
+                    this._pluginController.ExecuteRegisterPluginAssembly(connectionData, commonConfig, project, defaultOutputFilePath);
                 }
                 catch (Exception ex)
                 {
@@ -1514,7 +1514,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._pluginTreeController.ExecuteShowingPluginTree(connectionData, commonConfig, entityFilter, pluginTypeFilter, messageFilter);
+                    this._explorerController.ExecuteShowingPluginTree(connectionData, commonConfig, entityFilter, pluginTypeFilter, messageFilter);
                 }
                 catch (Exception ex)
                 {
@@ -1531,7 +1531,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._pluginTreeController.ExecuteShowingSdkMessageTree(connectionData, commonConfig, entityFilter, messageFilter);
+                    this._explorerController.ExecuteShowingSdkMessageTree(connectionData, commonConfig, entityFilter, messageFilter);
                 }
                 catch (Exception ex)
                 {
@@ -1548,7 +1548,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._pluginTreeController.ExecuteShowingSdkMessageRequestTree(connectionData, commonConfig, entityFilter, messageFilter);
+                    this._explorerController.ExecuteShowingSdkMessageRequestTree(connectionData, commonConfig, entityFilter, messageFilter);
                 }
                 catch (Exception ex)
                 {
@@ -1616,7 +1616,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._pluginTreeController.ExecuteShowingPluginConfigurationTree(connectionData, commonConfig, filePath);
+                    this._pluginConfigurationController.ExecuteShowingPluginConfigurationTree(connectionData, commonConfig, filePath);
                 }
                 catch (Exception ex)
                 {
@@ -1633,7 +1633,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._pluginTreeController.ExecuteShowingPluginConfigurationAssemblyDescription(commonConfig, filePath);
+                    this._pluginConfigurationController.ExecuteShowingPluginConfigurationAssemblyDescription(commonConfig, filePath);
                 }
                 catch (Exception ex)
                 {
@@ -1650,7 +1650,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._pluginTreeController.ExecuteShowingPluginConfigurationTypeDescription(commonConfig, filePath);
+                    this._pluginConfigurationController.ExecuteShowingPluginConfigurationTypeDescription(commonConfig, filePath);
                 }
                 catch (Exception ex)
                 {
@@ -1667,7 +1667,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._pluginTreeController.ExecuteShowingPluginConfigurationComparer(commonConfig, filePath);
+                    this._pluginConfigurationController.ExecuteShowingPluginConfigurationComparer(commonConfig, filePath);
                 }
                 catch (Exception ex)
                 {

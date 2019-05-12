@@ -4,16 +4,16 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class FileCSharpPluginAssemblyDescriptionCommand : AbstractCommand
+    internal sealed class FileCSharpPluginAssemblyExplorerCommand : AbstractCommand
     {
-        private FileCSharpPluginAssemblyDescriptionCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FileCSharpPluginAssemblyDescriptionCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private FileCSharpPluginAssemblyExplorerCommand(Package package)
+            : base(package, PackageGuids.guidCommandSet, PackageIds.FileCSharpPluginAssemblyExplorerCommandId, ActionExecute, ActionBeforeQueryStatus) { }
 
-        public static FileCSharpPluginAssemblyDescriptionCommand Instance { get; private set; }
+        public static FileCSharpPluginAssemblyExplorerCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new FileCSharpPluginAssemblyDescriptionCommand(package);
+            Instance = new FileCSharpPluginAssemblyExplorerCommand(package);
         }
 
         private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
@@ -40,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     selection = projectItem.Name;
                 }
 
-                helper.HandleExportPluginAssembly(selection);
+                helper.HandleOpenPluginAssemblyExplorer(selection);
             }
         }
     }

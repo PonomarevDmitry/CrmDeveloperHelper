@@ -4,16 +4,16 @@ using System;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class CodeCSharpPluginTypeDescriptionCommand : AbstractCommand
+    internal sealed class CodeCSharpPluginTypeExplorerCommand : AbstractCommand
     {
-        private CodeCSharpPluginTypeDescriptionCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeCSharpPluginTypeDescriptionCommandId, ActionExecute, CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp) { }
+        private CodeCSharpPluginTypeExplorerCommand(Package package)
+            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeCSharpPluginTypeExplorerCommandId, ActionExecute, CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp) { }
 
-        public static CodeCSharpPluginTypeDescriptionCommand Instance { get; private set; }
+        public static CodeCSharpPluginTypeExplorerCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new CodeCSharpPluginTypeDescriptionCommand(package);
+            Instance = new CodeCSharpPluginTypeExplorerCommand(package);
         }
 
         private static async void ActionExecute(DTEHelper helper)
@@ -26,7 +26,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 helper.ActivateOutputWindow(null);
                 string fileType = await PropertiesHelper.GetTypeFullNameAsync(document);
 
-                helper.HandleExportPluginTypeDescription(fileType);
+                helper.HandleOpenPluginTypeExplorer(fileType);
             }
             catch (Exception ex)
             {

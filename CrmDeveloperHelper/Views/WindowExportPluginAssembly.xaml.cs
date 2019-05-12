@@ -680,7 +680,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ComparingPluginAssemblyWithLocalAssemblyFormat1, name);
 
-            var controller = new PluginTypeDescriptionController(_iWriteToOutput);
+            var controller = new PluginController(_iWriteToOutput);
 
             string filePath = await controller.CreateFileWithAssemblyComparing(folder, service, idPluginAssembly, name, null);
 

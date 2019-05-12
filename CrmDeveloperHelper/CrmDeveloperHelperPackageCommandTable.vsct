@@ -3135,16 +3135,16 @@
         </Strings>
       </Button>
 
-      <Button guid="guidCommandSet" id="CodeCSharpPluginTypeDescriptionCommandId" priority="0x0101" type="Button">
+      <Button guid="guidCommandSet" id="CodeCSharpPluginTypeExplorerCommandId" priority="0x0101" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>PluginType Description</ButtonText>
+          <ButtonText>PluginType Explorer</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="CodeCSharpPluginAssemblyDescriptionCommandId" priority="0x0102" type="Button">
+      <Button guid="guidCommandSet" id="CodeCSharpPluginAssemblyExplorerCommandId" priority="0x0102" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>PluginAssembly Description</ButtonText>
+          <ButtonText>PluginAssembly Explorer</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CodeCSharpPluginTreeCommandId" priority="0x0103" type="Button">
@@ -4075,16 +4075,16 @@
         </Strings>
       </Button>
 
-      <Button guid="guidCommandSet" id="FileCSharpPluginTypeDescriptionCommandId" priority="0x0101" type="Button">
+      <Button guid="guidCommandSet" id="FileCSharpPluginTypeExplorerCommandId" priority="0x0101" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>PluginType Description</ButtonText>
+          <ButtonText>PluginType Explorer</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="FileCSharpPluginAssemblyDescriptionCommandId" priority="0x0102" type="Button">
+      <Button guid="guidCommandSet" id="FileCSharpPluginAssemblyExplorerCommandId" priority="0x0102" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>PluginAssembly Description</ButtonText>
+          <ButtonText>PluginAssembly Explorer</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="FileCSharpPluginTreeCommandId" priority="0x0103" type="Button">
@@ -5150,16 +5150,16 @@
       </Button>
 
 
-      <Button guid="guidCommandSet" id="ProjectPluginTypeDescriptionCommandId" priority="0x0126" type="Button">
+      <Button guid="guidCommandSet" id="ProjectPluginTypeExplorerCommandId" priority="0x0126" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>Plugin Type Description</ButtonText>
+          <ButtonText>Plugin Type Explorer</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="ProjectPluginAssemblyDescriptionCommandId" priority="0x0127" type="Button">
+      <Button guid="guidCommandSet" id="ProjectPluginAssemblyExplorerCommandId" priority="0x0127" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>Plugin Assembly Description</ButtonText>
+          <ButtonText>Plugin Assembly Explorer</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="ProjectPluginTreeCommandId" priority="0x0127" type="Button">
@@ -5644,12 +5644,12 @@
 
       <Button guid="guidCommandSet" id="CommonPluginConfigurationPluginTypeCommandId" priority="0x0118" type="Button">
         <Strings>
-          <ButtonText>Plugin Type Description</ButtonText>
+          <ButtonText>Plugin Type Explorer</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CommonPluginConfigurationPluginAssemblyCommandId" priority="0x0119" type="Button">
         <Strings>
-          <ButtonText>Plugin Assembly Description</ButtonText>
+          <ButtonText>Plugin Assembly Explorer</ButtonText>
         </Strings>
       </Button>
 
@@ -5731,14 +5731,14 @@
       </Button>
 
 
-      <Button guid="guidCommandSet" id="CommonExportPluginTypeDescriptionCommandId" priority="0x0122" type="Button">
+      <Button guid="guidCommandSet" id="CommonExportPluginTypeExplorerCommandId" priority="0x0122" type="Button">
         <Strings>
-          <ButtonText>Plugin Type Description</ButtonText>
+          <ButtonText>Plugin Type Explorer</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="CommonExportPluginAssemblyDescriptionCommandId" priority="0x0123" type="Button">
+      <Button guid="guidCommandSet" id="CommonExportPluginAssemblyExplorerCommandId" priority="0x0123" type="Button">
         <Strings>
-          <ButtonText>Plugin Assembly Description</ButtonText>
+          <ButtonText>Plugin Assembly Explorer</ButtonText>
         </Strings>
       </Button>
 
@@ -7987,10 +7987,10 @@
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuEntityInformation_GroupFormViewChart" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="CommonExportPluginTypeDescriptionCommandId" priority="0x0122">
+    <CommandPlacement guid="guidCommandSet" id="CommonExportPluginTypeExplorerCommandId" priority="0x0122">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupDescription" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonExportPluginAssemblyDescriptionCommandId" priority="0x0123">
+    <CommandPlacement guid="guidCommandSet" id="CommonExportPluginAssemblyExplorerCommandId" priority="0x0123">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation_MenuPluginInformation_GroupDescription" />
     </CommandPlacement>
 
@@ -8487,10 +8487,10 @@
 
 
 
-    <CommandPlacement guid="guidCommandSet" id="CodeCSharpPluginTypeDescriptionCommandId" priority="0x0101">
+    <CommandPlacement guid="guidCommandSet" id="CodeCSharpPluginTypeExplorerCommandId" priority="0x0101">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginDescription" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CodeCSharpPluginAssemblyDescriptionCommandId" priority="0x0102">
+    <CommandPlacement guid="guidCommandSet" id="CodeCSharpPluginAssemblyExplorerCommandId" priority="0x0102">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuCSharp_GroupPluginDescription" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="CodeCSharpPluginTreeCommandId" priority="0x0103">
@@ -9129,10 +9129,10 @@
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupAddIntoSolution_MenuAddPluginAssemblyStepsIntoSolution" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="FileCSharpPluginTypeDescriptionCommandId" priority="0x0111">
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpPluginTypeExplorerCommandId" priority="0x0111">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginDescription" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileCSharpPluginAssemblyDescriptionCommandId" priority="0x0112">
+    <CommandPlacement guid="guidCommandSet" id="FileCSharpPluginAssemblyExplorerCommandId" priority="0x0112">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuCSharp_GroupPluginDescription" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="FileCSharpPluginTreeCommandId" priority="0x0113">
@@ -9488,10 +9488,10 @@
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupAddIntoSolution_MenuAddAssemblyStepsIntoSolution" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="ProjectPluginTypeDescriptionCommandId" priority="0x0122">
+    <CommandPlacement guid="guidCommandSet" id="ProjectPluginTypeExplorerCommandId" priority="0x0122">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupDescription" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="ProjectPluginAssemblyDescriptionCommandId" priority="0x0123">
+    <CommandPlacement guid="guidCommandSet" id="ProjectPluginAssemblyExplorerCommandId" priority="0x0123">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject_GroupDescription" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="ProjectPluginTreeCommandId" priority="0x0124">
@@ -12343,8 +12343,8 @@
 
       <IDSymbol name="CodeCSharpProjectCompareToCrmAssemblyCommandId" value="0x2140" />
 
-      <IDSymbol name="CodeCSharpPluginTypeDescriptionCommandId" value="0x2134" />
-      <IDSymbol name="CodeCSharpPluginAssemblyDescriptionCommandId" value="0x2135" />
+      <IDSymbol name="CodeCSharpPluginTypeExplorerCommandId" value="0x2134" />
+      <IDSymbol name="CodeCSharpPluginAssemblyExplorerCommandId" value="0x2135" />
       <IDSymbol name="CodeCSharpPluginTreeCommandId" value="0x2175" />
 
 
@@ -12448,8 +12448,8 @@
 
       
 
-      <IDSymbol name="CommonExportPluginTypeDescriptionCommandId" value="0x2035" />
-      <IDSymbol name="CommonExportPluginAssemblyDescriptionCommandId" value="0x2036" />
+      <IDSymbol name="CommonExportPluginTypeExplorerCommandId" value="0x2035" />
+      <IDSymbol name="CommonExportPluginAssemblyExplorerCommandId" value="0x2036" />
 
       <IDSymbol name="CommonPluginTreeCommandId" value="0x2037" />
 
@@ -12541,8 +12541,8 @@
 
       <IDSymbol name="FileCSharpProjectCompareToCrmAssemblyCommandId" value="0x2141" />
 
-      <IDSymbol name="FileCSharpPluginTypeDescriptionCommandId" value="0x2136" />
-      <IDSymbol name="FileCSharpPluginAssemblyDescriptionCommandId" value="0x2137" />
+      <IDSymbol name="FileCSharpPluginTypeExplorerCommandId" value="0x2136" />
+      <IDSymbol name="FileCSharpPluginAssemblyExplorerCommandId" value="0x2137" />
       <IDSymbol name="FileCSharpPluginTreeCommandId" value="0x2176" />
 
       <IDSymbol name="FileCSharpUpdateEntityMetadataFileSchemaWithSelectCommandId" value="0x205A" />
@@ -12580,8 +12580,8 @@
 
       <IDSymbol name="ProjectCompareToCrmAssemblyCommandId" value="0x2126" />
 
-      <IDSymbol name="ProjectPluginTypeDescriptionCommandId" value="0x2163" />
-      <IDSymbol name="ProjectPluginAssemblyDescriptionCommandId" value="0x2164" />
+      <IDSymbol name="ProjectPluginTypeExplorerCommandId" value="0x2163" />
+      <IDSymbol name="ProjectPluginAssemblyExplorerCommandId" value="0x2164" />
       <IDSymbol name="ProjectPluginTreeCommandId" value="0x2177" />
 
 

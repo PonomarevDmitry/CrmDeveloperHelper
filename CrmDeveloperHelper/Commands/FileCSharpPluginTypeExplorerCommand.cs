@@ -5,16 +5,16 @@ using System;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class FileCSharpPluginTypeDescriptionCommand : AbstractCommand
+    internal sealed class FileCSharpPluginTypeExplorerCommand : AbstractCommand
     {
-        private FileCSharpPluginTypeDescriptionCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FileCSharpPluginTypeDescriptionCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private FileCSharpPluginTypeExplorerCommand(Package package)
+            : base(package, PackageGuids.guidCommandSet, PackageIds.FileCSharpPluginTypeExplorerCommandId, ActionExecute, ActionBeforeQueryStatus) { }
 
-        public static FileCSharpPluginTypeDescriptionCommand Instance { get; private set; }
+        public static FileCSharpPluginTypeExplorerCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new FileCSharpPluginTypeDescriptionCommand(package);
+            Instance = new FileCSharpPluginTypeExplorerCommand(package);
         }
 
         private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
@@ -36,7 +36,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     helper.ActivateOutputWindow(null);
                     string fileType = await PropertiesHelper.GetTypeFullNameAsync(projectItem);
 
-                    helper.HandleExportPluginTypeDescription(fileType);
+                    helper.HandleOpenPluginTypeExplorer(fileType);
                 }
             }
             catch (Exception ex)

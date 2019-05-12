@@ -1517,9 +1517,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        PluginTypeDescriptionController contr = new PluginTypeDescriptionController(this._iWriteToOutput);
+                        var contr = new ExplorerController(this._iWriteToOutput);
 
-                        contr.ExecuteExportingPluginAssembly(connection1, _commonConfig, string.Empty);
+                        contr.ExecuteOpeningPluginAssemblyExplorer(connection1, _commonConfig, string.Empty);
                     }
                     catch (Exception ex)
                     {
@@ -1542,9 +1542,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        PluginTypeDescriptionController contr = new PluginTypeDescriptionController(this._iWriteToOutput);
+                        var contr = new ExplorerController(this._iWriteToOutput);
 
-                        contr.ExecuteCreatingPluginTypeDescription(connection1, _commonConfig, string.Empty);
+                        contr.ExecuteOpeningPluginTypeExplorer(connection1, _commonConfig, string.Empty);
                     }
                     catch (Exception ex)
                     {
@@ -1567,7 +1567,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        PluginTreeController contr = new PluginTreeController(this._iWriteToOutput);
+                        var contr = new ExplorerController(this._iWriteToOutput);
 
                         contr.ExecuteShowingPluginTree(connection1, _commonConfig, string.Empty, string.Empty, string.Empty);
                     }
@@ -1592,7 +1592,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        PluginTreeController contr = new PluginTreeController(this._iWriteToOutput);
+                        var contr = new ExplorerController(this._iWriteToOutput);
 
                         contr.ExecuteShowingSdkMessageTree(connection1, _commonConfig, string.Empty, string.Empty);
                     }
@@ -1617,7 +1617,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     try
                     {
-                        PluginTreeController contr = new PluginTreeController(this._iWriteToOutput);
+                        var contr = new ExplorerController(this._iWriteToOutput);
 
                         contr.ExecuteShowingSdkMessageRequestTree(connection1, _commonConfig, string.Empty, string.Empty);
                     }
@@ -1670,7 +1670,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 try
                 {
-                    PluginTreeController contr = new PluginTreeController(this._iWriteToOutput);
+                    PluginConfigurationController contr = new PluginConfigurationController(this._iWriteToOutput);
 
                     contr.ExecuteShowingPluginConfigurationAssemblyDescription(_commonConfig, string.Empty);
                 }
@@ -1691,7 +1691,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 try
                 {
-                    PluginTreeController contr = new PluginTreeController(this._iWriteToOutput);
+                    PluginConfigurationController contr = new PluginConfigurationController(this._iWriteToOutput);
 
                     contr.ExecuteShowingPluginConfigurationTypeDescription(_commonConfig, string.Empty);
                 }
@@ -1729,7 +1729,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 try
                 {
-                    PluginTreeController contr = new PluginTreeController(this._iWriteToOutput);
+                    PluginConfigurationController contr = new PluginConfigurationController(this._iWriteToOutput);
 
                     contr.ExecuteShowingPluginConfigurationTree(connection1, _commonConfig, string.Empty);
                 }
@@ -1750,7 +1750,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 try
                 {
-                    PluginTreeController contr = new PluginTreeController(this._iWriteToOutput);
+                    PluginConfigurationController contr = new PluginConfigurationController(this._iWriteToOutput);
 
                     contr.ExecuteShowingPluginConfigurationComparer(_commonConfig, string.Empty);
                 }

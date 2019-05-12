@@ -153,8 +153,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeCSharpProjectCompareToCrmAssemblyCommand.Initialize(this);
             CodeCSharpProjectCompareToCrmAssemblyInConnectionCommand.Initialize(this);
 
-            CodeCSharpPluginTypeDescriptionCommand.Initialize(this);
-            CodeCSharpPluginAssemblyDescriptionCommand.Initialize(this);
+            CodeCSharpPluginTypeExplorerCommand.Initialize(this);
+            CodeCSharpPluginAssemblyExplorerCommand.Initialize(this);
             CodeCSharpPluginTreeCommand.Initialize(this);
 
             CodeCSharpAddPluginStepCommand.Initialize(this);
@@ -221,12 +221,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             FileCSharpUpdateGlobalOptionSetsFileCommand.Initialize(this);
             FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand.Initialize(this);
-            FileCSharpPluginAssemblyDescriptionCommand.Initialize(this);
+            FileCSharpPluginAssemblyExplorerCommand.Initialize(this);
             FileCSharpProjectUpdatePluginAssemblyCommand.Initialize(this);
             FileCSharpProjectUpdatePluginAssemblyInConnectionCommand.Initialize(this);
             FileCSharpProjectCompareToCrmAssemblyCommand.Initialize(this);
             FileCSharpProjectCompareToCrmAssemblyInConnectionCommand.Initialize(this);
-            FileCSharpPluginTypeDescriptionCommand.Initialize(this);
+            FileCSharpPluginTypeExplorerCommand.Initialize(this);
             FileCSharpPluginTreeCommand.Initialize(this);
 
             FileCSharpAddPluginStepCommand.Initialize(this);
@@ -342,8 +342,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             ProjectPluginAssemblyStepsAddIntoSolutionLastCommand.Initialize(this);
             ProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand.Initialize(this);
 
-            ProjectPluginAssemblyDescriptionCommand.Initialize(this);
-            ProjectPluginTypeDescriptionCommand.Initialize(this);
+            ProjectPluginAssemblyExplorerCommand.Initialize(this);
+            ProjectPluginTypeExplorerCommand.Initialize(this);
             ProjectPluginTreeCommand.Initialize(this);
 
 
@@ -391,8 +391,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonExportFormEventsCommand.Initialize(this);
             CommonExportGlobalOptionSetsCommand.Initialize(this);
             CommonExportOrganizationCommand.Initialize(this);
-            CommonExportPluginAssemblyDescriptionCommand.Initialize(this);
-            CommonExportPluginTypeDescriptionCommand.Initialize(this);
+            CommonExportPluginAssemblyExplorerCommand.Initialize(this);
+            CommonExportPluginTypeExplorerCommand.Initialize(this);
             CommonExportReportCommand.Initialize(this);
             CommonExportCustomControlCommand.Initialize(this);
             CommonExportApplicationRibbonXmlCommand.Initialize(this);

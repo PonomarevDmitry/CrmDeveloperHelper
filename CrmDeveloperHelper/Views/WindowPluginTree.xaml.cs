@@ -2792,7 +2792,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ComparingPluginAssemblyWithLocalAssemblyFormat1, nodeItem.Name);
 
-            var controller = new PluginTypeDescriptionController(_iWriteToOutput);
+            var controller = new PluginController(_iWriteToOutput);
 
             string filePath = await controller.CreateFileWithAssemblyComparing(_commonConfig.FolderForExport, service, nodeItem.PluginAssembly.Value, nodeItem.Name, null);
 

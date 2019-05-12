@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
-    public class PluginTypeDescriptionController
+    public class PluginController
     {
         private readonly IWriteToOutput _iWriteToOutput = null;
 
@@ -26,120 +26,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// Конструктор контроллера
         /// </summary>
         /// <param name="iWriteToOutput"></param>
-        public PluginTypeDescriptionController(IWriteToOutput iWriteToOutput)
+        public PluginController(IWriteToOutput iWriteToOutput)
         {
             this._iWriteToOutput = iWriteToOutput;
         }
-
-        #region Описание шагов плагинов для типа.
-
-        public async Task ExecuteCreatingPluginTypeDescription(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
-        {
-            string operation = string.Format(Properties.OperationNames.CreatingPluginTypeDescriptionFormat1, connectionData?.Name);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                await CreatingPluginTypeDescription(connectionData, commonConfig, selection);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
-        }
-
-        private async Task CreatingPluginTypeDescription(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
-            WindowHelper.OpenPluginTypeWindow(
-                this._iWriteToOutput
-                , service
-                , commonConfig
-                , selection
-                );
-        }
-
-        #endregion Описание шагов плагинов для типа.
-
-        #region Описание шагов плагинов сборки.
-
-        public async Task ExecuteExportingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
-        {
-            string operation = string.Format(Properties.OperationNames.ExportingPluginAssemblyFormat1, connectionData?.Name);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                await ExportingPluginAssembly(connectionData, commonConfig, selection);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
-        }
-
-        private async Task ExportingPluginAssembly(ConnectionData connectionData, CommonConfiguration commonConfig, string selection)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
-            WindowHelper.OpenPluginAssemblyWindow(
-                this._iWriteToOutput
-                , service
-                , commonConfig
-                , selection
-                );
-        }
-
-        #endregion Описание шагов плагинов сборки.
 
         #region Сравнение сборки плагинов и локальной сборки.
 

@@ -4,16 +4,16 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class CodeCSharpPluginAssemblyDescriptionCommand : AbstractCommand
+    internal sealed class CodeCSharpPluginAssemblyExplorerCommand : AbstractCommand
     {
-        private CodeCSharpPluginAssemblyDescriptionCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeCSharpPluginAssemblyDescriptionCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CodeCSharpPluginAssemblyExplorerCommand(Package package)
+            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeCSharpPluginAssemblyExplorerCommandId, ActionExecute, ActionBeforeQueryStatus) { }
 
-        public static CodeCSharpPluginAssemblyDescriptionCommand Instance { get; private set; }
+        public static CodeCSharpPluginAssemblyExplorerCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new CodeCSharpPluginAssemblyDescriptionCommand(package);
+            Instance = new CodeCSharpPluginAssemblyExplorerCommand(package);
         }
 
         private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
@@ -32,7 +32,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 && document.ProjectItem.ContainingProject != null
                 )
             {
-                helper.HandleExportPluginAssembly(document.ProjectItem.ContainingProject.Name);
+                helper.HandleOpenPluginAssemblyExplorer(document.ProjectItem.ContainingProject.Name);
             }
         }
     }
