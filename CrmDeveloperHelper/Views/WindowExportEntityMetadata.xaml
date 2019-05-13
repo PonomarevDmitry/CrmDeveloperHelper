@@ -150,6 +150,8 @@
                 </MenuItem>
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                 <MenuItem Header="Compare Information with other Organization">
+                    <MenuItem Header="Organization Comparer" Click="miOrganizationComparer_Click"/>
+                    <Separator/>
                     <MenuItem Header="Entity Metadata" Click="miCompareMetadataFile_Click"/>
                     <Separator/>
                     <MenuItem Header="Global OptionSets" Click="miCompareGlobalOptionSets_Click"/>
