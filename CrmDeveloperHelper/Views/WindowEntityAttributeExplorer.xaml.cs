@@ -814,34 +814,67 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void lstVwEntities_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left)
+            if (e.ChangedButton != MouseButton.Left)
             {
-                var entity = ((FrameworkElement)e.OriginalSource).DataContext as EntityMetadataViewItem;
-                ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+                return;
+            }
 
-                if (connectionData != null && entity != null)
+            IInputElement element = e.MouseDevice.DirectlyOver;
+            if (element != null
+                && element is FrameworkElement frameworkElement
+            )
+            {
+                if (frameworkElement.Parent is DataGridCell cell)
                 {
-                    connectionData.OpenEntityMetadataInWeb(entity.EntityMetadata.MetadataId.Value);
+                    if (cell.Column == colEntityName
+                        || cell.Column == colEntityDisplayName
+                    )
+                    {
+                        var entity = ((FrameworkElement)e.OriginalSource).DataContext as EntityMetadataViewItem;
+                        ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+                        if (connectionData != null && entity != null)
+                        {
+                            connectionData.OpenEntityMetadataInWeb(entity.EntityMetadata.MetadataId.Value);
+                        }
+                    }
                 }
             }
         }
 
         private void lstVwAttributes_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left)
+            if (e.ChangedButton != MouseButton.Left)
             {
-                ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+                return;
+            }
 
-                var entity = GetSelectedEntity();
-
-                var attribute = ((FrameworkElement)e.OriginalSource).DataContext as AttributeMetadataViewItem;
-
-                if (connectionData != null
-                    && entity != null
-                    && attribute != null
-                )
+            IInputElement element = e.MouseDevice.DirectlyOver;
+            if (element != null
+                && element is FrameworkElement frameworkElement
+            )
+            {
+                if (frameworkElement.Parent is DataGridCell cell)
                 {
-                    connectionData.OpenAttributeMetadataInWeb(entity.EntityMetadata.MetadataId.Value, attribute.AttributeMetadata.MetadataId.Value);
+                    if (cell.Column == colAttributeName
+                        || cell.Column == colAttributeDisplayName
+                        || cell.Column == colAttributeType
+                    )
+                    {
+                        ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+                        var entity = GetSelectedEntity();
+
+                        var attribute = ((FrameworkElement)e.OriginalSource).DataContext as AttributeMetadataViewItem;
+
+                        if (connectionData != null
+                            && entity != null
+                            && attribute != null
+                        )
+                        {
+                            connectionData.OpenAttributeMetadataInWeb(entity.EntityMetadata.MetadataId.Value, attribute.AttributeMetadata.MetadataId.Value);
+                        }
+                    }
                 }
             }
         }

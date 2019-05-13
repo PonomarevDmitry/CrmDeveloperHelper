@@ -89,5 +89,54 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
+
     
+    <!--
+    <Style TargetType="DataGridCell">
+
+        <Setter Property="CellStyle" >
+            <Setter.Value>
+                <Style TargetType="TextBlock">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                </Style>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+    
+
+    <Style TargetType="DataGridTextColumn">
+
+        <Setter Property="ElementStyle" >
+            <Setter.Value>
+                <Style TargetType="TextBlock">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="DataGridCheckBoxColumn">
+        <Setter Property="CellStyle" >
+            <Setter.Value>
+                <Style TargetType="CheckBox">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="DataGridComboBoxColumn">
+        <Setter Property="CellStyle" >
+            <Setter.Value>
+                <Style TargetType="ComboBox">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    -->
+
 </ResourceDictionary>
