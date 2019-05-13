@@ -231,7 +231,7 @@
                 </DataGrid>
             </Grid>
 
-            <GridSplitter Grid.Column="1" Width="5"/>
+            <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
 
             <Grid Grid.Column="2">
 
