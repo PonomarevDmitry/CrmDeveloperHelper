@@ -178,7 +178,7 @@
             </Button>
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
-            <MenuItem x:Name="mISaveChanges" Header="Save Changes" Click="mISaveChanges_Click" />
+            <Button x:Name="mISaveChanges" Content="Save Changes" Click="mISaveChanges_Click" />
         </ToolBar>
 
         <Grid Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Row="1">
