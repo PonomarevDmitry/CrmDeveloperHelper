@@ -28,23 +28,23 @@
                 <Separator/>
                 <MenuItem Header="Manifest" VerticalAlignment="Center" Click="mIExportCustomControlFormXml_Click" />
                 <MenuItem Header="Form Json" VerticalAlignment="Center" Click="mIExportCustomControlFormJson_Click" />
-                
+
                 <Separator />
                 <MenuItem Header="Change CustomControl Attribute" VerticalAlignment="Center">
                     <MenuItem Header="Manifest" VerticalAlignment="Center" Click="mIUpdateCustomControlFormXml_Click" />
                     <MenuItem Header="Form Json" VerticalAlignment="Center" Click="mIUpdateCustomControlFormJson_Click" />
                 </MenuItem>
-                
+
                 <Separator/>
                 <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
-                
+
                 <Separator/>
                 <MenuItem Header="Dependent Components">
                     <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
                     <Separator/>
                     <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
                 </MenuItem>
-                
+
                 <Separator/>
                 <MenuItem Header="Get Other Entity Information">
                     <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
@@ -70,7 +70,7 @@
                     <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
                     <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
                 </MenuItem>
-                
+
                 <Separator/>
                 <MenuItem Header="Compare Information with other Organization">
                     <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
@@ -87,7 +87,7 @@
                     <Separator/>
                     <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
                 </MenuItem>
-                
+
                 <Separator/>
                 <MenuItem Header="Export All Form Information" Click="btnExportAll_Click"/>
             </ContextMenu>
@@ -106,6 +106,53 @@
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0">
             <Button Content="Options" Click="miOptions_Click"/>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu Background="{x:Null}">
+                <MenuItem Header="Get Other Entity Information">
+                    <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
+                    <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
+                    <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
+                    <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity SecurityRoles Explorer" Click="miEntitySecurityRolesExplorer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="SecurityRoles Explorer" Click="miSecurityRolesExplorer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Forms" Click="btnSystemForms_Click"/>
+                    <MenuItem Header="Views" Click="btnSavedQuery_Click"/>
+                    <MenuItem Header="Charts" Click="btnSavedChart_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Workflows" Click="btnWorkflows_Click"/>
+                    <Separator/>
+                    <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Plugin Tree" Click="btnPluginTree_Click"/>
+                    <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
+                    <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
+                </MenuItem>
+            </Menu>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu Background="{x:Null}">
+                <MenuItem Header="Compare Information with other Organization">
+                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
+                    <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
+                    <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
+                    <Separator/>
+                    <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
+                </MenuItem>
+            </Menu>
         </ToolBar>
 
         <Grid Grid.Row="1" Margin="5">
@@ -178,12 +225,12 @@
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
                     <Button x:Name="btnExportAll" Content="Export All Form Information" Click="btnExportAll_Click" />
-                    
+
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportCustomControl" Header="Export Form Information" VerticalAlignment="Center">
                             <MenuItem Header="Open CustomControl in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
-                            
+
                             <Separator/>
                             <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
 
@@ -194,73 +241,30 @@
                             <Separator/>
                             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
                             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
-                            
+
                             <Separator/>
                             <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIExportCustomControlFormXml_Click" />
                             <MenuItem Header="Form Json" VerticalAlignment="Center" Click="mIExportCustomControlFormJson_Click" />
-                            
+
                             <Separator />
                             <MenuItem Header="Change CustomControl Attribute" VerticalAlignment="Center">
                                 <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIUpdateCustomControlFormXml_Click" />
                                 <MenuItem Header="Form Json" VerticalAlignment="Center" Click="mIUpdateCustomControlFormJson_Click" />
                             </MenuItem>
-                            
+
                             <Separator/>
                             <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
-                            
+
                             <Separator/>
                             <MenuItem Header="Dependent Components">
                                 <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
                                 <Separator/>
                                 <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
                             </MenuItem>
-                            
-                            <Separator/>
-                            <MenuItem Header="Get Other Entity Information">
-                                <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
-                                <Separator/>
-                                <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
-                                <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
-                                <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
-                                <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
-                                <Separator/>
-                                <MenuItem Header="Entity SecurityRoles Explorer" Click="miEntitySecurityRolesExplorer_Click"/>
-                                <Separator/>
-                                <MenuItem Header="SecurityRoles Explorer" Click="miSecurityRolesExplorer_Click"/>
-                                <Separator/>
-                                <MenuItem Header="Forms" Click="btnSystemForms_Click"/>
-                                <MenuItem Header="Views" Click="btnSavedQuery_Click"/>
-                                <MenuItem Header="Charts" Click="btnSavedChart_Click"/>
-                                <Separator/>
-                                <MenuItem Header="Workflows" Click="btnWorkflows_Click"/>
-                                <Separator/>
-                                <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click"/>
-                                <Separator/>
-                                <MenuItem Header="Plugin Tree" Click="btnPluginTree_Click"/>
-                                <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
-                                <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
-                            </MenuItem>
-                            
-                            <Separator/>
-                            <MenuItem Header="Compare Information with other Organization">
-                                <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
-                                <Separator/>
-                                <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
-                                <Separator/>
-                                <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
-                                <Separator/>
-                                <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
-                                <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
-                                <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
-                                <Separator/>
-                                <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
-                                <Separator/>
-                                <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
-                            </MenuItem>
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>
-                
+
                 <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>

@@ -433,6 +433,8 @@
                             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
                             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                                 <MenuItem Header="Compare Information with other Organization" VerticalAlignment="Center">
+                                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                                    <Separator/>
                                     <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
                                     <Separator/>
                                     <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
