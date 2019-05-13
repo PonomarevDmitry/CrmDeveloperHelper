@@ -376,14 +376,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                await _service.UpsertAsync(updateEntity);
+                var tempEntityId = await _service.UpsertAsync(updateEntity);
 
                 ToggleControls(true, Properties.WindowStatusStrings.SavingEntityCompletedFormat1, _entityName);
 
-                if (_actionAfterSave != null)
-                {
-                    _actionAfterSave();
-                }
+                _actionAfterSave?.Invoke();
+
+                _iWriteToOutput.WriteToOutputEntityInstance(_service.ConnectionData, _entityName, tempEntityId);
 
                 this.Close();
             }
