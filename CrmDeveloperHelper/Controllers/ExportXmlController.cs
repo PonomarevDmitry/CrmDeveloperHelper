@@ -11,7 +11,9 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Xml.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
@@ -378,7 +380,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.ValidatingXmlForFieldFailedFormat1, SiteMap.Schema.Attributes.sitemapxml);
                 _iWriteToOutput.ActivateOutputWindow(connectionData);
-                return;
+
+                var dialogResult = MessageBoxResult.Cancel;
+
+                var t = new Thread(() =>
+                {
+                    dialogResult = MessageBox.Show(Properties.MessageBoxStrings.ContinueOperation, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                });
+                t.SetApartmentState(ApartmentState.STA);
+                t.Start();
+
+                t.Join();
+
+                if (dialogResult != MessageBoxResult.OK)
+                {
+                    return;
+                }
             }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
@@ -715,7 +732,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.ValidatingXmlForFieldFailedFormat1, SystemForm.Schema.Attributes.formxml);
                 _iWriteToOutput.ActivateOutputWindow(connectionData);
-                return;
+
+                var dialogResult = MessageBoxResult.Cancel;
+
+                var t = new Thread(() =>
+                {
+                    dialogResult = MessageBox.Show(Properties.MessageBoxStrings.ContinueOperation, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                });
+                t.SetApartmentState(ApartmentState.STA);
+                t.Start();
+
+                t.Join();
+
+                if (dialogResult != MessageBoxResult.OK)
+                {
+                    return;
+                }
             }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
@@ -1059,7 +1091,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.ValidatingXmlForFieldFailedFormat1, fieldTitle);
                 _iWriteToOutput.ActivateOutputWindow(connectionData);
-                return;
+
+                var dialogResult = MessageBoxResult.Cancel;
+
+                var t = new Thread(() =>
+                {
+                    dialogResult = MessageBox.Show(Properties.MessageBoxStrings.ContinueOperation, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                });
+                t.SetApartmentState(ApartmentState.STA);
+                t.Start();
+
+                t.Join();
+
+                if (dialogResult != MessageBoxResult.OK)
+                {
+                    return;
+                }
             }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);

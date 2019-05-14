@@ -30,11 +30,11 @@
             <BitmapImage x:Key="ImageSvg" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_svg.png" />
             <BitmapImage x:Key="ImageResx" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Icons/16x16_resx.png" />
 
-            <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">\
-                
+            <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+
                 <MenuItem Header="Expand Nodes" Click="mIExpandNodes_Click" />
                 <MenuItem Header="Collapse Nodes" Click="mICollapseNodes_Click" />
-                
+
                 <Separator/>
                 <MenuItem Header="Open WebResource in Web" Click="mIOpenInWeb_Click" />
 
@@ -92,9 +92,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            
+
             <RowDefinition Height="100*" />
-            
+
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -241,7 +241,7 @@
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportWebResource" Header="Download WebResource" SubmenuOpened="tSDDBExportWebResource_SubmenuOpened">
                             <MenuItem Header="Open WebResource in Web" Click="mIOpenInWeb_Click" />
-                            
+
                             <Separator/>
                             <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
@@ -284,7 +284,7 @@
                 <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
-        
+
         <StatusBar Grid.Row="5">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" />

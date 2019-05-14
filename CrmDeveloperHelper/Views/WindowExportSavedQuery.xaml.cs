@@ -609,21 +609,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string filePath = await CreateFileAsync(folder, idSavedQuery, entityName, name, fieldTitle + " BackUp", xmlContent, extension);
 
                 var newText = string.Empty;
-                bool? dialogResult = false;
-
-                this.Dispatcher.Invoke(() =>
                 {
-                    var form = new WindowTextField("Enter " + fieldTitle, fieldTitle, xmlContent);
+                    bool? dialogResult = false;
 
-                    dialogResult = form.ShowDialog();
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        var form = new WindowTextField("Enter " + fieldTitle, fieldTitle, xmlContent);
 
-                    newText = form.FieldText;
-                });
+                        dialogResult = form.ShowDialog();
 
-                if (dialogResult.GetValueOrDefault() == false)
-                {
-                    ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.UpdatingFieldCanceledFormat2, service.ConnectionData.Name, fieldName);
-                    return;
+                        newText = form.FieldText;
+                    });
+
+                    if (dialogResult.GetValueOrDefault() == false)
+                    {
+                        ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.UpdatingFieldCanceledFormat2, service.ConnectionData.Name, fieldName);
+                        return;
+                    }
                 }
 
                 newText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
@@ -642,9 +644,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (!validateResult)
                 {
-                    ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ValidatingXmlForFieldFailedFormat1, fieldName);
+                    var dialogResult = MessageBoxResult.Cancel;
 
-                    return;
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        dialogResult = MessageBox.Show(Properties.MessageBoxStrings.ContinueOperation, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                    });
+
+                    if (dialogResult != MessageBoxResult.OK)
+                    {
+                        ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ValidatingXmlForFieldFailedFormat1, fieldName);
+                        _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                        return;
+                    }
                 }
 
                 if (string.Equals(fieldName, SavedQuery.Schema.Attributes.fetchxml, StringComparison.InvariantCulture))

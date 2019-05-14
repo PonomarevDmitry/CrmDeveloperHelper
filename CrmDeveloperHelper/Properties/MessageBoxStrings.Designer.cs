@@ -151,6 +151,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Continue Operation?.
+        /// </summary>
+        internal static string ContinueOperation {
+            get {
+                return ResourceManager.GetString("ContinueOperation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure want to copy components from {0} to {1}?.
         /// </summary>
         internal static string CopySolutionComponentsFromToFormat2 {

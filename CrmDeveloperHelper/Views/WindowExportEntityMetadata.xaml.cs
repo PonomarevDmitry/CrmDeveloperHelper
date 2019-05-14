@@ -1736,26 +1736,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var newText = string.Empty;
-            bool? dialogResult = false;
-
-            var title = string.Format("RibbonDiffXml for {0}", entity.EntityLogicalName);
-
-            this.Dispatcher.Invoke(() =>
-            {
-                var form = new WindowTextField("Enter " + title, title, string.Empty);
-
-                dialogResult = form.ShowDialog();
-
-                newText = form.FieldText;
-            });
 
             var service = await GetService();
 
-            if (dialogResult.GetValueOrDefault() == false)
             {
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.UpdatingRibbonDiffXmlForEntityCanceledFormat2, service.ConnectionData.Name, entity.EntityLogicalName);
-                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
-                return;
+                bool? dialogResult = false;
+
+                var title = string.Format("RibbonDiffXml for {0}", entity.EntityLogicalName);
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    var form = new WindowTextField("Enter " + title, title, string.Empty);
+
+                    dialogResult = form.ShowDialog();
+
+                    newText = form.FieldText;
+                });
+
+                if (dialogResult.GetValueOrDefault() == false)
+                {
+                    ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.UpdatingRibbonDiffXmlForEntityCanceledFormat2, service.ConnectionData.Name, entity.EntityLogicalName);
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                    return;
+                }
             }
 
             newText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
@@ -1773,9 +1776,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!validateResult)
             {
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ValidatingRibbonDiffXmlForEntityFailedFormat1, entity.EntityLogicalName);
-                _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
-                return;
+                var dialogResult = MessageBoxResult.Cancel;
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    dialogResult = MessageBox.Show(Properties.MessageBoxStrings.ContinueOperation, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                });
+
+                if (dialogResult != MessageBoxResult.OK)
+                {
+                    ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ValidatingRibbonDiffXmlForEntityFailedFormat1, entity.EntityLogicalName);
+                    _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+                    return;
+                }
             }
 
             var repositoryPublisher = new PublisherRepository(service);

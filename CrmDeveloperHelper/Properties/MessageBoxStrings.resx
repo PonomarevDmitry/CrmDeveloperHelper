@@ -309,4 +309,7 @@
   <data name="EntityNameIsEmpty" xml:space="preserve">
     <value>Entity Name is empty.</value>
   </data>
+  <data name="ContinueOperation" xml:space="preserve">
+    <value>Continue Operation?</value>
+  </data>
 </root>

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -585,23 +586,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlFormat1, service.ConnectionData.Name);
 
             var newText = string.Empty;
-            bool? dialogResult = false;
-
-            var title = "Application RibbonDiffXml";
-
-            this.Dispatcher.Invoke(() =>
             {
-                var form = new WindowTextField("Enter " + title, title, string.Empty);
+                bool? dialogResult = false;
 
-                dialogResult = form.ShowDialog();
+                var title = "Application RibbonDiffXml";
 
-                newText = form.FieldText;
-            });
+                this.Dispatcher.Invoke(() =>
+                {
+                    var form = new WindowTextField("Enter " + title, title, string.Empty);
 
-            if (dialogResult.GetValueOrDefault() == false)
-            {
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlCanceledFormat1, service.ConnectionData.Name);
-                return;
+                    dialogResult = form.ShowDialog();
+
+                    newText = form.FieldText;
+                });
+
+                if (dialogResult.GetValueOrDefault() == false)
+                {
+                    ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.UpdatingApplicationRibbonDiffXmlCanceledFormat1, service.ConnectionData.Name);
+                    return;
+                }
             }
 
             newText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
@@ -620,10 +623,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!validateResult)
             {
-                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ValidatingApplicationRibbonDiffXmlFailed);
-                return;
-            }
+                var dialogResult = MessageBoxResult.Cancel;
 
+                this.Dispatcher.Invoke(() =>
+                {
+                    dialogResult = MessageBox.Show(Properties.MessageBoxStrings.ContinueOperation, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                });
+
+                if (dialogResult != MessageBoxResult.OK)
+                {
+                    ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ValidatingApplicationRibbonDiffXmlFailed);
+                    return;
+                }
+            }
 
             var repositoryPublisher = new PublisherRepository(service);
             var publisherDefault = await repositoryPublisher.GetDefaultPublisherAsync();
