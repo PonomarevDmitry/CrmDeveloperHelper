@@ -137,7 +137,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 case Entities.ComponentType.EntityRelationship:
                     return 9805;
 
-                //case Entities.ComponentType.EntityKey:
+                case Entities.ComponentType.EntityKey:
+                    return 9812;
 
                 case Entities.ComponentType.PluginAssembly:
                     return PluginAssembly.EntityTypeCode;
