@@ -56,7 +56,7 @@
             <MenuItem Header="Create Team Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click" />
 
             <Separator/>
-            <MenuItem Header="Compare Role Privileges">
+            <MenuItem Header="Compare Team Privileges">
                 <MenuItem Header="With Role Privileges" VerticalAlignment="Center" Click="mIRolePrivilegesWithRolePrivileges_Click" />
 
                 <Separator/>

@@ -19,7 +19,7 @@
             <MenuItem Header="Create User Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click" />
 
             <Separator/>
-            <MenuItem Header="Compare Role Privileges">
+            <MenuItem Header="Compare User Privileges">
                 <MenuItem Header="With Role Privileges" VerticalAlignment="Center" Click="mIRolePrivilegesWithRolePrivileges_Click" />
 
                 <Separator/>
