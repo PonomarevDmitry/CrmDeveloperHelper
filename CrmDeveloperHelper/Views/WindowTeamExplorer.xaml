@@ -65,6 +65,12 @@
                 <Separator/>
                 <MenuItem Header="With Team Privileges" VerticalAlignment="Center" Click="mIRolePrivilegesWithTeamPrivileges_Click" />
             </MenuItem>
+
+            <Separator/>
+            <MenuItem Header="Clipboard">
+                <MenuItem Header="Copy Team Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
+                <MenuItem Header="Copy Team Url to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />
+            </MenuItem>
         </ContextMenu>
 
         <ContextMenu x:Key="listContextMenuEntityPrivileges" Opened="ContextMenuEntityPrivileges_Opened">
