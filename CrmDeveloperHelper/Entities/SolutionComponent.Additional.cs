@@ -134,6 +134,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 case Entities.ComponentType.OptionSet:
                     return 9804;
 
+                case Entities.ComponentType.EntityRelationship:
+                    return 9805;
+
+                //case Entities.ComponentType.EntityKey:
+
                 case Entities.ComponentType.PluginAssembly:
                     return PluginAssembly.EntityTypeCode;
 
@@ -363,12 +368,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 case Entities.ComponentType.RelationshipExtraCondition:
 
-                case Entities.ComponentType.EntityRelationship:
                 case Entities.ComponentType.EntityRelationshipRole:
                 case Entities.ComponentType.EntityRelationshipRelationships:
 
                 case Entities.ComponentType.ManagedProperty:
-                case Entities.ComponentType.EntityKey:
 
                 case Entities.ComponentType.Form:
 
