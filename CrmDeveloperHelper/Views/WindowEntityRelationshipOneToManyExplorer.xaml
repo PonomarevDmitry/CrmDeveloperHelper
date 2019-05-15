@@ -171,10 +171,10 @@
             </Button>
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
-            <ComboBox x:Name="cmBRelationType" Background="{x:Null}" Margin="10,0" SelectedIndex="0" IsEditable="False" SelectionChanged="cmBRelationType_SelectionChanged">
-                <ComboBoxItem Content="All Relationships" Background="{x:Null}" />
-                <ComboBoxItem Content="One-To-Many" Background="{x:Null}" />
-                <ComboBoxItem Content="Many-To-One"  Background="{x:Null}" />
+            <ComboBox x:Name="cmBRelationType" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Margin="10,0" SelectedIndex="0" IsEditable="False" SelectionChanged="cmBRelationType_SelectionChanged">
+                <ComboBoxItem Content="All Relationships" />
+                <ComboBoxItem Content="One-To-Many" />
+                <ComboBoxItem Content="Many-To-One" />
             </ComboBox>
 
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
