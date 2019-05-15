@@ -1090,10 +1090,10 @@
   <data name="DeletingSolutionFailedFormat1" xml:space="preserve">
     <value>Deleting solution {0} failed.</value>
   </data>
-  <data name="LoadingEntitySecurityRoles" xml:space="preserve">
+  <data name="LoadingEntityPrivileges" xml:space="preserve">
     <value>Loading entity security roles...</value>
   </data>
-  <data name="LoadingEntitySecurityRolesCompletedFormat1" xml:space="preserve">
+  <data name="LoadingEntityPrivilegesCompletedFormat1" xml:space="preserve">
     <value>{0} security roles loaded.</value>
   </data>
   <data name="LoadingSystemUsers" xml:space="preserve">

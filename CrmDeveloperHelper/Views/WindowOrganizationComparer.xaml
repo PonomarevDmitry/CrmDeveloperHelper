@@ -196,7 +196,7 @@
                                     <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
                                     <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
                                     <Separator/>
-                                    <MenuItem Header="Entity SecurityRoles Explorer" Click="miEntitySecurityRolesExplorer_Click"/>
+                                    <MenuItem Header="Entity Privileges Explorer" Click="miEntityPrivilegesExplorer_Click"/>
                                     <Separator/>
                                     <Separator/>
                                     <MenuItem Header="System Form"  Click="tSMIExportSystemForms_Click"/>
@@ -213,7 +213,7 @@
                                 </MenuItem>
                                 <Separator/>
                                 <MenuItem Header="Security" >
-                                    <MenuItem Header="Entity SecurityRoles Explorer" Click="miEntitySecurityRolesExplorer_Click"/>
+                                    <MenuItem Header="Entity Privileges Explorer" Click="miEntityPrivilegesExplorer_Click"/>
                                     <MenuItem Header="SystemUsers Explorer"  Click="tSMISystemUsersExplorer_Click"/>
                                     <MenuItem Header="Teams Explorer" Click="tSMITeamsExplorer_Click" />
                                     <MenuItem Header="SecurityRoles Explorer" Click="tSMISecurityRolesExplorer_Click" />

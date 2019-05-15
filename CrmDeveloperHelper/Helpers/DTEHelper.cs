@@ -3020,7 +3020,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleOpenEntitySecurityRolesExplorer()
+        public void HandleOpenEntityPrivilegesExplorer()
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
             string selection = GetSelectedText();
@@ -3039,7 +3039,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartOpenEntitySecurityRolesExplorer(selection, connectionData, commonConfig);
+                    Controller.StartOpenEntityPrivilegesExplorer(selection, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {

@@ -190,7 +190,7 @@
     <Compile Include="Commands\CommonEntityKeyExplorerCommand.cs" />
     <Compile Include="Commands\CommonEntityRelationshipManyToManyExplorerCommand.cs" />
     <Compile Include="Commands\CommonEntityRelationshipOneToManyExplorerCommand.cs" />
-    <Compile Include="Commands\CommonEntitySecurityRolesExplorerCommand.cs" />
+    <Compile Include="Commands\CommonEntityPrivilegesExplorerCommand.cs" />
     <Compile Include="Commands\CommonExportCustomControlCommand.cs" />
     <Compile Include="Commands\CommonExportDefaultSitemapsCommand.cs" />
     <Compile Include="Commands\CommonExportOpenLastSelectedSolutionCommand.cs" />
@@ -1200,8 +1200,8 @@
     <Compile Include="Views\WindowEntityRelationshipOneToManyExplorer.xaml.cs">
       <DependentUpon>WindowEntityRelationshipOneToManyExplorer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowEntitySecurityRoleExplorer.xaml.cs">
-      <DependentUpon>WindowEntitySecurityRoleExplorer.xaml</DependentUpon>
+    <Compile Include="Views\WindowEntityPrivilegesExplorer.xaml.cs">
+      <DependentUpon>WindowEntityPrivilegesExplorer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowEntitySelect.Generic.cs" />
     <Compile Include="Views\WindowEntitySelect.xaml.cs">
@@ -1881,7 +1881,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowEntitySecurityRoleExplorer.xaml">
+    <Page Include="Views\WindowEntityPrivilegesExplorer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

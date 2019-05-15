@@ -387,7 +387,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonEntityKeyExplorerCommand.Initialize(this);
             CommonEntityRelationshipOneToManyExplorerCommand.Initialize(this);
             CommonEntityRelationshipManyToManyExplorerCommand.Initialize(this);
-            CommonEntitySecurityRolesExplorerCommand.Initialize(this);
+            CommonEntityPrivilegesExplorerCommand.Initialize(this);
             CommonExportFormEventsCommand.Initialize(this);
             CommonExportGlobalOptionSetsCommand.Initialize(this);
             CommonExportOrganizationCommand.Initialize(this);

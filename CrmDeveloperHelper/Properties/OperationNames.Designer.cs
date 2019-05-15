@@ -1294,6 +1294,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Opening Entity Privileges Explorer.
+        /// </summary>
+        internal static string OpeningEntityPrivilegesExplorerFormat1 {
+            get {
+                return ResourceManager.GetString("OpeningEntityPrivilegesExplorerFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Opening Entity Relationship Many-To-Many.
         /// </summary>
         internal static string OpeningEntityRelationshipManyToManyFormat1 {
@@ -1308,15 +1317,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string OpeningEntityRelationshipOneToManyFormat1 {
             get {
                 return ResourceManager.GetString("OpeningEntityRelationshipOneToManyFormat1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} - Opening Entity SecurityRoles.
-        /// </summary>
-        internal static string OpeningEntitySecurityRolesFormat1 {
-            get {
-                return ResourceManager.GetString("OpeningEntitySecurityRolesFormat1", resourceCulture);
             }
         }
         

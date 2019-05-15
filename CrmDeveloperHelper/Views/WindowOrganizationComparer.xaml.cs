@@ -1205,7 +1205,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void miEntitySecurityRolesExplorer_Click(object sender, RoutedEventArgs e)
+        private void miEntityPrivilegesExplorer_Click(object sender, RoutedEventArgs e)
         {
             GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
 
@@ -1219,7 +1219,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var contr = new EntityMetadataController(this._iWriteToOutput);
 
-                        contr.ExecuteOpeningEntitySecurityRolesExplorer(string.Empty, connection1, _commonConfig);
+                        contr.ExecuteOpeningEntityPrivilegesExplorer(string.Empty, connection1, _commonConfig);
                     }
                     catch (Exception ex)
                     {

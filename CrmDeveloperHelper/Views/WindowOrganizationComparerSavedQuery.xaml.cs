@@ -1283,7 +1283,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.EntityName);
         }
 
-        private async void btnEntitySecurityRolesExplorer1_Click(object sender, RoutedEventArgs e)
+        private async void btnEntityPrivilegesExplorer1_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1291,10 +1291,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
-            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.EntityName);
+            WindowHelper.OpenEntityPrivilegesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.EntityName);
         }
 
-        private async void btnEntitySecurityRolesExplorer2_Click(object sender, RoutedEventArgs e)
+        private async void btnEntityPrivilegesExplorer2_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1302,7 +1302,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService2();
 
-            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.EntityName);
+            WindowHelper.OpenEntityPrivilegesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.EntityName);
         }
 
         private async void btnSecurityRolesExplorer1_Click(object sender, RoutedEventArgs e)

@@ -22,7 +22,7 @@ using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
-    public partial class WindowEntitySecurityRoleExplorer : WindowBase
+    public partial class WindowEntityPrivilegesExplorer : WindowBase
     {
         private readonly object sysObjectConnections = new object();
 
@@ -41,7 +41,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly Dictionary<PrivilegeType, MenuItem> _menuItemsPrivileges;
         private readonly Dictionary<PrivilegeType, Dictionary<PrivilegeDepth, MenuItem>> _menuItemsPrivilegesDepths;
 
-        public WindowEntitySecurityRoleExplorer(
+        public WindowEntityPrivilegesExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -420,7 +420,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingEntitySecurityRoles);
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.LoadingEntityPrivileges);
 
             string textName = string.Empty;
 
@@ -445,11 +445,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             , Role.Schema.Attributes.businessunitid
                             , Role.Schema.Attributes.ismanaged
                             , Role.Schema.Attributes.iscustomizable
-                            ));
+                        ));
 
                         var repository = new RolePrivilegesRepository(service);
 
-                        var task = repository.GetEntitySecurityRolesAsync(roles.Select(r => r.RoleId.Value), entityMetadata.Privileges?.Select(p => p.PrivilegeId));
+                        var task = repository.GetEntityPrivilegesAsync(roles.Select(r => r.RoleId.Value), entityMetadata.Privileges?.Select(p => p.PrivilegeId));
 
                         ActivateMenuItemsSetPrivileges(entityMetadata.Privileges);
 
@@ -466,7 +466,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadSecurityRoles(list);
 
-            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingEntitySecurityRolesCompletedFormat1, list.Count());
+            ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingEntityPrivilegesCompletedFormat1, list.Count());
         }
 
         private void ActivateMenuItemsSetPrivileges(SecurityPrivilegeMetadata[] privileges)

@@ -1342,7 +1342,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
-        private async void btnEntitySecurityRolesExplorer1_Click(object sender, RoutedEventArgs e)
+        private async void btnEntityPrivilegesExplorer1_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
 
@@ -1357,10 +1357,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
             }
 
-            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList);
+            WindowHelper.OpenEntityPrivilegesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList);
         }
 
-        private async void btnEntitySecurityRolesExplorer2_Click(object sender, RoutedEventArgs e)
+        private async void btnEntityPrivilegesExplorer2_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedLinkedEntityMetadata();
 
@@ -1375,7 +1375,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 entityMetadataList = _cacheEntityMetadata[service.ConnectionData.ConnectionId];
             }
 
-            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList);
+            WindowHelper.OpenEntityPrivilegesExplorer(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, entityMetadataList);
         }
 
         private async void btnSecurityRolesExplorer1_Click(object sender, RoutedEventArgs e)

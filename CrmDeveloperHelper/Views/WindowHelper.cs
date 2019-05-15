@@ -228,26 +228,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
-        public static void OpenEntitySecurityRolesExplorer(
+        public static void OpenEntityPrivilegesExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
         )
         {
-            OpenEntitySecurityRolesExplorer(iWriteToOutput, service, commonConfig, null, null);
+            OpenEntityPrivilegesExplorer(iWriteToOutput, service, commonConfig, null, null);
         }
 
-        public static void OpenEntitySecurityRolesExplorer(
+        public static void OpenEntityPrivilegesExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , string filterEntityName
         )
         {
-            OpenEntitySecurityRolesExplorer(iWriteToOutput, service, commonConfig, filterEntityName, null);
+            OpenEntityPrivilegesExplorer(iWriteToOutput, service, commonConfig, filterEntityName, null);
         }
 
-        public static void OpenEntitySecurityRolesExplorer(
+        public static void OpenEntityPrivilegesExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
@@ -259,7 +259,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowEntitySecurityRoleExplorer(
+                    var form = new WindowEntityPrivilegesExplorer(
                         iWriteToOutput
                         , service
                         , commonConfig

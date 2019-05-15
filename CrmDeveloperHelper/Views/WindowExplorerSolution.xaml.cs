@@ -3127,13 +3127,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenEntityKeyExplorer(this._iWriteToOutput, service, _commonConfig, null);
         }
 
-        private async void miEntitySecurityRolesExplorer_Click(object sender, RoutedEventArgs e)
+        private async void miEntityPrivilegesExplorer_Click(object sender, RoutedEventArgs e)
         {
             var service = await GetService();
 
             _commonConfig.Save();
 
-            WindowHelper.OpenEntitySecurityRolesExplorer(this._iWriteToOutput, service, _commonConfig);
+            WindowHelper.OpenEntityPrivilegesExplorer(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void miSecurityRolesExplorer_Click(object sender, RoutedEventArgs e)

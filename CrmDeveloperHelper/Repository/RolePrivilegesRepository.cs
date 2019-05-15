@@ -88,12 +88,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return result;
         }
 
-        public Task<List<RolePrivileges>> GetEntitySecurityRolesAsync(IEnumerable<Guid> roles, IEnumerable<Guid> privileges)
+        public Task<List<RolePrivileges>> GetEntityPrivilegesAsync(IEnumerable<Guid> roles, IEnumerable<Guid> privileges)
         {
-            return Task.Run(() => GetEntitySecurityRoles(roles, privileges));
+            return Task.Run(() => GetEntityPrivileges(roles, privileges));
         }
 
-        private List<RolePrivileges> GetEntitySecurityRoles(IEnumerable<Guid> roles, IEnumerable<Guid> privileges)
+        private List<RolePrivileges> GetEntityPrivileges(IEnumerable<Guid> roles, IEnumerable<Guid> privileges)
         {
             var result = new List<RolePrivileges>();
 

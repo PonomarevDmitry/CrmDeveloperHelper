@@ -588,8 +588,8 @@
   <data name="DifferenceSiteMapFormat1" xml:space="preserve">
     <value>{0} - Difference SiteMap</value>
   </data>
-  <data name="OpeningEntitySecurityRolesFormat1" xml:space="preserve">
-    <value>{0} - Opening Entity SecurityRoles</value>
+  <data name="OpeningEntityPrivilegesExplorerFormat1" xml:space="preserve">
+    <value>{0} - Opening Entity Privileges Explorer</value>
   </data>
   <data name="OpeningSystemUsersExplorerFormat1" xml:space="preserve">
     <value>{0} - Opening SystemUsers Explorer</value>

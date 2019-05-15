@@ -2169,18 +2169,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Loading entity security roles....
         /// </summary>
-        internal static string LoadingEntitySecurityRoles {
+        internal static string LoadingEntityPrivileges {
             get {
-                return ResourceManager.GetString("LoadingEntitySecurityRoles", resourceCulture);
+                return ResourceManager.GetString("LoadingEntityPrivileges", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0} security roles loaded..
         /// </summary>
-        internal static string LoadingEntitySecurityRolesCompletedFormat1 {
+        internal static string LoadingEntityPrivilegesCompletedFormat1 {
             get {
-                return ResourceManager.GetString("LoadingEntitySecurityRolesCompletedFormat1", resourceCulture);
+                return ResourceManager.GetString("LoadingEntityPrivilegesCompletedFormat1", resourceCulture);
             }
         }
         

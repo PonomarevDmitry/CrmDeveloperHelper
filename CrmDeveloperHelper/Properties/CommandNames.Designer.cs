@@ -412,6 +412,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Entity Privileges Explorer.
+        /// </summary>
+        internal static string CommonEntityPrivilegesExplorerCommand {
+            get {
+                return ResourceManager.GetString("CommonEntityPrivilegesExplorerCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Entity Relationship Many-To-Many Explorer.
         /// </summary>
         internal static string CommonEntityRelationshipManyToManyExplorerCommand {
@@ -426,15 +435,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CommonEntityRelationshipOneToManyExplorerCommand {
             get {
                 return ResourceManager.GetString("CommonEntityRelationshipOneToManyExplorerCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Entity SecurityRoles Explorer.
-        /// </summary>
-        internal static string CommonEntitySecurityRolesExplorerCommand {
-            get {
-                return ResourceManager.GetString("CommonEntitySecurityRolesExplorerCommand", resourceCulture);
             }
         }
         

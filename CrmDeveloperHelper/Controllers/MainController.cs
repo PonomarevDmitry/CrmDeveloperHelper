@@ -1032,13 +1032,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartOpenEntitySecurityRolesExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartOpenEntityPrivilegesExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._entityMetadataController.ExecuteOpeningEntitySecurityRolesExplorer(selection, connectionData, commonConfig);
+                    this._entityMetadataController.ExecuteOpeningEntityPrivilegesExplorer(selection, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
