@@ -1427,8 +1427,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             {
                                 listEntityAttributes.Add(new SolutionComponent()
                                 {
-                                    ComponentType = new OptionSetValue((int)ComponentType.Entity),
-                                    ObjectId = currentEntity.MetadataId,
+                                    ComponentType = new OptionSetValue((int)ComponentType.Attribute),
+                                    ObjectId = currentAttribute.MetadataId,
                                 });
                             }
                         }

@@ -495,7 +495,6 @@
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupCrmObjects" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupWorkflows" priority="0x0603" />
-      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupFindEntity" priority="0x0603" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership" priority="0x0604" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership_MenuDyn_Group" priority="0x0604" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" priority="0x0605" />
@@ -510,6 +509,11 @@
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents" priority="0x0608" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginStepsDyn_Group" priority="0x0608" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginImagesDyn_Group" priority="0x0608" />
+      
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupFind" priority="0x0603" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupAttribute" priority="0x0603" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupFindById" priority="0x0603" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupChange" priority="0x0603" />
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupPluginConfiguration" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupPluginConfiguration_MenuPluginConfiguration_GroupCreate" priority="0x0608" />
@@ -1269,6 +1273,13 @@
         <Strings>
           <ButtonText>Check</ButtonText>
           <MenuText>Check</MenuText>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind" priority="0x0101" type="Menu">
+        <Strings>
+          <ButtonText>Find</ButtonText>
+          <MenuText>Find</MenuText>
         </Strings>
       </Menu>
 
@@ -7473,39 +7484,46 @@
 
 
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck" priority="0x0601">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupPluginConfiguration" priority="0x0602">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupFind" priority="0x0610">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation" priority="0x0603">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupPluginConfiguration" priority="0x0620">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupExport" priority="0x0604">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupEntityInformation" priority="0x0630">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation" priority="0x0603">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSecurityInformation" priority="0x0640">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions" priority="0x0605">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupExport" priority="0x0650">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader" priority="0x0606">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions" priority="0x0660">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupOrganizationComparer" priority="0x0607">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupTraceReader" priority="0x0670">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll" priority="0x0608">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupOrganizationComparer" priority="0x0680">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" priority="0x0609">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll" priority="0x0690">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" priority="0x06A0">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck" priority="0x0101">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind" priority="0x0101">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupPluginConfiguration_MenuPluginConfiguration" priority="0x0104">
@@ -7766,29 +7784,36 @@
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupCrmObjects" priority="0x0601">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupCrmObjects" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupWorkflows" priority="0x0602">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupWorkflows" priority="0x0610">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupFindEntity" priority="0x0603">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership" priority="0x0620">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership" priority="0x0604">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" priority="0x0630">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupGlobalOptionSet" priority="0x0605">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupManagedEntities" priority="0x0640">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupManagedEntities" priority="0x0606">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates" priority="0x0650">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginDuplicates" priority="0x0607">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents" priority="0x0660">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents" priority="0x0608">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck" />
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupAttribute" priority="0x0600">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupFindById" priority="0x0610">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupChange" priority="0x0620">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupPluginConfiguration_MenuPluginConfiguration_GroupCreate" priority="0x0608">
@@ -7870,22 +7895,6 @@
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupWorkflows" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsByNameCommandId" priority="0x010E">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupFindEntity" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsContainsStringCommandId" priority="0x010F">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupFindEntity" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsByIdCommandId" priority="0x0110">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupFindEntity" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsByUniqueidentifierCommandId" priority="0x0110">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupFindEntity" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonEditEntityObjectsByIdCommandId" priority="0x0120">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupFindEntity" />
-    </CommandPlacement>
-
 
 
 
@@ -7929,6 +7938,24 @@
 
 
 
+
+    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsByNameCommandId" priority="0x0100">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupAttribute" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsContainsStringCommandId" priority="0x0110">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupAttribute" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsByIdCommandId" priority="0x0100">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupFindById" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsByUniqueidentifierCommandId" priority="0x0110">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupFindById" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidCommandSet" id="CommonEditEntityObjectsByIdCommandId" priority="0x0100">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupChange" />
+    </CommandPlacement>
 
 
 
@@ -11728,7 +11755,7 @@
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck" value="0x10D3" />
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupCrmObjects" value="0x10D4" />
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupWorkflows" value="0x1213" />
-      <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupFindEntity" value="0x10D5" />
+      
 
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership" value="0x10D6"/>
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership_MenuDyn" value="0x125F"/>
@@ -11759,6 +11786,13 @@
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginImagesDyn" value="0x126F" />
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginImagesDyn_Group" value="0x1270" />
 
+      
+      <IDSymbol name="commonMenu_GroupFind" value="0x10D5" />
+
+      <IDSymbol name="commonMenu_GroupFind_MenuFind" value="0x1324" />
+      <IDSymbol name="commonMenu_GroupFind_MenuFind_GroupAttribute" value="0x1325" />
+      <IDSymbol name="commonMenu_GroupFind_MenuFind_GroupFindById" value="0x1326" />
+      <IDSymbol name="commonMenu_GroupFind_MenuFind_GroupChange" value="0x1327" />
 
       <IDSymbol name="commonMenu_GroupEntityInformation" value="0x10DB" />
 
@@ -12795,7 +12829,7 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x1324 -->
+    <!-- 0x1328 -->
 
     <!-- Commands -->
     <!-- 0x21A4 -->

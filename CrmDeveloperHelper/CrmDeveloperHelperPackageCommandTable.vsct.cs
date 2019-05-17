@@ -549,7 +549,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int commonMenu_GroupCheck_MenuCheck = 0x10D3;
         public const int commonMenu_GroupCheck_MenuCheck_GroupCrmObjects = 0x10D4;
         public const int commonMenu_GroupCheck_MenuCheck_GroupWorkflows = 0x1213;
-        public const int commonMenu_GroupCheck_MenuCheck_GroupFindEntity = 0x10D5;
         public const int commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership = 0x10D6;
         public const int commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership_MenuDyn = 0x125F;
         public const int commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership_MenuDyn_Group = 0x1260;
@@ -573,6 +572,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginStepsDyn_Group = 0x126E;
         public const int commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginImagesDyn = 0x126F;
         public const int commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginImagesDyn_Group = 0x1270;
+        public const int commonMenu_GroupFind = 0x10D5;
+        public const int commonMenu_GroupFind_MenuFind = 0x1324;
+        public const int commonMenu_GroupFind_MenuFind_GroupAttribute = 0x1325;
+        public const int commonMenu_GroupFind_MenuFind_GroupFindById = 0x1326;
+        public const int commonMenu_GroupFind_MenuFind_GroupChange = 0x1327;
         public const int commonMenu_GroupEntityInformation = 0x10DB;
         public const int commonMenu_GroupEntityInformation_MenuEntityInformation = 0x10DC;
         public const int commonMenu_GroupEntityInformation_MenuEntityInformation_GroupEntityComponents = 0x10DD;
