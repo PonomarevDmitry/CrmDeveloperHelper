@@ -245,11 +245,13 @@
       <xs:element name="HideIfPowerBITileNotAvailableRule" type ="HideIfPowerBITileNotAvailableRuleType" />
       <xs:element name="HideIfProcessActiveRule" type="HideIfProcessActiveRuleType" />
       <xs:element name="HideIfProcessInactiveRule" type="HideIfProcessInactiveRuleType" />
-      <xs:element name="HideIfProcessUnificationIsDisabledRule" type="HideIfProcessUnificationIsDisabledRuleType" /> 
+      <xs:element name="HideIfProcessUnificationIsDisabledRule" type="HideIfProcessUnificationIsDisabledRuleType" />
       <xs:element name="HideIfO365UserDoesNotHaveExchangeSubscriptionsRule" type ="HideIfO365UserDoesNotHaveExchangeSubscriptionsRuleType" />
       <xs:element name="HideIfEmailIsApprovedByAdminRule" type ="HideIfEmailIsApprovedByAdminType" />
       <xs:element name="HideIfUserIsNotTenantAdminRule" type ="HideIfUserIsNotTenantAdminType" />
       <xs:element name="HideIfEmailIsApprovedByAdminBasedOnESPRule" type ="HideIfEmailIsApprovedByAdminBasedOnESPRuleType" />
+      <xs:element name="HideIfProductRecommendationsNotEnabledRule" type ="HideIfProductRecommendationsNotEnabledType" />
+      <xs:element name="HideIfSolutionNotInstalledRule" type ="HideIfSolutionNotInstalledType" />
     </xs:choice>
   </xs:group>
 
@@ -325,7 +327,7 @@
     <xs:attribute name="ObjectTypeCode" type="xs:string" use="required"/>
     <xs:attributeGroup ref="StandardRuleAttributes" />
   </xs:complexType>
-  
+
   <xs:complexType name="CustomRuleType">
     <xs:sequence>
       <xs:group ref="ParameterType" minOccurs="0" maxOccurs="unbounded" />
@@ -377,6 +379,7 @@
           <xs:enumeration value="IsEnabledForCharts" />
           <xs:enumeration value="IsBusinessProcessEnabled" />
           <xs:enumeration value="HasFeedback" />
+          <xs:enumeration value="IsBPFEntity" />
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -412,12 +415,13 @@
           <xs:enumeration value="IsSOPIntegrationEnabled" />
           <xs:enumeration value="IsFiscalCalendarDefined" />
           <xs:enumeration value="IsReadFormModeDefined" />
+          <xs:enumeration value="IsBPFEntityCustomizationFeatureEnabled" />
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
     <xs:attributeGroup ref="StandardRuleAttributes" />
   </xs:complexType>
-  
+
   <xs:complexType name="FormTypeRuleType">
     <xs:attribute name="Type" use="required">
       <xs:simpleType>
@@ -459,7 +463,7 @@
   <xs:complexType name="HideIfExportToExcelNotEnabledRuleType">
     <xs:attributeGroup ref="StandardRuleAttributes" />
   </xs:complexType>
-  
+
   <xs:complexType name="IsExportToExcelOnlineEnabledRuleType">
     <xs:attributeGroup ref="StandardRuleAttributes" />
   </xs:complexType>
@@ -467,7 +471,7 @@
   <xs:complexType name="HideIfDelveNotAvailableRuleType">
     <xs:attributeGroup ref="StandardRuleAttributes" />
   </xs:complexType>
-  
+
   <xs:complexType name="HideIfPowerBITileNotAvailableRuleType">
     <xs:attributeGroup ref="StandardRuleAttributes" />
   </xs:complexType>
@@ -479,19 +483,19 @@
   <xs:complexType name="HideIfProcessInactiveRuleType">
     <xs:attributeGroup ref="StandardRuleAttributes" />
   </xs:complexType>
-  
+
   <xs:complexType name="HideIfProcessUnificationIsDisabledRuleType">
     <xs:attributeGroup ref="StandardRuleAttributes" />
   </xs:complexType>
-  
+
   <xs:complexType name="HideIfO365UserDoesNotHaveExchangeSubscriptionsRuleType">
     <xs:attributeGroup ref="StandardRuleAttributes" />
   </xs:complexType>
-  
+
   <xs:complexType name="HideIfEmailIsApprovedByAdminBasedOnESPRuleType">
     <xs:attributeGroup ref="StandardRuleAttributes" />
   </xs:complexType>
-  
+
   <xs:complexType name="HideIfSSSTroubleshootingNotEnabledRuleType">
     <xs:attributeGroup ref="StandardRuleAttributes" />
   </xs:complexType>
@@ -507,7 +511,7 @@
   <xs:complexType name="HideIfEmailSignatureNotEnabledRuleType">
     <xs:attributeGroup ref="StandardRuleAttributes" />
   </xs:complexType>
-  
+
   <xs:complexType name="HideIfReverseHybridSSSNotEnabledRuleType">
     <xs:attributeGroup ref="StandardRuleAttributes" />
   </xs:complexType>
@@ -515,11 +519,20 @@
   <xs:complexType name="HideIfEmailIsApprovedByAdminType">
     <xs:attributeGroup ref="StandardRuleAttributes" />
   </xs:complexType>
-  
+
   <xs:complexType name="HideIfUserIsNotTenantAdminType">
     <xs:attributeGroup ref="StandardRuleAttributes" />
   </xs:complexType>
-  
+
+  <xs:complexType name="HideIfProductRecommendationsNotEnabledType">
+    <xs:attributeGroup ref="StandardRuleAttributes" />
+  </xs:complexType>
+
+  <xs:complexType name="HideIfSolutionNotInstalledType">
+    <xs:attribute name="SolutionName" type="xs:string" use="required" />
+    <xs:attributeGroup ref="StandardRuleAttributes" />
+  </xs:complexType>
+
   <xs:complexType name="HideIfTestExchangeServerNotEnabledRuleType">
     <xs:attributeGroup ref="StandardRuleAttributes" />
   </xs:complexType>
@@ -635,7 +648,7 @@
     <xs:attribute name="Value" type="xs:string" use="required" />
     <xs:attributeGroup ref="StandardRuleAttributes" />
   </xs:complexType>
-  
+
   <xs:complexType name="FeatureControlRuleType">
     <xs:attribute name="FeatureControlBit" type="xs:string" use="required" />
     <xs:attribute name="ExpectedValue" type="xs:boolean" use="required" />
@@ -665,7 +678,7 @@
       <xs:enumeration value="SelectedEntity" />
     </xs:restriction>
   </xs:simpleType>
-  
+
   <xs:simpleType name="PrivilegeDepthType">
     <xs:restriction base="xs:string">
       <xs:enumeration value="None" />
@@ -770,7 +783,7 @@
       <xs:enumeration value="CommandProperties" />
     </xs:restriction>
   </xs:simpleType>
-  
+
   <xs:simpleType name="CrmNamedParameterValue">
     <xs:restriction base="xs:string">
       <xs:enumeration value="PrimaryEntityTypeCode" />

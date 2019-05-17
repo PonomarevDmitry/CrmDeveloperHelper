@@ -92,6 +92,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
 
             <RowDefinition Height="100*" />
 
@@ -100,7 +101,20 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Margin="5">
+        <ToolBar x:Name="toolBarHeader" Grid.Row="0">
+            <Button Content="Options" Click="miOptions_Click"/>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu Background="{x:Null}">
+                <MenuItem Header="Compare Information with other Organization">
+                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="WebResources" Click="btnCompareWebResources_Click"/>
+                </MenuItem>
+            </Menu>
+        </ToolBar>
+
+        <Grid Grid.Row="1" Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="100*" />
@@ -161,7 +175,7 @@
 
         </Grid>
 
-        <Grid Grid.Row="1" Margin="5">
+        <Grid Grid.Row="2" Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="10*" />
@@ -181,7 +195,7 @@
             </Label>
         </Grid>
 
-        <TreeView x:Name="trVWebResources" Grid.Row="2" Margin="5" SelectedItemChanged="trVWebResources_SelectedItemChanged" MouseDoubleClick="trVWebResources_MouseDoubleClick">
+        <TreeView x:Name="trVWebResources" Grid.Row="3" Margin="5" SelectedItemChanged="trVWebResources_SelectedItemChanged" MouseDoubleClick="trVWebResources_MouseDoubleClick">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type model:EntityTreeViewItem}" ItemsSource="{Binding Path=Items}">
                     <Grid HorizontalAlignment="Stretch">
@@ -207,7 +221,7 @@
             </TreeView.ItemContainerStyle>
         </TreeView>
 
-        <Grid Grid.Row="3" Margin="5">
+        <Grid Grid.Row="4" Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="30*" />
@@ -222,7 +236,7 @@
             <ComboBox x:Name="cmBFileAction" Grid.Row="0" Grid.Column="1" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" SelectedIndex="0" />
         </Grid>
 
-        <ToolBar Grid.Row="4">
+        <ToolBar Grid.Row="5">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
@@ -285,7 +299,7 @@
             </DockPanel>
         </ToolBar>
 
-        <StatusBar Grid.Row="5">
+        <StatusBar Grid.Row="6">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" />
             <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"  />

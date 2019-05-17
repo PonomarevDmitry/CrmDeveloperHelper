@@ -223,6 +223,13 @@
                           <xs:documentation>Specifies a URL for an 18x18 pixel image to display for the SubArea.</xs:documentation>
                         </xs:annotation>
                       </xs:attribute>
+                      <xs:attribute name="VectorIcon"
+                            type="xs:string" >
+                        <xs:annotation>
+                          <xs:appinfo>SubArea.VectorIcon</xs:appinfo>
+                          <xs:documentation>Specifies a URL for an vector image to display for the SubArea.</xs:documentation>
+                        </xs:annotation>
+                      </xs:attribute>
                       <xs:attribute name="OutlookShortcutIcon"
                             type="xs:string" >
                         <xs:annotation>
@@ -285,6 +292,13 @@
                         <xs:annotation>
                           <xs:appinfo>SubArea.Entity</xs:appinfo>
                           <xs:documentation>Specifies the name for the entity. If a Url is not specified, the default view of the specified entity will be displayed.</xs:documentation>
+                        </xs:annotation>
+                      </xs:attribute>
+                      <xs:attribute name="DynamicPage"
+                            type="CRM_DynamicPage_SiteMap" >
+                        <xs:annotation>
+                          <xs:appinfo>SubArea.DynamicPage</xs:appinfo>
+                          <xs:documentation>Specifies the name for the DynamicPage.</xs:documentation>
                         </xs:annotation>
                       </xs:attribute>
                       <xs:attribute name="IntroducedVersion"
@@ -379,6 +393,13 @@
                         type="xs:string" >
                   <xs:annotation>
                     <xs:appinfo>Group.Icon</xs:appinfo>
+                    <xs:documentation>Unused. It is not possible to display an icon for a group.</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="VectorIcon"
+                        type="xs:string" >
+                  <xs:annotation>
+                    <xs:appinfo>Group.VectorIcon</xs:appinfo>
                     <xs:documentation>Unused. It is not possible to display an icon for a group.</xs:documentation>
                   </xs:annotation>
                 </xs:attribute>
@@ -486,6 +507,13 @@
             <xs:annotation>
               <xs:appinfo>Area.Icon</xs:appinfo>
               <xs:documentation>Specifies a URL for a 24x24 pixel image to display for the Area.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="VectorIcon"
+                type="xs:string" >
+            <xs:annotation>
+              <xs:appinfo>Area.VectorIcon</xs:appinfo>
+              <xs:documentation>Specifies a URL for a vector image to display for the Area.</xs:documentation>
             </xs:annotation>
           </xs:attribute>
           <xs:attribute name="Url"
@@ -605,6 +633,15 @@
     <xs:annotation>
       <xs:appinfo>CRM_Entity_SiteMap</xs:appinfo>
       <xs:documentation>Valid Entity has length greater than 1.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CRM_DynamicPage_SiteMap">
+    <xs:annotation>
+      <xs:appinfo>CRM_DynamicPage_SiteMap</xs:appinfo>
+      <xs:documentation>Valid Dynamic Page has length greater than 0.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:minLength value="1"/>

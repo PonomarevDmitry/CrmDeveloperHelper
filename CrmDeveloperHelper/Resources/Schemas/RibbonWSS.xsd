@@ -133,6 +133,10 @@
     <xs:restriction base="xs:integer" />
   </xs:simpleType>
 
+  <xs:simpleType name="PriorityType">
+    <xs:restriction base="xs:integer" />
+  </xs:simpleType>
+
   <xs:simpleType name="SizeType">
     <xs:restriction base="xs:string" />
   </xs:simpleType>
@@ -181,6 +185,7 @@
     <xs:attribute name="MenuItemId" type="MenuItemIdType" />
     <xs:attribute name="ModernCommandType" type="ModernCommandTypeType" />
     <xs:attribute name="Sequence" type="SequenceType" />
+    <xs:attribute name="Priority" type="PriorityType" />
     <xs:attribute name="TemplateAlias" type="TemplateAliasType" />
     <xs:attribute name="ToolTipImage32by32" type="ImageUrlType" />
     <xs:attribute name="ToolTipImage32by32Class" type="ImageClassType" />

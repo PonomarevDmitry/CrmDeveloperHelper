@@ -17,27 +17,54 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         private const int _baseIdStart = PackageIds.CommonExportXsdSchemasCommandId;
 
         public const string SchemaFormXml = "FormXml";
+        public const string SchemaFormXmlManaged = "FormXmlManaged";
+
+        public const string SchemaModulesContext = "ModulesContext";
+
+        public const string SchemaManifest = "ManifestSchema.xsd";
+
+        public const string SchemaDependencyXml = "DependencyXml.xsd";
+
         public const string SchemaRibbonXml = "RibbonXml";
         public const string SchemaFetch = "Fetch.xsd";
         public const string SchemaSiteMapXml = "SiteMapXml";
-        public const string SchemaVisualizationDataDescription = "VisualizationDataDescription";
+        public const string SchemaVisualizationDataDescription = "VisualizationDataDescription.xsd";
 
         internal static TupleList<string, string[]> ListXsdSchemas { get; private set; } = new TupleList<string, string[]>()
         {
             {  "CustomizationsSolution", new string[] { "CustomizationsSolution.xsd", "isv.config.xsd", "SiteMapType.xsd", "FormXml.xsd", "RibbonCore.xsd", "RibbonTypes.xsd", "RibbonWSS.xsd", "Fetch.xsd" } }
+            , {  "CustomizationsSolutionManaged", new string[] { "CustomizationsSolution_FormManaged.xsd", "isv.config.xsd", "SiteMapTypeManaged.xsd", "FormXmlManaged.xsd", "RibbonCore.xsd", "RibbonTypes.xsd", "RibbonWSS.xsd", "Fetch.xsd" } }
 
-            , {  "isv.config.xsd", new string[] { "isv.config.xsd" } }
-            , {  "ParameterXml.xsd", new string[] { "ParameterXml.xsd" } }
+            , {  SchemaDependencyXml, new string[] { "DependencyXml.xsd" } }
+
+            , {  SchemaFetch, new string[] { "Fetch.xsd" } }
 
             , {  SchemaFormXml, new string[] { "FormXml.xsd", "RibbonCore.xsd", "RibbonTypes.xsd", "RibbonWSS.xsd" } }
-            , {  SchemaFetch, new string[] { "Fetch.xsd" } }
-            , {  SchemaVisualizationDataDescription, new string[] { "VisualizationDataDescription.xsd" } }
+            , {  SchemaFormXmlManaged, new string[] { "FormXmlManaged.xsd", "RibbonCore.xsd", "RibbonTypes.xsd", "RibbonWSS.xsd" } }
+
+            , {  "ImportMapSchema.xsd", new string[] { "ImportMapSchema.xsd" } }
+
+            , {  "isv.config.xsd", new string[] { "isv.config.xsd" } }
+            
+            , {  SchemaManifest, new string[] { "ManifestSchema.xsd" } }
+
+            , {  SchemaModulesContext, new string[] { "ModulesContext.xsd", "Fetch.xsd" } }
+
+            , {  "ParameterXml.xsd", new string[] { "ParameterXml.xsd" } }
+
+            , {  "ProcessDefinition.xsd", new string[] { "ProcessDefinition.xsd" } }
+
+            , {  "reports.config.xsd", new string[] { "reports.config.xsd" } }
 
             , {  SchemaRibbonXml, new string[] { "RibbonCore.xsd", "RibbonTypes.xsd", "RibbonWSS.xsd" } }
 
+            , {  "SimilarityRuleCondition.xsd", new string[] { "SimilarityRuleCondition.xsd" } }
+
             , {  SchemaSiteMapXml, new string[] { "SiteMap.xsd", "SiteMapType.xsd" } }
 
-            , {  "reports.config.xsd", new string[] { "reports.config.xsd" } }
+            , {  "TaskBasedFlowXml.xsd", new string[] { "TaskBasedFlowXml.xsd" } }
+
+            , {  SchemaVisualizationDataDescription, new string[] { "VisualizationDataDescription.xsd" } }
         };
 
         public static string[] GetXsdSchemas(string key)

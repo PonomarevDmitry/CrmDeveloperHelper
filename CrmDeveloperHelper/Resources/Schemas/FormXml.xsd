@@ -10,7 +10,7 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    
+
   </xs:complexType>
   <xs:complexType name="ClientResourcesType">
     <xs:all>
@@ -23,7 +23,7 @@
                   <xs:element name ="internaljscriptfile" type="ClientFileIncludeAttributeType" minOccurs ="0" maxOccurs ="1" />
                   <xs:element name ="internalcssfile" type="ClientFileIncludeAttributeType" minOccurs ="0" maxOccurs ="1" />
                 </xs:choice>
-                
+
               </xs:complexType >
             </xs:element>
             <xs:element name ="clientvariables" minOccurs="0" maxOccurs ="1">
@@ -46,15 +46,15 @@
                           </xs:restriction>
                         </xs:simpleType>
                       </xs:attribute>
-                      
+
                     </xs:complexType>
                   </xs:element>
                 </xs:sequence>
-                
+
               </xs:complexType>
             </xs:element>
           </xs:all>
-          
+
         </xs:complexType>
       </xs:element>
       <xs:element name="isvresources" minOccurs ="0" maxOccurs ="1">
@@ -74,48 +74,48 @@
                           </xs:restriction>
                         </xs:simpleType>
                       </xs:attribute>
-                      
+
                     </xs:complexType>
                   </xs:element>
                 </xs:sequence>
-                
+
               </xs:complexType>
             </xs:element>
           </xs:sequence>
-          
+
         </xs:complexType>
       </xs:element>
     </xs:all>
-    
+
   </xs:complexType>
   <xs:complexType name="FormDisplayConditionsType">
     <xs:choice minOccurs="0" maxOccurs="1">
       <xs:element name="Everyone" minOccurs="1" maxOccurs="1">
         <xs:complexType>
-          
+
         </xs:complexType>
       </xs:element>
       <xs:element name="Role" minOccurs="1" maxOccurs="unbounded">
         <xs:complexType>
           <xs:attribute name="Id" type="FormGuidType" use="required" />
-          
+
         </xs:complexType>
       </xs:element>
     </xs:choice>
     <xs:attribute name="FallbackForm" type="xs:boolean" use="optional" />
     <xs:attribute name="Order" type="xs:integer" use="optional" />
-    
+
   </xs:complexType>
   <xs:complexType name="FormLocalizedLabel">
     <xs:attribute name="LCID" type="xs:integer" />
     <xs:attribute name="Text" type="xs:string" />
-    
+
   </xs:complexType>
   <xs:complexType name="FormLocalizedTitles">
     <xs:sequence minOccurs="1" maxOccurs="unbounded">
       <xs:element name="Title" type="FormLocalizedLabel" />
     </xs:sequence>
-    
+
   </xs:complexType>
   <xs:complexType name="FormNavBarAreasType">
     <xs:sequence>
@@ -125,11 +125,11 @@
             <xs:element name="Titles" minOccurs="1" maxOccurs="1" type="FormLocalizedTitles" />
           </xs:sequence>
           <xs:attribute name="Id" type="xs:string" use="required" />
-          
+
         </xs:complexType>
       </xs:element>
     </xs:sequence>
-    
+
   </xs:complexType>
   <xs:complexType name="FormNavBarType">
     <xs:choice minOccurs="0" maxOccurs="100000">
@@ -146,7 +146,7 @@
           <xs:attribute name="Area" type="xs:string" use="optional" />
           <xs:attribute name="Client" type="xs:string" use="optional" />
           <xs:attribute name="AvailableOffline" type="xs:boolean" use="optional" />
-          
+
         </xs:complexType>
       </xs:element>
       <xs:element name="NavBarByRelationshipItem" minOccurs="0" maxOccurs="1">
@@ -158,7 +158,7 @@
                 <xs:sequence>
                   <xs:element name="Titles" minOccurs="1" maxOccurs="1" type="FormLocalizedTitles" />
                 </xs:sequence>
-                
+
               </xs:complexType>
             </xs:element>
             <xs:element name="Privileges" minOccurs="0" maxOccurs ="1">
@@ -168,11 +168,11 @@
                     <xs:complexType>
                       <xs:attribute name ="Entity" type ="xs:string" use ="required"/>
                       <xs:attribute name="Privilege" type ="xs:string" use ="required"/>
-                      
+
                     </xs:complexType>
                   </xs:element>
                 </xs:sequence>
-                
+
               </xs:complexType>
             </xs:element>
           </xs:all>
@@ -186,39 +186,39 @@
           <xs:attribute name="Sequence" type="xs:nonNegativeInteger" use="optional" />
           <xs:attribute name="Show" type="xs:boolean" use="optional" />
           <xs:attribute name="ViewId" type="FormISVGuid" use="optional" />
-          
+
         </xs:complexType>
       </xs:element>
     </xs:choice>
     <xs:attribute name="ValidForCreate" type="FormCRM_Boolean" use="optional" />
     <xs:attribute name="ValidForUpdate" type="FormCRM_Boolean" use="optional" />
-    
+
   </xs:complexType>
   <xs:complexType name="FormNavigationType">
     <xs:all>
       <xs:element name="NavBarAreas" type="FormNavBarAreasType" minOccurs="0" maxOccurs="1" />
       <xs:element name="NavBar" type="FormNavBarType" minOccurs="0" maxOccurs="1" />
     </xs:all>
-    
+
   </xs:complexType>
   <xs:complexType name ="FormParametersType">
     <xs:choice minOccurs="1" maxOccurs ="100000">
       <xs:element name ="querystringparameter" type="FormQueryStringParameterType" minOccurs ="0" maxOccurs ="1" />
     </xs:choice>
-    
+
   </xs:complexType>
   <xs:complexType name="FormQueryStringParameterType">
     <xs:attribute name="name" type="FormQueryStringParameterNameAttributeType" use="required" />
     <xs:attribute name="type" type="FormParameterAttributeType" use="required" />
-    
+
   </xs:complexType>
   <xs:complexType name="FormType">
     <xs:all>
-            <xs:element name="ancestor" minOccurs="0" maxOccurs="1">
-              <xs:complexType>
-                  <xs:attribute name="id" type="FormGuidType" use="required" />
-              </xs:complexType>
-            </xs:element>
+      <xs:element name="ancestor" minOccurs="0" maxOccurs="1">
+        <xs:complexType>
+          <xs:attribute name="id" type="FormGuidType" use="required" />
+        </xs:complexType>
+      </xs:element>
       <xs:element name="hiddencontrols" minOccurs="0" maxOccurs="1">
         <xs:complexType>
           <xs:sequence>
@@ -228,11 +228,11 @@
                 <xs:attribute name="datafieldname" type="xs:string" />
                 <xs:attribute name="classid" type="FormGuidType" />
                 <xs:attribute name="relationship" type="xs:string" />
-                
+
               </xs:complexType>
             </xs:element>
           </xs:sequence>
-          
+
         </xs:complexType>
       </xs:element>
       <xs:element name="controlDescriptions" minOccurs="0" maxOccurs="1">
@@ -256,16 +256,16 @@
                       <xs:attribute name="formFactor" type="xs:integer" use="optional" />
                       <xs:attribute name="name" type="xs:string" use="optional" />
                       <xs:attribute name="version" type="xs:string" use="optional" />
-                      
+
                     </xs:complexType>
                   </xs:element>
                 </xs:sequence>
                 <xs:attribute name="forControl" type="xs:string" use="required" />
-                
+
               </xs:complexType>
             </xs:element>
           </xs:sequence>
-          
+
         </xs:complexType>
       </xs:element>
       <xs:element name="tabs" minOccurs="1" maxOccurs="1">
@@ -298,7 +298,11 @@
                                                     <xs:sequence>
                                                       <xs:element name="cell" minOccurs="0" maxOccurs="unbounded">
                                                         <xs:complexType>
-                                                          <xs:all> <xs:element name="labels" type="FormXmlLabelsType" minOccurs="0" maxOccurs="1" /> <xs:element name="control" type="FormXmlControlType" minOccurs="0" maxOccurs="1" /> <xs:element name="events" type="FormXmlEventsType" minOccurs="0" maxOccurs="1" /></xs:all>
+                                                          <xs:all>
+                                                            <xs:element name="labels" type="FormXmlLabelsType" minOccurs="0" maxOccurs="1" />
+                                                            <xs:element name="control" type="FormXmlControlType" minOccurs="0" maxOccurs="1" />
+                                                            <xs:element name="events" type="FormXmlEventsType" minOccurs="0" maxOccurs="1" />
+                                                          </xs:all>
                                                           <xs:attribute name="auto" type="xs:boolean" />
                                                           <xs:attribute name="addedby" type="xs:string" />
                                                           <xs:attributeGroup ref="FormXmlCellCommon"/>
@@ -311,7 +315,7 @@
                                                 </xs:element>
                                               </xs:sequence>
                                               <xs:attribute name="addedby" type="xs:string" />
-                                              
+
                                             </xs:complexType>
                                           </xs:element>
                                         </xs:all>
@@ -330,22 +334,22 @@
                                         <xs:attribute name="rowheight" type="xs:nonNegativeInteger" use="optional" />
                                         <xs:attribute name="autoexpand" type="xs:boolean" use="optional" />
                                         <xs:attributeGroup ref="FormXmlSectionCommon"/>
-                                        
+
                                       </xs:complexType>
                                     </xs:element>
                                   </xs:sequence>
                                   <xs:attribute name="addedby" type="xs:string" />
-                                  
+
                                 </xs:complexType>
                               </xs:element>
                             </xs:sequence>
                             <xs:attribute name="width" type="FormPercentageType" use="required" />
-                            
-                            
+
+
                           </xs:complexType>
                         </xs:element>
                       </xs:sequence>
-                      
+
                     </xs:complexType>
                   </xs:element>
                   <xs:element name="events" type="FormXmlEventsType" minOccurs="0" maxOccurs="1" />
@@ -363,8 +367,8 @@
                 <xs:attribute name="visible" type="xs:boolean" />
                 <xs:attribute name="availableforphone" type="xs:boolean" />
                 <xs:attribute name="collapsible" type="xs:boolean" />
-                
-                
+
+
               </xs:complexType>
             </xs:element>
           </xs:sequence>
@@ -376,7 +380,7 @@
           <xs:attribute name="primaryentitylogicalname" type="xs:string" />
           <xs:attribute name="entityview" type="xs:string" />
           <xs:attribute name="tilespresent" type="xs:boolean" />
-          
+
         </xs:complexType>
       </xs:element>
       <xs:element name="header" type="FormXmlHeaderFooterType" minOccurs="0" maxOccurs="1"/>
@@ -408,7 +412,7 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    
+
   </xs:complexType>
   <xs:complexType name="FormXmlControlType">
     <xs:sequence>
@@ -490,9 +494,11 @@
               <xs:element name="TeamTemplateId" type="FormGuidType" minOccurs="0" maxOccurs="1" />
               <xs:element name="GridUIMode" type="xs:string" minOccurs="0" maxOccurs="1" />
               <xs:element name="ReferencePanelSubgridIconUrl" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="HeaderColorCode" type="xs:string" minOccurs="0" maxOccurs="1" />
             </xs:choice>
             <!-- Parameters for Power BI Tile control -->
             <xs:choice minOccurs="1" maxOccurs="unbounded">
+              <xs:element name="PowerBIGroupId" type="xs:string" minOccurs="0" maxOccurs="1" />
               <xs:element name="PowerBIDashboardId" type="xs:string" minOccurs="0" maxOccurs="1" />
               <xs:element name="TileId" type="xs:string" minOccurs="0" maxOccurs="1" />
               <xs:element name="TileUrl" type="xs:string" minOccurs="0" maxOccurs="1" />
@@ -540,6 +546,7 @@
             <!-- Parameters for the PickList Control and Two Value Option(Radio) Control -->
             <xs:choice minOccurs="1" maxOccurs="unbounded">
               <xs:element name="DefaultValue" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="OptionSetName" type="xs:string" minOccurs="0" maxOccurs="1" />
               <xs:element name="OptionSetId" type="FormGuidType" minOccurs="0" maxOccurs="1" />
             </xs:choice>
             <!-- Parameters for the quickformcollection control and reference panel quick form collection control -->
@@ -550,12 +557,13 @@
               <xs:element name="DisplayAsCustomer360Tile" type="xs:boolean" minOccurs="0" maxOccurs="1" />
             </xs:choice>
             <!-- Parameters for the tabs control -->
-              <xs:choice minOccurs="1" maxOccurs="unbounded">
-                <xs:element name="DefaultTabId" type="xs:string" minOccurs="0" maxOccurs="1" />
-                <xs:element name="ShowArticleTab" type="xs:boolean" minOccurs="0" maxOccurs="1" />
-                <xs:group ref="SearchWidgetControlParameters" minOccurs="0" maxOccurs="unbounded" />
-                <xs:group ref="ActivitySortParameters" minOccurs="0" maxOccurs="unbounded" />
-              </xs:choice>
+            <xs:choice minOccurs="1" maxOccurs="unbounded">
+              <xs:element name="DefaultTabId" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="ShowArticleTab" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+              <xs:group ref="SearchWidgetControlParameters" minOccurs="0" maxOccurs="unbounded" />
+              <xs:group ref="ActivitySortParameters" minOccurs="0" maxOccurs="unbounded" />
+              <xs:group ref="UnifiedClientTimelineWallParameters" minOccurs="0" maxOccurs="unbounded" />
+            </xs:choice>
             <!-- Link Control parameters -->
             <xs:choice minOccurs="1" maxOccurs="unbounded">
               <xs:element name="LinkControlDefinitionId" type="FormGuidType" minOccurs="0" maxOccurs="1" />
@@ -592,7 +600,7 @@
                     <xs:element name="StreamObject" minOccurs="1" maxOccurs="unbounded" >
                       <xs:complexType>
                         <xs:sequence>
-                          <xs:element name="LogicalEntityName" type="xs:string" minOccurs="1" maxOccurs="1" />                          
+                          <xs:element name="LogicalEntityName" type="xs:string" minOccurs="1" maxOccurs="1" />
                           <xs:choice minOccurs="1" maxOccurs="1">
                             <!-- Parameters for stream objects of type queue -->
                             <xs:choice minOccurs="1" maxOccurs="unbounded">
@@ -612,12 +620,12 @@
                         </xs:sequence>
                         <xs:attribute name="type" type="xs:nonNegativeInteger" use="required" />
                         <xs:attribute name="id" type="FormGuidType" use="required" />
-                        
+
                       </xs:complexType>
                     </xs:element>
                   </xs:sequence>
-                  
-                </xs:complexType>                
+
+                </xs:complexType>
               </xs:element>
             </xs:choice>
             <!-- Date Range Control parameters -->
@@ -626,7 +634,7 @@
               <xs:element name="TimeFrame" type="xs:string" minOccurs="0" maxOccurs="1" />
             </xs:choice>
           </xs:choice>
-          
+
         </xs:complexType>
       </xs:element>
     </xs:sequence>
@@ -641,7 +649,7 @@
     <xs:attribute name="isrequired" type="xs:boolean" />
     <xs:attribute name="relationship" type="xs:string" />
     <xs:attribute name="indicationOfSubgrid" type="xs:boolean" />
-    
+
   </xs:complexType>
   <xs:complexType name="FormXmlLibraryType">
     <xs:sequence>
@@ -649,11 +657,11 @@
         <xs:complexType>
           <xs:attribute name="name" type="xs:string" use="required" />
           <xs:attribute name="libraryUniqueId" type="xs:string" use="required" />
-          
+
         </xs:complexType>
       </xs:element>
     </xs:sequence>
-    
+
   </xs:complexType>
   <xs:simpleType name="CrmEventType">
     <xs:restriction base="xs:string">
@@ -669,11 +677,11 @@
             <xs:element name="dependency" minOccurs="0" maxOccurs="unbounded">
               <xs:complexType>
                 <xs:attribute name="id" type="xs:string" />
-                
+
               </xs:complexType>
             </xs:element>
           </xs:sequence>
-          
+
         </xs:complexType>
       </xs:element>
     </xs:sequence>
@@ -683,7 +691,7 @@
     <xs:attribute name="enabled" type="xs:boolean" />
     <xs:attribute name="passExecutionContext" type="xs:boolean" />
     <xs:attribute name="parameters" type="xs:string" />
-    
+
   </xs:complexType>
   <xs:complexType name="FormXmlEventsType">
     <xs:sequence>
@@ -695,7 +703,7 @@
                 <xs:sequence>
                   <xs:element name="Handler" type="FormXmlHandlerType" minOccurs="0" maxOccurs="50" />
                 </xs:sequence>
-                
+
               </xs:complexType>
             </xs:element>
             <xs:element name="InternalHandlers" minOccurs="0" maxOccurs="1">
@@ -703,7 +711,7 @@
                 <xs:sequence>
                   <xs:element name="Handler" type="FormXmlHandlerType" minOccurs="0" maxOccurs="50" />
                 </xs:sequence>
-                
+
               </xs:complexType>
             </xs:element>
             <xs:element name="dependencies" minOccurs="0" maxOccurs="1">
@@ -712,11 +720,11 @@
                   <xs:element name="dependency" minOccurs="0" maxOccurs="unbounded">
                     <xs:complexType>
                       <xs:attribute name="id" type="xs:string" />
-                      
+
                     </xs:complexType>
                   </xs:element>
                 </xs:sequence>
-                
+
               </xs:complexType>
             </xs:element>
           </xs:all>
@@ -728,22 +736,22 @@
           <xs:attribute name="attribute" type="xs:string" />
           <xs:attribute name="control" type="xs:string" />
           <xs:attribute name="relationship" type="xs:string" />
-          
+
         </xs:complexType>
       </xs:element>
     </xs:sequence>
-    
+
   </xs:complexType>
   <xs:complexType name="FormXmlExternalDependenciesType">
     <xs:sequence>
       <xs:element name="dependency" minOccurs="1" maxOccurs="unbounded">
         <xs:complexType>
           <xs:attribute name="id" type="xs:string" />
-          
+
         </xs:complexType>
       </xs:element>
     </xs:sequence>
-    
+
   </xs:complexType>
   <xs:complexType name="FormXmlLabelsType">
     <xs:sequence>
@@ -752,11 +760,11 @@
           <xs:attribute name="description" use="required" type="xs:string" />
           <xs:attribute name="languagecode" use="required" type="xs:positiveInteger" />
           <xs:attribute name="addedby" type="xs:string" />
-          
+
         </xs:complexType>
       </xs:element>
     </xs:sequence>
-    
+
   </xs:complexType>
   <xs:complexType name="FormXmlHeaderFooterType">
     <xs:sequence>
@@ -780,7 +788,7 @@
               </xs:complexType>
             </xs:element>
           </xs:sequence>
-          
+
         </xs:complexType>
       </xs:element>
     </xs:sequence>
@@ -808,11 +816,11 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    
+
   </xs:attributeGroup>
   <xs:attributeGroup name="FormXmlRowCommon">
     <xs:attribute name="height" type="xs:string" />
-    
+
   </xs:attributeGroup>
   <xs:attributeGroup name="FormXmlCellCommon">
     <xs:attribute name="id" type="FormGuidType" />
@@ -828,8 +836,8 @@
     <xs:attribute name="isstreamcell" type="xs:boolean" />
     <xs:attribute name="ischartcell" type="xs:boolean" />
     <xs:attribute name="istilecell" type="xs:boolean" />
-    
-    
+
+
   </xs:attributeGroup>
   <xs:simpleType name="BehaviorInBulkEditForm">
     <xs:restriction base="xs:string">
@@ -851,7 +859,7 @@
       </xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:string">
-      <xs:pattern value="\{[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\}" />
+      <xs:pattern value="\{?[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\}?" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="FormISVGuid">
@@ -867,6 +875,7 @@
       <xs:enumeration value ="EntityType" />
       <xs:enumeration value ="Integer" />
       <xs:enumeration value ="Long" />
+      <xs:enumeration value ="Object" />
       <xs:enumeration value ="PositiveInteger" />
       <xs:enumeration value ="SafeString" />
       <xs:enumeration value ="UniqueId" />
@@ -1046,11 +1055,31 @@
       <xs:element name="SelectDefaultLanguage" type="xs:string" minOccurs="0" maxOccurs="1" />
     </xs:choice>
   </xs:group>
+  <!-- Parameters for timelinewall -->
+  <xs:group name="UnifiedClientTimelineWallParameters">
+    <xs:choice >
+      <xs:element name="UClientUniqueName" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="UClientModules" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="UClientDefaultModuleForCreateExperience" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="UClientShowFilterPane" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+      <xs:element name="UClientExpandFilterPane" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+      <xs:element name="UClientCreateActivityUsing" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="UClientDisplayActivityUsing" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="UClientRecordPerPage" type="xs:unsignedInt" minOccurs="0" maxOccurs="1" />
+      <xs:element name="UClientActivities" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="UClientOrderBy" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="UClientActivityCardMap" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="UClientDisplayActivityHeaderUsing" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="UClientSortActivitiesByValue" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:choice>
+  </xs:group>
+
   <!-- Parameters for Activity Sorting -->
   <xs:group name="ActivitySortParameters">
-  <xs:choice >
-    <xs:element name="OrderByActivityWall" type="xs:string" minOccurs="0" maxOccurs="1" />
-    <xs:element name="SortActivityWall" type="xs:string" minOccurs="0" maxOccurs="1" />
-  </xs:choice>
+    <xs:choice >
+      <xs:element name="OrderByActivityWall" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="SortActivityWall" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="EmailConversationView" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:choice>
   </xs:group>
 </xs:schema>

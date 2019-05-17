@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="Fetch.xsd" />
+	<xs:element name="Contexts" type="ContextsType"></xs:element>
+	<xs:complexType  name="ContextsType">
+		<xs:sequence>
+			<xs:element name="Context" maxOccurs="unbounded" minOccurs="1" type="ContextType"></xs:element>
+		</xs:sequence>
+		<xs:attribute name="Version" type="VersionType"></xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ContextType">
+		<xs:sequence>
+			<xs:element name="MaxCustomAttributes" minOccurs="0" maxOccurs="1" type="xs:int"></xs:element>
+			<xs:element name="MaxProductsAllowed" minOccurs="0" maxOccurs="1" type="xs:int"></xs:element>
+			<xs:element name="Entities" type="EntitiesType"></xs:element>
+		</xs:sequence>
+		<xs:attribute name="Name" type="xs:string"></xs:attribute>
+		<xs:attribute name="Id" type="xs:int" use="required"></xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="EntitiesType">
+		<xs:sequence>
+			<xs:element name="Entity" minOccurs="0" maxOccurs="unbounded" type="EntityType"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EntityType">
+		<xs:attribute name="OTC" type="xs:int" use="required"></xs:attribute>
+	</xs:complexType>
+</xs:schema>

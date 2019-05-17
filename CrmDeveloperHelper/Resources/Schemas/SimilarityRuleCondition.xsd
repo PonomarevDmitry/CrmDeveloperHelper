@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="SimilarityRuleConditionXml" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="and">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="condition" maxOccurs="unbounded" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="column" maxOccurs="3" minOccurs="2">
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="xs:string">
+											<xs:attribute type="ConditionColumnType" name="id" use="required"/>
+											<xs:attribute type="xs:string" name="value" use="required"/>
+										</xs:extension>
+									</xs:simpleContent>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="ConditionColumnType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="colBaseAttribute" />
+			<xs:enumeration value="colMatchingAttribute" />
+			<xs:enumeration value="colCriteria" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

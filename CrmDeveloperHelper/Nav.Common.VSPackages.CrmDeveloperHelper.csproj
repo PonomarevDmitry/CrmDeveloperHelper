@@ -1422,6 +1422,15 @@
     <Resource Include="Resources\SiteMaps\SiteMap.365.8.2.xml" />
     <Compile Include="Entities\SystemUser.Additional.cs" />
     <Compile Include="Entities\MobileOfflineProfileItemAssociation.Additional.cs" />
+    <Resource Include="Resources\Schemas\ControlParameters.xsd">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Resources\Schemas\CustomizationsSolution_FormManaged.xsd">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Resources\Schemas\DependencyXml.xsd">
+      <SubType>Designer</SubType>
+    </Resource>
     <None Include="Resources\Schemas\Examples\PublishXmlExample.xml" />
     <None Include="packages.config" />
     <Resource Include="Resources\Schemas\CustomizationsSolution.xsd">
@@ -1461,6 +1470,30 @@
       <SubType>Designer</SubType>
     </Resource>
     <Resource Include="Resources\TraceEnable.reg" />
+    <Resource Include="Resources\Schemas\FormXmlManaged.xsd">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Resources\Schemas\ImportMapSchema.xsd">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Resources\Schemas\ManifestSchema.xsd">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Resources\Schemas\ModulesContext.xsd">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Resources\Schemas\ProcessDefinition.xsd">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Resources\Schemas\SimilarityRuleCondition.xsd">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Resources\Schemas\SiteMapTypeManaged.xsd">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Resources\Schemas\TaskBasedFlowXml.xsd">
+      <SubType>Designer</SubType>
+    </Resource>
     <None Include="sign.snk" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>

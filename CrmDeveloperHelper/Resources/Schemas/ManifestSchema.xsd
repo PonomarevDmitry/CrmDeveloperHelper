@@ -1,0 +1,391 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:group name="doc-group-reference">
+    <xs:choice>
+      <xs:element minOccurs="0" maxOccurs="1" name="doc">
+        <xs:complexType>
+          <xs:attribute name="description-key" type="xs:string" use="required" />
+          <xs:attribute name="languagecode" type="xs:string" use="optional" />
+        </xs:complexType>
+      </xs:element>
+    </xs:choice>
+  </xs:group>
+
+  <xs:group name="property-group-reference">
+    <xs:choice>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="property">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="value">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="xs:string">
+                    <xs:attribute name="name" type="xs:string" use="required" />
+                    <xs:attribute name="display-name-key" type="xs:string" use="required" />
+                    <xs:attribute name="description-key" type="xs:string" use="optional" />
+                    <xs:attribute name="default" type="xs:string" use="optional" />
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+            <xs:group id="property-doc" ref="doc-group-reference" />
+            <xs:element minOccurs="0" name="types">
+              <xs:complexType>
+                <xs:choice maxOccurs="unbounded">
+                  <xs:element maxOccurs="unbounded" name="type" type="dataType" />
+                </xs:choice>
+              </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="default-binding">
+              <xs:complexType>
+                <xs:attribute name="of-attribute" type="xs:string" use="optional" />
+                <xs:attribute name="parameter" type="xs:string" use="optional" />
+                <xs:attribute name="of-column" type="xs:string" use="optional" />
+                <xs:attribute name="of-theme-parameter" type="xs:string" use="optional" />
+              </xs:complexType>
+            </xs:element>
+          </xs:choice>
+          <xs:attribute name="name" type="xs:string" use="required" />
+          <xs:attribute name="display-name-key" type="xs:string" use="required" />
+          <xs:attribute name="of-type" type="dataType" use="optional" />
+          <xs:attribute name="usage" type="usageType" use="optional" />
+          <xs:attribute name="required" type="booleanType" use="optional" />
+          <xs:attribute name="hidden" type="xs:boolean" use="optional" />
+          <xs:attribute name="of-type-group" type="xs:string" use="optional" />
+          <xs:attribute name="of-same-type-as" type="xs:string" use="optional" />
+          <xs:attribute name="default-value" type="xs:string" use="optional" />
+          <xs:attribute name="description-key" type="xs:string" use="optional" />
+        </xs:complexType>
+      </xs:element>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="data-set-group-reference">
+    <xs:choice>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="data-set">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:group id="data-set-doc" ref="doc-group-reference" />
+            <xs:element maxOccurs="unbounded" name="property-set">
+              <xs:complexType>
+                <xs:choice maxOccurs="unbounded">
+                  <xs:element minOccurs="0" maxOccurs="unbounded" name="doc">
+                    <xs:complexType>
+                      <xs:attribute name="description-key" type="xs:string" use="required" />
+                      <xs:attribute name="languagecode" type="xs:string" use="optional" />
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="types">
+                    <xs:complexType>
+                      <xs:choice maxOccurs="unbounded">
+                        <xs:element maxOccurs="unbounded" name="type" type="dataType" />
+                      </xs:choice>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:choice>
+                <xs:attribute name="name" type="xs:string" use="required" />
+                <xs:attribute name="display-name-key" type="xs:string" use="required" />
+                <xs:attribute name="of-type" type="dataType" use="optional" />
+                <xs:attribute name="usage" type="usageType" use="required" />
+                <xs:attribute name="required" type="booleanType" use="optional" />
+                <xs:attribute name="max-occurs" type="xs:string" use="optional" />
+                <xs:attribute name="of-type-group" type="xs:string" use="optional" />
+                <xs:attribute name="of-same-type-as" type="xs:string" use="optional" />
+                <xs:attribute name="description-key" type="xs:string" use="optional" />
+              </xs:complexType>
+            </xs:element>
+          </xs:choice>
+          <xs:attribute name="initial-data-set-fetch" type="xs:boolean" use="optional"  default="true"/> 
+          <xs:attribute name="name" type="xs:string" use="required" />
+          <xs:attribute name="max-occurs" type="xs:string" use="optional" />
+          <xs:attribute name="display-name-key" type="xs:string" use="required" />
+          <xs:attribute name="description-key" type="xs:string" use="optional" />
+          <xs:attribute name="editable" type="xs:boolean" use="optional"  default="false"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:choice>
+  </xs:group>
+  <xs:element name="manifest">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+
+        <!--Defines the type group element outside control of the xml-->
+        <xs:element name="type-group" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+              <xs:element name="type" type="dataType" />
+            </xs:choice>
+            <xs:attribute name="name" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <!--End of type group definition-->
+
+        <!--Start of the control element definition-->
+        <xs:element maxOccurs="unbounded" name="control">
+          <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+
+              <!--Start of the data-set element in control definition-->
+              <xs:group id="data-set" ref="data-set-group-reference"></xs:group>
+              <!--End of the data-set element in control definition-->
+
+              <!--Start of the modes element in control definition-->
+              <xs:element minOccurs="0" name="modes">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element name="read" type="booleanEmptyType" minOccurs="0"/>
+                    <xs:element name="edit" type="booleanEmptyType" minOccurs="0"/>
+                    <xs:element name="container" type="booleanEmptyType" minOccurs="0"/>
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+              <!--End of the modes element in control definition-->
+
+              <!--Start of the Child element in control definition-->
+              <xs:element minOccurs="0" name="child">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element maxOccurs="unbounded" name="customcontrol">
+                      <xs:complexType>
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <!--End of the Child element in control definition-->
+
+              <!--Start of the type group element in control definition-->
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="type-group">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element maxOccurs="unbounded" name="type" type="dataType" />
+                  </xs:choice>
+                  <xs:attribute name="name" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <!--End of the type group element in control definition-->
+
+              <!--Start of the property element in control definition-->
+              <xs:group id="property" ref="property-group-reference"></xs:group>
+              <!--End of the property element in control definition-->
+
+              <!--Start of the group element in control definition-->
+              <xs:element name="groups" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element name="group" minOccurs="2" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:choice maxOccurs="unbounded">
+                          <xs:group id="doc-group" ref="doc-group-reference"></xs:group>
+                          <xs:group id="property-group" ref="property-group-reference"></xs:group>
+                          <xs:group id="data-set-group" ref="data-set-group-reference"></xs:group>
+                        </xs:choice>
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                        <xs:attribute name="display-name-key" type="xs:string" use="required" />
+                        <xs:attribute name="description-key" type="xs:string" use="optional" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                  <xs:attribute name="name" type="xs:string" use="required" />
+                  <xs:attribute name="display-name-key" type="xs:string" use="required" />
+                  <xs:attribute name="description-key" type="xs:string" use="optional" />
+                  <xs:attribute name="required" type="booleanType" use="optional" />
+                </xs:complexType>
+              </xs:element>
+              <!--End of the group element in control definition-->
+
+              <!--Start of the dependencies element in control definition-->
+              <xs:element minOccurs="0" maxOccurs="1" name="dependencies">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="dependency" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <!--End of the dependencies element in control definition-->
+
+              <!--Start of the resources element in control definition-->
+              <xs:element minOccurs="1" name="resources">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element name="library" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                          <xs:element name="packaged_library">
+                            <xs:complexType>
+                              <xs:attribute name="path" type="xs:string" use="required" />
+                              <xs:attribute name="version" type="xs:string" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                        <xs:attribute name="version" type="xs:string" use="required" />
+                        <xs:attribute name="order" type="xs:positiveInteger" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="code" minOccurs="1">
+                      <xs:complexType>
+                        <xs:attribute name="path" type="xs:string" use="required" />
+                        <xs:attribute name="order" type="xs:positiveInteger" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="css" minOccurs ="0">
+                      <xs:complexType>
+                        <xs:attribute name="path" type="xs:string" use="required" />
+                        <xs:attribute name="order" type="xs:positiveInteger" use="optional" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="img" minOccurs="0">
+                      <xs:complexType>
+                        <xs:attribute name="path" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="html" minOccurs="0">
+                      <xs:complexType>
+                        <xs:attribute name="path" type="xs:string" use="required" />
+                        <xs:attribute name="order" type="xs:positiveInteger" use="optional" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="resx" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="path" type="xs:string" use="required" />
+                        <xs:attribute name="version" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <!--End of the resources element in control definition-->
+
+              <!--Start of the AvailableOn element in control definition-->
+              <xs:element minOccurs="0" maxOccurs="1" name="AvailableOn">
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element name="web" minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:attribute name="classic" type="xs:string" use="optional" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="phone" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="tablet" minOccurs="0" maxOccurs="1" />
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+              <!--End of the AvailableOn element in control definition-->
+            </xs:choice>
+
+            <xs:attribute name="namespace" type="AlphaNumericType" use="required" />
+            <xs:attribute name="constructor" type="AlphaNumericType" use="required" />
+            <xs:attribute name="display-name-key" type="xs:string" use="required" />
+            <xs:attribute name="version" type="xs:string" use="required" />
+            <xs:attribute name="preview-image" type="xs:string" use="optional" />
+            <xs:attribute name="description-key" type="xs:string" use="optional" />
+            <xs:attribute name="control-type" type="controlType" use="optional" />
+            <xs:attribute name="hidden" type="booleanType" use="optional" />
+          </xs:complexType>
+
+          <!--uniqueness of "name" attribute of property element-->
+          <xs:unique name="uniqueProperty">
+            <xs:selector xpath="./data-set | ./data-set/property-set | ./property | ./groups | ./groups/group | ./groups/group/data-set | ./groups/group/data-set/property-set | ./groups/group/property"/>
+            <xs:field xpath="@name"/>
+          </xs:unique>
+
+        </xs:element>
+        <!--End of the control definition-->
+
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <!--End of manifest definition-->
+
+  <!--Restrictions on the boolean value-->
+  <xs:simpleType name="booleanType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="true" />
+      <xs:enumeration value="false" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="booleanEmptyType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="true" />
+      <xs:enumeration value="false" />
+      <xs:enumeration value="" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!--Restrictions on the Usage value-->
+  <xs:simpleType name="usageType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="bound" />
+      <xs:enumeration value="input" />
+      <xs:enumeration value="output" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!--Restrictions on the datatype value-->
+  <xs:simpleType name="dataType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Whole.None" />
+      <xs:enumeration value="Whole.Duration" />
+      <xs:enumeration value="Whole.TimeZone" />
+      <xs:enumeration value="Whole.Language" />
+      <xs:enumeration value="TwoOptions" />
+      <xs:enumeration value="DateAndTime.DateOnly" />
+      <xs:enumeration value="DateAndTime.DateAndTime" />
+      <xs:enumeration value="Decimal" />
+      <xs:enumeration value="Enum" />
+      <xs:enumeration value="FP" />
+      <xs:enumeration value="Lookup.Simple" />
+      <xs:enumeration value="Lookup.Customer" />
+      <xs:enumeration value="Lookup.Owner" />
+      <xs:enumeration value="Lookup.PartyList" />
+      <xs:enumeration value="Lookup.Regarding" />
+      <xs:enumeration value="Multiple" />
+      <xs:enumeration value="Currency" />
+      <xs:enumeration value="OptionSet" />
+      <xs:enumeration value="MultiSelectOptionSet" />
+      <xs:enumeration value="SingleLine.Email" />
+      <xs:enumeration value="SingleLine.Text" />
+      <xs:enumeration value="SingleLine.TextArea" />
+      <xs:enumeration value="SingleLine.URL" />
+      <xs:enumeration value="SingleLine.Ticker" />
+      <xs:enumeration value="SingleLine.Phone" />
+      <xs:enumeration value="Form.Card" />
+      <xs:enumeration value="Form.Main" />
+      <xs:enumeration value="Guid" />
+      <xs:enumeration value="BusinessProcessFlow" />
+      <xs:enumeration value="WebResource.HTML" />
+      <xs:enumeration value="TimelineWall" />
+      <xs:enumeration value="Form.QuickForm" />
+      <xs:enumeration value="Search" />
+      <xs:enumeration value="Dashboard" />
+      <xs:enumeration value="SearchWidget" />
+      <xs:enumeration value="KbArticle" />
+      <xs:enumeration value="KbContent" />
+      <xs:enumeration value="ReferencePanelSearchWidget" />
+      <xs:enumeration value="Timer" />
+      <xs:enumeration value="AppliedFilter" />
+      <xs:enumeration value="GlobalFilter" />
+      <xs:enumeration value="DateRange" />
+      <xs:enumeration value="CarouselItems" />
+    <xs:enumeration value="ReferencePanel" />
+    <xs:enumeration value="Slug" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="controlType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="virtual" />
+      <xs:enumeration value="standard" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-zA-Z0-9.]+"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

@@ -1,0 +1,288 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:simpleType name ="WebResourceSizeType">
+		<xs:restriction base ="xs:string">
+			<xs:enumeration value ="StretchToFit" />
+			<xs:enumeration value ="StretchMaintainAspectRatio" />
+			<xs:enumeration value ="Original" />
+			<xs:enumeration value ="Specific" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ImageHorizontalAlignmentType">
+		<xs:restriction base ="xs:string">
+			<xs:enumeration value ="Left" />
+			<xs:enumeration value ="Right" />
+			<xs:enumeration value ="Center" />
+			<xs:enumeration value ="NotSet" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ImageVerticalAlignmentType">
+		<xs:restriction base ="xs:string">
+			<xs:enumeration value ="Top" />
+			<xs:enumeration value ="Middle" />
+			<xs:enumeration value ="Bottom" />
+			<xs:enumeration value ="NotSet" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FormGuidType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">
+				The representation of a GUID, generally the id of an element.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\{?[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\}?" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RelationshipRoleOrdinalType">
+		<xs:restriction base="xs:unsignedByte">
+			<xs:enumeration value="1" />
+			<xs:enumeration value="2" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="GridResizeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Auto"/>
+			<xs:enumeration value="Fixed"/>
+			<xs:enumeration value="AutoWithFixedMax"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FormatType">
+		<xs:restriction base ="xs:string">
+			<xs:enumeration value ="SingleLineOfText" />
+			<xs:enumeration value ="WholeNumber" />
+			<xs:enumeration value ="DecimalNumber" />
+			<xs:enumeration value ="Currency" />
+			<xs:enumeration value="Date" />
+			<xs:enumeration value="DateTime" />
+			<xs:enumeration value="DateAndTime" />
+			<xs:enumeration value="Url" />
+			<xs:enumeration value="Ticker" />
+			<xs:enumeration value="Email" />
+			<xs:enumeration value="TextArea" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:group name="SearchWidgetControlParameters">
+		<xs:choice>
+			<xs:element name="FilterResults" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="AllowChangingFiltersOnUI" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+			<xs:element name="ShowLanguageFilter" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+			<xs:element name="ShowDepartmentFilter" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+			<xs:element name="EnableAutoSuggestions" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+			<xs:element name="SearchForAutoSuggestionsUsing" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="EnableRating" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+			<xs:element name="ShowRatingUsing" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="AutoSuggestionSource" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="SelectPrimaryCustomer" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="SelectDefaultLanguage" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="NumberOfResults" type="xs:unsignedInt" minOccurs="0" maxOccurs="1" />
+			<xs:element name="ShowContextualActions" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="ActionList" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="ReferencePanelSearchWidgetIconUrl" type="xs:string" minOccurs="0" maxOccurs="1" />
+		</xs:choice>
+	</xs:group>
+		<!-- Parameters for timelinewall -->
+	<xs:group name="UnifiedClientTimelineWallParameters">
+		<xs:choice >
+			<xs:element name="UClientUniqueName" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="UClientModules" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="UClientDefaultModuleForCreateExperience" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="UClientShowFilterPane" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+			<xs:element name="UClientExpandFilterPane" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+			<xs:element name="UClientCreateActivityUsing" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="UClientDisplayActivityUsing" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="UClientRecordPerPage" type="xs:unsignedInt" minOccurs="0" maxOccurs="1" />
+			<xs:element name="UClientActivities" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="UClientOrderBy" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="UClientActivityCardMap" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="UClientDisplayActivityHeaderUsing" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="UClientSortActivitiesByValue" type="xs:string" minOccurs="0" maxOccurs="1" />
+		</xs:choice>
+	</xs:group>
+	<xs:element name="parameters">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="datafieldname" type="xs:string" minOccurs="0" maxOccurs="1" />
+				<xs:choice minOccurs="0" maxOccurs="1">
+					<!-- LATER: (TobinZ, 2008-07-24) - Divide this list up into sets that are valid together. -->
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="Url" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="PassParameters" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="Security" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="Scrolling" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="Border" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="Preload" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="IsPassword" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="IsColorValue" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<!--Web Resource related parameters. Included in this section since they 
+								can include Url, PassParameters etc-->
+						<xs:element name="Height" type="xs:unsignedInt" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="Width" type="xs:unsignedInt" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="AltText" type="xs:string" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="SizeType" type="WebResourceSizeType" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="ShowInROF" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="ShowOnMobileClient" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="HorizontalAlignment" type="ImageHorizontalAlignmentType" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="VerticalAlignment" type="ImageVerticalAlignmentType" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="Data" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="WebResourceId" type="xs:string" minOccurs="0" maxOccurs="1" />
+					</xs:choice>
+					<!--Parameters for unbound lookup control-->
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="TargetEntities" minOccurs="0" maxOccurs="1">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="TargetEntity" minOccurs="1" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:all>
+												<xs:element name="EntityLogicalName" type="xs:string" minOccurs="1" maxOccurs="1" />
+												<xs:element name="DefaultViewId" type="FormGuidType" minOccurs="0" maxOccurs="1" />
+												<xs:element name="IsDeDupLookup" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+												<xs:element name="UnboundLookupStyle" type="xs:string" minOccurs="0" maxOccurs="1" />
+											</xs:all>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:choice>
+					<!-- Parameters for the subgrid control and reference panel subgrid control -->
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="ViewId" type="FormGuidType" minOccurs="0" maxOccurs="1" />
+						<xs:element name="IsUserView" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="IsUserChart" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="RelationshipName" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="RelationshipRoleOrdinal" type="RelationshipRoleOrdinalType" minOccurs="0" maxOccurs="1" />
+						<xs:element name="TargetEntityType" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="AutoExpand" type="GridResizeType" minOccurs="0" maxOccurs="1" />
+						<xs:element name="RecordsPerPage" type="xs:unsignedShort" minOccurs="0" maxOccurs="1" />
+						<xs:element name="MaxRowsBeforeScroll" type="xs:integer" minOccurs="0" maxOccurs="1" />
+						<xs:element name="EnableQuickFind" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="EnableJumpBar" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="EnableViewPicker" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="ViewIds" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="ChartGridMode" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="VisualizationId" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="EnableChartPicker" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="EnableContextualActions" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="TeamTemplateId" type="FormGuidType" minOccurs="0" maxOccurs="1" />
+						<xs:element name="GridUIMode" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="ReferencePanelSubgridIconUrl" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="HeaderColorCode" type="xs:string" minOccurs="0" maxOccurs="1" />
+					</xs:choice>
+					<!-- Parameters for the lookup control -->
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="DefaultViewId" type="FormGuidType" minOccurs="0" maxOccurs="1" />
+						<xs:element name="FilterRelationshipName" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="DependentAttributeName" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="DependentAttributeType" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="AutoResolve" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="ResolveEmailAddress" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="DefaultViewReadOnly" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="ViewPickerReadOnly" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="AllowFilterOff" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="DisableMru" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="DisableQuickFind" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="DisableViewPicker" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="AvailableViewIds" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="EntityLogicalName" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="IsInlineNewEnabled" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="InlineViewIds" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="UnboundLookupTypes" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="UnboundLookupBrowse" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="UnboundLookupStyle" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="UnboundLookupControlType" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="ShowAsBreadcrumbControl" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+					</xs:choice>
+					<!-- Parameters for the TextBox -->
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="MaxLength" type="xs:integer" minOccurs="0" maxOccurs="1" />
+						<xs:element name="Format" type="FormatType" minOccurs="0" maxOccurs="1" />
+					</xs:choice>
+					<!-- Parameters for the Label -->
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="IsTitle" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+					</xs:choice>
+					<!-- Parameters for the Numbers (i.e Whole, Decimal, Currency)-->
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="MinValue" type="xs:double" minOccurs="0" maxOccurs="1" />
+						<xs:element name="MaxValue" type="xs:double" minOccurs="0" maxOccurs="1" />
+						<xs:element name="Precision" type="xs:integer" minOccurs="0" maxOccurs="1" />
+					</xs:choice>
+					<!-- Parameters for the PickList Control and Two Value Option(Radio) Control -->
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="DefaultValue" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="OptionSetId" type="FormGuidType" minOccurs="0" maxOccurs="1" />
+					</xs:choice>
+					<!-- Parameters for the quickformcollection control and reference panel quick form collection control -->
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="QuickForms" type="xs:string" minOccurs="1" maxOccurs="1" />
+						<xs:element name="ControlMode" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="ReferencePanelQuickFormCollectionIconUrl" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="DisplayAsCustomer360Tile" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+					</xs:choice>
+					<!-- Parameters for the tabs control -->
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="DefaultTabId" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="ShowArticleTab" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:group ref="SearchWidgetControlParameters" minOccurs="0" maxOccurs="unbounded" />
+						<xs:group ref="UnifiedClientTimelineWallParameters" minOccurs="0" maxOccurs="unbounded" />
+					</xs:choice>
+					<!-- Link Control parameters -->
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="LinkControlDefinitionId" type="FormGuidType" minOccurs="0" maxOccurs="1" />
+						<xs:element name="ShowLinkControlLabel" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+					</xs:choice>
+					<!-- Bing Maps Control parameters -->
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="AddressField" type="xs:string" minOccurs="1" maxOccurs="1" />
+					</xs:choice>
+					<!-- Timer Control parameters -->
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="FailureTimeField" type="xs:string" minOccurs="1" maxOccurs="1" />
+						<xs:element name="SuccessConditionName" type="xs:string" minOccurs="1" maxOccurs="1" />
+						<xs:element name="SuccessConditionValue" type="xs:string" minOccurs="1" maxOccurs="1" />
+						<xs:element name="FailureConditionName" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="FailureConditionValue" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="WarningConditionName" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="WarningConditionValue" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="CancelConditionName" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="CancelConditionValue" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="PauseConditionName" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="PauseConditionValue" type="xs:string" minOccurs="0" maxOccurs="1" />
+					</xs:choice>
+					<!-- Search Widget parameters -->
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:group ref="SearchWidgetControlParameters" minOccurs="0" maxOccurs="unbounded" />
+					</xs:choice>
+					<!-- Timeline wall parameters -->
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:group ref="UnifiedClientTimelineWallParameters" minOccurs="0" maxOccurs="unbounded" />
+					</xs:choice>
+					<!-- Queue Control parameters -->
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="Streams" type="xs:string" minOccurs="1" maxOccurs="1" />
+						<xs:element name="DashboardCategory" type="xs:string" minOccurs="1" maxOccurs="1" />
+						<xs:element name="ShowAsTiles" type="xs:boolean" minOccurs="1" maxOccurs="1" />
+					</xs:choice>
+					<!-- Date Range Control parameters -->
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="AttributeLogicalName" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="TimeFrame" type="xs:string" minOccurs="0" maxOccurs="1" />
+					</xs:choice>
+					<!-- Rich Editor Control parameters -->
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="ReadOnly" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="ShowDialogs" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="IsViewExpandable" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="HideToolbar" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="ToolbarJSON" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="ExpandedToolbarJSON" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="HiddenToolbarJSON" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="ClassName" type="xs:string" minOccurs="0" maxOccurs="1" />
+					</xs:choice>
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

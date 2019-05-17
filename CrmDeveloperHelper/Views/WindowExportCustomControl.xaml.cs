@@ -40,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Popup _optionsPopup;
 
-        public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.XmlAttributeOnNewLine | XmlOptionsControls.SortXmlAttributes;
+        public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.XmlFull;
 
         public WindowExportCustomControl(
              IWriteToOutput iWriteToOutput
@@ -407,7 +407,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    formXml = ContentCoparerHelper.FormatXmlByConfiguration(formXml, _commonConfig, _xmlOptions);
+                    formXml = ContentCoparerHelper.FormatXmlByConfiguration(formXml, _commonConfig, _xmlOptions
+                        , schemaName: CommonExportXsdSchemasCommand.SchemaManifest
+                       , customControlId: idCustomControl
+                    );
 
                     File.WriteAllText(filePath, formXml, new UTF8Encoding(false));
 

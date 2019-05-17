@@ -1,0 +1,55 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:element name="Dependencies">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Dependency" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+
+            <xs:sequence>
+
+              <xs:element name="Library" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute type="xs:string" name="name" use="required"/>
+                  <xs:attribute type="xs:string" name="displayName" use="required"/>
+                  <xs:attribute type="xs:string" name="languagecode" use="optional"/>
+                  <xs:attribute type="xs:string" name="description" use="optional"/>
+                  <xs:attribute type="GuidType" name="libraryUniqueId" use="required"/>
+                </xs:complexType>
+              </xs:element>
+
+              <xs:element name="Attribute" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute type="GuidType" name="attributeId" use="required"/>
+                  <xs:attribute type="xs:string" name="attributeName" use="required"/>
+                  <xs:attribute type="xs:string" name="entityName" use="required"/>
+                </xs:complexType>
+              </xs:element>
+
+            </xs:sequence>
+
+            <xs:attribute type="componentType" name="componentType" use="required"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="GuidType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        The representation of a GUID, generally the id of an element.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\{?[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\}?" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name ="componentType">
+    <xs:restriction base ="xs:string">
+      <xs:enumeration value ="Attribute" />
+      <xs:enumeration value ="WebResource" />
+    </xs:restriction>
+  </xs:simpleType>
+  
+</xs:schema>

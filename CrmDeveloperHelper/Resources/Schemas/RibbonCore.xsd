@@ -12,7 +12,7 @@
 
   <xs:element name="UI" type="CommandUIType">
   </xs:element>
-  
+
   <!-- Element Types -->
   <xs:complexType name="RibbonEntityDiffXmlType">
     <xs:choice minOccurs="1" maxOccurs="1">

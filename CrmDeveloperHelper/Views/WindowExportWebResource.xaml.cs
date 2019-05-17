@@ -1,10 +1,12 @@
 using Microsoft.Xrm.Sdk.Query;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,6 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -36,6 +39,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
         private readonly Dictionary<Guid, SolutionComponentDescriptor> _descriptorCache = new Dictionary<Guid, SolutionComponentDescriptor>();
 
+        private readonly Popup _optionsPopup;
+
+        public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.XmlFull;
+
         public WindowExportWebResource(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -55,6 +62,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InitializeComponent();
+
+            var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
+            child.CloseClicked += Child_CloseClicked;
+            this._optionsPopup = new Popup
+            {
+                Child = child,
+
+                PlacementTarget = toolBarHeader,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+                Focusable = true,
+            };
 
             //ItemsSource="{Binding Source={helpers:EnumBindingSource {helpers:NullableType {x:Type entities:WebResource+Schema+OptionSets+webresourcetype}}}}" 
             cmBType.ItemsSource = new EnumBindingSourceExtension(typeof(WebResource.Schema.OptionSets.webresourcetype?)).ProvideValue(null) as IEnumerable;
@@ -763,9 +782,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
-                var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(fieldName));
+                var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(true));
 
                 string xmlContent = webresource.GetAttributeValue<string>(fieldName);
+
+                if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                        , schemaName: CommonExportXsdSchemasCommand.SchemaDependencyXml
+                       , webResourceName: webresource.Name
+                    );
+                }
 
                 string filePath = await CreateFileAsync(folder, name, fieldTitle, xmlContent, extension);
 
@@ -819,12 +846,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 else
                 {
-                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                    if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        xmlContent = doc.ToString();
+                        xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions);
                     }
 
-                    string filePath = await CreateFileAsync(folder, name, fieldTitle + " BackUp", xmlContent, extension);
+                    await CreateFileAsync(folder, name, fieldTitle + " BackUp", xmlContent, extension);
                 }
 
                 var newText = string.Empty;
@@ -855,9 +882,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 else
                 {
-                    if (ContentCoparerHelper.TryParseXml(newText, out var doc))
+                    if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        newText = doc.ToString(SaveOptions.DisableFormatting);
+                        newText = ContentCoparerHelper.RemoveAllCustomXmlAttributesAndNamespaces(newText);
+
+                        if (ContentCoparerHelper.TryParseXml(newText, out var doc))
+                        {
+                            newText = doc.ToString(SaveOptions.DisableFormatting);
+                        }
                     }
                 }
 
@@ -1008,11 +1040,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
-                    {
-                        xmlContent = doc.ToString();
-                    }
-
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
                     this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, WebResource.Schema.EntityLogicalName, name, fieldTitle, filePath);
@@ -1347,6 +1374,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.PublishingWebResourceFormat2, service.ConnectionData.Name, name);
+        }
+
+        private void miOptions_Click(object sender, RoutedEventArgs e)
+        {
+            this._optionsPopup.IsOpen = true;
+            this._optionsPopup.Child.Focus();
+        }
+        private void Child_CloseClicked(object sender, EventArgs e)
+        {
+            if (_optionsPopup.IsOpen)
+            {
+                _optionsPopup.IsOpen = false;
+                this.Focus();
+            }
         }
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)

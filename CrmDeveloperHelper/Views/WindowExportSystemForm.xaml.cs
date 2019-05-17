@@ -502,7 +502,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     formXml = ContentCoparerHelper.FormatXmlByConfiguration(formXml, _commonConfig, _xmlOptions
                        , schemaName: CommonExportXsdSchemasCommand.SchemaFormXml
                        , formId: formId
-                       );
+                    );
 
                     File.WriteAllText(filePath, formXml, new UTF8Encoding(false));
 

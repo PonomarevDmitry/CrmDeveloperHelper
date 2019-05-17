@@ -784,7 +784,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , string siteMapUniqueName = null
             , Guid? formId = null
             , Guid? savedQueryId = null
-            )
+            , Guid? customControlId = null
+            , string webResourceName = null
+        )
         {
             var result = xml;
 
@@ -822,6 +824,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (formId.HasValue)
                 {
                     result = ContentCoparerHelper.SetIntellisenseContextFormId(result, formId.Value);
+                }
+
+                if (customControlId.HasValue)
+                {
+                    result = ContentCoparerHelper.SetIntellisenseContextCustomControlId(result, customControlId.Value);
+                }
+
+                if (!string.IsNullOrEmpty(webResourceName))
+                {
+                    result = ContentCoparerHelper.SetIntellisenseContextWebResourceName(result, webResourceName);
                 }
             }
 
@@ -1029,6 +1041,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private static readonly string patternIntellisenseContextFormId = string.Format(replaceIntellisenseContextFormIdFormat1, "([^\"]*)");
         private const string replaceIntellisenseContextFormIdFormat1 = " " + Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeFormId + "=\"{0}\"";
 
+        private static readonly string patternIntellisenseContextCustomControlId = string.Format(replaceIntellisenseContextCustomControlIdFormat1, "([^\"]*)");
+        private const string replaceIntellisenseContextCustomControlIdFormat1 = " " + Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeCustomControlId + "=\"{0}\"";
+
+        private static readonly string patternIntellisenseContextWebResourceName = string.Format(replaceIntellisenseContextWebResourceNameFormat1, "([^\"]*)");
+        private const string replaceIntellisenseContextWebResourceNameFormat1 = " " + Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeWebResourceName + "=\"{0}\"";
+
         private static readonly string patternIntellisenseContextSiteMapNameUnique = string.Format(replaceIntellisenseContextSiteMapNameUniqueFormat1, "([^\"]*)");
         private const string replaceIntellisenseContextSiteMapNameUniqueFormat1 = " " + Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeSiteMapNameUnique + "=\"{0}\"";
 
@@ -1117,6 +1135,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             result = ReplaceOrInsertAttribute(result, patternIntellisenseContext, intellisenseContextNamespace);
 
             result = ReplaceOrInsertAttribute(result, patternIntellisenseContextFormId, newEntityNameAttribute);
+
+            return result;
+        }
+
+        private static string SetIntellisenseContextCustomControlId(string text, Guid idCustomControl)
+        {
+            var newEntityNameAttribute = string.Format(replaceIntellisenseContextCustomControlIdFormat1, idCustomControl.ToString());
+
+            var intellisenseContextNamespace = string.Format(replaceIntellisenseContextNamespaceFormat1, Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName);
+
+            string result = text;
+
+            result = ReplaceOrInsertAttribute(result, patternIntellisenseContext, intellisenseContextNamespace);
+
+            result = ReplaceOrInsertAttribute(result, patternIntellisenseContextCustomControlId, newEntityNameAttribute);
+
+            return result;
+        }
+
+        private static string SetIntellisenseContextWebResourceName(string text, string webResourceName)
+        {
+            var newEntityNameAttribute = string.Format(replaceIntellisenseContextWebResourceNameFormat1, webResourceName);
+
+            var intellisenseContextNamespace = string.Format(replaceIntellisenseContextNamespaceFormat1, Intellisense.Model.IntellisenseContext.IntellisenseContextNamespace.NamespaceName);
+
+            string result = text;
+
+            result = ReplaceOrInsertAttribute(result, patternIntellisenseContext, intellisenseContextNamespace);
+
+            result = ReplaceOrInsertAttribute(result, patternIntellisenseContextWebResourceName, newEntityNameAttribute);
 
             return result;
         }

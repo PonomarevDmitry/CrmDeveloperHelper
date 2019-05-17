@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Map">
+    <xs:complexType>
+      <xs:all>
+        <xs:element minOccurs="0" maxOccurs="1" name="Description" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="EntitiesPerFile" type="EntitiesPerFileEnum"/>
+        <xs:element minOccurs="0" maxOccurs="1" name="UserIdentifier">
+          <xs:complexType>
+            <xs:all>
+              <xs:element minOccurs="0" maxOccurs="1" name="SourceUserIdentifierForSourceDataSourceUserLink" type="xs:string" />
+              <xs:element minOccurs="1" maxOccurs="1" type="xs:string" name="SourceUserIdentifierForSourceCRMUserLink" />
+              <xs:element minOccurs="1" maxOccurs="1" name="TargetUserIdentifierForSourceCRMUserLink" type="xs:string" />
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ImportCustomizations" minOccurs="0" />
+        <xs:element name="EntityMaps">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="1" maxOccurs="unbounded" name="EntityMap">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element minOccurs="0" name="AttributeMaps">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" maxOccurs="unbounded" name="AttributeMap">
+                            <xs:complexType>
+                              <xs:all>
+                                <xs:element name="SourceAttributeName" type="xs:string" />
+                                <xs:element name="TargetAttributeName" type="xs:string" />
+                                <xs:element name="ProcessCode" type="ProcessCodeEnum" />
+                                <xs:element name="IntroducedVersion" type="xs:string" minOccurs="0" />
+                                <xs:element minOccurs="0" name="LookupMaps">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element minOccurs="0" maxOccurs="unbounded" name="LookupMap">
+                                        <xs:complexType>
+                                          <xs:all>
+                                            <xs:element name="LookupEntityName" type="xs:string" />
+                                            <xs:element name="LookupAttributeName" type="xs:string" />
+                                            <xs:element name="LookupType" type="LookupTypeEnum" />
+                                            <xs:element name="ProcessCode" type="ProcessCodeEnum" />
+                                            <xs:element name="IntroducedVersion" type="xs:string" minOccurs="0" />
+                                          </xs:all>
+                                          <xs:attribute name="Id" type="xs:string" use="optional" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="PicklistMaps">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element minOccurs="0" maxOccurs="unbounded" name="PicklistMap">
+                                        <xs:complexType>
+                                          <xs:all>
+                                            <xs:element name="SourceValue" type="xs:string" />
+                                            <xs:element name="TargetValue" type="xs:unsignedInt" />
+                                            <xs:element name="ProcessCode" type="ProcessCodeEnum" />
+                                            <xs:element name="IntroducedVersion" type="xs:string" minOccurs="0" />
+                                          </xs:all>
+                                          <xs:attribute name="Id" type="xs:string" use="optional" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:all>
+                              <xs:attribute name="Id" type="xs:string" use="optional" />
+                              <xs:attribute name="HideInUi" type="xs:string" use="optional" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="TransformationMaps">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" maxOccurs="unbounded" name="TransformationMap">
+                            <xs:complexType>
+                              <xs:all>
+                                <xs:element name="TransformationTypeName" type="xs:string" />
+                                <xs:element name="ProcessCode" type="ProcessCodeEnum" />
+                                <xs:element name="IntroducedVersion" type="xs:string" minOccurs="0" />
+                                <xs:element minOccurs="0" name="InputParameterMaps">
+                                  <xs:complexType>
+                                    <xs:all>
+                                      <xs:element minOccurs="0" name="SingletonInputParameterMaps">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element minOccurs="0" maxOccurs="unbounded" name="SingletonInputParameterMap">
+                                              <xs:complexType>
+                                                <xs:all>
+                                                  <xs:element name="ParameterSequence" type="xs:positiveInteger" />
+                                                  <xs:element name="DataTypeCode" type="DataTypeCodeEnum" />
+                                                  <xs:element name="Data" type="xs:string" />
+                                                  <xs:element name="IntroducedVersion" type="xs:string" minOccurs="0" />
+                                                </xs:all>
+                                                <xs:attribute name="Id" type="xs:string" use="optional" />
+                                              </xs:complexType>
+                                            </xs:element>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element minOccurs="0" name="ArrayInputParameterMaps">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element minOccurs="0" maxOccurs="unbounded" name="ArrayInputParameterMap">
+                                              <xs:complexType>
+                                                <xs:all>
+                                                  <xs:element name="ParameterSequence" type="xs:positiveInteger" />
+                                                  <xs:element name="IntroducedVersion" type="xs:string" minOccurs="0" />
+                                                  <xs:element name="Items">
+                                                    <xs:complexType>
+                                                      <xs:sequence>
+                                                        <xs:element maxOccurs="unbounded" name="Item">
+                                                          <xs:complexType>
+                                                            <xs:all>
+                                                              <xs:element name="ParameterArrayIndex" type="xs:unsignedInt" />
+                                                              <xs:element name="DataTypeCode" type="DataTypeCodeEnum" />
+                                                              <xs:element name="Data" type="xs:string" />
+                                                              <xs:element name="IntroducedVersion" type="xs:string" minOccurs="0" />
+                                                            </xs:all>
+                                                            <xs:attribute name="Id" type="xs:string" use="optional" />
+                                                          </xs:complexType>
+                                                        </xs:element>
+                                                      </xs:sequence>
+                                                    </xs:complexType>
+                                                  </xs:element>
+                                                </xs:all>
+                                              </xs:complexType>
+                                            </xs:element>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:all>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="OutputParameterMaps">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element maxOccurs="unbounded" name="OutputParameterMap">
+                                        <xs:complexType>
+                                          <xs:all>
+                                            <xs:element name="ParameterSequence" type="xs:positiveInteger" />
+                                            <xs:element name="Data" type="xs:string" />
+                                            <xs:element name="IntroducedVersion" type="xs:string" minOccurs="0" />
+                                            <xs:element minOccurs="0" name="LookupMaps">
+                                              <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element maxOccurs="unbounded" name="LookupMap">
+                                                    <xs:complexType>
+                                                      <xs:all>
+                                                        <xs:element name="LookupEntityName" type="xs:string" />
+                                                        <xs:element name="LookupAttributeName" type="xs:string" />
+                                                        <xs:element name="LookupType" type="LookupTypeEnum" />
+                                                        <xs:element name="ProcessCode" type="ProcessCodeEnum" />
+                                                        <xs:element name="IntroducedVersion" type="xs:string" minOccurs="0" />
+                                                      </xs:all>
+                                                      <xs:attribute name="Id" type="xs:string" use="optional" />
+                                                    </xs:complexType>
+                                                  </xs:element>
+                                                </xs:sequence>
+                                              </xs:complexType>
+                                            </xs:element>
+                                          </xs:all>
+                                          <xs:attribute name="Id" type="xs:string" use="optional" />
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:all>
+                              <xs:attribute name="Id" type="xs:string" use="optional" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="IntroducedVersion" type="xs:string" minOccurs="0" />
+                  </xs:all>
+                  <xs:attribute name="TargetEntityName" type="xs:string" use="required" />
+                  <xs:attribute name="SourceEntityName" type="xs:string" use="required" />
+                  <xs:attribute name="Dedupe" type="DedupeEnum" use="optional" />
+                  <!-- This ProcessCode is optional to maintain backward compatibility with V4 maps -->
+                  <xs:attribute name="ProcessCode" type="ProcessCodeEnum" use="optional" />
+                  <xs:attribute name="Id" type="xs:string" use="optional" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+      <xs:attribute name="Name" type="xs:string" use="required" />
+      <xs:attribute name="Id" type="xs:string" use="optional" />
+      <xs:attribute name="FileName" type="xs:string" use="optional" />
+      <xs:attribute name="Source" type="xs:string" />
+      <xs:attribute name="Version" type="xs:string" use="optional" />
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="ProcessCodeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Process" />
+      <xs:enumeration value="Ignore" />
+      <xs:enumeration value="Internal" />
+      <xs:enumeration value="Unmapped" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="LookupTypeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Source" />
+      <xs:enumeration value="System" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DataTypeCodeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Reference" />
+      <xs:enumeration value="Value" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DedupeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Ignore" />
+      <xs:enumeration value="Eliminate" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EntitiesPerFileEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Single" />
+      <xs:enumeration value="Multiple" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
