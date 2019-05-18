@@ -1,3 +1,4 @@
+using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -33,7 +34,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private BitmapImage _imageEntity;
         private BitmapImage _imageMessage;
-        private BitmapImage _imageStage;
 
         private readonly CommonConfiguration _commonConfig;
 
@@ -167,7 +167,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._imageEntity = this.Resources["ImageEntity"] as BitmapImage;
             this._imageMessage = this.Resources["ImageMessage"] as BitmapImage;
-            this._imageStage = this.Resources["ImageStage"] as BitmapImage;
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -290,17 +289,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             foreach (var grEntity in groupsByEnity)
             {
-                PluginTreeViewItem nodeEntity = CreateNodeEntity(grEntity.Key, grEntity);
+                PluginTreeViewItem nodeEntity = CreateNodeEntity(grEntity.Key, null, grEntity);
 
                 var groupsByMessages = grEntity.GroupBy(ent => ent.Name).OrderBy(mess => mess.Key, new MessageComparer());
 
                 foreach (var mess in groupsByMessages)
                 {
-                    PluginTreeViewItem nodeMessage = CreateNodeMessage(mess.Key, mess);
+                    PluginTreeViewItem nodeMessage = CreateNodeMessage(grEntity.Key, mess.Key, mess);
 
                     AddTreeNode(nodeEntity, nodeMessage);
-                    
-                    ExpandNode(nodeMessage);
+
+                    nodeMessage.IsExpanded = true;
                 }
 
                 this.Dispatcher.Invoke(() =>
@@ -316,13 +315,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             foreach (var grMessage in groupsByMessage)
             {
-                var nodeMessage = CreateNodeMessage(grMessage.Key, grMessage);
+                var nodeMessage = CreateNodeMessage(null, grMessage.Key, grMessage);
 
                 var groupsByEntity = grMessage.GroupBy(ent => ent.PrimaryObjectTypeCodeName).OrderBy(e => e.Key);
 
                 foreach (var grEntity in groupsByEntity)
                 {
-                    PluginTreeViewItem nodeEntity = CreateNodeEntity(grEntity.Key, grEntity);
+                    PluginTreeViewItem nodeEntity = CreateNodeEntity(grEntity.Key, grMessage.Key, grEntity);
 
                     AddTreeNode(nodeMessage, nodeEntity);
                 }
@@ -340,48 +339,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             childNode.Parent = node;
         }
 
-        private void ExpandNode(PluginTreeViewItem node)
-        {
-            node.IsExpanded = true;
-        }
-
-        private PluginTreeViewItem CreateNodeStage(int stage, int mode)
-        {
-            string name = SdkMessageProcessingStepRepository.GetStageName(stage, mode);
-
-            var nodeStage = new PluginTreeViewItem(null)
-            {
-                Name = name,
-                Image = _imageStage,
-            };
-
-            return nodeStage;
-        }
-
-        private PluginTreeViewItem CreateNodeMessage(string message, IEnumerable<SdkMessage> steps)
+        private PluginTreeViewItem CreateNodeMessage(string entityName, string message, IEnumerable<SdkMessage> steps)
         {
             var nodeMessage = new PluginTreeViewItem(ComponentType.SdkMessage)
             {
                 Name = message,
                 Image = _imageMessage,
 
-                MessageList = steps.Where(s => s.SdkMessageId.HasValue).Select(s => s.SdkMessageId.Value).Distinct().ToList(),
-
-                MessageFilterList = steps.Where(s => s.SdkMessageFilterId.HasValue).Select(s => s.SdkMessageFilterId.Value).Distinct().ToList(),
+                EntityLogicalName = entityName,
+                MessageName = message,
             };
+
+            nodeMessage.MessageList.AddRange(steps.Where(s => s.SdkMessageId.HasValue).Select(s => s.SdkMessageId.Value).Distinct());
+
+            nodeMessage.MessageFilterList.AddRange(steps.Where(s => s.SdkMessageFilterId.HasValue).Select(s => s.SdkMessageFilterId.Value).Distinct());
 
             return nodeMessage;
         }
 
-        private PluginTreeViewItem CreateNodeEntity(string entityName, IEnumerable<SdkMessage> steps)
+        private PluginTreeViewItem CreateNodeEntity(string entityName, string messageName, IEnumerable<SdkMessage> steps)
         {
-            var nodeMessage = new PluginTreeViewItem(ComponentType.Entity)
+            var nodeMessage = new PluginTreeViewItem(ComponentType.SdkMessageFilter)
             {
                 Name = entityName,
                 Image = _imageEntity,
 
-                MessageFilterList = steps.Where(s => s.SdkMessageFilterId.HasValue).Select(s => s.SdkMessageFilterId.Value).Distinct().ToList(),
+                EntityLogicalName = entityName,
+                MessageName = messageName,
             };
+
+            nodeMessage.MessageFilterList.AddRange(steps.Where(s => s.SdkMessageFilterId.HasValue).Select(s => s.SdkMessageFilterId.Value).Distinct());
 
             return nodeMessage;
         }
@@ -453,7 +440,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         button.IsEnabled = enabled;
                     }
 
-                    tSBCreateDescription.Content = GetCreateDescription(this.trVMessageTree.SelectedItem as PluginTreeViewItem);
+                    tSBCreateDescription.Content = GetCreateDescriptionName(this.trVMessageTree.SelectedItem as PluginTreeViewItem);
                 }
                 catch (Exception)
                 {
@@ -461,7 +448,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private string GetCreateDescription(PluginTreeViewItem item)
+        private string GetCreateDescriptionName(PluginTreeViewItem item)
         {
             if (item == null)
             {
@@ -668,11 +655,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var repository = new SdkMessageRepository(service);
                 List<SdkMessage> listMessages = await repository.GetMessageByIdsAsync(node.MessageList.ToArray());
 
-                fileName = EntityFileNameFormatter.GetMessageFileName(service.ConnectionData.Name, node.Name, "Description");
+                if (string.IsNullOrEmpty(fileName))
+                {
+                    fileName = EntityFileNameFormatter.GetMessageFileName(service.ConnectionData.Name, node.Name, "Description");
 
-                if (result.Length > 0) { result.AppendLine().AppendLine().AppendLine(); }
-
-                result.AppendLine(service.ConnectionData.GetConnectionInfo());
+                    if (result.Length > 0) { result.AppendLine().AppendLine().AppendLine(); }
+                    result.AppendLine(service.ConnectionData.GetConnectionInfo());
+                }
 
                 foreach (var message in listMessages)
                 {
@@ -692,11 +681,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var repository = new SdkMessageFilterRepository(service);
                 List<SdkMessageFilter> listMessages = await repository.GetMessageFiltersByIdsAsync(node.MessageFilterList.ToArray());
 
-                fileName = EntityFileNameFormatter.GetMessageFilterFileName(service.ConnectionData.Name, node.Name, "Description");
+                if (string.IsNullOrEmpty(fileName))
+                {
+                    fileName = EntityFileNameFormatter.GetMessageFilterFileName(service.ConnectionData.Name, node.Name, "Description");
 
-                if (result.Length > 0) { result.AppendLine().AppendLine().AppendLine(); }
-
-                result.AppendLine(service.ConnectionData.GetConnectionInfo());
+                    if (result.Length > 0) { result.AppendLine().AppendLine().AppendLine(); }
+                    result.AppendLine(service.ConnectionData.GetConnectionInfo());
+                }
 
                 foreach (var message in listMessages)
                 {
@@ -769,5 +760,569 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
         }
+
+        private void ContextMenu_Opened(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is ContextMenu contextMenu))
+            {
+                return;
+            }
+
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+
+            var items = contextMenu.Items.OfType<Control>();
+
+            bool isEntity = !string.IsNullOrEmpty(nodeItem.EntityLogicalName) && !string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase);
+
+            bool isMessage = nodeItem.MessageList != null && nodeItem.MessageList.Any() && nodeItem.ComponentType == ComponentType.SdkMessage;
+            bool isMessageFilter = nodeItem.MessageFilterList != null && nodeItem.MessageFilterList.Any() && nodeItem.ComponentType == ComponentType.SdkMessageFilter;
+
+            bool showDependentComponents = nodeItem.GetId().HasValue && nodeItem.ComponentType.HasValue;
+
+            ConnectionData connectionData = null;
+
+            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            ActivateControls(items, CanCreateDescription(nodeItem), "contMnCreateDescription");
+            SetControlsName(items, GetCreateDescriptionName(nodeItem), "contMnCreateDescription");
+
+            ActivateControls(items, isMessage || isMessageFilter, "contMnAddIntoSolution", "contMnAddIntoSolutionLast");
+            FillLastSolutionItems(connectionData, items, isMessage || isMessageFilter, AddIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
+
+            ActivateControls(items, showDependentComponents, "contMnDependentComponents");
+
+            ActivateControls(items, nodeItem.ComponentType == ComponentType.SdkMessage && !string.IsNullOrEmpty(nodeItem.Name), "contMnSdkMessage");
+
+            ActivateControls(items, isEntity, "contMnEntity");
+            FillLastSolutionItems(connectionData, items, isEntity, AddEntityIntoCrmSolutionLastIncludeSubcomponents_Click, "contMnAddEntityIntoSolutionLastIncludeSubcomponents");
+            FillLastSolutionItems(connectionData, items, isEntity, AddEntityIntoCrmSolutionLastDoNotIncludeSubcomponents_Click, "contMnAddEntityIntoSolutionLastDoNotIncludeSubcomponents");
+            FillLastSolutionItems(connectionData, items, isEntity, AddEntityIntoCrmSolutionLastIncludeAsShellOnly_Click, "contMnAddEntityIntoSolutionLastIncludeAsShellOnly");
+            ActivateControls(items, connectionData.LastSelectedSolutionsUniqueName != null && connectionData.LastSelectedSolutionsUniqueName.Any(), "contMnAddEntityIntoSolutionLast");
+
+            CheckSeparatorVisible(items);
+        }
+
+        private async void AddIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+
+            if (nodeItem == null)
+            {
+                return;
+            }
+
+            await AddIntoSolution(nodeItem, true, null);
+        }
+
+        private async void AddIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+
+            if (nodeItem == null)
+            {
+                return;
+            }
+
+            if (sender is MenuItem menuItem
+                && menuItem.Tag != null
+                && menuItem.Tag is string solutionUniqueName
+                )
+            {
+                await AddIntoSolution(nodeItem, false, solutionUniqueName);
+            }
+        }
+
+        private async Task AddIntoSolution(PluginTreeViewItem nodeItem, bool withSelect, string solutionUniqueName)
+        {
+            var service = await GetService();
+
+            if (service == null)
+            {
+                return;
+            }
+
+            ComponentType? componentType = nodeItem.ComponentType;
+            var idList = nodeItem.GetIdEnumerable();
+
+            if (componentType.HasValue && idList.Any())
+            {
+                _commonConfig.Save();
+
+                try
+                {
+                    this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+                    await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, componentType.Value, idList, null, withSelect);
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+                }
+            }
+        }
+
+        private async void mIOpenSdkMessageRequestTree_Click(object sender, RoutedEventArgs e)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+
+            string entityFilter = nodeItem?.EntityLogicalName;
+            string messageFilter = nodeItem?.MessageName;
+
+            var service = await GetService();
+
+            WindowHelper.OpenSdkMessageRequestTreeWindow(_iWriteToOutput, service, _commonConfig, entityFilter, messageFilter);
+        }
+
+        private async void mIOpenPluginTree_Click(object sender, RoutedEventArgs e)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+
+            string entityFilter = nodeItem?.EntityLogicalName;
+            string messageFilter = nodeItem?.MessageName;
+
+            var service = await GetService();
+
+            WindowHelper.OpenPluginTreeWindow(_iWriteToOutput, service, _commonConfig, entityFilter, null, messageFilter);
+        }
+
+        private void mICreateDescription_Click(object sender, RoutedEventArgs e)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+
+            if (nodeItem == null)
+            {
+                return;
+            }
+
+            if (!CanCreateDescription(nodeItem))
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(_commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                _commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(_commonConfig.FolderForExport))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, _commonConfig.FolderForExport);
+                _commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
+            CreateDescription(nodeItem);
+        }
+
+        private async void miOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+
+            if (nodeItem == null)
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData == null)
+            {
+                return;
+            }
+
+            ComponentType? componentType = nodeItem.ComponentType;
+            Guid? id = nodeItem.GetId();
+
+            if (componentType.HasValue && id.HasValue)
+            {
+                _commonConfig.Save();
+
+                var service = await GetService();
+
+                WindowHelper.OpenExplorerSolutionWindow(
+                    _iWriteToOutput
+                    , service
+                    , _commonConfig
+                    , (int)componentType
+                    , id.Value
+                    , null
+                );
+            }
+        }
+
+        private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+
+            if (nodeItem == null)
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData == null)
+            {
+                return;
+            }
+
+            ComponentType? componentType = nodeItem.ComponentType;
+            Guid? id = nodeItem.GetId();
+
+            if (componentType.HasValue && id.HasValue)
+            {
+                connectionData.OpenSolutionComponentDependentComponentsInWeb(componentType.Value, id.Value);
+            }
+        }
+
+        private async void mIOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+
+            if (nodeItem == null)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                var service = await GetService();
+
+                ComponentType? componentType = nodeItem.ComponentType;
+                Guid? id = nodeItem.GetId();
+
+                if (componentType.HasValue && id.HasValue)
+                {
+                    WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, null, _commonConfig, (int)nodeItem.ComponentType.Value, id.Value, null);
+                }
+            }
+        }
+
+        #region Entity Handlers
+
+        private void mIOpenEntityInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+
+            if (nodeItem == null
+                || string.IsNullOrEmpty(nodeItem.EntityLogicalName)
+                || string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase)
+            )
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                connectionData.OpenEntityMetadataInWeb(nodeItem.EntityLogicalName);
+            }
+        }
+
+        private void mIOpenEntityListInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+
+            if (nodeItem == null
+                || string.IsNullOrEmpty(nodeItem.EntityLogicalName)
+                || string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase)
+            )
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                connectionData.OpenEntityInstanceListInWeb(nodeItem.EntityLogicalName);
+            }
+        }
+
+        private async void mIOpenEntityExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+
+            if (nodeItem == null
+                || string.IsNullOrEmpty(nodeItem.EntityLogicalName)
+                || string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase)
+            )
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                var service = await GetService();
+
+                WindowHelper.OpenEntityMetadataWindow(this._iWriteToOutput, service, _commonConfig, nodeItem.EntityLogicalName);
+            }
+        }
+
+        private async void btnPublishEntity_Click(object sender, RoutedEventArgs e)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+
+            if (nodeItem == null
+                || string.IsNullOrEmpty(nodeItem.EntityLogicalName)
+                || string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase)
+            )
+            {
+                return;
+            }
+
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            var entityName = nodeItem.EntityLogicalName;
+
+            var service = await GetService();
+
+            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
+
+            try
+            {
+                var repository = new PublishActionsRepository(service);
+
+                await repository.PublishEntitiesAsync(new[] { entityName });
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat2, service.ConnectionData.Name, entityName);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.PublishingEntitiesFailedFormat2, service.ConnectionData.Name, entityName);
+            }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
+        }
+
+        private async void miOpenEntitySolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+
+            if (nodeItem == null
+                || string.IsNullOrEmpty(nodeItem.EntityLogicalName)
+                || string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase)
+            )
+            {
+                return;
+            }
+
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData == null)
+            {
+                return;
+            }
+
+            var idMetadata = connectionData.GetEntityMetadataId(nodeItem.EntityLogicalName);
+
+            if (!idMetadata.HasValue)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenExplorerSolutionWindow(
+                _iWriteToOutput
+                , service
+                , _commonConfig
+                , (int)ComponentType.Entity
+                , idMetadata.Value
+                , null
+            );
+        }
+
+        private void miOpenEntityDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+
+            if (nodeItem == null
+                || string.IsNullOrEmpty(nodeItem.EntityLogicalName)
+                || string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase)
+            )
+            {
+                return;
+            }
+
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData == null)
+            {
+                return;
+            }
+
+            var idMetadata = connectionData.GetEntityMetadataId(nodeItem.EntityLogicalName);
+
+            if (!idMetadata.HasValue)
+            {
+                return;
+            }
+
+            connectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.Entity, idMetadata.Value);
+        }
+
+        private async void miOpenEntityDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+
+            if (nodeItem == null
+                || string.IsNullOrEmpty(nodeItem.EntityLogicalName)
+                || string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase)
+            )
+            {
+                return;
+            }
+
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData == null)
+            {
+                return;
+            }
+
+            var idMetadata = connectionData.GetEntityMetadataId(nodeItem.EntityLogicalName);
+
+            if (!idMetadata.HasValue)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.Entity, idMetadata.Value, null);
+        }
+
+        private async void AddEntityIntoCrmSolutionIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
+        {
+            await AddEntityIntoSolution(e, true, null, RootComponentBehavior.IncludeSubcomponents);
+        }
+
+        private async void AddEntityIntoCrmSolutionDoNotIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
+        {
+            await AddEntityIntoSolution(e, true, null, RootComponentBehavior.DoNotIncludeSubcomponents);
+        }
+
+        private async void AddEntityIntoCrmSolutionIncludeAsShellOnly_Click(object sender, RoutedEventArgs e)
+        {
+            await AddEntityIntoSolution(e, true, null, RootComponentBehavior.IncludeAsShellOnly);
+        }
+
+        private async void AddEntityIntoCrmSolutionLastIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+               && menuItem.Tag != null
+               && menuItem.Tag is string solutionUniqueName
+            )
+            {
+                await AddEntityIntoSolution(e, false, solutionUniqueName, RootComponentBehavior.IncludeSubcomponents);
+            }
+        }
+
+        private async void AddEntityIntoCrmSolutionLastDoNotIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+               && menuItem.Tag != null
+               && menuItem.Tag is string solutionUniqueName
+            )
+            {
+                await AddEntityIntoSolution(e, false, solutionUniqueName, RootComponentBehavior.DoNotIncludeSubcomponents);
+            }
+        }
+
+        private async void AddEntityIntoCrmSolutionLastIncludeAsShellOnly_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+               && menuItem.Tag != null
+               && menuItem.Tag is string solutionUniqueName
+            )
+            {
+                await AddEntityIntoSolution(e, false, solutionUniqueName, RootComponentBehavior.IncludeAsShellOnly);
+            }
+        }
+
+        private async Task AddEntityIntoSolution(RoutedEventArgs e, bool withSelect, string solutionUniqueName, RootComponentBehavior rootComponentBehavior)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
+
+            if (nodeItem == null
+                 || string.IsNullOrEmpty(nodeItem.EntityLogicalName)
+                 || string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase)
+            )
+            {
+                return;
+            }
+
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData == null)
+            {
+                return;
+            }
+
+            var idMetadata = connectionData.GetEntityMetadataId(nodeItem.EntityLogicalName);
+
+            if (!idMetadata.HasValue)
+            {
+                return;
+            }
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            try
+            {
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Entity, new[] { idMetadata.Value }, rootComponentBehavior, withSelect);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+            }
+        }
+
+        #endregion Entity Handlers
     }
 }

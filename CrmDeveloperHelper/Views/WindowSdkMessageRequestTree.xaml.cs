@@ -877,11 +877,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (string.IsNullOrEmpty(fileName))
                 {
                     fileName = EntityFileNameFormatter.GetSdkMessageRequestFileName(service.ConnectionData.Name, node.Name, "Description");
+
+                    if (result.Length > 0) { result.AppendLine().AppendLine().AppendLine(); }
+                    result.AppendLine(service.ConnectionData.GetConnectionInfo());
                 }
-
-                if (result.Length > 0) { result.AppendLine().AppendLine().AppendLine(); }
-
-                result.AppendLine(service.ConnectionData.GetConnectionInfo());
 
                 {
                     string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(request, null, service.ConnectionData);
@@ -921,11 +920,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (string.IsNullOrEmpty(fileName))
                 {
                     fileName = EntityFileNameFormatter.GetSdkMessageResponseFileName(service.ConnectionData.Name, node.Name, "Description");
+
+                    if (result.Length > 0) { result.AppendLine().AppendLine().AppendLine(); }
+                    result.AppendLine(service.ConnectionData.GetConnectionInfo());
                 }
-
-                if (result.Length > 0) { result.AppendLine().AppendLine().AppendLine(); }
-
-                result.AppendLine(service.ConnectionData.GetConnectionInfo());
 
                 {
                     string desc = await EntityDescriptionHandler.GetEntityDescriptionAsync(Response, null, service.ConnectionData);
@@ -965,11 +963,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (string.IsNullOrEmpty(fileName))
                 {
                     fileName = EntityFileNameFormatter.GetMessageFileName(service.ConnectionData.Name, node.Name, "Description");
+
+                    if (result.Length > 0) { result.AppendLine().AppendLine().AppendLine(); }
+                    result.AppendLine(service.ConnectionData.GetConnectionInfo());
                 }
-
-                if (result.Length > 0) { result.AppendLine().AppendLine().AppendLine(); }
-
-                result.AppendLine(service.ConnectionData.GetConnectionInfo());
 
                 foreach (var message in listMessages)
                 {

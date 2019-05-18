@@ -57,26 +57,59 @@
                 <MenuItem x:Uid="contMnDelete" Header="Delete" Click="mIDeleteSdkObject_Click" />
 
                 <Separator x:Uid="contMnEntity" />
-                <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
-                <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
-                <MenuItem x:Uid="contMnEntity" Header="Open Entity Explorer" Click="mIOpenEntityExplorer_Click" />
-                <MenuItem x:Uid="contMnEntity" Header="Publish Entity" Click="btnPublishEntity_Click"/>
+                <MenuItem x:Uid="contMnEntity" Header="Entity">
+                    <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
+                    <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
+                    
+                    <Separator />
+                    <MenuItem Header="Open Entity Explorer" Click="mIOpenEntityExplorer_Click" />
+
+                    <Separator/>
+                    <MenuItem x:Uid="contMnAddEntityIntoSolutionLast" Header="Add into Last Crm Solution">
+                        <MenuItem x:Uid="contMnAddEntityIntoSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
+                        <Separator/>
+                        <MenuItem x:Uid="contMnAddEntityIntoSolutionLastDoNotIncludeSubcomponents" Header="Do Not Include Subcomponents" />
+                        <Separator/>
+                        <MenuItem x:Uid="contMnAddEntityIntoSolutionLastIncludeAsShellOnly" Header="Include As ShellOnly" />
+                    </MenuItem>
+                    <MenuItem Header="Add into Crm Solution">
+                        <MenuItem Header="Include Subcomponents" Click="AddEntityIntoCrmSolutionIncludeSubcomponents_Click" />
+                        <Separator/>
+                        <MenuItem Header="Do Not Include Subcomponents" Click="AddEntityIntoCrmSolutionDoNotIncludeSubcomponents_Click" />
+                        <Separator/>
+                        <MenuItem Header="Include As ShellOnly" Click="AddEntityIntoCrmSolutionIncludeAsShellOnly_Click" />
+                    </MenuItem>
+
+                    <Separator />
+                    <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
+
+                    <Separator/>
+                    <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="miOpenEntitySolutionsContainingComponentInWindow_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Dependent Components">
+                        <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="miOpenEntityDependentComponentsInWeb_Click" />
+                        <Separator/>
+                        <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="miOpenEntityDependentComponentsInWindow_Click" />
+                    </MenuItem>
+                </MenuItem>
+               
 
                 <Separator x:Uid="contMnAddIntoSolution"/>
                 <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" />
                 <MenuItem x:Uid="contMnAddIntoSolution"     Header="Add into Crm Solution" Click="AddIntoCrmSolution_Click" />
 
                 <Separator x:Uid="contMnAddPluginTypeStepsIntoSolution" />
-                <MenuItem x:Uid="contMnAddPluginTypeStepsIntoSolutionLast" Header="Add Steps for PluginType into Last Crm Solution"  />
-                <MenuItem x:Uid="contMnAddPluginTypeStepsIntoSolution"     Header="Add Steps for PluginType into Crm Solution" Click="mIAddPluginTypeStepsIntoSolution_Click" />
+                <MenuItem x:Uid="contMnAddPluginTypeStepsIntoSolutionLast" Header="Add All Steps for PluginType into Last Crm Solution"  />
+                <MenuItem x:Uid="contMnAddPluginTypeStepsIntoSolution"     Header="Add All Steps for PluginType into Crm Solution" Click="mIAddPluginTypeStepsIntoSolution_Click" />
 
                 <Separator x:Uid="contMnAddPluginAssemblyIntoSolution" />
                 <MenuItem x:Uid="contMnAddPluginAssemblyIntoSolutionLast" Header="Add PluginAssembly into Last Crm Solution"  />
                 <MenuItem x:Uid="contMnAddPluginAssemblyIntoSolution" Header="Add PluginAssembly into Crm Solution" Click="AddAssemblyIntoCrmSolution_Click" />
 
                 <Separator x:Uid="contMnAddPluginAssemblyStepsIntoSolution"/>
-                <MenuItem x:Uid="contMnAddPluginAssemblyStepsIntoSolutionLast" Header="Add Steps for PluginAssembly into Last Crm Solution"  />
-                <MenuItem x:Uid="contMnAddPluginAssemblyStepsIntoSolution" Header="Add Steps for PluginAssembly into Crm Solution" Click="mIAddAssemblyStepsIntoSolution_Click" />
+                <MenuItem x:Uid="contMnAddPluginAssemblyStepsIntoSolutionLast" Header="Add All Steps for PluginAssembly into Last Crm Solution"  />
+                <MenuItem x:Uid="contMnAddPluginAssemblyStepsIntoSolution" Header="Add All Steps for PluginAssembly into Crm Solution" Click="mIAddAssemblyStepsIntoSolution_Click" />
 
                 <Separator x:Uid="contMnSdkMessage" />
                 <MenuItem x:Uid="contMnSdkMessage" Header="Open Sdk Message Tree" Click="mIOpenSdkMessageTree_Click" />
@@ -84,6 +117,9 @@
 
                 <Separator x:Uid="contMnWorkflowExlorer" />
                 <MenuItem x:Uid="contMnWorkflowExlorer" Header="Open Workflow Explorer" Click="mIOpenWorkflowExplorer_Click" />
+
+                <Separator x:Uid="contMnDependentComponents"/>
+                <MenuItem x:Uid="contMnDependentComponents" Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="miOpenSolutionsContainingComponentInWindow_Click" />
 
                 <Separator x:Uid="contMnDependentComponents" />
                 <MenuItem x:Uid="contMnDependentComponents" Header="Dependent Components">

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Media.Imaging;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 
@@ -185,9 +186,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string MessageName { get; set; }
 
-        public List<Guid> MessageList { get; set; }
+        public List<Guid> MessageList { get; }
 
-        public List<Guid> MessageFilterList { get; set; }
+        public List<Guid> MessageFilterList { get; }
 
         public string EntityLogicalName { get; set; }
 
@@ -232,6 +233,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.ComponentType = componentType;
 
             this.Items = new ObservableCollection<PluginTreeViewItem>();
+
+            this.MessageList = new List<Guid>();
+
+            this.MessageFilterList = new List<Guid>();
         }
 
         public override string ToString()
@@ -266,37 +271,61 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 return this.Workflow.Value;
             }
 
+            if (this.MessageList.Count == 1 && this.ComponentType == Entities.ComponentType.SdkMessage)
+            {
+                return this.MessageList.First();
+            }
+
+            if (this.MessageFilterList.Count == 1 && this.ComponentType == Entities.ComponentType.SdkMessageFilter)
+            {
+                return this.MessageFilterList.First();
+            }
+
             return null;
         }
 
-        public string GetEntityName()
+        public IEnumerable<Guid> GetIdEnumerable()
         {
             if (this.PluginAssembly.HasValue && this.ComponentType == Entities.ComponentType.PluginAssembly)
             {
-                return Entities.PluginAssembly.EntityLogicalName;
+                yield return this.PluginAssembly.Value;
             }
 
             if (this.PluginType.HasValue && this.ComponentType == Entities.ComponentType.PluginType)
             {
-                return Entities.PluginType.EntityLogicalName;
+                yield return this.PluginType.Value;
             }
 
             if (this.Step.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageProcessingStep)
             {
-                return Entities.SdkMessageProcessingStep.EntityLogicalName;
+                yield return this.Step.Value;
             }
 
             if (this.StepImage.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageProcessingStepImage)
             {
-                return Entities.SdkMessageProcessingStepImage.EntityLogicalName;
+                yield return this.StepImage.Value;
             }
 
             if (this.Workflow.HasValue && this.ComponentType == Entities.ComponentType.Workflow)
             {
-                return Entities.Workflow.EntityLogicalName;
+                yield return this.Workflow.Value;
             }
 
-            return null;
+            if (this.ComponentType == Entities.ComponentType.SdkMessage)
+            {
+                foreach (var item in this.MessageList)
+                {
+                    yield return item;
+                }
+            }
+
+            if (this.ComponentType == Entities.ComponentType.SdkMessageFilter)
+            {
+                foreach (var item in this.MessageFilterList)
+                {
+                    yield return item;
+                }
+            }
         }
 
         public void CorrectImage()
