@@ -18,8 +18,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         public CodeGenerationSdkMessagePair(CodeGenerationSdkMessage message
             , Guid id
             , string messageNamespace
-            , Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageRequest request
-            , Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageResponse response
+            , Entities.SdkMessageRequest request
+            , Entities.SdkMessageResponse response
         )
         {
             this.Message = message;
@@ -38,8 +38,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         }
 
         internal void Fill(
-            IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageRequestField> sdkMessageRequestFields
-            , IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageResponseField> sdkMessageResponseFields
+            IEnumerable<Entities.SdkMessageRequestField> sdkMessageRequestFields
+            , IEnumerable<Entities.SdkMessageResponseField> sdkMessageResponseFields
         )
         {
             if (this.Request != null)

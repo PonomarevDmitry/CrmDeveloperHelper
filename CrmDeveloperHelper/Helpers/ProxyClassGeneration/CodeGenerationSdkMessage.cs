@@ -18,7 +18,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         public Dictionary<Guid, CodeGenerationSdkMessagePair> SdkMessagePairs { get; }
 
-        public Dictionary<Guid, Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageFilter> SdkMessageFilters { get; }
+        public Dictionary<Guid, Entities.SdkMessageFilter> SdkMessageFilters { get; }
 
         public CodeGenerationSdkMessage(Guid id, string name, bool isPrivate)
           : this(id, name, isPrivate, 0)
@@ -33,10 +33,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             this.IsCustomAction = customizationLevel != 0;
 
             this.SdkMessagePairs = new Dictionary<Guid, CodeGenerationSdkMessagePair>();
-            this.SdkMessageFilters = new Dictionary<Guid, Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageFilter>();
+            this.SdkMessageFilters = new Dictionary<Guid, Entities.SdkMessageFilter>();
         }
 
-        public bool IsGeneric(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageRequestField requestField)
+        public bool IsGeneric(Entities.SdkMessageRequestField requestField)
         {
             if (string.Equals(requestField.ClrParser, EntityTypeName, StringComparison.InvariantCultureIgnoreCase))
             {
@@ -47,14 +47,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         }
 
         internal void Fill(
-            IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageFilter> sdkMessageFilters
-            , IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessagePair> sdkMessagePairs
+            IEnumerable<Entities.SdkMessageFilter> sdkMessageFilters
+            , IEnumerable<Entities.SdkMessagePair> sdkMessagePairs
 
-            , IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageRequest> sdkMessageRequests
-            , IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageRequestField> sdkMessageRequestFields
+            , IEnumerable<Entities.SdkMessageRequest> sdkMessageRequests
+            , IEnumerable<Entities.SdkMessageRequestField> sdkMessageRequestFields
 
-            , IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageResponse> sdkMessageResponses
-            , IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageResponseField> sdkMessageResponseFields
+            , IEnumerable<Entities.SdkMessageResponse> sdkMessageResponses
+            , IEnumerable<Entities.SdkMessageResponseField> sdkMessageResponseFields
         )
         {
             foreach (var sdkMessagePair in sdkMessagePairs)

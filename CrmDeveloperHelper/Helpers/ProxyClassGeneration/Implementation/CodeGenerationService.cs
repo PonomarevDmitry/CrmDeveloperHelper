@@ -507,15 +507,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                                 }
                             }
 
-                            CodeTypeReference forAttributeType = TypeRef(typeof(Nullable<>), TypeRef(enumTypeName));
-
                             CodeMemberProperty attributeMember = this.BuildAttributePropertyOnEnum(
                                 entityMetadata
                                 , attributeMetadata
                                 , attributePropertyName
                                 , baseAttributeName
                                 , attributeNameRef
-                                , forAttributeType
+                                , enumTypeName
                                 , iCodeGenerationServiceProvider
                             );
 
@@ -751,23 +749,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             , string propertyName
             , string basePropertyName
             , CodeExpression attributeNameRef
-            , CodeTypeReference forAttributeType
+            , string enumTypeName
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            var codeMemberProperty = BuildAttributePropertyCommon(entityMetadata, attributeMetadata, propertyName, attributeNameRef, forAttributeType, iCodeGenerationServiceProvider);
+            var enumTypeRef = TypeRef(enumTypeName);
 
-            if (codeMemberProperty.HasGet)
+            if (attributeMetadata is MultiSelectPicklistAttributeMetadata)
             {
-                codeMemberProperty.GetStatements.AddRange(this.BuildEnumAttributeGet(attributeNameRef, forAttributeType));
-            }
+                CodeTypeReference forAttributeType = TypeRef(typeof(IEnumerable<>), enumTypeRef);
 
-            if (codeMemberProperty.HasSet)
+                var codeMemberProperty = BuildAttributePropertyCommon(entityMetadata, attributeMetadata, propertyName, attributeNameRef, forAttributeType, iCodeGenerationServiceProvider);
+
+                if (codeMemberProperty.HasGet)
+                {
+                    codeMemberProperty.GetStatements.AddRange(this.BuildMultiEnumAttributeGet(attributeNameRef, enumTypeRef));
+                }
+
+                if (codeMemberProperty.HasSet)
+                {
+                    codeMemberProperty.SetStatements.AddRange(this.BuildMultiEnumAttributeSet(attributeNameRef, propertyName, basePropertyName, enumTypeRef));
+                }
+
+                return codeMemberProperty;
+            }
+            else
             {
-                codeMemberProperty.SetStatements.AddRange(this.BuildEnumAttributeSet(attributeNameRef, propertyName, basePropertyName));
-            }
+                CodeTypeReference forAttributeType = TypeRef(typeof(Nullable<>), enumTypeRef);
 
-            return codeMemberProperty;
+                var codeMemberProperty = BuildAttributePropertyCommon(entityMetadata, attributeMetadata, propertyName, attributeNameRef, forAttributeType, iCodeGenerationServiceProvider);
+
+                if (codeMemberProperty.HasGet)
+                {
+                    codeMemberProperty.GetStatements.AddRange(this.BuildEnumAttributeGet(attributeNameRef, enumTypeRef));
+                }
+
+                if (codeMemberProperty.HasSet)
+                {
+                    codeMemberProperty.SetStatements.AddRange(this.BuildEnumAttributeSet(attributeNameRef, propertyName, basePropertyName));
+                }
+
+                return codeMemberProperty;
+            }
         }
 
         private CodeMemberProperty BuildAttributePropertyCommon(
@@ -984,7 +1007,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         private static CodeStatement BuildEntityCollectionAttributeSet(CodeExpression attributeNameRef)
         {
-            return If(ValueNull(), ThisMethodInvoke("SetAttributeValue", attributeNameRef, VarRef("value")), ThisMethodInvoke("SetAttributeValue", attributeNameRef, New(TypeRef(typeof(EntityCollection)), (CodeExpression)New(TypeRef(typeof(List<Entity>)), (CodeExpression)VarRef("value")))));
+            return If(ValueNull()
+                , ThisMethodInvoke("SetAttributeValue", attributeNameRef, VarRef("value"))
+                , ThisMethodInvoke("SetAttributeValue", attributeNameRef
+                    , New(TypeRef(typeof(EntityCollection)), (CodeExpression)New(TypeRef(typeof(List<Entity>)), (CodeExpression)VarRef("value")))
+            ));
         }
 
         private CodeMemberProperty BuildIdProperty(
@@ -1041,20 +1068,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         private CodeStatementCollection BuildEnumAttributeGet(
             CodeExpression attributeNameRef
-            , CodeTypeReference attributeType
+            , CodeTypeReference enumTypeRef
         )
         {
-            var codeTypeReference = attributeType;
-            if (codeTypeReference.TypeArguments.Count > 0)
-            {
-                codeTypeReference = codeTypeReference.TypeArguments[0];
-            }
-
             return new CodeStatementCollection(new CodeStatement[2]
             {
-                Var(typeof(OptionSetValue), "optionSet", ThisMethodInvoke("GetAttributeValue", TypeRef(typeof(OptionSetValue)), attributeNameRef)),
-                If(And(NotNull(VarRef("optionSet")), EnumIsDefined(codeTypeReference, "optionSet"))
-                    , Return(Cast(codeTypeReference, ConvertEnum(codeTypeReference, "optionSet")))
+                Var(typeof(OptionSetValue), "optionSetValue", ThisMethodInvoke("GetAttributeValue", TypeRef(typeof(OptionSetValue)), attributeNameRef)),
+                If(And(NotNull(VarRef("optionSetValue")), EnumIsDefined(enumTypeRef, "optionSetValue"))
+                    , Return(Cast(enumTypeRef, ConvertEnum(enumTypeRef, "optionSetValue")))
                     , Return(Null())
                 ),
             });
@@ -1077,6 +1098,80 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             }
 
             result.Add(If(ValueNull(), ThisMethodInvoke("SetAttributeValue", attributeNameRef, Null()), ThisMethodInvoke("SetAttributeValue", attributeNameRef, New(TypeRef(typeof(OptionSetValue)), (CodeExpression)Cast(TypeRef(typeof(int)), VarRef("value"))))));
+
+            if (!string.IsNullOrEmpty(baseAttributeName))
+            {
+                result.Add(this.InvokeOnPropertyChanged(baseAttributeName));
+            }
+
+            result.Add(this.InvokeOnPropertyChanged(propertyName));
+
+            return result;
+        }
+
+        private CodeStatementCollection BuildMultiEnumAttributeGet(
+            CodeExpression attributeNameRef
+            , CodeTypeReference enumTypeRef
+        )
+        {
+            var listType = TypeRef(typeof(List<>), enumTypeRef);
+
+            return new CodeStatementCollection(new CodeStatement[]
+            {
+                Var(typeof(OptionSetValueCollection), "optionSetValueCollection", ThisMethodInvoke("GetAttributeValue", TypeRef(typeof(OptionSetValueCollection)), attributeNameRef)),
+
+                If(NotNull(VarRef("optionSetValueCollection"))
+
+                    , Return(New(TypeRef(typeof(List<>), enumTypeRef)
+                        , StaticMethodInvoke(typeof(Enumerable), "Distinct", enumTypeRef
+                            , StaticMethodInvoke(typeof(Enumerable), "Select", new[] { TypeRef(typeof(OptionSetValue)), enumTypeRef }
+                                , StaticMethodInvoke(typeof(Enumerable), "Where", TypeRef(typeof(OptionSetValue))
+                                    , VarRef("optionSetValueCollection")
+                                    , new CodeSnippetExpression($"o => o != null && System.Enum.IsDefined(typeof({enumTypeRef.BaseType}), o.Value)")
+                                )
+                                , new CodeSnippetExpression($"o => ({enumTypeRef.BaseType})(System.Enum.ToObject(typeof({enumTypeRef.BaseType}), o.Value))")
+                            )
+                        )
+                    )),
+
+                    Return(StaticMethodInvoke(typeof(Enumerable), "Empty", enumTypeRef))
+                ),
+            });
+        }
+
+        private CodeStatementCollection BuildMultiEnumAttributeSet(
+            CodeExpression attributeNameRef
+            , string propertyName
+            , string baseAttributeName
+            , CodeTypeReference enumTypeRef
+        )
+        {
+            var result = new CodeStatementCollection()
+            {
+                this.InvokeOnPropertyChanging(propertyName),
+            };
+
+            if (!string.IsNullOrEmpty(baseAttributeName))
+            {
+                result.Add(this.InvokeOnPropertyChanging(baseAttributeName));
+            }
+
+            result.Add(If(Or(ValueNull(), Equal(StaticMethodInvoke(typeof(Enumerable), "Any", enumTypeRef, VarRef("value")), new CodePrimitiveExpression(false)))
+                , ThisMethodInvoke("SetAttributeValue", attributeNameRef, Null())
+
+                , ThisMethodInvoke("SetAttributeValue", attributeNameRef
+                    , New(TypeRef(typeof(OptionSetValueCollection))
+                        , New(TypeRef(typeof(List<OptionSetValue>))
+                            , StaticMethodInvoke(typeof(Enumerable), "Select", new[] { enumTypeRef, TypeRef(typeof(OptionSetValue)) }
+                                , StaticMethodInvoke(typeof(Enumerable), "Distinct", enumTypeRef
+                                    , VarRef("value")
+                                )
+                                , new CodeSnippetExpression($"o => new Microsoft.Xrm.Sdk.OptionSetValue((int)o)")
+                            )
+                        )
+                    )
+                )
+            ));
 
             if (!string.IsNullOrEmpty(baseAttributeName))
             {
@@ -2306,6 +2401,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return new CodeThisReferenceExpression();
         }
 
+        private static CodeMethodInvokeExpression VarMethodInvoke(string varName, string methodName, params CodeExpression[] parameters)
+        {
+            return new CodeMethodInvokeExpression(new CodeMethodReferenceExpression(VarRef(varName), methodName), parameters);
+        }
+
         private static CodeMethodInvokeExpression ThisMethodInvoke(string methodName, params CodeExpression[] parameters)
         {
             return new CodeMethodInvokeExpression(new CodeMethodReferenceExpression(This(), methodName), parameters);
@@ -2340,6 +2440,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         )
         {
             return new CodeMethodInvokeExpression(new CodeMethodReferenceExpression(new CodeTypeReferenceExpression(targetObject), methodName, new CodeTypeReference[1] { typeParameter }), parameters);
+        }
+
+        private static CodeMethodInvokeExpression StaticMethodInvoke(
+            Type targetObject
+            , string methodName
+            , CodeTypeReference[] typeParameters
+            , params CodeExpression[] parameters
+        )
+        {
+            return new CodeMethodInvokeExpression(new CodeMethodReferenceExpression(new CodeTypeReferenceExpression(targetObject), methodName, typeParameters), parameters);
         }
 
         private static CodeCastExpression Cast(CodeTypeReference targetType, CodeExpression expression)

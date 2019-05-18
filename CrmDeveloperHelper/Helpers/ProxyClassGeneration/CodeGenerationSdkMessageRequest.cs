@@ -11,17 +11,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         public string Name { get; }
 
-        public Dictionary<int, Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageRequestField> RequestFields { get; }
+        public Dictionary<int, Entities.SdkMessageRequestField> RequestFields { get; }
 
         public CodeGenerationSdkMessageRequest(CodeGenerationSdkMessagePair message, Guid id, string name)
         {
             this.Id = id;
             this.Name = name;
             this.MessagePair = message;
-            this.RequestFields = new Dictionary<int, Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageRequestField>();
+            this.RequestFields = new Dictionary<int, Entities.SdkMessageRequestField>();
         }
 
-        internal void Fill(IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageRequestField> sdkMessageRequestFields)
+        internal void Fill(IEnumerable<Entities.SdkMessageRequestField> sdkMessageRequestFields)
         {
             foreach (var requestField in sdkMessageRequestFields)
             {

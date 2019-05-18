@@ -7,15 +7,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
     {
         public Guid Id { get; }
 
-        public Dictionary<int, Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageResponseField> ResponseFields { get; }
+        public Dictionary<int, Entities.SdkMessageResponseField> ResponseFields { get; }
 
         public CodeGenerationSdkMessageResponse(Guid id)
         {
             this.Id = id;
-            this.ResponseFields = new Dictionary<int, Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageResponseField>();
+            this.ResponseFields = new Dictionary<int, Entities.SdkMessageResponseField>();
         }
 
-        internal void Fill(IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageResponseField> sdkMessageResponseFields)
+        internal void Fill(IEnumerable<Entities.SdkMessageResponseField> sdkMessageResponseFields)
         {
             foreach (var responseField in sdkMessageResponseFields)
             {
