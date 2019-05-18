@@ -602,11 +602,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            this.trVMessageTree.Dispatcher.Invoke(() =>
+            {
+                this.trVMessageTree.BeginInit();
+            });
+
             foreach (var item in items)
             {
                 item.IsExpanded = isExpanded;
 
-                ChangeExpandedInTreeViewItems(item.Items, isExpanded);
+                ChangeExpandedInTreeViewItemsRecursive(item.Items, isExpanded);
+            }
+
+            this.trVMessageTree.Dispatcher.Invoke(() =>
+            {
+                this.trVMessageTree.EndInit();
+            });
+        }
+
+        private void ChangeExpandedInTreeViewItemsRecursive(IEnumerable<PluginTreeViewItem> items, bool isExpanded)
+        {
+            if (items == null || !items.Any())
+            {
+                return;
+            }
+
+            foreach (var item in items)
+            {
+                item.IsExpanded = isExpanded;
+
+                ChangeExpandedInTreeViewItemsRecursive(item.Items, isExpanded);
             }
         }
 

@@ -13,15 +13,96 @@
 
             <BitmapImage x:Key="ImageEntity" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Entity.png" />
             <BitmapImage x:Key="ImageMessage" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/message.gif" />
+            
             <BitmapImage x:Key="ImageField" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Field.png" />
+            
             <BitmapImage x:Key="ImageRequest" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Request.png" />
             <BitmapImage x:Key="ImageResponse" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Response.png" />
+            
             <BitmapImage x:Key="ImageNamespace" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Namespace.png" />
+            <BitmapImage x:Key="ImageEndpoint" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/endpoint.png" />
 
-            <ContextMenu x:Key="listContextMenu">
+            <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
                 <MenuItem Header="Expand Nodes" Click="mIExpandNodes_Click" />
                 <MenuItem Header="Collapse Nodes" Click="mICollapseNodes_Click" />
+
+                <Separator x:Uid="contMnCreateDescription" />
+                <MenuItem x:Uid="contMnCreateDescription" Header="Create Description" Click="mICreateDescription_Click"/>
+
+                <Separator x:Uid="contMnEntity" />
+                <MenuItem x:Uid="contMnEntity" Header="Entity">
+                    
+                    <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
+                    <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
+
+                    <Separator />
+                    <MenuItem Header="Open Entity Explorer" Click="mIOpenEntityExplorer_Click" />
+
+                    <Separator/>
+                    <MenuItem x:Uid="contMnAddEntityIntoSolutionLast" Header="Add into Last Crm Solution">
+                        <MenuItem x:Uid="contMnAddEntityIntoSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
+                        <Separator/>
+                        <MenuItem x:Uid="contMnAddEntityIntoSolutionLastDoNotIncludeSubcomponents" Header="Do Not Include Subcomponents" />
+                        <Separator/>
+                        <MenuItem x:Uid="contMnAddEntityIntoSolutionLastIncludeAsShellOnly" Header="Include As ShellOnly" />
+                    </MenuItem>
+                    <MenuItem Header="Add into Crm Solution">
+                        <MenuItem Header="Include Subcomponents" Click="AddEntityIntoCrmSolutionIncludeSubcomponents_Click" />
+                        <Separator/>
+                        <MenuItem Header="Do Not Include Subcomponents" Click="AddEntityIntoCrmSolutionDoNotIncludeSubcomponents_Click" />
+                        <Separator/>
+                        <MenuItem Header="Include As ShellOnly" Click="AddEntityIntoCrmSolutionIncludeAsShellOnly_Click" />
+                    </MenuItem>
+
+                    <Separator />
+                    <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
+
+                    <Separator/>
+                    <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="miOpenEntitySolutionsContainingComponentInWindow_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Dependent Components">
+                        <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="miOpenEntityDependentComponentsInWeb_Click" />
+                        <Separator/>
+                        <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="miOpenEntityDependentComponentsInWindow_Click" />
+                    </MenuItem>
+                </MenuItem>
+
+                <Separator x:Uid="contMnSdkMessagePair" />
+                <MenuItem x:Uid="contMnSdkMessagePair" Header="SdkMessagePair">
+
+                    <MenuItem x:Uid="contMnSdkMessagePairAddIntoSolutionLast" Header="Add SdkMessagePair into Last Crm Solution"  />
+                    <MenuItem Header="Add SdkMessagePair into Crm Solution" Click="mIAddSdkMessagePairIntoCrmSolution_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="miOpenSdkMessagePairSolutionsContainingComponentInWindow_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Dependent Components">
+                        <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="miOpenSdkMessagePairDependentComponentsInWeb_Click" />
+                        <Separator/>
+                        <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="miOpenSdkMessagePairDependentComponentsInWindow_Click" />
+                    </MenuItem>
+                </MenuItem>
+
+                <Separator x:Uid="contMnAddIntoSolution"/>
+                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" />
+                <MenuItem x:Uid="contMnAddIntoSolution"     Header="Add into Crm Solution" Click="AddIntoCrmSolution_Click" />
+
+                <Separator x:Uid="contMnSdkMessage" />
+                <MenuItem x:Uid="contMnSdkMessage" Header="Open Plugin Tree" Click="mIOpenPluginTree_Click" />
+                <MenuItem x:Uid="contMnSdkMessage" Header="Open Sdk Message Tree" Click="mIOpenSdkMessageTree_Click" />
+
+                <Separator x:Uid="contMnDependentComponents"/>
+                <MenuItem x:Uid="contMnDependentComponents" Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="miOpenSolutionsContainingComponentInWindow_Click" />
+
+                <Separator x:Uid="contMnDependentComponents" />
+                <MenuItem x:Uid="contMnDependentComponents" Header="Dependent Components">
+                    <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
+                    <Separator/>
+                    <MenuItem Header="Open Dependent Components in Window" Click="mIOpenDependentComponentsInWindow_Click" />
+                </MenuItem>
 
             </ContextMenu>
 
@@ -68,11 +149,7 @@
                             </Style>
                         </ToolBarPanel.Resources>
                         <Menu x:Name="menuView" IsEnabled="False">
-                            <MenuItem Header="View">
-                                <RadioButton x:Name="rBViewByEntityMessageNamespace" GroupName="View" Content="Display By Entity -> Message -> Namespace" Checked="rBViewByEntityMessageNamespace_Checked" IsChecked="True"/>
-                                <RadioButton x:Name="rBViewByMessageEntityNamespace" GroupName="View" Content="Display By Message -> Entity -> Namespace" Checked="rBViewByMessageEntityNamespace_Checked"/>
-                                <RadioButton x:Name="rBViewByNamespaceEntityMessage" GroupName="View" Content="Display By Namespace -> Entity -> Message" Checked="rBViewByNamespaceEntityMessage_Checked" />
-                                <RadioButton x:Name="rBViewByNamespaceMessageEntity" GroupName="View" Content="Display By Namespace -> Message -> Entity" Checked="rBViewByNamespaceMessageEntity_Checked"/>
+                            <MenuItem x:Name="mIView" Header="View">
                             </MenuItem>
                         </Menu>
                         

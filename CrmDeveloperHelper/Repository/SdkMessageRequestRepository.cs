@@ -70,7 +70,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                         EntityAlias = SdkMessageRequest.Schema.Attributes.sdkmessagepairid,
 
-                        Columns = new ColumnSet(SdkMessagePair.Schema.Attributes.@namespace, SdkMessagePair.Schema.Attributes.endpoint),
+                        Columns = new ColumnSet(SdkMessagePair.Schema.Attributes.@namespace, SdkMessagePair.Schema.Attributes.endpoint, SdkMessagePair.Schema.Attributes.sdkmessageid),
 
                         LinkEntities =
                         {

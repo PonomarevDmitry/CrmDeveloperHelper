@@ -1402,6 +1402,7 @@
     <Content Include="app.config">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Resource Include="Resources\endpoint.png" />
     <Resource Include="Resources\Icons\16x16_resx.png" />
     <Resource Include="Resources\Icons\16x16_svg.png" />
     <Resource Include="Resources\Icons\16x16_gif.png" />

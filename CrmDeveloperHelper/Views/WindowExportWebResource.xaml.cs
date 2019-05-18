@@ -1436,11 +1436,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            this.trVWebResources.Dispatcher.Invoke(() =>
+            {
+                this.trVWebResources.BeginInit();
+            });
+
             foreach (var item in items)
             {
                 item.IsExpanded = isExpanded;
 
-                ChangeExpandedInTreeViewItems(item.Items, isExpanded);
+                ChangeExpandedInTreeViewItemsRecursive(item.Items, isExpanded);
+            }
+
+            this.trVWebResources.Dispatcher.Invoke(() =>
+            {
+                this.trVWebResources.EndInit();
+            });
+        }
+
+        private void ChangeExpandedInTreeViewItemsRecursive(IEnumerable<EntityTreeViewItem> items, bool isExpanded)
+        {
+            if (items == null || !items.Any())
+            {
+                return;
+            }
+
+            foreach (var item in items)
+            {
+                item.IsExpanded = isExpanded;
+
+                ChangeExpandedInTreeViewItemsRecursive(item.Items, isExpanded);
             }
         }
 

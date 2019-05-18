@@ -18,6 +18,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 public const string SdkMessageId = Attributes.sdkmessagepairid + "." + SdkMessagePair.Schema.Attributes.sdkmessageid;
 
                 public const string Namespace = Attributes.sdkmessagepairid + "." + SdkMessagePair.Schema.Attributes.@namespace;
+
+                public const string Endpoint = Attributes.sdkmessagepairid + "." + SdkMessagePair.Schema.Attributes.endpoint;
             }
         }
 
@@ -36,7 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     && this.Attributes[Schema.EntityAliasFields.SdkMessageId] != null
                     && this.Attributes[Schema.EntityAliasFields.SdkMessageId] is AliasedValue aliasedValue
                     && aliasedValue.Value is EntityReference aliasedValueValue
-                    )
+                )
                 {
                     return aliasedValueValue.Id;
                 }
@@ -53,7 +55,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     && this.Attributes[Schema.EntityAliasFields.SdkMessageName] != null
                     && this.Attributes[Schema.EntityAliasFields.SdkMessageName] is AliasedValue aliasedValue
                     && aliasedValue.Value is string aliasedValueValue
-                    )
+                )
                 {
                     return aliasedValueValue;
                 }
@@ -70,7 +72,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     && this.Attributes[Schema.EntityAliasFields.Namespace] != null
                     && this.Attributes[Schema.EntityAliasFields.Namespace] is AliasedValue aliasedValue
                     && aliasedValue.Value is string aliasedValueValue
-                    )
+                )
+                {
+                    return aliasedValueValue;
+                }
+
+                return "None";
+            }
+        }
+
+        public string Endpoint
+        {
+            get
+            {
+                if (this.Attributes.ContainsKey(Schema.EntityAliasFields.Endpoint)
+                    && this.Attributes[Schema.EntityAliasFields.Endpoint] != null
+                    && this.Attributes[Schema.EntityAliasFields.Endpoint] is AliasedValue aliasedValue
+                    && aliasedValue.Value is string aliasedValueValue
+                )
                 {
                     return aliasedValueValue;
                 }
