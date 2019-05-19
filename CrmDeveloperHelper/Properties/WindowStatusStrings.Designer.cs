@@ -268,6 +268,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Building Sdk Message Request Tree....
+        /// </summary>
+        internal static string BuildingSdkMessageRequestTree {
+            get {
+                return ResourceManager.GetString("BuildingSdkMessageRequestTree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Building Sdk Message Request Tree completed..
+        /// </summary>
+        internal static string BuildingSdkMessageRequestTreeCompleted {
+            get {
+                return ResourceManager.GetString("BuildingSdkMessageRequestTreeCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checking ConnectionRole Categories in {0} and {1}....
         /// </summary>
         internal static string CheckingConnectionRoleCategoriesFormat2 {
@@ -853,7 +871,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Creating File for {0} completed..
+        ///   Looks up a localized string similar to Creating File for Entity {0} completed..
         /// </summary>
         internal static string CreatingFileForEntityCompletedFormat1 {
             get {
@@ -862,7 +880,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Creating File for {0} failed..
+        ///   Looks up a localized string similar to Creating File for Entity {0} failed..
         /// </summary>
         internal static string CreatingFileForEntityFailedFormat1 {
             get {
@@ -871,7 +889,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Creating File for {0}....
+        ///   Looks up a localized string similar to Creating File for Entity {0}....
         /// </summary>
         internal static string CreatingFileForEntityFormat1 {
             get {
@@ -930,6 +948,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CreatingFileForOptionSetsFormat1 {
             get {
                 return ResourceManager.GetString("CreatingFileForOptionSetsFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating File for SdkMessageRequest {0} completed..
+        /// </summary>
+        internal static string CreatingFileForSdkMessageRequestCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("CreatingFileForSdkMessageRequestCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating File for SdkMessageRequest {0} failed..
+        /// </summary>
+        internal static string CreatingFileForSdkMessageRequestFailedFormat1 {
+            get {
+                return ResourceManager.GetString("CreatingFileForSdkMessageRequestFailedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating File for SdkMessageRequest {0}....
+        /// </summary>
+        internal static string CreatingFileForSdkMessageRequestFormat1 {
+            get {
+                return ResourceManager.GetString("CreatingFileForSdkMessageRequestFormat1", resourceCulture);
             }
         }
         

@@ -7,26 +7,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 {
     internal sealed class CodeWriterFilterService : ICodeWriterFilterService
     {
-        private readonly HashSet<string> _excludedNamespaces = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+        private readonly CreateFileCSharpConfiguration _config;
 
-        private readonly string _messageNamespace = string.Empty;
-
-        private readonly CreateFileWithEntityMetadataCSharpConfiguration _config;
-
-        public CodeWriterFilterService(CreateFileWithEntityMetadataCSharpConfiguration config)
+        public CodeWriterFilterService(CreateFileCSharpConfiguration config)
         {
             this._config = config;
-
-            _excludedNamespaces.Add("http://schemas.microsoft.com/xrm/2011/contracts");
         }
-
-        //internal CodeWriterFilterService(CrmSvcUtilParameters parameters)
-        //{
-        //  this._messageNamespace = parameters.MessageNamespace;
-        //  this._generateMessages = parameters.GenerateMessages;
-        //  this._generateCustomActions = parameters.GenerateCustomActions;
-        //  this._generateServiceContext = !string.IsNullOrWhiteSpace(parameters.ServiceContextName);
-        //}
 
         public bool GenerateOptionSet(
             OptionSetMetadata optionSetMetadata
@@ -215,8 +201,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            return (this._config.GenerateMessages || this._config.GenerateCustomActions) 
-                && (!message.IsPrivate && message.SdkMessageFilters.Count != 0);
+            return true;
         }
 
         public bool GenerateSdkMessagePair(
@@ -224,20 +209,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            if (!this._config.GenerateMessages && !this._config.GenerateCustomActions
-                || _excludedNamespaces.Contains(messagePair.MessageNamespace)
-                || this._config.GenerateCustomActions && !messagePair.Message.IsCustomAction
-            )
-            {
-                return false;
-            }
-
-            if (string.IsNullOrEmpty(this._messageNamespace))
-            {
-                return true;
-            }
-
-            return string.Equals(this._messageNamespace, messagePair.MessageNamespace, StringComparison.InvariantCultureIgnoreCase);
+            return true;
         }
     }
 }

@@ -1369,7 +1369,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         ExplorerController contr = new ExplorerController(this._iWriteToOutput);
 
-                        contr.ExecuteOpeningSystemFormExplorer(string.Empty, connection1, _commonConfig);
+                        contr.ExecuteOpeningSystemFormExplorer(connection1, _commonConfig, string.Empty, null);
                     }
                     catch (Exception ex)
                     {
@@ -1619,7 +1619,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var contr = new ExplorerController(this._iWriteToOutput);
 
-                        contr.ExecuteShowingSdkMessageRequestTree(connection1, _commonConfig, string.Empty, string.Empty);
+                        contr.ExecuteShowingSdkMessageRequestTree(connection1, _commonConfig, null, null, null);
                     }
                     catch (Exception ex)
                     {

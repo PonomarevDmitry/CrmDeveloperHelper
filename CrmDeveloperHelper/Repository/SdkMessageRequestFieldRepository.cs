@@ -168,12 +168,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return result;
         }
 
-        public Task<List<SdkMessageRequestField>> GetListByPairIdAsync(Guid idPair, ColumnSet columnSet)
+        public Task<List<SdkMessageRequestField>> GetListByPairAsync(Guid idPair, ColumnSet columnSet)
         {
-            return Task.Run(() => GetListByPairId(idPair, columnSet));
+            return Task.Run(() => GetListByPair(idPair, columnSet));
         }
 
-        private List<SdkMessageRequestField> GetListByPairId(Guid idPair, ColumnSet columnSet)
+        private List<SdkMessageRequestField> GetListByPair(Guid idPair, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {
@@ -199,6 +199,87 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                             {
                                 new ConditionExpression(SdkMessageRequest.Schema.Attributes.sdkmessagepairid, ConditionOperator.Equal, idPair),
                             },
+                        },
+                    },
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new List<SdkMessageRequestField>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SdkMessageRequestField>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
+            }
+
+            return result;
+        }
+
+        public Task<List<SdkMessageRequestField>> GetListByMessageAsync(Guid idMessage, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetListByMessage(idMessage, columnSet));
+        }
+
+        private List<SdkMessageRequestField> GetListByMessage(Guid idMessage, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                EntityName = SdkMessageRequestField.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                LinkEntities =
+                {
+                    new LinkEntity()
+                    {
+                        LinkFromEntityName = SdkMessageRequestField.EntityLogicalName,
+                        LinkFromAttributeName = SdkMessageRequestField.Schema.Attributes.sdkmessagerequestid,
+
+                        LinkToEntityName = SdkMessageRequest.EntityLogicalName,
+                        LinkToAttributeName = SdkMessageRequest.EntityPrimaryIdAttribute,
+
+                        LinkEntities =
+                        {
+                            new LinkEntity()
+                            {
+                                LinkFromEntityName = SdkMessageRequest.EntityLogicalName,
+                                LinkFromAttributeName = SdkMessageRequest.Schema.Attributes.sdkmessagepairid,
+
+                                LinkToEntityName = SdkMessagePair.EntityLogicalName,
+                                LinkToAttributeName = SdkMessagePair.EntityPrimaryIdAttribute,
+
+                                LinkCriteria =
+                                {
+                                    Conditions =
+                                    {
+                                        new ConditionExpression(SdkMessagePair.Schema.Attributes.sdkmessageid, ConditionOperator.Equal, idMessage),
+                                    },
+                                },
+                            }
                         },
                     },
                 },

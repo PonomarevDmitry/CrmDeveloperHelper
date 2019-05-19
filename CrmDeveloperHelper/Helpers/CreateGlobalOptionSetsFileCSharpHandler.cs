@@ -42,7 +42,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , bool withDependentComponents
             , bool withManagedInfo
             , bool allDescriptions
-            ) : base(tabSpacer, allDescriptions)
+        ) : base(tabSpacer, allDescriptions)
         {
             this._service = service;
             this._сonstantType = contantType;

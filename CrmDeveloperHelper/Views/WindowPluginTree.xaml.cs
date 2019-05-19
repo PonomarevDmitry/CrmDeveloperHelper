@@ -81,6 +81,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
+            cmBEntityName.Text = entityFilter;
+            txtBPluginTypeFilter.Text = pluginTypeFilter;
+            txtBMessageFilter.Text = messageFilter;
+
             LoadFromConfig();
 
             FillEntityNames(service.ConnectionData);
@@ -88,10 +92,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             LoadImages();
 
             LoadConfiguration();
-
-            cmBEntityName.Text = entityFilter;
-            txtBPluginTypeFilter.Text = pluginTypeFilter;
-            txtBMessageFilter.Text = messageFilter;
 
             FocusOnComboBoxTextBox(cmBEntityName);
 

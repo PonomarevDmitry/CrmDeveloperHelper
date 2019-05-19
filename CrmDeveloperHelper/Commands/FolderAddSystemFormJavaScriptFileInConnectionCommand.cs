@@ -8,15 +8,15 @@ using System.ComponentModel.Design;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class FolderAddEntityMetadataFileInConnectionCommand : IServiceProviderOwner
+    public class FolderAddSystemFormJavaScriptFileInConnectionCommand : IServiceProviderOwner
     {
         private readonly Package _package;
 
         public IServiceProvider ServiceProvider => this._package;
 
-        private const int _baseIdStart = PackageIds.FolderAddEntityMetadataFileInConnectionCommandId;
+        private const int _baseIdStart = PackageIds.FolderAddSystemFormJavaScriptFileInConnectionCommandId;
 
-        private FolderAddEntityMetadataFileInConnectionCommand(Package package)
+        private FolderAddSystemFormJavaScriptFileInConnectionCommand(Package package)
         {
             this._package = package ?? throw new ArgumentNullException(nameof(package));
 
@@ -39,11 +39,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        public static FolderAddEntityMetadataFileInConnectionCommand Instance { get; private set; }
+        public static FolderAddSystemFormJavaScriptFileInConnectionCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new FolderAddEntityMetadataFileInConnectionCommand(package);
+            Instance = new FolderAddSystemFormJavaScriptFileInConnectionCommand(package);
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -110,7 +110,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     if (selectedItem != null)
                     {
-                        helper.HandleExportFileWithEntityMetadata(connectionData, selectedItem);
+                        helper.HandleExportSystemForm(connectionData, selectedItem);
                     }
                 }
             }

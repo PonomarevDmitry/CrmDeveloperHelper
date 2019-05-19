@@ -2,10 +2,12 @@ using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -33,11 +35,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly ObservableCollection<SdkMessageRequestTreeViewItem> _messageTree = new ObservableCollection<SdkMessageRequestTreeViewItem>();
 
-        private View _currentView = View.Entity_Message_Namespace_Endpoint;
-
         private SdkMessageSearchResult _sdkMessageSearchResult = null;
 
-        private readonly Dictionary<View, IEnumerable<RequestGroupBuilder>> _viewGroups = new Dictionary<View, IEnumerable<RequestGroupBuilder>>();
+        private readonly List<GroupingProperty> _groupingPropertiesAll = Enum.GetValues(typeof(GroupingProperty)).OfType<GroupingProperty>().ToList();
+
+        private readonly List<GroupingProperty> _currentGrouping = new List<GroupingProperty>()
+        {
+            GroupingProperty.Endpoint,
+            GroupingProperty.Message,
+            GroupingProperty.Entity,
+        };
+
+        private readonly Dictionary<GroupingProperty, RequestGroupBuilder> _propertyGroups = new Dictionary<GroupingProperty, RequestGroupBuilder>();
 
         private BitmapImage _imageEntity;
         private BitmapImage _imageMessage;
@@ -49,10 +58,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly CommonConfiguration _commonConfig;
 
+        private readonly string _filePath;
+        private readonly bool _isJavaScript;
+        private readonly EnvDTE.SelectedItem _selectedItem;
+
         public WindowSdkMessageRequestTree(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
+
+            , string filePath
+            , bool isJavaScript
+            , EnvDTE.SelectedItem selectedItem
+
             , string entityFilter
             , string messageFilter
         )
@@ -64,13 +82,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput = iWriteToOutput ?? throw new ArgumentNullException(nameof(iWriteToOutput));
             this._commonConfig = commonConfig ?? throw new ArgumentNullException(nameof(commonConfig));
 
+            this._filePath = filePath;
+            this._isJavaScript = isJavaScript;
+            this._selectedItem = selectedItem;
+
             _connectionCache[service.ConnectionData.ConnectionId] = service ?? throw new ArgumentNullException(nameof(service));
 
             BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InitializeComponent();
 
-            FillViewGroups();
+            cmBEntityName.Text = entityFilter;
+            txtBMessageFilter.Text = messageFilter;
 
             LoadFromConfig();
 
@@ -78,8 +101,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadConfiguration();
 
-            cmBEntityName.Text = entityFilter;
-            txtBMessageFilter.Text = messageFilter;
+            FillViewGroups();
+
+            if (!string.IsNullOrEmpty(_filePath))
+            {
+                txtBFolder.IsReadOnly = true;
+                txtBFolder.Background = SystemColors.InactiveSelectionHighlightBrush;
+                txtBFolder.Text = Path.GetDirectoryName(_filePath);
+            }
+            else if (this._selectedItem != null)
+            {
+                string exportFolder = string.Empty;
+
+                if (_selectedItem.ProjectItem != null)
+                {
+                    exportFolder = _selectedItem.ProjectItem.FileNames[1];
+                }
+                else if (_selectedItem.Project != null)
+                {
+                    string relativePath = DTEHelper.GetRelativePath(_selectedItem.Project);
+
+                    string solutionPath = Path.GetDirectoryName(_selectedItem.DTE.Solution.FullName);
+
+                    exportFolder = Path.Combine(solutionPath, relativePath);
+                }
+
+                if (!Directory.Exists(exportFolder))
+                {
+                    Directory.CreateDirectory(exportFolder);
+                }
+
+                txtBFolder.IsReadOnly = true;
+                txtBFolder.Background = SystemColors.InactiveSelectionHighlightBrush;
+                txtBFolder.Text = exportFolder;
+            }
+            else
+            {
+                Binding binding = new Binding
+                {
+                    Path = new PropertyPath("FolderForExport")
+                };
+                BindingOperations.SetBinding(txtBFolder, TextBox.TextProperty, binding);
+
+                txtBFolder.DataContext = _commonConfig;
+            }
 
             FocusOnComboBoxTextBox(cmBEntityName);
 
@@ -96,11 +161,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void LoadFromConfig()
         {
             cmBFileAction.DataContext = _commonConfig;
+
+            txtBNamespaceSdkMessagesCSharp.DataContext = cmBCurrentConnection;
+            txtBNamespaceSdkMessagesJavaScript.DataContext = cmBCurrentConnection;
         }
 
         protected override void OnClosed(EventArgs e)
         {
             _commonConfig.Save();
+
+            (cmBCurrentConnection.SelectedItem as ConnectionData)?.Save();
 
             BindingOperations.ClearAllBindings(cmBCurrentConnection);
 
@@ -114,8 +184,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private const string paramEntityName = "EntityName";
         private const string paramMessage = "Message";
-
-        private const string paramView = "View";
+        private const string paramEndpoint = "Endpoint";
+        
+        private const string paramGrouping = "Grouping";
 
         private void LoadConfiguration()
         {
@@ -123,41 +194,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (string.IsNullOrEmpty(this.cmBEntityName.Text)
                 && string.IsNullOrEmpty(this.txtBMessageFilter.Text)
-                )
+                && string.IsNullOrEmpty(this.txtBEndpoint.Text)
+            )
             {
                 this.cmBEntityName.Text = winConfig.GetValueString(paramEntityName);
                 this.txtBMessageFilter.Text = winConfig.GetValueString(paramMessage);
+                this.txtBEndpoint.Text = winConfig.GetValueString(paramEndpoint);
             }
 
             {
-                var tempViewName = winConfig.GetValueString(paramView);
+                var tempGroupingName = winConfig.GetValueString(paramGrouping);
 
-                if (!string.IsNullOrEmpty(tempViewName))
+                if (!string.IsNullOrEmpty(tempGroupingName))
                 {
-                    if (Enum.TryParse<View>(tempViewName, out View tempView))
+                    List<GroupingProperty> list = new List<GroupingProperty>();
+
+                    this.IncreaseInit();
+
+                    var split = tempGroupingName.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    foreach (var item in split)
                     {
-                        this._currentView = tempView;
-
-                        this.IncreaseInit();
-
-                        foreach (var item in mIView.Items.OfType<RadioButton>())
+                        if (Enum.TryParse<GroupingProperty>(item, out var tempGrouping))
                         {
-                            item.IsChecked = false;
+                            if (!list.Contains(tempGrouping))
+                            {
+                                list.Add(tempGrouping);
+                            }
                         }
-
-                        var selectedRadioButton = mIView.Items.OfType<RadioButton>().FirstOrDefault(r => r.Tag != null && r.Tag is View view && view == this._currentView);
-
-                        if (selectedRadioButton != null)
-                        {
-                            selectedRadioButton.IsChecked = true;
-                        }
-                        else
-                        {
-                            mIView.Items.OfType<RadioButton>().First().IsChecked = true;
-                        }
-
-                        this.DecreaseInit();
                     }
+
+                    if (list.Any())
+                    {
+                        _currentGrouping.Clear();
+
+                        _currentGrouping.AddRange(list);
+                    }
+
+                    this.DecreaseInit();
                 }
             }
         }
@@ -168,8 +242,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             winConfig.DictString[paramEntityName] = this.cmBEntityName.Text?.Trim();
             winConfig.DictString[paramMessage] = this.txtBMessageFilter.Text.Trim();
+            winConfig.DictString[paramEndpoint] = this.txtBEndpoint.Text.Trim();
 
-            winConfig.DictString[paramView] = this._currentView.ToString();
+            winConfig.DictString[paramGrouping] = string.Join(",", _currentGrouping.Select(g => g.ToString()));
         }
 
         private void LoadImages()
@@ -226,152 +301,234 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private enum View
+        private enum GroupingProperty
         {
-            Entity_Message_Endpoint,
-            Entity_Message_Endpoint_Namespace,
-
-            Entity_Message_Namespace_Endpoint,
-
-            Entity_Endpoint_Message,
-            Entity_Endpoint_Message_Namespace,
-
-            Message_Entity_Endpoint,
-            Message_Entity_Endpoint_Namespace,
-
-            Message_Entity_Namespace_Endpoint,
-
-            Message_Endpoint_Entity,
-            Message_Endpoint_Entity_Namespace,
-
-            Endpoint_Entity_Message,
-            Endpoint_Entity_Message_Namespace,
-
-            Endpoint_Message_Entity,
-            Endpoint_Message_Entity_Namespace,
-
-            Endpoint_Namespace_Entity_Message,
-            Endpoint_Namespace_Message_Entity,
-
-            Namespace_Entity_Message_Endpoint,
-            Namespace_Message_Entity_Endpoint,
-
-            Namespace_Endpoint_Entity_Message,
-            Namespace_Endpoint_Message_Entity,
+            Entity,
+            Message,
+            Endpoint,
+            Namespace,
         }
 
         private void FillViewGroups()
         {
-            var groupByName = new Dictionary<string, RequestGroupBuilder>();
+            _propertyGroups.Clear();
 
-            groupByName["Entity"] = new RequestGroupBuilder()
+            _propertyGroups[GroupingProperty.Entity] = new RequestGroupBuilder()
             {
                 GroupFunc = ent => ent.PrimaryObjectTypeCode ?? "none",
                 TreeNodeBuilder = CreateNodeEntity,
             };
 
-            groupByName["Message"] = new RequestGroupBuilder()
+            _propertyGroups[GroupingProperty.Message] = new RequestGroupBuilder()
             {
                 GroupFunc = ent => ent.SdkMessageName,
                 TreeNodeBuilder = CreateNodeMessage,
                 OrderComparer = new MessageComparer(),
             };
 
-            groupByName["Namespace"] = new RequestGroupBuilder()
+            _propertyGroups[GroupingProperty.Namespace] = new RequestGroupBuilder()
             {
                 GroupFunc = ent => ent.Namespace,
                 TreeNodeBuilder = CreateNodeNamespace,
             };
 
-            groupByName["Endpoint"] = new RequestGroupBuilder()
+            _propertyGroups[GroupingProperty.Endpoint] = new RequestGroupBuilder()
             {
                 GroupFunc = ent => ent.Endpoint,
                 TreeNodeBuilder = CreateNodeEndpoint,
             };
 
-            _viewGroups.Clear();
             mIView.Items.Clear();
 
-            foreach (var view in Enum.GetValues(typeof(View)).OfType<View>())
+            this.IncreaseInit();
+
+            for (int i = 0; i < _groupingPropertiesAll.Count; i++)
             {
-                string name = view.ToString();
-
-                var split = name.Split('_');
-
-                _viewGroups[view] = split.Select(n => groupByName[n]).ToArray();
-
-                var groupsName = string.Join(" -> ", split);
-
-                RadioButton radioButton = new RadioButton()
+                var comboBox = new ComboBox()
                 {
-                    GroupName = "View",
-                    Content = string.Format("Display by {0}", groupsName),
-                    IsChecked = false,
-                    Tag = view,
+                    Visibility = Visibility.Hidden,
+
+                    VerticalContentAlignment = VerticalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Stretch,
+
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
                 };
 
-                radioButton.Checked += radioButton_Checked;
+                comboBox.Items.Add(string.Empty);
 
-                mIView.Items.Add(radioButton);
-            }
-
-            mIView.Items.OfType<RadioButton>().First().IsChecked = true;
-
-            foreach (var item in _viewGroups.Keys.OrderBy(v => (int)v))
-            {
-                FieldInfo fi = typeof(View).GetField(item.ToString());
-                if (fi != null)
+                foreach (var item in _groupingPropertiesAll)
                 {
-                    var attributes = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
-                    string groups = (attributes.Length > 0) ? attributes[0].Description : item.ToString();
-
-
+                    comboBox.Items.Add(item);
                 }
+
+                if (i < this._currentGrouping.Count)
+                {
+                    comboBox.SelectedItem = this._currentGrouping[i];
+                }
+
+                comboBox.SelectionChanged += this.comboBox_SelectionChanged;
+
+                mIView.Items.Add(comboBox);
             }
+
+            this.DecreaseInit();
+
+            UpdateGroupingVisibility();
         }
 
-        private void RefreshTreeByView()
+        private async void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_sdkMessageSearchResult != null)
-            {
-                ShowExistingSdkMessageRequests();
-            }
-            else
-            {
-                FillTree();
-            }
-        }
-
-        private void FillTree()
-        {
-            this.trVSdkMessageRequestTree.Dispatcher.Invoke(() =>
-            {
-                _messageTree.Clear();
-            });
-
-            if (_sdkMessageSearchResult == null)
+            if (!IsControlsEnabled)
             {
                 return;
             }
 
-            var list = GroupRequests(_sdkMessageSearchResult, _viewGroups[_currentView]);
+            UpdateGroupingVisibility();
+
+            var grouping = GetGrouping();
+
+            if (!this._currentGrouping.SequenceEqual(grouping))
+            {
+                this._currentGrouping.Clear();
+
+                this._currentGrouping.AddRange(grouping);
+
+                await RefreshTreeByViewAsync();
+            }
+        }
+
+        private void UpdateGroupingVisibility()
+        {
+            this.IncreaseInit();
+
+            HashSet<GroupingProperty> usedProperties = new HashSet<GroupingProperty>();
+
+            bool hideOthers = false;
+
+            foreach (var comboBox in mIView.Items.OfType<ComboBox>())
+            {
+                if (hideOthers)
+                {
+                    comboBox.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    comboBox.Visibility = Visibility.Visible;
+
+                    if (comboBox.SelectedItem is GroupingProperty groupingProperty)
+                    {
+                        if (usedProperties.Contains(groupingProperty))
+                        {
+                            hideOthers = true;
+
+                            FillGroupingComboBox(usedProperties, comboBox);
+                        }
+                        else
+                        {
+                            usedProperties.Add(groupingProperty);
+                        }
+                    }
+                    else
+                    {
+                        hideOthers = true;
+
+                        FillGroupingComboBox(usedProperties, comboBox);
+                    }
+                }
+            }
+
+            this.DecreaseInit();
+        }
+
+        private void FillGroupingComboBox(HashSet<GroupingProperty> usedProperties, ComboBox comboBox)
+        {
+            comboBox.Items.Clear();
+
+            comboBox.Items.Add(string.Empty);
+
+            comboBox.SelectedIndex = 0;
+
+            foreach (var item in _groupingPropertiesAll.Where(p => !usedProperties.Contains(p)))
+            {
+                comboBox.Items.Add(item);
+            }
+        }
+
+        private List<GroupingProperty> GetGrouping()
+        {
+            List<GroupingProperty> result = new List<GroupingProperty>();
+
+            foreach (var comboBox in mIView.Items.OfType<ComboBox>())
+            {
+                if (comboBox.SelectedItem is GroupingProperty groupingProperty)
+                {
+                    if (!result.Contains(groupingProperty))
+                    {
+                        result.Add(groupingProperty);
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return result;
+        }
+
+        private async Task RefreshTreeByViewAsync()
+        {
+            if (_sdkMessageSearchResult != null)
+            {
+                await FillTreeAsync();
+            }
+            else
+            {
+                await ShowExistingSdkMessageRequests();
+            }
+        }
+
+        private Task FillTreeAsync()
+        {
+            return Task.Run(() => FillTree());
+        }
+
+        private void FillTree()
+        {
+            ConnectionData connectionData = null;
+
+            this.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            ToggleControls(connectionData, false, Properties.WindowStatusStrings.BuildingSdkMessageRequestTree);
 
             this.trVSdkMessageRequestTree.Dispatcher.Invoke(() =>
             {
-                this.trVSdkMessageRequestTree.BeginInit();
-
                 _messageTree.Clear();
+            });
 
-                this.Dispatcher.Invoke(() =>
+            if (_sdkMessageSearchResult != null)
+            {
+                var list = GroupRequests(_sdkMessageSearchResult, _currentGrouping.Select(g => _propertyGroups[g]));
+
+                this.trVSdkMessageRequestTree.Dispatcher.Invoke(() =>
                 {
+                    this.trVSdkMessageRequestTree.BeginInit();
+
+                    _messageTree.Clear();
+
                     foreach (var node in list)
                     {
                         _messageTree.Add(node);
                     }
-                });
 
-                this.trVSdkMessageRequestTree.EndInit();
-            });
+                    this.trVSdkMessageRequestTree.EndInit();
+                });
+            }
+
+            ToggleControls(connectionData, true, Properties.WindowStatusStrings.BuildingSdkMessageRequestTreeCompleted);
         }
 
         private async Task ShowExistingSdkMessageRequests()
@@ -392,18 +549,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string entityName = string.Empty;
             string messageName = string.Empty;
+            string endpointName = string.Empty;
 
             this.Dispatcher.Invoke(() =>
             {
                 entityName = cmBEntityName.Text?.Trim();
                 messageName = txtBMessageFilter.Text.Trim();
+                endpointName = txtBEndpoint.Text.Trim();
             });
 
             SdkMessageSearchResult search = new SdkMessageSearchResult();
 
             try
             {
-                search.Requests = await new SdkMessageRequestRepository(service).GetListAsync(entityName, messageName
+                search.Requests = await new SdkMessageRequestRepository(service).GetListAsync(entityName, messageName, endpointName
                     , new ColumnSet
                     (
                         SdkMessageRequest.Schema.Attributes.name
@@ -814,22 +973,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateButtonsEnable();
         }
 
-        private void radioButton_Checked(object sender, RoutedEventArgs e)
-        {
-            if (sender is RadioButton radioButton
-                && radioButton.Tag != null
-                && radioButton.Tag is View view
-            )
-            {
-                if (this._currentView != view)
-                {
-                    this._currentView = view;
-
-                    RefreshTreeByView();
-                }
-            }
-        }
-
         private void tSBCollapseAll_Click(object sender, RoutedEventArgs e)
         {
             if (!this.IsControlsEnabled)
@@ -1082,12 +1225,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            foreach (var removed in e.RemovedItems.OfType<ConnectionData>())
+            {
+                removed.Save();
+            }
+
             ConnectionData connectionData = null;
 
             this.Dispatcher.Invoke(() =>
             {
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-                trVSdkMessageRequestTree.ItemsSource = null;
             });
 
             if (connectionData != null)
@@ -1157,6 +1304,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ActivateControls(items, showDependentComponents, "contMnDependentComponents");
 
             ActivateControls(items, isMessage || isEntity, "contMnSdkMessage");
+
+            ActivateControls(items, isMessage, "contMnSdkMessageProxyClass");
 
             ActivateControls(items, hasIds, "contMnAddIntoSolution", "contMnAddIntoSolutionLast");
             FillLastSolutionItems(connectionData, items, hasIds, AddIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
@@ -1626,6 +1775,167 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private async void mICreateRequestProxyClassCSharp_Click(object sender, RoutedEventArgs e)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as SdkMessageRequestTreeViewItem;
+
+            if (nodeItem == null
+                || !nodeItem.SdkMessagePair.HasValue
+            )
+            {
+                return;
+            }
+
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            string folder = txtBFolder.Text.Trim();
+
+            if (string.IsNullOrEmpty(folder))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(folder))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
+            var service = await GetService();
+
+            var sdkMessagePair = await new SdkMessagePairRepository(service).GetByIdAsync(nodeItem.SdkMessagePair.Value, new ColumnSet(true));
+
+            var sdkMessage = await new SdkMessageRepository(service).GetByIdAsync(sdkMessagePair.SdkMessageId.Id, new ColumnSet(true));
+
+            var sdkFilters = await new SdkMessageFilterRepository(service).GetListByMessageAsync(sdkMessage.Id, new ColumnSet(true));
+
+            var sdkRequests = await new SdkMessageRequestRepository(service).GetListByPairAsync(sdkMessagePair.Id, new ColumnSet(true));
+            var sdkRequestFields = await new SdkMessageRequestFieldRepository(service).GetListByPairAsync(sdkMessagePair.Id, new ColumnSet(true));
+
+            var sdkResponses = await new SdkMessageResponseRepository(service).GetListByPairAsync(sdkMessagePair.Id, new ColumnSet(true));
+            var sdkResponseFields = await new SdkMessageResponseFieldRepository(service).GetListByPairAsync(sdkMessagePair.Id, new ColumnSet(true));
+
+            var codeMessage = new CodeGenerationSdkMessage(sdkMessage.Id, sdkMessage.Name, sdkMessage.IsPrivate.GetValueOrDefault(), sdkMessage.CustomizationLevel.GetValueOrDefault());
+            codeMessage.Fill(sdkFilters, new[] { sdkMessagePair }, sdkRequests, sdkRequestFields, sdkResponses, sdkResponseFields);
+
+            var codeMessagePair = codeMessage.SdkMessagePairs[sdkMessagePair.Id];
+
+            string operation = string.Format(Properties.OperationNames.CreatingFileForSdkMessageRequestFormat2, service.ConnectionData.Name, codeMessagePair.Request.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operation);
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingFileForSdkMessageRequestFormat1, codeMessagePair.Request.Name);
+
+            try
+            {
+                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
+
+                var config = new CreateFileCSharpConfiguration(
+                    tabSpacer
+                    , service.ConnectionData.NamespaceClassesCSharp
+                    , service.ConnectionData.NamespaceOptionSetsCSharp
+                    , _commonConfig.GenerateAttributesProxyClass
+                    , _commonConfig.GenerateStatusOptionSetProxyClass
+                    , _commonConfig.GenerateLocalOptionSetProxyClass
+                    , _commonConfig.GenerateGlobalOptionSetProxyClass
+                    , _commonConfig.GenerateOneToManyProxyClass
+                    , _commonConfig.GenerateManyToOneProxyClass
+                    , _commonConfig.GenerateManyToManyProxyClass
+                    , false
+                    , _commonConfig.AllDescriptions
+                    , _commonConfig.EntityMetadaOptionSetDependentComponents
+                    , _commonConfig.GenerateIntoSchemaClass
+                    , _commonConfig.SolutionComponentWithManagedInfo
+                    , _commonConfig.ConstantType
+                    , _commonConfig.OptionSetExportType
+                    , _commonConfig.GenerateAttributesProxyClassWithNameOf
+                    , _commonConfig.GenerateProxyClassesWithDebuggerNonUserCode
+                    , _commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes
+                    , _commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
+                    , _commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
+                    , _commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
+                    , _commonConfig.GenerateAttributesProxyClassEnumsStateStatus
+
+                    , _commonConfig.GenerateAttributesProxyClassEnumsLocal
+                    , _commonConfig.GenerateAttributesProxyClassEnumsGlobal
+                    , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum
+
+                    , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaLocalEnum
+                    , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum
+                    , _commonConfig.GenerateProxyClassAddDescriptionAttribute
+                );
+
+                string fileName = string.Format("{0}.{1}.cs", service.ConnectionData.Name, codeMessagePair.Request.Name);
+
+                if (this._selectedItem != null)
+                {
+                    fileName = string.Format("{0}.cs", codeMessagePair.Request.Name);
+                }
+
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                if (!_isJavaScript && !string.IsNullOrEmpty(_filePath))
+                {
+                    filePath = _filePath;
+                }
+
+                var repository = new EntityMetadataRepository(service);
+
+                ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
+                INamingService namingService = new NamingService(service.ConnectionData.ServiceContextName, config);
+                ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClassesCSharp);
+                ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
+                IMetadataProviderService metadataProviderService = new MetadataProviderService(repository);
+
+                ICodeGenerationServiceProvider codeGenerationServiceProvider = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService, namingService);
+
+                var options = new CodeGeneratorOptions
+                {
+                    BlankLinesBetweenMembers = true,
+                    BracingStyle = "C",
+                    IndentString = tabSpacer,
+                    VerbatimOrder = true,
+                };
+
+                await codeGenerationService.WriteSdkMessagePairAsync(codeMessagePair, filePath, service.ConnectionData.NamespaceSdkMessagesCSharp, options, codeGenerationServiceProvider);
+
+                if (this._selectedItem != null)
+                {
+                    if (_selectedItem.ProjectItem != null)
+                    {
+                        _selectedItem.ProjectItem.ProjectItems.AddFromFileCopy(filePath);
+
+                        _selectedItem.ProjectItem.ContainingProject.Save();
+                    }
+                    else if (_selectedItem.Project != null)
+                    {
+                        _selectedItem.Project.ProjectItems.AddFromFile(filePath);
+
+                        _selectedItem.Project.Save();
+                    }
+                }
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedSdkMessageRequestFileForConnectionFormat3, service.ConnectionData.Name, codeMessagePair.Request.Name, filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileForSdkMessageRequestCompletedFormat1, codeMessagePair.Request.Name);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileForSdkMessageRequestFailedFormat1, codeMessagePair.Request.Name);
+            }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation);
+        }
+
         #endregion SdkMessagePair Handlers
 
         private void mICreateDescription_Click(object sender, RoutedEventArgs e)
@@ -1819,6 +2129,168 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
                 }
             }
+        }
+
+        private async void mICreateMessageProxyClassCSharp_Click(object sender, RoutedEventArgs e)
+        {
+            var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as SdkMessageRequestTreeViewItem;
+
+            if (nodeItem == null
+                || nodeItem.MessageList == null
+                || !nodeItem.MessageList.Any()
+            )
+            {
+                return;
+            }
+
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            string folder = txtBFolder.Text.Trim();
+
+            if (string.IsNullOrEmpty(folder))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(folder))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
+            var service = await GetService();
+
+            Guid idMessage = nodeItem.MessageList.First();
+
+            var sdkMessage = await new SdkMessageRepository(service).GetByIdAsync(idMessage, new ColumnSet(true));
+
+            var sdkFilters = await new SdkMessageFilterRepository(service).GetListByMessageAsync(idMessage, new ColumnSet(true));
+
+            var sdkMessagePairs = await new SdkMessagePairRepository(service).GetListByMessageAsync(idMessage, new ColumnSet(true));
+
+            var sdkRequests = await new SdkMessageRequestRepository(service).GetListByMessageAsync(idMessage, new ColumnSet(true));
+            var sdkRequestFields = await new SdkMessageRequestFieldRepository(service).GetListByMessageAsync(idMessage, new ColumnSet(true));
+
+            var sdkResponses = await new SdkMessageResponseRepository(service).GetListByMessageAsync(idMessage, new ColumnSet(true));
+            var sdkResponseFields = await new SdkMessageResponseFieldRepository(service).GetListByMessageAsync(idMessage, new ColumnSet(true));
+
+            var codeMessage = new CodeGenerationSdkMessage(sdkMessage.Id, sdkMessage.Name, sdkMessage.IsPrivate.GetValueOrDefault(), sdkMessage.CustomizationLevel.GetValueOrDefault());
+            codeMessage.Fill(sdkFilters, sdkMessagePairs, sdkRequests, sdkRequestFields, sdkResponses, sdkResponseFields);
+
+            string operation = string.Format(Properties.OperationNames.CreatingFileForSdkMessageRequestFormat2, service.ConnectionData.Name, codeMessage.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operation);
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.CreatingFileForSdkMessageRequestFormat1, codeMessage.Name);
+
+            try
+            {
+                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
+
+                var config = new CreateFileCSharpConfiguration(
+                    tabSpacer
+                    , service.ConnectionData.NamespaceClassesCSharp
+                    , service.ConnectionData.NamespaceOptionSetsCSharp
+                    , _commonConfig.GenerateAttributesProxyClass
+                    , _commonConfig.GenerateStatusOptionSetProxyClass
+                    , _commonConfig.GenerateLocalOptionSetProxyClass
+                    , _commonConfig.GenerateGlobalOptionSetProxyClass
+                    , _commonConfig.GenerateOneToManyProxyClass
+                    , _commonConfig.GenerateManyToOneProxyClass
+                    , _commonConfig.GenerateManyToManyProxyClass
+                    , false
+                    , _commonConfig.AllDescriptions
+                    , _commonConfig.EntityMetadaOptionSetDependentComponents
+                    , _commonConfig.GenerateIntoSchemaClass
+                    , _commonConfig.SolutionComponentWithManagedInfo
+                    , _commonConfig.ConstantType
+                    , _commonConfig.OptionSetExportType
+                    , _commonConfig.GenerateAttributesProxyClassWithNameOf
+                    , _commonConfig.GenerateProxyClassesWithDebuggerNonUserCode
+                    , _commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes
+                    , _commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
+                    , _commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
+                    , _commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
+                    , _commonConfig.GenerateAttributesProxyClassEnumsStateStatus
+
+                    , _commonConfig.GenerateAttributesProxyClassEnumsLocal
+                    , _commonConfig.GenerateAttributesProxyClassEnumsGlobal
+                    , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum
+
+                    , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaLocalEnum
+                    , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum
+                    , _commonConfig.GenerateProxyClassAddDescriptionAttribute
+                );
+
+                string fileName = string.Format("{0}.{1}.cs", service.ConnectionData.Name, codeMessage.Name);
+
+                if (this._selectedItem != null)
+                {
+                    fileName = string.Format("{0}.cs", codeMessage.Name);
+                }
+
+                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+                if (!_isJavaScript && !string.IsNullOrEmpty(_filePath))
+                {
+                    filePath = _filePath;
+                }
+
+                var repository = new EntityMetadataRepository(service);
+
+                ICodeGenerationService codeGenerationService = new CodeGenerationService(config);
+                INamingService namingService = new NamingService(service.ConnectionData.ServiceContextName, config);
+                ITypeMappingService typeMappingService = new TypeMappingService(service.ConnectionData.NamespaceClassesCSharp);
+                ICodeWriterFilterService codeWriterFilterService = new CodeWriterFilterService(config);
+                IMetadataProviderService metadataProviderService = new MetadataProviderService(repository);
+
+                ICodeGenerationServiceProvider codeGenerationServiceProvider = new CodeGenerationServiceProvider(typeMappingService, codeGenerationService, codeWriterFilterService, metadataProviderService, namingService);
+
+                var options = new CodeGeneratorOptions
+                {
+                    BlankLinesBetweenMembers = true,
+                    BracingStyle = "C",
+                    IndentString = tabSpacer,
+                    VerbatimOrder = true,
+                };
+
+                await codeGenerationService.WriteSdkMessageAsync(codeMessage, filePath, service.ConnectionData.NamespaceSdkMessagesCSharp, options, codeGenerationServiceProvider);
+
+                if (this._selectedItem != null)
+                {
+                    if (_selectedItem.ProjectItem != null)
+                    {
+                        _selectedItem.ProjectItem.ProjectItems.AddFromFileCopy(filePath);
+
+                        _selectedItem.ProjectItem.ContainingProject.Save();
+                    }
+                    else if (_selectedItem.Project != null)
+                    {
+                        _selectedItem.Project.ProjectItems.AddFromFile(filePath);
+
+                        _selectedItem.Project.Save();
+                    }
+                }
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedSdkMessageRequestFileForConnectionFormat3, service.ConnectionData.Name, codeMessage.Name, filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileForSdkMessageRequestCompletedFormat1, codeMessage.Name);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingFileForSdkMessageRequestFailedFormat1, codeMessage.Name);
+            }
+
+            this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation);
         }
     }
 }

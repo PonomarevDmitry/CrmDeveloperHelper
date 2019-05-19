@@ -305,12 +305,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return coll.Count == 1 ? coll.Select(e => e.ToEntity<SdkMessageFilter>()).SingleOrDefault() : null;
         }
 
-        public Task<List<SdkMessageFilter>> GetListByMessasgeAsync(Guid idMessage, ColumnSet columnSet)
+        public Task<List<SdkMessageFilter>> GetListByMessageAsync(Guid idMessage, ColumnSet columnSet)
         {
-            return Task.Run(() => GetListByMessasge(idMessage, columnSet));
+            return Task.Run(() => GetListByMessage(idMessage, columnSet));
         }
 
-        private List<SdkMessageFilter> GetListByMessasge(Guid idMessage, ColumnSet columnSet)
+        private List<SdkMessageFilter> GetListByMessage(Guid idMessage, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {

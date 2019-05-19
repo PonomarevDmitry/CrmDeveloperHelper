@@ -399,15 +399,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!tempSelectEntity)
                 {
-                    var metadata = descriptor.MetadataSource.GetEntityMetadata(selection.ToLower());
+                    var entityMetadata = descriptor.MetadataSource.GetEntityMetadata(selection.ToLower());
 
-                    if (metadata != null)
+                    if (entityMetadata != null)
                     {
                         string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.IndentType, commonConfig.SpaceCount);
 
-                        var config = new CreateFileWithEntityMetadataCSharpConfiguration(
-                            metadata.LogicalName
-                            , tabSpacer
+                        var config = new CreateFileCSharpConfiguration(
+                            tabSpacer   
                             , connectionData.NamespaceClassesCSharp
                             , connectionData.NamespaceOptionSetsCSharp
                             , commonConfig.GenerateAttributesSchema
@@ -430,22 +429,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             , commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
                             , commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
                             , commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
-
                             , commonConfig.GenerateAttributesProxyClassEnumsStateStatus
+
                             , commonConfig.GenerateAttributesProxyClassEnumsLocal
                             , commonConfig.GenerateAttributesProxyClassEnumsGlobal
-
                             , commonConfig.GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum
+
                             , commonConfig.GenerateAttributesProxyClassEnumsUseSchemaLocalEnum
                             , commonConfig.GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum
-
                             , commonConfig.GenerateAddDescriptionAttribute
-                        )
-                        {
-                            EntityMetadata = metadata
-                        };
+                        );
 
-                        string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, connectionData?.Name, config.EntityName);
+                        string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, connectionData?.Name, entityMetadata.LogicalName);
 
                         this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
@@ -461,10 +456,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput, codeGenerationServiceProvider))
                         {
-                            await handler.CreateFileAsync(filePath);
+                            await handler.CreateFileAsync(filePath, entityMetadata);
                         }
 
-                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, connectionData.Name, config.EntityName, filePath);
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, connectionData.Name, entityMetadata.LogicalName, filePath);
 
                         this._iWriteToOutput.WriteToOutputFilePathUri(connectionData, filePath);
 
@@ -560,15 +555,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!tempSelectEntity)
                 {
-                    var metadata = descriptor.MetadataSource.GetEntityMetadata(selection.ToLower());
+                    var entityMetadata = descriptor.MetadataSource.GetEntityMetadata(selection.ToLower());
 
-                    if (metadata != null)
+                    if (entityMetadata != null)
                     {
                         string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.IndentType, commonConfig.SpaceCount);
 
-                        var config = new CreateFileWithEntityMetadataCSharpConfiguration(
-                            metadata.LogicalName
-                            , tabSpacer
+                        var config = new CreateFileCSharpConfiguration(
+                            tabSpacer
                             , connectionData.NamespaceClassesCSharp
                             , connectionData.NamespaceOptionSetsCSharp
                             , commonConfig.GenerateAttributesProxyClass
@@ -591,22 +585,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             , commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
                             , commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
                             , commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
-
                             , commonConfig.GenerateAttributesProxyClassEnumsStateStatus
+
                             , commonConfig.GenerateAttributesProxyClassEnumsLocal
                             , commonConfig.GenerateAttributesProxyClassEnumsGlobal
-
                             , commonConfig.GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum
+
                             , commonConfig.GenerateAttributesProxyClassEnumsUseSchemaLocalEnum
                             , commonConfig.GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum
-
                             , commonConfig.GenerateProxyClassAddDescriptionAttribute
-                        )
-                        {
-                            EntityMetadata = metadata
-                        };
+                        );
 
-                        string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, connectionData?.Name, config.EntityName);
+                        string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, connectionData?.Name, entityMetadata.LogicalName);
 
                         this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
@@ -628,9 +618,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             VerbatimOrder = true,
                         };
 
-                        await codeGenerationService.WriteEntityFileAsync(metadata, filePath, service.ConnectionData.NamespaceClassesCSharp, options, codeGenerationServiceProvider);
+                        await codeGenerationService.WriteEntityFileAsync(entityMetadata, filePath, service.ConnectionData.NamespaceClassesCSharp, options, codeGenerationServiceProvider);
 
-                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, connectionData.Name, config.EntityName, filePath);
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, connectionData.Name, entityMetadata.LogicalName, filePath);
 
                         this._iWriteToOutput.WriteToOutputFilePathUri(connectionData, filePath);
 
@@ -726,32 +716,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!tempSelectEntity)
                 {
-                    var metadata = descriptor.MetadataSource.GetEntityMetadata(selection.ToLower());
+                    var entityMetadata = descriptor.MetadataSource.GetEntityMetadata(selection.ToLower());
 
-                    if (metadata != null)
+                    if (entityMetadata != null)
                     {
                         string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.IndentType, commonConfig.SpaceCount);
 
-                        var config = new CreateFileWithEntityMetadataJavaScriptConfiguration(
-                            metadata.LogicalName
-                            , tabSpacer
+                        var config = new CreateFileJavaScriptConfiguration(
+                            tabSpacer
                             , commonConfig.EntityMetadaOptionSetDependentComponents
                             , commonConfig.GenerateIntoSchemaClass
-                        )
-                        {
-                            EntityMetadata = metadata
-                        };
+                        );
 
-                        string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, connectionData?.Name, config.EntityName);
+                        string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, connectionData?.Name, entityMetadata.LogicalName);
 
                         this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
                         using (var handler = new CreateFileWithEntityMetadataJavaScriptHandler(config, service, _iWriteToOutput))
                         {
-                            await handler.CreateFileAsync(filePath);
+                            await handler.CreateFileAsync(filePath, entityMetadata);
                         }
 
-                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, connectionData.Name, config.EntityName, filePath);
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, connectionData.Name, entityMetadata.LogicalName, filePath);
 
                         this._iWriteToOutput.WriteToOutputFilePathUri(connectionData, filePath);
 

@@ -310,14 +310,25 @@
     <value>Creating entity {0} javascript file based on form {1}...</value>
   </data>
   <data name="CreatingFileForEntityCompletedFormat1" xml:space="preserve">
-    <value>Creating File for {0} completed.</value>
+    <value>Creating File for Entity {0} completed.</value>
   </data>
   <data name="CreatingFileForEntityFailedFormat1" xml:space="preserve">
-    <value>Creating File for {0} failed.</value>
+    <value>Creating File for Entity {0} failed.</value>
   </data>
   <data name="CreatingFileForEntityFormat1" xml:space="preserve">
-    <value>Creating File for {0}...</value>
+    <value>Creating File for Entity {0}...</value>
   </data>
+
+  <data name="CreatingFileForSdkMessageRequestCompletedFormat1" xml:space="preserve">
+    <value>Creating File for SdkMessageRequest {0} completed.</value>
+  </data>
+  <data name="CreatingFileForSdkMessageRequestFailedFormat1" xml:space="preserve">
+    <value>Creating File for SdkMessageRequest {0} failed.</value>
+  </data>
+  <data name="CreatingFileForSdkMessageRequestFormat1" xml:space="preserve">
+    <value>Creating File for SdkMessageRequest {0}...</value>
+  </data>
+  
   <data name="CreatingFileForOptionSetsCompletedFormat1" xml:space="preserve">
     <value>Creating File for OptionSets completed: {0}.</value>
   </data>
@@ -757,6 +768,14 @@
   <data name="LoadingSdkMessageRequestsCompleted" xml:space="preserve">
     <value>Loading Sdk Message Requests completed.</value>
   </data>
+
+  <data name="BuildingSdkMessageRequestTree" xml:space="preserve">
+    <value>Building Sdk Message Request Tree...</value>
+  </data>
+  <data name="BuildingSdkMessageRequestTreeCompleted" xml:space="preserve">
+    <value>Building Sdk Message Request Tree completed.</value>
+  </data>
+
   <data name="LoadingSiteMaps" xml:space="preserve">
     <value>Loading SiteMaps...</value>
   </data>

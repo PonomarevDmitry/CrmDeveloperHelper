@@ -156,13 +156,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateButtonsEnable();
 
-            if (!string.IsNullOrEmpty(_filePath))
-            {
-                txtBFolder.IsReadOnly = true;
-                txtBFolder.Background = SystemColors.InactiveSelectionHighlightBrush;
-                txtBFolder.Text = Path.GetDirectoryName(_filePath);
-            }
-
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
@@ -177,11 +170,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBNamespaceOptionSetsJavaScript.DataContext = cmBCurrentConnection;
 
             cmBFileAction.DataContext = _commonConfig;
-
-            if (string.IsNullOrEmpty(_filePath))
-            {
-                txtBFolder.DataContext = _commonConfig;
-            }
         }
 
         protected override void OnClosed(EventArgs e)

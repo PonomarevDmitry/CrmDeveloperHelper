@@ -529,7 +529,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             _commonConfig.Save();
 
-            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName, string.Empty);
+            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, _service, _commonConfig, _entityMetadata.LogicalName);
         }
 
         private void btnSiteMap_Click(object sender, RoutedEventArgs e)

@@ -1236,13 +1236,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartExportSystemFormXml(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartExportSystemFormXml(ConnectionData connectionData, CommonConfiguration commonConfig, string selection, EnvDTE.SelectedItem selectedItem)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._explorerController.ExecuteOpeningSystemFormExplorer(selection, connectionData, commonConfig);
+                    this._explorerController.ExecuteOpeningSystemFormExplorer(connectionData, commonConfig, selection, selectedItem);
                 }
                 catch (Exception ex)
                 {
@@ -1542,13 +1542,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartShowingSdkMessageRequestTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter)
+        public void StartShowingSdkMessageRequestTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter, EnvDTE.SelectedItem selectedItem)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._explorerController.ExecuteShowingSdkMessageRequestTree(connectionData, commonConfig, entityFilter, messageFilter);
+                    this._explorerController.ExecuteShowingSdkMessageRequestTree(connectionData, commonConfig, entityFilter, messageFilter, selectedItem);
                 }
                 catch (Exception ex)
                 {

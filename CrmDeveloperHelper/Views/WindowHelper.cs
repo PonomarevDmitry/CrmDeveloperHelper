@@ -414,8 +414,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string filterEntityName = null
-            , string selection = null
+        )
+        {
+            OpenSystemFormWindow(iWriteToOutput, service, commonConfig, null, null, null);
+        }
+
+        public static void OpenSystemFormWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filterEntityName
+        )
+        {
+            OpenSystemFormWindow(iWriteToOutput, service, commonConfig, filterEntityName, null, null);
+        }
+
+        public static void OpenSystemFormWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filterEntityName
+            , string selection
+        )
+        {
+            OpenSystemFormWindow(iWriteToOutput, service, commonConfig, filterEntityName, selection, null);
+        }
+
+        public static void OpenSystemFormWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filterEntityName
+            , string selection
+            , EnvDTE.SelectedItem selectedItem
         )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
@@ -427,6 +458,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , service
                         , commonConfig
                         , filterEntityName
+                        , selectedItem
                         , selection
                     );
 
@@ -676,9 +708,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            , string entityFilter = null
-            , string messageFilter = null
-            )
+        )
+        {
+            OpenSdkMessageRequestTreeWindow(iWriteToOutput, service, commonConfig, null, false, null, null, null);
+        }
+
+        public static void OpenSdkMessageRequestTreeWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+
+            , string entityFilter
+        )
+        {
+            OpenSdkMessageRequestTreeWindow(iWriteToOutput, service, commonConfig, null, false, null, entityFilter, null);
+        }
+
+        public static void OpenSdkMessageRequestTreeWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+
+            , string entityFilter
+            , string messageFilter
+        )
+        {
+            OpenSdkMessageRequestTreeWindow(iWriteToOutput, service, commonConfig, null, false, null, entityFilter, messageFilter);
+        }
+
+        public static void OpenSdkMessageRequestTreeWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+
+            , string filePath
+            , bool isJavaScript
+            , EnvDTE.SelectedItem selectedItem
+
+            , string entityFilter
+            , string messageFilter
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -688,6 +757,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput
                         , service
                         , commonConfig
+
+                        , filePath
+                        , isJavaScript
+                        , selectedItem
+
                         , entityFilter
                         , messageFilter
                     );

@@ -588,6 +588,52 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        private string _NamespaceSdkMessagesCSharp;
+        [DataMember]
+        public string NamespaceSdkMessagesCSharp
+        {
+            get => _NamespaceSdkMessagesCSharp;
+            set
+            {
+                this.OnPropertyChanging(nameof(NamespaceSdkMessagesCSharp));
+
+                if (!string.IsNullOrEmpty(value))
+                {
+                    value = value.Trim();
+                }
+                else
+                {
+                    value = string.Empty;
+                }
+
+                this._NamespaceSdkMessagesCSharp = value;
+                this.OnPropertyChanged(nameof(NamespaceSdkMessagesCSharp));
+            }
+        }
+
+        private string _NamespaceSdkMessagesJavaScript;
+        [DataMember]
+        public string NamespaceSdkMessagesJavaScript
+        {
+            get => _NamespaceSdkMessagesJavaScript;
+            set
+            {
+                this.OnPropertyChanging(nameof(NamespaceSdkMessagesJavaScript));
+
+                if (!string.IsNullOrEmpty(value))
+                {
+                    value = value.Trim();
+                }
+                else
+                {
+                    value = string.Empty;
+                }
+
+                this._NamespaceSdkMessagesJavaScript = value;
+                this.OnPropertyChanged(nameof(NamespaceSdkMessagesJavaScript));
+            }
+        }
+
         private string _ServiceContextName;
         [DataMember]
         public string ServiceContextName
@@ -1774,8 +1820,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.DefaultLanguage = diskData.DefaultLanguage;
             this.InstalledLanguagePacks = diskData.InstalledLanguagePacks;
             this.BaseCurrency = diskData.BaseCurrency;
+
             this.NamespaceClassesCSharp = diskData.NamespaceClassesCSharp;
+            this.NamespaceClassesJavaScript = diskData.NamespaceClassesJavaScript;
+
             this.NamespaceOptionSetsCSharp = diskData.NamespaceOptionSetsCSharp;
+            this.NamespaceOptionSetsJavaScript = diskData.NamespaceOptionSetsJavaScript;
+
+            this.NamespaceSdkMessagesCSharp = diskData.NamespaceSdkMessagesCSharp;
+            this.NamespaceSdkMessagesJavaScript = diskData.NamespaceSdkMessagesJavaScript;
+
             this.ServiceContextName = diskData.ServiceContextName;
             this.InteractiveLogin = diskData.InteractiveLogin;
             this.GenerateActions = diskData.GenerateActions;

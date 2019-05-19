@@ -33,6 +33,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         );
 
+        Task WriteSdkMessagePairAsync(
+            CodeGenerationSdkMessagePair sdkMessagePair
+            , string outputFilePath
+            , string outputNamespace
+            , CodeGeneratorOptions options
+            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
+        );
+
         CodeGenerationType GetTypeForOptionSet(
             EntityMetadata entityMetadata
             , OptionSetMetadata optionSetMetadata

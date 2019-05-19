@@ -480,8 +480,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int folderMenuFolder_GroupMetadata = 0x12F4;
         public const int folderMenuFolder_GroupMetadata_MenuEntityDyn = 0x12F5;
         public const int folderMenuFolder_GroupMetadata_MenuEntityDyn_GroupConnection = 0x12F6;
+        public const int folderMenuFolder_GroupMetadata_MenuSystemFormDyn = 0x132A;
+        public const int folderMenuFolder_GroupMetadata_MenuSystemFormDyn_GroupConnection = 0x132B;
         public const int folderMenuFolder_GroupMetadata_MenuGlobalOptionSetDyn = 0x1314;
         public const int folderMenuFolder_GroupMetadata_MenuGlobalOptionSetDyn_GroupConnection = 0x1315;
+        public const int folderMenuFolder_GroupMetadata_MenuSdkMessageRequestDyn = 0x1328;
+        public const int folderMenuFolder_GroupMetadata_MenuSdkMessageRequestDyn_GroupConnection = 0x1329;
         public const int folderMenuProject = 0x10F9;
         public const int folderMenuProject_GroupUpdate = 0x128D;
         public const int folderMenuProject_GroupUpdate_MenuConnectionDyn = 0x128E;
@@ -887,6 +891,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CommonImportJobExplorerInConnectionCommandId = 0x21FC;
         public const int FolderAddEntityMetadataFileInConnectionCommandId = 0x22C4;
         public const int FolderAddGlobalOptionSetFileInConnectionCommandId = 0x2486;
+        public const int FolderAddSdkMessageRequestFileInConnectionCommandId = 0x25E4;
+        public const int FolderAddSystemFormJavaScriptFileInConnectionCommandId = 0x2616;
         public const int CodeWebResourceUpdateContentPublishCommandId = 0x2000;
         public const int CodeWebResourceShowDifferenceCommandId = 0x2001;
         public const int CodeWebResourceShowDifferenceCustomCommandId = 0x2002;

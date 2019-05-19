@@ -3,10 +3,8 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
-    public class CreateFileWithEntityMetadataCSharpConfiguration
+    public class CreateFileCSharpConfiguration
     {
-        public string EntityName { get; }
-
         public string TabSpacer { get; }
 
         public string NamespaceClasses { get; }
@@ -57,8 +55,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public OptionSetExportType OptionSetExportType { get; }
 
-        public EntityMetadata EntityMetadata { get; set; }
-
         public bool WithManagedInfo { get; }
 
         public bool WithoutObsoleteAttribute { get; }
@@ -67,17 +63,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public bool AddConstructorWithAnonymousTypeObject { get; }
 
-        public bool GenerateMessages { get; }
-
-        public bool GenerateCustomActions { get; }
-
         public bool GenerateServiceContext { get; }
 
         public bool AddDescriptionAttribute { get; }
 
-        public CreateFileWithEntityMetadataCSharpConfiguration(
-            string entityName
-            , string tabSpacer
+        public CreateFileCSharpConfiguration(
+            string tabSpacer
             , string namespaceClasses
             , string namespaceGlobalOptionSets
             , bool generateAttributes
@@ -100,20 +91,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , bool withoutObsoleteAttribute
             , bool makeAllPropertiesEditable
             , bool addConstructorWithAnonymousTypeObject
-
             , ProxyClassAttributeEnums generateAttributesEnumsStateStatus
+
             , ProxyClassAttributeEnums generateAttributesEnumsLocal
             , ProxyClassAttributeEnums generateAttributesEnumsGlobal
-
             , bool generateAttributesEnumsStateStatusUseSchemaEnum
+
             , bool generateAttributesEnumsLocalUseSchemaEnum
             , ProxyClassAttributeEnumsGlobalOptionSetLocation generateAttributesEnumsGlobalUseSchemaEnum
-
             , bool addDescriptionAttribute
         )
         {
-            this.EntityName = entityName.ToLower();
             this.TabSpacer = tabSpacer;
+
             this.NamespaceClasses = namespaceClasses;
             this.NamespaceGlobalOptionSets = namespaceGlobalOptionSets;
 

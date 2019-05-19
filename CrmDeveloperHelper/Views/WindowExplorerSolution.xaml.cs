@@ -3164,7 +3164,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
+            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void btnSavedQuery_Click(object sender, RoutedEventArgs e)
@@ -3227,7 +3227,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, null, string.Empty);
+            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void btnSiteMap_Click(object sender, RoutedEventArgs e)

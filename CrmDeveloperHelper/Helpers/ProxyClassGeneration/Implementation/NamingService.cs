@@ -30,9 +30,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         private readonly List<string> _reservedAttributeNames;
 
-        private readonly CreateFileWithEntityMetadataCSharpConfiguration _config;
+        private readonly CreateFileCSharpConfiguration _config;
 
-        internal NamingService(string serviceContextName, CreateFileWithEntityMetadataCSharpConfiguration config)
+        internal NamingService(string serviceContextName, CreateFileCSharpConfiguration config)
         {
             this._serviceContextName = string.IsNullOrWhiteSpace(serviceContextName) ? typeof(OrganizationServiceContext).Name + "1" : serviceContextName;
             this._config = config;

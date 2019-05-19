@@ -408,6 +408,9 @@
   <data name="CreatingFileForEntityFormat2" xml:space="preserve">
     <value>{0} - Creating file with Entity Metadata for {1}</value>
   </data>
+  <data name="CreatingFileForSdkMessageRequestFormat2" xml:space="preserve">
+    <value>{0} - Creating file for SdkMessageRequest {1}</value>
+  </data>
   <data name="ExportingApplicationRibbonFormat1" xml:space="preserve">
     <value>{0} - Exporting Application Ribbon</value>
   </data>

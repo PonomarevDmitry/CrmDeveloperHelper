@@ -33,6 +33,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly CommonConfiguration _commonConfig;
 
+        private readonly EnvDTE.SelectedItem _selectedItem;
+
         private string _filterEntity;
 
         private readonly ObservableCollection<EntityViewItem> _itemsSource;
@@ -49,8 +51,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , string filterEntity
+            , EnvDTE.SelectedItem selectedItem
             , string selection
-            )
+        )
         {
             this.IncreaseInit();
 
@@ -59,7 +62,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput = iWriteToOutput;
             this._commonConfig = commonConfig;
             this._filterEntity = filterEntity;
-
+            this._selectedItem = selectedItem;
 
             _connectionCache[service.ConnectionData.ConnectionId] = service;
 
@@ -92,6 +95,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBFilter.SelectionStart = txtBFilter.Text.Length;
 
             txtBFilter.Focus();
+
+            if (this._selectedItem != null)
+            {
+                string exportFolder = string.Empty;
+
+                if (_selectedItem.ProjectItem != null)
+                {
+                    exportFolder = _selectedItem.ProjectItem.FileNames[1];
+                }
+                else if (_selectedItem.Project != null)
+                {
+                    string relativePath = DTEHelper.GetRelativePath(_selectedItem.Project);
+
+                    string solutionPath = Path.GetDirectoryName(_selectedItem.DTE.Solution.FullName);
+
+                    exportFolder = Path.Combine(solutionPath, relativePath);
+                }
+
+                if (!Directory.Exists(exportFolder))
+                {
+                    Directory.CreateDirectory(exportFolder);
+                }
+
+                txtBFolder.IsReadOnly = true;
+                txtBFolder.Background = SystemColors.InactiveSelectionHighlightBrush;
+                txtBFolder.Text = exportFolder;
+            }
+            else
+            {
+                Binding binding = new Binding
+                {
+                    Path = new PropertyPath("FolderForExport")
+                };
+                BindingOperations.SetBinding(txtBFolder, TextBox.TextProperty, binding);
+
+                txtBFolder.DataContext = _commonConfig;
+            }
 
             this._itemsSource = new ObservableCollection<EntityViewItem>();
 
@@ -1222,6 +1262,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string fileName = string.Format("{0}.{1}_form_main.js", service.ConnectionData.Name, entityName);
 
+            if (this._selectedItem != null)
+            {
+                fileName = string.Format("{0}_form_main.js",  entityName);
+            }
+
             var repository = new SystemFormRepository(service);
 
             var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(SystemForm.Schema.Attributes.formxml));
@@ -1236,9 +1281,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
 
-                    var config = new CreateFileWithEntityMetadataJavaScriptConfiguration(
-                        entityName
-                        , tabSpacer
+                    var config = new CreateFileJavaScriptConfiguration(
+                        tabSpacer
                         , _commonConfig.EntityMetadaOptionSetDependentComponents
                         , _commonConfig.GenerateIntoSchemaClass
                     );
@@ -1251,7 +1295,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     using (var handlerCreate = new CreateFormTabsJavaScriptHandler(config, javaScriptObjectType, service))
                     {
-                        await handlerCreate.CreateFileAsync(filePath, tabs);
+                        await handlerCreate.CreateFileAsync(filePath, entityName, tabs);
+                    }
+
+                    if (this._selectedItem != null)
+                    {
+                        if (_selectedItem.ProjectItem != null)
+                        {
+                            _selectedItem.ProjectItem.ProjectItems.AddFromFileCopy(filePath);
+
+                            _selectedItem.ProjectItem.ContainingProject.Save();
+                        }
+                        else if (_selectedItem.Project != null)
+                        {
+                            _selectedItem.Project.ProjectItems.AddFromFile(filePath);
+
+                            _selectedItem.Project.Save();
+                        }
                     }
 
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, name, "Entity Metadata", filePath);
@@ -1674,7 +1734,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.ObjectTypeCode, string.Empty);
+            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.ObjectTypeCode);
         }
 
         private async void btnOrganizationComparer_Click(object sender, RoutedEventArgs e)

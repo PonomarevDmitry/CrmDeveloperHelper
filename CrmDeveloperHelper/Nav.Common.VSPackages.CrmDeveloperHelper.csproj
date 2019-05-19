@@ -292,6 +292,8 @@
     <Compile Include="Commands\FileXmlSetXsdSchemaCommand.cs" />
     <Compile Include="Commands\FolderAddEntityMetadataFileInConnectionCommand.cs" />
     <Compile Include="Commands\FolderAddGlobalOptionSetFileInConnectionCommand.cs" />
+    <Compile Include="Commands\FolderAddSdkMessageRequestFileInConnectionCommand.cs" />
+    <Compile Include="Commands\FolderAddSystemFormJavaScriptFileInConnectionCommand.cs" />
     <Compile Include="Commands\FolderCSharpProjectPluginAssemblyAddIntoSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\FolderCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.cs" />
     <Compile Include="Commands\FolderCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand.cs" />
@@ -700,9 +702,9 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\ContentCoparerHelper.cs" />
     <Compile Include="Helpers\CreateFileHandler.cs" />
-    <Compile Include="Helpers\CreateFileWithEntityMetadataCSharpConfiguration.cs" />
+    <Compile Include="Helpers\CreateFileCSharpConfiguration.cs" />
     <Compile Include="Helpers\CreateFileWithEntityMetadataCSharpHandler.cs" />
-    <Compile Include="Helpers\CreateFileWithEntityMetadataJavaScriptConfiguration.cs" />
+    <Compile Include="Helpers\CreateFileJavaScriptConfiguration.cs" />
     <Compile Include="Helpers\CreateFileWithEntityMetadataJavaScriptHandler.cs" />
     <Compile Include="Helpers\CreateFormTabsJavaScriptHandler.cs" />
     <Compile Include="Helpers\CreateGlobalOptionSetsFileCSharpHandler.cs" />
@@ -906,6 +908,10 @@
     <Compile Include="Model\Backup\Role.cs" />
     <Compile Include="Model\Backup\RolePrivilege.cs" />
     <Compile Include="Model\CommonConfiguration.cs" />
+    <Compile Include="Model\CommonConfiguration.ExportRibbonSettings.cs" />
+    <Compile Include="Model\CommonConfiguration.ProxyClassGeneration.cs" />
+    <Compile Include="Model\CommonConfiguration.SchemaGeneration.cs" />
+    <Compile Include="Model\CommonConfiguration.XmlSettings.cs" />
     <Compile Include="Model\ConnectionConfiguration.cs" />
     <Compile Include="Model\ConnectionData.cs" />
     <Compile Include="Model\ConnectionData.Urls.cs" />

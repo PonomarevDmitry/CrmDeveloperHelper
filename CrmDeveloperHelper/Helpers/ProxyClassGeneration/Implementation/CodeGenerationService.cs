@@ -38,9 +38,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         private static readonly string ParametersPropertyName = "Parameters";
         private static readonly string ResultsPropertyName = "Results";
 
-        private readonly CreateFileWithEntityMetadataCSharpConfiguration _config;
+        private readonly CreateFileCSharpConfiguration _config;
 
-        public CodeGenerationService(CreateFileWithEntityMetadataCSharpConfiguration config)
+        public CodeGenerationService(CreateFileCSharpConfiguration config)
         {
             this._config = config;
         }
@@ -56,28 +56,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         )
         {
             return Task.Run(() => this.WriteEntitiesFile(entities, optionSets, messages, outputFilePath, outputNamespace, options, iCodeGenerationServiceProvider));
-        }
-
-        public Task WriteEntityFileAsync(
-            EntityMetadata entityMetadata
-            , string outputFilePath
-            , string outputNamespace
-            , CodeGeneratorOptions options
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
-        {
-            return Task.Run(() => this.WriteEntityFile(entityMetadata, outputFilePath, outputNamespace, options, iCodeGenerationServiceProvider));
-        }
-
-        public Task WriteSdkMessageAsync(
-            CodeGenerationSdkMessage sdkMessage
-            , string outputFilePath
-            , string outputNamespace
-            , CodeGeneratorOptions options
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
-        {
-            return Task.Run(() => this.WriteSdkMessage(sdkMessage, outputFilePath, outputNamespace, options, iCodeGenerationServiceProvider));
         }
 
         private void WriteEntitiesFile(
@@ -96,7 +74,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             codeNamespace.Types.AddRange(this.BuildGlobalOptionSets(optionSets, iCodeGenerationServiceProvider));
 
-            codeNamespace.Types.AddRange(this.BuildMessages(messages, iCodeGenerationServiceProvider));
+            codeNamespace.Types.AddRange(this.BuildSdkMessagesEnumerable(messages, iCodeGenerationServiceProvider));
 
             codeNamespace.Types.AddRange(this.BuildServiceContext(entities, iCodeGenerationServiceProvider));
 
@@ -113,6 +91,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                     provider.GenerateCodeFromCompileUnit(codeCompileUnit, streamWriter, options);
                 }
             }
+        }
+
+        public Task WriteEntityFileAsync(
+            EntityMetadata entityMetadata
+            , string outputFilePath
+            , string outputNamespace
+            , CodeGeneratorOptions options
+            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
+        )
+        {
+            return Task.Run(() => this.WriteEntityFile(entityMetadata, outputFilePath, outputNamespace, options, iCodeGenerationServiceProvider));
         }
 
         private void WriteEntityFile(
@@ -140,6 +129,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             }
         }
 
+        public Task WriteSdkMessageAsync(
+            CodeGenerationSdkMessage sdkMessage
+            , string outputFilePath
+            , string outputNamespace
+            , CodeGeneratorOptions options
+            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
+        )
+        {
+            return Task.Run(() => this.WriteSdkMessage(sdkMessage, outputFilePath, outputNamespace, options, iCodeGenerationServiceProvider));
+        }
+
         private void WriteSdkMessage(
             CodeGenerationSdkMessage sdkMessage
             , string outputFilePath
@@ -150,7 +150,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         {
             var codeNamespace = Namespace(outputNamespace);
 
-            codeNamespace.Types.AddRange(this.BuildMessage(sdkMessage, iCodeGenerationServiceProvider));
+            codeNamespace.Types.AddRange(this.BuildSdkMessage(sdkMessage, iCodeGenerationServiceProvider));
+
+            var codeCompileUnit = new CodeCompileUnit();
+
+            codeCompileUnit.Namespaces.Add(codeNamespace);
+
+            using (var streamWriter = new StreamWriter(outputFilePath))
+            {
+                using (var provider = CodeDomProvider.CreateProvider("CSharp"))
+                {
+                    provider.GenerateCodeFromCompileUnit(codeCompileUnit, streamWriter, options);
+                }
+            }
+        }
+
+        public Task WriteSdkMessagePairAsync(
+            CodeGenerationSdkMessagePair sdkMessagePair
+            , string outputFilePath
+            , string outputNamespace
+            , CodeGeneratorOptions options
+            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
+        )
+        {
+            return Task.Run(() => this.WriteSdkMessagePair(sdkMessagePair, outputFilePath, outputNamespace, options, iCodeGenerationServiceProvider));
+        }
+
+        private void WriteSdkMessagePair(
+            CodeGenerationSdkMessagePair sdkMessagePair
+            , string outputFilePath
+            , string outputNamespace
+            , CodeGeneratorOptions options
+            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
+        )
+        {
+            var codeNamespace = Namespace(outputNamespace);
+
+            codeNamespace.Types.AddRange(this.BuildSdkMessagePair(sdkMessagePair, iCodeGenerationServiceProvider));
 
             var codeCompileUnit = new CodeCompileUnit();
 
@@ -210,7 +246,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         public CodeGenerationType GetTypeForRequestField(
             CodeGenerationSdkMessageRequest request
-            , Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageRequestField requestField
+            , Entities.SdkMessageRequestField requestField
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
@@ -219,7 +255,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         public CodeGenerationType GetTypeForResponseField(
             CodeGenerationSdkMessageResponse response
-            , Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageResponseField responseField
+            , Entities.SdkMessageResponseField responseField
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
@@ -1156,7 +1192,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                 result.Add(this.InvokeOnPropertyChanging(baseAttributeName));
             }
 
-            result.Add(If(Or(ValueNull(), Equal(StaticMethodInvoke(typeof(Enumerable), "Any", enumTypeRef, VarRef("value")), new CodePrimitiveExpression(false)))
+            result.Add(If(Or(ValueNull(), Equal(StaticMethodInvoke(typeof(Enumerable), "Any", enumTypeRef, VarRef("value")), False()))
                 , ThisMethodInvoke("SetAttributeValue", attributeNameRef, Null())
 
                 , ThisMethodInvoke("SetAttributeValue", attributeNameRef
@@ -1689,44 +1725,56 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return codeMemberProperty;
         }
 
-        private CodeTypeDeclarationCollection BuildMessages(
+        private CodeTypeDeclarationCollection BuildSdkMessagesEnumerable(
             IEnumerable<CodeGenerationSdkMessage> sdkMessages
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
             var declarationCollection = new CodeTypeDeclarationCollection();
 
-            foreach (var sdkMessage in sdkMessages)
+            foreach (var sdkMessage in sdkMessages.OrderBy(m => m.Name))
             {
                 if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateSdkMessage(sdkMessage, iCodeGenerationServiceProvider))
                 {
-                    declarationCollection.AddRange(this.BuildMessage(sdkMessage, iCodeGenerationServiceProvider));
+                    declarationCollection.AddRange(this.BuildSdkMessage(sdkMessage, iCodeGenerationServiceProvider));
                 }
             }
 
             return declarationCollection;
         }
 
-        private CodeTypeDeclarationCollection BuildMessage(
+        private CodeTypeDeclarationCollection BuildSdkMessage(
             CodeGenerationSdkMessage message
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
             var declarationCollection = new CodeTypeDeclarationCollection();
 
-            foreach (var sdkMessagePair in message.SdkMessagePairs.Values)
+            foreach (var sdkMessagePair in message.SdkMessagePairs.Values.OrderBy(p => p.Request.Name))
             {
                 if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateSdkMessagePair(sdkMessagePair, iCodeGenerationServiceProvider))
                 {
-                    declarationCollection.Add(this.BuildMessageRequest(sdkMessagePair, sdkMessagePair.Request, iCodeGenerationServiceProvider));
-                    declarationCollection.Add(this.BuildMessageResponse(sdkMessagePair, sdkMessagePair.Response, iCodeGenerationServiceProvider));
+                    declarationCollection.AddRange(this.BuildSdkMessagePair(sdkMessagePair, iCodeGenerationServiceProvider));
                 }
             }
 
             return declarationCollection;
         }
 
-        private CodeTypeDeclaration BuildMessageRequest(
+        private CodeTypeDeclarationCollection BuildSdkMessagePair(
+            CodeGenerationSdkMessagePair sdkMessagePair
+            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
+        )
+        {
+            var declarationCollection = new CodeTypeDeclarationCollection();
+
+            declarationCollection.Add(this.BuildSdkMessageRequest(sdkMessagePair, sdkMessagePair.Request, iCodeGenerationServiceProvider));
+            declarationCollection.Add(this.BuildSdkMessageResponse(sdkMessagePair, sdkMessagePair.Response, iCodeGenerationServiceProvider));
+
+            return declarationCollection;
+        }
+
+        private CodeTypeDeclaration BuildSdkMessageRequest(
             CodeGenerationSdkMessagePair messagePair
             , CodeGenerationSdkMessageRequest sdkMessageRequest
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
@@ -1734,7 +1782,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         {
             var requestClass = this.Class(string.Format(CultureInfo.InvariantCulture, "{0}{1}", iCodeGenerationServiceProvider.NamingService.GetNameForMessagePair(messagePair, iCodeGenerationServiceProvider), RequestClassSuffix), RequestClassBaseType, Attribute(typeof(DataContractAttribute), AttributeArg("Namespace", messagePair.MessageNamespace)), Attribute(typeof(RequestProxyAttribute), AttributeArg(null, messagePair.Request.Name)));
 
-            var flag = false;
+            var hasGenericTypeParameter = false;
 
             var statementCollection = new CodeStatementCollection();
 
@@ -1746,7 +1794,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
                     if (requestField.Type.Options == CodeTypeReferenceOptions.GenericTypeParameter)
                     {
-                        flag = true;
+                        hasGenericTypeParameter = true;
                         this.ConvertRequestToGeneric(messagePair, requestClass, requestField);
                     }
 
@@ -1759,10 +1807,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                 }
             }
 
-            if (!flag)
+            if (!hasGenericTypeParameter)
             {
                 var codeConstructor = this.Constructor();
-                codeConstructor.Statements.Add(AssignProp(RequestNamePropertyName, new CodePrimitiveExpression(messagePair.Request.Name)));
+                codeConstructor.Statements.Add(AssignProp(RequestNamePropertyName, StringLiteral(messagePair.Request.Name)));
                 codeConstructor.Statements.AddRange(statementCollection);
                 requestClass.Members.Add(codeConstructor);
             }
@@ -1788,12 +1836,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             requestClass.Members.Add(this.Constructor((CodeExpression)New(requestField.Type)));
 
             var codeConstructor = this.Constructor(Param(requestField.Type, "target"), (CodeStatement)AssignProp(requestField.Name, VarRef("target")));
-            codeConstructor.Statements.Add(AssignProp(RequestNamePropertyName, new CodePrimitiveExpression(messagePair.Request.Name)));
+            codeConstructor.Statements.Add(AssignProp(RequestNamePropertyName, StringLiteral(messagePair.Request.Name)));
 
             requestClass.Members.Add(codeConstructor);
         }
 
-        private CodeTypeDeclaration BuildMessageResponse(
+        private CodeTypeDeclaration BuildSdkMessageResponse(
             CodeGenerationSdkMessagePair messagePair
             , CodeGenerationSdkMessageResponse sdkMessageResponse
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
@@ -1818,7 +1866,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         private CodeMemberProperty BuildRequestFieldProperty(
             CodeGenerationSdkMessageRequest request
-            , Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageRequestField field
+            , Entities.SdkMessageRequestField field
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
@@ -1841,7 +1889,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         }
 
         private static CodeStatement BuildRequestFieldGetStatement(
-            Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageRequestField field
+            Entities.SdkMessageRequestField field
             , CodeTypeReference targetType
         )
         {
@@ -1849,7 +1897,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         }
 
         private static CodeAssignStatement BuildRequestFieldSetStatement(
-            Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageRequestField field
+            Entities.SdkMessageRequestField field
         )
         {
             return AssignValue(PropertyIndexer(ParametersPropertyName, field.Name));
@@ -1857,7 +1905,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         private CodeMemberProperty BuildResponseFieldProperty(
             CodeGenerationSdkMessageResponse response
-            , Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageResponseField field
+            , Entities.SdkMessageResponseField field
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
@@ -1879,7 +1927,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         }
 
         private static CodeStatement BuildResponseFieldGetStatement(
-            Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageResponseField field
+            Entities.SdkMessageResponseField field
             , CodeTypeReference targetType
         )
         {
@@ -2382,7 +2430,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         {
             return new CodeIndexerExpression(ThisProp(propertyName), new CodeExpression[1]
             {
-                new CodePrimitiveExpression( index)
+                new CodePrimitiveExpression(index)
             });
         }
 

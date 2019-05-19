@@ -26,7 +26,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public IOrganizationServiceExtented _service;
 
-        private readonly CreateFileWithEntityMetadataCSharpConfiguration _config;
+        private readonly CreateFileCSharpConfiguration _config;
 
         private Task<List<StringMap>> _listStringMap;
         private Task<List<AttributeMap>> _listAttributeMap;
@@ -37,7 +37,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private readonly ICodeGenerationServiceProvider _iCodeGenerationServiceProvider;
 
         public CreateFileWithEntityMetadataCSharpHandler(
-            CreateFileWithEntityMetadataCSharpConfiguration config
+            CreateFileCSharpConfiguration config
             , IOrganizationServiceExtented service
             , IWriteToOutput iWriteToOutput
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
@@ -56,22 +56,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this._descriptorHandler = new DependencyDescriptionHandler(_solutionComponentDescriptor);
         }
 
-        public Task CreateFileAsync(string filePath)
+        public Task CreateFileAsync(string filePath, string entityLogicalName)
         {
-            return Task.Run(async () => await CreateFile(filePath));
+            return Task.Run(async () => await CreateFile(filePath, entityLogicalName, null));
         }
 
-        private async Task CreateFile(string filePath)
+        public Task CreateFileAsync(string filePath, EntityMetadata entityMetadata)
         {
-            if (_config.EntityMetadata == null)
+            return Task.Run(async () => await CreateFile(filePath, entityMetadata.LogicalName, entityMetadata));
+        }
+
+        private async Task CreateFile(string filePath, string entityLogicalName, EntityMetadata entityMetadata)
+        {
+            if (entityMetadata == null)
             {
-                this._entityMetadata = this._solutionComponentDescriptor.MetadataSource.GetEntityMetadata(_config.EntityName);
+                this._entityMetadata = this._solutionComponentDescriptor.MetadataSource.GetEntityMetadata(entityLogicalName);
             }
             else
             {
-                this._entityMetadata = _config.EntityMetadata;
+                this._entityMetadata = entityMetadata;
 
-                this._solutionComponentDescriptor.MetadataSource.StoreEntityMetadata(_config.EntityMetadata);
+                this._solutionComponentDescriptor.MetadataSource.StoreEntityMetadata(entityMetadata);
             }
 
             HashSet<string> hashSet = GetLinkedEntities(this._entityMetadata);

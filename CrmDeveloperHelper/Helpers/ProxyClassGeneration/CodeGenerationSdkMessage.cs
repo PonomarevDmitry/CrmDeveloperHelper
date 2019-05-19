@@ -21,11 +21,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         public Dictionary<Guid, Entities.SdkMessageFilter> SdkMessageFilters { get; }
 
         public CodeGenerationSdkMessage(Guid id, string name, bool isPrivate)
-          : this(id, name, isPrivate, 0)
+            : this(id, name, isPrivate, 0)
         {
         }
 
-        internal CodeGenerationSdkMessage(Guid id, string name, bool isPrivate, byte customizationLevel)
+        internal CodeGenerationSdkMessage(Guid id, string name, bool isPrivate, int customizationLevel)
         {
             this.Id = id;
             this.IsPrivate = isPrivate;

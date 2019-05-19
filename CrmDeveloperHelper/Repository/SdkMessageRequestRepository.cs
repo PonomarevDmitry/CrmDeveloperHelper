@@ -25,9 +25,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public Task<List<SdkMessageRequest>> GetListAsync(string filterEntity, string messageName, ColumnSet columnSet)
+        public Task<List<SdkMessageRequest>> GetListAsync(string filterEntity, string messageName, string endpointName, ColumnSet columnSet)
         {
-            return Task.Run(() => GetList(filterEntity, messageName, columnSet));
+            return Task.Run(() => GetList(filterEntity, messageName, endpointName, columnSet));
         }
 
         /// <summary>
@@ -35,9 +35,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        private List<SdkMessageRequest> GetList(string filterEntity, string messageName, ColumnSet columnSet)
+        private List<SdkMessageRequest> GetList(string filterEntity, string messageName, string endpointName, ColumnSet columnSet)
         {
-            LinkEntity linkEntityMessage = new LinkEntity()
+            var linkEntityMessage = new LinkEntity()
             {
                 LinkFromEntityName = SdkMessagePair.EntityLogicalName,
                 LinkFromAttributeName = SdkMessagePair.Schema.Attributes.sdkmessageid,
@@ -50,6 +50,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 Columns = new ColumnSet(SdkMessage.Schema.Attributes.name),
             };
 
+            var linkEntityPair = new LinkEntity()
+            {
+                LinkFromEntityName = SdkMessageRequest.EntityLogicalName,
+                LinkFromAttributeName = SdkMessageRequest.Schema.Attributes.sdkmessagepairid,
+
+                LinkToEntityName = SdkMessagePair.EntityLogicalName,
+                LinkToAttributeName = SdkMessagePair.EntityPrimaryIdAttribute,
+
+                EntityAlias = SdkMessageRequest.Schema.Attributes.sdkmessagepairid,
+
+                Columns = new ColumnSet(SdkMessagePair.Schema.Attributes.@namespace, SdkMessagePair.Schema.Attributes.endpoint, SdkMessagePair.Schema.Attributes.sdkmessageid),
+
+                LinkEntities =
+                {
+                    linkEntityMessage,
+                },
+            };
+
             QueryExpression query = new QueryExpression()
             {
                 EntityName = SdkMessageRequest.EntityLogicalName,
@@ -60,23 +78,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 LinkEntities =
                 {
-                    new LinkEntity()
-                    {
-                        LinkFromEntityName = SdkMessageRequest.EntityLogicalName,
-                        LinkFromAttributeName = SdkMessageRequest.Schema.Attributes.sdkmessagepairid,
-
-                        LinkToEntityName = SdkMessagePair.EntityLogicalName,
-                        LinkToAttributeName = SdkMessagePair.EntityPrimaryIdAttribute,
-
-                        EntityAlias = SdkMessageRequest.Schema.Attributes.sdkmessagepairid,
-
-                        Columns = new ColumnSet(SdkMessagePair.Schema.Attributes.@namespace, SdkMessagePair.Schema.Attributes.endpoint, SdkMessagePair.Schema.Attributes.sdkmessageid),
-
-                        LinkEntities =
-                        {
-                            linkEntityMessage,
-                        },
-                    }
+                    linkEntityPair,
                 },
 
                 PageInfo = new PagingInfo()
@@ -89,6 +91,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             if (!string.IsNullOrEmpty(messageName))
             {
                 linkEntityMessage.LinkCriteria.Conditions.Add(new ConditionExpression(SdkMessage.Schema.Attributes.name, ConditionOperator.Like, messageName + "%"));
+            }
+
+            if (!string.IsNullOrEmpty(endpointName))
+            {
+                linkEntityPair.LinkCriteria.Conditions.Add(new ConditionExpression(SdkMessagePair.Schema.Attributes.endpoint, ConditionOperator.Like, endpointName + "%"));
             }
 
             var result = new List<SdkMessageRequest>();
@@ -238,6 +245,75 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     {
                         new ConditionExpression(SdkMessageRequest.Schema.Attributes.sdkmessagepairid, ConditionOperator.Equal, idPair),
                     },
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new List<SdkMessageRequest>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SdkMessageRequest>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
+            }
+
+            return result;
+        }
+
+        public Task<List<SdkMessageRequest>> GetListByMessageAsync(Guid idMessage, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetListByMessage(idMessage, columnSet));
+        }
+
+        private List<SdkMessageRequest> GetListByMessage(Guid idMessage, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                EntityName = SdkMessageRequest.EntityLogicalName,
+
+                NoLock = true,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                LinkEntities =
+                {
+                    new LinkEntity()
+                    {
+                        LinkFromEntityName = SdkMessageRequest.EntityLogicalName,
+                        LinkFromAttributeName = SdkMessageRequest.Schema.Attributes.sdkmessagepairid,
+
+                        LinkToEntityName = SdkMessagePair.EntityLogicalName,
+                        LinkToAttributeName = SdkMessagePair.EntityPrimaryIdAttribute,
+
+                        LinkCriteria =
+                        {
+                            Conditions =
+                            {
+                                new ConditionExpression(SdkMessagePair.Schema.Attributes.sdkmessageid, ConditionOperator.Equal, idMessage),
+                            },
+                        },
+                    }
                 },
 
                 PageInfo = new PagingInfo()

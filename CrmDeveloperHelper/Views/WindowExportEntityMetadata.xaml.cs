@@ -526,7 +526,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName, string.Empty);
+            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName);
         }
 
         private async void miSavedQuery_Click(object sender, RoutedEventArgs e)
@@ -601,7 +601,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName, string.Empty);
+            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.EntityLogicalName);
         }
 
         private async void miOrganizationComparer_Click(object sender, RoutedEventArgs e)
@@ -743,12 +743,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task ExecuteActionAsync(EntityMetadataListViewItem entityMetadata, Func<string, EntityMetadataListViewItem, Task> action)
         {
-            string folder = txtBFolder.Text.Trim();
-
             if (!this.IsControlsEnabled)
             {
                 return;
             }
+
+            string folder = txtBFolder.Text.Trim();
 
             if (string.IsNullOrEmpty(folder))
             {
@@ -776,9 +776,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
 
-                var config = new CreateFileWithEntityMetadataCSharpConfiguration(
-                    entityMetadata.EntityLogicalName
-                    , tabSpacer
+                var config = new CreateFileCSharpConfiguration(
+                    tabSpacer
                     , service.ConnectionData.NamespaceClassesCSharp
                     , service.ConnectionData.NamespaceOptionSetsCSharp
                     , _commonConfig.GenerateAttributesSchema
@@ -801,15 +800,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , _commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
                     , _commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
                     , _commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
-
                     , _commonConfig.GenerateAttributesProxyClassEnumsStateStatus
+
                     , _commonConfig.GenerateAttributesProxyClassEnumsLocal
                     , _commonConfig.GenerateAttributesProxyClassEnumsGlobal
-
                     , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum
+
                     , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaLocalEnum
                     , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum
-
                     , _commonConfig.GenerateAddDescriptionAttribute
                 );
 
@@ -839,7 +837,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput, codeGenerationServiceProvider))
                 {
-                    await handler.CreateFileAsync(filePath);
+                    await handler.CreateFileAsync(filePath, entityMetadata.EntityLogicalName);
                 }
 
                 if (this._selectedItem != null)
@@ -858,7 +856,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.EntityLogicalName, filePath);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
@@ -888,9 +886,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
 
-                var config = new CreateFileWithEntityMetadataCSharpConfiguration(
-                    entityMetadata.EntityLogicalName
-                    , tabSpacer
+                var config = new CreateFileCSharpConfiguration(
+                    tabSpacer
                     , service.ConnectionData.NamespaceClassesCSharp
                     , service.ConnectionData.NamespaceOptionSetsCSharp
                     , _commonConfig.GenerateAttributesProxyClass
@@ -913,15 +910,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , _commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
                     , _commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
                     , _commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
-
                     , _commonConfig.GenerateAttributesProxyClassEnumsStateStatus
+
                     , _commonConfig.GenerateAttributesProxyClassEnumsLocal
                     , _commonConfig.GenerateAttributesProxyClassEnumsGlobal
-
                     , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum
+
                     , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaLocalEnum
                     , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum
-
                     , _commonConfig.GenerateProxyClassAddDescriptionAttribute
                 );
 
@@ -1022,9 +1018,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
 
-            var config = new CreateFileWithEntityMetadataJavaScriptConfiguration(
-                entityMetadata.EntityLogicalName
-                , tabSpacer
+            var config = new CreateFileJavaScriptConfiguration(
+                tabSpacer
                 , _commonConfig.EntityMetadaOptionSetDependentComponents
                 , _commonConfig.GenerateIntoSchemaClass
             );
@@ -1047,9 +1042,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 using (var handler = new CreateFileWithEntityMetadataJavaScriptHandler(config, service, _iWriteToOutput))
                 {
-                    await handler.CreateFileAsync(filePath);
+                    await handler.CreateFileAsync(filePath, entityMetadata.EntityLogicalName);
 
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.EntityLogicalName, filePath);
 
                     this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
                 }

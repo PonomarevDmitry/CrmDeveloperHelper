@@ -268,7 +268,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Экспортирование System Form FormXml.
 
-        public async Task ExecuteOpeningSystemFormExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpeningSystemFormExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection, EnvDTE.SelectedItem selectedItem)
         {
             string operation = string.Format(Properties.OperationNames.ExportingSystemFormXmlFormat1, connectionData?.Name);
 
@@ -276,7 +276,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await OpeningSystemFormExplorer(selection, connectionData, commonConfig);
+                await OpeningSystemFormExplorer(connectionData, commonConfig, selection, selectedItem);
             }
             catch (Exception ex)
             {
@@ -288,7 +288,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task OpeningSystemFormExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task OpeningSystemFormExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string selection, EnvDTE.SelectedItem selectedItem)
         {
             if (connectionData == null)
             {
@@ -311,7 +311,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, commonConfig, string.Empty, selection);
+            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, commonConfig, string.Empty, selection, selectedItem);
         }
 
         #endregion Экспортирование System Form FormXml.
@@ -778,7 +778,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region SdkMessageRequest Tree
 
-        public async Task ExecuteShowingSdkMessageRequestTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter)
+        public async Task ExecuteShowingSdkMessageRequestTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter, EnvDTE.SelectedItem selectedItem)
         {
             string operation = string.Format(Properties.OperationNames.ShowingSdkMessageRequestTreeFormat1, connectionData?.Name);
 
@@ -786,7 +786,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await ShowingSdkMessageRequestTree(connectionData, commonConfig, entityFilter, messageFilter);
+                await ShowingSdkMessageRequestTree(connectionData, commonConfig, entityFilter, messageFilter, selectedItem);
             }
             catch (Exception ex)
             {
@@ -798,7 +798,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task ShowingSdkMessageRequestTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter)
+        private async Task ShowingSdkMessageRequestTree(ConnectionData connectionData, CommonConfiguration commonConfig, string entityFilter, string messageFilter, EnvDTE.SelectedItem selectedItem)
         {
             if (connectionData == null)
             {
@@ -821,7 +821,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, commonConfig, entityFilter, messageFilter);
+            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, commonConfig, null, false, selectedItem, entityFilter, messageFilter);
         }
 
         #endregion SdkMessageRequest Tree

@@ -133,6 +133,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return result;
         }
 
+        public Task<SdkMessageResponse> GetByIdAsync(Guid idSdkMessageResponse, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetById(idSdkMessageResponse, columnSet));
+        }
+
+        private SdkMessageResponse GetById(Guid idSdkMessageResponse, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                TopCount = 2,
+
+                EntityName = SdkMessageResponse.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(SdkMessageResponse.EntityPrimaryIdAttribute, ConditionOperator.Equal, idSdkMessageResponse),
+                    },
+                },
+            };
+
+            var coll = _service.RetrieveMultiple(query).Entities;
+
+            return coll.Count == 1 ? coll.Select(e => e.ToEntity<SdkMessageResponse>()).SingleOrDefault() : null;
+        }
+
         public Task<List<SdkMessageResponse>> GetListByPairAsync(Guid idPair, ColumnSet columnSet)
         {
             return Task.Run(() => GetListByPair(idPair, columnSet));
@@ -202,35 +233,85 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return result;
         }
 
-        public Task<SdkMessageResponse> GetByIdAsync(Guid idSdkMessageResponse, ColumnSet columnSet)
+        public Task<List<SdkMessageResponse>> GetListByMessageAsync(Guid idMessage, ColumnSet columnSet)
         {
-            return Task.Run(() => GetById(idSdkMessageResponse, columnSet));
+            return Task.Run(() => GetListByMessage(idMessage, columnSet));
         }
 
-        private SdkMessageResponse GetById(Guid idSdkMessageResponse, ColumnSet columnSet)
+        private List<SdkMessageResponse> GetListByMessage(Guid idMessage, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {
-                NoLock = true,
-
-                TopCount = 2,
-
                 EntityName = SdkMessageResponse.EntityLogicalName,
+
+                NoLock = true,
 
                 ColumnSet = columnSet ?? new ColumnSet(true),
 
-                Criteria =
+                LinkEntities =
                 {
-                    Conditions =
+                    new LinkEntity()
                     {
-                        new ConditionExpression(SdkMessageResponse.EntityPrimaryIdAttribute, ConditionOperator.Equal, idSdkMessageResponse),
+                        LinkFromEntityName = SdkMessageResponse.EntityLogicalName,
+                        LinkFromAttributeName = SdkMessageResponse.Schema.Attributes.sdkmessagerequestid,
+
+                        LinkToEntityName = SdkMessageRequest.EntityLogicalName,
+                        LinkToAttributeName = SdkMessageRequest.EntityPrimaryIdAttribute,
+
+                        LinkEntities =
+                        {
+                            new LinkEntity()
+                            {
+                                LinkFromEntityName = SdkMessageRequest.EntityLogicalName,
+                                LinkFromAttributeName = SdkMessageRequest.Schema.Attributes.sdkmessagepairid,
+
+                                LinkToEntityName = SdkMessagePair.EntityLogicalName,
+                                LinkToAttributeName = SdkMessagePair.EntityPrimaryIdAttribute,
+
+                                LinkCriteria =
+                                {
+                                    Conditions =
+                                    {
+                                        new ConditionExpression(SdkMessagePair.Schema.Attributes.sdkmessageid, ConditionOperator.Equal, idMessage),
+                                    },
+                                },
+                            }
+                        },
                     },
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
                 },
             };
 
-            var coll = _service.RetrieveMultiple(query).Entities;
+            var result = new List<SdkMessageResponse>();
 
-            return coll.Count == 1 ? coll.Select(e => e.ToEntity<SdkMessageResponse>()).SingleOrDefault() : null;
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SdkMessageResponse>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
+            }
+
+            return result;
         }
     }
 }

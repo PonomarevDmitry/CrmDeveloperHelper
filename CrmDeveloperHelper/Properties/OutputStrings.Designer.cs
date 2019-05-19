@@ -178,6 +178,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. For SdkMessageRequest &apos;{1}&apos; created proxy class: {2}.
+        /// </summary>
+        internal static string CreatedSdkMessageRequestFileForConnectionFormat3 {
+            get {
+                return ResourceManager.GetString("CreatedSdkMessageRequestFileForConnectionFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current Connection: {0}.
         /// </summary>
         internal static string CurrentConnectionFormat1 {

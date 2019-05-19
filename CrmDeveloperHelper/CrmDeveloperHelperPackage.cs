@@ -290,7 +290,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FolderAddSolutionFileCommand.Initialize(this);
             FolderAddEntityMetadataFileInConnectionCommand.Initialize(this);
             FolderAddGlobalOptionSetFileInConnectionCommand.Initialize(this);
-
+            FolderAddSdkMessageRequestFileInConnectionCommand.Initialize(this);
+            FolderAddSystemFormJavaScriptFileInConnectionCommand.Initialize(this);
 
 
 

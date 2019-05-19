@@ -129,6 +129,11 @@
   <data name="CreatedEntityXmlFileForConnectionFormat3" xml:space="preserve">
     <value>{0}. For '{1}' created file with EntityXml: {2}</value>
   </data>
+
+  <data name="CreatedSdkMessageRequestFileForConnectionFormat3" xml:space="preserve">
+    <value>{0}. For SdkMessageRequest '{1}' created proxy class: {2}</value>
+  </data>
+  
   <data name="CreatedGlobalOptionSetMetadataFileForConnectionFormat3" xml:space="preserve">
     <value>{0}. For Global OptionSet '{1}' created file with Metadata: {2}</value>
   </data>

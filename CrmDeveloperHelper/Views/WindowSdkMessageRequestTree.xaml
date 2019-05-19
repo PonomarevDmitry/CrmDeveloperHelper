@@ -70,6 +70,7 @@
                 </MenuItem>
 
                 <Separator x:Uid="contMnSdkMessagePair" />
+                <MenuItem x:Uid="contMnSdkMessagePair" Header="Create C# Request Proxy Class" Click="mICreateRequestProxyClassCSharp_Click" />
                 <MenuItem x:Uid="contMnSdkMessagePair" Header="SdkMessagePair">
 
                     <MenuItem x:Uid="contMnSdkMessagePairAddIntoSolutionLast" Header="Add SdkMessagePair into Last Crm Solution"  />
@@ -89,6 +90,9 @@
                 <Separator x:Uid="contMnAddIntoSolution"/>
                 <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" />
                 <MenuItem x:Uid="contMnAddIntoSolution"     Header="Add into Crm Solution" Click="AddIntoCrmSolution_Click" />
+
+                <Separator x:Uid="contMnSdkMessageProxyClass" />
+                <MenuItem x:Uid="contMnSdkMessageProxyClass" Header="Create C# Message Proxy Class" Click="mICreateMessageProxyClassCSharp_Click" />
 
                 <Separator x:Uid="contMnSdkMessage" />
                 <MenuItem x:Uid="contMnSdkMessage" Header="Open Plugin Tree" Click="mIOpenPluginTree_Click" />
@@ -112,6 +116,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
 
             <RowDefinition Height="100*" />
 
@@ -119,15 +124,45 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Margin="5">
+        <Expander Grid.Row="0" Margin="5" Header="Request Proxy Class Generation">
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"  />
+                    <ColumnDefinition Width="100*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Content="Folder" Grid.Row="0" Grid.Column="0" />
+                <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" />
+
+                <Label Content="Namespace Messages C#" Grid.Row="1" Grid.Column="0" />
+                <TextBox x:Name="txtBNamespaceSdkMessagesCSharp" Grid.Row="1" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceSdkMessagesCSharp}"  />
+
+                <Label Content="Namespace Messages JavaScript" Grid.Row="2" Grid.Column="0" />
+                <TextBox x:Name="txtBNamespaceSdkMessagesJavaScript" Grid.Row="2" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceSdkMessagesJavaScript}"  />
+
+            </Grid>
+        </Expander>
+
+        <Grid Grid.Row="1" Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="100*"/>
+                
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="100*"/>
+                
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="100*"/>
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Content="Entity Name"/>
@@ -135,9 +170,12 @@
 
             <Label Grid.Row="0" Grid.Column="2" Content="Message"/>
             <TextBox Grid.Row="0" Grid.Column="3" x:Name="txtBMessageFilter" TextWrapping="NoWrap" KeyDown="txtBFilter_KeyDown"/>
+
+            <Label Grid.Row="0" Grid.Column="4" Content="Endpoint"/>
+            <TextBox Grid.Row="0" Grid.Column="5" x:Name="txtBEndpoint" TextWrapping="NoWrap" KeyDown="txtBFilter_KeyDown"/>
         </Grid>
 
-        <GroupBox Header="Sdk Message Request Tree" Grid.Row="1" Margin="5">
+        <GroupBox Header="Sdk Message Request Tree" Grid.Row="2" Margin="5">
             <DockPanel LastChildFill="True">
                 <ToolBar DockPanel.Dock="Top" >
                     <ToolBarPanel Orientation="Horizontal">
@@ -185,7 +223,7 @@
             </DockPanel>
         </GroupBox>
 
-        <ToolBar Grid.Row="2">
+        <ToolBar Grid.Row="3">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
@@ -206,7 +244,7 @@
             </DockPanel>
         </ToolBar>
 
-        <StatusBar Grid.Row="3">
+        <StatusBar Grid.Row="4">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection"/>
             <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>

@@ -237,7 +237,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, string.Empty, string.Empty);
+            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void miSavedQuery_Click(object sender, RoutedEventArgs e)
@@ -291,7 +291,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, string.Empty, string.Empty);
+            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig);
         }
 
         private async void miOrganizationComparer_Click(object sender, RoutedEventArgs e)

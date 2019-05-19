@@ -772,6 +772,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Creating file for SdkMessageRequest {1}.
+        /// </summary>
+        internal static string CreatingFileForSdkMessageRequestFormat2 {
+            get {
+                return ResourceManager.GetString("CreatingFileForSdkMessageRequestFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Creating File with attributes dependent components for {1}.
         /// </summary>
         internal static string CreatingFileWithAttributesDependentComponentsFormat2 {

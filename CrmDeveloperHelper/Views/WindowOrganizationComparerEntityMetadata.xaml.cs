@@ -478,8 +478,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataCSharpForEntityFormat1, linkedEntityMetadata.LogicalName);
 
-            CreateFileWithEntityMetadataCSharpConfiguration config1 = GetCSharpConfigSchema(service1.ConnectionData, linkedEntityMetadata.LogicalName);
-            CreateFileWithEntityMetadataCSharpConfiguration config2 = GetCSharpConfigSchema(service2.ConnectionData, linkedEntityMetadata.LogicalName);
+            CreateFileCSharpConfiguration config1 = GetCSharpConfigSchema(service1.ConnectionData, linkedEntityMetadata.LogicalName);
+            CreateFileCSharpConfiguration config2 = GetCSharpConfigSchema(service2.ConnectionData, linkedEntityMetadata.LogicalName);
 
             string fileName1 = string.Format("{0}.{1}.Generated.cs", service1.ConnectionData.Name, linkedEntityMetadata.EntityMetadata1.SchemaName);
             string fileName2 = string.Format("{0}.{1}.Generated.cs", service2.ConnectionData.Name, linkedEntityMetadata.EntityMetadata2.SchemaName);
@@ -510,13 +510,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             using (var handler1 = new CreateFileWithEntityMetadataCSharpHandler(config1, service1, _iWriteToOutput, codeGenerationServiceProvider1))
             {
-                var task1 = handler1.CreateFileAsync(filePath1);
+                var task1 = handler1.CreateFileAsync(filePath1, linkedEntityMetadata.LogicalName);
 
                 if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                 {
                     using (var handler2 = new CreateFileWithEntityMetadataCSharpHandler(config2, service2, _iWriteToOutput, codeGenerationServiceProvider2))
                     {
-                        await handler2.CreateFileAsync(filePath2);
+                        await handler2.CreateFileAsync(filePath2, linkedEntityMetadata.LogicalName);
                     }
                 }
 
@@ -585,8 +585,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataCSharpForEntityFormat1, linkedEntityMetadata.LogicalName);
 
-            CreateFileWithEntityMetadataCSharpConfiguration config1 = GetCSharpConfigProxyClass(service1.ConnectionData, linkedEntityMetadata.LogicalName);
-            CreateFileWithEntityMetadataCSharpConfiguration config2 = GetCSharpConfigProxyClass(service2.ConnectionData, linkedEntityMetadata.LogicalName);
+            CreateFileCSharpConfiguration config1 = GetCSharpConfigProxyClass(service1.ConnectionData, linkedEntityMetadata.LogicalName);
+            CreateFileCSharpConfiguration config2 = GetCSharpConfigProxyClass(service2.ConnectionData, linkedEntityMetadata.LogicalName);
 
             string fileName1 = string.Format("{0}.{1}.cs", service1.ConnectionData.Name, linkedEntityMetadata.EntityMetadata1.SchemaName);
             string fileName2 = string.Format("{0}.{1}.cs", service2.ConnectionData.Name, linkedEntityMetadata.EntityMetadata2.SchemaName);
@@ -656,14 +656,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, linkedEntityMetadata.LogicalName, service1.ConnectionData.Name, service2.ConnectionData.Name);
         }
 
-        private CreateFileWithEntityMetadataCSharpConfiguration GetCSharpConfigSchema(ConnectionData connectionData, string entityName)
+        private CreateFileCSharpConfiguration GetCSharpConfigSchema(ConnectionData connectionData, string entityName)
         {
             string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
 
-            var result = new CreateFileWithEntityMetadataCSharpConfiguration
-            (
-                entityName
-                , tabSpacer
+            var result = new CreateFileCSharpConfiguration(
+                tabSpacer
                 , connectionData.NamespaceClassesCSharp
                 , connectionData.NamespaceOptionSetsCSharp
                 , _commonConfig.GenerateAttributesSchema
@@ -686,29 +684,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
                 , _commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
                 , _commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
-
                 , _commonConfig.GenerateAttributesProxyClassEnumsStateStatus
+
                 , _commonConfig.GenerateAttributesProxyClassEnumsLocal
                 , _commonConfig.GenerateAttributesProxyClassEnumsGlobal
-
                 , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum
+
                 , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaLocalEnum
                 , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum
-
                 , _commonConfig.GenerateAddDescriptionAttribute
             );
 
             return result;
         }
 
-        private CreateFileWithEntityMetadataCSharpConfiguration GetCSharpConfigProxyClass(ConnectionData connectionData, string entityName)
+        private CreateFileCSharpConfiguration GetCSharpConfigProxyClass(ConnectionData connectionData, string entityName)
         {
             string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
 
-            var result = new CreateFileWithEntityMetadataCSharpConfiguration
-            (
-                entityName
-                , tabSpacer
+            var result = new CreateFileCSharpConfiguration(
+                tabSpacer
                 , connectionData.NamespaceClassesCSharp
                 , connectionData.NamespaceOptionSetsCSharp
                 , _commonConfig.GenerateAttributesProxyClass
@@ -731,15 +726,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , _commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
                 , _commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
                 , _commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
-
                 , _commonConfig.GenerateAttributesProxyClassEnumsStateStatus
+
                 , _commonConfig.GenerateAttributesProxyClassEnumsLocal
                 , _commonConfig.GenerateAttributesProxyClassEnumsGlobal
-
                 , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum
+
                 , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaLocalEnum
                 , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum
-
                 , _commonConfig.GenerateProxyClassAddDescriptionAttribute
             );
 
@@ -788,31 +782,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             string filename1 = string.Format("{0}.{1}.entitymetadata.generated.js", service1.ConnectionData.Name, linkedEntityMetadata.LogicalName);
             string filename2 = string.Format("{0}.{1}.entitymetadata.generated.js", service2.ConnectionData.Name, linkedEntityMetadata.LogicalName);
 
-            CreateFileWithEntityMetadataJavaScriptConfiguration config = GetJavaScriptConfig(linkedEntityMetadata.LogicalName);
+            CreateFileJavaScriptConfiguration config = GetJavaScriptConfig(linkedEntityMetadata.LogicalName);
 
             string filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(filename1));
             string filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(filename2));
 
             using (var handler1 = new CreateFileWithEntityMetadataJavaScriptHandler(config, service1, _iWriteToOutput))
             {
-                var task1 = handler1.CreateFileAsync(filePath1);
+                var task1 = handler1.CreateFileAsync(filePath1, linkedEntityMetadata.LogicalName);
 
                 if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                 {
                     using (var handler2 = new CreateFileWithEntityMetadataJavaScriptHandler(config, service2, _iWriteToOutput))
                     {
-                        await handler2.CreateFileAsync(filePath2);
+                        await handler2.CreateFileAsync(filePath2, linkedEntityMetadata.LogicalName);
                     }
                 }
 
                 await task1;
             }
 
-            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service1.ConnectionData.Name, config.EntityName, filePath1);
+            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service1.ConnectionData.Name, linkedEntityMetadata.LogicalName, filePath1);
 
             if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
             {
-                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service2.ConnectionData.Name, config.EntityName, filePath2);
+                this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service2.ConnectionData.Name, linkedEntityMetadata.LogicalName, filePath2);
             }
 
             if (File.Exists(filePath1) && File.Exists(filePath2))
@@ -831,13 +825,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, linkedEntityMetadata.LogicalName, service1.ConnectionData.Name, service2.ConnectionData.Name);
         }
 
-        private CreateFileWithEntityMetadataJavaScriptConfiguration GetJavaScriptConfig(string entityName)
+        private CreateFileJavaScriptConfiguration GetJavaScriptConfig(string entityName)
         {
             var tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
 
-            var result = new CreateFileWithEntityMetadataJavaScriptConfiguration(
-                entityName
-                , tabSpacer
+            var result = new CreateFileJavaScriptConfiguration(
+                tabSpacer
                 , _commonConfig.EntityMetadaOptionSetDependentComponents
                 , _commonConfig.GenerateIntoSchemaClass
             );
@@ -918,10 +911,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 using (var handler = new CreateFileWithEntityMetadataCSharpHandler(config, service, _iWriteToOutput, codeGenerationServiceProvider))
                 {
-                    await handler.CreateFileAsync(filePath);
+                    await handler.CreateFileAsync(filePath, entityMetadata.LogicalName);
                 }
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
@@ -1020,7 +1013,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await codeGenerationService.WriteEntityFileAsync(entityMetadataFull, filePath, service.ConnectionData.NamespaceClassesCSharp, options, codeGenerationServiceProvider);
 
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityMetadata.LogicalName, filePath);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
@@ -1086,16 +1079,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var config = GetJavaScriptConfig(entityName);
 
-            string filename = string.Format("{0}.{1}.EntityMetadata.Generated.js", service.ConnectionData.Name, entityName);
+            string filename = string.Format("{0}.{1}.entitymetadata.generated.js", service.ConnectionData.Name, entityName);
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(filename));
 
             try
             {
                 using (var handler = new CreateFileWithEntityMetadataJavaScriptHandler(config, service, _iWriteToOutput))
                 {
-                    await handler.CreateFileAsync(filePath);
+                    await handler.CreateFileAsync(filePath, entityName);
 
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, config.EntityName, filePath);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.CreatedEntityMetadataFileForConnectionFormat3, service.ConnectionData.Name, entityName, filePath);
 
                     this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
                 }
@@ -1482,7 +1475,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
-            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
+            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
         private async void btnSavedQuery1_Click(object sender, RoutedEventArgs e)
@@ -1548,7 +1541,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
-            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
+            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
         private async void btnCreateMetadataFile2_Click(object sender, RoutedEventArgs e)
@@ -1623,7 +1616,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService2();
 
-            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
+            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
         private async void btnSavedQuery2_Click(object sender, RoutedEventArgs e)
@@ -1689,7 +1682,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService2();
 
-            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName, string.Empty);
+            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.LogicalName);
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)

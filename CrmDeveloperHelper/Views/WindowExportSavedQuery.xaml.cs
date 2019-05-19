@@ -1328,7 +1328,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, entity?.ReturnedTypeCode, string.Empty);
+            WindowHelper.OpenSystemFormWindow(this._iWriteToOutput, service, _commonConfig, entity?.ReturnedTypeCode);
         }
 
         private async void btnSavedChart_Click(object sender, RoutedEventArgs e)
@@ -1383,7 +1383,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService();
 
-            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.ReturnedTypeCode, string.Empty);
+            WindowHelper.OpenSdkMessageRequestTreeWindow(this._iWriteToOutput, service, _commonConfig, entity?.ReturnedTypeCode);
         }
 
         private async void btnOrganizationComparer_Click(object sender, RoutedEventArgs e)

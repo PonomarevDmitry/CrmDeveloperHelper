@@ -19,11 +19,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private EntityMetadata _entityMetadata;
 
         private readonly IOrganizationServiceExtented _service;
-        private readonly CreateFileWithEntityMetadataJavaScriptConfiguration _config;
+        private readonly CreateFileJavaScriptConfiguration _config;
         private readonly JavaScriptObjectType _javaScriptObjectType;
 
         public CreateFormTabsJavaScriptHandler(
-            CreateFileWithEntityMetadataJavaScriptConfiguration config
+            CreateFileJavaScriptConfiguration config
             , JavaScriptObjectType javaScriptObjectType
             , IOrganizationServiceExtented service
         ) : base(config.TabSpacer, true)
@@ -33,20 +33,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this._javaScriptObjectType = javaScriptObjectType;
         }
 
-        public Task CreateFileAsync(string filePath, List<FormTab> tabs)
+        public Task CreateFileAsync(string filePath, string entityLogicalName, List<FormTab> tabs)
         {
-            return Task.Run(() => CreateFile(filePath, tabs));
+            return Task.Run(() => CreateFile(filePath, entityLogicalName, tabs));
         }
 
-        private void CreateFile(string filePath, List<FormTab> tabs)
+        private void CreateFile(string filePath, string entityLogicalName, List<FormTab> tabs)
         {
-            RetrieveEntityRequest request = new RetrieveEntityRequest();
-            request.LogicalName = _config.EntityName.ToLower();
+            var repository = new EntityMetadataRepository(_service);
 
-            request.EntityFilters = EntityFilters.All;
-
-            RetrieveEntityResponse response = (RetrieveEntityResponse)_service.Execute(request);
-            this._entityMetadata = response.EntityMetadata;
+            this._entityMetadata = repository.GetEntityMetadata(entityLogicalName);
 
             StartWriting(filePath);
 
