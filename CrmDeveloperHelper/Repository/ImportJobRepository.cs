@@ -106,7 +106,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<ImportJob>()).SingleOrDefault();
+            var coll = _service.RetrieveMultiple(query).Entities;
+
+            return coll.Count == 1 ? coll.Select(e => e.ToEntity<ImportJob>()).SingleOrDefault() : null;
         }
 
         public async Task<string> GetFormattedResultsAsync(Guid idImportJob)

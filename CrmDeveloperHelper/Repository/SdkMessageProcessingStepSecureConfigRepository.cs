@@ -99,12 +99,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageProcessingStepSecureConfig>()).SingleOrDefault();
-        }
+            var coll = _service.RetrieveMultiple(query).Entities;
 
-        //internal SdkMessageProcessingStepSecureConfig GetSecureConfig(Guid id)
-        //{
-        //    return _service.Retrieve(SdkMessageProcessingStepSecureConfig.EntityLogicalName, id, new ColumnSet(true)).ToEntity<SdkMessageProcessingStepSecureConfig>();
-        //}
+            return coll.Count == 1 ? coll.Select(e => e.ToEntity<SdkMessageProcessingStepSecureConfig>()).SingleOrDefault() : null;
+        }
     }
 }

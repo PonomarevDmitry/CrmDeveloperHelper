@@ -1062,6 +1062,7 @@
     <Compile Include="Repository\SavedQueryRepository.cs" />
     <Compile Include="Repository\SavedQueryVisualizationRepository.cs" />
     <Compile Include="Repository\SdkMessageFilterRepository.cs" />
+    <Compile Include="Repository\SdkMessagePairRepository.cs" />
     <Compile Include="Repository\SdkMessageProcessingStepImageRepository.cs" />
     <Compile Include="Repository\SdkMessageProcessingStepRepository.cs" />
     <Compile Include="Repository\SdkMessageProcessingStepSecureConfigRepository.cs" />

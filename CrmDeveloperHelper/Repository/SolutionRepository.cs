@@ -191,7 +191,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Solution>()).SingleOrDefault();
+            var coll = _service.RetrieveMultiple(query).Entities;
+
+            return coll.Count == 1 ? coll.Select(e => e.ToEntity<Solution>()).SingleOrDefault() : null;
         }
 
         public Task<List<Solution>> GetSolutionsAllAsync(string name = null, int? componentType = null, Guid? objectId = null)

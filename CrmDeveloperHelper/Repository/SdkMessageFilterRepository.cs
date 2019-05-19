@@ -304,5 +304,62 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             return coll.Count == 1 ? coll.Select(e => e.ToEntity<SdkMessageFilter>()).SingleOrDefault() : null;
         }
+
+        public Task<List<SdkMessageFilter>> GetListByMessasgeAsync(Guid idMessage, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetListByMessasge(idMessage, columnSet));
+        }
+
+        private List<SdkMessageFilter> GetListByMessasge(Guid idMessage, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                EntityName = SdkMessageFilter.EntityLogicalName,
+
+                NoLock = true,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(SdkMessageFilter.Schema.Attributes.sdkmessageid, ConditionOperator.Equal, idMessage),
+                    },
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new List<SdkMessageFilter>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SdkMessageFilter>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
+            }
+
+            return result;
+        }
     }
 }

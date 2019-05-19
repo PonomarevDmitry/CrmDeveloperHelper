@@ -295,5 +295,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             return result;
         }
+
+        public Task<SdkMessage> GetByIdAsync(Guid idSdkMessage, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetById(idSdkMessage, columnSet));
+        }
+
+        private SdkMessage GetById(Guid idSdkMessage, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                TopCount = 2,
+
+                EntityName = SdkMessage.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(SdkMessage.EntityPrimaryIdAttribute, ConditionOperator.Equal, idSdkMessage),
+                    },
+                },
+            };
+
+            var coll = _service.RetrieveMultiple(query).Entities;
+
+            return coll.Count == 1 ? coll.Select(e => e.ToEntity<SdkMessage>()).SingleOrDefault() : null;
+        }
     }
 }

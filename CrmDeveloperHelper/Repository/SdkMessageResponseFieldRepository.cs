@@ -107,7 +107,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<SdkMessageResponseField>()).SingleOrDefault();
+            var coll = _service.RetrieveMultiple(query).Entities;
+
+            return coll.Count == 1 ? coll.Select(e => e.ToEntity<SdkMessageResponseField>()).SingleOrDefault() : null;
         }
 
         public Task<List<SdkMessageResponseField>> GetListByResponseIdAsync(Guid idResponse, ColumnSet columnSet)
@@ -130,6 +132,87 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Conditions =
                     {
                         new ConditionExpression(SdkMessageResponseField.Schema.Attributes.sdkmessageresponseid, ConditionOperator.Equal, idResponse),
+                    },
+                },
+
+                PageInfo = new PagingInfo()
+                {
+                    PageNumber = 1,
+                    Count = 5000,
+                },
+            };
+
+            var result = new List<SdkMessageResponseField>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SdkMessageResponseField>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
+            }
+
+            return result;
+        }
+
+        public Task<List<SdkMessageResponseField>> GetListByPairAsync(Guid idPair, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetListByPair(idPair, columnSet));
+        }
+
+        private List<SdkMessageResponseField> GetListByPair(Guid idPair, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                EntityName = SdkMessageResponseField.EntityLogicalName,
+
+                NoLock = true,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                LinkEntities =
+                {
+                    new LinkEntity()
+                    {
+                        LinkFromEntityName = SdkMessageResponseField.EntityLogicalName,
+                        LinkFromAttributeName = SdkMessageResponseField.Schema.Attributes.sdkmessageresponseid,
+
+                        LinkToEntityName = SdkMessageResponse.EntityLogicalName,
+                        LinkToAttributeName = SdkMessageResponse.EntityPrimaryIdAttribute,
+
+                        LinkEntities =
+                        {
+                            new LinkEntity()
+                            {
+                                LinkFromEntityName = SdkMessageResponse.EntityLogicalName,
+                                LinkFromAttributeName = SdkMessageResponse.Schema.Attributes.sdkmessagerequestid,
+
+                                LinkToEntityName = SdkMessageRequest.EntityLogicalName,
+                                LinkToAttributeName = SdkMessageRequest.EntityPrimaryIdAttribute,
+
+                                LinkCriteria =
+                                {
+                                    Conditions =
+                                    {
+                                        new ConditionExpression(SdkMessageRequest.Schema.Attributes.sdkmessagepairid, ConditionOperator.Equal, idPair),
+                                    },
+                                },
+                            },
+                        },
                     },
                 },
 
