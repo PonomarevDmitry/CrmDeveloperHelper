@@ -4,142 +4,126 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
     public partial class CommonConfiguration
     {
-        private int _SpaceCount = 4;
+        private int _GenerateCommonSpaceCount = 4;
         /// <summary>
         /// Количество пробелов для отступа в файле с метаданными сущности
         /// </summary>
         [DataMember]
-        public int SpaceCount
+        public int GenerateCommonSpaceCount
         {
-            get => _SpaceCount;
+            get => _GenerateCommonSpaceCount;
             set
             {
-                if (_SpaceCount == value)
+                if (_GenerateCommonSpaceCount == value)
                 {
                     return;
                 }
 
-                this.OnPropertyChanging(nameof(SpaceCount));
-                this._SpaceCount = value;
-                this.OnPropertyChanged(nameof(SpaceCount));
+                this.OnPropertyChanging(nameof(GenerateCommonSpaceCount));
+                this._GenerateCommonSpaceCount = value;
+                this.OnPropertyChanged(nameof(GenerateCommonSpaceCount));
             }
         }
 
-        private IndentType _IndentType = IndentType.Spaces;
+        private IndentType _GenerateCommonIndentType = IndentType.Spaces;
         /// <summary>
         /// Тип отступа в файле с метаданными сущности
         /// </summary>
         [DataMember]
-        public IndentType IndentType
+        public IndentType GenerateCommonIndentType
         {
-            get => _IndentType;
+            get => _GenerateCommonIndentType;
             set
             {
-                if (_IndentType == value)
+                if (_GenerateCommonIndentType == value)
                 {
                     return;
                 }
 
-                this.OnPropertyChanging(nameof(IndentType));
-                this._IndentType = value;
-                this.OnPropertyChanged(nameof(IndentType));
+                this.OnPropertyChanging(nameof(GenerateCommonIndentType));
+                this._GenerateCommonIndentType = value;
+                this.OnPropertyChanged(nameof(GenerateCommonIndentType));
             }
         }
 
-        private ConstantType _ConstantType = ConstantType.Constant;
+        private ConstantType _GenerateSchemaConstantType = ConstantType.Constant;
         /// <summary>
         /// Тип записей в файле с метаданными сущности. const или read only
         /// </summary>
         [DataMember]
-        public ConstantType ConstantType
+        public ConstantType GenerateSchemaConstantType
         {
-            get => _ConstantType;
+            get => _GenerateSchemaConstantType;
             set
             {
-                if (_ConstantType == value)
+                if (_GenerateSchemaConstantType == value)
                 {
                     return;
                 }
 
-                this.OnPropertyChanging(nameof(ConstantType));
-                this._ConstantType = value;
-                this.OnPropertyChanged(nameof(ConstantType));
+                this.OnPropertyChanging(nameof(GenerateSchemaConstantType));
+                this._GenerateSchemaConstantType = value;
+                this.OnPropertyChanged(nameof(GenerateSchemaConstantType));
             }
         }
 
-        private OptionSetExportType _OptionSetExportType = OptionSetExportType.Enums;
+        private OptionSetExportType _GenerateSchemaOptionSetExportType = OptionSetExportType.Enums;
         [DataMember]
-        public OptionSetExportType OptionSetExportType
+        public OptionSetExportType GenerateSchemaOptionSetExportType
         {
-            get => _OptionSetExportType;
+            get => _GenerateSchemaOptionSetExportType;
             set
             {
-                if (_OptionSetExportType == value)
+                if (_GenerateSchemaOptionSetExportType == value)
                 {
                     return;
                 }
 
-                this.OnPropertyChanging(nameof(OptionSetExportType));
-                this._OptionSetExportType = value;
-                this.OnPropertyChanged(nameof(OptionSetExportType));
+                this.OnPropertyChanging(nameof(GenerateSchemaOptionSetExportType));
+                this._GenerateSchemaOptionSetExportType = value;
+                this.OnPropertyChanged(nameof(GenerateSchemaOptionSetExportType));
             }
         }
 
-        private bool _AllDescriptions;
+        private bool _GenerateCommonAllDescriptions;
         /// <summary>
         /// Генерировать все описания (description) или только первое по приоритету в файле с метаданными сущности
         /// </summary>
         [DataMember]
-        public bool AllDescriptions
+        public bool GenerateCommonAllDescriptions
         {
-            get => _AllDescriptions;
+            get => _GenerateCommonAllDescriptions;
             set
             {
-                this.OnPropertyChanging(nameof(AllDescriptions));
-                this._AllDescriptions = value;
-                this.OnPropertyChanged(nameof(AllDescriptions));
+                this.OnPropertyChanging(nameof(GenerateCommonAllDescriptions));
+                this._GenerateCommonAllDescriptions = value;
+                this.OnPropertyChanged(nameof(GenerateCommonAllDescriptions));
             }
         }
 
-        private bool _EntityMetadaOptionSetDependentComponents;
+        private bool _GenerateSchemaEntityOptionSetsDependentComponents;
         [DataMember]
-        public bool EntityMetadaOptionSetDependentComponents
+        public bool GenerateSchemaEntityOptionSetsDependentComponents
         {
-            get => _EntityMetadaOptionSetDependentComponents;
+            get => _GenerateSchemaEntityOptionSetsDependentComponents;
             set
             {
-                this.OnPropertyChanging(nameof(EntityMetadaOptionSetDependentComponents));
-                this._EntityMetadaOptionSetDependentComponents = value;
-                this.OnPropertyChanged(nameof(EntityMetadaOptionSetDependentComponents));
+                this.OnPropertyChanging(nameof(GenerateSchemaEntityOptionSetsDependentComponents));
+                this._GenerateSchemaEntityOptionSetsDependentComponents = value;
+                this.OnPropertyChanged(nameof(GenerateSchemaEntityOptionSetsDependentComponents));
             }
         }
 
-        private bool _GlobalOptionSetsWithDependentComponents;
+        private bool _GenerateSchemaGlobalOptionSetsWithDependentComponents;
         [DataMember]
-        public bool GlobalOptionSetsWithDependentComponents
+        public bool GenerateSchemaGlobalOptionSetsWithDependentComponents
         {
-            get => _GlobalOptionSetsWithDependentComponents;
+            get => _GenerateSchemaGlobalOptionSetsWithDependentComponents;
             set
             {
-                this.OnPropertyChanging(nameof(GlobalOptionSetsWithDependentComponents));
-                this._GlobalOptionSetsWithDependentComponents = value;
-                this.OnPropertyChanged(nameof(GlobalOptionSetsWithDependentComponents));
-            }
-        }
-
-        private bool _AllDependentComponentsForAttributes;
-        /// <summary>
-        /// Отображать все зависимые элементы
-        /// </summary>
-        [DataMember]
-        public bool AllDependentComponentsForAttributes
-        {
-            get => _AllDependentComponentsForAttributes;
-            set
-            {
-                this.OnPropertyChanging(nameof(AllDependentComponentsForAttributes));
-                this._AllDependentComponentsForAttributes = value;
-                this.OnPropertyChanged(nameof(AllDependentComponentsForAttributes));
+                this.OnPropertyChanging(nameof(GenerateSchemaGlobalOptionSetsWithDependentComponents));
+                this._GenerateSchemaGlobalOptionSetsWithDependentComponents = value;
+                this.OnPropertyChanged(nameof(GenerateSchemaGlobalOptionSetsWithDependentComponents));
             }
         }
 
@@ -296,6 +280,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         private void LoadFromDiskSchema(CommonConfiguration diskData)
         {
+            this.GenerateCommonSpaceCount = diskData.GenerateCommonSpaceCount;
+            this.GenerateCommonIndentType = diskData.GenerateCommonIndentType;
+
+            this.GenerateCommonAllDescriptions = diskData.GenerateCommonAllDescriptions;
+
             this.GenerateSchemaIntoSchemaClass = diskData.GenerateSchemaIntoSchemaClass;
 
             this.GenerateSchemaAttributes = diskData.GenerateSchemaAttributes;
@@ -307,16 +296,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.GenerateSchemaStatusOptionSet = diskData.GenerateSchemaStatusOptionSet;
             this.GenerateSchemaKeys = diskData.GenerateSchemaKeys;
 
-            this.SpaceCount = diskData.SpaceCount;
-            this.IndentType = diskData.IndentType;
+            this.GenerateSchemaConstantType = diskData.GenerateSchemaConstantType;
+            this.GenerateSchemaOptionSetExportType = diskData.GenerateSchemaOptionSetExportType;
 
-            this.ConstantType = diskData.ConstantType;
-            this.OptionSetExportType = diskData.OptionSetExportType;
-
-            this.AllDescriptions = diskData.AllDescriptions;
-            this.EntityMetadaOptionSetDependentComponents = diskData.EntityMetadaOptionSetDependentComponents;
-            this.AllDependentComponentsForAttributes = diskData.AllDependentComponentsForAttributes;
-            this.GlobalOptionSetsWithDependentComponents = diskData.GlobalOptionSetsWithDependentComponents;
+            this.GenerateSchemaEntityOptionSetsDependentComponents = diskData.GenerateSchemaEntityOptionSetsDependentComponents;
+            this.GenerateSchemaGlobalOptionSetsWithDependentComponents = diskData.GenerateSchemaGlobalOptionSetsWithDependentComponents;
 
             this.GenerateSchemaAddDescriptionAttribute = diskData.GenerateSchemaAddDescriptionAttribute;
         }

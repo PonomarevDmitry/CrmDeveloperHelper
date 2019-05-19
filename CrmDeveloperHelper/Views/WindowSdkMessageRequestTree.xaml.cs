@@ -1831,7 +1831,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
+                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
 
                 var config = new CreateFileCSharpConfiguration(
                     tabSpacer
@@ -1845,12 +1845,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , _commonConfig.GenerateProxyClassesManyToOne
                     , _commonConfig.GenerateProxyClassesManyToMany
                     , false
-                    , _commonConfig.AllDescriptions
-                    , _commonConfig.EntityMetadaOptionSetDependentComponents
+                    , _commonConfig.GenerateCommonAllDescriptions
+                    , _commonConfig.GenerateSchemaEntityOptionSetsDependentComponents
                     , _commonConfig.GenerateSchemaIntoSchemaClass
                     , _commonConfig.SolutionComponentWithManagedInfo
-                    , _commonConfig.ConstantType
-                    , _commonConfig.OptionSetExportType
+                    , _commonConfig.GenerateSchemaConstantType
+                    , _commonConfig.GenerateSchemaOptionSetExportType
                     , _commonConfig.GenerateProxyClassesAttributesWithNameOf
                     , _commonConfig.GenerateProxyClassesWithDebuggerNonUserCode
                     , _commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes
@@ -2188,7 +2188,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
+                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
 
                 var config = new CreateFileCSharpConfiguration(
                     tabSpacer
@@ -2202,12 +2202,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , _commonConfig.GenerateProxyClassesManyToOne
                     , _commonConfig.GenerateProxyClassesManyToMany
                     , false
-                    , _commonConfig.AllDescriptions
-                    , _commonConfig.EntityMetadaOptionSetDependentComponents
+                    , _commonConfig.GenerateCommonAllDescriptions
+                    , _commonConfig.GenerateSchemaEntityOptionSetsDependentComponents
                     , _commonConfig.GenerateSchemaIntoSchemaClass
                     , _commonConfig.SolutionComponentWithManagedInfo
-                    , _commonConfig.ConstantType
-                    , _commonConfig.OptionSetExportType
+                    , _commonConfig.GenerateSchemaConstantType
+                    , _commonConfig.GenerateSchemaOptionSetExportType
                     , _commonConfig.GenerateProxyClassesAttributesWithNameOf
                     , _commonConfig.GenerateProxyClassesWithDebuggerNonUserCode
                     , _commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes

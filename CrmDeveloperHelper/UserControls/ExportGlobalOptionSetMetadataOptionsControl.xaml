@@ -19,25 +19,30 @@
         <GroupBox Header="Global OptionSets Metadata Options" Margin="10,0,10,10">
             <Grid>
                 <CheckBox x:Name="chBWithManagedInfo" IsChecked="{Binding Path=SolutionComponentWithManagedInfo}" Content="With Managed Info" HorizontalAlignment="Left" Margin="131,10,0,0" VerticalAlignment="Top"/>
-                <CheckBox x:Name="chBAllDescriptions" IsChecked="{Binding Path=AllDescriptions}" Content="All descriptions" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                <CheckBox x:Name="chBWithDependentComponents" IsChecked="{Binding Path=EntityMetadaOptionSetDependentComponents}" Content="With dependent components for Global OptionSets" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top"/>
+
+                <CheckBox x:Name="chBAllDescriptions" IsChecked="{Binding Path=GenerateCommonAllDescriptions}" Content="All descriptions" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+
+                <CheckBox x:Name="chBWithDependentComponents" IsChecked="{Binding Path=GenerateSchemaGlobalOptionSetsWithDependentComponents}" Content="With dependent components for Global OptionSets" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top"/>
+                
                 <GroupBox HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Width="173" Height="50" Header="Field Type">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <RadioButton x:Name="rBConst" IsChecked="{Binding Path=ConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.Constant}}" GroupName="ConstantType" Content="Const" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" />
-                        <RadioButton x:Name="rBReadOnly" IsChecked="{Binding Path=ConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.ReadOnlyField}}" GroupName="ConstantType" Content="ReadOnly" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5"/>
+                        <RadioButton x:Name="rBConst" IsChecked="{Binding Path=GenerateSchemaConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.Constant}}" GroupName="ConstantType" Content="Const" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" />
+                        <RadioButton x:Name="rBReadOnly" IsChecked="{Binding Path=GenerateSchemaConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.ReadOnlyField}}" GroupName="ConstantType" Content="ReadOnly" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5"/>
                     </StackPanel>
                 </GroupBox>
+                
                 <GroupBox Header="OptionSets Values" Margin="188,50,0,0" VerticalAlignment="Top" Height="50" HorizontalAlignment="Left" Width="150">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <RadioButton x:Name="rBEnums" IsChecked="{Binding Path=OptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Enums}}" GroupName="OptionSets"  Margin="5" Content="Enum" HorizontalAlignment="Right" VerticalAlignment="Center" />
-                        <RadioButton x:Name="rBClasses" IsChecked="{Binding Path=OptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Classes}}" GroupName="OptionSets" Content="Class" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <RadioButton x:Name="rBEnums" IsChecked="{Binding Path=GenerateSchemaOptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Enums}}" GroupName="OptionSets"  Margin="5" Content="Enum" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                        <RadioButton x:Name="rBClasses" IsChecked="{Binding Path=GenerateSchemaOptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Classes}}" GroupName="OptionSets" Content="Class" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </GroupBox>
+                
                 <GroupBox Header="Indent" HorizontalAlignment="Left" Margin="343,50,0,0" VerticalAlignment="Top" Width="236" Height="50">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <RadioButton x:Name="rBTab" IsChecked="{Binding Path=IndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Tab}}" Margin="3,0" GroupName="IndentType" Content="Tab" VerticalAlignment="Center"/>
-                        <RadioButton x:Name="rBSpaces" IsChecked="{Binding Path=IndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Spaces}}" Margin="3,0" GroupName="IndentType" Content="Spaces" VerticalAlignment="Center"/>
-                        <TextBox x:Name="txtBSpaceCount" Text="{Binding Path=SpaceCount}" Margin="3,0" Height="23" VerticalContentAlignment="Center" Width="111" VerticalAlignment="Center"/>
+                        <RadioButton x:Name="rBTab" IsChecked="{Binding Path=GenerateCommonIndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Tab}}" Margin="3,0" GroupName="IndentType" Content="Tab" VerticalAlignment="Center"/>
+                        <RadioButton x:Name="rBSpaces" IsChecked="{Binding Path=GenerateCommonIndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Spaces}}" Margin="3,0" GroupName="IndentType" Content="Spaces" VerticalAlignment="Center"/>
+                        <TextBox x:Name="txtBSpaceCount" Text="{Binding Path=GenerateCommonSpaceCount}" Margin="3,0" Height="23" VerticalContentAlignment="Center" Width="111" VerticalAlignment="Center"/>
                     </StackPanel>
                 </GroupBox>
             </Grid>

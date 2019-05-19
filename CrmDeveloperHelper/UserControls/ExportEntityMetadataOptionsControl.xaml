@@ -74,11 +74,11 @@
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
                         <CheckBox x:Name="chBWithManagedInfo" IsChecked="{Binding Path=SolutionComponentWithManagedInfo}" Content="With Managed Info" />
-                        <CheckBox x:Name="chBAllDescriptions" IsChecked="{Binding Path=AllDescriptions}" Content="All descriptions" />
+                        <CheckBox x:Name="chBAllDescriptions" IsChecked="{Binding Path=GenerateCommonAllDescriptions}" Content="All descriptions" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox x:Name="chBWithDependentComponents" IsChecked="{Binding Path=EntityMetadaOptionSetDependentComponents}" Content="With dependent components for Global OptionSets" />
+                        <CheckBox x:Name="chBWithDependentComponents" IsChecked="{Binding Path=GenerateSchemaEntityOptionSetsDependentComponents}" Content="With dependent components for Global OptionSets" />
                     </StackPanel>
                 </StackPanel>
 
@@ -91,9 +91,9 @@
                             <ColumnDefinition Width="100*" />
                         </Grid.ColumnDefinitions>
 
-                        <RadioButton x:Name="rBTab" Grid.Column="0" IsChecked="{Binding Path=IndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Tab}}" GroupName="IndentType" Content="Tab" />
-                        <RadioButton x:Name="rBSpaces" Grid.Column="1" IsChecked="{Binding Path=IndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Spaces}}" GroupName="IndentType" Content="Spaces" />
-                        <TextBox x:Name="txtBSpaceCount" Grid.Column="2" Text="{Binding Path=SpaceCount}" />
+                        <RadioButton x:Name="rBTab" Grid.Column="0" IsChecked="{Binding Path=GenerateCommonIndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Tab}}" GroupName="IndentType" Content="Tab" />
+                        <RadioButton x:Name="rBSpaces" Grid.Column="1" IsChecked="{Binding Path=GenerateCommonIndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Spaces}}" GroupName="IndentType" Content="Spaces" />
+                        <TextBox x:Name="txtBSpaceCount" Grid.Column="2" Text="{Binding Path=GenerateCommonSpaceCount}" />
                     </Grid>
                 </GroupBox>
             </Grid>
@@ -249,15 +249,15 @@
 
                         <GroupBox Header="Field Type" Grid.Column="0" HorizontalAlignment="Stretch">
                             <StackPanel Orientation="Horizontal">
-                                <RadioButton x:Name="rBConst" IsChecked="{Binding Path=ConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.Constant}}" GroupName="ConstantType" Content="Const"   />
-                                <RadioButton x:Name="rBReadOnly" IsChecked="{Binding Path=ConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.ReadOnlyField}}" GroupName="ConstantType" Content="ReadOnly" />
+                                <RadioButton x:Name="rBConst" IsChecked="{Binding Path=GenerateSchemaConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.Constant}}" GroupName="ConstantType" Content="Const"   />
+                                <RadioButton x:Name="rBReadOnly" IsChecked="{Binding Path=GenerateSchemaConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.ReadOnlyField}}" GroupName="ConstantType" Content="ReadOnly" />
                             </StackPanel>
                         </GroupBox>
 
                         <GroupBox Header="OptionSets Values" Grid.Column="1" HorizontalAlignment="Stretch">
                             <StackPanel Orientation="Horizontal" >
-                                <RadioButton x:Name="rBEnums" IsChecked="{Binding Path=OptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Enums}}" GroupName="OptionSets" Content="Enum" />
-                                <RadioButton x:Name="rBClasses" IsChecked="{Binding Path=OptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Classes}}" GroupName="OptionSets" Content="Class"  />
+                                <RadioButton x:Name="rBEnums" IsChecked="{Binding Path=GenerateSchemaOptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Enums}}" GroupName="OptionSets" Content="Enum" />
+                                <RadioButton x:Name="rBClasses" IsChecked="{Binding Path=GenerateSchemaOptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Classes}}" GroupName="OptionSets" Content="Class"  />
                             </StackPanel>
                         </GroupBox>
                     </Grid>
@@ -290,8 +290,8 @@
 
             <GroupBox Margin="5" Header="Attributes Dependent Components Options" Grid.Column="1" HorizontalAlignment="Stretch">
                 <StackPanel Orientation="Vertical">
-                    <RadioButton x:Name="rBAllcomponents" IsChecked="{Binding Path=AllDependentComponentsForAttributes}" Content="All components" />
-                    <RadioButton x:Name="rBWorkflowPlugin" IsChecked="{Binding Path=AllDependentComponentsForAttributes, Converter={StaticResource BoolInverter}, Mode=OneWay}" Content="Only Workflow, Plugin Step, Plugin Step Image" />
+                    <RadioButton x:Name="rBAllcomponents" IsChecked="{Binding Path=AttributesDependentComponentsAllComponents}" Content="All components" />
+                    <RadioButton x:Name="rBWorkflowPlugin" IsChecked="{Binding Path=AttributesDependentComponentsAllComponents, Converter={StaticResource BoolInverter}, Mode=OneWay}" Content="Only Workflow, Plugin Step, Plugin Step Image" />
                 </StackPanel>
             </GroupBox>
         </Grid>

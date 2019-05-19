@@ -441,15 +441,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string filePath1 = CreateFileName(optionSets1, service1.ConnectionData, "cs");
                     string filePath2 = CreateFileName(optionSets2, service2.ConnectionData, "cs");
 
-                    string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
-                    var constantType = _commonConfig.ConstantType;
-                    var optionSetExportType = _commonConfig.OptionSetExportType;
+                    string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
+                    var constantType = _commonConfig.GenerateSchemaConstantType;
+                    var optionSetExportType = _commonConfig.GenerateSchemaOptionSetExportType;
 
                     var nameSpace1 = txtBNamespaceCSharp1.Text.Trim();
                     var nameSpace2 = txtBNamespaceCSharp2.Text.Trim();
 
-                    var withDependentComponents = _commonConfig.GlobalOptionSetsWithDependentComponents;
-                    var allDescriptions = _commonConfig.AllDescriptions;
+                    var withDependentComponents = _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents;
+                    var allDescriptions = _commonConfig.GenerateCommonAllDescriptions;
                     var withManagedInfo = _commonConfig.SolutionComponentWithManagedInfo;
 
                     service1.ConnectionData.NamespaceOptionSetsCSharp = nameSpace1;
@@ -578,13 +578,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string filePath1 = CreateFileName(optionSets1, service1.ConnectionData, "js");
                     string filePath2 = CreateFileName(optionSets2, service2.ConnectionData, "js");
 
-                    string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
-                    var constantType = _commonConfig.ConstantType;
+                    string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
+                    var constantType = _commonConfig.GenerateSchemaConstantType;
 
                     var nameSpace1 = txtBNamespaceJavaScript1.Text.Trim();
                     var nameSpace2 = txtBNamespaceJavaScript2.Text.Trim();
 
-                    var withDependentComponents = _commonConfig.GlobalOptionSetsWithDependentComponents;
+                    var withDependentComponents = _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents;
 
                     service1.ConnectionData.NamespaceOptionSetsCSharp = nameSpace1;
                     service2.ConnectionData.NamespaceOptionSetsCSharp = nameSpace2;
@@ -716,12 +716,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
-                var constantType = _commonConfig.ConstantType;
-                var optionSetExportType = _commonConfig.OptionSetExportType;
+                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
+                var constantType = _commonConfig.GenerateSchemaConstantType;
+                var optionSetExportType = _commonConfig.GenerateSchemaOptionSetExportType;
 
-                var withDependentComponents = _commonConfig.GlobalOptionSetsWithDependentComponents;
-                var allDescriptions = _commonConfig.AllDescriptions;
+                var withDependentComponents = _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents;
+                var allDescriptions = _commonConfig.GenerateCommonAllDescriptions;
                 var withManagedInfo = _commonConfig.SolutionComponentWithManagedInfo;
 
                 var service = await getService();
@@ -830,9 +830,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
+                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
 
-                var withDependentComponents = _commonConfig.GlobalOptionSetsWithDependentComponents;
+                var withDependentComponents = _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents;
 
                 var service = await getService();
 

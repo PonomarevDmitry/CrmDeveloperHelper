@@ -181,21 +181,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private FileAction _DefaultFileAction = FileAction.None;
+        private bool _AttributesDependentComponentsAllComponents;
+        /// <summary>
+        /// Отображать все зависимые элементы
+        /// </summary>
         [DataMember]
-        public FileAction DefaultFileAction
+        public bool AttributesDependentComponentsAllComponents
         {
-            get => _DefaultFileAction;
+            get => _AttributesDependentComponentsAllComponents;
             set
             {
-                if (_DefaultFileAction == value)
-                {
-                    return;
-                }
-
-                this.OnPropertyChanging(nameof(DefaultFileAction));
-                this._DefaultFileAction = value;
-                this.OnPropertyChanged(nameof(DefaultFileAction));
+                this.OnPropertyChanging(nameof(AttributesDependentComponentsAllComponents));
+                this._AttributesDependentComponentsAllComponents = value;
+                this.OnPropertyChanged(nameof(AttributesDependentComponentsAllComponents));
             }
         }
 
@@ -310,6 +308,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 this.OnPropertyChanging(nameof(OpenImportJobFormattedResultsInExcel));
                 this._OpenImportJobFormattedResultsInExcel = value;
                 this.OnPropertyChanged(nameof(OpenImportJobFormattedResultsInExcel));
+            }
+        }
+
+        private FileAction _DefaultFileAction = FileAction.None;
+        [DataMember]
+        public FileAction DefaultFileAction
+        {
+            get => _DefaultFileAction;
+            set
+            {
+                if (_DefaultFileAction == value)
+                {
+                    return;
+                }
+
+                this.OnPropertyChanging(nameof(DefaultFileAction));
+                this._DefaultFileAction = value;
+                this.OnPropertyChanged(nameof(DefaultFileAction));
             }
         }
 
@@ -478,6 +494,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.SolutionComponentWithManagedInfo = diskData.SolutionComponentWithManagedInfo;
             this.SolutionComponentWithSolutionInfo = diskData.SolutionComponentWithSolutionInfo;
             this.SolutionComponentWithUrl = diskData.SolutionComponentWithUrl;
+
+            this.AttributesDependentComponentsAllComponents = diskData.AttributesDependentComponentsAllComponents;
 
             this.LoadFromDiskExportRibbon(diskData);
 

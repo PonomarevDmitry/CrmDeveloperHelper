@@ -497,15 +497,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
-                var constantType = _commonConfig.ConstantType;
-                var optionSetExportType = _commonConfig.OptionSetExportType;
+                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
+                var constantType = _commonConfig.GenerateSchemaConstantType;
+                var optionSetExportType = _commonConfig.GenerateSchemaOptionSetExportType;
 
                 string folder = txtBFolder.Text.Trim();
                 string nameSpace = txtBNamespaceOptionSetsCSharp.Text.Trim();
 
-                bool withDependentComponents = _commonConfig.GlobalOptionSetsWithDependentComponents;
-                bool allDescriptions = _commonConfig.AllDescriptions;
+                bool withDependentComponents = _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents;
+                bool allDescriptions = _commonConfig.GenerateCommonAllDescriptions;
                 bool withManagedInfo = _commonConfig.SolutionComponentWithManagedInfo;
 
                 string fileName = null;
@@ -627,12 +627,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.IndentType, _commonConfig.SpaceCount);
+                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
 
                 string folder = txtBFolder.Text.Trim();
                 string nameSpace = txtBNamespaceOptionSetsJavaScript.Text.Trim();
 
-                bool withDependentComponents = _commonConfig.GlobalOptionSetsWithDependentComponents;
+                bool withDependentComponents = _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents;
 
                 string fileName = null;
 

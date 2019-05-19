@@ -69,28 +69,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public CreateFileCSharpConfiguration(
             string tabSpacer
+
             , string namespaceClasses
             , string namespaceGlobalOptionSets
+
             , bool generateAttributes
+
             , bool generateStatus
             , bool generateLocalOptionSet
             , bool generateGlobalOptionSet
+
             , bool generateOneToMany
             , bool generateManyToOne
             , bool generateManyToMany
+
             , bool generateKeys
+
             , bool allDescriptions
             , bool withDependentComponents
+
             , bool intoSchemaClass
+
             , bool withManagedInfo
+
             , ConstantType constantType
             , OptionSetExportType optionSetExportType
+
             , bool generateAttributesWithNameOf
             , bool generateWithDebuggerNonUserCode
             , bool useSchemaConstInCSharpAttributes
             , bool withoutObsoleteAttribute
             , bool makeAllPropertiesEditable
             , bool addConstructorWithAnonymousTypeObject
+
             , ProxyClassAttributeEnums generateAttributesEnumsStateStatus
 
             , ProxyClassAttributeEnums generateAttributesEnumsLocal

@@ -403,7 +403,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (entityMetadata != null)
                     {
-                        string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.IndentType, commonConfig.SpaceCount);
+                        string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.GenerateCommonIndentType, commonConfig.GenerateCommonSpaceCount);
 
                         var config = new CreateFileCSharpConfiguration(
                             tabSpacer   
@@ -417,12 +417,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             , commonConfig.GenerateSchemaManyToOne
                             , commonConfig.GenerateSchemaManyToMany
                             , commonConfig.GenerateSchemaKeys
-                            , commonConfig.AllDescriptions
-                            , commonConfig.EntityMetadaOptionSetDependentComponents
+                            , commonConfig.GenerateCommonAllDescriptions
+                            , commonConfig.GenerateSchemaEntityOptionSetsDependentComponents
                             , commonConfig.GenerateSchemaIntoSchemaClass
                             , commonConfig.SolutionComponentWithManagedInfo
-                            , commonConfig.ConstantType
-                            , commonConfig.OptionSetExportType
+                            , commonConfig.GenerateSchemaConstantType
+                            , commonConfig.GenerateSchemaOptionSetExportType
                             , commonConfig.GenerateProxyClassesAttributesWithNameOf
                             , commonConfig.GenerateProxyClassesWithDebuggerNonUserCode
                             , commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes
@@ -559,7 +559,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (entityMetadata != null)
                     {
-                        string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.IndentType, commonConfig.SpaceCount);
+                        string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.GenerateCommonIndentType, commonConfig.GenerateCommonSpaceCount);
 
                         var config = new CreateFileCSharpConfiguration(
                             tabSpacer
@@ -573,12 +573,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             , commonConfig.GenerateProxyClassesManyToOne
                             , commonConfig.GenerateProxyClassesManyToMany
                             , false
-                            , commonConfig.AllDescriptions
-                            , commonConfig.EntityMetadaOptionSetDependentComponents
+                            , commonConfig.GenerateCommonAllDescriptions
+                            , commonConfig.GenerateSchemaEntityOptionSetsDependentComponents
                             , commonConfig.GenerateSchemaIntoSchemaClass
                             , commonConfig.SolutionComponentWithManagedInfo
-                            , commonConfig.ConstantType
-                            , commonConfig.OptionSetExportType
+                            , commonConfig.GenerateSchemaConstantType
+                            , commonConfig.GenerateSchemaOptionSetExportType
                             , commonConfig.GenerateProxyClassesAttributesWithNameOf
                             , commonConfig.GenerateProxyClassesWithDebuggerNonUserCode
                             , commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes
@@ -720,11 +720,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (entityMetadata != null)
                     {
-                        string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.IndentType, commonConfig.SpaceCount);
+                        string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.GenerateCommonIndentType, commonConfig.GenerateCommonSpaceCount);
 
                         var config = new CreateFileJavaScriptConfiguration(
                             tabSpacer
-                            , commonConfig.EntityMetadaOptionSetDependentComponents
+                            , commonConfig.GenerateSchemaEntityOptionSetsDependentComponents
                             , commonConfig.GenerateSchemaIntoSchemaClass
                         );
 
@@ -841,17 +841,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
-                        string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.IndentType, commonConfig.SpaceCount);
+                        string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.GenerateCommonIndentType, commonConfig.GenerateCommonSpaceCount);
 
                         using (var handler = new CreateGlobalOptionSetsFileCSharpHandler(
-                                   service
-                                   , _iWriteToOutput
-                                   , tabSpacer
-                                   , commonConfig.ConstantType
-                                   , commonConfig.OptionSetExportType
-                                   , commonConfig.GlobalOptionSetsWithDependentComponents
-                                   , commonConfig.SolutionComponentWithManagedInfo
-                                   , commonConfig.AllDescriptions
+                            service
+                            , _iWriteToOutput
+                            , tabSpacer
+                            , commonConfig.GenerateSchemaConstantType
+                            , commonConfig.GenerateSchemaOptionSetExportType
+                            , commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents
+                            , commonConfig.SolutionComponentWithManagedInfo
+                            , commonConfig.GenerateCommonAllDescriptions
                         ))
                         {
                             await handler.CreateFileAsync(filePath, new[] { metadata });
@@ -961,13 +961,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
-                        string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.IndentType, commonConfig.SpaceCount);
+                        string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.GenerateCommonIndentType, commonConfig.GenerateCommonSpaceCount);
 
                         using (var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
                             service
                             , _iWriteToOutput
                             , tabSpacer
-                            , commonConfig.GlobalOptionSetsWithDependentComponents
+                            , commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents
                         ))
                         {
                             await handler.CreateFileAsync(filePath, new[] { metadata });
@@ -1059,13 +1059,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
-            string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.IndentType, commonConfig.SpaceCount);
+            string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.GenerateCommonIndentType, commonConfig.GenerateCommonSpaceCount);
 
             using (var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
                 service
                 , _iWriteToOutput
                 , tabSpacer
-                , commonConfig.GlobalOptionSetsWithDependentComponents
+                , commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents
             ))
             {
                 await handler.CreateFileAsync(selectedFile.FilePath, optionSets.OrderBy(o => o.Name));
