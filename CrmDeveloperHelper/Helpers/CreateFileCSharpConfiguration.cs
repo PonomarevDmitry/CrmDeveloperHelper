@@ -5,151 +5,174 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public class CreateFileCSharpConfiguration
     {
-        public string TabSpacer { get; }
+        public string TabSpacer { get; private set; }
 
-        public string NamespaceClasses { get; }
+        public string NamespaceClasses { get; private set; }
 
-        public string NamespaceGlobalOptionSets { get; }
+        public string NamespaceGlobalOptionSets { get; private set; }
 
-        public bool UseSchemaConstInCSharpAttributes { get; }
+        public bool UseSchemaConstInCSharpAttributes { get; private set; }
 
-        public bool GenerateAttributes { get; }
+        public bool GenerateAttributes { get; private set; }
 
-        public bool GenerateAttributesWithNameOf { get; }
+        public bool GenerateAttributesWithNameOf { get; private set; }
 
-        public ProxyClassAttributeEnums GenerateAttributesEnumsStateStatus { get; }
+        public ProxyClassAttributeEnums GenerateAttributesEnumsStateStatus { get; private set; }
 
-        public ProxyClassAttributeEnums GenerateAttributesEnumsLocal { get; }
+        public ProxyClassAttributeEnums GenerateAttributesEnumsLocal { get; private set; }
 
-        public ProxyClassAttributeEnums GenerateAttributesEnumsGlobal { get; }
+        public ProxyClassAttributeEnums GenerateAttributesEnumsGlobal { get; private set; }
 
-        public bool GenerateAttributesEnumsStateStatusUseSchemaEnum { get; }
+        public bool GenerateAttributesEnumsStateStatusUseSchemaEnum { get; private set; }
 
-        public bool GenerateAttributesEnumsLocalUseSchemaEnum { get; }
+        public bool GenerateAttributesEnumsLocalUseSchemaEnum { get; private set; }
 
-        public ProxyClassAttributeEnumsGlobalOptionSetLocation GenerateAttributesEnumsGlobalUseSchemaEnum { get; }
+        public ProxyClassAttributeEnumsGlobalOptionSetLocation GenerateAttributesEnumsGlobalUseSchemaEnum { get; private set; }
 
-        public bool GenerateStatus { get; }
+        public bool GenerateStatus { get; private set; }
 
-        public bool GenerateLocalOptionSet { get; }
+        public bool GenerateLocalOptionSet { get; private set; }
 
-        public bool GenerateGlobalOptionSet { get; }
+        public bool GenerateGlobalOptionSet { get; private set; }
 
-        public bool GenerateOneToMany { get; }
+        public bool GenerateOneToMany { get; private set; }
 
-        public bool GenerateManyToOne { get; }
+        public bool GenerateManyToOne { get; private set; }
 
-        public bool GenerateManyToMany { get; }
+        public bool GenerateManyToMany { get; private set; }
 
-        public bool GenerateKeys { get; }
+        public bool GenerateKeys { get; private set; }
 
-        public bool GenerateSchemaIntoSchemaClass { get; }
+        public bool GenerateSchemaIntoSchemaClass { get; private set; }
 
-        public bool GenerateWithDebuggerNonUserCode { get; }
+        public bool GenerateWithDebuggerNonUserCode { get; private set; }
 
-        public bool AllDescriptions { get; }
+        public bool AllDescriptions { get; private set; }
 
-        public bool WithDependentComponents { get; }
+        public bool WithDependentComponents { get; private set; }
 
-        public ConstantType ConstantType { get; }
+        public ConstantType ConstantType { get; private set; }
 
-        public OptionSetExportType OptionSetExportType { get; }
+        public OptionSetExportType OptionSetExportType { get; private set; }
 
-        public bool WithManagedInfo { get; }
+        public bool WithManagedInfo { get; private set; }
 
-        public bool WithoutObsoleteAttribute { get; }
+        public bool WithoutObsoleteAttribute { get; private set; }
 
-        public bool MakeAllPropertiesEditable { get; }
+        public bool MakeAllPropertiesEditable { get; private set; }
 
-        public bool AddConstructorWithAnonymousTypeObject { get; }
+        public bool AddConstructorWithAnonymousTypeObject { get; private set; }
 
-        public bool GenerateServiceContext { get; }
+        public bool GenerateServiceContext { get; private set; }
 
-        public bool AddDescriptionAttribute { get; }
+        public bool AddDescriptionAttribute { get; private set; }
 
-        public CreateFileCSharpConfiguration(
-            string tabSpacer
-
-            , string namespaceClasses
-            , string namespaceGlobalOptionSets
-
-            , bool generateAttributes
-
-            , bool generateStatus
-            , bool generateLocalOptionSet
-            , bool generateGlobalOptionSet
-
-            , bool generateOneToMany
-            , bool generateManyToOne
-            , bool generateManyToMany
-
-            , bool generateKeys
-
-            , bool allDescriptions
-            , bool withDependentComponents
-
-            , bool intoSchemaClass
-
-            , bool withManagedInfo
-
-            , ConstantType constantType
-            , OptionSetExportType optionSetExportType
-
-            , bool generateAttributesWithNameOf
-            , bool generateWithDebuggerNonUserCode
-            , bool useSchemaConstInCSharpAttributes
-            , bool withoutObsoleteAttribute
-            , bool makeAllPropertiesEditable
-            , bool addConstructorWithAnonymousTypeObject
-
-            , ProxyClassAttributeEnums generateAttributesEnumsStateStatus
-
-            , ProxyClassAttributeEnums generateAttributesEnumsLocal
-            , ProxyClassAttributeEnums generateAttributesEnumsGlobal
-            , bool generateAttributesEnumsStateStatusUseSchemaEnum
-
-            , bool generateAttributesEnumsLocalUseSchemaEnum
-            , ProxyClassAttributeEnumsGlobalOptionSetLocation generateAttributesEnumsGlobalUseSchemaEnum
-            , bool addDescriptionAttribute
-        )
+        private CreateFileCSharpConfiguration()
         {
-            this.TabSpacer = tabSpacer;
 
-            this.NamespaceClasses = namespaceClasses;
-            this.NamespaceGlobalOptionSets = namespaceGlobalOptionSets;
+        }
 
-            this.GenerateAttributes = generateAttributes;
-            this.GenerateAttributesWithNameOf = generateAttributesWithNameOf;
-            this.GenerateStatus = generateStatus;
-            this.GenerateLocalOptionSet = generateLocalOptionSet;
-            this.GenerateGlobalOptionSet = generateGlobalOptionSet;
-            this.GenerateOneToMany = generateOneToMany;
-            this.GenerateManyToOne = generateManyToOne;
-            this.GenerateManyToMany = generateManyToMany;
-            this.AllDescriptions = allDescriptions;
-            this.WithDependentComponents = withDependentComponents;
-            this.ConstantType = constantType;
-            this.GenerateKeys = generateKeys;
-            this.OptionSetExportType = optionSetExportType;
+        public static CreateFileCSharpConfiguration CreateForSchema(string namespaceClasses, string namespaceGlobalOptionSets, CommonConfiguration commonConfig)
+        {
+            var result = new CreateFileCSharpConfiguration
+            {
+                TabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.GenerateCommonIndentType, commonConfig.GenerateCommonSpaceCount),
 
-            this.GenerateSchemaIntoSchemaClass = intoSchemaClass;
-            this.WithManagedInfo = withManagedInfo;
+                NamespaceClasses = namespaceClasses,
+                NamespaceGlobalOptionSets = namespaceGlobalOptionSets,
 
-            this.GenerateWithDebuggerNonUserCode = generateWithDebuggerNonUserCode;
-            this.UseSchemaConstInCSharpAttributes = useSchemaConstInCSharpAttributes;
-            this.WithoutObsoleteAttribute = withoutObsoleteAttribute;
-            this.MakeAllPropertiesEditable = makeAllPropertiesEditable;
-            this.AddConstructorWithAnonymousTypeObject = addConstructorWithAnonymousTypeObject;
+                GenerateAttributes = commonConfig.GenerateSchemaAttributes,
+                GenerateStatus = commonConfig.GenerateSchemaStatusOptionSet,
+                GenerateLocalOptionSet = commonConfig.GenerateSchemaLocalOptionSet,
+                GenerateGlobalOptionSet = commonConfig.GenerateSchemaGlobalOptionSet,
+                GenerateOneToMany = commonConfig.GenerateSchemaOneToMany,
+                GenerateManyToOne = commonConfig.GenerateSchemaManyToOne,
+                GenerateManyToMany = commonConfig.GenerateSchemaManyToMany,
+                GenerateKeys = commonConfig.GenerateSchemaKeys,
 
-            this.GenerateAttributesEnumsStateStatus = generateAttributesEnumsStateStatus;
-            this.GenerateAttributesEnumsLocal = generateAttributesEnumsLocal;
-            this.GenerateAttributesEnumsGlobal = generateAttributesEnumsGlobal;
+                AllDescriptions = commonConfig.GenerateCommonAllDescriptions,
+                WithDependentComponents = commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents,
+                ConstantType = commonConfig.GenerateSchemaConstantType,
+                OptionSetExportType = commonConfig.GenerateSchemaOptionSetExportType,
 
-            this.GenerateAttributesEnumsStateStatusUseSchemaEnum = generateAttributesEnumsStateStatusUseSchemaEnum;
-            this.GenerateAttributesEnumsLocalUseSchemaEnum = generateAttributesEnumsLocalUseSchemaEnum;
-            this.GenerateAttributesEnumsGlobalUseSchemaEnum = generateAttributesEnumsGlobalUseSchemaEnum;
+                GenerateSchemaIntoSchemaClass = commonConfig.GenerateSchemaIntoSchemaClass,
+                WithManagedInfo = commonConfig.SolutionComponentWithManagedInfo,
 
-            this.AddDescriptionAttribute = addDescriptionAttribute;
+                GenerateWithDebuggerNonUserCode = commonConfig.GenerateProxyClassesWithDebuggerNonUserCode,
+                UseSchemaConstInCSharpAttributes = commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes,
+                WithoutObsoleteAttribute = commonConfig.GenerateProxyClassesWithoutObsoleteAttribute,
+                AddConstructorWithAnonymousTypeObject = commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject,
+
+                AddDescriptionAttribute = commonConfig.GenerateSchemaAddDescriptionAttribute,
+            };
+
+            return result;
+        }
+
+        public static CreateFileCSharpConfiguration CreateForProxyClass(string namespaceClasses, string namespaceGlobalOptionSets, CommonConfiguration commonConfig)
+        {
+            var result = new CreateFileCSharpConfiguration
+            {
+                TabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.GenerateCommonIndentType, commonConfig.GenerateCommonSpaceCount),
+
+                NamespaceClasses = namespaceClasses,
+                NamespaceGlobalOptionSets = namespaceGlobalOptionSets,
+
+                GenerateAttributes = commonConfig.GenerateProxyClassesAttributes,
+                GenerateAttributesWithNameOf = commonConfig.GenerateProxyClassesAttributesWithNameOf,
+                GenerateStatus = commonConfig.GenerateProxyClassesStatusOptionSet,
+                GenerateLocalOptionSet = commonConfig.GenerateProxyClassesLocalOptionSet,
+                GenerateGlobalOptionSet = commonConfig.GenerateProxyClassesGlobalOptionSet,
+                GenerateOneToMany = commonConfig.GenerateProxyClassesOneToMany,
+                GenerateManyToOne = commonConfig.GenerateProxyClassesManyToOne,
+                GenerateManyToMany = commonConfig.GenerateProxyClassesManyToMany,
+
+                AllDescriptions = commonConfig.GenerateCommonAllDescriptions,
+                WithDependentComponents = commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents,
+
+                WithManagedInfo = commonConfig.SolutionComponentWithManagedInfo,
+
+                GenerateWithDebuggerNonUserCode = commonConfig.GenerateProxyClassesWithDebuggerNonUserCode,
+                UseSchemaConstInCSharpAttributes = commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes,
+                WithoutObsoleteAttribute = commonConfig.GenerateProxyClassesWithoutObsoleteAttribute,
+                MakeAllPropertiesEditable = commonConfig.GenerateProxyClassesMakeAllPropertiesEditable,
+                AddConstructorWithAnonymousTypeObject = commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject,
+
+                GenerateAttributesEnumsStateStatus = commonConfig.GenerateProxyClassesAttributesEnumsStateStatus,
+                GenerateAttributesEnumsLocal = commonConfig.GenerateProxyClassesAttributesEnumsLocal,
+                GenerateAttributesEnumsGlobal = commonConfig.GenerateProxyClassesAttributesEnumsGlobal,
+
+                GenerateAttributesEnumsStateStatusUseSchemaEnum = commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaStateStatusEnum,
+                GenerateAttributesEnumsLocalUseSchemaEnum = commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum,
+                GenerateAttributesEnumsGlobalUseSchemaEnum = commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum,
+
+                AddDescriptionAttribute = commonConfig.GenerateProxyClassesAddDescriptionAttribute,
+            };
+
+            return result;
+        }
+
+        public static CreateFileCSharpConfiguration CreateForSdkMessageRequest(string namespaceClasses, string namespaceGlobalOptionSets, CommonConfiguration commonConfig)
+        {
+            var result = new CreateFileCSharpConfiguration
+            {
+                TabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.GenerateCommonIndentType, commonConfig.GenerateCommonSpaceCount),
+
+                NamespaceClasses = namespaceClasses,
+                NamespaceGlobalOptionSets = namespaceGlobalOptionSets,
+
+                GenerateAttributes = commonConfig.GenerateSdkMessageRequestAttributes,
+
+                GenerateAttributesWithNameOf = commonConfig.GenerateSdkMessageRequestAttributesWithNameOf,
+
+                GenerateWithDebuggerNonUserCode = commonConfig.GenerateSdkMessageRequestWithDebuggerNonUserCode,
+
+                UseSchemaConstInCSharpAttributes = commonConfig.GenerateSdkMessageRequestUseSchemaConstInCSharpAttributes,
+
+                MakeAllPropertiesEditable = commonConfig.GenerateSdkMessageRequestMakeAllPropertiesEditable,
+            };
+
+            return result;
         }
     }
 }

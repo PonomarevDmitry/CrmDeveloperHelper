@@ -478,8 +478,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceEntityMetadataCSharpForEntityFormat1, linkedEntityMetadata.LogicalName);
 
-            CreateFileCSharpConfiguration config1 = GetCSharpConfigSchema(service1.ConnectionData, linkedEntityMetadata.LogicalName);
-            CreateFileCSharpConfiguration config2 = GetCSharpConfigSchema(service2.ConnectionData, linkedEntityMetadata.LogicalName);
+            CreateFileCSharpConfiguration config1 = GetCSharpConfigSchema(service1.ConnectionData);
+            CreateFileCSharpConfiguration config2 = GetCSharpConfigSchema(service2.ConnectionData);
 
             string fileName1 = string.Format("{0}.{1}.Generated.cs", service1.ConnectionData.Name, linkedEntityMetadata.EntityMetadata1.SchemaName);
             string fileName2 = string.Format("{0}.{1}.Generated.cs", service2.ConnectionData.Name, linkedEntityMetadata.EntityMetadata2.SchemaName);
@@ -622,7 +622,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 BlankLinesBetweenMembers = true,
                 BracingStyle = "C",
-                IndentString = config1.TabSpacer,
                 VerbatimOrder = true,
             };
 
@@ -656,88 +655,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityConnectionsFormat3, linkedEntityMetadata.LogicalName, service1.ConnectionData.Name, service2.ConnectionData.Name);
         }
 
-        private CreateFileCSharpConfiguration GetCSharpConfigSchema(ConnectionData connectionData, string entityName)
+        private CreateFileCSharpConfiguration GetCSharpConfigSchema(ConnectionData connectionData)
         {
-            string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
-
-            var result = new CreateFileCSharpConfiguration(
-                tabSpacer
-                , connectionData.NamespaceClassesCSharp
-                , connectionData.NamespaceOptionSetsCSharp
-                , _commonConfig.GenerateSchemaAttributes
-                , _commonConfig.GenerateSchemaStatusOptionSet
-                , _commonConfig.GenerateSchemaLocalOptionSet
-                , _commonConfig.GenerateSchemaGlobalOptionSet
-                , _commonConfig.GenerateSchemaOneToMany
-                , _commonConfig.GenerateSchemaManyToOne
-                , _commonConfig.GenerateSchemaManyToMany
-                , _commonConfig.GenerateSchemaKeys
-                , _commonConfig.GenerateCommonAllDescriptions
-                , _commonConfig.GenerateSchemaEntityOptionSetsDependentComponents
-                , _commonConfig.GenerateSchemaIntoSchemaClass
-                , _commonConfig.SolutionComponentWithManagedInfo
-                , _commonConfig.GenerateSchemaConstantType
-                , _commonConfig.GenerateSchemaOptionSetExportType
-                , _commonConfig.GenerateProxyClassesAttributesWithNameOf
-                , _commonConfig.GenerateProxyClassesWithDebuggerNonUserCode
-                , _commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes
-                , _commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
-                , _commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
-                , _commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
-                , _commonConfig.GenerateProxyClassesAttributesEnumsStateStatus
-
-                , _commonConfig.GenerateProxyClassesAttributesEnumsLocal
-                , _commonConfig.GenerateProxyClassesAttributesEnumsGlobal
-                , _commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaStateStatusEnum
-
-                , _commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum
-                , _commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum
-                , _commonConfig.GenerateSchemaAddDescriptionAttribute
-            );
-
-            return result;
+            return CreateFileCSharpConfiguration.CreateForSchema(connectionData.NamespaceClassesCSharp, connectionData.NamespaceOptionSetsCSharp, _commonConfig);
         }
 
         private CreateFileCSharpConfiguration GetCSharpConfigProxyClass(ConnectionData connectionData, string entityName)
         {
-            string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
-
-            var result = new CreateFileCSharpConfiguration(
-                tabSpacer
-                , connectionData.NamespaceClassesCSharp
-                , connectionData.NamespaceOptionSetsCSharp
-                , _commonConfig.GenerateProxyClassesAttributes
-                , _commonConfig.GenerateProxyClassesStatusOptionSet
-                , _commonConfig.GenerateProxyClassesLocalOptionSet
-                , _commonConfig.GenerateProxyClassesGlobalOptionSet
-                , _commonConfig.GenerateProxyClassesOneToMany
-                , _commonConfig.GenerateProxyClassesManyToOne
-                , _commonConfig.GenerateProxyClassesManyToMany
-                , false
-                , _commonConfig.GenerateCommonAllDescriptions
-                , _commonConfig.GenerateSchemaEntityOptionSetsDependentComponents
-                , _commonConfig.GenerateSchemaIntoSchemaClass
-                , _commonConfig.SolutionComponentWithManagedInfo
-                , _commonConfig.GenerateSchemaConstantType
-                , _commonConfig.GenerateSchemaOptionSetExportType
-                , _commonConfig.GenerateProxyClassesAttributesWithNameOf
-                , _commonConfig.GenerateProxyClassesWithDebuggerNonUserCode
-                , _commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes
-                , _commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
-                , _commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
-                , _commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
-                , _commonConfig.GenerateProxyClassesAttributesEnumsStateStatus
-
-                , _commonConfig.GenerateProxyClassesAttributesEnumsLocal
-                , _commonConfig.GenerateProxyClassesAttributesEnumsGlobal
-                , _commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaStateStatusEnum
-
-                , _commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum
-                , _commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum
-                , _commonConfig.GenerateProxyClassesAddDescriptionAttribute
-            );
-
-            return result;
+            return CreateFileCSharpConfiguration.CreateForProxyClass(connectionData.NamespaceClassesCSharp, connectionData.NamespaceOptionSetsCSharp, _commonConfig);
         }
 
         private void btnDifferenceJavaScriptFile_Click(object sender, RoutedEventArgs e)
@@ -892,7 +817,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
 
-            var config = GetCSharpConfigSchema(service.ConnectionData, entityMetadata.LogicalName);
+            var config = GetCSharpConfigSchema(service.ConnectionData);
 
             string fileName = string.Format("{0}.{1}.Generated.cs", service.ConnectionData.Name, entityMetadata.SchemaName);
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -1007,7 +932,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     BlankLinesBetweenMembers = true,
                     BracingStyle = "C",
-                    IndentString = config.TabSpacer,
                     VerbatimOrder = true,
                 };
 

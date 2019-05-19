@@ -84,6 +84,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             codeCompileUnit.AssemblyCustomAttributes.Add(Attribute(typeof(ProxyTypesAssemblyAttribute)));
 
+            options.IndentString = _config.TabSpacer;
+
             using (var streamWriter = new StreamWriter(outputFilePath))
             {
                 using (var provider = CodeDomProvider.CreateProvider("CSharp"))
@@ -119,6 +121,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             var codeCompileUnit = new CodeCompileUnit();
 
             codeCompileUnit.Namespaces.Add(codeNamespace);
+
+            options.IndentString = _config.TabSpacer;
 
             using (var streamWriter = new StreamWriter(outputFilePath))
             {
@@ -156,6 +160,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             codeCompileUnit.Namespaces.Add(codeNamespace);
 
+            options.IndentString = _config.TabSpacer;
+
             using (var streamWriter = new StreamWriter(outputFilePath))
             {
                 using (var provider = CodeDomProvider.CreateProvider("CSharp"))
@@ -191,6 +197,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             var codeCompileUnit = new CodeCompileUnit();
 
             codeCompileUnit.Namespaces.Add(codeNamespace);
+
+            options.IndentString = _config.TabSpacer;
 
             using (var streamWriter = new StreamWriter(outputFilePath))
             {
