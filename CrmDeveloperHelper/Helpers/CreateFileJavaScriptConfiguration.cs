@@ -15,12 +15,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public CreateFileJavaScriptConfiguration(
             string tabSpacer
             , bool withDependentComponents
-            , bool GenerateSchemaIntoSchemaClass
+            , bool generateSchemaIntoSchemaClass
         )
         {
             this.TabSpacer = tabSpacer;
             this.WithDependentComponents = withDependentComponents;
-            this.GenerateSchemaIntoSchemaClass = GenerateSchemaIntoSchemaClass;
+            this.GenerateSchemaIntoSchemaClass = generateSchemaIntoSchemaClass;
         }
     }
 }
