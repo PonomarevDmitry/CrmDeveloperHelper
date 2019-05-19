@@ -1284,7 +1284,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var config = new CreateFileJavaScriptConfiguration(
                         tabSpacer
                         , _commonConfig.EntityMetadaOptionSetDependentComponents
-                        , _commonConfig.GenerateIntoSchemaClass
+                        , _commonConfig.GenerateSchemaIntoSchemaClass
                     );
 
                     XElement doc = XElement.Parse(formXml);

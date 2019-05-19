@@ -107,7 +107,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine("namespace {0}", this._service.ConnectionData.NamespaceClassesCSharp);
             WriteLine("{");
 
-            if (!_config.GenerateIntoSchemaClass)
+            if (!_config.GenerateSchemaIntoSchemaClass)
             {
                 WriteSummaryEntity();
             }
@@ -117,7 +117,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine("public partial class {0}", entityClassName);
             WriteLine("{");
 
-            if (_config.GenerateIntoSchemaClass)
+            if (_config.GenerateSchemaIntoSchemaClass)
             {
                 WriteSummaryEntity();
                 WriteLine("public static partial class Schema");
@@ -179,7 +179,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             await WriteManyToMany(_entityMetadata.ManyToManyRelationships);
 
             WriteLine("}");
-            if (_config.GenerateIntoSchemaClass)
+            if (_config.GenerateSchemaIntoSchemaClass)
             {
                 WriteLine("}");
             }

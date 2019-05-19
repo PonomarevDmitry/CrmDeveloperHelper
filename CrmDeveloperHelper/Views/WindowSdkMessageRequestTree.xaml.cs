@@ -1847,7 +1847,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , false
                     , _commonConfig.AllDescriptions
                     , _commonConfig.EntityMetadaOptionSetDependentComponents
-                    , _commonConfig.GenerateIntoSchemaClass
+                    , _commonConfig.GenerateSchemaIntoSchemaClass
                     , _commonConfig.SolutionComponentWithManagedInfo
                     , _commonConfig.ConstantType
                     , _commonConfig.OptionSetExportType
@@ -2204,7 +2204,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , false
                     , _commonConfig.AllDescriptions
                     , _commonConfig.EntityMetadaOptionSetDependentComponents
-                    , _commonConfig.GenerateIntoSchemaClass
+                    , _commonConfig.GenerateSchemaIntoSchemaClass
                     , _commonConfig.SolutionComponentWithManagedInfo
                     , _commonConfig.ConstantType
                     , _commonConfig.OptionSetExportType

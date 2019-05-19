@@ -201,7 +201,7 @@
             <TabItem Header="EntityMetadata Schema Options">
                 <StackPanel Orientation="Vertical">
 
-                    <CheckBox x:Name="chBIntoSchemaClass" IsChecked="{Binding Path=GenerateIntoSchemaClass}" Content="Into Schema class" />
+                    <CheckBox x:Name="chBIntoSchemaClass" IsChecked="{Binding Path=GenerateSchemaIntoSchemaClass}" Content="Into Schema class" />
 
                     <Grid>
 
@@ -213,11 +213,11 @@
                             <ColumnDefinition Width="100*" />
                         </Grid.ColumnDefinitions>
 
-                        <CheckBox Grid.Column="0" x:Name="chBAttributesSchema" IsChecked="{Binding Path=GenerateAttributesSchema}" Content="Attributes" />
-                        <CheckBox Grid.Column="1" x:Name="chBOneToManySchema" IsChecked="{Binding Path=GenerateOneToManySchema}" Content="One to Many" />
-                        <CheckBox Grid.Column="2" x:Name="chBManyToOneSchema" IsChecked="{Binding Path=GenerateManyToOneSchema}" Content="Many to One" />
-                        <CheckBox Grid.Column="3" x:Name="chBManyToManySchema" IsChecked="{Binding Path=GenerateManyToManySchema}" Content="Many to Many" />
-                        <CheckBox Grid.Column="4" x:Name="chBKeysSchema" IsChecked="{Binding Path=GenerateKeysSchema}" Content="Keys"  />
+                        <CheckBox Grid.Column="0" x:Name="chBAttributesSchema" IsChecked="{Binding Path=GenerateSchemaAttributes}" Content="Attributes" />
+                        <CheckBox Grid.Column="1" x:Name="chBOneToManySchema" IsChecked="{Binding Path=GenerateSchemaOneToMany}" Content="One to Many" />
+                        <CheckBox Grid.Column="2" x:Name="chBManyToOneSchema" IsChecked="{Binding Path=GenerateSchemaManyToOne}" Content="Many to One" />
+                        <CheckBox Grid.Column="3" x:Name="chBManyToManySchema" IsChecked="{Binding Path=GenerateSchemaManyToMany}" Content="Many to Many" />
+                        <CheckBox Grid.Column="4" x:Name="chBKeysSchema" IsChecked="{Binding Path=GenerateSchemaKeys}" Content="Keys"  />
                     </Grid>
 
                     <Label Content="Generate OptionSets Enums:" />
@@ -233,11 +233,11 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
 
-                        <CheckBox Grid.Row="0" Grid.Column="0" x:Name="chBStatusSchema" IsChecked="{Binding Path=GenerateStatusOptionSetSchema}" Content="Status and StatusReason OptionSets" />
-                        <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chBLocalOptionSetsSchema" IsChecked="{Binding Path=GenerateLocalOptionSetSchema}" Content="Local OptionSets" />
-                        <CheckBox Grid.Row="0" Grid.Column="2" x:Name="chBGlobalOptionSetsSchema" IsChecked="{Binding Path=GenerateGlobalOptionSetSchema}" Content="Global OptionSets" />
+                        <CheckBox Grid.Row="0" Grid.Column="0" x:Name="chBStatusSchema" IsChecked="{Binding Path=GenerateSchemaStatusOptionSet}" Content="Status and StatusReason OptionSets" />
+                        <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chBLocalOptionSetsSchema" IsChecked="{Binding Path=GenerateSchemaLocalOptionSet}" Content="Local OptionSets" />
+                        <CheckBox Grid.Row="0" Grid.Column="2" x:Name="chBGlobalOptionSetsSchema" IsChecked="{Binding Path=GenerateSchemaGlobalOptionSet}" Content="Global OptionSets" />
 
-                        <CheckBox Grid.Row="1" Grid.Column="0" x:Name="chBAddDescriptionAttribute" IsChecked="{Binding Path=GenerateAddDescriptionAttribute}" Content="Add Description Attribute" />
+                        <CheckBox Grid.Row="1" Grid.Column="0" x:Name="chBAddDescriptionAttribute" IsChecked="{Binding Path=GenerateSchemaAddDescriptionAttribute}" Content="Add Description Attribute" />
                     </Grid>
 
                     <Grid>

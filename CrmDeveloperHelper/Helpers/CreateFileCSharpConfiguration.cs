@@ -43,7 +43,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public bool GenerateKeys { get; }
 
-        public bool GenerateIntoSchemaClass { get; }
+        public bool GenerateSchemaIntoSchemaClass { get; }
 
         public bool GenerateWithDebuggerNonUserCode { get; }
 
@@ -121,7 +121,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             this.GenerateKeys = generateKeys;
             this.OptionSetExportType = optionSetExportType;
 
-            this.GenerateIntoSchemaClass = intoSchemaClass;
+            this.GenerateSchemaIntoSchemaClass = intoSchemaClass;
             this.WithManagedInfo = withManagedInfo;
 
             this.GenerateWithDebuggerNonUserCode = generateWithDebuggerNonUserCode;

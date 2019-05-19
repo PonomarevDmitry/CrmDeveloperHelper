@@ -143,172 +143,173 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _GenerateAddDescriptionAttribute = true;
+        private bool _GenerateSchemaAddDescriptionAttribute = true;
         [DataMember]
-        public bool GenerateAddDescriptionAttribute
+        public bool GenerateSchemaAddDescriptionAttribute
         {
-            get => _GenerateAddDescriptionAttribute;
+            get => _GenerateSchemaAddDescriptionAttribute;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateAddDescriptionAttribute));
-                this._GenerateAddDescriptionAttribute = value;
-                this.OnPropertyChanged(nameof(GenerateAddDescriptionAttribute));
+                this.OnPropertyChanging(nameof(GenerateSchemaAddDescriptionAttribute));
+                this._GenerateSchemaAddDescriptionAttribute = value;
+                this.OnPropertyChanged(nameof(GenerateSchemaAddDescriptionAttribute));
             }
         }
 
-        private bool _GenerateAttributesSchema = true;
+        private bool _GenerateSchemaAttributes = true;
         /// <summary>
         /// Генерировать атрибуты в файле с метаданными сущности
         /// </summary>
         [DataMember]
-        public bool GenerateAttributesSchema
+        public bool GenerateSchemaAttributes
         {
-            get => _GenerateAttributesSchema;
+            get => _GenerateSchemaAttributes;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateAttributesSchema));
-                this._GenerateAttributesSchema = value;
-                this.OnPropertyChanged(nameof(GenerateAttributesSchema));
+                this.OnPropertyChanging(nameof(GenerateSchemaAttributes));
+                this._GenerateSchemaAttributes = value;
+                this.OnPropertyChanged(nameof(GenerateSchemaAttributes));
             }
         }
 
-        private bool _GenerateManyToOneSchema = true;
+        private bool _GenerateSchemaManyToOne = true;
         /// <summary>
         /// Генерировать связи Many To One (N:1) в файле с метаданными сущности
         /// </summary>
         [DataMember]
-        public bool GenerateManyToOneSchema
+        public bool GenerateSchemaManyToOne
         {
-            get => _GenerateManyToOneSchema;
+            get => _GenerateSchemaManyToOne;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateManyToOneSchema));
-                this._GenerateManyToOneSchema = value;
-                this.OnPropertyChanged(nameof(GenerateManyToOneSchema));
+                this.OnPropertyChanging(nameof(GenerateSchemaManyToOne));
+                this._GenerateSchemaManyToOne = value;
+                this.OnPropertyChanged(nameof(GenerateSchemaManyToOne));
             }
         }
 
-        private bool _GenerateOneToManySchema = true;
+        private bool _GenerateSchemaOneToMany = true;
         /// <summary>
         /// Генерировать One To Many (1:N) в файле с метаданными сущности
         /// </summary>
         [DataMember]
-        public bool GenerateOneToManySchema
+        public bool GenerateSchemaOneToMany
         {
-            get => _GenerateOneToManySchema;
+            get => _GenerateSchemaOneToMany;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateOneToManySchema));
-                this._GenerateOneToManySchema = value;
-                this.OnPropertyChanged(nameof(GenerateOneToManySchema));
+                this.OnPropertyChanging(nameof(GenerateSchemaOneToMany));
+                this._GenerateSchemaOneToMany = value;
+                this.OnPropertyChanged(nameof(GenerateSchemaOneToMany));
             }
         }
 
-        private bool _GenerateManyToManySchema = true;
+        private bool _GenerateSchemaManyToMany = true;
         /// <summary>
         /// Генерировать Many To Many (N:N) в файле с метаданными сущности
         /// </summary>
         [DataMember]
-        public bool GenerateManyToManySchema
+        public bool GenerateSchemaManyToMany
         {
-            get => _GenerateManyToManySchema;
+            get => _GenerateSchemaManyToMany;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateManyToManySchema));
-                this._GenerateManyToManySchema = value;
-                this.OnPropertyChanged(nameof(GenerateManyToManySchema));
+                this.OnPropertyChanging(nameof(GenerateSchemaManyToMany));
+                this._GenerateSchemaManyToMany = value;
+                this.OnPropertyChanged(nameof(GenerateSchemaManyToMany));
             }
         }
 
-        private bool _GenerateLocalOptionSetSchema = true;
+        private bool _GenerateSchemaLocalOptionSet = true;
         /// <summary>
         /// Генерировать enum для значений Picklist-ов в файле с метаданными сущности
         /// </summary>
         [DataMember]
-        public bool GenerateLocalOptionSetSchema
+        public bool GenerateSchemaLocalOptionSet
         {
-            get => _GenerateLocalOptionSetSchema;
+            get => _GenerateSchemaLocalOptionSet;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateLocalOptionSetSchema));
-                this._GenerateLocalOptionSetSchema = value;
-                this.OnPropertyChanged(nameof(GenerateLocalOptionSetSchema));
+                this.OnPropertyChanging(nameof(GenerateSchemaLocalOptionSet));
+                this._GenerateSchemaLocalOptionSet = value;
+                this.OnPropertyChanged(nameof(GenerateSchemaLocalOptionSet));
             }
         }
 
-        private bool _GenerateGlobalOptionSetSchema = false;
+        private bool _GenerateSchemaGlobalOptionSet = false;
         [DataMember]
-        public bool GenerateGlobalOptionSetSchema
+        public bool GenerateSchemaGlobalOptionSet
         {
-            get => _GenerateGlobalOptionSetSchema;
+            get => _GenerateSchemaGlobalOptionSet;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateGlobalOptionSetSchema));
-                this._GenerateGlobalOptionSetSchema = value;
-                this.OnPropertyChanged(nameof(GenerateGlobalOptionSetSchema));
+                this.OnPropertyChanging(nameof(GenerateSchemaGlobalOptionSet));
+                this._GenerateSchemaGlobalOptionSet = value;
+                this.OnPropertyChanged(nameof(GenerateSchemaGlobalOptionSet));
             }
         }
 
-        private bool _GenerateStatusOptionSetSchema = true;
+        private bool _GenerateSchemaStatusOptionSet = true;
         /// <summary>
         /// Генерировать enum для значения Statecode и Statuscode в файле с метаданными сущности
         /// </summary>
         [DataMember]
-        public bool GenerateStatusOptionSetSchema
+        public bool GenerateSchemaStatusOptionSet
         {
-            get => _GenerateStatusOptionSetSchema;
+            get => _GenerateSchemaStatusOptionSet;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateStatusOptionSetSchema));
-                this._GenerateStatusOptionSetSchema = value;
-                this.OnPropertyChanged(nameof(GenerateStatusOptionSetSchema));
+                this.OnPropertyChanging(nameof(GenerateSchemaStatusOptionSet));
+                this._GenerateSchemaStatusOptionSet = value;
+                this.OnPropertyChanged(nameof(GenerateSchemaStatusOptionSet));
             }
         }
 
-        private bool _GenerateKeysSchema = true;
+        private bool _GenerateSchemaKeys = true;
         /// <summary>
         /// Генерировать уникальные ключи
         /// </summary>
         [DataMember]
-        public bool GenerateKeysSchema
+        public bool GenerateSchemaKeys
         {
-            get => _GenerateKeysSchema;
+            get => _GenerateSchemaKeys;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateKeysSchema));
-                this._GenerateKeysSchema = value;
-                this.OnPropertyChanged(nameof(GenerateKeysSchema));
+                this.OnPropertyChanging(nameof(GenerateSchemaKeys));
+                this._GenerateSchemaKeys = value;
+                this.OnPropertyChanged(nameof(GenerateSchemaKeys));
             }
         }
 
-        private bool _GenerateIntoSchemaClass;
+        private bool _GenerateSchemaIntoSchemaClass;
         [DataMember]
-        public bool GenerateIntoSchemaClass
+        public bool GenerateSchemaIntoSchemaClass
         {
-            get => _GenerateIntoSchemaClass;
+            get => _GenerateSchemaIntoSchemaClass;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateIntoSchemaClass));
-                this._GenerateIntoSchemaClass = value;
-                this.OnPropertyChanged(nameof(GenerateIntoSchemaClass));
+                this.OnPropertyChanging(nameof(GenerateSchemaIntoSchemaClass));
+                this._GenerateSchemaIntoSchemaClass = value;
+                this.OnPropertyChanged(nameof(GenerateSchemaIntoSchemaClass));
             }
         }
 
         private void LoadFromDiskSchema(CommonConfiguration diskData)
         {
-            this.GenerateIntoSchemaClass = diskData.GenerateIntoSchemaClass;
+            this.GenerateSchemaIntoSchemaClass = diskData.GenerateSchemaIntoSchemaClass;
 
-            this.GenerateAttributesSchema = diskData.GenerateAttributesSchema;
-            this.GenerateManyToOneSchema = diskData.GenerateManyToOneSchema;
-            this.GenerateOneToManySchema = diskData.GenerateOneToManySchema;
-            this.GenerateManyToManySchema = diskData.GenerateManyToManySchema;
-            this.GenerateLocalOptionSetSchema = diskData.GenerateLocalOptionSetSchema;
-            this.GenerateGlobalOptionSetSchema = diskData.GenerateGlobalOptionSetSchema;
-            this.GenerateStatusOptionSetSchema = diskData.GenerateStatusOptionSetSchema;
-            this.GenerateKeysSchema = diskData.GenerateKeysSchema;
+            this.GenerateSchemaAttributes = diskData.GenerateSchemaAttributes;
+            this.GenerateSchemaManyToOne = diskData.GenerateSchemaManyToOne;
+            this.GenerateSchemaOneToMany = diskData.GenerateSchemaOneToMany;
+            this.GenerateSchemaManyToMany = diskData.GenerateSchemaManyToMany;
+            this.GenerateSchemaLocalOptionSet = diskData.GenerateSchemaLocalOptionSet;
+            this.GenerateSchemaGlobalOptionSet = diskData.GenerateSchemaGlobalOptionSet;
+            this.GenerateSchemaStatusOptionSet = diskData.GenerateSchemaStatusOptionSet;
+            this.GenerateSchemaKeys = diskData.GenerateSchemaKeys;
 
             this.SpaceCount = diskData.SpaceCount;
             this.IndentType = diskData.IndentType;
+
             this.ConstantType = diskData.ConstantType;
             this.OptionSetExportType = diskData.OptionSetExportType;
 
@@ -317,7 +318,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.AllDependentComponentsForAttributes = diskData.AllDependentComponentsForAttributes;
             this.GlobalOptionSetsWithDependentComponents = diskData.GlobalOptionSetsWithDependentComponents;
 
-            this.GenerateAddDescriptionAttribute = diskData.GenerateAddDescriptionAttribute;
+            this.GenerateSchemaAddDescriptionAttribute = diskData.GenerateSchemaAddDescriptionAttribute;
         }
     }
 }

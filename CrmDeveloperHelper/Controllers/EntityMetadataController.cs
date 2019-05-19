@@ -409,17 +409,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             tabSpacer   
                             , connectionData.NamespaceClassesCSharp
                             , connectionData.NamespaceOptionSetsCSharp
-                            , commonConfig.GenerateAttributesSchema
-                            , commonConfig.GenerateStatusOptionSetSchema
-                            , commonConfig.GenerateLocalOptionSetSchema
-                            , commonConfig.GenerateGlobalOptionSetSchema
-                            , commonConfig.GenerateOneToManySchema
-                            , commonConfig.GenerateManyToOneSchema
-                            , commonConfig.GenerateManyToManySchema
-                            , commonConfig.GenerateKeysSchema
+                            , commonConfig.GenerateSchemaAttributes
+                            , commonConfig.GenerateSchemaStatusOptionSet
+                            , commonConfig.GenerateSchemaLocalOptionSet
+                            , commonConfig.GenerateSchemaGlobalOptionSet
+                            , commonConfig.GenerateSchemaOneToMany
+                            , commonConfig.GenerateSchemaManyToOne
+                            , commonConfig.GenerateSchemaManyToMany
+                            , commonConfig.GenerateSchemaKeys
                             , commonConfig.AllDescriptions
                             , commonConfig.EntityMetadaOptionSetDependentComponents
-                            , commonConfig.GenerateIntoSchemaClass
+                            , commonConfig.GenerateSchemaIntoSchemaClass
                             , commonConfig.SolutionComponentWithManagedInfo
                             , commonConfig.ConstantType
                             , commonConfig.OptionSetExportType
@@ -437,7 +437,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                             , commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum
                             , commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum
-                            , commonConfig.GenerateAddDescriptionAttribute
+                            , commonConfig.GenerateSchemaAddDescriptionAttribute
                         );
 
                         string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, connectionData?.Name, entityMetadata.LogicalName);
@@ -575,7 +575,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             , false
                             , commonConfig.AllDescriptions
                             , commonConfig.EntityMetadaOptionSetDependentComponents
-                            , commonConfig.GenerateIntoSchemaClass
+                            , commonConfig.GenerateSchemaIntoSchemaClass
                             , commonConfig.SolutionComponentWithManagedInfo
                             , commonConfig.ConstantType
                             , commonConfig.OptionSetExportType
@@ -725,7 +725,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         var config = new CreateFileJavaScriptConfiguration(
                             tabSpacer
                             , commonConfig.EntityMetadaOptionSetDependentComponents
-                            , commonConfig.GenerateIntoSchemaClass
+                            , commonConfig.GenerateSchemaIntoSchemaClass
                         );
 
                         string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, connectionData?.Name, entityMetadata.LogicalName);

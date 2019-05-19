@@ -664,17 +664,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 tabSpacer
                 , connectionData.NamespaceClassesCSharp
                 , connectionData.NamespaceOptionSetsCSharp
-                , _commonConfig.GenerateAttributesSchema
-                , _commonConfig.GenerateStatusOptionSetSchema
-                , _commonConfig.GenerateLocalOptionSetSchema
-                , _commonConfig.GenerateGlobalOptionSetSchema
-                , _commonConfig.GenerateOneToManySchema
-                , _commonConfig.GenerateManyToOneSchema
-                , _commonConfig.GenerateManyToManySchema
-                , _commonConfig.GenerateKeysSchema
+                , _commonConfig.GenerateSchemaAttributes
+                , _commonConfig.GenerateSchemaStatusOptionSet
+                , _commonConfig.GenerateSchemaLocalOptionSet
+                , _commonConfig.GenerateSchemaGlobalOptionSet
+                , _commonConfig.GenerateSchemaOneToMany
+                , _commonConfig.GenerateSchemaManyToOne
+                , _commonConfig.GenerateSchemaManyToMany
+                , _commonConfig.GenerateSchemaKeys
                 , _commonConfig.AllDescriptions
                 , _commonConfig.EntityMetadaOptionSetDependentComponents
-                , _commonConfig.GenerateIntoSchemaClass
+                , _commonConfig.GenerateSchemaIntoSchemaClass
                 , _commonConfig.SolutionComponentWithManagedInfo
                 , _commonConfig.ConstantType
                 , _commonConfig.OptionSetExportType
@@ -692,7 +692,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 , _commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum
                 , _commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum
-                , _commonConfig.GenerateAddDescriptionAttribute
+                , _commonConfig.GenerateSchemaAddDescriptionAttribute
             );
 
             return result;
@@ -716,7 +716,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , false
                 , _commonConfig.AllDescriptions
                 , _commonConfig.EntityMetadaOptionSetDependentComponents
-                , _commonConfig.GenerateIntoSchemaClass
+                , _commonConfig.GenerateSchemaIntoSchemaClass
                 , _commonConfig.SolutionComponentWithManagedInfo
                 , _commonConfig.ConstantType
                 , _commonConfig.OptionSetExportType
@@ -832,7 +832,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var result = new CreateFileJavaScriptConfiguration(
                 tabSpacer
                 , _commonConfig.EntityMetadaOptionSetDependentComponents
-                , _commonConfig.GenerateIntoSchemaClass
+                , _commonConfig.GenerateSchemaIntoSchemaClass
             );
 
             return result;
