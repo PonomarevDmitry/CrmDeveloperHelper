@@ -111,10 +111,10 @@
                             <ColumnDefinition Width="100*" />
                         </Grid.ColumnDefinitions>
 
-                        <CheckBox Grid.Column="0" x:Name="chBAttributesProxyClass" IsChecked="{Binding Path=GenerateAttributesProxyClass}" Content="Attributes" />
-                        <CheckBox Grid.Column="1" x:Name="chBOneToManyProxyClass" IsChecked="{Binding Path=GenerateOneToManyProxyClass}" Content="One to Many" />
-                        <CheckBox Grid.Column="2" x:Name="chBManyToOneProxyClass" IsChecked="{Binding Path=GenerateManyToOneProxyClass}" Content="Many to One" />
-                        <CheckBox Grid.Column="3" x:Name="chBManyToManyProxyClass" IsChecked="{Binding Path=GenerateManyToManyProxyClass}" Content="Many to Many" />
+                        <CheckBox Grid.Column="0" x:Name="chBAttributesProxyClass" IsChecked="{Binding Path=GenerateProxyClassesAttributes}" Content="Attributes" />
+                        <CheckBox Grid.Column="1" x:Name="chBOneToManyProxyClass" IsChecked="{Binding Path=GenerateProxyClassesOneToMany}" Content="One to Many" />
+                        <CheckBox Grid.Column="2" x:Name="chBManyToOneProxyClass" IsChecked="{Binding Path=GenerateProxyClassesManyToOne}" Content="Many to One" />
+                        <CheckBox Grid.Column="3" x:Name="chBManyToManyProxyClass" IsChecked="{Binding Path=GenerateProxyClassesManyToMany}" Content="Many to Many" />
                     </Grid>
 
                     <Grid>
@@ -131,13 +131,13 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Row="0" Grid.Column="0" Content="Status and StatusReason Enum Attributes:" />
-                        <ComboBox Grid.Row="0" Grid.Column="1" x:Name="cmBAttributesProxyClassEnumsStateStatus" SelectedItem="{Binding Path=GenerateAttributesProxyClassEnumsStateStatus}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:ProxyClassAttributeEnums}}}" />
+                        <ComboBox Grid.Row="0" Grid.Column="1" x:Name="cmBAttributesProxyClassEnumsStateStatus" SelectedItem="{Binding Path=GenerateProxyClassesAttributesEnumsStateStatus}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:ProxyClassAttributeEnums}}}" />
 
                         <Label Grid.Row="1" Grid.Column="0" Content="Local OptionSets Enum Attributes:" />
-                        <ComboBox Grid.Row="1" Grid.Column="1" x:Name="cmBAttributesProxyClassEnumsLocal" SelectedItem="{Binding Path=GenerateAttributesProxyClassEnumsLocal}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:ProxyClassAttributeEnums}}}" />
+                        <ComboBox Grid.Row="1" Grid.Column="1" x:Name="cmBAttributesProxyClassEnumsLocal" SelectedItem="{Binding Path=GenerateProxyClassesAttributesEnumsLocal}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:ProxyClassAttributeEnums}}}" />
 
                         <Label Grid.Row="2" Grid.Column="0" Content="Global OptionSets Enum Attributes:" />
-                        <ComboBox Grid.Row="2" Grid.Column="1" x:Name="cmBAttributesProxyClassEnumsGlobal" SelectedItem="{Binding Path=GenerateAttributesProxyClassEnumsGlobal}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:ProxyClassAttributeEnums}}}" />
+                        <ComboBox Grid.Row="2" Grid.Column="1" x:Name="cmBAttributesProxyClassEnumsGlobal" SelectedItem="{Binding Path=GenerateProxyClassesAttributesEnumsGlobal}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:ProxyClassAttributeEnums}}}" />
                     </Grid>
 
                     <Grid>
@@ -147,8 +147,8 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <CheckBox Grid.Column="0" x:Name="chBAttributesProxyClassEnumsUseSchemaStateStatusEnum" IsChecked="{Binding Path=GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum}" Content="Use Schema Enums for Status and StatusReason" />
-                        <CheckBox Grid.Column="1" x:Name="chBAttributesProxyClassEnumsUseSchemaLocalEnum" IsChecked="{Binding Path=GenerateAttributesProxyClassEnumsUseSchemaLocalEnum}" Content="Use Schema Enums for Local OptionSets" />
+                        <CheckBox Grid.Column="0" x:Name="chBAttributesProxyClassEnumsUseSchemaStateStatusEnum" IsChecked="{Binding Path=GenerateProxyClassesAttributesEnumsUseSchemaStateStatusEnum}" Content="Use Schema Enums for Status and StatusReason" />
+                        <CheckBox Grid.Column="1" x:Name="chBAttributesProxyClassEnumsUseSchemaLocalEnum" IsChecked="{Binding Path=GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum}" Content="Use Schema Enums for Local OptionSets" />
                     </Grid>
 
                     <Grid>
@@ -159,7 +159,7 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Column="0" Content="Global OptionSets Enum:" />
-                        <ComboBox Grid.Column="1" x:Name="cmBAttributesProxyClassEnumsUseSchemaGlobalEnum" SelectedItem="{Binding Path=GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:ProxyClassAttributeEnumsGlobalOptionSetLocation}}}" />
+                        <ComboBox Grid.Column="1" x:Name="cmBAttributesProxyClassEnumsUseSchemaGlobalEnum" SelectedItem="{Binding Path=GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:ProxyClassAttributeEnumsGlobalOptionSetLocation}}}" />
                     </Grid>
 
                     <Label Content="Generate OptionSets Enums:" />
@@ -179,14 +179,14 @@
                             <ColumnDefinition Width="100*" />
                         </Grid.ColumnDefinitions>
 
-                        <CheckBox Grid.Row="0" Grid.Column="0" x:Name="chBStatusProxyClass" IsChecked="{Binding Path=GenerateStatusOptionSetProxyClass}" Content="Status and StatusReason OptionSets" />
-                        <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chBLocalOptionSetsProxyClass" IsChecked="{Binding Path=GenerateLocalOptionSetProxyClass}" Content="Local OptionSets" />
-                        <CheckBox Grid.Row="0" Grid.Column="2" x:Name="chBGlobalOptionSetsProxyClass" IsChecked="{Binding Path=GenerateGlobalOptionSetProxyClass}" Content="Global OptionSets" />
+                        <CheckBox Grid.Row="0" Grid.Column="0" x:Name="chBStatusProxyClass" IsChecked="{Binding Path=GenerateProxyClassesStatusOptionSet}" Content="Status and StatusReason OptionSets" />
+                        <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chBLocalOptionSetsProxyClass" IsChecked="{Binding Path=GenerateProxyClassesLocalOptionSet}" Content="Local OptionSets" />
+                        <CheckBox Grid.Row="0" Grid.Column="2" x:Name="chBGlobalOptionSetsProxyClass" IsChecked="{Binding Path=GenerateProxyClassesGlobalOptionSet}" Content="Global OptionSets" />
 
-                        <CheckBox Grid.Row="1" Grid.Column="0" x:Name="chBProxyClassAddDescriptionAttribute" IsChecked="{Binding Path=GenerateProxyClassAddDescriptionAttribute}" Content="Add Description Attribute" />
+                        <CheckBox Grid.Row="1" Grid.Column="0" x:Name="chBProxyClassAddDescriptionAttribute" IsChecked="{Binding Path=GenerateProxyClassesAddDescriptionAttribute}" Content="Add Description Attribute" />
 
                         <CheckBox Grid.Row="2" Grid.Column="0" x:Name="chBProxyClassWithDebuggerNonUserCode" IsChecked="{Binding Path=GenerateProxyClassesWithDebuggerNonUserCode}" Content="Add DebuggerNonUserCode Attribute" />
-                        <CheckBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="chBAttributesProxyClassWithNameOf" IsChecked="{Binding Path=GenerateAttributesProxyClassWithNameOf}" Content="Notify Property Change with nameof" />
+                        <CheckBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="chBAttributesProxyClassWithNameOf" IsChecked="{Binding Path=GenerateProxyClassesAttributesWithNameOf}" Content="Notify Property Change with nameof" />
 
                         <CheckBox Grid.Row="3" Grid.Column="0" x:Name="chBProxyClassUseSchemaConstInCSharpAttributes" IsChecked="{Binding Path=GenerateProxyClassesUseSchemaConstInCSharpAttributes}" Content="Use Schema Const In C# Attributes" />
                         <CheckBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="chBProxyClassesMakeAllPropertiesEditable" IsChecked="{Binding Path=GenerateProxyClassesMakeAllPropertiesEditable}" Content="Make All Properties Editable" />

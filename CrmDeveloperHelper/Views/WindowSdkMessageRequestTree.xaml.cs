@@ -1837,13 +1837,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     tabSpacer
                     , service.ConnectionData.NamespaceClassesCSharp
                     , service.ConnectionData.NamespaceOptionSetsCSharp
-                    , _commonConfig.GenerateAttributesProxyClass
-                    , _commonConfig.GenerateStatusOptionSetProxyClass
-                    , _commonConfig.GenerateLocalOptionSetProxyClass
-                    , _commonConfig.GenerateGlobalOptionSetProxyClass
-                    , _commonConfig.GenerateOneToManyProxyClass
-                    , _commonConfig.GenerateManyToOneProxyClass
-                    , _commonConfig.GenerateManyToManyProxyClass
+                    , _commonConfig.GenerateProxyClassesAttributes
+                    , _commonConfig.GenerateProxyClassesStatusOptionSet
+                    , _commonConfig.GenerateProxyClassesLocalOptionSet
+                    , _commonConfig.GenerateProxyClassesGlobalOptionSet
+                    , _commonConfig.GenerateProxyClassesOneToMany
+                    , _commonConfig.GenerateProxyClassesManyToOne
+                    , _commonConfig.GenerateProxyClassesManyToMany
                     , false
                     , _commonConfig.AllDescriptions
                     , _commonConfig.EntityMetadaOptionSetDependentComponents
@@ -1851,21 +1851,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , _commonConfig.SolutionComponentWithManagedInfo
                     , _commonConfig.ConstantType
                     , _commonConfig.OptionSetExportType
-                    , _commonConfig.GenerateAttributesProxyClassWithNameOf
+                    , _commonConfig.GenerateProxyClassesAttributesWithNameOf
                     , _commonConfig.GenerateProxyClassesWithDebuggerNonUserCode
                     , _commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes
                     , _commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
                     , _commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
                     , _commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
-                    , _commonConfig.GenerateAttributesProxyClassEnumsStateStatus
+                    , _commonConfig.GenerateProxyClassesAttributesEnumsStateStatus
 
-                    , _commonConfig.GenerateAttributesProxyClassEnumsLocal
-                    , _commonConfig.GenerateAttributesProxyClassEnumsGlobal
-                    , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum
+                    , _commonConfig.GenerateProxyClassesAttributesEnumsLocal
+                    , _commonConfig.GenerateProxyClassesAttributesEnumsGlobal
+                    , _commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaStateStatusEnum
 
-                    , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaLocalEnum
-                    , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum
-                    , _commonConfig.GenerateProxyClassAddDescriptionAttribute
+                    , _commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum
+                    , _commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum
+                    , _commonConfig.GenerateProxyClassesAddDescriptionAttribute
                 );
 
                 string fileName = string.Format("{0}.{1}.cs", service.ConnectionData.Name, codeMessagePair.Request.Name);
@@ -2194,13 +2194,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     tabSpacer
                     , service.ConnectionData.NamespaceClassesCSharp
                     , service.ConnectionData.NamespaceOptionSetsCSharp
-                    , _commonConfig.GenerateAttributesProxyClass
-                    , _commonConfig.GenerateStatusOptionSetProxyClass
-                    , _commonConfig.GenerateLocalOptionSetProxyClass
-                    , _commonConfig.GenerateGlobalOptionSetProxyClass
-                    , _commonConfig.GenerateOneToManyProxyClass
-                    , _commonConfig.GenerateManyToOneProxyClass
-                    , _commonConfig.GenerateManyToManyProxyClass
+                    , _commonConfig.GenerateProxyClassesAttributes
+                    , _commonConfig.GenerateProxyClassesStatusOptionSet
+                    , _commonConfig.GenerateProxyClassesLocalOptionSet
+                    , _commonConfig.GenerateProxyClassesGlobalOptionSet
+                    , _commonConfig.GenerateProxyClassesOneToMany
+                    , _commonConfig.GenerateProxyClassesManyToOne
+                    , _commonConfig.GenerateProxyClassesManyToMany
                     , false
                     , _commonConfig.AllDescriptions
                     , _commonConfig.EntityMetadaOptionSetDependentComponents
@@ -2208,21 +2208,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     , _commonConfig.SolutionComponentWithManagedInfo
                     , _commonConfig.ConstantType
                     , _commonConfig.OptionSetExportType
-                    , _commonConfig.GenerateAttributesProxyClassWithNameOf
+                    , _commonConfig.GenerateProxyClassesAttributesWithNameOf
                     , _commonConfig.GenerateProxyClassesWithDebuggerNonUserCode
                     , _commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes
                     , _commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
                     , _commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
                     , _commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
-                    , _commonConfig.GenerateAttributesProxyClassEnumsStateStatus
+                    , _commonConfig.GenerateProxyClassesAttributesEnumsStateStatus
 
-                    , _commonConfig.GenerateAttributesProxyClassEnumsLocal
-                    , _commonConfig.GenerateAttributesProxyClassEnumsGlobal
-                    , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum
+                    , _commonConfig.GenerateProxyClassesAttributesEnumsLocal
+                    , _commonConfig.GenerateProxyClassesAttributesEnumsGlobal
+                    , _commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaStateStatusEnum
 
-                    , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaLocalEnum
-                    , _commonConfig.GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum
-                    , _commonConfig.GenerateProxyClassAddDescriptionAttribute
+                    , _commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum
+                    , _commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum
+                    , _commonConfig.GenerateProxyClassesAddDescriptionAttribute
                 );
 
                 string fileName = string.Format("{0}.{1}.cs", service.ConnectionData.Name, codeMessage.Name);

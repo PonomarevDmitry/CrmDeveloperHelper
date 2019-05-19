@@ -423,20 +423,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             , commonConfig.SolutionComponentWithManagedInfo
                             , commonConfig.ConstantType
                             , commonConfig.OptionSetExportType
-                            , commonConfig.GenerateAttributesProxyClassWithNameOf
+                            , commonConfig.GenerateProxyClassesAttributesWithNameOf
                             , commonConfig.GenerateProxyClassesWithDebuggerNonUserCode
                             , commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes
                             , commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
                             , commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
                             , commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
-                            , commonConfig.GenerateAttributesProxyClassEnumsStateStatus
+                            , commonConfig.GenerateProxyClassesAttributesEnumsStateStatus
 
-                            , commonConfig.GenerateAttributesProxyClassEnumsLocal
-                            , commonConfig.GenerateAttributesProxyClassEnumsGlobal
-                            , commonConfig.GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum
+                            , commonConfig.GenerateProxyClassesAttributesEnumsLocal
+                            , commonConfig.GenerateProxyClassesAttributesEnumsGlobal
+                            , commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaStateStatusEnum
 
-                            , commonConfig.GenerateAttributesProxyClassEnumsUseSchemaLocalEnum
-                            , commonConfig.GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum
+                            , commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum
+                            , commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum
                             , commonConfig.GenerateAddDescriptionAttribute
                         );
 
@@ -565,13 +565,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             tabSpacer
                             , connectionData.NamespaceClassesCSharp
                             , connectionData.NamespaceOptionSetsCSharp
-                            , commonConfig.GenerateAttributesProxyClass
-                            , commonConfig.GenerateStatusOptionSetProxyClass
-                            , commonConfig.GenerateLocalOptionSetProxyClass
-                            , commonConfig.GenerateGlobalOptionSetProxyClass
-                            , commonConfig.GenerateOneToManyProxyClass
-                            , commonConfig.GenerateManyToOneProxyClass
-                            , commonConfig.GenerateManyToManyProxyClass
+                            , commonConfig.GenerateProxyClassesAttributes
+                            , commonConfig.GenerateProxyClassesStatusOptionSet
+                            , commonConfig.GenerateProxyClassesLocalOptionSet
+                            , commonConfig.GenerateProxyClassesGlobalOptionSet
+                            , commonConfig.GenerateProxyClassesOneToMany
+                            , commonConfig.GenerateProxyClassesManyToOne
+                            , commonConfig.GenerateProxyClassesManyToMany
                             , false
                             , commonConfig.AllDescriptions
                             , commonConfig.EntityMetadaOptionSetDependentComponents
@@ -579,21 +579,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             , commonConfig.SolutionComponentWithManagedInfo
                             , commonConfig.ConstantType
                             , commonConfig.OptionSetExportType
-                            , commonConfig.GenerateAttributesProxyClassWithNameOf
+                            , commonConfig.GenerateProxyClassesAttributesWithNameOf
                             , commonConfig.GenerateProxyClassesWithDebuggerNonUserCode
                             , commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes
                             , commonConfig.GenerateProxyClassesWithoutObsoleteAttribute
                             , commonConfig.GenerateProxyClassesMakeAllPropertiesEditable
                             , commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject
-                            , commonConfig.GenerateAttributesProxyClassEnumsStateStatus
+                            , commonConfig.GenerateProxyClassesAttributesEnumsStateStatus
 
-                            , commonConfig.GenerateAttributesProxyClassEnumsLocal
-                            , commonConfig.GenerateAttributesProxyClassEnumsGlobal
-                            , commonConfig.GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum
+                            , commonConfig.GenerateProxyClassesAttributesEnumsLocal
+                            , commonConfig.GenerateProxyClassesAttributesEnumsGlobal
+                            , commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaStateStatusEnum
 
-                            , commonConfig.GenerateAttributesProxyClassEnumsUseSchemaLocalEnum
-                            , commonConfig.GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum
-                            , commonConfig.GenerateProxyClassAddDescriptionAttribute
+                            , commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum
+                            , commonConfig.GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum
+                            , commonConfig.GenerateProxyClassesAddDescriptionAttribute
                         );
 
                         string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, connectionData?.Name, entityMetadata.LogicalName);

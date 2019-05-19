@@ -69,242 +69,244 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _GenerateProxyClassAddDescriptionAttribute = true;
+        private bool _GenerateProxyClassesAddDescriptionAttribute = true;
         [DataMember]
-        public bool GenerateProxyClassAddDescriptionAttribute
+        public bool GenerateProxyClassesAddDescriptionAttribute
         {
-            get => _GenerateProxyClassAddDescriptionAttribute;
+            get => _GenerateProxyClassesAddDescriptionAttribute;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateProxyClassAddDescriptionAttribute));
-                this._GenerateProxyClassAddDescriptionAttribute = value;
-                this.OnPropertyChanged(nameof(GenerateProxyClassAddDescriptionAttribute));
+                this.OnPropertyChanging(nameof(GenerateProxyClassesAddDescriptionAttribute));
+                this._GenerateProxyClassesAddDescriptionAttribute = value;
+                this.OnPropertyChanged(nameof(GenerateProxyClassesAddDescriptionAttribute));
             }
         }
 
-        private bool _GenerateAttributesProxyClass = true;
+        private bool _GenerateProxyClassesAttributes = true;
         /// <summary>
         /// Генерировать атрибуты в файле с метаданными сущности
         /// </summary>
         [DataMember]
-        public bool GenerateAttributesProxyClass
+        public bool GenerateProxyClassesAttributes
         {
-            get => _GenerateAttributesProxyClass;
+            get => _GenerateProxyClassesAttributes;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateAttributesProxyClass));
-                this._GenerateAttributesProxyClass = value;
-                this.OnPropertyChanged(nameof(GenerateAttributesProxyClass));
+                this.OnPropertyChanging(nameof(GenerateProxyClassesAttributes));
+                this._GenerateProxyClassesAttributes = value;
+                this.OnPropertyChanged(nameof(GenerateProxyClassesAttributes));
             }
         }
 
-        private bool _GenerateAttributesProxyClassWithNameOf = true;
+        private bool _GenerateProxyClassesAttributesWithNameOf = true;
         [DataMember]
-        public bool GenerateAttributesProxyClassWithNameOf
+        public bool GenerateProxyClassesAttributesWithNameOf
         {
-            get => _GenerateAttributesProxyClassWithNameOf;
+            get => _GenerateProxyClassesAttributesWithNameOf;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateAttributesProxyClassWithNameOf));
-                this._GenerateAttributesProxyClassWithNameOf = value;
-                this.OnPropertyChanged(nameof(GenerateAttributesProxyClassWithNameOf));
+                this.OnPropertyChanging(nameof(GenerateProxyClassesAttributesWithNameOf));
+                this._GenerateProxyClassesAttributesWithNameOf = value;
+                this.OnPropertyChanged(nameof(GenerateProxyClassesAttributesWithNameOf));
             }
         }
 
-        private ProxyClassAttributeEnums _GenerateAttributesProxyClassEnumsStateStatus = ProxyClassAttributeEnums.NotNeeded;
+        private ProxyClassAttributeEnums _GenerateProxyClassesAttributesEnumsStateStatus = ProxyClassAttributeEnums.NotNeeded;
         [DataMember]
-        public ProxyClassAttributeEnums GenerateAttributesProxyClassEnumsStateStatus
+        public ProxyClassAttributeEnums GenerateProxyClassesAttributesEnumsStateStatus
         {
-            get => _GenerateAttributesProxyClassEnumsStateStatus;
+            get => _GenerateProxyClassesAttributesEnumsStateStatus;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateAttributesProxyClassEnumsStateStatus));
-                this._GenerateAttributesProxyClassEnumsStateStatus = value;
-                this.OnPropertyChanged(nameof(GenerateAttributesProxyClassEnumsStateStatus));
+                this.OnPropertyChanging(nameof(GenerateProxyClassesAttributesEnumsStateStatus));
+                this._GenerateProxyClassesAttributesEnumsStateStatus = value;
+                this.OnPropertyChanged(nameof(GenerateProxyClassesAttributesEnumsStateStatus));
             }
         }
 
-        private ProxyClassAttributeEnums _GenerateAttributesProxyClassEnumsLocal = ProxyClassAttributeEnums.NotNeeded;
+        private ProxyClassAttributeEnums _GenerateProxyClassesAttributesEnumsLocal = ProxyClassAttributeEnums.NotNeeded;
         [DataMember]
-        public ProxyClassAttributeEnums GenerateAttributesProxyClassEnumsLocal
+        public ProxyClassAttributeEnums GenerateProxyClassesAttributesEnumsLocal
         {
-            get => _GenerateAttributesProxyClassEnumsLocal;
+            get => _GenerateProxyClassesAttributesEnumsLocal;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateAttributesProxyClassEnumsLocal));
-                this._GenerateAttributesProxyClassEnumsLocal = value;
-                this.OnPropertyChanged(nameof(GenerateAttributesProxyClassEnumsLocal));
+                this.OnPropertyChanging(nameof(GenerateProxyClassesAttributesEnumsLocal));
+                this._GenerateProxyClassesAttributesEnumsLocal = value;
+                this.OnPropertyChanged(nameof(GenerateProxyClassesAttributesEnumsLocal));
             }
         }
 
-        private ProxyClassAttributeEnums _GenerateAttributesProxyClassEnumsGlobal = ProxyClassAttributeEnums.NotNeeded;
+        private ProxyClassAttributeEnums _GenerateProxyClassesAttributesEnumsGlobal = ProxyClassAttributeEnums.NotNeeded;
         [DataMember]
-        public ProxyClassAttributeEnums GenerateAttributesProxyClassEnumsGlobal
+        public ProxyClassAttributeEnums GenerateProxyClassesAttributesEnumsGlobal
         {
-            get => _GenerateAttributesProxyClassEnumsGlobal;
+            get => _GenerateProxyClassesAttributesEnumsGlobal;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateAttributesProxyClassEnumsGlobal));
-                this._GenerateAttributesProxyClassEnumsGlobal = value;
-                this.OnPropertyChanged(nameof(GenerateAttributesProxyClassEnumsGlobal));
+                this.OnPropertyChanging(nameof(GenerateProxyClassesAttributesEnumsGlobal));
+                this._GenerateProxyClassesAttributesEnumsGlobal = value;
+                this.OnPropertyChanged(nameof(GenerateProxyClassesAttributesEnumsGlobal));
             }
         }
 
-        private bool _GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum = true;
+        private bool _GenerateProxyClassesAttributesEnumsUseSchemaStateStatusEnum = true;
         [DataMember]
-        public bool GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum
+        public bool GenerateProxyClassesAttributesEnumsUseSchemaStateStatusEnum
         {
-            get => _GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum;
+            get => _GenerateProxyClassesAttributesEnumsUseSchemaStateStatusEnum;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum));
-                this._GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum = value;
-                this.OnPropertyChanged(nameof(GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum));
+                this.OnPropertyChanging(nameof(GenerateProxyClassesAttributesEnumsUseSchemaStateStatusEnum));
+                this._GenerateProxyClassesAttributesEnumsUseSchemaStateStatusEnum = value;
+                this.OnPropertyChanged(nameof(GenerateProxyClassesAttributesEnumsUseSchemaStateStatusEnum));
             }
         }
 
-        private bool _GenerateAttributesProxyClassEnumsUseSchemaLocalEnum = true;
+        private bool _GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum = true;
         [DataMember]
-        public bool GenerateAttributesProxyClassEnumsUseSchemaLocalEnum
+        public bool GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum
         {
-            get => _GenerateAttributesProxyClassEnumsUseSchemaLocalEnum;
+            get => _GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateAttributesProxyClassEnumsUseSchemaLocalEnum));
-                this._GenerateAttributesProxyClassEnumsUseSchemaLocalEnum = value;
-                this.OnPropertyChanged(nameof(GenerateAttributesProxyClassEnumsUseSchemaLocalEnum));
+                this.OnPropertyChanging(nameof(GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum));
+                this._GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum = value;
+                this.OnPropertyChanged(nameof(GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum));
             }
         }
 
-        private ProxyClassAttributeEnumsGlobalOptionSetLocation _GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum = ProxyClassAttributeEnumsGlobalOptionSetLocation.InGlobalOptionSetNamespace;
+        private ProxyClassAttributeEnumsGlobalOptionSetLocation _GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum = ProxyClassAttributeEnumsGlobalOptionSetLocation.InGlobalOptionSetNamespace;
         [DataMember]
-        public ProxyClassAttributeEnumsGlobalOptionSetLocation GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum
+        public ProxyClassAttributeEnumsGlobalOptionSetLocation GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum
         {
-            get => _GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum;
+            get => _GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum));
-                this._GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum = value;
-                this.OnPropertyChanged(nameof(GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum));
+                this.OnPropertyChanging(nameof(GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum));
+                this._GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum = value;
+                this.OnPropertyChanged(nameof(GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum));
             }
         }
 
-        private bool _GenerateManyToOneProxyClass = false;
+        private bool _GenerateProxyClassesManyToOne = false;
         /// <summary>
         /// Генерировать связи Many To One (N:1) в файле с метаданными сущности
         /// </summary>
         [DataMember]
-        public bool GenerateManyToOneProxyClass
+        public bool GenerateProxyClassesManyToOne
         {
-            get => _GenerateManyToOneProxyClass;
+            get => _GenerateProxyClassesManyToOne;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateManyToOneProxyClass));
-                this._GenerateManyToOneProxyClass = value;
-                this.OnPropertyChanged(nameof(GenerateManyToOneProxyClass));
+                this.OnPropertyChanging(nameof(GenerateProxyClassesManyToOne));
+                this._GenerateProxyClassesManyToOne = value;
+                this.OnPropertyChanged(nameof(GenerateProxyClassesManyToOne));
             }
         }
 
-        private bool _GenerateOneToManyProxyClass = false;
+        private bool _GenerateProxyClassesOneToMany = false;
         /// <summary>
         /// Генерировать One To Many (1:N) в файле с метаданными сущности
         /// </summary>
         [DataMember]
-        public bool GenerateOneToManyProxyClass
+        public bool GenerateProxyClassesOneToMany
         {
-            get => _GenerateOneToManyProxyClass;
+            get => _GenerateProxyClassesOneToMany;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateOneToManyProxyClass));
-                this._GenerateOneToManyProxyClass = value;
-                this.OnPropertyChanged(nameof(GenerateOneToManyProxyClass));
+                this.OnPropertyChanging(nameof(GenerateProxyClassesOneToMany));
+                this._GenerateProxyClassesOneToMany = value;
+                this.OnPropertyChanged(nameof(GenerateProxyClassesOneToMany));
             }
         }
 
-        private bool _GenerateManyToManyProxyClass = true;
+        private bool _GenerateProxyClassesManyToMany = true;
         /// <summary>
         /// Генерировать Many To Many (N:N) в файле с метаданными сущности
         /// </summary>
         [DataMember]
-        public bool GenerateManyToManyProxyClass
+        public bool GenerateProxyClassesManyToMany
         {
-            get => _GenerateManyToManyProxyClass;
+            get => _GenerateProxyClassesManyToMany;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateManyToManyProxyClass));
-                this._GenerateManyToManyProxyClass = value;
-                this.OnPropertyChanged(nameof(GenerateManyToManyProxyClass));
+                this.OnPropertyChanging(nameof(GenerateProxyClassesManyToMany));
+                this._GenerateProxyClassesManyToMany = value;
+                this.OnPropertyChanged(nameof(GenerateProxyClassesManyToMany));
             }
         }
 
-        private bool _GenerateLocalOptionSetProxyClass = true;
+        private bool _GenerateProxyClassesLocalOptionSet = true;
         /// <summary>
         /// Генерировать enum для значений Picklist-ов в файле с метаданными сущности
         /// </summary>
         [DataMember]
-        public bool GenerateLocalOptionSetProxyClass
+        public bool GenerateProxyClassesLocalOptionSet
         {
-            get => _GenerateLocalOptionSetProxyClass;
+            get => _GenerateProxyClassesLocalOptionSet;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateLocalOptionSetProxyClass));
-                this._GenerateLocalOptionSetProxyClass = value;
-                this.OnPropertyChanged(nameof(GenerateLocalOptionSetProxyClass));
+                this.OnPropertyChanging(nameof(GenerateProxyClassesLocalOptionSet));
+                this._GenerateProxyClassesLocalOptionSet = value;
+                this.OnPropertyChanged(nameof(GenerateProxyClassesLocalOptionSet));
             }
         }
 
-        private bool _GenerateGlobalOptionSetProxyClass = false;
+        private bool _GenerateProxyClassesGlobalOptionSet = false;
         [DataMember]
-        public bool GenerateGlobalOptionSetProxyClass
+        public bool GenerateProxyClassesGlobalOptionSet
         {
-            get => _GenerateGlobalOptionSetProxyClass;
+            get => _GenerateProxyClassesGlobalOptionSet;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateGlobalOptionSetProxyClass));
-                this._GenerateGlobalOptionSetProxyClass = value;
-                this.OnPropertyChanged(nameof(GenerateGlobalOptionSetProxyClass));
+                this.OnPropertyChanging(nameof(GenerateProxyClassesGlobalOptionSet));
+                this._GenerateProxyClassesGlobalOptionSet = value;
+                this.OnPropertyChanged(nameof(GenerateProxyClassesGlobalOptionSet));
             }
         }
 
-        private bool _GenerateStatusOptionSetProxyClass = false;
+        private bool _GenerateProxyClassesStatusOptionSet = false;
         /// <summary>
         /// Генерировать enum для значения Statecode и Statuscode в файле с метаданными сущности
         /// </summary>
         [DataMember]
-        public bool GenerateStatusOptionSetProxyClass
+        public bool GenerateProxyClassesStatusOptionSet
         {
-            get => _GenerateStatusOptionSetProxyClass;
+            get => _GenerateProxyClassesStatusOptionSet;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateStatusOptionSetProxyClass));
-                this._GenerateStatusOptionSetProxyClass = value;
-                this.OnPropertyChanged(nameof(GenerateStatusOptionSetProxyClass));
+                this.OnPropertyChanging(nameof(GenerateProxyClassesStatusOptionSet));
+                this._GenerateProxyClassesStatusOptionSet = value;
+                this.OnPropertyChanged(nameof(GenerateProxyClassesStatusOptionSet));
             }
         }
 
         private void LoadFromDiskProxyClass(CommonConfiguration diskData)
         {
-            this.GenerateAttributesProxyClass = diskData.GenerateAttributesProxyClass;
-            this.GenerateManyToOneProxyClass = diskData.GenerateManyToOneProxyClass;
-            this.GenerateOneToManyProxyClass = diskData.GenerateOneToManyProxyClass;
-            this.GenerateManyToManyProxyClass = diskData.GenerateManyToManyProxyClass;
-            this.GenerateLocalOptionSetProxyClass = diskData.GenerateLocalOptionSetProxyClass;
-            this.GenerateGlobalOptionSetProxyClass = diskData.GenerateGlobalOptionSetProxyClass;
-            this.GenerateStatusOptionSetProxyClass = diskData.GenerateStatusOptionSetProxyClass;
+            this.GenerateProxyClassesAttributes = diskData.GenerateProxyClassesAttributes;
+            this.GenerateProxyClassesManyToOne = diskData.GenerateProxyClassesManyToOne;
+            this.GenerateProxyClassesOneToMany = diskData.GenerateProxyClassesOneToMany;
+            this.GenerateProxyClassesManyToMany = diskData.GenerateProxyClassesManyToMany;
+            this.GenerateProxyClassesLocalOptionSet = diskData.GenerateProxyClassesLocalOptionSet;
+            this.GenerateProxyClassesGlobalOptionSet = diskData.GenerateProxyClassesGlobalOptionSet;
+            this.GenerateProxyClassesStatusOptionSet = diskData.GenerateProxyClassesStatusOptionSet;
 
             this.GenerateProxyClassesUseSchemaConstInCSharpAttributes = diskData.GenerateProxyClassesUseSchemaConstInCSharpAttributes;
             this.GenerateProxyClassesWithDebuggerNonUserCode = diskData.GenerateProxyClassesWithDebuggerNonUserCode;
             this.GenerateProxyClassesMakeAllPropertiesEditable = diskData.GenerateProxyClassesMakeAllPropertiesEditable;
             this.GenerateProxyClassesWithoutObsoleteAttribute = diskData.GenerateProxyClassesWithoutObsoleteAttribute;
             this.GenerateProxyClassesAddConstructorWithAnonymousTypeObject = diskData.GenerateProxyClassesAddConstructorWithAnonymousTypeObject;
-            this.GenerateProxyClassAddDescriptionAttribute = diskData.GenerateProxyClassAddDescriptionAttribute;
-            this.GenerateAttributesProxyClassWithNameOf = diskData.GenerateAttributesProxyClassWithNameOf;
-            this.GenerateAttributesProxyClassEnumsStateStatus = diskData.GenerateAttributesProxyClassEnumsStateStatus;
-            this.GenerateAttributesProxyClassEnumsLocal = diskData.GenerateAttributesProxyClassEnumsLocal;
-            this.GenerateAttributesProxyClassEnumsGlobal = diskData.GenerateAttributesProxyClassEnumsGlobal;
-            this.GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum = diskData.GenerateAttributesProxyClassEnumsUseSchemaStateStatusEnum;
-            this.GenerateAttributesProxyClassEnumsUseSchemaLocalEnum = diskData.GenerateAttributesProxyClassEnumsUseSchemaLocalEnum;
-            this.GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum = diskData.GenerateAttributesProxyClassEnumsUseSchemaGlobalEnum;
+            this.GenerateProxyClassesAddDescriptionAttribute = diskData.GenerateProxyClassesAddDescriptionAttribute;
+
+            this.GenerateProxyClassesAttributesWithNameOf = diskData.GenerateProxyClassesAttributesWithNameOf;
+            this.GenerateProxyClassesAttributesEnumsStateStatus = diskData.GenerateProxyClassesAttributesEnumsStateStatus;
+            this.GenerateProxyClassesAttributesEnumsLocal = diskData.GenerateProxyClassesAttributesEnumsLocal;
+            this.GenerateProxyClassesAttributesEnumsGlobal = diskData.GenerateProxyClassesAttributesEnumsGlobal;
+
+            this.GenerateProxyClassesAttributesEnumsUseSchemaStateStatusEnum = diskData.GenerateProxyClassesAttributesEnumsUseSchemaStateStatusEnum;
+            this.GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum = diskData.GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum;
+            this.GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum = diskData.GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum;
         }
     }
 }
