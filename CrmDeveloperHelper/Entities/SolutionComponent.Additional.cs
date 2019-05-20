@@ -21,7 +21,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 if (this.FormattedValues != null
                     && this.FormattedValues.ContainsKey(Schema.Attributes.componenttype)
                     && !string.IsNullOrEmpty(this.FormattedValues[Schema.Attributes.componenttype])
-                    )
+                )
                 {
                     return this.FormattedValues[Schema.Attributes.componenttype];
                 }
@@ -94,7 +94,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             return result;
         }
 
-        internal static bool IsComponentTypeMetadata(Entities.ComponentType componentType)
+        internal static bool IsComponentTypeMetadata(ComponentType componentType)
         {
             switch (componentType)
             {
@@ -381,6 +381,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             }
 
             return null;
+        }
+
+        public static bool GetEntityComponentType(string entityName, out ComponentType componentType)
+        {
+            componentType = 0;
+
+            if (string.Equals(entityName, Template.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase))
+            {
+                componentType = Entities.ComponentType.EmailTemplate;
+                return true;
+            }
+
+            if (string.Equals(entityName, PrivilegeObjectTypeCodes.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase))
+            {
+                componentType = Entities.ComponentType.PrivilegeObjectTypeCode;
+                return true;
+            }
+
+            if (Enum.TryParse<ComponentType>(entityName, true, out var result))
+            {
+                componentType = result;
+                return true;
+            }
+
+            return false;
         }
 
         public static void GetComponentTypeEntityName(int type, out string entityName, out string entityIdName)

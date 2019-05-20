@@ -3,6 +3,7 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -989,8 +990,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             );
 
             ToggleControl(IsControlsEnabled && _entityCollection != null && _entityCollection.Entities.Any(en => en.Id != Guid.Empty)
-                , this.menuChangeSelectedEntities
-                , this.menuChangeAllEntities
+                , this.menuSelectedEntities
+                , this.menuAllEntities
                 , this.menuTransferToConnection
             );
         }
@@ -1257,12 +1258,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         {
             entityReferenceView = null;
 
-            if (!(e.OriginalSource is MenuItem menuItem))
-            {
-                return false;
-            }
+            ContextMenu contextMenu = null;
 
-            ContextMenu contextMenu = GetContextMenuFromMenuItem(menuItem);
+            if (e.OriginalSource is ContextMenu)
+            {
+                contextMenu = e.OriginalSource as ContextMenu;
+            }
+            else if (e.OriginalSource is MenuItem menuItem)
+            {
+                contextMenu = GetContextMenuFromMenuItem(menuItem);
+            }
 
             if (contextMenu == null
                 || contextMenu.PlacementTarget == null
@@ -1364,8 +1369,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         {
             HashSet<Guid> hash = new HashSet<Guid>();
 
-            List<Entity> result = new List<Entity>();
-
             var selectedCells = dGrResults.SelectedCells.ToList();
 
             foreach (var cell in selectedCells)
@@ -1378,13 +1381,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 {
                     if (hash.Add(entity.Id))
                     {
-                        result.Add(entity);
+                        yield return entity;
                     }
                 }
             }
-
-            return result;
         }
+
+        #region Execute Workflow
 
         private async void mIExecuteWorkflowOnEntity_Click(object sender, RoutedEventArgs e)
         {
@@ -1403,7 +1406,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await ExecuteWorkfowOnEntities(entity.LogicalName, new[] { entity.Id });
+            await ExecuteWorkflowOnEntities(entity.LogicalName, new[] { entity.Id });
         }
 
         private async void miExecuteWorkflowOnAllEntites_Click(object sender, RoutedEventArgs e)
@@ -1421,7 +1424,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await ExecuteWorkfowOnEntities(_entityCollection.EntityName, _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id));
+            IEnumerable<Guid> selectedEntityIds = _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id);
+
+            await ExecuteWorkflowOnEntities(_entityCollection.EntityName, selectedEntityIds);
         }
 
         private async void miExecuteWorkflowOnSelectedEntites_Click(object sender, RoutedEventArgs e)
@@ -1445,10 +1450,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await ExecuteWorkfowOnEntities(_entityCollection.EntityName, selectedEntityIds);
+            await ExecuteWorkflowOnEntities(_entityCollection.EntityName, selectedEntityIds);
         }
 
-        private async Task ExecuteWorkfowOnEntities(string entityName, IEnumerable<Guid> entityIds)
+        private async Task ExecuteWorkflowOnEntities(string entityName, IEnumerable<Guid> entityIds)
         {
             if (!IsControlsEnabled)
             {
@@ -1533,6 +1538,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
         }
 
+        #endregion Execute Workflow
+
+        #region Assign to User
+
         private async void mIAssignEntityToUser_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
@@ -1568,7 +1577,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await AssignEntitiesToUser(_entityCollection.EntityName, _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id));
+            IEnumerable<Guid> selectedEntityIds = _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id);
+
+            await AssignEntitiesToUser(_entityCollection.EntityName, selectedEntityIds);
         }
 
         private async void miAssignToUserSelectedEntites_Click(object sender, RoutedEventArgs e)
@@ -1673,6 +1684,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
         }
 
+        #endregion Assign to User
+
+        #region Assign to Team
+
         private async void mIAssignEntityToTeam_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
@@ -1708,7 +1723,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await AssignEntitiesToTeam(_entityCollection.EntityName, _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id));
+            IEnumerable<Guid> selectedEntityIds = _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id);
+
+            await AssignEntitiesToTeam(_entityCollection.EntityName, selectedEntityIds);
         }
 
         private async void miAssignToTeamSelectedEntites_Click(object sender, RoutedEventArgs e)
@@ -1812,6 +1829,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
         }
 
+        #endregion Assign to Team
+
+        #region Create new Entity
+
+        private async void btnCreateEntityInstance_Click(object sender, RoutedEventArgs e)
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || string.IsNullOrEmpty(_entityCollection.EntityName)
+            )
+            {
+                return;
+            }
+
+            var service = await GetServiceAsync(this.ConnectionData);
+
+            var commonConfig = CommonConfiguration.Get();
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, _entityCollection.EntityName, Guid.Empty);
+        }
+
+        #endregion Create new Entity
+
+        #region Edit Entity
+
         private async void mIChangeEntityInEditor_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
@@ -1856,6 +1902,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
+        #endregion Edit Entity
+
+        #region Bulk Edit Entities
+
         private async void miBulkEditAllEntites_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
@@ -1871,7 +1921,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await BulkEditEntities(_entityCollection.EntityName, _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id));
+            IEnumerable<Guid> selectedEntityIds = _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id);
+
+            await BulkEditEntities(_entityCollection.EntityName, selectedEntityIds);
         }
 
         private async void miBulkEditSelectedEntites_Click(object sender, RoutedEventArgs e)
@@ -1918,6 +1970,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             WindowHelper.OpenEntityBulkEditor(_iWriteToOutput, service, commonConfig, entityName, entitiesIds);
         }
+
+        #endregion Bulk Edit Entities
+
+        #region SetState Entity
 
         private async void mISetStateEntity_Click(object sender, RoutedEventArgs e)
         {
@@ -1978,7 +2034,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await SetStateEntities(_entityCollection.EntityName, _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id));
+            IEnumerable<Guid> selectedEntityIds = _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id);
+
+            await SetStateEntities(_entityCollection.EntityName, selectedEntityIds);
         }
 
         private async Task SetStateEntities(string entityName, IEnumerable<Guid> entityIds)
@@ -2048,6 +2106,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
         }
+
+        #endregion SetState Entity
+
+        #region Transfer Entities
 
         private void mITransferToConnection_SubmenuOpened(object sender, RoutedEventArgs e)
         {
@@ -2181,26 +2243,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             WindowHelper.OpenEntityBulkTransfer(_iWriteToOutput, targetService, commonConfig, targetEntityMetadata, entities);
         }
 
-        private async void btnCreateEntityInstance_Click(object sender, RoutedEventArgs e)
-        {
-            if (!this.IsControlsEnabled)
-            {
-                return;
-            }
+        #endregion Transfer Entities
 
-            if (_entityCollection == null
-                || string.IsNullOrEmpty(_entityCollection.EntityName)
-            )
-            {
-                return;
-            }
-
-            var service = await GetServiceAsync(this.ConnectionData);
-
-            var commonConfig = CommonConfiguration.Get();
-
-            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, _entityCollection.EntityName, Guid.Empty);
-        }
+        #region Delete Entities
 
         private async void mIDeleteEntity_Click(object sender, RoutedEventArgs e)
         {
@@ -2261,7 +2306,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await DeleteEntities(_entityCollection.EntityName, _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id));
+            IEnumerable<Guid> selectedEntityIds = _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id);
+
+            await DeleteEntities(_entityCollection.EntityName, selectedEntityIds);
         }
 
         private async Task DeleteEntities(string entityName, IEnumerable<Guid> entityIds)
@@ -2315,6 +2362,334 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.DeletingEntitiesCompletedFormat2, service.ConnectionData.Name, entityName);
 
             _iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operationName);
+        }
+
+        #endregion Delete Entities
+
+        #region Adding into Solution
+
+        private async void AddIntoCrmSolutionEntity_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            if (!SolutionComponent.GetEntityComponentType(entity.LogicalName, out var componentType))
+            {
+                return;
+            }
+
+            if (entity.Id == Guid.Empty)
+            {
+                return;
+            }
+
+            await AddIntoSolution(componentType, new[] { entity.Id }, true, null);
+        }
+
+        private async void AddIntoCrmSolutionEntityLast_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            if (!SolutionComponent.GetEntityComponentType(entity.LogicalName, out var componentType))
+            {
+                return;
+            }
+
+            if (entity.Id == Guid.Empty)
+            {
+                return;
+            }
+
+            if (sender is MenuItem menuItem
+               && menuItem.Tag != null
+               && menuItem.Tag is string solutionUniqueName
+            )
+            {
+                await AddIntoSolution(componentType, new[] { entity.Id }, false, solutionUniqueName);
+            }
+        }
+
+        private async void AddIntoCrmSolutionEntityReference_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!TryFindEntityReferenceViewFromRow(e, out var entity))
+            {
+                return;
+            }
+
+            if (!SolutionComponent.GetEntityComponentType(entity.LogicalName, out var componentType))
+            {
+                return;
+            }
+
+            if (entity.Id == Guid.Empty)
+            {
+                return;
+            }
+
+            await AddIntoSolution(componentType, new[] { entity.Id }, true, null);
+        }
+
+        private async void AddIntoCrmSolutionEntityReferenceLast_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (!TryFindEntityReferenceViewFromRow(e, out var entity))
+            {
+                return;
+            }
+
+            if (!SolutionComponent.GetEntityComponentType(entity.LogicalName, out var componentType))
+            {
+                return;
+            }
+
+            if (entity.Id == Guid.Empty)
+            {
+                return;
+            }
+
+            if (sender is MenuItem menuItem
+               && menuItem.Tag != null
+               && menuItem.Tag is string solutionUniqueName
+            )
+            {
+                await AddIntoSolution(componentType, new[] { entity.Id }, false, solutionUniqueName);
+            }
+        }
+
+        private async void AddIntoCrmSolutionSelectedEntities_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+            )
+            {
+                return;
+            }
+
+            if (!SolutionComponent.GetEntityComponentType(_entityCollection.EntityName, out var componentType))
+            {
+                return;
+            }
+
+            IEnumerable<Guid> selectedEntityIds = GetSelectedEntities().Select(en => en.Id);
+
+            if (!selectedEntityIds.Any())
+            {
+                return;
+            }
+
+            await AddIntoSolution(componentType, selectedEntityIds, true, null);
+        }
+
+        private async void AddIntoCrmSolutionSelectedEntitiesLast_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+            )
+            {
+                return;
+            }
+
+            if (!SolutionComponent.GetEntityComponentType(_entityCollection.EntityName, out var componentType))
+            {
+                return;
+            }
+
+            IEnumerable<Guid> selectedEntityIds = GetSelectedEntities().Select(en => en.Id);
+
+            if (!selectedEntityIds.Any())
+            {
+                return;
+            }
+
+            if (sender is MenuItem menuItem
+               && menuItem.Tag != null
+               && menuItem.Tag is string solutionUniqueName
+            )
+            {
+                await AddIntoSolution(componentType, selectedEntityIds, false, solutionUniqueName);
+            }
+        }
+
+        private async void AddIntoCrmSolutionAllEntities_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+            )
+            {
+                return;
+            }
+
+            if (!SolutionComponent.GetEntityComponentType(_entityCollection.EntityName, out var componentType))
+            {
+                return;
+            }
+
+            IEnumerable<Guid> selectedEntityIds = _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id);
+
+            if (!selectedEntityIds.Any())
+            {
+                return;
+            }
+
+            await AddIntoSolution(componentType, selectedEntityIds, true, null);
+        }
+
+        private async void AddIntoCrmSolutionAllEntitiesLast_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (_entityCollection == null
+                || _entityCollection.Entities.Count == 0
+            )
+            {
+                return;
+            }
+
+            if (!SolutionComponent.GetEntityComponentType(_entityCollection.EntityName, out var componentType))
+            {
+                return;
+            }
+
+            IEnumerable<Guid> selectedEntityIds = _entityCollection.Entities.Where(en => en.Id != Guid.Empty).Select(en => en.Id);
+
+            if (!selectedEntityIds.Any())
+            {
+                return;
+            }
+
+            if (sender is MenuItem menuItem
+               && menuItem.Tag != null
+               && menuItem.Tag is string solutionUniqueName
+            )
+            {
+                await AddIntoSolution(componentType, selectedEntityIds, false, solutionUniqueName);
+            }
+        }
+
+        private async Task AddIntoSolution(ComponentType componentType, IEnumerable<Guid> entityIds, bool withSelect, string solutionUniqueName)
+        {
+            var commonConfig = CommonConfiguration.Get();
+
+            var service = await GetServiceAsync(this.ConnectionData);
+
+            try
+            {
+                this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
+
+                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, commonConfig, solutionUniqueName, componentType, entityIds, null, withSelect);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+            }
+        }
+
+        #endregion Adding into Solution
+
+        private void ContextMenu_Opened(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is ContextMenu contextMenu))
+            {
+                return;
+            }
+
+            var items = contextMenu.Items.OfType<Control>();
+
+            bool hasSolutionComponentEntity = TryFindEntityFromDataRowView(e, out var entity);
+            if (hasSolutionComponentEntity)
+            {
+                hasSolutionComponentEntity = SolutionComponent.GetEntityComponentType(entity?.LogicalName, out _);
+            }
+
+            bool hasSolutionComponentEntityReference = TryFindEntityReferenceViewFromRow(e, out var entityReferenceView);
+            if (hasSolutionComponentEntityReference)
+            {
+                hasSolutionComponentEntityReference = SolutionComponent.GetEntityComponentType(entityReferenceView?.LogicalName, out _);
+            }
+
+            WindowBase.ActivateControls(items, hasSolutionComponentEntity, "contMnAddIntoSolution", "contMnAddIntoSolutionLast");
+            WindowBase.FillLastSolutionItems(this.ConnectionData, items, hasSolutionComponentEntity, AddIntoCrmSolutionEntityLast_Click, "contMnAddIntoSolutionLast");
+
+            WindowBase.ActivateControls(items, hasSolutionComponentEntityReference, "contMnAddIntoSolutionEntityReference", "contMnAddIntoSolutionEntityReferenceLast");
+            WindowBase.FillLastSolutionItems(this.ConnectionData, items, hasSolutionComponentEntityReference, AddIntoCrmSolutionEntityReferenceLast_Click, "contMnAddIntoSolutionEntityReferenceLast");
+        }
+
+        private void SelectedEntities_SubmenuOpened(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is MenuItem menuItem))
+            {
+                return;
+            }
+
+            var items = menuItem.Items.OfType<Control>();
+
+            bool hasSolutionComponentEntity = _entityCollection != null
+                && SolutionComponent.GetEntityComponentType(_entityCollection.EntityName, out _)
+                && GetSelectedEntities().Any(en => en.Id != Guid.Empty)
+                ;
+
+            WindowBase.ActivateControls(items, hasSolutionComponentEntity, "contMnAddIntoSolution", "contMnAddIntoSolutionLast");
+            WindowBase.FillLastSolutionItems(this.ConnectionData, items, hasSolutionComponentEntity, AddIntoCrmSolutionSelectedEntitiesLast_Click, "contMnAddIntoSolutionLast");
+        }
+
+        private void AllEntities_SubmenuOpened(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is MenuItem menuItem))
+            {
+                return;
+            }
+
+            var items = menuItem.Items.OfType<Control>();
+
+            bool hasSolutionComponentEntity = _entityCollection != null
+                && SolutionComponent.GetEntityComponentType(_entityCollection.EntityName, out _)
+                && _entityCollection.Entities.Any(en => en.Id != Guid.Empty)
+                ;
+
+            WindowBase.ActivateControls(items, hasSolutionComponentEntity, "contMnAddIntoSolution", "contMnAddIntoSolutionLast");
+            WindowBase.FillLastSolutionItems(this.ConnectionData, items, hasSolutionComponentEntity, AddIntoCrmSolutionAllEntitiesLast_Click, "contMnAddIntoSolutionLast");
         }
     }
 }

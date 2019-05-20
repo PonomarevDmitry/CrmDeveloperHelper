@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" d:DesignHeight="418" d:DesignWidth="882">
     <UserControl.Resources>
-        <ContextMenu x:Key="listContextMenuEntity">
+        <ContextMenu x:Key="listContextMenuEntity" Opened="ContextMenu_Opened">
 
             <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
 
@@ -22,23 +22,31 @@
             <Separator/>
             <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
+            <Separator x:Uid="contMnAddIntoSolution" />
+            <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution"  />
+            <MenuItem x:Uid="contMnAddIntoSolution" Header="Add into Crm Solution" Click="AddIntoCrmSolutionEntity_Click" />
+
             <Separator/>
             <MenuItem Header="Change Entity">
                 <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
+                
                 <Separator/>
                 <MenuItem Header="Assign Entity to User" Click="mIAssignEntityToUser_Click"/>
                 <MenuItem Header="Assign Entity to Team" Click="mIAssignEntityToTeam_Click"/>
+                
                 <Separator/>
                 <MenuItem Header="Set State Entity" Click="mISetStateEntity_Click"/>
+                
                 <Separator/>
                 <MenuItem Header="Execute Workflow on Entity" Click="mIExecuteWorkflowOnEntity_Click"/>
+                
                 <Separator/>
                 <MenuItem Header="Delete Entity" Click="mIDeleteEntity_Click"/>
             </MenuItem>
 
         </ContextMenu>
-        
-        <ContextMenu x:Key="listContextMenuEntityReference">
+
+        <ContextMenu x:Key="listContextMenuEntityReference" Opened="ContextMenu_Opened">
             <MenuItem Header="Open EntityReference Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityReferenceCustomizationInWeb_Click" />
             <Separator/>
             <MenuItem Header="Open EntityReference Metadata Window" Click="mIOpenEntityReferenceMetadataWindow_Click"/>
@@ -53,6 +61,10 @@
 
             <Separator/>
             <MenuItem Header="Create EntityReference Description" Click="mICreateEntityReferenceDescription_Click"/>
+
+            <Separator x:Uid="contMnAddIntoSolutionEntityReference" />
+            <MenuItem x:Uid="contMnAddIntoSolutionEntityReferenceLast" Header="Add EntityReference into Last Crm Solution"  />
+            <MenuItem x:Uid="contMnAddIntoSolutionEntityReference" Header="Add EntityReference into Crm Solution" Click="AddIntoCrmSolutionEntityReference_Click" />
 
             <Separator/>
             <MenuItem Header="Change EntityReference in Editor" Click="mIChangeEntityReferenceInEditor_Click"/>
@@ -73,22 +85,32 @@
             <Separator/>
             <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
+            <Separator x:Uid="contMnAddIntoSolution" />
+            <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution"  />
+            <MenuItem x:Uid="contMnAddIntoSolution" Header="Add into Crm Solution" Click="AddIntoCrmSolutionEntity_Click" />
+
             <Separator/>
             <MenuItem Header="Change Entity">
                 <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
+                
                 <Separator/>
                 <MenuItem Header="Assign Entity to User" Click="mIAssignEntityToUser_Click"/>
                 <MenuItem Header="Assign Entity to Team" Click="mIAssignEntityToTeam_Click"/>
+                
                 <Separator/>
                 <MenuItem Header="Set State Entity" Click="mISetStateEntity_Click"/>
+                
                 <Separator/>
                 <MenuItem Header="Execute Workflow on Entity" Click="mIExecuteWorkflowOnEntity_Click"/>
+                
                 <Separator/>
                 <MenuItem Header="Delete Entity" Click="mIDeleteEntity_Click"/>
             </MenuItem>
         </ContextMenu>
     </UserControl.Resources>
+    
     <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True">
+        
         <StatusBar VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
             <ComboBox x:Name="cmBCurrentConnection" Height="20" IsReadOnly="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
@@ -98,6 +120,7 @@
         </StatusBar>
         
         <TabControl x:Name="tabControl" DockPanel.Dock="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            
             <TabItem x:Name="tbFetchXml" IsSelected="False" Header="Fetch Xml" >
                 <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="true">
                     <ToolBar VerticalAlignment="Top" Height="30" DockPanel.Dock="Top">
@@ -127,9 +150,11 @@
                     </Grid>
                 </DockPanel>
             </TabItem>
+            
             <TabItem x:Name="tbErrorText" IsEnabled="False" Visibility="Collapsed" IsSelected="False" Header="Error Text">
                 <TextBox x:Name="txtBErrorText" Margin="5" IsReadOnly="True" IsReadOnlyCaretVisible="True" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
             </TabItem>
+            
             <TabItem x:Name="tbResults" IsEnabled="False" Visibility="Collapsed" IsSelected="False" Header="Results">
                 <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="true">
                     <ToolBar VerticalAlignment="Top" Height="30" DockPanel.Dock="Top">
@@ -141,32 +166,48 @@
                         <Button x:Name="btnCreateEntityInstance" Content="Create Entity Instance" Click="btnCreateEntityInstance_Click"/>
 
                         <Separator/>
-                        <Menu x:Name="menuChangeSelectedEntities" VerticalAlignment="Stretch" Background="{x:Null}">
-                            <MenuItem Header="Change Selected Entities">
+                        <Menu x:Name="menuSelectedEntities" VerticalAlignment="Stretch" Background="{x:Null}">
+                            <MenuItem Header="Selected Entities" SubmenuOpened="SelectedEntities_SubmenuOpened">
                                 <MenuItem Header="Bulk Edit Selected Entities" Click="miBulkEditSelectedEntites_Click"/>
+                                
                                 <Separator />
                                 <MenuItem Header="Assign Selected Entities to User" Click="miAssignToUserSelectedEntites_Click"/>
                                 <MenuItem Header="Assign Selected Entities to Team" Click="miAssignToTeamSelectedEntites_Click"/>
+                                
                                 <Separator/>
                                 <MenuItem Header="Set State Selected Entities" Click="mISetStateSelectedEntites_Click"/>
+                                
                                 <Separator />
                                 <MenuItem Header="Execute Workflow on Selected Entities" Click="miExecuteWorkflowOnSelectedEntites_Click"/>
+
+                                <Separator x:Uid="contMnAddIntoSolution" />
+                                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution"  />
+                                <MenuItem x:Uid="contMnAddIntoSolution" Header="Add into Crm Solution" Click="AddIntoCrmSolutionSelectedEntities_Click" />
+
                                 <Separator/>
                                 <MenuItem Header="Delete Selected Entity" Click="mIDeleteSelectedEntity_Click"/>
                             </MenuItem>
                         </Menu>
 
                         <Separator/>
-                        <Menu x:Name="menuChangeAllEntities" VerticalAlignment="Stretch" Background="{x:Null}">
-                            <MenuItem Header="Change All Entities">
+                        <Menu x:Name="menuAllEntities" VerticalAlignment="Stretch" Background="{x:Null}">
+                            <MenuItem Header="All Entities" SubmenuOpened="AllEntities_SubmenuOpened">
                                 <MenuItem Header="Bulk Edit All Entities" Click="miBulkEditAllEntites_Click"/>
+                                
                                 <Separator />
                                 <MenuItem Header="Assign All Entities to User" Click="miAssignToUserAllEntites_Click"/>
                                 <MenuItem Header="Assign All Entities to Team" Click="miAssignToTeamAllEntites_Click"/>
+                                
                                 <Separator/>
                                 <MenuItem Header="Set State Selected Entities" Click="mISetStateAllEntites_Click"/>
+                                
                                 <Separator />
                                 <MenuItem Header="Execute Workflow on All Entities" Click="miExecuteWorkflowOnAllEntites_Click"/>
+
+                                <Separator x:Uid="contMnAddIntoSolution" />
+                                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution"  />
+                                <MenuItem x:Uid="contMnAddIntoSolution" Header="Add into Crm Solution" Click="AddIntoCrmSolutionAllEntities_Click" />
+                                
                                 <Separator/>
                                 <MenuItem Header="Delete All Entity" Click="mIDeleteAllEntity_Click"/>
                             </MenuItem>
@@ -176,6 +217,7 @@
                         <Menu x:Name="menuTransferToConnection" VerticalAlignment="Stretch" Background="{x:Null}">
                             <MenuItem x:Name="mITransferToConnection" Header="Transfer to Connection" SubmenuOpened="mITransferToConnection_SubmenuOpened">
                                 <MenuItem x:Name="mITransferSelectedEntitiesToConnection" Header="Transfer Selected Entities to Connection" />
+                                
                                 <Separator />
                                 <MenuItem x:Name="mITransferAllEntitiesToConnection" Header="Transfer all Entities to Connection"/>
                             </MenuItem>
@@ -202,6 +244,7 @@
                     </DataGrid>
                 </DockPanel>
             </TabItem>
+            
         </TabControl>
     </DockPanel>
 </UserControl>

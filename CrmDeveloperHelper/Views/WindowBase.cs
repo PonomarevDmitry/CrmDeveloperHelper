@@ -356,7 +356,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         }
 
-        protected void ActivateControls(IEnumerable<Control> items, bool isEnabled, params string[] uidList)
+        public static void ActivateControls(IEnumerable<Control> items, bool isEnabled, params string[] uidList)
         {
             if (uidList == null || uidList.Length == 0)
             {
@@ -375,7 +375,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        protected void CheckSeparatorVisible(IEnumerable<Control> items)
+        public static void CheckSeparatorVisible(IEnumerable<Control> items)
         {
             int index = 0;
 
@@ -397,7 +397,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        protected void SetControlsName(IEnumerable<Control> items, string name, params string[] uidList)
+        public static void SetControlsName(IEnumerable<Control> items, string name, params string[] uidList)
         {
             if (uidList == null || uidList.Length == 0)
             {
@@ -415,7 +415,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        protected void FillLastSolutionItems(ConnectionData connectionData, IEnumerable<Control> items, bool isEnabled, RoutedEventHandler clickHandler, params string[] uidList)
+        public static void FillLastSolutionItems(ConnectionData connectionData, IEnumerable<Control> items, bool isEnabled, RoutedEventHandler clickHandler, params string[] uidList)
         {
             if (uidList == null || uidList.Length == 0)
             {
@@ -463,7 +463,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private IEnumerable<MenuItem> GetMenuItems(IEnumerable<Control> items)
+        private static IEnumerable<MenuItem> GetMenuItems(IEnumerable<Control> items)
         {
             foreach (var item in items.OfType<MenuItem>())
             {
