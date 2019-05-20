@@ -133,7 +133,7 @@
     <value>Update EntityMetadata Proxy Class with Select Entity</value>
   </data>
   <data name="CodeCSharpUpdateGlobalOptionSetsFileWithSelectCommand" xml:space="preserve">
-    <value>Update Single Global OptionSet File with Select</value>
+    <value>Update Global OptionSet File with Select</value>
   </data>
   <data name="CodeCSharpUpdateProxyClassesCommand" xml:space="preserve">
     <value>Update Proxy Classes</value>
@@ -301,7 +301,7 @@
     <value>Update EntityMetadata File with Select Entity</value>
   </data>
   <data name="FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand" xml:space="preserve">
-    <value>Update Global OptionSets File with Select</value>
+    <value>Update Single Global OptionSets File with Select</value>
   </data>
   <data name="FileReportExplorerCommand" xml:space="preserve">
     <value>Report Explorer</value>

@@ -406,7 +406,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             CodeExpression primatyNameAttributeRef = VarRef("EntityPrimaryNameAttribute");
 
             {
-                CodeRegionDirective startPrimaryAttributes = null;
+                CodeRegionDirective startCodeRegionDirective = null;
+                string regionName = "Primary Attributes";
 
                 if (!string.IsNullOrEmpty(entityMetadata.PrimaryIdAttribute))
                 {
@@ -419,19 +420,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                     {
                         var attributeMember = this.BuildIdProperty(entityMetadata, attributeMetadata, primatyIdAttributeRef, iCodeGenerationServiceProvider);
 
-                        if (attributeMember != null && startPrimaryAttributes == null)
+                        if (attributeMember != null && startCodeRegionDirective == null)
                         {
-                            startPrimaryAttributes = new CodeRegionDirective(CodeRegionMode.Start, "Primary Attributes");
-                            attributeMember.StartDirectives.Add(startPrimaryAttributes);
+                            startCodeRegionDirective = new CodeRegionDirective(CodeRegionMode.Start, regionName);
+
+                            memberCollection.Add(new CodeSnippetTypeMember(string.Empty)
+                            {
+                                StartDirectives =
+                                {
+                                    startCodeRegionDirective,
+                                },
+                            });
                         }
                         memberCollection.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(attributeMember));
 
                         attributeMember = this.BuildAttributePropertyOnBaseType(entityMetadata, attributeMetadata, primatyIdAttributeRef, iCodeGenerationServiceProvider);
 
-                        if (attributeMember != null && startPrimaryAttributes == null)
+                        if (attributeMember != null && startCodeRegionDirective == null)
                         {
-                            startPrimaryAttributes = new CodeRegionDirective(CodeRegionMode.Start, "Primary Attributes");
-                            attributeMember.StartDirectives.Add(startPrimaryAttributes);
+                            startCodeRegionDirective = new CodeRegionDirective(CodeRegionMode.Start, regionName);
+
+                            memberCollection.Add(new CodeSnippetTypeMember(string.Empty)
+                            {
+                                StartDirectives =
+                                {
+                                    startCodeRegionDirective,
+                                },
+                            });
                         }
                         memberCollection.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(attributeMember));
                     }
@@ -448,24 +463,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                     {
                         var attributeMember = this.BuildAttributePropertyOnBaseType(entityMetadata, attributeMetadata, primatyNameAttributeRef, iCodeGenerationServiceProvider);
 
-                        if (attributeMember != null && startPrimaryAttributes == null)
+                        if (attributeMember != null && startCodeRegionDirective == null)
                         {
-                            startPrimaryAttributes = new CodeRegionDirective(CodeRegionMode.Start, "Primary Attributes");
-                            attributeMember.StartDirectives.Add(startPrimaryAttributes);
+                            startCodeRegionDirective = new CodeRegionDirective(CodeRegionMode.Start, regionName);
+
+                            memberCollection.Add(new CodeSnippetTypeMember(string.Empty)
+                            {
+                                StartDirectives =
+                                {
+                                    startCodeRegionDirective,
+                                },
+                            });
                         }
 
                         memberCollection.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(attributeMember));
                     }
                 }
 
-                if (startPrimaryAttributes != null && memberCollection.Count > 0)
+                if (startCodeRegionDirective != null)
                 {
-                    memberCollection.OfType<CodeTypeMember>().Last().EndDirectives.Add(new CodeRegionDirective(CodeRegionMode.End, "Primary Attributes"));
+                    memberCollection.Add(new CodeSnippetTypeMember(string.Empty)
+                    {
+                        EndDirectives =
+                        {
+                            new CodeRegionDirective(CodeRegionMode.End, regionName),
+                        },
+                    });
                 }
             }
 
             {
-                CodeRegionDirective startAttributes = null;
+                string regionName = "Attributes";
+
+                CodeRegionDirective startCodeRegionDirective = null;
 
                 foreach (var attributeMetadata in entityMetadata.Attributes.OrderBy(metadata => metadata.LogicalName))
                 {
@@ -506,10 +536,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
                             if (attributeMember != null)
                             {
-                                if (startAttributes == null)
+                                if (startCodeRegionDirective == null)
                                 {
-                                    startAttributes = new CodeRegionDirective(CodeRegionMode.Start, "Attributes");
-                                    attributeMember.StartDirectives.Add(startAttributes);
+                                    startCodeRegionDirective = new CodeRegionDirective(CodeRegionMode.Start, regionName);
+
+                                    memberCollection.Add(new CodeSnippetTypeMember(string.Empty)
+                                    {
+                                        StartDirectives =
+                                        {
+                                            startCodeRegionDirective,
+                                        },
+                                    });
                                 }
 
                                 memberCollection.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(attributeMember));
@@ -568,10 +605,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
                             if (attributeMember != null)
                             {
-                                if (startAttributes == null)
+                                if (startCodeRegionDirective == null)
                                 {
-                                    startAttributes = new CodeRegionDirective(CodeRegionMode.Start, "Attributes");
-                                    attributeMember.StartDirectives.Add(startAttributes);
+                                    startCodeRegionDirective = new CodeRegionDirective(CodeRegionMode.Start, regionName);
+
+                                    memberCollection.Add(new CodeSnippetTypeMember(string.Empty)
+                                    {
+                                        StartDirectives =
+                                        {
+                                            startCodeRegionDirective,
+                                        },
+                                    });
                                 }
 
                                 memberCollection.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(attributeMember));
@@ -580,9 +624,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                     }
                 }
 
-                if (startAttributes != null)
+                if (startCodeRegionDirective != null)
                 {
-                    memberCollection.OfType<CodeTypeMember>().Last().EndDirectives.Add(new CodeRegionDirective(CodeRegionMode.End, "Attributes"));
+                    memberCollection.Add(new CodeSnippetTypeMember(string.Empty)
+                    {
+                        EndDirectives =
+                        {
+                            new CodeRegionDirective(CodeRegionMode.End, regionName),
+                        },
+                    });
                 }
             }
 
@@ -681,11 +731,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                 entityClass.Members.Add(this.EntityConstructorAnonymousObject(entityMetadata, iCodeGenerationServiceProvider));
             }
 
+            string regionName = "NotifyProperty Events";
+
             entityClass.Members.Add(new CodeSnippetTypeMember(string.Empty)
             {
                 StartDirectives =
                 {
-                    new CodeRegionDirective(CodeRegionMode.Start, "NotifyProperty Events"),
+                    new CodeRegionDirective(CodeRegionMode.Start, regionName),
                 },
             });
             
@@ -698,7 +750,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             {
                 EndDirectives =
                 {
-                    new CodeRegionDirective(CodeRegionMode.End, "NotifyProperty Events"),
+                    new CodeRegionDirective(CodeRegionMode.End, regionName),
                 },
             });
         }
@@ -1261,7 +1313,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             const string regionName = "OneToMany Relationships";
 
-            CodeRegionDirective startAttributes = null;
+            CodeRegionDirective startCodeRegionDirective = null;
 
             foreach (var oneToMany in entityMetadata.OneToManyRelationships.OfType<OneToManyRelationshipMetadata>().OrderBy(metadata => metadata.SchemaName))
             {
@@ -1275,10 +1327,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
                     if (codeTypeMember != null)
                     {
-                        if (startAttributes == null)
+                        if (startCodeRegionDirective == null)
                         {
-                            startAttributes = new CodeRegionDirective(CodeRegionMode.Start, regionName);
-                            codeTypeMember.StartDirectives.Add(startAttributes);
+                            startCodeRegionDirective = new CodeRegionDirective(CodeRegionMode.Start, regionName);
+
+                            memberCollection.Add(new CodeSnippetTypeMember(string.Empty)
+                            {
+                                StartDirectives =
+                                {
+                                    startCodeRegionDirective,
+                                },
+                            });
                         }
 
                         memberCollection.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(codeTypeMember));
@@ -1292,10 +1351,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
                         if (calendarRuleProperty != null)
                         {
-                            if (startAttributes == null)
+                            if (startCodeRegionDirective == null)
                             {
-                                startAttributes = new CodeRegionDirective(CodeRegionMode.Start, regionName);
-                                calendarRuleProperty.StartDirectives.Add(startAttributes);
+                                startCodeRegionDirective = new CodeRegionDirective(CodeRegionMode.Start, regionName);
+
+                                memberCollection.Add(new CodeSnippetTypeMember(string.Empty)
+                                {
+                                    StartDirectives =
+                                    {
+                                        startCodeRegionDirective,
+                                    },
+                                });
                             }
 
                             memberCollection.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(calendarRuleProperty));
@@ -1304,9 +1370,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                 }
             }
 
-            if (startAttributes != null)
+            if (startCodeRegionDirective != null)
             {
-                memberCollection.OfType<CodeTypeMember>().Last().EndDirectives.Add(new CodeRegionDirective(CodeRegionMode.End, regionName));
+                memberCollection.Add(new CodeSnippetTypeMember(string.Empty)
+                {
+                    EndDirectives =
+                    {
+                        new CodeRegionDirective(CodeRegionMode.End, regionName),
+                    },
+                });
             }
 
             return memberCollection;
@@ -1411,7 +1483,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             const string regionName = "ManyToMany Relationships";
 
-            CodeRegionDirective startAttributes = null;
+            CodeRegionDirective startCodeRegionDirective = null;
 
             foreach (var manyToMany in entityMetadata.ManyToManyRelationships.OfType<ManyToManyRelationshipMetadata>().OrderBy(metadata => metadata.SchemaName))
             {
@@ -1429,10 +1501,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
                             if (many != null)
                             {
-                                if (startAttributes == null)
+                                if (startCodeRegionDirective == null)
                                 {
-                                    startAttributes = new CodeRegionDirective(CodeRegionMode.Start, regionName);
-                                    many.StartDirectives.Add(startAttributes);
+                                    startCodeRegionDirective = new CodeRegionDirective(CodeRegionMode.Start, regionName);
+
+                                    memberCollection.Add(new CodeSnippetTypeMember(string.Empty)
+                                    {
+                                        StartDirectives =
+                                        {
+                                            startCodeRegionDirective,
+                                        },
+                                    });
                                 }
 
                                 memberCollection.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(many));
@@ -1445,10 +1524,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
                             if (many1 != null)
                             {
-                                if (startAttributes == null)
+                                if (startCodeRegionDirective == null)
                                 {
-                                    startAttributes = new CodeRegionDirective(CodeRegionMode.Start, regionName);
-                                    many1.StartDirectives.Add(startAttributes);
+                                    startCodeRegionDirective = new CodeRegionDirective(CodeRegionMode.Start, regionName);
+
+                                    memberCollection.Add(new CodeSnippetTypeMember(string.Empty)
+                                    {
+                                        StartDirectives =
+                                        {
+                                            startCodeRegionDirective,
+                                        },
+                                    });
                                 }
 
                                 memberCollection.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(many1));
@@ -1459,10 +1545,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
                             if (many2 != null)
                             {
-                                if (startAttributes == null)
+                                if (startCodeRegionDirective == null)
                                 {
-                                    startAttributes = new CodeRegionDirective(CodeRegionMode.Start, regionName);
-                                    many2.StartDirectives.Add(startAttributes);
+                                    startCodeRegionDirective = new CodeRegionDirective(CodeRegionMode.Start, regionName);
+
+                                    memberCollection.Add(new CodeSnippetTypeMember(string.Empty)
+                                    {
+                                        StartDirectives =
+                                        {
+                                            startCodeRegionDirective,
+                                        },
+                                    });
                                 }
 
                                 memberCollection.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(many2));
@@ -1472,9 +1565,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                 }
             }
 
-            if (startAttributes != null)
+            if (startCodeRegionDirective != null)
             {
-                memberCollection.OfType<CodeTypeMember>().Last().EndDirectives.Add(new CodeRegionDirective(CodeRegionMode.End, regionName));
+                memberCollection.Add(new CodeSnippetTypeMember(string.Empty)
+                {
+                    EndDirectives =
+                    {
+                        new CodeRegionDirective(CodeRegionMode.End, regionName),
+                    },
+                });
             }
 
             return memberCollection;
@@ -1536,7 +1635,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             const string regionName = "ManyToOne Relationships";
 
-            CodeRegionDirective startAttributes = null;
+            CodeRegionDirective startCodeRegionDirective = null;
 
             foreach (var manyToOne in entityMetadata.ManyToOneRelationships.OrderBy(metadata => metadata.SchemaName))
             {
@@ -1550,10 +1649,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                     var one = this.BuildManyToOneProperty(entityMetadata, otherEntity, manyToOne, iCodeGenerationServiceProvider);
                     if (one != null)
                     {
-                        if (startAttributes == null)
+                        if (startCodeRegionDirective == null)
                         {
-                            startAttributes = new CodeRegionDirective(CodeRegionMode.Start, regionName);
-                            one.StartDirectives.Add(startAttributes);
+                            startCodeRegionDirective = new CodeRegionDirective(CodeRegionMode.Start, regionName);
+
+                            memberCollection.Add(new CodeSnippetTypeMember(string.Empty)
+                            {
+                                StartDirectives =
+                                {
+                                    startCodeRegionDirective,
+                                },
+                            });
                         }
 
                         memberCollection.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(one));
@@ -1561,9 +1667,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                 }
             }
 
-            if (startAttributes != null)
+            if (startCodeRegionDirective != null)
             {
-                memberCollection.OfType<CodeTypeMember>().Last().EndDirectives.Add(new CodeRegionDirective(CodeRegionMode.End, regionName));
+                memberCollection.Add(new CodeSnippetTypeMember(string.Empty)
+                {
+                    EndDirectives =
+                    {
+                        new CodeRegionDirective(CodeRegionMode.End, regionName),
+                    },
+                });
             }
 
             return memberCollection;
@@ -2222,7 +2334,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             string name
             , Type type
             , Type implementationType
-            , CodeRegionDirective codeRegionDirective = null
         )
         {
             var codeMemberEvent = new CodeMemberEvent
@@ -2237,18 +2348,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                 codeMemberEvent.ImplementationTypes.Add(TypeRef(implementationType));
             }
 
-            if (codeRegionDirective != null)
-            {
-                if (codeRegionDirective.RegionMode == CodeRegionMode.Start)
-                {
-                    codeMemberEvent.StartDirectives.Add(codeRegionDirective);
-                }
-                else if (codeRegionDirective.RegionMode == CodeRegionMode.End)
-                {
-                    codeMemberEvent.EndDirectives.Add(codeRegionDirective);
-                }
-            }
-
             return codeMemberEvent;
         }
 
@@ -2256,7 +2355,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             string methodName
             , string eventName
             , Type eventArgsType
-            , CodeRegionDirective codeRegionDirective = null
         )
         {
             var codeMemberMethod = new CodeMemberMethod
@@ -2276,18 +2374,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             if (this._config.GenerateWithDebuggerNonUserCode)
             {
                 codeMemberMethod.CustomAttributes.Add(Attribute(DebuggerNonUserCodeAttribute));
-            }
-
-            if (codeRegionDirective != null)
-            {
-                if (codeRegionDirective.RegionMode == CodeRegionMode.Start)
-                {
-                    codeMemberMethod.StartDirectives.Add(codeRegionDirective);
-                }
-                else if (codeRegionDirective.RegionMode == CodeRegionMode.End)
-                {
-                    codeMemberMethod.EndDirectives.Add(codeRegionDirective);
-                }
             }
 
             return codeMemberMethod;

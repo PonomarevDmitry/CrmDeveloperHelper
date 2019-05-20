@@ -189,10 +189,10 @@
                         <CheckBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="chBAttributesProxyClassWithNameOf" IsChecked="{Binding Path=GenerateProxyClassesAttributesWithNameOf}" Content="Notify Property Change with nameof" />
 
                         <CheckBox Grid.Row="3" Grid.Column="0" x:Name="chBProxyClassUseSchemaConstInCSharpAttributes" IsChecked="{Binding Path=GenerateProxyClassesUseSchemaConstInCSharpAttributes}" Content="Use Schema Const In C# Attributes" />
-                        <CheckBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="chBProxyClassesMakeAllPropertiesEditable" IsChecked="{Binding Path=GenerateProxyClassesMakeAllPropertiesEditable}" Content="Make All Properties Editable" />
+                        <CheckBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="chBProxyClassesAddConstructorWithAnonymousTypeObject" IsChecked="{Binding Path=GenerateProxyClassesAddConstructorWithAnonymousTypeObject}" Content="Add Constructor With AnonymousType Object" />
 
-                        <CheckBox Grid.Row="4" Grid.Column="0" x:Name="chBProxyClassesWithoutObsoleteAttribute" IsChecked="{Binding Path=GenerateProxyClassesWithoutObsoleteAttribute}" Content="Without ObsoleteAttribute" />
-                        <CheckBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" x:Name="chBProxyClassesAddConstructorWithAnonymousTypeObject" IsChecked="{Binding Path=GenerateProxyClassesAddConstructorWithAnonymousTypeObject}" Content="Add Constructor With AnonymousType Object" />
+                        <CheckBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" x:Name="chBProxyClassesMakeAllPropertiesEditable" IsChecked="{Binding Path=GenerateProxyClassesMakeAllPropertiesEditable}" Content="Make All Properties Editable" />
+                        <CheckBox Grid.Row="4" Grid.Column="1" x:Name="chBProxyClassesWithoutObsoleteAttribute" IsChecked="{Binding Path=GenerateProxyClassesWithoutObsoleteAttribute}" Content="Without ObsoleteAttribute" />
 
                     </Grid>
                 </StackPanel>
