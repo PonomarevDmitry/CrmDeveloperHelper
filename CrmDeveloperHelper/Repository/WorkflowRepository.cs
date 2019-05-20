@@ -325,7 +325,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Width = new DataGridLength(260),
                     Binding = new Binding
                     {
-                        Path = new PropertyPath("PrimaryEntity"),
+                        Path = new PropertyPath(nameof(Workflow.PrimaryEntity)),
                         Mode = BindingMode.OneTime,
                     },
                 },
@@ -336,7 +336,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Width = new DataGridLength(200),
                     Binding = new Binding
                     {
-                        Path = new PropertyPath("FormattedValues[category]"),
+                        Path = new PropertyPath(string.Format("{0}.{1}", nameof(Entity.FormattedValues), Workflow.Schema.Attributes.category)),
                         Mode = BindingMode.OneTime,
                     },
                 },
@@ -347,7 +347,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Width = new DataGridLength(200),
                     Binding = new Binding
                     {
-                        Path = new PropertyPath("Name"),
+                        Path = new PropertyPath(nameof(Workflow.Name)),
                         Mode = BindingMode.OneTime,
                     },
                 },
@@ -358,7 +358,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Width = new DataGridLength(150),
                     Binding = new Binding
                     {
-                        Path = new PropertyPath("FormattedValues[mode]"),
+                        Path = new PropertyPath(string.Format("{0}.{1}", nameof(Entity.FormattedValues), Workflow.Schema.Attributes.mode)),
                         Mode = BindingMode.OneTime,
                     },
                 },
@@ -369,7 +369,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Width = new DataGridLength(150),
                     Binding = new Binding
                     {
-                        Path = new PropertyPath("FormattedValues[statuscode]"),
+                        Path = new PropertyPath(string.Format("{0}.{1}", nameof(Entity.FormattedValues), Workflow.Schema.Attributes.statuscode)),
                         Mode = BindingMode.OneTime,
                     },
                 },

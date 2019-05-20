@@ -161,13 +161,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 NamespaceClasses = namespaceClasses,
                 NamespaceGlobalOptionSets = namespaceGlobalOptionSets,
 
-                GenerateAttributes = commonConfig.GenerateSdkMessageRequestAttributes,
-
                 GenerateAttributesWithNameOf = commonConfig.GenerateSdkMessageRequestAttributesWithNameOf,
 
                 GenerateWithDebuggerNonUserCode = commonConfig.GenerateSdkMessageRequestWithDebuggerNonUserCode,
-
-                UseSchemaConstInCSharpAttributes = commonConfig.GenerateSdkMessageRequestUseSchemaConstInCSharpAttributes,
 
                 MakeAllPropertiesEditable = commonConfig.GenerateSdkMessageRequestMakeAllPropertiesEditable,
             };

@@ -138,7 +138,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 Binding binding = new Binding
                 {
-                    Path = new PropertyPath("FolderForExport")
+                    Path = new PropertyPath(nameof(CommonConfiguration.FolderForExport))
                 };
                 BindingOperations.SetBinding(txtBFolder, TextBox.TextProperty, binding);
 
@@ -159,6 +159,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadFromConfig()
         {
+            chBSdkMessageRequestAttributesWithNameOf.DataContext = _commonConfig;
+            chBSdkMessageRequestMakeAllPropertiesEditable.DataContext = _commonConfig;
+            chBSdkMessageRequestWithDebuggerNonUserCode.DataContext = _commonConfig;
+
             cmBFileAction.DataContext = _commonConfig;
 
             txtBNamespaceSdkMessagesCSharp.DataContext = cmBCurrentConnection;
@@ -769,7 +773,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 name.AppendFormat("      ({0})", field.ClrParser);
             }
 
-            if (!string.IsNullOrEmpty(field.Parser))
+            if (!string.IsNullOrEmpty(field.Parser)
+                && !string.Equals(field.ClrParser, field.Parser, StringComparison.InvariantCultureIgnoreCase)
+            )
             {
                 name.AppendFormat("      ({0})", field.Parser);
             }
@@ -828,7 +834,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 name.AppendFormat("      ({0})", field.ClrFormatter);
             }
 
-            if (!string.IsNullOrEmpty(field.Formatter))
+            if (!string.IsNullOrEmpty(field.Formatter)
+                && !string.Equals(field.ClrFormatter, field.Formatter, StringComparison.InvariantCultureIgnoreCase)
+            )
             {
                 name.AppendFormat("      ({0})", field.Formatter);
             }

@@ -561,7 +561,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Width = new DataGridLength(120),
                     Binding = new Binding
                     {
-                        Path = new PropertyPath("DomainName"),
+                        Path = new PropertyPath(nameof(SystemUser.DomainName)),
                         Mode = BindingMode.OneTime,
                     },
                 },
@@ -572,7 +572,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Width = new DataGridLength(260),
                     Binding = new Binding
                     {
-                        Path = new PropertyPath("FullName"),
+                        Path = new PropertyPath(nameof(SystemUser.FullName)),
                         Mode = BindingMode.OneTime,
                     },
                 },
@@ -583,7 +583,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Width = new DataGridLength(120),
                     Binding = new Binding
                     {
-                        Path = new PropertyPath("BusinessUnitId.Name"),
+                        Path = new PropertyPath(string.Format("{0}.{1}", nameof(SystemUser.BusinessUnitId), nameof(EntityReference.Name))),
                         Mode = BindingMode.OneTime,
                     },
                 },
@@ -600,7 +600,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Width = new DataGridLength(100, DataGridLengthUnitType.Auto),
                     Binding = new Binding
                     {
-                        Path = new PropertyPath("IsDisabled"),
+                        Path = new PropertyPath(nameof(SystemUser.IsDisabled)),
                         Mode = BindingMode.OneTime,
                     },
                 },

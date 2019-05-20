@@ -34,9 +34,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         private static readonly string RequestClassSuffix = "Request";
         private static readonly string ResponseClassSuffix = "Response";
+
         private static readonly string RequestNamePropertyName = "RequestName";
+
         private static readonly string ParametersPropertyName = "Parameters";
         private static readonly string ResultsPropertyName = "Results";
+
+        private static readonly string SdkMessageNamespaceFieldName = "SdkMessageNamespace";
+        private static readonly string SdkMessageRequestNameFieldName = "SdkMessageRequestName";
 
         private readonly CreateFileCSharpConfiguration _config;
 
@@ -645,28 +650,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             entityClass.BaseTypes.Add(TypeRef(typeof(INotifyPropertyChanging)));
             entityClass.BaseTypes.Add(TypeRef(typeof(INotifyPropertyChanged)));
 
-            entityClass.Members.Add(this.EntityMetadataConstant("EntityLogicalName", typeof(string), entityMetadata.LogicalName));
+            entityClass.Members.Add(this.BuildClassConstant("EntityLogicalName", typeof(string), entityMetadata.LogicalName));
 
-            entityClass.Members.Add(this.EntityMetadataConstant("EntitySchemaName", typeof(string), entityMetadata.SchemaName));
+            entityClass.Members.Add(this.BuildClassConstant("EntitySchemaName", typeof(string), entityMetadata.SchemaName));
 
             if (entityMetadata.ObjectTypeCode.HasValue && !entityMetadata.IsCustomEntity.GetValueOrDefault())
             {
-                entityClass.Members.Add(this.EntityMetadataConstant("EntityTypeCode", typeof(int), entityMetadata.ObjectTypeCode));
+                entityClass.Members.Add(this.BuildClassConstant("EntityTypeCode", typeof(int), entityMetadata.ObjectTypeCode));
             }
 
             if (!string.IsNullOrEmpty(entityMetadata.PrimaryIdAttribute))
             {
-                entityClass.Members.Add(this.EntityMetadataConstant("EntityPrimaryIdAttribute", typeof(string), entityMetadata.PrimaryIdAttribute));
+                entityClass.Members.Add(this.BuildClassConstant("EntityPrimaryIdAttribute", typeof(string), entityMetadata.PrimaryIdAttribute));
             }
 
             if (!string.IsNullOrEmpty(entityMetadata.PrimaryNameAttribute))
             {
-                entityClass.Members.Add(this.EntityMetadataConstant("EntityPrimaryNameAttribute", typeof(string), entityMetadata.PrimaryNameAttribute));
+                entityClass.Members.Add(this.BuildClassConstant("EntityPrimaryNameAttribute", typeof(string), entityMetadata.PrimaryNameAttribute));
             }
 
             if (!string.IsNullOrEmpty(entityMetadata.PrimaryImageAttribute))
             {
-                entityClass.Members.Add(this.EntityMetadataConstant("EntityPrimaryImageAttribute", typeof(string), entityMetadata.PrimaryImageAttribute));
+                entityClass.Members.Add(this.BuildClassConstant("EntityPrimaryImageAttribute", typeof(string), entityMetadata.PrimaryImageAttribute));
             }
 
             entityClass.Members.Add(this.EntityConstructorDefault(entityMetadata, iCodeGenerationServiceProvider));
@@ -676,13 +681,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                 entityClass.Members.Add(this.EntityConstructorAnonymousObject(entityMetadata, iCodeGenerationServiceProvider));
             }
 
-            entityClass.Members.Add(this.Event("PropertyChanged", typeof(PropertyChangedEventHandler), typeof(INotifyPropertyChanged), new CodeRegionDirective(CodeRegionMode.Start, "NotifyProperty Events")));
+            entityClass.Members.Add(new CodeSnippetTypeMember(string.Empty)
+            {
+                StartDirectives =
+                {
+                    new CodeRegionDirective(CodeRegionMode.Start, "NotifyProperty Events"),
+                },
+            });
+            
+            entityClass.Members.Add(this.Event("PropertyChanged", typeof(PropertyChangedEventHandler), typeof(INotifyPropertyChanged)));
             entityClass.Members.Add(this.Event("PropertyChanging", typeof(PropertyChangingEventHandler), typeof(INotifyPropertyChanging)));
             entityClass.Members.Add(this.RaiseEvent("OnPropertyChanged", "PropertyChanged", typeof(PropertyChangedEventArgs)));
-            entityClass.Members.Add(this.RaiseEvent("OnPropertyChanging", "PropertyChanging", typeof(PropertyChangingEventArgs), new CodeRegionDirective(CodeRegionMode.End, "NotifyProperty Events")));
+            entityClass.Members.Add(this.RaiseEvent("OnPropertyChanging", "PropertyChanging", typeof(PropertyChangingEventArgs)));
+
+            entityClass.Members.Add(new CodeSnippetTypeMember(string.Empty)
+            {
+                EndDirectives =
+                {
+                    new CodeRegionDirective(CodeRegionMode.End, "NotifyProperty Events"),
+                },
+            });
         }
 
-        private CodeTypeMember EntityMetadataConstant(string constName, Type type, object value)
+        private CodeTypeMember BuildClassConstant(string constName, Type type, object value)
         {
             var codeMemberField = this.Field(constName, type, value);
             codeMemberField.Attributes = MemberAttributes.Const | MemberAttributes.Public;
@@ -801,7 +822,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             if (attributeMetadata is MultiSelectPicklistAttributeMetadata)
             {
-                CodeTypeReference forAttributeType = TypeRef(typeof(IEnumerable<>), enumTypeRef);
+                CodeTypeReference forAttributeType = IEnumerable(enumTypeRef);
 
                 var codeMemberProperty = BuildAttributePropertyCommon(entityMetadata, attributeMetadata, propertyName, attributeNameRef, forAttributeType, iCodeGenerationServiceProvider);
 
@@ -961,7 +982,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             }
             else
             {
-                statementCollection.Add(Return(ThisMethodInvoke("GetAttributeValue", targetType, attributeNameRef)));
+                statementCollection.Add(Return(ThisMethodInvoke(nameof(Entity.GetAttributeValue), targetType, attributeNameRef)));
             }
 
             return statementCollection;
@@ -974,7 +995,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         {
             return new CodeStatementCollection()
             {
-                Var(propertyType, "collection",  ThisMethodInvoke("GetAttributeValue", propertyType, attributeNameRef)),
+                Var(propertyType, "collection",  ThisMethodInvoke(nameof(Entity.GetAttributeValue), propertyType, attributeNameRef)),
                 If(ExpressionNull(VarRef("collection")), new CodeStatement[]
                 {
                     AssignValue(VarRef("collection"), New(propertyType)),
@@ -1007,7 +1028,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             if (entityMetadata.PrimaryIdAttribute == attributeMetadata.LogicalName && attributeMetadata.IsPrimaryId.GetValueOrDefault())
             {
-                statementCollection.Add(If(PropRef(VarRef("value"), "HasValue"), AssignValue(BaseProp("Id"), PropRef(VarRef("value"), "Value")), AssignValue(BaseProp("Id"), GuidEmpty())));
+                statementCollection.Add(If(PropRef(VarRef("value"), nameof(Nullable<int>.HasValue)), AssignValue(BaseProp("Id"), PropRef(VarRef("value"), "Value")), AssignValue(BaseProp("Id"), GuidEmpty())));
             }
 
             statementCollection.Add(this.InvokeOnPropertyChanged(propertyName));
@@ -1044,7 +1065,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         {
             return new CodeStatementCollection()
             {
-                Var(typeof (EntityCollection), "collection",  ThisMethodInvoke("GetAttributeValue", TypeRef(typeof(EntityCollection)), attributeNameRef)),
+                Var(typeof (EntityCollection), "collection", ThisMethodInvoke(nameof(Entity.GetAttributeValue), TypeRef(typeof(EntityCollection)), attributeNameRef)),
                 If(And(NotNull(VarRef("collection")), NotNull(PropRef(VarRef("collection"), "Entities"))), Return(StaticMethodInvoke(typeof(Enumerable), "Cast", propertyType.TypeArguments[0], (CodeExpression)PropRef(VarRef("collection"), "Entities"))), Return(Null()))
             };
         }
@@ -1117,7 +1138,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         {
             return new CodeStatementCollection(new CodeStatement[2]
             {
-                Var(typeof(OptionSetValue), "optionSetValue", ThisMethodInvoke("GetAttributeValue", TypeRef(typeof(OptionSetValue)), attributeNameRef)),
+                Var(typeof(OptionSetValue), "optionSetValue", ThisMethodInvoke(nameof(Entity.GetAttributeValue), TypeRef(typeof(OptionSetValue)), attributeNameRef)),
                 If(And(NotNull(VarRef("optionSetValue")), EnumIsDefined(enumTypeRef, "optionSetValue"))
                     , Return(Cast(enumTypeRef, ConvertEnum(enumTypeRef, "optionSetValue")))
                     , Return(Null())
@@ -1162,14 +1183,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             return new CodeStatementCollection(new CodeStatement[]
             {
-                Var(typeof(OptionSetValueCollection), "optionSetValueCollection", ThisMethodInvoke("GetAttributeValue", TypeRef(typeof(OptionSetValueCollection)), attributeNameRef)),
+                Var(typeof(OptionSetValueCollection), "optionSetValueCollection", ThisMethodInvoke(nameof(Entity.GetAttributeValue), TypeRef(typeof(OptionSetValueCollection)), attributeNameRef)),
 
                 If(NotNull(VarRef("optionSetValueCollection"))
 
                     , Return(New(TypeRef(typeof(List<>), enumTypeRef)
-                        , StaticMethodInvoke(typeof(Enumerable), "Distinct", enumTypeRef
-                            , StaticMethodInvoke(typeof(Enumerable), "Select", new[] { TypeRef(typeof(OptionSetValue)), enumTypeRef }
-                                , StaticMethodInvoke(typeof(Enumerable), "Where", TypeRef(typeof(OptionSetValue))
+                        , StaticMethodInvoke(typeof(Enumerable), nameof(Enumerable.Distinct), enumTypeRef
+                            , StaticMethodInvoke(typeof(Enumerable), nameof(Enumerable.Select), new[] { TypeRef(typeof(OptionSetValue)), enumTypeRef }
+                                , StaticMethodInvoke(typeof(Enumerable), nameof(Enumerable.Where), TypeRef(typeof(OptionSetValue))
                                     , VarRef("optionSetValueCollection")
                                     , new CodeSnippetExpression($"o => o != null && System.Enum.IsDefined(typeof({enumTypeRef.BaseType}), o.Value)")
                                 )
@@ -1200,14 +1221,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                 result.Add(this.InvokeOnPropertyChanging(baseAttributeName));
             }
 
-            result.Add(If(Or(ValueNull(), Equal(StaticMethodInvoke(typeof(Enumerable), "Any", enumTypeRef, VarRef("value")), False()))
+            result.Add(If(Or(ValueNull(), Equal(StaticMethodInvoke(typeof(Enumerable), nameof(Enumerable.Any), enumTypeRef, VarRef("value")), False()))
                 , ThisMethodInvoke("SetAttributeValue", attributeNameRef, Null())
 
                 , ThisMethodInvoke("SetAttributeValue", attributeNameRef
                     , New(TypeRef(typeof(OptionSetValueCollection))
                         , New(TypeRef(typeof(List<OptionSetValue>))
-                            , StaticMethodInvoke(typeof(Enumerable), "Select", new[] { enumTypeRef, TypeRef(typeof(OptionSetValue)) }
-                                , StaticMethodInvoke(typeof(Enumerable), "Distinct", enumTypeRef
+                            , StaticMethodInvoke(typeof(Enumerable), nameof(Enumerable.Select), new[] { enumTypeRef, TypeRef(typeof(OptionSetValue)) }
+                                , StaticMethodInvoke(typeof(Enumerable), nameof(Enumerable.Distinct), enumTypeRef
                                     , VarRef("value")
                                 )
                                 , new CodeSnippetExpression($"o => new Microsoft.Xrm.Sdk.OptionSetValue((int)o)")
@@ -1776,8 +1797,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         {
             var declarationCollection = new CodeTypeDeclarationCollection();
 
-            declarationCollection.Add(this.BuildSdkMessageRequest(sdkMessagePair, sdkMessagePair.Request, iCodeGenerationServiceProvider));
-            declarationCollection.Add(this.BuildSdkMessageResponse(sdkMessagePair, sdkMessagePair.Response, iCodeGenerationServiceProvider));
+            declarationCollection.Add(this.BuildSdkMessageRequest(sdkMessagePair, sdkMessagePair.Request, iCodeGenerationServiceProvider, out var namespaceRef, out var requestNameRef));
+            declarationCollection.Add(this.BuildSdkMessageResponse(sdkMessagePair, sdkMessagePair.Response, namespaceRef, requestNameRef, iCodeGenerationServiceProvider));
 
             return declarationCollection;
         }
@@ -1786,13 +1807,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             CodeGenerationSdkMessagePair messagePair
             , CodeGenerationSdkMessageRequest sdkMessageRequest
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
+            , out CodeExpression sdkMessageNamespaceAttributeRef
+            , out CodeExpression sdkMessageRequestNameAttributeRef
         )
         {
-            var requestClass = this.Class(string.Format(CultureInfo.InvariantCulture, "{0}{1}", iCodeGenerationServiceProvider.NamingService.GetNameForMessagePair(messagePair, iCodeGenerationServiceProvider), RequestClassSuffix), RequestClassBaseType, Attribute(typeof(DataContractAttribute), AttributeArg("Namespace", messagePair.MessageNamespace)), Attribute(typeof(RequestProxyAttribute), AttributeArg(null, messagePair.Request.Name)));
+            string requestClassName = string.Format(CultureInfo.InvariantCulture, "{0}{1}", iCodeGenerationServiceProvider.NamingService.GetNameForMessagePair(messagePair, iCodeGenerationServiceProvider), RequestClassSuffix);
 
-            var hasGenericTypeParameter = false;
+            var requestClass = this.Class(requestClassName, RequestClassBaseType);
 
-            var statementCollection = new CodeStatementCollection();
+            requestClass.Members.Add(this.BuildClassConstant(SdkMessageNamespaceFieldName, typeof(string), messagePair.MessageNamespace));
+            requestClass.Members.Add(this.BuildClassConstant(SdkMessageRequestNameFieldName, typeof(string), messagePair.Request.Name));
+
+            List<CodeMemberProperty> genericMembers = new List<CodeMemberProperty>();
+            List<CodeMemberProperty> allMembers = new List<CodeMemberProperty>();
+
+            var statementsAssignDefaultParameters = new CodeStatementCollection();
 
             if (sdkMessageRequest.RequestFields != null & sdkMessageRequest.RequestFields.Count > 0)
             {
@@ -1802,60 +1831,109 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
                     if (requestField.Type.Options == CodeTypeReferenceOptions.GenericTypeParameter)
                     {
-                        hasGenericTypeParameter = true;
-                        this.ConvertRequestToGeneric(messagePair, requestClass, requestField);
+                        genericMembers.Add(requestField);
                     }
 
                     if (!field.Optional.GetValueOrDefault())
                     {
-                        statementCollection.Add(AssignProp(requestField.Name, new CodeDefaultValueExpression(requestField.Type)));
+                        statementsAssignDefaultParameters.Add(AssignProp(requestField.Name, new CodeDefaultValueExpression(requestField.Type)));
                     }
 
-                    requestClass.Members.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(requestField));
+                    allMembers.Add(requestField);
                 }
             }
 
-            if (!hasGenericTypeParameter)
+            if (genericMembers.Count > 1)
             {
+                for (int index = 0; index < genericMembers.Count; index++)
+                {
+                    genericMembers[index].Type.BaseType += (index + 1).ToString();
+                }
+            }
+
+            foreach (var member in allMembers)
+            {
+                requestClass.Members.Add(InsertInPropertyDebuggerNonUserCodeAttributeInGetAndSet(member));
+            }
+
+            if (genericMembers.Any())
+            {
+                var codeParameterDeclarationCollection = new CodeParameterDeclarationExpressionCollection();
+                var codeStatementCollection = new CodeStatementCollection();
+
+                for (int index = 0; index < genericMembers.Count; index++)
+                {
+                    var requestField = genericMembers[index];
+
+                    requestClass.TypeParameters.Add(new CodeTypeParameter(requestField.Type.BaseType)
+                    {
+                        HasConstructorConstraint = true,
+                        Constraints =
+                        {
+                            new CodeTypeReference(EntityClassBaseType),
+                        },
+                    });
+
+                    string parameterName = "target" + (genericMembers.Count == 1 ? string.Empty : (index + 1).ToString());
+
+                    codeParameterDeclarationCollection.Add(Param(requestField.Type, parameterName));
+                    codeStatementCollection.Add((CodeStatement)AssignProp(requestField.Name, VarRef(parameterName)));
+                }
+
+                requestClass.Members.Add(this.Constructor(genericMembers.Select(f => (CodeExpression)New(f.Type)).ToArray()));
+
+                var requestClassRef = new CodeTypeReference(requestClass.Name, genericMembers.Select(f => new CodeTypeReference(EntityClassBaseType)).ToArray());
+
+                sdkMessageNamespaceAttributeRef = FieldRef(requestClassRef, SdkMessageNamespaceFieldName);
+                sdkMessageRequestNameAttributeRef = FieldRef(requestClassRef, SdkMessageRequestNameFieldName);
+
+                var codeConstructor = this.Constructor(codeParameterDeclarationCollection);
+
+                codeConstructor.Statements.Add(AssignProp(RequestNamePropertyName, sdkMessageRequestNameAttributeRef));
+
+                codeConstructor.Statements.Add(new CodeSnippetStatement(string.Empty));
+                codeConstructor.Statements.AddRange(statementsAssignDefaultParameters);
+
+                codeConstructor.Statements.Add(new CodeSnippetStatement(string.Empty));
+                codeConstructor.Statements.AddRange(codeStatementCollection);
+
+
+                requestClass.Members.Add(codeConstructor);
+            }
+            else
+            {
+                sdkMessageNamespaceAttributeRef = FieldRef(requestClass.Name, SdkMessageNamespaceFieldName);
+                sdkMessageRequestNameAttributeRef = FieldRef(requestClass.Name, SdkMessageRequestNameFieldName);
+
                 var codeConstructor = this.Constructor();
-                codeConstructor.Statements.Add(AssignProp(RequestNamePropertyName, StringLiteral(messagePair.Request.Name)));
-                codeConstructor.Statements.AddRange(statementCollection);
+
+                codeConstructor.Statements.Add(AssignProp(RequestNamePropertyName, sdkMessageRequestNameAttributeRef));
+
+                codeConstructor.Statements.Add(new CodeSnippetStatement(string.Empty));
+                codeConstructor.Statements.AddRange(statementsAssignDefaultParameters);
+
                 requestClass.Members.Add(codeConstructor);
             }
 
+            requestClass.CustomAttributes.Add(Attribute(typeof(DataContractAttribute), AttributeArg("Namespace", sdkMessageRequestNameAttributeRef)));
+            requestClass.CustomAttributes.Add(Attribute(typeof(RequestProxyAttribute), AttributeArg(null, sdkMessageNamespaceAttributeRef)));
+
             return requestClass;
-        }
-
-        private void ConvertRequestToGeneric(
-            CodeGenerationSdkMessagePair messagePair
-            , CodeTypeDeclaration requestClass
-            , CodeMemberProperty requestField
-        )
-        {
-            requestClass.TypeParameters.Add(new CodeTypeParameter(requestField.Type.BaseType)
-            {
-                HasConstructorConstraint = true,
-                Constraints =
-                {
-                    new CodeTypeReference(EntityClassBaseType),
-                },
-            });
-
-            requestClass.Members.Add(this.Constructor((CodeExpression)New(requestField.Type)));
-
-            var codeConstructor = this.Constructor(Param(requestField.Type, "target"), (CodeStatement)AssignProp(requestField.Name, VarRef("target")));
-            codeConstructor.Statements.Add(AssignProp(RequestNamePropertyName, StringLiteral(messagePair.Request.Name)));
-
-            requestClass.Members.Add(codeConstructor);
         }
 
         private CodeTypeDeclaration BuildSdkMessageResponse(
             CodeGenerationSdkMessagePair messagePair
             , CodeGenerationSdkMessageResponse sdkMessageResponse
+            , CodeExpression sdkMessageNamespaceAttributeRef
+            , CodeExpression sdkMessageRequestNameAttributeRef
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            var codeTypeDeclaration = this.Class(string.Format(CultureInfo.InvariantCulture, "{0}{1}", iCodeGenerationServiceProvider.NamingService.GetNameForMessagePair(messagePair, iCodeGenerationServiceProvider), ResponseClassSuffix), ResponseClassBaseType, Attribute(typeof(DataContractAttribute), AttributeArg("Namespace", messagePair.MessageNamespace)), Attribute(typeof(ResponseProxyAttribute), AttributeArg(null, messagePair.Request.Name)));
+            var codeTypeDeclaration = this.Class(string.Format(CultureInfo.InvariantCulture, "{0}{1}", iCodeGenerationServiceProvider.NamingService.GetNameForMessagePair(messagePair, iCodeGenerationServiceProvider), ResponseClassSuffix)
+                , ResponseClassBaseType
+                , Attribute(typeof(DataContractAttribute), AttributeArg("Namespace", sdkMessageNamespaceAttributeRef))
+                , Attribute(typeof(ResponseProxyAttribute), AttributeArg(null, sdkMessageRequestNameAttributeRef))
+            );
 
             codeTypeDeclaration.Members.Add(this.Constructor());
 
@@ -1880,13 +1958,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         {
             var typeForRequestField = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForRequestField(request, field, iCodeGenerationServiceProvider);
 
-            var codeMemberProperty = this.BuildClassProperty(typeForRequestField, iCodeGenerationServiceProvider.NamingService.GetNameForRequestField(request, field, iCodeGenerationServiceProvider));
+            string propertyName = iCodeGenerationServiceProvider.NamingService.GetNameForRequestField(request, field, iCodeGenerationServiceProvider);
+
+            CodeExpression properyNameRef = StringLiteral(propertyName);
+
+            if (_config.GenerateAttributesWithNameOf)
+            {
+                properyNameRef = new CodeSnippetExpression($"nameof({propertyName})");
+            }
+
+            var codeMemberProperty = this.BuildClassProperty(typeForRequestField, propertyName);
 
             codeMemberProperty.HasSet = true;
             codeMemberProperty.HasGet = true;
 
-            codeMemberProperty.GetStatements.Add(BuildRequestFieldGetStatement(field, typeForRequestField));
-            codeMemberProperty.SetStatements.Add(BuildRequestFieldSetStatement(field));
+            codeMemberProperty.GetStatements.Add(BuildRequestFieldGetStatement(properyNameRef, typeForRequestField));
+            codeMemberProperty.SetStatements.Add(BuildRequestFieldSetStatement(properyNameRef));
 
             if (this._config.GenerateWithDebuggerNonUserCode)
             {
@@ -1896,19 +1983,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return codeMemberProperty;
         }
 
-        private static CodeStatement BuildRequestFieldGetStatement(
-            Entities.SdkMessageRequestField field
-            , CodeTypeReference targetType
-        )
+        private CodeStatement BuildRequestFieldGetStatement(CodeExpression properyNameRef, CodeTypeReference targetType)
         {
-            return If(ContainsParameter(field.Name), Return(Cast(targetType, PropertyIndexer(ParametersPropertyName, field.Name))), Return(new CodeDefaultValueExpression(targetType)));
+            return If(ContainsParameter(properyNameRef), Return(Cast(targetType, PropertyIndexer(ParametersPropertyName, properyNameRef))), Return(new CodeDefaultValueExpression(targetType)));
         }
 
-        private static CodeAssignStatement BuildRequestFieldSetStatement(
-            Entities.SdkMessageRequestField field
-        )
+        private CodeAssignStatement BuildRequestFieldSetStatement(CodeExpression properyNameRef)
         {
-            return AssignValue(PropertyIndexer(ParametersPropertyName, field.Name));
+            return AssignValue(PropertyIndexer(ParametersPropertyName, properyNameRef));
         }
 
         private CodeMemberProperty BuildResponseFieldProperty(
@@ -1919,12 +2001,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         {
             var forResponseField = iCodeGenerationServiceProvider.TypeMappingService.GetTypeForResponseField(field, iCodeGenerationServiceProvider);
 
-            var codeMemberProperty = this.BuildClassProperty(forResponseField, iCodeGenerationServiceProvider.NamingService.GetNameForResponseField(response, field, iCodeGenerationServiceProvider));
+            string propertyName = iCodeGenerationServiceProvider.NamingService.GetNameForResponseField(response, field, iCodeGenerationServiceProvider);
+
+            CodeExpression properyNameRef = StringLiteral(propertyName);
+
+            if (_config.GenerateAttributesWithNameOf)
+            {
+                properyNameRef = new CodeSnippetExpression($"nameof({propertyName})");
+            }
+
+            var codeMemberProperty = this.BuildClassProperty(forResponseField, propertyName);
 
             codeMemberProperty.HasSet = _config.MakeAllPropertiesEditable;
             codeMemberProperty.HasGet = true;
 
-            codeMemberProperty.GetStatements.Add(BuildResponseFieldGetStatement(field, forResponseField));
+            codeMemberProperty.GetStatements.Add(BuildResponseFieldGetStatement(properyNameRef, forResponseField));
+
+            if (codeMemberProperty.HasSet)
+            {
+                codeMemberProperty.SetStatements.Add(BuildResponseFieldSetStatement(properyNameRef));
+            }
 
             if (this._config.GenerateWithDebuggerNonUserCode)
             {
@@ -1934,12 +2030,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return codeMemberProperty;
         }
 
-        private static CodeStatement BuildResponseFieldGetStatement(
-            Entities.SdkMessageResponseField field
-            , CodeTypeReference targetType
-        )
+        private CodeStatement BuildResponseFieldGetStatement(CodeExpression properyNameRef, CodeTypeReference targetType)
         {
-            return If(ContainsResult(field.Name), Return(Cast(targetType, PropertyIndexer(ResultsPropertyName, field.Name))), Return(new CodeDefaultValueExpression(targetType)));
+            return If(ContainsResult(properyNameRef), Return(Cast(targetType, PropertyIndexer(ResultsPropertyName, properyNameRef))), Return(new CodeDefaultValueExpression(targetType)));
+        }
+
+        private CodeAssignStatement BuildResponseFieldSetStatement(CodeExpression properyNameRef)
+        {
+            return AssignValue(PropertyIndexer(ResultsPropertyName, properyNameRef));
         }
 
         private static CodeNamespace Namespace(string name)
@@ -2195,21 +2293,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return codeMemberMethod;
         }
 
-        private static CodeMethodInvokeExpression ContainsParameter(
-            string parameterName
-        )
+        private static CodeMethodInvokeExpression ContainsParameter(CodeExpression properyNameRef)
         {
-            return new CodeMethodInvokeExpression(ThisProp(ParametersPropertyName), "Contains", new CodeExpression[1]
+            return new CodeMethodInvokeExpression(ThisProp(ParametersPropertyName), nameof(ParameterCollection.Contains), new CodeExpression[1]
             {
-                StringLiteral(parameterName)
+                properyNameRef
             });
         }
 
-        private static CodeMethodInvokeExpression ContainsResult(string resultName)
+        private static CodeMethodInvokeExpression ContainsResult(CodeExpression properyNameRef)
         {
-            return new CodeMethodInvokeExpression(ThisProp(ResultsPropertyName), "Contains", new CodeExpression[1]
+            return new CodeMethodInvokeExpression(ThisProp(ResultsPropertyName), nameof(ParameterCollection.Contains), new CodeExpression[1]
             {
-                StringLiteral(resultName)
+                properyNameRef
             });
         }
 
@@ -2289,6 +2385,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             }
 
             return conditionStatement;
+        }
+
+        private static CodeFieldReferenceExpression FieldRef(CodeTypeReference targetType, string fieldName)
+        {
+            return new CodeFieldReferenceExpression(new CodeTypeReferenceExpression(targetType), fieldName);
         }
 
         private static CodeFieldReferenceExpression FieldRef(Type targetType, string fieldName)
@@ -2405,6 +2506,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return codeConstructor;
         }
 
+        private CodeConstructor Constructor(CodeParameterDeclarationExpressionCollection args, CodeStatementCollection statements = null)
+        {
+            var codeConstructor = new CodeConstructor
+            {
+                Attributes = MemberAttributes.Public
+            };
+
+            if (args != null)
+            {
+                codeConstructor.Parameters.AddRange(args);
+            }
+
+            if (statements != null)
+            {
+                codeConstructor.Statements.AddRange(statements);
+            }
+
+            if (this._config.GenerateWithDebuggerNonUserCode)
+            {
+                codeConstructor.CustomAttributes.Add(Attribute(DebuggerNonUserCodeAttribute));
+            }
+
+            return codeConstructor;
+        }
+
         private static CodeObjectCreateExpression New(CodeTypeReference createType, params CodeExpression[] args)
         {
             return new CodeObjectCreateExpression(createType, args);
@@ -2434,11 +2560,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return new CodePropertyReferenceExpression(new CodeBaseReferenceExpression(), propertyName);
         }
 
-        private static CodeIndexerExpression PropertyIndexer(string propertyName, string index)
+        private CodeIndexerExpression PropertyIndexer(string propertyName, CodeExpression properyNameRef)
         {
             return new CodeIndexerExpression(ThisProp(propertyName), new CodeExpression[1]
             {
-                new CodePrimitiveExpression(index)
+                properyNameRef
             });
         }
 
@@ -2552,7 +2678,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         private static CodeMethodInvokeExpression EnumIsDefined(CodeTypeReference type, string variableName)
         {
-            return new CodeMethodInvokeExpression(new CodeTypeReferenceExpression(TypeRef(typeof(Enum))), "IsDefined", new CodeExpression[2]
+            return new CodeMethodInvokeExpression(new CodeTypeReferenceExpression(TypeRef(typeof(Enum))), nameof(System.Enum.IsDefined), new CodeExpression[2]
             {
                 new CodeTypeOfExpression(type),
                 new CodePropertyReferenceExpression(VarRef(variableName), "Value")
@@ -2561,7 +2687,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         private static CodeMethodInvokeExpression ConvertEnum(CodeTypeReference type, string variableName)
         {
-            return new CodeMethodInvokeExpression(new CodeTypeReferenceExpression(TypeRef(typeof(Enum))), "ToObject", new CodeExpression[2]
+            return new CodeMethodInvokeExpression(new CodeTypeReferenceExpression(TypeRef(typeof(Enum))), nameof(System.Enum.ToObject), new CodeExpression[2]
             {
                 new CodeTypeOfExpression(type),
                 new CodePropertyReferenceExpression(VarRef(variableName), "Value")
@@ -2590,7 +2716,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         private static CodeExpression GuidEmpty()
         {
-            return PropRef(new CodeTypeReferenceExpression(typeof(Guid)), "Empty");
+            return PropRef(new CodeTypeReferenceExpression(typeof(Guid)), nameof(Guid.Empty));
         }
 
         private static CodeExpression False()

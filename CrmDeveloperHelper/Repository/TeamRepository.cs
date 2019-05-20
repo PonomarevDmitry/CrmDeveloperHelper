@@ -334,7 +334,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Width = new DataGridLength(200),
                     Binding = new Binding
                     {
-                        Path = new PropertyPath("Name"),
+                        Path = new PropertyPath(nameof(Team.Name)),
                         Mode = BindingMode.OneTime,
                     },
                 },
@@ -351,7 +351,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Width = new DataGridLength(100, DataGridLengthUnitType.Auto),
                     Binding = new Binding
                     {
-                        Path = new PropertyPath("IsDefault"),
+                        Path = new PropertyPath(nameof(Team.IsDefault)),
                         Mode = BindingMode.OneTime,
                     },
                 },
@@ -362,7 +362,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Width = new DataGridLength(200),
                     Binding = new Binding
                     {
-                        Path = new PropertyPath("BusinessUnitId.Name"),
+                        Path = new PropertyPath(string.Format("{0}.{1}", nameof(Team.BusinessUnitId), nameof(EntityReference.Name))),
                         Mode = BindingMode.OneTime,
                     },
                 },
@@ -390,7 +390,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Width = new DataGridLength(200),
                     Binding = new Binding
                     {
-                        Path = new PropertyPath("Name"),
+                        Path = new PropertyPath(nameof(Team.Name)),
                         Mode = BindingMode.OneTime,
                     },
                 },
@@ -401,7 +401,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Width = new DataGridLength(200),
                     Binding = new Binding
                     {
-                        Path = new PropertyPath("TeamTypeName"),
+                        Path = new PropertyPath(nameof(Team.TeamTypeName)),
                         Mode = BindingMode.OneTime,
                     },
                 },
@@ -418,7 +418,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Width = new DataGridLength(100, DataGridLengthUnitType.Auto),
                     Binding = new Binding
                     {
-                        Path = new PropertyPath("IsDefault"),
+                        Path = new PropertyPath(nameof(Team.IsDefault)),
                         Mode = BindingMode.OneTime,
                     },
                 },
@@ -429,7 +429,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Width = new DataGridLength(200),
                     Binding = new Binding
                     {
-                        Path = new PropertyPath("BusinessUnitId.Name"),
+                        Path = new PropertyPath(string.Format("{0}.{1}", nameof(Team.BusinessUnitId), nameof(EntityReference.Name))),
                         Mode = BindingMode.OneTime,
                     },
                 },
@@ -440,7 +440,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Width = new DataGridLength(200),
                     Binding = new Binding
                     {
-                        Path = new PropertyPath("TeamTemplateName"),
+                        Path = new PropertyPath(nameof(Team.TeamTemplateName)),
                         Mode = BindingMode.OneTime,
                     },
                 },
@@ -451,7 +451,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Width = new DataGridLength(200),
                     Binding = new Binding
                     {
-                        Path = new PropertyPath("RegardingObjectId.LogicalName"),
+                        Path = new PropertyPath(string.Format("{0}.{1}", nameof(Team.RegardingObjectId), nameof(EntityReference.LogicalName))),
                         Mode = BindingMode.OneTime,
                     },
                 },

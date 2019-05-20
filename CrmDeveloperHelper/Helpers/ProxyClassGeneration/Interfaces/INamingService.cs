@@ -47,13 +47,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         string GetNameForRequestField(
             CodeGenerationSdkMessageRequest request
-            , Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageRequestField requestField
+            , Entities.SdkMessageRequestField requestField
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         );
 
         string GetNameForResponseField(
             CodeGenerationSdkMessageResponse response
-            , Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageResponseField responseField
+            , Entities.SdkMessageResponseField responseField
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         );
 
@@ -112,13 +112,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         IEnumerable<string> GetCommentsForRequestField(
             CodeGenerationSdkMessageRequest request
-            , Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageRequestField requestField
+            , Entities.SdkMessageRequestField requestField
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         );
 
         IEnumerable<string> GetCommentsForResponseField(
             CodeGenerationSdkMessageResponse response
-            , Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageResponseField responseField
+            , Entities.SdkMessageResponseField responseField
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         );
     }

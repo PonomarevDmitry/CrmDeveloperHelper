@@ -275,7 +275,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     Width = new DataGridLength(200),
                     Binding = new Binding
                     {
-                        Path = new PropertyPath("Name"),
+                        Path = new PropertyPath(nameof(Role.Name)),
                         Mode = BindingMode.OneTime,
                     },
                 },
@@ -286,7 +286,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     Width = new DataGridLength(200),
                     Binding = new Binding
                     {
-                        Path = new PropertyPath("RoleTemplateName"),
+                        Path = new PropertyPath(nameof(Role.RoleTemplateName)),
                         Mode = BindingMode.OneTime,
                     },
                 },
@@ -297,7 +297,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     Width = new DataGridLength(200),
                     Binding = new Binding
                     {
-                        Path = new PropertyPath("BusinessUnitId.Name"),
+                        Path = new PropertyPath(string.Format("{0}.{1}", nameof(Role.BusinessUnitId), nameof(EntityReference.Name))),
                         Mode = BindingMode.OneTime,
                     },
                 },

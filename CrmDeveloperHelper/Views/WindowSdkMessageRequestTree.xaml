@@ -131,21 +131,29 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"  />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="100*" />
                 </Grid.ColumnDefinitions>
 
-                <Label Content="Folder" Grid.Row="0" Grid.Column="0" />
-                <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" />
+                <CheckBox Grid.Row="0" Grid.Column="0" x:Name="chBSdkMessageRequestAttributesWithNameOf" IsChecked="{Binding Path=GenerateSdkMessageRequestAttributesWithNameOf}" Content="Use nameof in Indexer" />
+
+                <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chBSdkMessageRequestWithDebuggerNonUserCode" IsChecked="{Binding Path=GenerateSdkMessageRequestWithDebuggerNonUserCode}" Content="Add DebuggerNonUserCode Attribute" />
+
+                <CheckBox Grid.Row="0" Grid.Column="2" x:Name="chBSdkMessageRequestMakeAllPropertiesEditable" IsChecked="{Binding Path=GenerateSdkMessageRequestMakeAllPropertiesEditable}" Content="Make All Properties Editable" />
 
                 <Label Content="Namespace Messages C#" Grid.Row="1" Grid.Column="0" />
-                <TextBox x:Name="txtBNamespaceSdkMessagesCSharp" Grid.Row="1" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceSdkMessagesCSharp}"  />
+                <TextBox x:Name="txtBNamespaceSdkMessagesCSharp" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Path=SelectedItem.NamespaceSdkMessagesCSharp}"  />
 
                 <Label Content="Namespace Messages JavaScript" Grid.Row="2" Grid.Column="0" />
-                <TextBox x:Name="txtBNamespaceSdkMessagesJavaScript" Grid.Row="2" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceSdkMessagesJavaScript}"  />
+                <TextBox x:Name="txtBNamespaceSdkMessagesJavaScript" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Path=SelectedItem.NamespaceSdkMessagesJavaScript}"  />
+
+                <Label Content="Folder" Grid.Row="3" Grid.Column="0" />
+                <TextBox x:Name="txtBFolder" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" />
 
             </Grid>
         </Expander>

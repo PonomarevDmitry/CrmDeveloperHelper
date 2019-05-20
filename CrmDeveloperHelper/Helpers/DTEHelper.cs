@@ -2851,7 +2851,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string selection = string.Empty;
 
-            if (selectedItem != null)
+            if (selectedItem == null)
             {
                 selection = GetSelectedText();
             }
@@ -2895,7 +2895,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string selection = string.Empty;
 
-            if (selectedItem != null)
+            if (selectedItem == null)
             {
                 selection = GetSelectedText();
             }
@@ -3111,7 +3111,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             string selection = string.Empty;
 
-            if (selectedItem != null)
+            if (selectedItem == null)
             {
                 selection = GetSelectedText();
             }

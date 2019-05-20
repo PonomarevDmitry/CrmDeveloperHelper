@@ -143,7 +143,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 Binding binding = new Binding
                 {
-                    Path = new PropertyPath("FolderForExport")
+                    Path = new PropertyPath(nameof(CommonConfiguration.FolderForExport)),
                 };
                 BindingOperations.SetBinding(txtBFolder, TextBox.TextProperty, binding);
 

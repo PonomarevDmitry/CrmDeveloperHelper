@@ -20,11 +20,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         public Dictionary<Guid, Entities.SdkMessageFilter> SdkMessageFilters { get; }
 
-        public CodeGenerationSdkMessage(Guid id, string name, bool isPrivate)
-            : this(id, name, isPrivate, 0)
-        {
-        }
-
         internal CodeGenerationSdkMessage(Guid id, string name, bool isPrivate, int customizationLevel)
         {
             this.Id = id;
@@ -38,9 +33,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         public bool IsGeneric(Entities.SdkMessageRequestField requestField)
         {
-            if (string.Equals(requestField.ClrParser, EntityTypeName, StringComparison.InvariantCultureIgnoreCase))
+            if (!string.IsNullOrEmpty(requestField.ClrParser))
             {
-                return this.SdkMessageFilters.Count > 1;
+                if (string.Equals(requestField.ClrParser, EntityTypeName, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (IsCustomAction || this.SdkMessageFilters.Count > 1)
+                    {
+                        return true;
+                    }
+                }
+
+                Type type = Type.GetType(requestField.ClrParser, false);
+
+                if (type != null && type == typeof(Microsoft.Xrm.Sdk.Entity))
+                {
+                    if (IsCustomAction || this.SdkMessageFilters.Count > 1)
+                    {
+                        return true;
+                    }
+                }
             }
 
             return false;

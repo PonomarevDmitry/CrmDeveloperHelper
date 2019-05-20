@@ -2,7 +2,6 @@
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Client;
 using Microsoft.Xrm.Sdk.Metadata;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -246,7 +245,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         public string GetNameForRequestField(
             CodeGenerationSdkMessageRequest request
-            , Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageRequestField requestField
+            , Entities.SdkMessageRequestField requestField
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
@@ -264,7 +263,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
         public string GetNameForResponseField(
             CodeGenerationSdkMessageResponse response
-            , Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SdkMessageResponseField responseField
+            , Entities.SdkMessageResponseField responseField
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
@@ -379,12 +378,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             return Enumerable.Empty<string>();
         }
 
-        public IEnumerable<string> GetCommentsForRequestField(CodeGenerationSdkMessageRequest request, SdkMessageRequestField requestField, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public IEnumerable<string> GetCommentsForRequestField(CodeGenerationSdkMessageRequest request, Entities.SdkMessageRequestField requestField, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
             return Enumerable.Empty<string>();
         }
 
-        public IEnumerable<string> GetCommentsForResponseField(CodeGenerationSdkMessageResponse response, SdkMessageResponseField responseField, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
+        public IEnumerable<string> GetCommentsForResponseField(CodeGenerationSdkMessageResponse response, Entities.SdkMessageResponseField responseField, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
             return Enumerable.Empty<string>();
         }
