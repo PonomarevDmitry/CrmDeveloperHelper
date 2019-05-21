@@ -124,6 +124,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine(str);
         }
 
+        protected void WriteLine(StringBuilder stringBuilder) => WriteLine(stringBuilder.ToString());
+
         protected void WriteLine(string line = "")
         {
             IEnumerable<string> split = line

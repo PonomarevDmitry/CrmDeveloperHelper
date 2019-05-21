@@ -284,7 +284,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             foreach (var tab in tabs)
             {
-                WriteLine((string.Format("'{0}': ", tab.Name) + "{"));
+                WriteLine("'{0}': {{", tab.Name);
 
                 WriteLine("'Name': '{0}',", tab.Name);
 
@@ -305,7 +305,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     foreach (var section in tab.Sections)
                     {
-                        WriteLine((string.Format("'{0}': ", section.Name) + "{"));
+                        WriteLine("'{0}': {{", section.Name);
 
                         WriteLine("'Name': '{0}',", section.Name);
 

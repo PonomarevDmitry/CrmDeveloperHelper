@@ -10,6 +10,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
@@ -932,33 +933,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 bool ignore = attributeList.Any(a => IgnoreAttribute(_entityMetadata.LogicalName, a.LogicalName));
 
-                string str = string.Empty;
-
-                if (ignore)
-                {
-                    str += "//";
-                }
-
-                var enumName = string.Empty;
-
-                if (optionSet.IsGlobal.GetValueOrDefault())
-                {
-                    enumName = optionSet.Name;
-                }
-                else
-                {
-                    enumName = attributeList.First().LogicalName;
-                }
-
-                if (_config.OptionSetExportType == OptionSetExportType.Enums)
-                {
-                    str += string.Format("public enum {0}", enumName);
-                }
-                else
-                {
-                    str += string.Format("public static partial class {0}", enumName);
-                }
-
                 if (!ignore)
                 {
                     if (_config.AddDescriptionAttribute)
@@ -975,6 +949,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", description);
                         }
                     }
+                }
+
+                StringBuilder str = new StringBuilder();
+
+                if (ignore)
+                {
+                    str.Append("// ");
+                }
+
+                var enumName = string.Empty;
+
+                if (optionSet.IsGlobal.GetValueOrDefault())
+                {
+                    enumName = optionSet.Name;
+                }
+                else
+                {
+                    enumName = attributeList.First().LogicalName;
+                }
+
+                if (_config.OptionSetExportType == OptionSetExportType.Enums)
+                {
+                    str.AppendFormat("public enum {0}", enumName);
+                }
+                else
+                {
+                    str.AppendFormat("public static partial class {0}", enumName);
                 }
 
                 WriteLine(str);

@@ -379,52 +379,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private bool FolderExists()
-        {
-            bool result = true;
-            StringBuilder message = new StringBuilder();
-
-            string folder = string.Empty;
-
-            txtBFolder.Dispatcher.Invoke(() =>
-            {
-                folder = txtBFolder.Text.Trim();
-            });
-
-            if (!string.IsNullOrEmpty(folder))
-            {
-                if (!Directory.Exists(folder))
-                {
-                    result = false;
-
-                    if (message.Length > 0)
-                    {
-                        message.AppendLine();
-                    }
-
-                    message.Append(Properties.MessageBoxStrings.FolderDoesNotExists);
-                }
-            }
-            else
-            {
-                result = false;
-
-                if (message.Length > 0)
-                {
-                    message.AppendLine();
-                }
-
-                message.Append(Properties.MessageBoxStrings.FolderDoesNotExists);
-            }
-
-            if (!result)
-            {
-                MessageBox.Show(message.ToString(), Properties.MessageBoxStrings.ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            return result;
-        }
-
         private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
         {
             this.ChangeInitByEnabled(enabled);
@@ -480,11 +434,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            bool allGood = FolderExists();
+            string folder = txtBFolder.Text.Trim();
 
-            if (!allGood)
+            if (string.IsNullOrEmpty(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(folder))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
             var service = await GetService();
@@ -498,15 +458,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             try
             {
                 string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
-                var constantType = _commonConfig.GenerateSchemaConstantType;
-                var optionSetExportType = _commonConfig.GenerateSchemaOptionSetExportType;
-
-                string folder = txtBFolder.Text.Trim();
-                string nameSpace = txtBNamespaceOptionSetsCSharp.Text.Trim();
-
-                bool withDependentComponents = _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents;
-                bool allDescriptions = _commonConfig.GenerateCommonAllDescriptions;
-                bool withManagedInfo = _commonConfig.SolutionComponentWithManagedInfo;
 
                 string fileName = null;
 
@@ -538,17 +489,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     filePath = _filePath;
                 }
 
-                service.ConnectionData.NamespaceOptionSetsCSharp = nameSpace;
-
                 using (var handler = new CreateGlobalOptionSetsFileCSharpHandler(
                     service
                     , _iWriteToOutput
                     , tabSpacer
-                    , constantType
-                    , optionSetExportType
-                    , withDependentComponents
-                    , withManagedInfo
-                    , allDescriptions
+                    , _commonConfig.GenerateSchemaConstantType
+                    , _commonConfig.GenerateSchemaOptionSetExportType
+                    , _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents
+                    , _commonConfig.SolutionComponentWithManagedInfo
+                    , _commonConfig.GenerateCommonAllDescriptions
+                    , _commonConfig.GenerateSchemaAddDescriptionAttribute
                 ))
                 {
                     await handler.CreateFileAsync(filePath, optionSets);
@@ -610,11 +560,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            bool allGood = FolderExists();
+            string folder = txtBFolder.Text.Trim();
 
-            if (!allGood)
+            if (string.IsNullOrEmpty(folder))
             {
-                return;
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(folder))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
             var service = await GetService();
@@ -628,11 +584,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             try
             {
                 string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
-
-                string folder = txtBFolder.Text.Trim();
-                string nameSpace = txtBNamespaceOptionSetsJavaScript.Text.Trim();
-
-                bool withDependentComponents = _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents;
 
                 string fileName = null;
 
@@ -664,13 +615,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     filePath = _filePath;
                 }
 
-                service.ConnectionData.NamespaceOptionSetsCSharp = nameSpace;
-
                 using (var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
                     service
                     , _iWriteToOutput
                     , tabSpacer
-                    , withDependentComponents
+                    , _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents
                 ))
                 {
                     await handler.CreateFileAsync(filePath, optionSets);

@@ -783,6 +783,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             , commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents
                             , commonConfig.SolutionComponentWithManagedInfo
                             , commonConfig.GenerateCommonAllDescriptions
+                            , commonConfig.GenerateSchemaAddDescriptionAttribute
                         ))
                         {
                             await handler.CreateFileAsync(filePath, new[] { metadata });

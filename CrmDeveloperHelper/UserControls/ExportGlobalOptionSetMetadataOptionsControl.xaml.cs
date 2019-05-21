@@ -39,6 +39,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             chBWithDependentComponents.DataContext = _commonConfig;
 
             chBWithManagedInfo.DataContext = _commonConfig;
+
+            chBSchemaAddDescriptionAttribute.DataContext = _commonConfig;
         }
 
         public event EventHandler<EventArgs> CloseClicked;

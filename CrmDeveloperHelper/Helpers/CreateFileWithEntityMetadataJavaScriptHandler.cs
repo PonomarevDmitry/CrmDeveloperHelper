@@ -89,7 +89,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteLine();
 
-            WriteLine(string.Format("{0} = ", className) + "{");
+            WriteLine("{0} = {{", className);
 
             WriteAttributesToFile();
 

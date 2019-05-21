@@ -15,21 +15,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public class CreateGlobalOptionSetsFileCSharpHandler : CreateFileHandler
     {
-        private IOrganizationServiceExtented _service;
-        private bool _withDependentComponents;
+        private readonly IOrganizationServiceExtented _service;
+        private readonly bool _withDependentComponents;
 
         private readonly bool _withManagedInfo;
 
-        private string _fieldHeader;
+        private readonly bool _addDescriptionAttribute;
 
-        SolutionComponentDescriptor _descriptor;
-        DependencyDescriptionHandler _descriptorHandler;
-        DependencyRepository _dependencyRepository;
+        private readonly string _fieldHeader;
 
-        private StringMapRepository _repositoryStringMap;
+        private readonly SolutionComponentDescriptor _descriptor;
+        private readonly DependencyDescriptionHandler _descriptorHandler;
+        private readonly DependencyRepository _dependencyRepository;
 
-        private ConstantType _сonstantType;
-        private OptionSetExportType _optionSetExportType;
+        private readonly StringMapRepository _repositoryStringMap;
+
+        private readonly OptionSetExportType _optionSetExportType;
 
         private readonly IWriteToOutput _iWriteToOutput;
 
@@ -42,22 +43,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             , bool withDependentComponents
             , bool withManagedInfo
             , bool allDescriptions
+            , bool addDescriptionAttribute
         ) : base(tabSpacer, allDescriptions)
         {
-            this._service = service;
-            this._сonstantType = contantType;
+            this._service = service ?? throw new ArgumentNullException(nameof(service));
+            this._iWriteToOutput = iWriteToOutput ?? throw new ArgumentNullException(nameof(iWriteToOutput));
+
             this._withDependentComponents = withDependentComponents;
             this._optionSetExportType = optionSetExportType;
-            this._iWriteToOutput = iWriteToOutput;
             this._withManagedInfo = withManagedInfo;
+            this._addDescriptionAttribute = addDescriptionAttribute;
 
             this._descriptor = new SolutionComponentDescriptor(_service)
             {
                 WithManagedInfo = _withManagedInfo,
             };
+
             this._dependencyRepository = new DependencyRepository(this._service);
             this._descriptorHandler = new DependencyDescriptionHandler(this._descriptor);
             this._repositoryStringMap = new StringMapRepository(_service);
+
+            if (contantType == Model.ConstantType.ReadOnlyField)
+            {
+                _fieldHeader = "static readonly";
+            }
+            else
+            {
+                _fieldHeader = "const";
+            }
         }
 
         public Task CreateFileAsync(string filePath, IEnumerable<OptionSetMetadata> optionSets)
@@ -70,15 +83,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             optionSets = optionSets
                 .Where(e => e.Options.Any(o => o.Value.HasValue))
                 .OrderBy(e => e.Name);
-
-            if (this._сonstantType == Model.ConstantType.ReadOnlyField)
-            {
-                _fieldHeader = "static readonly";
-            }
-            else
-            {
-                _fieldHeader = "const";
-            }
 
             StartWriting(filePath);
 
@@ -160,23 +164,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 bool ignore = CreateFileHandler.IgnoreGlobalOptionSet(optionSet.Name) || !options.Any();
 
-                string str = string.Empty;
+                if (!ignore)
+                {
+                    if (this._addDescriptionAttribute)
+                    {
+                        string description = CreateFileHandler.GetLocalizedLabel(optionSet.DisplayName);
+
+                        if (string.IsNullOrEmpty(description))
+                        {
+                            description = CreateFileHandler.GetLocalizedLabel(optionSet.Description);
+                        }
+
+                        if (!string.IsNullOrEmpty(description))
+                        {
+                            WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", description);
+                        }
+                    }
+                }
+
+                StringBuilder str = new StringBuilder();
 
                 if (ignore)
                 {
-                    str += "//";
+                    str.Append("// ");
                 }
 
                 if (_optionSetExportType == OptionSetExportType.Enums)
                 {
-                    str += string.Format("public enum {0}", optionSet.Name);
+                    str.AppendFormat("public enum {0}", optionSet.Name);
                 }
                 else
                 {
-                    str += string.Format("public static partial class {0}", optionSet.Name);
+                    str.AppendFormat("public static partial class {0}", optionSet.Name);
                 }
 
-                WriteLine(str);
+                WriteLine(str.ToString());
 
                 if (ignore)
                 {
@@ -201,6 +223,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
 
                 WriteSummary(item.Label, item.Description, header, null);
+
+                if (this._addDescriptionAttribute)
+                {
+                    string description = CreateFileHandler.GetLocalizedLabel(item.Label);
+
+                    if (string.IsNullOrEmpty(description))
+                    {
+                        description = CreateFileHandler.GetLocalizedLabel(item.Description);
+                    }
+
+                    if (!string.IsNullOrEmpty(description))
+                    {
+                        WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", description);
+                    }
+                }
 
                 var str = item.MakeStrings();
 
