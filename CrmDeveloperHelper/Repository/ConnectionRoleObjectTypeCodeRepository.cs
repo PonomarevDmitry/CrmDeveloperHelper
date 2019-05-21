@@ -39,39 +39,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 NoLock = true,
 
                 ColumnSet = new ColumnSet(true),
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<ConnectionRoleObjectTypeCode>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<ConnectionRoleObjectTypeCode>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<ConnectionRoleObjectTypeCode>(query);
         }
     }
 }

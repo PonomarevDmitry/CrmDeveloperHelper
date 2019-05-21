@@ -45,37 +45,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     new OrderExpression(Privilege.Schema.Attributes.name, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                }
             };
 
-            var result = new List<Privilege>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Privilege>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
+            var result = _service.RetrieveMultipleAll<Privilege>(query);
 
             FillLinkedEntities(result);
 
@@ -106,39 +78,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 EntityName = PrivilegeObjectTypeCodes.EntityLogicalName,
 
                 ColumnSet = new ColumnSet(PrivilegeObjectTypeCodes.Schema.Attributes.privilegeid, PrivilegeObjectTypeCodes.Schema.Attributes.objecttypecode),
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                }
             };
 
-            var result = new List<PrivilegeObjectTypeCodes>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<PrivilegeObjectTypeCodes>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<PrivilegeObjectTypeCodes>(query);
         }
 
         public Task<List<Privilege>> GetListOtherPrivilegeAsync(ColumnSet columnSet)
@@ -183,37 +125,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     new OrderExpression(Privilege.Schema.Attributes.name, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                }
             };
 
-            var temp = new List<Privilege>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Privilege>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
+            result.AddRange(_service.RetrieveMultipleAll<Privilege>(query));
 
             FillLinkedEntities(result);
         }
@@ -254,37 +168,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     new OrderExpression(Privilege.Schema.Attributes.name, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                }
             };
 
-            var temp = new List<Privilege>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    temp.AddRange(coll.Entities.Select(e => e.ToEntity<Privilege>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
+            var temp = _service.RetrieveMultipleAll<Privilege>(query);
 
             foreach (var item in temp)
             {
@@ -351,37 +237,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     new OrderExpression(Privilege.Schema.Attributes.name, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                }
             };
 
-            var result = new List<Privilege>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Privilege>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
+            var result = _service.RetrieveMultipleAll<Privilege>(query);
 
             FillLinkedEntities(result);
 
@@ -422,37 +280,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     new OrderExpression(Privilege.Schema.Attributes.name, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                }
             };
 
-            var result = new List<Privilege>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Privilege>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
+            var result = _service.RetrieveMultipleAll<Privilege>(query);
 
             FillLinkedEntities(result);
 

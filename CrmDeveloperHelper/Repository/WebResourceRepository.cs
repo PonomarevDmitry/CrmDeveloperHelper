@@ -212,31 +212,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         new ConditionExpression(WebResource.Schema.Attributes.name, ConditionOperator.In, names.ToArray()),
                     }
                 },
-
-                PageInfo =
-                {
-                    Count = 5000,
-                    PageNumber = 1,
-                },
             };
 
-            while (true)
-            {
-                var coll = _service.RetrieveMultiple(query);
-
-                foreach (var item in coll.Entities.Select(e => e.ToEntity<WebResource>()))
-                {
-                    yield return item;
-                }
-
-                if (!coll.MoreRecords)
-                {
-                    yield break;
-                }
-
-                query.PageInfo.PagingCookie = coll.PagingCookie;
-                query.PageInfo.PageNumber++;
-            }
+            return _service.RetrieveMultipleAll<WebResource>(query);
         }
 
         public Task<List<WebResource>> GetListSupportsTextAsync(string name, int? webResourceType, bool? managed, bool? hidden, ColumnSet columnSet)
@@ -332,12 +310,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     new OrderExpression(WebResource.Schema.Attributes.name, OrderType.Ascending),
                 },
-
-                PageInfo =
-                {
-                    Count = 5000,
-                    PageNumber = 1,
-                },
             };
 
             //qe.Criteria.AddCondition("ismanaged", ConditionOperator.Equal, false);
@@ -363,31 +335,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 query.Criteria.AddCondition(WebResource.Schema.Attributes.ismanaged, ConditionOperator.Equal, managed.Value);
             }
 
-            List<WebResource> result = new List<WebResource>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<WebResource>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<WebResource>(query);
         }
 
         public Task<List<WebResource>> GetListByTypesAsync(IEnumerable<int> types, ColumnSet columnSet)
@@ -409,12 +357,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     new OrderExpression(WebResource.Schema.Attributes.name, OrderType.Ascending),
                 },
-
-                PageInfo =
-                {
-                    Count = 5000,
-                    PageNumber = 1,
-                },
             };
 
             if (types != null && types.Any())
@@ -422,31 +364,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 query.Criteria.AddCondition(new ConditionExpression(WebResource.Schema.Attributes.webresourcetype, ConditionOperator.In, types.ToArray()));
             }
 
-            List<WebResource> result = new List<WebResource>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<WebResource>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<WebResource>(query);
         }
 
         public Task<List<WebResource>> GetListAllWithContentAsync(string name = null)
@@ -468,12 +386,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     new OrderExpression(WebResource.Schema.Attributes.name, OrderType.Ascending),
                 },
-
-                PageInfo =
-                {
-                    Count = 5000,
-                    PageNumber = 1,
-                },
             };
 
             //qe.Criteria.AddCondition("ismanaged", ConditionOperator.Equal, false);
@@ -484,31 +396,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 query.Criteria.AddCondition(WebResource.Schema.Attributes.name, ConditionOperator.Like, "%" + name + "%");
             }
 
-            List<WebResource> result = new List<WebResource>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<WebResource>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<WebResource>(query);
         }
 
         public Task<Guid> CreateNewWebResourceAsync(string name, string displayName, string description, string extension, string solutionUniqueName)
@@ -809,39 +697,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     new OrderExpression(WebResource.Schema.Attributes.name, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<WebResource>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<WebResource>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<WebResource>(query);
         }
     }
 }

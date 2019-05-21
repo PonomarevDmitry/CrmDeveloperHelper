@@ -47,39 +47,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(SdkMessageProcessingStepImage.Schema.Attributes.entityalias, OrderType.Ascending),
                     new OrderExpression(SdkMessageProcessingStepImage.Schema.Attributes.createdon, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<SdkMessageProcessingStepImage>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SdkMessageProcessingStepImage>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<SdkMessageProcessingStepImage>(query);
         }
 
         public Task<List<SdkMessageProcessingStepImage>> GetAllImagesAsync()
@@ -162,37 +132,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(SdkMessageProcessingStepImage.Schema.Attributes.entityalias, OrderType.Ascending),
                     new OrderExpression(SdkMessageProcessingStepImage.Schema.Attributes.createdon, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<SdkMessageProcessingStepImage>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SdkMessageProcessingStepImage>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
+            var result = _service.RetrieveMultipleAll<SdkMessageProcessingStepImage>(query);
 
             SdkMessageProcessingStepRepository.FullfillEntitiesSteps(result);
 
@@ -229,39 +171,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(SdkMessageProcessingStepImage.Schema.Attributes.entityalias, OrderType.Ascending),
                     new OrderExpression(SdkMessageProcessingStepImage.Schema.Attributes.createdon, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<SdkMessageProcessingStepImage>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SdkMessageProcessingStepImage>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<SdkMessageProcessingStepImage>(query);
         }
 
         public Task<List<SdkMessageProcessingStepImage>> GetImagesByPluginTypeAsync(Guid idPluginType)
@@ -306,39 +218,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(SdkMessageProcessingStepImage.Schema.Attributes.entityalias, OrderType.Ascending),
                     new OrderExpression(SdkMessageProcessingStepImage.Schema.Attributes.createdon, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<SdkMessageProcessingStepImage>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SdkMessageProcessingStepImage>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<SdkMessageProcessingStepImage>(query);
         }
 
         public Task<List<SdkMessageProcessingStepImage>> GetImagesByPluginAssemblyAsync(Guid idPluginAssembly)
@@ -396,39 +278,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(SdkMessageProcessingStepImage.Schema.Attributes.entityalias, OrderType.Ascending),
                     new OrderExpression(SdkMessageProcessingStepImage.Schema.Attributes.createdon, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<SdkMessageProcessingStepImage>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SdkMessageProcessingStepImage>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<SdkMessageProcessingStepImage>(query);
         }
 
         public Task<SdkMessageProcessingStepImage> GetStepImageByIdAsync(Guid id)

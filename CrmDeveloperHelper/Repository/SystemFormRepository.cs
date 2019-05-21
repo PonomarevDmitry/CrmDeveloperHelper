@@ -71,12 +71,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(SystemForm.Schema.Attributes.type, OrderType.Ascending),
                     new OrderExpression(SystemForm.Schema.Attributes.name, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
             if (!string.IsNullOrEmpty(filterEntity))
@@ -84,31 +78,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 query.Criteria.Conditions.Add(new ConditionExpression(SystemForm.Schema.Attributes.objecttypecode, ConditionOperator.Equal, filterEntity));
             }
 
-            var result = new List<SystemForm>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SystemForm>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<SystemForm>(query);
         }
 
         public Task<SystemForm> GetByIdAsync(Guid idSystemForm, ColumnSet columnSet)
@@ -183,39 +153,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(SystemForm.Schema.Attributes.type, OrderType.Ascending),
                     new OrderExpression(SystemForm.Schema.Attributes.name, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<SystemForm>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SystemForm>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<SystemForm>(query);
         }
 
         public static string GetFormTypeString(int? formtype)
@@ -346,39 +286,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(SystemForm.Schema.Attributes.type, OrderType.Ascending),
                     new OrderExpression(SystemForm.Schema.Attributes.name, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<SystemForm>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SystemForm>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<SystemForm>(query);
         }
 
         public Task<List<SystemForm>> GetListForEntitiesAsync(string[] entities, ColumnSet columnSet)
@@ -413,39 +323,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(SystemForm.Schema.Attributes.objecttypecode, OrderType.Ascending),
                     new OrderExpression(SystemForm.Schema.Attributes.name, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<SystemForm>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SystemForm>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<SystemForm>(query);
         }
     }
 }

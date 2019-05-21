@@ -45,39 +45,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(AttributeMap.Schema.Attributes.sourceattributename, OrderType.Ascending),
                     new OrderExpression(AttributeMap.Schema.Attributes.targetattributename, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                }
             };
 
-            List<AttributeMap> result = new List<AttributeMap>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<AttributeMap>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<AttributeMap>(query);
         }
 
         public Task<List<AttributeMap>> GetListWithEntityMapAsync(string entityName)
@@ -119,39 +89,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         },
                     },
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                }
             };
 
-            List<AttributeMap> result = new List<AttributeMap>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<AttributeMap>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<AttributeMap>(query);
         }
     }
 }

@@ -74,39 +74,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         },
                     },
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<SdkMessage>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SdkMessage>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<SdkMessage>(query);
         }
 
         public Task<SdkMessage> FindMessageAsync(string name)
@@ -163,39 +133,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         new ConditionExpression(SdkMessage.EntityPrimaryIdAttribute, ConditionOperator.In, ids),
                     },
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<SdkMessage>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SdkMessage>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<SdkMessage>(query);
         }
 
         public Task<List<SdkMessage>> GetAllSdkMessageWithFiltersAsync(string messageName, string entityName)
@@ -249,12 +189,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         //},
                     },
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
             if (!string.IsNullOrEmpty(messageName))
@@ -262,29 +196,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 query.Criteria.Conditions.Add(new ConditionExpression(SdkMessage.Schema.Attributes.name, ConditionOperator.Like, messageName + "%"));
             }
 
-            var result = new List<SdkMessage>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SdkMessage>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
+            var result = _service.RetrieveMultipleAll<SdkMessage>(query);
 
             SdkMessageProcessingStepRepository.FullfillEntitiesSteps(result);
 

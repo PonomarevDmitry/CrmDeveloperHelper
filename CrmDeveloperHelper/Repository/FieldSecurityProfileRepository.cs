@@ -44,39 +44,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     new OrderExpression(FieldSecurityProfile.Schema.Attributes.name, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<FieldSecurityProfile>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<FieldSecurityProfile>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<FieldSecurityProfile>(query);
         }
 
         public Task<List<FieldSecurityProfile>> GetListByIdListAsync(IEnumerable<Guid> ids, ColumnSet columnSet)
@@ -106,39 +76,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     new OrderExpression(FieldSecurityProfile.Schema.Attributes.name, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<FieldSecurityProfile>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<FieldSecurityProfile>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<FieldSecurityProfile>(query);
         }
     }
 }

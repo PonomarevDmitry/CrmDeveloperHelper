@@ -38,39 +38,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 EntityName = InvalidDependency.EntityLogicalName,
 
                 ColumnSet = columnSet ?? new ColumnSet(true),
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                }
             };
 
-            List<InvalidDependency> result = new List<InvalidDependency>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<InvalidDependency>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<InvalidDependency>(query);
         }
 
         public Task<List<InvalidDependency>> GetDistinctListAsync()
@@ -95,39 +65,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     , InvalidDependency.Schema.Attributes.missingcomponentid
                     , InvalidDependency.Schema.Attributes.missingcomponenttype
                 ),
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                }
             };
 
-            List<InvalidDependency> result = new List<InvalidDependency>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<InvalidDependency>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<InvalidDependency>(query);
         }
     }
 }

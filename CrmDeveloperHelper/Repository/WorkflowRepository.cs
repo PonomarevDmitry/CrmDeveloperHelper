@@ -60,12 +60,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(Workflow.Schema.Attributes.primaryentity, OrderType.Ascending),
                     new OrderExpression(Workflow.Schema.Attributes.name, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
             if (!string.IsNullOrEmpty(filterEntity))
@@ -83,31 +77,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 query.Criteria.Conditions.Add(new ConditionExpression(Workflow.Schema.Attributes.mode, ConditionOperator.Equal, mode.Value));
             }
 
-            var result = new List<Workflow>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Workflow>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<Workflow>(query);
         }
 
         public Task<List<Workflow>> GetListByIdListAsync(IEnumerable<Guid> ids, ColumnSet columnSet)
@@ -144,39 +114,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(Workflow.Schema.Attributes.primaryentity, OrderType.Ascending),
                     new OrderExpression(Workflow.Schema.Attributes.name, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<Workflow>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Workflow>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<Workflow>(query);
         }
 
         public Task<Workflow> GetByIdAsync(Guid idWorkflow, ColumnSet columnSet = null)
@@ -270,39 +210,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(Workflow.Schema.Attributes.primaryentity, OrderType.Ascending),
                     new OrderExpression(Workflow.Schema.Attributes.name, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<Workflow>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Workflow>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<Workflow>(query);
         }
 
         public static IEnumerable<DataGridColumn> GetDataGridColumn()

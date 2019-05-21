@@ -34,43 +34,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             QueryExpression query = new QueryExpression()
             {
-                EntityName = SdkMessageProcessingStepSecureConfig.EntityLogicalName,
-                ColumnSet = new ColumnSet(true),
-
                 NoLock = true,
 
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
+                EntityName = SdkMessageProcessingStepSecureConfig.EntityLogicalName,
+
+                ColumnSet = new ColumnSet(true),
             };
 
-            var result = new List<SdkMessageProcessingStepSecureConfig>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SdkMessageProcessingStepSecureConfig>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<SdkMessageProcessingStepSecureConfig>(query);
         }
 
         public Task<SdkMessageProcessingStepSecureConfig> GetSecureByIdAsync(Guid id)

@@ -41,44 +41,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             QueryExpression query = new QueryExpression()
             {
-                EntityName = SdkMessageResponseField.EntityLogicalName,
-
                 NoLock = true,
 
-                ColumnSet = columnSet ?? new ColumnSet(true),
+                EntityName = SdkMessageResponseField.EntityLogicalName,
 
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
+                ColumnSet = columnSet ?? new ColumnSet(true),
             };
 
-            var result = new List<SdkMessageResponseField>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SdkMessageResponseField>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<SdkMessageResponseField>(query);
         }
 
         public Task<SdkMessageResponseField> GetByIdAsync(Guid idSdkMessageResponseField, ColumnSet columnSet)
@@ -134,39 +104,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         new ConditionExpression(SdkMessageResponseField.Schema.Attributes.sdkmessageresponseid, ConditionOperator.Equal, idResponse),
                     },
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<SdkMessageResponseField>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SdkMessageResponseField>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<SdkMessageResponseField>(query);
         }
 
         public Task<List<SdkMessageResponseField>> GetListByPairAsync(Guid idPair, ColumnSet columnSet)
@@ -215,39 +155,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         },
                     },
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<SdkMessageResponseField>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SdkMessageResponseField>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<SdkMessageResponseField>(query);
         }
 
         public Task<List<SdkMessageResponseField>> GetListByMessageAsync(Guid idMessage, ColumnSet columnSet)
@@ -308,39 +218,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         },
                     },
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<SdkMessageResponseField>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SdkMessageResponseField>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<SdkMessageResponseField>(query);
         }
     }
 }

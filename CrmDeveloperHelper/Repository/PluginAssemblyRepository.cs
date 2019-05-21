@@ -128,12 +128,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(PluginAssembly.Schema.Attributes.name, OrderType.Ascending),
                     new OrderExpression(PluginAssembly.Schema.Attributes.createdon, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    Count = 5000,
-                    PageNumber = 1,
-                },
             };
 
             if (!string.IsNullOrEmpty(name))
@@ -141,31 +135,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 query.Criteria.AddCondition(PluginAssembly.Schema.Attributes.name, ConditionOperator.Like, "%" + name + "%");
             }
 
-            var result = new List<PluginAssembly>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(ent => ent.ToEntity<PluginAssembly>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<PluginAssembly>(query);
         }
 
         public Task<List<PluginAssembly>> GetAllPluginAssemblisWithStepsAsync()
@@ -230,39 +200,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(PluginAssembly.Schema.Attributes.name, OrderType.Ascending),
                     new OrderExpression(PluginAssembly.Schema.Attributes.createdon, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    Count = 5000,
-                    PageNumber = 1,
-                },
             };
 
-            var result = new List<PluginAssembly>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(ent => ent.ToEntity<PluginAssembly>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<PluginAssembly>(query);
         }
 
         public Task<PluginAssembly> FindAssemblyAsync(string name)
@@ -407,39 +347,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(PluginAssembly.Schema.Attributes.name, OrderType.Ascending),
                     new OrderExpression(PluginAssembly.Schema.Attributes.createdon, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<PluginAssembly>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<PluginAssembly>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<PluginAssembly>(query);
         }
     }
 }

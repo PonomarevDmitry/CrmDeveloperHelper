@@ -67,6 +67,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        public T Retrieve<T>(string entityName, Guid id, ColumnSet columnSet) where T : Entity
+        {
+            return this.Retrieve(entityName, id, columnSet).ToEntity<T>();
+        }
+
+        public Task<T> RetrieveAsync<T>(string entityName, Guid id, ColumnSet columnSet) where T : Entity
+        {
+            return Task.Run(() => Retrieve<T>(entityName, id, columnSet));
+        }
+
         public Task<T> RetrieveByQueryAsync<T>(string entityName, Guid id, ColumnSet columnSet) where T : Entity
         {
             return Task.Run(() => RetrieveByQuery<T>(entityName, id, columnSet));
@@ -545,6 +555,58 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.ConnectionData.SetRequestExistance(requestName, isRequestExists);
 
             return isRequestExists;
+        }
+
+        public List<T> RetrieveMultipleAll<T>(QueryExpression query) where T : Entity
+        {
+            {
+                Dictionary<string, string> aliases = GetAliases(query);
+
+                query.ColumnSet = FilterColumns(query.EntityName, query.ColumnSet);
+
+                FilterFilterExpression(query.EntityName, query.Criteria, aliases);
+
+                FilterLinkEntities(query.LinkEntities, aliases);
+
+                FilterOrders(query.EntityName, query.Orders);
+            }
+
+            query.PageInfo = new PagingInfo()
+            {
+                PageNumber = 1,
+                Count = 5000,
+            };
+
+            var result = new List<T>();
+
+            try
+            {
+                while (true)
+                {
+                    var coll = _service.RetrieveMultiple(query);
+
+                    result.AddRange(coll.Entities.Select(e => e.ToEntity<T>()));
+
+                    if (!coll.MoreRecords)
+                    {
+                        break;
+                    }
+
+                    query.PageInfo.PagingCookie = coll.PagingCookie;
+                    query.PageInfo.PageNumber++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(ConnectionData, ex);
+            }
+
+            return result;
+        }
+
+        public Task<List<T>> RetrieveMultipleAllAsync<T>(QueryExpression query) where T : Entity
+        {
+            return Task.Run(() => RetrieveMultipleAll<T>(query));
         }
     }
 }

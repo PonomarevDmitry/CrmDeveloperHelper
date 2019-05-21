@@ -34,9 +34,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             QueryExpression query = new QueryExpression()
             {
-                EntityName = Template.EntityLogicalName,
-
                 NoLock = true,
+
+                EntityName = Template.EntityLogicalName,
 
                 ColumnSet = new ColumnSet(true),
 
@@ -45,39 +45,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(Template.Schema.Attributes.templatetypecode, OrderType.Ascending),
                     new OrderExpression(Template.Schema.Attributes.title, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<Template>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Template>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<Template>(query);
         }
 
         public Task<List<Template>> GetListByIdListAsync(IEnumerable<Guid> ids, ColumnSet columnSet)
@@ -89,9 +59,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         {
             QueryExpression query = new QueryExpression()
             {
-                EntityName = Template.EntityLogicalName,
-
                 NoLock = true,
+
+                EntityName = Template.EntityLogicalName,
 
                 ColumnSet = columnSet ?? new ColumnSet(true),
 
@@ -108,39 +78,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(Template.Schema.Attributes.templatetypecode, OrderType.Ascending),
                     new OrderExpression(Template.Schema.Attributes.title, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<Template>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Template>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<Template>(query);
         }
     }
 }

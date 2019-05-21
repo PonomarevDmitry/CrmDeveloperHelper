@@ -34,8 +34,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             QueryExpression query = new QueryExpression()
             {
                 NoLock = true,
+
                 EntityName = Solution.EntityLogicalName,
+
                 ColumnSet = new ColumnSet(true),
+
                 Criteria =
                 {
                     Conditions =
@@ -44,6 +47,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         new ConditionExpression(Solution.Schema.Attributes.isvisible, ConditionOperator.Equal, true)
                     }
                 },
+
                 LinkEntities =
                 {
                     new LinkEntity()
@@ -59,14 +63,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         Columns = new ColumnSet(Publisher.Schema.Attributes.customizationprefix)
                     }
                 },
+
                 Orders =
                 {
                     new OrderExpression(Solution.Schema.Attributes.installedon, OrderType.Descending),
-                },
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
                 },
             };
 
@@ -77,31 +77,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 filter.Conditions.Add(new ConditionExpression(Solution.Schema.Attributes.friendlyname, ConditionOperator.Like, "%" + name + "%"));
             }
 
-            var result = new List<Solution>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Solution>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<Solution>(query);
         }
 
         public Task<Solution> GetSolutionByIdAsync(Guid id)
@@ -145,7 +121,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultiple(query).Entities.Select(e => e.ToEntity<Solution>()).First();
+            var coll = _service.RetrieveMultiple(query).Entities;
+
+            return coll.Count == 1 ? coll.Select(e => e.ToEntity<Solution>()).SingleOrDefault() : null;
         }
 
         public Task<Solution> GetSolutionByUniqueNameAsync(string uniqueName)
@@ -210,6 +188,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 Distinct = true,
 
                 EntityName = Solution.EntityLogicalName,
+
                 ColumnSet = new ColumnSet(true),
 
                 //Criteria =
@@ -242,11 +221,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     new OrderExpression(Solution.Schema.Attributes.installedon, OrderType.Descending),
                 },
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
             if (!string.IsNullOrEmpty(name))
@@ -277,31 +251,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 });
             }
 
-            var result = new List<Solution>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Solution>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<Solution>(query);
         }
 
         public Task<List<Solution>> GetSolutionsVisibleUnmanagedAsync(IEnumerable<string> uniqueNames)
@@ -314,8 +264,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             QueryExpression query = new QueryExpression()
             {
                 NoLock = true,
+
                 EntityName = Solution.EntityLogicalName,
+
                 ColumnSet = new ColumnSet(true),
+
                 Criteria =
                 {
                     Conditions =
@@ -325,38 +278,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         new ConditionExpression(Solution.Schema.Attributes.uniquename, ConditionOperator.In, uniqueNames.ToArray()),
                     }
                 },
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<Solution>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Solution>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<Solution>(query);
         }
 
         public Task<List<Solution>> GetListSolutionsUnmanagedAsync(string name = null)
@@ -369,8 +293,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             QueryExpression query = new QueryExpression()
             {
                 NoLock = true,
+
                 EntityName = Solution.EntityLogicalName,
+
                 ColumnSet = new ColumnSet(true),
+
                 Criteria =
                 {
                     Conditions =
@@ -378,6 +305,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         new ConditionExpression(Solution.Schema.Attributes.ismanaged, ConditionOperator.Equal, false),
                     }
                 },
+
                 LinkEntities =
                 {
                     new LinkEntity()
@@ -393,14 +321,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         Columns = new ColumnSet(Publisher.Schema.Attributes.customizationprefix)
                     }
                 },
+
                 Orders =
                 {
                     new OrderExpression(Solution.Schema.Attributes.installedon, OrderType.Descending),
-                },
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
                 },
             };
 
@@ -411,31 +335,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 filter.Conditions.Add(new ConditionExpression(Solution.Schema.Attributes.friendlyname, ConditionOperator.Like, "%" + name + "%"));
             }
 
-            var result = new List<Solution>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Solution>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<Solution>(query);
         }
     }
 }

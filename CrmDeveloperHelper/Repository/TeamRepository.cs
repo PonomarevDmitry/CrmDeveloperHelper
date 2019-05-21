@@ -66,12 +66,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         Columns = new ColumnSet(TeamTemplate.Schema.Attributes.teamtemplatename),
                     },
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
             if (!string.IsNullOrEmpty(filter))
@@ -86,31 +80,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             }
 
-            var result = new List<Team>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Team>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<Team>(query);
         }
 
         public Task<List<Team>> GetUserTeamsAsync(Guid idUser, string filter, ColumnSet columnSet)
@@ -171,12 +141,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(Team.Schema.Attributes.name, OrderType.Ascending),
                     new OrderExpression(Team.Schema.Attributes.businessunitid, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
             if (!string.IsNullOrEmpty(filter))
@@ -191,31 +155,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             }
 
-            var result = new List<Team>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Team>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<Team>(query);
         }
 
         public Task<List<Team>> GetTeamsByRoleAsync(Guid idRole, string filter, ColumnSet columnSet)
@@ -269,12 +209,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     new OrderExpression(SystemUser.Schema.Attributes.fullname, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
             if (!string.IsNullOrEmpty(filter))
@@ -289,31 +223,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             }
 
-            var result = new List<Team>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Team>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<Team>(query);
         }
 
         public static IEnumerable<DataGridColumn> GetDataGridColumnOwner()
@@ -509,12 +419,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(Team.Schema.Attributes.name, OrderType.Ascending),
                     new OrderExpression(Team.Schema.Attributes.businessunitid, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
             if (!string.IsNullOrEmpty(filterTeam))
@@ -529,29 +433,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             }
 
-            var result = new List<Team>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Team>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
+            var result = _service.RetrieveMultipleAll<Team>(query);
 
             {
                 var teams = GetTeamsByRole(idRole, null, new ColumnSet(false));
@@ -640,12 +522,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(Team.Schema.Attributes.name, OrderType.Ascending),
                     new OrderExpression(Team.Schema.Attributes.businessunitid, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
             if (!string.IsNullOrEmpty(filterTeam))
@@ -660,31 +536,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             }
 
-            var result = new List<Team>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Team>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<Team>(query);
         }
 
         public Task<IEnumerable<Team>> GetOwnerTeamsAsync(string filterTeam, ColumnSet columnSet)
@@ -718,12 +570,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(Team.Schema.Attributes.name, OrderType.Ascending),
                     new OrderExpression(Team.Schema.Attributes.businessunitid, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
             if (!string.IsNullOrEmpty(filterTeam))
@@ -738,31 +584,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             }
 
-            var result = new List<Team>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Team>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<Team>(query);
         }
 
         public Task<IEnumerable<Team>> GetOwnerTeamsNotAnotherAsync(string filterTeam, Guid idTeam, ColumnSet columnSet)
@@ -797,12 +619,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(Team.Schema.Attributes.name, OrderType.Ascending),
                     new OrderExpression(Team.Schema.Attributes.businessunitid, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
             if (!string.IsNullOrEmpty(filterTeam))
@@ -817,31 +633,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             }
 
-            var result = new List<Team>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Team>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<Team>(query);
         }
 
         public Task<IEnumerable<Team>> GetNotDefaultTeamsAsync(string filterTeam, ColumnSet columnSet)
@@ -893,12 +685,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(Team.Schema.Attributes.name, OrderType.Ascending),
                     new OrderExpression(Team.Schema.Attributes.businessunitid, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
             if (!string.IsNullOrEmpty(filterTeam))
@@ -913,31 +699,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             }
 
-            var result = new List<Team>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Team>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<Team>(query);
         }
 
         public Task RemoveUserFromTeamsAsync(Guid idUser, IEnumerable<Guid> teamList)

@@ -126,39 +126,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         new ConditionExpression(fieldName, ConditionOperator.Equal, idEntity),
                     },
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<Entity>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<Entity>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                DTEHelper.WriteExceptionToLog(ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<Entity>(query);
         }
 
         public Task<Entity> GetEntityByNameFieldAsync(string name, ColumnSet columnSet)

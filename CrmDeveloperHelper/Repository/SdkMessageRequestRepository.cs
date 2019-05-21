@@ -80,12 +80,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     linkEntityPair,
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
             if (!string.IsNullOrEmpty(messageName))
@@ -98,38 +92,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 linkEntityPair.LinkCriteria.Conditions.Add(new ConditionExpression(SdkMessagePair.Schema.Attributes.endpoint, ConditionOperator.Like, endpointName + "%"));
             }
 
-            var result = new List<SdkMessageRequest>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SdkMessageRequest>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
+            var result = _service.RetrieveMultipleAll<SdkMessageRequest>(query).AsEnumerable();
 
             if (!string.IsNullOrEmpty(filterEntity))
             {
                 filterEntity = filterEntity.ToLower();
 
-                result = result.Where(ent => ent.PrimaryObjectTypeCode != null && ent.PrimaryObjectTypeCode.ToLower().Contains(filterEntity)).ToList();
+                result = result.Where(ent => ent.PrimaryObjectTypeCode != null && ent.PrimaryObjectTypeCode.ToLower().Contains(filterEntity));
             }
 
-            return result;
+            return result.ToList();
         }
 
         public Task<SdkMessageRequest> GetByIdAsync(Guid idSdkMessageRequest, ColumnSet columnSet)
@@ -246,39 +218,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         new ConditionExpression(SdkMessageRequest.Schema.Attributes.sdkmessagepairid, ConditionOperator.Equal, idPair),
                     },
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<SdkMessageRequest>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SdkMessageRequest>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<SdkMessageRequest>(query);
         }
 
         public Task<List<SdkMessageRequest>> GetListByMessageAsync(Guid idMessage, ColumnSet columnSet)
@@ -315,39 +257,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         },
                     }
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
-            var result = new List<SdkMessageRequest>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<SdkMessageRequest>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<SdkMessageRequest>(query);
         }
     }
 }

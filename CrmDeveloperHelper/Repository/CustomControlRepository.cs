@@ -62,12 +62,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     new OrderExpression(CustomControl.Schema.Attributes.compatibledatatypes, OrderType.Ascending),
                     new OrderExpression(CustomControl.Schema.Attributes.customcontrolid, OrderType.Ascending),
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                },
             };
 
             if (!string.IsNullOrEmpty(filter))
@@ -84,31 +78,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             }
 
-            var result = new List<CustomControl>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntity<CustomControl>()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<CustomControl>(query);
         }
 
         public Task<CustomControl> GetByIdAsync(Guid idCustomControl, ColumnSet columnSet)
