@@ -342,6 +342,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void tSBFileActionEdit_Click(object sender, RoutedEventArgs e)
         {
+            PerformFileActionEdit();
+        }
+
+        private void lstVwFileActions_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            PerformFileActionEdit();
+        }
+
+        private void PerformFileActionEdit()
+        {
             if (lstVwFileActions.SelectedItems.Count == 1)
             {
                 ListViewItem itemExtension = lstVwFileActions.SelectedItems[0] as ListViewItem;

@@ -113,7 +113,8 @@
                             </Button>
                         </DockPanel>
                     </ToolBar>
-                    <ListView x:Name="lstVwFileActions" SelectionMode="Single" SelectionChanged="lstVwFileActions_SelectionChanged" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" DockPanel.Dock="Right" Height="Auto" Width="Auto"  >
+
+                    <ListView x:Name="lstVwFileActions" SelectionMode="Single" SelectionChanged="lstVwFileActions_SelectionChanged" MouseDoubleClick="lstVwFileActions_MouseDoubleClick" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" DockPanel.Dock="Right" Height="Auto" Width="Auto"  >
                         <ListView.ItemContainerStyle>
                             <Style TargetType="{x:Type ListViewItem}">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -146,6 +147,7 @@
                 </DockPanel>
             </TabItem>
         </TabControl>
+        
         <Button x:Name="btnOpenConfigFolder" Content="Open Config Folder" Margin="10,0,0,38" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="142" Click="btnOpenConfigFolder_Click"/>
         <Button x:Name="btnSave" Content="Save" Margin="0,0,127,38" Click="btnSave_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="89"/>
         <Button x:Name="btnCancel" Content="Cancel" Margin="0,0,10,38" Click="btnCancel_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
