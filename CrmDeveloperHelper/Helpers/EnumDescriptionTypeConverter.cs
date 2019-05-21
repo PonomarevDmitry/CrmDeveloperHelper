@@ -52,7 +52,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                     currentTypeDescriptions.TryAdd(valueString, description);
 
-                    return valueString;
+                    return description;
                 }
 
                 return string.Empty;
