@@ -784,29 +784,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            var result = new List<Guid>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.Id));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
+            var result = new List<Guid>(_service.RetrieveMultipleAll<Team>(query).Select(e => e.Id));
 
             return result;
         }
@@ -888,29 +866,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            var result = new List<Guid>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.Id));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
+            var result = new List<Guid>(_service.RetrieveMultipleAll<SystemUser>(query).Select(e => e.Id));
 
             return result;
         }

@@ -276,37 +276,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         },
                     },
                 },
-
-                PageInfo = new PagingInfo()
-                {
-                    PageNumber = 1,
-                    Count = 5000,
-                }
             };
 
-            List<EntityReference> result = new List<EntityReference>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntityReference()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
+            var result = new List<EntityReference>(_service.RetrieveMultipleAll<Role>(query).Select(e => e.ToEntityReference()));
 
             return result;
         }
@@ -378,29 +350,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             };
 
-            List<EntityReference> result = new List<EntityReference>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntityReference()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
+            var result = new List<EntityReference>(_service.RetrieveMultipleAll<Role>(query).Select(e => e.ToEntityReference()));
 
             return result;
         }
@@ -494,29 +444,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             };
 
-            List<EntityReference> result = new List<EntityReference>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntityReference()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
+            var result = new List<EntityReference>(_service.RetrieveMultipleAll<Role>(query).Select(e => e.ToEntityReference()));
 
             return result;
         }
@@ -610,29 +538,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
             };
 
-            List<EntityReference> result = new List<EntityReference>();
-
-            try
-            {
-                while (true)
-                {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    result.AddRange(coll.Entities.Select(e => e.ToEntityReference()));
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
-                }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-            }
+            var result = new List<EntityReference>(_service.RetrieveMultipleAll<Role>(query).Select(e => e.ToEntityReference()));
 
             return result;
         }

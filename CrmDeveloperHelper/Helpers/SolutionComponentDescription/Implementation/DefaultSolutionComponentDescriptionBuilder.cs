@@ -90,7 +90,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                 if (query != null)
                 {
-                    List<Entity> result = GetEntitiesByQuery(query);
+                    var result = GetEntitiesByQuery<T>(query);
 
                     CacheEntities(result);
 
@@ -101,42 +101,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return list.Select(e => e.ToEntity<T>()).ToList();
         }
 
-        protected virtual List<Entity> GetEntitiesByQuery(QueryExpression query)
+        protected virtual List<T> GetEntitiesByQuery<T>(QueryExpression query) where T : Entity
         {
-            List<Entity> result = new List<Entity>();
-
-            query.PageInfo = new PagingInfo()
-            {
-                PageNumber = 1,
-                Count = 5000,
-            };
-
-            if (query != null)
-            {
-                try
-                {
-                    while (true)
-                    {
-                        var coll = _service.RetrieveMultiple(query);
-
-                        result.AddRange(coll.Entities);
-
-                        if (!coll.MoreRecords)
-                        {
-                            break;
-                        }
-
-                        query.PageInfo.PagingCookie = coll.PagingCookie;
-                        query.PageInfo.PageNumber++;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
-                }
-            }
-
-            return result;
+            return _service.RetrieveMultipleAll<T>(query);
         }
 
         protected virtual QueryExpression GetQuery(List<Guid> idsNotCached)
@@ -242,7 +209,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return result;
         }
 
-        private void CacheEntities(List<Entity> listEntities)
+        private void CacheEntities(IEnumerable<Entity> listEntities)
         {
             lock (_syncObjectEntityCache)
             {

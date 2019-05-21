@@ -108,32 +108,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             var result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
-            try
+            var list = _service.RetrieveMultipleAll<RibbonCustomization>(query);
+
+            foreach (var item in list)
             {
-                while (true)
+                if (!string.IsNullOrEmpty(item.Entity))
                 {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    foreach (var item in coll.Entities.Select(e => e.ToEntity<RibbonCustomization>()))
-                    {
-                        if (!string.IsNullOrEmpty(item.Entity))
-                        {
-                            result.Add(item.Entity);
-                        }
-                    }
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
+                    result.Add(item.Entity);
                 }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
             return result;
@@ -173,32 +155,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             var result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
-            try
+            var list = _service.RetrieveMultipleAll<RibbonCommand>(query);
+
+            foreach (var item in list)
             {
-                while (true)
+                if (!string.IsNullOrEmpty(item.Entity))
                 {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    foreach (var item in coll.Entities.Select(e => e.ToEntity<RibbonCommand>()))
-                    {
-                        if (!string.IsNullOrEmpty(item.Entity))
-                        {
-                            result.Add(item.Entity);
-                        }
-                    }
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
+                    result.Add(item.Entity);
                 }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
             return result;
@@ -272,32 +236,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             var result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
-            try
+            var list = _service.RetrieveMultipleAll<RibbonContextGroup>(query);
+
+            foreach (var item in list)
             {
-                while (true)
+                if (!string.IsNullOrEmpty(item.Entity))
                 {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    foreach (var item in coll.Entities.Select(e => e.ToEntity<RibbonContextGroup>()))
-                    {
-                        if (!string.IsNullOrEmpty(item.Entity))
-                        {
-                            result.Add(item.Entity);
-                        }
-                    }
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
+                    result.Add(item.Entity);
                 }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
             return result;
@@ -337,32 +283,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             var result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
-            try
+            var list = _service.RetrieveMultipleAll<RibbonDiff>(query);
+
+            foreach (var item in list)
             {
-                while (true)
+                if (!string.IsNullOrEmpty(item.Entity))
                 {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    foreach (var item in coll.Entities.Select(e => e.ToEntity<RibbonDiff>()))
-                    {
-                        if (!string.IsNullOrEmpty(item.Entity))
-                        {
-                            result.Add(item.Entity);
-                        }
-                    }
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
+                    result.Add(item.Entity);
                 }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
             return result;
@@ -402,32 +330,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             var result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
-            try
+            var list = _service.RetrieveMultipleAll<RibbonRule>(query);
+
+            foreach (var item in list)
             {
-                while (true)
+                if (!string.IsNullOrEmpty(item.Entity))
                 {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    foreach (var item in coll.Entities.Select(e => e.ToEntity<RibbonRule>()))
-                    {
-                        if (!string.IsNullOrEmpty(item.Entity))
-                        {
-                            result.Add(item.Entity);
-                        }
-                    }
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
+                    result.Add(item.Entity);
                 }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
             return result;
@@ -467,32 +377,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             var result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
-            try
+            var list = _service.RetrieveMultipleAll<RibbonTabToCommandMap>(query);
+
+            foreach (var item in list)
             {
-                while (true)
+                if (!string.IsNullOrEmpty(item.Entity))
                 {
-                    var coll = _service.RetrieveMultiple(query);
-
-                    foreach (var item in coll.Entities.Select(e => e.ToEntity<RibbonTabToCommandMap>()))
-                    {
-                        if (!string.IsNullOrEmpty(item.Entity))
-                        {
-                            result.Add(item.Entity);
-                        }
-                    }
-
-                    if (!coll.MoreRecords)
-                    {
-                        break;
-                    }
-
-                    query.PageInfo.PagingCookie = coll.PagingCookie;
-                    query.PageInfo.PageNumber++;
+                    result.Add(item.Entity);
                 }
-            }
-            catch (Exception ex)
-            {
-                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
             }
 
             return result;

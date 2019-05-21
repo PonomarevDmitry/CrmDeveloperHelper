@@ -122,9 +122,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return query;
         }
 
-        protected override List<Entity> GetEntitiesByQuery(QueryExpression query)
+        protected override List<T> GetEntitiesByQuery<T>(QueryExpression query)
         {
-            var result = base.GetEntitiesByQuery(query);
+            var result = base.GetEntitiesByQuery<T>(query);
 
             SdkMessageProcessingStepRepository.FullfillEntitiesSteps(result);
 
