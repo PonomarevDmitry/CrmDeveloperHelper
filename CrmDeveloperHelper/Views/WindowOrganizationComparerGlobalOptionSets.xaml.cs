@@ -445,16 +445,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var constantType = _commonConfig.GenerateSchemaConstantType;
                     var optionSetExportType = _commonConfig.GenerateSchemaOptionSetExportType;
 
-                    var nameSpace1 = txtBNamespaceCSharp1.Text.Trim();
-                    var nameSpace2 = txtBNamespaceCSharp2.Text.Trim();
-
                     var withDependentComponents = _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents;
                     var allDescriptions = _commonConfig.GenerateCommonAllDescriptions;
                     var withManagedInfo = _commonConfig.SolutionComponentWithManagedInfo;
                     var addDescriptionAttribute = _commonConfig.GenerateSchemaAddDescriptionAttribute;
-
-                    service1.ConnectionData.NamespaceOptionSetsCSharp = nameSpace1;
-                    service2.ConnectionData.NamespaceOptionSetsCSharp = nameSpace2;
 
                     using (var handler1 = new CreateGlobalOptionSetsFileCSharpHandler(service1, _iWriteToOutput, tabSpacer, constantType, optionSetExportType, withDependentComponents, withManagedInfo, allDescriptions, addDescriptionAttribute))
                     {
@@ -582,13 +576,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
                     var constantType = _commonConfig.GenerateSchemaConstantType;
 
-                    var nameSpace1 = txtBNamespaceJavaScript1.Text.Trim();
-                    var nameSpace2 = txtBNamespaceJavaScript2.Text.Trim();
-
                     var withDependentComponents = _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents;
-
-                    service1.ConnectionData.NamespaceOptionSetsCSharp = nameSpace1;
-                    service2.ConnectionData.NamespaceOptionSetsCSharp = nameSpace2;
 
                     using (var handler1 = new CreateGlobalOptionSetsFileJavaScriptHandler(service1, _iWriteToOutput, tabSpacer, withDependentComponents))
                     {
@@ -644,7 +632,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connection1 != null && _cacheOptionSetMetadata.TryGetValue(connection1.ConnectionId, out var optionSets))
             {
-                CreateGlobalOptionSetsCSharpFile(GetService1, txtBNamespaceCSharp1.Text.Trim(), optionSets);
+                CreateGlobalOptionSetsCSharpFile(GetService1, optionSets);
             }
         }
 
@@ -654,7 +642,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connection2 != null && _cacheOptionSetMetadata.TryGetValue(connection2.ConnectionId, out var optionSets))
             {
-                CreateGlobalOptionSetsCSharpFile(GetService2, txtBNamespaceCSharp2.Text.Trim(), optionSets);
+                CreateGlobalOptionSetsCSharpFile(GetService2, optionSets);
             }
         }
 
@@ -669,7 +657,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var optionSets = new[] { link.OptionSetMetadata1 };
 
-            CreateGlobalOptionSetsCSharpFile(GetService1, txtBNamespaceCSharp1.Text.Trim(), optionSets);
+            CreateGlobalOptionSetsCSharpFile(GetService1, optionSets);
         }
 
         private void btnConnection2CSharpSingle_Click(object sender, RoutedEventArgs e)
@@ -683,10 +671,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var optionSets = new[] { link.OptionSetMetadata2 };
 
-            CreateGlobalOptionSetsCSharpFile(GetService2, txtBNamespaceCSharp2.Text.Trim(), optionSets);
+            CreateGlobalOptionSetsCSharpFile(GetService2, optionSets);
         }
 
-        private async Task CreateGlobalOptionSetsCSharpFile(Func<Task<IOrganizationServiceExtented>> getService, string nameSpace, IEnumerable<OptionSetMetadata> optionSets)
+        private async Task CreateGlobalOptionSetsCSharpFile(Func<Task<IOrganizationServiceExtented>> getService, IEnumerable<OptionSetMetadata> optionSets)
         {
             if (!this.IsControlsEnabled)
             {
@@ -730,8 +718,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = CreateFileName(optionSets, service.ConnectionData, "cs");
 
-                service.ConnectionData.NamespaceOptionSetsCSharp = nameSpace;
-
                 using (var handler = new CreateGlobalOptionSetsFileCSharpHandler(service, _iWriteToOutput, tabSpacer, constantType, optionSetExportType, withDependentComponents, withManagedInfo, allDescriptions, addDescriptionAttribute))
                 {
                     await handler.CreateFileAsync(filePath, optionSets);
@@ -759,7 +745,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connection1 != null && _cacheOptionSetMetadata.TryGetValue(connection1.ConnectionId, out var optionSets))
             {
-                CreateGlobalOptionSetsJavaScriptFile(GetService1, txtBNamespaceJavaScript1.Text.Trim(), optionSets);
+                CreateGlobalOptionSetsJavaScriptFile(GetService1, optionSets);
             }
         }
 
@@ -769,7 +755,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connection2 != null && _cacheOptionSetMetadata.TryGetValue(connection2.ConnectionId, out var optionSets))
             {
-                CreateGlobalOptionSetsJavaScriptFile(GetService2, txtBNamespaceJavaScript2.Text.Trim(), optionSets);
+                CreateGlobalOptionSetsJavaScriptFile(GetService2, optionSets);
             }
         }
 
@@ -784,7 +770,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var optionSets = new[] { link.OptionSetMetadata1 };
 
-            CreateGlobalOptionSetsJavaScriptFile(GetService1, txtBNamespaceJavaScript1.Text.Trim(), optionSets);
+            CreateGlobalOptionSetsJavaScriptFile(GetService1, optionSets);
         }
 
         private void btnConnection2JavaScriptSingleJsonObject_Click(object sender, RoutedEventArgs e)
@@ -798,10 +784,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var optionSets = new[] { link.OptionSetMetadata2 };
 
-            CreateGlobalOptionSetsJavaScriptFile(GetService2, txtBNamespaceJavaScript2.Text.Trim(), optionSets);
+            CreateGlobalOptionSetsJavaScriptFile(GetService2, optionSets);
         }
 
-        private async Task CreateGlobalOptionSetsJavaScriptFile(Func<Task<IOrganizationServiceExtented>> getService, string nameSpace, IEnumerable<OptionSetMetadata> optionSets)
+        private async Task CreateGlobalOptionSetsJavaScriptFile(Func<Task<IOrganizationServiceExtented>> getService, IEnumerable<OptionSetMetadata> optionSets)
         {
             if (!this.IsControlsEnabled)
             {
@@ -839,8 +825,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var service = await getService();
 
                 string filePath = CreateFileName(optionSets, service.ConnectionData, "js");
-
-                service.ConnectionData.NamespaceOptionSetsCSharp = nameSpace;
 
                 using (var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(service, _iWriteToOutput, tabSpacer, withDependentComponents))
                 {
@@ -1194,7 +1178,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , service
                 , _commonConfig
                 , optionSets
-                , null
                 , entity?.Name ?? txtBFilter.Text
             );
         }
@@ -1300,7 +1283,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , service
                 , _commonConfig
                 , optionSets
-                , null
                 , entity?.Name ?? txtBFilter.Text
             );
         }

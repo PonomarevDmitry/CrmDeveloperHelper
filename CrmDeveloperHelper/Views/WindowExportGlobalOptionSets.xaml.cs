@@ -2,6 +2,7 @@ using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
@@ -41,9 +42,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Popup _optionsPopup;
 
-        private HashSet<string> _selectedOptionSets;
-        private string _filterEntityName;
-
         public WindowExportGlobalOptionSets(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -73,17 +71,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (optionSets != null)
             {
                 _cacheOptionSetMetadata[service.ConnectionData.ConnectionId] = optionSets;
-                this._filterEntityName = filterEntityName;
-
-                this._selectedOptionSets = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-
-                foreach (var item in optionSets)
-                {
-                    _selectedOptionSets.Add(item.Name);
-                }
             }
 
             InitializeComponent();
+
+            LoadEntityNames(service.ConnectionData);
 
             var child = new ExportGlobalOptionSetMetadataOptionsControl(_commonConfig);
             child.CloseClicked += Child_CloseClicked;
@@ -142,7 +134,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 txtBFolder.DataContext = _commonConfig;
             }
 
-            SetButtonClearFilterVisibility(_filterEntityName, btnClearEntityFilter, sepClearEntityFilter);
+            cmBEntityName.Text = filterEntityName;
 
             txtBFilter.Text = selection;
             txtBFilter.SelectionLength = 0;
@@ -172,11 +164,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBFileAction.DataContext = _commonConfig;
         }
 
+        private void LoadEntityNames(ConnectionData connectionData)
+        {
+            string text = cmBEntityName.Text;
+
+            cmBEntityName.Items.Clear();
+
+            if (connectionData != null
+                && connectionData.IntellisenseData != null
+                && connectionData.IntellisenseData.Entities != null
+                )
+            {
+                foreach (var item in connectionData.IntellisenseData.Entities.Keys.OrderBy(s => s))
+                {
+                    cmBEntityName.Items.Add(item);
+                }
+            }
+
+            cmBEntityName.Text = text;
+        }
+
         protected override void OnClosed(EventArgs e)
         {
             _commonConfig.Save();
 
-            (cmBCurrentConnection.SelectedItem as ConnectionData)?.Save();
+            GetConnectionData()?.Save();
 
             BindingOperations.ClearAllBindings(cmBCurrentConnection);
 
@@ -202,7 +214,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         bool enabled = this.IsControlsEnabled && this.lstVwOptionSets.SelectedItems.Count > 0;
 
-                        UIElement[] list = 
+                        UIElement[] list =
                         {
                             tSDDBSingleOptionSet
                             , btnCreateCSharpFileForSingleOptionSet
@@ -218,7 +230,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         bool enabled = this.IsControlsEnabled;
 
-                        UIElement[] list = 
+                        UIElement[] list =
                         {
                             tSDDBGlobalOptionSets
                             , tSBCreateCSharpFile
@@ -247,12 +259,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task<IOrganizationServiceExtented> GetService()
         {
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
+            ConnectionData connectionData = GetConnectionData();
 
             if (connectionData != null)
             {
@@ -303,11 +310,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         var optionSets = await task;
 
-                        if (this._selectedOptionSets != null)
-                        {
-                            optionSets = optionSets.Where(o => _selectedOptionSets.Contains(o.Name)).ToList();
-                        }
-
                         _cacheOptionSetMetadata.Add(service.ConnectionData.ConnectionId, optionSets);
                     }
 
@@ -319,16 +321,61 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
 
+            string entityName = string.Empty;
             string textName = string.Empty;
 
-            txtBFilter.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke(() =>
             {
                 textName = txtBFilter.Text.Trim().ToLower();
+
+                if (!string.IsNullOrEmpty(cmBEntityName.Text)
+                    && cmBEntityName.Items.Contains(cmBEntityName.Text)
+                )
+                {
+                    entityName = cmBEntityName.Text.Trim().ToLower();
+                }
             });
+
+            if (!string.IsNullOrEmpty(entityName))
+            {
+                var entityId = service.ConnectionData.GetEntityMetadataId(entityName);
+
+                if (entityId.HasValue)
+                {
+                    var source = new SolutionComponentMetadataSource(service);
+
+                    var entityMetadata = source.GetEntityMetadata(entityId.Value);
+
+                    var entityOptionSets = new HashSet<Guid>(entityMetadata
+                        .Attributes
+                        .OfType<EnumAttributeMetadata>()
+                        .Where(a => a.OptionSet != null && a.OptionSet.IsGlobal.GetValueOrDefault())
+                        .Select(a => a.OptionSet.MetadataId.Value)
+                    );
+
+                    list = list.Where(o => entityOptionSets.Contains(o.MetadataId.Value));
+                }
+            }
 
             list = FilterList(list, textName);
 
-            LoadEntities(list);
+            this.lstVwOptionSets.Dispatcher.Invoke(() =>
+            {
+                foreach (var entity in list)
+                {
+                    string name = entity.Name;
+                    string displayName = CreateFileHandler.GetLocalizedLabel(entity.DisplayName);
+
+                    OptionSetMetadataListViewItem item = new OptionSetMetadataListViewItem(name, displayName, entity);
+
+                    this._itemsSource.Add(item);
+                }
+
+                if (this.lstVwOptionSets.Items.Count == 1)
+                {
+                    this.lstVwOptionSets.SelectedItem = this.lstVwOptionSets.Items[0];
+                }
+            });
 
             ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.LoadingOptionSetsCompletedFormat1, list.Count());
         }
@@ -356,27 +403,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             return list;
-        }
-
-        private void LoadEntities(IEnumerable<OptionSetMetadata> results)
-        {
-            this.lstVwOptionSets.Dispatcher.Invoke(() =>
-            {
-                foreach (var entity in results)
-                {
-                    string name = entity.Name;
-                    string displayName = CreateFileHandler.GetLocalizedLabel(entity.DisplayName);
-
-                    OptionSetMetadataListViewItem item = new OptionSetMetadataListViewItem(name, displayName, entity);
-
-                    this._itemsSource.Add(item);
-                }
-
-                if (this.lstVwOptionSets.Items.Count == 1)
-                {
-                    this.lstVwOptionSets.SelectedItem = this.lstVwOptionSets.Items[0];
-                }
-            });
         }
 
         private void ToggleControls(ConnectionData connectionData, bool enabled, string statusFormat, params object[] args)
@@ -414,7 +440,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnCreateCSharpFile_Click(object sender, RoutedEventArgs e)
         {
-            var connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            var connectionData = GetConnectionData();
 
             if (connectionData != null && _cacheOptionSetMetadata.ContainsKey(connectionData.ConnectionId))
             {
@@ -538,7 +564,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnCreateJavaScriptFileJsonObject_Click(object sender, RoutedEventArgs e)
         {
-            var connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            var connectionData = GetConnectionData();
 
             if (connectionData != null
                 && _cacheOptionSetMetadata.ContainsKey(connectionData.ConnectionId)
@@ -786,17 +812,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.PublishingOptionSetFormat2, service.ConnectionData.Name, optionSetName);
         }
 
-        private void btnClearEntityFilter_Click(object sender, RoutedEventArgs e)
-        {
-            this._cacheOptionSetMetadata.Clear();
-            this._selectedOptionSets = null;
-            this._filterEntityName = null;
-
-            SetButtonClearFilterVisibility(_filterEntityName, btnClearEntityFilter, sepClearEntityFilter);
-
-            ShowExistingOptionSets();
-        }
-
         private void mIOpenInWeb_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
@@ -806,7 +821,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetConnectionData();
 
             if (connectionData != null)
             {
@@ -823,7 +838,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetConnectionData();
 
             if (connectionData != null)
             {
@@ -878,12 +893,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var items = contextMenu.Items.OfType<Control>();
 
-                ConnectionData connectionData = null;
-
-                cmBCurrentConnection.Dispatcher.Invoke(() =>
-                {
-                    connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-                });
+                ConnectionData connectionData = GetConnectionData();
 
                 FillLastSolutionItems(connectionData, items, true, AddIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
             }
@@ -1010,6 +1020,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenOrganizationComparerWorkflowWindow(this._iWriteToOutput, _commonConfig, service.ConnectionData, service.ConnectionData);
         }
 
+        public ConnectionData GetConnectionData()
+        {
+            ConnectionData connectionData = null;
+
+            this.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            return connectionData;
+        }
+
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             foreach (var removed in e.RemovedItems.OfType<ConnectionData>())
@@ -1027,10 +1049,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = GetConnectionData();
 
             if (connectionData != null)
             {
+                LoadEntityNames(connectionData);
+
                 ShowExistingOptionSets();
             }
         }
@@ -1052,7 +1076,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
-            SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
+            SetCurrentConnection(_iWriteToOutput, GetConnectionData());
         }
     }
 }

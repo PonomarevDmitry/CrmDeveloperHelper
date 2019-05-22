@@ -1364,20 +1364,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService1();
-            var source = new SolutionComponentMetadataSource(service);
-
-            var entityMetadata = source.GetEntityMetadata(entity.EntityMetadata1.MetadataId.Value);
-
-            IEnumerable<OptionSetMetadata> optionSets =
-                entityMetadata
-                ?.Attributes
-                ?.OfType<EnumAttributeMetadata>()
-                ?.Where(a => a.OptionSet != null && a.OptionSet.IsGlobal.GetValueOrDefault())
-                ?.Select(a => a.OptionSet)
-                ?.GroupBy(o => o.MetadataId)
-                ?.Select(g => g.FirstOrDefault())
-                ?? Enumerable.Empty<OptionSetMetadata>()
-                ;
 
             _commonConfig.Save();
 
@@ -1385,9 +1371,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput
                 , service
                 , _commonConfig
-                , optionSets
-                , entity.LogicalName
                 , string.Empty
+                , entity.LogicalName
             );
         }
 
@@ -1505,20 +1490,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService2();
-            var source = new SolutionComponentMetadataSource(service);
-
-            var entityMetadata = source.GetEntityMetadata(entity.EntityMetadata2.MetadataId.Value);
-
-            IEnumerable<OptionSetMetadata> optionSets =
-                entityMetadata
-                ?.Attributes
-                ?.OfType<EnumAttributeMetadata>()
-                ?.Where(a => a.OptionSet != null && a.OptionSet.IsGlobal.GetValueOrDefault())
-                ?.Select(a => a.OptionSet)
-                ?.GroupBy(o => o.MetadataId)
-                ?.Select(g => g.FirstOrDefault())
-                ?? Enumerable.Empty<OptionSetMetadata>()
-                ;
 
             _commonConfig.Save();
 
@@ -1526,9 +1497,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput
                 , service
                 , _commonConfig
-                , optionSets
-                , entity.LogicalName
                 , string.Empty
+                , entity.LogicalName
             );
         }
 

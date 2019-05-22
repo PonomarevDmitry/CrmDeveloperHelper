@@ -254,7 +254,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         public ConnectionData GetConnectionData()
         {
-            return cmBConnection.SelectedItem as ConnectionData;
+            ConnectionData connectionData = null;
+
+            this.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBConnection.SelectedItem as ConnectionData;
+            });
+
+            return connectionData;
         }
 
         private void cmBConnection_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

@@ -93,7 +93,7 @@
             </Menu>
         </ToolBar>
 
-        <Expander Grid.Row="1" Margin="5" Header="Namespaces">
+        <Expander Grid.Row="1" Margin="5" Header="Namespaces and Export Folder">
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -104,6 +104,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Label Content="Namespace OptionSets C#" Grid.Row="0" Grid.Column="0"/>
@@ -111,6 +112,9 @@
 
                 <Label Content="Namespace OptionSets JavaScript" Grid.Row="1" Grid.Column="0"/>
                 <TextBox x:Name="txtBNamespaceOptionSetsJavaScript" Grid.Row="1" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceOptionSetsJavaScript}" />
+
+                <Label Content="Folder" Grid.Row="2" Grid.Column="0" />
+                <TextBox x:Name="txtBFolder" Grid.Row="2" Grid.Column="1" />
 
             </Grid>
 
@@ -120,18 +124,20 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="100*" />
+
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100*" />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Label Content="Folder" Grid.Row="0" Grid.Column="0" />
-            <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" />
+            <Label Content="Filter" Grid.Row="0" Grid.Column="0" />
+            <TextBox x:Name="txtBFilter" Grid.Row="0" Grid.Column="1" KeyDown="txtBFilter_KeyDown" />
 
-            <Label Content="Filter" Grid.Row="1" Grid.Column="0" />
-            <TextBox x:Name="txtBFilter" Grid.Row="1" Grid.Column="1" KeyDown="txtBFilter_KeyDown" />
+            <Label Content="Filter Entity" Grid.Row="0" Grid.Column="2" />
+            <ComboBox x:Name="cmBEntityName" Grid.Row="0" Grid.Column="3" KeyDown="txtBFilter_KeyDown" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" />
         </Grid>
 
         <DataGrid x:Name="lstVwOptionSets" AutoGenerateColumns="False" Grid.Row="3" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwOptionSets_MouseDoubleClick" SelectionChanged="lstVwOptionSets_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
@@ -196,7 +202,7 @@
                 <Button Content="Close" Click="Button_Click" DockPanel.Dock="Right"/>
                 
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" DockPanel.Dock="Right" />
-                <Menu Background="{x:Null}" DockPanel.Dock="Right">
+                <Menu Background="{x:Null}" HorizontalAlignment="Right" DockPanel.Dock="Right">
                     <MenuItem x:Name="tSDDBGlobalOptionSets" Header="All Global OptionSets">
                         <MenuItem x:Name="tSBCreateCSharpFile" Header="Create C# File" Click="btnCreateCSharpFile_Click" />
                         
@@ -204,9 +210,6 @@
                         <MenuItem x:Name="tSBCreateJavaScriptFileJsonObject" Header="Create JavaScript File Json Object" Click="btnCreateJavaScriptFileJsonObject_Click" />
                     </MenuItem>
                 </Menu>
-                
-                <Separator x:Name="sepClearEntityFilter" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" DockPanel.Dock="Right" Margin="10,0" />
-                <Button x:Name="btnClearEntityFilter" Content="Clear Entity Filter" Click="btnClearEntityFilter_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
 

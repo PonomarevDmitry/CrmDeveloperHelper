@@ -59,7 +59,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteNamespace();
 
-            string tempNamespace = !string.IsNullOrEmpty(this._service.ConnectionData.NamespaceOptionSetsCSharp) ? this._service.ConnectionData.NamespaceOptionSetsCSharp + "." : string.Empty;
+            string tempNamespace = !string.IsNullOrEmpty(this._service.ConnectionData.NamespaceOptionSetsJavaScript) ? this._service.ConnectionData.NamespaceOptionSetsJavaScript + "." : string.Empty;
 
             await WriteRegularOptionSets(tempNamespace, optionSets);
 
@@ -68,12 +68,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private void WriteNamespace()
         {
-            if (string.IsNullOrEmpty(this._service.ConnectionData.NamespaceOptionSetsCSharp))
+            if (string.IsNullOrEmpty(this._service.ConnectionData.NamespaceOptionSetsJavaScript))
             {
                 return;
             }
 
-            string[] split = this._service.ConnectionData.NamespaceOptionSetsCSharp.Split('.');
+            string[] split = this._service.ConnectionData.NamespaceOptionSetsJavaScript.Split('.');
 
             StringBuilder str = new StringBuilder();
 

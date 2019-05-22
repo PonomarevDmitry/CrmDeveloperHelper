@@ -706,20 +706,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             var service = await GetService();
-            var source = new SolutionComponentMetadataSource(service);
-
-            var entityMetadata = source.GetEntityMetadata(entity.EntityMetadata.MetadataId.Value);
-
-            IEnumerable<OptionSetMetadata> optionSets =
-                entityMetadata
-                ?.Attributes
-                ?.OfType<EnumAttributeMetadata>()
-                ?.Where(a => a.OptionSet != null && a.OptionSet.IsGlobal.GetValueOrDefault())
-                ?.Select(a => a.OptionSet)
-                ?.GroupBy(o => o.MetadataId)
-                ?.Select(g => g.FirstOrDefault())
-                ?? Enumerable.Empty<OptionSetMetadata>()
-                ;
 
             _commonConfig.Save();
 
@@ -727,9 +713,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._iWriteToOutput
                 , service
                 , _commonConfig
-                , optionSets
-                , entity.LogicalName
                 , string.Empty
+                , entity.LogicalName
             );
         }
 

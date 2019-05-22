@@ -1108,6 +1108,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , string filter
+            , string filterEntityName
+        )
+        {
+            OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, null, filterEntityName, filter, null, false, null);
+        }
+
+        public static void OpenGlobalOptionSetsWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filter
             , EnvDTE.SelectedItem selectedItem
         )
         {
@@ -1131,11 +1142,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
             , IEnumerable<OptionSetMetadata> optionSets
-            , string filterEntityName
             , string filter
         )
         {
-            OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, optionSets, filterEntityName, filter, null, false, null);
+            OpenGlobalOptionSetsWindow(iWriteToOutput, service, commonConfig, optionSets, null, filter, null, false, null);
         }
 
         public static void OpenGlobalOptionSetsWindow(
