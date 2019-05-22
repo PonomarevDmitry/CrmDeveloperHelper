@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xrm.Sdk;
 using System.Linq;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 {
     public static class EntityExtensions
     {

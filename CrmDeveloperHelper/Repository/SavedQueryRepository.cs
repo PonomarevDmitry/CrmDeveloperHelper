@@ -63,8 +63,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Conditions =
                     {
                         new ConditionExpression(SavedQuery.Schema.Attributes.componentstate, ConditionOperator.In
-                            , (int)ComponentState.Published
-                            , (int)ComponentState.Unpublished
+                            , (int)Entities.GlobalOptionSets.componentstate.Published_0
+                            , (int)Entities.GlobalOptionSets.componentstate.Unpublished_1
                         ),
                     },
                 },
@@ -335,8 +335,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Conditions =
                     {
                         new ConditionExpression(SavedQuery.Schema.Attributes.componentstate, ConditionOperator.In
-                            , (int)ComponentState.Published
-                            , (int)ComponentState.Unpublished
+                            , (int)Entities.GlobalOptionSets.componentstate.Published_0
+                            , (int)Entities.GlobalOptionSets.componentstate.Unpublished_1
                         ),
                         new ConditionExpression(SavedQuery.Schema.Attributes.returnedtypecode, ConditionOperator.In, entities),
                     },

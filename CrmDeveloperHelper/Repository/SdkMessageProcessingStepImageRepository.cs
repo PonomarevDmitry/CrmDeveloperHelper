@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using System;
 using System.Collections.Generic;

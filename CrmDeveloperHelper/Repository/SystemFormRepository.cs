@@ -59,8 +59,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Conditions =
                     {
                         new ConditionExpression(SystemForm.Schema.Attributes.componentstate, ConditionOperator.In
-                            , (int)ComponentState.Published
-                            , (int)ComponentState.Unpublished
+                            , (int)Entities.GlobalOptionSets.componentstate.Published_0
+                            , (int)Entities.GlobalOptionSets.componentstate.Unpublished_1
                         ),
                     },
                 },
@@ -112,7 +112,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return coll.Count == 1 ? coll.Select(e => e.ToEntity<SystemForm>()).SingleOrDefault() : null;
         }
 
-        public Task<List<SystemForm>> GetListByTypeAsync(int formType, ColumnSet columnSet )
+        public Task<List<SystemForm>> GetListByTypeAsync(int formType, ColumnSet columnSet)
         {
             return Task.Run(() => GetListByType(formType, columnSet));
         }
@@ -137,13 +137,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Conditions =
                     {
                         new ConditionExpression(SystemForm.Schema.Attributes.componentstate, ConditionOperator.In
-                            , (int)ComponentState.Published
-                            , (int)ComponentState.Unpublished
+                            , (int)Entities.GlobalOptionSets.componentstate.Published_0
+                            , (int)Entities.GlobalOptionSets.componentstate.Unpublished_1
                         ),
                         new ConditionExpression(SystemForm.Schema.Attributes.type, ConditionOperator.Equal, formType),
                         new ConditionExpression(SystemForm.Schema.Attributes.formactivationstate, ConditionOperator.Equal, (int)SystemForm.Schema.OptionSets.formactivationstate.Active_1),
 
-                        
+
                     },
                 },
 
@@ -172,7 +172,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 case (int)SystemForm.Schema.OptionSets.type.Main_2:
                     return "main";
-                
+
                 case (int)SystemForm.Schema.OptionSets.type.Quick_View_Form_6:
                     return "quick";
 
@@ -311,8 +311,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Conditions =
                     {
                         new ConditionExpression(SystemForm.Schema.Attributes.componentstate, ConditionOperator.In
-                            , (int)ComponentState.Published
-                            , (int)ComponentState.Unpublished
+                            , (int)Entities.GlobalOptionSets.componentstate.Published_0
+                            , (int)Entities.GlobalOptionSets.componentstate.Unpublished_1
                         ),
                         new ConditionExpression(SystemForm.Schema.Attributes.objecttypecode, ConditionOperator.In, entities),
                     },

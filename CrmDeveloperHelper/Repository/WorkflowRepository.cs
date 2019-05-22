@@ -48,8 +48,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Conditions =
                     {
                         new ConditionExpression(Workflow.Schema.Attributes.componentstate, ConditionOperator.In
-                            , (int)ComponentState.Published
-                            , (int)ComponentState.Unpublished
+                            , (int)Entities.GlobalOptionSets.componentstate.Published_0
+                            , (int)Entities.GlobalOptionSets.componentstate.Unpublished_1
                         ),
                         new ConditionExpression(Workflow.Schema.Attributes.parentworkflowid, ConditionOperator.Null),
                     },
@@ -100,8 +100,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     Conditions =
                     {
                         new ConditionExpression(Workflow.Schema.Attributes.componentstate, ConditionOperator.In
-                            , (int)ComponentState.Published
-                            , (int)ComponentState.Unpublished
+                            , (int)Entities.GlobalOptionSets.componentstate.Published_0
+                            , (int)Entities.GlobalOptionSets.componentstate.Unpublished_1
                         ),
                         new ConditionExpression(Workflow.Schema.Attributes.parentworkflowid, ConditionOperator.Null),
 
@@ -196,8 +196,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     {
                         new ConditionExpression(Workflow.Schema.Attributes.parentworkflowid, ConditionOperator.Null),
                         new ConditionExpression(Workflow.Schema.Attributes.componentstate, ConditionOperator.In
-                            , (int)ComponentState.Published
-                            , (int)ComponentState.Unpublished
+                            , (int)Entities.GlobalOptionSets.componentstate.Published_0
+                            , (int)Entities.GlobalOptionSets.componentstate.Unpublished_1
                         ),
                         new ConditionExpression(Workflow.Schema.Attributes.primaryentity, ConditionOperator.In, entities),
 
