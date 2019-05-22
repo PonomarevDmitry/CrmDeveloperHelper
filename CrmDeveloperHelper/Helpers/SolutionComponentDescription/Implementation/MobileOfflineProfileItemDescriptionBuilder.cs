@@ -10,10 +10,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 {
     public class MobileOfflineProfileItemDescriptionBuilder : DefaultSolutionComponentDescriptionBuilder
     {
-        public MobileOfflineProfileItemDescriptionBuilder(IOrganizationServiceExtented service)
+        private readonly SolutionComponentMetadataSource _source;
+
+        public MobileOfflineProfileItemDescriptionBuilder(IOrganizationServiceExtented service, SolutionComponentMetadataSource source)
             : base(service, (int)ComponentType.MobileOfflineProfileItem)
         {
-
+            this._source = source;
         }
 
         public override ComponentType? ComponentTypeEnum => ComponentType.MobileOfflineProfileItem;
@@ -80,6 +82,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , { "suppsolution.uniquename", "SupportingName" }
                     , { "suppsolution.ismanaged", "SupportingIsManaged" }
                 };
+        }
+
+        public override IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
+        {
+            var result = new List<SolutionComponent>();
+
+            var entity = GetEntity<MobileOfflineProfileItem>(solutionComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                if (!string.IsNullOrEmpty(entity.SelectedEntityTypeCode))
+                {
+                    var entityMetadata = _source.GetEntityMetadata(entity.SelectedEntityTypeCode);
+
+                    if (entityMetadata != null)
+                    {
+                        result.Add(new SolutionComponent()
+                        {
+                            ObjectId = entityMetadata.MetadataId,
+                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                        });
+                    }
+                }
+
+                //if (!string.IsNullOrEmpty(entity.entityobjecttypecode)
+                //    && !string.Equals(entity.SelectedEntityTypeCode, entity.entityobjecttypecode, StringComparison.InvariantCultureIgnoreCase)
+                //)
+                //{
+                //    var entityMetadata = _source.GetEntityMetadata(entity.EntityObjectTypeCode);
+
+                //    if (entityMetadata != null)
+                //    {
+                //        result.Add(new SolutionComponent()
+                //        {
+                //            ObjectId = entityMetadata.MetadataId,
+                //            ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                //        });
+                //    }
+                //}
+            }
+
+            return result;
         }
     }
 }

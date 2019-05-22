@@ -12,7 +12,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 {
     public class HierarchyRuleDescriptionBuilder : DefaultSolutionComponentDescriptionBuilder
     {
-        public HierarchyRuleDescriptionBuilder(IOrganizationServiceExtented service)
+        private readonly SolutionComponentMetadataSource _source;
+
+        public HierarchyRuleDescriptionBuilder(IOrganizationServiceExtented service, SolutionComponentMetadataSource source)
             : base(service, (int)ComponentType.HierarchyRule)
         {
 
@@ -82,6 +84,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , { "suppsolution.uniquename", "SupportingName" }
                     , { "suppsolution.ismanaged", "SupportingIsManaged" }
                 };
+        }
+
+        public override IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
+        {
+            var result = new List<SolutionComponent>();
+
+            var entity = GetEntity<HierarchyRule>(solutionComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                if (!string.IsNullOrEmpty(entity.PrimaryEntityLogicalName))
+                {
+                    var entityMetadata = _source.GetEntityMetadata(entity.PrimaryEntityLogicalName);
+
+                    if (entityMetadata != null)
+                    {
+                        result.Add(new SolutionComponent()
+                        {
+                            ObjectId = entityMetadata.MetadataId,
+                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                        });
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }

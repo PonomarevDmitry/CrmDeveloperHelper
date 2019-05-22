@@ -39,11 +39,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     case ComponentType.Workflow:
                         return new WorkflowDescriptionBuilder(service);
                     case ComponentType.ProcessTrigger:
-                        return new ProcessTriggerDescriptionBuilder(service);
+                        return new ProcessTriggerDescriptionBuilder(service, metadataSource);
                     case ComponentType.Report:
                         return new ReportDescriptionBuilder(service);
                     case ComponentType.ReportEntity:
-                        return new ReportEntityDescriptionBuilder(service);
+                        return new ReportEntityDescriptionBuilder(service, metadataSource);
                     case ComponentType.ReportCategory:
                         return new ReportCategoryDescriptionBuilder(service);
                     case ComponentType.ReportVisibility:
@@ -57,7 +57,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     case ComponentType.MailMergeTemplate:
                         return new MailMergeTemplateDescriptionBuilder(service);
                     case ComponentType.DuplicateRule:
-                        return new DuplicateRuleDescriptionBuilder(service);
+                        return new DuplicateRuleDescriptionBuilder(service, metadataSource);
                     case ComponentType.DuplicateRuleCondition:
                         return new DuplicateRuleConditionDescriptionBuilder(service);
                     case ComponentType.EntityMap:
@@ -67,7 +67,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     case ComponentType.ImportMap:
                         return new ImportMapDescriptionBuilder(service);
                     case ComponentType.ImportEntityMapping:
-                        return new ImportEntityMappingDescriptionBuilder(service);
+                        return new ImportEntityMappingDescriptionBuilder(service, metadataSource);
                     case ComponentType.RibbonCommand:
                         return new RibbonCommandDescriptionBuilder(service);
                     case ComponentType.RibbonContextGroup:
@@ -93,7 +93,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     case ComponentType.FieldSecurityProfile:
                         return new FieldSecurityProfileDescriptionBuilder(service);
                     case ComponentType.FieldPermission:
-                        return new FieldPermissionDescriptionBuilder(service);
+                        return new FieldPermissionDescriptionBuilder(service, metadataSource);
                     case ComponentType.AppModule:
                         return new AppModuleDescriptionBuilder(service);
                     case ComponentType.AppModuleRoles:
@@ -121,19 +121,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     case ComponentType.ConvertRuleItem:
                         return new ConvertRuleItemDescriptionBuilder(service);
                     case ComponentType.HierarchyRule:
-                        return new HierarchyRuleDescriptionBuilder(service);
+                        return new HierarchyRuleDescriptionBuilder(service, metadataSource);
                     case ComponentType.MobileOfflineProfile:
                         return new MobileOfflineProfileDescriptionBuilder(service);
                     case ComponentType.MobileOfflineProfileItem:
-                        return new MobileOfflineProfileItemDescriptionBuilder(service);
+                        return new MobileOfflineProfileItemDescriptionBuilder(service, metadataSource);
                     case ComponentType.MobileOfflineProfileItemAssociation:
                         return new MobileOfflineProfileItemAssociationDescriptionBuilder(service);
                     case ComponentType.SimilarityRule:
-                        return new SimilarityRuleDescriptionBuilder(service);
+                        return new SimilarityRuleDescriptionBuilder(service, metadataSource);
                     case ComponentType.CustomControl:
                         return new CustomControlDescriptionBuilder(service);
                     case ComponentType.CustomControlDefaultConfig:
-                        return new CustomControlDefaultConfigDescriptionBuilder(service);
+                        return new CustomControlDefaultConfigDescriptionBuilder(service, metadataSource);
                     case ComponentType.CustomControlResource:
                         return new CustomControlResourceDescriptionBuilder(service);
                     case ComponentType.ChannelAccessProfileEntityAccessLevel:
@@ -145,7 +145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     case ComponentType.SdkMessage:
                         return new SdkMessageDescriptionBuilder(service);
                     case ComponentType.SdkMessageFilter:
-                        return new SdkMessageFilterDescriptionBuilder(service);
+                        return new SdkMessageFilterDescriptionBuilder(service, metadataSource);
                     case ComponentType.SdkMessagePair:
                         return new SdkMessagePairDescriptionBuilder(service);
                     case ComponentType.SdkMessageRequest:
@@ -157,9 +157,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     case ComponentType.SdkMessageResponseField:
                         return new SdkMessageResponseFieldDescriptionBuilder(service);
                     case ComponentType.EntityDataSource:
-                        return new EntityDataSourceDescriptionBuilder(service);
+                        return new EntityDataSourceDescriptionBuilder(service, metadataSource);
                     case ComponentType.EntityDataProvider:
-                        return new EntityDataProviderDescriptionBuilder(service);
+                        return new EntityDataProviderDescriptionBuilder(service, metadataSource);
                     case ComponentType.Privilege:
                         return new PrivilegeDescriptionBuilder(service);
                     case ComponentType.PrivilegeObjectTypeCode:

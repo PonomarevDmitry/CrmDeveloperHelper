@@ -210,6 +210,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         ComponentType = new OptionSetValue((int)ComponentType.Role),
                     });
                 }
+
+                if (entity.PrivilegeId.HasValue)
+                {
+                    result.Add(new SolutionComponent()
+                    {
+                        ObjectId = entity.PrivilegeId,
+                        ComponentType = new OptionSetValue((int)ComponentType.Privilege),
+                    });
+                }
             }
 
             return result;

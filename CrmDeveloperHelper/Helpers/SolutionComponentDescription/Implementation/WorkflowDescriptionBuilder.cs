@@ -102,6 +102,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return base.GetDisplayName(component);
         }
 
+        public override TupleList<string, string> GetComponentColumns()
+        {
+            return new TupleList<string, string>
+                {
+                    { Workflow.Schema.Attributes.primaryentity, Workflow.Schema.Headers.primaryentity }
+                    , { Workflow.Schema.Attributes.category, Workflow.Schema.Headers.category }
+                    , { Workflow.Schema.Attributes.name, Workflow.Schema.Headers.name }
+                    , { Workflow.Schema.Attributes.uniquename, Workflow.Schema.Headers.uniquename }
+                    , { Workflow.Schema.Attributes.businessprocesstype, Workflow.Schema.Headers.businessprocesstype }
+                    , { Workflow.Schema.Attributes.scope, Workflow.Schema.Headers.scope }
+                    , { Workflow.Schema.Attributes.mode, Workflow.Schema.Headers.mode }
+                    , { Workflow.Schema.Attributes.statuscode, Workflow.Schema.Headers.statuscode }
+                    , { Workflow.Schema.Attributes.iscustomizable, Workflow.Schema.Headers.iscustomizable }
+                    , { Workflow.Schema.Attributes.ismanaged, Workflow.Schema.Headers.ismanaged }
+                    , { "solution.uniquename", "SolutionName" }
+                    , { "solution.ismanaged", "SolutionIsManaged" }
+                    , { "suppsolution.uniquename", "SupportingName" }
+                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
+                };
+        }
+
         public override IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
         {
             var result = new List<SolutionComponent>();
@@ -125,27 +146,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
 
             return result;
-        }
-
-        public override TupleList<string, string> GetComponentColumns()
-        {
-            return new TupleList<string, string>
-                {
-                    { Workflow.Schema.Attributes.primaryentity, Workflow.Schema.Headers.primaryentity }
-                    , { Workflow.Schema.Attributes.category, Workflow.Schema.Headers.category }
-                    , { Workflow.Schema.Attributes.name, Workflow.Schema.Headers.name }
-                    , { Workflow.Schema.Attributes.uniquename, Workflow.Schema.Headers.uniquename }
-                    , { Workflow.Schema.Attributes.businessprocesstype, Workflow.Schema.Headers.businessprocesstype }
-                    , { Workflow.Schema.Attributes.scope, Workflow.Schema.Headers.scope }
-                    , { Workflow.Schema.Attributes.mode, Workflow.Schema.Headers.mode }
-                    , { Workflow.Schema.Attributes.statuscode, Workflow.Schema.Headers.statuscode }
-                    , { Workflow.Schema.Attributes.iscustomizable, Workflow.Schema.Headers.iscustomizable }
-                    , { Workflow.Schema.Attributes.ismanaged, Workflow.Schema.Headers.ismanaged }
-                    , { "solution.uniquename", "SolutionName" }
-                    , { "solution.ismanaged", "SolutionIsManaged" }
-                    , { "suppsolution.uniquename", "SupportingName" }
-                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
-                };
         }
     }
 }

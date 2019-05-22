@@ -12,10 +12,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 {
     public class ProcessTriggerDescriptionBuilder : DefaultSolutionComponentDescriptionBuilder
     {
-        public ProcessTriggerDescriptionBuilder(IOrganizationServiceExtented service)
+        private readonly SolutionComponentMetadataSource _source;
+
+        public ProcessTriggerDescriptionBuilder(IOrganizationServiceExtented service, SolutionComponentMetadataSource source)
             : base(service, (int)ComponentType.ProcessTrigger)
         {
-
+            this._source = source;
         }
 
         public override ComponentType? ComponentTypeEnum => ComponentType.ProcessTrigger;
@@ -121,6 +123,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , { "suppsolution.uniquename", "SupportingName" }
                     , { "suppsolution.ismanaged", "SupportingIsManaged" }
                 };
+        }
+
+        public override IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
+        {
+            var result = new List<SolutionComponent>();
+
+            var entity = GetEntity<ProcessTrigger>(solutionComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                if (!string.IsNullOrEmpty(entity.PrimaryEntityTypeCode))
+                {
+                    var entityMetadata = _source.GetEntityMetadata(entity.PrimaryEntityTypeCode);
+
+                    if (entityMetadata != null)
+                    {
+                        result.Add(new SolutionComponent()
+                        {
+                            ObjectId = entityMetadata.MetadataId,
+                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                        });
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }

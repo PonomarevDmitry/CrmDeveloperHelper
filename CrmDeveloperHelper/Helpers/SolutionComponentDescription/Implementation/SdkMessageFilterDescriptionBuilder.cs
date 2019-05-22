@@ -12,10 +12,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 {
     public class SdkMessageFilterDescriptionBuilder : DefaultSolutionComponentDescriptionBuilder
     {
-        public SdkMessageFilterDescriptionBuilder(IOrganizationServiceExtented service)
+        private readonly SolutionComponentMetadataSource _source;
+
+        public SdkMessageFilterDescriptionBuilder(IOrganizationServiceExtented service, SolutionComponentMetadataSource source)
             : base(service, (int)ComponentType.SdkMessageFilter)
         {
-
+            this._source = source;
         }
 
         public override ComponentType? ComponentTypeEnum => ComponentType.SdkMessageFilter;
@@ -155,6 +157,57 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , { "suppsolution.uniquename", "SupportingName" }
                     , { "suppsolution.ismanaged", "SupportingIsManaged" }
                 };
+        }
+
+        public override IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
+        {
+            var result = new List<SolutionComponent>();
+
+            var entity = GetEntity<SdkMessageFilter>(solutionComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                if (entity.SdkMessageId != null)
+                {
+                    result.Add(new SolutionComponent()
+                    {
+                        ObjectId = entity.SdkMessageId.Id,
+                        ComponentType = new OptionSetValue((int)ComponentType.SdkMessage),
+                    });
+                }
+
+                if (!string.IsNullOrEmpty(entity.PrimaryObjectTypeCode))
+                {
+                    var entityMetadata = _source.GetEntityMetadata(entity.PrimaryObjectTypeCode);
+
+                    if (entityMetadata != null)
+                    {
+                        result.Add(new SolutionComponent()
+                        {
+                            ObjectId = entityMetadata.MetadataId,
+                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                        });
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(entity.SecondaryObjectTypeCode)
+                    && !string.Equals(entity.PrimaryObjectTypeCode, entity.SecondaryObjectTypeCode, StringComparison.InvariantCultureIgnoreCase)
+                )
+                {
+                    var entityMetadata = _source.GetEntityMetadata(entity.SecondaryObjectTypeCode);
+
+                    if (entityMetadata != null)
+                    {
+                        result.Add(new SolutionComponent()
+                        {
+                            ObjectId = entityMetadata.MetadataId,
+                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                        });
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }

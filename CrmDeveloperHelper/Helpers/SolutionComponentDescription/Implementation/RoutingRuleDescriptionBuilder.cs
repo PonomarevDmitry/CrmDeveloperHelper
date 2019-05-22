@@ -78,5 +78,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , { "suppsolution.ismanaged", "SupportingIsManaged" }
                 };
         }
+
+        public override IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
+        {
+            var result = new List<SolutionComponent>();
+
+            var entity = GetEntity<RoutingRule>(solutionComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                if (entity.WorkflowId != null)
+                {
+                    result.Add(new SolutionComponent()
+                    {
+                        ObjectId = entity.WorkflowId.Id,
+                        ComponentType = new OptionSetValue((int)ComponentType.Workflow),
+                    });
+                }
+            }
+
+            return result;
+        }
     }
 }

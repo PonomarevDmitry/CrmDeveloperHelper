@@ -12,10 +12,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 {
     public class FieldPermissionDescriptionBuilder : DefaultSolutionComponentDescriptionBuilder
     {
-        public FieldPermissionDescriptionBuilder(IOrganizationServiceExtented service)
+        private readonly SolutionComponentMetadataSource _source;
+
+        public FieldPermissionDescriptionBuilder(IOrganizationServiceExtented service, SolutionComponentMetadataSource source)
             : base(service, (int)ComponentType.FieldPermission)
         {
-
+            this._source = source;
         }
 
         public override ComponentType? ComponentTypeEnum => ComponentType.FieldPermission;
@@ -163,6 +165,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         ObjectId = entity.FieldSecurityProfileId.Id,
                         ComponentType = new OptionSetValue((int)ComponentType.FieldSecurityProfile),
                     });
+
+                    if (!string.IsNullOrEmpty(entity.EntityName))
+                    {
+                        var entityMetadata = _source.GetEntityMetadata(entity.EntityName);
+
+                        if (entityMetadata != null)
+                        {
+                            result.Add(new SolutionComponent()
+                            {
+                                ObjectId = entityMetadata.MetadataId,
+                                ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                            });
+
+                            var attributeMetadata = _source.GetAttributeMetadata(entity.EntityName, entity.AttributeLogicalName);
+
+                            if (attributeMetadata != null)
+                            {
+                                result.Add(new SolutionComponent()
+                                {
+                                    ObjectId = attributeMetadata.MetadataId,
+                                    ComponentType = new OptionSetValue((int)ComponentType.Attribute),
+                                });
+                            }
+                        }
+                    }
                 }
             }
 

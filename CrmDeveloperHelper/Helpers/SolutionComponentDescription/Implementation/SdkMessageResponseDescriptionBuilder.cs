@@ -65,7 +65,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                         EntityAlias = SdkMessageResponse.Schema.Attributes.sdkmessagerequestid,
 
-                        Columns = new ColumnSet(SdkMessageRequest.Schema.Attributes.name),
+                        Columns = new ColumnSet(SdkMessageRequest.Schema.Attributes.name, SdkMessageRequest.Schema.Attributes.sdkmessagepairid),
 
                         LinkEntities =
                         {
@@ -77,9 +77,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                                 LinkToEntityName = SdkMessagePair.EntityLogicalName,
                                 LinkToAttributeName = SdkMessagePair.EntityPrimaryIdAttribute,
 
-                                 EntityAlias = SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.sdkmessagepairid ,
+                                EntityAlias = SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.sdkmessagepairid ,
 
-                                Columns = new ColumnSet(SdkMessagePair.Schema.Attributes.@namespace),
+                                Columns = new ColumnSet(SdkMessagePair.Schema.Attributes.@namespace, SdkMessagePair.Schema.Attributes.endpoint, SdkMessagePair.Schema.Attributes.sdkmessageid),
 
                                 LinkEntities =
                                 {
@@ -138,7 +138,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         protected override FormatTextTableHandler GetDescriptionHeader(bool withManaged, bool withSolutionInfo, bool withUrls, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("Message", "RequestName", "Namespace", "CustomizationLevel", "Behavior");
+            handler.SetHeader("Message", "RequestName", "Namespace", "Endpoint", "CustomizationLevel", "Behavior");
 
             return handler;
         }
@@ -154,6 +154,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 EntityDescriptionHandler.GetAttributeString(entity, SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.sdkmessagepairid + "." + SdkMessagePair.Schema.Attributes.sdkmessageid + "." + SdkMessage.Schema.Attributes.name)
                 , EntityDescriptionHandler.GetAttributeString(entity, SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.name)
                 , EntityDescriptionHandler.GetAttributeString(entity, SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.sdkmessagepairid + "." + SdkMessagePair.Schema.Attributes.@namespace)
+                , EntityDescriptionHandler.GetAttributeString(entity, SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.sdkmessagepairid + "." + SdkMessagePair.Schema.Attributes.endpoint)
                 , entity.CustomizationLevel.ToString()
                 , behavior
             });
@@ -168,12 +169,70 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     { SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.sdkmessagepairid + "." + SdkMessagePair.Schema.Attributes.sdkmessageid + "." + SdkMessage.Schema.Attributes.name, "Message" }
                     , { SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.name, "RequestName" }
                     , { SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.sdkmessagepairid + "." + SdkMessagePair.Schema.Attributes.@namespace, "Namespace" }
+                    , { SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.sdkmessagepairid + "." + SdkMessagePair.Schema.Attributes.endpoint, "Endpoint" }
                     , { SdkMessageResponse.Schema.Attributes.customizationlevel, "CustomizationLevel" }
                     , { "solution.uniquename", "SolutionName" }
                     , { "solution.ismanaged", "SolutionIsManaged" }
                     , { "suppsolution.uniquename", "SupportingName" }
                     , { "suppsolution.ismanaged", "SupportingIsManaged" }
                 };
+        }
+
+        public override IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
+        {
+            var result = new List<SolutionComponent>();
+
+            var entity = GetEntity<SdkMessageResponse>(solutionComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                if (entity.SdkMessageRequestId != null)
+                {
+                    result.Add(new SolutionComponent()
+                    {
+                        ObjectId = entity.SdkMessageRequestId.Id,
+                        ComponentType = new OptionSetValue((int)ComponentType.SdkMessageRequest),
+                    });
+                }
+
+                {
+                    string pairIdName = SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.sdkmessagepairid;
+
+                    if (entity.Attributes.ContainsKey(pairIdName)
+                        && entity.Attributes[pairIdName] != null
+                        && entity.Attributes[pairIdName] is AliasedValue aliasedValue
+                        && aliasedValue.Value != null
+                        && aliasedValue.Value is EntityReference entityReference
+                    )
+                    {
+                        result.Add(new SolutionComponent()
+                        {
+                            ObjectId = entityReference.Id,
+                            ComponentType = new OptionSetValue((int)ComponentType.SdkMessagePair),
+                        });
+                    }
+                }
+
+                {
+                    string messageIdName = SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.sdkmessagepairid + "." + SdkMessagePair.Schema.Attributes.sdkmessageid;
+
+                    if (entity.Attributes.ContainsKey(messageIdName)
+                        && entity.Attributes[messageIdName] != null
+                        && entity.Attributes[messageIdName] is AliasedValue aliasedValue
+                        && aliasedValue.Value != null
+                        && aliasedValue.Value is EntityReference entityReference
+                    )
+                    {
+                        result.Add(new SolutionComponent()
+                        {
+                            ObjectId = entityReference.Id,
+                            ComponentType = new OptionSetValue((int)ComponentType.SdkMessage),
+                        });
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }

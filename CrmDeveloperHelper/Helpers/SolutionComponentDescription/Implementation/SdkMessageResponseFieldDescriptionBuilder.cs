@@ -32,6 +32,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 (
                     SdkMessageResponseField.Schema.Attributes.position
                     , SdkMessageResponseField.Schema.Attributes.name
+                    , SdkMessageResponseField.Schema.Attributes.sdkmessageresponseid
                     , SdkMessageResponseField.Schema.Attributes.publicname
                     , SdkMessageResponseField.Schema.Attributes.value
                     , SdkMessageResponseField.Schema.Attributes.clrformatter
@@ -200,6 +201,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , { "suppsolution.uniquename", "SupportingName" }
                     , { "suppsolution.ismanaged", "SupportingIsManaged" }
                 };
+        }
+
+        public override IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
+        {
+            var result = new List<SolutionComponent>();
+
+            var entity = GetEntity<SdkMessageResponseField>(solutionComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                if (entity.SdkMessageResponseId != null)
+                {
+                    result.Add(new SolutionComponent()
+                    {
+                        ObjectId = entity.SdkMessageResponseId.Id,
+                        ComponentType = new OptionSetValue((int)ComponentType.SdkMessageResponse),
+                    });
+                }
+            }
+
+            return result;
         }
     }
 }

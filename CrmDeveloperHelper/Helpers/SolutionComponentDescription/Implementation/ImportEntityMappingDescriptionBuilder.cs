@@ -12,10 +12,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 {
     public class ImportEntityMappingDescriptionBuilder : DefaultSolutionComponentDescriptionBuilder
     {
-        public ImportEntityMappingDescriptionBuilder(IOrganizationServiceExtented service)
+        private readonly SolutionComponentMetadataSource _source;
+
+        public ImportEntityMappingDescriptionBuilder(IOrganizationServiceExtented service, SolutionComponentMetadataSource source)
             : base(service, (int)ComponentType.ImportEntityMapping)
         {
-
+            this._source = source;
         }
 
         public override ComponentType? ComponentTypeEnum => ComponentType.ImportEntityMapping;
@@ -92,6 +94,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , { "suppsolution.uniquename", "SupportingName" }
                     , { "suppsolution.ismanaged", "SupportingIsManaged" }
                 };
+        }
+
+        public override IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
+        {
+            var result = new List<SolutionComponent>();
+
+            var entity = GetEntity<ImportEntityMapping>(solutionComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                if (!string.IsNullOrEmpty(entity.SourceEntityName))
+                {
+                    var entityMetadata = _source.GetEntityMetadata(entity.SourceEntityName);
+
+                    if (entityMetadata != null)
+                    {
+                        result.Add(new SolutionComponent()
+                        {
+                            ObjectId = entityMetadata.MetadataId,
+                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                        });
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(entity.TargetEntityName)
+                    && !string.Equals(entity.SourceEntityName, entity.TargetEntityName, StringComparison.InvariantCultureIgnoreCase)
+                )
+                {
+                    var entityMetadata = _source.GetEntityMetadata(entity.TargetEntityName);
+
+                    if (entityMetadata != null)
+                    {
+                        result.Add(new SolutionComponent()
+                        {
+                            ObjectId = entityMetadata.MetadataId,
+                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                        });
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }

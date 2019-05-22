@@ -422,6 +422,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                             ComponentType = new OptionSetValue((int)ComponentType.Entity),
                         });
                     }
+
+                    var attributeMetadata = _source.GetAttributeMetadata(oneRelationship.ReferencingEntity, oneRelationship.ReferencingAttribute);
+
+                    if (attributeMetadata != null)
+                    {
+                        result.Add(new SolutionComponent()
+                        {
+                            ObjectId = attributeMetadata.MetadataId,
+                            ComponentType = new OptionSetValue((int)ComponentType.Attribute),
+                        });
+                    }
                 }
                 else if (metaData is ManyToManyRelationshipMetadata manyRelationship)
                 {

@@ -37,6 +37,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , SdkMessageRequestField.Schema.Attributes.parser
                     , SdkMessageRequestField.Schema.Attributes.optional
                     , SdkMessageRequestField.Schema.Attributes.customizationlevel
+                    , SdkMessageRequestField.Schema.Attributes.sdkmessagerequestid
                 );
         }
 
@@ -187,6 +188,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , { "suppsolution.uniquename", "SupportingName" }
                     , { "suppsolution.ismanaged", "SupportingIsManaged" }
                 };
+        }
+
+        public override IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
+        {
+            var result = new List<SolutionComponent>();
+
+            var entity = GetEntity<SdkMessageRequestField>(solutionComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                if (entity.SdkMessageRequestId != null)
+                {
+                    result.Add(new SolutionComponent()
+                    {
+                        ObjectId = entity.SdkMessageRequestId.Id,
+                        ComponentType = new OptionSetValue((int)ComponentType.SdkMessageRequest),
+                    });
+                }
+            }
+
+            return result;
         }
     }
 }

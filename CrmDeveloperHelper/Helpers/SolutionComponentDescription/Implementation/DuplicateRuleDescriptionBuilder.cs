@@ -12,10 +12,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 {
     public class DuplicateRuleDescriptionBuilder : DefaultSolutionComponentDescriptionBuilder
     {
-        public DuplicateRuleDescriptionBuilder(IOrganizationServiceExtented service)
+        private readonly SolutionComponentMetadataSource _source;
+
+        public DuplicateRuleDescriptionBuilder(IOrganizationServiceExtented service, SolutionComponentMetadataSource source)
             : base(service, (int)ComponentType.DuplicateRule)
         {
-
+            this._source = source;
         }
 
         public override ComponentType? ComponentTypeEnum => ComponentType.DuplicateRule;
@@ -31,7 +33,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return new ColumnSet
                 (
                     DuplicateRule.Schema.Attributes.name
-                    , DuplicateRule.Schema.Attributes.baseentitytypecode
+                    , DuplicateRule.Schema.Attributes.baseentityname
                     , DuplicateRule.Schema.Attributes.matchingentityname
                     , DuplicateRule.Schema.Attributes.statuscode
                 );
@@ -40,7 +42,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         protected override FormatTextTableHandler GetDescriptionHeader(bool withManaged, bool withSolutionInfo, bool withUrls, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("DuplicateRuleType", "BaseEntityTypeCode", "MatchingEntityName", "StatusCode", "Behavior");
+            handler.SetHeader("DuplicateRuleType", "BaseEntityName", "MatchingEntityName", "StatusCode", "Behavior");
 
             action(handler, withUrls, false, withSolutionInfo);
 
@@ -80,6 +82,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , { "suppsolution.uniquename", "SupportingName" }
                     , { "suppsolution.ismanaged", "SupportingIsManaged" }
                 };
+        }
+
+        public override IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
+        {
+            var result = new List<SolutionComponent>();
+
+            var entity = GetEntity<DuplicateRule>(solutionComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                if (!string.IsNullOrEmpty(entity.BaseEntityName))
+                {
+                    var entityMetadata = _source.GetEntityMetadata(entity.BaseEntityName);
+
+                    if (entityMetadata != null)
+                    {
+                        result.Add(new SolutionComponent()
+                        {
+                            ObjectId = entityMetadata.MetadataId,
+                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                        });
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(entity.MatchingEntityName)
+                    && !string.Equals(entity.BaseEntityName, entity.MatchingEntityName, StringComparison.InvariantCultureIgnoreCase)
+                )
+                {
+                    var entityMetadata = _source.GetEntityMetadata(entity.MatchingEntityName);
+
+                    if (entityMetadata != null)
+                    {
+                        result.Add(new SolutionComponent()
+                        {
+                            ObjectId = entityMetadata.MetadataId,
+                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                        });
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }

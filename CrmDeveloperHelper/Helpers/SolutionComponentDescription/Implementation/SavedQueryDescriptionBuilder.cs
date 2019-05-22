@@ -93,6 +93,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return base.GetDisplayName(component);
         }
 
+        public override TupleList<string, string> GetComponentColumns()
+        {
+            return new TupleList<string, string>
+                {
+                    {  SavedQuery.Schema.Attributes.returnedtypecode, SavedQuery.Schema.Headers.returnedtypecode }
+                    , { SavedQuery.Schema.Attributes.name, SavedQuery.Schema.Headers.name }
+                    , { SavedQuery.Schema.Attributes.iscustomizable, SavedQuery.Schema.Headers.iscustomizable }
+                    , { SavedQuery.Schema.Attributes.ismanaged, SavedQuery.Schema.Headers.ismanaged }
+                    , { "solution.uniquename", "SolutionName" }
+                    , { "solution.ismanaged", "SolutionIsManaged" }
+                    , { "suppsolution.uniquename", "SupportingName" }
+                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
+                };
+        }
+
         public override IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
         {
             var result = new List<SolutionComponent>();
@@ -116,21 +131,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
 
             return result;
-        }
-
-        public override TupleList<string, string> GetComponentColumns()
-        {
-            return new TupleList<string, string>
-                {
-                    {  SavedQuery.Schema.Attributes.returnedtypecode, SavedQuery.Schema.Headers.returnedtypecode }
-                    , { SavedQuery.Schema.Attributes.name, SavedQuery.Schema.Headers.name }
-                    , { SavedQuery.Schema.Attributes.iscustomizable, SavedQuery.Schema.Headers.iscustomizable }
-                    , { SavedQuery.Schema.Attributes.ismanaged, SavedQuery.Schema.Headers.ismanaged }
-                    , { "solution.uniquename", "SolutionName" }
-                    , { "solution.ismanaged", "SolutionIsManaged" }
-                    , { "suppsolution.uniquename", "SupportingName" }
-                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
-                };
         }
     }
 }

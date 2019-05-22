@@ -188,6 +188,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return base.GetName(component);
         }
 
+        public override TupleList<string, string> GetComponentColumns()
+        {
+            return new TupleList<string, string>
+                {
+                    { "sdkmessageprocessingstep.eventhandler", "TypeName" }
+                    , { SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode, "PrimaryObjectTypeCode" }
+                    , { SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterSecondaryObjectTypeCode, "SecondaryObjectTypeCode" }
+                    , { "sdkmessageprocessingstep.sdkmessageid", "Message" }
+                    , { "sdkmessageprocessingstep.stage", "Stage" }
+                    , { "sdkmessageprocessingstep.mode", "Mode" }
+                    , { "sdkmessageprocessingstep.rank", "Rank" }
+                    , { "sdkmessageprocessingstep.statuscode", "StatusCode" }
+                    , { SdkMessageProcessingStepImage.Schema.Attributes.imagetype, "ImageType" }
+                    , { SdkMessageProcessingStepImage.Schema.Attributes.name, "Name" }
+                    , { SdkMessageProcessingStepImage.Schema.Attributes.entityalias, "EntityAlias" }
+                    , { SdkMessageProcessingStepImage.Schema.Attributes.iscustomizable, "IsCustomizable" }
+                    , { SdkMessageProcessingStepImage.Schema.Attributes.ismanaged, "IsManaged" }
+                    , { "solution.uniquename", "SolutionName" }
+                    , { "solution.ismanaged", "SolutionIsManaged" }
+                    , { "suppsolution.uniquename", "SupportingName" }
+                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
+                    , { SdkMessageProcessingStepImage.Schema.Attributes.attributes, "" }
+                };
+        }
+
         public override IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
         {
             var result = new List<SolutionComponent>();
@@ -220,31 +245,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             }
 
             return result;
-        }
-
-        public override TupleList<string, string> GetComponentColumns()
-        {
-            return new TupleList<string, string>
-                {
-                    { "sdkmessageprocessingstep.eventhandler", "TypeName" }
-                    , { SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode, "PrimaryObjectTypeCode" }
-                    , { SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterSecondaryObjectTypeCode, "SecondaryObjectTypeCode" }
-                    , { "sdkmessageprocessingstep.sdkmessageid", "Message" }
-                    , { "sdkmessageprocessingstep.stage", "Stage" }
-                    , { "sdkmessageprocessingstep.mode", "Mode" }
-                    , { "sdkmessageprocessingstep.rank", "Rank" }
-                    , { "sdkmessageprocessingstep.statuscode", "StatusCode" }
-                    , { SdkMessageProcessingStepImage.Schema.Attributes.imagetype, "ImageType" }
-                    , { SdkMessageProcessingStepImage.Schema.Attributes.name, "Name" }
-                    , { SdkMessageProcessingStepImage.Schema.Attributes.entityalias, "EntityAlias" }
-                    , { SdkMessageProcessingStepImage.Schema.Attributes.iscustomizable, "IsCustomizable" }
-                    , { SdkMessageProcessingStepImage.Schema.Attributes.ismanaged, "IsManaged" }
-                    , { "solution.uniquename", "SolutionName" }
-                    , { "solution.ismanaged", "SolutionIsManaged" }
-                    , { "suppsolution.uniquename", "SupportingName" }
-                    , { "suppsolution.ismanaged", "SupportingIsManaged" }
-                    , { SdkMessageProcessingStepImage.Schema.Attributes.attributes, "" }
-                };
         }
     }
 }

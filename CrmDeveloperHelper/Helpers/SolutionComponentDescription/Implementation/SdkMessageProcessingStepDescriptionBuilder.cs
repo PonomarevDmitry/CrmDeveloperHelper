@@ -144,42 +144,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             return values;
         }
 
-        public override IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
-        {
-            var result = new List<SolutionComponent>();
-
-            var entity = GetEntity<SdkMessageProcessingStep>(solutionComponent.ObjectId.Value);
-
-            if (entity != null )
-            {
-                if (!string.IsNullOrEmpty(entity.PrimaryObjectTypeCodeName)
-                    && _service.ConnectionData.IntellisenseData != null
-                    && _service.ConnectionData.IntellisenseData.Entities != null
-                    && _service.ConnectionData.IntellisenseData.Entities.ContainsKey(entity.PrimaryObjectTypeCodeName)
-                )
-                {
-                    result.Add(new SolutionComponent()
-                    {
-                        ObjectId = _service.ConnectionData.IntellisenseData.Entities[entity.PrimaryObjectTypeCodeName].MetadataId,
-                        ComponentType = new OptionSetValue((int)ComponentType.Entity),
-                    });
-                }
-
-                if (entity.EventHandler != null
-                    && string.Equals(entity.EventHandler.LogicalName, PluginType.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase)
-                    )
-                {
-                    result.Add(new SolutionComponent()
-                    {
-                        ObjectId = entity.EventHandler.Id,
-                        ComponentType = new OptionSetValue((int)ComponentType.PluginType),
-                    });
-                }
-            }
-
-            return result;
-        }
-
         public override TupleList<string, string> GetComponentColumns()
         {
             return new TupleList<string, string>
@@ -200,6 +164,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , { "suppsolution.ismanaged", "SupportingIsManaged" }
                     , { SdkMessageProcessingStep.Schema.Attributes.filteringattributes, "FilteringAttributes" }
                 };
+        }
+
+        public override IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
+        {
+            var result = new List<SolutionComponent>();
+
+            var entity = GetEntity<SdkMessageProcessingStep>(solutionComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                if (!string.IsNullOrEmpty(entity.PrimaryObjectTypeCodeName)
+                    && _service.ConnectionData.IntellisenseData != null
+                    && _service.ConnectionData.IntellisenseData.Entities != null
+                    && _service.ConnectionData.IntellisenseData.Entities.ContainsKey(entity.PrimaryObjectTypeCodeName)
+                )
+                {
+                    result.Add(new SolutionComponent()
+                    {
+                        ObjectId = _service.ConnectionData.IntellisenseData.Entities[entity.PrimaryObjectTypeCodeName].MetadataId,
+                        ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                    });
+                }
+
+                if (entity.EventHandler != null
+                    && string.Equals(entity.EventHandler.LogicalName, PluginType.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase)
+                )
+                {
+                    result.Add(new SolutionComponent()
+                    {
+                        ObjectId = entity.EventHandler.Id,
+                        ComponentType = new OptionSetValue((int)ComponentType.PluginType),
+                    });
+                }
+            }
+
+            return result;
         }
     }
 }

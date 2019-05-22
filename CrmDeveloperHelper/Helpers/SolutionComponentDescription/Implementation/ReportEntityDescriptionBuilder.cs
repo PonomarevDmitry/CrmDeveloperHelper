@@ -13,10 +13,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 {
     public class ReportEntityDescriptionBuilder : DefaultSolutionComponentDescriptionBuilder
     {
-        public ReportEntityDescriptionBuilder(IOrganizationServiceExtented service)
+        private readonly SolutionComponentMetadataSource _source;
+
+        public ReportEntityDescriptionBuilder(IOrganizationServiceExtented service, SolutionComponentMetadataSource source)
             : base(service, (int)ComponentType.ReportEntity)
         {
-
+            this._source = source;
         }
 
         public override ComponentType? ComponentTypeEnum => ComponentType.ReportEntity;
@@ -104,6 +106,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         ObjectId = entity.ReportId.Id,
                         ComponentType = new OptionSetValue((int)ComponentType.Report),
                     });
+                }
+
+                if (!string.IsNullOrEmpty(entity.ObjectTypeCode))
+                {
+                    var entityMetadata = _source.GetEntityMetadata(entity.ObjectTypeCode);
+
+                    if (entityMetadata != null)
+                    {
+                        result.Add(new SolutionComponent()
+                        {
+                            ObjectId = entityMetadata.MetadataId,
+                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                        });
+                    }
                 }
             }
 

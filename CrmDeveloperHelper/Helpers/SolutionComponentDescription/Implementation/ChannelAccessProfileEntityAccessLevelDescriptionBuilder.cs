@@ -76,8 +76,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     {
                         JoinOperator = JoinOperator.LeftOuter,
 
-                        LinkFromEntityName = AttributeMap.EntityLogicalName,
-                        LinkFromAttributeName = AttributeMap.Schema.Attributes.solutionid,
+                        LinkFromEntityName = ChannelAccessProfileEntityAccessLevel.EntityLogicalName,
+                        LinkFromAttributeName = ChannelAccessProfileEntityAccessLevel.Schema.Attributes.solutionid,
 
                         LinkToEntityName = Solution.EntityLogicalName,
                         LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
@@ -91,8 +91,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     {
                         JoinOperator = JoinOperator.LeftOuter,
 
-                        LinkFromEntityName = AttributeMap.EntityLogicalName,
-                        LinkFromAttributeName = AttributeMap.Schema.Attributes.supportingsolutionid,
+                        LinkFromEntityName = ChannelAccessProfileEntityAccessLevel.EntityLogicalName,
+                        LinkFromAttributeName = ChannelAccessProfileEntityAccessLevel.Schema.Attributes.supportingsolutionid,
 
                         LinkToEntityName = Solution.EntityLogicalName,
                         LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
@@ -165,6 +165,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     , { "suppsolution.uniquename", "SupportingName" }
                     , { "suppsolution.ismanaged", "SupportingIsManaged" }
                 };
+        }
+
+        public override IEnumerable<SolutionComponent> GetLinkedComponents(SolutionComponent solutionComponent)
+        {
+            var result = new List<SolutionComponent>();
+
+            var entity = GetEntity<ChannelAccessProfileEntityAccessLevel>(solutionComponent.ObjectId.Value);
+
+            if (entity != null)
+            {
+                if (entity.ChannelAccessProfileId.HasValue)
+                {
+                    result.Add(new SolutionComponent()
+                    {
+                        ObjectId = entity.ChannelAccessProfileId.Value,
+                        ComponentType = new OptionSetValue((int)ComponentType.ChannelAccessProfile),
+                    });
+                }
+
+                if (entity.EntityAccessLevelId.HasValue)
+                {
+                    result.Add(new SolutionComponent()
+                    {
+                        ObjectId = entity.EntityAccessLevelId.Value,
+                        ComponentType = new OptionSetValue((int)ComponentType.Privilege),
+                    });
+                }
+            }
+
+            return result;
         }
     }
 }
