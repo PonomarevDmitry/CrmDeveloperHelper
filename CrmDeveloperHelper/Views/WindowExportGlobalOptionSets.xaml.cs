@@ -75,7 +75,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            LoadEntityNames(service.ConnectionData);
+            LoadEntityNames(cmBEntityName, service.ConnectionData);
 
             var child = new ExportGlobalOptionSetMetadataOptionsControl(_commonConfig);
             child.CloseClicked += Child_CloseClicked;
@@ -162,26 +162,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBNamespaceOptionSetsJavaScript.DataContext = cmBCurrentConnection;
 
             cmBFileAction.DataContext = _commonConfig;
-        }
-
-        private void LoadEntityNames(ConnectionData connectionData)
-        {
-            string text = cmBEntityName.Text;
-
-            cmBEntityName.Items.Clear();
-
-            if (connectionData != null
-                && connectionData.IntellisenseData != null
-                && connectionData.IntellisenseData.Entities != null
-                )
-            {
-                foreach (var item in connectionData.IntellisenseData.Entities.Keys.OrderBy(s => s))
-                {
-                    cmBEntityName.Items.Add(item);
-                }
-            }
-
-            cmBEntityName.Text = text;
         }
 
         protected override void OnClosed(EventArgs e)
@@ -1053,7 +1033,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
-                LoadEntityNames(connectionData);
+                LoadEntityNames(cmBEntityName, connectionData);
 
                 ShowExistingOptionSets();
             }

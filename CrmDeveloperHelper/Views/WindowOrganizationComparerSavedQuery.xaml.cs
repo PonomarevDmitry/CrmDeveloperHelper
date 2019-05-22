@@ -504,26 +504,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    //if (_commonConfig.SetXmlSchemasDuringExport)
-                    //{
-                    //    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaFetch);
-
-                    //    if (schemasResources != null)
-                    //    {
-                    //        xmlContent = ContentCoparerHelper.SetXsdSchema(xmlContent, schemasResources);
-                    //    }
-                    //}
-
-                    //if (_commonConfig.SetIntellisenseContext)
-                    //{
-                    //    xmlContent = ContentCoparerHelper.SetIntellisenseContextSavedQueryId(xmlContent, savedQueryId);
-                    //}
-
-                    //if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
-                    //{
-                    //    xmlContent = doc.ToString();
-                    //}
-
                     xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
                         , schemaName: CommonExportXsdSchemasCommand.SchemaFetch
                         , savedQueryId: savedQueryId

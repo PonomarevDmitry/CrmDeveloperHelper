@@ -617,5 +617,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 btnClearEntityFilter.Visibility = sepClearEntityFilter.Visibility = Visibility.Collapsed;
             }
         }
+
+        protected void LoadEntityNames(ComboBox comboBox, ConnectionData connectionData)
+        {
+            string text = comboBox.Text;
+
+            comboBox.Items.Clear();
+
+            if (connectionData != null
+                && connectionData.IntellisenseData != null
+                && connectionData.IntellisenseData.Entities != null
+            )
+            {
+                foreach (var item in connectionData.IntellisenseData.Entities.Keys.OrderBy(s => s))
+                {
+                    comboBox.Items.Add(item);
+                }
+            }
+
+            comboBox.Text = text;
+        }
     }
 }

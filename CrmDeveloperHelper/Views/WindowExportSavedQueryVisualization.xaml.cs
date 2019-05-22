@@ -32,8 +32,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly CommonConfiguration _commonConfig;
 
-        private string _filterEntity;
-
         private readonly ObservableCollection<EntityViewItem> _itemsSource;
 
         private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
@@ -56,13 +54,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput = iWriteToOutput;
             this._commonConfig = commonConfig;
-            this._filterEntity = filterEntity;
 
             _connectionCache[service.ConnectionData.ConnectionId] = service;
 
             BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InitializeComponent();
+
+            LoadEntityNames(cmBEntityName, service.ConnectionData);
 
             var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
             child.CloseClicked += Child_CloseClicked;
@@ -83,12 +82,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 txtBFilter.Text = selection;
             }
 
-            SetButtonClearFilterVisibility(_filterEntity, btnClearEntityFilter, sepClearEntityFilter);
-
             txtBFilter.SelectionLength = 0;
             txtBFilter.SelectionStart = txtBFilter.Text.Length;
 
             txtBFilter.Focus();
+
+            cmBEntityName.Text = filterEntity;
 
             this._itemsSource = new ObservableCollection<EntityViewItem>();
 
@@ -170,12 +169,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._itemsSource.Clear();
 
-            string textName = string.Empty;
+            string filterEntity = null;
 
-            txtBFilter.Dispatcher.Invoke(() =>
+            string entityName = string.Empty;
+
+            this.Dispatcher.Invoke(() =>
             {
-                textName = txtBFilter.Text.Trim().ToLower();
+                if (!string.IsNullOrEmpty(cmBEntityName.Text)
+                    && cmBEntityName.Items.Contains(cmBEntityName.Text)
+                )
+                {
+                    entityName = cmBEntityName.Text.Trim().ToLower();
+                }
             });
+
+            if (service.ConnectionData != null
+                && service.ConnectionData.IntellisenseData != null
+                && service.ConnectionData.IntellisenseData.Entities != null
+                && service.ConnectionData.IntellisenseData.Entities.ContainsKey(entityName)
+            )
+            {
+                filterEntity = entityName;
+            }
 
             IEnumerable<SavedQueryVisualization> list = Enumerable.Empty<SavedQueryVisualization>();
 
@@ -184,19 +199,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (service != null)
                 {
                     var repository = new SavedQueryVisualizationRepository(service);
-                    list = await repository.GetListAsync(this._filterEntity
+
+                    list = await repository.GetListAsync(filterEntity
                         , new ColumnSet(
                             SavedQueryVisualization.Schema.Attributes.savedqueryvisualizationid
                             , SavedQueryVisualization.Schema.Attributes.primaryentitytypecode
                             , SavedQueryVisualization.Schema.Attributes.name
                             , SavedQueryVisualization.Schema.Attributes.iscustomizable
-                            ));
+                    ));
                 }
             }
             catch (Exception ex)
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
+
+            string textName = string.Empty;
+
+            txtBFilter.Dispatcher.Invoke(() =>
+            {
+                textName = txtBFilter.Text.Trim().ToLower();
+            });
 
             list = FilterList(list, textName);
 
@@ -741,15 +764,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void btnClearEntityFilter_Click(object sender, RoutedEventArgs e)
-        {
-            this._filterEntity = null;
-
-            SetButtonClearFilterVisibility(_filterEntity, btnClearEntityFilter, sepClearEntityFilter);
-
-            ShowExistingCharts();
-        }
-
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.Key == Key.F5)
@@ -1281,6 +1295,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
+                LoadEntityNames(cmBEntityName, connectionData);
+
                 ShowExistingCharts();
             }
         }

@@ -35,8 +35,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly EnvDTE.SelectedItem _selectedItem;
 
-        private string _filterEntity;
-
         private readonly ObservableCollection<EntityViewItem> _itemsSource;
 
         private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
@@ -61,7 +59,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput = iWriteToOutput;
             this._commonConfig = commonConfig;
-            this._filterEntity = filterEntity;
             this._selectedItem = selectedItem;
 
             _connectionCache[service.ConnectionData.ConnectionId] = service;
@@ -69,6 +66,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InitializeComponent();
+
+            LoadEntityNames(cmBEntityName, service.ConnectionData);
 
             var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
             child.CloseClicked += Child_CloseClicked;
@@ -89,12 +88,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 txtBFilter.Text = selection;
             }
 
-            SetButtonClearFilterVisibility(_filterEntity, btnClearEntityFilter, sepClearEntityFilter);
-
             txtBFilter.SelectionLength = 0;
             txtBFilter.SelectionStart = txtBFilter.Text.Length;
 
             txtBFilter.Focus();
+
+            cmBEntityName.Text = filterEntity;
 
             if (this._selectedItem != null)
             {
@@ -241,6 +240,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._itemsSource.Clear();
 
+            string filterEntity = null;
+
+            string entityName = string.Empty;
+
+            this.Dispatcher.Invoke(() =>
+            {
+                if (!string.IsNullOrEmpty(cmBEntityName.Text)
+                    && cmBEntityName.Items.Contains(cmBEntityName.Text)
+                )
+                {
+                    entityName = cmBEntityName.Text.Trim().ToLower();
+                }
+            });
+
+            if (service.ConnectionData != null
+                && service.ConnectionData.IntellisenseData != null
+                && service.ConnectionData.IntellisenseData.Entities != null
+                && service.ConnectionData.IntellisenseData.Entities.ContainsKey(entityName)
+            )
+            {
+                filterEntity = entityName;
+            }
+
             IEnumerable<SystemForm> list = Enumerable.Empty<SystemForm>();
 
             try
@@ -248,14 +270,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (service != null)
                 {
                     var repository = new SystemFormRepository(service);
-                    list = await repository.GetListAsync(this._filterEntity
+
+                    list = await repository.GetListAsync(filterEntity
                         , new ColumnSet(
                             SystemForm.Schema.Attributes.name
                             , SystemForm.Schema.Attributes.objecttypecode
                             , SystemForm.Schema.Attributes.type
                             , SystemForm.Schema.Attributes.iscustomizable
                             , SystemForm.Schema.Attributes.formactivationstate
-                        ));
+                    ));
                 }
             }
             catch (Exception ex)
@@ -1330,15 +1353,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingEntityJavaScriptFileOnFormCompletedFormat2, entityName, name);
-        }
-
-        private void btnClearEntityFilter_Click(object sender, RoutedEventArgs e)
-        {
-            this._filterEntity = null;
-
-            SetButtonClearFilterVisibility(_filterEntity, btnClearEntityFilter, sepClearEntityFilter);
-
-            ShowExistingSystemForms();
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

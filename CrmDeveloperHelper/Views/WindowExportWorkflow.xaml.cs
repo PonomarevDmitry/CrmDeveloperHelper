@@ -33,8 +33,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly CommonConfiguration _commonConfig;
 
-        private string _filterEntity;
-
         private readonly ObservableCollection<EntityViewItem> _itemsSource;
 
         private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
@@ -45,7 +43,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , string filterEntity
             , string selection
-            )
+        )
         {
             this.IncreaseInit();
 
@@ -53,13 +51,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput = iWriteToOutput;
             this._commonConfig = commonConfig;
-            this._filterEntity = filterEntity;
 
             _connectionCache[service.ConnectionData.ConnectionId] = service;
 
             BindingOperations.EnableCollectionSynchronization(service.ConnectionData.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InitializeComponent();
+
+            LoadEntityNames(cmBEntityName, service.ConnectionData);
 
             cmBCategory.ItemsSource = new EnumBindingSourceExtension(typeof(Workflow.Schema.OptionSets.category?)).ProvideValue(null) as IEnumerable;
             cmBMode.ItemsSource = new EnumBindingSourceExtension(typeof(Workflow.Schema.OptionSets.mode?)).ProvideValue(null) as IEnumerable;
@@ -73,12 +72,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 txtBFilter.Text = selection;
             }
 
-            SetButtonClearFilterVisibility(_filterEntity, btnClearEntityFilter, sepClearEntityFilter);
-
             txtBFilter.SelectionLength = 0;
             txtBFilter.SelectionStart = txtBFilter.Text.Length;
 
             txtBFilter.Focus();
+
+            cmBEntityName.Text = filterEntity;
 
             this._itemsSource = new ObservableCollection<EntityViewItem>();
 
@@ -214,25 +213,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._itemsSource.Clear();
 
+            string entityName = string.Empty;
             int? category = null;
-
-            cmBCategory.Dispatcher.Invoke(() =>
-            {
-                if (cmBCategory.SelectedItem is Workflow.Schema.OptionSets.category comboBoxItem)
-                {
-                    category = (int)comboBoxItem;
-                }
-            });
-
             int? mode = null;
 
-            cmBMode.Dispatcher.Invoke(() =>
+            this.Dispatcher.Invoke(() =>
             {
-                if (cmBMode.SelectedItem is Workflow.Schema.OptionSets.mode comboBoxItem)
                 {
-                    mode = (int)comboBoxItem;
+                    if (cmBCategory.SelectedItem is Workflow.Schema.OptionSets.category comboBoxItem)
+                    {
+                        category = (int)comboBoxItem;
+                    }
+                }
+
+                {
+                    if (cmBMode.SelectedItem is Workflow.Schema.OptionSets.mode comboBoxItem)
+                    {
+                        mode = (int)comboBoxItem;
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(cmBEntityName.Text)
+                    && cmBEntityName.Items.Contains(cmBEntityName.Text)
+                )
+                {
+                    entityName = cmBEntityName.Text.Trim().ToLower();
                 }
             });
+
+            string filterEntity = null;
+
+            if (service.ConnectionData != null
+                && service.ConnectionData.IntellisenseData != null
+                && service.ConnectionData.IntellisenseData.Entities != null
+                && service.ConnectionData.IntellisenseData.Entities.ContainsKey(entityName)
+            )
+            {
+                filterEntity = entityName;
+            }
 
             IEnumerable<Workflow> list = Enumerable.Empty<Workflow>();
 
@@ -241,7 +259,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (service != null)
                 {
                     WorkflowRepository repository = new WorkflowRepository(service);
-                    list = await repository.GetListAsync(this._filterEntity, category, mode
+                    list = await repository.GetListAsync(filterEntity, category, mode
                         , new ColumnSet(
                             Workflow.Schema.Attributes.category
                             , Workflow.Schema.Attributes.name
@@ -1200,15 +1218,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ShowExistingWorkflows();
         }
 
-        private void btnClearEntityFilter_Click(object sender, RoutedEventArgs e)
-        {
-            this._filterEntity = null;
-
-            SetButtonClearFilterVisibility(_filterEntity, btnClearEntityFilter, sepClearEntityFilter);
-
-            ShowExistingWorkflows();
-        }
-
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.Key == Key.F5)
@@ -1805,6 +1814,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
+                LoadEntityNames(cmBEntityName, connectionData);
+
                 ShowExistingWorkflows();
             }
         }
