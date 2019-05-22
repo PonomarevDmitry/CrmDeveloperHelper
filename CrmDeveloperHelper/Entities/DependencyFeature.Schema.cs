@@ -6,12 +6,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///<summary>
         /// DisplayName:
         ///     (English - United States - 1033): Dependency Feature
+        ///     (Russian - 1049): Зависимый компонент
         /// 
         /// DisplayCollectionName:
         ///     (English - United States - 1033): Dependency Features
+        ///     (Russian - 1049): Зависимые компоненты
         /// 
         /// Description:
         ///     (English - United States - 1033): A dependency feature.
+        ///     (Russian - 1049): Зависимый компонент.
         /// 
         /// PropertyName                          Value
         /// ActivityTypeMask                      0
@@ -100,9 +103,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Dependency Identifier
+                ///     (Russian - 1049): Идентификатор зависимости
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of a dependency feature.
+                ///     (Russian - 1049): Уникальный идентификатор зависимого компонента.
                 /// 
                 /// SchemaName: DependencyFeatureId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -129,14 +134,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Dependency Identifier")]
                 public const string dependencyfeatureid = "dependencyfeatureid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Component State
+                ///     (Russian - 1049): Состояние компонента
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: ComponentState
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -148,9 +156,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): Component State
+                ///             (Russian - 1049): Состояние компонента
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): The state of this component.
+                ///             (Russian - 1049): Состояние этого компонента.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -171,11 +181,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Component State")]
                 public const string componentstate = "componentstate";
 
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: DependencyFeatureIdUnique
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -202,14 +214,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("For internal use only.")]
                 public const string dependencyfeatureidunique = "dependencyfeatureidunique";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Introduced Version
+                ///     (Russian - 1049): Версия введения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Version in which the feature is introduced.
+                ///     (Russian - 1049): Версия, в которой была введен компонент.
                 /// 
                 /// SchemaName: IntroducedVersion
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -238,14 +253,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Introduced Version")]
                 public const string introducedversion = "introducedversion";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): State
+                ///     (Russian - 1049): Состояние
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Tells whether the record is part of a managed solution.
+                ///     (Russian - 1049): Сообщает, является ли запись частью управляемого решения.
                 /// 
                 /// SchemaName: IsManaged
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
@@ -256,10 +274,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Unmanaged
+                ///     (Russian - 1049): Неуправляемый
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Managed
+                ///     (Russian - 1049): Управляемый
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -281,14 +301,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("State")]
                 public const string ismanaged = "ismanaged";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Record Overwrite Time
+                ///     (Russian - 1049): Время замены записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: OverwriteTime
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
@@ -317,14 +340,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Record Overwrite Time")]
                 public const string overwritetime = "overwritetime";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the associated solution.
+                ///     (Russian - 1049): Уникальный идентификатор связанного решения.
                 /// 
                 /// SchemaName: SolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -351,14 +377,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string solutionid = "solutionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: SupportingSolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
@@ -385,6 +414,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string supportingsolutionid = "supportingsolutionid";
             }
 

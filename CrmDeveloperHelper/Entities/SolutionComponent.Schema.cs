@@ -6,12 +6,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///<summary>
         /// DisplayName:
         ///     (English - United States - 1033): Solution Component
+        ///     (Russian - 1049): Компонент решения
         /// 
         /// DisplayCollectionName:
         ///     (English - United States - 1033): Solution Components
+        ///     (Russian - 1049): Компоненты решения
         /// 
         /// Description:
         ///     (English - United States - 1033): A component of a CRM solution.
+        ///     (Russian - 1049): Компонент решения CRM.
         /// 
         /// PropertyName                          Value
         /// ActivityTypeMask                      0
@@ -101,9 +104,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution Component Identifier
+                ///     (Russian - 1049): Идентификатор компонента решения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the solution component.
+                ///     (Russian - 1049): Уникальный идентификатор компонента решения.
                 /// 
                 /// SchemaName: SolutionComponentId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -130,14 +135,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution Component Identifier")]
                 public const string solutioncomponentid = "solutioncomponentid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Object Type Code
+                ///     (Russian - 1049): Код типа объекта
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): The object type code of the component.
+                ///     (Russian - 1049): Код типа объекта компонента.
                 /// 
                 /// SchemaName: ComponentType
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -149,9 +157,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): Component Type
+                ///             (Russian - 1049): Тип компонента
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): All of the possible component types for solutions.
+                ///             (Russian - 1049): Все возможные типы компонентов для решений.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -172,6 +182,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Object Type Code")]
                 public const string componenttype = "componenttype";
 
                 ///<summary>
@@ -205,9 +216,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By
+                ///     (Russian - 1049): Создано
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who created the solution
+                ///     (Russian - 1049): Уникальный идентификатор пользователя, создавшего решение.
                 /// 
                 /// SchemaName: CreatedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -219,12 +232,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -245,14 +261,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By")]
                 public const string createdby = "createdby";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created On
+                ///     (Russian - 1049): Дата создания
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the solution was created.
+                ///     (Russian - 1049): Дата и время создания решения.
                 /// 
                 /// SchemaName: CreatedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -281,14 +300,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created On")]
                 public const string createdon = "createdon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By (Delegate)
+                ///     (Russian - 1049): Кем создано (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who created the solution.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя-делегата, создавшего решение.
                 /// 
                 /// SchemaName: CreatedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -300,12 +322,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -326,6 +351,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By (Delegate)")]
                 public const string createdonbehalfby = "createdonbehalfby";
 
                 ///<summary>
@@ -391,9 +417,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Is this component metadata
+                ///     (Russian - 1049): Является ли компонент метаданными
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Indicates whether this component is metadata or data.
+                ///     (Russian - 1049): Указывает, является ли этот компонент метаданными или данными.
                 /// 
                 /// SchemaName: IsMetadata
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
@@ -404,10 +432,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Data
+                ///     (Russian - 1049): Данные
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Metadata
+                ///     (Russian - 1049): Метаданные
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -429,14 +459,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Is this component metadata")]
                 public const string ismetadata = "ismetadata";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By
+                ///     (Russian - 1049): Изменено
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who last modified the solution.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя, внесшего последнее изменение в решение.
                 /// 
                 /// SchemaName: ModifiedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -448,12 +481,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -474,14 +510,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By")]
                 public const string modifiedby = "modifiedby";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified On
+                ///     (Russian - 1049): Дата изменения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the solution was last modified.
+                ///     (Russian - 1049): Дата и время последнего изменения решения.
                 /// 
                 /// SchemaName: ModifiedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -510,14 +549,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified On")]
                 public const string modifiedon = "modifiedon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By (Delegate)
+                ///     (Russian - 1049): Кем изменено (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who modified the solution.
+                ///     (Russian - 1049): Уникальный идентификатор делегата, изменившего решение.
                 /// 
                 /// SchemaName: ModifiedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -529,12 +571,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -555,6 +600,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By (Delegate)")]
                 public const string modifiedonbehalfby = "modifiedonbehalfby";
 
                 ///<summary>
@@ -620,9 +666,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Regarding
+                ///     (Russian - 1049): В отношении
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the object with which the component is associated.
+                ///     (Russian - 1049): Уникальный идентификатор объекта, с которым связан компонент.
                 /// 
                 /// SchemaName: ObjectId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
@@ -649,14 +697,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Regarding")]
                 public const string objectid = "objectid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Root Component Behavior
+                ///     (Russian - 1049): Поведение корневого компонента
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Indicates the include behavior of the root component.
+                ///     (Russian - 1049): Указывает на поведение включения корневого компонента.
                 /// 
                 /// SchemaName: RootComponentBehavior
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: None
@@ -685,14 +736,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Root Component Behavior")]
                 public const string rootcomponentbehavior = "rootcomponentbehavior";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Root Solution Component ID
+                ///     (Russian - 1049): Код корневого компонента решения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): The parent ID of the subcomponent, which will be a root
+                ///     (Russian - 1049): Родительский идентификатор подкомпонента, который будет корневым
                 /// 
                 /// SchemaName: RootSolutionComponentId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
@@ -719,14 +773,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Root Solution Component ID")]
                 public const string rootsolutioncomponentid = "rootsolutioncomponentid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the solution.
+                ///     (Russian - 1049): Уникальный идентификатор решения.
                 /// 
                 /// SchemaName: SolutionId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -738,12 +795,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target solution    PrimaryIdAttribute solutionid    PrimaryNameAttribute friendlyname
                 ///         DisplayName:
                 ///             (English - United States - 1033): Solution
+                ///             (Russian - 1049): Решение
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Solutions
+                ///             (Russian - 1049): Решения
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): A solution which contains CRM customizations.
+                ///             (Russian - 1049): Решение, содержащее настройки CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -764,6 +824,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string solutionid = "solutionid";
 
                 ///<summary>
@@ -840,18 +901,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Root Component Behavior
+                ///     (Russian - 1049): Поведение корневого компонента
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Indicates the include behavior of the root component.
+                ///     (Russian - 1049): Указывает на поведение включения корневого компонента.
                 /// 
                 /// Local System  OptionSet solutioncomponent_rootcomponentbehavior
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Include Behavior
+                ///     (Russian - 1049): Поведение включения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Indicates the include behavior of the root component.
+                ///     (Russian - 1049): Указывает на поведение включения корневого компонента.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Include Behavior")]
                 public enum rootcomponentbehavior
                 {
                     ///<summary>
@@ -860,7 +926,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Include Subcomponents
+                    ///     (Russian - 1049): Включить подкомпоненты
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Include Subcomponents")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Include_Subcomponents_0 = 0,
 
@@ -870,7 +938,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Do not include subcomponents
+                    ///     (Russian - 1049): Не включать подкомпоненты
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Do not include subcomponents")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Do_not_include_subcomponents_1 = 1,
 
@@ -880,7 +950,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Include As Shell Only
+                    ///     (Russian - 1049): Включить только как оболочку
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Include As Shell Only")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Include_As_Shell_Only_2 = 2,
                 }
@@ -920,13 +992,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_solutioncomponentbase_createdonbehalfby")]
                 public static partial class lk_solutioncomponentbase_createdonbehalfby
                 {
                     public const string Name = "lk_solutioncomponentbase_createdonbehalfby";
@@ -968,13 +1044,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_solutioncomponentbase_modifiedonbehalfby")]
                 public static partial class lk_solutioncomponentbase_modifiedonbehalfby
                 {
                     public const string Name = "lk_solutioncomponentbase_modifiedonbehalfby";
@@ -1016,13 +1096,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity solution:    PrimaryIdAttribute solutionid    PrimaryNameAttribute friendlyname
                 ///     DisplayName:
                 ///         (English - United States - 1033): Solution
+                ///         (Russian - 1049): Решение
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Solutions
+                ///         (Russian - 1049): Решения
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): A solution which contains CRM customizations.
+                ///         (Russian - 1049): Решение, содержащее настройки CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship solution_solutioncomponent")]
                 public static partial class solution_solutioncomponent
                 {
                     public const string Name = "solution_solutioncomponent";
@@ -1061,6 +1145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship solutioncomponent_parent_solutioncomponent")]
                 public static partial class solutioncomponent_parent_solutioncomponent
                 {
                     public const string Name = "solutioncomponent_parent_solutioncomponent";
@@ -1104,6 +1189,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship solutioncomponent_parent_solutioncomponent")]
                 public static partial class solutioncomponent_parent_solutioncomponent
                 {
                     public const string Name = "solutioncomponent_parent_solutioncomponent";
@@ -1143,10 +1229,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
                 ///     DisplayName:
                 ///         (English - United States - 1033): User Entity Instance Data
+                ///         (Russian - 1049): Данные экземпляра сущности пользователя
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Per User item instance data
+                ///         (Russian - 1049): Данные экземпляра позиции "на пользователя"
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship userentityinstancedata_solutioncomponent")]
                 public static partial class userentityinstancedata_solutioncomponent
                 {
                     public const string Name = "userentityinstancedata_solutioncomponent";

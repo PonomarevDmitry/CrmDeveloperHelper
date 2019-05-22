@@ -6,12 +6,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///<summary>
         /// DisplayName:
         ///     (English - United States - 1033): Field Security Profile
+        ///     (Russian - 1049): Профиль безопасности поля
         /// 
         /// DisplayCollectionName:
         ///     (English - United States - 1033): Field Security Profiles
+        ///     (Russian - 1049): Профили безопасности полей
         /// 
         /// Description:
         ///     (English - United States - 1033): Profile which defines access level for secured attributes
+        ///     (Russian - 1049): Профиль, который определяет уровень доступа к защищенным атрибутам
         /// 
         /// PropertyName                          Value
         /// ActivityTypeMask                      0
@@ -111,9 +114,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Field Security Profile
+                ///     (Russian - 1049): Профиль безопасности поля
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the profile.
+                ///     (Russian - 1049): Уникальный идентификатор профиля.
                 /// 
                 /// SchemaName: FieldSecurityProfileId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -140,14 +145,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Field Security Profile")]
                 public const string fieldsecurityprofileid = "fieldsecurityprofileid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Name
+                ///     (Russian - 1049): Название
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Name of the profile.
+                ///     (Russian - 1049): Имя профиля.
                 /// 
                 /// SchemaName: Name
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
@@ -176,14 +184,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Name")]
                 public const string name = "name";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Component State
+                ///     (Russian - 1049): Состояние компонента
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: ComponentState
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -195,9 +206,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): Component State
+                ///             (Russian - 1049): Состояние компонента
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): The state of this component.
+                ///             (Russian - 1049): Состояние этого компонента.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -218,14 +231,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Component State")]
                 public const string componentstate = "componentstate";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By
+                ///     (Russian - 1049): Создано
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who created the profile.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя, создавшего профиль.
                 /// 
                 /// SchemaName: CreatedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -237,12 +253,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -263,6 +282,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By")]
                 public const string createdby = "createdby";
 
                 ///<summary>
@@ -328,9 +348,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created On
+                ///     (Russian - 1049): Дата создания
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the profile was created.
+                ///     (Russian - 1049): Дата и время создания профиля.
                 /// 
                 /// SchemaName: CreatedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -359,14 +381,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created On")]
                 public const string createdon = "createdon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By Impersonator
+                ///     (Russian - 1049): Создано персонатором
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who created the role.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя-делегата, создавшего роль.
                 /// 
                 /// SchemaName: CreatedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -378,12 +403,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -404,6 +432,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By Impersonator")]
                 public const string createdonbehalfby = "createdonbehalfby";
 
                 ///<summary>
@@ -469,9 +498,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Description
+                ///     (Russian - 1049): Описание
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Description of the Profile
+                ///     (Russian - 1049): Описание профиля
                 /// 
                 /// SchemaName: Description
                 /// MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: None
@@ -500,14 +531,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Description")]
                 public const string description = "description";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Field Security Profile
+                ///     (Russian - 1049): Профиль безопасности поля
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: FieldSecurityProfileIdUnique
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -534,14 +568,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Field Security Profile")]
                 public const string fieldsecurityprofileidunique = "fieldsecurityprofileidunique";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Is Managed
+                ///     (Russian - 1049): Управляемый
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Indicates whether the solution component is part of a managed solution.
+                ///     (Russian - 1049): Указывает, является ли компонент решения частью управляемого решения.
                 /// 
                 /// SchemaName: IsManaged
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
@@ -552,10 +589,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Unmanaged
+                ///     (Russian - 1049): Неуправляемый
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Managed
+                ///     (Russian - 1049): Управляемый
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -577,6 +616,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Is Managed")]
                 public const string ismanaged = "ismanaged";
 
                 ///<summary>
@@ -610,9 +650,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By
+                ///     (Russian - 1049): Изменено
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who last modified the profile.
+                ///     (Russian - 1049): Уникальный идентификатор последнего пользователя, изменившего профиль.
                 /// 
                 /// SchemaName: ModifiedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -624,12 +666,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -650,6 +695,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By")]
                 public const string modifiedby = "modifiedby";
 
                 ///<summary>
@@ -715,9 +761,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified On
+                ///     (Russian - 1049): Дата изменения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the profile was last modified.
+                ///     (Russian - 1049): Дата и время последнего изменения профиля.
                 /// 
                 /// SchemaName: ModifiedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -746,14 +794,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified On")]
                 public const string modifiedon = "modifiedon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By (Delegate)
+                ///     (Russian - 1049): Кем изменено (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who last modified the profile.
+                ///     (Russian - 1049): Уникальный идентификатор последнего делегированного пользователя, изменившего профиль.
                 /// 
                 /// SchemaName: ModifiedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -765,12 +816,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -791,6 +845,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By (Delegate)")]
                 public const string modifiedonbehalfby = "modifiedonbehalfby";
 
                 ///<summary>
@@ -856,9 +911,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Organization
+                ///     (Russian - 1049): Предприятие
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the associated organization.
+                ///     (Russian - 1049): Уникальный идентификатор связанной организации.
                 /// 
                 /// SchemaName: OrganizationId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: SystemRequired
@@ -870,12 +927,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target organization    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Organization
+                ///             (Russian - 1049): Предприятие
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Organizations
+                ///             (Russian - 1049): Предприятия
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
+                ///             (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -896,6 +956,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Organization")]
                 public const string organizationid = "organizationid";
 
                 ///<summary>
@@ -931,9 +992,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Record Overwrite Time
+                ///     (Russian - 1049): Время замены записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: OverwriteTime
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
@@ -962,14 +1025,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Record Overwrite Time")]
                 public const string overwritetime = "overwritetime";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the associated solution.
+                ///     (Russian - 1049): Уникальный идентификатор связанного решения.
                 /// 
                 /// SchemaName: SolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -996,14 +1062,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string solutionid = "solutionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: SupportingSolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
@@ -1030,6 +1099,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string supportingsolutionid = "supportingsolutionid";
 
                 ///<summary>
@@ -1094,13 +1164,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_fieldsecurityprofile_createdby")]
                 public static partial class lk_fieldsecurityprofile_createdby
                 {
                     public const string Name = "lk_fieldsecurityprofile_createdby";
@@ -1142,13 +1216,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_fieldsecurityprofile_createdonbehalfby")]
                 public static partial class lk_fieldsecurityprofile_createdonbehalfby
                 {
                     public const string Name = "lk_fieldsecurityprofile_createdonbehalfby";
@@ -1190,13 +1268,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_fieldsecurityprofile_modifiedby")]
                 public static partial class lk_fieldsecurityprofile_modifiedby
                 {
                     public const string Name = "lk_fieldsecurityprofile_modifiedby";
@@ -1238,13 +1320,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_fieldsecurityprofile_modifiedonbehalfby")]
                 public static partial class lk_fieldsecurityprofile_modifiedonbehalfby
                 {
                     public const string Name = "lk_fieldsecurityprofile_modifiedonbehalfby";
@@ -1286,13 +1372,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity organization:    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Organization
+                ///         (Russian - 1049): Предприятие
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Organizations
+                ///         (Russian - 1049): Предприятия
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
+                ///         (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_fieldsecurityprofile_organizationid")]
                 public static partial class lk_fieldsecurityprofile_organizationid
                 {
                     public const string Name = "lk_fieldsecurityprofile_organizationid";
@@ -1341,13 +1431,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity syncerror:    PrimaryIdAttribute syncerrorid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Sync Error
+                ///         (Russian - 1049): Ошибка синхронизации
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Sync Errors
+                ///         (Russian - 1049): Ошибки синхронизации
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Failure reason and other detailed information for a record that failed to sync.
+                ///         (Russian - 1049): Причина сбоя и другие подробные сведения о записи, при синхронизации которой произошла ошибка.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship FieldSecurityProfile_SyncErrors")]
                 public static partial class fieldsecurityprofile_syncerrors
                 {
                     public const string Name = "FieldSecurityProfile_SyncErrors";
@@ -1389,13 +1483,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity fieldpermission:    PrimaryIdAttribute fieldpermissionid
                 ///     DisplayName:
                 ///         (English - United States - 1033): Field Permission
+                ///         (Russian - 1049): Разрешение поля
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Field Permissions
+                ///         (Russian - 1049): Поле разрешений
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Group of privileges used to categorize users to provide appropriate access to secured columns.
+                ///         (Russian - 1049): Группа привилегий, используемых для распределения пользователей по категориям с целью обеспечения соответствующего доступа к защищенным столбцам.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship lk_fieldpermission_fieldsecurityprofileid")]
                 public static partial class lk_fieldpermission_fieldsecurityprofileid
                 {
                     public const string Name = "lk_fieldpermission_fieldsecurityprofileid";
@@ -1435,10 +1533,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
                 ///     DisplayName:
                 ///         (English - United States - 1033): User Entity Instance Data
+                ///         (Russian - 1049): Данные экземпляра сущности пользователя
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Per User item instance data
+                ///         (Russian - 1049): Данные экземпляра позиции "на пользователя"
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship userentityinstancedata_fieldsecurityprofile")]
                 public static partial class userentityinstancedata_fieldsecurityprofile
                 {
                     public const string Name = "userentityinstancedata_fieldsecurityprofile";
@@ -1480,13 +1581,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// Entity1LogicalName systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:N - Relationship systemuserprofiles_association")]
                 public static partial class systemuserprofiles_association
                 {
                     public const string Name = "systemuserprofiles_association";
@@ -1525,13 +1630,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// Entity1LogicalName team:    PrimaryIdAttribute teamid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Team
+                ///         (Russian - 1049): Рабочая группа
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Teams
+                ///         (Russian - 1049): Рабочие группы
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
+                ///         (Russian - 1049): Набор системных пользователей, которые обычно участвуют в совместной работе. Рабочие группы можно использовать для упрощения предоставления участникам группы общего доступа к записям и данным организации, если участники принадлежат к разным бизнес-единицам.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:N - Relationship teamprofiles_association")]
                 public static partial class teamprofiles_association
                 {
                     public const string Name = "teamprofiles_association";

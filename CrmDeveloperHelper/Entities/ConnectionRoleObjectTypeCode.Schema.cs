@@ -6,12 +6,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///<summary>
         /// DisplayName:
         ///     (English - United States - 1033): Connection Role Object Type Code
+        ///     (Russian - 1049): Код типа объекта роли подключения
         /// 
         /// DisplayCollectionName:
         ///     (English - United States - 1033): Connection Role Object Type Codes
+        ///     (Russian - 1049): Коды типа объекта роли подключения
         /// 
         /// Description:
         ///     (English - United States - 1033): Specifies the entity type that can play specific role in a connection.
+        ///     (Russian - 1049): Определение типа сущности, которая может играть определенную роль в подключении.
         /// 
         /// PropertyName                          Value
         /// ActivityTypeMask                      0
@@ -100,6 +103,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the connection role object type association.
+                ///     (Russian - 1049): Уникальный идентификатор связи типа объекта роли подключения.
                 /// 
                 /// SchemaName: ConnectionRoleObjectTypeCodeId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -126,6 +130,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Unique identifier of the connection role object type association.")]
                 public const string connectionroleobjecttypecodeid = "connectionroleobjecttypecodeid";
 
                 ///<summary>
@@ -159,9 +164,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Connection Role
+                ///     (Russian - 1049): Роль подключения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the connection role associated with the Connection Role Object Type Code.
+                ///     (Russian - 1049): Уникальный идентификатор роли подключения, связанной с кодом типа объекта роли подключения.
                 /// 
                 /// SchemaName: ConnectionRoleId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: SystemRequired
@@ -173,12 +180,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target connectionrole    PrimaryIdAttribute connectionroleid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Connection Role
+                ///             (Russian - 1049): Роль подключения
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Connection Roles
+                ///             (Russian - 1049): Роли подключения
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Role describing a relationship between a two records.
+                ///             (Russian - 1049): Роль, описывающая отношение между двумя записями.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -199,6 +209,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Connection Role")]
                 public const string connectionroleid = "connectionroleid";
 
                 ///<summary>
@@ -234,9 +245,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Organization 
+                ///     (Russian - 1049): Предприятие 
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the organization associated with the connectionroleobjecttypecode.
+                ///     (Russian - 1049): Уникальный идентификатор организации, связанной с connectionroleobjecttypecode.
                 /// 
                 /// SchemaName: OrganizationId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -263,6 +276,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Organization ")]
                 public const string organizationid = "organizationid";
 
                 ///<summary>
@@ -327,13 +341,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity connectionrole:    PrimaryIdAttribute connectionroleid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Connection Role
+                ///         (Russian - 1049): Роль подключения
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Connection Roles
+                ///         (Russian - 1049): Роли подключения
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Role describing a relationship between a two records.
+                ///         (Russian - 1049): Роль, описывающая отношение между двумя записями.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship connection_role_connection_role_object_type_codes")]
                 public static partial class connection_role_connection_role_object_type_codes
                 {
                     public const string Name = "connection_role_connection_role_object_type_codes";
@@ -382,10 +400,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
                 ///     DisplayName:
                 ///         (English - United States - 1033): User Entity Instance Data
+                ///         (Russian - 1049): Данные экземпляра сущности пользователя
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Per User item instance data
+                ///         (Russian - 1049): Данные экземпляра позиции "на пользователя"
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship userentityinstancedata_connectionroleobjecttypecode")]
                 public static partial class userentityinstancedata_connectionroleobjecttypecode
                 {
                     public const string Name = "userentityinstancedata_connectionroleobjecttypecode";

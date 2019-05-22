@@ -6,12 +6,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///<summary>
         /// DisplayName:
         ///     (English - United States - 1033): Email Template
+        ///     (Russian - 1049): Шаблон электронной почты
         /// 
         /// DisplayCollectionName:
         ///     (English - United States - 1033): Email Templates
+        ///     (Russian - 1049): Шаблоны электронной почты
         /// 
         /// Description:
         ///     (English - United States - 1033): Template for an email message that contains the standard attributes of an email message.
+        ///     (Russian - 1049): Шаблон сообщения электронной почты, содержащий стандартные атрибуты сообщения электронной почты.
         /// 
         /// PropertyName                          Value
         /// ActivityTypeMask                      0
@@ -104,9 +107,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Email Template
+                ///     (Russian - 1049): Шаблон электронной почты
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the template.
+                ///     (Russian - 1049): Уникальный идентификатор шаблона.
                 /// 
                 /// SchemaName: TemplateId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -133,14 +138,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Email Template")]
                 public const string templateid = "templateid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Title
+                ///     (Russian - 1049): Обращение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Title of the template.
+                ///     (Russian - 1049): Название шаблона.
                 /// 
                 /// SchemaName: Title
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: ApplicationRequired
@@ -169,14 +177,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Title")]
                 public const string title = "title";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Body
+                ///     (Russian - 1049): Текст
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Body text of the email template.
+                ///     (Russian - 1049): Основной текст шаблона сообщения электронной почты.
                 /// 
                 /// SchemaName: Body
                 /// MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: None
@@ -205,14 +216,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Body")]
                 public const string body = "body";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Component State
+                ///     (Russian - 1049): Состояние компонента
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: ComponentState
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -224,9 +238,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): Component State
+                ///             (Russian - 1049): Состояние компонента
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): The state of this component.
+                ///             (Russian - 1049): Состояние этого компонента.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -247,14 +263,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Component State")]
                 public const string componentstate = "componentstate";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By
+                ///     (Russian - 1049): Создано
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who created the email template.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя, создавшего шаблон сообщения электронной почты.
                 /// 
                 /// SchemaName: CreatedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -266,12 +285,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -292,11 +314,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By")]
                 public const string createdby = "createdby";
 
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Name of the user who created the email template.
+                ///     (Russian - 1049): Имя пользователя, создавшего шаблон сообщения электронной почты.
                 /// 
                 /// SchemaName: CreatedByName
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'createdby'
@@ -330,6 +354,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): YomiName of the user who created the email template.
+                ///     (Russian - 1049): Фонетическое имя пользователя, создавшего шаблон электронного сообщения.
                 /// 
                 /// SchemaName: CreatedByYomiName
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    AttributeOf 'createdby'
@@ -363,9 +388,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created On
+                ///     (Russian - 1049): Дата создания
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the email template was created.
+                ///     (Russian - 1049): Дата и время создания шаблона сообщения электронной почты.
                 /// 
                 /// SchemaName: CreatedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -394,14 +421,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created On")]
                 public const string createdon = "createdon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By (Delegate)
+                ///     (Russian - 1049): Кем создано (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who created the template.
+                ///     (Russian - 1049): Уникальный идентификатор делегата, создавшего шаблон.
                 /// 
                 /// SchemaName: CreatedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -413,12 +443,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -439,6 +472,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By (Delegate)")]
                 public const string createdonbehalfby = "createdonbehalfby";
 
                 ///<summary>
@@ -504,9 +538,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Description
+                ///     (Russian - 1049): Описание
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Description of the email template.
+                ///     (Russian - 1049): Описание шаблона сообщения электронной почты.
                 /// 
                 /// SchemaName: Description
                 /// MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: None
@@ -535,14 +571,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Description")]
                 public const string description = "description";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Generation Type Code
+                ///     (Russian - 1049): Код типа создания
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: GenerationTypeCode
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -571,14 +610,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Generation Type Code")]
                 public const string generationtypecode = "generationtypecode";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Import Sequence Number
+                ///     (Russian - 1049): Порядковый номер импорта
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the data import or data migration that created this record.
+                ///     (Russian - 1049): Уникальный идентификатор импорта или переноса данных, создавшего эту запись.
                 /// 
                 /// SchemaName: ImportSequenceNumber
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -607,14 +649,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Import Sequence Number")]
                 public const string importsequencenumber = "importsequencenumber";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Introduced Version
+                ///     (Russian - 1049): Версия введения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Version in which the form is introduced.
+                ///     (Russian - 1049): Версия, в которой была введена форма.
                 /// 
                 /// SchemaName: IntroducedVersion
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -643,14 +688,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Introduced Version")]
                 public const string introducedversion = "introducedversion";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Customizable
+                ///     (Russian - 1049): Настраиваемый
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Information that specifies whether this component can be customized.
+                ///     (Russian - 1049): Сведения, указывающие на возможность настройки этого компонента.
                 /// 
                 /// SchemaName: IsCustomizable
                 /// ManagedPropertyAttributeMetadata    AttributeType: ManagedProperty    AttributeTypeName: ManagedPropertyType    RequiredLevel: SystemRequired
@@ -678,14 +726,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Customizable")]
                 public const string iscustomizable = "iscustomizable";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Is Managed
+                ///     (Russian - 1049): Управляемый
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Indicates whether the solution component is part of a managed solution.
+                ///     (Russian - 1049): Указывает, является ли компонент решения частью управляемого решения.
                 /// 
                 /// SchemaName: IsManaged
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
@@ -696,10 +747,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Unmanaged
+                ///     (Russian - 1049): Неуправляемый
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Managed
+                ///     (Russian - 1049): Управляемый
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -721,6 +774,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Is Managed")]
                 public const string ismanaged = "ismanaged";
 
                 ///<summary>
@@ -754,9 +808,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Viewable By
+                ///     (Russian - 1049): Доступно для просмотра
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Information about whether the template is personal or is available to all users.
+                ///     (Russian - 1049): Сведения о том, является ли шаблон личным или доступен всем пользователям.
                 /// 
                 /// SchemaName: IsPersonal
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
@@ -767,10 +823,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Organization
+                ///     (Russian - 1049): Предприятие
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Individual
+                ///     (Russian - 1049): Отдельное лицо
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -792,6 +850,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Viewable By")]
                 public const string ispersonal = "ispersonal";
 
                 ///<summary>
@@ -825,9 +884,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Recommended
+                ///     (Russian - 1049): Рекомендуется
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Indicates if a template is recommended by Dynamics 365.
+                ///     (Russian - 1049): Указывает, рекомендован ли шаблон для использования в Dynamics 365.
                 /// 
                 /// SchemaName: IsRecommended
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
@@ -838,10 +899,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): No
+                ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Yes
+                ///     (Russian - 1049): Да
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -863,6 +926,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Recommended")]
                 public const string isrecommended = "isrecommended";
 
                 ///<summary>
@@ -896,9 +960,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Language
+                ///     (Russian - 1049): Язык
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Language of the email template.
+                ///     (Russian - 1049): Язык шаблона сообщения электронной почты.
                 /// 
                 /// SchemaName: LanguageCode
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: ApplicationRequired
@@ -927,14 +993,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Language")]
                 public const string languagecode = "languagecode";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Mime Type
+                ///     (Russian - 1049): Тип MIME
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): MIME type of the email template.
+                ///     (Russian - 1049): Тип MIME шаблона сообщения электронной почты.
                 /// 
                 /// SchemaName: MimeType
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -963,14 +1032,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Mime Type")]
                 public const string mimetype = "mimetype";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By
+                ///     (Russian - 1049): Изменено
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who last modified the template.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя, внесшего последнее изменение в шаблон.
                 /// 
                 /// SchemaName: ModifiedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -982,12 +1054,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1008,6 +1083,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By")]
                 public const string modifiedby = "modifiedby";
 
                 ///<summary>
@@ -1073,9 +1149,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified On
+                ///     (Russian - 1049): Дата изменения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the email template was last modified.
+                ///     (Russian - 1049): Дата и время внесения последнего изменения шаблона сообщения электронной почты.
                 /// 
                 /// SchemaName: ModifiedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -1104,14 +1182,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified On")]
                 public const string modifiedon = "modifiedon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By (Delegate)
+                ///     (Russian - 1049): Кем изменено (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who last modified the template.
+                ///     (Russian - 1049): Уникальный идентификатор делегата, внесшего последнее изменение в шаблон.
                 /// 
                 /// SchemaName: ModifiedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1123,12 +1204,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1149,6 +1233,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By (Delegate)")]
                 public const string modifiedonbehalfby = "modifiedonbehalfby";
 
                 ///<summary>
@@ -1214,9 +1299,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Open Count
+                ///     (Russian - 1049): Количество открытий
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only. Shows the number of times emails that use this template have been opened.
+                ///     (Russian - 1049): Только для внутреннего использования. Показывает, сколько раз были открыты сообщения на основе этого шаблона.
                 /// 
                 /// SchemaName: OpenCount
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -1245,14 +1332,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Open Count")]
                 public const string opencount = "opencount";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Open Rate
+                ///     (Russian - 1049): Доля открытий
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows the open rate of this template. This is based on number of opens on followed emails that use this template.
+                ///     (Russian - 1049): Показывает долю открытий соответствующего шаблона. Показатель рассчитывается на основе количества открытий отслеживаемых сообщений, в которых используется этот шаблон.
                 /// 
                 /// SchemaName: OpenRate
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -1281,14 +1371,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Open Rate")]
                 public const string openrate = "openrate";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Record Overwrite Time
+                ///     (Russian - 1049): Время замены записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: OverwriteTime
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
@@ -1317,14 +1410,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Record Overwrite Time")]
                 public const string overwritetime = "overwritetime";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owner
+                ///     (Russian - 1049): Ответственный 
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user or team who owns the template for the email activity.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя или рабочей группы, которым принадлежит шаблон для действия электронной почты.
                 /// 
                 /// SchemaName: OwnerId
                 /// LookupAttributeMetadata    AttributeType: Owner    AttributeTypeName: OwnerType    RequiredLevel: SystemRequired
@@ -1336,22 +1432,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// 
                 ///     Target team    PrimaryIdAttribute teamid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Team
+                ///             (Russian - 1049): Рабочая группа
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Teams
+                ///             (Russian - 1049): Рабочие группы
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
+                ///             (Russian - 1049): Набор системных пользователей, которые обычно участвуют в совместной работе. Рабочие группы можно использовать для упрощения предоставления участникам группы общего доступа к записям и данным организации, если участники принадлежат к разным бизнес-единицам.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1372,6 +1474,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Owner")]
                 public const string ownerid = "ownerid";
 
                 ///<summary>
@@ -1465,9 +1568,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owning Business Unit
+                ///     (Russian - 1049): Ответственная бизнес-единица
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the business unit that owns the template.
+                ///     (Russian - 1049): Уникальный идентификатор бизнес-единицы, которой принадлежит шаблон.
                 /// 
                 /// SchemaName: OwningBusinessUnit
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1479,12 +1584,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target businessunit    PrimaryIdAttribute businessunitid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Business Unit
+                ///             (Russian - 1049): Бизнес-единица
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Business Units
+                ///             (Russian - 1049): Бизнес-единицы
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Business, division, or department in the Microsoft Dynamics 365 database.
+                ///             (Russian - 1049): Компания, подразделение или отдел в базе данных Microsoft Dynamics 365.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1505,14 +1613,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Owning Business Unit")]
                 public const string owningbusinessunit = "owningbusinessunit";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owning Team
+                ///     (Russian - 1049): Ответственная рабочая группа
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the team who owns the template.
+                ///     (Russian - 1049): Уникальный идентификатор рабочей группы, которой принадлежит шаблон.
                 /// 
                 /// SchemaName: OwningTeam
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1524,12 +1635,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target team    PrimaryIdAttribute teamid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Team
+                ///             (Russian - 1049): Рабочая группа
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Teams
+                ///             (Russian - 1049): Рабочие группы
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
+                ///             (Russian - 1049): Набор системных пользователей, которые обычно участвуют в совместной работе. Рабочие группы можно использовать для упрощения предоставления участникам группы общего доступа к записям и данным организации, если участники принадлежат к разным бизнес-единицам.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1550,14 +1664,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Owning Team")]
                 public const string owningteam = "owningteam";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owning User
+                ///     (Russian - 1049): Ответственный пользователь
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who owns the template.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя, которому принадлежит шаблон.
                 /// 
                 /// SchemaName: OwningUser
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1569,12 +1686,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1595,14 +1715,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Owning User")]
                 public const string owninguser = "owninguser";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Presentation XML
+                ///     (Russian - 1049): XML презентации
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): XML data for the body of the email template.
+                ///     (Russian - 1049): Данные XML для основного текста шаблона сообщения электронной почты.
                 /// 
                 /// SchemaName: PresentationXml
                 /// MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: None
@@ -1631,14 +1754,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Presentation XML")]
                 public const string presentationxml = "presentationxml";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Reply Count
+                ///     (Russian - 1049): Количество ответов
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only. Shows the number of times emails that use this template have received replies.
+                ///     (Russian - 1049): Только для внутреннего использования. Показывает, сколько раз были получены ответы на сообщения, где используется этот шаблон.
                 /// 
                 /// SchemaName: ReplyCount
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -1667,14 +1793,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Reply Count")]
                 public const string replycount = "replycount";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Reply Rate
+                ///     (Russian - 1049): Доля ответов
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows the reply rate for this template. This is based on number of replies received on followed emails that use this template.
+                ///     (Russian - 1049): Показывает долю ответов для соответствующего шаблона. Показатель рассчитывается на основе количества открытий отслеживаемых сообщений, где используется этот шаблон.
                 /// 
                 /// SchemaName: ReplyRate
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -1703,14 +1832,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Reply Rate")]
                 public const string replyrate = "replyrate";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the associated solution.
+                ///     (Russian - 1049): Уникальный идентификатор связанного решения.
                 /// 
                 /// SchemaName: SolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -1737,14 +1869,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string solutionid = "solutionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Subject
+                ///     (Russian - 1049): Тема
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Subject associated with the email template.
+                ///     (Russian - 1049): Тема, связанная с шаблоном сообщения электронной почты.
                 /// 
                 /// SchemaName: Subject
                 /// MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: ApplicationRequired
@@ -1773,14 +1908,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Subject")]
                 public const string subject = "subject";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Subject XML
+                ///     (Russian - 1049): XML темы
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): XML data for the subject of the email template.
+                ///     (Russian - 1049): Данные XML темы шаблона сообщения электронной почты.
                 /// 
                 /// SchemaName: SubjectPresentationXml
                 /// MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: None
@@ -1809,14 +1947,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Subject XML")]
                 public const string subjectpresentationxml = "subjectpresentationxml";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: SupportingSolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
@@ -1843,11 +1984,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string supportingsolutionid = "supportingsolutionid";
 
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: TemplateIdUnique
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -1874,14 +2017,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("For internal use only.")]
                 public const string templateidunique = "templateidunique";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Template Type
+                ///     (Russian - 1049): Тип шаблона
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Type of email template.
+                ///     (Russian - 1049): Тип шаблона электронной почты.
                 /// 
                 /// SchemaName: TemplateTypeCode
                 /// EntityNameAttributeMetadata    AttributeType: EntityName    AttributeTypeName: EntityNameType    RequiredLevel: SystemRequired
@@ -1910,6 +2056,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Template Type")]
                 public const string templatetypecode = "templatetypecode";
 
                 ///<summary>
@@ -1943,9 +2090,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Sent email count
+                ///     (Russian - 1049): Количество отправленных сообщений
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows the number of sent emails that use this template.
+                ///     (Russian - 1049): Показывает количество отправленных электронных сообщений, в которых используется этот шаблон.
                 /// 
                 /// SchemaName: UsedCount
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -1974,14 +2123,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Sent email count")]
                 public const string usedcount = "usedcount";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Version Number
+                ///     (Russian - 1049): Номер версии
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Version number of the template.
+                ///     (Russian - 1049): Номер версии шаблона.
                 /// 
                 /// SchemaName: VersionNumber
                 /// BigIntAttributeMetadata    AttributeType: BigInt    AttributeTypeName: BigIntType    RequiredLevel: None
@@ -2009,6 +2161,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Version Number")]
                 public const string versionnumber = "versionnumber";
             }
 
@@ -2044,13 +2197,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity businessunit:    PrimaryIdAttribute businessunitid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Business Unit
+                ///         (Russian - 1049): Бизнес-единица
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Business Units
+                ///         (Russian - 1049): Бизнес-единицы
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Business, division, or department in the Microsoft Dynamics 365 database.
+                ///         (Russian - 1049): Компания, подразделение или отдел в базе данных Microsoft Dynamics 365.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship business_unit_templates")]
                 public static partial class business_unit_templates
                 {
                     public const string Name = "business_unit_templates";
@@ -2092,13 +2249,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_templatebase_createdby")]
                 public static partial class lk_templatebase_createdby
                 {
                     public const string Name = "lk_templatebase_createdby";
@@ -2140,13 +2301,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_templatebase_createdonbehalfby")]
                 public static partial class lk_templatebase_createdonbehalfby
                 {
                     public const string Name = "lk_templatebase_createdonbehalfby";
@@ -2188,13 +2353,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_templatebase_modifiedby")]
                 public static partial class lk_templatebase_modifiedby
                 {
                     public const string Name = "lk_templatebase_modifiedby";
@@ -2236,13 +2405,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_templatebase_modifiedonbehalfby")]
                 public static partial class lk_templatebase_modifiedonbehalfby
                 {
                     public const string Name = "lk_templatebase_modifiedonbehalfby";
@@ -2284,13 +2457,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity owner:    PrimaryIdAttribute ownerid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Owner
+                ///         (Russian - 1049): Ответственный
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Owners
+                ///         (Russian - 1049): Ответственные
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Group of undeleted system users and undeleted teams. Owners can be used to control access to specific objects.
+                ///         (Russian - 1049): Группа для восстановленных системных пользователей и рабочих групп. Для контроля доступа к конкретным объектам можно использовать ответственных.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship owner_templates")]
                 public static partial class owner_templates
                 {
                     public const string Name = "owner_templates";
@@ -2332,13 +2509,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship system_user_email_templates")]
                 public static partial class system_user_email_templates
                 {
                     public const string Name = "system_user_email_templates";
@@ -2380,13 +2561,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity team:    PrimaryIdAttribute teamid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Team
+                ///         (Russian - 1049): Рабочая группа
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Teams
+                ///         (Russian - 1049): Рабочие группы
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
+                ///         (Russian - 1049): Набор системных пользователей, которые обычно участвуют в совместной работе. Рабочие группы можно использовать для упрощения предоставления участникам группы общего доступа к записям и данным организации, если участники принадлежат к разным бизнес-единицам.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship team_email_templates")]
                 public static partial class team_email_templates
                 {
                     public const string Name = "team_email_templates";
@@ -2435,13 +2620,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity email:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Email
+                ///         (Russian - 1049): Электронная почта
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Email Messages
+                ///         (Russian - 1049): Сообщения электронной почты
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Activity that is delivered using email protocols.
+                ///         (Russian - 1049): Действие, передаваемое с помощью протоколов электронной почты.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship Email_EmailTemplate")]
                 public static partial class email_emailtemplate
                 {
                     public const string Name = "Email_EmailTemplate";
@@ -2483,13 +2672,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity convertrule:    PrimaryIdAttribute convertruleid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Record Creation and Update Rule
+                ///         (Russian - 1049): Правило создания и обновления записей
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Record Creation and Update Rules
+                ///         (Russian - 1049): Правила создания и обновления записей
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Defines the settings for automatic record creation.
+                ///         (Russian - 1049): Определяет параметры автоматического создания записей.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship emailtemplate_convertrule")]
                 public static partial class emailtemplate_convertrule
                 {
                     public const string Name = "emailtemplate_convertrule";
@@ -2531,13 +2724,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity activitymimeattachment:    PrimaryIdAttribute activitymimeattachmentid    PrimaryNameAttribute filename
                 ///     DisplayName:
                 ///         (English - United States - 1033): Attachment
+                ///         (Russian - 1049): Вложение
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Attachments
+                ///         (Russian - 1049): Вложения
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): MIME attachment for an activity.
+                ///         (Russian - 1049): Вложение MIME для действия.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship template_activity_mime_attachments")]
                 public static partial class template_activity_mime_attachments
                 {
                     public const string Name = "template_activity_mime_attachments";
@@ -2579,13 +2776,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity asyncoperation:    PrimaryIdAttribute asyncoperationid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): System Job
+                ///         (Russian - 1049): Системное задание
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): System Jobs
+                ///         (Russian - 1049): Системные задания
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Process whose execution can proceed independently or in the background.
+                ///         (Russian - 1049): Процесс, который может выполняться независимо или в фоновом режиме.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship Template_AsyncOperations")]
                 public static partial class template_asyncoperations
                 {
                     public const string Name = "Template_AsyncOperations";
@@ -2627,13 +2828,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity bulkdeletefailure:    PrimaryIdAttribute bulkdeletefailureid
                 ///     DisplayName:
                 ///         (English - United States - 1033): Bulk Delete Failure
+                ///         (Russian - 1049): Ошибка группового удаления
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Bulk Delete Failures
+                ///         (Russian - 1049): Ошибки группового удаления
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Record that was not deleted during a bulk deletion job.
+                ///         (Russian - 1049): Запись не была удалена во время задания группового удаления.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship Template_BulkDeleteFailures")]
                 public static partial class template_bulkdeletefailures
                 {
                     public const string Name = "Template_BulkDeleteFailures";
@@ -2673,13 +2878,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity organization:    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Organization
+                ///         (Russian - 1049): Предприятие
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Organizations
+                ///         (Russian - 1049): Предприятия
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
+                ///         (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship Template_Organization")]
                 public static partial class template_organization
                 {
                     public const string Name = "Template_Organization";
@@ -2721,13 +2930,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity processsession:    PrimaryIdAttribute processsessionid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Process Session
+                ///         (Russian - 1049): Сеанс процесса
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Process Sessions
+                ///         (Russian - 1049): Сеансы процесса
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Information that is generated when a dialog is run. Every time that you run a dialog, a dialog session is created.
+                ///         (Russian - 1049): Информация, созданная после запуска диалогового окна. При каждом запуске диалогового окна создается сеанс диалогового окна.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship Template_ProcessSessions")]
                 public static partial class template_processsessions
                 {
                     public const string Name = "Template_ProcessSessions";
@@ -2769,13 +2982,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity syncerror:    PrimaryIdAttribute syncerrorid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Sync Error
+                ///         (Russian - 1049): Ошибка синхронизации
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Sync Errors
+                ///         (Russian - 1049): Ошибки синхронизации
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Failure reason and other detailed information for a record that failed to sync.
+                ///         (Russian - 1049): Причина сбоя и другие подробные сведения о записи, при синхронизации которой произошла ошибка.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship Template_SyncErrors")]
                 public static partial class template_syncerrors
                 {
                     public const string Name = "Template_SyncErrors";
@@ -2817,10 +3034,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
                 ///     DisplayName:
                 ///         (English - United States - 1033): User Entity Instance Data
+                ///         (Russian - 1049): Данные экземпляра сущности пользователя
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Per User item instance data
+                ///         (Russian - 1049): Данные экземпляра позиции "на пользователя"
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship userentityinstancedata_template")]
                 public static partial class userentityinstancedata_template
                 {
                     public const string Name = "userentityinstancedata_template";

@@ -6,12 +6,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///<summary>
         /// DisplayName:
         ///     (English - United States - 1033): SLA
+        ///     (Russian - 1049): Соглашение об уровне обслуживания
         /// 
         /// DisplayCollectionName:
         ///     (English - United States - 1033): SLAs
         /// 
         /// Description:
         ///     (English - United States - 1033): Contains information about the tracked service-level KPIs for cases that belong to different customers.
+        ///     (Russian - 1049): Содержит информацию об отслеживаемых ключевых индикаторах уровня обслуживания (KPI) для обращений, принадлежащих разным клиентам.
         /// 
         /// PropertyName                          Value
         /// ActivityTypeMask                      1
@@ -103,9 +105,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): SLA
+                ///     (Russian - 1049): Соглашение об уровне обслуживания
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the SLA.
+                ///     (Russian - 1049): Уникальный идентификатор SLA.
                 /// 
                 /// SchemaName: SLAId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -132,14 +136,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("SLA")]
                 public const string slaid = "slaid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Name
+                ///     (Russian - 1049): Имя
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Type a descriptive name of the service level agreement (SLA).
+                ///     (Russian - 1049): Введите описательное имя соглашения об уровнях обслуживания (SLA).
                 /// 
                 /// SchemaName: Name
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
@@ -168,14 +175,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Name")]
                 public const string name = "name";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Allow Pause and Resume
+                ///     (Russian - 1049): Разрешать приостановку и возобновление
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Select whether this SLA will allow pausing and resuming during the time calculation.
+                ///     (Russian - 1049): Укажите, будут ли для этого SLA при расчете времени разрешены приостановка и возобновление.
                 /// 
                 /// SchemaName: AllowPauseResume
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
@@ -186,10 +196,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Do Not Allow
+                ///     (Russian - 1049): Запретить
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Allow
+                ///     (Russian - 1049): Разрешить
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -211,6 +223,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Allow Pause and Resume")]
                 public const string allowpauseresume = "allowpauseresume";
 
                 ///<summary>
@@ -244,9 +257,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Applicable From
+                ///     (Russian - 1049): Применимо из
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Select the field that specifies the date and time from which the SLA items will be calculated for the case record. For example, if you select the Case Created On field, SLA calculation will begin from the time the case is created. 
+                ///     (Russian - 1049): Укажите поле, задающее дату и время, от которых будут рассчитываться элементы SLA для записи обращения. Например, если выбрано поле "Обращение, созданное от", расчет SLA начнется с момента создания обращения. 
                 /// 
                 /// SchemaName: ApplicableFrom
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
@@ -275,6 +290,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Applicable From")]
                 public const string applicablefrom = "applicablefrom";
 
                 ///<summary>
@@ -308,9 +324,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Applicable From
+                ///     (Russian - 1049): Применимо из
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Select the field that specifies the date and time from which the SLA items will be calculated. For example, if you select the Case Created On field, SLA calculation will begin from the time the case is created.
+                ///     (Russian - 1049): Укажите поле, задающее дату и время, от которых будут рассчитываться элементы SLA. Например, если выбрано поле "Обращение, созданное от", расчет SLA начнется с момента создания обращения.
                 /// 
                 /// SchemaName: ApplicableFromPickList
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: None
@@ -339,14 +357,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Applicable From")]
                 public const string applicablefrompicklist = "applicablefrompicklist";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Business Hours
+                ///     (Russian - 1049): Рабочие часы
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Choose the business hours for calculating SLA item timelines.
+                ///     (Russian - 1049): Выберите рабочие часы для расчета конкретных дат элемента SLA.
                 /// 
                 /// SchemaName: BusinessHoursId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -358,12 +379,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target calendar    PrimaryIdAttribute calendarid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Calendar
+                ///             (Russian - 1049): Календарь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Calendars
+                ///             (Russian - 1049): Календари
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Calendar used by the scheduling system to define when an appointment or activity is to occur.
+                ///             (Russian - 1049): Календарь, используемый системой планирования для определения времени проведения встречи или выполнения действия.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -384,6 +408,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Business Hours")]
                 public const string businesshoursid = "businesshoursid";
 
                 ///<summary>
@@ -422,6 +447,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Type additional information to describe the SLA
+                ///     (Russian - 1049): Введите дополнительные сведения, описывающие SLA
                 /// 
                 /// SchemaName: ChangedAttributeList
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -450,14 +476,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("ChangedAttributeList")]
                 public const string changedattributelist = "changedattributelist";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Component State
+                ///     (Russian - 1049): Состояние компонента
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: ComponentState
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -469,9 +498,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): Component State
+                ///             (Russian - 1049): Состояние компонента
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): The state of this component.
+                ///             (Russian - 1049): Состояние этого компонента.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -492,14 +523,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Component State")]
                 public const string componentstate = "componentstate";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By
+                ///     (Russian - 1049): Создано
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows who created the record.
+                ///     (Russian - 1049): Показывает, кто создал запись.
                 /// 
                 /// SchemaName: CreatedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -511,12 +545,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -537,6 +574,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By")]
                 public const string createdby = "createdby";
 
                 ///<summary>
@@ -602,9 +640,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created On
+                ///     (Russian - 1049): Дата создания
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows the date and time when the record was created. The date and time are displayed in the time zone selected in Microsoft Dynamics 365 options.
+                ///     (Russian - 1049): Показывает дату и время, в которые была создана запись. Дата и время отображаются для часового пояса, выбранного в параметрах Microsoft Dynamics 365.
                 /// 
                 /// SchemaName: CreatedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -633,14 +673,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created On")]
                 public const string createdon = "createdon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By (Delegate)
+                ///     (Russian - 1049): Кем создано (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows who created the record on behalf of another user.
+                ///     (Russian - 1049): Показывает, кто создал запись от имени другого пользователя.
                 /// 
                 /// SchemaName: CreatedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -652,12 +695,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -678,6 +724,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By (Delegate)")]
                 public const string createdonbehalfby = "createdonbehalfby";
 
                 ///<summary>
@@ -743,9 +790,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Description
+                ///     (Russian - 1049): Описание
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Type additional information to describe the SLA
+                ///     (Russian - 1049): Введите дополнительные сведения, описывающие SLA
                 /// 
                 /// SchemaName: Description
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -774,14 +823,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Description")]
                 public const string description = "description";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Exchange Rate
+                ///     (Russian - 1049): Валютный курс
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Exchange rate between the currency associated with the SLA record and the base currency.
+                ///     (Russian - 1049): Обменный курс валюты, связанной с записью SLA, по отношению к базовой валюте.
                 /// 
                 /// SchemaName: ExchangeRate
                 /// DecimalAttributeMetadata    AttributeType: Decimal    AttributeTypeName: DecimalType    RequiredLevel: None
@@ -810,14 +862,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Exchange Rate")]
                 public const string exchangerate = "exchangerate";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Is Default
+                ///     (Russian - 1049): По умолчанию
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Tells whether this SLA is the default one.
+                ///     (Russian - 1049): Сообщает, используется ли данное SLA по умолчанию.
                 /// 
                 /// SchemaName: IsDefault
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
@@ -828,10 +883,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): No
+                ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Yes
+                ///     (Russian - 1049): Да
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -853,6 +910,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Is Default")]
                 public const string isdefault = "isdefault";
 
                 ///<summary>
@@ -886,9 +944,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Is Managed
+                ///     (Russian - 1049): Управляемый
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: IsManaged
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
@@ -899,10 +959,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Unmanaged
+                ///     (Russian - 1049): Неуправляемый
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Managed
+                ///     (Russian - 1049): Управляемый
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -924,14 +986,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Is Managed")]
                 public const string ismanaged = "ismanaged";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By
+                ///     (Russian - 1049): Изменено
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows who last updated the record.
+                ///     (Russian - 1049): Показывает, кто последний обновил запись.
                 /// 
                 /// SchemaName: ModifiedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -943,12 +1008,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -969,6 +1037,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By")]
                 public const string modifiedby = "modifiedby";
 
                 ///<summary>
@@ -1034,9 +1103,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified On
+                ///     (Russian - 1049): Дата изменения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows the date and time when the record was last updated. The date and time are displayed in the time zone selected in Microsoft Dynamics 365 options.
+                ///     (Russian - 1049): Показывает дату и время последнего обновления записи. Дата и время отображаются для часового пояса, выбранного в параметрах Microsoft Dynamics 365.
                 /// 
                 /// SchemaName: ModifiedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -1065,14 +1136,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified On")]
                 public const string modifiedon = "modifiedon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By (Delegate)
+                ///     (Russian - 1049): Кем изменено (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows who created the record on behalf of another user.
+                ///     (Russian - 1049): Показывает, кто создал запись от имени другого пользователя.
                 /// 
                 /// SchemaName: ModifiedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1084,12 +1158,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1110,6 +1187,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By (Delegate)")]
                 public const string modifiedonbehalfby = "modifiedonbehalfby";
 
                 ///<summary>
@@ -1175,9 +1253,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Object Type Code
+                ///     (Russian - 1049): Код типа объекта
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Choose the entity type that the SLA is defined.
+                ///     (Russian - 1049): Выберите тип сущности, которой определено SLA.
                 /// 
                 /// SchemaName: ObjectTypeCode
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: None
@@ -1206,6 +1286,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Object Type Code")]
                 public const string objecttypecode = "objecttypecode";
 
                 ///<summary>
@@ -1239,9 +1320,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Record Overwrite Time
+                ///     (Russian - 1049): Время замены записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: OverwriteTime
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
@@ -1270,14 +1353,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Record Overwrite Time")]
                 public const string overwritetime = "overwritetime";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owner
+                ///     (Russian - 1049): Ответственный
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Enter the user or team who owns the SLA. This field is updated every time the item is assigned to a different user.
+                ///     (Russian - 1049): Введите пользователя или рабочую группу, которым принадлежит SLA. Это поле обновляется при каждом назначении элемента другому пользователю.
                 /// 
                 /// SchemaName: OwnerId
                 /// LookupAttributeMetadata    AttributeType: Owner    AttributeTypeName: OwnerType    RequiredLevel: SystemRequired
@@ -1289,12 +1375,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1315,6 +1404,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Owner")]
                 public const string ownerid = "ownerid";
 
                 ///<summary>
@@ -1408,9 +1498,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owning Business Unit
+                ///     (Russian - 1049): Ответственная бизнес-единица
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier for the business unit that owns the record
+                ///     (Russian - 1049): Уникальный идентификатор бизнес-единицы, владеющей этой записью
                 /// 
                 /// SchemaName: OwningBusinessUnit
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1422,12 +1514,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target businessunit    PrimaryIdAttribute businessunitid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Business Unit
+                ///             (Russian - 1049): Бизнес-единица
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Business Units
+                ///             (Russian - 1049): Бизнес-единицы
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Business, division, or department in the Microsoft Dynamics 365 database.
+                ///             (Russian - 1049): Компания, подразделение или отдел в базе данных Microsoft Dynamics 365.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1448,14 +1543,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Owning Business Unit")]
                 public const string owningbusinessunit = "owningbusinessunit";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owning Team
+                ///     (Russian - 1049): Ответственная рабочая группа
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier for the team that owns the record.
+                ///     (Russian - 1049): Уникальный идентификатор группы, которой принадлежит запись.
                 /// 
                 /// SchemaName: OwningTeam
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1467,12 +1565,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target team    PrimaryIdAttribute teamid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Team
+                ///             (Russian - 1049): Рабочая группа
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Teams
+                ///             (Russian - 1049): Рабочие группы
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
+                ///             (Russian - 1049): Набор системных пользователей, которые обычно участвуют в совместной работе. Рабочие группы можно использовать для упрощения предоставления участникам группы общего доступа к записям и данным организации, если участники принадлежат к разным бизнес-единицам.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1493,14 +1594,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Owning Team")]
                 public const string owningteam = "owningteam";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owning User
+                ///     (Russian - 1049): Ответственный пользователь
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier for the user that owns the record.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя, которому принадлежит эта запись.
                 /// 
                 /// SchemaName: OwningUser
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1512,12 +1616,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1538,14 +1645,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Owning User")]
                 public const string owninguser = "owninguser";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Primary Entity
+                ///     (Russian - 1049): Основная сущность
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows the primary entity that the SLA has been created for.
+                ///     (Russian - 1049): Показывает основную сущность, для которой было создано SLA.
                 /// 
                 /// SchemaName: PrimaryEntityOTC
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: SystemRequired
@@ -1574,14 +1684,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Primary Entity")]
                 public const string primaryentityotc = "primaryentityotc";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Unique Id
+                ///     (Russian - 1049): Уникальный идентификатор
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: SLAIdUnique
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -1608,14 +1721,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Unique Id")]
                 public const string slaidunique = "slaidunique";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): SLA Type
+                ///     (Russian - 1049): Тип SLA
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Select the type of service level agreement (SLA).
+                ///     (Russian - 1049): Выберите тип соглашения об уровне обслуживания (SLA).
                 /// 
                 /// SchemaName: SLAType
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -1644,6 +1760,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("SLA Type")]
                 public const string slatype = "slatype";
 
                 ///<summary>
@@ -1677,9 +1794,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the associated solution.
+                ///     (Russian - 1049): Уникальный идентификатор связанного решения.
                 /// 
                 /// SchemaName: SolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -1706,14 +1825,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string solutionid = "solutionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Status
+                ///     (Russian - 1049): Состояние
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows whether the Service Level Agreement (SLA) is active or inactive.
+                ///     (Russian - 1049): Указывает, активно или неактивно SLA.
                 /// 
                 /// SchemaName: StateCode
                 /// StateAttributeMetadata    AttributeType: State    AttributeTypeName: StateType    RequiredLevel: SystemRequired
@@ -1741,6 +1863,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Status")]
                 public const string statecode = "statecode";
 
                 ///<summary>
@@ -1774,9 +1897,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Status Reason
+                ///     (Russian - 1049): Причина состояния
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Select the status of the service level agreement (SLA).
+                ///     (Russian - 1049): Укажите состояние соглашения об уровне обслуживания (SLA).
                 /// 
                 /// SchemaName: StatusCode
                 /// StatusAttributeMetadata    AttributeType: Status    AttributeTypeName: StatusType    RequiredLevel: None
@@ -1804,6 +1929,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Status Reason")]
                 public const string statuscode = "statuscode";
 
                 ///<summary>
@@ -1837,9 +1963,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: SupportingSolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
@@ -1866,14 +1994,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string supportingsolutionid = "supportingsolutionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Currency
+                ///     (Russian - 1049): Валюта
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the currency associated with the SLA record.
+                ///     (Russian - 1049): Уникальный идентификатор валюты, связанной с записью SLA.
                 /// 
                 /// SchemaName: TransactionCurrencyId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1885,12 +2016,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target transactioncurrency    PrimaryIdAttribute transactioncurrencyid    PrimaryNameAttribute currencyname
                 ///         DisplayName:
                 ///             (English - United States - 1033): Currency
+                ///             (Russian - 1049): Валюта
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Currencies
+                ///             (Russian - 1049): Валюты
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Currency in which a financial transaction is carried out.
+                ///             (Russian - 1049): Валюта, в которой выполняется финансовая операция.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1911,6 +2045,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Currency")]
                 public const string transactioncurrencyid = "transactioncurrencyid";
 
                 ///<summary>
@@ -1946,9 +2081,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Version Number
+                ///     (Russian - 1049): Номер версии
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Version number of the SLA.
+                ///     (Russian - 1049): Номер версии SLA.
                 /// 
                 /// SchemaName: VersionNumber
                 /// BigIntAttributeMetadata    AttributeType: BigInt    AttributeTypeName: BigIntType    RequiredLevel: None
@@ -1976,14 +2113,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Version Number")]
                 public const string versionnumber = "versionnumber";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Workflow ID
+                ///     (Russian - 1049): Идентификатор бизнес-процесса
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Workflow associated with the SLA.
+                ///     (Russian - 1049): Бизнес-процесс, связанный с SLA.
                 /// 
                 /// SchemaName: WorkflowId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1995,12 +2135,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target workflow    PrimaryIdAttribute workflowid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Process
+                ///             (Russian - 1049): Процесс
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Processes
+                ///             (Russian - 1049): Процессы
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Set of logical rules that define the steps necessary to automate a specific business process, task, or set of actions to be performed.
+                ///             (Russian - 1049): Задайте логические правила, определяющие необходимые действия для автоматизации конкретных бизнес-процессов, заданий или наборов действий.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -2021,6 +2164,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Workflow ID")]
                 public const string workflowid = "workflowid";
 
                 ///<summary>
@@ -2067,10 +2211,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Status
+                ///     (Russian - 1049): Состояние
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows whether the Service Level Agreement (SLA) is active or inactive.
+                ///     (Russian - 1049): Указывает, активно или неактивно SLA.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Status")]
                 public enum statecode
                 {
                     ///<summary>
@@ -2080,7 +2227,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Draft
+                    ///     (Russian - 1049): Черновик
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Draft")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Draft_0 = 0,
 
@@ -2091,7 +2240,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Active
+                    ///     (Russian - 1049): Активный
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Active")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Active_1 = 1,
                 }
@@ -2102,10 +2253,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Status
+                ///     (Russian - 1049): Состояние
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows whether the Service Level Agreement (SLA) is active or inactive.
+                ///     (Russian - 1049): Указывает, активно или неактивно SLA.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Status Reason")]
                 public enum statuscode
                 {
                     ///<summary>
@@ -2114,7 +2268,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Draft
+                    ///     (Russian - 1049): Черновик
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Draft")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Draft_0_Draft_1 = 1,
 
@@ -2124,7 +2280,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Active
+                    ///     (Russian - 1049): Активный
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Active")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Active_1_Active_2 = 2,
                 }
@@ -2139,15 +2297,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Applicable From
+                ///     (Russian - 1049): Применимо из
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Select the field that specifies the date and time from which the SLA items will be calculated. For example, if you select the Case Created On field, SLA calculation will begin from the time the case is created.
+                ///     (Russian - 1049): Укажите поле, задающее дату и время, от которых будут рассчитываться элементы SLA. Например, если выбрано поле "Обращение, созданное от", расчет SLA начнется с момента создания обращения.
                 /// 
                 /// Local System  OptionSet slabase_applicablefrom
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Date Attributes of case
+                ///     (Russian - 1049): Атрибуты даты обращения
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Date Attributes of case")]
                 public enum applicablefrompicklist
                 {
                     ///<summary>
@@ -2156,7 +2318,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): No
+                    ///     (Russian - 1049): Нет
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("No")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     No_1 = 1,
 
@@ -2166,7 +2330,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Yes
+                    ///     (Russian - 1049): Да
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Yes")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Yes_2 = 2,
                 }
@@ -2177,19 +2343,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Object Type Code
+                ///     (Russian - 1049): Код типа объекта
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Choose the entity type that the SLA is defined.
+                ///     (Russian - 1049): Выберите тип сущности, которой определено SLA.
                 /// 
                 /// Local System  OptionSet sla_objecttypecode
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Object Type Code
+                ///     (Russian - 1049): Код типа объекта
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): The entity the SLA is applicable from.
+                ///     (Russian - 1049): Сущность, из которой применимо SLA.
                 ///</summary>
-                //public enum objecttypecode
+                // public enum objecttypecode
 
                 ///<summary>
                 /// Attribute:
@@ -2197,18 +2367,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): SLA Type
+                ///     (Russian - 1049): Тип SLA
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Select the type of service level agreement (SLA).
+                ///     (Russian - 1049): Выберите тип соглашения об уровне обслуживания (SLA).
                 /// 
                 /// Local System  OptionSet sla_slatype
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): SLA Type
+                ///     (Russian - 1049): Тип SLA
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Tells whether whether SLA KPI Instances will be used for saving SLA status and failure time.
+                ///     (Russian - 1049): Указывает, будут ли использоваться экземпляры ключевых показателей эффективности соглашения об уровне обслуживания для сохранения статуса соглашения об уровне обслуживания и регистрации времени сбоя.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("SLA Type")]
                 public enum slatype
                 {
                     ///<summary>
@@ -2217,7 +2392,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Standard
+                    ///     (Russian - 1049): Стандартный
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Standard")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Standard_0 = 0,
 
@@ -2227,7 +2404,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Enhanced
+                    ///     (Russian - 1049): Улучшенный
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Enhanced")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Enhanced_1 = 1,
                 }
@@ -2267,13 +2446,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity businessunit:    PrimaryIdAttribute businessunitid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Business Unit
+                ///         (Russian - 1049): Бизнес-единица
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Business Units
+                ///         (Russian - 1049): Бизнес-единицы
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Business, division, or department in the Microsoft Dynamics 365 database.
+                ///         (Russian - 1049): Компания, подразделение или отдел в базе данных Microsoft Dynamics 365.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship business_unit_slabase")]
                 public static partial class business_unit_slabase
                 {
                     public const string Name = "business_unit_slabase";
@@ -2315,13 +2498,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_slabase_createdby")]
                 public static partial class lk_slabase_createdby
                 {
                     public const string Name = "lk_slabase_createdby";
@@ -2363,13 +2550,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_slabase_createdonbehalfby")]
                 public static partial class lk_slabase_createdonbehalfby
                 {
                     public const string Name = "lk_slabase_createdonbehalfby";
@@ -2411,13 +2602,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_slabase_modifiedby")]
                 public static partial class lk_slabase_modifiedby
                 {
                     public const string Name = "lk_slabase_modifiedby";
@@ -2459,13 +2654,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_slabase_modifiedonbehalfby")]
                 public static partial class lk_slabase_modifiedonbehalfby
                 {
                     public const string Name = "lk_slabase_modifiedonbehalfby";
@@ -2507,13 +2706,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity owner:    PrimaryIdAttribute ownerid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Owner
+                ///         (Russian - 1049): Ответственный
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Owners
+                ///         (Russian - 1049): Ответственные
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Group of undeleted system users and undeleted teams. Owners can be used to control access to specific objects.
+                ///         (Russian - 1049): Группа для восстановленных системных пользователей и рабочих групп. Для контроля доступа к конкретным объектам можно использовать ответственных.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship owner_slas")]
                 public static partial class owner_slas
                 {
                     public const string Name = "owner_slas";
@@ -2555,13 +2758,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity calendar:    PrimaryIdAttribute calendarid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Calendar
+                ///         (Russian - 1049): Календарь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Calendars
+                ///         (Russian - 1049): Календари
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Calendar used by the scheduling system to define when an appointment or activity is to occur.
+                ///         (Russian - 1049): Календарь, используемый системой планирования для определения времени проведения встречи или выполнения действия.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship slabase_businesshoursid")]
                 public static partial class slabase_businesshoursid
                 {
                     public const string Name = "slabase_businesshoursid";
@@ -2603,13 +2810,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity workflow:    PrimaryIdAttribute workflowid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Process
+                ///         (Russian - 1049): Процесс
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Processes
+                ///         (Russian - 1049): Процессы
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Set of logical rules that define the steps necessary to automate a specific business process, task, or set of actions to be performed.
+                ///         (Russian - 1049): Задайте логические правила, определяющие необходимые действия для автоматизации конкретных бизнес-процессов, заданий или наборов действий.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship slabase_workflowid")]
                 public static partial class slabase_workflowid
                 {
                     public const string Name = "slabase_workflowid";
@@ -2651,13 +2862,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity team:    PrimaryIdAttribute teamid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Team
+                ///         (Russian - 1049): Рабочая группа
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Teams
+                ///         (Russian - 1049): Рабочие группы
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
+                ///         (Russian - 1049): Набор системных пользователей, которые обычно участвуют в совместной работе. Рабочие группы можно использовать для упрощения предоставления участникам группы общего доступа к записям и данным организации, если участники принадлежат к разным бизнес-единицам.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship team_slaBase")]
                 public static partial class team_slabase
                 {
                     public const string Name = "team_slaBase";
@@ -2699,13 +2914,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity transactioncurrency:    PrimaryIdAttribute transactioncurrencyid    PrimaryNameAttribute currencyname
                 ///     DisplayName:
                 ///         (English - United States - 1033): Currency
+                ///         (Russian - 1049): Валюта
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Currencies
+                ///         (Russian - 1049): Валюты
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Currency in which a financial transaction is carried out.
+                ///         (Russian - 1049): Валюта, в которой выполняется финансовая операция.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship TransactionCurrency_SLA")]
                 public static partial class transactioncurrency_sla
                 {
                     public const string Name = "TransactionCurrency_SLA";
@@ -2747,13 +2966,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship user_slabase")]
                 public static partial class user_slabase
                 {
                     public const string Name = "user_slabase";
@@ -2802,13 +3025,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity bulkoperation:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Quick Campaign
+                ///         (Russian - 1049): Быстрая кампания
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Quick Campaigns
+                ///         (Russian - 1049): Быстрые кампании
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): System operation used to perform lengthy and asynchronous operations on large data sets, such as distributing a campaign activity or quick campaign.
+                ///         (Russian - 1049): Системная операция, которая выполняла длительные и асинхронные операции над крупными наборами данных (например, распространение действия кампании и быстрой кампании).
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship bulkoperation_sla_slaid")]
                 public static partial class bulkoperation_sla_slaid
                 {
                     public const string Name = "bulkoperation_sla_slaid";
@@ -2850,13 +3077,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity bulkoperation:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Quick Campaign
+                ///         (Russian - 1049): Быстрая кампания
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Quick Campaigns
+                ///         (Russian - 1049): Быстрые кампании
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): System operation used to perform lengthy and asynchronous operations on large data sets, such as distributing a campaign activity or quick campaign.
+                ///         (Russian - 1049): Системная операция, которая выполняла длительные и асинхронные операции над крупными наборами данных (например, распространение действия кампании и быстрой кампании).
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship bulkoperation_sla_slainvokedid")]
                 public static partial class bulkoperation_sla_slainvokedid
                 {
                     public const string Name = "bulkoperation_sla_slainvokedid";
@@ -2898,13 +3129,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity campaignactivity:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Campaign Activity
+                ///         (Russian - 1049): Действие кампании
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Campaign Activities
+                ///         (Russian - 1049): Действия кампаний
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Task performed, or to be performed, by a user for planning or running a campaign.
+                ///         (Russian - 1049): Выполненная пользователем задача или задача, которую пользователь должен выполнить для планирования или проведения кампании.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship campaignactivity_sla_slaid")]
                 public static partial class campaignactivity_sla_slaid
                 {
                     public const string Name = "campaignactivity_sla_slaid";
@@ -2946,13 +3181,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity campaignactivity:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Campaign Activity
+                ///         (Russian - 1049): Действие кампании
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Campaign Activities
+                ///         (Russian - 1049): Действия кампаний
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Task performed, or to be performed, by a user for planning or running a campaign.
+                ///         (Russian - 1049): Выполненная пользователем задача или задача, которую пользователь должен выполнить для планирования или проведения кампании.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship campaignactivity_sla_slainvokedid")]
                 public static partial class campaignactivity_sla_slainvokedid
                 {
                     public const string Name = "campaignactivity_sla_slainvokedid";
@@ -2994,13 +3233,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity campaignresponse:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Campaign Response
+                ///         (Russian - 1049): Отклик от кампании
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Campaign Responses
+                ///         (Russian - 1049): Отклики от кампании
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Response from an existing or a potential new customer for a campaign.
+                ///         (Russian - 1049): Отклик существующего или потенциального клиента от кампании.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship campaignresponse_sla_slaid")]
                 public static partial class campaignresponse_sla_slaid
                 {
                     public const string Name = "campaignresponse_sla_slaid";
@@ -3042,13 +3285,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity campaignresponse:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Campaign Response
+                ///         (Russian - 1049): Отклик от кампании
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Campaign Responses
+                ///         (Russian - 1049): Отклики от кампании
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Response from an existing or a potential new customer for a campaign.
+                ///         (Russian - 1049): Отклик существующего или потенциального клиента от кампании.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship campaignresponse_sla_slainvokedid")]
                 public static partial class campaignresponse_sla_slainvokedid
                 {
                     public const string Name = "campaignresponse_sla_slainvokedid";
@@ -3090,13 +3337,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity incidentresolution:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Case Resolution
+                ///         (Russian - 1049): Разрешение обращения
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Case Resolutions
+                ///         (Russian - 1049): Разрешение обращение
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Special type of activity that includes description of the resolution, billing status, and the duration of the case.
+                ///         (Russian - 1049): Специальный тип действия, включающий такие сведения, как описание разрешения, состояние выставления счета и длительность обращения.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship incidentresolution_sla_slaid")]
                 public static partial class incidentresolution_sla_slaid
                 {
                     public const string Name = "incidentresolution_sla_slaid";
@@ -3138,13 +3389,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity incidentresolution:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Case Resolution
+                ///         (Russian - 1049): Разрешение обращения
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Case Resolutions
+                ///         (Russian - 1049): Разрешение обращение
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Special type of activity that includes description of the resolution, billing status, and the duration of the case.
+                ///         (Russian - 1049): Специальный тип действия, включающий такие сведения, как описание разрешения, состояние выставления счета и длительность обращения.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship incidentresolution_sla_slainvokedid")]
                 public static partial class incidentresolution_sla_slainvokedid
                 {
                     public const string Name = "incidentresolution_sla_slainvokedid";
@@ -3186,13 +3441,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity account:    PrimaryIdAttribute accountid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Account
+                ///         (Russian - 1049): Организация
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Accounts
+                ///         (Russian - 1049): Организации
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Business that represents a customer or potential customer. The company that is billed in business transactions.
+                ///         (Russian - 1049): Компания, представляющая существующего или потенциального клиента. Компания, которой выставляется счет в деловых транзакциях.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship manualsla_account")]
                 public static partial class manualsla_account
                 {
                     public const string Name = "manualsla_account";
@@ -3234,13 +3493,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity activitypointer:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Activity
+                ///         (Russian - 1049): Действие
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Activities
+                ///         (Russian - 1049): Действия
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Task performed, or to be performed, by a user. An activity is any action for which an entry can be made on a calendar.
+                ///         (Russian - 1049): Выполненная пользователем задача или задача, которую пользователь должен выполнить. "Действие" — это любое действие, для которого в календаре можно создать запись.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship manualsla_activitypointer")]
                 public static partial class manualsla_activitypointer
                 {
                     public const string Name = "manualsla_activitypointer";
@@ -3282,13 +3545,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity appointment:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Appointment
+                ///         (Russian - 1049): Встреча
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Appointments
+                ///         (Russian - 1049): Встречи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Commitment representing a time interval with start/end times and duration.
+                ///         (Russian - 1049): Обязательство, представляющее временной интервал с временем начала и окончания, а также длительностью.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship manualsla_appointment")]
                 public static partial class manualsla_appointment
                 {
                     public const string Name = "manualsla_appointment";
@@ -3330,13 +3597,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity incident:    PrimaryIdAttribute incidentid    PrimaryNameAttribute title
                 ///     DisplayName:
                 ///         (English - United States - 1033): Case
+                ///         (Russian - 1049): Обращение
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Cases
+                ///         (Russian - 1049): Обращения
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Service request case associated with a contract.
+                ///         (Russian - 1049): Обращение по запросу на обслуживание, связанному с контрактом.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship manualsla_cases")]
                 public static partial class manualsla_cases
                 {
                     public const string Name = "manualsla_cases";
@@ -3378,13 +3649,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity contact:    PrimaryIdAttribute contactid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): Contact
+                ///         (Russian - 1049): Контакт
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Contacts
+                ///         (Russian - 1049): Контакты
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with whom a business unit has a relationship, such as customer, supplier, and colleague.
+                ///         (Russian - 1049): Лицо, с которым бизнес-единица состоит в отношениях (например, клиент, поставщик, коллега).
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship manualsla_contact")]
                 public static partial class manualsla_contact
                 {
                     public const string Name = "manualsla_contact";
@@ -3426,13 +3701,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity email:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Email
+                ///         (Russian - 1049): Электронная почта
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Email Messages
+                ///         (Russian - 1049): Сообщения электронной почты
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Activity that is delivered using email protocols.
+                ///         (Russian - 1049): Действие, передаваемое с помощью протоколов электронной почты.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship manualsla_email")]
                 public static partial class manualsla_email
                 {
                     public const string Name = "manualsla_email";
@@ -3474,13 +3753,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity fax:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Fax
+                ///         (Russian - 1049): Факс
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Faxes
+                ///         (Russian - 1049): Факсы
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Activity that tracks call outcome and number of pages for a fax and optionally stores an electronic copy of the document.
+                ///         (Russian - 1049): Действие, отслеживающее результаты звонков и число страниц в факсе и дополнительно хранящее электронную копию документа.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship manualsla_fax")]
                 public static partial class manualsla_fax
                 {
                     public const string Name = "manualsla_fax";
@@ -3522,13 +3805,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity invoice:    PrimaryIdAttribute invoiceid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Invoice
+                ///         (Russian - 1049): Счет
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Invoices
+                ///         (Russian - 1049): Счета
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Order that has been billed.
+                ///         (Russian - 1049): Заказ, по которому был выставлен счет.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship manualsla_invoice")]
                 public static partial class manualsla_invoice
                 {
                     public const string Name = "manualsla_invoice";
@@ -3570,13 +3857,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity lead:    PrimaryIdAttribute leadid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): Lead
+                ///         (Russian - 1049): Интерес
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Leads
+                ///         (Russian - 1049): Интересы
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Prospect or potential sales opportunity. Leads are converted into accounts, contacts, or opportunities when they are qualified. Otherwise, they are deleted or archived.
+                ///         (Russian - 1049): Заинтересованное лицо или потенциальная возможная сделка. Интересы преобразуются в организации, контакты или возможные сделки после их квалификации. В противном случае они удаляются или архивируются.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship manualsla_lead")]
                 public static partial class manualsla_lead
                 {
                     public const string Name = "manualsla_lead";
@@ -3618,13 +3909,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity letter:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Letter
+                ///         (Russian - 1049): Письмо
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Letters
+                ///         (Russian - 1049): Письма
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Activity that tracks the delivery of a letter. The activity can contain the electronic copy of the letter.
+                ///         (Russian - 1049): Действие, отслеживающее доставку письма. Действие может содержать электронную копию письма.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship manualsla_letter")]
                 public static partial class manualsla_letter
                 {
                     public const string Name = "manualsla_letter";
@@ -3666,13 +3961,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity opportunity:    PrimaryIdAttribute opportunityid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Opportunity
+                ///         (Russian - 1049): Возможная сделка
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Opportunities
+                ///         (Russian - 1049): Возможные сделки
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Potential revenue-generating event, or sale to an account, which needs to be tracked through a sales process to completion.
+                ///         (Russian - 1049): Событие, потенциально создающее прибыль, или продажа организации, которая должна отслеживаться в процессе продажи до завершения.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship manualsla_opportunity")]
                 public static partial class manualsla_opportunity
                 {
                     public const string Name = "manualsla_opportunity";
@@ -3714,13 +4013,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity phonecall:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Phone Call
+                ///         (Russian - 1049): Звонок
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Phone Calls
+                ///         (Russian - 1049): Звонки
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Activity to track a telephone call.
+                ///         (Russian - 1049): Действие для отслеживания телефонного звонка.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship manualsla_phonecall")]
                 public static partial class manualsla_phonecall
                 {
                     public const string Name = "manualsla_phonecall";
@@ -3762,13 +4065,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity quote:    PrimaryIdAttribute quoteid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Quote
+                ///         (Russian - 1049): Предложение с расценками
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Quotes
+                ///         (Russian - 1049): Предложения с расценками
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Formal offer for products and/or services, proposed at specific prices and related payment terms, which is sent to a prospective customer.
+                ///         (Russian - 1049): Формальное предложение продуктов и (или) услуг с конкретными ценами и условиями оплаты, отправляемое потенциальным клиентам.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship manualsla_quote")]
                 public static partial class manualsla_quote
                 {
                     public const string Name = "manualsla_quote";
@@ -3810,13 +4117,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity salesorder:    PrimaryIdAttribute salesorderid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Order
+                ///         (Russian - 1049): Заказ
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Orders
+                ///         (Russian - 1049): Заказы
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Quote that has been accepted.
+                ///         (Russian - 1049): Предложение с расценками принято.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship manualsla_salesorder")]
                 public static partial class manualsla_salesorder
                 {
                     public const string Name = "manualsla_salesorder";
@@ -3858,13 +4169,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity serviceappointment:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Service Activity
+                ///         (Russian - 1049): Действие сервиса
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Service Activities
+                ///         (Russian - 1049): Действия сервиса
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Activity offered by the organization to satisfy its customer's needs. Each service activity includes date, time, duration, and required resources.
+                ///         (Russian - 1049): Действие, предлагаемое организацией с целью удовлетворить потребности клиента. Каждое действие сервиса включает дату, время, продолжительность и необходимые ресурсы.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship manualsla_serviceappointment")]
                 public static partial class manualsla_serviceappointment
                 {
                     public const string Name = "manualsla_serviceappointment";
@@ -3906,13 +4221,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity socialactivity:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Social Activity
+                ///         (Russian - 1049): Действие социальной сети
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Social Activities
+                ///         (Russian - 1049): Действия социальной сети
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): For internal use only.
+                ///         (Russian - 1049): Только для внутреннего использования.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship manualsla_socialactivity")]
                 public static partial class manualsla_socialactivity
                 {
                     public const string Name = "manualsla_socialactivity";
@@ -3954,13 +4273,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity task:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Task
+                ///         (Russian - 1049): Задача
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Tasks
+                ///         (Russian - 1049): Задачи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Generic activity representing work needed to be done.
+                ///         (Russian - 1049): Универсальное действие, представляющее работу, которую необходимо выполнить.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship manualsla_task")]
                 public static partial class manualsla_task
                 {
                     public const string Name = "manualsla_task";
@@ -4002,13 +4325,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity opportunityclose:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Opportunity Close
+                ///         (Russian - 1049): Закрытие возможной сделки
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Opportunity Close Activities
+                ///         (Russian - 1049): Действия по закрытию возможных сделок
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Activity that is created automatically when an opportunity is closed, containing information such as the description of the closing and actual revenue.
+                ///         (Russian - 1049): Действие, которое создается автоматически при закрытии возможной сделки, содержащее такие сведения, как описание закрытия и фактический доход.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship opportunityclose_sla_slaid")]
                 public static partial class opportunityclose_sla_slaid
                 {
                     public const string Name = "opportunityclose_sla_slaid";
@@ -4050,13 +4377,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity opportunityclose:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Opportunity Close
+                ///         (Russian - 1049): Закрытие возможной сделки
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Opportunity Close Activities
+                ///         (Russian - 1049): Действия по закрытию возможных сделок
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Activity that is created automatically when an opportunity is closed, containing information such as the description of the closing and actual revenue.
+                ///         (Russian - 1049): Действие, которое создается автоматически при закрытии возможной сделки, содержащее такие сведения, как описание закрытия и фактический доход.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship opportunityclose_sla_slainvokedid")]
                 public static partial class opportunityclose_sla_slainvokedid
                 {
                     public const string Name = "opportunityclose_sla_slainvokedid";
@@ -4098,13 +4429,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity orderclose:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Order Close
+                ///         (Russian - 1049): Закрытие заказа
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Order Close Activities
+                ///         (Russian - 1049): Действия по закрытию заказов
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Activity generated automatically when an order is closed.
+                ///         (Russian - 1049): Действие создается автоматически при закрытии заказа.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship orderclose_sla_slaid")]
                 public static partial class orderclose_sla_slaid
                 {
                     public const string Name = "orderclose_sla_slaid";
@@ -4146,13 +4481,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity orderclose:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Order Close
+                ///         (Russian - 1049): Закрытие заказа
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Order Close Activities
+                ///         (Russian - 1049): Действия по закрытию заказов
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Activity generated automatically when an order is closed.
+                ///         (Russian - 1049): Действие создается автоматически при закрытии заказа.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship orderclose_sla_slainvokedid")]
                 public static partial class orderclose_sla_slainvokedid
                 {
                     public const string Name = "orderclose_sla_slainvokedid";
@@ -4194,13 +4533,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity quoteclose:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Quote Close
+                ///         (Russian - 1049): Закрытие предложения с расценками
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Quote Close Activities
+                ///         (Russian - 1049): Действия по закрытию предложений
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Activity generated when a quote is closed.
+                ///         (Russian - 1049): Действие, создаваемое при закрытии предложения с расценками.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship quoteclose_sla_slaid")]
                 public static partial class quoteclose_sla_slaid
                 {
                     public const string Name = "quoteclose_sla_slaid";
@@ -4242,13 +4585,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity quoteclose:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Quote Close
+                ///         (Russian - 1049): Закрытие предложения с расценками
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Quote Close Activities
+                ///         (Russian - 1049): Действия по закрытию предложений
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Activity generated when a quote is closed.
+                ///         (Russian - 1049): Действие, создаваемое при закрытии предложения с расценками.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship quoteclose_sla_slainvokedid")]
                 public static partial class quoteclose_sla_slainvokedid
                 {
                     public const string Name = "quoteclose_sla_slainvokedid";
@@ -4290,13 +4637,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity account:    PrimaryIdAttribute accountid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Account
+                ///         (Russian - 1049): Организация
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Accounts
+                ///         (Russian - 1049): Организации
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Business that represents a customer or potential customer. The company that is billed in business transactions.
+                ///         (Russian - 1049): Компания, представляющая существующего или потенциального клиента. Компания, которой выставляется счет в деловых транзакциях.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship sla_account")]
                 public static partial class sla_account
                 {
                     public const string Name = "sla_account";
@@ -4338,13 +4689,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity activitypointer:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Activity
+                ///         (Russian - 1049): Действие
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Activities
+                ///         (Russian - 1049): Действия
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Task performed, or to be performed, by a user. An activity is any action for which an entry can be made on a calendar.
+                ///         (Russian - 1049): Выполненная пользователем задача или задача, которую пользователь должен выполнить. "Действие" — это любое действие, для которого в календаре можно создать запись.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship sla_activitypointer")]
                 public static partial class sla_activitypointer
                 {
                     public const string Name = "sla_activitypointer";
@@ -4386,13 +4741,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity annotation:    PrimaryIdAttribute annotationid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Note
+                ///         (Russian - 1049): Примечание
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Notes
+                ///         (Russian - 1049): Примечания
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Note that is attached to one or more objects, including other notes.
+                ///         (Russian - 1049): Примечание, которое прикреплено к одному или нескольким объектам, в том числе другим примечаниям.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship sla_Annotation")]
                 public static partial class sla_annotation
                 {
                     public const string Name = "sla_Annotation";
@@ -4434,13 +4793,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity appointment:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Appointment
+                ///         (Russian - 1049): Встреча
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Appointments
+                ///         (Russian - 1049): Встречи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Commitment representing a time interval with start/end times and duration.
+                ///         (Russian - 1049): Обязательство, представляющее временной интервал с временем начала и окончания, а также длительностью.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship sla_appointment")]
                 public static partial class sla_appointment
                 {
                     public const string Name = "sla_appointment";
@@ -4482,13 +4845,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity incident:    PrimaryIdAttribute incidentid    PrimaryNameAttribute title
                 ///     DisplayName:
                 ///         (English - United States - 1033): Case
+                ///         (Russian - 1049): Обращение
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Cases
+                ///         (Russian - 1049): Обращения
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Service request case associated with a contract.
+                ///         (Russian - 1049): Обращение по запросу на обслуживание, связанному с контрактом.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship sla_cases")]
                 public static partial class sla_cases
                 {
                     public const string Name = "sla_cases";
@@ -4530,13 +4897,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity contact:    PrimaryIdAttribute contactid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): Contact
+                ///         (Russian - 1049): Контакт
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Contacts
+                ///         (Russian - 1049): Контакты
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with whom a business unit has a relationship, such as customer, supplier, and colleague.
+                ///         (Russian - 1049): Лицо, с которым бизнес-единица состоит в отношениях (например, клиент, поставщик, коллега).
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship sla_contact")]
                 public static partial class sla_contact
                 {
                     public const string Name = "sla_contact";
@@ -4578,13 +4949,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity email:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Email
+                ///         (Russian - 1049): Электронная почта
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Email Messages
+                ///         (Russian - 1049): Сообщения электронной почты
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Activity that is delivered using email protocols.
+                ///         (Russian - 1049): Действие, передаваемое с помощью протоколов электронной почты.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship sla_email")]
                 public static partial class sla_email
                 {
                     public const string Name = "sla_email";
@@ -4626,13 +5001,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity entitlement:    PrimaryIdAttribute entitlementid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Entitlement
+                ///         (Russian - 1049): Объем обслуживания
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Entitlements
+                ///         (Russian - 1049): Объемы обслуживания
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Defines the amount and type of support a customer should receive.
+                ///         (Russian - 1049): Определяет объем и тип поддержки, которую должен получать клиент.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship sla_entitlement")]
                 public static partial class sla_entitlement
                 {
                     public const string Name = "sla_entitlement";
@@ -4674,13 +5053,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity entitlementtemplate:    PrimaryIdAttribute entitlementtemplateid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Entitlement Template
+                ///         (Russian - 1049): Шаблон объема обслуживания
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Entitlement Templates
+                ///         (Russian - 1049): Шаблоны объемов обслуживания
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Contains predefined customer support terms that can be used to created entitlements for customers.
+                ///         (Russian - 1049): Содержит предопределенные условия поддержки клиентов, которые могут использоваться для создания объемов обслуживания для клиентов.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship sla_entitlementtemplate")]
                 public static partial class sla_entitlementtemplate
                 {
                     public const string Name = "sla_entitlementtemplate";
@@ -4722,13 +5105,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity fax:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Fax
+                ///         (Russian - 1049): Факс
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Faxes
+                ///         (Russian - 1049): Факсы
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Activity that tracks call outcome and number of pages for a fax and optionally stores an electronic copy of the document.
+                ///         (Russian - 1049): Действие, отслеживающее результаты звонков и число страниц в факсе и дополнительно хранящее электронную копию документа.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship sla_fax")]
                 public static partial class sla_fax
                 {
                     public const string Name = "sla_fax";
@@ -4770,13 +5157,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity invoice:    PrimaryIdAttribute invoiceid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Invoice
+                ///         (Russian - 1049): Счет
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Invoices
+                ///         (Russian - 1049): Счета
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Order that has been billed.
+                ///         (Russian - 1049): Заказ, по которому был выставлен счет.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship sla_invoice")]
                 public static partial class sla_invoice
                 {
                     public const string Name = "sla_invoice";
@@ -4818,13 +5209,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity lead:    PrimaryIdAttribute leadid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): Lead
+                ///         (Russian - 1049): Интерес
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Leads
+                ///         (Russian - 1049): Интересы
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Prospect or potential sales opportunity. Leads are converted into accounts, contacts, or opportunities when they are qualified. Otherwise, they are deleted or archived.
+                ///         (Russian - 1049): Заинтересованное лицо или потенциальная возможная сделка. Интересы преобразуются в организации, контакты или возможные сделки после их квалификации. В противном случае они удаляются или архивируются.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship sla_lead")]
                 public static partial class sla_lead
                 {
                     public const string Name = "sla_lead";
@@ -4866,13 +5261,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity letter:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Letter
+                ///         (Russian - 1049): Письмо
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Letters
+                ///         (Russian - 1049): Письма
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Activity that tracks the delivery of a letter. The activity can contain the electronic copy of the letter.
+                ///         (Russian - 1049): Действие, отслеживающее доставку письма. Действие может содержать электронную копию письма.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship sla_letter")]
                 public static partial class sla_letter
                 {
                     public const string Name = "sla_letter";
@@ -4914,13 +5313,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity opportunity:    PrimaryIdAttribute opportunityid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Opportunity
+                ///         (Russian - 1049): Возможная сделка
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Opportunities
+                ///         (Russian - 1049): Возможные сделки
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Potential revenue-generating event, or sale to an account, which needs to be tracked through a sales process to completion.
+                ///         (Russian - 1049): Событие, потенциально создающее прибыль, или продажа организации, которая должна отслеживаться в процессе продажи до завершения.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship sla_opportunity")]
                 public static partial class sla_opportunity
                 {
                     public const string Name = "sla_opportunity";
@@ -4962,13 +5365,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity phonecall:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Phone Call
+                ///         (Russian - 1049): Звонок
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Phone Calls
+                ///         (Russian - 1049): Звонки
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Activity to track a telephone call.
+                ///         (Russian - 1049): Действие для отслеживания телефонного звонка.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship sla_phonecall")]
                 public static partial class sla_phonecall
                 {
                     public const string Name = "sla_phonecall";
@@ -5010,13 +5417,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity quote:    PrimaryIdAttribute quoteid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Quote
+                ///         (Russian - 1049): Предложение с расценками
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Quotes
+                ///         (Russian - 1049): Предложения с расценками
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Formal offer for products and/or services, proposed at specific prices and related payment terms, which is sent to a prospective customer.
+                ///         (Russian - 1049): Формальное предложение продуктов и (или) услуг с конкретными ценами и условиями оплаты, отправляемое потенциальным клиентам.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship sla_quote")]
                 public static partial class sla_quote
                 {
                     public const string Name = "sla_quote";
@@ -5058,13 +5469,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity salesorder:    PrimaryIdAttribute salesorderid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Order
+                ///         (Russian - 1049): Заказ
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Orders
+                ///         (Russian - 1049): Заказы
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Quote that has been accepted.
+                ///         (Russian - 1049): Предложение с расценками принято.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship sla_salesorder")]
                 public static partial class sla_salesorder
                 {
                     public const string Name = "sla_salesorder";
@@ -5106,13 +5521,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity serviceappointment:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Service Activity
+                ///         (Russian - 1049): Действие сервиса
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Service Activities
+                ///         (Russian - 1049): Действия сервиса
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Activity offered by the organization to satisfy its customer's needs. Each service activity includes date, time, duration, and required resources.
+                ///         (Russian - 1049): Действие, предлагаемое организацией с целью удовлетворить потребности клиента. Каждое действие сервиса включает дату, время, продолжительность и необходимые ресурсы.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship sla_serviceappointment")]
                 public static partial class sla_serviceappointment
                 {
                     public const string Name = "sla_serviceappointment";
@@ -5154,12 +5573,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity slaitem:    PrimaryIdAttribute slaitemid
                 ///     DisplayName:
                 ///         (English - United States - 1033): SLA Item
+                ///         (Russian - 1049): Элемент SLA
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): SLA Items
+                ///         (Russian - 1049): Элементы SLA
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Contains information about a tracked support KPI for a specific customer.
+                ///         (Russian - 1049): Содержит информацию об отслеживаемом индикаторе KPI для определенного клиента.
                 /// 
                 /// AttributeMaps:
                 ///     SourceEntity             TargetEntity
@@ -5169,6 +5591,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     name               ->    slaidname
                 ///     slaid              ->    slaid
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship sla_slaitem_slaId")]
                 public static partial class sla_slaitem_slaid
                 {
                     public const string Name = "sla_slaitem_slaId";
@@ -5208,13 +5631,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity socialactivity:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Social Activity
+                ///         (Russian - 1049): Действие социальной сети
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Social Activities
+                ///         (Russian - 1049): Действия социальной сети
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): For internal use only.
+                ///         (Russian - 1049): Только для внутреннего использования.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship sla_socialactivity")]
                 public static partial class sla_socialactivity
                 {
                     public const string Name = "sla_socialactivity";
@@ -5256,13 +5683,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity syncerror:    PrimaryIdAttribute syncerrorid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Sync Error
+                ///         (Russian - 1049): Ошибка синхронизации
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Sync Errors
+                ///         (Russian - 1049): Ошибки синхронизации
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Failure reason and other detailed information for a record that failed to sync.
+                ///         (Russian - 1049): Причина сбоя и другие подробные сведения о записи, при синхронизации которой произошла ошибка.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship SLA_SyncErrors")]
                 public static partial class sla_syncerrors
                 {
                     public const string Name = "SLA_SyncErrors";
@@ -5304,13 +5735,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity task:    PrimaryIdAttribute activityid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Task
+                ///         (Russian - 1049): Задача
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Tasks
+                ///         (Russian - 1049): Задачи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Generic activity representing work needed to be done.
+                ///         (Russian - 1049): Универсальное действие, представляющее работу, которую необходимо выполнить.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship sla_task")]
                 public static partial class sla_task
                 {
                     public const string Name = "sla_task";
@@ -5352,13 +5787,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity asyncoperation:    PrimaryIdAttribute asyncoperationid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): System Job
+                ///         (Russian - 1049): Системное задание
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): System Jobs
+                ///         (Russian - 1049): Системные задания
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Process whose execution can proceed independently or in the background.
+                ///         (Russian - 1049): Процесс, который может выполняться независимо или в фоновом режиме.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship slabase_AsyncOperations")]
                 public static partial class slabase_asyncoperations
                 {
                     public const string Name = "slabase_AsyncOperations";
@@ -5400,13 +5839,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity bulkdeletefailure:    PrimaryIdAttribute bulkdeletefailureid
                 ///     DisplayName:
                 ///         (English - United States - 1033): Bulk Delete Failure
+                ///         (Russian - 1049): Ошибка группового удаления
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Bulk Delete Failures
+                ///         (Russian - 1049): Ошибки группового удаления
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Record that was not deleted during a bulk deletion job.
+                ///         (Russian - 1049): Запись не была удалена во время задания группового удаления.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship slabase_BulkDeleteFailures")]
                 public static partial class slabase_bulkdeletefailures
                 {
                     public const string Name = "slabase_BulkDeleteFailures";
@@ -5446,13 +5889,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity processsession:    PrimaryIdAttribute processsessionid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Process Session
+                ///         (Russian - 1049): Сеанс процесса
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Process Sessions
+                ///         (Russian - 1049): Сеансы процесса
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Information that is generated when a dialog is run. Every time that you run a dialog, a dialog session is created.
+                ///         (Russian - 1049): Информация, созданная после запуска диалогового окна. При каждом запуске диалогового окна создается сеанс диалогового окна.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship slabase_ProcessSessions")]
                 public static partial class slabase_processsessions
                 {
                     public const string Name = "slabase_ProcessSessions";
@@ -5494,10 +5941,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
                 ///     DisplayName:
                 ///         (English - United States - 1033): User Entity Instance Data
+                ///         (Russian - 1049): Данные экземпляра сущности пользователя
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Per User item instance data
+                ///         (Russian - 1049): Данные экземпляра позиции "на пользователя"
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship slabase_userentityinstancedatas")]
                 public static partial class slabase_userentityinstancedatas
                 {
                     public const string Name = "slabase_userentityinstancedatas";

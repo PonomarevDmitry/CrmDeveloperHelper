@@ -6,12 +6,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///<summary>
         /// DisplayName:
         ///     (English - United States - 1033): Invalid Dependency
+        ///     (Russian - 1049): Неверная зависимость
         /// 
         /// DisplayCollectionName:
         ///     (English - United States - 1033): Invalid Dependencies
+        ///     (Russian - 1049): Неверные зависимости
         /// 
         /// Description:
         ///     (English - United States - 1033): An invalid dependency in the CRM system.
+        ///     (Russian - 1049): Неверная зависимость в системе CRM.
         /// 
         /// PropertyName                          Value
         /// ActivityTypeMask                      0
@@ -100,9 +103,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Invalid Dependency Identifier
+                ///     (Russian - 1049): Идентификатор неверной зависимости
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the invalid dependency.
+                ///     (Russian - 1049): Уникальный идентификатор неверной зависимости.
                 /// 
                 /// SchemaName: InvalidDependencyId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -129,14 +134,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Invalid Dependency Identifier")]
                 public const string invaliddependencyid = "invaliddependencyid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Existing Object Id
+                ///     (Russian - 1049): Существующий идентификатор объекта
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the object that has an invalid dependency
+                ///     (Russian - 1049): Уникальный идентификатор объекта с неверной зависимостью.
                 /// 
                 /// SchemaName: ExistingComponentId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
@@ -163,14 +171,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Existing Object Id")]
                 public const string existingcomponentid = "existingcomponentid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Existing Object's Component Type
+                ///     (Russian - 1049): Существующий тип компонента объекта
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Component type of the object that has an invalid dependency
+                ///     (Russian - 1049): Тип компонента объекта с неверной зависимостью
                 /// 
                 /// SchemaName: ExistingComponentType
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: None
@@ -182,9 +193,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): Component Type
+                ///             (Russian - 1049): Тип компонента
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): All of the possible component types for solutions.
+                ///             (Russian - 1049): Все возможные типы компонентов для решений.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -205,6 +218,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Existing Object's Component Type")]
                 public const string existingcomponenttype = "existingcomponenttype";
 
                 ///<summary>
@@ -238,9 +252,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Weight
+                ///     (Russian - 1049): Вес
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): The dependency type of the invalid dependency.
+                ///     (Russian - 1049): Тип неверной зависимости.
                 /// 
                 /// SchemaName: ExistingDependencyType
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -252,9 +268,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): Dependency Type
+                ///             (Russian - 1049): Тип зависимости
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): The kind of dependency.
+                ///             (Russian - 1049): Вид зависимости.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -275,6 +293,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Weight")]
                 public const string existingdependencytype = "existingdependencytype";
 
                 ///<summary>
@@ -308,9 +327,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Is this node the required component
+                ///     (Russian - 1049): Является ли узел требуемым компонентом
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Indicates whether the existing node is the required component in the dependency
+                ///     (Russian - 1049): Указывает, является ли существующий узел требуемым компонентом в зависимости
                 /// 
                 /// SchemaName: IsExistingNodeRequiredComponent
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
@@ -321,10 +342,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Descendent
+                ///     (Russian - 1049): Потомок
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Ancestor
+                ///     (Russian - 1049): Предок
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -346,14 +369,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Is this node the required component")]
                 public const string isexistingnoderequiredcomponent = "isexistingnoderequiredcomponent";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Regarding
+                ///     (Russian - 1049): В отношении
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the missing component.
+                ///     (Russian - 1049): Уникальный идентификатор отсутствующего компонента.
                 /// 
                 /// SchemaName: MissingComponentId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
@@ -380,6 +406,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Regarding")]
                 public const string missingcomponentid = "missingcomponentid";
 
                 ///<summary>
@@ -415,9 +442,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Lookup Type
+                ///     (Russian - 1049): Тип поиска
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): The lookup type of the missing component.
+                ///     (Russian - 1049): Тип поиска отсутствующего компонента.
                 /// 
                 /// SchemaName: MissingComponentLookupType
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: SystemRequired
@@ -446,14 +475,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Lookup Type")]
                 public const string missingcomponentlookuptype = "missingcomponentlookuptype";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Type Code
+                ///     (Russian - 1049): Код типа
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): The object type code of the missing component.
+                ///     (Russian - 1049): Код типа объекта отсутствующего компонента.
                 /// 
                 /// SchemaName: MissingComponentType
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -465,9 +497,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): Component Type
+                ///             (Russian - 1049): Тип компонента
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): All of the possible component types for solutions.
+                ///             (Russian - 1049): Все возможные типы компонентов для решений.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -488,6 +522,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Type Code")]
                 public const string missingcomponenttype = "missingcomponenttype";
 
                 ///<summary>
@@ -551,10 +586,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
                 ///     DisplayName:
                 ///         (English - United States - 1033): User Entity Instance Data
+                ///         (Russian - 1049): Данные экземпляра сущности пользователя
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Per User item instance data
+                ///         (Russian - 1049): Данные экземпляра позиции "на пользователя"
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship userentityinstancedata_invaliddependency")]
                 public static partial class userentityinstancedata_invaliddependency
                 {
                     public const string Name = "userentityinstancedata_invaliddependency";

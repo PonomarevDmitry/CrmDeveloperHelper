@@ -6,12 +6,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///<summary>
         /// DisplayName:
         ///     (English - United States - 1033): Web Resource
+        ///     (Russian - 1049): Веб-ресурс
         /// 
         /// DisplayCollectionName:
         ///     (English - United States - 1033): Web Resources
+        ///     (Russian - 1049): Веб-ресурсы
         /// 
         /// Description:
         ///     (English - United States - 1033): Data equivalent to files used in Web development. Web resources provide client-side components that are used to provide custom user interface elements.
+        ///     (Russian - 1049): Данные, эквивалентные файлам, используемым в разработке веб-контента. Веб-ресурсы обеспечивают компоненты на стороне клиента, которые используются для создания настраиваемых элементов интерфейса пользователя.
         /// 
         /// PropertyName                          Value
         /// ActivityTypeMask                      0
@@ -104,9 +107,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Web Resource Identifier
+                ///     (Russian - 1049): Идентификатор веб-ресурса
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the web resource.
+                ///     (Russian - 1049): Уникальный идентификатор веб-ресурса.
                 /// 
                 /// SchemaName: WebResourceId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -139,9 +144,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Name
+                ///     (Russian - 1049): Имя
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Name of the web resource.
+                ///     (Russian - 1049): Название веб-ресурса.
                 /// 
                 /// SchemaName: Name
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
@@ -176,9 +183,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Can Be Deleted
+                ///     (Russian - 1049): Можно удалить
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Information that specifies whether this component can be deleted.
+                ///     (Russian - 1049): Сведения, указывающие на возможность удаления этого компонента.
                 /// 
                 /// SchemaName: CanBeDeleted
                 /// ManagedPropertyAttributeMetadata    AttributeType: ManagedProperty    AttributeTypeName: ManagedPropertyType    RequiredLevel: SystemRequired
@@ -212,9 +221,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Component State
+                ///     (Russian - 1049): Состояние компонента
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: ComponentState
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -226,9 +237,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): Component State
+                ///             (Russian - 1049): Состояние компонента
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): The state of this component.
+                ///             (Russian - 1049): Состояние этого компонента.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -255,6 +268,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Bytes of the web resource, in Base64 format.
+                ///     (Russian - 1049): Размер веб-ресурса в байтах в формате Base64.
                 /// 
                 /// SchemaName: Content
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -289,6 +303,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Json representation of the content of the resource.
+                ///     (Russian - 1049): JSON-представление содержимого ресурса.
                 /// 
                 /// SchemaName: ContentJson
                 /// MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: None
@@ -323,9 +338,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By
+                ///     (Russian - 1049): Создано
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who created the web resource.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя, создавшего веб-ресурс.
                 /// 
                 /// SchemaName: CreatedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -337,12 +354,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -369,9 +389,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created On
+                ///     (Russian - 1049): Дата создания
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the web resource was created.
+                ///     (Russian - 1049): Дата и время создания веб-ресурса.
                 /// 
                 /// SchemaName: CreatedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -406,9 +428,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By (Delegate)
+                ///     (Russian - 1049): Кем создано (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who created the web resource.
+                ///     (Russian - 1049): Уникальный идентификатор делегата, создавшего веб-ресурс.
                 /// 
                 /// SchemaName: CreatedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -420,12 +444,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -515,6 +542,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: DependencyXml
                 /// MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: None
@@ -549,9 +577,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Description
+                ///     (Russian - 1049): Описание
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Description of the web resource.
+                ///     (Russian - 1049): Описание веб-ресурса.
                 /// 
                 /// SchemaName: Description
                 /// MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: None
@@ -586,9 +616,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Display Name
+                ///     (Russian - 1049): Отображаемое имя
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Display name of the web resource.
+                ///     (Russian - 1049): Отображаемое имя веб-ресурса.
                 /// 
                 /// SchemaName: DisplayName
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -623,9 +655,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Introduced Version
+                ///     (Russian - 1049): Версия введения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Version in which the form is introduced.
+                ///     (Russian - 1049): Версия, в которой была введена форма.
                 /// 
                 /// SchemaName: IntroducedVersion
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -660,9 +694,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Is Available For Mobile Offline
+                ///     (Russian - 1049): Доступен для Mobile Offline
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Information that specifies whether this web resource is available for mobile client in offline mode.
+                ///     (Russian - 1049): Сведения, которые определяют, доступен ли этот веб-ресурс для мобильного клиента в автономном режиме.
                 /// 
                 /// SchemaName: IsAvailableForMobileOffline
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
@@ -673,10 +709,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): No
+                ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Yes
+                ///     (Russian - 1049): Да
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -704,9 +742,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Customizable
+                ///     (Russian - 1049): Настраиваемый
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Information that specifies whether this component can be customized.
+                ///     (Russian - 1049): Сведения, указывающие на возможность настройки этого компонента.
                 /// 
                 /// SchemaName: IsCustomizable
                 /// ManagedPropertyAttributeMetadata    AttributeType: ManagedProperty    AttributeTypeName: ManagedPropertyType    RequiredLevel: SystemRequired
@@ -740,9 +780,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Is Enabled For Mobile Client
+                ///     (Russian - 1049): Включен для мобильного клиента
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Information that specifies whether this web resource is enabled for mobile client.
+                ///     (Russian - 1049): Сведения, которые определяют, включен ли этот веб-ресурс для мобильного клиента.
                 /// 
                 /// SchemaName: IsEnabledForMobileClient
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
@@ -753,10 +795,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): No
+                ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Yes
+                ///     (Russian - 1049): Да
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -784,9 +828,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Hidden
+                ///     (Russian - 1049): Скрытый
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Information that specifies whether this component should be hidden.
+                ///     (Russian - 1049): Сведения, указывающие на необходимость скрытия этого компонента.
                 /// 
                 /// SchemaName: IsHidden
                 /// ManagedPropertyAttributeMetadata    AttributeType: ManagedProperty    AttributeTypeName: ManagedPropertyType    RequiredLevel: SystemRequired
@@ -827,10 +873,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Unmanaged
+                ///     (Russian - 1049): Неуправляемый
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Managed
+                ///     (Russian - 1049): Управляемый
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -885,9 +933,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Language
+                ///     (Russian - 1049): Язык
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Language of the web resource.
+                ///     (Russian - 1049): Язык веб-ресурса.
                 /// 
                 /// SchemaName: LanguageCode
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -922,9 +972,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By
+                ///     (Russian - 1049): Изменено
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who last modified the web resource.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя, внесшего последнее изменение в веб-ресурс.
                 /// 
                 /// SchemaName: ModifiedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -936,12 +988,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -968,9 +1023,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified On
+                ///     (Russian - 1049): Дата изменения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the web resource was last modified.
+                ///     (Russian - 1049): Дата и время внесения последнего изменения в веб-ресурс.
                 /// 
                 /// SchemaName: ModifiedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -1005,9 +1062,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By (Delegate)
+                ///     (Russian - 1049): Кем создано (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who modified the web resource.
+                ///     (Russian - 1049): Уникальный идентификатор делегата, внесшего последнее изменение в веб-ресурс.
                 /// 
                 /// SchemaName: ModifiedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1019,12 +1078,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1111,9 +1173,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Organization
+                ///     (Russian - 1049): Предприятие
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the organization associated with the web resource.
+                ///     (Russian - 1049): Уникальный идентификатор организации, связанной с веб-ресурсом.
                 /// 
                 /// SchemaName: OrganizationId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: SystemRequired
@@ -1125,12 +1189,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target organization    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Organization
+                ///             (Russian - 1049): Предприятие
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Organizations
+                ///             (Russian - 1049): Предприятия
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
+                ///             (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1187,9 +1254,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Record Overwrite Time
+                ///     (Russian - 1049): Время замены записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: OverwriteTime
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
@@ -1224,9 +1293,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Silverlight Version
+                ///     (Russian - 1049): Версия Silverlight
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Silverlight runtime version number required by a silverlight web resource.
+                ///     (Russian - 1049): Номер версии среды выполнения Silverlight, которая требуется веб-ресурсу Silverlight.
                 /// 
                 /// SchemaName: SilverlightVersion
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -1261,9 +1332,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the associated solution.
+                ///     (Russian - 1049): Уникальный идентификатор связанного решения.
                 /// 
                 /// SchemaName: SolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -1296,9 +1369,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: SupportingSolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
@@ -1360,6 +1435,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: WebResourceIdUnique
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -1392,9 +1468,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Type
+                ///     (Russian - 1049): Тип
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Drop-down list for selecting the type of the web resource.
+                ///     (Russian - 1049): Раскрывающийся список для выбора типа веб-ресурса.
                 /// 
                 /// SchemaName: WebResourceType
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -1469,17 +1547,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Type
+                ///     (Russian - 1049): Тип
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Drop-down list for selecting the type of the web resource.
+                ///     (Russian - 1049): Раскрывающийся список для выбора типа веб-ресурса.
                 /// 
                 /// Local System  OptionSet webresource_webresourcetype
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Type
+                ///     (Russian - 1049): Тип
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Drop-down list for selecting the type of the web resource.
+                ///     (Russian - 1049): Раскрывающийся список для выбора типа веб-ресурса.
                 ///</summary>
                 [System.ComponentModel.TypeConverter("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 [System.ComponentModel.DescriptionAttribute("Type")]
@@ -1491,6 +1573,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Webpage (HTML)
+                    ///     (Russian - 1049): Веб-страница (HTML)
                     ///</summary>
                     [System.ComponentModel.DescriptionAttribute("Webpage (HTML)")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
@@ -1502,6 +1585,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Style Sheet (CSS)
+                    ///     (Russian - 1049): Таблица стилей (CSS)
                     ///</summary>
                     [System.ComponentModel.DescriptionAttribute("Style Sheet (CSS)")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
@@ -1513,6 +1597,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Script (JScript)
+                    ///     (Russian - 1049): Скрипт (JScript)
                     ///</summary>
                     [System.ComponentModel.DescriptionAttribute("Script (JScript)")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
@@ -1524,6 +1609,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Data (XML)
+                    ///     (Russian - 1049): Данные (XML)
                     ///</summary>
                     [System.ComponentModel.DescriptionAttribute("Data (XML)")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
@@ -1535,6 +1621,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): PNG format
+                    ///     (Russian - 1049): Формат PNG
                     ///</summary>
                     [System.ComponentModel.DescriptionAttribute("PNG format")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
@@ -1546,6 +1633,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): JPG format
+                    ///     (Russian - 1049): Формат JPG
                     ///</summary>
                     [System.ComponentModel.DescriptionAttribute("JPG format")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
@@ -1557,6 +1645,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): GIF format
+                    ///     (Russian - 1049): Формат GIF
                     ///</summary>
                     [System.ComponentModel.DescriptionAttribute("GIF format")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
@@ -1579,6 +1668,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Style Sheet (XSL)
+                    ///     (Russian - 1049): Таблица стилей (XSL)
                     ///</summary>
                     [System.ComponentModel.DescriptionAttribute("Style Sheet (XSL)")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
@@ -1590,6 +1680,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): ICO format
+                    ///     (Russian - 1049): Формат ICO
                     ///</summary>
                     [System.ComponentModel.DescriptionAttribute("ICO format")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
@@ -1601,6 +1692,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Vector format (SVG)
+                    ///     (Russian - 1049): Векторный формат (SVG)
                     ///</summary>
                     [System.ComponentModel.DescriptionAttribute("Vector format (SVG)")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
@@ -1612,6 +1704,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): String (RESX)
+                    ///     (Russian - 1049): Строка (RESX)
                     ///</summary>
                     [System.ComponentModel.DescriptionAttribute("String (RESX)")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
@@ -1653,12 +1746,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_webresourcebase_createdonbehalfby")]
                 public static partial class lk_webresourcebase_createdonbehalfby
@@ -1702,12 +1798,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_webresourcebase_modifiedonbehalfby")]
                 public static partial class lk_webresourcebase_modifiedonbehalfby
@@ -1751,12 +1850,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("N:1 - Relationship webresource_createdby")]
                 public static partial class webresource_createdby
@@ -1800,12 +1902,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("N:1 - Relationship webresource_modifiedby")]
                 public static partial class webresource_modifiedby
@@ -1849,12 +1954,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity organization:    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Organization
+                ///         (Russian - 1049): Предприятие
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Organizations
+                ///         (Russian - 1049): Предприятия
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
+                ///         (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("N:1 - Relationship webresource_organization")]
                 public static partial class webresource_organization
@@ -1905,12 +2013,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity theme:    PrimaryIdAttribute themeid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Theme
+                ///         (Russian - 1049): Тема
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Themes
+                ///         (Russian - 1049): Темы
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Information that's used to set custom visual theme options for client applications.
+                ///         (Russian - 1049): Сведения, используемые для задания параметров пользовательской визуальной темы для клиентских приложений.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("1:N - Relationship lk_theme_logoid")]
                 public static partial class lk_theme_logoid
@@ -1954,12 +2065,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity solution:    PrimaryIdAttribute solutionid    PrimaryNameAttribute friendlyname
                 ///     DisplayName:
                 ///         (English - United States - 1033): Solution
+                ///         (Russian - 1049): Решение
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Solutions
+                ///         (Russian - 1049): Решения
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): A solution which contains CRM customizations.
+                ///         (Russian - 1049): Решение, содержащее настройки CRM.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("1:N - Relationship solution_configuration_webresource")]
                 public static partial class solution_configuration_webresource
@@ -2003,9 +2117,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
                 ///     DisplayName:
                 ///         (English - United States - 1033): User Entity Instance Data
+                ///         (Russian - 1049): Данные экземпляра сущности пользователя
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Per User item instance data
+                ///         (Russian - 1049): Данные экземпляра позиции "на пользователя"
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("1:N - Relationship userentityinstancedata_webresource")]
                 public static partial class userentityinstancedata_webresource
@@ -2047,12 +2163,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity savedqueryvisualization:    PrimaryIdAttribute savedqueryvisualizationid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): System Chart
+                ///         (Russian - 1049): Системная диаграмма
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): System Charts
+                ///         (Russian - 1049): Системные диаграммы
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): System chart attached to an entity.
+                ///         (Russian - 1049): Системная диаграмма, присоединенная к сущности.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("1:N - Relationship webresource_savedqueryvisualizations")]
                 public static partial class webresource_savedqueryvisualizations
@@ -2096,12 +2215,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity userqueryvisualization:    PrimaryIdAttribute userqueryvisualizationid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): User Chart
+                ///         (Russian - 1049): Диаграмма пользователя
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): User Charts
+                ///         (Russian - 1049): Диаграммы пользователя
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Chart attached to an entity.
+                ///         (Russian - 1049): Диаграмма, присоединенная к сущности.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("1:N - Relationship webresource_userqueryvisualizations")]
                 public static partial class webresource_userqueryvisualizations

@@ -6,12 +6,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///<summary>
         /// DisplayName:
         ///     (English - United States - 1033): Attachment
+        ///     (Russian - 1049): Вложение
         /// 
         /// DisplayCollectionName:
         ///     (English - United States - 1033): Attachments
+        ///     (Russian - 1049): Вложения
         /// 
         /// Description:
         ///     (English - United States - 1033): Attachment for an email activity.
+        ///     (Russian - 1049): Вложение действия электронной почты.
         /// 
         /// PropertyName                          Value
         /// ActivityTypeMask                      0
@@ -104,9 +107,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Attachment
+                ///     (Russian - 1049): Вложение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the attachment.
+                ///     (Russian - 1049): Уникальный идентификатор вложения.
                 /// 
                 /// SchemaName: AttachmentId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -133,14 +138,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Attachment")]
                 public const string attachmentid = "attachmentid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): File Name
+                ///     (Russian - 1049): Имя файла
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): File name of the attachment.
+                ///     (Russian - 1049): Имя файла вложения.
                 /// 
                 /// SchemaName: FileName
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -169,14 +177,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("File Name")]
                 public const string filename = "filename";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Body
+                ///     (Russian - 1049): Текст
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Contents of the attachment.
+                ///     (Russian - 1049): Содержимое вложения.
                 /// 
                 /// SchemaName: Body
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -205,14 +216,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Body")]
                 public const string body = "body";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): File Size (Bytes)
+                ///     (Russian - 1049): Размер файла (байт)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): File size of the attachment.
+                ///     (Russian - 1049): Размер файла вложения.
                 /// 
                 /// SchemaName: FileSize
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -241,14 +255,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("File Size (Bytes)")]
                 public const string filesize = "filesize";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): MIME Type
+                ///     (Russian - 1049): Тип MIME
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): MIME type of the attachment.
+                ///     (Russian - 1049): Тип MIME вложения.
                 /// 
                 /// SchemaName: MimeType
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -277,14 +294,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("MIME Type")]
                 public const string mimetype = "mimetype";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Subject
+                ///     (Russian - 1049): Тема
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Subject associated with the attachment.
+                ///     (Russian - 1049): Тема, связанная со вложением.
                 /// 
                 /// SchemaName: Subject
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -313,14 +333,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Subject")]
                 public const string subject = "subject";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Version Number
+                ///     (Russian - 1049): Номер версии
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Version number of the attachment.
+                ///     (Russian - 1049): Номер версии вложения.
                 /// 
                 /// SchemaName: VersionNumber
                 /// BigIntAttributeMetadata    AttributeType: BigInt    AttributeTypeName: BigIntType    RequiredLevel: None
@@ -348,6 +371,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Version Number")]
                 public const string versionnumber = "versionnumber";
             }
 
@@ -383,13 +407,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity activitymimeattachment:    PrimaryIdAttribute activitymimeattachmentid    PrimaryNameAttribute filename
                 ///     DisplayName:
                 ///         (English - United States - 1033): Attachment
+                ///         (Russian - 1049): Вложение
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Attachments
+                ///         (Russian - 1049): Вложения
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): MIME attachment for an activity.
+                ///         (Russian - 1049): Вложение MIME для действия.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship attachment_activity_mime_attachments")]
                 public static partial class attachment_activity_mime_attachments
                 {
                     public const string Name = "attachment_activity_mime_attachments";
@@ -431,13 +459,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity syncerror:    PrimaryIdAttribute syncerrorid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Sync Error
+                ///         (Russian - 1049): Ошибка синхронизации
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Sync Errors
+                ///         (Russian - 1049): Ошибки синхронизации
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Failure reason and other detailed information for a record that failed to sync.
+                ///         (Russian - 1049): Причина сбоя и другие подробные сведения о записи, при синхронизации которой произошла ошибка.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship Attachment_SyncErrors")]
                 public static partial class attachment_syncerrors
                 {
                     public const string Name = "Attachment_SyncErrors";
@@ -479,10 +511,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
                 ///     DisplayName:
                 ///         (English - United States - 1033): User Entity Instance Data
+                ///         (Russian - 1049): Данные экземпляра сущности пользователя
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Per User item instance data
+                ///         (Russian - 1049): Данные экземпляра позиции "на пользователя"
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship userentityinstancedata_attachment")]
                 public static partial class userentityinstancedata_attachment
                 {
                     public const string Name = "userentityinstancedata_attachment";

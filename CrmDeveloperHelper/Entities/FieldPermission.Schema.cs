@@ -6,12 +6,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///<summary>
         /// DisplayName:
         ///     (English - United States - 1033): Field Permission
+        ///     (Russian - 1049): Разрешение поля
         /// 
         /// DisplayCollectionName:
         ///     (English - United States - 1033): Field Permissions
+        ///     (Russian - 1049): Поле разрешений
         /// 
         /// Description:
         ///     (English - United States - 1033): Group of privileges used to categorize users to provide appropriate access to secured columns.
+        ///     (Russian - 1049): Группа привилегий, используемых для распределения пользователей по категориям с целью обеспечения соответствующего доступа к защищенным столбцам.
         /// 
         /// PropertyName                          Value
         /// ActivityTypeMask                      0
@@ -100,9 +103,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Field Permission
+                ///     (Russian - 1049): Разрешение поля
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the Field Permission.
+                ///     (Russian - 1049): Уникальный идентификатор поля разрешения.
                 /// 
                 /// SchemaName: FieldPermissionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -129,14 +134,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Field Permission")]
                 public const string fieldpermissionid = "fieldpermissionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Name of the attribute for which this privilege is defined
+                ///     (Russian - 1049): Имя атрибута, для которого определена эта привилегия
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Attribute Name.
+                ///     (Russian - 1049): Имя атрибута.
                 /// 
                 /// SchemaName: AttributeLogicalName
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
@@ -165,14 +173,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Name of the attribute for which this privilege is defined")]
                 public const string attributelogicalname = "attributelogicalname";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Can create the attribute
+                ///     (Russian - 1049): Может создать атрибут
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Can this Profile create the attribute
+                ///     (Russian - 1049): Этот профиль может создать атрибут
                 /// 
                 /// SchemaName: CanCreate
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -184,9 +195,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): A Yes or No boolean
+                ///             (Russian - 1049): Логическое "Да" или "Нет"
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): A Yes or No boolean.
+                ///             (Russian - 1049): Логическое "Да" или "Нет".
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -207,6 +220,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Can create the attribute")]
                 public const string cancreate = "cancreate";
 
                 ///<summary>
@@ -240,9 +254,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Can Read the attribute
+                ///     (Russian - 1049): Может читать атрибут
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Can this Profile read the attribute
+                ///     (Russian - 1049): Этот профиль может читать атрибут
                 /// 
                 /// SchemaName: CanRead
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -254,9 +270,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): A Yes or No boolean
+                ///             (Russian - 1049): Логическое "Да" или "Нет"
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): A Yes or No boolean.
+                ///             (Russian - 1049): Логическое "Да" или "Нет".
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -277,6 +295,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Can Read the attribute")]
                 public const string canread = "canread";
 
                 ///<summary>
@@ -310,9 +329,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Can Update the attribute
+                ///     (Russian - 1049): Может обновлять атрибут
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Can this Profile update the attribute
+                ///     (Russian - 1049): Этот профиль может обновлять атрибут
                 /// 
                 /// SchemaName: CanUpdate
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -324,9 +345,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): A Yes or No boolean
+                ///             (Russian - 1049): Логическое "Да" или "Нет"
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): A Yes or No boolean.
+                ///             (Russian - 1049): Логическое "Да" или "Нет".
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -347,6 +370,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Can Update the attribute")]
                 public const string canupdate = "canupdate";
 
                 ///<summary>
@@ -380,9 +404,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Component State
+                ///     (Russian - 1049): Состояние компонента
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: ComponentState
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -394,9 +420,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): Component State
+                ///             (Russian - 1049): Состояние компонента
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): The state of this component.
+                ///             (Russian - 1049): Состояние этого компонента.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -417,14 +445,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Component State")]
                 public const string componentstate = "componentstate";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Name of the Entity for which this privilege is defined
+                ///     (Russian - 1049): Название сущности, для которой определена эта привилегия
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Entity name.
+                ///     (Russian - 1049): Имя сущности.
                 /// 
                 /// SchemaName: EntityName
                 /// EntityNameAttributeMetadata    AttributeType: EntityName    AttributeTypeName: EntityNameType    RequiredLevel: SystemRequired
@@ -451,14 +482,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Name of the Entity for which this privilege is defined")]
                 public const string entityname = "entityname";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Field Permission
+                ///     (Russian - 1049): Разрешение поля
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: FieldPermissionIdUnique
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -485,14 +519,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Field Permission")]
                 public const string fieldpermissionidunique = "fieldpermissionidunique";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Profile
+                ///     (Russian - 1049): Профиль
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of profile to which this privilege belongs.
+                ///     (Russian - 1049): Уникальный идентификатор профиля, к которому относится эта привилегия.
                 /// 
                 /// SchemaName: FieldSecurityProfileId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: SystemRequired
@@ -504,12 +541,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target fieldsecurityprofile    PrimaryIdAttribute fieldsecurityprofileid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Field Security Profile
+                ///             (Russian - 1049): Профиль безопасности поля
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Field Security Profiles
+                ///             (Russian - 1049): Профили безопасности полей
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Profile which defines access level for secured attributes
+                ///             (Russian - 1049): Профиль, который определяет уровень доступа к защищенным атрибутам
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -530,14 +570,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Profile")]
                 public const string fieldsecurityprofileid = "fieldsecurityprofileid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Is Managed
+                ///     (Russian - 1049): Управляемый
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Indicates whether the solution component is part of a managed solution.
+                ///     (Russian - 1049): Указывает, является ли компонент решения частью управляемого решения.
                 /// 
                 /// SchemaName: IsManaged
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
@@ -548,10 +591,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Unmanaged
+                ///     (Russian - 1049): Неуправляемый
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Managed
+                ///     (Russian - 1049): Управляемый
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -573,6 +618,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Is Managed")]
                 public const string ismanaged = "ismanaged";
 
                 ///<summary>
@@ -606,9 +652,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Organization Id
+                ///     (Russian - 1049): Идентификатор организации
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier for the organization
+                ///     (Russian - 1049): Уникальный идентификатор организации
                 /// 
                 /// SchemaName: OrganizationId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -635,14 +683,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Organization Id")]
                 public const string organizationid = "organizationid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Record Overwrite Time
+                ///     (Russian - 1049): Время замены записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: OverwriteTime
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
@@ -671,14 +722,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Record Overwrite Time")]
                 public const string overwritetime = "overwritetime";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the associated solution.
+                ///     (Russian - 1049): Уникальный идентификатор связанного решения.
                 /// 
                 /// SchemaName: SolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -705,14 +759,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string solutionid = "solutionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: SupportingSolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
@@ -739,6 +796,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string supportingsolutionid = "supportingsolutionid";
 
                 ///<summary>
@@ -803,13 +861,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity fieldsecurityprofile:    PrimaryIdAttribute fieldsecurityprofileid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Field Security Profile
+                ///         (Russian - 1049): Профиль безопасности поля
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Field Security Profiles
+                ///         (Russian - 1049): Профили безопасности полей
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Profile which defines access level for secured attributes
+                ///         (Russian - 1049): Профиль, который определяет уровень доступа к защищенным атрибутам
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_fieldpermission_fieldsecurityprofileid")]
                 public static partial class lk_fieldpermission_fieldsecurityprofileid
                 {
                     public const string Name = "lk_fieldpermission_fieldsecurityprofileid";
@@ -858,13 +920,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity syncerror:    PrimaryIdAttribute syncerrorid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Sync Error
+                ///         (Russian - 1049): Ошибка синхронизации
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Sync Errors
+                ///         (Russian - 1049): Ошибки синхронизации
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Failure reason and other detailed information for a record that failed to sync.
+                ///         (Russian - 1049): Причина сбоя и другие подробные сведения о записи, при синхронизации которой произошла ошибка.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship FieldPermission_SyncErrors")]
                 public static partial class fieldpermission_syncerrors
                 {
                     public const string Name = "FieldPermission_SyncErrors";
@@ -906,10 +972,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
                 ///     DisplayName:
                 ///         (English - United States - 1033): User Entity Instance Data
+                ///         (Russian - 1049): Данные экземпляра сущности пользователя
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Per User item instance data
+                ///         (Russian - 1049): Данные экземпляра позиции "на пользователя"
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship userentityinstancedata_fieldpermission")]
                 public static partial class userentityinstancedata_fieldpermission
                 {
                     public const string Name = "userentityinstancedata_fieldpermission";

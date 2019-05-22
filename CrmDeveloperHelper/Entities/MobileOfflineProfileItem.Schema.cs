@@ -6,9 +6,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///<summary>
         /// DisplayName:
         ///     (English - United States - 1033): Mobile Offline Profile Item
+        ///     (Russian - 1049): Элемент профиля Mobile Offline
         /// 
         /// Description:
         ///     (English - United States - 1033): Information on entity availability to mobile devices in offline mode for a mobile offline profile item.
+        ///     (Russian - 1049): Сведения о доступности сущности для мобильных устройств в автономном режиме для элемента профиля Mobile Offline.
         /// 
         /// PropertyName                          Value
         /// ActivityTypeMask                      0
@@ -109,9 +111,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Mobile Offline Profile Item
+                ///     (Russian - 1049): Элемент профиля Mobile Offline
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the mobile offline profile item.
+                ///     (Russian - 1049): Уникальный идентификатор элемента профиля Mobile Offline.
                 /// 
                 /// SchemaName: MobileOfflineProfileItemId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -138,14 +142,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Mobile Offline Profile Item")]
                 public const string mobileofflineprofileitemid = "mobileofflineprofileitemid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Name
+                ///     (Russian - 1049): Название
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Enter the name of the mobile offline profile item.
+                ///     (Russian - 1049): Введите имя элемента профиля Mobile Offline.
                 /// 
                 /// SchemaName: Name
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
@@ -174,14 +181,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Name")]
                 public const string name = "name";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Allow Entity to Follow Relationship
+                ///     (Russian - 1049): Разрешить сущности подписываться на отношение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Specifies whether records of this entity can be followed.
+                ///     (Russian - 1049): Указывает, возможна ли подписка на записи этой сущности.
                 /// 
                 /// SchemaName: CanBeFollowed
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
@@ -192,10 +202,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): No
+                ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Yes
+                ///     (Russian - 1049): Да
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -218,6 +230,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Allow Entity to Follow Relationship")]
                 public const string canbefollowed = "canbefollowed";
 
                 ///<summary>
@@ -251,9 +264,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Component State
+                ///     (Russian - 1049): Состояние компонента
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: ComponentState
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -265,9 +280,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): Component State
+                ///             (Russian - 1049): Состояние компонента
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): The state of this component.
+                ///             (Russian - 1049): Состояние этого компонента.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -288,14 +305,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Component State")]
                 public const string componentstate = "componentstate";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By
+                ///     (Russian - 1049): Кем создано
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows who created the record.
+                ///     (Russian - 1049): Показывает, кто создал запись.
                 /// 
                 /// SchemaName: CreatedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -307,12 +327,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -333,6 +356,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By")]
                 public const string createdby = "createdby";
 
                 ///<summary>
@@ -398,9 +422,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created On
+                ///     (Russian - 1049): Дата создания
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows the date and time when the record was created. The date and time are displayed in the time zone selected in Microsoft Dynamics 365 options.
+                ///     (Russian - 1049): Показывает дату и время, в которые была создана запись. Дата и время отображаются для часового пояса, выбранного в параметрах Microsoft Dynamics 365.
                 /// 
                 /// SchemaName: CreatedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -429,14 +455,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created On")]
                 public const string createdon = "createdon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By (Delegate)
+                ///     (Russian - 1049): Кем создано (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows who created the record on behalf of another user.
+                ///     (Russian - 1049): Показывает, кто создал запись от имени другого пользователя.
                 /// 
                 /// SchemaName: CreatedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -448,12 +477,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -474,6 +506,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By (Delegate)")]
                 public const string createdonbehalfby = "createdonbehalfby";
 
                 ///<summary>
@@ -539,6 +572,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Internal Use Only
+                ///     (Russian - 1049): Только для внутреннего использования
                 /// 
                 /// SchemaName: EntityObjectTypeCode
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -567,14 +601,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Internal Use Only")]
                 public const string entityobjecttypecode = "entityobjecttypecode";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Get Related Entities
+                ///     (Russian - 1049): Получить связанные сущности
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Specify whether records related to this entity will be made available for offline access.
+                ///     (Russian - 1049): Указывает, будут ли записи, связанные с этой сущностью, доступны для доступа в автономном режиме.
                 /// 
                 /// SchemaName: GetRelatedEntityRecords
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
@@ -585,10 +622,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): No
+                ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Yes
+                ///     (Russian - 1049): Да
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -611,6 +650,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Get Related Entities")]
                 public const string getrelatedentityrecords = "getrelatedentityrecords";
 
                 ///<summary>
@@ -644,9 +684,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Introduced Version
+                ///     (Russian - 1049): Версия введения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Version in which the Mobile offline Profile Item is introduced.
+                ///     (Russian - 1049): Версия, в которой введен элемент профиля Mobile Offline.
                 /// 
                 /// SchemaName: IntroducedVersion
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -675,14 +717,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Introduced Version")]
                 public const string introducedversion = "introducedversion";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Is Managed
+                ///     (Russian - 1049): Управляется
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: IsManaged
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
@@ -693,10 +738,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Unmanaged
+                ///     (Russian - 1049): Неуправляемый
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Managed
+                ///     (Russian - 1049): Управляемый
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -718,14 +765,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Is Managed")]
                 public const string ismanaged = "ismanaged";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Is Valid For Mobile Offline
+                ///     (Russian - 1049): Является допустимым для Mobile Offline
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Information about whether profile item is validated or not
+                ///     (Russian - 1049): Информация о том, является элемент профиля проверенным или нет
                 /// 
                 /// SchemaName: IsValidated
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
@@ -736,10 +786,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): No
+                ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Yes
+                ///     (Russian - 1049): Да
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -761,11 +813,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Is Valid For Mobile Offline")]
                 public const string isvalidated = "isvalidated";
 
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Is Validated Name.
+                ///     (Russian - 1049): Является проверенным именем.
                 /// 
                 /// SchemaName: IsValidatedName
                 /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'isvalidated'
@@ -797,9 +851,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Is Visible In Grid
+                ///     (Russian - 1049): Отображается в сетке
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Information about whether the mobile offline profile item is visible in the Profile Item subgrid.
+                ///     (Russian - 1049): Сведения о том, отображается ли элемент профиля Mobile Offline во вложенной сетке элемента профиля.
                 /// 
                 /// SchemaName: IsVisibleInGrid
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
@@ -810,10 +866,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): False
+                ///     (Russian - 1049): Ложь
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): True
+                ///     (Russian - 1049): Истина
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -835,6 +893,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Is Visible In Grid")]
                 public const string isvisibleingrid = "isvisibleingrid";
 
                 ///<summary>
@@ -868,9 +927,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Unique Id
+                ///     (Russian - 1049): Уникальный идентификатор
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For Internal Use Only
+                ///     (Russian - 1049): Только для внутреннего использования
                 /// 
                 /// SchemaName: MobileOfflineProfileItemIdUnique
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -897,14 +958,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Unique Id")]
                 public const string mobileofflineprofileitemidunique = "mobileofflineprofileitemidunique";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By
+                ///     (Russian - 1049): Кем изменено
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows who last updated the record.
+                ///     (Russian - 1049): Показывает, кто последним обновил запись.
                 /// 
                 /// SchemaName: ModifiedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -916,12 +980,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -942,6 +1009,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By")]
                 public const string modifiedby = "modifiedby";
 
                 ///<summary>
@@ -1007,9 +1075,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified On
+                ///     (Russian - 1049): Дата изменения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows the date and time when the record was last updated. The date and time are displayed in the time zone selected in Microsoft Dynamics 365 options.
+                ///     (Russian - 1049): Показывает дату и время последнего обновления записи. Дата и время отображаются для часового пояса, выбранного в параметрах Microsoft Dynamics 365.
                 /// 
                 /// SchemaName: ModifiedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -1038,14 +1108,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified On")]
                 public const string modifiedon = "modifiedon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By (Delegate)
+                ///     (Russian - 1049): Кем изменено (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows who updated the record on behalf of another user.
+                ///     (Russian - 1049): Показывает, кто обновил запись от имени другого пользователя.
                 /// 
                 /// SchemaName: ModifiedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1057,12 +1130,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1083,6 +1159,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By (Delegate)")]
                 public const string modifiedonbehalfby = "modifiedonbehalfby";
 
                 ///<summary>
@@ -1148,9 +1225,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Organization
+                ///     (Russian - 1049): Организация
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the organization associated with the Mobile Offline Profile Item.
+                ///     (Russian - 1049): Уникальный идентификатор организации, связанной с элементом профиля Mobile Offline.
                 /// 
                 /// SchemaName: OrganizationId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: SystemRequired
@@ -1162,12 +1241,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target organization    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Organization
+                ///             (Russian - 1049): Предприятие
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Organizations
+                ///             (Russian - 1049): Предприятия
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
+                ///             (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1188,6 +1270,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Organization")]
                 public const string organizationid = "organizationid";
 
                 ///<summary>
@@ -1223,9 +1306,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Record Overwrite Time
+                ///     (Russian - 1049): Время замены записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: OverwriteTime
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
@@ -1254,14 +1339,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Record Overwrite Time")]
                 public const string overwritetime = "overwritetime";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Process
+                ///     (Russian - 1049): Процесс
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows the ID of the process.
+                ///     (Russian - 1049): Показывает идентификатор процесса.
                 /// 
                 /// SchemaName: ProcessId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
@@ -1288,14 +1376,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Process")]
                 public const string processid = "processid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Profile item entity filter
+                ///     (Russian - 1049): Фильтр сущностей элементов профиля
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Profile item entity filter criteria
+                ///     (Russian - 1049): Критерии фильтра сущностей элементов профиля
                 /// 
                 /// SchemaName: ProfileItemEntityFilter
                 /// MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: None
@@ -1324,14 +1415,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Profile item entity filter")]
                 public const string profileitementityfilter = "profileitementityfilter";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): View to sync data to device
+                ///     (Russian - 1049): Просмотр для синхронизации данных на устройство
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Saved Query associated with the Mobile offline profile item rule.
+                ///     (Russian - 1049): Сохраненный запрос, связанный с правилом элемента профиля Mobile Offline.
                 /// 
                 /// SchemaName: ProfileItemRule
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1343,12 +1437,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target savedquery    PrimaryIdAttribute savedqueryid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): View
+                ///             (Russian - 1049): Представление
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Views
+                ///             (Russian - 1049): Представления
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Saved query against the database.
+                ///             (Russian - 1049): Сохраненный запрос к базе данных.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1370,6 +1467,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("View to sync data to device")]
                 public const string profileitemrule = "profileitemrule";
 
                 ///<summary>
@@ -1406,9 +1504,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Published On
+                ///     (Russian - 1049): Дата публикации
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Displays the last published date time.
+                ///     (Russian - 1049): Показывает дату и время последней публикации.
                 /// 
                 /// SchemaName: PublishedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -1437,14 +1537,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Published On")]
                 public const string publishedon = "publishedon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Data Download Filter
+                ///     (Russian - 1049): Фильтр загрузки данных
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Specify data download filter for selected entity
+                ///     (Russian - 1049): Задайте фильтр загрузки данных для выбранной сущности
                 /// 
                 /// SchemaName: RecordDistributionCriteria
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -1473,6 +1576,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Data Download Filter")]
                 public const string recorddistributioncriteria = "recorddistributioncriteria";
 
                 ///<summary>
@@ -1506,6 +1610,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Download my records
+                ///     (Russian - 1049): Загрузить мои записи
                 /// 
                 /// SchemaName: RecordsOwnedByMe
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
@@ -1516,10 +1621,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): False
+                ///     (Russian - 1049): Ложь
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): True
+                ///     (Russian - 1049): Истина
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -1541,6 +1648,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Download my records")]
                 public const string recordsownedbyme = "recordsownedbyme";
 
                 ///<summary>
@@ -1574,6 +1682,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Download my business unit's records
+                ///     (Russian - 1049): Загрузить записи моей бизнес-единицы
                 /// 
                 /// SchemaName: RecordsOwnedByMyBusinessUnit
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
@@ -1584,10 +1693,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): False
+                ///     (Russian - 1049): Ложь
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): True
+                ///     (Russian - 1049): Истина
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -1609,6 +1720,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Download my business unit's records")]
                 public const string recordsownedbymybusinessunit = "recordsownedbymybusinessunit";
 
                 ///<summary>
@@ -1642,6 +1754,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Download my team's records
+                ///     (Russian - 1049): Загрузить записи моей рабочей группы
                 /// 
                 /// SchemaName: RecordsOwnedByMyTeam
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
@@ -1652,10 +1765,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): False
+                ///     (Russian - 1049): Ложь
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): True
+                ///     (Russian - 1049): Истина
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -1677,6 +1792,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Download my team's records")]
                 public const string recordsownedbymyteam = "recordsownedbymyteam";
 
                 ///<summary>
@@ -1710,9 +1826,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Regarding
+                ///     (Russian - 1049): В отношении
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Items contained with a particular Profile.
+                ///     (Russian - 1049): Элементы, содержащиеся в конкретном профиле.
                 /// 
                 /// SchemaName: RegardingObjectId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: SystemRequired
@@ -1724,12 +1842,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target mobileofflineprofile    PrimaryIdAttribute mobileofflineprofileid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Mobile Offline Profile
+                ///             (Russian - 1049): Профиль Mobile Offline
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Mobile Offline Profiles
+                ///             (Russian - 1049): Профили Mobile Offline
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Information to administer and manage the data available to mobile devices in offline mode.
+                ///             (Russian - 1049): Сведения для администрирования данных, доступных мобильным устройствам в автономном режиме, и управления ими.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1750,6 +1871,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Regarding")]
                 public const string regardingobjectid = "regardingobjectid";
 
                 ///<summary>
@@ -1785,6 +1907,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Internal Use Only
+                ///     (Russian - 1049): Только для внутреннего использования
                 /// 
                 /// SchemaName: RelationshipData
                 /// MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: None
@@ -1813,11 +1936,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Internal Use Only")]
                 public const string relationshipdata = "relationshipdata";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Internal Use Only
+                ///     (Russian - 1049): Только для внутреннего использования
                 /// 
                 /// SchemaName: SelectedEntityMetadata
                 /// MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: None
@@ -1846,14 +1971,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Internal Use Only")]
                 public const string selectedentitymetadata = "selectedentitymetadata";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Entity
+                ///     (Russian - 1049): Сущность
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Mobile offline enabled entity
+                ///     (Russian - 1049): Сущность с включенным режимом Mobile Offline
                 /// 
                 /// SchemaName: SelectedEntityTypeCode
                 /// EntityNameAttributeMetadata    AttributeType: EntityName    AttributeTypeName: EntityNameType    RequiredLevel: SystemRequired
@@ -1865,9 +1993,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): Mobile Offline Enabled Entities
+                ///             (Russian - 1049): Сущности с включенным режимом Mobile Offline
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): List of Mobile Offline Enabled Entities.
+                ///             (Russian - 1049): Список сущностей с включенным режимом Mobile Offline.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1888,6 +2018,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Entity")]
                 public const string selectedentitytypecode = "selectedentitytypecode";
 
                 ///<summary>
@@ -1921,9 +2052,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the associated solution.
+                ///     (Russian - 1049): Уникальный идентификатор связанного решения.
                 /// 
                 /// SchemaName: SolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -1950,14 +2083,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string solutionid = "solutionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Process Stage
+                ///     (Russian - 1049): Стадия процесса
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows the ID of the stage.
+                ///     (Russian - 1049): Показывает идентификатор стадии.
                 /// 
                 /// SchemaName: StageId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
@@ -1984,14 +2120,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Process Stage")]
                 public const string stageid = "stageid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: SupportingSolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
@@ -2018,14 +2157,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string supportingsolutionid = "supportingsolutionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Traversed Path
+                ///     (Russian - 1049): Пройденный путь
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: TraversedPath
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -2054,14 +2196,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Traversed Path")]
                 public const string traversedpath = "traversedpath";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Version Number
+                ///     (Russian - 1049): Номер версии
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Version number of the Mobile Offline Profile Item.
+                ///     (Russian - 1049): Номер версии элемента профиля Mobile Offline.
                 /// 
                 /// SchemaName: VersionNumber
                 /// BigIntAttributeMetadata    AttributeType: BigInt    AttributeTypeName: BigIntType    RequiredLevel: None
@@ -2089,14 +2234,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Version Number")]
                 public const string versionnumber = "versionnumber";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): View Query
+                ///     (Russian - 1049): Просмотр запроса
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Contains converted sql of the referenced view.
+                ///     (Russian - 1049): Содержит преобразованный SQL-код представления, на которое указывает ссылка.
                 /// 
                 /// SchemaName: ViewQuery
                 /// MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: None
@@ -2126,6 +2274,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("View Query")]
                 public const string viewquery = "viewquery";
             }
 
@@ -2143,15 +2292,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Data Download Filter
+                ///     (Russian - 1049): Фильтр загрузки данных
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Specify data download filter for selected entity
+                ///     (Russian - 1049): Задайте фильтр загрузки данных для выбранной сущности
                 /// 
                 /// Local System  OptionSet mobileofflineprofileitem_recorddistributioncriteria
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): The rules for record download in offline
+                ///     (Russian - 1049): Правила загрузки записей в автономном режиме
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("The rules for record download in offline")]
                 public enum recorddistributioncriteria
                 {
                     ///<summary>
@@ -2160,7 +2313,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Download related data only
+                    ///     (Russian - 1049): Загрузить только связанные данные
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Download related data only")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Download_related_data_only_0 = 0,
 
@@ -2170,7 +2325,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): All records
+                    ///     (Russian - 1049): Все записи
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("All records")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     All_records_1 = 1,
 
@@ -2180,7 +2337,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Other data filter
+                    ///     (Russian - 1049): Другой фильтр данных
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Other data filter")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Other_data_filter_2 = 2,
 
@@ -2190,7 +2349,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Custom data filter
+                    ///     (Russian - 1049): Пользовательский фильтр данных
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Custom data filter")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Custom_data_filter_3 = 3,
                 }
@@ -2230,13 +2391,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_MobileOfflineProfileItem_createdby")]
                 public static partial class lk_mobileofflineprofileitem_createdby
                 {
                     public const string Name = "lk_MobileOfflineProfileItem_createdby";
@@ -2278,13 +2443,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_mobileofflineprofileitem_createdonbehalfby")]
                 public static partial class lk_mobileofflineprofileitem_createdonbehalfby
                 {
                     public const string Name = "lk_mobileofflineprofileitem_createdonbehalfby";
@@ -2326,13 +2495,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_mobileofflineprofileitem_modifiedby")]
                 public static partial class lk_mobileofflineprofileitem_modifiedby
                 {
                     public const string Name = "lk_mobileofflineprofileitem_modifiedby";
@@ -2374,13 +2547,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_mobileofflineprofileitem_modifiedonbehalfby")]
                 public static partial class lk_mobileofflineprofileitem_modifiedonbehalfby
                 {
                     public const string Name = "lk_mobileofflineprofileitem_modifiedonbehalfby";
@@ -2422,13 +2599,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity savedquery:    PrimaryIdAttribute savedqueryid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): View
+                ///         (Russian - 1049): Представление
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Views
+                ///         (Russian - 1049): Представления
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Saved query against the database.
+                ///         (Russian - 1049): Сохраненный запрос к базе данных.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_mobileofflineprofileitem_savedquery")]
                 public static partial class lk_mobileofflineprofileitem_savedquery
                 {
                     public const string Name = "lk_mobileofflineprofileitem_savedquery";
@@ -2470,12 +2651,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity mobileofflineprofile:    PrimaryIdAttribute mobileofflineprofileid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Mobile Offline Profile
+                ///         (Russian - 1049): Профиль Mobile Offline
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Mobile Offline Profiles
+                ///         (Russian - 1049): Профили Mobile Offline
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Information to administer and manage the data available to mobile devices in offline mode.
+                ///         (Russian - 1049): Сведения для администрирования данных, доступных мобильным устройствам в автономном режиме, и управления ими.
                 /// 
                 /// AttributeMaps:
                 ///     SourceEntity                    TargetEntity
@@ -2486,6 +2670,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     name                      ->    regardingobjectidname
                 ///     selectedentitymetadata    ->    selectedentitymetadata
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship MobileOfflineProfile_MobileOfflineProfileItem")]
                 public static partial class mobileofflineprofile_mobileofflineprofileitem
                 {
                     public const string Name = "MobileOfflineProfile_MobileOfflineProfileItem";
@@ -2527,13 +2712,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity organization:    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Organization
+                ///         (Russian - 1049): Предприятие
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Organizations
+                ///         (Russian - 1049): Предприятия
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
+                ///         (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship MobileOfflineProfileItem_organization")]
                 public static partial class mobileofflineprofileitem_organization
                 {
                     public const string Name = "MobileOfflineProfileItem_organization";
@@ -2582,12 +2771,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity mobileofflineprofileitemassociation:    PrimaryIdAttribute mobileofflineprofileitemassociationid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Mobile Offline Profile Item Association
+                ///         (Russian - 1049): Связь элемента профиля Mobile Offline
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Mobile Offline Profile Item Associations
+                ///         (Russian - 1049): Связи элементов профиля Mobile Offline
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Information on relationships to be used to follow related entity's records for mobile offline profile item.
+                ///         (Russian - 1049): Сведения об отношениях, которые должны использоваться для подписки на записи связанной сущности для элемента профиля Mobile Offline.
                 /// 
                 /// AttributeMaps:
                 ///     SourceEntity                        TargetEntity
@@ -2598,6 +2790,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     name                          ->    mobileofflineprofileitemidname
                 ///     relationshipdata              ->    relationshipdata
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship MobileOfflineProfileItem_MobileOfflineProfileItemAssociation")]
                 public static partial class mobileofflineprofileitem_mobileofflineprofileitemassociation
                 {
                     public const string Name = "MobileOfflineProfileItem_MobileOfflineProfileItemAssociation";

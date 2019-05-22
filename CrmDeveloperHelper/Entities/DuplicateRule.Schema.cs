@@ -6,12 +6,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///<summary>
         /// DisplayName:
         ///     (English - United States - 1033): Duplicate Detection Rule
+        ///     (Russian - 1049): Правило обнаружения повторяющихся записей
         /// 
         /// DisplayCollectionName:
         ///     (English - United States - 1033): Duplicate Detection Rules
+        ///     (Russian - 1049): Правила обнаружения повторяющихся записей
         /// 
         /// Description:
         ///     (English - United States - 1033): Rule used to identify potential duplicates.
+        ///     (Russian - 1049): Правило, используемое для определения возможных повторов.
         /// 
         /// PropertyName                          Value
         /// ActivityTypeMask                      0
@@ -104,9 +107,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Duplicate Detection Rule
+                ///     (Russian - 1049): Правило обнаружения повторяющихся записей
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the duplicate detection rule.
+                ///     (Russian - 1049): Уникальный идентификатор правила обнаружения повторных записей.
                 /// 
                 /// SchemaName: DuplicateRuleId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -133,14 +138,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Duplicate Detection Rule")]
                 public const string duplicateruleid = "duplicateruleid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Rule Name
+                ///     (Russian - 1049): Имя правила
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Name of the duplicate detection rule.
+                ///     (Russian - 1049): Имя правила обнаружения повторных записей.
                 /// 
                 /// SchemaName: Name
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
@@ -169,14 +177,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Rule Name")]
                 public const string name = "name";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Base Record Type Match Code Table
+                ///     (Russian - 1049): Таблица кодов соответствия типа базовой записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Database table that stores match codes for the record type being evaluated for potential duplicates.
+                ///     (Russian - 1049): Таблица базы данных, в которой хранятся коды соответствия для типа записи, оцениваемой с точки зрения возможных повторов.
                 /// 
                 /// SchemaName: BaseEntityMatchCodeTable
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -205,14 +216,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Base Record Type Match Code Table")]
                 public const string baseentitymatchcodetable = "baseentitymatchcodetable";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Base Record Type
+                ///     (Russian - 1049): Тип базовой записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Record type of the record being evaluated for potential duplicates.
+                ///     (Russian - 1049): Тип записи, оцениваемой с точки зрения возможных повторов.
                 /// 
                 /// SchemaName: BaseEntityName
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: ApplicationRequired
@@ -241,14 +255,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Base Record Type")]
                 public const string baseentityname = "baseentityname";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Base Record Type
+                ///     (Russian - 1049): Тип базовой записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Record type of the record being evaluated for potential duplicates.
+                ///     (Russian - 1049): Тип записи, оцениваемой с точки зрения возможных повторов.
                 /// 
                 /// SchemaName: BaseEntityTypeCode
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -277,6 +294,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Base Record Type")]
                 public const string baseentitytypecode = "baseentitytypecode";
 
                 ///<summary>
@@ -310,9 +328,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By
+                ///     (Russian - 1049): Создано
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who created the duplicate detection rule.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя, создавшего правило обнаружения повторных записей.
                 /// 
                 /// SchemaName: CreatedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -324,12 +344,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -350,6 +373,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By")]
                 public const string createdby = "createdby";
 
                 ///<summary>
@@ -415,9 +439,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created On
+                ///     (Russian - 1049): Дата создания
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the duplicate detection rule was created.
+                ///     (Russian - 1049): Дата и время создания правила обнаружения повторных записей.
                 /// 
                 /// SchemaName: CreatedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -446,14 +472,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created On")]
                 public const string createdon = "createdon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By (Delegate)
+                ///     (Russian - 1049): Кем создано (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who created the duplicaterule.
+                ///     (Russian - 1049): Уникальный идентификатор делегированного пользователя, создавшего правило поиска повторяющихся данных.
                 /// 
                 /// SchemaName: CreatedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -465,12 +494,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -491,6 +523,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By (Delegate)")]
                 public const string createdonbehalfby = "createdonbehalfby";
 
                 ///<summary>
@@ -556,9 +589,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Description
+                ///     (Russian - 1049): Описание
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Description of the duplicate detection rule.
+                ///     (Russian - 1049): Описание правила обнаружения повторных записей.
                 /// 
                 /// SchemaName: Description
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -587,14 +622,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Description")]
                 public const string description = "description";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Exclude Inactive Records
+                ///     (Russian - 1049): Исключение неактивных записей
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Determines whether to flag inactive records as duplicates
+                ///     (Russian - 1049): Определяет, помечать ли неактивные записи как дубликаты
                 /// 
                 /// SchemaName: ExcludeInactiveRecords
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
@@ -605,10 +643,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): False
+                ///     (Russian - 1049): Ложь
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): True
+                ///     (Russian - 1049): Истина
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -630,14 +670,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Exclude Inactive Records")]
                 public const string excludeinactiverecords = "excludeinactiverecords";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Exclude Inactive Records
+                ///     (Russian - 1049): Исключение неактивных записей
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Determines whether to flag inactive records as duplicates
+                ///     (Russian - 1049): Определяет, помечать ли неактивные записи как дубликаты
                 /// 
                 /// SchemaName: ExcludeInactiveRecordsName
                 /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'excludeinactiverecords'
@@ -669,9 +712,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Case Sensitive
+                ///     (Russian - 1049): С учетом регистра
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Indicates if the operator is case-sensitive.
+                ///     (Russian - 1049): Указывает, является ли оператор чувствительным к регистру.
                 /// 
                 /// SchemaName: IsCaseSensitive
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
@@ -682,10 +727,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): False
+                ///     (Russian - 1049): Ложь
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): True
+                ///     (Russian - 1049): Истина
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -707,14 +754,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Case Sensitive")]
                 public const string iscasesensitive = "iscasesensitive";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Is Case Sensitive
+                ///     (Russian - 1049): С учетом регистра
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Information about whether the duplicate detection rule is case-sensitive.
+                ///     (Russian - 1049): Информация о том, учитывается ли регистр в правиле обнаружения повторных записей.
                 /// 
                 /// SchemaName: IsCaseSensitiveName
                 /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'iscasesensitive'
@@ -746,9 +796,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Matching Record Type Match Code Table
+                ///     (Russian - 1049): Таблица кодов соответствия соответствующего типа записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Database table that stores match codes for potential duplicate records.
+                ///     (Russian - 1049): Таблица базы данных, в которой хранятся коды соответствия для возможных повторных записей.
                 /// 
                 /// SchemaName: MatchingEntityMatchCodeTable
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -777,14 +829,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Matching Record Type Match Code Table")]
                 public const string matchingentitymatchcodetable = "matchingentitymatchcodetable";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Matching Record Type
+                ///     (Russian - 1049): Соответствующий тип записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Record type of the records being evaluated as potential duplicates.
+                ///     (Russian - 1049): Тип записи, оцениваемой с точки зрения возможных повторов.
                 /// 
                 /// SchemaName: MatchingEntityName
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -813,14 +868,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Matching Record Type")]
                 public const string matchingentityname = "matchingentityname";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Matching Record Type
+                ///     (Russian - 1049): Соответствующий тип записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Record type of the records being evaluated as potential duplicates.
+                ///     (Russian - 1049): Тип записи, оцениваемой с точки зрения возможных повторов.
                 /// 
                 /// SchemaName: MatchingEntityTypeCode
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -849,6 +907,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Matching Record Type")]
                 public const string matchingentitytypecode = "matchingentitytypecode";
 
                 ///<summary>
@@ -882,9 +941,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By
+                ///     (Russian - 1049): Изменено
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who last modified the duplicate detection rule.
+                ///     (Russian - 1049): Уникальный идентификатор последнего пользователя, изменившего правило обнаружения повторных записей.
                 /// 
                 /// SchemaName: ModifiedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -896,12 +957,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -922,6 +986,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By")]
                 public const string modifiedby = "modifiedby";
 
                 ///<summary>
@@ -987,9 +1052,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified On
+                ///     (Russian - 1049): Дата изменения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the duplicate detection rule was last modified.
+                ///     (Russian - 1049): Дата и время последнего изменения правила обнаружения повторных записей.
                 /// 
                 /// SchemaName: ModifiedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -1018,14 +1085,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified On")]
                 public const string modifiedon = "modifiedon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By (Delegate)
+                ///     (Russian - 1049): Кем изменено (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who last modified the duplicaterule.
+                ///     (Russian - 1049): Уникальный идентификатор последнего делегированного пользователя, изменившего правило поиска повторяющихся данных.
                 /// 
                 /// SchemaName: ModifiedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1037,12 +1107,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1063,6 +1136,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By (Delegate)")]
                 public const string modifiedonbehalfby = "modifiedonbehalfby";
 
                 ///<summary>
@@ -1128,9 +1202,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owner
+                ///     (Russian - 1049): Ответственный
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user or team who owns the duplicate detection rule.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя или рабочей группы, ответственных за правило поиска повторяющихся данных.
                 /// 
                 /// SchemaName: OwnerId
                 /// LookupAttributeMetadata    AttributeType: Owner    AttributeTypeName: OwnerType    RequiredLevel: SystemRequired
@@ -1142,22 +1218,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// 
                 ///     Target team    PrimaryIdAttribute teamid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Team
+                ///             (Russian - 1049): Рабочая группа
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Teams
+                ///             (Russian - 1049): Рабочие группы
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
+                ///             (Russian - 1049): Набор системных пользователей, которые обычно участвуют в совместной работе. Рабочие группы можно использовать для упрощения предоставления участникам группы общего доступа к записям и данным организации, если участники принадлежат к разным бизнес-единицам.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1178,6 +1260,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Owner")]
                 public const string ownerid = "ownerid";
 
                 ///<summary>
@@ -1271,6 +1354,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the business unit that owns duplicate detection rule.
+                ///     (Russian - 1049): Уникальный идентификатор бизнес-единицы, ответственной за правило обнаружения повторных записей.
                 /// 
                 /// SchemaName: OwningBusinessUnit
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1282,12 +1366,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target businessunit    PrimaryIdAttribute businessunitid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Business Unit
+                ///             (Russian - 1049): Бизнес-единица
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Business Units
+                ///             (Russian - 1049): Бизнес-единицы
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Business, division, or department in the Microsoft Dynamics 365 database.
+                ///             (Russian - 1049): Компания, подразделение или отдел в базе данных Microsoft Dynamics 365.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1308,14 +1395,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Unique identifier of the business unit that owns duplicate detection rule.")]
                 public const string owningbusinessunit = "owningbusinessunit";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owning Team
+                ///     (Russian - 1049): Ответственная рабочая группа
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the team who owns the duplicate detection rule.
+                ///     (Russian - 1049): Уникальный идентификатор рабочей группы, ответственной за правила обнаружения повторов.
                 /// 
                 /// SchemaName: OwningTeam
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1327,12 +1417,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target team    PrimaryIdAttribute teamid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Team
+                ///             (Russian - 1049): Рабочая группа
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Teams
+                ///             (Russian - 1049): Рабочие группы
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
+                ///             (Russian - 1049): Набор системных пользователей, которые обычно участвуют в совместной работе. Рабочие группы можно использовать для упрощения предоставления участникам группы общего доступа к записям и данным организации, если участники принадлежат к разным бизнес-единицам.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1353,14 +1446,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Owning Team")]
                 public const string owningteam = "owningteam";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owning User
+                ///     (Russian - 1049): Ответственный пользователь
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who owns the duplicate detection rule.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя, ответственного за правило обнаружения повторных записей.
                 /// 
                 /// SchemaName: OwningUser
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1372,12 +1468,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1398,14 +1497,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Owning User")]
                 public const string owninguser = "owninguser";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Status
+                ///     (Russian - 1049): Состояние
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Status of the duplicate detection rule.
+                ///     (Russian - 1049): Состояние правила обнаружения повторных записей.
                 /// 
                 /// SchemaName: StateCode
                 /// StateAttributeMetadata    AttributeType: State    AttributeTypeName: StateType    RequiredLevel: SystemRequired
@@ -1433,11 +1535,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Status")]
                 public const string statecode = "statecode";
 
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Status name of the rule.
+                ///     (Russian - 1049): Имя состояния правила.
                 /// 
                 /// SchemaName: StateCodeName
                 /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'statecode'
@@ -1469,9 +1573,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Status Reason
+                ///     (Russian - 1049): Причина состояния
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Reason for the status of the duplicate detection rule.
+                ///     (Russian - 1049): Причина состояния правила обнаружения повторных записей.
                 /// 
                 /// SchemaName: StatusCode
                 /// StatusAttributeMetadata    AttributeType: Status    AttributeTypeName: StatusType    RequiredLevel: SystemRequired
@@ -1499,11 +1605,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Status Reason")]
                 public const string statuscode = "statuscode";
 
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Name of the status reason of the rule.
+                ///     (Russian - 1049): Имя причины состояния правила.
                 /// 
                 /// SchemaName: StatusCodeName
                 /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'statuscode'
@@ -1535,6 +1643,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: TimeZoneRuleVersionNumber
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -1563,11 +1672,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("For internal use only.")]
                 public const string timezoneruleversionnumber = "timezoneruleversionnumber";
 
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Time zone code that was in use when the record was created.
+                ///     (Russian - 1049): Код часового пояса, использовавшийся при создании записи.
                 /// 
                 /// SchemaName: UTCConversionTimeZoneCode
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -1596,6 +1707,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Time zone code that was in use when the record was created.")]
                 public const string utcconversiontimezonecode = "utcconversiontimezonecode";
             }
 
@@ -1612,10 +1724,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Status
+                ///     (Russian - 1049): Состояние
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Status of the duplicate detection rule.
+                ///     (Russian - 1049): Состояние правила обнаружения повторных записей.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Status")]
                 public enum statecode
                 {
                     ///<summary>
@@ -1625,7 +1740,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Inactive
+                    ///     (Russian - 1049): Неактивный
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Inactive")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Inactive_0 = 0,
 
@@ -1636,7 +1753,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Active
+                    ///     (Russian - 1049): Активный
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Active")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Active_1 = 1,
                 }
@@ -1647,10 +1766,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Status
+                ///     (Russian - 1049): Состояние
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Status of the duplicate detection rule.
+                ///     (Russian - 1049): Состояние правила обнаружения повторных записей.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Status Reason")]
                 public enum statuscode
                 {
                     ///<summary>
@@ -1659,7 +1781,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Unpublished
+                    ///     (Russian - 1049): Не опубликовано
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Unpublished")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Inactive_0_Unpublished_0 = 0,
 
@@ -1669,7 +1793,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Publishing
+                    ///     (Russian - 1049): Публикация
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Publishing")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Inactive_0_Publishing_1 = 1,
 
@@ -1679,7 +1805,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Published
+                    ///     (Russian - 1049): Опубликовано
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Published")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Active_1_Published_2 = 2,
                 }
@@ -1694,19 +1822,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Base Record Type
+                ///     (Russian - 1049): Тип базовой записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Record type of the record being evaluated for potential duplicates.
+                ///     (Russian - 1049): Тип записи, оцениваемой с точки зрения возможных повторов.
                 /// 
                 /// Local System  OptionSet duplicaterule_baseentitytypecode
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Base Record Type
+                ///     (Russian - 1049): Тип базовой записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Record type of the record being evaluated for potential duplicates.
+                ///     (Russian - 1049): Тип записи, оцениваемой с точки зрения возможных повторов.
                 ///</summary>
-                //public enum baseentitytypecode
+                // public enum baseentitytypecode
 
                 ///<summary>
                 /// Attribute:
@@ -1714,19 +1846,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Matching Record Type
+                ///     (Russian - 1049): Соответствующий тип записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Record type of the records being evaluated as potential duplicates.
+                ///     (Russian - 1049): Тип записи, оцениваемой с точки зрения возможных повторов.
                 /// 
                 /// Local System  OptionSet duplicaterule_matchingentitytypecode
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Matching Record Type
+                ///     (Russian - 1049): Соответствующий тип записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Record type of the records being evaluated as potential duplicates.
+                ///     (Russian - 1049): Тип записи, оцениваемой с точки зрения возможных повторов.
                 ///</summary>
-                //public enum matchingentitytypecode
+                // public enum matchingentitytypecode
 
                 #endregion Picklist OptionSets.
             }
@@ -1763,13 +1899,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity businessunit:    PrimaryIdAttribute businessunitid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Business Unit
+                ///         (Russian - 1049): Бизнес-единица
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Business Units
+                ///         (Russian - 1049): Бизнес-единицы
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Business, division, or department in the Microsoft Dynamics 365 database.
+                ///         (Russian - 1049): Компания, подразделение или отдел в базе данных Microsoft Dynamics 365.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship BusinessUnit_DuplicateRules")]
                 public static partial class businessunit_duplicaterules
                 {
                     public const string Name = "BusinessUnit_DuplicateRules";
@@ -1811,13 +1951,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_duplicaterule_createdonbehalfby")]
                 public static partial class lk_duplicaterule_createdonbehalfby
                 {
                     public const string Name = "lk_duplicaterule_createdonbehalfby";
@@ -1859,13 +2003,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_duplicaterule_modifiedonbehalfby")]
                 public static partial class lk_duplicaterule_modifiedonbehalfby
                 {
                     public const string Name = "lk_duplicaterule_modifiedonbehalfby";
@@ -1907,13 +2055,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_duplicaterulebase_createdby")]
                 public static partial class lk_duplicaterulebase_createdby
                 {
                     public const string Name = "lk_duplicaterulebase_createdby";
@@ -1955,13 +2107,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_duplicaterulebase_modifiedby")]
                 public static partial class lk_duplicaterulebase_modifiedby
                 {
                     public const string Name = "lk_duplicaterulebase_modifiedby";
@@ -2003,13 +2159,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity owner:    PrimaryIdAttribute ownerid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Owner
+                ///         (Russian - 1049): Ответственный
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Owners
+                ///         (Russian - 1049): Ответственные
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Group of undeleted system users and undeleted teams. Owners can be used to control access to specific objects.
+                ///         (Russian - 1049): Группа для восстановленных системных пользователей и рабочих групп. Для контроля доступа к конкретным объектам можно использовать ответственных.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship owner_duplicaterules")]
                 public static partial class owner_duplicaterules
                 {
                     public const string Name = "owner_duplicaterules";
@@ -2051,13 +2211,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship SystemUser_DuplicateRules")]
                 public static partial class systemuser_duplicaterules
                 {
                     public const string Name = "SystemUser_DuplicateRules";
@@ -2099,13 +2263,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity team:    PrimaryIdAttribute teamid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Team
+                ///         (Russian - 1049): Рабочая группа
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Teams
+                ///         (Russian - 1049): Рабочие группы
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
+                ///         (Russian - 1049): Набор системных пользователей, которые обычно участвуют в совместной работе. Рабочие группы можно использовать для упрощения предоставления участникам группы общего доступа к записям и данным организации, если участники принадлежат к разным бизнес-единицам.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship team_DuplicateRules")]
                 public static partial class team_duplicaterules
                 {
                     public const string Name = "team_DuplicateRules";
@@ -2154,13 +2322,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity annotation:    PrimaryIdAttribute annotationid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Note
+                ///         (Russian - 1049): Примечание
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Notes
+                ///         (Russian - 1049): Примечания
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Note that is attached to one or more objects, including other notes.
+                ///         (Russian - 1049): Примечание, которое прикреплено к одному или нескольким объектам, в том числе другим примечаниям.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship DuplicateRule_Annotation")]
                 public static partial class duplicaterule_annotation
                 {
                     public const string Name = "DuplicateRule_Annotation";
@@ -2202,13 +2374,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity duplicaterecord:    PrimaryIdAttribute duplicateid
                 ///     DisplayName:
                 ///         (English - United States - 1033): Duplicate Record
+                ///         (Russian - 1049): Повторяющаяся запись
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Duplicate Records
+                ///         (Russian - 1049): Повторные записи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Potential duplicate record.
+                ///         (Russian - 1049): Возможная повторная запись.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship DuplicateRule_DuplicateBaseRecord")]
                 public static partial class duplicaterule_duplicatebaserecord
                 {
                     public const string Name = "DuplicateRule_DuplicateBaseRecord";
@@ -2248,13 +2424,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity duplicaterulecondition:    PrimaryIdAttribute duplicateruleconditionid
                 ///     DisplayName:
                 ///         (English - United States - 1033): Duplicate Rule Condition
+                ///         (Russian - 1049): Условие правила обнаружения повторяющихся данных
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Duplicate Rule Conditions
+                ///         (Russian - 1049): Условия правила обнаружения повторов
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Condition of a duplicate detection rule.
+                ///         (Russian - 1049): Условие правила обнаружения повторных записей.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship DuplicateRule_DuplicateRuleConditions")]
                 public static partial class duplicaterule_duplicateruleconditions
                 {
                     public const string Name = "DuplicateRule_DuplicateRuleConditions";
@@ -2294,13 +2474,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity syncerror:    PrimaryIdAttribute syncerrorid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Sync Error
+                ///         (Russian - 1049): Ошибка синхронизации
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Sync Errors
+                ///         (Russian - 1049): Ошибки синхронизации
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Failure reason and other detailed information for a record that failed to sync.
+                ///         (Russian - 1049): Причина сбоя и другие подробные сведения о записи, при синхронизации которой произошла ошибка.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship DuplicateRule_SyncErrors")]
                 public static partial class duplicaterule_syncerrors
                 {
                     public const string Name = "DuplicateRule_SyncErrors";
@@ -2342,10 +2526,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
                 ///     DisplayName:
                 ///         (English - United States - 1033): User Entity Instance Data
+                ///         (Russian - 1049): Данные экземпляра сущности пользователя
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Per User item instance data
+                ///         (Russian - 1049): Данные экземпляра позиции "на пользователя"
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship userentityinstancedata_duplicaterule")]
                 public static partial class userentityinstancedata_duplicaterule
                 {
                     public const string Name = "userentityinstancedata_duplicaterule";

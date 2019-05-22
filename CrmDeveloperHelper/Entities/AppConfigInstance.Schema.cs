@@ -6,9 +6,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///<summary>
         /// DisplayName:
         ///     (English - United States - 1033): App Configuration Instance
+        ///     (Russian - 1049): Экземпляр конфигурации приложения
         /// 
         /// Description:
         ///     (English - United States - 1033): Contains a property or a list of properties from the app configuration master list that can be customized for any app in Dynamics 365. For internal use only.
+        ///     (Russian - 1049): Содержит свойство или список свойств из главного списка конфигураций приложений, которые можно настроить для любого приложения в Dynamics 365. Только для внутреннего использования.
         /// 
         /// PropertyName                          Value
         /// ActivityTypeMask                      0
@@ -98,9 +100,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): AppConfig Instance ID
+                ///     (Russian - 1049): Идентификатор экземпляра AppConfig
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): System-Populated App Configuration instance identifier.
+                ///     (Russian - 1049): Создаваемый системой идентификатор экземпляра конфигурации приложения.
                 /// 
                 /// SchemaName: AppConfigInstanceId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -127,14 +131,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("AppConfig Instance ID")]
                 public const string appconfiginstanceid = "appconfiginstanceid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): App Config ID
+                ///     (Russian - 1049): Идентификатор конфигурации приложения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): System-calculated App Configuration unique identifier.
+                ///     (Russian - 1049): Вычисляемый системой уникальный идентификатор конфигурации приложения.
                 /// 
                 /// SchemaName: AppConfigId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: ApplicationRequired
@@ -146,9 +153,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target appconfig    PrimaryIdAttribute appconfigid
                 ///         DisplayName:
                 ///             (English - United States - 1033): App Configuration
+                ///             (Russian - 1049): Конфигурация приложения
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Contains a mapping between an app configuration instance and an app, which defines the properties that can be customized for the app. Optionally, also contains navigation setting for an app. For internal use only.
+                ///             (Russian - 1049): Содержит сопоставление между экземпляром конфигурации приложения и приложением, определяющее свойства, которые можно настроить для приложения. При необходимости содержит также параметр навигации для приложения. Только для внутреннего использования.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -169,14 +178,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("App Config ID")]
                 public const string appconfigid = "appconfigid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): App Config ID Unique
+                ///     (Russian - 1049): Уникальный идентификатор конфигурации приложения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Enter the App Configuration unique identifier of AppConfig entity for which this customization belongs.
+                ///     (Russian - 1049): Введите уникальный идентификатор конфигурации приложения сущности AppConfig, к которой относится эта настройка.
                 /// 
                 /// SchemaName: AppConfigIdUnique
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
@@ -203,6 +215,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("App Config ID Unique")]
                 public const string appconfigidunique = "appconfigidunique";
 
                 ///<summary>
@@ -211,6 +224,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): System-populated App Configuration Instance unique identifier.
+                ///     (Russian - 1049): Создаваемый системой уникальный идентификатор экземпляра конфигурации приложения.
                 /// 
                 /// SchemaName: AppConfigInstanceIdUnique
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
@@ -237,14 +251,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("AppConfigInstanceIdUnique")]
                 public const string appconfiginstanceidunique = "appconfiginstanceidunique";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): App Config Master ID
+                ///     (Russian - 1049): Идентификатор образца конфигурации приложения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): System-calculated App Configuration Master identifier.
+                ///     (Russian - 1049): Вычисляемый системой идентификатор образца конфигурации приложения.
                 /// 
                 /// SchemaName: AppConfigMasterId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: ApplicationRequired
@@ -256,9 +273,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target appconfigmaster    PrimaryIdAttribute appconfigmasterid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): App Config Master
+                ///             (Russian - 1049): Образец конфигурации приложения
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Contains the master list of all properties that can be customized for apps in Dynamics 365. For internal use only.
+                ///             (Russian - 1049): Содержит главный список всех свойств, которые могут настраиваться для приложений в Dynamics 365. Только для внутреннего использования.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -279,14 +298,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("App Config Master ID")]
                 public const string appconfigmasterid = "appconfigmasterid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Component State
+                ///     (Russian - 1049): Состояние компонента
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): System-Populated Published or UnPublished state of App Configuration Instance.
+                ///     (Russian - 1049): Создаваемое системой состояние публикации экземпляра конфигурации приложения.
                 /// 
                 /// SchemaName: ComponentState
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -298,9 +320,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): Component State
+                ///             (Russian - 1049): Состояние компонента
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): The state of this component.
+                ///             (Russian - 1049): Состояние этого компонента.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -321,11 +345,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Component State")]
                 public const string componentstate = "componentstate";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Enter the componenet type of the artifact (Form/View etc.) for which customization is to be created.
+                ///     (Russian - 1049): Введите тип компонента артефакта (формы, представления и т. д.), для которого должна быть создана настройка.
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): ComponentType
@@ -357,14 +383,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Enter the componenet type of the artifact (Form/View etc.) for which customization is to be created.")]
                 public const string componenttype = "componenttype";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By
+                ///     (Russian - 1049): Кем создано
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows who created the record.
+                ///     (Russian - 1049): Показывает пользователя, создавшего запись.
                 /// 
                 /// SchemaName: CreatedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -376,12 +405,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -402,6 +434,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By")]
                 public const string createdby = "createdby";
 
                 ///<summary>
@@ -437,9 +470,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created On
+                ///     (Russian - 1049): Когда создано
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows the date and time when the record was created. The date and time are displayed in the time zone selected in Microsoft Dynamics CRM options.
+                ///     (Russian - 1049): Показывает дату и время создания записи. Дата и время отображаются для часового пояса, выбранного в параметрах Microsoft Dynamics CRM.
                 /// 
                 /// SchemaName: CreatedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -468,14 +503,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created On")]
                 public const string createdon = "createdon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By (Delegate)
+                ///     (Russian - 1049): Кем создано (представитель)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows who created the record on behalfÂ of another user.
+                ///     (Russian - 1049): Показывает пользователя, создавшего запись от имени другого пользователя.
                 /// 
                 /// SchemaName: CreatedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -487,12 +525,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -513,6 +554,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By (Delegate)")]
                 public const string createdonbehalfby = "createdonbehalfby";
 
                 ///<summary>
@@ -578,9 +620,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Import Sequence Number
+                ///     (Russian - 1049): Порядковый номер импорта
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: ImportSequenceNumber
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -609,14 +653,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Import Sequence Number")]
                 public const string importsequencenumber = "importsequencenumber";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Introduced Version
+                ///     (Russian - 1049): Версия добавления
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows the version in which the App Configuration Instance is introduced.
+                ///     (Russian - 1049): Показывает версию, в которой появился экземпляр конфигурации приложения.
                 /// 
                 /// SchemaName: IntroducedVersion
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -645,14 +692,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Introduced Version")]
                 public const string introducedversion = "introducedversion";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Shows whether the App Configuration Instance is managed or not.
+                ///     (Russian - 1049): Показывает, является ли экземпляр конфигурации приложения управляемым.
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Is Managed
+                ///     (Russian - 1049): Управляется
                 /// 
                 /// SchemaName: IsManaged
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: ApplicationRequired
@@ -663,10 +713,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Unmanaged
+                ///     (Russian - 1049): Неуправляемый
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Managed
+                ///     (Russian - 1049): Управляемый
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -688,14 +740,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Shows whether the App Configuration Instance is managed or not.")]
                 public const string ismanaged = "ismanaged";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By
+                ///     (Russian - 1049): Кем изменено
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows who last updated the record.
+                ///     (Russian - 1049): Показывает пользователя, который последним изменил запись.
                 /// 
                 /// SchemaName: ModifiedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -707,12 +762,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -733,6 +791,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By")]
                 public const string modifiedby = "modifiedby";
 
                 ///<summary>
@@ -768,9 +827,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified On
+                ///     (Russian - 1049): Когда изменено
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows the date and time when the record was last updated. The date and time are displayed in the time zone selected in Microsoft Dynamics CRM options.
+                ///     (Russian - 1049): Показывает дату и время последнего изменения записи. Дата и время отображаются для часового пояса, выбранного в параметрах Microsoft Dynamics CRM.
                 /// 
                 /// SchemaName: ModifiedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -799,14 +860,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified On")]
                 public const string modifiedon = "modifiedon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By (Delegate)
+                ///     (Russian - 1049): Кем изменено (представитель)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows who last updated the record on behalf of another user.
+                ///     (Russian - 1049): Показывает пользователя, который последним изменил запись от имени другого пользователя.
                 /// 
                 /// SchemaName: ModifiedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -818,12 +882,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -844,6 +911,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By (Delegate)")]
                 public const string modifiedonbehalfby = "modifiedonbehalfby";
 
                 ///<summary>
@@ -909,6 +977,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Enter the object identifier for the artifact (Form/View etc.) for which customization is to be created.
+                ///     (Russian - 1049): Введите идентификатор объекта для артефакта (формы, представления и т. д.), для которого должна быть создана настройка.
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): ObjectId
@@ -938,14 +1007,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Enter the object identifier for the artifact (Form/View etc.) for which customization is to be created.")]
                 public const string objectid = "objectid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Organization
+                ///     (Russian - 1049): Организация
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): System-calculated field for Organization identifier.
+                ///     (Russian - 1049): Вычисляемое системой поле идентификатора организации.
                 /// 
                 /// SchemaName: OrganizationId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: SystemRequired
@@ -957,12 +1029,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target organization    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Organization
+                ///             (Russian - 1049): Предприятие
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Organizations
+                ///             (Russian - 1049): Предприятия
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
+                ///             (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -983,6 +1058,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Organization")]
                 public const string organizationid = "organizationid";
 
                 ///<summary>
@@ -1018,9 +1094,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Record Created On
+                ///     (Russian - 1049): Когда создана запись
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows the date and time when the record was migrated. The date and time are displayed in the time zone selected in Microsoft Dynamics CRM options.
+                ///     (Russian - 1049): Показывает дату и времени переноса записи. Дата и время отображаются для часового пояса, выбранного в параметрах Microsoft Dynamics CRM.
                 /// 
                 /// SchemaName: OverriddenCreatedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -1049,14 +1127,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Record Created On")]
                 public const string overriddencreatedon = "overriddencreatedon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Overwrite Time
+                ///     (Russian - 1049): Время перезаписи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows the last overwrite time for the App Configuration Instance.
+                ///     (Russian - 1049): Показывает время последней перезаписи для экземпляра конфигурации приложения.
                 /// 
                 /// SchemaName: OverwriteTime
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
@@ -1085,6 +1166,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Overwrite Time")]
                 public const string overwritetime = "overwritetime";
 
                 ///<summary>
@@ -1093,6 +1175,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Set the solution idenfitier for associated solution.
+                ///     (Russian - 1049): Задайте идентификатор решения для связанного решения.
                 /// 
                 /// SchemaName: SolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -1119,6 +1202,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("SolutionId")]
                 public const string solutionid = "solutionid";
 
                 ///<summary>
@@ -1127,6 +1211,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Set the supporting solution idenfitier for associated solution.
+                ///     (Russian - 1049): Задайте идентификатор вспомогательного решения для связанного решения.
                 /// 
                 /// SchemaName: SupportingSolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
@@ -1153,14 +1238,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("SupportingSolutionId")]
                 public const string supportingsolutionid = "supportingsolutionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Value
+                ///     (Russian - 1049): Значение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Enter a value for the customization property that is valid as per the validator XML specified in the app configuration master record.
+                ///     (Russian - 1049): Введите значение свойства настройки, которое является допустимым согласно средству проверки XML, указанному в записи образца конфигурации приложения.
                 /// 
                 /// SchemaName: Value
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
@@ -1189,6 +1277,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Value")]
                 public const string value = "value";
 
                 ///<summary>
@@ -1253,10 +1342,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity appconfig:    PrimaryIdAttribute appconfigid
                 ///     DisplayName:
                 ///         (English - United States - 1033): App Configuration
+                ///         (Russian - 1049): Конфигурация приложения
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Contains a mapping between an app configuration instance and an app, which defines the properties that can be customized for the app. Optionally, also contains navigation setting for an app. For internal use only.
+                ///         (Russian - 1049): Содержит сопоставление между экземпляром конфигурации приложения и приложением, определяющее свойства, которые можно настроить для приложения. При необходимости содержит также параметр навигации для приложения. Только для внутреннего использования.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship appconfig_appconfiginstance")]
                 public static partial class appconfig_appconfiginstance
                 {
                     public const string Name = "appconfig_appconfiginstance";
@@ -1296,10 +1388,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity appconfigmaster:    PrimaryIdAttribute appconfigmasterid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): App Config Master
+                ///         (Russian - 1049): Образец конфигурации приложения
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Contains the master list of all properties that can be customized for apps in Dynamics 365. For internal use only.
+                ///         (Russian - 1049): Содержит главный список всех свойств, которые могут настраиваться для приложений в Dynamics 365. Только для внутреннего использования.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship appconfigmaster_appconfiginstance")]
                 public static partial class appconfigmaster_appconfiginstance
                 {
                     public const string Name = "appconfigmaster_appconfiginstance";
@@ -1341,13 +1436,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_appconfiginstance_createdby")]
                 public static partial class lk_appconfiginstance_createdby
                 {
                     public const string Name = "lk_appconfiginstance_createdby";
@@ -1389,13 +1488,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_appconfiginstance_createdonbehalfby")]
                 public static partial class lk_appconfiginstance_createdonbehalfby
                 {
                     public const string Name = "lk_appconfiginstance_createdonbehalfby";
@@ -1437,13 +1540,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_appconfiginstance_modifiedby")]
                 public static partial class lk_appconfiginstance_modifiedby
                 {
                     public const string Name = "lk_appconfiginstance_modifiedby";
@@ -1485,13 +1592,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_appconfiginstance_modifiedonbehalfby")]
                 public static partial class lk_appconfiginstance_modifiedonbehalfby
                 {
                     public const string Name = "lk_appconfiginstance_modifiedonbehalfby";
@@ -1533,13 +1644,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity organization:    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Organization
+                ///         (Russian - 1049): Предприятие
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Organizations
+                ///         (Russian - 1049): Предприятия
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
+                ///         (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship organization_appconfiginstance")]
                 public static partial class organization_appconfiginstance
                 {
                     public const string Name = "organization_appconfiginstance";

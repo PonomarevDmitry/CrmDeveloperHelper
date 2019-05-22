@@ -6,12 +6,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///<summary>
         /// DisplayName:
         ///     (English - United States - 1033): Topic Model Configuration
+        ///     (Russian - 1049): Конфигурация тематической модели
         /// 
         /// DisplayCollectionName:
         ///     (English - United States - 1033): Topic Model Configurations
+        ///     (Russian - 1049): Конфигурации тематических моделей
         /// 
         /// Description:
         ///     (English - United States - 1033): Configuration settings for identification of topics using text analytics.
+        ///     (Russian - 1049): Параметры конфигурации для идентификации тем с помощью текстовой аналитики.
         /// 
         /// PropertyName                          Value
         /// ActivityTypeMask                      0
@@ -103,9 +106,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): TopicModelConfiguration
+                ///     (Russian - 1049): Конфигурация модели темы
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier for entity instances
+                ///     (Russian - 1049): Уникальный идентификатор для экземпляров сущности
                 /// 
                 /// SchemaName: TopicModelConfigurationId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -132,14 +137,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("TopicModelConfiguration")]
                 public const string topicmodelconfigurationid = "topicmodelconfigurationid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Name
+                ///     (Russian - 1049): Название
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Type a logical name for the model.
+                ///     (Russian - 1049): Введите логическое имя для модели.
                 /// 
                 /// SchemaName: Name
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: ApplicationRequired
@@ -168,14 +176,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Name")]
                 public const string name = "name";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Component State
+                ///     (Russian - 1049): Состояние компонента
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: ComponentState
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -187,9 +198,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): Component State
+                ///             (Russian - 1049): Состояние компонента
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): The state of this component.
+                ///             (Russian - 1049): Состояние этого компонента.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -210,6 +223,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Component State")]
                 public const string componentstate = "componentstate";
 
                 ///<summary>
@@ -243,9 +257,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Data Filter
+                ///     (Russian - 1049): Фильтр данных
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Specify the data filter configured to filter records.
+                ///     (Russian - 1049): Укажите фильтр данных, настроенный для фильтрации записей.
                 /// 
                 /// SchemaName: DataFilter
                 /// MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: None
@@ -274,14 +290,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Data Filter")]
                 public const string datafilter = "datafilter";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Description
+                ///     (Russian - 1049): Описание
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Enter a description for the model
+                ///     (Russian - 1049): Введите описание для модели.
                 /// 
                 /// SchemaName: Description
                 /// MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: None
@@ -310,11 +329,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Description")]
                 public const string description = "description";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Fetch Xml
+                ///     (Russian - 1049): Язык FetchXML
                 /// 
                 /// SchemaName: FetchXmlList
                 /// MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: None
@@ -343,14 +364,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Fetch Xml")]
                 public const string fetchxmllist = "fetchxmllist";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Import Sequence Number
+                ///     (Russian - 1049): Порядковый номер импорта
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Sequence number of the import that created this record.
+                ///     (Russian - 1049): Порядковый номер импорта, в результате которого была создана эта запись.
                 /// 
                 /// SchemaName: ImportSequenceNumber
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -379,14 +403,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Import Sequence Number")]
                 public const string importsequencenumber = "importsequencenumber";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): State
+                ///     (Russian - 1049): Состояние
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Is Manageed
+                ///     (Russian - 1049): Управляется
                 /// 
                 /// SchemaName: IsManaged
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
@@ -397,10 +424,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Unmanaged
+                ///     (Russian - 1049): Неуправляемый
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Managed
+                ///     (Russian - 1049): Управляемый
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -422,6 +451,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("State")]
                 public const string ismanaged = "ismanaged";
 
                 ///<summary>
@@ -455,9 +485,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Minimum Relevance Score
+                ///     (Russian - 1049): Минимальное значение релевантности
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Enter the minimum relevance score of a topic.
+                ///     (Russian - 1049): Введите минимальное значение релевантности темы.
                 /// 
                 /// SchemaName: MinRelevanceScore
                 /// DecimalAttributeMetadata    AttributeType: Decimal    AttributeTypeName: DecimalType    RequiredLevel: None
@@ -486,14 +518,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Minimum Relevance Score")]
                 public const string minrelevancescore = "minrelevancescore";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Maximum Key Phrase Words
+                ///     (Russian - 1049): Максимальное количество ключевых слов (фраз)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Enter the maximum number of key phrase words to use in a topic.
+                ///     (Russian - 1049): Введите максимальное количество ключевых слов (фраз) для использования в теме.
                 /// 
                 /// SchemaName: NgramSize
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -522,14 +557,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Maximum Key Phrase Words")]
                 public const string ngramsize = "ngramsize";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Organization Id
+                ///     (Russian - 1049): Идентификатор организации
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier for the organization
+                ///     (Russian - 1049): Уникальный идентификатор организации
                 /// 
                 /// SchemaName: OrganizationId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: SystemRequired
@@ -541,12 +579,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target organization    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Organization
+                ///             (Russian - 1049): Предприятие
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Organizations
+                ///             (Russian - 1049): Предприятия
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
+                ///             (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -567,6 +608,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Organization Id")]
                 public const string organizationid = "organizationid";
 
                 ///<summary>
@@ -602,9 +644,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Record Created On
+                ///     (Russian - 1049): Дата создания записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time that the record was migrated.
+                ///     (Russian - 1049): Дата и время переноса записи.
                 /// 
                 /// SchemaName: OverriddenCreatedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -633,14 +677,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Record Created On")]
                 public const string overriddencreatedon = "overriddencreatedon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created On
+                ///     (Russian - 1049): Когда создано
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the record was created.
+                ///     (Russian - 1049): Дата и время, когда была создана запись.
                 /// 
                 /// SchemaName: OverwriteTime
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
@@ -669,14 +716,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created On")]
                 public const string overwritetime = "overwritetime";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the associated solution.
+                ///     (Russian - 1049): Уникальный код связанного решения.
                 /// 
                 /// SchemaName: SolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -703,14 +753,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string solutionid = "solutionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Source Entity
+                ///     (Russian - 1049): Исходная сущность
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Type of entity with which the topic model configuration is associated.
+                ///     (Russian - 1049): Тип сущности, с которой связана конфигурация модели темы.
                 /// 
                 /// SchemaName: SourceEntity
                 /// EntityNameAttributeMetadata    AttributeType: EntityName    AttributeTypeName: EntityNameType    RequiredLevel: ApplicationRequired
@@ -739,6 +792,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Source Entity")]
                 public const string sourceentity = "sourceentity";
 
                 ///<summary>
@@ -772,9 +826,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Stop Words
+                ///     (Russian - 1049): Стоп-слова
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Stop words.
+                ///     (Russian - 1049): Стоп-слова.
                 /// 
                 /// SchemaName: StopWords
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -803,14 +859,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Stop Words")]
                 public const string stopwords = "stopwords";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: SupportingSolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
@@ -837,14 +896,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string supportingsolutionid = "supportingsolutionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Time Window Filter
+                ///     (Russian - 1049): Фильтр по временному окну
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Select the time window to filter on for the last number of days or weeks.
+                ///     (Russian - 1049): Выберите временное окно для фильтрации по количеству последних дней или недель.
                 /// 
                 /// SchemaName: TimeFilter
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: ApplicationRequired
@@ -873,11 +935,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Time Window Filter")]
                 public const string timefilter = "timefilter";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Time Filter Duration
+                ///     (Russian - 1049): Длительность фильтра времени
                 /// 
                 /// SchemaName: TimeFilterDuration
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: ApplicationRequired
@@ -906,6 +970,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Time Filter Duration")]
                 public const string timefilterduration = "timefilterduration";
 
                 ///<summary>
@@ -939,9 +1004,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Time Zone Rule Version Number
+                ///     (Russian - 1049): Номер версии правила часового пояса
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: TimeZoneRuleVersionNumber
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -970,14 +1037,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Time Zone Rule Version Number")]
                 public const string timezoneruleversionnumber = "timezoneruleversionnumber";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Topic Model Configuration Unique Id
+                ///     (Russian - 1049): Уникальный идентификатор конфигурации модели темы
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the Topic Model Configuration used when synchronizing customizations for the Microsoft Dynamics 365 client for Outlook
+                ///     (Russian - 1049): Уникальный идентификатор конфигурации модели темы, используемой при синхронизации настроек для клиента Microsoft Dynamics 365 для Outlook.
                 /// 
                 /// SchemaName: TopicModelConfigurationIdUnique
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -1004,14 +1074,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Topic Model Configuration Unique Id")]
                 public const string topicmodelconfigurationidunique = "topicmodelconfigurationidunique";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): TopicModelId
+                ///     (Russian - 1049): Код модели темы
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier for Model associated with Topic Model Configuration.
+                ///     (Russian - 1049): Уникальный код для модели, связанной с конфигурацией модели темы.
                 /// 
                 /// SchemaName: TopicModelId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: SystemRequired
@@ -1023,9 +1096,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target topicmodel    PrimaryIdAttribute topicmodelid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Topic Model
+                ///             (Russian - 1049): Модель темы
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): The model for automatic identification of topics using text analytics.
+                ///             (Russian - 1049): Модель для автоматической идентификации тем с помощью текстовой аналитики.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1046,6 +1121,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("TopicModelId")]
                 public const string topicmodelid = "topicmodelid";
 
                 ///<summary>
@@ -1081,9 +1157,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): UTC Conversion Time Zone Code
+                ///     (Russian - 1049): Код часового пояса (преобразование в UTC)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Time zone code that was in use when the record was created.
+                ///     (Russian - 1049): Код часового пояса, использовавшийся при создании записи.
                 /// 
                 /// SchemaName: UTCConversionTimeZoneCode
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -1112,11 +1190,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("UTC Conversion Time Zone Code")]
                 public const string utcconversiontimezonecode = "utcconversiontimezonecode";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Version Number
+                ///     (Russian - 1049): Номер версии
                 /// 
                 /// SchemaName: VersionNumber
                 /// BigIntAttributeMetadata    AttributeType: BigInt    AttributeTypeName: BigIntType    RequiredLevel: None
@@ -1144,6 +1224,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Version Number")]
                 public const string versionnumber = "versionnumber";
             }
 
@@ -1161,18 +1242,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Time Window Filter
+                ///     (Russian - 1049): Фильтр по временному окну
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Select the time window to filter on for the last number of days or weeks.
+                ///     (Russian - 1049): Выберите временное окно для фильтрации по количеству последних дней или недель.
                 /// 
                 /// Local System  OptionSet topicmodelconfiguration_timefilter
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Time Window Filter
+                ///     (Russian - 1049): Фильтр по временному окну
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Select the time window to filter on for the last number of days or weeks.
+                ///     (Russian - 1049): Выберите временное окно для фильтрации по количеству последних дней или недель.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Time Window Filter")]
                 public enum timefilter
                 {
                     ///<summary>
@@ -1181,7 +1267,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Last N Days
+                    ///     (Russian - 1049): Последние N дней
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Last N Days")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Last_N_Days_1 = 1,
 
@@ -1191,7 +1279,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Last N Weeks
+                    ///     (Russian - 1049): Последние N недель
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Last N Weeks")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Last_N_Weeks_2 = 2,
                 }
@@ -1231,13 +1321,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity organization:    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Organization
+                ///         (Russian - 1049): Предприятие
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Organizations
+                ///         (Russian - 1049): Предприятия
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
+                ///         (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship organization_topicmodelconfiguration")]
                 public static partial class organization_topicmodelconfiguration
                 {
                     public const string Name = "organization_topicmodelconfiguration";
@@ -1279,9 +1373,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity topicmodel:    PrimaryIdAttribute topicmodelid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Topic Model
+                ///         (Russian - 1049): Модель темы
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): The model for automatic identification of topics using text analytics.
+                ///         (Russian - 1049): Модель для автоматической идентификации тем с помощью текстовой аналитики.
                 /// 
                 /// AttributeMaps:
                 ///     SourceEntity             TargetEntity
@@ -1291,6 +1387,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     name               ->    topicmodelidname
                 ///     topicmodelid       ->    topicmodelid
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship topicmodel_topicmodelconfiguration")]
                 public static partial class topicmodel_topicmodelconfiguration
                 {
                     public const string Name = "topicmodel_topicmodelconfiguration";
@@ -1339,13 +1436,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity asyncoperation:    PrimaryIdAttribute asyncoperationid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): System Job
+                ///         (Russian - 1049): Системное задание
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): System Jobs
+                ///         (Russian - 1049): Системные задания
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Process whose execution can proceed independently or in the background.
+                ///         (Russian - 1049): Процесс, который может выполняться независимо или в фоновом режиме.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship topicmodelconfiguration_AsyncOperations")]
                 public static partial class topicmodelconfiguration_asyncoperations
                 {
                     public const string Name = "topicmodelconfiguration_AsyncOperations";
@@ -1387,13 +1488,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity bulkdeletefailure:    PrimaryIdAttribute bulkdeletefailureid
                 ///     DisplayName:
                 ///         (English - United States - 1033): Bulk Delete Failure
+                ///         (Russian - 1049): Ошибка группового удаления
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Bulk Delete Failures
+                ///         (Russian - 1049): Ошибки группового удаления
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Record that was not deleted during a bulk deletion job.
+                ///         (Russian - 1049): Запись не была удалена во время задания группового удаления.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship topicmodelconfiguration_BulkDeleteFailures")]
                 public static partial class topicmodelconfiguration_bulkdeletefailures
                 {
                     public const string Name = "topicmodelconfiguration_BulkDeleteFailures";
@@ -1433,13 +1538,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity mailboxtrackingfolder:    PrimaryIdAttribute mailboxtrackingfolderid
                 ///     DisplayName:
                 ///         (English - United States - 1033): Mailbox Auto Tracking Folder
+                ///         (Russian - 1049): Папка автоматического отслеживания почтового ящика
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Mailbox Auto Tracking Folders
+                ///         (Russian - 1049): Папки автоматического отслеживания почтового ящика
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Stores data about what folders for a mailbox are auto tracked
+                ///         (Russian - 1049): Хранит данные о том, какие папки для почтового ящика отслеживаются автоматически
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship topicmodelconfiguration_MailboxTrackingFolders")]
                 public static partial class topicmodelconfiguration_mailboxtrackingfolders
                 {
                     public const string Name = "topicmodelconfiguration_MailboxTrackingFolders";
@@ -1479,10 +1588,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity principalobjectattributeaccess:    PrimaryIdAttribute principalobjectattributeaccessid
                 ///     DisplayName:
                 ///         (English - United States - 1033): Field Sharing
+                ///         (Russian - 1049): Общий доступ к полям
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Defines CRM security principals (users and teams) access rights to secured field for an entity instance.
+                ///         (Russian - 1049): Определяет права на доступ субъектов безопасности CRM (пользователей и рабочих группы) к защищенному полю экземпляра сущности.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship topicmodelconfiguration_PrincipalObjectAttributeAccesses")]
                 public static partial class topicmodelconfiguration_principalobjectattributeaccesses
                 {
                     public const string Name = "topicmodelconfiguration_PrincipalObjectAttributeAccesses";
@@ -1522,13 +1634,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity syncerror:    PrimaryIdAttribute syncerrorid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Sync Error
+                ///         (Russian - 1049): Ошибка синхронизации
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Sync Errors
+                ///         (Russian - 1049): Ошибки синхронизации
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Failure reason and other detailed information for a record that failed to sync.
+                ///         (Russian - 1049): Причина сбоя и другие подробные сведения о записи, при синхронизации которой произошла ошибка.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship topicmodelconfiguration_SyncErrors")]
                 public static partial class topicmodelconfiguration_syncerrors
                 {
                     public const string Name = "topicmodelconfiguration_SyncErrors";
@@ -1570,9 +1686,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity textanalyticsentitymapping:    PrimaryIdAttribute textanalyticsentitymappingid
                 ///     DisplayName:
                 ///         (English - United States - 1033): Text Analytics Entity Mapping
+                ///         (Russian - 1049): Сопоставления сущности текстовой аналитики
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Text Analytics Entity Mappings
+                ///         (Russian - 1049): Сопоставления сущностей текстовой аналитики
                 /// 
                 /// AttributeMaps:
                 ///     SourceEntity                       TargetEntity
@@ -1582,6 +1700,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     name                         ->    topicmodelconfigurationidname
                 ///     topicmodelconfigurationid    ->    topicmodelconfigurationid
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship topicmodelconfiguration_textanalyticsentitymapping")]
                 public static partial class topicmodelconfiguration_textanalyticsentitymapping
                 {
                     public const string Name = "topicmodelconfiguration_textanalyticsentitymapping";
@@ -1621,10 +1740,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity topicmodel:    PrimaryIdAttribute topicmodelid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Topic Model
+                ///         (Russian - 1049): Модель темы
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): The model for automatic identification of topics using text analytics.
+                ///         (Russian - 1049): Модель для автоматической идентификации тем с помощью текстовой аналитики.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship topicmodelconfiguration_topicmodel")]
                 public static partial class topicmodelconfiguration_topicmodel
                 {
                     public const string Name = "topicmodelconfiguration_topicmodel";
@@ -1666,13 +1788,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity topicmodelexecutionhistory:    PrimaryIdAttribute topicmodelexecutionhistoryid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Topic Model Execution History
+                ///         (Russian - 1049): Журнал выполнения модели темы
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Topic Model Execution Histories
+                ///         (Russian - 1049): Журналы выполнения моделей тем
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Entity for Topic Model Execution History
+                ///         (Russian - 1049): Сущность для журнала выполнения модели темы
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship topicmodelconfiguration_topicmodelexecutionhistory")]
                 public static partial class topicmodelconfiguration_topicmodelexecutionhistory
                 {
                     public const string Name = "topicmodelconfiguration_topicmodelexecutionhistory";
@@ -1714,10 +1840,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
                 ///     DisplayName:
                 ///         (English - United States - 1033): User Entity Instance Data
+                ///         (Russian - 1049): Данные экземпляра сущности пользователя
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Per User item instance data
+                ///         (Russian - 1049): Данные экземпляра позиции "на пользователя"
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship topicmodelconfiguration_UserEntityInstanceDatas")]
                 public static partial class topicmodelconfiguration_userentityinstancedatas
                 {
                     public const string Name = "topicmodelconfiguration_UserEntityInstanceDatas";

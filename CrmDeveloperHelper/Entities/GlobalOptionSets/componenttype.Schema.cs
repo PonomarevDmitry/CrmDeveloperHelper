@@ -5,12 +5,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
     ///<summary>
     /// DisplayName:
     ///     (English - United States - 1033): Component Type
+    ///     (Russian - 1049): Тип компонента
     /// 
     /// Description:
     ///     (English - United States - 1033): All of the possible component types for solutions.
+    ///     (Russian - 1049): Все возможные типы компонентов для решений.
     /// 
     /// OptionSet Name: componenttype      IsCustomOptionSet: False
+    /// 
+    /// ComponentType:   Attribute (2)            Count: 6
+    ///     AttributeName                              DisplayName                         IsCustomizable    Behavior
+    ///     dependency.dependentcomponenttype                                              False             IncludeSubcomponents
+    ///     dependency.requiredcomponenttype                                               False             IncludeSubcomponents
+    ///     dependencynode.componenttype               Type Code                           False             IncludeSubcomponents
+    ///     invaliddependency.existingcomponenttype    Existing Object's Component Type    False             IncludeSubcomponents
+    ///     invaliddependency.missingcomponenttype     Type Code                           False             IncludeSubcomponents
+    ///     solutioncomponent.componenttype            Object Type Code                    False             IncludeSubcomponents
     ///</summary>
+    [System.ComponentModel.DescriptionAttribute("Component Type")]
     public enum componenttype
     {
         ///<summary>
@@ -19,7 +31,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Entity
+        ///     (Russian - 1049): Сущность
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Entity")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Entity_1 = 1,
 
@@ -29,7 +43,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Attribute
+        ///     (Russian - 1049): Атрибут
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Attribute")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Attribute_2 = 2,
 
@@ -39,7 +55,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Relationship
+        ///     (Russian - 1049): Отношение
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Relationship")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Relationship_3 = 3,
 
@@ -49,7 +67,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Attribute Picklist Value
+        ///     (Russian - 1049): Значение поля выбора атрибута
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Attribute Picklist Value")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Attribute_Picklist_Value_4 = 4,
 
@@ -59,7 +79,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Attribute Lookup Value
+        ///     (Russian - 1049): Значение подстановки атрибута
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Attribute Lookup Value")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Attribute_Lookup_Value_5 = 5,
 
@@ -69,7 +91,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): View Attribute
+        ///     (Russian - 1049): Просмотр атрибута
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("View Attribute")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         View_Attribute_6 = 6,
 
@@ -79,7 +103,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Localized Label
+        ///     (Russian - 1049): Локализованная надпись
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Localized Label")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Localized_Label_7 = 7,
 
@@ -89,7 +115,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Relationship Extra Condition
+        ///     (Russian - 1049): Дополнительное условие отношения
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Relationship Extra Condition")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Relationship_Extra_Condition_8 = 8,
 
@@ -99,7 +127,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Option Set
+        ///     (Russian - 1049): Набор параметров
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Option Set")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Option_Set_9 = 9,
 
@@ -109,7 +139,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Entity Relationship
+        ///     (Russian - 1049): Отношение сущности
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Entity Relationship")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Entity_Relationship_10 = 10,
 
@@ -119,7 +151,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Entity Relationship Role
+        ///     (Russian - 1049): Роль отношения сущности
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Entity Relationship Role")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Entity_Relationship_Role_11 = 11,
 
@@ -129,7 +163,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Entity Relationship Relationships
+        ///     (Russian - 1049): Отношения отношения сущности
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Entity Relationship Relationships")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Entity_Relationship_Relationships_12 = 12,
 
@@ -139,7 +175,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Managed Property
+        ///     (Russian - 1049): Управляемое свойство
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Managed Property")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Managed_Property_13 = 13,
 
@@ -149,7 +187,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Entity Key
+        ///     (Russian - 1049): Ключ сущности
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Entity Key")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Entity_Key_14 = 14,
 
@@ -159,7 +199,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Privilege
+        ///     (Russian - 1049): Привилегия
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Privilege")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Privilege_16 = 16,
 
@@ -170,6 +212,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// DisplayName:
         ///     (English - United States - 1033): PrivilegeObjectTypeCode
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("PrivilegeObjectTypeCode")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         PrivilegeObjectTypeCode_17 = 17,
 
@@ -179,7 +222,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Role
+        ///     (Russian - 1049): Роль
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Role")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Role_20 = 20,
 
@@ -189,7 +234,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Role Privilege
+        ///     (Russian - 1049): Привилегия роли
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Role Privilege")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Role_Privilege_21 = 21,
 
@@ -199,7 +246,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Display String
+        ///     (Russian - 1049): Отображаемая строка
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Display String")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Display_String_22 = 22,
 
@@ -209,7 +258,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Display String Map
+        ///     (Russian - 1049): Сопоставление отображаемой строки
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Display String Map")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Display_String_Map_23 = 23,
 
@@ -219,7 +270,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Form
+        ///     (Russian - 1049): Форма
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Form")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Form_24 = 24,
 
@@ -229,7 +282,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Organization
+        ///     (Russian - 1049): Предприятие
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Organization")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Organization_25 = 25,
 
@@ -239,7 +294,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Saved Query
+        ///     (Russian - 1049): Сохраненный запрос
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Saved Query")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Saved_Query_26 = 26,
 
@@ -249,7 +306,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Workflow
+        ///     (Russian - 1049): Бизнес-процесс
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Workflow")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Workflow_29 = 29,
 
@@ -259,7 +318,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Report
+        ///     (Russian - 1049): Отчет
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Report")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Report_31 = 31,
 
@@ -269,7 +330,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Report Entity
+        ///     (Russian - 1049): Сущность отчета
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Report Entity")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Report_Entity_32 = 32,
 
@@ -279,7 +342,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Report Category
+        ///     (Russian - 1049): Категория отчета
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Report Category")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Report_Category_33 = 33,
 
@@ -289,7 +354,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Report Visibility
+        ///     (Russian - 1049): Отображение отчета
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Report Visibility")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Report_Visibility_34 = 34,
 
@@ -299,7 +366,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Attachment
+        ///     (Russian - 1049): Вложение
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Attachment")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Attachment_35 = 35,
 
@@ -309,7 +378,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Email Template
+        ///     (Russian - 1049): Шаблон электронной почты
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Email Template")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Email_Template_36 = 36,
 
@@ -319,7 +390,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Contract Template
+        ///     (Russian - 1049): Шаблон контракта
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Contract Template")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Contract_Template_37 = 37,
 
@@ -329,7 +402,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): KB Article Template
+        ///     (Russian - 1049): Шаблон статьи базы знаний
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("KB Article Template")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         KB_Article_Template_38 = 38,
 
@@ -339,7 +414,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Mail Merge Template
+        ///     (Russian - 1049): Шаблон слияния
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Mail Merge Template")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Mail_Merge_Template_39 = 39,
 
@@ -349,7 +426,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Duplicate Rule
+        ///     (Russian - 1049): Правило поиска дубликатов
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Duplicate Rule")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Duplicate_Rule_44 = 44,
 
@@ -359,7 +438,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Duplicate Rule Condition
+        ///     (Russian - 1049): Условие правила обнаружения повторяющихся данных
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Duplicate Rule Condition")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Duplicate_Rule_Condition_45 = 45,
 
@@ -369,7 +450,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Entity Map
+        ///     (Russian - 1049): Сопоставление сущностей
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Entity Map")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Entity_Map_46 = 46,
 
@@ -379,7 +462,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Attribute Map
+        ///     (Russian - 1049): Сопоставление атрибутов
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Attribute Map")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Attribute_Map_47 = 47,
 
@@ -389,7 +474,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Ribbon Command
+        ///     (Russian - 1049): Команда ленты
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Ribbon Command")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Ribbon_Command_48 = 48,
 
@@ -399,7 +486,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Ribbon Context Group
+        ///     (Russian - 1049): Контекстная группа ленты
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Ribbon Context Group")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Ribbon_Context_Group_49 = 49,
 
@@ -409,7 +498,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Ribbon Customization
+        ///     (Russian - 1049): Настройка ленты
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Ribbon Customization")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Ribbon_Customization_50 = 50,
 
@@ -419,7 +510,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Ribbon Rule
+        ///     (Russian - 1049): Правило ленты
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Ribbon Rule")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Ribbon_Rule_52 = 52,
 
@@ -429,7 +522,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Ribbon Tab To Command Map
+        ///     (Russian - 1049): Сопоставление вкладки ленты с командой
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Ribbon Tab To Command Map")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Ribbon_Tab_To_Command_Map_53 = 53,
 
@@ -439,7 +534,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Ribbon Diff
+        ///     (Russian - 1049): Различие ленты
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Ribbon Diff")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Ribbon_Diff_55 = 55,
 
@@ -449,7 +546,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Saved Query Visualization
+        ///     (Russian - 1049): Сохраненная визуализация запроса
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Saved Query Visualization")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Saved_Query_Visualization_59 = 59,
 
@@ -459,7 +558,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): System Form
+        ///     (Russian - 1049): Системная форма
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("System Form")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         System_Form_60 = 60,
 
@@ -469,7 +570,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Web Resource
+        ///     (Russian - 1049): Веб-ресурс
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Web Resource")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Web_Resource_61 = 61,
 
@@ -479,7 +582,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Site Map
+        ///     (Russian - 1049): Карта сайта
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Site Map")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Site_Map_62 = 62,
 
@@ -489,7 +594,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Connection Role
+        ///     (Russian - 1049): Роль подключения
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Connection Role")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Connection_Role_63 = 63,
 
@@ -499,7 +606,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Complex Control
+        ///     (Russian - 1049): Сложный элемент управления
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Complex Control")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Complex_Control_64 = 64,
 
@@ -509,7 +618,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Field Security Profile
+        ///     (Russian - 1049): Профиль безопасности поля
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Field Security Profile")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Field_Security_Profile_70 = 70,
 
@@ -519,7 +630,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Field Permission
+        ///     (Russian - 1049): Разрешение поля
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Field Permission")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Field_Permission_71 = 71,
 
@@ -529,7 +642,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Plugin Type
+        ///     (Russian - 1049): Тип подключаемого модуля
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Plugin Type")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Plugin_Type_90 = 90,
 
@@ -539,7 +654,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Plugin Assembly
+        ///     (Russian - 1049): Сборка подключаемого модуля
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Plugin Assembly")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Plugin_Assembly_91 = 91,
 
@@ -549,7 +666,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): SDK Message Processing Step
+        ///     (Russian - 1049): Шаг обработки сообщения SDK
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("SDK Message Processing Step")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         SDK_Message_Processing_Step_92 = 92,
 
@@ -559,7 +678,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): SDK Message Processing Step Image
+        ///     (Russian - 1049): Образ шага обработки сообщения SDK
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("SDK Message Processing Step Image")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         SDK_Message_Processing_Step_Image_93 = 93,
 
@@ -569,7 +690,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Service Endpoint
+        ///     (Russian - 1049): Конечная точка сервиса
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Service Endpoint")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Service_Endpoint_95 = 95,
 
@@ -579,7 +702,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Routing Rule
+        ///     (Russian - 1049): Правило маршрутизации
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Routing Rule")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Routing_Rule_150 = 150,
 
@@ -589,7 +714,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Routing Rule Item
+        ///     (Russian - 1049): Элемент правила маршрутизации
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Routing Rule Item")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Routing_Rule_Item_151 = 151,
 
@@ -599,7 +726,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): SLA
+        ///     (Russian - 1049): Соглашение об уровне обслуживания
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("SLA")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         SLA_152 = 152,
 
@@ -609,7 +738,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): SLA Item
+        ///     (Russian - 1049): Элемент SLA
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("SLA Item")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         SLA_Item_153 = 153,
 
@@ -619,7 +750,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Convert Rule
+        ///     (Russian - 1049): Правило преобразования
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Convert Rule")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Convert_Rule_154 = 154,
 
@@ -629,7 +762,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Convert Rule Item
+        ///     (Russian - 1049): Элемент правила преобразования
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Convert Rule Item")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Convert_Rule_Item_155 = 155,
 
@@ -639,7 +774,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Hierarchy Rule
+        ///     (Russian - 1049): Правило иерархии
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Hierarchy Rule")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Hierarchy_Rule_65 = 65,
 
@@ -649,7 +786,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Mobile Offline Profile
+        ///     (Russian - 1049): Профиль Mobile Offline
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Mobile Offline Profile")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Mobile_Offline_Profile_161 = 161,
 
@@ -659,7 +798,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Mobile Offline Profile Item
+        ///     (Russian - 1049): Элемент профиля Mobile Offline
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Mobile Offline Profile Item")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Mobile_Offline_Profile_Item_162 = 162,
 
@@ -669,7 +810,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Similarity Rule
+        ///     (Russian - 1049): Правило подобия
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Similarity Rule")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Similarity_Rule_165 = 165,
 
@@ -679,7 +822,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Custom Control
+        ///     (Russian - 1049): Пользовательский элемент управления
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Custom Control")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Custom_Control_66 = 66,
 
@@ -689,7 +834,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Custom Control Default Config
+        ///     (Russian - 1049): Конфигурация пользовательского элемента управления по умолчанию
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Custom Control Default Config")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Custom_Control_Default_Config_68 = 68,
 
@@ -699,7 +846,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Data Source Mapping
+        ///     (Russian - 1049): Сопоставление источника данных
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Data Source Mapping")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Data_Source_Mapping_166 = 166,
 
@@ -710,6 +859,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// DisplayName:
         ///     (English - United States - 1033): SDKMessage
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("SDKMessage")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         SDKMessage_201 = 201,
 
@@ -720,6 +870,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// DisplayName:
         ///     (English - United States - 1033): SDKMessageFilter
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("SDKMessageFilter")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         SDKMessageFilter_202 = 202,
 
@@ -730,6 +881,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// DisplayName:
         ///     (English - United States - 1033): SdkMessagePair
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("SdkMessagePair")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         SdkMessagePair_203 = 203,
 
@@ -740,6 +892,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// DisplayName:
         ///     (English - United States - 1033): SdkMessageRequest
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("SdkMessageRequest")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         SdkMessageRequest_204 = 204,
 
@@ -750,6 +903,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// DisplayName:
         ///     (English - United States - 1033): SdkMessageRequestField
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("SdkMessageRequestField")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         SdkMessageRequestField_205 = 205,
 
@@ -760,6 +914,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// DisplayName:
         ///     (English - United States - 1033): SdkMessageResponse
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("SdkMessageResponse")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         SdkMessageResponse_206 = 206,
 
@@ -770,6 +925,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// DisplayName:
         ///     (English - United States - 1033): SdkMessageResponseField
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("SdkMessageResponseField")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         SdkMessageResponseField_207 = 207,
 
@@ -780,6 +936,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// DisplayName:
         ///     (English - United States - 1033): WebWizard
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("WebWizard")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         WebWizard_210 = 210,
 
@@ -789,7 +946,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Index
+        ///     (Russian - 1049): Индекс
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Index")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Index_18 = 18,
 
@@ -799,7 +958,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
         /// 
         /// DisplayName:
         ///     (English - United States - 1033): Import Map
+        ///     (Russian - 1049): Сопоставление для импорта
         ///</summary>
+        [System.ComponentModel.DescriptionAttribute("Import Map")]
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Import_Map_208 = 208,
     }

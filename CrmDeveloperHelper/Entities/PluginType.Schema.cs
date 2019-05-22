@@ -6,12 +6,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///<summary>
         /// DisplayName:
         ///     (English - United States - 1033): Plug-in Type
+        ///     (Russian - 1049): Тип подключаемого модуля
         /// 
         /// DisplayCollectionName:
         ///     (English - United States - 1033): Plug-in Types
+        ///     (Russian - 1049): Типы подключаемых модулей
         /// 
         /// Description:
         ///     (English - United States - 1033): Type that inherits from the IPlugin interface and is contained within a plug-in assembly.
+        ///     (Russian - 1049): Тип, производный от интерфейса IPlugin, и содержащийся в сборке подключаемого модуля.
         /// 
         /// PropertyName                          Value
         /// ActivityTypeMask                      0
@@ -104,9 +107,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Plug-in Type
+                ///     (Russian - 1049): Тип подключаемого модуля
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the plug-in type.
+                ///     (Russian - 1049): Уникальный идентификатор подключаемого модуля.
                 /// 
                 /// SchemaName: PluginTypeId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -133,14 +138,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Plug-in Type")]
                 public const string plugintypeid = "plugintypeid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Name
+                ///     (Russian - 1049): Название
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Name of the plug-in type.
+                ///     (Russian - 1049): Название типа подключаемого модуля.
                 /// 
                 /// SchemaName: Name
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -169,14 +177,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Name")]
                 public const string name = "name";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Assembly Name
+                ///     (Russian - 1049): Название сборки
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Full path name of the plug-in assembly.
+                ///     (Russian - 1049): Полный путь к сборке подключаемого модуля.
                 /// 
                 /// SchemaName: AssemblyName
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: ApplicationRequired
@@ -205,14 +216,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Assembly Name")]
                 public const string assemblyname = "assemblyname";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Component State
+                ///     (Russian - 1049): Состояние компонента
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: ComponentState
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -224,9 +238,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): Component State
+                ///             (Russian - 1049): Состояние компонента
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): The state of this component.
+                ///             (Russian - 1049): Состояние этого компонента.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -247,14 +263,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Component State")]
                 public const string componentstate = "componentstate";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By
+                ///     (Russian - 1049): Создано
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who created the plug-in type.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя, создавшего тип подключаемого модуля.
                 /// 
                 /// SchemaName: CreatedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -266,12 +285,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -292,6 +314,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By")]
                 public const string createdby = "createdby";
 
                 ///<summary>
@@ -327,9 +350,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created On
+                ///     (Russian - 1049): Дата создания
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the plug-in type was created.
+                ///     (Russian - 1049): Дата и время создания подключаемого модуля.
                 /// 
                 /// SchemaName: CreatedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -358,14 +383,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created On")]
                 public const string createdon = "createdon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By (Delegate)
+                ///     (Russian - 1049): Кем создано (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who created the plugintype.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя-делегата, создавшего plugintype.
                 /// 
                 /// SchemaName: CreatedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -377,12 +405,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -403,6 +434,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By (Delegate)")]
                 public const string createdonbehalfby = "createdonbehalfby";
 
                 ///<summary>
@@ -468,9 +500,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Culture
+                ///     (Russian - 1049): Культура
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Culture code for the plug-in assembly.
+                ///     (Russian - 1049): Код культуры для сборки подключаемого модуля.
                 /// 
                 /// SchemaName: Culture
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: ApplicationRequired
@@ -499,11 +533,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Culture")]
                 public const string culture = "culture";
 
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Customization level of the plug-in type.
+                ///     (Russian - 1049): Уровень настройки типа подключаемого модуля.
                 /// 
                 /// SchemaName: CustomizationLevel
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: SystemRequired
@@ -532,14 +568,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Customization level of the plug-in type.")]
                 public const string customizationlevel = "customizationlevel";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Custom Workflow Activity Info
+                ///     (Russian - 1049): Сведения о настраиваемом действии бизнес-процесса
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Serialized Custom Activity Type information, including required arguments. For more information, see SandboxCustomActivityInfo.
+                ///     (Russian - 1049): Сведения о сериализованном настраиваемом типе действия. Дополнительные сведения см. в описании SandboxCustomActivityInfo.
                 /// 
                 /// SchemaName: CustomWorkflowActivityInfo
                 /// MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: None
@@ -568,14 +607,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Custom Workflow Activity Info")]
                 public const string customworkflowactivityinfo = "customworkflowactivityinfo";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Description
+                ///     (Russian - 1049): Описание
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Description of the plug-in type.
+                ///     (Russian - 1049): Описание типа подключаемого модуля.
                 /// 
                 /// SchemaName: Description
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -604,14 +646,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Description")]
                 public const string description = "description";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Display Name
+                ///     (Russian - 1049): Отображаемое имя
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): User friendly name for the plug-in.
+                ///     (Russian - 1049): Понятное имя пользователя подключаемого модуля.
                 /// 
                 /// SchemaName: FriendlyName
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
@@ -640,6 +685,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Display Name")]
                 public const string friendlyname = "friendlyname";
 
                 ///<summary>
@@ -652,10 +698,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Unmanaged
+                ///     (Russian - 1049): Неуправляемый
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Managed
+                ///     (Russian - 1049): Управляемый
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -710,9 +758,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Is Workflow Activity
+                ///     (Russian - 1049): Является действием бизнес-процесса?
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Indicates if the plug-in is a custom activity for workflows.
+                ///     (Russian - 1049): Указывает, является ли подключаемый модуль настраиваемым действием для бизнес-процессов.
                 /// 
                 /// SchemaName: IsWorkflowActivity
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
@@ -723,10 +773,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): No
+                ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Yes
+                ///     (Russian - 1049): Да
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -748,6 +800,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Is Workflow Activity")]
                 public const string isworkflowactivity = "isworkflowactivity";
 
                 ///<summary>
@@ -781,9 +834,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Version major
+                ///     (Russian - 1049): Основной номер версии
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Major of the version number of the assembly for the plug-in type.
+                ///     (Russian - 1049): Основной номер версии сборки типа подключаемого модуля.
                 /// 
                 /// SchemaName: Major
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: SystemRequired
@@ -812,14 +867,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Version major")]
                 public const string major = "major";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Version minor
+                ///     (Russian - 1049): Дополнительный номер версии
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Minor of the version number of the assembly for the plug-in type.
+                ///     (Russian - 1049): Дополнительный номер версии сборки типа подключаемого модуля.
                 /// 
                 /// SchemaName: Minor
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: SystemRequired
@@ -848,14 +906,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Version minor")]
                 public const string minor = "minor";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By
+                ///     (Russian - 1049): Изменено
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who last modified the plug-in type.
+                ///     (Russian - 1049): Уникальный идентификатор последнего пользователя, изменившего подключаемый модуль.
                 /// 
                 /// SchemaName: ModifiedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -867,12 +928,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -893,6 +957,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By")]
                 public const string modifiedby = "modifiedby";
 
                 ///<summary>
@@ -928,9 +993,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified On
+                ///     (Russian - 1049): Дата изменения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the plug-in type was last modified.
+                ///     (Russian - 1049): Дата и время последнего изменения подключаемого модуля.
                 /// 
                 /// SchemaName: ModifiedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -959,14 +1026,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified On")]
                 public const string modifiedon = "modifiedon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By (Delegate)
+                ///     (Russian - 1049): Кем изменено (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who last modified the plugintype.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя-делегата, последним изменившего plugintype.
                 /// 
                 /// SchemaName: ModifiedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -978,12 +1048,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1004,6 +1077,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By (Delegate)")]
                 public const string modifiedonbehalfby = "modifiedonbehalfby";
 
                 ///<summary>
@@ -1069,6 +1143,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the organization with which the plug-in type is associated.
+                ///     (Russian - 1049): Уникальный идентификатор организации, с которой связан подключаемый модуль.
                 /// 
                 /// SchemaName: OrganizationId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: SystemRequired
@@ -1080,12 +1155,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target organization    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Organization
+                ///             (Russian - 1049): Предприятие
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Organizations
+                ///             (Russian - 1049): Предприятия
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
+                ///             (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1106,14 +1184,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Unique identifier of the organization with which the plug-in type is associated.")]
                 public const string organizationid = "organizationid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Record Overwrite Time
+                ///     (Russian - 1049): Время замены записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: OverwriteTime
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
@@ -1142,14 +1223,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Record Overwrite Time")]
                 public const string overwritetime = "overwritetime";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Plugin Assembly
+                ///     (Russian - 1049): Сборка подключаемого модуля
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the plug-in assembly that contains this plug-in type.
+                ///     (Russian - 1049): Уникальный идентификатор сборки подключаемого модуля, включающей этот тип подключаемого модуля.
                 /// 
                 /// SchemaName: PluginAssemblyId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1161,12 +1245,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target pluginassembly    PrimaryIdAttribute pluginassemblyid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Plug-in Assembly
+                ///             (Russian - 1049): Сборка подключаемого модуля
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Plug-in Assemblies
+                ///             (Russian - 1049): Сборки подключаемых модулей
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Assembly that contains one or more plug-in types.
+                ///             (Russian - 1049): Сборка, содержащая один или несколько типов подключаемых модулей.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1187,6 +1274,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Plugin Assembly")]
                 public const string pluginassemblyid = "pluginassemblyid";
 
                 ///<summary>
@@ -1222,6 +1310,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the plug-in type.
+                ///     (Russian - 1049): Уникальный идентификатор подключаемого модуля.
                 /// 
                 /// SchemaName: PluginTypeIdUnique
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -1248,14 +1337,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Unique identifier of the plug-in type.")]
                 public const string plugintypeidunique = "plugintypeidunique";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Public Key Token
+                ///     (Russian - 1049): Токен открытого ключа
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Public key token of the assembly for the plug-in type.
+                ///     (Russian - 1049): Токен общего ключа сборки для этого типа подключаемого модуля.
                 /// 
                 /// SchemaName: PublicKeyToken
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: ApplicationRequired
@@ -1284,14 +1376,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Public Key Token")]
                 public const string publickeytoken = "publickeytoken";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the associated solution.
+                ///     (Russian - 1049): Уникальный идентификатор связанного решения.
                 /// 
                 /// SchemaName: SolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -1318,14 +1413,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string solutionid = "solutionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: SupportingSolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
@@ -1352,14 +1450,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string supportingsolutionid = "supportingsolutionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Type Name
+                ///     (Russian - 1049): Название типа
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Fully qualified type name of the plug-in type.
+                ///     (Russian - 1049): Полное имя типа подключаемого модуля.
                 /// 
                 /// SchemaName: TypeName
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
@@ -1388,14 +1489,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Type Name")]
                 public const string typename = "typename";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Version
+                ///     (Russian - 1049): Версия
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Version number of the assembly for the plug-in type.
+                ///     (Russian - 1049): Номер версии сборки подключаемого модуля.
                 /// 
                 /// SchemaName: Version
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: ApplicationRequired
@@ -1424,6 +1528,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Version")]
                 public const string version = "version";
 
                 ///<summary>
@@ -1458,9 +1563,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Workflow Activity Group Name
+                ///     (Russian - 1049): Название группы действия бизнес-процесса
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Group name of workflow custom activity.
+                ///     (Russian - 1049): Название группы настраиваемого действия бизнес-процесса.
                 /// 
                 /// SchemaName: WorkflowActivityGroupName
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -1489,6 +1596,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Workflow Activity Group Name")]
                 public const string workflowactivitygroupname = "workflowactivitygroupname";
             }
 
@@ -1524,13 +1632,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship createdby_plugintype")]
                 public static partial class createdby_plugintype
                 {
                     public const string Name = "createdby_plugintype";
@@ -1572,13 +1684,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_plugintype_createdonbehalfby")]
                 public static partial class lk_plugintype_createdonbehalfby
                 {
                     public const string Name = "lk_plugintype_createdonbehalfby";
@@ -1620,13 +1736,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_plugintype_modifiedonbehalfby")]
                 public static partial class lk_plugintype_modifiedonbehalfby
                 {
                     public const string Name = "lk_plugintype_modifiedonbehalfby";
@@ -1668,13 +1788,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship modifiedby_plugintype")]
                 public static partial class modifiedby_plugintype
                 {
                     public const string Name = "modifiedby_plugintype";
@@ -1716,13 +1840,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity organization:    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Organization
+                ///         (Russian - 1049): Предприятие
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Organizations
+                ///         (Russian - 1049): Предприятия
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
+                ///         (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship organization_plugintype")]
                 public static partial class organization_plugintype
                 {
                     public const string Name = "organization_plugintype";
@@ -1764,13 +1892,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity pluginassembly:    PrimaryIdAttribute pluginassemblyid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Plug-in Assembly
+                ///         (Russian - 1049): Сборка подключаемого модуля
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Plug-in Assemblies
+                ///         (Russian - 1049): Сборки подключаемых модулей
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Assembly that contains one or more plug-in types.
+                ///         (Russian - 1049): Сборка, содержащая один или несколько типов подключаемых модулей.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship pluginassembly_plugintype")]
                 public static partial class pluginassembly_plugintype
                 {
                     public const string Name = "pluginassembly_plugintype";
@@ -1819,13 +1951,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity service:    PrimaryIdAttribute serviceid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Service
+                ///         (Russian - 1049): Сервис
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Services
+                ///         (Russian - 1049): Сервисы
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Activity that represents work done to satisfy a customer's need.
+                ///         (Russian - 1049): Действие, представляющее работы, выполненные с целью удовлетворения потребностей клиента.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship plugin_type_service")]
                 public static partial class plugin_type_service
                 {
                     public const string Name = "plugin_type_service";
@@ -1867,13 +2003,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity plugintypestatistic:    PrimaryIdAttribute plugintypestatisticid
                 ///     DisplayName:
                 ///         (English - United States - 1033): Plug-in Type Statistic
+                ///         (Russian - 1049): Статистика по типам подключаемых модулей
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Plug-in Type Statistics
+                ///         (Russian - 1049): Статистики по типам подключаемых модулей
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Plug-in type statistic.
+                ///         (Russian - 1049): Статистика по типам подключаемых модулей.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship plugintype_plugintypestatistic")]
                 public static partial class plugintype_plugintypestatistic
                 {
                     public const string Name = "plugintype_plugintypestatistic";
@@ -1913,13 +2053,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity sdkmessageprocessingstep:    PrimaryIdAttribute sdkmessageprocessingstepid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Sdk Message Processing Step
+                ///         (Russian - 1049): Шаг обработки сообщения SDK
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Sdk Message Processing Steps
+                ///         (Russian - 1049): Шаги обработки сообщения SDK
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Stage in the execution pipeline that a plug-in is to execute.
+                ///         (Russian - 1049): Стадия конвейерной обработки, на которой выполняется запуск подключаемого модуля.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship plugintype_sdkmessageprocessingstep")]
                 public static partial class plugintype_sdkmessageprocessingstep
                 {
                     public const string Name = "plugintype_sdkmessageprocessingstep";
@@ -1961,13 +2105,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity sdkmessageprocessingstep:    PrimaryIdAttribute sdkmessageprocessingstepid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Sdk Message Processing Step
+                ///         (Russian - 1049): Шаг обработки сообщения SDK
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Sdk Message Processing Steps
+                ///         (Russian - 1049): Шаги обработки сообщения SDK
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Stage in the execution pipeline that a plug-in is to execute.
+                ///         (Russian - 1049): Стадия конвейерной обработки, на которой выполняется запуск подключаемого модуля.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship plugintypeid_sdkmessageprocessingstep")]
                 public static partial class plugintypeid_sdkmessageprocessingstep
                 {
                     public const string Name = "plugintypeid_sdkmessageprocessingstep";
@@ -2009,10 +2157,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
                 ///     DisplayName:
                 ///         (English - United States - 1033): User Entity Instance Data
+                ///         (Russian - 1049): Данные экземпляра сущности пользователя
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Per User item instance data
+                ///         (Russian - 1049): Данные экземпляра позиции "на пользователя"
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship userentityinstancedata_plugintype")]
                 public static partial class userentityinstancedata_plugintype
                 {
                     public const string Name = "userentityinstancedata_plugintype";

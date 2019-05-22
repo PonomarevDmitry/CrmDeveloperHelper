@@ -6,12 +6,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///<summary>
         /// DisplayName:
         ///     (English - United States - 1033): Record Creation and Update Rule
+        ///     (Russian - 1049): Правило создания и обновления записей
         /// 
         /// DisplayCollectionName:
         ///     (English - United States - 1033): Record Creation and Update Rules
+        ///     (Russian - 1049): Правила создания и обновления записей
         /// 
         /// Description:
         ///     (English - United States - 1033): Defines the settings for automatic record creation.
+        ///     (Russian - 1049): Определяет параметры автоматического создания записей.
         /// 
         /// PropertyName                          Value
         /// ActivityTypeMask                      0
@@ -104,9 +107,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Convert Rule
+                ///     (Russian - 1049): Правило преобразования
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier for entity instances
+                ///     (Russian - 1049): Уникальный идентификатор экземпляров сущности
                 /// 
                 /// SchemaName: ConvertRuleId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -133,14 +138,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Convert Rule")]
                 public const string convertruleid = "convertruleid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Name
+                ///     (Russian - 1049): Имя
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Type a title or name of the queue for which the setting is defined.
+                ///     (Russian - 1049): Введите заголовок или имя очереди, для которых определена настройка.
                 /// 
                 /// SchemaName: Name
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: ApplicationRequired
@@ -169,14 +177,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Name")]
                 public const string name = "name";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Allow Unknown Sender
+                ///     (Russian - 1049): Разрешить неизвестных отправителей
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Choose whether items from unknown senders should be converted to records.
+                ///     (Russian - 1049): Укажите, следует ли преобразовывать элементы от неизвестных отправителей в записи.
                 /// 
                 /// SchemaName: AllowUnknownSender
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
@@ -187,10 +198,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): No
+                ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Yes
+                ///     (Russian - 1049): Да
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -212,6 +225,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Allow Unknown Sender")]
                 public const string allowunknownsender = "allowunknownsender";
 
                 ///<summary>
@@ -245,9 +259,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Channel Property Group
+                ///     (Russian - 1049): Группа свойств канала
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): channel property group associated with the convert rule.
+                ///     (Russian - 1049): группа свойств канала, связанная с правилом преобразования.
                 /// 
                 /// SchemaName: ChannelPropertyGroupId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -259,12 +275,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target channelpropertygroup    PrimaryIdAttribute channelpropertygroupid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Channel Property Group
+                ///             (Russian - 1049): Группа свойств канала
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Channel Property Groups
+                ///             (Russian - 1049): Группы свойств канала
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Group or collection of channel properties provided by the external channel for a Microsoft Dynamics 365 activity.
+                ///             (Russian - 1049): Группа или коллекция свойств канала, предоставленная внешним каналом для действия Microsoft Dynamics 365.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -285,6 +304,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Channel Property Group")]
                 public const string channelpropertygroupid = "channelpropertygroupid";
 
                 ///<summary>
@@ -320,9 +340,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Check Active SLA
+                ///     (Russian - 1049): Проверять действующее SLA
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Choose whether cases should be created for customers with active entitlements.
+                ///     (Russian - 1049): Укажите, следует ли создавать обращения для клиентов с активными объемами обслуживания.
                 /// 
                 /// SchemaName: CheckActiveEntitlement
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
@@ -333,10 +355,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): No
+                ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Yes
+                ///     (Russian - 1049): Да
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -358,6 +382,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Check Active SLA")]
                 public const string checkactiveentitlement = "checkactiveentitlement";
 
                 ///<summary>
@@ -391,9 +416,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Check black listed social profiles
+                ///     (Russian - 1049): Проверить профили социальных сетей из черного списка
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Information whether record needs to be created for black listed social profiles.
+                ///     (Russian - 1049): Сведения о том, необходимо ли создавать запись для профилей социальных сетей из черных списков.
                 /// 
                 /// SchemaName: CheckBlockedSocialProfile
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
@@ -404,10 +431,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): No
+                ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Yes
+                ///     (Russian - 1049): Да
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -429,6 +458,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Check black listed social profiles")]
                 public const string checkblockedsocialprofile = "checkblockedsocialprofile";
 
                 ///<summary>
@@ -462,9 +492,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Create records for private messages only
+                ///     (Russian - 1049): Создавать записи только для личных сообщений
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Information whether record needs to be created for direct messages.
+                ///     (Russian - 1049): Сведения о том, необходимо ли создавать запись для прямых сообщений.
                 /// 
                 /// SchemaName: CheckDirectMessages
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
@@ -475,10 +507,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): No
+                ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Yes
+                ///     (Russian - 1049): Да
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -500,6 +534,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Create records for private messages only")]
                 public const string checkdirectmessages = "checkdirectmessages";
 
                 ///<summary>
@@ -533,9 +568,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Check If Resolved
+                ///     (Russian - 1049): Проверять наличие ответа
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Choose whether an item related to a resolved case should be converted to a case.
+                ///     (Russian - 1049): Укажите, следует ли преобразовывать элемент, относящийся к разрешенному обращению, в обращение.
                 /// 
                 /// SchemaName: CheckIfResolved
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
@@ -546,10 +583,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): No
+                ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Yes
+                ///     (Russian - 1049): Да
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -571,6 +610,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Check If Resolved")]
                 public const string checkifresolved = "checkifresolved";
 
                 ///<summary>
@@ -604,9 +644,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Component State
+                ///     (Russian - 1049): Состояние компонента
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: ComponentState
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -618,9 +660,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): Component State
+                ///             (Russian - 1049): Состояние компонента
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): The state of this component.
+                ///             (Russian - 1049): Состояние этого компонента.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -641,14 +685,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Component State")]
                 public const string componentstate = "componentstate";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Unique Id
+                ///     (Russian - 1049): Уникальный идентификатор
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: ConvertRuleIdUnique
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -675,14 +722,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Unique Id")]
                 public const string convertruleidunique = "convertruleidunique";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By
+                ///     (Russian - 1049): Создано
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who created the record.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя, создавшего запись.
                 /// 
                 /// SchemaName: CreatedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -694,12 +744,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -720,6 +773,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By")]
                 public const string createdby = "createdby";
 
                 ///<summary>
@@ -785,9 +839,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created On
+                ///     (Russian - 1049): Дата создания
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the record was created.
+                ///     (Russian - 1049): Дата и время создания записи.
                 /// 
                 /// SchemaName: CreatedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -816,14 +872,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created On")]
                 public const string createdon = "createdon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By (Delegate)
+                ///     (Russian - 1049): Кем создано (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who created the record.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя-делегата, создавшего запись.
                 /// 
                 /// SchemaName: CreatedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -835,12 +894,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -861,6 +923,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By (Delegate)")]
                 public const string createdonbehalfby = "createdonbehalfby";
 
                 ///<summary>
@@ -926,9 +989,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Description
+                ///     (Russian - 1049): Описание
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Type additional information to describe the rule for creating records automatically.
+                ///     (Russian - 1049): Введите дополнительные сведения, описывающие правило автоматического создания записей.
                 /// 
                 /// SchemaName: Description
                 /// MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: None
@@ -957,14 +1022,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Description")]
                 public const string description = "description";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Exchange Rate
+                ///     (Russian - 1049): Валютный курс
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Exchange rate for the currency associated with the queue with respect to the base currency.
+                ///     (Russian - 1049): Валютный курс валюты, связанной с очередью, по отношению к базовой валюте.
                 /// 
                 /// SchemaName: ExchangeRate
                 /// DecimalAttributeMetadata    AttributeType: Decimal    AttributeTypeName: DecimalType    RequiredLevel: None
@@ -993,14 +1061,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Exchange Rate")]
                 public const string exchangerate = "exchangerate";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Is Managed
+                ///     (Russian - 1049): Управляемый
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: IsManaged
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
@@ -1011,10 +1082,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Unmanaged
+                ///     (Russian - 1049): Неуправляемый
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Managed
+                ///     (Russian - 1049): Управляемый
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -1036,14 +1109,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Is Managed")]
                 public const string ismanaged = "ismanaged";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By
+                ///     (Russian - 1049): Изменено
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who modified the record.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя, изменившего запись.
                 /// 
                 /// SchemaName: ModifiedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1055,12 +1131,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1081,6 +1160,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By")]
                 public const string modifiedby = "modifiedby";
 
                 ///<summary>
@@ -1146,9 +1226,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified On
+                ///     (Russian - 1049): Дата изменения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the record was modified.
+                ///     (Russian - 1049): Дата и время изменения записи.
                 /// 
                 /// SchemaName: ModifiedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -1177,14 +1259,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified On")]
                 public const string modifiedon = "modifiedon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By (Delegate)
+                ///     (Russian - 1049): Кем изменено (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who modified the record.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя-делегата, изменившего запись.
                 /// 
                 /// SchemaName: ModifiedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1196,12 +1281,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1222,6 +1310,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By (Delegate)")]
                 public const string modifiedonbehalfby = "modifiedonbehalfby";
 
                 ///<summary>
@@ -1287,9 +1376,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Record Overwrite Time
+                ///     (Russian - 1049): Время замены записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: OverwriteTime
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
@@ -1318,14 +1409,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Record Overwrite Time")]
                 public const string overwritetime = "overwritetime";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owner
+                ///     (Russian - 1049): Ответственный
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Owner Id
+                ///     (Russian - 1049): Идентификатор ответственного
                 /// 
                 /// SchemaName: OwnerId
                 /// LookupAttributeMetadata    AttributeType: Owner    AttributeTypeName: OwnerType    RequiredLevel: SystemRequired
@@ -1337,12 +1431,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1363,11 +1460,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Owner")]
                 public const string ownerid = "ownerid";
 
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Owner name of the routing rule.
+                ///     (Russian - 1049): Имя владельца правила маршрутизации.
                 /// 
                 /// SchemaName: OwnerIdName
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired    AttributeOf 'ownerid'
@@ -1429,9 +1528,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owning Business Unit
+                ///     (Russian - 1049): Ответственная бизнес-единица
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows the business unit that the convert rule owner belongs to.
+                ///     (Russian - 1049): Указывает бизнес-единицу, к которой принадлежит владелец правила преобразования.
                 /// 
                 /// SchemaName: OwningBusinessUnit
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1443,12 +1544,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target businessunit    PrimaryIdAttribute businessunitid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Business Unit
+                ///             (Russian - 1049): Бизнес-единица
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Business Units
+                ///             (Russian - 1049): Бизнес-единицы
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Business, division, or department in the Microsoft Dynamics 365 database.
+                ///             (Russian - 1049): Компания, подразделение или отдел в базе данных Microsoft Dynamics 365.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1469,14 +1573,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Owning Business Unit")]
                 public const string owningbusinessunit = "owningbusinessunit";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owning Team
+                ///     (Russian - 1049): Ответственная рабочая группа
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier for the team that owns the record.
+                ///     (Russian - 1049): Уникальный идентификатор группы, которой принадлежит запись.
                 /// 
                 /// SchemaName: OwningTeam
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1488,12 +1595,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target team    PrimaryIdAttribute teamid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Team
+                ///             (Russian - 1049): Рабочая группа
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Teams
+                ///             (Russian - 1049): Рабочие группы
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
+                ///             (Russian - 1049): Набор системных пользователей, которые обычно участвуют в совместной работе. Рабочие группы можно использовать для упрощения предоставления участникам группы общего доступа к записям и данным организации, если участники принадлежат к разным бизнес-единицам.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1514,14 +1624,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Owning Team")]
                 public const string owningteam = "owningteam";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owning User
+                ///     (Russian - 1049): Ответственный пользователь
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier for the user that owns the record.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя, которому принадлежит эта запись.
                 /// 
                 /// SchemaName: OwningUser
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1533,12 +1646,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1559,14 +1675,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Owning User")]
                 public const string owninguser = "owninguser";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Queue
+                ///     (Russian - 1049): Очередь
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Choose the queue that the rule is assigned to.
+                ///     (Russian - 1049): Выберите очередь, которой назначено правило.
                 /// 
                 /// SchemaName: QueueId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1578,12 +1697,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target queue    PrimaryIdAttribute queueid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Queue
+                ///             (Russian - 1049): Очередь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Queues
+                ///             (Russian - 1049): Очереди
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): A list of records that require action, such as accounts, activities, and cases.
+                ///             (Russian - 1049): Список записей, требующих действий от пользователя, например, организаций, действий и обращений.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1604,6 +1726,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Queue")]
                 public const string queueid = "queueid";
 
                 ///<summary>
@@ -1639,6 +1762,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Record Version
+                ///     (Russian - 1049): Версия записи
                 /// 
                 /// SchemaName: RecordVersion
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
@@ -1667,14 +1791,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Record Version")]
                 public const string recordversion = "recordversion";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Resolved Since
+                ///     (Russian - 1049): Разрешено с момента
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): If you want to create a new case for an item associated with a resolved case, type how long a case must remain resolved before a new case is created for the associated item.
+                ///     (Russian - 1049): Для создания нового обращения для элемента, связанного с разрешенным обращением, укажите время, в течение которого обращение должно оставаться разрешенным, прежде чем будет создано новое обращение для связанного элемента.
                 /// 
                 /// SchemaName: ResolvedSince
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -1703,14 +1830,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Resolved Since")]
                 public const string resolvedsince = "resolvedsince";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Response Email Template
+                ///     (Russian - 1049): Шаблон ответного письма
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Choose the email template to use to create an automatic response to the customer.
+                ///     (Russian - 1049): Выберите шаблон сообщения электронной почты, который будет использоваться для автоматического ответа клиенту.
                 /// 
                 /// SchemaName: ResponseTemplateId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1722,12 +1852,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target template    PrimaryIdAttribute templateid    PrimaryNameAttribute title
                 ///         DisplayName:
                 ///             (English - United States - 1033): Email Template
+                ///             (Russian - 1049): Шаблон электронной почты
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Email Templates
+                ///             (Russian - 1049): Шаблоны электронной почты
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Template for an email message that contains the standard attributes of an email message.
+                ///             (Russian - 1049): Шаблон сообщения электронной почты, содержащий стандартные атрибуты сообщения электронной почты.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1748,6 +1881,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Response Email Template")]
                 public const string responsetemplateid = "responsetemplateid";
 
                 ///<summary>
@@ -1783,9 +1917,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Send Automatic Response
+                ///     (Russian - 1049): Отправить автоматический ответ
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Choose whether to send an automatic email response to the customer after a record is created.
+                ///     (Russian - 1049): Укажите, следует ли отправлять клиенту автоматический ответ по электронной почте после создания записи.
                 /// 
                 /// SchemaName: SendAutomaticResponse
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
@@ -1796,10 +1932,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): No
+                ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Yes
+                ///     (Russian - 1049): Да
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -1821,6 +1959,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Send Automatic Response")]
                 public const string sendautomaticresponse = "sendautomaticresponse";
 
                 ///<summary>
@@ -1854,9 +1993,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the associated solution.
+                ///     (Russian - 1049): Уникальный идентификатор связанного решения.
                 /// 
                 /// SchemaName: SolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -1883,14 +2024,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string solutionid = "solutionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Source Type
+                ///     (Russian - 1049): Тип источника
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Identifies the Dynamics 365 activity that's the source of the record.
+                ///     (Russian - 1049): Служит идентификатором действия Dynamics 365, которое представляет собой источник записи.
                 /// 
                 /// SchemaName: SourceChannelTypeCode
                 /// EntityNameAttributeMetadata    AttributeType: EntityName    AttributeTypeName: EntityNameType    RequiredLevel: SystemRequired
@@ -1902,9 +2046,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): Channel Activities
+                ///             (Russian - 1049): Действия каналов
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Type of  channel activities.
+                ///             (Russian - 1049): Тип действий каналов.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1925,6 +2071,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Source Type")]
                 public const string sourcechanneltypecode = "sourcechanneltypecode";
 
                 ///<summary>
@@ -1958,9 +2105,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Source Type
+                ///     (Russian - 1049): Тип источника
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Source of the record.
+                ///     (Russian - 1049): Источник записи.
                 /// 
                 /// SchemaName: SourceTypeCode
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -1989,6 +2138,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Source Type")]
                 public const string sourcetypecode = "sourcetypecode";
 
                 ///<summary>
@@ -2022,9 +2172,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Status
+                ///     (Russian - 1049): Состояние
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Status of the Convert Rule
+                ///     (Russian - 1049): Состояние правила преобразования
                 /// 
                 /// SchemaName: StateCode
                 /// StateAttributeMetadata    AttributeType: State    AttributeTypeName: StateType    RequiredLevel: SystemRequired
@@ -2052,6 +2204,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Status")]
                 public const string statecode = "statecode";
 
                 ///<summary>
@@ -2085,9 +2238,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Status Reason
+                ///     (Russian - 1049): Причина состояния
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Reason for the status of the Convert Rule
+                ///     (Russian - 1049): Причина состояния правила преобразования
                 /// 
                 /// SchemaName: StatusCode
                 /// StatusAttributeMetadata    AttributeType: Status    AttributeTypeName: StatusType    RequiredLevel: None
@@ -2115,6 +2270,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Status Reason")]
                 public const string statuscode = "statuscode";
 
                 ///<summary>
@@ -2148,9 +2304,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: SupportingSolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
@@ -2177,14 +2335,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string supportingsolutionid = "supportingsolutionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Currency
+                ///     (Russian - 1049): Валюта
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the currency associated with the queue.
+                ///     (Russian - 1049): Уникальный идентификатор валюты, связанной с очередью.
                 /// 
                 /// SchemaName: TransactionCurrencyId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -2196,12 +2357,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target transactioncurrency    PrimaryIdAttribute transactioncurrencyid    PrimaryNameAttribute currencyname
                 ///         DisplayName:
                 ///             (English - United States - 1033): Currency
+                ///             (Russian - 1049): Валюта
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Currencies
+                ///             (Russian - 1049): Валюты
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Currency in which a financial transaction is carried out.
+                ///             (Russian - 1049): Валюта, в которой выполняется финансовая операция.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -2222,6 +2386,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Currency")]
                 public const string transactioncurrencyid = "transactioncurrencyid";
 
                 ///<summary>
@@ -2257,9 +2422,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Version Number
+                ///     (Russian - 1049): Номер версии
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Version number of the convert rule.
+                ///     (Russian - 1049): Номер версии правила преобразования.
                 /// 
                 /// SchemaName: VersionNumber
                 /// BigIntAttributeMetadata    AttributeType: BigInt    AttributeTypeName: BigIntType    RequiredLevel: None
@@ -2287,14 +2454,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Version Number")]
                 public const string versionnumber = "versionnumber";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Workflow
+                ///     (Russian - 1049): Бизнес-процесс
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows the workflow for this rule.
+                ///     (Russian - 1049): Показывает бизнес-процесс для этого правила.
                 /// 
                 /// SchemaName: WorkflowId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -2306,12 +2476,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target workflow    PrimaryIdAttribute workflowid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Process
+                ///             (Russian - 1049): Процесс
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Processes
+                ///             (Russian - 1049): Процессы
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Set of logical rules that define the steps necessary to automate a specific business process, task, or set of actions to be performed.
+                ///             (Russian - 1049): Задайте логические правила, определяющие необходимые действия для автоматизации конкретных бизнес-процессов, заданий или наборов действий.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -2332,6 +2505,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Workflow")]
                 public const string workflowid = "workflowid";
 
                 ///<summary>
@@ -2378,10 +2552,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Status
+                ///     (Russian - 1049): Состояние
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Status of the Convert Rule
+                ///     (Russian - 1049): Состояние правила преобразования
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Status")]
                 public enum statecode
                 {
                     ///<summary>
@@ -2391,7 +2568,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Draft
+                    ///     (Russian - 1049): Черновик
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Draft")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Draft_0 = 0,
 
@@ -2402,7 +2581,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Active
+                    ///     (Russian - 1049): Активный
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Active")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Active_1 = 1,
                 }
@@ -2413,10 +2594,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Status
+                ///     (Russian - 1049): Состояние
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Status of the Convert Rule
+                ///     (Russian - 1049): Состояние правила преобразования
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Status Reason")]
                 public enum statuscode
                 {
                     ///<summary>
@@ -2425,7 +2609,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Draft
+                    ///     (Russian - 1049): Черновик
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Draft")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Draft_0_Draft_1 = 1,
 
@@ -2435,7 +2621,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Active
+                    ///     (Russian - 1049): Активный
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Active")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Active_1_Active_2 = 2,
                 }
@@ -2450,18 +2638,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Source Type
+                ///     (Russian - 1049): Тип источника
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Source of the record.
+                ///     (Russian - 1049): Источник записи.
                 /// 
                 /// Local System  OptionSet converttorule_sourcetype
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Source Type
+                ///     (Russian - 1049): Тип источника
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Source Type.
+                ///     (Russian - 1049): Тип источника.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Source Type")]
                 public enum sourcetypecode
                 {
                     ///<summary>
@@ -2470,7 +2663,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Social Monitoring
+                    ///     (Russian - 1049): Социальный мониторинг
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Social Monitoring")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Social_Monitoring_1 = 1,
 
@@ -2480,7 +2675,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Email
+                    ///     (Russian - 1049): Электронная почта
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Email")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Email_2 = 2,
                 }
@@ -2520,13 +2717,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity businessunit:    PrimaryIdAttribute businessunitid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Business Unit
+                ///         (Russian - 1049): Бизнес-единица
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Business Units
+                ///         (Russian - 1049): Бизнес-единицы
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Business, division, or department in the Microsoft Dynamics 365 database.
+                ///         (Russian - 1049): Компания, подразделение или отдел в базе данных Microsoft Dynamics 365.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship business_unit_convertrule")]
                 public static partial class business_unit_convertrule
                 {
                     public const string Name = "business_unit_convertrule";
@@ -2568,13 +2769,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity channelpropertygroup:    PrimaryIdAttribute channelpropertygroupid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Channel Property Group
+                ///         (Russian - 1049): Группа свойств канала
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Channel Property Groups
+                ///         (Russian - 1049): Группы свойств канала
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Group or collection of channel properties provided by the external channel for a Microsoft Dynamics 365 activity.
+                ///         (Russian - 1049): Группа или коллекция свойств канала, предоставленная внешним каналом для действия Microsoft Dynamics 365.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship channelpropertygroup_convertrule")]
                 public static partial class channelpropertygroup_convertrule
                 {
                     public const string Name = "channelpropertygroup_convertrule";
@@ -2616,12 +2821,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity queue:    PrimaryIdAttribute queueid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Queue
+                ///         (Russian - 1049): Очередь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Queues
+                ///         (Russian - 1049): Очереди
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): A list of records that require action, such as accounts, activities, and cases.
+                ///         (Russian - 1049): Список записей, требующих действий от пользователя, например, организаций, действий и обращений.
                 /// 
                 /// AttributeMaps:
                 ///     SourceEntity             TargetEntity
@@ -2631,6 +2839,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     name               ->    queueidname
                 ///     queueid            ->    queueid
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship convertrule_queue")]
                 public static partial class convertrule_queue
                 {
                     public const string Name = "convertrule_queue";
@@ -2672,13 +2881,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity template:    PrimaryIdAttribute templateid    PrimaryNameAttribute title
                 ///     DisplayName:
                 ///         (English - United States - 1033): Email Template
+                ///         (Russian - 1049): Шаблон электронной почты
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Email Templates
+                ///         (Russian - 1049): Шаблоны электронной почты
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Template for an email message that contains the standard attributes of an email message.
+                ///         (Russian - 1049): Шаблон сообщения электронной почты, содержащий стандартные атрибуты сообщения электронной почты.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship emailtemplate_convertrule")]
                 public static partial class emailtemplate_convertrule
                 {
                     public const string Name = "emailtemplate_convertrule";
@@ -2720,13 +2933,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_convertrule_createdby")]
                 public static partial class lk_convertrule_createdby
                 {
                     public const string Name = "lk_convertrule_createdby";
@@ -2768,13 +2985,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_ConvertRule_createdonbehalfby")]
                 public static partial class lk_convertrule_createdonbehalfby
                 {
                     public const string Name = "lk_ConvertRule_createdonbehalfby";
@@ -2816,13 +3037,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_ConvertRule_modifiedby")]
                 public static partial class lk_convertrule_modifiedby
                 {
                     public const string Name = "lk_ConvertRule_modifiedby";
@@ -2864,13 +3089,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_ConvertRule_modifiedonbehalfby")]
                 public static partial class lk_convertrule_modifiedonbehalfby
                 {
                     public const string Name = "lk_ConvertRule_modifiedonbehalfby";
@@ -2912,13 +3141,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity owner:    PrimaryIdAttribute ownerid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Owner
+                ///         (Russian - 1049): Ответственный
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Owners
+                ///         (Russian - 1049): Ответственные
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Group of undeleted system users and undeleted teams. Owners can be used to control access to specific objects.
+                ///         (Russian - 1049): Группа для восстановленных системных пользователей и рабочих групп. Для контроля доступа к конкретным объектам можно использовать ответственных.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship owner_convertrule")]
                 public static partial class owner_convertrule
                 {
                     public const string Name = "owner_convertrule";
@@ -2960,13 +3193,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity team:    PrimaryIdAttribute teamid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Team
+                ///         (Russian - 1049): Рабочая группа
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Teams
+                ///         (Russian - 1049): Рабочие группы
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
+                ///         (Russian - 1049): Набор системных пользователей, которые обычно участвуют в совместной работе. Рабочие группы можно использовать для упрощения предоставления участникам группы общего доступа к записям и данным организации, если участники принадлежат к разным бизнес-единицам.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship team_convertrule")]
                 public static partial class team_convertrule
                 {
                     public const string Name = "team_convertrule";
@@ -3008,13 +3245,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity transactioncurrency:    PrimaryIdAttribute transactioncurrencyid    PrimaryNameAttribute currencyname
                 ///     DisplayName:
                 ///         (English - United States - 1033): Currency
+                ///         (Russian - 1049): Валюта
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Currencies
+                ///         (Russian - 1049): Валюты
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Currency in which a financial transaction is carried out.
+                ///         (Russian - 1049): Валюта, в которой выполняется финансовая операция.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship TransactionCurrency_ConvertRule")]
                 public static partial class transactioncurrency_convertrule
                 {
                     public const string Name = "TransactionCurrency_ConvertRule";
@@ -3056,13 +3297,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship user_convertrule")]
                 public static partial class user_convertrule
                 {
                     public const string Name = "user_convertrule";
@@ -3104,13 +3349,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity workflow:    PrimaryIdAttribute workflowid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Process
+                ///         (Russian - 1049): Процесс
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Processes
+                ///         (Russian - 1049): Процессы
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Set of logical rules that define the steps necessary to automate a specific business process, task, or set of actions to be performed.
+                ///         (Russian - 1049): Задайте логические правила, определяющие необходимые действия для автоматизации конкретных бизнес-процессов, заданий или наборов действий.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship workflowid_convertrule")]
                 public static partial class workflowid_convertrule
                 {
                     public const string Name = "workflowid_convertrule";
@@ -3159,13 +3408,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity annotation:    PrimaryIdAttribute annotationid    PrimaryNameAttribute subject
                 ///     DisplayName:
                 ///         (English - United States - 1033): Note
+                ///         (Russian - 1049): Примечание
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Notes
+                ///         (Russian - 1049): Примечания
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Note that is attached to one or more objects, including other notes.
+                ///         (Russian - 1049): Примечание, которое прикреплено к одному или нескольким объектам, в том числе другим примечаниям.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship ConvertRule_Annotation")]
                 public static partial class convertrule_annotation
                 {
                     public const string Name = "ConvertRule_Annotation";
@@ -3207,13 +3460,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity asyncoperation:    PrimaryIdAttribute asyncoperationid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): System Job
+                ///         (Russian - 1049): Системное задание
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): System Jobs
+                ///         (Russian - 1049): Системные задания
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Process whose execution can proceed independently or in the background.
+                ///         (Russian - 1049): Процесс, который может выполняться независимо или в фоновом режиме.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship Convertrule_AsyncOperations")]
                 public static partial class convertrule_asyncoperations
                 {
                     public const string Name = "Convertrule_AsyncOperations";
@@ -3255,12 +3512,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity convertruleitem:    PrimaryIdAttribute convertruleitemid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Record Creation and Update Rule Item
+                ///         (Russian - 1049): Элемент правила создания и обновления записей
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Record Creation and Update Rule Items
+                ///         (Russian - 1049): Элементы правила создания и обновления записей
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Defines the individual conditions required for creating records automatically.
+                ///         (Russian - 1049): Определяет отдельные условия, необходимые для автоматического создания записей.
                 /// 
                 /// AttributeMaps:
                 ///     SourceEntity             TargetEntity
@@ -3272,6 +3532,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     queueid            ->    queueid
                 ///     queueidname        ->    queueidname
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship convertrule_convertruleitem")]
                 public static partial class convertrule_convertruleitem
                 {
                     public const string Name = "convertrule_convertruleitem";
@@ -3313,13 +3574,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity processsession:    PrimaryIdAttribute processsessionid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Process Session
+                ///         (Russian - 1049): Сеанс процесса
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Process Sessions
+                ///         (Russian - 1049): Сеансы процесса
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Information that is generated when a dialog is run. Every time that you run a dialog, a dialog session is created.
+                ///         (Russian - 1049): Информация, созданная после запуска диалогового окна. При каждом запуске диалогового окна создается сеанс диалогового окна.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship ConvertRule_ProcessSessions")]
                 public static partial class convertrule_processsessions
                 {
                     public const string Name = "ConvertRule_ProcessSessions";
@@ -3361,10 +3626,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
                 ///     DisplayName:
                 ///         (English - United States - 1033): User Entity Instance Data
+                ///         (Russian - 1049): Данные экземпляра сущности пользователя
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Per User item instance data
+                ///         (Russian - 1049): Данные экземпляра позиции "на пользователя"
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship ConvertRule_userentityinstancedatas")]
                 public static partial class convertrule_userentityinstancedatas
                 {
                     public const string Name = "ConvertRule_userentityinstancedatas";

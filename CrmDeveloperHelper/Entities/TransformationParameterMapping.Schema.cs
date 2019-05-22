@@ -6,12 +6,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///<summary>
         /// DisplayName:
         ///     (English - United States - 1033): Transformation Parameter Mapping
+        ///     (Russian - 1049): Сопоставление параметра преобразования
         /// 
         /// DisplayCollectionName:
         ///     (English - United States - 1033): Transformation Parameter Mappings
+        ///     (Russian - 1049): Сопоставления параметров преобразований
         /// 
         /// Description:
         ///     (English - United States - 1033): In a data map, defines parameters for a transformation.
+        ///     (Russian - 1049): В сопоставлении данных определяет параметры  преобразования.
         /// 
         /// PropertyName                          Value
         /// ActivityTypeMask                      0
@@ -103,6 +106,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the transformation parameter mapping.
+                ///     (Russian - 1049): Уникальный идентификатор сопоставления параметра преобразования.
                 /// 
                 /// SchemaName: TransformationParameterMappingId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -129,14 +133,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Unique identifier of the transformation parameter mapping.")]
                 public const string transformationparametermappingid = "transformationparametermappingid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Data
+                ///     (Russian - 1049): Данные
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Transformation data for transformation parameter
+                ///     (Russian - 1049): Данные преобразования для параметра преобразования
                 /// 
                 /// SchemaName: Data
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -165,14 +172,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Data")]
                 public const string data = "data";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Component State
+                ///     (Russian - 1049): Состояние компонента
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: ComponentState
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -184,9 +194,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): Component State
+                ///             (Russian - 1049): Состояние компонента
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): The state of this component.
+                ///             (Russian - 1049): Состояние этого компонента.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -207,14 +219,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Component State")]
                 public const string componentstate = "componentstate";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By
+                ///     (Russian - 1049): Создано
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who created the parameter mapping.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя, создавшего сопоставление параметра.
                 /// 
                 /// SchemaName: CreatedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -226,12 +241,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -252,6 +270,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By")]
                 public const string createdby = "createdby";
 
                 ///<summary>
@@ -317,9 +336,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created On
+                ///     (Russian - 1049): Дата создания
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the transformation parameter mapping was created.
+                ///     (Russian - 1049): Дата и время создания параметра преобразования сопоставления.
                 /// 
                 /// SchemaName: CreatedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
@@ -348,14 +369,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created On")]
                 public const string createdon = "createdon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By (Delegate)
+                ///     (Russian - 1049): Кем создано (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who created the transformationparametermapping.
+                ///     (Russian - 1049): Уникальный идентификатор делегата, создавшего сопоставление параметров преобразования.
                 /// 
                 /// SchemaName: CreatedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -367,12 +391,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -393,6 +420,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By (Delegate)")]
                 public const string createdonbehalfby = "createdonbehalfby";
 
                 ///<summary>
@@ -458,9 +486,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Parameter Data Type
+                ///     (Russian - 1049): Тип данных параметра
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Data type of the transformation parameter.
+                ///     (Russian - 1049): Тип данных параметра преобразования.
                 /// 
                 /// SchemaName: DataTypeCode
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: None
@@ -489,11 +519,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Parameter Data Type")]
                 public const string datatypecode = "datatypecode";
 
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Data type name for transformation parameter
+                ///     (Russian - 1049): Имя типа данных для параметра преобразования
                 /// 
                 /// SchemaName: DataTypeCodeName
                 /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'datatypecode'
@@ -525,9 +557,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Introduced Version
+                ///     (Russian - 1049): Версия добавления
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Version in which the component is introduced.
+                ///     (Russian - 1049): Версия, в которой был введен компонент.
                 /// 
                 /// SchemaName: IntroducedVersion
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -556,14 +590,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Introduced Version")]
                 public const string introducedversion = "introducedversion";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): State
+                ///     (Russian - 1049): Состояние
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Information that specifies whether this component is managed.
+                ///     (Russian - 1049): Сведения о том, является ли компонент управляемым.
                 /// 
                 /// SchemaName: IsManaged
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
@@ -574,10 +611,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Unmanaged
+                ///     (Russian - 1049): Неуправляемый
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Managed
+                ///     (Russian - 1049): Управляемый
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -599,6 +638,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("State")]
                 public const string ismanaged = "ismanaged";
 
                 ///<summary>
@@ -632,9 +672,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By
+                ///     (Russian - 1049): Изменено
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who last modified the transformation parameter mapping.
+                ///     (Russian - 1049): Уникальный идентификатор последнего пользователя, изменившего сопоставление параметра.
                 /// 
                 /// SchemaName: ModifiedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -646,12 +688,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -672,6 +717,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By")]
                 public const string modifiedby = "modifiedby";
 
                 ///<summary>
@@ -737,9 +783,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified On
+                ///     (Russian - 1049): Дата изменения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the transformation parameter mapping was last modified.
+                ///     (Russian - 1049): Дата и время последнего изменения сопоставления параметра.
                 /// 
                 /// SchemaName: ModifiedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
@@ -768,14 +816,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified On")]
                 public const string modifiedon = "modifiedon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By (Delegate)
+                ///     (Russian - 1049): Кем изменено (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who last modified the transformationparametermapping.
+                ///     (Russian - 1049): Уникальный идентификатор делегата, внесшего последнее изменение в сопоставление параметров преобразования.
                 /// 
                 /// SchemaName: ModifiedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -787,12 +838,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -813,6 +867,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By (Delegate)")]
                 public const string modifiedonbehalfby = "modifiedonbehalfby";
 
                 ///<summary>
@@ -878,9 +933,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Record Overwrite Time
+                ///     (Russian - 1049): Время замены записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: OverwriteTime
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
@@ -909,14 +966,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Record Overwrite Time")]
                 public const string overwritetime = "overwritetime";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Parameter Array Index
+                ///     (Russian - 1049): Индекс массива параметров
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Index of the array if the input parameter is an array.
+                ///     (Russian - 1049): Индекс массива, если входной параметр находится в массиве.
                 /// 
                 /// SchemaName: ParameterArrayIndex
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -945,14 +1005,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Parameter Array Index")]
                 public const string parameterarrayindex = "parameterarrayindex";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Parameter Sequence
+                ///     (Russian - 1049): Последовательность параметра
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Parameter sequence number.
+                ///     (Russian - 1049): Номер последовательности параметров.
                 /// 
                 /// SchemaName: ParameterSequence
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -981,14 +1044,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Parameter Sequence")]
                 public const string parametersequence = "parametersequence";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Parameter Type
+                ///     (Russian - 1049): Тип параметра
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Type of transformation parameter.
+                ///     (Russian - 1049): Тип параметра преобразования.
                 /// 
                 /// SchemaName: ParameterTypeCode
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: None
@@ -1017,11 +1083,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Parameter Type")]
                 public const string parametertypecode = "parametertypecode";
 
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Parameter type name for transformation parameter
+                ///     (Russian - 1049): Имя типа параметра для параметра преобразования
                 /// 
                 /// SchemaName: ParameterTypeCodeName
                 /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'parametertypecode'
@@ -1053,9 +1121,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the associated solution.
+                ///     (Russian - 1049): Уникальный идентификатор связанного решения.
                 /// 
                 /// SchemaName: SolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -1082,14 +1152,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string solutionid = "solutionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: SupportingSolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
@@ -1116,14 +1189,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string supportingsolutionid = "supportingsolutionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Transformation Mapping Id
+                ///     (Russian - 1049): Идентификатор сопоставления преобразования
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the transformation with which the parameter is associated.
+                ///     (Russian - 1049): Уникальный идентификатор преобразования, с которым связан параметр.
                 /// 
                 /// SchemaName: TransformationMappingId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1135,12 +1211,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target transformationmapping    PrimaryIdAttribute transformationmappingid
                 ///         DisplayName:
                 ///             (English - United States - 1033): Transformation Mapping
+                ///             (Russian - 1049): Сопоставление преобразования
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Transformation Mappings
+                ///             (Russian - 1049): Сопоставления преобразований
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): In a data map, maps the transformation of source attributes to Microsoft Dynamics 365 attributes.
+                ///             (Russian - 1049): Сопоставление преобразования исходных атрибутов сопоставления данных с атрибутами Microsoft Dynamics 365.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1161,11 +1240,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Transformation Mapping Id")]
                 public const string transformationmappingid = "transformationmappingid";
 
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Name of the transformation.
+                ///     (Russian - 1049): Имя преобразования.
                 /// 
                 /// SchemaName: TransformationMappingIdName
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired    AttributeOf 'transformationmappingid'
@@ -1199,6 +1280,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the Transformation Parameter Mapping.
+                ///     (Russian - 1049): Уникальный идентификатор сопоставления параметра преобразования.
                 /// 
                 /// SchemaName: TransformationParameterMappingIdUnique
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -1225,6 +1307,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Unique identifier of the Transformation Parameter Mapping.")]
                 public const string transformationparametermappingidunique = "transformationparametermappingidunique";
             }
 
@@ -1242,18 +1325,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Parameter Data Type
+                ///     (Russian - 1049): Тип данных параметра
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Data type of the transformation parameter.
+                ///     (Russian - 1049): Тип данных параметра преобразования.
                 /// 
                 /// Local System  OptionSet transformationparametermapping_datatypecode
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Parameter Data Type
+                ///     (Russian - 1049): Тип данных параметра
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Data type of the transformation parameter.
+                ///     (Russian - 1049): Тип данных параметра преобразования.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Parameter Data Type")]
                 public enum datatypecode
                 {
                     ///<summary>
@@ -1262,7 +1350,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Reference
+                    ///     (Russian - 1049): Ссылка
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Reference")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Reference_0 = 0,
 
@@ -1272,7 +1362,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Value
+                    ///     (Russian - 1049): Значение
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Value")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Value_1 = 1,
                 }
@@ -1283,18 +1375,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Parameter Type
+                ///     (Russian - 1049): Тип параметра
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Type of transformation parameter.
+                ///     (Russian - 1049): Тип параметра преобразования.
                 /// 
                 /// Local System  OptionSet transformationparametermapping_parametertypecode
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Parameter Type
+                ///     (Russian - 1049): Тип параметра
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Type of transformation parameter.
+                ///     (Russian - 1049): Тип параметра преобразования.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Parameter Type")]
                 public enum parametertypecode
                 {
                     ///<summary>
@@ -1303,7 +1400,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Input
+                    ///     (Russian - 1049): Ввод
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Input")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Input_0 = 0,
 
@@ -1313,7 +1412,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Output
+                    ///     (Russian - 1049): Вывод
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Output")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Output_1 = 1,
                 }
@@ -1353,13 +1454,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_transformationparametermapping_createdby")]
                 public static partial class lk_transformationparametermapping_createdby
                 {
                     public const string Name = "lk_transformationparametermapping_createdby";
@@ -1401,13 +1506,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_transformationparametermapping_createdonbehalfby")]
                 public static partial class lk_transformationparametermapping_createdonbehalfby
                 {
                     public const string Name = "lk_transformationparametermapping_createdonbehalfby";
@@ -1449,13 +1558,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_transformationparametermapping_modifiedby")]
                 public static partial class lk_transformationparametermapping_modifiedby
                 {
                     public const string Name = "lk_transformationparametermapping_modifiedby";
@@ -1497,13 +1610,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_transformationparametermapping_modifiedonbehalfby")]
                 public static partial class lk_transformationparametermapping_modifiedonbehalfby
                 {
                     public const string Name = "lk_transformationparametermapping_modifiedonbehalfby";
@@ -1545,13 +1662,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity transformationmapping:    PrimaryIdAttribute transformationmappingid
                 ///     DisplayName:
                 ///         (English - United States - 1033): Transformation Mapping
+                ///         (Russian - 1049): Сопоставление преобразования
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Transformation Mappings
+                ///         (Russian - 1049): Сопоставления преобразований
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): In a data map, maps the transformation of source attributes to Microsoft Dynamics 365 attributes.
+                ///         (Russian - 1049): Сопоставление преобразования исходных атрибутов сопоставления данных с атрибутами Microsoft Dynamics 365.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship TransformationParameterMapping_TransformationMapping")]
                 public static partial class transformationparametermapping_transformationmapping
                 {
                     public const string Name = "TransformationParameterMapping_TransformationMapping";
@@ -1598,13 +1719,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity lookupmapping:    PrimaryIdAttribute lookupmappingid
                 ///     DisplayName:
                 ///         (English - United States - 1033): Lookup Mapping
+                ///         (Russian - 1049): Сопоставление для поиска
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Lookup Mappings
+                ///         (Russian - 1049): Сопоставления для поиска
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): In a data map, maps a lookup attribute in a source file to Microsoft Dynamics 365.
+                ///         (Russian - 1049): Сопоставление атрибута поиска в исходном файле сопоставления данных с Microsoft Dynamics 365.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship LookUpMapping_TransformationParameterMapping")]
                 public static partial class lookupmapping_transformationparametermapping
                 {
                     public const string Name = "LookUpMapping_TransformationParameterMapping";
@@ -1644,10 +1769,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
                 ///     DisplayName:
                 ///         (English - United States - 1033): User Entity Instance Data
+                ///         (Russian - 1049): Данные экземпляра сущности пользователя
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Per User item instance data
+                ///         (Russian - 1049): Данные экземпляра позиции "на пользователя"
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship userentityinstancedata_transformationparametermapping")]
                 public static partial class userentityinstancedata_transformationparametermapping
                 {
                     public const string Name = "userentityinstancedata_transformationparametermapping";

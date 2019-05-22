@@ -6,12 +6,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///<summary>
         /// DisplayName:
         ///     (English - United States - 1033): Report
+        ///     (Russian - 1049): Отчет
         /// 
         /// DisplayCollectionName:
         ///     (English - United States - 1033): Reports
+        ///     (Russian - 1049): Отчеты
         /// 
         /// Description:
         ///     (English - United States - 1033): Data summary in an easy-to-read layout.
+        ///     (Russian - 1049): Сводные данные в легкочитаемом формате.
         /// 
         /// PropertyName                          Value
         /// ActivityTypeMask                      0
@@ -104,9 +107,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Report
+                ///     (Russian - 1049): Отчет
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the report.
+                ///     (Russian - 1049): Уникальный идентификатор отчета.
                 /// 
                 /// SchemaName: ReportId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -133,14 +138,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Report")]
                 public const string reportid = "reportid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Name
+                ///     (Russian - 1049): Имя
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Name of the report.
+                ///     (Russian - 1049): Имя отчета.
                 /// 
                 /// SchemaName: Name
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
@@ -169,14 +177,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Name")]
                 public const string name = "name";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Body Binary
+                ///     (Russian - 1049): Двоичное содержимое
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Binary report contents (base-64 encoded).
+                ///     (Russian - 1049): Двоичное содержимое отчета (кодировка base-64).
                 /// 
                 /// SchemaName: BodyBinary
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -205,14 +216,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Body Binary")]
                 public const string bodybinary = "bodybinary";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Body Text
+                ///     (Russian - 1049): Основной текст
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Text contents of the RDL file for a Reporting Services report.
+                ///     (Russian - 1049): Текстовое содержание RDL-файла для отчета Reporting Services.
                 /// 
                 /// SchemaName: BodyText
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -241,14 +255,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Body Text")]
                 public const string bodytext = "bodytext";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Linked Report URL
+                ///     (Russian - 1049): URL-адрес связанного отчета
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): URL for a linked report.
+                ///     (Russian - 1049): URL-адрес связанного отчета.
                 /// 
                 /// SchemaName: BodyUrl
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -277,14 +294,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Linked Report URL")]
                 public const string bodyurl = "bodyurl";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Component State
+                ///     (Russian - 1049): Состояние компонента
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: ComponentState
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -296,9 +316,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): Component State
+                ///             (Russian - 1049): Состояние компонента
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): The state of this component.
+                ///             (Russian - 1049): Состояние этого компонента.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -319,14 +341,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Component State")]
                 public const string componentstate = "componentstate";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By
+                ///     (Russian - 1049): Создано
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who created the report.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя, создавшего отчет.
                 /// 
                 /// SchemaName: CreatedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -338,12 +363,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -364,6 +392,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By")]
                 public const string createdby = "createdby";
 
                 ///<summary>
@@ -429,9 +458,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Crm Version in which the Report is created
+                ///     (Russian - 1049): Версия CRM, в которой был создан отчет.
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Major version number of Crm, used to identify the version of Crm in which report is created.
+                ///     (Russian - 1049): Старший номер версии CRM, используемый для определения версии CRM, в которой был создан отчет.
                 /// 
                 /// SchemaName: CreatedInMajorVersion
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -460,14 +491,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Crm Version in which the Report is created")]
                 public const string createdinmajorversion = "createdinmajorversion";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created On
+                ///     (Russian - 1049): Дата создания
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the report was created.
+                ///     (Russian - 1049): Дата и время создания отчета.
                 /// 
                 /// SchemaName: CreatedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -496,14 +530,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created On")]
                 public const string createdon = "createdon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By (Delegate)
+                ///     (Russian - 1049): Кем создано (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who created the report.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя-делегата, создавшего отчет.
                 /// 
                 /// SchemaName: CreatedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -515,12 +552,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -541,6 +581,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By (Delegate)")]
                 public const string createdonbehalfby = "createdonbehalfby";
 
                 ///<summary>
@@ -606,9 +647,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Custom Report XML
+                ///     (Russian - 1049): XML настраиваемого отчета
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): XML used to define a custom report.
+                ///     (Russian - 1049): XML, который использовался для определения настраиваемого отчета.
                 /// 
                 /// SchemaName: CustomReportXml
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -637,14 +680,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Custom Report XML")]
                 public const string customreportxml = "customreportxml";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Default filter
+                ///     (Russian - 1049): Фильтр по умолчанию
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Default filter for the report.
+                ///     (Russian - 1049): Фильтр отчета по умолчанию.
                 /// 
                 /// SchemaName: DefaultFilter
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -673,14 +719,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Default filter")]
                 public const string defaultfilter = "defaultfilter";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Description
+                ///     (Russian - 1049): Описание
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Description of the report.
+                ///     (Russian - 1049): Описание отчета.
                 /// 
                 /// SchemaName: Description
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -709,14 +758,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Description")]
                 public const string description = "description";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): File Name
+                ///     (Russian - 1049): Имя файла
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): File name of the report.
+                ///     (Russian - 1049): Имя файла отчета.
                 /// 
                 /// SchemaName: FileName
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -745,14 +797,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("File Name")]
                 public const string filename = "filename";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): File Size (Bytes)
+                ///     (Russian - 1049): Размер файла (байт)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): File size of the report.
+                ///     (Russian - 1049): Размер файла отчета.
                 /// 
                 /// SchemaName: FileSize
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -781,14 +836,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("File Size (Bytes)")]
                 public const string filesize = "filesize";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Introduced Version
+                ///     (Russian - 1049): Версия введения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Version in which the report is introduced.
+                ///     (Russian - 1049): Версия, в которой был введен отчет.
                 /// 
                 /// SchemaName: IntroducedVersion
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -817,14 +875,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Introduced Version")]
                 public const string introducedversion = "introducedversion";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Customizable
+                ///     (Russian - 1049): Настраиваемый
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Information that specifies whether this component can be customized.
+                ///     (Russian - 1049): Сведения, указывающие на возможность настройки этого компонента.
                 /// 
                 /// SchemaName: IsCustomizable
                 /// ManagedPropertyAttributeMetadata    AttributeType: ManagedProperty    AttributeTypeName: ManagedPropertyType    RequiredLevel: SystemRequired
@@ -852,14 +913,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Customizable")]
                 public const string iscustomizable = "iscustomizable";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Is Custom Report
+                ///     (Russian - 1049): Настраиваемый отчет
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Information about whether the report is a custom report.
+                ///     (Russian - 1049): Сведения о том, является ли отчет настраиваемым.
                 /// 
                 /// SchemaName: IsCustomReport
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
@@ -870,10 +934,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): False
+                ///     (Russian - 1049): Ложь
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): True
+                ///     (Russian - 1049): Истина
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -895,6 +961,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Is Custom Report")]
                 public const string iscustomreport = "iscustomreport";
 
                 ///<summary>
@@ -928,9 +995,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Is Managed
+                ///     (Russian - 1049): Управляемый
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Indicates whether the solution component is part of a managed solution.
+                ///     (Russian - 1049): Указывает, является ли компонент решения частью управляемого решения.
                 /// 
                 /// SchemaName: IsManaged
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
@@ -941,10 +1010,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Unmanaged
+                ///     (Russian - 1049): Неуправляемый
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Managed
+                ///     (Russian - 1049): Управляемый
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -966,6 +1037,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Is Managed")]
                 public const string ismanaged = "ismanaged";
 
                 ///<summary>
@@ -999,9 +1071,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Viewable By
+                ///     (Russian - 1049): Доступно для просмотра
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Information about whether the report is personal or is available to all users.
+                ///     (Russian - 1049): Сведения о том, является ли отчет личным или доступным для всех пользователей.
                 /// 
                 /// SchemaName: IsPersonal
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
@@ -1012,10 +1086,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Organization
+                ///     (Russian - 1049): Предприятие
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Individual
+                ///     (Russian - 1049): Отдельное лицо
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -1037,6 +1113,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Viewable By")]
                 public const string ispersonal = "ispersonal";
 
                 ///<summary>
@@ -1070,9 +1147,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Is Scheduled Report
+                ///     (Russian - 1049): Планируемый отчет
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Information about whether the report is a scheduled report.
+                ///     (Russian - 1049): Сведения о том, является ли отчет запланированным.
                 /// 
                 /// SchemaName: IsScheduledReport
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
@@ -1083,10 +1162,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): False
+                ///     (Russian - 1049): Ложь
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): True
+                ///     (Russian - 1049): Истина
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -1108,6 +1189,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Is Scheduled Report")]
                 public const string isscheduledreport = "isscheduledreport";
 
                 ///<summary>
@@ -1141,9 +1223,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Language
+                ///     (Russian - 1049): Язык
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Language in which the report will be displayed.
+                ///     (Russian - 1049): Язык, на котором будет отображен отчет.
                 /// 
                 /// SchemaName: LanguageCode
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: ApplicationRequired
@@ -1172,14 +1256,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Language")]
                 public const string languagecode = "languagecode";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Mime Type
+                ///     (Russian - 1049): Тип MIME
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): MIME type of the report.
+                ///     (Russian - 1049): Тип MIME отчета.
                 /// 
                 /// SchemaName: MimeType
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -1208,14 +1295,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Mime Type")]
                 public const string mimetype = "mimetype";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By
+                ///     (Russian - 1049): Изменено
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who last modified the report.
+                ///     (Russian - 1049): Уникальный идентификатор последнего пользователя, изменившего отчет.
                 /// 
                 /// SchemaName: ModifiedBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1227,12 +1317,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1253,6 +1346,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By")]
                 public const string modifiedby = "modifiedby";
 
                 ///<summary>
@@ -1318,9 +1412,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified On
+                ///     (Russian - 1049): Дата изменения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the report was last modified.
+                ///     (Russian - 1049): Дата и время последнего изменения отчета.
                 /// 
                 /// SchemaName: ModifiedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -1349,14 +1445,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified On")]
                 public const string modifiedon = "modifiedon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By (Delegate)
+                ///     (Russian - 1049): Кем изменено (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who last modified the report.
+                ///     (Russian - 1049): Уникальный идентификатор делегата, внесшего последние изменения в отчет.
                 /// 
                 /// SchemaName: ModifiedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1368,12 +1467,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1394,6 +1496,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By (Delegate)")]
                 public const string modifiedonbehalfby = "modifiedonbehalfby";
 
                 ///<summary>
@@ -1459,9 +1562,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Body Text
+                ///     (Russian - 1049): Основной текст
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Original Text contents of the RDL file for a Reporting Services report.
+                ///     (Russian - 1049): Исходный текст RDL-файла для отчета служб отчетов.
                 /// 
                 /// SchemaName: OriginalBodyText
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -1490,14 +1595,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Body Text")]
                 public const string originalbodytext = "originalbodytext";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Record Overwrite Time
+                ///     (Russian - 1049): Время замены записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: OverwriteTime
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
@@ -1526,14 +1634,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Record Overwrite Time")]
                 public const string overwritetime = "overwritetime";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owner
+                ///     (Russian - 1049): Ответственный
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user or team who owns the report.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя или рабочей группы, ответственных за отчет.
                 /// 
                 /// SchemaName: OwnerId
                 /// LookupAttributeMetadata    AttributeType: Owner    AttributeTypeName: OwnerType    RequiredLevel: SystemRequired
@@ -1545,22 +1656,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// 
                 ///     Target team    PrimaryIdAttribute teamid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Team
+                ///             (Russian - 1049): Рабочая группа
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Teams
+                ///             (Russian - 1049): Рабочие группы
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
+                ///             (Russian - 1049): Набор системных пользователей, которые обычно участвуют в совместной работе. Рабочие группы можно использовать для упрощения предоставления участникам группы общего доступа к записям и данным организации, если участники принадлежат к разным бизнес-единицам.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1581,6 +1698,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Owner")]
                 public const string ownerid = "ownerid";
 
                 ///<summary>
@@ -1674,9 +1792,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owning Business Unit
+                ///     (Russian - 1049): Ответственная бизнес-единица
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the business unit that owns the report.
+                ///     (Russian - 1049): Уникальный идентификатор бизнес-единицы, ответственной за отчет.
                 /// 
                 /// SchemaName: OwningBusinessUnit
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1688,12 +1808,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target businessunit    PrimaryIdAttribute businessunitid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Business Unit
+                ///             (Russian - 1049): Бизнес-единица
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Business Units
+                ///             (Russian - 1049): Бизнес-единицы
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Business, division, or department in the Microsoft Dynamics 365 database.
+                ///             (Russian - 1049): Компания, подразделение или отдел в базе данных Microsoft Dynamics 365.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1714,14 +1837,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Owning Business Unit")]
                 public const string owningbusinessunit = "owningbusinessunit";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owning Team
+                ///     (Russian - 1049): Ответственная рабочая группа
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the team who owns the report.
+                ///     (Russian - 1049): Уникальный идентификатор рабочей группы, которой принадлежит отчет.
                 /// 
                 /// SchemaName: OwningTeam
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1733,12 +1859,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target team    PrimaryIdAttribute teamid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Team
+                ///             (Russian - 1049): Рабочая группа
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Teams
+                ///             (Russian - 1049): Рабочие группы
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
+                ///             (Russian - 1049): Набор системных пользователей, которые обычно участвуют в совместной работе. Рабочие группы можно использовать для упрощения предоставления участникам группы общего доступа к записям и данным организации, если участники принадлежат к разным бизнес-единицам.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1759,14 +1888,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Owning Team")]
                 public const string owningteam = "owningteam";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Owning User
+                ///     (Russian - 1049): Ответственный пользователь
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the user who owns the report.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя, ответственного за отчет.
                 /// 
                 /// SchemaName: OwningUser
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1778,12 +1910,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1804,14 +1939,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Owning User")]
                 public const string owninguser = "owninguser";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Parent Report
+                ///     (Russian - 1049): Родительский отчет
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the parent report.
+                ///     (Russian - 1049): Уникальный идентификатор родительского отчета.
                 /// 
                 /// SchemaName: ParentReportId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1823,12 +1961,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target report    PrimaryIdAttribute reportid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Report
+                ///             (Russian - 1049): Отчет
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Reports
+                ///             (Russian - 1049): Отчеты
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Data summary in an easy-to-read layout.
+                ///             (Russian - 1049): Сводные данные в легкочитаемом формате.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1849,6 +1990,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Parent Report")]
                 public const string parentreportid = "parentreportid";
 
                 ///<summary>
@@ -1884,9 +2026,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Query Info Structure
+                ///     (Russian - 1049): Структура сведений о запросе
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: QueryInfo
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -1915,14 +2059,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Query Info Structure")]
                 public const string queryinfo = "queryinfo";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Report
+                ///     (Russian - 1049): Отчет
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: ReportIdUnique
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -1949,14 +2096,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Report")]
                 public const string reportidunique = "reportidunique";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Name on SRS
+                ///     (Russian - 1049): Имя в SRS
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Name of the report on SRS.
+                ///     (Russian - 1049): Имя отчета в SRS.
                 /// 
                 /// SchemaName: ReportNameOnSRS
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -1985,14 +2135,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Name on SRS")]
                 public const string reportnameonsrs = "reportnameonsrs";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Report Type
+                ///     (Russian - 1049): Тип отчета
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Type of the report.
+                ///     (Russian - 1049): Тип отчета.
                 /// 
                 /// SchemaName: ReportTypeCode
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: ApplicationRequired
@@ -2021,6 +2174,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Report Type")]
                 public const string reporttypecode = "reporttypecode";
 
                 ///<summary>
@@ -2054,9 +2208,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Schedule Definition XML
+                ///     (Russian - 1049): XML определения расписания
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): XML used for defining the report schedule.
+                ///     (Russian - 1049): XML, который использовался для определения расписания отчета.
                 /// 
                 /// SchemaName: ScheduleXml
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -2085,14 +2241,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Schedule Definition XML")]
                 public const string schedulexml = "schedulexml";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Report Signature Date
+                ///     (Russian - 1049): Дата подписи отчета
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Report signature date, used to identify a report for upgrades and hotfixes.
+                ///     (Russian - 1049): Дата подписи отчета, используемой для идентификации отчета при обновлениях и исправлениях.
                 /// 
                 /// SchemaName: SignatureDate
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -2121,14 +2280,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Report Signature Date")]
                 public const string signaturedate = "signaturedate";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Signature
+                ///     (Russian - 1049): Подпись
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the report signature used to identify a report for upgrades and hotfixes.
+                ///     (Russian - 1049): Уникальный идентификатор подписи отчета, используемой для идентификации отчета при обновлениях и исправлениях.
                 /// 
                 /// SchemaName: SignatureId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
@@ -2155,14 +2317,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Signature")]
                 public const string signatureid = "signatureid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Signature Language Code
+                ///     (Russian - 1049): Код языка подписи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Report signature language code used to identify a report for upgrades and hotfixes.
+                ///     (Russian - 1049): Код языка подписи отчета, используемой для идентификации отчета при обновлениях и исправлениях.
                 /// 
                 /// SchemaName: SignatureLcid
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -2191,14 +2356,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Signature Language Code")]
                 public const string signaturelcid = "signaturelcid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Report Signature Major Version
+                ///     (Russian - 1049): Основная версия подписи отчета
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Report signature major version, used to identify a report for upgrades and hotfixes.
+                ///     (Russian - 1049): Основная версия подписи отчета, используемой для идентификации отчета при обновлениях и исправлениях.
                 /// 
                 /// SchemaName: SignatureMajorVersion
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -2227,14 +2395,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Report Signature Major Version")]
                 public const string signaturemajorversion = "signaturemajorversion";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Report Signature Minor Version
+                ///     (Russian - 1049): Вспомогательная версия подписи отчета
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Report signature minor version, used to identify a report for upgrades and hotfixes.
+                ///     (Russian - 1049): Вспомогательная версия подписи отчета, используемой для идентификации отчета при обновлениях и исправлениях.
                 /// 
                 /// SchemaName: SignatureMinorVersion
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -2263,14 +2434,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Report Signature Minor Version")]
                 public const string signatureminorversion = "signatureminorversion";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the associated solution.
+                ///     (Russian - 1049): Уникальный идентификатор связанного решения.
                 /// 
                 /// SchemaName: SolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -2297,14 +2471,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string solutionid = "solutionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: SupportingSolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
@@ -2331,14 +2508,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string supportingsolutionid = "supportingsolutionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Time Zone Rule Version Number
+                ///     (Russian - 1049): Номер версии правила часового пояса
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: TimeZoneRuleVersionNumber
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -2367,14 +2547,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Time Zone Rule Version Number")]
                 public const string timezoneruleversionnumber = "timezoneruleversionnumber";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): UTC Conversion Time Zone Code
+                ///     (Russian - 1049): Код часового пояса (преобразование в UTC)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Time zone code that was in use when the record was created.
+                ///     (Russian - 1049): Код часового пояса, использовавшийся при создании записи.
                 /// 
                 /// SchemaName: UTCConversionTimeZoneCode
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -2403,14 +2586,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("UTC Conversion Time Zone Code")]
                 public const string utcconversiontimezonecode = "utcconversiontimezonecode";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Version Number
+                ///     (Russian - 1049): Номер версии
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Version number of the report.
+                ///     (Russian - 1049): Номер версии отчета.
                 /// 
                 /// SchemaName: VersionNumber
                 /// BigIntAttributeMetadata    AttributeType: BigInt    AttributeTypeName: BigIntType    RequiredLevel: None
@@ -2438,6 +2624,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Version Number")]
                 public const string versionnumber = "versionnumber";
             }
 
@@ -2455,18 +2642,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Report Type
+                ///     (Russian - 1049): Тип отчета
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Type of the report.
+                ///     (Russian - 1049): Тип отчета.
                 /// 
                 /// Local System  OptionSet report_reporttypecode
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Report Type
+                ///     (Russian - 1049): Тип отчета
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Type of the report.
+                ///     (Russian - 1049): Тип отчета.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Report Type")]
                 public enum reporttypecode
                 {
                     ///<summary>
@@ -2475,7 +2667,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Reporting Services Report
+                    ///     (Russian - 1049): Отчет Reporting Services
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Reporting Services Report")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Reporting_Services_Report_1 = 1,
 
@@ -2485,7 +2679,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Other Report
+                    ///     (Russian - 1049): Другой отчет
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Other Report")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Other_Report_2 = 2,
 
@@ -2495,7 +2691,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Linked Report
+                    ///     (Russian - 1049): Связанный отчет
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Linked Report")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Linked_Report_3 = 3,
                 }
@@ -2535,13 +2733,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity businessunit:    PrimaryIdAttribute businessunitid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Business Unit
+                ///         (Russian - 1049): Бизнес-единица
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Business Units
+                ///         (Russian - 1049): Бизнес-единицы
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Business, division, or department in the Microsoft Dynamics 365 database.
+                ///         (Russian - 1049): Компания, подразделение или отдел в базе данных Microsoft Dynamics 365.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship business_unit_reports")]
                 public static partial class business_unit_reports
                 {
                     public const string Name = "business_unit_reports";
@@ -2583,13 +2785,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_report_createdonbehalfby")]
                 public static partial class lk_report_createdonbehalfby
                 {
                     public const string Name = "lk_report_createdonbehalfby";
@@ -2631,13 +2837,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_report_modifiedonbehalfby")]
                 public static partial class lk_report_modifiedonbehalfby
                 {
                     public const string Name = "lk_report_modifiedonbehalfby";
@@ -2679,13 +2889,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_reportbase_createdby")]
                 public static partial class lk_reportbase_createdby
                 {
                     public const string Name = "lk_reportbase_createdby";
@@ -2727,13 +2941,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_reportbase_modifiedby")]
                 public static partial class lk_reportbase_modifiedby
                 {
                     public const string Name = "lk_reportbase_modifiedby";
@@ -2775,13 +2993,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity owner:    PrimaryIdAttribute ownerid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Owner
+                ///         (Russian - 1049): Ответственный
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Owners
+                ///         (Russian - 1049): Ответственные
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Group of undeleted system users and undeleted teams. Owners can be used to control access to specific objects.
+                ///         (Russian - 1049): Группа для восстановленных системных пользователей и рабочих групп. Для контроля доступа к конкретным объектам можно использовать ответственных.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship owner_reports")]
                 public static partial class owner_reports
                 {
                     public const string Name = "owner_reports";
@@ -2820,6 +3042,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship report_parent_report")]
                 public static partial class report_parent_report
                 {
                     public const string Name = "report_parent_report";
@@ -2866,13 +3089,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity replicationbacklog:    PrimaryIdAttribute replicationbacklogid
                 ///     DisplayName:
                 ///         (English - United States - 1033): Replication Backlog
+                ///         (Russian - 1049): Задержка репликации
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Replication Backlogs
+                ///         (Russian - 1049): Задержки репликации
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Entity to hold replication backlog tasks. For internal use only.
+                ///         (Russian - 1049): Сущность для хранения задач задержки репликации. Только для внутреннего использования.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship replicationbacklog_target_report")]
                 public static partial class replicationbacklog_target_report
                 {
                     public const string Name = "replicationbacklog_target_report";
@@ -2912,13 +3139,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity asyncoperation:    PrimaryIdAttribute asyncoperationid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): System Job
+                ///         (Russian - 1049): Системное задание
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): System Jobs
+                ///         (Russian - 1049): Системные задания
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Process whose execution can proceed independently or in the background.
+                ///         (Russian - 1049): Процесс, который может выполняться независимо или в фоновом режиме.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship Report_AsyncOperations")]
                 public static partial class report_asyncoperations
                 {
                     public const string Name = "Report_AsyncOperations";
@@ -2957,6 +3188,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// AssociatedMenuConfiguration.Group          Details
                 /// AssociatedMenuConfiguration.Order          null
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship report_parent_report")]
                 public static partial class report_parent_report
                 {
                     public const string Name = "report_parent_report";
@@ -2996,13 +3228,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity processsession:    PrimaryIdAttribute processsessionid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Process Session
+                ///         (Russian - 1049): Сеанс процесса
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Process Sessions
+                ///         (Russian - 1049): Сеансы процесса
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Information that is generated when a dialog is run. Every time that you run a dialog, a dialog session is created.
+                ///         (Russian - 1049): Информация, созданная после запуска диалогового окна. При каждом запуске диалогового окна создается сеанс диалогового окна.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship Report_ProcessSessions")]
                 public static partial class report_processsessions
                 {
                     public const string Name = "Report_ProcessSessions";
@@ -3044,13 +3280,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity reportcategory:    PrimaryIdAttribute reportcategoryid
                 ///     DisplayName:
                 ///         (English - United States - 1033): Report Related Category
+                ///         (Russian - 1049): Категория, связанная с отчетом
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Report Related Categories
+                ///         (Russian - 1049): Категории, связанные с отчетом
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Categories related to a report. A report can be related to multiple categories.
+                ///         (Russian - 1049): Категории, связанные с отчетом. Отчет может быть связан с несколькими категориями.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship report_reportcategories")]
                 public static partial class report_reportcategories
                 {
                     public const string Name = "report_reportcategories";
@@ -3090,13 +3330,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity reportentity:    PrimaryIdAttribute reportentityid
                 ///     DisplayName:
                 ///         (English - United States - 1033): Report Related Entity
+                ///         (Russian - 1049): Сущность, связанная с отчетом
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Report Related Entities
+                ///         (Russian - 1049): Сущности, связанные с отчетом
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Entities related to a report. A report can be related to multiple entities.
+                ///         (Russian - 1049): Сущности, связанные с отчетом. Отчет может быть связан с несколькими сущностями.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship report_reportentities")]
                 public static partial class report_reportentities
                 {
                     public const string Name = "report_reportentities";
@@ -3136,13 +3380,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity reportlink:    PrimaryIdAttribute reportlinkid
                 ///     DisplayName:
                 ///         (English - United States - 1033): Report Link
+                ///         (Russian - 1049): Ссылка на отчет
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Report Links
+                ///         (Russian - 1049): Ссылки отчета
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Links and dependencies between reports. A report may drill through to another report, or it may have another report as a sub-report.
+                ///         (Russian - 1049): Ссылки и зависимости между отчетами. Отчет может быть детализирован до другого отчета или иметь другой отчет в качестве вложенного.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship report_reportlink")]
                 public static partial class report_reportlink
                 {
                     public const string Name = "report_reportlink";
@@ -3182,13 +3430,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity reportlink:    PrimaryIdAttribute reportlinkid
                 ///     DisplayName:
                 ///         (English - United States - 1033): Report Link
+                ///         (Russian - 1049): Ссылка на отчет
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Report Links
+                ///         (Russian - 1049): Ссылки отчета
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Links and dependencies between reports. A report may drill through to another report, or it may have another report as a sub-report.
+                ///         (Russian - 1049): Ссылки и зависимости между отчетами. Отчет может быть детализирован до другого отчета или иметь другой отчет в качестве вложенного.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship report_reportlink_sub")]
                 public static partial class report_reportlink_sub
                 {
                     public const string Name = "report_reportlink_sub";
@@ -3228,13 +3480,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity reportvisibility:    PrimaryIdAttribute reportvisibilityid
                 ///     DisplayName:
                 ///         (English - United States - 1033): Report Visibility
+                ///         (Russian - 1049): Отображение отчета
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Report Visibilities
+                ///         (Russian - 1049): Видимость отчета
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Area in which to show a report. A report can be shown in multiple areas.
+                ///         (Russian - 1049): Область отображения отчета. Отчет может быть отображен в нескольких областях.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship report_reportvisibility")]
                 public static partial class report_reportvisibility
                 {
                     public const string Name = "report_reportvisibility";
@@ -3274,13 +3530,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity syncerror:    PrimaryIdAttribute syncerrorid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Sync Error
+                ///         (Russian - 1049): Ошибка синхронизации
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Sync Errors
+                ///         (Russian - 1049): Ошибки синхронизации
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Failure reason and other detailed information for a record that failed to sync.
+                ///         (Russian - 1049): Причина сбоя и другие подробные сведения о записи, при синхронизации которой произошла ошибка.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship Report_SyncErrors")]
                 public static partial class report_syncerrors
                 {
                     public const string Name = "Report_SyncErrors";
@@ -3322,10 +3582,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
                 ///     DisplayName:
                 ///         (English - United States - 1033): User Entity Instance Data
+                ///         (Russian - 1049): Данные экземпляра сущности пользователя
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Per User item instance data
+                ///         (Russian - 1049): Данные экземпляра позиции "на пользователя"
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship userentityinstancedata_report")]
                 public static partial class userentityinstancedata_report
                 {
                     public const string Name = "userentityinstancedata_report";

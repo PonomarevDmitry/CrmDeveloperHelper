@@ -6,9 +6,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///<summary>
         /// DisplayName:
         ///     (English - United States - 1033): Language
+        ///     (Russian - 1049): Язык
         /// 
         /// DisplayCollectionName:
         ///     (English - United States - 1033): Languages
+        ///     (Russian - 1049): Языки
         /// 
         /// PropertyName                          Value
         /// ActivityTypeMask                      1
@@ -126,11 +128,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("LanguageLocaleId")]
                 public const string languagelocaleid = "languagelocaleid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Name
+                ///     (Russian - 1049): Имя
                 /// 
                 /// SchemaName: Name
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
@@ -159,11 +163,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Name")]
                 public const string name = "name";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Code
+                ///     (Russian - 1049): Код
                 /// 
                 /// SchemaName: Code
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
@@ -192,11 +198,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Code")]
                 public const string code = "code";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Language
+                ///     (Russian - 1049): Язык
                 /// 
                 /// SchemaName: Language
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
@@ -225,11 +233,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Language")]
                 public const string language = "language";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Locale ID
+                ///     (Russian - 1049): Идентификатор локали
                 /// 
                 /// SchemaName: LocaleId
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: SystemRequired
@@ -258,14 +268,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Locale ID")]
                 public const string localeid = "localeid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Organization
+                ///     (Russian - 1049): Организация
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the organization associated with the language locale.
+                ///     (Russian - 1049): Уникальный идентификатор организации, связанной с языковым стандартом.
                 /// 
                 /// SchemaName: OrganizationId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: SystemRequired
@@ -277,12 +290,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target organization    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Organization
+                ///             (Russian - 1049): Предприятие
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Organizations
+                ///             (Russian - 1049): Предприятия
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
+                ///             (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -303,11 +319,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Organization")]
                 public const string organizationid = "organizationid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Region
+                ///     (Russian - 1049): Регион
                 /// 
                 /// SchemaName: Region
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -336,11 +354,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Region")]
                 public const string region = "region";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): State Code
+                ///     (Russian - 1049): Код состояния
                 /// 
                 /// SchemaName: statecode
                 /// StateAttributeMetadata    AttributeType: State    AttributeTypeName: StateType    RequiredLevel: SystemRequired
@@ -368,6 +388,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("State Code")]
                 public const string statecode = "statecode";
 
                 ///<summary>
@@ -401,6 +422,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Language Status Code
+                ///     (Russian - 1049): Код состояния языка
                 /// 
                 /// SchemaName: statuscode
                 /// StatusAttributeMetadata    AttributeType: Status    AttributeTypeName: StatusType    RequiredLevel: None
@@ -428,6 +450,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Language Status Code")]
                 public const string statuscode = "statuscode";
 
                 ///<summary>
@@ -501,7 +524,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): State Code
+                ///     (Russian - 1049): Код состояния
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("State Code")]
                 public enum statecode
                 {
                     ///<summary>
@@ -511,7 +536,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Active
+                    ///     (Russian - 1049): Активно
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Active")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Active_0 = 0,
 
@@ -522,7 +549,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Inactive
+                    ///     (Russian - 1049): Неактивно
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Inactive")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Inactive_1 = 1,
                 }
@@ -533,7 +562,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): State Code
+                ///     (Russian - 1049): Код состояния
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Language Status Code")]
                 public enum statuscode
                 {
                     ///<summary>
@@ -542,7 +573,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Active
+                    ///     (Russian - 1049): Активно
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Active")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Active_0_Active_1 = 1,
 
@@ -552,7 +585,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Inactive
+                    ///     (Russian - 1049): Неактивно
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Inactive")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Inactive_1_Inactive_2 = 2,
                 }
@@ -592,13 +627,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity organization:    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Organization
+                ///         (Russian - 1049): Предприятие
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Organizations
+                ///         (Russian - 1049): Предприятия
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
+                ///         (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship languagelocale_organization")]
                 public static partial class languagelocale_organization
                 {
                     public const string Name = "languagelocale_organization";
@@ -647,13 +686,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity knowledgearticle:    PrimaryIdAttribute knowledgearticleid    PrimaryNameAttribute title
                 ///     DisplayName:
                 ///         (English - United States - 1033): Knowledge Article
+                ///         (Russian - 1049): Статья базы знаний
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Knowledge Articles
+                ///         (Russian - 1049): Статьи базы знаний
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Organizational knowledge for internal and external use.
+                ///         (Russian - 1049): Знания организации для внутреннего и внешнего пользования.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship knowledgearticle_languagelocaleid")]
                 public static partial class knowledgearticle_languagelocaleid
                 {
                     public const string Name = "knowledgearticle_languagelocaleid";

@@ -6,12 +6,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///<summary>
         /// DisplayName:
         ///     (English - United States - 1033): Role Template
+        ///     (Russian - 1049): Шаблон роли
         /// 
         /// DisplayCollectionName:
         ///     (English - United States - 1033): Role Templates
+        ///     (Russian - 1049): Шаблоны ролей
         /// 
         /// Description:
         ///     (English - United States - 1033): Template for a role. Defines initial attributes that will be used when creating a new role.
+        ///     (Russian - 1049): Шаблон роли. Определяет исходные атрибуты, которые будут использоваться при создании новой роли.
         /// 
         /// PropertyName                          Value
         /// ActivityTypeMask                      0
@@ -103,6 +106,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the role template.
+                ///     (Russian - 1049): Уникальный идентификатор шаблона роли.
                 /// 
                 /// SchemaName: RoleTemplateId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -129,11 +133,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Unique identifier of the role template.")]
                 public const string roletemplateid = "roletemplateid";
 
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Name of the role template.
+                ///     (Russian - 1049): Имя шаблона роли.
                 /// 
                 /// SchemaName: Name
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
@@ -162,6 +168,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Name of the role template.")]
                 public const string name = "name";
 
                 ///<summary>
@@ -174,10 +181,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): No
+                ///     (Russian - 1049): Нет
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Yes
+                ///     (Russian - 1049): Да
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -234,13 +243,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity role:    PrimaryIdAttribute roleid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Security Role
+                ///         (Russian - 1049): Роль безопасности
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Security Roles
+                ///         (Russian - 1049): Роли безопасности
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Grouping of security privileges. Users are assigned roles that authorize their access to the Microsoft CRM system.
+                ///         (Russian - 1049): Группа привилегий безопасности. Пользователям назначаются роли, которые контролируют их доступ к CRM-системе Microsoft.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship role_template_roles")]
                 public static partial class role_template_roles
                 {
                     public const string Name = "role_template_roles";
@@ -282,10 +295,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
                 ///     DisplayName:
                 ///         (English - United States - 1033): User Entity Instance Data
+                ///         (Russian - 1049): Данные экземпляра сущности пользователя
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Per User item instance data
+                ///         (Russian - 1049): Данные экземпляра позиции "на пользователя"
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship userentityinstancedata_roletemplate")]
                 public static partial class userentityinstancedata_roletemplate
                 {
                     public const string Name = "userentityinstancedata_roletemplate";
@@ -327,13 +343,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// Entity2LogicalName privilege:    PrimaryIdAttribute privilegeid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Privilege
+                ///         (Russian - 1049): Привилегия
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Privileges
+                ///         (Russian - 1049): Права
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Permission to perform an action in Microsoft CRM. The platform checks for the privilege and rejects the attempt if the user does not hold the privilege.
+                ///         (Russian - 1049): Разрешение на выполнение действия в Microsoft CRM. Платформа проверяет наличие привилегии и запрещает попытку, если у пользователя нет требуемой привилегии.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:N - Relationship roletemplateprivileges_association")]
                 public static partial class roletemplateprivileges_association
                 {
                     public const string Name = "roletemplateprivileges_association";

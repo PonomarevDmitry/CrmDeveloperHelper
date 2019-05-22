@@ -90,6 +90,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the connection role association.
+                ///     (Russian - 1049): Уникальный идентификатор связи роли подключения.
                 /// 
                 /// SchemaName: ConnectionRoleAssociationId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -116,6 +117,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Unique identifier of the connection role association.")]
                 public const string connectionroleassociationid = "connectionroleassociationid";
 
                 ///<summary>
@@ -236,10 +238,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
                 ///     DisplayName:
                 ///         (English - United States - 1033): User Entity Instance Data
+                ///         (Russian - 1049): Данные экземпляра сущности пользователя
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Per User item instance data
+                ///         (Russian - 1049): Данные экземпляра позиции "на пользователя"
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship userentityinstancedata_connectionroleassociation")]
                 public static partial class userentityinstancedata_connectionroleassociation
                 {
                     public const string Name = "userentityinstancedata_connectionroleassociation";
@@ -281,13 +286,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// Entity1LogicalName connectionrole:    PrimaryIdAttribute connectionroleid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Connection Role
+                ///         (Russian - 1049): Роль подключения
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Connection Roles
+                ///         (Russian - 1049): Роли подключения
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Role describing a relationship between a two records.
+                ///         (Russian - 1049): Роль, описывающая отношение между двумя записями.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:N - Relationship connectionroleassociation_association")]
                 public static partial class connectionroleassociation_association
                 {
                     public const string Name = "connectionroleassociation_association";

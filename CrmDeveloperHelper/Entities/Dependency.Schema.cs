@@ -6,9 +6,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///<summary>
         /// DisplayName:
         ///     (English - United States - 1033): Dependency
+        ///     (Russian - 1049): Зависимость
         /// 
         /// Description:
         ///     (English - United States - 1033): A component dependency in CRM.
+        ///     (Russian - 1049): Зависимость компонента в CRM.
         /// 
         /// PropertyName                          Value
         /// ActivityTypeMask                      0
@@ -97,9 +99,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Dependency Identifier
+                ///     (Russian - 1049): Идентификатор зависимости
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of a dependency.
+                ///     (Russian - 1049): Уникальный идентификатор зависимости.
                 /// 
                 /// SchemaName: DependencyId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -126,14 +130,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Dependency Identifier")]
                 public const string dependencyid = "dependencyid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Dependency Type
+                ///     (Russian - 1049): Тип зависимости
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): The dependency type of the dependency.
+                ///     (Russian - 1049): Тип зависимости.
                 /// 
                 /// SchemaName: DependencyType
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -145,9 +152,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): Dependency Type
+                ///             (Russian - 1049): Тип зависимости
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): The kind of dependency.
+                ///             (Russian - 1049): Вид зависимости.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -168,6 +177,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Dependency Type")]
                 public const string dependencytype = "dependencytype";
 
                 ///<summary>
@@ -229,9 +239,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Dependent Component
+                ///     (Russian - 1049): Зависимый компонент
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the dependent component's node.
+                ///     (Russian - 1049): Уникальный идентификатор узла зависимого компонента.
                 /// 
                 /// SchemaName: DependentComponentNodeId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: ApplicationRequired
@@ -243,12 +255,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target dependencynode    PrimaryIdAttribute dependencynodeid
                 ///         DisplayName:
                 ///             (English - United States - 1033): Dependency Node
+                ///             (Russian - 1049): Узел зависимости
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Dependency Nodes
+                ///             (Russian - 1049): Узлы зависимости
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): The representation of a component dependency node in CRM.
+                ///             (Russian - 1049): Представление узла зависимости компонентов в CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -269,6 +284,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Dependent Component")]
                 public const string dependentcomponentnodeid = "dependentcomponentnodeid";
 
                 ///<summary>
@@ -338,9 +354,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): Component Type
+                ///             (Russian - 1049): Тип компонента
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): All of the possible component types for solutions.
+                ///             (Russian - 1049): Все возможные типы компонентов для решений.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -452,9 +470,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Required Component
+                ///     (Russian - 1049): Требуемый компонент
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the required component's node
+                ///     (Russian - 1049): Уникальный идентификатор узла требуемого компонента
                 /// 
                 /// SchemaName: RequiredComponentNodeId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: ApplicationRequired
@@ -466,12 +486,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target dependencynode    PrimaryIdAttribute dependencynodeid
                 ///         DisplayName:
                 ///             (English - United States - 1033): Dependency Node
+                ///             (Russian - 1049): Узел зависимости
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Dependency Nodes
+                ///             (Russian - 1049): Узлы зависимости
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): The representation of a component dependency node in CRM.
+                ///             (Russian - 1049): Представление узла зависимости компонентов в CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -492,6 +515,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Required Component")]
                 public const string requiredcomponentnodeid = "requiredcomponentnodeid";
 
                 ///<summary>
@@ -561,9 +585,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): Component Type
+                ///             (Russian - 1049): Тип компонента
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): All of the possible component types for solutions.
+                ///             (Russian - 1049): Все возможные типы компонентов для решений.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -676,13 +702,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity dependencynode:    PrimaryIdAttribute dependencynodeid
                 ///     DisplayName:
                 ///         (English - United States - 1033): Dependency Node
+                ///         (Russian - 1049): Узел зависимости
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Dependency Nodes
+                ///         (Russian - 1049): Узлы зависимости
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): The representation of a component dependency node in CRM.
+                ///         (Russian - 1049): Представление узла зависимости компонентов в CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship dependencynode_ancestor_dependency")]
                 public static partial class dependencynode_ancestor_dependency
                 {
                     public const string Name = "dependencynode_ancestor_dependency";
@@ -722,13 +752,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity dependencynode:    PrimaryIdAttribute dependencynodeid
                 ///     DisplayName:
                 ///         (English - United States - 1033): Dependency Node
+                ///         (Russian - 1049): Узел зависимости
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Dependency Nodes
+                ///         (Russian - 1049): Узлы зависимости
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): The representation of a component dependency node in CRM.
+                ///         (Russian - 1049): Представление узла зависимости компонентов в CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship dependencynode_descendent_dependency")]
                 public static partial class dependencynode_descendent_dependency
                 {
                     public const string Name = "dependencynode_descendent_dependency";
@@ -775,10 +809,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity userentityinstancedata:    PrimaryIdAttribute userentityinstancedataid
                 ///     DisplayName:
                 ///         (English - United States - 1033): User Entity Instance Data
+                ///         (Russian - 1049): Данные экземпляра сущности пользователя
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Per User item instance data
+                ///         (Russian - 1049): Данные экземпляра позиции "на пользователя"
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship userentityinstancedata_dependency")]
                 public static partial class userentityinstancedata_dependency
                 {
                     public const string Name = "userentityinstancedata_dependency";

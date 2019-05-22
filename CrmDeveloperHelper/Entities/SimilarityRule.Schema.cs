@@ -6,9 +6,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         ///<summary>
         /// DisplayName:
         ///     (English - United States - 1033): Similarity Rule
+        ///     (Russian - 1049): Правило подобия
         /// 
         /// DisplayCollectionName:
         ///     (English - United States - 1033): Similarity Rules
+        ///     (Russian - 1049): Правила подобия
         /// 
         /// PropertyName                          Value
         /// ActivityTypeMask                      0
@@ -101,9 +103,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Similarity Rule
+                ///     (Russian - 1049): Правило подобия
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier for entity instances
+                ///     (Russian - 1049): Уникальный идентификатор экземпляров сущности
                 /// 
                 /// SchemaName: SimilarityRuleId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -130,14 +134,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Similarity Rule")]
                 public const string similarityruleid = "similarityruleid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Name
+                ///     (Russian - 1049): Название
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): The name of the custom entity.
+                ///     (Russian - 1049): Имя настраиваемой сущности.
                 /// 
                 /// SchemaName: name
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: SystemRequired
@@ -166,14 +173,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Name")]
                 public const string name = "name";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Active Rule Fetch Xml
+                ///     (Russian - 1049): Активное правило Fetch XML
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Generated Fetch xml from Active rule and rule conditions.
+                ///     (Russian - 1049): Созданный Fetch XML на основе активного правила и условий правила.
                 /// 
                 /// SchemaName: ActiveRuleFetchXML
                 /// MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: None
@@ -202,14 +212,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Active Rule Fetch Xml")]
                 public const string activerulefetchxml = "activerulefetchxml";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Base Record Type
+                ///     (Russian - 1049): Тип базовой записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Record type of the record being evaluated for potential similarities.
+                ///     (Russian - 1049): Тип записи, оцениваемой с точки зрения возможного сходства.
                 /// 
                 /// SchemaName: BaseEntityName
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: ApplicationRequired
@@ -238,14 +251,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Base Record Type")]
                 public const string baseentityname = "baseentityname";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Base Record Type
+                ///     (Russian - 1049): Тип базовой записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Record type of the record being evaluated for potential similarities.
+                ///     (Russian - 1049): Тип записи, оцениваемой с точки зрения возможного сходства.
                 /// 
                 /// SchemaName: BaseEntityTypeCode
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -274,6 +290,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Base Record Type")]
                 public const string baseentitytypecode = "baseentitytypecode";
 
                 ///<summary>
@@ -307,9 +324,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Component State
+                ///     (Russian - 1049): Состояние компонента
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: ComponentState
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -321,9 +340,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 ///         DisplayName:
                 ///             (English - United States - 1033): Component State
+                ///             (Russian - 1049): Состояние компонента
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): The state of this component.
+                ///             (Russian - 1049): Состояние этого компонента.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -344,14 +365,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Component State")]
                 public const string componentstate = "componentstate";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created On
+                ///     (Russian - 1049): Дата создания
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows the date and time when the record was created. The date and time are displayed in the time zone selected in Microsoft Dynamics 365 options.
+                ///     (Russian - 1049): Показывает дату и время, в которые была создана запись. Дата и время отображаются для часового пояса, выбранного в параметрах Microsoft Dynamics 365.
                 /// 
                 /// SchemaName: CreatedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -380,14 +404,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created On")]
                 public const string createdon = "createdon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created By (Delegate)
+                ///     (Russian - 1049): Кем создано (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who created the record.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя-делегата, создавшего запись.
                 /// 
                 /// SchemaName: CreatedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -399,12 +426,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -425,6 +455,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created By (Delegate)")]
                 public const string createdonbehalfby = "createdonbehalfby";
 
                 ///<summary>
@@ -490,9 +521,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Description
+                ///     (Russian - 1049): Описание
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Description of the similarity detection rule.
+                ///     (Russian - 1049): Описание правила обнаружения подобия.
                 /// 
                 /// SchemaName: Description
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -521,14 +554,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Description")]
                 public const string description = "description";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): ExchangeRate
+                ///     (Russian - 1049): Курс валюты
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Exchange rate for the currency associated with the SimilarityRule with respect to the base currency.
+                ///     (Russian - 1049): Обменный курс валюты, связанной с правилом подобия, по отношению к базовой валюте.
                 /// 
                 /// SchemaName: ExchangeRate
                 /// DecimalAttributeMetadata    AttributeType: Decimal    AttributeTypeName: DecimalType    RequiredLevel: None
@@ -557,14 +593,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("ExchangeRate")]
                 public const string exchangerate = "exchangerate";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Exclude Inactive Records
+                ///     (Russian - 1049): Исключение неактивных записей
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Determines whether to flag inactive records as similarities
+                ///     (Russian - 1049): Определяет, помечать ли неактивные записи как подобные
                 /// 
                 /// SchemaName: ExcludeInactiveRecords
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None
@@ -575,10 +614,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): False
+                ///     (Russian - 1049): Ложь
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): True
+                ///     (Russian - 1049): Истина
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -600,14 +641,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Exclude Inactive Records")]
                 public const string excludeinactiverecords = "excludeinactiverecords";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Exclude Inactive Records
+                ///     (Russian - 1049): Исключение неактивных записей
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Determines whether to flag inactive records as similarities
+                ///     (Russian - 1049): Определяет, помечать ли неактивные записи как подобные
                 /// 
                 /// SchemaName: ExcludeInactiveRecordsName
                 /// AttributeMetadata    AttributeType: Virtual    AttributeTypeName: VirtualType    RequiredLevel: None    AttributeOf 'excludeinactiverecords'
@@ -639,6 +683,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Fetch Xml
+                ///     (Russian - 1049): Язык FetchXML
                 /// 
                 /// SchemaName: FetchXmlList
                 /// MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: None
@@ -667,14 +712,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Fetch Xml")]
                 public const string fetchxmllist = "fetchxmllist";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Import Sequence Number
+                ///     (Russian - 1049): Порядковый номер импорта
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Sequence number of the import that created this record.
+                ///     (Russian - 1049): Порядковый номер импорта, в результате которого была создана эта запись.
                 /// 
                 /// SchemaName: ImportSequenceNumber
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -703,14 +751,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Import Sequence Number")]
                 public const string importsequencenumber = "importsequencenumber";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Introduced Version
+                ///     (Russian - 1049): Версия введения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Version in which the similarity rule is introduced.
+                ///     (Russian - 1049): Версия, в которой было введено правило подобия.
                 /// 
                 /// SchemaName: IntroducedVersion
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -739,14 +790,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Introduced Version")]
                 public const string introducedversion = "introducedversion";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): State
+                ///     (Russian - 1049): Состояние
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Is Managed
+                ///     (Russian - 1049): Управляется
                 /// 
                 /// SchemaName: IsManaged
                 /// BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: SystemRequired
@@ -757,10 +811,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Unmanaged
+                ///     (Russian - 1049): Неуправляемый
                 /// FalseOption = 0
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Managed
+                ///     (Russian - 1049): Управляемый
                 /// TrueOption = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -782,14 +838,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("State")]
                 public const string ismanaged = "ismanaged";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Matching Record Type
+                ///     (Russian - 1049): Соответствующий тип записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Record type of the records being evaluated as potential similarities.
+                ///     (Russian - 1049): Тип записей, оцениваемых с точки зрения возможного сходства.
                 /// 
                 /// SchemaName: MatchingEntityName
                 /// StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None
@@ -818,14 +877,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Matching Record Type")]
                 public const string matchingentityname = "matchingentityname";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Matching Record Type
+                ///     (Russian - 1049): Соответствующий тип записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Record type of the records being evaluated as potential similarities.
+                ///     (Russian - 1049): Тип записей, оцениваемых с точки зрения возможного сходства.
                 /// 
                 /// SchemaName: MatchingEntityTypeCode
                 /// PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: SystemRequired
@@ -854,6 +916,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Matching Record Type")]
                 public const string matchingentitytypecode = "matchingentitytypecode";
 
                 ///<summary>
@@ -887,9 +950,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Maximum Number of Key Phrases
+                ///     (Russian - 1049): Максимальное количество ключевых фраз
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Enter the maximum number of keywords and key phrases to use with text analytics.
+                ///     (Russian - 1049): Введите максимальное количество ключевых слов и ключевых фраз для использования применительно к текстовой аналитике.
                 /// 
                 /// SchemaName: MaxKeyWords
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: ApplicationRequired
@@ -918,14 +983,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Maximum Number of Key Phrases")]
                 public const string maxkeywords = "maxkeywords";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified On
+                ///     (Russian - 1049): Дата изменения
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Shows the date and time when the record was last updated. The date and time are displayed in the time zone selected in Microsoft Dynamics 365 options.
+                ///     (Russian - 1049): Показывает дату и время последнего обновления записи. Дата и время отображаются для часового пояса, выбранного в параметрах Microsoft Dynamics 365.
                 /// 
                 /// SchemaName: ModifiedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -954,14 +1022,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified On")]
                 public const string modifiedon = "modifiedon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Modified By (Delegate)
+                ///     (Russian - 1049): Кем изменено (делегат)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the delegate user who modified the record.
+                ///     (Russian - 1049): Уникальный идентификатор пользователя-делегата, изменившего запись.
                 /// 
                 /// SchemaName: ModifiedOnBehalfBy
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -973,12 +1044,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///         DisplayName:
                 ///             (English - United States - 1033): User
+                ///             (Russian - 1049): Пользователь
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Users
+                ///             (Russian - 1049): Пользователи
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -999,6 +1073,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Modified By (Delegate)")]
                 public const string modifiedonbehalfby = "modifiedonbehalfby";
 
                 ///<summary>
@@ -1064,9 +1139,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Maximum Key Phrase Words
+                ///     (Russian - 1049): Максимальное количество ключевых слов (фраз)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Enter the maximum number of words in a key phrase to use with text analytics.
+                ///     (Russian - 1049): Введите максимальное количество слов в ключевой фразе для использования применительно к текстовой аналитике.
                 /// 
                 /// SchemaName: NgramSize
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -1095,14 +1172,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Maximum Key Phrase Words")]
                 public const string ngramsize = "ngramsize";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Organization Id
+                ///     (Russian - 1049): Идентификатор организации
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier for the organization
+                ///     (Russian - 1049): Уникальный идентификатор организации
                 /// 
                 /// SchemaName: OrganizationId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1114,12 +1194,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target organization    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///         DisplayName:
                 ///             (English - United States - 1033): Organization
+                ///             (Russian - 1049): Предприятие
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Organizations
+                ///             (Russian - 1049): Предприятия
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
+                ///             (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1140,6 +1223,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Organization Id")]
                 public const string organizationid = "organizationid";
 
                 ///<summary>
@@ -1175,9 +1259,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Record Created On
+                ///     (Russian - 1049): Дата создания записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time that the record was migrated.
+                ///     (Russian - 1049): Дата и время переноса записи.
                 /// 
                 /// SchemaName: OverriddenCreatedOn
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None
@@ -1206,14 +1292,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Record Created On")]
                 public const string overriddencreatedon = "overriddencreatedon";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Created On
+                ///     (Russian - 1049): Дата создания
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Date and time when the record was created.
+                ///     (Russian - 1049): Дата и время создания записи.
                 /// 
                 /// SchemaName: OverwriteTime
                 /// DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: SystemRequired
@@ -1242,14 +1331,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Created On")]
                 public const string overwritetime = "overwritetime";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Rule Conditions Xml
+                ///     (Russian - 1049): XML условий правила
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): ConditionXml for similarity rule conditions.
+                ///     (Russian - 1049): XML-условия для условий правила подобия.
                 /// 
                 /// SchemaName: RuleConditionXml
                 /// MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: None
@@ -1278,6 +1370,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Rule Conditions Xml")]
                 public const string ruleconditionxml = "ruleconditionxml";
 
                 ///<summary>
@@ -1286,6 +1379,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the Similarity Rule used when synchronizing customizations for the Microsoft Dynamics 365 client for Outlook
+                ///     (Russian - 1049): Уникальный идентификатор правила подобия, используемого при синхронизации настроек для клиента Microsoft Dynamics 365 для Outlook.
                 /// 
                 /// SchemaName: SimilarityRuleIdUnique
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -1312,14 +1406,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("SimilarityRule")]
                 public const string similarityruleidunique = "similarityruleidunique";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Unique identifier of the associated solution.
+                ///     (Russian - 1049): Уникальный идентификатор связанного решения.
                 /// 
                 /// SchemaName: SolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: SystemRequired
@@ -1346,14 +1443,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string solutionid = "solutionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Status
+                ///     (Russian - 1049): Состояние
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Status of the Similarity Rule
+                ///     (Russian - 1049): Состояние правила подобия
                 /// 
                 /// SchemaName: statecode
                 /// StateAttributeMetadata    AttributeType: State    AttributeTypeName: StateType    RequiredLevel: SystemRequired
@@ -1381,6 +1481,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Status")]
                 public const string statecode = "statecode";
 
                 ///<summary>
@@ -1414,9 +1515,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Status Reason
+                ///     (Russian - 1049): Причина состояния
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Reason for the status of the Similarity Rule
+                ///     (Russian - 1049): Причина состояния правила подобия
                 /// 
                 /// SchemaName: statuscode
                 /// StatusAttributeMetadata    AttributeType: Status    AttributeTypeName: StatusType    RequiredLevel: None
@@ -1444,6 +1547,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Status Reason")]
                 public const string statuscode = "statuscode";
 
                 ///<summary>
@@ -1477,9 +1581,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Solution
+                ///     (Russian - 1049): Решение
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: SupportingSolutionId
                 /// AttributeMetadata    AttributeType: Uniqueidentifier    AttributeTypeName: UniqueidentifierType    RequiredLevel: None
@@ -1506,14 +1612,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Solution")]
                 public const string supportingsolutionid = "supportingsolutionid";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Time Zone Rule Version Number
+                ///     (Russian - 1049): Номер версии правила часового пояса
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): For internal use only.
+                ///     (Russian - 1049): Только для внутреннего использования.
                 /// 
                 /// SchemaName: TimeZoneRuleVersionNumber
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -1542,14 +1651,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Time Zone Rule Version Number")]
                 public const string timezoneruleversionnumber = "timezoneruleversionnumber";
 
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): Currency
+                ///     (Russian - 1049): Валюта
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Exchange rate for the currency associated with the SimilarityRule with respect to the base currency.
+                ///     (Russian - 1049): Обменный курс валюты, связанной с правилом подобия, по отношению к базовой валюте.
                 /// 
                 /// SchemaName: TransactionCurrencyId
                 /// LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None
@@ -1561,12 +1673,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     Target transactioncurrency    PrimaryIdAttribute transactioncurrencyid    PrimaryNameAttribute currencyname
                 ///         DisplayName:
                 ///             (English - United States - 1033): Currency
+                ///             (Russian - 1049): Валюта
                 ///         
                 ///         DisplayCollectionName:
                 ///             (English - United States - 1033): Currencies
+                ///             (Russian - 1049): Валюты
                 ///         
                 ///         Description:
                 ///             (English - United States - 1033): Currency in which a financial transaction is carried out.
+                ///             (Russian - 1049): Валюта, в которой выполняется финансовая операция.
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
                 /// CanBeSecuredForRead            False
@@ -1587,6 +1702,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 True
                 /// IsValidForGrid                 True
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Currency")]
                 public const string transactioncurrencyid = "transactioncurrencyid";
 
                 ///<summary>
@@ -1622,9 +1738,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///<summary>
                 /// DisplayName:
                 ///     (English - United States - 1033): UTC Conversion Time Zone Code
+                ///     (Russian - 1049): Код часового пояса (в формате UTC)
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Time zone code that was in use when the record was created.
+                ///     (Russian - 1049): Код часового пояса, использовавшийся при создании записи.
                 /// 
                 /// SchemaName: UTCConversionTimeZoneCode
                 /// IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None
@@ -1653,6 +1771,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForForm                 False
                 /// IsValidForGrid                 False
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("UTC Conversion Time Zone Code")]
                 public const string utcconversiontimezonecode = "utcconversiontimezonecode";
 
                 ///<summary>
@@ -1698,10 +1817,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Status
+                ///     (Russian - 1049): Состояние
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Status of the Similarity Rule
+                ///     (Russian - 1049): Состояние правила подобия
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Status")]
                 public enum statecode
                 {
                     ///<summary>
@@ -1711,7 +1833,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Draft
+                    ///     (Russian - 1049): Черновик
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Draft")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Draft_0 = 0,
 
@@ -1722,7 +1846,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Active
+                    ///     (Russian - 1049): Активно
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Active")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Active_1 = 1,
                 }
@@ -1733,10 +1859,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Status
+                ///     (Russian - 1049): Состояние
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Status of the Similarity Rule
+                ///     (Russian - 1049): Состояние правила подобия
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("Status Reason")]
                 public enum statuscode
                 {
                     ///<summary>
@@ -1745,7 +1874,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Draft
+                    ///     (Russian - 1049): Черновик
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Draft")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Draft_0_Draft_0 = 0,
 
@@ -1755,7 +1886,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                     /// 
                     /// DisplayName:
                     ///     (English - United States - 1033): Active
+                    ///     (Russian - 1049): Активно
                     ///</summary>
+                    [System.ComponentModel.DescriptionAttribute("Active")]
                     [System.Runtime.Serialization.EnumMemberAttribute()]
                     Active_1_Active_1 = 1,
                 }
@@ -1770,19 +1903,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Base Record Type
+                ///     (Russian - 1049): Тип базовой записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Record type of the record being evaluated for potential similarities.
+                ///     (Russian - 1049): Тип записи, оцениваемой с точки зрения возможного сходства.
                 /// 
                 /// Local System  OptionSet similarityrule_baseentitytypecode
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Base Record Type
+                ///     (Russian - 1049): Тип базовой записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Record type of the record being evaluated for potential similarities.
+                ///     (Russian - 1049): Тип записи, оцениваемой с точки зрения возможного сходства.
                 ///</summary>
-                //public enum baseentitytypecode
+                // public enum baseentitytypecode
 
                 ///<summary>
                 /// Attribute:
@@ -1790,19 +1927,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Matching Record Type
+                ///     (Russian - 1049): Соответствующий тип записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Record type of the records being evaluated as potential similarities.
+                ///     (Russian - 1049): Тип записей, оцениваемых с точки зрения возможного сходства.
                 /// 
                 /// Local System  OptionSet similarityrule_matchingentitytypecode
                 /// 
                 /// DisplayName:
                 ///     (English - United States - 1033): Matching Record Type
+                ///     (Russian - 1049): Соответствующий тип записи
                 /// 
                 /// Description:
                 ///     (English - United States - 1033): Record type of the records being evaluated as potential similarities.
+                ///     (Russian - 1049): Тип записей, оцениваемых с точки зрения возможного сходства.
                 ///</summary>
-                //public enum matchingentitytypecode
+                // public enum matchingentitytypecode
 
                 #endregion Picklist OptionSets.
             }
@@ -1839,13 +1980,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_similarityrule_createdonbehalfby")]
                 public static partial class lk_similarityrule_createdonbehalfby
                 {
                     public const string Name = "lk_similarityrule_createdonbehalfby";
@@ -1887,13 +2032,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity systemuser:    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
                 ///     DisplayName:
                 ///         (English - United States - 1033): User
+                ///         (Russian - 1049): Пользователь
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Users
+                ///         (Russian - 1049): Пользователи
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+                ///         (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship lk_similarityrule_modifiedonbehalfby")]
                 public static partial class lk_similarityrule_modifiedonbehalfby
                 {
                     public const string Name = "lk_similarityrule_modifiedonbehalfby";
@@ -1935,13 +2084,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity organization:    PrimaryIdAttribute organizationid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): Organization
+                ///         (Russian - 1049): Предприятие
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Organizations
+                ///         (Russian - 1049): Предприятия
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Top level of the Microsoft Dynamics 365 business hierarchy. The organization can be a specific business, holding company, or corporation.
+                ///         (Russian - 1049): Верхний уровень бизнес-иерархии Microsoft Dynamics 365. Организация может являться конкретной компанией, холдингом или корпорацией.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship organization_similarityrule")]
                 public static partial class organization_similarityrule
                 {
                     public const string Name = "organization_similarityrule";
@@ -1983,13 +2136,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencedEntity transactioncurrency:    PrimaryIdAttribute transactioncurrencyid    PrimaryNameAttribute currencyname
                 ///     DisplayName:
                 ///         (English - United States - 1033): Currency
+                ///         (Russian - 1049): Валюта
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Currencies
+                ///         (Russian - 1049): Валюты
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Currency in which a financial transaction is carried out.
+                ///         (Russian - 1049): Валюта, в которой выполняется финансовая операция.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("N:1 - Relationship TransactionCurrency_SimilarityRule")]
                 public static partial class transactioncurrency_similarityrule
                 {
                     public const string Name = "TransactionCurrency_SimilarityRule";
@@ -2038,13 +2195,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity asyncoperation:    PrimaryIdAttribute asyncoperationid    PrimaryNameAttribute name
                 ///     DisplayName:
                 ///         (English - United States - 1033): System Job
+                ///         (Russian - 1049): Системное задание
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): System Jobs
+                ///         (Russian - 1049): Системные задания
                 ///     
                 ///     Description:
                 ///         (English - United States - 1033): Process whose execution can proceed independently or in the background.
+                ///         (Russian - 1049): Процесс, который может выполняться независимо или в фоновом режиме.
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship similarityrule_AsyncOperations")]
                 public static partial class similarityrule_asyncoperations
                 {
                     public const string Name = "similarityrule_AsyncOperations";
@@ -2086,10 +2247,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// ReferencingEntity textanalyticsentitymapping:    PrimaryIdAttribute textanalyticsentitymappingid
                 ///     DisplayName:
                 ///         (English - United States - 1033): Text Analytics Entity Mapping
+                ///         (Russian - 1049): Сопоставления сущности текстовой аналитики
                 ///     
                 ///     DisplayCollectionName:
                 ///         (English - United States - 1033): Text Analytics Entity Mappings
+                ///         (Russian - 1049): Сопоставления сущностей текстовой аналитики
                 ///</summary>
+                [System.ComponentModel.DescriptionAttribute("1:N - Relationship similarityrule_textanalyticsentitymapping")]
                 public static partial class similarityrule_textanalyticsentitymapping
                 {
                     public const string Name = "similarityrule_textanalyticsentitymapping";
