@@ -29,8 +29,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly IWriteToOutput _iWriteToOutput;
 
-        private string _filterEntity;
-
         private readonly Dictionary<Guid, IOrganizationServiceExtented> _cacheService = new Dictionary<Guid, IOrganizationServiceExtented>();
 
         private readonly CommonConfiguration _commonConfig;
@@ -38,7 +36,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly ObservableCollection<EntityViewItem> _itemsSource;
 
         private readonly Popup _optionsPopup;
-
 
         private readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.XmlSimple;
 
@@ -57,11 +54,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput = iWriteToOutput;
             this._commonConfig = commonConfig;
-            this._filterEntity = filterEntity;
 
             BindingOperations.EnableCollectionSynchronization(connection1.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InitializeComponent();
+
+            LoadEntityNames(cmBEntityName, connection1, connection2);
 
             var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
             child.CloseClicked += Child_CloseClicked;
@@ -81,8 +79,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Resources["ConnectionName1"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection1.Name);
             this.Resources["ConnectionName2"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection2.Name);
 
-            SetButtonClearFilterVisibility(_filterEntity, btnClearEntityFilter, sepClearEntityFilter);
-
             LoadFromConfig();
 
             if (!string.IsNullOrEmpty(filter))
@@ -94,6 +90,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBFilter.SelectionStart = txtBFilter.Text.Length;
 
             txtBFilter.Focus();
+
+            cmBEntityName.Text = filterEntity;
 
             this._itemsSource = new ObservableCollection<EntityViewItem>();
 
@@ -206,6 +204,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (service1 != null && service2 != null)
                 {
+                    string entityName = string.Empty;
+
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        if (!string.IsNullOrEmpty(cmBEntityName.Text)
+                            && cmBEntityName.Items.Contains(cmBEntityName.Text)
+                        )
+                        {
+                            entityName = cmBEntityName.Text.Trim().ToLower();
+                        }
+                    });
+
+                    string filterEntity = null;
+
+                    if (service1.ConnectionData != null
+                        && service1.ConnectionData.IntellisenseData != null
+                        && service1.ConnectionData.IntellisenseData.Entities != null
+                        && service1.ConnectionData.IntellisenseData.Entities.ContainsKey(entityName)
+
+                        && service2.ConnectionData != null
+                        && service2.ConnectionData.IntellisenseData != null
+                        && service2.ConnectionData.IntellisenseData.Entities != null
+                        && service2.ConnectionData.IntellisenseData.Entities.ContainsKey(entityName)
+                    )
+                    {
+                        filterEntity = entityName;
+                    }
+
                     var columnsSet = new ColumnSet(
                         SavedQuery.Schema.Attributes.name
                         , SavedQuery.Schema.Attributes.returnedtypecode
@@ -220,8 +246,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         SavedQueryRepository repository1 = new SavedQueryRepository(service1);
                         SavedQueryRepository repository2 = new SavedQueryRepository(service2);
 
-                        var task1 = repository1.GetListAsync(_filterEntity, columnsSet);
-                        var task2 = repository2.GetListAsync(_filterEntity, columnsSet);
+                        var task1 = repository1.GetListAsync(filterEntity, columnsSet);
+                        var task2 = repository2.GetListAsync(filterEntity, columnsSet);
 
                         var list1 = await task1;
                         var list2 = await task2;
@@ -242,7 +268,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         SavedQueryRepository repository1 = new SavedQueryRepository(service1);
 
-                        var task1 = repository1.GetListAsync(_filterEntity, columnsSet);
+                        var task1 = repository1.GetListAsync(filterEntity, columnsSet);
 
                         var list1 = await task1;
 
@@ -1057,15 +1083,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             base.OnKeyDown(e);
         }
 
-        private void btnClearEntityFilter_Click(object sender, RoutedEventArgs e)
-        {
-            this._filterEntity = null;
-
-            SetButtonClearFilterVisibility(_filterEntity, btnClearEntityFilter, sepClearEntityFilter);
-
-            ShowExistingSavedQueries();
-        }
-
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!this.IsControlsEnabled)
@@ -1080,18 +1097,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ConnectionData connection1 = cmBConnection1.SelectedItem as ConnectionData;
                 ConnectionData connection2 = cmBConnection2.SelectedItem as ConnectionData;
 
-                if (connection1 != null && connection2 != null)
+                if (connection1 != null)
                 {
                     tSDDBConnection1.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection1.Name);
-                    tSDDBConnection2.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection2.Name);
 
                     this.Resources["ConnectionName1"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection1.Name);
-                    this.Resources["ConnectionName2"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection2.Name);
-
-                    UpdateButtonsEnable();
-
-                    ShowExistingSavedQueries();
                 }
+
+                if (connection2 != null)
+                {
+                    tSDDBConnection2.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection2.Name);
+
+                    this.Resources["ConnectionName2"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection2.Name);
+                }
+
+                LoadEntityNames(cmBEntityName, connection1, connection2);
+
+                UpdateButtonsEnable();
+
+                ShowExistingSavedQueries();
             });
         }
         private async void btnOrganizationComparer_Click(object sender, RoutedEventArgs e)

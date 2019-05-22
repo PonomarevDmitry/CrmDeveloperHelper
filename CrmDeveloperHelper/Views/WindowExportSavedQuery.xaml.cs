@@ -170,8 +170,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._itemsSource.Clear();
 
-            string filterEntity = null;
-
             string entityName = string.Empty;
 
             this.Dispatcher.Invoke(() =>
@@ -183,6 +181,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     entityName = cmBEntityName.Text.Trim().ToLower();
                 }
             });
+
+            string filterEntity = null;
 
             if (service.ConnectionData != null
                 && service.ConnectionData.IntellisenseData != null

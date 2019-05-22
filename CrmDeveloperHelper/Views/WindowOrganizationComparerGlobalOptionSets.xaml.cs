@@ -41,7 +41,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , ConnectionData connection1
             , ConnectionData connection2
             , string filter
-            )
+        )
         {
             this.IncreaseInit();
 

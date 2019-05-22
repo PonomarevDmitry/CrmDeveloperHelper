@@ -602,22 +602,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return excelKey != null;
         }
 
-        protected void SetButtonClearFilterVisibility(string filterEntityName, Button btnClearEntityFilter, Separator sepClearEntityFilter)
-        {
-            if (!string.IsNullOrEmpty(filterEntityName))
-            {
-                btnClearEntityFilter.Content = string.Format("Clear {0} Filter", filterEntityName);
-
-                btnClearEntityFilter.IsEnabled = sepClearEntityFilter.IsEnabled = true;
-                btnClearEntityFilter.Visibility = sepClearEntityFilter.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                btnClearEntityFilter.IsEnabled = sepClearEntityFilter.IsEnabled = false;
-                btnClearEntityFilter.Visibility = sepClearEntityFilter.Visibility = Visibility.Collapsed;
-            }
-        }
-
         protected void LoadEntityNames(ComboBox comboBox, ConnectionData connectionData)
         {
             string text = comboBox.Text;
@@ -632,6 +616,42 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 foreach (var item in connectionData.IntellisenseData.Entities.Keys.OrderBy(s => s))
                 {
                     comboBox.Items.Add(item);
+                }
+            }
+
+            comboBox.Text = text;
+        }
+
+        protected void LoadEntityNames(ComboBox comboBox, ConnectionData connectionData1, ConnectionData connectionData2)
+        {
+            string text = comboBox.Text;
+
+            HashSet<string> entities = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+            comboBox.Items.Clear();
+
+            if (connectionData1 != null
+                && connectionData1.IntellisenseData != null
+                && connectionData1.IntellisenseData.Entities != null
+            )
+            {
+                foreach (var item in connectionData1.IntellisenseData.Entities.Keys)
+                {
+                    entities.Add(item);
+                }
+            }
+
+            if (connectionData2 != null
+                && connectionData2.IntellisenseData != null
+                && connectionData2.IntellisenseData.Entities != null
+            )
+            {
+                foreach (var item in connectionData2.IntellisenseData.Entities.Keys.OrderBy(s => s))
+                {
+                    if (entities.Contains(item))
+                    {
+                        comboBox.Items.Add(item);
+                    }
                 }
             }
 

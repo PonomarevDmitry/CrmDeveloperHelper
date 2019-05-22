@@ -26,8 +26,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly IWriteToOutput _iWriteToOutput;
 
-        private string _filterEntity;
-
         private readonly Dictionary<Guid, IOrganizationServiceExtented> _cacheService = new Dictionary<Guid, IOrganizationServiceExtented>();
 
         private readonly CommonConfiguration _commonConfig;
@@ -49,11 +47,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput = iWriteToOutput;
             this._commonConfig = commonConfig;
-            this._filterEntity = filterEntity;
 
             BindingOperations.EnableCollectionSynchronization(connection1.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InitializeComponent();
+
+            LoadEntityNames(cmBEntityName, connection1, connection2);
 
             cmBCategory.ItemsSource = new EnumBindingSourceExtension(typeof(Workflow.Schema.OptionSets.category?)).ProvideValue(null) as IEnumerable;
             cmBMode.ItemsSource = new EnumBindingSourceExtension(typeof(Workflow.Schema.OptionSets.mode?)).ProvideValue(null) as IEnumerable;
@@ -66,8 +65,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Resources["ConnectionName1"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection1.Name);
             this.Resources["ConnectionName2"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection2.Name);
 
-            SetButtonClearFilterVisibility(_filterEntity, btnClearEntityFilter, sepClearEntityFilter);
-
             LoadFromConfig();
 
             if (!string.IsNullOrEmpty(filter))
@@ -79,6 +76,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBFilter.SelectionStart = txtBFilter.Text.Length;
 
             txtBFilter.Focus();
+
+            cmBEntityName.Text = filterEntity;
 
             this._itemsSource = new ObservableCollection<EntityViewItem>();
 
@@ -209,16 +208,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var service1 = await GetService1();
                 var service2 = await GetService2();
 
-                var columnSet = new ColumnSet
-                (
-                    Workflow.Schema.Attributes.category
-                    , Workflow.Schema.Attributes.name
-                    , Workflow.Schema.Attributes.uniquename
-                    , Workflow.Schema.Attributes.primaryentity
-                );
-
                 if (service1 != null && service2 != null)
                 {
+                    string entityName = string.Empty;
+
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        if (!string.IsNullOrEmpty(cmBEntityName.Text)
+                            && cmBEntityName.Items.Contains(cmBEntityName.Text)
+                        )
+                        {
+                            entityName = cmBEntityName.Text.Trim().ToLower();
+                        }
+                    });
+
+                    string filterEntity = null;
+
+                    if (service1.ConnectionData != null
+                        && service1.ConnectionData.IntellisenseData != null
+                        && service1.ConnectionData.IntellisenseData.Entities != null
+                        && service1.ConnectionData.IntellisenseData.Entities.ContainsKey(entityName)
+
+                        && service2.ConnectionData != null
+                        && service2.ConnectionData.IntellisenseData != null
+                        && service2.ConnectionData.IntellisenseData.Entities != null
+                        && service2.ConnectionData.IntellisenseData.Entities.ContainsKey(entityName)
+                    )
+                    {
+                        filterEntity = entityName;
+                    }
+
+                    var columnSet = new ColumnSet
+                    (
+                        Workflow.Schema.Attributes.category
+                        , Workflow.Schema.Attributes.name
+                        , Workflow.Schema.Attributes.uniquename
+                        , Workflow.Schema.Attributes.primaryentity
+                    );
+
                     List<LinkedEntities<Workflow>> temp = new List<LinkedEntities<Workflow>>();
 
                     if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
@@ -226,8 +253,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         var repository1 = new WorkflowRepository(service1);
                         var repository2 = new WorkflowRepository(service2);
 
-                        var task1 = repository1.GetListAsync(_filterEntity, category, mode, columnSet);
-                        var task2 = repository2.GetListAsync(_filterEntity, category, mode, columnSet);
+                        var task1 = repository1.GetListAsync(filterEntity, category, mode, columnSet);
+                        var task2 = repository2.GetListAsync(filterEntity, category, mode, columnSet);
 
                         TranslationRepository.GetDefaultTranslationFromCacheAsync(service1.ConnectionData.ConnectionId, service1);
                         TranslationRepository.GetDefaultTranslationFromCacheAsync(service2.ConnectionData.ConnectionId, service2);
@@ -251,7 +278,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var repository1 = new WorkflowRepository(service1);
 
-                        var task1 = repository1.GetListAsync(_filterEntity, category, mode, columnSet);
+                        var task1 = repository1.GetListAsync(filterEntity, category, mode, columnSet);
 
                         TranslationRepository.GetDefaultTranslationFromCacheAsync(service1.ConnectionData.ConnectionId, service1);
 
@@ -1133,15 +1160,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             base.OnKeyDown(e);
         }
 
-        private void btnClearEntityFilter_Click(object sender, RoutedEventArgs e)
-        {
-            this._filterEntity = null;
-
-            SetButtonClearFilterVisibility(_filterEntity, btnClearEntityFilter, sepClearEntityFilter);
-
-            ShowExistingWorkflows();
-        }
-
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!this.IsControlsEnabled)
@@ -1163,6 +1181,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this.Resources["ConnectionName1"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection1.Name);
                     this.Resources["ConnectionName2"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection2.Name);
+
+                    LoadEntityNames(cmBEntityName, connection1, connection2);
 
                     UpdateButtonsEnable();
 

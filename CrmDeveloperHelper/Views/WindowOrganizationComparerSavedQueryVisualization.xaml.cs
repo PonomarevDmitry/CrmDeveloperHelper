@@ -28,8 +28,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly IWriteToOutput _iWriteToOutput;
 
-        private string _filterEntity;
-
         private readonly Dictionary<Guid, IOrganizationServiceExtented> _cacheService = new Dictionary<Guid, IOrganizationServiceExtented>();
 
         private readonly CommonConfiguration _commonConfig;
@@ -55,11 +53,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._iWriteToOutput = iWriteToOutput;
             this._commonConfig = commonConfig;
-            this._filterEntity = filterEntity;
 
             BindingOperations.EnableCollectionSynchronization(connection1.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InitializeComponent();
+
+            LoadEntityNames(cmBEntityName, connection1, connection2);
 
             var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
             child.CloseClicked += Child_CloseClicked;
@@ -91,7 +90,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             txtBFilter.Focus();
 
-            SetButtonClearFilterVisibility(_filterEntity, btnClearEntityFilter, sepClearEntityFilter);
+            cmBEntityName.Text = filterEntity;
 
             this._itemsSource = new ObservableCollection<EntityViewItem>();
 
@@ -204,6 +203,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (service1 != null && service2 != null)
                 {
+                    string entityName = string.Empty;
+
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        if (!string.IsNullOrEmpty(cmBEntityName.Text)
+                            && cmBEntityName.Items.Contains(cmBEntityName.Text)
+                        )
+                        {
+                            entityName = cmBEntityName.Text.Trim().ToLower();
+                        }
+                    });
+
+                    string filterEntity = null;
+
+                    if (service1.ConnectionData != null
+                        && service1.ConnectionData.IntellisenseData != null
+                        && service1.ConnectionData.IntellisenseData.Entities != null
+                        && service1.ConnectionData.IntellisenseData.Entities.ContainsKey(entityName)
+
+                        && service2.ConnectionData != null
+                        && service2.ConnectionData.IntellisenseData != null
+                        && service2.ConnectionData.IntellisenseData.Entities != null
+                        && service2.ConnectionData.IntellisenseData.Entities.ContainsKey(entityName)
+                    )
+                    {
+                        filterEntity = entityName;
+                    }
+
                     var temp = new List<LinkedEntities<SavedQueryVisualization>>();
 
                     if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
@@ -211,8 +238,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         var repository1 = new SavedQueryVisualizationRepository(service1);
                         var repository2 = new SavedQueryVisualizationRepository(service2);
 
-                        var task1 = repository1.GetListAsync(this._filterEntity);
-                        var task2 = repository2.GetListAsync(this._filterEntity);
+                        var task1 = repository1.GetListAsync(filterEntity);
+                        var task2 = repository2.GetListAsync(filterEntity);
 
                         var list1 = await task1;
                         var list2 = await task2;
@@ -233,7 +260,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var repository1 = new SavedQueryVisualizationRepository(service1);
 
-                        var task1 = repository1.GetListAsync(this._filterEntity);
+                        var task1 = repository1.GetListAsync(filterEntity);
 
                         var list1 = await task1;
 
@@ -923,15 +950,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             base.OnKeyDown(e);
         }
 
-        private void btnClearEntityFilter_Click(object sender, RoutedEventArgs e)
-        {
-            this._filterEntity = null;
-
-            SetButtonClearFilterVisibility(_filterEntity, btnClearEntityFilter, sepClearEntityFilter);
-
-            ShowExistingCharts();
-        }
-
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!this.IsControlsEnabled)
@@ -953,6 +971,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this.Resources["ConnectionName1"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection1.Name);
                     this.Resources["ConnectionName2"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection2.Name);
+
+                    LoadEntityNames(cmBEntityName, connection1, connection2);
 
                     UpdateButtonsEnable();
 
