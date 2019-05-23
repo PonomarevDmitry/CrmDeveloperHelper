@@ -38,6 +38,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly ObservableCollection<OptionSetMetadataListViewItem> _itemsSource;
 
         private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
+        private readonly Dictionary<Guid, SolutionComponentMetadataSource> _cacheMetadataSource = new Dictionary<Guid, SolutionComponentMetadataSource>();
         private readonly Dictionary<Guid, IEnumerable<OptionSetMetadata>> _cacheOptionSetMetadata = new Dictionary<Guid, IEnumerable<OptionSetMetadata>>();
 
         private readonly Popup _optionsPopup;
@@ -263,6 +264,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
+        private SolutionComponentMetadataSource GetMetadataSource(IOrganizationServiceExtented serivce)
+        {
+            if (serivce != null)
+            {
+                if (!_cacheMetadataSource.ContainsKey(serivce.ConnectionData.ConnectionId))
+                {
+                    var source = new SolutionComponentMetadataSource(serivce);
+
+                    _cacheMetadataSource[serivce.ConnectionData.ConnectionId] = source;
+                }
+
+                return _cacheMetadataSource[serivce.ConnectionData.ConnectionId];
+            }
+
+            return null;
+        }
+
         private async Task ShowExistingOptionSets()
         {
             if (!this.IsControlsEnabled)
@@ -316,15 +334,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            if (!string.IsNullOrEmpty(entityName))
+            string filterEntity = null;
+
+            if (service.ConnectionData != null
+                && service.ConnectionData.IntellisenseData != null
+                && service.ConnectionData.IntellisenseData.Entities != null
+                && service.ConnectionData.IntellisenseData.Entities.ContainsKey(entityName)
+            )
             {
-                var entityId = service.ConnectionData.GetEntityMetadataId(entityName);
+                filterEntity = entityName;
+            }
+
+            if (!string.IsNullOrEmpty(filterEntity))
+            {
+                var entityId = service.ConnectionData.GetEntityMetadataId(filterEntity);
 
                 if (entityId.HasValue)
                 {
-                    var source = new SolutionComponentMetadataSource(service);
+                    var source = GetMetadataSource(service);
 
-                    var entityMetadata = source.GetEntityMetadata(entityId.Value);
+                    var entityMetadata = await source.GetEntityMetadataAsync(entityId.Value);
 
                     var entityOptionSets = new HashSet<Guid>(entityMetadata
                         .Attributes

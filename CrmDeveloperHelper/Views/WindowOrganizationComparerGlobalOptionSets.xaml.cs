@@ -1,6 +1,7 @@
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDescription;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
@@ -27,6 +28,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly IWriteToOutput _iWriteToOutput;
 
         private readonly Dictionary<Guid, IOrganizationServiceExtented> _cacheService = new Dictionary<Guid, IOrganizationServiceExtented>();
+        private readonly Dictionary<Guid, SolutionComponentMetadataSource> _cacheMetadataSource = new Dictionary<Guid, SolutionComponentMetadataSource>();
+
         private readonly Dictionary<Guid, List<OptionSetMetadata>> _cacheOptionSetMetadata = new Dictionary<Guid, List<OptionSetMetadata>>();
 
         private readonly CommonConfiguration _commonConfig;
@@ -53,6 +56,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             BindingOperations.EnableCollectionSynchronization(connection1.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InitializeComponent();
+
+            LoadEntityNames(cmBEntityName, connection1, connection2);
 
             var child = new ExportGlobalOptionSetMetadataOptionsControl(_commonConfig);
             child.CloseClicked += Child_CloseClicked;
@@ -132,7 +137,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.Close();
         }
 
-        private async Task<IOrganizationServiceExtented> GetService1()
+        private ConnectionData GetConnection1()
         {
             ConnectionData connectionData = null;
 
@@ -141,6 +146,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBConnection1.SelectedItem as ConnectionData;
             });
 
+            return connectionData;
+        }
+
+        private ConnectionData GetConnection2()
+        {
+            ConnectionData connectionData = null;
+
+            cmBConnection1.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBConnection2.SelectedItem as ConnectionData;
+            });
+
+            return connectionData;
+        }
+
+        private async Task<IOrganizationServiceExtented> GetService1()
+        {
+            return await GetService(GetConnection1());
+        }
+
+        private async Task<IOrganizationServiceExtented> GetService2()
+        {
+            return await GetService(GetConnection2());
+        }
+
+        private async Task<IOrganizationServiceExtented> GetService(ConnectionData connectionData)
+        {
             if (connectionData != null)
             {
                 if (!_cacheService.ContainsKey(connectionData.ConnectionId))
@@ -159,28 +191,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async Task<IOrganizationServiceExtented> GetService2()
+        private SolutionComponentMetadataSource GetMetadataSource(IOrganizationServiceExtented serivce)
         {
-            ConnectionData connectionData = null;
-
-            cmBConnection2.Dispatcher.Invoke(() =>
+            if (serivce != null)
             {
-                connectionData = cmBConnection2.SelectedItem as ConnectionData;
-            });
-
-            if (connectionData != null)
-            {
-                if (!_cacheService.ContainsKey(connectionData.ConnectionId))
+                if (!_cacheMetadataSource.ContainsKey(serivce.ConnectionData.ConnectionId))
                 {
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-                    _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-                    var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                    var source = new SolutionComponentMetadataSource(serivce);
 
-                    _cacheService[connectionData.ConnectionId] = service;
+                    _cacheMetadataSource[serivce.ConnectionData.ConnectionId] = source;
                 }
 
-                return _cacheService[connectionData.ConnectionId];
+                return _cacheMetadataSource[serivce.ConnectionData.ConnectionId];
             }
 
             return null;
@@ -212,42 +234,113 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         OptionSetRepository repository1 = new OptionSetRepository(service1);
 
-                        var task1 = repository1.GetOptionSetsAsync();
+                        var task1List = await repository1.GetOptionSetsAsync();
 
-                        _cacheOptionSetMetadata.Add(service1.ConnectionData.ConnectionId, await task1);
+                        _cacheOptionSetMetadata.Add(service1.ConnectionData.ConnectionId, task1List);
                     }
 
                     if (!_cacheOptionSetMetadata.ContainsKey(service2.ConnectionData.ConnectionId))
                     {
                         OptionSetRepository repository2 = new OptionSetRepository(service2);
 
-                        var task2 = repository2.GetOptionSetsAsync();
+                        var task2List = await repository2.GetOptionSetsAsync();
 
-                        _cacheOptionSetMetadata.Add(service2.ConnectionData.ConnectionId, await task2);
+                        _cacheOptionSetMetadata.Add(service2.ConnectionData.ConnectionId, task2List);
                     }
 
-                    List<OptionSetMetadata> list1 = _cacheOptionSetMetadata[service1.ConnectionData.ConnectionId];
-                    List<OptionSetMetadata> list2 = _cacheOptionSetMetadata[service2.ConnectionData.ConnectionId];
+                    IEnumerable<OptionSetMetadata> list1 = _cacheOptionSetMetadata[service1.ConnectionData.ConnectionId];
+                    IEnumerable<OptionSetMetadata> list2 = _cacheOptionSetMetadata[service2.ConnectionData.ConnectionId];
+
+                    string entityName = string.Empty;
+
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        if (!string.IsNullOrEmpty(cmBEntityName.Text)
+                            && cmBEntityName.Items.Contains(cmBEntityName.Text)
+                        )
+                        {
+                            entityName = cmBEntityName.Text.Trim().ToLower();
+                        }
+                    });
+
+                    string filterEntity = null;
+
+                    if (service1.ConnectionData != null
+                        && service1.ConnectionData.IntellisenseData != null
+                        && service1.ConnectionData.IntellisenseData.Entities != null
+                        && service1.ConnectionData.IntellisenseData.Entities.ContainsKey(entityName)
+
+                        && service2.ConnectionData != null
+                        && service2.ConnectionData.IntellisenseData != null
+                        && service2.ConnectionData.IntellisenseData.Entities != null
+                        && service2.ConnectionData.IntellisenseData.Entities.ContainsKey(entityName)
+                    )
+                    {
+                        filterEntity = entityName;
+                    }
+
+                    if (!string.IsNullOrEmpty(filterEntity))
+                    {
+                        {
+                            var entityId = service1.ConnectionData.GetEntityMetadataId(filterEntity);
+
+                            if (entityId.HasValue)
+                            {
+                                var source = GetMetadataSource(service1);
+
+                                var entityMetadata = await source.GetEntityMetadataAsync(entityId.Value);
+
+                                var entityOptionSets = new HashSet<Guid>(entityMetadata
+                                    .Attributes
+                                    .OfType<EnumAttributeMetadata>()
+                                    .Where(a => a.OptionSet != null && a.OptionSet.IsGlobal.GetValueOrDefault())
+                                    .Select(a => a.OptionSet.MetadataId.Value)
+                                );
+
+                                list1 = list1.Where(o => entityOptionSets.Contains(o.MetadataId.Value));
+                            }
+                        }
+
+                        {
+                            var entityId = service2.ConnectionData.GetEntityMetadataId(filterEntity);
+
+                            if (entityId.HasValue)
+                            {
+                                var source = GetMetadataSource(service2);
+
+                                var entityMetadata = await source.GetEntityMetadataAsync(entityId.Value);
+
+                                var entityOptionSets = new HashSet<Guid>(entityMetadata
+                                    .Attributes
+                                    .OfType<EnumAttributeMetadata>()
+                                    .Where(a => a.OptionSet != null && a.OptionSet.IsGlobal.GetValueOrDefault())
+                                    .Select(a => a.OptionSet.MetadataId.Value)
+                                );
+
+                                list2 = list2.Where(o => entityOptionSets.Contains(o.MetadataId.Value));
+                            }
+                        }
+                    }
 
                     if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                     {
-                        foreach (var entityMetadata1 in list1)
+                        foreach (var optionSet1 in list1)
                         {
-                            var entityMetadata2 = list2.FirstOrDefault(e => e.Name == entityMetadata1.Name);
+                            var optionSet2 = list2.FirstOrDefault(e => string.Equals(e.Name, optionSet1.Name, StringComparison.InvariantCultureIgnoreCase));
 
-                            if (entityMetadata2 == null)
+                            if (optionSet2 == null)
                             {
                                 continue;
                             }
 
-                            temp.Add(new LinkedOptionSetMetadata(entityMetadata1.Name, entityMetadata1, entityMetadata2));
+                            temp.Add(new LinkedOptionSetMetadata(optionSet1.Name, optionSet1, optionSet2));
                         }
                     }
                     else
                     {
-                        foreach (var entityMetadata1 in list1)
+                        foreach (var optionSet1 in list1)
                         {
-                            temp.Add(new LinkedOptionSetMetadata(entityMetadata1.Name, entityMetadata1, null));
+                            temp.Add(new LinkedOptionSetMetadata(optionSet1.Name, optionSet1, null));
                         }
                     }
 
@@ -956,6 +1049,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this.Resources["ConnectionName1"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection1.Name);
                     this.Resources["ConnectionName2"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection2.Name);
+
+                    LoadEntityNames(cmBEntityName, connection1, connection2);
 
                     UpdateButtonsEnable();
 

@@ -131,7 +131,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             base.OnClosed(e);
         }
 
-        private async Task<IOrganizationServiceExtented> GetService1()
+        private ConnectionData GetConnection1()
         {
             ConnectionData connectionData = null;
 
@@ -140,33 +140,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBConnection1.SelectedItem as ConnectionData;
             });
 
-            if (connectionData != null)
+            return connectionData;
+        }
+
+        private ConnectionData GetConnection2()
+        {
+            ConnectionData connectionData = null;
+
+            cmBConnection1.Dispatcher.Invoke(() =>
             {
-                if (!_cacheService.ContainsKey(connectionData.ConnectionId))
-                {
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-                    _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-                    var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                connectionData = cmBConnection2.SelectedItem as ConnectionData;
+            });
 
-                    _cacheService[connectionData.ConnectionId] = service;
-                }
+            return connectionData;
+        }
 
-                return _cacheService[connectionData.ConnectionId];
-            }
-
-            return null;
+        private async Task<IOrganizationServiceExtented> GetService1()
+        {
+            return await GetService(GetConnection1());
         }
 
         private async Task<IOrganizationServiceExtented> GetService2()
         {
-            ConnectionData connectionData = null;
+            return await GetService(GetConnection2());
+        }
 
-            cmBConnection2.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBConnection2.SelectedItem as ConnectionData;
-            });
-
+        private async Task<IOrganizationServiceExtented> GetService(ConnectionData connectionData)
+        {
             if (connectionData != null)
             {
                 if (!_cacheService.ContainsKey(connectionData.ConnectionId))
@@ -185,50 +185,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async Task<SolutionComponentDescriptor> GetDescriptor1()
+        private SolutionComponentDescriptor GetDescriptor(IOrganizationServiceExtented service)
         {
-            ConnectionData connectionData = null;
-
-            cmBConnection1.Dispatcher.Invoke(() =>
+            if (!_cacheDescription.ContainsKey(service.ConnectionData.ConnectionId))
             {
-                connectionData = cmBConnection1.SelectedItem as ConnectionData;
-            });
-
-            if (!_cacheDescription.ContainsKey(connectionData.ConnectionId))
-            {
-                var service = await GetService1();
-
-                if (service != null)
-                {
-                    _cacheDescription[connectionData.ConnectionId] = new SolutionComponentDescriptor(service);
-                }
+                _cacheDescription[service.ConnectionData.ConnectionId] = new SolutionComponentDescriptor(service);
             }
 
-            return _cacheDescription[connectionData.ConnectionId];
-        }
-
-        private async Task<SolutionComponentDescriptor> GetDescriptor2()
-        {
-            ConnectionData connectionData = null;
-
-            cmBConnection2.Dispatcher.Invoke(() =>
-            {
-                connectionData = cmBConnection2.SelectedItem as ConnectionData;
-            });
-
-            if (!_cacheDescription.ContainsKey(connectionData.ConnectionId))
-            {
-                var service = await GetService2();
-
-                if (service != null)
-                {
-                    _cacheDescription[connectionData.ConnectionId] = new SolutionComponentDescriptor(service);
-                }
-            }
-
-            _cacheDescription[connectionData.ConnectionId].SetSettings(_commonConfig);
-
-            return _cacheDescription[connectionData.ConnectionId];
+            return _cacheDescription[service.ConnectionData.ConnectionId];
         }
 
         private async Task ShowExistingSystemForms()
@@ -770,8 +734,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (service1 != null && service2 != null)
             {
-                var descriptor1 = await GetDescriptor1();
-                var descriptor2 = await GetDescriptor2();
+                var descriptor1 = GetDescriptor(service1);
+                var descriptor2 = GetDescriptor(service2);
 
                 var handler1 = new FormDescriptionHandler(descriptor1, new DependencyRepository(service1))
                 {
@@ -943,8 +907,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (service1 != null && service2 != null)
             {
-                var descriptor1 = await GetDescriptor1();
-                var descriptor2 = await GetDescriptor2();
+                var descriptor1 = GetDescriptor(service1);
+                var descriptor2 = GetDescriptor(service2);
 
                 var repository1 = new SystemFormRepository(service1);
                 var repository2 = new SystemFormRepository(service2);
@@ -1176,7 +1140,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionSystemFormWithFormDescription(link.Link.Entity1.Id, link.Link.Entity1.ObjectTypeCode, link.Link.Entity1.Name, GetService1, GetDescriptor1, PerformExportFormDescriptionToFileAsync);
+            ExecuteActionSystemFormWithFormDescription(link.Link.Entity1.Id, link.Link.Entity1.ObjectTypeCode, link.Link.Entity1.Name, GetService1, PerformExportFormDescriptionToFileAsync);
         }
 
         private void mIExportSystemForm2FormDescription_Click(object sender, RoutedEventArgs e)
@@ -1188,10 +1152,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionSystemFormWithFormDescription(link.Link.Entity2.Id, link.Link.Entity2.ObjectTypeCode, link.Link.Entity2.Name, GetService2, GetDescriptor2, PerformExportFormDescriptionToFileAsync);
+            ExecuteActionSystemFormWithFormDescription(link.Link.Entity2.Id, link.Link.Entity2.ObjectTypeCode, link.Link.Entity2.Name, GetService2, PerformExportFormDescriptionToFileAsync);
         }
 
-        private async Task PerformExportFormDescriptionToFileAsync(Guid idSystemForm, string entityName, string name, Func<Task<IOrganizationServiceExtented>> getService, Func<Task<SolutionComponentDescriptor>> getDescription)
+        private async Task PerformExportFormDescriptionToFileAsync(Guid idSystemForm, string entityName, string name, Func<Task<IOrganizationServiceExtented>> getService)
         {
             if (!this.IsControlsEnabled)
             {
@@ -1201,7 +1165,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(false, Properties.WindowStatusStrings.CreatingSystemFormDescriptionFormat2, entityName, name);
 
             var service = await getService();
-            var descriptor = await getDescription();
+            var descriptor = GetDescriptor(service);
 
             if (service != null && descriptor != null)
             {
@@ -1299,7 +1263,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionSystemFormWithFormDescription(link.Link.Entity1.Id, link.Link.Entity1.ObjectTypeCode, link.Link.Entity1.Name, GetService1, GetDescriptor1, PerformDownloadWebResourcesAsync);
+            ExecuteActionSystemFormWithFormDescription(link.Link.Entity1.Id, link.Link.Entity1.ObjectTypeCode, link.Link.Entity1.Name, GetService1, PerformDownloadWebResourcesAsync);
         }
 
         private void mIExportSystemForm2DownloadWebResouces_Click(object sender, RoutedEventArgs e)
@@ -1311,7 +1275,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionSystemFormWithFormDescription(link.Link.Entity2.Id, link.Link.Entity2.ObjectTypeCode, link.Link.Entity2.Name, GetService2, GetDescriptor2, PerformDownloadWebResourcesAsync);
+            ExecuteActionSystemFormWithFormDescription(link.Link.Entity2.Id, link.Link.Entity2.ObjectTypeCode, link.Link.Entity2.Name, GetService2, PerformDownloadWebResourcesAsync);
         }
 
         private void ExecuteActionSystemFormWithFormDescription(
@@ -1319,8 +1283,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string entityName
             , string name
             , Func<Task<IOrganizationServiceExtented>> getService
-            , Func<Task<SolutionComponentDescriptor>> getDescriptor
-            , Func<Guid, string, string, Func<Task<IOrganizationServiceExtented>>, Func<Task<SolutionComponentDescriptor>>, Task> action)
+            , Func<Guid, string, string, Func<Task<IOrganizationServiceExtented>>, Task> action)
         {
             if (!this.IsControlsEnabled)
             {
@@ -1338,15 +1301,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
-            action(systemFormId, entityName, name, getService, getDescriptor);
+            action(systemFormId, entityName, name, getService);
         }
 
-        private async Task PerformDownloadWebResourcesAsync(Guid systemFormId, string entityName, string name, Func<Task<IOrganizationServiceExtented>> getService, Func<Task<SolutionComponentDescriptor>> getDescriptor)
+        private async Task PerformDownloadWebResourcesAsync(Guid systemFormId, string entityName, string name, Func<Task<IOrganizationServiceExtented>> getService)
         {
             ToggleControls(false, Properties.WindowStatusStrings.DownloadingSystemFormWebResourcesFormat2, entityName, name);
 
             var service = await getService();
-            var descriptor = await getDescriptor();
+            var descriptor = GetDescriptor(service);
 
             if (service != null && descriptor != null)
             {

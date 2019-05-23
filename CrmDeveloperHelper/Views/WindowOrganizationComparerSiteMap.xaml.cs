@@ -118,7 +118,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             base.OnClosed(e);
         }
 
-        private async Task<IOrganizationServiceExtented> GetService1()
+        private ConnectionData GetConnection1()
         {
             ConnectionData connectionData = null;
 
@@ -127,33 +127,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBConnection1.SelectedItem as ConnectionData;
             });
 
-            if (connectionData != null)
-            {
-                if (!_cacheService.ContainsKey(connectionData.ConnectionId))
-                {
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-                    _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-                    var service = await QuickConnection.ConnectAsync(connectionData);
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
-
-                    _cacheService[connectionData.ConnectionId] = service;
-                }
-
-                return _cacheService[connectionData.ConnectionId];
-            }
-
-            return null;
+            return connectionData;
         }
 
-        private async Task<IOrganizationServiceExtented> GetService2()
+        private ConnectionData GetConnection2()
         {
             ConnectionData connectionData = null;
 
-            cmBConnection2.Dispatcher.Invoke(() =>
+            cmBConnection1.Dispatcher.Invoke(() =>
             {
                 connectionData = cmBConnection2.SelectedItem as ConnectionData;
             });
 
+            return connectionData;
+        }
+
+        private async Task<IOrganizationServiceExtented> GetService1()
+        {
+            return await GetService(GetConnection1());
+        }
+
+        private async Task<IOrganizationServiceExtented> GetService2()
+        {
+            return await GetService(GetConnection2());
+        }
+
+        private async Task<IOrganizationServiceExtented> GetService(ConnectionData connectionData)
+        {
             if (connectionData != null)
             {
                 if (!_cacheService.ContainsKey(connectionData.ConnectionId))

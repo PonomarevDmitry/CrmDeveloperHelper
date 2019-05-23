@@ -274,6 +274,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
         #region Методы получения метаданных.
 
+        public Task<EntityMetadata> GetEntityMetadataAsync(Guid idMetadata)
+        {
+            if (_dictEntity.ContainsKey(idMetadata))
+            {
+                return Task.FromResult(_dictEntity[idMetadata]);
+            }
+
+            return Task.Run(() => GetEntityMetadata(idMetadata));
+        }
+
         public EntityMetadata GetEntityMetadata(Guid idMetadata)
         {
             if (_dictEntity.ContainsKey(idMetadata))
