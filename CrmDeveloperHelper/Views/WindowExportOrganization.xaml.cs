@@ -204,16 +204,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private class EntityViewItem
         {
-            public string Name { get; private set; }
+            public string Name => Organization.Name;
 
-            public string IsDisabled { get; private set; }
+            public string IsDisabled { get; }
 
             public Organization Organization { get; private set; }
 
-            public EntityViewItem(string name, string isDisabled, Organization organization)
+            public EntityViewItem(Organization organization)
             {
-                this.Name = name;
+                organization.FormattedValues.TryGetValue(Organization.Schema.Attributes.isdisabled, out var isDisabled);
+
                 this.IsDisabled = isDisabled;
+
                 this.Organization = organization;
             }
         }
@@ -224,7 +226,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 foreach (var entity in results.OrderBy(ent => ent.Name))
                 {
-                    var item = new EntityViewItem(entity.Name, entity.FormattedValues[Organization.Schema.Attributes.isdisabled], entity);
+                    var item = new EntityViewItem(entity);
 
                     this._itemsSource.Add(item);
                 }

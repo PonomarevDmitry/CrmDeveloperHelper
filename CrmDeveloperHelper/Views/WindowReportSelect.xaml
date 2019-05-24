@@ -29,13 +29,13 @@
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
 
-                <DataGridTextColumn Header="Report Name" Width="260" Binding="{Binding ReportName}" />
+                <DataGridTextColumn Header="Report Name" Width="260" Binding="{Binding Name}" />
 
                 <DataGridTextColumn Header="File Name" Width="260" Binding="{Binding FileName}" />
 
-                <DataGridTextColumn Header="Report Type" Width="150" Binding="{Binding ReportType}" />
+                <DataGridTextColumn Header="Report Type" Width="150" Binding="{Binding ReportTypeCode}" />
 
-                <DataGridTextColumn Header="Viewable By" Width="100" Binding="{Binding ViewableBy}" />
+                <DataGridTextColumn Header="Viewable By" Width="100" Binding="{Binding IsPersonal}" />
 
                 <DataGridTextColumn Header="Owner" Width="100" Binding="{Binding Owner}" />
 

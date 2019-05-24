@@ -38,6 +38,7 @@
                 
                 <Separator/>
                 <MenuItem Header="Plugin Type Description" Click="mICreatePluginTypeDescription_Click"/>
+                <MenuItem Header="CustomWorkflowActivityInfo" Click="mIExportCustomWorkflowActivityInfo_Click"/>
                 
                 <Separator/>
                 <MenuItem Header="Open Solutions Containing Component in Window" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
@@ -103,7 +104,25 @@
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
 
-                <DataGridTextColumn Header="Plugin Type Name" Width="500" Binding="{Binding PluginTypeName}" />
+                <DataGridTextColumn Header="TypeName" Width="500" Binding="{Binding TypeName}" />
+
+                <DataGridTextColumn Header="Name" Width="100" Binding="{Binding Name}" />
+
+                <DataGridTextColumn Header="FriendlyName" Width="100" Binding="{Binding FriendlyName}" />
+
+
+                <DataGridTextColumn Header="IsManaged" Width="100" Binding="{Binding IsManaged}" />
+
+                <DataGridTextColumn Header="IsWorkflowActivity" Width="100" Binding="{Binding IsWorkflowActivity}" />
+
+                <DataGridTextColumn Header="WorkflowActivityGroupName" Width="100" Binding="{Binding WorkflowActivityGroupName}" />
+
+
+                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding HasDescription, Mode=OneTime}">
+                    <DataGridCheckBoxColumn.Header>
+                        <Label Content="D" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Padding="0" ToolTip="Description" />
+                    </DataGridCheckBoxColumn.Header>
+                </DataGridCheckBoxColumn>
 
             </DataGrid.Columns>
         </DataGrid>

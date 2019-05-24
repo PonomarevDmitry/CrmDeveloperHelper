@@ -230,13 +230,13 @@
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
 
-                <DataGridTextColumn Header="Entity Name" Width="260" Binding="{Binding EntityName}" />
+                <DataGridTextColumn Header="Entity Name" Width="260" Binding="{Binding ReturnedTypeCode}" />
 
-                <DataGridTextColumn Header="Query Type" Width="200" Binding="{Binding QueryType}" />
+                <DataGridTextColumn Header="Type" Width="200" Binding="{Binding QueryType}" />
 
-                <DataGridTextColumn Header="Query Name" Width="200" Binding="{Binding QueryName}" />
+                <DataGridTextColumn Header="Name" Width="200" Binding="{Binding Name}" />
 
-                <DataGridTextColumn Header="Query Status" Width="150" Binding="{Binding QueryStatus}" />
+                <DataGridTextColumn Header="Status" Width="150" Binding="{Binding StatusCode}" />
 
             </DataGrid.Columns>
         </DataGrid>

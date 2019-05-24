@@ -289,16 +289,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private class EntityViewItem
         {
-            public string ReportName1 { get; private set; }
+            public string ReportName1 => Link.Entity1?.Name;
 
-            public string ReportName2 { get; private set; }
+            public string ReportName2 => Link.Entity2?.Name;
 
-            public LinkedEntities<Report> Link { get; private set; }
+            public LinkedEntities<Report> Link { get; }
 
-            public EntityViewItem(string reportName1, string reportName2, LinkedEntities<Report> link)
+            public EntityViewItem(LinkedEntities<Report> link)
             {
-                this.ReportName1 = reportName1;
-                this.ReportName2 = reportName2;
                 this.Link = link;
             }
         }
@@ -307,9 +305,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this.lstVwReports.Dispatcher.Invoke(() =>
             {
-                foreach (var link in results.OrderBy(ent => ent.Entity1.Name).ThenBy(ent => ent.Entity1.Name).ThenBy(ent => ent.Entity2?.Name))
+                foreach (var link in results
+                    .OrderBy(ent => ent.Entity1.Name)
+                    .ThenBy(ent => ent.Entity2?.Name)
+                    .ThenBy(ent => ent.Entity1.Id)
+                )
                 {
-                    var item = new EntityViewItem(link.Entity1.Name, link.Entity2?.Name, link);
+                    var item = new EntityViewItem(link);
 
                     this._itemsSource.Add(item);
                 }

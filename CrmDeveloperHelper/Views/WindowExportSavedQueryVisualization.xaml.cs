@@ -255,16 +255,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private class EntityViewItem
         {
-            public string EntityName { get; private set; }
+            public string PrimaryEntityTypeCode => SavedQueryVisualization.PrimaryEntityTypeCode;
 
-            public string ChartName { get; private set; }
+            public string Name => SavedQueryVisualization.Name;
 
-            public SavedQueryVisualization SavedQueryVisualization { get; private set; }
+            public SavedQueryVisualization SavedQueryVisualization { get;  }
 
-            public EntityViewItem(string entityName, string chartName, SavedQueryVisualization savedQueryVisualization)
+            public EntityViewItem(SavedQueryVisualization savedQueryVisualization)
             {
-                this.EntityName = entityName;
-                this.ChartName = chartName;
                 this.SavedQueryVisualization = savedQueryVisualization;
             }
         }
@@ -278,7 +276,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     .ThenBy(ent => ent.Name)
                 )
                 {
-                    var item = new EntityViewItem(entity.PrimaryEntityTypeCode, entity.Name, entity);
+                    var item = new EntityViewItem(entity);
 
                     this._itemsSource.Add(item);
                 }

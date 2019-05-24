@@ -234,13 +234,13 @@
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
 
-                <DataGridTextColumn Header="Entity Name" Width="150" Binding="{Binding EntityName}" />
+                <DataGridTextColumn Header="Entity Name" Width="150" Binding="{Binding ObjectTypeCode}" />
 
                 <DataGridTextColumn Header="Form Type" Width="150" Binding="{Binding FormType}" />
 
-                <DataGridTextColumn Header="Form Name" Width="260" Binding="{Binding FormName}" />
+                <DataGridTextColumn Header="Name" Width="260" Binding="{Binding Name}" />
 
-                <DataGridTextColumn Header="Form State" Width="150" Binding="{Binding FormState}" />
+                <DataGridTextColumn Header="State" Width="150" Binding="{Binding FormActivationState}" />
 
             </DataGrid.Columns>
         </DataGrid>

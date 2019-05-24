@@ -182,25 +182,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private class EntityViewItem
         {
-            public string ReportName { get; private set; }
+            public string Name => Report.Name;
 
-            public string FileName { get; private set; }
+            public string FileName => Report.Name;
 
-            public string ReportType { get; private set; }
+            public string ReportTypeCode { get; }
 
-            public string Owner { get; private set; }
+            public string Owner => Report.OwnerId?.Name;
 
-            public string ViewableBy { get; private set; }
+            public string IsPersonal { get; }
 
-            public Report Report { get; private set; }
+            public Report Report { get; }
 
-            public EntityViewItem(string name, string filename, string reportType, string owner, string ispersonal, Report report)
+            public EntityViewItem(Report report)
             {
-                this.ReportName = name;
-                this.FileName = filename;
-                this.ReportType = reportType;
-                this.Owner = owner;
-                this.ViewableBy = ispersonal;
+                report.FormattedValues.TryGetValue(Report.Schema.Attributes.reporttypecode, out var reporttypecode);
+                report.FormattedValues.TryGetValue(Report.Schema.Attributes.ispersonal, out var ispersonal);
+
+                this.ReportTypeCode = reporttypecode;
+                this.IsPersonal = ispersonal;
+
                 this.Report = report;
             }
         }
@@ -211,17 +212,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 foreach (var report in results)
                 {
-                    string reportType = report.FormattedValues[Report.Schema.Attributes.reporttypecode];
-
-                    string owner = string.Empty;
-                    if (report.OwnerId != null)
-                    {
-                        owner = report.OwnerId.Name;
-                    }
-
-                    string ispersonal = report.FormattedValues[Report.Schema.Attributes.ispersonal];
-
-                    var item = new EntityViewItem(report.Name, report.FileName, reportType, owner, ispersonal, report);
+                    var item = new EntityViewItem(report);
 
                     this._itemsSource.Add(item);
                 }

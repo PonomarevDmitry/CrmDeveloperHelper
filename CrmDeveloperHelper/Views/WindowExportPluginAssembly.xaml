@@ -104,7 +104,44 @@
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
 
-                <DataGridTextColumn Header="Plugin Assembly Name" Width="500" Binding="{Binding PluginAssemblyName}" />
+                <DataGridTextColumn Header="Name" Width="500" Binding="{Binding Path=Name}" />
+
+                <DataGridTextColumn Header="Version" Width="100" Binding="{Binding Path=Version}" />
+
+                <DataGridTextColumn Header="Culture" Width="100" Binding="{Binding Path=Culture}" />
+
+                <DataGridTextColumn Header="PublicKeyToken" Width="100" Binding="{Binding Path=PublicKeyToken}" />
+                
+
+                <DataGridTextColumn Header="IsCustomizable" Width="100" Binding="{Binding Path=IsCustomizable}" />
+
+                <DataGridTextColumn Header="IsManaged" Width="100" Binding="{Binding Path=IsManaged}" />
+
+                <DataGridTextColumn Header="SourceType" Width="100" Binding="{Binding Path=SourceType}" />
+                
+
+                <DataGridTextColumn Header="IsolationMode" Width="100" Binding="{Binding Path=IsolationMode}" />
+
+                <DataGridTextColumn Header="AuthType" Width="100" Binding="{Binding Path=AuthType}" />
+
+                <DataGridTextColumn Header="IsHidden" Width="100" Binding="{Binding Path=IsHidden}" />
+
+
+                <DataGridTextColumn Header="UserName" Width="100" Binding="{Binding Path=UserName}" />
+
+                <DataGridTextColumn Header="IsPasswordSet" Width="100" Binding="{Binding Path=IsPasswordSet}" />
+
+
+                <DataGridTextColumn Header="Url" Width="100" Binding="{Binding Path=Url}" />
+
+                <DataGridTextColumn Header="Path" Width="100" Binding="{Binding Path=Path}" />
+
+                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding HasDescription, Mode=OneTime}">
+                    <DataGridCheckBoxColumn.Header>
+                        <Label Content="D" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Padding="0" ToolTip="Description" />
+                    </DataGridCheckBoxColumn.Header>
+                </DataGridCheckBoxColumn>
+
 
             </DataGrid.Columns>
         </DataGrid>

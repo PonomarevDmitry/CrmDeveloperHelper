@@ -257,23 +257,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private class EntityViewItem
         {
-            public string EntityName { get; private set; }
+            public string ReturnedTypeCode => SavedQuery.ReturnedTypeCode;
 
-            public string QueryName { get; private set; }
+            public string Name => SavedQuery.Name;
 
-            public string QueryType { get; private set; }
+            public string QueryType { get; }
 
-            public string QueryStatus { get; private set; }
+            public string StatusCode { get; }
 
-            public SavedQuery SavedQuery { get; private set; }
+            public SavedQuery SavedQuery { get; }
 
-            public EntityViewItem(string entityName, string queryName, string queryType, string queryStatus, SavedQuery savedQuery)
+            public EntityViewItem(SavedQuery savedQuery)
             {
-                this.EntityName = entityName;
-                this.QueryName = queryName;
-                this.QueryType = queryType;
+                savedQuery.FormattedValues.TryGetValue(SavedQuery.Schema.Attributes.statuscode, out var statuscode);
+
+                this.StatusCode = statuscode;
+                this.QueryType = SavedQueryRepository.GetQueryTypeName(savedQuery.QueryType.GetValueOrDefault());
+
                 this.SavedQuery = savedQuery;
-                this.QueryStatus = queryStatus;
             }
         }
 
@@ -287,13 +288,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     .ThenBy(ent => ent.Name)
                 )
                 {
-                    int queryType = entity.QueryType.Value;
-
-                    string queryTypeName = SavedQueryRepository.GetQueryTypeName(queryType);
-
-                    entity.FormattedValues.TryGetValue(SavedQuery.Schema.Attributes.statuscode, out var queryStatus);
-
-                    var item = new EntityViewItem(entity.ReturnedTypeCode, entity.Name, queryTypeName, queryStatus, entity);
+                    var item = new EntityViewItem(entity);
 
                     this._itemsSource.Add(item);
                 }

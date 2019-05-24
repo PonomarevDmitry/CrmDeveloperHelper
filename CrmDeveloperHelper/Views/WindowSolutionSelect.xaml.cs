@@ -161,6 +161,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             public string Prefix => Solution.PublisherCustomizationPrefix;
 
+            public string Version => Solution.Version;
+
             public EntityViewItem(Solution Solution)
             {
                 this.Solution = Solution;

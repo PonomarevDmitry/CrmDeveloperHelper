@@ -39,8 +39,10 @@
                 <DataGridTextColumn Header="Solution Name" Width="260" Binding="{Binding SolutionName}" />
 
                 <DataGridTextColumn Header="Display Name" Width="200" Binding="{Binding DisplayName}" />
-                
+
                 <DataGridTextColumn Header="Solution Type" Width="200" Binding="{Binding SolutionType}" />
+
+                <DataGridTextColumn Header="Version" Width="120" Binding="{Binding Version}" />
 
                 <DataGridTextColumn Header="Installed On" Width="200" Binding="{Binding InstalledOn, StringFormat={}{0:dd.MM.yyyy HH:mm:ss}}" />
 

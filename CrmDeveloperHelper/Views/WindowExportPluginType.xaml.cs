@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -162,7 +163,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (service != null)
                 {
                     var repository = new PluginTypeRepository(service);
-                    list = await repository.GetPluginTypesAsync(textName, new ColumnSet(PluginType.Schema.Attributes.typename, PluginType.Schema.Attributes.pluginassemblyid));
+                    list = await repository.GetPluginTypesAsync(textName
+                        , new ColumnSet
+                        (
+                            PluginType.Schema.Attributes.typename
+                            , PluginType.Schema.Attributes.name
+                            , PluginType.Schema.Attributes.friendlyname
+                            , PluginType.Schema.Attributes.workflowactivitygroupname
+                            , PluginType.Schema.Attributes.description
+                            , PluginType.Schema.Attributes.ismanaged
+                            , PluginType.Schema.Attributes.isworkflowactivity
+                            , PluginType.Schema.Attributes.pluginassemblyid
+                        )
+                    );
                 }
             }
             catch (Exception ex)
@@ -177,13 +190,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private class EntityViewItem
         {
-            public string PluginTypeName { get; private set; }
+            public string TypeName => PluginType.TypeName;
 
-            public PluginType PluginType { get; private set; }
+            public string Name => PluginType.Name;
 
-            public EntityViewItem(string pluginTypeName, PluginType entity)
+            public string FriendlyName => PluginType.FriendlyName;
+
+            public string WorkflowActivityGroupName => PluginType.WorkflowActivityGroupName;
+
+            public bool HasDescription => !string.IsNullOrEmpty(PluginType.Description);
+
+            public string Description => PluginType.Description;
+
+            public bool IsManaged => PluginType.IsManaged.GetValueOrDefault();
+
+            public bool IsWorkflowActivity => PluginType.IsWorkflowActivity.GetValueOrDefault();
+
+            public PluginType PluginType { get; }
+
+            public EntityViewItem(PluginType entity)
             {
-                this.PluginTypeName = pluginTypeName;
                 this.PluginType = entity;
             }
         }
@@ -194,7 +220,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 foreach (var entity in results.OrderBy(ent => ent.TypeName))
                 {
-                    var item = new EntityViewItem(entity.TypeName, entity);
+                    var item = new EntityViewItem(entity);
 
                     this._itemsSource.Add(item);
                 }
@@ -349,6 +375,123 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             ExecuteAction(entity.Id, entity.TypeName, PerformExportPluginTypeDescription);
+        }
+
+        private void mIExportCustomWorkflowActivityInfo_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.TypeName, PluginType.Schema.Attributes.workflowactivitygroupname, PluginType.Schema.Headers.workflowactivitygroupname, PerformExportXmlToFile);
+        }
+
+        private async Task ExecuteActionEntity(Guid idPluginType, string typeName, string fieldName, string fieldTitle, Func<string, Guid, string, string, string, Task> action)
+        {
+            string folder = txtBFolder.Text.Trim();
+
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(folder))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+            else if (!Directory.Exists(folder))
+            {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
+                folder = FileOperations.GetDefaultFolderForExportFilePath();
+            }
+
+            await action(folder, idPluginType, typeName, fieldName, fieldTitle);
+        }
+
+        private async Task PerformExportXmlToFile(string folder, Guid idPluginType, string typeName, string fieldName, string fieldTitle)
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ExportingXmlFieldToFileFormat1, fieldTitle);
+
+            try
+            {
+                var repository = new PluginTypeRepository(service);
+
+                var pluginType = await repository.GetByIdAsync(idPluginType, new ColumnSet(fieldName));
+
+                string xmlContent = pluginType.GetAttributeValue<string>(fieldName);
+
+                string filePath = await CreateFileAsync(folder, typeName, fieldTitle, xmlContent);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat1, fieldName);
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ExportingXmlFieldToFileFailedFormat1, fieldName);
+            }
+        }
+
+        private Task<string> CreateFileAsync(string folder, string typeName, string fieldTitle, string xmlContent)
+        {
+            return Task.Run(() => CreateFile(folder, typeName, fieldTitle, xmlContent));
+        }
+
+        private string CreateFile(string folder, string typeName, string fieldTitle, string xmlContent)
+        {
+            ConnectionData connectionData = null;
+
+            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+            });
+
+            if (connectionData == null)
+            {
+                return null;
+            }
+
+            string fileName = EntityFileNameFormatter.GetPluginTypeFileName(connectionData.Name, typeName, fieldTitle, "xml");
+            string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
+
+            if (!string.IsNullOrEmpty(xmlContent))
+            {
+                try
+                {
+                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                    {
+                        xmlContent = doc.ToString();
+                    }
+
+                    File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
+
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, Workflow.Schema.EntityLogicalName, typeName, fieldTitle, filePath);
+                }
+                catch (Exception ex)
+                {
+                    this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+                }
+            }
+            else
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, Workflow.Schema.EntityLogicalName, typeName, fieldTitle);
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
+            }
+
+            return filePath;
         }
 
         private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)

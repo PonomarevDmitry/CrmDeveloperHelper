@@ -65,7 +65,7 @@
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
 
-                <DataGridTextColumn Header="Assembly Name" Width="500" Binding="{Binding AssemblyName}" />
+                <DataGridTextColumn Header="Assembly Name" Width="500" Binding="{Binding Name}" />
 
             </DataGrid.Columns>
         </DataGrid>

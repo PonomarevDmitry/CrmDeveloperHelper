@@ -212,19 +212,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private class EntityViewItem
         {
-            public Guid SiteMapId { get; private set; }
+            public Guid SiteMapId => SiteMap.Id;
 
-            public string SiteMapName { get; private set; }
+            public string SiteMapName => SiteMap.SiteMapName;
 
-            public string SiteMapNameUnique { get; private set; }
+            public string SiteMapNameUnique => SiteMap.SiteMapNameUnique;
 
-            public SiteMap SiteMap { get; private set; }
+            public SiteMap SiteMap { get; }
 
-            public EntityViewItem(Guid id, string siteMapName, string siteMapNameUnique, SiteMap siteMap)
+            public EntityViewItem(SiteMap siteMap)
             {
-                this.SiteMapId = id;
-                this.SiteMapNameUnique = siteMapNameUnique;
-                this.SiteMapName = siteMapName;
                 this.SiteMap = siteMap;
             }
         }
@@ -239,7 +236,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     .ThenBy(ent => ent.Id)
                 )
                 {
-                    var item = new EntityViewItem(entity.Id, entity.SiteMapName, entity.SiteMapNameUnique, entity);
+                    var item = new EntityViewItem(entity);
 
                     this._itemsSource.Add(item);
                 }

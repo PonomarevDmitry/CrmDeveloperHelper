@@ -319,26 +319,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private class EntityViewItem
         {
-            public string EntityName { get; private set; }
+            public string PrimaryEntity => Workflow.PrimaryEntity;
 
-            public string Category { get; private set; }
+            public string Name => Workflow.Name;
 
-            public string ModeName { get; private set; }
+            public string UniqueName => Workflow.UniqueName;
 
-            public string StatusName { get; private set; }
+            public string Category { get; }
 
-            public string WorkflowName { get; private set; }
+            public string Mode { get; }
 
-            public Workflow Workflow { get; private set; }
+            public string StatusCode { get; }
 
-            public EntityViewItem(string entityName, string workflowName, string category, string modeName, string statusName, Workflow workflow)
+            public Workflow Workflow { get; }
+
+            public EntityViewItem(Workflow workflow)
             {
-                this.EntityName = entityName;
-                this.WorkflowName = workflowName;
+                workflow.FormattedValues.TryGetValue(Workflow.Schema.Attributes.category, out var category);
+                workflow.FormattedValues.TryGetValue(Workflow.Schema.Attributes.mode, out var mode);
+                workflow.FormattedValues.TryGetValue(Workflow.Schema.Attributes.statuscode, out var statuscode);
+
                 this.Category = category;
-                this.ModeName = modeName;
+                this.Mode = mode;
+                this.StatusCode = statuscode;
+
                 this.Workflow = workflow;
-                this.StatusName = statusName;
             }
         }
 
@@ -352,20 +357,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     .ThenBy(ent => ent.Name)
                 )
                 {
-                    string name = entity.Name;
-
-                    var uniqueName = entity.UniqueName;
-
-                    if (!string.IsNullOrEmpty(uniqueName))
-                    {
-                        name += string.Format("    (UniqueName \"{0}\")", uniqueName);
-                    }
-
-                    string category = entity.FormattedValues[Workflow.Schema.Attributes.category];
-                    string mode = entity.FormattedValues[Workflow.Schema.Attributes.mode];
-                    string status = entity.FormattedValues[Workflow.Schema.Attributes.statuscode];
-
-                    var item = new EntityViewItem(entity.PrimaryEntity, name, category, mode, status, entity);
+                    var item = new EntityViewItem(entity);
 
                     this._itemsSource.Add(item);
                 }

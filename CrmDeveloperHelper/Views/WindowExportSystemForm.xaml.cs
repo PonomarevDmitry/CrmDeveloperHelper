@@ -327,23 +327,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private class EntityViewItem
         {
-            public string EntityName { get; private set; }
+            public string ObjectTypeCode => SystemForm.ObjectTypeCode;
 
-            public string FormType { get; private set; }
+            public string FormType { get; }
 
-            public string FormName { get; private set; }
+            public string Name => SystemForm.Name;
 
-            public string FormState { get; private set; }
+            public string FormActivationState { get; }
 
-            public SystemForm SystemForm { get; private set; }
+            public SystemForm SystemForm { get; }
 
-            public EntityViewItem(string entityName, string formName, string formType, string formState, SystemForm systemForm)
+            public EntityViewItem(SystemForm systemForm)
             {
-                this.EntityName = entityName;
-                this.FormName = formName;
-                this.SystemForm = systemForm;
+                systemForm.FormattedValues.TryGetValue(SystemForm.Schema.Attributes.type, out var formType);
+                systemForm.FormattedValues.TryGetValue(SystemForm.Schema.Attributes.formactivationstate, out var formactivationstate);
+
                 this.FormType = formType;
-                this.FormState = formState;
+                this.FormActivationState = formactivationstate;
+
+                this.SystemForm = systemForm;
             }
         }
 
@@ -357,10 +359,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     .ThenBy(ent => ent.Name)
                 )
                 {
-                    entity.FormattedValues.TryGetValue(SystemForm.Schema.Attributes.type, out var formType);
-                    entity.FormattedValues.TryGetValue(SystemForm.Schema.Attributes.formactivationstate, out var formState);
-
-                    var item = new EntityViewItem(entity.ObjectTypeCode, entity.Name, formType, formState, entity);
+                    var item = new EntityViewItem(entity);
 
                     this._itemsSource.Add(item);
                 }

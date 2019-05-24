@@ -229,19 +229,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private class EntityViewItem
         {
-            public string Name { get; private set; }
+            public string Name => CustomControl.Name;
 
-            public string CompatibleDataTypes { get; private set; }
+            public string CompatibleDataTypes => CustomControl.CompatibleDataTypes;
 
-            public string IsManaged { get; private set; }
+            public bool IsManaged => CustomControl.IsManaged.GetValueOrDefault();
 
             public CustomControl CustomControl { get; private set; }
 
-            public EntityViewItem(string name, string compatibleDataTypes, string isManaged, CustomControl CustomControl)
+            public EntityViewItem(CustomControl CustomControl)
             {
-                this.Name = name;
-                this.CompatibleDataTypes = compatibleDataTypes;
-                this.IsManaged = isManaged;
                 this.CustomControl = CustomControl;
             }
         }
@@ -255,7 +252,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     .ThenBy(ent => ent.CompatibleDataTypes)
                 )
                 {
-                    var item = new EntityViewItem(entity.Name, entity.CompatibleDataTypes, entity.IsManaged.GetValueOrDefault().ToString(), entity);
+                    var item = new EntityViewItem(entity);
 
                     this._itemsSource.Add(item);
                 }

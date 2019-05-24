@@ -104,13 +104,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private static readonly HashSet<string> _SupportedExtensionsWebResource = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
         {
-            ".html", ".htm", ".js", ".css",
-            ".gif", ".jpg", ".png", ".ico", ".svg",
-            ".xml", ".xsl", ".xslt",
-            ".xap"
+            ".html", ".htm", ".js", ".css", ".resx"
+            , ".gif", ".jpg", ".png", ".ico", ".svg"
+            , ".xml", ".xsl", ".xslt"
+            , ".xap"
         };
 
-        private static HashSet<string> _SupportedExtensionsWebResourceText = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase) { ".htm", ".html", ".css", ".js", ".xml", ".xsl, .xslt", ".svg" };
+        private static HashSet<string> _SupportedExtensionsWebResourceText = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
+        {
+            ".htm", ".html", ".css", ".js", ".xml", ".xsl, .xslt", ".svg", ".resx"
+        };
 
         private static HashSet<string> _SupportedReportType = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase) { ".rdl", ".rdlc" };
 

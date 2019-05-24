@@ -188,15 +188,17 @@
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
 
-                <DataGridTextColumn Header="Entity Name" Width="260" Binding="{Binding EntityName}" />
+                <DataGridTextColumn Header="PrimaryEntity" Width="260" Binding="{Binding PrimaryEntity}" />
 
                 <DataGridTextColumn Header="Category" Width="200" Binding="{Binding Category}" />
 
-                <DataGridTextColumn Header="Workflow Name" Width="200" Binding="{Binding WorkflowName}" />
+                <DataGridTextColumn Header="Name" Width="200" Binding="{Binding Name}" />
 
-                <DataGridTextColumn Header="Mode" Width="150" Binding="{Binding ModeName}" />
+                <DataGridTextColumn Header="UniqueName" Width="200" Binding="{Binding UniqueName}" />
 
-                <DataGridTextColumn Header="Status" Width="150" Binding="{Binding StatusName}" />
+                <DataGridTextColumn Header="Mode" Width="150" Binding="{Binding Mode}" />
+
+                <DataGridTextColumn Header="Status" Width="150" Binding="{Binding StatusCode}" />
 
             </DataGrid.Columns>
         </DataGrid>

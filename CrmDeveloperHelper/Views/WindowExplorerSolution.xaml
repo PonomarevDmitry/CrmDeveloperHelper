@@ -182,6 +182,8 @@
 
                         <DataGridTextColumn Header="Visible" Width="150" Binding="{Binding Visible}" />
 
+                        <DataGridTextColumn Header="Version" Width="120" Binding="{Binding Version}" />
+
                         <DataGridTextColumn Header="Installed On" Width="150" Binding="{Binding InstalledOn, StringFormat={}{0:dd.MM.yyyy HH:mm:ss}}" />
 
                         <DataGridTextColumn Header="Publisher Name" Width="200" Binding="{Binding PublisherName}" />

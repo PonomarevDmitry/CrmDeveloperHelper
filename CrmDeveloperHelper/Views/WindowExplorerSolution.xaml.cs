@@ -325,6 +325,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             public string Description => Solution.Description;
 
+            public string Version => Solution.Version;
+
             public bool HasDescription => !string.IsNullOrEmpty(Solution.Description);
 
             public EntityViewItem(Solution solution)

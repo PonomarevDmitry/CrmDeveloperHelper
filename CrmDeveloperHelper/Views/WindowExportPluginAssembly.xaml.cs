@@ -131,27 +131,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async Task<SolutionComponentDescriptor> GetDescriptor()
+        private SolutionComponentDescriptor GetDescriptor(IOrganizationServiceExtented service)
         {
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            if (service != null)
             {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
-
-            if (connectionData != null)
-            {
-                if (!_descriptorCache.ContainsKey(connectionData.ConnectionId))
+                if (!_descriptorCache.ContainsKey(service.ConnectionData.ConnectionId))
                 {
-                    var service = await GetService();
-
-                    _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(service);
+                    _descriptorCache[service.ConnectionData.ConnectionId] = new SolutionComponentDescriptor(service);
                 }
 
-                _descriptorCache[connectionData.ConnectionId].SetSettings(_commonConfig);
+                _descriptorCache[service.ConnectionData.ConnectionId].SetSettings(_commonConfig);
 
-                return _descriptorCache[connectionData.ConnectionId];
+                return _descriptorCache[service.ConnectionData.ConnectionId];
             }
 
             return null;
@@ -184,7 +175,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (service != null)
                 {
                     var repository = new PluginAssemblyRepository(service);
-                    list = await repository.GetPluginAssembliesAsync(textName, new ColumnSet(PluginAssembly.Schema.Attributes.name));
+                    list = await repository.GetPluginAssembliesAsync(textName
+                        , new ColumnSet
+                        (
+                            PluginAssembly.Schema.Attributes.name
+                            , PluginAssembly.Schema.Attributes.version
+                            , PluginAssembly.Schema.Attributes.culture
+                            , PluginAssembly.Schema.Attributes.publickeytoken
+                            , PluginAssembly.Schema.Attributes.iscustomizable
+                            , PluginAssembly.Schema.Attributes.ismanaged
+                            , PluginAssembly.Schema.Attributes.ishidden
+                            , PluginAssembly.Schema.Attributes.username
+                            , PluginAssembly.Schema.Attributes.ispasswordset
+                            , PluginAssembly.Schema.Attributes.authtype
+                            , PluginAssembly.Schema.Attributes.isolationmode
+                            , PluginAssembly.Schema.Attributes.sourcetype
+                            , PluginAssembly.Schema.Attributes.description
+                            , PluginAssembly.Schema.Attributes.path
+                            , PluginAssembly.Schema.Attributes.url
+                        )
+                    );
                 }
             }
             catch (Exception ex)
@@ -199,13 +209,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private class EntityViewItem
         {
-            public string PluginAssemblyName { get; private set; }
+            public string Name => PluginAssembly.Name;
 
-            public PluginAssembly PluginAssembly { get; private set; }
+            public string Version => PluginAssembly.Version;
 
-            public EntityViewItem(string pluginAssemblyName, PluginAssembly entity)
+            public string Culture => PluginAssembly.Culture;
+
+            public string PublicKeyToken => PluginAssembly.PublicKeyToken;
+
+            public bool IsCustomizable => PluginAssembly.IsCustomizable.Value;
+
+            public bool IsManaged => PluginAssembly.IsManaged.GetValueOrDefault();
+
+            public bool IsHidden => PluginAssembly.IsHidden.Value;
+
+            public string UserName => PluginAssembly.UserName;
+
+            public bool IsPasswordSet => PluginAssembly.IsPasswordSet.GetValueOrDefault();
+
+            public string AuthType { get; }
+
+            public string IsolationMode { get; }
+
+            public string SourceType { get; }
+
+            public string Description => PluginAssembly.Description;
+
+            public bool HasDescription => !string.IsNullOrEmpty(PluginAssembly.Description);
+
+            public string Path => PluginAssembly.Path;
+
+            public string Url => PluginAssembly.Url;
+
+            public PluginAssembly PluginAssembly { get; }
+
+            public EntityViewItem(PluginAssembly entity)
             {
-                this.PluginAssemblyName = pluginAssemblyName;
+                entity.FormattedValues.TryGetValue(PluginAssembly.Schema.Attributes.authtype, out var authtype);
+                entity.FormattedValues.TryGetValue(PluginAssembly.Schema.Attributes.isolationmode, out var isolationmode);
+                entity.FormattedValues.TryGetValue(PluginAssembly.Schema.Attributes.sourcetype, out var sourcetype);
+
+                this.AuthType = authtype;
+                this.IsolationMode = isolationmode;
+                this.SourceType = sourcetype;
+
                 this.PluginAssembly = entity;
             }
         }
@@ -216,7 +263,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 foreach (var entity in results.OrderBy(ent => ent.Name))
                 {
-                    var item = new EntityViewItem(entity.Name, entity);
+                    var item = new EntityViewItem(entity);
 
                     _itemsSource.Add(item);
                 }
@@ -596,7 +643,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
-            var descriptor = await GetDescriptor();
+            var descriptor = GetDescriptor(service);
 
             try
             {

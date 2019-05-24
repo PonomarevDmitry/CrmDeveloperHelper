@@ -240,13 +240,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private class EntityViewItem
         {
-            public string AssemblyName { get; private set; }
+            public string Name => Link.Entity1?.Name;
 
             public LinkedEntities<PluginAssembly> Link { get; private set; }
 
-            public EntityViewItem(string assemblyName, LinkedEntities<PluginAssembly> link)
+            public EntityViewItem(LinkedEntities<PluginAssembly> link)
             {
-                this.AssemblyName = assemblyName;
                 this.Link = link;
             }
         }
@@ -257,7 +256,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 foreach (var link in results.OrderBy(ent => ent.Entity1.Name))
                 {
-                    var item = new EntityViewItem(link.Entity1.Name, link);
+                    var item = new EntityViewItem(link);
 
                     this._itemsSource.Add(item);
                 }
@@ -797,7 +796,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService1();
 
-            WindowHelper.OpenPluginAssemblyWindow(this._iWriteToOutput, service, _commonConfig, entity?.AssemblyName ?? txtBFilter.Text);
+            WindowHelper.OpenPluginAssemblyWindow(this._iWriteToOutput, service, _commonConfig, entity?.Name ?? txtBFilter.Text);
         }
 
         private async void btnExportPluginAssembly2_Click(object sender, RoutedEventArgs e)
@@ -808,7 +807,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var service = await GetService2();
 
-            WindowHelper.OpenPluginAssemblyWindow(this._iWriteToOutput, service, _commonConfig, entity?.AssemblyName ?? txtBFilter.Text);
+            WindowHelper.OpenPluginAssemblyWindow(this._iWriteToOutput, service, _commonConfig, entity?.Name ?? txtBFilter.Text);
         }
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)

@@ -226,36 +226,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private class EntityViewItem
         {
-            public string SolutionName { get; private set; }
+            public string SolutionName => ImportJob.SolutionName;
 
-            public DateTime? StartedOn { get; private set; }
+            public DateTime? StartedOn => ImportJob.StartedOn;
 
-            public double Progress { get; private set; }
+            public double Progress => ImportJob.Progress.GetValueOrDefault();
 
-            public DateTime? CompletedOn { get; private set; }
+            public DateTime? CompletedOn => ImportJob.CompletedOn;
 
-            public DateTime? CreatedOn { get; private set; }
+            public DateTime? CreatedOn => ImportJob.CreatedOn;
 
-            public string CreatedBy { get; private set; }
+            public string CreatedBy => ImportJob.CreatedBy?.Name;
 
             public ImportJob ImportJob { get; private set; }
 
-            public EntityViewItem(string solutionName
-                , DateTime? startedOn
-                , double progress
-                , DateTime? completedOn
-                , DateTime? createdOn
-                , string createdBy
-                , ImportJob ImportJob
+            public EntityViewItem(ImportJob ImportJob
             )
             {
-                this.SolutionName = solutionName;
-                this.StartedOn = startedOn;
-                this.Progress = progress;
-                this.CompletedOn = completedOn;
-                this.CreatedOn = createdOn;
-                this.CreatedBy = createdBy;
-
                 this.ImportJob = ImportJob;
             }
         }
@@ -266,15 +253,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 foreach (var entity in results)
                 {
-                    var item = new EntityViewItem(
-                        entity.SolutionName
-                        , entity.StartedOn
-                        , entity.Progress.GetValueOrDefault()
-                        , entity.CompletedOn
-                        , entity.CreatedOn
-                        , entity.CreatedBy?.Name
-                        , entity
-                    );
+                    var item = new EntityViewItem(entity);
 
                     this._itemsSource.Add(item);
                 }

@@ -236,11 +236,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return string.Format(ReportFormatFile, connectionName, name, id.ToString(), fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
-        private const string PluginTypeFormatFileTxt = "{0}.PluginType {1} - {2} at {3}.txt";
+        private const string PluginTypeFormatFileTxt = "{0}.PluginType {1} - {2} at {3}.{4}";
 
-        internal static string GetPluginTypeFileName(string connectionName, string name, string fieldTitle)
+        internal static string GetPluginTypeFileName(string connectionName, string name, string fieldTitle, string extension = "txt")
         {
-            return string.Format(PluginTypeFormatFileTxt, connectionName, name, fieldTitle, GetDateString());
+            return string.Format(PluginTypeFormatFileTxt, connectionName, name, fieldTitle, GetDateString(), extension.Trim('.'));
         }
 
         private const string PluginAssemblyFormatFileTxt = "{0}.PluginAssembly {1} - {2} at {3}.{4}";

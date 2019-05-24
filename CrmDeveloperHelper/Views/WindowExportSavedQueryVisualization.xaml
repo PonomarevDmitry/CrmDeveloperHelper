@@ -228,9 +228,9 @@
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
 
-                <DataGridTextColumn Header="Entity Name" Width="260" Binding="{Binding EntityName}" />
+                <DataGridTextColumn Header="Entity Name" Width="260" Binding="{Binding PrimaryEntityTypeCode}" />
 
-                <DataGridTextColumn Header="Chart Name" Width="260" Binding="{Binding ChartName}" />
+                <DataGridTextColumn Header="Name" Width="260" Binding="{Binding Name}" />
 
             </DataGrid.Columns>
         </DataGrid>

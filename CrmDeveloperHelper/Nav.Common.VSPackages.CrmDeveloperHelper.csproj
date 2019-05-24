@@ -425,6 +425,7 @@
     <Compile Include="Entities\OwnerMapping.Schema.cs" />
     <Compile Include="Entities\PickListMapping.Proxy.cs" />
     <Compile Include="Entities\PickListMapping.Schema.cs" />
+    <Compile Include="Entities\PluginType.Additional.cs" />
     <Compile Include="Entities\Privilege.Additional.cs" />
     <Compile Include="Entities\PrivilegeObjectTypeCodes.Additional.cs" />
     <Compile Include="Entities\ProcessTrigger.Proxy.cs" />

@@ -335,5 +335,36 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             return _service.RetrieveMultipleAll<PluginType>(query);
         }
+
+        public Task<PluginType> GetByIdAsync(Guid idPluginType, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetById(idPluginType, columnSet));
+        }
+
+        private PluginType GetById(Guid idPluginType, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                TopCount = 2,
+
+                EntityName = PluginType.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(true),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(PluginType.EntityPrimaryIdAttribute, ConditionOperator.Equal, idPluginType),
+                    },
+                },
+            };
+
+            var coll = _service.RetrieveMultiple(query).Entities;
+
+            return coll.Count == 1 ? coll.Select(e => e.ToEntity<PluginType>()).SingleOrDefault() : null;
+        }
     }
 }
