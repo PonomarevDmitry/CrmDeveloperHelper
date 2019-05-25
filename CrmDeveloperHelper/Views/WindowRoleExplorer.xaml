@@ -6,192 +6,219 @@
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
         Title="Security Roles Explorer" Height="538.662" Width="1233" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleWindows.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
-        <BitmapImage x:Key="ImageRefresh" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Refresh_16.png" />
+            <BitmapImage x:Key="ImageRefresh" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Refresh_16.png" />
 
-        <BitmapImage x:Key="BitmapImageNone" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/PrivilegeDepths/ico_18_role_X.gif" />
-        <BitmapImage x:Key="BitmapImageBasic" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/PrivilegeDepths/ico_18_role_B.gif" />
-        <BitmapImage x:Key="BitmapImageLocal" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/PrivilegeDepths/ico_18_role_L.gif" />
-        <BitmapImage x:Key="BitmapImageDeep" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/PrivilegeDepths/ico_18_role_D.gif" />
-        <BitmapImage x:Key="BitmapImageGlobal" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/PrivilegeDepths/ico_18_role_G.gif" />
+            <BitmapImage x:Key="BitmapImageNone" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/PrivilegeDepths/ico_18_role_X.gif" />
+            <BitmapImage x:Key="BitmapImageBasic" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/PrivilegeDepths/ico_18_role_B.gif" />
+            <BitmapImage x:Key="BitmapImageLocal" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/PrivilegeDepths/ico_18_role_L.gif" />
+            <BitmapImage x:Key="BitmapImageDeep" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/PrivilegeDepths/ico_18_role_D.gif" />
+            <BitmapImage x:Key="BitmapImageGlobal" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/PrivilegeDepths/ico_18_role_G.gif" />
 
-        <helpers:PrivilegeDepthConverter x:Key="privilegeDepthConverter" />
-        <BooleanToVisibilityConverter x:Key="boolToVisibility"/>
+            <helpers:PrivilegeDepthConverter x:Key="privilegeDepthConverter" />
+            <BooleanToVisibilityConverter x:Key="boolToVisibility"/>
 
-        <ContextMenu x:Key="listContextMenuSystemUser">
-            <MenuItem Header="Open User in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceInWeb_Click" />
-            <Separator/>
-            <MenuItem Header="Open User List in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
-            <Separator/>
-            <MenuItem Header="Open User Explorer" VerticalAlignment="Center" Click="mIOpenEntityExplorer_Click" />
-            <Separator/>
-            <MenuItem Header="Create User Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click" />
-            <Separator/>
-            <MenuItem Header="Clipboard">
-                <MenuItem Header="Copy User Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
-                <MenuItem Header="Copy User Url to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />
-            </MenuItem>
-            <Separator/>
-            <MenuItem Header="Remove Role from User" VerticalAlignment="Center" Click="btnRemoveRoleFromUser_Click" />
-        </ContextMenu>
+            <ContextMenu x:Key="listContextMenuSystemUser">
+                <MenuItem Header="Open User in Web" Click="mIOpenEntityInstanceInWeb_Click" />
+                <Separator/>
+                <MenuItem Header="Open User List in Web" Click="mIOpenEntityInstanceListInWeb_Click" />
+                <Separator/>
+                <MenuItem Header="Open User Explorer" Click="mIOpenEntityExplorer_Click" />
+                <Separator/>
+                <MenuItem Header="Create User Entity Description" Click="mICreateEntityDescription_Click" />
+                <Separator/>
+                <MenuItem Header="Clipboard">
+                    <MenuItem Header="Copy User Id to Clipboard" Click="mICopyEntityInstanceIdToClipboard_Click" />
+                    <MenuItem Header="Copy User Url to Clipboard" Click="mICopyEntityInstanceUrlToClipboard_Click" />
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Remove Role from User" Click="btnRemoveRoleFromUser_Click" />
+            </ContextMenu>
 
-        <ContextMenu x:Key="listContextMenuRole" Opened="ContextMenuRole_Opened">
-            <MenuItem Header="Open Role in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceInWeb_Click" />
-
-            <Separator/>
-            <MenuItem Header="Open Role List in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
-
-            <Separator/>
-            <MenuItem Header="Create Role Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click" />
-
-            <Separator/>
-            <MenuItem Header="Compare Role Privileges">
-                <MenuItem Header="With Role Privileges" VerticalAlignment="Center" Click="mIRolePrivilegesWithRolePrivileges_Click" />
+            <ContextMenu x:Key="listContextMenuRole" Opened="ContextMenuRole_Opened">
+                <MenuItem Header="Open Role in Web" Click="mIOpenEntityInstanceInWeb_Click" />
 
                 <Separator/>
-                <MenuItem Header="With User Privileges" VerticalAlignment="Center" Click="mIRolePrivilegesWithUserPrivileges_Click" />
+                <MenuItem Header="Open Role List in Web" Click="mIOpenEntityInstanceListInWeb_Click" />
 
                 <Separator/>
-                <MenuItem Header="With Team Privileges" VerticalAlignment="Center" Click="mIRolePrivilegesWithTeamPrivileges_Click" />
-            </MenuItem>
-
-            <Separator/>
-            <MenuItem Header="Create Role Backup" VerticalAlignment="Center" Click="mICreateRoleBackup_Click" />
-
-            <Separator/>
-            <MenuItem Header="Change Role Privileges">
-                <MenuItem Header="Clear Role" VerticalAlignment="Center" Click="mIClearRole_Click" ToolTip="Clear Role Privileges" />
+                <MenuItem Header="Create Role Entity Description" Click="mICreateEntityDescription_Click" />
 
                 <Separator/>
-                <MenuItem Header="Add Unique Privileges From Target Role" VerticalAlignment="Center" Click="mIAddUniquePrivilegesFromRole_Click" ToolTip="Add Unique Privileges that are not From Target Role" />
+                <MenuItem Header="Compare Role Privileges">
+                    <MenuItem Header="With Role Privileges" Click="mIRolePrivilegesWithRolePrivileges_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="With User Privileges" Click="mIRolePrivilegesWithUserPrivileges_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="With Team Privileges" Click="mIRolePrivilegesWithTeamPrivileges_Click" />
+                </MenuItem>
 
                 <Separator/>
-                <MenuItem Header="Merge Common Privileges to Max From Target Role" VerticalAlignment="Center" Click="mIMergeCommonPrivilegesToMaxFromRole_Click" ToolTip="Merge Common Privileges to Maximum Depth From Target Role" />
+                <MenuItem Header="Create Role Backup" Click="mICreateRoleBackup_Click" />
 
                 <Separator/>
-                <MenuItem Header="Replace Privileges From Target Role" VerticalAlignment="Center" Click="mIReplacePrivilegesFromRole_Click" ToolTip="Replace Privileges From Target Role" />
-            </MenuItem>
+                <MenuItem Header="Change Role Privileges">
+                    <MenuItem Header="Clear Role" Click="mIClearRole_Click" ToolTip="Clear Role Privileges" />
 
-            <Separator/>
-            <MenuItem Header="Copy Privileges">
-                <MenuItem Header="Add Unique Privileges to Target Role" VerticalAlignment="Center" Click="mIAddUniquePrivilegesToRole_Click" ToolTip="Add Unique Privileges that are not in Target Role" />
-                
-                <Separator/>
-                <MenuItem Header="Merge Common Privileges to Max to Target Role" VerticalAlignment="Center" Click="mIMergeCommonPrivilegesToMaxInRole_Click" ToolTip="Merge Common Privileges to Maximum Depth in Target Role" />
-                
-                <Separator/>
-                <MenuItem Header="Replace Privileges in Target Role" VerticalAlignment="Center" Click="mIReplacePrivilegesInRole_Click" ToolTip="Replace Privileges in Target Role" />
-            </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="Add Unique Privileges From Target Role" Click="mIAddUniquePrivilegesFromRole_Click" ToolTip="Add Unique Privileges that are not From Target Role" />
 
-            <Separator/>
-            <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
-            <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddRoleIntoCrmSolution_Click" />
+                    <Separator/>
+                    <MenuItem Header="Merge Common Privileges to Max From Target Role" Click="mIMergeCommonPrivilegesToMaxFromRole_Click" ToolTip="Merge Common Privileges to Maximum Depth From Target Role" />
 
-            <Separator/>
-            <MenuItem Header="Clipboard">
-                <MenuItem Header="Copy User Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
-                <MenuItem Header="Copy User Url to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />
-            </MenuItem>
-        </ContextMenu>
+                    <Separator/>
+                    <MenuItem Header="Replace Privileges From Target Role" Click="mIReplacePrivilegesFromRole_Click" ToolTip="Replace Privileges From Target Role" />
+                </MenuItem>
 
-        <ContextMenu x:Key="listContextMenuTeam">
-            <MenuItem Header="Open Team in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceInWeb_Click" />
-            <Separator/>
-            <MenuItem Header="Open Team List in Web" VerticalAlignment="Center" Click="mIOpenEntityInstanceListInWeb_Click" />
-            <Separator/>
-            <MenuItem Header="Open Team Explorer" VerticalAlignment="Center" Click="mIOpenEntityExplorer_Click" />
-            <Separator/>
-            <MenuItem Header="Create Team Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click" />
-            <Separator/>
-            <MenuItem Header="Clipboard">
-                <MenuItem Header="Copy User Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
-                <MenuItem Header="Copy User Url to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />
-            </MenuItem>
-            <Separator/>
-            <MenuItem Header="Remove Role from Team" VerticalAlignment="Center" Click="btnRemoveRoleFromTeam_Click" />
-        </ContextMenu>
+                <Separator/>
+                <MenuItem Header="Copy Privileges">
+                    <MenuItem Header="Add Unique Privileges to Target Role" Click="mIAddUniquePrivilegesToRole_Click" ToolTip="Add Unique Privileges that are not in Target Role" />
 
-        <ContextMenu x:Key="listContextMenuEntityPrivileges" Opened="ContextMenuEntityPrivileges_Opened">
-            <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
-            <Separator/>
-            <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
+                    <Separator/>
+                    <MenuItem Header="Merge Common Privileges to Max to Target Role" Click="mIMergeCommonPrivilegesToMaxInRole_Click" ToolTip="Merge Common Privileges to Maximum Depth in Target Role" />
 
-            <Separator/>
-            <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution">
-                <MenuItem x:Uid="contMnAddIntoSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
-                <Separator/>
-                <MenuItem x:Uid="contMnAddIntoSolutionLastDoNotIncludeSubcomponents" Header="Do Not Include Subcomponents" />
-                <Separator/>
-                <MenuItem x:Uid="contMnAddIntoSolutionLastIncludeAsShellOnly" Header="Include As ShellOnly" />
-            </MenuItem>
-            <MenuItem Header="Add into Crm Solution">
-                <MenuItem Header="Include Subcomponents" Click="AddIntoCrmSolutionIncludeSubcomponents_Click" />
-                <Separator/>
-                <MenuItem Header="Do Not Include Subcomponents" Click="AddIntoCrmSolutionDoNotIncludeSubcomponents_Click" />
-                <Separator/>
-                <MenuItem Header="Include As ShellOnly" Click="AddIntoCrmSolutionIncludeAsShellOnly_Click" />
-            </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="Replace Privileges in Target Role" Click="mIReplacePrivilegesInRole_Click" ToolTip="Replace Privileges in Target Role" />
+                </MenuItem>
 
-            <Separator/>
-            <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
-            <Separator/>
-            <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
-            <Separator/>
-            <MenuItem Header="Dependent Components">
-                <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
                 <Separator/>
-                <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
-            </MenuItem>
-            <Separator/>
-            <MenuItem Header="Get Other Entity Information">
-                <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
-                <Separator/>
-                <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
-                <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
-                <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
-                <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
-                <Separator/>
-                <MenuItem Header="Entity Privileges Explorer" Click="miEntityPrivilegesExplorer_Click"/>
-                <Separator/>
-                <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click"/>
-                <Separator/>
-                <MenuItem Header="Forms" Click="btnSystemForms_Click"/>
-                <MenuItem Header="Views" Click="btnSavedQuery_Click"/>
-                <MenuItem Header="Charts" Click="btnSavedChart_Click"/>
-                <Separator/>
-                <MenuItem Header="Workflows" Click="btnWorkflows_Click"/>
-                <Separator/>
-                <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click"/>
-                <Separator/>
-                <MenuItem Header="Plugin Tree" Click="btnPluginTree_Click"/>
-                <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
-                <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
-            </MenuItem>
-            <Separator/>
-            <MenuItem Header="Compare Information with other Organization">
-                <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
-                <Separator/>
-                <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
-                <Separator/>
-                <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
-                <Separator/>
-                <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
-                <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
-                <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
-                <Separator/>
-                <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
-                <Separator/>
-                <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
-            </MenuItem>
-        </ContextMenu>
+                <MenuItem Header="Clipboard">
+                    <MenuItem Header="Copy User Id to Clipboard" Click="mICopyEntityInstanceIdToClipboard_Click" />
+                    <MenuItem Header="Copy User Url to Clipboard" Click="mICopyEntityInstanceUrlToClipboard_Click" />
+                </MenuItem>
 
+                <Separator/>
+                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" />
+                <MenuItem Header="Add into Crm Solution" Click="AddRoleIntoCrmSolution_Click" />
+
+                <Separator/>
+                <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIRoleOpenSolutionsContainingComponentInWindow_Click" />
+
+                <Separator/>
+                <MenuItem Header="Dependent Components">
+                    <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIRoleOpenDependentComponentsInWeb_Click" />
+                    <Separator/>
+                    <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIRoleOpenDependentComponentsInWindow_Click" />
+                </MenuItem>
+            </ContextMenu>
+
+            <ContextMenu x:Key="listContextMenuTeam">
+                <MenuItem Header="Open Team in Web" Click="mIOpenEntityInstanceInWeb_Click" />
+                <Separator/>
+                <MenuItem Header="Open Team List in Web" Click="mIOpenEntityInstanceListInWeb_Click" />
+                <Separator/>
+                <MenuItem Header="Open Team Explorer" Click="mIOpenEntityExplorer_Click" />
+                <Separator/>
+                <MenuItem Header="Create Team Entity Description" Click="mICreateEntityDescription_Click" />
+                <Separator/>
+                <MenuItem Header="Clipboard">
+                    <MenuItem Header="Copy User Id to Clipboard" Click="mICopyEntityInstanceIdToClipboard_Click" />
+                    <MenuItem Header="Copy User Url to Clipboard" Click="mICopyEntityInstanceUrlToClipboard_Click" />
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Remove Role from Team" Click="btnRemoveRoleFromTeam_Click" />
+            </ContextMenu>
+
+            <ContextMenu x:Key="listContextMenuEntityPrivileges" Opened="ContextMenuEntityPrivileges_Opened">
+                <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
+                <Separator/>
+                <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
+
+                <Separator/>
+                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution">
+                    <MenuItem x:Uid="contMnAddIntoSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
+                    <Separator/>
+                    <MenuItem x:Uid="contMnAddIntoSolutionLastDoNotIncludeSubcomponents" Header="Do Not Include Subcomponents" />
+                    <Separator/>
+                    <MenuItem x:Uid="contMnAddIntoSolutionLastIncludeAsShellOnly" Header="Include As ShellOnly" />
+                </MenuItem>
+                <MenuItem Header="Add into Crm Solution">
+                    <MenuItem Header="Include Subcomponents" Click="AddIntoCrmSolutionIncludeSubcomponents_Click" />
+                    <Separator/>
+                    <MenuItem Header="Do Not Include Subcomponents" Click="AddIntoCrmSolutionDoNotIncludeSubcomponents_Click" />
+                    <Separator/>
+                    <MenuItem Header="Include As ShellOnly" Click="AddIntoCrmSolutionIncludeAsShellOnly_Click" />
+                </MenuItem>
+
+                <Separator/>
+                <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
+
+                <Separator/>
+                <MenuItem Header="Open Solutions Containing Component in Window" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
+
+                <Separator/>
+                <MenuItem Header="Dependent Components">
+                    <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
+                    <Separator/>
+                    <MenuItem Header="Open Dependent Components in Window" Click="mIOpenDependentComponentsInWindow_Click" />
+                </MenuItem>
+
+                <Separator/>
+                <MenuItem Header="Get Other Entity Information">
+                    <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
+                    <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
+                    <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
+                    <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity Privileges Explorer" Click="miEntityPrivilegesExplorer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Forms" Click="btnSystemForms_Click"/>
+                    <MenuItem Header="Views" Click="btnSavedQuery_Click"/>
+                    <MenuItem Header="Charts" Click="btnSavedChart_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Workflows" Click="btnWorkflows_Click"/>
+                    <Separator/>
+                    <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Plugin Tree" Click="btnPluginTree_Click"/>
+                    <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
+                    <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
+                </MenuItem>
+
+                <Separator/>
+                <MenuItem Header="Compare Information with other Organization">
+                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
+                    <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
+                    <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
+                    <Separator/>
+                    <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
+                </MenuItem>
+            </ContextMenu>
+
+        </ResourceDictionary>
     </src:WindowBase.Resources>
-    <DockPanel LastChildFill="True">
-        <ToolBar Margin="0" VerticalAlignment="Top" Height="Auto" DockPanel.Dock="Top">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+
+            <RowDefinition Height="100*" />
+
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <ToolBar Grid.Row="0">
             <Button x:Name="btnRefreshRoles" HorizontalAlignment="Left" Click="btnRefreshRoles_Click">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Roles</TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" />
+                    <TextBlock>Refresh Roles</TextBlock>
                 </StackPanel>
             </Button>
 
@@ -201,33 +228,33 @@
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
             <Button Content="Clear Cache" Click="mIClearEntityCacheAndRefresh_Click" />
         </ToolBar>
-        <StatusBar VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"/>
-            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
-            <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-        </StatusBar>
-        <Grid Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Bottom">
+
+        <Grid Grid.Row="1" Margin="5" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="columnSystemUser" Width="600"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="100*"/>
             </Grid.ColumnDefinitions>
 
-            <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="true" Grid.Column="0">
+            <Grid Grid.Column="0">
 
-                <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+
+                    <RowDefinition Height="100*" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="100*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-                    <TextBox x:Name="txtBFilterRole"  Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBFilterRole_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
+                    <Label Content="Filter" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"/>
+                    <TextBox x:Name="txtBFilterRole" KeyDown="txtBFilterRole_KeyDown" Grid.Row="0" Grid.Column="1" />
                 </Grid>
 
-                <DataGrid x:Name="lstVwSecurityRoles" Grid.Row="0" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwEntity_MouseDoubleClick" SelectionChanged="lstVwSecurityRoles_SelectionChanged" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
+                <DataGrid x:Name="lstVwSecurityRoles" Grid.Row="1" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwEntity_MouseDoubleClick" SelectionChanged="lstVwSecurityRoles_SelectionChanged" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -252,45 +279,55 @@
                                 </Style>
                             </DataGridCheckBoxColumn.ElementStyle>
                             <DataGridCheckBoxColumn.Header>
-                                <Label Content="Cust" Margin="0" Padding="0" ToolTip="Is Customizable" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                <Label Content="Cust" Margin="0" Padding="0" ToolTip="Is Customizable" />
                             </DataGridCheckBoxColumn.Header>
                         </DataGridCheckBoxColumn>
 
                     </DataGrid.Columns>
                 </DataGrid>
-            </DockPanel>
+            </Grid>
 
-            <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
-            <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2">
+            <TabControl Grid.Column="2">
 
                 <TabItem Header="Users">
-                    <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True" >
+                    <Grid Margin="0">
 
-                        <ToolBar Margin="0" VerticalAlignment="Top" Height="Auto" DockPanel.Dock="Top">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+
+                            <RowDefinition Height="Auto" />
+
+                            <RowDefinition Height="100*" />
+                        </Grid.RowDefinitions>
+
+                        <ToolBar Grid.Row="0" Margin="0">
                             <Button x:Name="btnRefreshSystemUsers" HorizontalAlignment="Left" Click="btnRefreshSystemUsers_Click">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Users</TextBlock>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" />
+                                    <TextBlock>Refresh Users</TextBlock>
                                 </StackPanel>
                             </Button>
+                            
                             <Separator Margin="20,0" />
                             <Button x:Name="btnAssignRoleToUser" Content="Assing Role to User" Click="btnAssignRoleToUser_Click"/>
+                            
                             <Separator Margin="20,0" />
                             <Button x:Name="btnRemoveRoleFromUser" IsEnabled="False" Content="Remove Role from User" Click="btnRemoveRoleFromUser_Click"/>
                         </ToolBar>
 
-                        <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
+                        <Grid Grid.Row="1" Margin="0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="50*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-                            <TextBox x:Name="txtBFilterSystemUser"  Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBFilterSystemUser_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
+                            <Label Content="Filter" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"/>
+                            <TextBox x:Name="txtBFilterSystemUser" KeyDown="txtBFilterSystemUser_KeyDown" Grid.Row="0" Grid.Column="1" />
                         </Grid>
 
-                        <DataGrid x:Name="lstVwSystemUsers" Margin="5" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntity_MouseDoubleClick" SelectionChanged="lstVwSystemUsers_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Top">
+                        <DataGrid x:Name="lstVwSystemUsers" Grid.Row="2" Margin="5" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntity_MouseDoubleClick" SelectionChanged="lstVwSystemUsers_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Top">
                             <DataGrid.Resources>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -317,36 +354,46 @@
 
                             </DataGrid.Columns>
                         </DataGrid>
-                    </DockPanel>
+                    </Grid>
                 </TabItem>
 
                 <TabItem Header="Teams">
-                    <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True" >
+                    <Grid Margin="0">
 
-                        <ToolBar Margin="0" VerticalAlignment="Top" Height="Auto" DockPanel.Dock="Top">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+
+                            <RowDefinition Height="Auto" />
+
+                            <RowDefinition Height="100*" />
+                        </Grid.RowDefinitions>
+
+                        <ToolBar Grid.Row="0" Margin="0">
                             <Button x:Name="btnRefreshTeams" HorizontalAlignment="Left" Click="btnRefreshTeams_Click">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Teams</TextBlock>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" />
+                                    <TextBlock>Refresh Teams</TextBlock>
                                 </StackPanel>
                             </Button>
+                            
                             <Separator Margin="20,0" />
                             <Button x:Name="btnAssignRoleToTeam" Content="Assing Role to Team" Click="btnAssignRoleToTeam_Click"/>
+                            
                             <Separator Margin="20,0" />
                             <Button x:Name="btnRemoveRoleFromTeam" IsEnabled="False" Content="Remove Role from Team" Click="btnRemoveRoleFromTeam_Click"/>
                         </ToolBar>
 
-                        <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
+                        <Grid Grid.Row="1" Margin="0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="50*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-                            <TextBox x:Name="txtBFilterTeams"  Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBFilterTeams_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
+                            <Label Content="Filter" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"/>
+                            <TextBox x:Name="txtBFilterTeams" KeyDown="txtBFilterTeams_KeyDown" Grid.Row="0" Grid.Column="1" />
                         </Grid>
 
-                        <DataGrid x:Name="lstVwTeams" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwEntity_MouseDoubleClick" SelectionChanged="LstVwTeams_SelectionChanged" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
+                        <DataGrid x:Name="lstVwTeams" Grid.Row="2" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwEntity_MouseDoubleClick" SelectionChanged="LstVwTeams_SelectionChanged" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
                             <DataGrid.Resources>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -371,22 +418,30 @@
 
                             </DataGrid.Columns>
                         </DataGrid>
-                    </DockPanel>
+                    </Grid>
                 </TabItem>
 
                 <TabItem Header="Entity Privileges">
-                    <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True" >
+                    <Grid Margin="0">
 
-                        <ToolBar Margin="0" VerticalAlignment="Top" Height="27" DockPanel.Dock="Top">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+
+                            <RowDefinition Height="Auto" />
+
+                            <RowDefinition Height="100*" />
+                        </Grid.RowDefinitions>
+
+                        <ToolBar Grid.Row="0" Margin="0">
                             <Button x:Name="btnRefreshEntites" HorizontalAlignment="Left" Click="btnRefreshEntites_Click">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Entity Privileges</TextBlock>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" />
+                                    <TextBlock>Refresh Entity Privileges</TextBlock>
                                 </StackPanel>
                             </Button>
                             
                             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
-                            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                            <Menu Background="{x:Null}">
                                 <MenuItem Header="Open Window">
                                     <MenuItem Header="Open Entity Information" >
                                         <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
@@ -431,9 +486,38 @@
                             </Menu>
 
                             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
-                            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                            <Menu Background="{x:Null}">
 
                                 <MenuItem Header="Set Privilege">
+                                    <MenuItem Header="All">
+                                        <MenuItem Header="None" Click="mISetAttributeAllNone_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Basic" Click="mISetAttributeAllBasic_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Local" Click="mISetAttributeAllLocal_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Deep" Click="mISetAttributeAllDeep_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Global" Click="mISetAttributeAllGlobal_Click">
+                                            <MenuItem.Icon>
+                                                <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                    </MenuItem>
+                                    <Separator />
+
                                     <MenuItem Header="Create">
                                         <MenuItem Header="None" Click="mISetAttributeCreateNone_Click">
                                             <MenuItem.Icon>
@@ -662,17 +746,17 @@
                             </Menu>
                         </ToolBar>
 
-                        <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
+                        <Grid Grid.Row="1" Margin="0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="50*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-                            <TextBox x:Name="txtBEntityFilter"  Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBEntityFilter_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
+                            <Label Content="Filter" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"/>
+                            <TextBox x:Name="txtBEntityFilter" KeyDown="txtBEntityFilter_KeyDown" Grid.Row="0" Grid.Column="1" />
                         </Grid>
 
-                        <DataGrid x:Name="lstVwEntityPrivileges" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="LstVwEntityPrivileges_MouseDoubleClick" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
+                        <DataGrid x:Name="lstVwEntityPrivileges" Grid.Row="2" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="LstVwEntityPrivileges_MouseDoubleClick" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
                             <DataGrid.Resources>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -693,7 +777,7 @@
                                         </Style>
                                     </DataGridCheckBoxColumn.ElementStyle>
                                     <DataGridCheckBoxColumn.Header>
-                                        <Label Content="Ch" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Padding="0" ToolTip="Is Changed" />
+                                        <Label Content="Ch" Margin="0" Padding="0" ToolTip="Is Changed" />
                                     </DataGridCheckBoxColumn.Header>
                                 </DataGridCheckBoxColumn>
 
@@ -714,7 +798,7 @@
 
                                 <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="CreateRight">
                                     <DataGridTemplateColumn.Header>
-                                        <Label Content="C" Margin="0" Padding="0" ToolTip="Create" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                        <Label Content="C" Margin="0" Padding="0" ToolTip="Create" />
                                     </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -731,7 +815,7 @@
 
                                 <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="ReadRight">
                                     <DataGridTemplateColumn.Header>
-                                        <Label Content="R" Margin="0" Padding="0" ToolTip="Read" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                        <Label Content="R" Margin="0" Padding="0" ToolTip="Read" />
                                     </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -748,7 +832,7 @@
 
                                 <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="UpdateRight">
                                     <DataGridTemplateColumn.Header>
-                                        <Label Content="U" Margin="0" Padding="0" ToolTip="Update" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                        <Label Content="U" Margin="0" Padding="0" ToolTip="Update" />
                                     </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -765,7 +849,7 @@
 
                                 <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="DeleteRight">
                                     <DataGridTemplateColumn.Header>
-                                        <Label Content="D" Margin="0" Padding="0" ToolTip="Delete" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                        <Label Content="D" Margin="0" Padding="0" ToolTip="Delete" />
                                     </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -782,7 +866,7 @@
 
                                 <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AppendRight">
                                     <DataGridTemplateColumn.Header>
-                                        <Label Content="App" Margin="0" Padding="0" ToolTip="Append" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                        <Label Content="App" Margin="0" Padding="0" ToolTip="Append" />
                                     </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -799,7 +883,7 @@
 
                                 <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AppendToRight">
                                     <DataGridTemplateColumn.Header>
-                                        <Label Content="AppTo" Margin="0" Padding="0" ToolTip="AppendTo" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                        <Label Content="AppTo" Margin="0" Padding="0" ToolTip="AppendTo" />
                                     </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -816,7 +900,7 @@
 
                                 <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="AssignRight">
                                     <DataGridTemplateColumn.Header>
-                                        <Label Content="As" Margin="0" Padding="0" ToolTip="Assign"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                        <Label Content="As" Margin="0" Padding="0" ToolTip="Assign" />
                                     </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -833,7 +917,7 @@
 
                                 <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="ShareRight">
                                     <DataGridTemplateColumn.Header>
-                                        <Label Content="Sh" Margin="0" Padding="0" ToolTip="Share" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                        <Label Content="Sh" Margin="0" Padding="0" ToolTip="Share" />
                                     </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -850,22 +934,29 @@
 
                             </DataGrid.Columns>
                         </DataGrid>
-                    </DockPanel>
+                    </Grid>
                 </TabItem>
 
                 <TabItem Header="Other Privileges">
-                    <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True" >
+                    <Grid Margin="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            
+                            <RowDefinition Height="Auto" />
+                            
+                            <RowDefinition Height="100*" />
+                        </Grid.RowDefinitions>
 
-                        <ToolBar Margin="0" VerticalAlignment="Top" Height="27" DockPanel.Dock="Top">
+                        <ToolBar Grid.Row="0" Margin="0">
                             <Button x:Name="btnRefreshOtherPrivileges" HorizontalAlignment="Left" Click="btnRefreshEntites_Click">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Refresh Role Privileges</TextBlock>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" />
+                                    <TextBlock>Refresh Role Privileges</TextBlock>
                                 </StackPanel>
                             </Button>
 
                             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
-                            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                            <Menu Background="{x:Null}">
 
                                 <MenuItem Header="Set Privilege">
                                     <MenuItem Header="None" Click="mISetAttributeOtherPrivilegeRightNone_Click">
@@ -898,17 +989,17 @@
                             </Menu>
                         </ToolBar>
 
-                        <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
+                        <Grid Grid.Row="1" Margin="0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="50*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Label Content="Filter" HorizontalAlignment="Left" VerticalAlignment="Stretch" Padding="0" Margin="5" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-                            <TextBox x:Name="txtBOtherPrivilegesFilter"  Padding="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" KeyDown="txtBEntityFilter_KeyDown" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1" />
+                            <Label Content="Filter" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"/>
+                            <TextBox x:Name="txtBOtherPrivilegesFilter" KeyDown="txtBEntityFilter_KeyDown" Grid.Row="0" Grid.Column="1" />
                         </Grid>
 
-                        <DataGrid x:Name="lstVwOtherPrivileges" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
+                        <DataGrid x:Name="lstVwOtherPrivileges" Grid.Row="2" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" IsReadOnly="True" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
                             <DataGrid.Resources>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -924,7 +1015,7 @@
                                         </Style>
                                     </DataGridCheckBoxColumn.ElementStyle>
                                     <DataGridCheckBoxColumn.Header>
-                                        <Label Content="Ch" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Padding="0" ToolTip="Is Changed" />
+                                        <Label Content="Ch" Margin="0" Padding="0" ToolTip="Is Changed" />
                                     </DataGridCheckBoxColumn.Header>
                                 </DataGridCheckBoxColumn>
 
@@ -954,7 +1045,7 @@
 
                                 <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="Right">
                                     <DataGridTemplateColumn.Header>
-                                        <Label Content="R" Margin="0" Padding="0" ToolTip="Right" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                        <Label Content="R" Margin="0" Padding="0" ToolTip="Right" />
                                     </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -971,9 +1062,17 @@
 
                             </DataGrid.Columns>
                         </DataGrid>
-                    </DockPanel>
+                    </Grid>
                 </TabItem>
             </TabControl>
         </Grid>
-    </DockPanel>
+
+        <StatusBar Grid.Row="2">
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection"/>
+            <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
+            <StatusBarItem x:Name="stBIStatus" />
+        </StatusBar>
+    </Grid>
 </src:WindowBase>

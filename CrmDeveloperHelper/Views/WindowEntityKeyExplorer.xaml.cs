@@ -161,27 +161,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async Task<SolutionComponentDescriptor> GetDescriptor()
+        private SolutionComponentDescriptor GetDescriptor(IOrganizationServiceExtented service)
         {
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            if (service != null)
             {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
-
-            if (connectionData != null)
-            {
-                if (!_descriptorCache.ContainsKey(connectionData.ConnectionId))
+                if (!_descriptorCache.ContainsKey(service.ConnectionData.ConnectionId))
                 {
-                    var service = await GetService();
-
-                    _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(service);
+                    _descriptorCache[service.ConnectionData.ConnectionId] = new SolutionComponentDescriptor(service);
                 }
 
-                _descriptorCache[connectionData.ConnectionId].SetSettings(_commonConfig);
+                _descriptorCache[service.ConnectionData.ConnectionId].SetSettings(_commonConfig);
 
-                return _descriptorCache[connectionData.ConnectionId];
+                return _descriptorCache[service.ConnectionData.ConnectionId];
             }
 
             return null;
@@ -1057,7 +1048,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
-            var descriptor = await GetDescriptor();
+            var descriptor = GetDescriptor(service);
 
             try
             {
@@ -1099,7 +1090,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
-            var descriptor = await GetDescriptor();
+            var descriptor = GetDescriptor(service);
 
             try
             {
@@ -1182,7 +1173,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
-            var descriptor = await GetDescriptor();
+            var descriptor = GetDescriptor(service);
 
             WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, descriptor, _commonConfig, (int)ComponentType.Entity, entity.EntityMetadata.MetadataId.Value, null);
         }
@@ -1239,7 +1230,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
-            var descriptor = await GetDescriptor();
+            var descriptor = GetDescriptor(service);
 
             WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, descriptor, _commonConfig, (int)ComponentType.EntityKey, entityKey.EntityKeyMetadata.MetadataId.Value, null);
         }

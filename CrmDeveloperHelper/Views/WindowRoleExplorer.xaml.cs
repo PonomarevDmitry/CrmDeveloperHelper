@@ -48,6 +48,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly Dictionary<Guid, IEnumerable<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadata>>();
         private readonly Dictionary<Guid, IEnumerable<Privilege>> _cachePrivileges = new Dictionary<Guid, IEnumerable<Privilege>>();
 
+        private readonly List<PrivilegeType> _privielgeTypesAll = Enum.GetValues(typeof(PrivilegeType)).OfType<PrivilegeType>().ToList();
+
         public WindowRoleExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -179,27 +181,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
-        private async Task<SolutionComponentDescriptor> GetDescriptor()
+        private SolutionComponentDescriptor GetDescriptor(IOrganizationServiceExtented service)
         {
-            ConnectionData connectionData = null;
-
-            cmBCurrentConnection.Dispatcher.Invoke(() =>
+            if (service != null)
             {
-                connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
-            });
-
-            if (connectionData != null)
-            {
-                if (!_descriptorCache.ContainsKey(connectionData.ConnectionId))
+                if (!_descriptorCache.ContainsKey(service.ConnectionData.ConnectionId))
                 {
-                    var service = await GetService();
-
-                    _descriptorCache[connectionData.ConnectionId] = new SolutionComponentDescriptor(service);
+                    _descriptorCache[service.ConnectionData.ConnectionId] = new SolutionComponentDescriptor(service);
                 }
 
-                _descriptorCache[connectionData.ConnectionId].SetSettings(_commonConfig);
+                _descriptorCache[service.ConnectionData.ConnectionId].SetSettings(_commonConfig);
 
-                return _descriptorCache[connectionData.ConnectionId];
+                return _descriptorCache[service.ConnectionData.ConnectionId];
             }
 
             return null;
@@ -1174,6 +1167,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             base.OnKeyDown(e);
         }
 
+        #region Entity Operations
+
         private void mIOpenEntityInWeb_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
@@ -1268,7 +1263,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
-            var descriptor = await GetDescriptor();
+            var descriptor = GetDescriptor(service);
 
             try
             {
@@ -1334,7 +1329,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
-            var descriptor = await GetDescriptor();
+            var descriptor = GetDescriptor(service);
 
             WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, descriptor, _commonConfig, (int)ComponentType.Entity, entity.EntityMetadata.MetadataId.Value, null);
         }
@@ -1361,6 +1356,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , null
             );
         }
+
+        #endregion Entity Operations
 
         private void cmBCurrentConnection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -1394,6 +1391,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 RefreshRoleInfo();
             }
         }
+
+        #region Role Team User Common Operations
 
         private void mIOpenEntityInstanceInWeb_Click(object sender, RoutedEventArgs e)
         {
@@ -1557,6 +1556,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
+        #endregion Role Team User Common Operations
+
+        #region Role Operations
+
         private async void mICreateRoleBackup_Click(object sender, RoutedEventArgs e)
         {
             if (!(e.OriginalSource is MenuItem menuItem))
@@ -1623,7 +1626,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _commonConfig.Save();
 
             var service = await GetService();
-            var descriptor = await GetDescriptor();
+            var descriptor = GetDescriptor(service);
 
             try
             {
@@ -1635,6 +1638,85 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
             }
+        }
+
+        private async void mIRoleOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Entity entity)
+                )
+            {
+                return;
+            }
+
+            var role = entity.ToEntity<Role>();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenExplorerSolutionWindow(
+                _iWriteToOutput
+                , service
+                , _commonConfig
+                , (int)ComponentType.Role
+                , role.RoleId.Value
+                , null
+            );
+        }
+
+        private void mIRoleOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Entity entity)
+                )
+            {
+                return;
+            }
+
+            var role = entity.ToEntity<Role>();
+
+            _commonConfig.Save();
+
+            ConnectionData connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
+
+            if (connectionData != null)
+            {
+                connectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.Role, role.RoleId.Value);
+            }
+        }
+
+        private async void mIRoleOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(e.OriginalSource is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (menuItem.DataContext == null
+                || !(menuItem.DataContext is Entity entity)
+                )
+            {
+                return;
+            }
+
+            var role = entity.ToEntity<Role>();
+
+            _commonConfig.Save();
+
+            var service = await GetService();
+
+            WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.Role, role.RoleId.Value, null);
         }
 
         private async void btnAssignRoleToUser_Click(object sender, RoutedEventArgs e)
@@ -1896,6 +1978,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             RefreshRoleInfo();
         }
+
+        #endregion Role Operations
 
         private void LstVwTeams_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -2170,6 +2254,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             roleBackup.RolePrivileges.AddRange(temp.OrderBy(p => p.Name));
             return roleBackup;
         }
+
+        #region Changing Role Privileges
 
         private async void mIAddUniquePrivilegesToRole_Click(object sender, RoutedEventArgs e)
         {
@@ -2550,8 +2636,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ShowRoleEntityPrivileges();
         }
 
-        #region Changing Role Privileges
-
         private async Task AddUniquePrivilegesFromSourceToTarget(IOrganizationServiceExtented service, Role sourceRole, Role targetRole)
         {
             var repositoryRolePrivileges = new RolePrivilegesRepository(service);
@@ -2728,131 +2812,32 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #endregion Changing Role Privileges
 
-        private class RolePrivilegeComparer : IEqualityComparer<Microsoft.Crm.Sdk.Messages.RolePrivilege>
-        {
-            public bool Equals(Microsoft.Crm.Sdk.Messages.RolePrivilege x, Microsoft.Crm.Sdk.Messages.RolePrivilege y)
-            {
-                if (x == null && y == null)
-                {
-                    return true;
-                }
-                else if (x == null || y == null)
-                {
-                    return false;
-                }
-                else if (x.PrivilegeId == y.PrivilegeId)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-
-            public int GetHashCode(Microsoft.Crm.Sdk.Messages.RolePrivilege obj)
-            {
-                int result = obj.PrivilegeId.GetHashCode();
-
-                return result;
-            }
-        }
-
-        private void SetSelectedRoleEntityPrivileges(PrivilegeType privilegeType, PrivilegeDepthExtended privilegeDepth)
-        {
-            var list = lstVwEntityPrivileges.SelectedItems.OfType<EntityPrivilegeViewItem>().ToList();
-
-            if (!list.Any())
-            {
-                return;
-            }
-
-            foreach (var item in list)
-            {
-                switch (privilegeType)
-                {
-                    case PrivilegeType.Create:
-                        if (item.AvailableCreate && item.CreateOptions.Contains(privilegeDepth))
-                        {
-                            item.CreateRight = privilegeDepth;
-                        }
-                        break;
-
-                    case PrivilegeType.Read:
-                        if (item.AvailableRead && item.ReadOptions.Contains(privilegeDepth))
-                        {
-                            item.ReadRight = privilegeDepth;
-                        }
-                        break;
-
-                    case PrivilegeType.Write:
-                        if (item.AvailableUpdate && item.UpdateOptions.Contains(privilegeDepth))
-                        {
-                            item.UpdateRight = privilegeDepth;
-                        }
-                        break;
-
-                    case PrivilegeType.Delete:
-                        if (item.AvailableDelete && item.DeleteOptions.Contains(privilegeDepth))
-                        {
-                            item.DeleteRight = privilegeDepth;
-                        }
-                        break;
-
-                    case PrivilegeType.Assign:
-                        if (item.AvailableAssign && item.AssignOptions.Contains(privilegeDepth))
-                        {
-                            item.AssignRight = privilegeDepth;
-                        }
-                        break;
-
-                    case PrivilegeType.Share:
-                        if (item.AvailableShare && item.ShareOptions.Contains(privilegeDepth))
-                        {
-                            item.ShareRight = privilegeDepth;
-                        }
-                        break;
-
-                    case PrivilegeType.Append:
-                        if (item.AvailableAppend && item.AppendOptions.Contains(privilegeDepth))
-                        {
-                            item.AppendRight = privilegeDepth;
-                        }
-                        break;
-
-                    case PrivilegeType.AppendTo:
-                        if (item.AvailableAppendTo && item.AppendToOptions.Contains(privilegeDepth))
-                        {
-                            item.AppendToRight = privilegeDepth;
-                        }
-                        break;
-
-                    case PrivilegeType.None:
-                    default:
-                        break;
-                }
-            }
-        }
-
-        private void SetSelectedRoleOtherPrivileges(PrivilegeDepthExtended privilegeDepth)
-        {
-            var list = lstVwOtherPrivileges.SelectedItems.OfType<OtherPrivilegeViewItem>().ToList();
-
-            if (!list.Any())
-            {
-                return;
-            }
-
-            foreach (var item in list)
-            {
-                if (item.RightOptions.Contains(privilegeDepth))
-                {
-                    item.Right = privilegeDepth;
-                }
-            }
-        }
-
         #region Set Attribute
+
+        private void mISetAttributeAllNone_Click(object sender, RoutedEventArgs e)
+        {
+            SetSelectedRoleEntityPrivileges(PrivilegeDepthExtended.None);
+        }
+
+        private void mISetAttributeAllBasic_Click(object sender, RoutedEventArgs e)
+        {
+            SetSelectedRoleEntityPrivileges(PrivilegeDepthExtended.Basic);
+        }
+
+        private void mISetAttributeAllLocal_Click(object sender, RoutedEventArgs e)
+        {
+            SetSelectedRoleEntityPrivileges(PrivilegeDepthExtended.Local);
+        }
+
+        private void mISetAttributeAllDeep_Click(object sender, RoutedEventArgs e)
+        {
+            SetSelectedRoleEntityPrivileges(PrivilegeDepthExtended.Deep);
+        }
+
+        private void mISetAttributeAllGlobal_Click(object sender, RoutedEventArgs e)
+        {
+            SetSelectedRoleEntityPrivileges(PrivilegeDepthExtended.Global);
+        }
 
         private void mISetAttributeCreateNone_Click(object sender, RoutedEventArgs e)
         {
@@ -3080,6 +3065,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         #endregion Set Attribute
+
+        #region Comparing Privileges
 
         private async void mIRolePrivilegesWithRolePrivileges_Click(object sender, RoutedEventArgs e)
         {
@@ -3360,6 +3347,211 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
 
             _iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+        }
+
+        #endregion Comparing Privileges
+
+        private class RolePrivilegeComparer : IEqualityComparer<Microsoft.Crm.Sdk.Messages.RolePrivilege>
+        {
+            public bool Equals(Microsoft.Crm.Sdk.Messages.RolePrivilege x, Microsoft.Crm.Sdk.Messages.RolePrivilege y)
+            {
+                if (x == null && y == null)
+                {
+                    return true;
+                }
+                else if (x == null || y == null)
+                {
+                    return false;
+                }
+                else if (x.PrivilegeId == y.PrivilegeId)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            public int GetHashCode(Microsoft.Crm.Sdk.Messages.RolePrivilege obj)
+            {
+                int result = obj.PrivilegeId.GetHashCode();
+
+                return result;
+            }
+        }
+
+        private void SetSelectedRoleEntityPrivileges(PrivilegeDepthExtended privilegeDepth)
+        {
+            var list = lstVwEntityPrivileges.SelectedItems.OfType<EntityPrivilegeViewItem>().ToList();
+
+            if (!list.Any())
+            {
+                return;
+            }
+
+            foreach (var privilegeType in _privielgeTypesAll)
+            {
+                foreach (var item in list)
+                {
+                    switch (privilegeType)
+                    {
+                        case PrivilegeType.Create:
+                            if (item.AvailableCreate && item.CreateOptions.Contains(privilegeDepth))
+                            {
+                                item.CreateRight = privilegeDepth;
+                            }
+                            break;
+
+                        case PrivilegeType.Read:
+                            if (item.AvailableRead && item.ReadOptions.Contains(privilegeDepth))
+                            {
+                                item.ReadRight = privilegeDepth;
+                            }
+                            break;
+
+                        case PrivilegeType.Write:
+                            if (item.AvailableUpdate && item.UpdateOptions.Contains(privilegeDepth))
+                            {
+                                item.UpdateRight = privilegeDepth;
+                            }
+                            break;
+
+                        case PrivilegeType.Delete:
+                            if (item.AvailableDelete && item.DeleteOptions.Contains(privilegeDepth))
+                            {
+                                item.DeleteRight = privilegeDepth;
+                            }
+                            break;
+
+                        case PrivilegeType.Assign:
+                            if (item.AvailableAssign && item.AssignOptions.Contains(privilegeDepth))
+                            {
+                                item.AssignRight = privilegeDepth;
+                            }
+                            break;
+
+                        case PrivilegeType.Share:
+                            if (item.AvailableShare && item.ShareOptions.Contains(privilegeDepth))
+                            {
+                                item.ShareRight = privilegeDepth;
+                            }
+                            break;
+
+                        case PrivilegeType.Append:
+                            if (item.AvailableAppend && item.AppendOptions.Contains(privilegeDepth))
+                            {
+                                item.AppendRight = privilegeDepth;
+                            }
+                            break;
+
+                        case PrivilegeType.AppendTo:
+                            if (item.AvailableAppendTo && item.AppendToOptions.Contains(privilegeDepth))
+                            {
+                                item.AppendToRight = privilegeDepth;
+                            }
+                            break;
+
+                        case PrivilegeType.None:
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+
+        private void SetSelectedRoleEntityPrivileges(PrivilegeType privilegeType, PrivilegeDepthExtended privilegeDepth)
+        {
+            var list = lstVwEntityPrivileges.SelectedItems.OfType<EntityPrivilegeViewItem>().ToList();
+
+            if (!list.Any())
+            {
+                return;
+            }
+
+            foreach (var item in list)
+            {
+                switch (privilegeType)
+                {
+                    case PrivilegeType.Create:
+                        if (item.AvailableCreate && item.CreateOptions.Contains(privilegeDepth))
+                        {
+                            item.CreateRight = privilegeDepth;
+                        }
+                        break;
+
+                    case PrivilegeType.Read:
+                        if (item.AvailableRead && item.ReadOptions.Contains(privilegeDepth))
+                        {
+                            item.ReadRight = privilegeDepth;
+                        }
+                        break;
+
+                    case PrivilegeType.Write:
+                        if (item.AvailableUpdate && item.UpdateOptions.Contains(privilegeDepth))
+                        {
+                            item.UpdateRight = privilegeDepth;
+                        }
+                        break;
+
+                    case PrivilegeType.Delete:
+                        if (item.AvailableDelete && item.DeleteOptions.Contains(privilegeDepth))
+                        {
+                            item.DeleteRight = privilegeDepth;
+                        }
+                        break;
+
+                    case PrivilegeType.Assign:
+                        if (item.AvailableAssign && item.AssignOptions.Contains(privilegeDepth))
+                        {
+                            item.AssignRight = privilegeDepth;
+                        }
+                        break;
+
+                    case PrivilegeType.Share:
+                        if (item.AvailableShare && item.ShareOptions.Contains(privilegeDepth))
+                        {
+                            item.ShareRight = privilegeDepth;
+                        }
+                        break;
+
+                    case PrivilegeType.Append:
+                        if (item.AvailableAppend && item.AppendOptions.Contains(privilegeDepth))
+                        {
+                            item.AppendRight = privilegeDepth;
+                        }
+                        break;
+
+                    case PrivilegeType.AppendTo:
+                        if (item.AvailableAppendTo && item.AppendToOptions.Contains(privilegeDepth))
+                        {
+                            item.AppendToRight = privilegeDepth;
+                        }
+                        break;
+
+                    case PrivilegeType.None:
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private void SetSelectedRoleOtherPrivileges(PrivilegeDepthExtended privilegeDepth)
+        {
+            var list = lstVwOtherPrivileges.SelectedItems.OfType<OtherPrivilegeViewItem>().ToList();
+
+            if (!list.Any())
+            {
+                return;
+            }
+
+            foreach (var item in list)
+            {
+                if (item.RightOptions.Contains(privilegeDepth))
+                {
+                    item.Right = privilegeDepth;
+                }
+            }
         }
     }
 }

@@ -106,11 +106,14 @@
                 <MenuItem Header="Copy Role Id to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceIdToClipboard_Click" />
                 <MenuItem Header="Copy Role Url to Clipboard" VerticalAlignment="Center" Click="mICopyEntityInstanceUrlToClipboard_Click" />
             </MenuItem>
+            
             <Separator/>
             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddSecurityRoleIntoCrmSolution_Click" />
+            
             <Separator/>
             <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mISecurityRoleOpenSolutionsContainingComponentInWindow_Click" />
+            
             <Separator/>
             <MenuItem Header="Dependent Components">
                 <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mISecurityRoleOpenDependentComponentsInWeb_Click" />
@@ -246,6 +249,36 @@
                     <Menu x:Name="menuSetPrivilege" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
 
                         <MenuItem Header="Set Privilege">
+
+                            <MenuItem x:Name="mISetPrivilegeAll" Header="All">
+                                <MenuItem x:Name="mISetAttributeAllNone" Header="None" Click="mISetAttributeAllNone_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageNone}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeAllBasic" Header="Basic" Click="mISetAttributeAllBasic_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageBasic}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeAllLocal" Header="Local" Click="mISetAttributeAllLocal_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageLocal}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeAllDeep" Header="Deep" Click="mISetAttributeAllDeep_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageDeep}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="mISetAttributeAllGlobal" Header="Global" Click="mISetAttributeAllGlobal_Click">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16" Source="{StaticResource BitmapImageGlobal}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </MenuItem>
+                            <Separator />
+
                             <MenuItem x:Name="mISetPrivilegeCreate" Header="Create">
                                 <MenuItem x:Name="mISetAttributeCreateNone" Header="None" Click="mISetAttributeCreateNone_Click">
                                     <MenuItem.Icon>
@@ -469,7 +502,6 @@
                                     </MenuItem.Icon>
                                 </MenuItem>
                             </MenuItem>
-
                             
                         </MenuItem>
                     </Menu>

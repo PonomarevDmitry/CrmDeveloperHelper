@@ -38,8 +38,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Dictionary<Guid, IEnumerable<EntityMetadata>> _cacheEntityMetadata = new Dictionary<Guid, IEnumerable<EntityMetadata>>();
 
-        private readonly Dictionary<PrivilegeType, MenuItem> _menuItemsPrivileges;
-        private readonly Dictionary<PrivilegeType, Dictionary<PrivilegeDepth, MenuItem>> _menuItemsPrivilegesDepths;
+        private readonly Dictionary<PrivilegeType, MenuItem> _menuItemsSetPrivileges;
+        private readonly Dictionary<PrivilegeDepth, MenuItem> _menuItemsSetPrivilegesDepthsAll;
+        private readonly Dictionary<PrivilegeType, Dictionary<PrivilegeDepth, MenuItem>> _menuItemsSetPrivilegesDepths;
 
         public WindowEntityPrivilegesExplorer(
             IWriteToOutput iWriteToOutput
@@ -84,7 +85,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             cmBCurrentConnection.ItemsSource = service.ConnectionData.ConnectionConfiguration.Connections;
             cmBCurrentConnection.SelectedItem = service.ConnectionData;
 
-            this._menuItemsPrivilegesDepths = new Dictionary<PrivilegeType, Dictionary<PrivilegeDepth, MenuItem>>()
+            this._menuItemsSetPrivilegesDepthsAll = new Dictionary<PrivilegeDepth, MenuItem>()
+            {
+                { PrivilegeDepth.Basic, mISetAttributeAllBasic }
+                , { PrivilegeDepth.Local, mISetAttributeAllLocal }
+                , { PrivilegeDepth.Deep, mISetAttributeAllDeep }
+                , { PrivilegeDepth.Global, mISetAttributeAllGlobal }
+            };
+
+            this._menuItemsSetPrivilegesDepths = new Dictionary<PrivilegeType, Dictionary<PrivilegeDepth, MenuItem>>()
             {
                 {
                     PrivilegeType.Create, new Dictionary<PrivilegeDepth, MenuItem>()
@@ -167,7 +176,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 },
             };
 
-            this._menuItemsPrivileges = new Dictionary<PrivilegeType, MenuItem>()
+            this._menuItemsSetPrivileges = new Dictionary<PrivilegeType, MenuItem>()
             {
                 { PrivilegeType.Create, mISetPrivilegeCreate }
 
@@ -397,13 +406,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 entityMetadata = GetSelectedEntity()?.EntityMetadata;
 
-                foreach (var menuItem in _menuItemsPrivileges.Values)
+                foreach (var menuItem in _menuItemsSetPrivileges.Values)
                 {
                     menuItem.IsEnabled = false;
                     menuItem.Visibility = Visibility.Collapsed;
                 }
 
-                foreach (var privDic in _menuItemsPrivilegesDepths.Values)
+                foreach (var menuItem in _menuItemsSetPrivilegesDepthsAll.Values)
+                {
+                    menuItem.IsEnabled = false;
+                    menuItem.Visibility = Visibility.Collapsed;
+                }
+
+                foreach (var privDic in _menuItemsSetPrivilegesDepths.Values)
                 {
                     foreach (var menuItem in privDic.Values)
                     {
@@ -475,15 +490,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 foreach (var priv in privileges)
                 {
-                    if (_menuItemsPrivileges.ContainsKey(priv.PrivilegeType))
+                    if (_menuItemsSetPrivileges.ContainsKey(priv.PrivilegeType))
                     {
-                        _menuItemsPrivileges[priv.PrivilegeType].IsEnabled = true;
-                        _menuItemsPrivileges[priv.PrivilegeType].Visibility = Visibility.Visible;
+                        _menuItemsSetPrivileges[priv.PrivilegeType].IsEnabled = true;
+                        _menuItemsSetPrivileges[priv.PrivilegeType].Visibility = Visibility.Visible;
                     }
 
-                    if (_menuItemsPrivilegesDepths.ContainsKey(priv.PrivilegeType))
+                    if (priv.CanBeBasic)
                     {
-                        var dict = _menuItemsPrivilegesDepths[priv.PrivilegeType];
+                        _menuItemsSetPrivilegesDepthsAll[PrivilegeDepth.Basic].IsEnabled = true;
+                        _menuItemsSetPrivilegesDepthsAll[PrivilegeDepth.Basic].Visibility = Visibility.Visible;
+                    }
+
+                    if (priv.CanBeLocal)
+                    {
+                        _menuItemsSetPrivilegesDepthsAll[PrivilegeDepth.Local].IsEnabled = true;
+                        _menuItemsSetPrivilegesDepthsAll[PrivilegeDepth.Local].Visibility = Visibility.Visible;
+                    }
+
+                    if (priv.CanBeDeep)
+                    {
+                        _menuItemsSetPrivilegesDepthsAll[PrivilegeDepth.Deep].IsEnabled = true;
+                        _menuItemsSetPrivilegesDepthsAll[PrivilegeDepth.Deep].Visibility = Visibility.Visible;
+                    }
+
+                    if (priv.CanBeGlobal)
+                    {
+                        _menuItemsSetPrivilegesDepthsAll[PrivilegeDepth.Global].IsEnabled = true;
+                        _menuItemsSetPrivilegesDepthsAll[PrivilegeDepth.Global].Visibility = Visibility.Visible;
+                    }
+
+                    if (_menuItemsSetPrivilegesDepths.ContainsKey(priv.PrivilegeType))
+                    {
+                        var dict = _menuItemsSetPrivilegesDepths[priv.PrivilegeType];
 
                         dict[PrivilegeDepth.Basic].IsEnabled = priv.CanBeBasic;
                         dict[PrivilegeDepth.Local].IsEnabled = priv.CanBeLocal;
@@ -497,7 +536,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                menuSetPrivilege.IsEnabled = _menuItemsPrivileges.Values.Any(m => m.IsEnabled);
+                menuSetPrivilege.IsEnabled = _menuItemsSetPrivileges.Values.Any(m => m.IsEnabled);
             });
         }
 
@@ -565,7 +604,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , btnRefreshRoles
             );
 
-            ToggleControl(IsControlsEnabled && _menuItemsPrivileges.Values.Any(m => m.IsEnabled)
+            ToggleControl(IsControlsEnabled && _menuItemsSetPrivileges.Values.Any(m => m.IsEnabled)
                 , menuSetPrivilege
             );
 
@@ -1589,6 +1628,95 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
         }
 
+        private void SetSelectedRolesPrivilege(PrivilegeDepthExtended privilegeDepth)
+        {
+            EntityMetadata entityMetadata = GetSelectedEntity()?.EntityMetadata;
+
+            if (entityMetadata == null
+                || entityMetadata.Privileges == null
+                || !entityMetadata.Privileges.Any()
+            )
+            {
+                return;
+            }
+
+            var list = lstVwSecurityRoles.SelectedItems.OfType<RolePrivilegeViewItem>().ToList();
+
+            if (!list.Any())
+            {
+                return;
+            }
+
+            foreach (var privilege in entityMetadata.Privileges)
+            {
+                bool canBePrivilegeDepth = false;
+
+                switch (privilegeDepth)
+                {
+                    case PrivilegeDepthExtended.Basic:
+                        canBePrivilegeDepth = privilege.CanBeBasic;
+                        break;
+
+                    case PrivilegeDepthExtended.Local:
+                        canBePrivilegeDepth = privilege.CanBeLocal;
+                        break;
+
+                    case PrivilegeDepthExtended.Deep:
+                        canBePrivilegeDepth = privilege.CanBeDeep;
+                        break;
+
+                    case PrivilegeDepthExtended.Global:
+                        canBePrivilegeDepth = privilege.CanBeGlobal;
+                        break;
+
+                    case PrivilegeDepthExtended.None:
+                        canBePrivilegeDepth = true;
+                        break;
+
+                    default:
+                        break;
+                }
+
+                if (canBePrivilegeDepth)
+                {
+                    foreach (var item in list)
+                    {
+                        switch (privilege.PrivilegeType)
+                        {
+                            case PrivilegeType.Create:
+                                item.CreateRight = privilegeDepth;
+                                break;
+                            case PrivilegeType.Read:
+                                item.ReadRight = privilegeDepth;
+                                break;
+                            case PrivilegeType.Write:
+                                item.UpdateRight = privilegeDepth;
+                                break;
+                            case PrivilegeType.Delete:
+                                item.DeleteRight = privilegeDepth;
+                                break;
+                            case PrivilegeType.Assign:
+                                item.AssignRight = privilegeDepth;
+                                break;
+                            case PrivilegeType.Share:
+                                item.ShareRight = privilegeDepth;
+                                break;
+                            case PrivilegeType.Append:
+                                item.AppendRight = privilegeDepth;
+                                break;
+                            case PrivilegeType.AppendTo:
+                                item.AppendToRight = privilegeDepth;
+                                break;
+
+                            case PrivilegeType.None:
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+
         private void SetSelectedRolesPrivilege(PrivilegeType privilegeType, PrivilegeDepthExtended privilegeDepth)
         {
             EntityMetadata entityMetadata = GetSelectedEntity()?.EntityMetadata;
@@ -1680,6 +1808,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         #region Set Attribute
+
+        private void mISetAttributeAllNone_Click(object sender, RoutedEventArgs e)
+        {
+            SetSelectedRolesPrivilege(PrivilegeDepthExtended.None);
+        }
+
+        private void mISetAttributeAllBasic_Click(object sender, RoutedEventArgs e)
+        {
+            SetSelectedRolesPrivilege(PrivilegeDepthExtended.Basic);
+        }
+
+        private void mISetAttributeAllLocal_Click(object sender, RoutedEventArgs e)
+        {
+            SetSelectedRolesPrivilege(PrivilegeDepthExtended.Local);
+        }
+
+        private void mISetAttributeAllDeep_Click(object sender, RoutedEventArgs e)
+        {
+            SetSelectedRolesPrivilege(PrivilegeDepthExtended.Deep);
+        }
+
+        private void mISetAttributeAllGlobal_Click(object sender, RoutedEventArgs e)
+        {
+            SetSelectedRolesPrivilege(PrivilegeDepthExtended.Global);
+        }
 
         private void mISetAttributeCreateNone_Click(object sender, RoutedEventArgs e)
         {
