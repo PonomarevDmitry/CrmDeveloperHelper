@@ -8,19 +8,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Entities
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 {
     
     
     /// <summary>
     /// DisplayName:
     ///     (English - United States - 1033): Account
+    ///     (Russian - 1049): Организация
     /// 
     /// DisplayCollectionName:
     ///     (English - United States - 1033): Accounts
+    ///     (Russian - 1049): Организации
     /// 
     /// Description:
     ///     (English - United States - 1033): Business that represents a customer or potential customer. The company that is billed in business transactions.
+    ///     (Russian - 1049): Компания, представляющая существующего или потенциального клиента. Компания, которой выставляется счет в деловых транзакциях.
     /// </summary>
     [System.Runtime.Serialization.DataContractAttribute()]
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -101,6 +104,8 @@ namespace Entities
         }
         
         #region NotifyProperty Events
+
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
@@ -122,15 +127,21 @@ namespace Entities
                 this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(propertyName));
             }
         }
+        
+
         #endregion
         
         #region Primary Attributes
+
+        
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Account
+        ///     (Russian - 1049): Организация
         /// 
         /// Description:
         ///     (English - United States - 1033): Unique identifier of the account.
+        ///     (Russian - 1049): Уникальный идентификатор организации.
         /// </summary>
         [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(EntityPrimaryIdAttribute)]
         [System.ComponentModel.DescriptionAttribute("Account")]
@@ -152,9 +163,11 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Account
+        ///     (Russian - 1049): Организация
         /// 
         /// Description:
         ///     (English - United States - 1033): Unique identifier of the account.
+        ///     (Russian - 1049): Уникальный идентификатор организации.
         /// </summary>
         [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(EntityPrimaryIdAttribute)]
         [System.ComponentModel.DescriptionAttribute("Account")]
@@ -186,9 +199,11 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Account Name
+        ///     (Russian - 1049): Название организации
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the company or business name.
+        ///     (Russian - 1049): Введите наименование компании или предприятия.
         /// </summary>
         [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(EntityPrimaryNameAttribute)]
         [System.ComponentModel.DescriptionAttribute("Account Name")]
@@ -208,17 +223,23 @@ namespace Entities
                 this.OnPropertyChanged(nameof(Name));
             }
         }
+        
+
         #endregion
         
         #region Attributes
+
+        
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Category
+        ///     (Russian - 1049): Категория
         /// 
         /// Description:
         ///     (English - United States - 1033): Select a category to indicate whether the customer account is standard or preferred.
+        ///     (Russian - 1049): Выберите категорию организации клиента: стандартная или привилегированная.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.accountcategorycode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.accountcategorycode)]
         [System.ComponentModel.DescriptionAttribute("Category")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue AccountCategoryCode
@@ -226,13 +247,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.accountcategorycode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.accountcategorycode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(AccountCategoryCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.accountcategorycode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.accountcategorycode, value);
                 this.OnPropertyChanged(nameof(AccountCategoryCode));
             }
         }
@@ -240,23 +261,25 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Category
+        ///     (Russian - 1049): Категория
         /// 
         /// Description:
         ///     (English - United States - 1033): Select a category to indicate whether the customer account is standard or preferred.
+        ///     (Russian - 1049): Выберите категорию организации клиента: стандартная или привилегированная.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.accountcategorycode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.accountcategorycode)]
         [System.ComponentModel.DescriptionAttribute("Category")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<Entities.Account.Schema.OptionSets.accountcategorycode> AccountCategoryCodeEnum
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.accountcategorycode> AccountCategoryCodeEnum
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.accountcategorycode);
-                if (((optionSet != null) 
-                            && System.Enum.IsDefined(typeof(Entities.Account.Schema.OptionSets.accountcategorycode), optionSet.Value)))
+                Microsoft.Xrm.Sdk.OptionSetValue optionSetValue = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.accountcategorycode);
+                if (((optionSetValue != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.accountcategorycode), optionSetValue.Value)))
                 {
-                    return ((Entities.Account.Schema.OptionSets.accountcategorycode)(System.Enum.ToObject(typeof(Entities.Account.Schema.OptionSets.accountcategorycode), optionSet.Value)));
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.accountcategorycode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.accountcategorycode), optionSetValue.Value)));
                 }
                 else
                 {
@@ -270,11 +293,11 @@ namespace Entities
                 this.OnPropertyChanging(nameof(AccountCategoryCode));
                 if ((value == null))
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.accountcategorycode, null);
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.accountcategorycode, null);
                 }
                 else
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.accountcategorycode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.accountcategorycode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
                 }
                 this.OnPropertyChanged(nameof(AccountCategoryCode));
                 this.OnPropertyChanged(nameof(AccountCategoryCodeEnum));
@@ -284,11 +307,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Classification
+        ///     (Russian - 1049): Классификация
         /// 
         /// Description:
         ///     (English - United States - 1033): Select a classification code to indicate the potential value of the customer account based on the projected return on investment, cooperation level, sales cycle length or other criteria.
+        ///     (Russian - 1049): Выберите код классификации, указывающий потенциальную значимость организации клиента исходя из ожидаемых отдачи от вложений, уровня сотрудничества, длительности цикла продаж или других критериев.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.accountclassificationcode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.accountclassificationcode)]
         [System.ComponentModel.DescriptionAttribute("Classification")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue AccountClassificationCode
@@ -296,13 +321,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.accountclassificationcode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.accountclassificationcode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(AccountClassificationCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.accountclassificationcode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.accountclassificationcode, value);
                 this.OnPropertyChanged(nameof(AccountClassificationCode));
             }
         }
@@ -310,23 +335,25 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Classification
+        ///     (Russian - 1049): Классификация
         /// 
         /// Description:
         ///     (English - United States - 1033): Select a classification code to indicate the potential value of the customer account based on the projected return on investment, cooperation level, sales cycle length or other criteria.
+        ///     (Russian - 1049): Выберите код классификации, указывающий потенциальную значимость организации клиента исходя из ожидаемых отдачи от вложений, уровня сотрудничества, длительности цикла продаж или других критериев.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.accountclassificationcode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.accountclassificationcode)]
         [System.ComponentModel.DescriptionAttribute("Classification")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<Entities.Account.Schema.OptionSets.accountclassificationcode> AccountClassificationCodeEnum
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.accountclassificationcode> AccountClassificationCodeEnum
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.accountclassificationcode);
-                if (((optionSet != null) 
-                            && System.Enum.IsDefined(typeof(Entities.Account.Schema.OptionSets.accountclassificationcode), optionSet.Value)))
+                Microsoft.Xrm.Sdk.OptionSetValue optionSetValue = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.accountclassificationcode);
+                if (((optionSetValue != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.accountclassificationcode), optionSetValue.Value)))
                 {
-                    return ((Entities.Account.Schema.OptionSets.accountclassificationcode)(System.Enum.ToObject(typeof(Entities.Account.Schema.OptionSets.accountclassificationcode), optionSet.Value)));
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.accountclassificationcode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.accountclassificationcode), optionSetValue.Value)));
                 }
                 else
                 {
@@ -340,11 +367,11 @@ namespace Entities
                 this.OnPropertyChanging(nameof(AccountClassificationCode));
                 if ((value == null))
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.accountclassificationcode, null);
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.accountclassificationcode, null);
                 }
                 else
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.accountclassificationcode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.accountclassificationcode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
                 }
                 this.OnPropertyChanged(nameof(AccountClassificationCode));
                 this.OnPropertyChanged(nameof(AccountClassificationCodeEnum));
@@ -354,11 +381,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Account Number
+        ///     (Russian - 1049): Код организации
         /// 
         /// Description:
         ///     (English - United States - 1033): Type an ID number or code for the account to quickly search and identify the account in system views.
+        ///     (Russian - 1049): Введите идентификационный номер или код счета для быстрого поиска организации в системных представлениях.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.accountnumber)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.accountnumber)]
         [System.ComponentModel.DescriptionAttribute("Account Number")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string AccountNumber
@@ -366,13 +395,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.accountnumber);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.accountnumber);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(AccountNumber));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.accountnumber, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.accountnumber, value);
                 this.OnPropertyChanged(nameof(AccountNumber));
             }
         }
@@ -380,11 +409,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Account Rating
+        ///     (Russian - 1049): Оценка организации
         /// 
         /// Description:
         ///     (English - United States - 1033): Select a rating to indicate the value of the customer account.
+        ///     (Russian - 1049): Выберите рейтинг, указывающий ценность организации клиента.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.accountratingcode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.accountratingcode)]
         [System.ComponentModel.DescriptionAttribute("Account Rating")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue AccountRatingCode
@@ -392,13 +423,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.accountratingcode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.accountratingcode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(AccountRatingCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.accountratingcode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.accountratingcode, value);
                 this.OnPropertyChanged(nameof(AccountRatingCode));
             }
         }
@@ -406,23 +437,25 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Account Rating
+        ///     (Russian - 1049): Оценка организации
         /// 
         /// Description:
         ///     (English - United States - 1033): Select a rating to indicate the value of the customer account.
+        ///     (Russian - 1049): Выберите рейтинг, указывающий ценность организации клиента.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.accountratingcode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.accountratingcode)]
         [System.ComponentModel.DescriptionAttribute("Account Rating")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<Entities.Account.Schema.OptionSets.accountratingcode> AccountRatingCodeEnum
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.accountratingcode> AccountRatingCodeEnum
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.accountratingcode);
-                if (((optionSet != null) 
-                            && System.Enum.IsDefined(typeof(Entities.Account.Schema.OptionSets.accountratingcode), optionSet.Value)))
+                Microsoft.Xrm.Sdk.OptionSetValue optionSetValue = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.accountratingcode);
+                if (((optionSetValue != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.accountratingcode), optionSetValue.Value)))
                 {
-                    return ((Entities.Account.Schema.OptionSets.accountratingcode)(System.Enum.ToObject(typeof(Entities.Account.Schema.OptionSets.accountratingcode), optionSet.Value)));
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.accountratingcode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.accountratingcode), optionSetValue.Value)));
                 }
                 else
                 {
@@ -436,11 +469,11 @@ namespace Entities
                 this.OnPropertyChanging(nameof(AccountRatingCode));
                 if ((value == null))
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.accountratingcode, null);
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.accountratingcode, null);
                 }
                 else
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.accountratingcode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.accountratingcode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
                 }
                 this.OnPropertyChanged(nameof(AccountRatingCode));
                 this.OnPropertyChanged(nameof(AccountRatingCodeEnum));
@@ -450,11 +483,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: ID
+        ///     (Russian - 1049): Адрес 1: идентификатор
         /// 
         /// Description:
         ///     (English - United States - 1033): Unique identifier for address 1.
+        ///     (Russian - 1049): Уникальный идентификатор для адреса 1.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_addressid)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_addressid)]
         [System.ComponentModel.DescriptionAttribute("Address 1: ID")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<System.Guid> Address1_AddressId
@@ -462,13 +497,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<System.Guid>>(Entities.Account.Schema.Attributes.address1_addressid);
+                return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_addressid);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address1_AddressId));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_addressid, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_addressid, value);
                 this.OnPropertyChanged(nameof(Address1_AddressId));
             }
         }
@@ -476,11 +511,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: Address Type
+        ///     (Russian - 1049): Адрес 1: тип адреса
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the primary address type.
+        ///     (Russian - 1049): Выберите тип основного адреса
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_addresstypecode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_addresstypecode)]
         [System.ComponentModel.DescriptionAttribute("Address 1: Address Type")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue Address1_AddressTypeCode
@@ -488,13 +525,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.address1_addresstypecode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_addresstypecode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address1_AddressTypeCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_addresstypecode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_addresstypecode, value);
                 this.OnPropertyChanged(nameof(Address1_AddressTypeCode));
             }
         }
@@ -502,23 +539,25 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: Address Type
+        ///     (Russian - 1049): Адрес 1: тип адреса
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the primary address type.
+        ///     (Russian - 1049): Выберите тип основного адреса
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_addresstypecode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_addresstypecode)]
         [System.ComponentModel.DescriptionAttribute("Address 1: Address Type")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<Entities.Account.Schema.OptionSets.address1_addresstypecode> Address1_AddressTypeCodeEnum
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.address1_addresstypecode> Address1_AddressTypeCodeEnum
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.address1_addresstypecode);
-                if (((optionSet != null) 
-                            && System.Enum.IsDefined(typeof(Entities.Account.Schema.OptionSets.address1_addresstypecode), optionSet.Value)))
+                Microsoft.Xrm.Sdk.OptionSetValue optionSetValue = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_addresstypecode);
+                if (((optionSetValue != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.address1_addresstypecode), optionSetValue.Value)))
                 {
-                    return ((Entities.Account.Schema.OptionSets.address1_addresstypecode)(System.Enum.ToObject(typeof(Entities.Account.Schema.OptionSets.address1_addresstypecode), optionSet.Value)));
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.address1_addresstypecode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.address1_addresstypecode), optionSetValue.Value)));
                 }
                 else
                 {
@@ -532,11 +571,11 @@ namespace Entities
                 this.OnPropertyChanging(nameof(Address1_AddressTypeCode));
                 if ((value == null))
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_addresstypecode, null);
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_addresstypecode, null);
                 }
                 else
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_addresstypecode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_addresstypecode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
                 }
                 this.OnPropertyChanged(nameof(Address1_AddressTypeCode));
                 this.OnPropertyChanged(nameof(Address1_AddressTypeCodeEnum));
@@ -546,11 +585,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: City
+        ///     (Russian - 1049): Адрес 1: город
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the city for the primary address.
+        ///     (Russian - 1049): Введите город для основного адреса.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_city)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_city)]
         [System.ComponentModel.DescriptionAttribute("Address 1: City")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address1_City
@@ -558,13 +599,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address1_city);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_city);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address1_City));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_city, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_city, value);
                 this.OnPropertyChanged(nameof(Address1_City));
             }
         }
@@ -572,11 +613,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1
+        ///     (Russian - 1049): Адрес 1
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows the complete primary address.
+        ///     (Russian - 1049): Показывает полный основной адрес.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_composite)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_composite)]
         [System.ComponentModel.DescriptionAttribute("Address 1")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address1_Composite
@@ -584,18 +627,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address1_composite);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_composite);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: Country/Region
+        ///     (Russian - 1049): Адрес 1: страна
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the country or region for the primary address.
+        ///     (Russian - 1049): Введите страну или регион для основного адреса.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_country)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_country)]
         [System.ComponentModel.DescriptionAttribute("Address 1: Country/Region")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address1_Country
@@ -603,13 +648,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address1_country);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_country);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address1_Country));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_country, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_country, value);
                 this.OnPropertyChanged(nameof(Address1_Country));
             }
         }
@@ -617,11 +662,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: County
+        ///     (Russian - 1049): Адрес 1: округ
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the county for the primary address.
+        ///     (Russian - 1049): Введите район для основного адреса.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_county)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_county)]
         [System.ComponentModel.DescriptionAttribute("Address 1: County")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address1_County
@@ -629,13 +676,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address1_county);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_county);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address1_County));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_county, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_county, value);
                 this.OnPropertyChanged(nameof(Address1_County));
             }
         }
@@ -643,11 +690,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: Fax
+        ///     (Russian - 1049): Адрес 1: факс
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the fax number associated with the primary address.
+        ///     (Russian - 1049): Введите номер факса, связанный с основным адресом.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_fax)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_fax)]
         [System.ComponentModel.DescriptionAttribute("Address 1: Fax")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address1_Fax
@@ -655,13 +704,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address1_fax);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_fax);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address1_Fax));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_fax, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_fax, value);
                 this.OnPropertyChanged(nameof(Address1_Fax));
             }
         }
@@ -669,11 +718,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: Freight Terms
+        ///     (Russian - 1049): Адрес 1: условия поставки
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the freight terms for the primary address to make sure shipping orders are processed correctly.
+        ///     (Russian - 1049): Выберите условия поставки для основного адреса, чтобы заказы на поставку обрабатывались правильно.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_freighttermscode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_freighttermscode)]
         [System.ComponentModel.DescriptionAttribute("Address 1: Freight Terms")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue Address1_FreightTermsCode
@@ -681,13 +732,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.address1_freighttermscode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_freighttermscode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address1_FreightTermsCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_freighttermscode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_freighttermscode, value);
                 this.OnPropertyChanged(nameof(Address1_FreightTermsCode));
             }
         }
@@ -695,23 +746,25 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: Freight Terms
+        ///     (Russian - 1049): Адрес 1: условия поставки
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the freight terms for the primary address to make sure shipping orders are processed correctly.
+        ///     (Russian - 1049): Выберите условия поставки для основного адреса, чтобы заказы на поставку обрабатывались правильно.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_freighttermscode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_freighttermscode)]
         [System.ComponentModel.DescriptionAttribute("Address 1: Freight Terms")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<Entities.Account.Schema.OptionSets.address1_freighttermscode> Address1_FreightTermsCodeEnum
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.address1_freighttermscode> Address1_FreightTermsCodeEnum
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.address1_freighttermscode);
-                if (((optionSet != null) 
-                            && System.Enum.IsDefined(typeof(Entities.Account.Schema.OptionSets.address1_freighttermscode), optionSet.Value)))
+                Microsoft.Xrm.Sdk.OptionSetValue optionSetValue = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_freighttermscode);
+                if (((optionSetValue != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.address1_freighttermscode), optionSetValue.Value)))
                 {
-                    return ((Entities.Account.Schema.OptionSets.address1_freighttermscode)(System.Enum.ToObject(typeof(Entities.Account.Schema.OptionSets.address1_freighttermscode), optionSet.Value)));
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.address1_freighttermscode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.address1_freighttermscode), optionSetValue.Value)));
                 }
                 else
                 {
@@ -725,11 +778,11 @@ namespace Entities
                 this.OnPropertyChanging(nameof(Address1_FreightTermsCode));
                 if ((value == null))
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_freighttermscode, null);
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_freighttermscode, null);
                 }
                 else
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_freighttermscode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_freighttermscode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
                 }
                 this.OnPropertyChanged(nameof(Address1_FreightTermsCode));
                 this.OnPropertyChanged(nameof(Address1_FreightTermsCodeEnum));
@@ -739,11 +792,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: Latitude
+        ///     (Russian - 1049): Адрес 1: широта
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the latitude value for the primary address for use in mapping and other applications.
+        ///     (Russian - 1049): Введите значение широты для основного адреса. Оно будет использоваться в приложениях карт и других приложениях.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_latitude)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_latitude)]
         [System.ComponentModel.DescriptionAttribute("Address 1: Latitude")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<double> Address1_Latitude
@@ -751,13 +806,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<double>>(Entities.Account.Schema.Attributes.address1_latitude);
+                return this.GetAttributeValue<System.Nullable<double>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_latitude);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address1_Latitude));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_latitude, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_latitude, value);
                 this.OnPropertyChanged(nameof(Address1_Latitude));
             }
         }
@@ -765,11 +820,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: Street 1
+        ///     (Russian - 1049): Адрес 1: улица, дом (строка 1)
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the first line of the primary address.
+        ///     (Russian - 1049): Введите первую строку основного адреса.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_line1)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_line1)]
         [System.ComponentModel.DescriptionAttribute("Address 1: Street 1")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address1_Line1
@@ -777,13 +834,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address1_line1);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_line1);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address1_Line1));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_line1, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_line1, value);
                 this.OnPropertyChanged(nameof(Address1_Line1));
             }
         }
@@ -791,11 +848,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: Street 2
+        ///     (Russian - 1049): Адрес 1: улица, дом (строка 2)
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the second line of the primary address.
+        ///     (Russian - 1049): Введите вторую строку основного адреса.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_line2)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_line2)]
         [System.ComponentModel.DescriptionAttribute("Address 1: Street 2")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address1_Line2
@@ -803,13 +862,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address1_line2);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_line2);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address1_Line2));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_line2, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_line2, value);
                 this.OnPropertyChanged(nameof(Address1_Line2));
             }
         }
@@ -817,11 +876,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: Street 3
+        ///     (Russian - 1049): Адрес 1: улица, дом (строка 3)
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the third line of the primary address.
+        ///     (Russian - 1049): Введите третью строку основного адреса.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_line3)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_line3)]
         [System.ComponentModel.DescriptionAttribute("Address 1: Street 3")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address1_Line3
@@ -829,13 +890,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address1_line3);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_line3);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address1_Line3));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_line3, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_line3, value);
                 this.OnPropertyChanged(nameof(Address1_Line3));
             }
         }
@@ -843,11 +904,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: Longitude
+        ///     (Russian - 1049): Адрес 1: долгота
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the longitude value for the primary address for use in mapping and other applications.
+        ///     (Russian - 1049): Введите значение долготы для основного адреса. Оно будет использоваться в приложениях карт и других приложениях.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_longitude)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_longitude)]
         [System.ComponentModel.DescriptionAttribute("Address 1: Longitude")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<double> Address1_Longitude
@@ -855,13 +918,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<double>>(Entities.Account.Schema.Attributes.address1_longitude);
+                return this.GetAttributeValue<System.Nullable<double>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_longitude);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address1_Longitude));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_longitude, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_longitude, value);
                 this.OnPropertyChanged(nameof(Address1_Longitude));
             }
         }
@@ -869,11 +932,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: Name
+        ///     (Russian - 1049): Адрес 1: название
         /// 
         /// Description:
         ///     (English - United States - 1033): Type a descriptive name for the primary address, such as Corporate Headquarters.
+        ///     (Russian - 1049): Введите информативное имя для основного адреса (например, "Штаб-квартира корпорации").
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_name)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_name)]
         [System.ComponentModel.DescriptionAttribute("Address 1: Name")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address1_Name
@@ -881,13 +946,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address1_name);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_name);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address1_Name));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_name, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_name, value);
                 this.OnPropertyChanged(nameof(Address1_Name));
             }
         }
@@ -895,11 +960,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: ZIP/Postal Code
+        ///     (Russian - 1049): Адрес 1: почтовый индекс
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the ZIP Code or postal code for the primary address.
+        ///     (Russian - 1049): Введите почтовый индекс для основного адреса.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_postalcode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_postalcode)]
         [System.ComponentModel.DescriptionAttribute("Address 1: ZIP/Postal Code")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address1_PostalCode
@@ -907,13 +974,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address1_postalcode);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_postalcode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address1_PostalCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_postalcode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_postalcode, value);
                 this.OnPropertyChanged(nameof(Address1_PostalCode));
             }
         }
@@ -921,11 +988,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: Post Office Box
+        ///     (Russian - 1049): Адрес 1: абонентский ящик
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the post office box number of the primary address.
+        ///     (Russian - 1049): Введите номер абонентского ящика для основного адреса.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_postofficebox)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_postofficebox)]
         [System.ComponentModel.DescriptionAttribute("Address 1: Post Office Box")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address1_PostOfficeBox
@@ -933,13 +1002,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address1_postofficebox);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_postofficebox);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address1_PostOfficeBox));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_postofficebox, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_postofficebox, value);
                 this.OnPropertyChanged(nameof(Address1_PostOfficeBox));
             }
         }
@@ -947,11 +1016,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: Primary Contact Name
+        ///     (Russian - 1049): Адрес 1: имя основного контакта
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the name of the main contact at the account's primary address.
+        ///     (Russian - 1049): Введите имя основного контакта для основного адреса организации.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_primarycontactname)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_primarycontactname)]
         [System.ComponentModel.DescriptionAttribute("Address 1: Primary Contact Name")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address1_PrimaryContactName
@@ -959,13 +1030,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address1_primarycontactname);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_primarycontactname);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address1_PrimaryContactName));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_primarycontactname, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_primarycontactname, value);
                 this.OnPropertyChanged(nameof(Address1_PrimaryContactName));
             }
         }
@@ -973,11 +1044,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: Shipping Method
+        ///     (Russian - 1049): Адрес 1: способ доставки
         /// 
         /// Description:
         ///     (English - United States - 1033): Select a shipping method for deliveries sent to this address.
+        ///     (Russian - 1049): Выберите метод поставки для доставок по этому адресу.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_shippingmethodcode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_shippingmethodcode)]
         [System.ComponentModel.DescriptionAttribute("Address 1: Shipping Method")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue Address1_ShippingMethodCode
@@ -985,13 +1058,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.address1_shippingmethodcode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_shippingmethodcode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address1_ShippingMethodCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_shippingmethodcode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_shippingmethodcode, value);
                 this.OnPropertyChanged(nameof(Address1_ShippingMethodCode));
             }
         }
@@ -999,23 +1072,25 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: Shipping Method
+        ///     (Russian - 1049): Адрес 1: способ доставки
         /// 
         /// Description:
         ///     (English - United States - 1033): Select a shipping method for deliveries sent to this address.
+        ///     (Russian - 1049): Выберите метод поставки для доставок по этому адресу.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_shippingmethodcode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_shippingmethodcode)]
         [System.ComponentModel.DescriptionAttribute("Address 1: Shipping Method")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<Entities.Account.Schema.OptionSets.address1_shippingmethodcode> Address1_ShippingMethodCodeEnum
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.address1_shippingmethodcode> Address1_ShippingMethodCodeEnum
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.address1_shippingmethodcode);
-                if (((optionSet != null) 
-                            && System.Enum.IsDefined(typeof(Entities.Account.Schema.OptionSets.address1_shippingmethodcode), optionSet.Value)))
+                Microsoft.Xrm.Sdk.OptionSetValue optionSetValue = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_shippingmethodcode);
+                if (((optionSetValue != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.address1_shippingmethodcode), optionSetValue.Value)))
                 {
-                    return ((Entities.Account.Schema.OptionSets.address1_shippingmethodcode)(System.Enum.ToObject(typeof(Entities.Account.Schema.OptionSets.address1_shippingmethodcode), optionSet.Value)));
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.address1_shippingmethodcode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.address1_shippingmethodcode), optionSetValue.Value)));
                 }
                 else
                 {
@@ -1029,11 +1104,11 @@ namespace Entities
                 this.OnPropertyChanging(nameof(Address1_ShippingMethodCode));
                 if ((value == null))
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_shippingmethodcode, null);
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_shippingmethodcode, null);
                 }
                 else
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_shippingmethodcode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_shippingmethodcode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
                 }
                 this.OnPropertyChanged(nameof(Address1_ShippingMethodCode));
                 this.OnPropertyChanged(nameof(Address1_ShippingMethodCodeEnum));
@@ -1043,11 +1118,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: State/Province
+        ///     (Russian - 1049): Адрес 1: область, край, республика
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the state or province of the primary address.
+        ///     (Russian - 1049): Введите область или республику для основного адреса.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_stateorprovince)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_stateorprovince)]
         [System.ComponentModel.DescriptionAttribute("Address 1: State/Province")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address1_StateOrProvince
@@ -1055,13 +1132,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address1_stateorprovince);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_stateorprovince);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address1_StateOrProvince));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_stateorprovince, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_stateorprovince, value);
                 this.OnPropertyChanged(nameof(Address1_StateOrProvince));
             }
         }
@@ -1069,11 +1146,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address Phone
+        ///     (Russian - 1049): Телефон
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the main phone number associated with the primary address.
+        ///     (Russian - 1049): Введите основной номер телефона, связанный с основным адресом.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_telephone1)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_telephone1)]
         [System.ComponentModel.DescriptionAttribute("Address Phone")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address1_Telephone1
@@ -1081,13 +1160,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address1_telephone1);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_telephone1);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address1_Telephone1));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_telephone1, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_telephone1, value);
                 this.OnPropertyChanged(nameof(Address1_Telephone1));
             }
         }
@@ -1095,11 +1174,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: Telephone 2
+        ///     (Russian - 1049): Адрес 1: телефон 2
         /// 
         /// Description:
         ///     (English - United States - 1033): Type a second phone number associated with the primary address.
+        ///     (Russian - 1049): Введите второй номер телефона, связанный с основным адресом.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_telephone2)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_telephone2)]
         [System.ComponentModel.DescriptionAttribute("Address 1: Telephone 2")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address1_Telephone2
@@ -1107,13 +1188,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address1_telephone2);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_telephone2);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address1_Telephone2));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_telephone2, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_telephone2, value);
                 this.OnPropertyChanged(nameof(Address1_Telephone2));
             }
         }
@@ -1121,11 +1202,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: Telephone 3
+        ///     (Russian - 1049): Адрес 1: телефон 3
         /// 
         /// Description:
         ///     (English - United States - 1033): Type a third phone number associated with the primary address.
+        ///     (Russian - 1049): Введите третий номер телефона, связанный с основным адресом.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_telephone3)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_telephone3)]
         [System.ComponentModel.DescriptionAttribute("Address 1: Telephone 3")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address1_Telephone3
@@ -1133,13 +1216,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address1_telephone3);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_telephone3);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address1_Telephone3));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_telephone3, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_telephone3, value);
                 this.OnPropertyChanged(nameof(Address1_Telephone3));
             }
         }
@@ -1147,11 +1230,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: UPS Zone
+        ///     (Russian - 1049): Адрес 1: зона UPS
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the UPS zone of the primary address to make sure shipping charges are calculated correctly and deliveries are made promptly, if shipped by UPS.
+        ///     (Russian - 1049): Введите зону UPS основного адреса, чтобы доставка с помощью службы UPS осуществлялась быстро, а расходы на доставку рассчитывались правильно.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_upszone)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_upszone)]
         [System.ComponentModel.DescriptionAttribute("Address 1: UPS Zone")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address1_UPSZone
@@ -1159,13 +1244,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address1_upszone);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_upszone);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address1_UPSZone));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_upszone, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_upszone, value);
                 this.OnPropertyChanged(nameof(Address1_UPSZone));
             }
         }
@@ -1173,11 +1258,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 1: UTC Offset
+        ///     (Russian - 1049): Адрес 1: часовой пояс
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the time zone, or UTC offset, for this address so that other people can reference it when they contact someone at this address.
+        ///     (Russian - 1049): Выберите часовой пояс (или отклонение от UTC) для этого адреса, чтобы другие пользователи могли учитывать его, связываясь с кем-нибудь по этому адресу.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address1_utcoffset)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_utcoffset)]
         [System.ComponentModel.DescriptionAttribute("Address 1: UTC Offset")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<int> Address1_UTCOffset
@@ -1185,13 +1272,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<int>>(Entities.Account.Schema.Attributes.address1_utcoffset);
+                return this.GetAttributeValue<System.Nullable<int>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_utcoffset);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address1_UTCOffset));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address1_utcoffset, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address1_utcoffset, value);
                 this.OnPropertyChanged(nameof(Address1_UTCOffset));
             }
         }
@@ -1199,11 +1286,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: ID
+        ///     (Russian - 1049): Адрес 2: идентификатор
         /// 
         /// Description:
         ///     (English - United States - 1033): Unique identifier for address 2.
+        ///     (Russian - 1049): Уникальный идентификатор для адреса 2.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_addressid)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_addressid)]
         [System.ComponentModel.DescriptionAttribute("Address 2: ID")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<System.Guid> Address2_AddressId
@@ -1211,13 +1300,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<System.Guid>>(Entities.Account.Schema.Attributes.address2_addressid);
+                return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_addressid);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address2_AddressId));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_addressid, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_addressid, value);
                 this.OnPropertyChanged(nameof(Address2_AddressId));
             }
         }
@@ -1225,11 +1314,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: Address Type
+        ///     (Russian - 1049): Адрес 2: тип адреса
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the secondary address type.
+        ///     (Russian - 1049): Выберите тип дополнительного адреса.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_addresstypecode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_addresstypecode)]
         [System.ComponentModel.DescriptionAttribute("Address 2: Address Type")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue Address2_AddressTypeCode
@@ -1237,13 +1328,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.address2_addresstypecode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_addresstypecode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address2_AddressTypeCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_addresstypecode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_addresstypecode, value);
                 this.OnPropertyChanged(nameof(Address2_AddressTypeCode));
             }
         }
@@ -1251,23 +1342,25 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: Address Type
+        ///     (Russian - 1049): Адрес 2: тип адреса
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the secondary address type.
+        ///     (Russian - 1049): Выберите тип дополнительного адреса.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_addresstypecode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_addresstypecode)]
         [System.ComponentModel.DescriptionAttribute("Address 2: Address Type")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<Entities.Account.Schema.OptionSets.address2_addresstypecode> Address2_AddressTypeCodeEnum
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.address2_addresstypecode> Address2_AddressTypeCodeEnum
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.address2_addresstypecode);
-                if (((optionSet != null) 
-                            && System.Enum.IsDefined(typeof(Entities.Account.Schema.OptionSets.address2_addresstypecode), optionSet.Value)))
+                Microsoft.Xrm.Sdk.OptionSetValue optionSetValue = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_addresstypecode);
+                if (((optionSetValue != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.address2_addresstypecode), optionSetValue.Value)))
                 {
-                    return ((Entities.Account.Schema.OptionSets.address2_addresstypecode)(System.Enum.ToObject(typeof(Entities.Account.Schema.OptionSets.address2_addresstypecode), optionSet.Value)));
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.address2_addresstypecode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.address2_addresstypecode), optionSetValue.Value)));
                 }
                 else
                 {
@@ -1281,11 +1374,11 @@ namespace Entities
                 this.OnPropertyChanging(nameof(Address2_AddressTypeCode));
                 if ((value == null))
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_addresstypecode, null);
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_addresstypecode, null);
                 }
                 else
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_addresstypecode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_addresstypecode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
                 }
                 this.OnPropertyChanged(nameof(Address2_AddressTypeCode));
                 this.OnPropertyChanged(nameof(Address2_AddressTypeCodeEnum));
@@ -1295,11 +1388,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: City
+        ///     (Russian - 1049): Адрес 2: город
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the city for the secondary address.
+        ///     (Russian - 1049): Введите город для дополнительного адреса.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_city)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_city)]
         [System.ComponentModel.DescriptionAttribute("Address 2: City")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address2_City
@@ -1307,13 +1402,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address2_city);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_city);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address2_City));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_city, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_city, value);
                 this.OnPropertyChanged(nameof(Address2_City));
             }
         }
@@ -1321,11 +1416,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2
+        ///     (Russian - 1049): Адрес 2
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows the complete secondary address.
+        ///     (Russian - 1049): Показывает полный дополнительный адрес.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_composite)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_composite)]
         [System.ComponentModel.DescriptionAttribute("Address 2")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address2_Composite
@@ -1333,18 +1430,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address2_composite);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_composite);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: Country/Region
+        ///     (Russian - 1049): Адрес 2: страна
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the country or region for the secondary address.
+        ///     (Russian - 1049): Введите страну или регион для дополнительного адреса.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_country)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_country)]
         [System.ComponentModel.DescriptionAttribute("Address 2: Country/Region")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address2_Country
@@ -1352,13 +1451,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address2_country);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_country);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address2_Country));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_country, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_country, value);
                 this.OnPropertyChanged(nameof(Address2_Country));
             }
         }
@@ -1366,11 +1465,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: County
+        ///     (Russian - 1049): Адрес 2: округ
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the county for the secondary address.
+        ///     (Russian - 1049): Введите район для дополнительного адреса.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_county)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_county)]
         [System.ComponentModel.DescriptionAttribute("Address 2: County")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address2_County
@@ -1378,13 +1479,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address2_county);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_county);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address2_County));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_county, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_county, value);
                 this.OnPropertyChanged(nameof(Address2_County));
             }
         }
@@ -1392,11 +1493,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: Fax
+        ///     (Russian - 1049): Адрес 2: факс
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the fax number associated with the secondary address.
+        ///     (Russian - 1049): Введите номер факса, связанный с дополнительным адресом.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_fax)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_fax)]
         [System.ComponentModel.DescriptionAttribute("Address 2: Fax")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address2_Fax
@@ -1404,13 +1507,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address2_fax);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_fax);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address2_Fax));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_fax, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_fax, value);
                 this.OnPropertyChanged(nameof(Address2_Fax));
             }
         }
@@ -1418,11 +1521,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: Freight Terms
+        ///     (Russian - 1049): Адрес 2: условия поставки
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the freight terms for the secondary address to make sure shipping orders are processed correctly.
+        ///     (Russian - 1049): Выберите условия поставки для дополнительного адреса, чтобы заказы на поставку обрабатывались правильно.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_freighttermscode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_freighttermscode)]
         [System.ComponentModel.DescriptionAttribute("Address 2: Freight Terms")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue Address2_FreightTermsCode
@@ -1430,13 +1535,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.address2_freighttermscode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_freighttermscode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address2_FreightTermsCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_freighttermscode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_freighttermscode, value);
                 this.OnPropertyChanged(nameof(Address2_FreightTermsCode));
             }
         }
@@ -1444,23 +1549,25 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: Freight Terms
+        ///     (Russian - 1049): Адрес 2: условия поставки
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the freight terms for the secondary address to make sure shipping orders are processed correctly.
+        ///     (Russian - 1049): Выберите условия поставки для дополнительного адреса, чтобы заказы на поставку обрабатывались правильно.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_freighttermscode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_freighttermscode)]
         [System.ComponentModel.DescriptionAttribute("Address 2: Freight Terms")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<Entities.Account.Schema.OptionSets.address2_freighttermscode> Address2_FreightTermsCodeEnum
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.address2_freighttermscode> Address2_FreightTermsCodeEnum
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.address2_freighttermscode);
-                if (((optionSet != null) 
-                            && System.Enum.IsDefined(typeof(Entities.Account.Schema.OptionSets.address2_freighttermscode), optionSet.Value)))
+                Microsoft.Xrm.Sdk.OptionSetValue optionSetValue = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_freighttermscode);
+                if (((optionSetValue != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.address2_freighttermscode), optionSetValue.Value)))
                 {
-                    return ((Entities.Account.Schema.OptionSets.address2_freighttermscode)(System.Enum.ToObject(typeof(Entities.Account.Schema.OptionSets.address2_freighttermscode), optionSet.Value)));
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.address2_freighttermscode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.address2_freighttermscode), optionSetValue.Value)));
                 }
                 else
                 {
@@ -1474,11 +1581,11 @@ namespace Entities
                 this.OnPropertyChanging(nameof(Address2_FreightTermsCode));
                 if ((value == null))
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_freighttermscode, null);
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_freighttermscode, null);
                 }
                 else
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_freighttermscode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_freighttermscode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
                 }
                 this.OnPropertyChanged(nameof(Address2_FreightTermsCode));
                 this.OnPropertyChanged(nameof(Address2_FreightTermsCodeEnum));
@@ -1488,11 +1595,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: Latitude
+        ///     (Russian - 1049): Адрес 2: широта
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the latitude value for the secondary address for use in mapping and other applications.
+        ///     (Russian - 1049): Введите значение широты для дополнительного адреса. Оно будет использоваться в приложениях карт и других приложениях.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_latitude)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_latitude)]
         [System.ComponentModel.DescriptionAttribute("Address 2: Latitude")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<double> Address2_Latitude
@@ -1500,13 +1609,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<double>>(Entities.Account.Schema.Attributes.address2_latitude);
+                return this.GetAttributeValue<System.Nullable<double>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_latitude);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address2_Latitude));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_latitude, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_latitude, value);
                 this.OnPropertyChanged(nameof(Address2_Latitude));
             }
         }
@@ -1514,11 +1623,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: Street 1
+        ///     (Russian - 1049): Адрес 2: улица, дом (строка 1)
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the first line of the secondary address.
+        ///     (Russian - 1049): Введите первую строку дополнительного адреса.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_line1)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_line1)]
         [System.ComponentModel.DescriptionAttribute("Address 2: Street 1")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address2_Line1
@@ -1526,13 +1637,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address2_line1);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_line1);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address2_Line1));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_line1, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_line1, value);
                 this.OnPropertyChanged(nameof(Address2_Line1));
             }
         }
@@ -1540,11 +1651,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: Street 2
+        ///     (Russian - 1049): Адрес 2: улица, дом (строка 2)
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the second line of the secondary address.
+        ///     (Russian - 1049): Введите вторую строку дополнительного адреса.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_line2)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_line2)]
         [System.ComponentModel.DescriptionAttribute("Address 2: Street 2")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address2_Line2
@@ -1552,13 +1665,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address2_line2);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_line2);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address2_Line2));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_line2, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_line2, value);
                 this.OnPropertyChanged(nameof(Address2_Line2));
             }
         }
@@ -1566,11 +1679,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: Street 3
+        ///     (Russian - 1049): Адрес 2: улица, дом (строка 3)
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the third line of the secondary address.
+        ///     (Russian - 1049): Введите третью строку дополнительного адреса.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_line3)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_line3)]
         [System.ComponentModel.DescriptionAttribute("Address 2: Street 3")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address2_Line3
@@ -1578,13 +1693,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address2_line3);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_line3);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address2_Line3));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_line3, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_line3, value);
                 this.OnPropertyChanged(nameof(Address2_Line3));
             }
         }
@@ -1592,11 +1707,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: Longitude
+        ///     (Russian - 1049): Адрес 2: долгота
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the longitude value for the secondary address for use in mapping and other applications.
+        ///     (Russian - 1049): Введите значение долготы для дополнительного адреса. Оно будет использоваться в приложениях карт и других приложениях.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_longitude)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_longitude)]
         [System.ComponentModel.DescriptionAttribute("Address 2: Longitude")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<double> Address2_Longitude
@@ -1604,13 +1721,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<double>>(Entities.Account.Schema.Attributes.address2_longitude);
+                return this.GetAttributeValue<System.Nullable<double>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_longitude);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address2_Longitude));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_longitude, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_longitude, value);
                 this.OnPropertyChanged(nameof(Address2_Longitude));
             }
         }
@@ -1618,11 +1735,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: Name
+        ///     (Russian - 1049): Адрес 2: название
         /// 
         /// Description:
         ///     (English - United States - 1033): Type a descriptive name for the secondary address, such as Corporate Headquarters.
+        ///     (Russian - 1049): Введите информативное имя для дополнительного адреса (например, "Штаб-квартира корпорации").
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_name)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_name)]
         [System.ComponentModel.DescriptionAttribute("Address 2: Name")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address2_Name
@@ -1630,13 +1749,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address2_name);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_name);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address2_Name));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_name, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_name, value);
                 this.OnPropertyChanged(nameof(Address2_Name));
             }
         }
@@ -1644,11 +1763,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: ZIP/Postal Code
+        ///     (Russian - 1049): Адрес 2: почтовый индекс
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the ZIP Code or postal code for the secondary address.
+        ///     (Russian - 1049): Введите почтовый индекс для дополнительного адреса.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_postalcode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_postalcode)]
         [System.ComponentModel.DescriptionAttribute("Address 2: ZIP/Postal Code")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address2_PostalCode
@@ -1656,13 +1777,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address2_postalcode);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_postalcode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address2_PostalCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_postalcode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_postalcode, value);
                 this.OnPropertyChanged(nameof(Address2_PostalCode));
             }
         }
@@ -1670,11 +1791,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: Post Office Box
+        ///     (Russian - 1049): Адрес 2: абонентский ящик
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the post office box number of the secondary address.
+        ///     (Russian - 1049): Введите номер абонентского ящика для дополнительного адреса.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_postofficebox)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_postofficebox)]
         [System.ComponentModel.DescriptionAttribute("Address 2: Post Office Box")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address2_PostOfficeBox
@@ -1682,13 +1805,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address2_postofficebox);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_postofficebox);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address2_PostOfficeBox));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_postofficebox, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_postofficebox, value);
                 this.OnPropertyChanged(nameof(Address2_PostOfficeBox));
             }
         }
@@ -1696,11 +1819,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: Primary Contact Name
+        ///     (Russian - 1049): Адрес 2: имя основного контакта
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the name of the main contact at the account's secondary address.
+        ///     (Russian - 1049): Введите имя основного контакта для дополнительного адреса организации.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_primarycontactname)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_primarycontactname)]
         [System.ComponentModel.DescriptionAttribute("Address 2: Primary Contact Name")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address2_PrimaryContactName
@@ -1708,13 +1833,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address2_primarycontactname);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_primarycontactname);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address2_PrimaryContactName));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_primarycontactname, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_primarycontactname, value);
                 this.OnPropertyChanged(nameof(Address2_PrimaryContactName));
             }
         }
@@ -1722,11 +1847,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: Shipping Method
+        ///     (Russian - 1049): Адрес 2: способ поставки
         /// 
         /// Description:
         ///     (English - United States - 1033): Select a shipping method for deliveries sent to this address.
+        ///     (Russian - 1049): Выберите метод поставки для доставок по этому адресу.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_shippingmethodcode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_shippingmethodcode)]
         [System.ComponentModel.DescriptionAttribute("Address 2: Shipping Method")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue Address2_ShippingMethodCode
@@ -1734,13 +1861,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.address2_shippingmethodcode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_shippingmethodcode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address2_ShippingMethodCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_shippingmethodcode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_shippingmethodcode, value);
                 this.OnPropertyChanged(nameof(Address2_ShippingMethodCode));
             }
         }
@@ -1748,23 +1875,25 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: Shipping Method
+        ///     (Russian - 1049): Адрес 2: способ поставки
         /// 
         /// Description:
         ///     (English - United States - 1033): Select a shipping method for deliveries sent to this address.
+        ///     (Russian - 1049): Выберите метод поставки для доставок по этому адресу.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_shippingmethodcode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_shippingmethodcode)]
         [System.ComponentModel.DescriptionAttribute("Address 2: Shipping Method")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<Entities.Account.Schema.OptionSets.address2_shippingmethodcode> Address2_ShippingMethodCodeEnum
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.address2_shippingmethodcode> Address2_ShippingMethodCodeEnum
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.address2_shippingmethodcode);
-                if (((optionSet != null) 
-                            && System.Enum.IsDefined(typeof(Entities.Account.Schema.OptionSets.address2_shippingmethodcode), optionSet.Value)))
+                Microsoft.Xrm.Sdk.OptionSetValue optionSetValue = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_shippingmethodcode);
+                if (((optionSetValue != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.address2_shippingmethodcode), optionSetValue.Value)))
                 {
-                    return ((Entities.Account.Schema.OptionSets.address2_shippingmethodcode)(System.Enum.ToObject(typeof(Entities.Account.Schema.OptionSets.address2_shippingmethodcode), optionSet.Value)));
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.address2_shippingmethodcode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.address2_shippingmethodcode), optionSetValue.Value)));
                 }
                 else
                 {
@@ -1778,11 +1907,11 @@ namespace Entities
                 this.OnPropertyChanging(nameof(Address2_ShippingMethodCode));
                 if ((value == null))
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_shippingmethodcode, null);
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_shippingmethodcode, null);
                 }
                 else
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_shippingmethodcode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_shippingmethodcode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
                 }
                 this.OnPropertyChanged(nameof(Address2_ShippingMethodCode));
                 this.OnPropertyChanged(nameof(Address2_ShippingMethodCodeEnum));
@@ -1792,11 +1921,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: State/Province
+        ///     (Russian - 1049): Адрес 2: область, край, республика
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the state or province of the secondary address.
+        ///     (Russian - 1049): Введите область или республику для дополнительного адреса.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_stateorprovince)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_stateorprovince)]
         [System.ComponentModel.DescriptionAttribute("Address 2: State/Province")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address2_StateOrProvince
@@ -1804,13 +1935,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address2_stateorprovince);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_stateorprovince);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address2_StateOrProvince));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_stateorprovince, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_stateorprovince, value);
                 this.OnPropertyChanged(nameof(Address2_StateOrProvince));
             }
         }
@@ -1818,11 +1949,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: Telephone 1
+        ///     (Russian - 1049): Адрес 2: телефон 1
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the main phone number associated with the secondary address.
+        ///     (Russian - 1049): Введите основной номер телефона, связанный с дополнительным адресом.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_telephone1)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_telephone1)]
         [System.ComponentModel.DescriptionAttribute("Address 2: Telephone 1")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address2_Telephone1
@@ -1830,13 +1963,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address2_telephone1);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_telephone1);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address2_Telephone1));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_telephone1, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_telephone1, value);
                 this.OnPropertyChanged(nameof(Address2_Telephone1));
             }
         }
@@ -1844,11 +1977,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: Telephone 2
+        ///     (Russian - 1049): Адрес 2: телефон 2
         /// 
         /// Description:
         ///     (English - United States - 1033): Type a second phone number associated with the secondary address.
+        ///     (Russian - 1049): Введите второй номер телефона, связанный с дополнительным адресом.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_telephone2)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_telephone2)]
         [System.ComponentModel.DescriptionAttribute("Address 2: Telephone 2")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address2_Telephone2
@@ -1856,13 +1991,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address2_telephone2);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_telephone2);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address2_Telephone2));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_telephone2, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_telephone2, value);
                 this.OnPropertyChanged(nameof(Address2_Telephone2));
             }
         }
@@ -1870,11 +2005,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: Telephone 3
+        ///     (Russian - 1049): Адрес 2: телефон 3
         /// 
         /// Description:
         ///     (English - United States - 1033): Type a third phone number associated with the secondary address.
+        ///     (Russian - 1049): Введите третий номер телефона, связанный с дополнительным адресом.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_telephone3)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_telephone3)]
         [System.ComponentModel.DescriptionAttribute("Address 2: Telephone 3")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address2_Telephone3
@@ -1882,13 +2019,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address2_telephone3);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_telephone3);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address2_Telephone3));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_telephone3, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_telephone3, value);
                 this.OnPropertyChanged(nameof(Address2_Telephone3));
             }
         }
@@ -1896,11 +2033,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: UPS Zone
+        ///     (Russian - 1049): Адрес 2: зона UPS
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the UPS zone of the secondary address to make sure shipping charges are calculated correctly and deliveries are made promptly, if shipped by UPS.
+        ///     (Russian - 1049): Введите зону UPS дополнительного адреса, чтобы доставка с помощью службы UPS осуществлялась быстро, а расходы на доставку рассчитывались правильно.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_upszone)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_upszone)]
         [System.ComponentModel.DescriptionAttribute("Address 2: UPS Zone")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Address2_UPSZone
@@ -1908,13 +2047,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.address2_upszone);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_upszone);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address2_UPSZone));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_upszone, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_upszone, value);
                 this.OnPropertyChanged(nameof(Address2_UPSZone));
             }
         }
@@ -1922,11 +2061,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Address 2: UTC Offset
+        ///     (Russian - 1049): Адрес 2: часовой пояс
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the time zone, or UTC offset, for this address so that other people can reference it when they contact someone at this address.
+        ///     (Russian - 1049): Выберите часовой пояс (или отклонение от UTC) для этого адреса, чтобы другие пользователи могли учитывать его, связываясь с кем-нибудь по этому адресу.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.address2_utcoffset)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_utcoffset)]
         [System.ComponentModel.DescriptionAttribute("Address 2: UTC Offset")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<int> Address2_UTCOffset
@@ -1934,13 +2075,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<int>>(Entities.Account.Schema.Attributes.address2_utcoffset);
+                return this.GetAttributeValue<System.Nullable<int>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_utcoffset);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Address2_UTCOffset));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.address2_utcoffset, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.address2_utcoffset, value);
                 this.OnPropertyChanged(nameof(Address2_UTCOffset));
             }
         }
@@ -1948,11 +2089,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Aging 30
+        ///     (Russian - 1049): Срок оплаты 30
         /// 
         /// Description:
         ///     (English - United States - 1033): For system use only.
+        ///     (Russian - 1049): Только для системного использования.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.aging30)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.aging30)]
         [System.ComponentModel.DescriptionAttribute("Aging 30")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.Money Aging30
@@ -1960,18 +2103,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Entities.Account.Schema.Attributes.aging30);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.aging30);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Aging 30 (Base)
+        ///     (Russian - 1049): Срок оплаты 30 (базовый)
         /// 
         /// Description:
         ///     (English - United States - 1033): The base currency equivalent of the aging 30 field.
+        ///     (Russian - 1049): Эквивалент срока оплаты 30 в базовой валюте.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.aging30_base)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.aging30_base)]
         [System.ComponentModel.DescriptionAttribute("Aging 30 (Base)")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.Money Aging30_Base
@@ -1979,18 +2124,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Entities.Account.Schema.Attributes.aging30_base);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.aging30_base);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Aging 60
+        ///     (Russian - 1049): Срок оплаты 60
         /// 
         /// Description:
         ///     (English - United States - 1033): For system use only.
+        ///     (Russian - 1049): Только для системного использования.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.aging60)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.aging60)]
         [System.ComponentModel.DescriptionAttribute("Aging 60")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.Money Aging60
@@ -1998,18 +2145,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Entities.Account.Schema.Attributes.aging60);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.aging60);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Aging 60 (Base)
+        ///     (Russian - 1049): Срок оплаты 60 (базовый)
         /// 
         /// Description:
         ///     (English - United States - 1033): The base currency equivalent of the aging 60 field.
+        ///     (Russian - 1049): Эквивалент срока оплаты 60 в базовой валюте.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.aging60_base)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.aging60_base)]
         [System.ComponentModel.DescriptionAttribute("Aging 60 (Base)")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.Money Aging60_Base
@@ -2017,18 +2166,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Entities.Account.Schema.Attributes.aging60_base);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.aging60_base);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Aging 90
+        ///     (Russian - 1049): Срок оплаты 90
         /// 
         /// Description:
         ///     (English - United States - 1033): For system use only.
+        ///     (Russian - 1049): Только для системного использования.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.aging90)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.aging90)]
         [System.ComponentModel.DescriptionAttribute("Aging 90")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.Money Aging90
@@ -2036,18 +2187,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Entities.Account.Schema.Attributes.aging90);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.aging90);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Aging 90 (Base)
+        ///     (Russian - 1049): Срок оплаты 90 (базовый)
         /// 
         /// Description:
         ///     (English - United States - 1033): The base currency equivalent of the aging 90 field.
+        ///     (Russian - 1049): Эквивалент срока оплаты 90 в базовой валюте.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.aging90_base)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.aging90_base)]
         [System.ComponentModel.DescriptionAttribute("Aging 90 (Base)")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.Money Aging90_Base
@@ -2055,18 +2208,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Entities.Account.Schema.Attributes.aging90_base);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.aging90_base);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Business Type
+        ///     (Russian - 1049): Тип бизнеса
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the legal designation or other business type of the account for contracts or reporting purposes.
+        ///     (Russian - 1049): Выберите организационно-правовую форму или другой вид деятельности для данной организации, используемый в целях отчетности или для контрактов.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.businesstypecode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.businesstypecode)]
         [System.ComponentModel.DescriptionAttribute("Business Type")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue BusinessTypeCode
@@ -2074,13 +2229,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.businesstypecode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.businesstypecode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(BusinessTypeCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.businesstypecode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.businesstypecode, value);
                 this.OnPropertyChanged(nameof(BusinessTypeCode));
             }
         }
@@ -2088,23 +2243,25 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Business Type
+        ///     (Russian - 1049): Тип бизнеса
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the legal designation or other business type of the account for contracts or reporting purposes.
+        ///     (Russian - 1049): Выберите организационно-правовую форму или другой вид деятельности для данной организации, используемый в целях отчетности или для контрактов.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.businesstypecode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.businesstypecode)]
         [System.ComponentModel.DescriptionAttribute("Business Type")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<Entities.Account.Schema.OptionSets.businesstypecode> BusinessTypeCodeEnum
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.businesstypecode> BusinessTypeCodeEnum
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.businesstypecode);
-                if (((optionSet != null) 
-                            && System.Enum.IsDefined(typeof(Entities.Account.Schema.OptionSets.businesstypecode), optionSet.Value)))
+                Microsoft.Xrm.Sdk.OptionSetValue optionSetValue = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.businesstypecode);
+                if (((optionSetValue != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.businesstypecode), optionSetValue.Value)))
                 {
-                    return ((Entities.Account.Schema.OptionSets.businesstypecode)(System.Enum.ToObject(typeof(Entities.Account.Schema.OptionSets.businesstypecode), optionSet.Value)));
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.businesstypecode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.businesstypecode), optionSetValue.Value)));
                 }
                 else
                 {
@@ -2118,11 +2275,11 @@ namespace Entities
                 this.OnPropertyChanging(nameof(BusinessTypeCode));
                 if ((value == null))
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.businesstypecode, null);
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.businesstypecode, null);
                 }
                 else
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.businesstypecode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.businesstypecode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
                 }
                 this.OnPropertyChanged(nameof(BusinessTypeCode));
                 this.OnPropertyChanged(nameof(BusinessTypeCodeEnum));
@@ -2132,11 +2289,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Created By
+        ///     (Russian - 1049): Создано
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows who created the record.
+        ///     (Russian - 1049): Показывает, кто создал запись.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.createdby)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.createdby)]
         [System.ComponentModel.DescriptionAttribute("Created By")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference CreatedBy
@@ -2144,18 +2303,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Entities.Account.Schema.Attributes.createdby);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.createdby);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Created By (External Party)
+        ///     (Russian - 1049): Создано (внешняя сторона)
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows the external party who created the record.
+        ///     (Russian - 1049): Показывает внешнюю сторону, создавшую запись.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.createdbyexternalparty)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.createdbyexternalparty)]
         [System.ComponentModel.DescriptionAttribute("Created By (External Party)")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference CreatedByExternalParty
@@ -2163,18 +2324,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Entities.Account.Schema.Attributes.createdbyexternalparty);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.createdbyexternalparty);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Created On
+        ///     (Russian - 1049): Дата создания
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows the date and time when the record was created. The date and time are displayed in the time zone selected in Microsoft Dynamics 365 options.
+        ///     (Russian - 1049): Показывает дату и время, в которые была создана запись. Дата и время отображаются для часового пояса, выбранного в параметрах Microsoft Dynamics 365.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.createdon)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.createdon)]
         [System.ComponentModel.DescriptionAttribute("Created On")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<System.DateTime> CreatedOn
@@ -2182,18 +2345,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<System.DateTime>>(Entities.Account.Schema.Attributes.createdon);
+                return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.createdon);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Created By (Delegate)
+        ///     (Russian - 1049): Кем создано (делегат)
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows who created the record on behalf of another user.
+        ///     (Russian - 1049): Показывает, кто создал запись от имени другого пользователя.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.createdonbehalfby)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.createdonbehalfby)]
         [System.ComponentModel.DescriptionAttribute("Created By (Delegate)")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference CreatedOnBehalfBy
@@ -2201,18 +2366,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Entities.Account.Schema.Attributes.createdonbehalfby);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.createdonbehalfby);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Credit Limit
+        ///     (Russian - 1049): Кредитный лимит
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the credit limit of the account. This is a useful reference when you address invoice and accounting issues with the customer.
+        ///     (Russian - 1049): Введите кредитный лимит организации. Он будет полезен при решении связанных со счетами и бухгалтерским учетом вопросов по данному клиенту.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.creditlimit)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.creditlimit)]
         [System.ComponentModel.DescriptionAttribute("Credit Limit")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.Money CreditLimit
@@ -2220,13 +2387,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Entities.Account.Schema.Attributes.creditlimit);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.creditlimit);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(CreditLimit));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.creditlimit, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.creditlimit, value);
                 this.OnPropertyChanged(nameof(CreditLimit));
             }
         }
@@ -2234,11 +2401,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Credit Limit (Base)
+        ///     (Russian - 1049): Кредитный лимит (базовый)
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows the credit limit converted to the system's default base currency for reporting purposes.
+        ///     (Russian - 1049): Показывает кредитный лимит, преобразованный в системную базовую валюту по умолчанию в целях отчетности.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.creditlimit_base)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.creditlimit_base)]
         [System.ComponentModel.DescriptionAttribute("Credit Limit (Base)")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.Money CreditLimit_Base
@@ -2246,18 +2415,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Entities.Account.Schema.Attributes.creditlimit_base);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.creditlimit_base);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Credit Hold
+        ///     (Russian - 1049): Возможность кредита
         /// 
         /// Description:
         ///     (English - United States - 1033): Select whether the credit for the account is on hold. This is a useful reference while addressing the invoice and accounting issues with the customer.
+        ///     (Russian - 1049): Укажите, приостановлен ли кредит для организации. Это полезная информация при решении связанных со счетами и бухгалтерским учетом вопросов по данному клиенту.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.creditonhold)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.creditonhold)]
         [System.ComponentModel.DescriptionAttribute("Credit Hold")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<bool> CreditOnHold
@@ -2265,13 +2436,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<bool>>(Entities.Account.Schema.Attributes.creditonhold);
+                return this.GetAttributeValue<System.Nullable<bool>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.creditonhold);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(CreditOnHold));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.creditonhold, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.creditonhold, value);
                 this.OnPropertyChanged(nameof(CreditOnHold));
             }
         }
@@ -2279,11 +2450,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Customer Size
+        ///     (Russian - 1049): Размер клиента
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the size category or range of the account for segmentation and reporting purposes.
+        ///     (Russian - 1049): Выберите категорию или диапазон размеров организации в целях сегментирования и отчетности.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.customersizecode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.customersizecode)]
         [System.ComponentModel.DescriptionAttribute("Customer Size")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue CustomerSizeCode
@@ -2291,13 +2464,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.customersizecode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.customersizecode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(CustomerSizeCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.customersizecode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.customersizecode, value);
                 this.OnPropertyChanged(nameof(CustomerSizeCode));
             }
         }
@@ -2305,23 +2478,25 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Customer Size
+        ///     (Russian - 1049): Размер клиента
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the size category or range of the account for segmentation and reporting purposes.
+        ///     (Russian - 1049): Выберите категорию или диапазон размеров организации в целях сегментирования и отчетности.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.customersizecode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.customersizecode)]
         [System.ComponentModel.DescriptionAttribute("Customer Size")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<Entities.Account.Schema.OptionSets.customersizecode> CustomerSizeCodeEnum
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.customersizecode> CustomerSizeCodeEnum
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.customersizecode);
-                if (((optionSet != null) 
-                            && System.Enum.IsDefined(typeof(Entities.Account.Schema.OptionSets.customersizecode), optionSet.Value)))
+                Microsoft.Xrm.Sdk.OptionSetValue optionSetValue = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.customersizecode);
+                if (((optionSetValue != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.customersizecode), optionSetValue.Value)))
                 {
-                    return ((Entities.Account.Schema.OptionSets.customersizecode)(System.Enum.ToObject(typeof(Entities.Account.Schema.OptionSets.customersizecode), optionSet.Value)));
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.customersizecode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.customersizecode), optionSetValue.Value)));
                 }
                 else
                 {
@@ -2335,11 +2510,11 @@ namespace Entities
                 this.OnPropertyChanging(nameof(CustomerSizeCode));
                 if ((value == null))
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.customersizecode, null);
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.customersizecode, null);
                 }
                 else
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.customersizecode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.customersizecode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
                 }
                 this.OnPropertyChanged(nameof(CustomerSizeCode));
                 this.OnPropertyChanged(nameof(CustomerSizeCodeEnum));
@@ -2349,11 +2524,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Relationship Type
+        ///     (Russian - 1049): Тип отношений
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the category that best describes the relationship between the account and your organization.
+        ///     (Russian - 1049): Выберите категорию, которая наилучшим образом описывает отношения между данной организацией и вашей организацией.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.customertypecode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.customertypecode)]
         [System.ComponentModel.DescriptionAttribute("Relationship Type")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue CustomerTypeCode
@@ -2361,13 +2538,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.customertypecode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.customertypecode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(CustomerTypeCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.customertypecode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.customertypecode, value);
                 this.OnPropertyChanged(nameof(CustomerTypeCode));
             }
         }
@@ -2375,23 +2552,25 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Relationship Type
+        ///     (Russian - 1049): Тип отношений
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the category that best describes the relationship between the account and your organization.
+        ///     (Russian - 1049): Выберите категорию, которая наилучшим образом описывает отношения между данной организацией и вашей организацией.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.customertypecode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.customertypecode)]
         [System.ComponentModel.DescriptionAttribute("Relationship Type")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<Entities.Account.Schema.OptionSets.customertypecode> CustomerTypeCodeEnum
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.customertypecode> CustomerTypeCodeEnum
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.customertypecode);
-                if (((optionSet != null) 
-                            && System.Enum.IsDefined(typeof(Entities.Account.Schema.OptionSets.customertypecode), optionSet.Value)))
+                Microsoft.Xrm.Sdk.OptionSetValue optionSetValue = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.customertypecode);
+                if (((optionSetValue != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.customertypecode), optionSetValue.Value)))
                 {
-                    return ((Entities.Account.Schema.OptionSets.customertypecode)(System.Enum.ToObject(typeof(Entities.Account.Schema.OptionSets.customertypecode), optionSet.Value)));
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.customertypecode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.customertypecode), optionSetValue.Value)));
                 }
                 else
                 {
@@ -2405,11 +2584,11 @@ namespace Entities
                 this.OnPropertyChanging(nameof(CustomerTypeCode));
                 if ((value == null))
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.customertypecode, null);
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.customertypecode, null);
                 }
                 else
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.customertypecode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.customertypecode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
                 }
                 this.OnPropertyChanged(nameof(CustomerTypeCode));
                 this.OnPropertyChanged(nameof(CustomerTypeCodeEnum));
@@ -2419,11 +2598,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Price List
+        ///     (Russian - 1049): Прайс-лист
         /// 
         /// Description:
         ///     (English - United States - 1033): Choose the default price list associated with the account to make sure the correct product prices for this customer are applied in sales opportunities, quotes, and orders.
+        ///     (Russian - 1049): Выбор прайс-листа по умолчанию, связанного с организацией, чтобы в возможных сделках, предложениях с расценками и заказах для этого клиента использовались правильные цены на продукты.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.defaultpricelevelid)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.defaultpricelevelid)]
         [System.ComponentModel.DescriptionAttribute("Price List")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference DefaultPriceLevelId
@@ -2431,13 +2612,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Entities.Account.Schema.Attributes.defaultpricelevelid);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.defaultpricelevelid);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(DefaultPriceLevelId));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.defaultpricelevelid, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.defaultpricelevelid, value);
                 this.OnPropertyChanged(nameof(DefaultPriceLevelId));
             }
         }
@@ -2445,11 +2626,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Description
+        ///     (Russian - 1049): Описание
         /// 
         /// Description:
         ///     (English - United States - 1033): Type additional information to describe the account, such as an excerpt from the company's website.
+        ///     (Russian - 1049): Введите дополнительные сведения, описывающие организацию, например отрывок из описания на веб-сайте компании.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.description)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.description)]
         [System.ComponentModel.DescriptionAttribute("Description")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Description
@@ -2457,13 +2640,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.description);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.description);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Description));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.description, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.description, value);
                 this.OnPropertyChanged(nameof(Description));
             }
         }
@@ -2471,11 +2654,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Do not allow Bulk Emails
+        ///     (Russian - 1049): Запретить рассылку по электронной почте
         /// 
         /// Description:
         ///     (English - United States - 1033): Select whether the account allows bulk email sent through campaigns. If Do Not Allow is selected, the account can be added to marketing lists, but is excluded from email.
+        ///     (Russian - 1049): Укажите, разрешена ли для организации массовая рассылка электронной почты при кампаниях. Если выбран вариант "Запретить", организацию можно добавлять в маркетинговые списки, но она исключается из рассылок электронной почты.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.donotbulkemail)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.donotbulkemail)]
         [System.ComponentModel.DescriptionAttribute("Do not allow Bulk Emails")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<bool> DoNotBulkEMail
@@ -2483,13 +2668,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<bool>>(Entities.Account.Schema.Attributes.donotbulkemail);
+                return this.GetAttributeValue<System.Nullable<bool>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.donotbulkemail);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(DoNotBulkEMail));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.donotbulkemail, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.donotbulkemail, value);
                 this.OnPropertyChanged(nameof(DoNotBulkEMail));
             }
         }
@@ -2497,11 +2682,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Do not allow Bulk Mails
+        ///     (Russian - 1049): Запретить рассылку
         /// 
         /// Description:
         ///     (English - United States - 1033): Select whether the account allows bulk postal mail sent through marketing campaigns or quick campaigns. If Do Not Allow is selected, the account can be added to marketing lists, but will be excluded from the postal mail.
+        ///     (Russian - 1049): Укажите, разрешена ли для организации групповая рассылка обычной почты при маркетинговых кампаниях или быстрых кампаниях. Если выбран вариант "Запретить", организацию можно добавлять в маркетинговые списки, но она исключается из рассылок обычной почты.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.donotbulkpostalmail)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.donotbulkpostalmail)]
         [System.ComponentModel.DescriptionAttribute("Do not allow Bulk Mails")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<bool> DoNotBulkPostalMail
@@ -2509,13 +2696,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<bool>>(Entities.Account.Schema.Attributes.donotbulkpostalmail);
+                return this.GetAttributeValue<System.Nullable<bool>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.donotbulkpostalmail);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(DoNotBulkPostalMail));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.donotbulkpostalmail, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.donotbulkpostalmail, value);
                 this.OnPropertyChanged(nameof(DoNotBulkPostalMail));
             }
         }
@@ -2523,11 +2710,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Do not allow Emails
+        ///     (Russian - 1049): Запретить электронную почту
         /// 
         /// Description:
         ///     (English - United States - 1033): Select whether the account allows direct email sent from Microsoft Dynamics 365.
+        ///     (Russian - 1049): Укажите, разрешена ли для организации рассылка электронной почты из Microsoft Dynamics 365.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.donotemail)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.donotemail)]
         [System.ComponentModel.DescriptionAttribute("Do not allow Emails")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<bool> DoNotEMail
@@ -2535,13 +2724,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<bool>>(Entities.Account.Schema.Attributes.donotemail);
+                return this.GetAttributeValue<System.Nullable<bool>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.donotemail);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(DoNotEMail));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.donotemail, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.donotemail, value);
                 this.OnPropertyChanged(nameof(DoNotEMail));
             }
         }
@@ -2549,11 +2738,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Do not allow Faxes
+        ///     (Russian - 1049): Запретить факсы
         /// 
         /// Description:
         ///     (English - United States - 1033): Select whether the account allows faxes. If Do Not Allow is selected, the account will be excluded from fax activities distributed in marketing campaigns.
+        ///     (Russian - 1049): Укажите, разрешена ли для организации отправка факсов. Если выбран вариант "Запретить", организация исключается из действий по рассылке факсов при маркетинговых кампаниях.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.donotfax)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.donotfax)]
         [System.ComponentModel.DescriptionAttribute("Do not allow Faxes")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<bool> DoNotFax
@@ -2561,13 +2752,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<bool>>(Entities.Account.Schema.Attributes.donotfax);
+                return this.GetAttributeValue<System.Nullable<bool>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.donotfax);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(DoNotFax));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.donotfax, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.donotfax, value);
                 this.OnPropertyChanged(nameof(DoNotFax));
             }
         }
@@ -2575,11 +2766,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Do not allow Phone Calls
+        ///     (Russian - 1049): Запретить звонки
         /// 
         /// Description:
         ///     (English - United States - 1033): Select whether the account allows phone calls. If Do Not Allow is selected, the account will be excluded from phone call activities distributed in marketing campaigns.
+        ///     (Russian - 1049): Укажите, разрешены ли для организации телефонные звонки. Если выбран вариант "Запретить", организация исключается из действий с телефонными звонками при маркетинговых кампаниях.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.donotphone)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.donotphone)]
         [System.ComponentModel.DescriptionAttribute("Do not allow Phone Calls")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<bool> DoNotPhone
@@ -2587,13 +2780,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<bool>>(Entities.Account.Schema.Attributes.donotphone);
+                return this.GetAttributeValue<System.Nullable<bool>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.donotphone);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(DoNotPhone));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.donotphone, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.donotphone, value);
                 this.OnPropertyChanged(nameof(DoNotPhone));
             }
         }
@@ -2601,11 +2794,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Do not allow Mails
+        ///     (Russian - 1049): Запретить почту
         /// 
         /// Description:
         ///     (English - United States - 1033): Select whether the account allows direct mail. If Do Not Allow is selected, the account will be excluded from letter activities distributed in marketing campaigns.
+        ///     (Russian - 1049): Укажите, разрешена ли для организации прямая рассылка. Если выбран вариант "Запретить", организация исключается из действий по рассылке писем при маркетинговых кампаниях.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.donotpostalmail)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.donotpostalmail)]
         [System.ComponentModel.DescriptionAttribute("Do not allow Mails")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<bool> DoNotPostalMail
@@ -2613,13 +2808,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<bool>>(Entities.Account.Schema.Attributes.donotpostalmail);
+                return this.GetAttributeValue<System.Nullable<bool>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.donotpostalmail);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(DoNotPostalMail));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.donotpostalmail, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.donotpostalmail, value);
                 this.OnPropertyChanged(nameof(DoNotPostalMail));
             }
         }
@@ -2627,11 +2822,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Send Marketing Materials
+        ///     (Russian - 1049): Отправка маркетинговых материалов
         /// 
         /// Description:
         ///     (English - United States - 1033): Select whether the account accepts marketing materials, such as brochures or catalogs.
+        ///     (Russian - 1049): Укажите, принимает ли организация маркетинговые материалы, такие как брошюры или каталоги.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.donotsendmm)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.donotsendmm)]
         [System.ComponentModel.DescriptionAttribute("Send Marketing Materials")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<bool> DoNotSendMM
@@ -2639,13 +2836,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<bool>>(Entities.Account.Schema.Attributes.donotsendmm);
+                return this.GetAttributeValue<System.Nullable<bool>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.donotsendmm);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(DoNotSendMM));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.donotsendmm, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.donotsendmm, value);
                 this.OnPropertyChanged(nameof(DoNotSendMM));
             }
         }
@@ -2653,11 +2850,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Email
+        ///     (Russian - 1049): Электронная почта
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the primary email address for the account.
+        ///     (Russian - 1049): Введите основной адрес электронной почты для организации.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.emailaddress1)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.emailaddress1)]
         [System.ComponentModel.DescriptionAttribute("Email")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string EMailAddress1
@@ -2665,13 +2864,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.emailaddress1);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.emailaddress1);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(EMailAddress1));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.emailaddress1, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.emailaddress1, value);
                 this.OnPropertyChanged(nameof(EMailAddress1));
             }
         }
@@ -2679,11 +2878,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Email Address 2
+        ///     (Russian - 1049): Адрес электронной почты 2
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the secondary email address for the account.
+        ///     (Russian - 1049): Введите дополнительный адрес электронной почты для организации.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.emailaddress2)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.emailaddress2)]
         [System.ComponentModel.DescriptionAttribute("Email Address 2")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string EMailAddress2
@@ -2691,13 +2892,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.emailaddress2);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.emailaddress2);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(EMailAddress2));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.emailaddress2, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.emailaddress2, value);
                 this.OnPropertyChanged(nameof(EMailAddress2));
             }
         }
@@ -2705,11 +2906,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Email Address 3
+        ///     (Russian - 1049): Адрес электронной почты 3
         /// 
         /// Description:
         ///     (English - United States - 1033): Type an alternate email address for the account.
+        ///     (Russian - 1049): Введите альтернативный адрес электронной почты для организации.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.emailaddress3)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.emailaddress3)]
         [System.ComponentModel.DescriptionAttribute("Email Address 3")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string EMailAddress3
@@ -2717,13 +2920,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.emailaddress3);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.emailaddress3);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(EMailAddress3));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.emailaddress3, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.emailaddress3, value);
                 this.OnPropertyChanged(nameof(EMailAddress3));
             }
         }
@@ -2731,11 +2934,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Default Image
+        ///     (Russian - 1049): Изображение по умолчанию
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows the default image for the record.
+        ///     (Russian - 1049): Показывает изображение по умолчанию для данной записи.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.entityimage)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.entityimage)]
         [System.ComponentModel.DescriptionAttribute("Default Image")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public byte[] EntityImage
@@ -2743,47 +2948,49 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<byte[]>(Entities.Account.Schema.Attributes.entityimage);
+                return this.GetAttributeValue<byte[]>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.entityimage);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(EntityImage));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.entityimage, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.entityimage, value);
                 this.OnPropertyChanged(nameof(EntityImage));
             }
         }
         
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.entityimage_timestamp)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.entityimage_timestamp)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<long> EntityImage_Timestamp
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<long>>(Entities.Account.Schema.Attributes.entityimage_timestamp);
+                return this.GetAttributeValue<System.Nullable<long>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.entityimage_timestamp);
             }
         }
         
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.entityimage_url)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.entityimage_url)]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string EntityImage_URL
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.entityimage_url);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.entityimage_url);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Entity Image Id
+        ///     (Russian - 1049): Код изображения сущности
         /// 
         /// Description:
         ///     (English - United States - 1033): For internal use only.
+        ///     (Russian - 1049): Только для внутреннего использования.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.entityimageid)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.entityimageid)]
         [System.ComponentModel.DescriptionAttribute("Entity Image Id")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<System.Guid> EntityImageId
@@ -2791,18 +2998,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<System.Guid>>(Entities.Account.Schema.Attributes.entityimageid);
+                return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.entityimageid);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Exchange Rate
+        ///     (Russian - 1049): Валютный курс
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows the conversion rate of the record's currency. The exchange rate is used to convert all money fields in the record from the local currency to the system's default currency.
+        ///     (Russian - 1049): Показывает обменный курс валюты записи. Этот валютный курс используется для преобразования всех денежных полей в записи из локальной валюты в валюту системы по умолчанию.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.exchangerate)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.exchangerate)]
         [System.ComponentModel.DescriptionAttribute("Exchange Rate")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<decimal> ExchangeRate
@@ -2810,18 +3019,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<decimal>>(Entities.Account.Schema.Attributes.exchangerate);
+                return this.GetAttributeValue<System.Nullable<decimal>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.exchangerate);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Fax
+        ///     (Russian - 1049): Факс
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the fax number for the account.
+        ///     (Russian - 1049): Введите номер факса для организации.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.fax)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.fax)]
         [System.ComponentModel.DescriptionAttribute("Fax")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Fax
@@ -2829,13 +3040,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.fax);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.fax);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Fax));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.fax, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.fax, value);
                 this.OnPropertyChanged(nameof(Fax));
             }
         }
@@ -2843,11 +3054,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Follow Email Activity
+        ///     (Russian - 1049): Действие отслеживания эл. почты
         /// 
         /// Description:
         ///     (English - United States - 1033): Information about whether to allow following email activity like opens, attachment views and link clicks for emails sent to the account.
+        ///     (Russian - 1049): Сведения о том, разрешены ли действия отслеживания электронной почты, такие как открытия, просмотры вложений и щелчки по ссылкам для сообщений эл. почты, отправленных организации.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.followemail)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.followemail)]
         [System.ComponentModel.DescriptionAttribute("Follow Email Activity")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<bool> FollowEmail
@@ -2855,13 +3068,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<bool>>(Entities.Account.Schema.Attributes.followemail);
+                return this.GetAttributeValue<System.Nullable<bool>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.followemail);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(FollowEmail));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.followemail, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.followemail, value);
                 this.OnPropertyChanged(nameof(FollowEmail));
             }
         }
@@ -2869,11 +3082,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): FTP Site
+        ///     (Russian - 1049): FTP-сайт
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the URL for the account's FTP site to enable users to access data and share documents.
+        ///     (Russian - 1049): Введите URL-адрес для FTP-сайта организации, чтобы пользователи получили доступ к данным и могли обмениваться документами.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.ftpsiteurl)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.ftpsiteurl)]
         [System.ComponentModel.DescriptionAttribute("FTP Site")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string FtpSiteURL
@@ -2881,25 +3096,97 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.ftpsiteurl);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.ftpsiteurl);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(FtpSiteURL));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.ftpsiteurl, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.ftpsiteurl, value);
                 this.OnPropertyChanged(nameof(FtpSiteURL));
             }
         }
         
         /// <summary>
         /// DisplayName:
+        ///     (English - United States - 1033): Multi Select Picklist
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.gbc_multiselectpicklist)]
+        [System.ComponentModel.DescriptionAttribute("Multi Select Picklist")]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public Microsoft.Xrm.Sdk.OptionSetValueCollection gbc_MultiSelectPicklist
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValueCollection collection = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValueCollection>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.gbc_multiselectpicklist);
+                if ((collection == null))
+                {
+                    collection = new Microsoft.Xrm.Sdk.OptionSetValueCollection();
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.gbc_multiselectpicklist, collection);
+                }
+                return collection;
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(gbc_MultiSelectPicklist));
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.gbc_multiselectpicklist, value);
+                this.OnPropertyChanged(nameof(gbc_MultiSelectPicklist));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
+        ///     (English - United States - 1033): Multi Select Picklist
+        /// </summary>
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.gbc_multiselectpicklist)]
+        [System.ComponentModel.DescriptionAttribute("Multi Select Picklist")]
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.gbc_multiselect> gbc_MultiSelectPicklistEnum
+        {
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            get
+            {
+                Microsoft.Xrm.Sdk.OptionSetValueCollection optionSetValueCollection = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValueCollection>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.gbc_multiselectpicklist);
+                if ((optionSetValueCollection != null))
+                {
+                    return new System.Collections.Generic.List<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.gbc_multiselect>(System.Linq.Enumerable.Distinct<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.gbc_multiselect>(System.Linq.Enumerable.Select<Microsoft.Xrm.Sdk.OptionSetValue, Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.gbc_multiselect>(System.Linq.Enumerable.Where<Microsoft.Xrm.Sdk.OptionSetValue>(optionSetValueCollection, o => o != null && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.gbc_multiselect), o.Value)), o => (Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.gbc_multiselect)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.gbc_multiselect), o.Value)))));
+                }
+                else
+                {
+                    return System.Linq.Enumerable.Empty<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.gbc_multiselect>();
+                }
+            }
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            set
+            {
+                this.OnPropertyChanging(nameof(gbc_MultiSelectPicklistEnum));
+                this.OnPropertyChanging(nameof(gbc_MultiSelectPicklist));
+                if (((value == null) 
+                            || (System.Linq.Enumerable.Any<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.gbc_multiselect>(value) == false)))
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.gbc_multiselectpicklist, null);
+                }
+                else
+                {
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.gbc_multiselectpicklist, new Microsoft.Xrm.Sdk.OptionSetValueCollection(new System.Collections.Generic.List<Microsoft.Xrm.Sdk.OptionSetValue>(System.Linq.Enumerable.Select<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.gbc_multiselect, Microsoft.Xrm.Sdk.OptionSetValue>(System.Linq.Enumerable.Distinct<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.gbc_multiselect>(value), o => new Microsoft.Xrm.Sdk.OptionSetValue((int)o)))));
+                }
+                this.OnPropertyChanged(nameof(gbc_MultiSelectPicklist));
+                this.OnPropertyChanged(nameof(gbc_MultiSelectPicklistEnum));
+            }
+        }
+        
+        /// <summary>
+        /// DisplayName:
         ///     (English - United States - 1033): Import Sequence Number
+        ///     (Russian - 1049): Порядковый номер импорта
         /// 
         /// Description:
         ///     (English - United States - 1033): Unique identifier of the data import or data migration that created this record.
+        ///     (Russian - 1049): Уникальный идентификатор импорта или переноса данных, создавшего эту запись.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.importsequencenumber)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.importsequencenumber)]
         [System.ComponentModel.DescriptionAttribute("Import Sequence Number")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<int> ImportSequenceNumber
@@ -2907,13 +3194,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<int>>(Entities.Account.Schema.Attributes.importsequencenumber);
+                return this.GetAttributeValue<System.Nullable<int>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.importsequencenumber);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(ImportSequenceNumber));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.importsequencenumber, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.importsequencenumber, value);
                 this.OnPropertyChanged(nameof(ImportSequenceNumber));
             }
         }
@@ -2921,11 +3208,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Industry
+        ///     (Russian - 1049): Отрасль
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the account's primary industry for use in marketing segmentation and demographic analysis.
+        ///     (Russian - 1049): Выберите основную отрасль организации, которая будет использоваться при маркетинговом сегментировании и демографическом анализе.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.industrycode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.industrycode)]
         [System.ComponentModel.DescriptionAttribute("Industry")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue IndustryCode
@@ -2933,13 +3222,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.industrycode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.industrycode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(IndustryCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.industrycode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.industrycode, value);
                 this.OnPropertyChanged(nameof(IndustryCode));
             }
         }
@@ -2947,23 +3236,25 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Industry
+        ///     (Russian - 1049): Отрасль
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the account's primary industry for use in marketing segmentation and demographic analysis.
+        ///     (Russian - 1049): Выберите основную отрасль организации, которая будет использоваться при маркетинговом сегментировании и демографическом анализе.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.industrycode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.industrycode)]
         [System.ComponentModel.DescriptionAttribute("Industry")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<Entities.Account.Schema.OptionSets.industrycode> IndustryCodeEnum
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.industrycode> IndustryCodeEnum
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.industrycode);
-                if (((optionSet != null) 
-                            && System.Enum.IsDefined(typeof(Entities.Account.Schema.OptionSets.industrycode), optionSet.Value)))
+                Microsoft.Xrm.Sdk.OptionSetValue optionSetValue = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.industrycode);
+                if (((optionSetValue != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.industrycode), optionSetValue.Value)))
                 {
-                    return ((Entities.Account.Schema.OptionSets.industrycode)(System.Enum.ToObject(typeof(Entities.Account.Schema.OptionSets.industrycode), optionSet.Value)));
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.industrycode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.industrycode), optionSetValue.Value)));
                 }
                 else
                 {
@@ -2977,11 +3268,11 @@ namespace Entities
                 this.OnPropertyChanging(nameof(IndustryCode));
                 if ((value == null))
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.industrycode, null);
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.industrycode, null);
                 }
                 else
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.industrycode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.industrycode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
                 }
                 this.OnPropertyChanged(nameof(IndustryCode));
                 this.OnPropertyChanged(nameof(IndustryCodeEnum));
@@ -2991,11 +3282,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Last On Hold Time
+        ///     (Russian - 1049): Время последней приостановки
         /// 
         /// Description:
         ///     (English - United States - 1033): Contains the date and time stamp of the last on hold time.
+        ///     (Russian - 1049): Содержит метку даты и времени последней приостановки.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.lastonholdtime)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.lastonholdtime)]
         [System.ComponentModel.DescriptionAttribute("Last On Hold Time")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<System.DateTime> LastOnHoldTime
@@ -3003,13 +3296,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<System.DateTime>>(Entities.Account.Schema.Attributes.lastonholdtime);
+                return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.lastonholdtime);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(LastOnHoldTime));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.lastonholdtime, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.lastonholdtime, value);
                 this.OnPropertyChanged(nameof(LastOnHoldTime));
             }
         }
@@ -3017,11 +3310,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Last Date Included in Campaign
+        ///     (Russian - 1049): Последняя дата, включенная в кампанию
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows the date when the account was last included in a marketing campaign or quick campaign.
+        ///     (Russian - 1049): Показывает дату последнего включения организации в маркетинговую кампанию или быструю кампанию.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.lastusedincampaign)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.lastusedincampaign)]
         [System.ComponentModel.DescriptionAttribute("Last Date Included in Campaign")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<System.DateTime> LastUsedInCampaign
@@ -3029,13 +3324,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<System.DateTime>>(Entities.Account.Schema.Attributes.lastusedincampaign);
+                return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.lastusedincampaign);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(LastUsedInCampaign));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.lastusedincampaign, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.lastusedincampaign, value);
                 this.OnPropertyChanged(nameof(LastUsedInCampaign));
             }
         }
@@ -3043,11 +3338,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Market Capitalization
+        ///     (Russian - 1049): Капитализация рынка
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the market capitalization of the account to identify the company's equity, used as an indicator in financial performance analysis.
+        ///     (Russian - 1049): Введите рыночную капитализацию организации; используется в качестве индикатора при анализе финансовых результатов.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.marketcap)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.marketcap)]
         [System.ComponentModel.DescriptionAttribute("Market Capitalization")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.Money MarketCap
@@ -3055,13 +3352,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Entities.Account.Schema.Attributes.marketcap);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.marketcap);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(MarketCap));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.marketcap, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.marketcap, value);
                 this.OnPropertyChanged(nameof(MarketCap));
             }
         }
@@ -3069,11 +3366,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Market Capitalization (Base)
+        ///     (Russian - 1049): Рыночная капитализация (базовая)
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows the market capitalization converted to the system's default base currency.
+        ///     (Russian - 1049): Показывает рыночную капитализацию, преобразованную в системную базовую валюту по умолчанию.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.marketcap_base)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.marketcap_base)]
         [System.ComponentModel.DescriptionAttribute("Market Capitalization (Base)")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.Money MarketCap_Base
@@ -3081,18 +3380,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Entities.Account.Schema.Attributes.marketcap_base);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.marketcap_base);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Marketing Only
+        ///     (Russian - 1049): Только для маркетинга
         /// 
         /// Description:
         ///     (English - United States - 1033): Whether is only for marketing
+        ///     (Russian - 1049): Используется ли только в целях маркетинга
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.marketingonly)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.marketingonly)]
         [System.ComponentModel.DescriptionAttribute("Marketing Only")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<bool> MarketingOnly
@@ -3100,13 +3401,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<bool>>(Entities.Account.Schema.Attributes.marketingonly);
+                return this.GetAttributeValue<System.Nullable<bool>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.marketingonly);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(MarketingOnly));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.marketingonly, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.marketingonly, value);
                 this.OnPropertyChanged(nameof(MarketingOnly));
             }
         }
@@ -3114,11 +3415,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Master ID
+        ///     (Russian - 1049): Основной идентификатор
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows the master account that the account was merged with.
+        ///     (Russian - 1049): Указывает главную организацию, с которой была объединена эта организация.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.masterid)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.masterid)]
         [System.ComponentModel.DescriptionAttribute("Master ID")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference MasterId
@@ -3126,18 +3429,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Entities.Account.Schema.Attributes.masterid);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.masterid);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Merged
+        ///     (Russian - 1049): Документ слияния
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows whether the account has been merged with another account.
+        ///     (Russian - 1049): Показывает, было ли выполнено слияние этой организации с другой.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.merged)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.merged)]
         [System.ComponentModel.DescriptionAttribute("Merged")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<bool> Merged
@@ -3145,18 +3450,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<bool>>(Entities.Account.Schema.Attributes.merged);
+                return this.GetAttributeValue<System.Nullable<bool>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.merged);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Modified By
+        ///     (Russian - 1049): Изменено
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows who last updated the record.
+        ///     (Russian - 1049): Показывает, кто последний обновил запись.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.modifiedby)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.modifiedby)]
         [System.ComponentModel.DescriptionAttribute("Modified By")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference ModifiedBy
@@ -3164,18 +3471,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Entities.Account.Schema.Attributes.modifiedby);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.modifiedby);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Modified By (External Party)
+        ///     (Russian - 1049): Изменено (внешняя сторона)
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows the external party who modified the record.
+        ///     (Russian - 1049): Показывает внешнюю сторону, изменившую запись.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.modifiedbyexternalparty)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.modifiedbyexternalparty)]
         [System.ComponentModel.DescriptionAttribute("Modified By (External Party)")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference ModifiedByExternalParty
@@ -3183,18 +3492,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Entities.Account.Schema.Attributes.modifiedbyexternalparty);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.modifiedbyexternalparty);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Modified On
+        ///     (Russian - 1049): Дата изменения
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows the date and time when the record was last updated. The date and time are displayed in the time zone selected in Microsoft Dynamics 365 options.
+        ///     (Russian - 1049): Показывает дату и время последнего обновления записи. Дата и время отображаются для часового пояса, выбранного в параметрах Microsoft Dynamics 365.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.modifiedon)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.modifiedon)]
         [System.ComponentModel.DescriptionAttribute("Modified On")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<System.DateTime> ModifiedOn
@@ -3202,18 +3513,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<System.DateTime>>(Entities.Account.Schema.Attributes.modifiedon);
+                return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.modifiedon);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Modified By (Delegate)
+        ///     (Russian - 1049): Кем изменено (делегат)
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows who created the record on behalf of another user.
+        ///     (Russian - 1049): Показывает, кто создал запись от имени другого пользователя.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.modifiedonbehalfby)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.modifiedonbehalfby)]
         [System.ComponentModel.DescriptionAttribute("Modified By (Delegate)")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference ModifiedOnBehalfBy
@@ -3221,18 +3534,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Entities.Account.Schema.Attributes.modifiedonbehalfby);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.modifiedonbehalfby);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Number of Employees
+        ///     (Russian - 1049): Количество сотрудников
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the number of employees that work at the account for use in marketing segmentation and demographic analysis.
+        ///     (Russian - 1049): Введите число сотрудников, работающих в организации, для использования при маркетинговом сегментировании и демографическом анализе.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.numberofemployees)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.numberofemployees)]
         [System.ComponentModel.DescriptionAttribute("Number of Employees")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<int> NumberOfEmployees
@@ -3240,13 +3555,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<int>>(Entities.Account.Schema.Attributes.numberofemployees);
+                return this.GetAttributeValue<System.Nullable<int>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.numberofemployees);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(NumberOfEmployees));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.numberofemployees, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.numberofemployees, value);
                 this.OnPropertyChanged(nameof(NumberOfEmployees));
             }
         }
@@ -3254,11 +3569,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): On Hold Time (Minutes)
+        ///     (Russian - 1049): Время приостановки (мин.)
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows how long, in minutes, that the record was on hold.
+        ///     (Russian - 1049): Указывает длительность приостановки записи.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.onholdtime)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.onholdtime)]
         [System.ComponentModel.DescriptionAttribute("On Hold Time (Minutes)")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<int> OnHoldTime
@@ -3266,18 +3583,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<int>>(Entities.Account.Schema.Attributes.onholdtime);
+                return this.GetAttributeValue<System.Nullable<int>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.onholdtime);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Open Deals
+        ///     (Russian - 1049): Открытые сделки
         /// 
         /// Description:
         ///     (English - United States - 1033): Number of open opportunities against an account and its child accounts.
+        ///     (Russian - 1049): Число открытых возможных сделок по организации и ее дочерним организациям.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.opendeals)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.opendeals)]
         [System.ComponentModel.DescriptionAttribute("Open Deals")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<int> OpenDeals
@@ -3285,18 +3604,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<int>>(Entities.Account.Schema.Attributes.opendeals);
+                return this.GetAttributeValue<System.Nullable<int>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.opendeals);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Open Deals (Last Updated On)
+        ///     (Russian - 1049): {0} (обновлялось последний раз)
         /// 
         /// Description:
         ///     (English - United States - 1033): Last Updated time of rollup field Open Deals.
+        ///     (Russian - 1049): Время последнего обновления поля свертки {0}.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.opendeals_date)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.opendeals_date)]
         [System.ComponentModel.DescriptionAttribute("Open Deals (Last Updated On)")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<System.DateTime> OpenDeals_Date
@@ -3304,18 +3625,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<System.DateTime>>(Entities.Account.Schema.Attributes.opendeals_date);
+                return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.opendeals_date);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Open Deals (State)
+        ///     (Russian - 1049): {0} (Состояние)
         /// 
         /// Description:
         ///     (English - United States - 1033): State of rollup field Open Deals.
+        ///     (Russian - 1049): Состояние поля свертки {0}.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.opendeals_state)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.opendeals_state)]
         [System.ComponentModel.DescriptionAttribute("Open Deals (State)")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<int> OpenDeals_State
@@ -3323,18 +3646,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<int>>(Entities.Account.Schema.Attributes.opendeals_state);
+                return this.GetAttributeValue<System.Nullable<int>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.opendeals_state);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Open Revenue
+        ///     (Russian - 1049): Открытый доход
         /// 
         /// Description:
         ///     (English - United States - 1033): Sum of open revenue against an account and its child accounts.
+        ///     (Russian - 1049): Сумма открытых доходов по организации и ее дочерним организациям.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.openrevenue)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.openrevenue)]
         [System.ComponentModel.DescriptionAttribute("Open Revenue")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.Money OpenRevenue
@@ -3342,18 +3667,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Entities.Account.Schema.Attributes.openrevenue);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.openrevenue);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Open Revenue (Base)
+        ///     (Russian - 1049): {0} (базовая)
         /// 
         /// Description:
         ///     (English - United States - 1033): Value of the Open Revenue in base currency.
+        ///     (Russian - 1049): Значение поля {0} в базовой валюте.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.openrevenue_base)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.openrevenue_base)]
         [System.ComponentModel.DescriptionAttribute("Open Revenue (Base)")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.Money OpenRevenue_Base
@@ -3361,18 +3688,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Entities.Account.Schema.Attributes.openrevenue_base);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.openrevenue_base);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Open Revenue (Last Updated On)
+        ///     (Russian - 1049): {0} (обновлялось последний раз)
         /// 
         /// Description:
         ///     (English - United States - 1033): Last Updated time of rollup field Open Revenue.
+        ///     (Russian - 1049): Время последнего обновления поля свертки {0}.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.openrevenue_date)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.openrevenue_date)]
         [System.ComponentModel.DescriptionAttribute("Open Revenue (Last Updated On)")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<System.DateTime> OpenRevenue_Date
@@ -3380,18 +3709,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<System.DateTime>>(Entities.Account.Schema.Attributes.openrevenue_date);
+                return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.openrevenue_date);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Open Revenue (State)
+        ///     (Russian - 1049): {0} (Состояние)
         /// 
         /// Description:
         ///     (English - United States - 1033): State of rollup field Open Revenue.
+        ///     (Russian - 1049): Состояние поля свертки {0}.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.openrevenue_state)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.openrevenue_state)]
         [System.ComponentModel.DescriptionAttribute("Open Revenue (State)")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<int> OpenRevenue_State
@@ -3399,18 +3730,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<int>>(Entities.Account.Schema.Attributes.openrevenue_state);
+                return this.GetAttributeValue<System.Nullable<int>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.openrevenue_state);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Originating Lead
+        ///     (Russian - 1049): Источник интереса
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows the lead that the account was created from if the account was created by converting a lead in Microsoft Dynamics 365. This is used to relate the account to data on the originating lead for use in reporting and analytics.
+        ///     (Russian - 1049): Отображение интереса, из которого была создана организация, если она создана посредством преобразования интереса в Microsoft Dynamics 365. Эта информация используется для связи организации с данными по исходному интересу для задач отчетности и аналитики.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.originatingleadid)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.originatingleadid)]
         [System.ComponentModel.DescriptionAttribute("Originating Lead")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference OriginatingLeadId
@@ -3418,13 +3751,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Entities.Account.Schema.Attributes.originatingleadid);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.originatingleadid);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(OriginatingLeadId));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.originatingleadid, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.originatingleadid, value);
                 this.OnPropertyChanged(nameof(OriginatingLeadId));
             }
         }
@@ -3432,11 +3765,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Record Created On
+        ///     (Russian - 1049): Дата создания записи
         /// 
         /// Description:
         ///     (English - United States - 1033): Date and time that the record was migrated.
+        ///     (Russian - 1049): Дата и время переноса записи.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.overriddencreatedon)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.overriddencreatedon)]
         [System.ComponentModel.DescriptionAttribute("Record Created On")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<System.DateTime> OverriddenCreatedOn
@@ -3444,13 +3779,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<System.DateTime>>(Entities.Account.Schema.Attributes.overriddencreatedon);
+                return this.GetAttributeValue<System.Nullable<System.DateTime>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.overriddencreatedon);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(OverriddenCreatedOn));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.overriddencreatedon, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.overriddencreatedon, value);
                 this.OnPropertyChanged(nameof(OverriddenCreatedOn));
             }
         }
@@ -3458,11 +3793,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Owner
+        ///     (Russian - 1049): Ответственный
         /// 
         /// Description:
         ///     (English - United States - 1033): Enter the user or team who is assigned to manage the record. This field is updated every time the record is assigned to a different user.
+        ///     (Russian - 1049): Введите пользователя или рабочую группу, которым назначено управление записью. Это поле обновляется при каждом назначении записи другому пользователю.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.ownerid)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.ownerid)]
         [System.ComponentModel.DescriptionAttribute("Owner")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference OwnerId
@@ -3470,13 +3807,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Entities.Account.Schema.Attributes.ownerid);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.ownerid);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(OwnerId));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.ownerid, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.ownerid, value);
                 this.OnPropertyChanged(nameof(OwnerId));
             }
         }
@@ -3484,11 +3821,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Ownership
+        ///     (Russian - 1049): Тип собственности
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the account's ownership structure, such as public or private.
+        ///     (Russian - 1049): Введите тип собственности компании - открытый или закрытый.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.ownershipcode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.ownershipcode)]
         [System.ComponentModel.DescriptionAttribute("Ownership")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue OwnershipCode
@@ -3496,13 +3835,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.ownershipcode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.ownershipcode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(OwnershipCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.ownershipcode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.ownershipcode, value);
                 this.OnPropertyChanged(nameof(OwnershipCode));
             }
         }
@@ -3510,23 +3849,25 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Ownership
+        ///     (Russian - 1049): Тип собственности
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the account's ownership structure, such as public or private.
+        ///     (Russian - 1049): Введите тип собственности компании - открытый или закрытый.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.ownershipcode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.ownershipcode)]
         [System.ComponentModel.DescriptionAttribute("Ownership")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<Entities.Account.Schema.OptionSets.ownershipcode> OwnershipCodeEnum
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.ownershipcode> OwnershipCodeEnum
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.ownershipcode);
-                if (((optionSet != null) 
-                            && System.Enum.IsDefined(typeof(Entities.Account.Schema.OptionSets.ownershipcode), optionSet.Value)))
+                Microsoft.Xrm.Sdk.OptionSetValue optionSetValue = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.ownershipcode);
+                if (((optionSetValue != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.ownershipcode), optionSetValue.Value)))
                 {
-                    return ((Entities.Account.Schema.OptionSets.ownershipcode)(System.Enum.ToObject(typeof(Entities.Account.Schema.OptionSets.ownershipcode), optionSet.Value)));
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.ownershipcode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.ownershipcode), optionSetValue.Value)));
                 }
                 else
                 {
@@ -3540,11 +3881,11 @@ namespace Entities
                 this.OnPropertyChanging(nameof(OwnershipCode));
                 if ((value == null))
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.ownershipcode, null);
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.ownershipcode, null);
                 }
                 else
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.ownershipcode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.ownershipcode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
                 }
                 this.OnPropertyChanged(nameof(OwnershipCode));
                 this.OnPropertyChanged(nameof(OwnershipCodeEnum));
@@ -3554,11 +3895,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Owning Business Unit
+        ///     (Russian - 1049): Ответственная бизнес-единица
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows the business unit that the record owner belongs to.
+        ///     (Russian - 1049): Указывает бизнес-единицу, к которой принадлежит ответственный за запись.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.owningbusinessunit)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.owningbusinessunit)]
         [System.ComponentModel.DescriptionAttribute("Owning Business Unit")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference OwningBusinessUnit
@@ -3566,18 +3909,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Entities.Account.Schema.Attributes.owningbusinessunit);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.owningbusinessunit);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Owning Team
+        ///     (Russian - 1049): Ответственная рабочая группа
         /// 
         /// Description:
         ///     (English - United States - 1033): Unique identifier of the team who owns the account.
+        ///     (Russian - 1049): Уникальный идентификатор рабочей группы, ответственной за организацию.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.owningteam)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.owningteam)]
         [System.ComponentModel.DescriptionAttribute("Owning Team")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference OwningTeam
@@ -3585,18 +3930,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Entities.Account.Schema.Attributes.owningteam);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.owningteam);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Owning User
+        ///     (Russian - 1049): Ответственный пользователь
         /// 
         /// Description:
         ///     (English - United States - 1033): Unique identifier of the user who owns the account.
+        ///     (Russian - 1049): Уникальный идентификатор пользователя, ответственного за организацию.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.owninguser)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.owninguser)]
         [System.ComponentModel.DescriptionAttribute("Owning User")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference OwningUser
@@ -3604,18 +3951,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Entities.Account.Schema.Attributes.owninguser);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.owninguser);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Parent Account
+        ///     (Russian - 1049): Головная организация
         /// 
         /// Description:
         ///     (English - United States - 1033): Choose the parent account associated with this account to show parent and child businesses in reporting and analytics.
+        ///     (Russian - 1049): Выберите головную организацию, связанную с этой организацией, для правильного отображения родительских и дочерних предприятий в отчетах и аналитике.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.parentaccountid)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.parentaccountid)]
         [System.ComponentModel.DescriptionAttribute("Parent Account")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference ParentAccountId
@@ -3623,13 +3972,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Entities.Account.Schema.Attributes.parentaccountid);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.parentaccountid);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(ParentAccountId));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.parentaccountid, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.parentaccountid, value);
                 this.OnPropertyChanged(nameof(ParentAccountId));
             }
         }
@@ -3637,11 +3986,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Participates in Workflow
+        ///     (Russian - 1049): Участвует в бизнес-процессах
         /// 
         /// Description:
         ///     (English - United States - 1033): For system use only. Legacy Microsoft Dynamics CRM 3.0 workflow data.
+        ///     (Russian - 1049): Только для системного использования. Данные бизнес-процесса предыдущей версии Microsoft Dynamics CRM 3.0.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.participatesinworkflow)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.participatesinworkflow)]
         [System.ComponentModel.DescriptionAttribute("Participates in Workflow")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<bool> ParticipatesInWorkflow
@@ -3649,13 +4000,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<bool>>(Entities.Account.Schema.Attributes.participatesinworkflow);
+                return this.GetAttributeValue<System.Nullable<bool>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.participatesinworkflow);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(ParticipatesInWorkflow));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.participatesinworkflow, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.participatesinworkflow, value);
                 this.OnPropertyChanged(nameof(ParticipatesInWorkflow));
             }
         }
@@ -3663,11 +4014,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Payment Terms
+        ///     (Russian - 1049): Условия оплаты
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the payment terms to indicate when the customer needs to pay the total amount.
+        ///     (Russian - 1049): Выберите условия оплаты, чтобы указать, должен ли клиент уплатить всю сумму.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.paymenttermscode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.paymenttermscode)]
         [System.ComponentModel.DescriptionAttribute("Payment Terms")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue PaymentTermsCode
@@ -3675,13 +4028,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.paymenttermscode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.paymenttermscode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(PaymentTermsCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.paymenttermscode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.paymenttermscode, value);
                 this.OnPropertyChanged(nameof(PaymentTermsCode));
             }
         }
@@ -3689,23 +4042,25 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Payment Terms
+        ///     (Russian - 1049): Условия оплаты
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the payment terms to indicate when the customer needs to pay the total amount.
+        ///     (Russian - 1049): Выберите условия оплаты, чтобы указать, должен ли клиент уплатить всю сумму.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.paymenttermscode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.paymenttermscode)]
         [System.ComponentModel.DescriptionAttribute("Payment Terms")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<Entities.Account.Schema.OptionSets.paymenttermscode> PaymentTermsCodeEnum
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.paymenttermscode> PaymentTermsCodeEnum
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.paymenttermscode);
-                if (((optionSet != null) 
-                            && System.Enum.IsDefined(typeof(Entities.Account.Schema.OptionSets.paymenttermscode), optionSet.Value)))
+                Microsoft.Xrm.Sdk.OptionSetValue optionSetValue = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.paymenttermscode);
+                if (((optionSetValue != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.paymenttermscode), optionSetValue.Value)))
                 {
-                    return ((Entities.Account.Schema.OptionSets.paymenttermscode)(System.Enum.ToObject(typeof(Entities.Account.Schema.OptionSets.paymenttermscode), optionSet.Value)));
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.paymenttermscode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.paymenttermscode), optionSetValue.Value)));
                 }
                 else
                 {
@@ -3719,11 +4074,11 @@ namespace Entities
                 this.OnPropertyChanging(nameof(PaymentTermsCode));
                 if ((value == null))
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.paymenttermscode, null);
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.paymenttermscode, null);
                 }
                 else
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.paymenttermscode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.paymenttermscode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
                 }
                 this.OnPropertyChanged(nameof(PaymentTermsCode));
                 this.OnPropertyChanged(nameof(PaymentTermsCodeEnum));
@@ -3733,11 +4088,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Preferred Day
+        ///     (Russian - 1049): Основной день
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the preferred day of the week for service appointments.
+        ///     (Russian - 1049): Выберите предпочтительный день недели для сервисных встреч.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.preferredappointmentdaycode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredappointmentdaycode)]
         [System.ComponentModel.DescriptionAttribute("Preferred Day")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue PreferredAppointmentDayCode
@@ -3745,13 +4102,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.preferredappointmentdaycode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredappointmentdaycode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(PreferredAppointmentDayCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.preferredappointmentdaycode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredappointmentdaycode, value);
                 this.OnPropertyChanged(nameof(PreferredAppointmentDayCode));
             }
         }
@@ -3759,23 +4116,25 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Preferred Day
+        ///     (Russian - 1049): Основной день
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the preferred day of the week for service appointments.
+        ///     (Russian - 1049): Выберите предпочтительный день недели для сервисных встреч.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.preferredappointmentdaycode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredappointmentdaycode)]
         [System.ComponentModel.DescriptionAttribute("Preferred Day")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<Entities.Account.Schema.OptionSets.preferredappointmentdaycode> PreferredAppointmentDayCodeEnum
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.preferredappointmentdaycode> PreferredAppointmentDayCodeEnum
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.preferredappointmentdaycode);
-                if (((optionSet != null) 
-                            && System.Enum.IsDefined(typeof(Entities.Account.Schema.OptionSets.preferredappointmentdaycode), optionSet.Value)))
+                Microsoft.Xrm.Sdk.OptionSetValue optionSetValue = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredappointmentdaycode);
+                if (((optionSetValue != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.preferredappointmentdaycode), optionSetValue.Value)))
                 {
-                    return ((Entities.Account.Schema.OptionSets.preferredappointmentdaycode)(System.Enum.ToObject(typeof(Entities.Account.Schema.OptionSets.preferredappointmentdaycode), optionSet.Value)));
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.preferredappointmentdaycode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.preferredappointmentdaycode), optionSetValue.Value)));
                 }
                 else
                 {
@@ -3789,11 +4148,11 @@ namespace Entities
                 this.OnPropertyChanging(nameof(PreferredAppointmentDayCode));
                 if ((value == null))
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.preferredappointmentdaycode, null);
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredappointmentdaycode, null);
                 }
                 else
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.preferredappointmentdaycode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredappointmentdaycode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
                 }
                 this.OnPropertyChanged(nameof(PreferredAppointmentDayCode));
                 this.OnPropertyChanged(nameof(PreferredAppointmentDayCodeEnum));
@@ -3803,11 +4162,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Preferred Time
+        ///     (Russian - 1049): Основное время
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the preferred time of day for service appointments.
+        ///     (Russian - 1049): Выберите предпочтительное время суток для сервисных встреч.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.preferredappointmenttimecode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredappointmenttimecode)]
         [System.ComponentModel.DescriptionAttribute("Preferred Time")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue PreferredAppointmentTimeCode
@@ -3815,13 +4176,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.preferredappointmenttimecode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredappointmenttimecode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(PreferredAppointmentTimeCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.preferredappointmenttimecode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredappointmenttimecode, value);
                 this.OnPropertyChanged(nameof(PreferredAppointmentTimeCode));
             }
         }
@@ -3829,23 +4190,25 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Preferred Time
+        ///     (Russian - 1049): Основное время
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the preferred time of day for service appointments.
+        ///     (Russian - 1049): Выберите предпочтительное время суток для сервисных встреч.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.preferredappointmenttimecode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredappointmenttimecode)]
         [System.ComponentModel.DescriptionAttribute("Preferred Time")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<Entities.Account.Schema.OptionSets.preferredappointmenttimecode> PreferredAppointmentTimeCodeEnum
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.preferredappointmenttimecode> PreferredAppointmentTimeCodeEnum
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.preferredappointmenttimecode);
-                if (((optionSet != null) 
-                            && System.Enum.IsDefined(typeof(Entities.Account.Schema.OptionSets.preferredappointmenttimecode), optionSet.Value)))
+                Microsoft.Xrm.Sdk.OptionSetValue optionSetValue = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredappointmenttimecode);
+                if (((optionSetValue != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.preferredappointmenttimecode), optionSetValue.Value)))
                 {
-                    return ((Entities.Account.Schema.OptionSets.preferredappointmenttimecode)(System.Enum.ToObject(typeof(Entities.Account.Schema.OptionSets.preferredappointmenttimecode), optionSet.Value)));
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.preferredappointmenttimecode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.preferredappointmenttimecode), optionSetValue.Value)));
                 }
                 else
                 {
@@ -3859,11 +4222,11 @@ namespace Entities
                 this.OnPropertyChanging(nameof(PreferredAppointmentTimeCode));
                 if ((value == null))
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.preferredappointmenttimecode, null);
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredappointmenttimecode, null);
                 }
                 else
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.preferredappointmenttimecode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredappointmenttimecode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
                 }
                 this.OnPropertyChanged(nameof(PreferredAppointmentTimeCode));
                 this.OnPropertyChanged(nameof(PreferredAppointmentTimeCodeEnum));
@@ -3873,11 +4236,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Preferred Method of Contact
+        ///     (Russian - 1049): Предпочтительный способ связи
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the preferred method of contact.
+        ///     (Russian - 1049): Выберите предпочитаемый способ связи.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.preferredcontactmethodcode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredcontactmethodcode)]
         [System.ComponentModel.DescriptionAttribute("Preferred Method of Contact")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue PreferredContactMethodCode
@@ -3885,13 +4250,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.preferredcontactmethodcode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredcontactmethodcode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(PreferredContactMethodCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.preferredcontactmethodcode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredcontactmethodcode, value);
                 this.OnPropertyChanged(nameof(PreferredContactMethodCode));
             }
         }
@@ -3899,23 +4264,25 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Preferred Method of Contact
+        ///     (Russian - 1049): Предпочтительный способ связи
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the preferred method of contact.
+        ///     (Russian - 1049): Выберите предпочитаемый способ связи.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.preferredcontactmethodcode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredcontactmethodcode)]
         [System.ComponentModel.DescriptionAttribute("Preferred Method of Contact")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<Entities.Account.Schema.OptionSets.preferredcontactmethodcode> PreferredContactMethodCodeEnum
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.preferredcontactmethodcode> PreferredContactMethodCodeEnum
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.preferredcontactmethodcode);
-                if (((optionSet != null) 
-                            && System.Enum.IsDefined(typeof(Entities.Account.Schema.OptionSets.preferredcontactmethodcode), optionSet.Value)))
+                Microsoft.Xrm.Sdk.OptionSetValue optionSetValue = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredcontactmethodcode);
+                if (((optionSetValue != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.preferredcontactmethodcode), optionSetValue.Value)))
                 {
-                    return ((Entities.Account.Schema.OptionSets.preferredcontactmethodcode)(System.Enum.ToObject(typeof(Entities.Account.Schema.OptionSets.preferredcontactmethodcode), optionSet.Value)));
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.preferredcontactmethodcode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.preferredcontactmethodcode), optionSetValue.Value)));
                 }
                 else
                 {
@@ -3929,11 +4296,11 @@ namespace Entities
                 this.OnPropertyChanging(nameof(PreferredContactMethodCode));
                 if ((value == null))
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.preferredcontactmethodcode, null);
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredcontactmethodcode, null);
                 }
                 else
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.preferredcontactmethodcode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredcontactmethodcode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
                 }
                 this.OnPropertyChanged(nameof(PreferredContactMethodCode));
                 this.OnPropertyChanged(nameof(PreferredContactMethodCodeEnum));
@@ -3943,11 +4310,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Preferred Facility/Equipment
+        ///     (Russian - 1049): Основное помещение/оборудование
         /// 
         /// Description:
         ///     (English - United States - 1033): Choose the account's preferred service facility or equipment to make sure services are scheduled correctly for the customer.
+        ///     (Russian - 1049): Выберите предпочитаемые помещение обслуживания или оборудование для организации, чтобы гарантировать правильное планирование сервиса для клиента.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.preferredequipmentid)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredequipmentid)]
         [System.ComponentModel.DescriptionAttribute("Preferred Facility/Equipment")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference PreferredEquipmentId
@@ -3955,13 +4324,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Entities.Account.Schema.Attributes.preferredequipmentid);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredequipmentid);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(PreferredEquipmentId));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.preferredequipmentid, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredequipmentid, value);
                 this.OnPropertyChanged(nameof(PreferredEquipmentId));
             }
         }
@@ -3969,11 +4338,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Preferred Service
+        ///     (Russian - 1049): Основной сервис
         /// 
         /// Description:
         ///     (English - United States - 1033): Choose the account's preferred service for reference when you schedule service activities.
+        ///     (Russian - 1049): Выберите предпочитаемый вариант обслуживания для организации. Используется в справочных целях при планировании действий сервиса.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.preferredserviceid)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredserviceid)]
         [System.ComponentModel.DescriptionAttribute("Preferred Service")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference PreferredServiceId
@@ -3981,13 +4352,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Entities.Account.Schema.Attributes.preferredserviceid);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredserviceid);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(PreferredServiceId));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.preferredserviceid, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredserviceid, value);
                 this.OnPropertyChanged(nameof(PreferredServiceId));
             }
         }
@@ -3995,11 +4366,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Preferred User
+        ///     (Russian - 1049): Основной пользователь
         /// 
         /// Description:
         ///     (English - United States - 1033): Choose the preferred service representative for reference when you schedule service activities for the account.
+        ///     (Russian - 1049): Выберите предпочтительного представителя отдела обслуживания. Используется в справочных целях при планировании действий сервиса для организации.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.preferredsystemuserid)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredsystemuserid)]
         [System.ComponentModel.DescriptionAttribute("Preferred User")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference PreferredSystemUserId
@@ -4007,13 +4380,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Entities.Account.Schema.Attributes.preferredsystemuserid);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredsystemuserid);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(PreferredSystemUserId));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.preferredsystemuserid, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredsystemuserid, value);
                 this.OnPropertyChanged(nameof(PreferredSystemUserId));
             }
         }
@@ -4021,11 +4394,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Primary Contact
+        ///     (Russian - 1049): Основной контакт
         /// 
         /// Description:
         ///     (English - United States - 1033): Choose the primary contact for the account to provide quick access to contact details.
+        ///     (Russian - 1049): Выберите основной контакт для организации, используемый для быстрого доступа к данным контакта.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.primarycontactid)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.primarycontactid)]
         [System.ComponentModel.DescriptionAttribute("Primary Contact")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference PrimaryContactId
@@ -4033,13 +4408,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Entities.Account.Schema.Attributes.primarycontactid);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.primarycontactid);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(PrimaryContactId));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.primarycontactid, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.primarycontactid, value);
                 this.OnPropertyChanged(nameof(PrimaryContactId));
             }
         }
@@ -4047,11 +4422,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Primary Satori ID
+        ///     (Russian - 1049): Основной идентификатор Satori
         /// 
         /// Description:
         ///     (English - United States - 1033): Primary Satori ID for Account
+        ///     (Russian - 1049): Основной идентификатор Satori для учетной записи
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.primarysatoriid)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.primarysatoriid)]
         [System.ComponentModel.DescriptionAttribute("Primary Satori ID")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string PrimarySatoriId
@@ -4059,13 +4436,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.primarysatoriid);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.primarysatoriid);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(PrimarySatoriId));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.primarysatoriid, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.primarysatoriid, value);
                 this.OnPropertyChanged(nameof(PrimarySatoriId));
             }
         }
@@ -4073,11 +4450,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Primary Twitter ID
+        ///     (Russian - 1049): Основной идентификатор Twitter
         /// 
         /// Description:
         ///     (English - United States - 1033): Primary Twitter ID for Account
+        ///     (Russian - 1049): Основной идентификатор Twitter для учетной записи
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.primarytwitterid)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.primarytwitterid)]
         [System.ComponentModel.DescriptionAttribute("Primary Twitter ID")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string PrimaryTwitterId
@@ -4085,13 +4464,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.primarytwitterid);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.primarytwitterid);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(PrimaryTwitterId));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.primarytwitterid, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.primarytwitterid, value);
                 this.OnPropertyChanged(nameof(PrimaryTwitterId));
             }
         }
@@ -4099,11 +4478,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Process
+        ///     (Russian - 1049): Процесс
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows the ID of the process.
+        ///     (Russian - 1049): Показывает идентификатор процесса.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.processid)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.processid)]
         [System.ComponentModel.DescriptionAttribute("Process")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<System.Guid> ProcessId
@@ -4111,13 +4492,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<System.Guid>>(Entities.Account.Schema.Attributes.processid);
+                return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.processid);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(ProcessId));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.processid, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.processid, value);
                 this.OnPropertyChanged(nameof(ProcessId));
             }
         }
@@ -4125,11 +4506,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Annual Revenue
+        ///     (Russian - 1049): Годовой доход
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the annual revenue for the account, used as an indicator in financial performance analysis.
+        ///     (Russian - 1049): Введите годовой доход компании, используемый в качестве индикатора при анализе финансовых результатов.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.revenue)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.revenue)]
         [System.ComponentModel.DescriptionAttribute("Annual Revenue")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.Money Revenue
@@ -4137,13 +4520,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Entities.Account.Schema.Attributes.revenue);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.revenue);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Revenue));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.revenue, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.revenue, value);
                 this.OnPropertyChanged(nameof(Revenue));
             }
         }
@@ -4151,11 +4534,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Annual Revenue (Base)
+        ///     (Russian - 1049): Годовой доход (базовый)
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows the annual revenue converted to the system's default base currency. The calculations use the exchange rate specified in the Currencies area.
+        ///     (Russian - 1049): Показывает годовой доход, преобразованный в системную базовую валюту по умолчанию. При расчетах используется валютный курс, заданный в области "Валюты".
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.revenue_base)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.revenue_base)]
         [System.ComponentModel.DescriptionAttribute("Annual Revenue (Base)")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.Money Revenue_Base
@@ -4163,18 +4548,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Entities.Account.Schema.Attributes.revenue_base);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.Money>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.revenue_base);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Shares Outstanding
+        ///     (Russian - 1049): Общая сумма долей
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the number of shares available to the public for the account. This number is used as an indicator in financial performance analysis.
+        ///     (Russian - 1049): Введите число акций организации в публичном обращении. Это число используется в качестве индикатора при анализе финансовых результатов.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.sharesoutstanding)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.sharesoutstanding)]
         [System.ComponentModel.DescriptionAttribute("Shares Outstanding")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<int> SharesOutstanding
@@ -4182,13 +4569,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<int>>(Entities.Account.Schema.Attributes.sharesoutstanding);
+                return this.GetAttributeValue<System.Nullable<int>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.sharesoutstanding);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(SharesOutstanding));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.sharesoutstanding, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.sharesoutstanding, value);
                 this.OnPropertyChanged(nameof(SharesOutstanding));
             }
         }
@@ -4196,11 +4583,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Shipping Method
+        ///     (Russian - 1049): Способ доставки
         /// 
         /// Description:
         ///     (English - United States - 1033): Select a shipping method for deliveries sent to the account's address to designate the preferred carrier or other delivery option.
+        ///     (Russian - 1049): Выберите способ доставки для доставок по адресу организации, выбрав предпочитаемую службу доставки или другой вариант доставки.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.shippingmethodcode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.shippingmethodcode)]
         [System.ComponentModel.DescriptionAttribute("Shipping Method")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue ShippingMethodCode
@@ -4208,13 +4597,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.shippingmethodcode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.shippingmethodcode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(ShippingMethodCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.shippingmethodcode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.shippingmethodcode, value);
                 this.OnPropertyChanged(nameof(ShippingMethodCode));
             }
         }
@@ -4222,23 +4611,25 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Shipping Method
+        ///     (Russian - 1049): Способ доставки
         /// 
         /// Description:
         ///     (English - United States - 1033): Select a shipping method for deliveries sent to the account's address to designate the preferred carrier or other delivery option.
+        ///     (Russian - 1049): Выберите способ доставки для доставок по адресу организации, выбрав предпочитаемую службу доставки или другой вариант доставки.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.shippingmethodcode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.shippingmethodcode)]
         [System.ComponentModel.DescriptionAttribute("Shipping Method")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<Entities.Account.Schema.OptionSets.shippingmethodcode> ShippingMethodCodeEnum
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.shippingmethodcode> ShippingMethodCodeEnum
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.shippingmethodcode);
-                if (((optionSet != null) 
-                            && System.Enum.IsDefined(typeof(Entities.Account.Schema.OptionSets.shippingmethodcode), optionSet.Value)))
+                Microsoft.Xrm.Sdk.OptionSetValue optionSetValue = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.shippingmethodcode);
+                if (((optionSetValue != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.shippingmethodcode), optionSetValue.Value)))
                 {
-                    return ((Entities.Account.Schema.OptionSets.shippingmethodcode)(System.Enum.ToObject(typeof(Entities.Account.Schema.OptionSets.shippingmethodcode), optionSet.Value)));
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.shippingmethodcode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.shippingmethodcode), optionSetValue.Value)));
                 }
                 else
                 {
@@ -4252,11 +4643,11 @@ namespace Entities
                 this.OnPropertyChanging(nameof(ShippingMethodCode));
                 if ((value == null))
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.shippingmethodcode, null);
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.shippingmethodcode, null);
                 }
                 else
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.shippingmethodcode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.shippingmethodcode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
                 }
                 this.OnPropertyChanged(nameof(ShippingMethodCode));
                 this.OnPropertyChanged(nameof(ShippingMethodCodeEnum));
@@ -4266,11 +4657,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): SIC Code
+        ///     (Russian - 1049): Код отрасли
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the Standard Industrial Classification (SIC) code that indicates the account's primary industry of business, for use in marketing segmentation and demographic analysis.
+        ///     (Russian - 1049): Введите код отрасли (SIC), указывающий основную отрасль деятельности организации, для использования при маркетинговом сегментировании и демографическом анализе.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.sic)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.sic)]
         [System.ComponentModel.DescriptionAttribute("SIC Code")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string SIC
@@ -4278,13 +4671,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.sic);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.sic);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(SIC));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.sic, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.sic, value);
                 this.OnPropertyChanged(nameof(SIC));
             }
         }
@@ -4295,8 +4688,9 @@ namespace Entities
         /// 
         /// Description:
         ///     (English - United States - 1033): Choose the service level agreement (SLA) that you want to apply to the Account record.
+        ///     (Russian - 1049): Выберите соглашение об уровнях обслуживания (SLA), которое нужно применить к этой записи организации.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.slaid)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.slaid)]
         [System.ComponentModel.DescriptionAttribute("SLA")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference SLAId
@@ -4304,13 +4698,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Entities.Account.Schema.Attributes.slaid);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.slaid);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(SLAId));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.slaid, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.slaid, value);
                 this.OnPropertyChanged(nameof(SLAId));
             }
         }
@@ -4318,11 +4712,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Last SLA applied
+        ///     (Russian - 1049): Последнее примененное SLA
         /// 
         /// Description:
         ///     (English - United States - 1033): Last SLA that was applied to this case. This field is for internal use only.
+        ///     (Russian - 1049): Последнее SLA, примененное к этому обращению. Это поле предназначено только для внутреннего использования.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.slainvokedid)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.slainvokedid)]
         [System.ComponentModel.DescriptionAttribute("Last SLA applied")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference SLAInvokedId
@@ -4330,18 +4726,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Entities.Account.Schema.Attributes.slainvokedid);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.slainvokedid);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Process Stage
+        ///     (Russian - 1049): Стадия процесса
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows the ID of the stage.
+        ///     (Russian - 1049): Показывает идентификатор стадии.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.stageid)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.stageid)]
         [System.ComponentModel.DescriptionAttribute("Process Stage")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<System.Guid> StageId
@@ -4349,13 +4747,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<System.Guid>>(Entities.Account.Schema.Attributes.stageid);
+                return this.GetAttributeValue<System.Nullable<System.Guid>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.stageid);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(StageId));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.stageid, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.stageid, value);
                 this.OnPropertyChanged(nameof(StageId));
             }
         }
@@ -4363,11 +4761,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Status
+        ///     (Russian - 1049): Состояние
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows whether the account is active or inactive. Inactive accounts are read-only and can't be edited unless they are reactivated.
+        ///     (Russian - 1049): Указывает, активна организация или нет. Неактивные организации доступны только для чтения. Их нельзя изменять без повторной активации.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.statecode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.statecode)]
         [System.ComponentModel.DescriptionAttribute("Status")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue StateCode
@@ -4375,13 +4775,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.statecode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.statecode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(StateCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.statecode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.statecode, value);
                 this.OnPropertyChanged(nameof(StateCode));
             }
         }
@@ -4389,23 +4789,25 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Status
+        ///     (Russian - 1049): Состояние
         /// 
         /// Description:
         ///     (English - United States - 1033): Shows whether the account is active or inactive. Inactive accounts are read-only and can't be edited unless they are reactivated.
+        ///     (Russian - 1049): Указывает, активна организация или нет. Неактивные организации доступны только для чтения. Их нельзя изменять без повторной активации.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.statecode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.statecode)]
         [System.ComponentModel.DescriptionAttribute("Status")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<Entities.Account.Schema.OptionSets.statecode> StateCodeEnum
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.statecode> StateCodeEnum
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.statecode);
-                if (((optionSet != null) 
-                            && System.Enum.IsDefined(typeof(Entities.Account.Schema.OptionSets.statecode), optionSet.Value)))
+                Microsoft.Xrm.Sdk.OptionSetValue optionSetValue = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.statecode);
+                if (((optionSetValue != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.statecode), optionSetValue.Value)))
                 {
-                    return ((Entities.Account.Schema.OptionSets.statecode)(System.Enum.ToObject(typeof(Entities.Account.Schema.OptionSets.statecode), optionSet.Value)));
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.statecode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.statecode), optionSetValue.Value)));
                 }
                 else
                 {
@@ -4419,11 +4821,11 @@ namespace Entities
                 this.OnPropertyChanging(nameof(StateCode));
                 if ((value == null))
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.statecode, null);
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.statecode, null);
                 }
                 else
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.statecode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.statecode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
                 }
                 this.OnPropertyChanged(nameof(StateCode));
                 this.OnPropertyChanged(nameof(StateCodeEnum));
@@ -4433,11 +4835,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Status Reason
+        ///     (Russian - 1049): Причина состояния
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the account's status.
+        ///     (Russian - 1049): Выберите состояние организации.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.statuscode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.statuscode)]
         [System.ComponentModel.DescriptionAttribute("Status Reason")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue StatusCode
@@ -4445,13 +4849,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.statuscode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.statuscode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(StatusCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.statuscode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.statuscode, value);
                 this.OnPropertyChanged(nameof(StatusCode));
             }
         }
@@ -4459,23 +4863,25 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Status Reason
+        ///     (Russian - 1049): Причина состояния
         /// 
         /// Description:
         ///     (English - United States - 1033): Select the account's status.
+        ///     (Russian - 1049): Выберите состояние организации.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.statuscode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.statuscode)]
         [System.ComponentModel.DescriptionAttribute("Status Reason")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<Entities.Account.Schema.OptionSets.statuscode> StatusCodeEnum
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.statuscode> StatusCodeEnum
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.statuscode);
-                if (((optionSet != null) 
-                            && System.Enum.IsDefined(typeof(Entities.Account.Schema.OptionSets.statuscode), optionSet.Value)))
+                Microsoft.Xrm.Sdk.OptionSetValue optionSetValue = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.statuscode);
+                if (((optionSetValue != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.statuscode), optionSetValue.Value)))
                 {
-                    return ((Entities.Account.Schema.OptionSets.statuscode)(System.Enum.ToObject(typeof(Entities.Account.Schema.OptionSets.statuscode), optionSet.Value)));
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.statuscode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.statuscode), optionSetValue.Value)));
                 }
                 else
                 {
@@ -4489,11 +4895,11 @@ namespace Entities
                 this.OnPropertyChanging(nameof(StatusCode));
                 if ((value == null))
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.statuscode, null);
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.statuscode, null);
                 }
                 else
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.statuscode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.statuscode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
                 }
                 this.OnPropertyChanged(nameof(StatusCode));
                 this.OnPropertyChanged(nameof(StatusCodeEnum));
@@ -4503,11 +4909,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Stock Exchange
+        ///     (Russian - 1049): Фондовая биржа
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the stock exchange at which the account is listed to track their stock and financial performance of the company.
+        ///     (Russian - 1049): Введите фондовую биржу, на которой котируются акции организации, для отслеживания курса акций и финансовых результатов компании.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.stockexchange)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.stockexchange)]
         [System.ComponentModel.DescriptionAttribute("Stock Exchange")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string StockExchange
@@ -4515,13 +4923,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.stockexchange);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.stockexchange);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(StockExchange));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.stockexchange, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.stockexchange, value);
                 this.OnPropertyChanged(nameof(StockExchange));
             }
         }
@@ -4529,11 +4937,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Main Phone
+        ///     (Russian - 1049): Основной телефон
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the main phone number for this account.
+        ///     (Russian - 1049): Введите основной номер телефона для этой организации.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.telephone1)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.telephone1)]
         [System.ComponentModel.DescriptionAttribute("Main Phone")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Telephone1
@@ -4541,13 +4951,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.telephone1);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.telephone1);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Telephone1));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.telephone1, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.telephone1, value);
                 this.OnPropertyChanged(nameof(Telephone1));
             }
         }
@@ -4555,11 +4965,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Other Phone
+        ///     (Russian - 1049): Другой телефон
         /// 
         /// Description:
         ///     (English - United States - 1033): Type a second phone number for this account.
+        ///     (Russian - 1049): Введите второй номер телефона для этой организации.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.telephone2)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.telephone2)]
         [System.ComponentModel.DescriptionAttribute("Other Phone")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Telephone2
@@ -4567,13 +4979,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.telephone2);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.telephone2);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Telephone2));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.telephone2, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.telephone2, value);
                 this.OnPropertyChanged(nameof(Telephone2));
             }
         }
@@ -4581,11 +4993,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Telephone 3
+        ///     (Russian - 1049): Телефон 3
         /// 
         /// Description:
         ///     (English - United States - 1033): Type a third phone number for this account.
+        ///     (Russian - 1049): Введите третий номер телефона для этой организации.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.telephone3)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.telephone3)]
         [System.ComponentModel.DescriptionAttribute("Telephone 3")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string Telephone3
@@ -4593,13 +5007,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.telephone3);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.telephone3);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Telephone3));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.telephone3, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.telephone3, value);
                 this.OnPropertyChanged(nameof(Telephone3));
             }
         }
@@ -4607,11 +5021,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Territory Code
+        ///     (Russian - 1049): Код территории
         /// 
         /// Description:
         ///     (English - United States - 1033): Select a region or territory for the account for use in segmentation and analysis.
+        ///     (Russian - 1049): Выберите область или регион для организации. Они будут использоваться при сегментировании и анализе.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.territorycode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.territorycode)]
         [System.ComponentModel.DescriptionAttribute("Territory Code")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.OptionSetValue TerritoryCode
@@ -4619,13 +5035,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.territorycode);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.territorycode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(TerritoryCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.territorycode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.territorycode, value);
                 this.OnPropertyChanged(nameof(TerritoryCode));
             }
         }
@@ -4633,23 +5049,25 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Territory Code
+        ///     (Russian - 1049): Код территории
         /// 
         /// Description:
         ///     (English - United States - 1033): Select a region or territory for the account for use in segmentation and analysis.
+        ///     (Russian - 1049): Выберите область или регион для организации. Они будут использоваться при сегментировании и анализе.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.territorycode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.territorycode)]
         [System.ComponentModel.DescriptionAttribute("Territory Code")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Nullable<Entities.Account.Schema.OptionSets.territorycode> TerritoryCodeEnum
+        public System.Nullable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.territorycode> TerritoryCodeEnum
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Entities.Account.Schema.Attributes.territorycode);
-                if (((optionSet != null) 
-                            && System.Enum.IsDefined(typeof(Entities.Account.Schema.OptionSets.territorycode), optionSet.Value)))
+                Microsoft.Xrm.Sdk.OptionSetValue optionSetValue = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.territorycode);
+                if (((optionSetValue != null) 
+                            && System.Enum.IsDefined(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.territorycode), optionSetValue.Value)))
                 {
-                    return ((Entities.Account.Schema.OptionSets.territorycode)(System.Enum.ToObject(typeof(Entities.Account.Schema.OptionSets.territorycode), optionSet.Value)));
+                    return ((Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.territorycode)(System.Enum.ToObject(typeof(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OptionSets.territorycode), optionSetValue.Value)));
                 }
                 else
                 {
@@ -4663,11 +5081,11 @@ namespace Entities
                 this.OnPropertyChanging(nameof(TerritoryCode));
                 if ((value == null))
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.territorycode, null);
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.territorycode, null);
                 }
                 else
                 {
-                    this.SetAttributeValue(Entities.Account.Schema.Attributes.territorycode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
+                    this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.territorycode, new Microsoft.Xrm.Sdk.OptionSetValue(((int)(value))));
                 }
                 this.OnPropertyChanged(nameof(TerritoryCode));
                 this.OnPropertyChanged(nameof(TerritoryCodeEnum));
@@ -4677,11 +5095,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Territory
+        ///     (Russian - 1049): Территория
         /// 
         /// Description:
         ///     (English - United States - 1033): Choose the sales region or territory for the account to make sure the account is assigned to the correct representative and for use in segmentation and analysis.
+        ///     (Russian - 1049): Выберите для организации область или регион продаж, чтобы гарантировать назначение организации правильному представителю. Эти данные также используются при сегментации и анализе.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.territoryid)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.territoryid)]
         [System.ComponentModel.DescriptionAttribute("Territory")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference TerritoryId
@@ -4689,13 +5109,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Entities.Account.Schema.Attributes.territoryid);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.territoryid);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(TerritoryId));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.territoryid, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.territoryid, value);
                 this.OnPropertyChanged(nameof(TerritoryId));
             }
         }
@@ -4703,11 +5123,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Ticker Symbol
+        ///     (Russian - 1049): Тикер
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the stock exchange symbol for the account to track financial performance of the company. You can click the code entered in this field to access the latest trading information from MSN Money.
+        ///     (Russian - 1049): Введите обозначение (тикер) организации на фондовой бирже для отслеживания финансовых результатов компании. Щелкнув введенный в этом поле код, вы сможете просмотреть новейшую биржевую информацию на MSN Money.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.tickersymbol)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.tickersymbol)]
         [System.ComponentModel.DescriptionAttribute("Ticker Symbol")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string TickerSymbol
@@ -4715,13 +5137,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.tickersymbol);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.tickersymbol);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(TickerSymbol));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.tickersymbol, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.tickersymbol, value);
                 this.OnPropertyChanged(nameof(TickerSymbol));
             }
         }
@@ -4729,11 +5151,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Time Spent by me
+        ///     (Russian - 1049): Время, затраченное мною
         /// 
         /// Description:
         ///     (English - United States - 1033): Total time spent for emails (read and write) and meetings by me in relation to account record.
+        ///     (Russian - 1049): Общее время, затраченное мною на электронную почту (чтение и написание) и совещания в отношении записи организации.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.timespentbymeonemailandmeetings)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.timespentbymeonemailandmeetings)]
         [System.ComponentModel.DescriptionAttribute("Time Spent by me")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string TimeSpentByMeOnEmailAndMeetings
@@ -4741,18 +5165,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.timespentbymeonemailandmeetings);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.timespentbymeonemailandmeetings);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Time Zone Rule Version Number
+        ///     (Russian - 1049): Номер версии правила часового пояса
         /// 
         /// Description:
         ///     (English - United States - 1033): For internal use only.
+        ///     (Russian - 1049): Только для внутреннего использования.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.timezoneruleversionnumber)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.timezoneruleversionnumber)]
         [System.ComponentModel.DescriptionAttribute("Time Zone Rule Version Number")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<int> TimeZoneRuleVersionNumber
@@ -4760,13 +5186,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<int>>(Entities.Account.Schema.Attributes.timezoneruleversionnumber);
+                return this.GetAttributeValue<System.Nullable<int>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.timezoneruleversionnumber);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(TimeZoneRuleVersionNumber));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.timezoneruleversionnumber, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.timezoneruleversionnumber, value);
                 this.OnPropertyChanged(nameof(TimeZoneRuleVersionNumber));
             }
         }
@@ -4774,11 +5200,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Currency
+        ///     (Russian - 1049): Валюта
         /// 
         /// Description:
         ///     (English - United States - 1033): Choose the local currency for the record to make sure budgets are reported in the correct currency.
+        ///     (Russian - 1049): Выберите для записи локальную валюту, чтобы отчеты по бюджетам формировались в правильной валюте.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.transactioncurrencyid)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.transactioncurrencyid)]
         [System.ComponentModel.DescriptionAttribute("Currency")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public Microsoft.Xrm.Sdk.EntityReference TransactionCurrencyId
@@ -4786,13 +5214,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Entities.Account.Schema.Attributes.transactioncurrencyid);
+                return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.transactioncurrencyid);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(TransactionCurrencyId));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.transactioncurrencyid, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.transactioncurrencyid, value);
                 this.OnPropertyChanged(nameof(TransactionCurrencyId));
             }
         }
@@ -4800,11 +5228,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Traversed Path
+        ///     (Russian - 1049): Пройденный путь
         /// 
         /// Description:
         ///     (English - United States - 1033): For internal use only.
+        ///     (Russian - 1049): Только для внутреннего использования.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.traversedpath)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.traversedpath)]
         [System.ComponentModel.DescriptionAttribute("Traversed Path")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string TraversedPath
@@ -4812,13 +5242,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.traversedpath);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.traversedpath);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(TraversedPath));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.traversedpath, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.traversedpath, value);
                 this.OnPropertyChanged(nameof(TraversedPath));
             }
         }
@@ -4826,11 +5256,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): UTC Conversion Time Zone Code
+        ///     (Russian - 1049): Код часового пояса (преобразование в UTC)
         /// 
         /// Description:
         ///     (English - United States - 1033): Time zone code that was in use when the record was created.
+        ///     (Russian - 1049): Код часового пояса, использовавшийся при создании записи.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.utcconversiontimezonecode)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.utcconversiontimezonecode)]
         [System.ComponentModel.DescriptionAttribute("UTC Conversion Time Zone Code")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<int> UTCConversionTimeZoneCode
@@ -4838,13 +5270,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<int>>(Entities.Account.Schema.Attributes.utcconversiontimezonecode);
+                return this.GetAttributeValue<System.Nullable<int>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.utcconversiontimezonecode);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(UTCConversionTimeZoneCode));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.utcconversiontimezonecode, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.utcconversiontimezonecode, value);
                 this.OnPropertyChanged(nameof(UTCConversionTimeZoneCode));
             }
         }
@@ -4852,11 +5284,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Version Number
+        ///     (Russian - 1049): Номер версии
         /// 
         /// Description:
         ///     (English - United States - 1033): Version number of the account.
+        ///     (Russian - 1049): Номер версии организации.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.versionnumber)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.versionnumber)]
         [System.ComponentModel.DescriptionAttribute("Version Number")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public System.Nullable<long> VersionNumber
@@ -4864,18 +5298,20 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<System.Nullable<long>>(Entities.Account.Schema.Attributes.versionnumber);
+                return this.GetAttributeValue<System.Nullable<long>>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.versionnumber);
             }
         }
         
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Website
+        ///     (Russian - 1049): Веб-сайт
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the account's website URL to get quick details about the company profile.
+        ///     (Russian - 1049): Введите URL-адрес веб-сайта организации для быстрого получения сведений о профиле компании.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.websiteurl)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.websiteurl)]
         [System.ComponentModel.DescriptionAttribute("Website")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string WebSiteURL
@@ -4883,13 +5319,13 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.websiteurl);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.websiteurl);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(WebSiteURL));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.websiteurl, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.websiteurl, value);
                 this.OnPropertyChanged(nameof(WebSiteURL));
             }
         }
@@ -4897,11 +5333,13 @@ namespace Entities
         /// <summary>
         /// DisplayName:
         ///     (English - United States - 1033): Yomi Account Name
+        ///     (Russian - 1049): Название организации йоми
         /// 
         /// Description:
         ///     (English - United States - 1033): Type the phonetic spelling of the company name, if specified in Japanese, to make sure the name is pronounced correctly in phone calls and other communications.
+        ///     (Russian - 1049): Введите фонетическое произношение названия компании, если ее название указано на японском языке, для правильного произношения названия при телефонных звонках и других видах общения.
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.yominame)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.yominame)]
         [System.ComponentModel.DescriptionAttribute("Yomi Account Name")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string YomiName
@@ -4909,54 +5347,58 @@ namespace Entities
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetAttributeValue<string>(Entities.Account.Schema.Attributes.yominame);
+                return this.GetAttributeValue<string>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.yominame);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(YomiName));
-                this.SetAttributeValue(Entities.Account.Schema.Attributes.yominame, value);
+                this.SetAttributeValue(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.yominame, value);
                 this.OnPropertyChanged(nameof(YomiName));
             }
         }
+        
+
         #endregion
         
         #region ManyToOne Relationships
+
+        
         /// <summary>
         /// N:1 account_master_account
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.masterid)]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToOne.account_master_account.Name, Microsoft.Xrm.Sdk.EntityRole.Referencing)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.masterid)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.account_master_account.Name, Microsoft.Xrm.Sdk.EntityRole.Referencing)]
         [System.ComponentModel.DescriptionAttribute("N:1 account_master_account")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Entities.Account account_master_account_Referencing
+        public Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account account_master_account_Referencing
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntity<Entities.Account>(Entities.Account.Schema.ManyToOne.account_master_account.Name, Microsoft.Xrm.Sdk.EntityRole.Referencing);
+                return this.GetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.account_master_account.Name, Microsoft.Xrm.Sdk.EntityRole.Referencing);
             }
         }
         
         /// <summary>
         /// N:1 account_originating_lead
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.originatingleadid)]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToOne.account_originating_lead.Name)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.originatingleadid)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.account_originating_lead.Name)]
         [System.ComponentModel.DescriptionAttribute("N:1 account_originating_lead")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Entities.Lead account_originating_lead
+        public Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Lead account_originating_lead
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntity<Entities.Lead>(Entities.Account.Schema.ManyToOne.account_originating_lead.Name, null);
+                return this.GetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Lead>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.account_originating_lead.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_originating_lead));
-                this.SetRelatedEntity<Entities.Lead>(Entities.Account.Schema.ManyToOne.account_originating_lead.Name, null, value);
+                this.SetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Lead>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.account_originating_lead.Name, null, value);
                 this.OnPropertyChanged(nameof(account_originating_lead));
             }
         }
@@ -4964,22 +5406,22 @@ namespace Entities
         /// <summary>
         /// N:1 account_parent_account
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.parentaccountid)]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToOne.account_parent_account.Name, Microsoft.Xrm.Sdk.EntityRole.Referencing)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.parentaccountid)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.account_parent_account.Name, Microsoft.Xrm.Sdk.EntityRole.Referencing)]
         [System.ComponentModel.DescriptionAttribute("N:1 account_parent_account")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Entities.Account account_parent_account_Referencing
+        public Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account account_parent_account_Referencing
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntity<Entities.Account>(Entities.Account.Schema.ManyToOne.account_parent_account.Name, Microsoft.Xrm.Sdk.EntityRole.Referencing);
+                return this.GetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.account_parent_account.Name, Microsoft.Xrm.Sdk.EntityRole.Referencing);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_parent_account_Referencing));
-                this.SetRelatedEntity<Entities.Account>(Entities.Account.Schema.ManyToOne.account_parent_account.Name, Microsoft.Xrm.Sdk.EntityRole.Referencing, value);
+                this.SetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.account_parent_account.Name, Microsoft.Xrm.Sdk.EntityRole.Referencing, value);
                 this.OnPropertyChanged(nameof(account_parent_account_Referencing));
             }
         }
@@ -4987,22 +5429,22 @@ namespace Entities
         /// <summary>
         /// N:1 account_primary_contact
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.primarycontactid)]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToOne.account_primary_contact.Name)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.primarycontactid)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.account_primary_contact.Name)]
         [System.ComponentModel.DescriptionAttribute("N:1 account_primary_contact")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Entities.Contact account_primary_contact
+        public Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Contact account_primary_contact
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntity<Entities.Contact>(Entities.Account.Schema.ManyToOne.account_primary_contact.Name, null);
+                return this.GetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Contact>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.account_primary_contact.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_primary_contact));
-                this.SetRelatedEntity<Entities.Contact>(Entities.Account.Schema.ManyToOne.account_primary_contact.Name, null, value);
+                this.SetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Contact>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.account_primary_contact.Name, null, value);
                 this.OnPropertyChanged(nameof(account_primary_contact));
             }
         }
@@ -5010,38 +5452,38 @@ namespace Entities
         /// <summary>
         /// N:1 business_unit_accounts
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.owningbusinessunit)]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToOne.business_unit_accounts.Name)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.owningbusinessunit)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.business_unit_accounts.Name)]
         [System.ComponentModel.DescriptionAttribute("N:1 business_unit_accounts")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Entities.BusinessUnit business_unit_accounts
+        public Nav.Common.VSPackages.CrmDeveloperHelper.Entities.BusinessUnit business_unit_accounts
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntity<Entities.BusinessUnit>(Entities.Account.Schema.ManyToOne.business_unit_accounts.Name, null);
+                return this.GetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.BusinessUnit>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.business_unit_accounts.Name, null);
             }
         }
         
         /// <summary>
         /// N:1 equipment_accounts
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.preferredequipmentid)]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToOne.equipment_accounts.Name)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredequipmentid)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.equipment_accounts.Name)]
         [System.ComponentModel.DescriptionAttribute("N:1 equipment_accounts")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Entities.Equipment equipment_accounts
+        public Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Equipment equipment_accounts
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntity<Entities.Equipment>(Entities.Account.Schema.ManyToOne.equipment_accounts.Name, null);
+                return this.GetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Equipment>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.equipment_accounts.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(equipment_accounts));
-                this.SetRelatedEntity<Entities.Equipment>(Entities.Account.Schema.ManyToOne.equipment_accounts.Name, null, value);
+                this.SetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Equipment>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.equipment_accounts.Name, null, value);
                 this.OnPropertyChanged(nameof(equipment_accounts));
             }
         }
@@ -5049,134 +5491,134 @@ namespace Entities
         /// <summary>
         /// N:1 lk_account_entityimage
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.entityimageid)]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToOne.lk_account_entityimage.Name)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.entityimageid)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.lk_account_entityimage.Name)]
         [System.ComponentModel.DescriptionAttribute("N:1 lk_account_entityimage")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Entities.ImageDescriptor lk_account_entityimage
+        public Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImageDescriptor lk_account_entityimage
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntity<Entities.ImageDescriptor>(Entities.Account.Schema.ManyToOne.lk_account_entityimage.Name, null);
+                return this.GetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ImageDescriptor>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.lk_account_entityimage.Name, null);
             }
         }
         
         /// <summary>
         /// N:1 lk_accountbase_createdby
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.createdby)]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToOne.lk_accountbase_createdby.Name)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.createdby)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.lk_accountbase_createdby.Name)]
         [System.ComponentModel.DescriptionAttribute("N:1 lk_accountbase_createdby")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Entities.SystemUser lk_accountbase_createdby
+        public Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SystemUser lk_accountbase_createdby
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntity<Entities.SystemUser>(Entities.Account.Schema.ManyToOne.lk_accountbase_createdby.Name, null);
+                return this.GetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SystemUser>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.lk_accountbase_createdby.Name, null);
             }
         }
         
         /// <summary>
         /// N:1 lk_accountbase_createdonbehalfby
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.createdonbehalfby)]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToOne.lk_accountbase_createdonbehalfby.Name)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.createdonbehalfby)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.lk_accountbase_createdonbehalfby.Name)]
         [System.ComponentModel.DescriptionAttribute("N:1 lk_accountbase_createdonbehalfby")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Entities.SystemUser lk_accountbase_createdonbehalfby
+        public Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SystemUser lk_accountbase_createdonbehalfby
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntity<Entities.SystemUser>(Entities.Account.Schema.ManyToOne.lk_accountbase_createdonbehalfby.Name, null);
+                return this.GetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SystemUser>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.lk_accountbase_createdonbehalfby.Name, null);
             }
         }
         
         /// <summary>
         /// N:1 lk_accountbase_modifiedby
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.modifiedby)]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToOne.lk_accountbase_modifiedby.Name)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.modifiedby)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.lk_accountbase_modifiedby.Name)]
         [System.ComponentModel.DescriptionAttribute("N:1 lk_accountbase_modifiedby")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Entities.SystemUser lk_accountbase_modifiedby
+        public Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SystemUser lk_accountbase_modifiedby
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntity<Entities.SystemUser>(Entities.Account.Schema.ManyToOne.lk_accountbase_modifiedby.Name, null);
+                return this.GetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SystemUser>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.lk_accountbase_modifiedby.Name, null);
             }
         }
         
         /// <summary>
         /// N:1 lk_accountbase_modifiedonbehalfby
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.modifiedonbehalfby)]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToOne.lk_accountbase_modifiedonbehalfby.Name)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.modifiedonbehalfby)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.lk_accountbase_modifiedonbehalfby.Name)]
         [System.ComponentModel.DescriptionAttribute("N:1 lk_accountbase_modifiedonbehalfby")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Entities.SystemUser lk_accountbase_modifiedonbehalfby
+        public Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SystemUser lk_accountbase_modifiedonbehalfby
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntity<Entities.SystemUser>(Entities.Account.Schema.ManyToOne.lk_accountbase_modifiedonbehalfby.Name, null);
+                return this.GetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SystemUser>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.lk_accountbase_modifiedonbehalfby.Name, null);
             }
         }
         
         /// <summary>
         /// N:1 lk_externalparty_account_createdby
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.createdbyexternalparty)]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToOne.lk_externalparty_account_createdby.Name)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.createdbyexternalparty)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.lk_externalparty_account_createdby.Name)]
         [System.ComponentModel.DescriptionAttribute("N:1 lk_externalparty_account_createdby")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Entities.ExternalParty lk_externalparty_account_createdby
+        public Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ExternalParty lk_externalparty_account_createdby
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntity<Entities.ExternalParty>(Entities.Account.Schema.ManyToOne.lk_externalparty_account_createdby.Name, null);
+                return this.GetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ExternalParty>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.lk_externalparty_account_createdby.Name, null);
             }
         }
         
         /// <summary>
         /// N:1 lk_externalparty_account_modifiedby
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.modifiedbyexternalparty)]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToOne.lk_externalparty_account_modifiedby.Name)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.modifiedbyexternalparty)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.lk_externalparty_account_modifiedby.Name)]
         [System.ComponentModel.DescriptionAttribute("N:1 lk_externalparty_account_modifiedby")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Entities.ExternalParty lk_externalparty_account_modifiedby
+        public Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ExternalParty lk_externalparty_account_modifiedby
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntity<Entities.ExternalParty>(Entities.Account.Schema.ManyToOne.lk_externalparty_account_modifiedby.Name, null);
+                return this.GetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ExternalParty>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.lk_externalparty_account_modifiedby.Name, null);
             }
         }
         
         /// <summary>
         /// N:1 manualsla_account
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.slaid)]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToOne.manualsla_account.Name)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.slaid)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.manualsla_account.Name)]
         [System.ComponentModel.DescriptionAttribute("N:1 manualsla_account")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Entities.SLA manualsla_account
+        public Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SLA manualsla_account
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntity<Entities.SLA>(Entities.Account.Schema.ManyToOne.manualsla_account.Name, null);
+                return this.GetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SLA>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.manualsla_account.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(manualsla_account));
-                this.SetRelatedEntity<Entities.SLA>(Entities.Account.Schema.ManyToOne.manualsla_account.Name, null, value);
+                this.SetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SLA>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.manualsla_account.Name, null, value);
                 this.OnPropertyChanged(nameof(manualsla_account));
             }
         }
@@ -5184,22 +5626,22 @@ namespace Entities
         /// <summary>
         /// N:1 owner_accounts
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.ownerid)]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToOne.owner_accounts.Name)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.ownerid)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.owner_accounts.Name)]
         [System.ComponentModel.DescriptionAttribute("N:1 owner_accounts")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Entities.Owner owner_accounts
+        public Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Owner owner_accounts
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntity<Entities.Owner>(Entities.Account.Schema.ManyToOne.owner_accounts.Name, null);
+                return this.GetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Owner>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.owner_accounts.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(owner_accounts));
-                this.SetRelatedEntity<Entities.Owner>(Entities.Account.Schema.ManyToOne.owner_accounts.Name, null, value);
+                this.SetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Owner>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.owner_accounts.Name, null, value);
                 this.OnPropertyChanged(nameof(owner_accounts));
             }
         }
@@ -5207,22 +5649,22 @@ namespace Entities
         /// <summary>
         /// N:1 price_level_accounts
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.defaultpricelevelid)]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToOne.price_level_accounts.Name)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.defaultpricelevelid)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.price_level_accounts.Name)]
         [System.ComponentModel.DescriptionAttribute("N:1 price_level_accounts")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Entities.PriceLevel price_level_accounts
+        public Nav.Common.VSPackages.CrmDeveloperHelper.Entities.PriceLevel price_level_accounts
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntity<Entities.PriceLevel>(Entities.Account.Schema.ManyToOne.price_level_accounts.Name, null);
+                return this.GetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.PriceLevel>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.price_level_accounts.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(price_level_accounts));
-                this.SetRelatedEntity<Entities.PriceLevel>(Entities.Account.Schema.ManyToOne.price_level_accounts.Name, null, value);
+                this.SetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.PriceLevel>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.price_level_accounts.Name, null, value);
                 this.OnPropertyChanged(nameof(price_level_accounts));
             }
         }
@@ -5230,22 +5672,22 @@ namespace Entities
         /// <summary>
         /// N:1 processstage_account
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.stageid)]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToOne.processstage_account.Name)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.stageid)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.processstage_account.Name)]
         [System.ComponentModel.DescriptionAttribute("N:1 processstage_account")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Entities.ProcessStage processstage_account
+        public Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessStage processstage_account
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntity<Entities.ProcessStage>(Entities.Account.Schema.ManyToOne.processstage_account.Name, null);
+                return this.GetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessStage>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.processstage_account.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(processstage_account));
-                this.SetRelatedEntity<Entities.ProcessStage>(Entities.Account.Schema.ManyToOne.processstage_account.Name, null, value);
+                this.SetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessStage>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.processstage_account.Name, null, value);
                 this.OnPropertyChanged(nameof(processstage_account));
             }
         }
@@ -5253,22 +5695,22 @@ namespace Entities
         /// <summary>
         /// N:1 service_accounts
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.preferredserviceid)]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToOne.service_accounts.Name)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredserviceid)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.service_accounts.Name)]
         [System.ComponentModel.DescriptionAttribute("N:1 service_accounts")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Entities.Service service_accounts
+        public Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Service service_accounts
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntity<Entities.Service>(Entities.Account.Schema.ManyToOne.service_accounts.Name, null);
+                return this.GetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Service>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.service_accounts.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(service_accounts));
-                this.SetRelatedEntity<Entities.Service>(Entities.Account.Schema.ManyToOne.service_accounts.Name, null, value);
+                this.SetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Service>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.service_accounts.Name, null, value);
                 this.OnPropertyChanged(nameof(service_accounts));
             }
         }
@@ -5276,38 +5718,38 @@ namespace Entities
         /// <summary>
         /// N:1 sla_account
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.slainvokedid)]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToOne.sla_account.Name)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.slainvokedid)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.sla_account.Name)]
         [System.ComponentModel.DescriptionAttribute("N:1 sla_account")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Entities.SLA sla_account
+        public Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SLA sla_account
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntity<Entities.SLA>(Entities.Account.Schema.ManyToOne.sla_account.Name, null);
+                return this.GetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SLA>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.sla_account.Name, null);
             }
         }
         
         /// <summary>
         /// N:1 system_user_accounts
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.preferredsystemuserid)]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToOne.system_user_accounts.Name)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.preferredsystemuserid)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.system_user_accounts.Name)]
         [System.ComponentModel.DescriptionAttribute("N:1 system_user_accounts")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Entities.SystemUser system_user_accounts
+        public Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SystemUser system_user_accounts
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntity<Entities.SystemUser>(Entities.Account.Schema.ManyToOne.system_user_accounts.Name, null);
+                return this.GetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SystemUser>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.system_user_accounts.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(system_user_accounts));
-                this.SetRelatedEntity<Entities.SystemUser>(Entities.Account.Schema.ManyToOne.system_user_accounts.Name, null, value);
+                this.SetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SystemUser>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.system_user_accounts.Name, null, value);
                 this.OnPropertyChanged(nameof(system_user_accounts));
             }
         }
@@ -5315,38 +5757,38 @@ namespace Entities
         /// <summary>
         /// N:1 team_accounts
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.owningteam)]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToOne.team_accounts.Name)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.owningteam)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.team_accounts.Name)]
         [System.ComponentModel.DescriptionAttribute("N:1 team_accounts")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Entities.Team team_accounts
+        public Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Team team_accounts
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntity<Entities.Team>(Entities.Account.Schema.ManyToOne.team_accounts.Name, null);
+                return this.GetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Team>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.team_accounts.Name, null);
             }
         }
         
         /// <summary>
         /// N:1 territory_accounts
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.territoryid)]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToOne.territory_accounts.Name)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.territoryid)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.territory_accounts.Name)]
         [System.ComponentModel.DescriptionAttribute("N:1 territory_accounts")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Entities.Territory territory_accounts
+        public Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Territory territory_accounts
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntity<Entities.Territory>(Entities.Account.Schema.ManyToOne.territory_accounts.Name, null);
+                return this.GetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Territory>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.territory_accounts.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(territory_accounts));
-                this.SetRelatedEntity<Entities.Territory>(Entities.Account.Schema.ManyToOne.territory_accounts.Name, null, value);
+                this.SetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Territory>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.territory_accounts.Name, null, value);
                 this.OnPropertyChanged(nameof(territory_accounts));
             }
         }
@@ -5354,22 +5796,22 @@ namespace Entities
         /// <summary>
         /// N:1 transactioncurrency_account
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.transactioncurrencyid)]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToOne.transactioncurrency_account.Name)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.transactioncurrencyid)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.transactioncurrency_account.Name)]
         [System.ComponentModel.DescriptionAttribute("N:1 transactioncurrency_account")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Entities.TransactionCurrency transactioncurrency_account
+        public Nav.Common.VSPackages.CrmDeveloperHelper.Entities.TransactionCurrency transactioncurrency_account
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntity<Entities.TransactionCurrency>(Entities.Account.Schema.ManyToOne.transactioncurrency_account.Name, null);
+                return this.GetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.TransactionCurrency>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.transactioncurrency_account.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(transactioncurrency_account));
-                this.SetRelatedEntity<Entities.TransactionCurrency>(Entities.Account.Schema.ManyToOne.transactioncurrency_account.Name, null, value);
+                this.SetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.TransactionCurrency>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.transactioncurrency_account.Name, null, value);
                 this.OnPropertyChanged(nameof(transactioncurrency_account));
             }
         }
@@ -5377,39 +5819,43 @@ namespace Entities
         /// <summary>
         /// N:1 user_accounts
         /// </summary>
-        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Entities.Account.Schema.Attributes.owninguser)]
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToOne.user_accounts.Name)]
+        [Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.Attributes.owninguser)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.user_accounts.Name)]
         [System.ComponentModel.DescriptionAttribute("N:1 user_accounts")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public Entities.SystemUser user_accounts
+        public Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SystemUser user_accounts
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntity<Entities.SystemUser>(Entities.Account.Schema.ManyToOne.user_accounts.Name, null);
+                return this.GetRelatedEntity<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SystemUser>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToOne.user_accounts.Name, null);
             }
         }
+        
+
         #endregion
         
         #region OneToMany Relationships
+
+        
         /// <summary>
         /// 1:N account_actioncard
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_actioncard.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_actioncard.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N account_actioncard")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.ActionCard> account_actioncard
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ActionCard> account_actioncard
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.ActionCard>(Entities.Account.Schema.OneToMany.account_actioncard.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ActionCard>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_actioncard.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_actioncard));
-                this.SetRelatedEntities<Entities.ActionCard>(Entities.Account.Schema.OneToMany.account_actioncard.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ActionCard>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_actioncard.Name, null, value);
                 this.OnPropertyChanged(nameof(account_actioncard));
             }
         }
@@ -5417,21 +5863,21 @@ namespace Entities
         /// <summary>
         /// 1:N account_activity_parties
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_activity_parties.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_activity_parties.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N account_activity_parties")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.ActivityParty> account_activity_parties
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ActivityParty> account_activity_parties
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.ActivityParty>(Entities.Account.Schema.OneToMany.account_activity_parties.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ActivityParty>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_activity_parties.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_activity_parties));
-                this.SetRelatedEntities<Entities.ActivityParty>(Entities.Account.Schema.OneToMany.account_activity_parties.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ActivityParty>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_activity_parties.Name, null, value);
                 this.OnPropertyChanged(nameof(account_activity_parties));
             }
         }
@@ -5439,21 +5885,21 @@ namespace Entities
         /// <summary>
         /// 1:N Account_ActivityPointers
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_activitypointers.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_activitypointers.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N Account_ActivityPointers")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.ActivityPointer> Account_ActivityPointers
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ActivityPointer> Account_ActivityPointers
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.ActivityPointer>(Entities.Account.Schema.OneToMany.account_activitypointers.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ActivityPointer>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_activitypointers.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Account_ActivityPointers));
-                this.SetRelatedEntities<Entities.ActivityPointer>(Entities.Account.Schema.OneToMany.account_activitypointers.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ActivityPointer>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_activitypointers.Name, null, value);
                 this.OnPropertyChanged(nameof(Account_ActivityPointers));
             }
         }
@@ -5461,21 +5907,21 @@ namespace Entities
         /// <summary>
         /// 1:N Account_Annotation
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_annotation.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_annotation.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N Account_Annotation")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Annotation> Account_Annotation
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Annotation> Account_Annotation
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Annotation>(Entities.Account.Schema.OneToMany.account_annotation.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Annotation>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_annotation.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Account_Annotation));
-                this.SetRelatedEntities<Entities.Annotation>(Entities.Account.Schema.OneToMany.account_annotation.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Annotation>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_annotation.Name, null, value);
                 this.OnPropertyChanged(nameof(Account_Annotation));
             }
         }
@@ -5483,21 +5929,21 @@ namespace Entities
         /// <summary>
         /// 1:N Account_Appointments
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_appointments.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_appointments.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N Account_Appointments")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Appointment> Account_Appointments
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Appointment> Account_Appointments
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Appointment>(Entities.Account.Schema.OneToMany.account_appointments.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Appointment>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_appointments.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Account_Appointments));
-                this.SetRelatedEntities<Entities.Appointment>(Entities.Account.Schema.OneToMany.account_appointments.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Appointment>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_appointments.Name, null, value);
                 this.OnPropertyChanged(nameof(Account_Appointments));
             }
         }
@@ -5505,21 +5951,21 @@ namespace Entities
         /// <summary>
         /// 1:N Account_AsyncOperations
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_asyncoperations.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_asyncoperations.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N Account_AsyncOperations")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.AsyncOperation> Account_AsyncOperations
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AsyncOperation> Account_AsyncOperations
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.AsyncOperation>(Entities.Account.Schema.OneToMany.account_asyncoperations.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AsyncOperation>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_asyncoperations.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Account_AsyncOperations));
-                this.SetRelatedEntities<Entities.AsyncOperation>(Entities.Account.Schema.OneToMany.account_asyncoperations.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.AsyncOperation>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_asyncoperations.Name, null, value);
                 this.OnPropertyChanged(nameof(Account_AsyncOperations));
             }
         }
@@ -5527,21 +5973,21 @@ namespace Entities
         /// <summary>
         /// 1:N account_bookableresource_AccountId
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_bookableresource_accountid.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_bookableresource_accountid.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N account_bookableresource_AccountId")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.BookableResource> account_bookableresource_AccountId
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.BookableResource> account_bookableresource_AccountId
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.BookableResource>(Entities.Account.Schema.OneToMany.account_bookableresource_accountid.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.BookableResource>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_bookableresource_accountid.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_bookableresource_AccountId));
-                this.SetRelatedEntities<Entities.BookableResource>(Entities.Account.Schema.OneToMany.account_bookableresource_accountid.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.BookableResource>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_bookableresource_accountid.Name, null, value);
                 this.OnPropertyChanged(nameof(account_bookableresource_AccountId));
             }
         }
@@ -5549,21 +5995,21 @@ namespace Entities
         /// <summary>
         /// 1:N Account_BulkDeleteFailures
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_bulkdeletefailures.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_bulkdeletefailures.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N Account_BulkDeleteFailures")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.BulkDeleteFailure> Account_BulkDeleteFailures
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.BulkDeleteFailure> Account_BulkDeleteFailures
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.BulkDeleteFailure>(Entities.Account.Schema.OneToMany.account_bulkdeletefailures.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.BulkDeleteFailure>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_bulkdeletefailures.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Account_BulkDeleteFailures));
-                this.SetRelatedEntities<Entities.BulkDeleteFailure>(Entities.Account.Schema.OneToMany.account_bulkdeletefailures.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.BulkDeleteFailure>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_bulkdeletefailures.Name, null, value);
                 this.OnPropertyChanged(nameof(Account_BulkDeleteFailures));
             }
         }
@@ -5571,21 +6017,21 @@ namespace Entities
         /// <summary>
         /// 1:N account_BulkOperations
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_bulkoperations.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_bulkoperations.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N account_BulkOperations")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.BulkOperation> account_BulkOperations
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.BulkOperation> account_BulkOperations
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.BulkOperation>(Entities.Account.Schema.OneToMany.account_bulkoperations.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.BulkOperation>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_bulkoperations.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_BulkOperations));
-                this.SetRelatedEntities<Entities.BulkOperation>(Entities.Account.Schema.OneToMany.account_bulkoperations.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.BulkOperation>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_bulkoperations.Name, null, value);
                 this.OnPropertyChanged(nameof(account_BulkOperations));
             }
         }
@@ -5593,21 +6039,21 @@ namespace Entities
         /// <summary>
         /// 1:N account_CampaignResponses
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_campaignresponses.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_campaignresponses.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N account_CampaignResponses")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.CampaignResponse> account_CampaignResponses
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.CampaignResponse> account_CampaignResponses
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.CampaignResponse>(Entities.Account.Schema.OneToMany.account_campaignresponses.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.CampaignResponse>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_campaignresponses.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_CampaignResponses));
-                this.SetRelatedEntities<Entities.CampaignResponse>(Entities.Account.Schema.OneToMany.account_campaignresponses.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.CampaignResponse>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_campaignresponses.Name, null, value);
                 this.OnPropertyChanged(nameof(account_CampaignResponses));
             }
         }
@@ -5615,21 +6061,21 @@ namespace Entities
         /// <summary>
         /// 1:N account_connections1
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_connections1.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_connections1.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N account_connections1")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Connection> account_connections1
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Connection> account_connections1
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Connection>(Entities.Account.Schema.OneToMany.account_connections1.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Connection>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_connections1.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_connections1));
-                this.SetRelatedEntities<Entities.Connection>(Entities.Account.Schema.OneToMany.account_connections1.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Connection>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_connections1.Name, null, value);
                 this.OnPropertyChanged(nameof(account_connections1));
             }
         }
@@ -5637,21 +6083,21 @@ namespace Entities
         /// <summary>
         /// 1:N account_connections2
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_connections2.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_connections2.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N account_connections2")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Connection> account_connections2
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Connection> account_connections2
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Connection>(Entities.Account.Schema.OneToMany.account_connections2.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Connection>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_connections2.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_connections2));
-                this.SetRelatedEntities<Entities.Connection>(Entities.Account.Schema.OneToMany.account_connections2.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Connection>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_connections2.Name, null, value);
                 this.OnPropertyChanged(nameof(account_connections2));
             }
         }
@@ -5659,21 +6105,21 @@ namespace Entities
         /// <summary>
         /// 1:N account_customer_opportunity_roles
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_customer_opportunity_roles.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_customer_opportunity_roles.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N account_customer_opportunity_roles")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.CustomerOpportunityRole> account_customer_opportunity_roles
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.CustomerOpportunityRole> account_customer_opportunity_roles
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.CustomerOpportunityRole>(Entities.Account.Schema.OneToMany.account_customer_opportunity_roles.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.CustomerOpportunityRole>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_customer_opportunity_roles.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_customer_opportunity_roles));
-                this.SetRelatedEntities<Entities.CustomerOpportunityRole>(Entities.Account.Schema.OneToMany.account_customer_opportunity_roles.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.CustomerOpportunityRole>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_customer_opportunity_roles.Name, null, value);
                 this.OnPropertyChanged(nameof(account_customer_opportunity_roles));
             }
         }
@@ -5681,21 +6127,21 @@ namespace Entities
         /// <summary>
         /// 1:N account_customer_relationship_customer
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_customer_relationship_customer.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_customer_relationship_customer.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N account_customer_relationship_customer")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.CustomerRelationship> account_customer_relationship_customer
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.CustomerRelationship> account_customer_relationship_customer
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.CustomerRelationship>(Entities.Account.Schema.OneToMany.account_customer_relationship_customer.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.CustomerRelationship>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_customer_relationship_customer.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_customer_relationship_customer));
-                this.SetRelatedEntities<Entities.CustomerRelationship>(Entities.Account.Schema.OneToMany.account_customer_relationship_customer.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.CustomerRelationship>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_customer_relationship_customer.Name, null, value);
                 this.OnPropertyChanged(nameof(account_customer_relationship_customer));
             }
         }
@@ -5703,21 +6149,21 @@ namespace Entities
         /// <summary>
         /// 1:N account_customer_relationship_partner
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_customer_relationship_partner.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_customer_relationship_partner.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N account_customer_relationship_partner")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.CustomerRelationship> account_customer_relationship_partner
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.CustomerRelationship> account_customer_relationship_partner
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.CustomerRelationship>(Entities.Account.Schema.OneToMany.account_customer_relationship_partner.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.CustomerRelationship>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_customer_relationship_partner.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_customer_relationship_partner));
-                this.SetRelatedEntities<Entities.CustomerRelationship>(Entities.Account.Schema.OneToMany.account_customer_relationship_partner.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.CustomerRelationship>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_customer_relationship_partner.Name, null, value);
                 this.OnPropertyChanged(nameof(account_customer_relationship_partner));
             }
         }
@@ -5725,21 +6171,21 @@ namespace Entities
         /// <summary>
         /// 1:N Account_CustomerAddress
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_customeraddress.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_customeraddress.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N Account_CustomerAddress")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.CustomerAddress> Account_CustomerAddress
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.CustomerAddress> Account_CustomerAddress
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.CustomerAddress>(Entities.Account.Schema.OneToMany.account_customeraddress.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.CustomerAddress>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_customeraddress.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Account_CustomerAddress));
-                this.SetRelatedEntities<Entities.CustomerAddress>(Entities.Account.Schema.OneToMany.account_customeraddress.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.CustomerAddress>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_customeraddress.Name, null, value);
                 this.OnPropertyChanged(nameof(Account_CustomerAddress));
             }
         }
@@ -5747,21 +6193,21 @@ namespace Entities
         /// <summary>
         /// 1:N Account_DuplicateBaseRecord
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_duplicatebaserecord.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_duplicatebaserecord.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N Account_DuplicateBaseRecord")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.DuplicateRecord> Account_DuplicateBaseRecord
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.DuplicateRecord> Account_DuplicateBaseRecord
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.DuplicateRecord>(Entities.Account.Schema.OneToMany.account_duplicatebaserecord.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.DuplicateRecord>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_duplicatebaserecord.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Account_DuplicateBaseRecord));
-                this.SetRelatedEntities<Entities.DuplicateRecord>(Entities.Account.Schema.OneToMany.account_duplicatebaserecord.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.DuplicateRecord>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_duplicatebaserecord.Name, null, value);
                 this.OnPropertyChanged(nameof(Account_DuplicateBaseRecord));
             }
         }
@@ -5769,21 +6215,21 @@ namespace Entities
         /// <summary>
         /// 1:N Account_DuplicateMatchingRecord
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_duplicatematchingrecord.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_duplicatematchingrecord.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N Account_DuplicateMatchingRecord")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.DuplicateRecord> Account_DuplicateMatchingRecord
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.DuplicateRecord> Account_DuplicateMatchingRecord
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.DuplicateRecord>(Entities.Account.Schema.OneToMany.account_duplicatematchingrecord.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.DuplicateRecord>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_duplicatematchingrecord.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Account_DuplicateMatchingRecord));
-                this.SetRelatedEntities<Entities.DuplicateRecord>(Entities.Account.Schema.OneToMany.account_duplicatematchingrecord.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.DuplicateRecord>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_duplicatematchingrecord.Name, null, value);
                 this.OnPropertyChanged(nameof(Account_DuplicateMatchingRecord));
             }
         }
@@ -5791,21 +6237,21 @@ namespace Entities
         /// <summary>
         /// 1:N Account_Email_EmailSender
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_email_emailsender.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_email_emailsender.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N Account_Email_EmailSender")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Email> Account_Email_EmailSender
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Email> Account_Email_EmailSender
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Email>(Entities.Account.Schema.OneToMany.account_email_emailsender.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Email>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_email_emailsender.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Account_Email_EmailSender));
-                this.SetRelatedEntities<Entities.Email>(Entities.Account.Schema.OneToMany.account_email_emailsender.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Email>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_email_emailsender.Name, null, value);
                 this.OnPropertyChanged(nameof(Account_Email_EmailSender));
             }
         }
@@ -5813,21 +6259,21 @@ namespace Entities
         /// <summary>
         /// 1:N Account_Email_SendersAccount
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_email_sendersaccount.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_email_sendersaccount.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N Account_Email_SendersAccount")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Email> Account_Email_SendersAccount
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Email> Account_Email_SendersAccount
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Email>(Entities.Account.Schema.OneToMany.account_email_sendersaccount.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Email>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_email_sendersaccount.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Account_Email_SendersAccount));
-                this.SetRelatedEntities<Entities.Email>(Entities.Account.Schema.OneToMany.account_email_sendersaccount.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Email>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_email_sendersaccount.Name, null, value);
                 this.OnPropertyChanged(nameof(Account_Email_SendersAccount));
             }
         }
@@ -5835,21 +6281,21 @@ namespace Entities
         /// <summary>
         /// 1:N Account_Emails
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_emails.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_emails.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N Account_Emails")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Email> Account_Emails
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Email> Account_Emails
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Email>(Entities.Account.Schema.OneToMany.account_emails.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Email>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_emails.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Account_Emails));
-                this.SetRelatedEntities<Entities.Email>(Entities.Account.Schema.OneToMany.account_emails.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Email>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_emails.Name, null, value);
                 this.OnPropertyChanged(nameof(Account_Emails));
             }
         }
@@ -5857,21 +6303,21 @@ namespace Entities
         /// <summary>
         /// 1:N account_entitlement_Account
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_entitlement_account.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_entitlement_account.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N account_entitlement_Account")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Entitlement> account_entitlement_Account
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Entitlement> account_entitlement_Account
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Entitlement>(Entities.Account.Schema.OneToMany.account_entitlement_account.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Entitlement>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_entitlement_account.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_entitlement_Account));
-                this.SetRelatedEntities<Entities.Entitlement>(Entities.Account.Schema.OneToMany.account_entitlement_account.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Entitlement>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_entitlement_account.Name, null, value);
                 this.OnPropertyChanged(nameof(account_entitlement_Account));
             }
         }
@@ -5879,21 +6325,21 @@ namespace Entities
         /// <summary>
         /// 1:N account_entitlement_Customer
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_entitlement_customer.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_entitlement_customer.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N account_entitlement_Customer")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Entitlement> account_entitlement_Customer
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Entitlement> account_entitlement_Customer
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Entitlement>(Entities.Account.Schema.OneToMany.account_entitlement_customer.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Entitlement>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_entitlement_customer.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_entitlement_Customer));
-                this.SetRelatedEntities<Entities.Entitlement>(Entities.Account.Schema.OneToMany.account_entitlement_customer.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Entitlement>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_entitlement_customer.Name, null, value);
                 this.OnPropertyChanged(nameof(account_entitlement_Customer));
             }
         }
@@ -5901,21 +6347,21 @@ namespace Entities
         /// <summary>
         /// 1:N Account_Faxes
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_faxes.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_faxes.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N Account_Faxes")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Fax> Account_Faxes
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Fax> Account_Faxes
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Fax>(Entities.Account.Schema.OneToMany.account_faxes.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Fax>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_faxes.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Account_Faxes));
-                this.SetRelatedEntities<Entities.Fax>(Entities.Account.Schema.OneToMany.account_faxes.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Fax>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_faxes.Name, null, value);
                 this.OnPropertyChanged(nameof(Account_Faxes));
             }
         }
@@ -5923,21 +6369,21 @@ namespace Entities
         /// <summary>
         /// 1:N account_IncidentResolutions
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_incidentresolutions.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_incidentresolutions.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N account_IncidentResolutions")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.IncidentResolution> account_IncidentResolutions
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.IncidentResolution> account_IncidentResolutions
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.IncidentResolution>(Entities.Account.Schema.OneToMany.account_incidentresolutions.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.IncidentResolution>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_incidentresolutions.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_IncidentResolutions));
-                this.SetRelatedEntities<Entities.IncidentResolution>(Entities.Account.Schema.OneToMany.account_incidentresolutions.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.IncidentResolution>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_incidentresolutions.Name, null, value);
                 this.OnPropertyChanged(nameof(account_IncidentResolutions));
             }
         }
@@ -5945,21 +6391,21 @@ namespace Entities
         /// <summary>
         /// 1:N Account_Letters
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_letters.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_letters.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N Account_Letters")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Letter> Account_Letters
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Letter> Account_Letters
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Letter>(Entities.Account.Schema.OneToMany.account_letters.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Letter>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_letters.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Account_Letters));
-                this.SetRelatedEntities<Entities.Letter>(Entities.Account.Schema.OneToMany.account_letters.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Letter>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_letters.Name, null, value);
                 this.OnPropertyChanged(nameof(Account_Letters));
             }
         }
@@ -5967,21 +6413,21 @@ namespace Entities
         /// <summary>
         /// 1:N Account_MailboxTrackingFolder
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_mailboxtrackingfolder.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_mailboxtrackingfolder.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N Account_MailboxTrackingFolder")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.MailboxTrackingFolder> Account_MailboxTrackingFolder
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.MailboxTrackingFolder> Account_MailboxTrackingFolder
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.MailboxTrackingFolder>(Entities.Account.Schema.OneToMany.account_mailboxtrackingfolder.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.MailboxTrackingFolder>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_mailboxtrackingfolder.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Account_MailboxTrackingFolder));
-                this.SetRelatedEntities<Entities.MailboxTrackingFolder>(Entities.Account.Schema.OneToMany.account_mailboxtrackingfolder.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.MailboxTrackingFolder>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_mailboxtrackingfolder.Name, null, value);
                 this.OnPropertyChanged(nameof(Account_MailboxTrackingFolder));
             }
         }
@@ -5989,21 +6435,21 @@ namespace Entities
         /// <summary>
         /// 1:N account_master_account
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_master_account.Name, Microsoft.Xrm.Sdk.EntityRole.Referenced)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_master_account.Name, Microsoft.Xrm.Sdk.EntityRole.Referenced)]
         [System.ComponentModel.DescriptionAttribute("1:N account_master_account")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Account> account_master_account_Referenced
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account> account_master_account_Referenced
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Account>(Entities.Account.Schema.OneToMany.account_master_account.Name, Microsoft.Xrm.Sdk.EntityRole.Referenced);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_master_account.Name, Microsoft.Xrm.Sdk.EntityRole.Referenced);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_master_account_Referenced));
-                this.SetRelatedEntities<Entities.Account>(Entities.Account.Schema.OneToMany.account_master_account.Name, Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_master_account.Name, Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
                 this.OnPropertyChanged(nameof(account_master_account_Referenced));
             }
         }
@@ -6011,21 +6457,21 @@ namespace Entities
         /// <summary>
         /// 1:N account_OpportunityCloses
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_opportunitycloses.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_opportunitycloses.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N account_OpportunityCloses")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.OpportunityClose> account_OpportunityCloses
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.OpportunityClose> account_OpportunityCloses
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.OpportunityClose>(Entities.Account.Schema.OneToMany.account_opportunitycloses.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.OpportunityClose>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_opportunitycloses.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_OpportunityCloses));
-                this.SetRelatedEntities<Entities.OpportunityClose>(Entities.Account.Schema.OneToMany.account_opportunitycloses.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.OpportunityClose>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_opportunitycloses.Name, null, value);
                 this.OnPropertyChanged(nameof(account_OpportunityCloses));
             }
         }
@@ -6033,21 +6479,21 @@ namespace Entities
         /// <summary>
         /// 1:N account_OrderCloses
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_ordercloses.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_ordercloses.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N account_OrderCloses")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.OrderClose> account_OrderCloses
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.OrderClose> account_OrderCloses
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.OrderClose>(Entities.Account.Schema.OneToMany.account_ordercloses.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.OrderClose>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_ordercloses.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_OrderCloses));
-                this.SetRelatedEntities<Entities.OrderClose>(Entities.Account.Schema.OneToMany.account_ordercloses.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.OrderClose>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_ordercloses.Name, null, value);
                 this.OnPropertyChanged(nameof(account_OrderCloses));
             }
         }
@@ -6055,21 +6501,21 @@ namespace Entities
         /// <summary>
         /// 1:N account_parent_account
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_parent_account.Name, Microsoft.Xrm.Sdk.EntityRole.Referenced)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_parent_account.Name, Microsoft.Xrm.Sdk.EntityRole.Referenced)]
         [System.ComponentModel.DescriptionAttribute("1:N account_parent_account")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Account> account_parent_account_Referenced
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account> account_parent_account_Referenced
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Account>(Entities.Account.Schema.OneToMany.account_parent_account.Name, Microsoft.Xrm.Sdk.EntityRole.Referenced);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_parent_account.Name, Microsoft.Xrm.Sdk.EntityRole.Referenced);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_parent_account_Referenced));
-                this.SetRelatedEntities<Entities.Account>(Entities.Account.Schema.OneToMany.account_parent_account.Name, Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_parent_account.Name, Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
                 this.OnPropertyChanged(nameof(account_parent_account_Referenced));
             }
         }
@@ -6077,21 +6523,21 @@ namespace Entities
         /// <summary>
         /// 1:N Account_Phonecalls
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_phonecalls.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_phonecalls.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N Account_Phonecalls")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.PhoneCall> Account_Phonecalls
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.PhoneCall> Account_Phonecalls
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.PhoneCall>(Entities.Account.Schema.OneToMany.account_phonecalls.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.PhoneCall>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_phonecalls.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Account_Phonecalls));
-                this.SetRelatedEntities<Entities.PhoneCall>(Entities.Account.Schema.OneToMany.account_phonecalls.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.PhoneCall>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_phonecalls.Name, null, value);
                 this.OnPropertyChanged(nameof(Account_Phonecalls));
             }
         }
@@ -6099,21 +6545,21 @@ namespace Entities
         /// <summary>
         /// 1:N account_PostFollows
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_postfollows.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_postfollows.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N account_PostFollows")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.PostFollow> account_PostFollows
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.PostFollow> account_PostFollows
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.PostFollow>(Entities.Account.Schema.OneToMany.account_postfollows.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.PostFollow>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_postfollows.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_PostFollows));
-                this.SetRelatedEntities<Entities.PostFollow>(Entities.Account.Schema.OneToMany.account_postfollows.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.PostFollow>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_postfollows.Name, null, value);
                 this.OnPropertyChanged(nameof(account_PostFollows));
             }
         }
@@ -6121,21 +6567,21 @@ namespace Entities
         /// <summary>
         /// 1:N account_PostRegardings
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_postregardings.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_postregardings.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N account_PostRegardings")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.PostRegarding> account_PostRegardings
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.PostRegarding> account_PostRegardings
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.PostRegarding>(Entities.Account.Schema.OneToMany.account_postregardings.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.PostRegarding>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_postregardings.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_PostRegardings));
-                this.SetRelatedEntities<Entities.PostRegarding>(Entities.Account.Schema.OneToMany.account_postregardings.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.PostRegarding>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_postregardings.Name, null, value);
                 this.OnPropertyChanged(nameof(account_PostRegardings));
             }
         }
@@ -6143,21 +6589,21 @@ namespace Entities
         /// <summary>
         /// 1:N account_PostRoles
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_postroles.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_postroles.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N account_PostRoles")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.PostRole> account_PostRoles
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.PostRole> account_PostRoles
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.PostRole>(Entities.Account.Schema.OneToMany.account_postroles.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.PostRole>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_postroles.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_PostRoles));
-                this.SetRelatedEntities<Entities.PostRole>(Entities.Account.Schema.OneToMany.account_postroles.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.PostRole>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_postroles.Name, null, value);
                 this.OnPropertyChanged(nameof(account_PostRoles));
             }
         }
@@ -6165,21 +6611,21 @@ namespace Entities
         /// <summary>
         /// 1:N account_principalobjectattributeaccess
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_principalobjectattributeaccess.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_principalobjectattributeaccess.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N account_principalobjectattributeaccess")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.PrincipalObjectAttributeAccess> account_principalobjectattributeaccess
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.PrincipalObjectAttributeAccess> account_principalobjectattributeaccess
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.PrincipalObjectAttributeAccess>(Entities.Account.Schema.OneToMany.account_principalobjectattributeaccess.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.PrincipalObjectAttributeAccess>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_principalobjectattributeaccess.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_principalobjectattributeaccess));
-                this.SetRelatedEntities<Entities.PrincipalObjectAttributeAccess>(Entities.Account.Schema.OneToMany.account_principalobjectattributeaccess.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.PrincipalObjectAttributeAccess>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_principalobjectattributeaccess.Name, null, value);
                 this.OnPropertyChanged(nameof(account_principalobjectattributeaccess));
             }
         }
@@ -6187,21 +6633,21 @@ namespace Entities
         /// <summary>
         /// 1:N Account_ProcessSessions
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_processsessions.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_processsessions.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N Account_ProcessSessions")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.ProcessSession> Account_ProcessSessions
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessSession> Account_ProcessSessions
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.ProcessSession>(Entities.Account.Schema.OneToMany.account_processsessions.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessSession>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_processsessions.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Account_ProcessSessions));
-                this.SetRelatedEntities<Entities.ProcessSession>(Entities.Account.Schema.OneToMany.account_processsessions.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ProcessSession>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_processsessions.Name, null, value);
                 this.OnPropertyChanged(nameof(Account_ProcessSessions));
             }
         }
@@ -6209,21 +6655,21 @@ namespace Entities
         /// <summary>
         /// 1:N account_QuoteCloses
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_quotecloses.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_quotecloses.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N account_QuoteCloses")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.QuoteClose> account_QuoteCloses
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.QuoteClose> account_QuoteCloses
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.QuoteClose>(Entities.Account.Schema.OneToMany.account_quotecloses.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.QuoteClose>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_quotecloses.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(account_QuoteCloses));
-                this.SetRelatedEntities<Entities.QuoteClose>(Entities.Account.Schema.OneToMany.account_quotecloses.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.QuoteClose>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_quotecloses.Name, null, value);
                 this.OnPropertyChanged(nameof(account_QuoteCloses));
             }
         }
@@ -6231,21 +6677,21 @@ namespace Entities
         /// <summary>
         /// 1:N Account_RecurringAppointmentMasters
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_recurringappointmentmasters.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_recurringappointmentmasters.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N Account_RecurringAppointmentMasters")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.RecurringAppointmentMaster> Account_RecurringAppointmentMasters
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.RecurringAppointmentMaster> Account_RecurringAppointmentMasters
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.RecurringAppointmentMaster>(Entities.Account.Schema.OneToMany.account_recurringappointmentmasters.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.RecurringAppointmentMaster>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_recurringappointmentmasters.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Account_RecurringAppointmentMasters));
-                this.SetRelatedEntities<Entities.RecurringAppointmentMaster>(Entities.Account.Schema.OneToMany.account_recurringappointmentmasters.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.RecurringAppointmentMaster>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_recurringappointmentmasters.Name, null, value);
                 this.OnPropertyChanged(nameof(Account_RecurringAppointmentMasters));
             }
         }
@@ -6253,21 +6699,21 @@ namespace Entities
         /// <summary>
         /// 1:N Account_ServiceAppointments
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_serviceappointments.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_serviceappointments.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N Account_ServiceAppointments")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.ServiceAppointment> Account_ServiceAppointments
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ServiceAppointment> Account_ServiceAppointments
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.ServiceAppointment>(Entities.Account.Schema.OneToMany.account_serviceappointments.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ServiceAppointment>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_serviceappointments.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Account_ServiceAppointments));
-                this.SetRelatedEntities<Entities.ServiceAppointment>(Entities.Account.Schema.OneToMany.account_serviceappointments.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ServiceAppointment>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_serviceappointments.Name, null, value);
                 this.OnPropertyChanged(nameof(Account_ServiceAppointments));
             }
         }
@@ -6275,21 +6721,21 @@ namespace Entities
         /// <summary>
         /// 1:N Account_SharepointDocument
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_sharepointdocument.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_sharepointdocument.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N Account_SharepointDocument")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.SharePointDocument> Account_SharepointDocument
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SharePointDocument> Account_SharepointDocument
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.SharePointDocument>(Entities.Account.Schema.OneToMany.account_sharepointdocument.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SharePointDocument>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_sharepointdocument.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Account_SharepointDocument));
-                this.SetRelatedEntities<Entities.SharePointDocument>(Entities.Account.Schema.OneToMany.account_sharepointdocument.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SharePointDocument>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_sharepointdocument.Name, null, value);
                 this.OnPropertyChanged(nameof(Account_SharepointDocument));
             }
         }
@@ -6297,21 +6743,21 @@ namespace Entities
         /// <summary>
         /// 1:N Account_SharepointDocumentLocation
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_sharepointdocumentlocation.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_sharepointdocumentlocation.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N Account_SharepointDocumentLocation")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.SharePointDocumentLocation> Account_SharepointDocumentLocation
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SharePointDocumentLocation> Account_SharepointDocumentLocation
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.SharePointDocumentLocation>(Entities.Account.Schema.OneToMany.account_sharepointdocumentlocation.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SharePointDocumentLocation>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_sharepointdocumentlocation.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Account_SharepointDocumentLocation));
-                this.SetRelatedEntities<Entities.SharePointDocumentLocation>(Entities.Account.Schema.OneToMany.account_sharepointdocumentlocation.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SharePointDocumentLocation>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_sharepointdocumentlocation.Name, null, value);
                 this.OnPropertyChanged(nameof(Account_SharepointDocumentLocation));
             }
         }
@@ -6319,21 +6765,21 @@ namespace Entities
         /// <summary>
         /// 1:N Account_SocialActivities
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_socialactivities.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_socialactivities.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N Account_SocialActivities")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.SocialActivity> Account_SocialActivities
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SocialActivity> Account_SocialActivities
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.SocialActivity>(Entities.Account.Schema.OneToMany.account_socialactivities.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SocialActivity>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_socialactivities.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Account_SocialActivities));
-                this.SetRelatedEntities<Entities.SocialActivity>(Entities.Account.Schema.OneToMany.account_socialactivities.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SocialActivity>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_socialactivities.Name, null, value);
                 this.OnPropertyChanged(nameof(Account_SocialActivities));
             }
         }
@@ -6341,21 +6787,21 @@ namespace Entities
         /// <summary>
         /// 1:N Account_SyncErrors
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_syncerrors.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_syncerrors.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N Account_SyncErrors")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.SyncError> Account_SyncErrors
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SyncError> Account_SyncErrors
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.SyncError>(Entities.Account.Schema.OneToMany.account_syncerrors.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SyncError>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_syncerrors.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Account_SyncErrors));
-                this.SetRelatedEntities<Entities.SyncError>(Entities.Account.Schema.OneToMany.account_syncerrors.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SyncError>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_syncerrors.Name, null, value);
                 this.OnPropertyChanged(nameof(Account_SyncErrors));
             }
         }
@@ -6363,21 +6809,21 @@ namespace Entities
         /// <summary>
         /// 1:N Account_Tasks
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.account_tasks.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_tasks.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N Account_Tasks")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Task> Account_Tasks
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Task> Account_Tasks
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Task>(Entities.Account.Schema.OneToMany.account_tasks.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Task>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_tasks.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Account_Tasks));
-                this.SetRelatedEntities<Entities.Task>(Entities.Account.Schema.OneToMany.account_tasks.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Task>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.account_tasks.Name, null, value);
                 this.OnPropertyChanged(nameof(Account_Tasks));
             }
         }
@@ -6385,21 +6831,21 @@ namespace Entities
         /// <summary>
         /// 1:N contact_customer_accounts
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.contact_customer_accounts.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.contact_customer_accounts.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N contact_customer_accounts")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Contact> contact_customer_accounts
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Contact> contact_customer_accounts
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Contact>(Entities.Account.Schema.OneToMany.contact_customer_accounts.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Contact>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.contact_customer_accounts.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(contact_customer_accounts));
-                this.SetRelatedEntities<Entities.Contact>(Entities.Account.Schema.OneToMany.contact_customer_accounts.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Contact>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.contact_customer_accounts.Name, null, value);
                 this.OnPropertyChanged(nameof(contact_customer_accounts));
             }
         }
@@ -6407,21 +6853,21 @@ namespace Entities
         /// <summary>
         /// 1:N contract_billingcustomer_accounts
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.contract_billingcustomer_accounts.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.contract_billingcustomer_accounts.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N contract_billingcustomer_accounts")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Contract> contract_billingcustomer_accounts
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Contract> contract_billingcustomer_accounts
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Contract>(Entities.Account.Schema.OneToMany.contract_billingcustomer_accounts.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Contract>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.contract_billingcustomer_accounts.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(contract_billingcustomer_accounts));
-                this.SetRelatedEntities<Entities.Contract>(Entities.Account.Schema.OneToMany.contract_billingcustomer_accounts.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Contract>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.contract_billingcustomer_accounts.Name, null, value);
                 this.OnPropertyChanged(nameof(contract_billingcustomer_accounts));
             }
         }
@@ -6429,21 +6875,21 @@ namespace Entities
         /// <summary>
         /// 1:N contract_customer_accounts
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.contract_customer_accounts.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.contract_customer_accounts.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N contract_customer_accounts")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Contract> contract_customer_accounts
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Contract> contract_customer_accounts
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Contract>(Entities.Account.Schema.OneToMany.contract_customer_accounts.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Contract>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.contract_customer_accounts.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(contract_customer_accounts));
-                this.SetRelatedEntities<Entities.Contract>(Entities.Account.Schema.OneToMany.contract_customer_accounts.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Contract>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.contract_customer_accounts.Name, null, value);
                 this.OnPropertyChanged(nameof(contract_customer_accounts));
             }
         }
@@ -6451,21 +6897,21 @@ namespace Entities
         /// <summary>
         /// 1:N contractlineitem_customer_accounts
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.contractlineitem_customer_accounts.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.contractlineitem_customer_accounts.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N contractlineitem_customer_accounts")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.ContractDetail> contractlineitem_customer_accounts
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ContractDetail> contractlineitem_customer_accounts
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.ContractDetail>(Entities.Account.Schema.OneToMany.contractlineitem_customer_accounts.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ContractDetail>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.contractlineitem_customer_accounts.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(contractlineitem_customer_accounts));
-                this.SetRelatedEntities<Entities.ContractDetail>(Entities.Account.Schema.OneToMany.contractlineitem_customer_accounts.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.ContractDetail>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.contractlineitem_customer_accounts.Name, null, value);
                 this.OnPropertyChanged(nameof(contractlineitem_customer_accounts));
             }
         }
@@ -6473,21 +6919,21 @@ namespace Entities
         /// <summary>
         /// 1:N CreatedAccount_BulkOperationLogs2
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.createdaccount_bulkoperationlogs2.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.createdaccount_bulkoperationlogs2.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N CreatedAccount_BulkOperationLogs2")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.BulkOperationLog> CreatedAccount_BulkOperationLogs2
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.BulkOperationLog> CreatedAccount_BulkOperationLogs2
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.BulkOperationLog>(Entities.Account.Schema.OneToMany.createdaccount_bulkoperationlogs2.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.BulkOperationLog>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.createdaccount_bulkoperationlogs2.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(CreatedAccount_BulkOperationLogs2));
-                this.SetRelatedEntities<Entities.BulkOperationLog>(Entities.Account.Schema.OneToMany.createdaccount_bulkoperationlogs2.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.BulkOperationLog>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.createdaccount_bulkoperationlogs2.Name, null, value);
                 this.OnPropertyChanged(nameof(CreatedAccount_BulkOperationLogs2));
             }
         }
@@ -6495,21 +6941,21 @@ namespace Entities
         /// <summary>
         /// 1:N incident_customer_accounts
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.incident_customer_accounts.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.incident_customer_accounts.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N incident_customer_accounts")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Incident> incident_customer_accounts
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Incident> incident_customer_accounts
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Incident>(Entities.Account.Schema.OneToMany.incident_customer_accounts.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Incident>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.incident_customer_accounts.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(incident_customer_accounts));
-                this.SetRelatedEntities<Entities.Incident>(Entities.Account.Schema.OneToMany.incident_customer_accounts.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Incident>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.incident_customer_accounts.Name, null, value);
                 this.OnPropertyChanged(nameof(incident_customer_accounts));
             }
         }
@@ -6517,21 +6963,21 @@ namespace Entities
         /// <summary>
         /// 1:N invoice_customer_accounts
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.invoice_customer_accounts.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.invoice_customer_accounts.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N invoice_customer_accounts")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Invoice> invoice_customer_accounts
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Invoice> invoice_customer_accounts
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Invoice>(Entities.Account.Schema.OneToMany.invoice_customer_accounts.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Invoice>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.invoice_customer_accounts.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(invoice_customer_accounts));
-                this.SetRelatedEntities<Entities.Invoice>(Entities.Account.Schema.OneToMany.invoice_customer_accounts.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Invoice>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.invoice_customer_accounts.Name, null, value);
                 this.OnPropertyChanged(nameof(invoice_customer_accounts));
             }
         }
@@ -6539,21 +6985,21 @@ namespace Entities
         /// <summary>
         /// 1:N lead_customer_accounts
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.lead_customer_accounts.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.lead_customer_accounts.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N lead_customer_accounts")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Lead> lead_customer_accounts
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Lead> lead_customer_accounts
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Lead>(Entities.Account.Schema.OneToMany.lead_customer_accounts.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Lead>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.lead_customer_accounts.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(lead_customer_accounts));
-                this.SetRelatedEntities<Entities.Lead>(Entities.Account.Schema.OneToMany.lead_customer_accounts.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Lead>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.lead_customer_accounts.Name, null, value);
                 this.OnPropertyChanged(nameof(lead_customer_accounts));
             }
         }
@@ -6561,21 +7007,21 @@ namespace Entities
         /// <summary>
         /// 1:N lead_parent_account
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.lead_parent_account.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.lead_parent_account.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N lead_parent_account")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Lead> lead_parent_account
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Lead> lead_parent_account
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Lead>(Entities.Account.Schema.OneToMany.lead_parent_account.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Lead>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.lead_parent_account.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(lead_parent_account));
-                this.SetRelatedEntities<Entities.Lead>(Entities.Account.Schema.OneToMany.lead_parent_account.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Lead>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.lead_parent_account.Name, null, value);
                 this.OnPropertyChanged(nameof(lead_parent_account));
             }
         }
@@ -6583,21 +7029,21 @@ namespace Entities
         /// <summary>
         /// 1:N opportunity_customer_accounts
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.opportunity_customer_accounts.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.opportunity_customer_accounts.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N opportunity_customer_accounts")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Opportunity> opportunity_customer_accounts
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Opportunity> opportunity_customer_accounts
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Opportunity>(Entities.Account.Schema.OneToMany.opportunity_customer_accounts.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Opportunity>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.opportunity_customer_accounts.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(opportunity_customer_accounts));
-                this.SetRelatedEntities<Entities.Opportunity>(Entities.Account.Schema.OneToMany.opportunity_customer_accounts.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Opportunity>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.opportunity_customer_accounts.Name, null, value);
                 this.OnPropertyChanged(nameof(opportunity_customer_accounts));
             }
         }
@@ -6605,21 +7051,21 @@ namespace Entities
         /// <summary>
         /// 1:N opportunity_parent_account
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.opportunity_parent_account.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.opportunity_parent_account.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N opportunity_parent_account")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Opportunity> opportunity_parent_account
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Opportunity> opportunity_parent_account
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Opportunity>(Entities.Account.Schema.OneToMany.opportunity_parent_account.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Opportunity>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.opportunity_parent_account.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(opportunity_parent_account));
-                this.SetRelatedEntities<Entities.Opportunity>(Entities.Account.Schema.OneToMany.opportunity_parent_account.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Opportunity>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.opportunity_parent_account.Name, null, value);
                 this.OnPropertyChanged(nameof(opportunity_parent_account));
             }
         }
@@ -6627,21 +7073,21 @@ namespace Entities
         /// <summary>
         /// 1:N order_customer_accounts
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.order_customer_accounts.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.order_customer_accounts.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N order_customer_accounts")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.SalesOrder> order_customer_accounts
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SalesOrder> order_customer_accounts
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.SalesOrder>(Entities.Account.Schema.OneToMany.order_customer_accounts.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SalesOrder>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.order_customer_accounts.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(order_customer_accounts));
-                this.SetRelatedEntities<Entities.SalesOrder>(Entities.Account.Schema.OneToMany.order_customer_accounts.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SalesOrder>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.order_customer_accounts.Name, null, value);
                 this.OnPropertyChanged(nameof(order_customer_accounts));
             }
         }
@@ -6649,21 +7095,21 @@ namespace Entities
         /// <summary>
         /// 1:N quote_customer_accounts
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.quote_customer_accounts.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.quote_customer_accounts.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N quote_customer_accounts")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Quote> quote_customer_accounts
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Quote> quote_customer_accounts
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Quote>(Entities.Account.Schema.OneToMany.quote_customer_accounts.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Quote>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.quote_customer_accounts.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(quote_customer_accounts));
-                this.SetRelatedEntities<Entities.Quote>(Entities.Account.Schema.OneToMany.quote_customer_accounts.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Quote>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.quote_customer_accounts.Name, null, value);
                 this.OnPropertyChanged(nameof(quote_customer_accounts));
             }
         }
@@ -6671,21 +7117,21 @@ namespace Entities
         /// <summary>
         /// 1:N slakpiinstance_account
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.slakpiinstance_account.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.slakpiinstance_account.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N slakpiinstance_account")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.SLAKPIInstance> slakpiinstance_account
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SLAKPIInstance> slakpiinstance_account
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.SLAKPIInstance>(Entities.Account.Schema.OneToMany.slakpiinstance_account.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SLAKPIInstance>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.slakpiinstance_account.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(slakpiinstance_account));
-                this.SetRelatedEntities<Entities.SLAKPIInstance>(Entities.Account.Schema.OneToMany.slakpiinstance_account.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SLAKPIInstance>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.slakpiinstance_account.Name, null, value);
                 this.OnPropertyChanged(nameof(slakpiinstance_account));
             }
         }
@@ -6693,21 +7139,21 @@ namespace Entities
         /// <summary>
         /// 1:N SocialActivity_PostAuthor_accounts
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.socialactivity_postauthor_accounts.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.socialactivity_postauthor_accounts.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N SocialActivity_PostAuthor_accounts")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.SocialActivity> SocialActivity_PostAuthor_accounts
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SocialActivity> SocialActivity_PostAuthor_accounts
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.SocialActivity>(Entities.Account.Schema.OneToMany.socialactivity_postauthor_accounts.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SocialActivity>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.socialactivity_postauthor_accounts.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(SocialActivity_PostAuthor_accounts));
-                this.SetRelatedEntities<Entities.SocialActivity>(Entities.Account.Schema.OneToMany.socialactivity_postauthor_accounts.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SocialActivity>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.socialactivity_postauthor_accounts.Name, null, value);
                 this.OnPropertyChanged(nameof(SocialActivity_PostAuthor_accounts));
             }
         }
@@ -6715,21 +7161,21 @@ namespace Entities
         /// <summary>
         /// 1:N SocialActivity_PostAuthorAccount_accounts
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.socialactivity_postauthoraccount_accounts.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.socialactivity_postauthoraccount_accounts.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N SocialActivity_PostAuthorAccount_accounts")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.SocialActivity> SocialActivity_PostAuthorAccount_accounts
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SocialActivity> SocialActivity_PostAuthorAccount_accounts
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.SocialActivity>(Entities.Account.Schema.OneToMany.socialactivity_postauthoraccount_accounts.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SocialActivity>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.socialactivity_postauthoraccount_accounts.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(SocialActivity_PostAuthorAccount_accounts));
-                this.SetRelatedEntities<Entities.SocialActivity>(Entities.Account.Schema.OneToMany.socialactivity_postauthoraccount_accounts.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SocialActivity>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.socialactivity_postauthoraccount_accounts.Name, null, value);
                 this.OnPropertyChanged(nameof(SocialActivity_PostAuthorAccount_accounts));
             }
         }
@@ -6737,21 +7183,21 @@ namespace Entities
         /// <summary>
         /// 1:N Socialprofile_customer_accounts
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.socialprofile_customer_accounts.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.socialprofile_customer_accounts.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N Socialprofile_customer_accounts")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.SocialProfile> Socialprofile_customer_accounts
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SocialProfile> Socialprofile_customer_accounts
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.SocialProfile>(Entities.Account.Schema.OneToMany.socialprofile_customer_accounts.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SocialProfile>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.socialprofile_customer_accounts.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(Socialprofile_customer_accounts));
-                this.SetRelatedEntities<Entities.SocialProfile>(Entities.Account.Schema.OneToMany.socialprofile_customer_accounts.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.SocialProfile>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.socialprofile_customer_accounts.Name, null, value);
                 this.OnPropertyChanged(nameof(Socialprofile_customer_accounts));
             }
         }
@@ -6759,21 +7205,21 @@ namespace Entities
         /// <summary>
         /// 1:N SourceAccount_BulkOperationLogs
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.sourceaccount_bulkoperationlogs.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.sourceaccount_bulkoperationlogs.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N SourceAccount_BulkOperationLogs")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.BulkOperationLog> SourceAccount_BulkOperationLogs
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.BulkOperationLog> SourceAccount_BulkOperationLogs
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.BulkOperationLog>(Entities.Account.Schema.OneToMany.sourceaccount_bulkoperationlogs.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.BulkOperationLog>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.sourceaccount_bulkoperationlogs.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(SourceAccount_BulkOperationLogs));
-                this.SetRelatedEntities<Entities.BulkOperationLog>(Entities.Account.Schema.OneToMany.sourceaccount_bulkoperationlogs.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.BulkOperationLog>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.sourceaccount_bulkoperationlogs.Name, null, value);
                 this.OnPropertyChanged(nameof(SourceAccount_BulkOperationLogs));
             }
         }
@@ -6781,45 +7227,49 @@ namespace Entities
         /// <summary>
         /// 1:N userentityinstancedata_account
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.OneToMany.userentityinstancedata_account.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.userentityinstancedata_account.Name)]
         [System.ComponentModel.DescriptionAttribute("1:N userentityinstancedata_account")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.UserEntityInstanceData> userentityinstancedata_account
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.UserEntityInstanceData> userentityinstancedata_account
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.UserEntityInstanceData>(Entities.Account.Schema.OneToMany.userentityinstancedata_account.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.UserEntityInstanceData>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.userentityinstancedata_account.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(userentityinstancedata_account));
-                this.SetRelatedEntities<Entities.UserEntityInstanceData>(Entities.Account.Schema.OneToMany.userentityinstancedata_account.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.UserEntityInstanceData>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.OneToMany.userentityinstancedata_account.Name, null, value);
                 this.OnPropertyChanged(nameof(userentityinstancedata_account));
             }
         }
+        
+
         #endregion
         
         #region ManyToMany Relationships
+
+        
         /// <summary>
         /// N:N accountleads_association
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToMany.accountleads_association.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToMany.accountleads_association.Name)]
         [System.ComponentModel.DescriptionAttribute("N:N accountleads_association")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.Lead> accountleads_association
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Lead> accountleads_association
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.Lead>(Entities.Account.Schema.ManyToMany.accountleads_association.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Lead>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToMany.accountleads_association.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(accountleads_association));
-                this.SetRelatedEntities<Entities.Lead>(Entities.Account.Schema.ManyToMany.accountleads_association.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Lead>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToMany.accountleads_association.Name, null, value);
                 this.OnPropertyChanged(nameof(accountleads_association));
             }
         }
@@ -6827,24 +7277,26 @@ namespace Entities
         /// <summary>
         /// N:N listaccount_association
         /// </summary>
-        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Entities.Account.Schema.ManyToMany.listaccount_association.Name)]
+        [Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToMany.listaccount_association.Name)]
         [System.ComponentModel.DescriptionAttribute("N:N listaccount_association")]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public System.Collections.Generic.IEnumerable<Entities.List> listaccount_association
+        public System.Collections.Generic.IEnumerable<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.List> listaccount_association
         {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             get
             {
-                return this.GetRelatedEntities<Entities.List>(Entities.Account.Schema.ManyToMany.listaccount_association.Name, null);
+                return this.GetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.List>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToMany.listaccount_association.Name, null);
             }
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             set
             {
                 this.OnPropertyChanging(nameof(listaccount_association));
-                this.SetRelatedEntities<Entities.List>(Entities.Account.Schema.ManyToMany.listaccount_association.Name, null, value);
+                this.SetRelatedEntities<Nav.Common.VSPackages.CrmDeveloperHelper.Entities.List>(Nav.Common.VSPackages.CrmDeveloperHelper.Entities.Account.Schema.ManyToMany.listaccount_association.Name, null, value);
                 this.OnPropertyChanged(nameof(listaccount_association));
             }
         }
+        
+
         #endregion
     }
 }
