@@ -909,8 +909,9 @@
     <Compile Include="Model\Backup\RolePrivilege.cs" />
     <Compile Include="Model\CommonConfiguration.cs" />
     <Compile Include="Model\CommonConfiguration.ExportRibbonSettings.cs" />
+    <Compile Include="Model\CommonConfiguration.GlobalOptionSetSchemaGeneration.cs" />
     <Compile Include="Model\CommonConfiguration.ProxyClassGeneration.cs" />
-    <Compile Include="Model\CommonConfiguration.SchemaGeneration.cs" />
+    <Compile Include="Model\CommonConfiguration.EntitySchemaGeneration.cs" />
     <Compile Include="Model\CommonConfiguration.SdkMessageRequestGeneration.cs" />
     <Compile Include="Model\CommonConfiguration.XmlSettings.cs" />
     <Compile Include="Model\ConnectionConfiguration.cs" />

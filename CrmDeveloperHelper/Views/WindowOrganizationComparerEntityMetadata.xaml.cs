@@ -114,6 +114,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBNamespaceOptionSetsJavaScript1.DataContext = cmBConnection1;
             txtBNamespaceOptionSetsJavaScript2.DataContext = cmBConnection2;
 
+            txtBTypeConverterName1.DataContext = cmBConnection1;
+            txtBTypeConverterName2.DataContext = cmBConnection2;
+
             cmBFileAction.DataContext = _commonConfig;
         }
 
@@ -657,7 +660,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private CreateFileCSharpConfiguration GetCSharpConfigSchema(ConnectionData connectionData)
         {
-            return CreateFileCSharpConfiguration.CreateForSchema(connectionData.NamespaceClassesCSharp, connectionData.NamespaceOptionSetsCSharp, _commonConfig);
+            return CreateFileCSharpConfiguration.CreateForSchemaEntity(connectionData.NamespaceClassesCSharp, connectionData.NamespaceOptionSetsCSharp, connectionData.TypeConverterName, _commonConfig);
         }
 
         private CreateFileCSharpConfiguration GetCSharpConfigProxyClass(ConnectionData connectionData, string entityName)

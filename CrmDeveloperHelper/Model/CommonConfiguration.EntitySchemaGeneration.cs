@@ -114,19 +114,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _GenerateSchemaGlobalOptionSetsWithDependentComponents;
-        [DataMember]
-        public bool GenerateSchemaGlobalOptionSetsWithDependentComponents
-        {
-            get => _GenerateSchemaGlobalOptionSetsWithDependentComponents;
-            set
-            {
-                this.OnPropertyChanging(nameof(GenerateSchemaGlobalOptionSetsWithDependentComponents));
-                this._GenerateSchemaGlobalOptionSetsWithDependentComponents = value;
-                this.OnPropertyChanged(nameof(GenerateSchemaGlobalOptionSetsWithDependentComponents));
-            }
-        }
-
         private bool _GenerateSchemaAddDescriptionAttribute = true;
         [DataMember]
         public bool GenerateSchemaAddDescriptionAttribute
@@ -137,6 +124,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 this.OnPropertyChanging(nameof(GenerateSchemaAddDescriptionAttribute));
                 this._GenerateSchemaAddDescriptionAttribute = value;
                 this.OnPropertyChanged(nameof(GenerateSchemaAddDescriptionAttribute));
+            }
+        }
+
+        private bool _GenerateSchemaAddTypeConverterAttributeForEnums = false;
+        [DataMember]
+        public bool GenerateSchemaAddTypeConverterAttributeForEnums
+        {
+            get => _GenerateSchemaAddTypeConverterAttributeForEnums;
+            set
+            {
+                this.OnPropertyChanging(nameof(GenerateSchemaAddTypeConverterAttributeForEnums));
+                this._GenerateSchemaAddTypeConverterAttributeForEnums = value;
+                this.OnPropertyChanged(nameof(GenerateSchemaAddTypeConverterAttributeForEnums));
             }
         }
 
@@ -278,7 +278,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private void LoadFromDiskSchema(CommonConfiguration diskData)
+        private void LoadFromDiskEntitySchema(CommonConfiguration diskData)
         {
             this.GenerateCommonSpaceCount = diskData.GenerateCommonSpaceCount;
             this.GenerateCommonIndentType = diskData.GenerateCommonIndentType;
@@ -300,7 +300,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.GenerateSchemaOptionSetExportType = diskData.GenerateSchemaOptionSetExportType;
 
             this.GenerateSchemaEntityOptionSetsDependentComponents = diskData.GenerateSchemaEntityOptionSetsDependentComponents;
-            this.GenerateSchemaGlobalOptionSetsWithDependentComponents = diskData.GenerateSchemaGlobalOptionSetsWithDependentComponents;
 
             this.GenerateSchemaAddDescriptionAttribute = diskData.GenerateSchemaAddDescriptionAttribute;
         }

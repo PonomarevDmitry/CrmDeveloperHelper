@@ -565,6 +565,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
+        private string _TypeConverterName;
+        [DataMember]
+        public string TypeConverterName
+        {
+            get => _TypeConverterName;
+            set
+            {
+                this.OnPropertyChanging(nameof(TypeConverterName));
+
+                if (!string.IsNullOrEmpty(value))
+                {
+                    value = value.Trim();
+                }
+                else
+                {
+                    value = string.Empty;
+                }
+
+                this._TypeConverterName = value;
+                this.OnPropertyChanged(nameof(TypeConverterName));
+            }
+        }
+
         private string _NamespaceOptionSetsJavaScript;
         [DataMember]
         public string NamespaceOptionSetsJavaScript

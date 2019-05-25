@@ -97,6 +97,8 @@
 
                 <CheckBox x:Name="chBSchemaAddDescriptionAttribute" IsChecked="{Binding Path=GenerateSchemaAddDescriptionAttribute}" Content="Add Description Attribute" />
 
+                <CheckBox x:Name="chBSchemaAddTypeConverterAttributeForEnums" IsChecked="{Binding Path=GenerateSchemaAddTypeConverterAttributeForEnums}" Content="Add TypeConverterAttribute for Enums" />
+
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />

@@ -67,12 +67,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public bool AddDescriptionAttribute { get; private set; }
 
+        public bool AddTypeConverterAttributeForEnums { get; private set; }
+
+        public string TypeConverterName { get; private set; }
+
         private CreateFileCSharpConfiguration()
         {
 
         }
 
-        public static CreateFileCSharpConfiguration CreateForSchema(string namespaceClasses, string namespaceGlobalOptionSets, CommonConfiguration commonConfig)
+        public static CreateFileCSharpConfiguration CreateForSchemaGlobalOptionSet(
+            string namespaceClasses
+            , string namespaceGlobalOptionSets
+            , string typeConverterName
+            , CommonConfiguration commonConfig
+        )
+        {
+            var result = CreateForSchemaEntity(namespaceClasses, namespaceGlobalOptionSets, typeConverterName, commonConfig);
+
+            //result.AddDescriptionAttribute = commonConfig.GenerateSchemaAddDescriptionAttribute;
+
+            return result;
+        }
+
+        public static CreateFileCSharpConfiguration CreateForSchemaEntity(
+            string namespaceClasses
+            , string namespaceGlobalOptionSets
+            , string typeConverterName
+            , CommonConfiguration commonConfig
+        )
         {
             var result = new CreateFileCSharpConfiguration
             {
@@ -80,6 +103,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 NamespaceClasses = namespaceClasses,
                 NamespaceGlobalOptionSets = namespaceGlobalOptionSets,
+
+                TypeConverterName = typeConverterName,
 
                 GenerateAttributes = commonConfig.GenerateSchemaAttributes,
                 GenerateStatus = commonConfig.GenerateSchemaStatusOptionSet,
@@ -98,18 +123,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 GenerateSchemaIntoSchemaClass = commonConfig.GenerateSchemaIntoSchemaClass,
                 WithManagedInfo = commonConfig.SolutionComponentWithManagedInfo,
 
-                GenerateWithDebuggerNonUserCode = commonConfig.GenerateProxyClassesWithDebuggerNonUserCode,
-                UseSchemaConstInCSharpAttributes = commonConfig.GenerateProxyClassesUseSchemaConstInCSharpAttributes,
-                WithoutObsoleteAttribute = commonConfig.GenerateProxyClassesWithoutObsoleteAttribute,
-                AddConstructorWithAnonymousTypeObject = commonConfig.GenerateProxyClassesAddConstructorWithAnonymousTypeObject,
-
                 AddDescriptionAttribute = commonConfig.GenerateSchemaAddDescriptionAttribute,
+
+                AddTypeConverterAttributeForEnums = commonConfig.GenerateSchemaAddTypeConverterAttributeForEnums,
             };
 
             return result;
         }
 
-        public static CreateFileCSharpConfiguration CreateForProxyClass(string namespaceClasses, string namespaceGlobalOptionSets, CommonConfiguration commonConfig)
+        public static CreateFileCSharpConfiguration CreateForProxyClass(
+            string namespaceClasses
+            , string namespaceGlobalOptionSets
+            , CommonConfiguration commonConfig
+        )
         {
             var result = new CreateFileCSharpConfiguration
             {
@@ -152,7 +178,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return result;
         }
 
-        public static CreateFileCSharpConfiguration CreateForSdkMessageRequest(string namespaceClasses, string namespaceGlobalOptionSets, CommonConfiguration commonConfig)
+        public static CreateFileCSharpConfiguration CreateForSdkMessageRequest(
+            string namespaceClasses
+            , string namespaceGlobalOptionSets
+            , CommonConfiguration commonConfig
+        )
         {
             var result = new CreateFileCSharpConfiguration
             {

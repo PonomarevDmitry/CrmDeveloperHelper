@@ -388,7 +388,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public static List<string> GetAttributeDescription(AttributeMetadata attrib, bool allDescription, bool withManagedInfo, SolutionComponentDescriptor descriptor, string tabSpacer = _defaultTabSpacer)
+        public static List<string> GetAttributeDescription(AttributeMetadata attrib, bool allDescription, bool withManagedInfo, SolutionComponentDescriptor descriptor, string tabSpacer = _defaultTabSpacer, string globalOptionSetsNamespace = null)
         {
             List<string> result = new List<string>();
 
@@ -627,17 +627,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             if (attrib is PicklistAttributeMetadata picklistAttrib)
             {
                 string managedStr = string.Empty;
+                string seeLink = string.Empty;
 
                 if (withManagedInfo)
                 {
                     managedStr = " " + (picklistAttrib.OptionSet.IsManaged.GetValueOrDefault() ? "Managed" : "Unmanaged");
                 }
 
-                string temp = string.Format("{0} {1} {2} OptionSet {3}"
+                if (picklistAttrib.OptionSet.IsGlobal.GetValueOrDefault())
+                {
+                    if (!string.IsNullOrEmpty(globalOptionSetsNamespace))
+                    {
+                        globalOptionSetsNamespace += ".";
+                    }
+
+                    seeLink = string.Format("<see cref=\"{0}{1}\"/>", globalOptionSetsNamespace, picklistAttrib.OptionSet.Name);
+                }
+                else
+                {
+                    seeLink = string.Format("<see cref=\"OptionSets.{0}\"/>", picklistAttrib.LogicalName);
+                }
+
+                string temp = string.Format("{0} {1} {2} OptionSet {3} {4}"
                       , picklistAttrib.OptionSet.IsGlobal.GetValueOrDefault() ? "Global" : "Local"
                       , picklistAttrib.OptionSet.IsCustomOptionSet.GetValueOrDefault() ? "Custom" : "System"
                       , managedStr
                       , picklistAttrib.OptionSet.Name
+                      , seeLink
                 );
 
                 AddStringIntoList(result, tabSpacer, temp);

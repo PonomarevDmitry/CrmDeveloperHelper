@@ -501,7 +501,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             this.LoadFromDiskXml(diskData);
 
-            this.LoadFromDiskSchema(diskData);
+            this.LoadFromDiskEntitySchema(diskData);
+            this.LoadFromDiskGlobalOptionSetSchema(diskData);
 
             this.LoadFromDiskProxyClass(diskData);
 

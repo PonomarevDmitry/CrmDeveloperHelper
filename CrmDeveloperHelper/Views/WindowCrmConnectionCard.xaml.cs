@@ -203,6 +203,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             connectionData.NamespaceOptionSetsCSharp = this.txtBNamespaceOptionSetsCSharp.Text.Trim();
             connectionData.NamespaceOptionSetsJavaScript = this.txtBNamespaceOptionSetsJavaScript.Text.Trim();
 
+            connectionData.NamespaceSdkMessagesCSharp = this.txtBNamespaceSdkMessagesCSharp.Text.Trim();
+            connectionData.NamespaceSdkMessagesJavaScript = this.txtBNamespaceSdkMessagesJavaScript.Text.Trim();
+
+            connectionData.TypeConverterName = this.txtBTypeConverterName.Text.Trim();
+
             connectionData.IsReadOnly = chBIsReadOnly.IsChecked.GetValueOrDefault();
         }
 
@@ -219,6 +224,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             txtBNamespaceOptionSetsCSharp.Text = connectionData.NamespaceOptionSetsCSharp;
             txtBNamespaceOptionSetsJavaScript.Text = connectionData.NamespaceOptionSetsJavaScript;
+
+            txtBNamespaceSdkMessagesCSharp.Text =     connectionData.NamespaceSdkMessagesCSharp;
+            txtBNamespaceSdkMessagesJavaScript.Text = connectionData.NamespaceSdkMessagesJavaScript;
+
+            txtBTypeConverterName.Text = connectionData.TypeConverterName;
+
+            connectionData.TypeConverterName = this.txtBTypeConverterName.Text.Trim();
 
             chBIsReadOnly.IsChecked = connectionData.IsReadOnly;
 

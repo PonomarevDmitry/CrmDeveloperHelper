@@ -60,6 +60,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             chBAddDescriptionAttribute.DataContext = _commonConfig;
             chBProxyClassAddDescriptionAttribute.DataContext = _commonConfig;
 
+            chBAddTypeConverterAttributeForEnums.DataContext = _commonConfig;
+
             chBAttributesSchema.DataContext = _commonConfig;
             chBManyToOneSchema.DataContext = _commonConfig;
             chBManyToManySchema.DataContext = _commonConfig;

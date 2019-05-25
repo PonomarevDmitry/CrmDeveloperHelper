@@ -16,11 +16,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
     public class CreateGlobalOptionSetsFileCSharpHandler : CreateFileHandler
     {
         private readonly IOrganizationServiceExtented _service;
-        private readonly bool _withDependentComponents;
-
-        private readonly bool _withManagedInfo;
-
-        private readonly bool _addDescriptionAttribute;
+        private readonly CreateFileCSharpConfiguration _config;
 
         private readonly string _fieldHeader;
 
@@ -30,40 +26,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private readonly StringMapRepository _repositoryStringMap;
 
-        private readonly OptionSetExportType _optionSetExportType;
-
         private readonly IWriteToOutput _iWriteToOutput;
 
         public CreateGlobalOptionSetsFileCSharpHandler(
             IOrganizationServiceExtented service
             , IWriteToOutput iWriteToOutput
-            , string tabSpacer
-            , ConstantType contantType
-            , OptionSetExportType optionSetExportType
-            , bool withDependentComponents
-            , bool withManagedInfo
-            , bool allDescriptions
-            , bool addDescriptionAttribute
-        ) : base(tabSpacer, allDescriptions)
+            , CreateFileCSharpConfiguration config
+        ) : base(config.TabSpacer, config.AllDescriptions)
         {
             this._service = service ?? throw new ArgumentNullException(nameof(service));
             this._iWriteToOutput = iWriteToOutput ?? throw new ArgumentNullException(nameof(iWriteToOutput));
 
-            this._withDependentComponents = withDependentComponents;
-            this._optionSetExportType = optionSetExportType;
-            this._withManagedInfo = withManagedInfo;
-            this._addDescriptionAttribute = addDescriptionAttribute;
+            this._config = config;
 
             this._descriptor = new SolutionComponentDescriptor(_service)
             {
-                WithManagedInfo = _withManagedInfo,
+                WithManagedInfo = config.WithManagedInfo,
             };
 
             this._dependencyRepository = new DependencyRepository(this._service);
             this._descriptorHandler = new DependencyDescriptionHandler(this._descriptor);
             this._repositoryStringMap = new StringMapRepository(_service);
 
-            if (contantType == Model.ConstantType.ReadOnlyField)
+            if (config.ConstantType == ConstantType.ReadOnlyField)
             {
                 _fieldHeader = "static readonly";
             }
@@ -134,13 +119,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             List<string> headers = new List<string>();
 
             string temp = string.Format("OptionSet Name: {0}      IsCustomOptionSet: {1}", optionSet.Name, optionSet.IsCustomOptionSet);
-            if (this._withManagedInfo)
+            if (this._config.WithManagedInfo)
             {
                 temp += string.Format("      IsManaged: {0}", optionSet.IsManaged);
             }
             headers.Add(temp);
 
-            if (this._withDependentComponents)
+            if (this._config.WithDependentComponents)
             {
                 var desc = await _descriptorHandler.GetDescriptionDependentAsync(dependent);
 
@@ -166,7 +151,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (!ignore)
                 {
-                    if (this._addDescriptionAttribute)
+                    if (this._config.AddDescriptionAttribute)
                     {
                         string description = CreateFileHandler.GetLocalizedLabel(optionSet.DisplayName);
 
@@ -180,6 +165,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                             WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", description);
                         }
                     }
+
+                    if (this._config.OptionSetExportType == OptionSetExportType.Enums && _config.AddTypeConverterAttributeForEnums && !string.IsNullOrEmpty(_config.TypeConverterName))
+                    {
+                        WriteLine("[System.ComponentModel.TypeConverterAttribute(\"{0}\")]", _config.TypeConverterName);
+                    }
                 }
 
                 StringBuilder str = new StringBuilder();
@@ -189,7 +179,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     str.Append("// ");
                 }
 
-                if (_optionSetExportType == OptionSetExportType.Enums)
+                if (this._config.OptionSetExportType == OptionSetExportType.Enums)
                 {
                     str.AppendFormat("public enum {0}", optionSet.Name);
                 }
@@ -224,7 +214,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 WriteSummary(item.Label, item.Description, header, null);
 
-                if (this._addDescriptionAttribute)
+                if (this._config.AddDescriptionAttribute)
                 {
                     string description = CreateFileHandler.GetLocalizedLabel(item.Label);
 
@@ -241,7 +231,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 var str = item.MakeStrings();
 
-                if (_optionSetExportType == OptionSetExportType.Enums)
+                if (this._config.OptionSetExportType == OptionSetExportType.Enums)
                 {
                     WriteLine("[System.Runtime.Serialization.EnumMemberAttribute()]");
 

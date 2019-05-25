@@ -162,6 +162,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBNamespaceOptionSetsCSharp.DataContext = cmBCurrentConnection;
             txtBNamespaceOptionSetsJavaScript.DataContext = cmBCurrentConnection;
 
+            txtBTypeConverterName.DataContext = cmBCurrentConnection;
+
             cmBFileAction.DataContext = _commonConfig;
         }
 
@@ -524,17 +526,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     filePath = _filePath;
                 }
 
-                using (var handler = new CreateGlobalOptionSetsFileCSharpHandler(
-                    service
-                    , _iWriteToOutput
-                    , tabSpacer
-                    , _commonConfig.GenerateSchemaConstantType
-                    , _commonConfig.GenerateSchemaOptionSetExportType
-                    , _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents
-                    , _commonConfig.SolutionComponentWithManagedInfo
-                    , _commonConfig.GenerateCommonAllDescriptions
-                    , _commonConfig.GenerateSchemaAddDescriptionAttribute
-                ))
+                var config = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(service.ConnectionData.NamespaceClassesCSharp, service.ConnectionData.NamespaceOptionSetsCSharp, service.ConnectionData.TypeConverterName, _commonConfig);
+
+                using (var handler = new CreateGlobalOptionSetsFileCSharpHandler(service, _iWriteToOutput, config))
                 {
                     await handler.CreateFileAsync(filePath, optionSets);
                 }

@@ -177,6 +177,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBNamespaceOptionSetsCSharp.DataContext = cmBCurrentConnection;
             txtBNamespaceOptionSetsJavaScript.DataContext = cmBCurrentConnection;
 
+            txtBTypeConverterName.DataContext = cmBCurrentConnection;
+
             cmBFileAction.DataContext = _commonConfig;
         }
 
@@ -761,7 +763,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
 
-                var config = CreateFileCSharpConfiguration.CreateForSchema(service.ConnectionData.NamespaceClassesCSharp, service.ConnectionData.NamespaceOptionSetsCSharp, _commonConfig);
+                var config = CreateFileCSharpConfiguration.CreateForSchemaEntity(service.ConnectionData.NamespaceClassesCSharp, service.ConnectionData.NamespaceOptionSetsCSharp, service.ConnectionData.TypeConverterName, _commonConfig);
 
                 string fileName = string.Format("{0}.{1}.Generated.cs", service.ConnectionData.Name, entityMetadata.EntityMetadata.SchemaName);
 

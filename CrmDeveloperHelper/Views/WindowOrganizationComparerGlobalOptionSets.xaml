@@ -139,6 +139,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Label Content="Namespace 1 C#" Grid.Row="0" Grid.Column="0"/>
@@ -152,6 +153,12 @@
 
                 <Label Content="Namespace 2 JavaScript" Grid.Row="1" Grid.Column="2"/>
                 <TextBox x:Name="txtBNamespaceJavaScript2" Grid.Row="1" Grid.Column="3" Text="{Binding Path=SelectedItem.NamespaceOptionSetsJavaScript}"/>
+
+                <Label Content="TypeConverter Name 1" Grid.Row="2" Grid.Column="0"/>
+                <TextBox x:Name="txtBTypeConverterName1" Grid.Row="2" Grid.Column="1" Text="{Binding Path=SelectedItem.TypeConverterName}"/>
+
+                <Label Content="TypeConverter Name 2" Grid.Row="2" Grid.Column="2"/>
+                <TextBox x:Name="txtBTypeConverterName2" Grid.Row="2" Grid.Column="3" Text="{Binding Path=SelectedItem.TypeConverterName}"/>
             </Grid>
         </Expander>
 

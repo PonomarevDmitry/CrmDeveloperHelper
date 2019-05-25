@@ -238,6 +238,7 @@
                         <CheckBox Grid.Row="0" Grid.Column="2" x:Name="chBGlobalOptionSetsSchema" IsChecked="{Binding Path=GenerateSchemaGlobalOptionSet}" Content="Global OptionSets" />
 
                         <CheckBox Grid.Row="1" Grid.Column="0" x:Name="chBAddDescriptionAttribute" IsChecked="{Binding Path=GenerateSchemaAddDescriptionAttribute}" Content="Add Description Attribute" />
+                        <CheckBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" x:Name="chBAddTypeConverterAttributeForEnums" IsChecked="{Binding Path=GenerateSchemaAddTypeConverterAttributeForEnums}" Content="Add TypeConverterAttribute for Enums" />
                     </Grid>
 
                     <Grid>

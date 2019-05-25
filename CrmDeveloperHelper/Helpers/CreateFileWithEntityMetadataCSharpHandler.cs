@@ -429,7 +429,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private void GenerateAttributeMetadata(AttributeMetadata attributeMetadata)
         {
-            List<string> footers = GetAttributeDescription(attributeMetadata, _config.AllDescriptions, _config.WithManagedInfo, this._solutionComponentDescriptor);
+            List<string> footers = GetAttributeDescription(attributeMetadata, _config.AllDescriptions, _config.WithManagedInfo, this._solutionComponentDescriptor, _tabSpacer, _service.ConnectionData.NamespaceOptionSetsCSharp);
 
             footers.AddRange(GetAttributeMetadataDescription(attributeMetadata));
 
@@ -695,6 +695,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (_config.OptionSetExportType == OptionSetExportType.Enums)
             {
+                if (_config.AddTypeConverterAttributeForEnums && !string.IsNullOrEmpty(_config.TypeConverterName))
+                {
+                    WriteLine("[System.ComponentModel.TypeConverterAttribute(\"{0}\")]", _config.TypeConverterName);
+                }
+
                 WriteLine("public enum statecode");
             }
             else
@@ -787,6 +792,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (_config.OptionSetExportType == OptionSetExportType.Enums)
             {
+                if (_config.AddTypeConverterAttributeForEnums && !string.IsNullOrEmpty(_config.TypeConverterName))
+                {
+                    WriteLine("[System.ComponentModel.TypeConverterAttribute(\"{0}\")]", _config.TypeConverterName);
+                }
+
                 WriteLine("public enum statuscode");
             }
             else
@@ -948,6 +958,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             WriteLine("[System.ComponentModel.DescriptionAttribute(\"{0}\")]", description);
                         }
+                    }
+
+                    if (_config.OptionSetExportType == OptionSetExportType.Enums && _config.AddTypeConverterAttributeForEnums && !string.IsNullOrEmpty(_config.TypeConverterName))
+                    {
+                        WriteLine("[System.ComponentModel.TypeConverterAttribute(\"{0}\")]", _config.TypeConverterName);
                     }
                 }
 

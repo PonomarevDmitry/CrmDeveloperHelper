@@ -405,7 +405,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.GenerateCommonIndentType, commonConfig.GenerateCommonSpaceCount);
 
-                        var config = CreateFileCSharpConfiguration.CreateForSchema(connectionData.NamespaceClassesCSharp, connectionData.NamespaceOptionSetsCSharp, commonConfig);
+                        var config = CreateFileCSharpConfiguration.CreateForSchemaEntity(connectionData.NamespaceClassesCSharp, connectionData.NamespaceOptionSetsCSharp, service.ConnectionData.TypeConverterName, commonConfig);
 
                         string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, connectionData?.Name, entityMetadata.LogicalName);
 
@@ -764,32 +764,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!tempWithSelect)
                 {
-                    var metadata = descriptor.MetadataSource.GetOptionSetMetadata(selection.ToLower());
+                    var optionSetMetadata = descriptor.MetadataSource.GetOptionSetMetadata(selection.ToLower());
 
-                    if (metadata != null)
+                    if (optionSetMetadata != null)
                     {
-                        string operation = string.Format(Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat2, connectionData?.Name, metadata.Name);
+                        string operation = string.Format(Properties.OperationNames.CreatingFileWithGlobalOptionSetsFormat2, connectionData?.Name, optionSetMetadata.Name);
 
                         this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
                         string tabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.GenerateCommonIndentType, commonConfig.GenerateCommonSpaceCount);
 
-                        using (var handler = new CreateGlobalOptionSetsFileCSharpHandler(
-                            service
-                            , _iWriteToOutput
-                            , tabSpacer
-                            , commonConfig.GenerateSchemaConstantType
-                            , commonConfig.GenerateSchemaOptionSetExportType
-                            , commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents
-                            , commonConfig.SolutionComponentWithManagedInfo
-                            , commonConfig.GenerateCommonAllDescriptions
-                            , commonConfig.GenerateSchemaAddDescriptionAttribute
-                        ))
+                        var config = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(service.ConnectionData.NamespaceClassesCSharp, service.ConnectionData.NamespaceOptionSetsCSharp, service.ConnectionData.TypeConverterName, commonConfig);
+
+                        using (var handler = new CreateGlobalOptionSetsFileCSharpHandler(service, _iWriteToOutput, config))
                         {
-                            await handler.CreateFileAsync(filePath, new[] { metadata });
+                            await handler.CreateFileAsync(filePath, new[] { optionSetMetadata });
                         }
 
-                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, metadata.Name, filePath);
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatedGlobalOptionSetMetadataFileForConnectionFormat3, service.ConnectionData.Name, optionSetMetadata.Name, filePath);
 
                         this._iWriteToOutput.WriteToOutputFilePathUri(connectionData, filePath);
 

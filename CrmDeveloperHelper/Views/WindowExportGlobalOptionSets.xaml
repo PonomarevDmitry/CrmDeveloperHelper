@@ -105,6 +105,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Label Content="Namespace OptionSets C#" Grid.Row="0" Grid.Column="0"/>
@@ -113,8 +114,11 @@
                 <Label Content="Namespace OptionSets JavaScript" Grid.Row="1" Grid.Column="0"/>
                 <TextBox x:Name="txtBNamespaceOptionSetsJavaScript" Grid.Row="1" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceOptionSetsJavaScript}" />
 
-                <Label Content="Folder" Grid.Row="2" Grid.Column="0" />
-                <TextBox x:Name="txtBFolder" Grid.Row="2" Grid.Column="1" />
+                <Label Content="TypeConverter Name" Grid.Row="2" Grid.Column="0" />
+                <TextBox x:Name="txtBTypeConverterName" Grid.Row="2" Grid.Column="1" Text="{Binding Path=SelectedItem.TypeConverterName}"  />
+
+                <Label Content="Folder" Grid.Row="3" Grid.Column="0" />
+                <TextBox x:Name="txtBFolder" Grid.Row="3" Grid.Column="1" />
 
             </Grid>
 

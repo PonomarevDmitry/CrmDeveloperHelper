@@ -109,6 +109,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBNamespaceJavaScript1.DataContext = cmBConnection1;
             txtBNamespaceJavaScript2.DataContext = cmBConnection2;
 
+            txtBTypeConverterName1.DataContext = cmBConnection1;
+            txtBTypeConverterName2.DataContext = cmBConnection2;
+
             cmBFileAction.DataContext = _commonConfig;
         }
 
@@ -534,22 +537,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string filePath1 = CreateFileName(optionSets1, service1.ConnectionData, "cs");
                     string filePath2 = CreateFileName(optionSets2, service2.ConnectionData, "cs");
 
-                    string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
-                    var constantType = _commonConfig.GenerateSchemaConstantType;
-                    var optionSetExportType = _commonConfig.GenerateSchemaOptionSetExportType;
+                    var config1 = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(service1.ConnectionData.NamespaceClassesCSharp, service1.ConnectionData.NamespaceOptionSetsCSharp, service1.ConnectionData.TypeConverterName, _commonConfig);
+                    var config2 = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(service2.ConnectionData.NamespaceClassesCSharp, service2.ConnectionData.NamespaceOptionSetsCSharp, service2.ConnectionData.TypeConverterName, _commonConfig);
 
-                    var withDependentComponents = _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents;
-                    var allDescriptions = _commonConfig.GenerateCommonAllDescriptions;
-                    var withManagedInfo = _commonConfig.SolutionComponentWithManagedInfo;
-                    var addDescriptionAttribute = _commonConfig.GenerateSchemaAddDescriptionAttribute;
-
-                    using (var handler1 = new CreateGlobalOptionSetsFileCSharpHandler(service1, _iWriteToOutput, tabSpacer, constantType, optionSetExportType, withDependentComponents, withManagedInfo, allDescriptions, addDescriptionAttribute))
+                    using (var handler1 = new CreateGlobalOptionSetsFileCSharpHandler(service1, _iWriteToOutput, config1))
                     {
                         var task1 = handler1.CreateFileAsync(filePath1, optionSets1);
 
                         if (service1.ConnectionData.ConnectionId != service2.ConnectionData.ConnectionId)
                         {
-                            using (var handler2 = new CreateGlobalOptionSetsFileCSharpHandler(service2, _iWriteToOutput, tabSpacer, constantType, optionSetExportType, withDependentComponents, withManagedInfo, allDescriptions, addDescriptionAttribute))
+                            using (var handler2 = new CreateGlobalOptionSetsFileCSharpHandler(service2, _iWriteToOutput, config2))
                             {
                                 var task2 = handler2.CreateFileAsync(filePath2, optionSets2);
 
@@ -798,20 +795,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
-                var constantType = _commonConfig.GenerateSchemaConstantType;
-                var optionSetExportType = _commonConfig.GenerateSchemaOptionSetExportType;
-
-                var withDependentComponents = _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents;
-                var allDescriptions = _commonConfig.GenerateCommonAllDescriptions;
-                var withManagedInfo = _commonConfig.SolutionComponentWithManagedInfo;
-                var addDescriptionAttribute = _commonConfig.GenerateSchemaAddDescriptionAttribute;
-
                 var service = await getService();
 
                 string filePath = CreateFileName(optionSets, service.ConnectionData, "cs");
 
-                using (var handler = new CreateGlobalOptionSetsFileCSharpHandler(service, _iWriteToOutput, tabSpacer, constantType, optionSetExportType, withDependentComponents, withManagedInfo, allDescriptions, addDescriptionAttribute))
+                var config = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(service.ConnectionData.NamespaceClassesCSharp, service.ConnectionData.NamespaceOptionSetsCSharp, service.ConnectionData.TypeConverterName, _commonConfig);
+
+                using (var handler = new CreateGlobalOptionSetsFileCSharpHandler(service, _iWriteToOutput, config))
                 {
                     await handler.CreateFileAsync(filePath, optionSets);
                 }
