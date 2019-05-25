@@ -55,6 +55,7 @@
                 <MenuItem Header="Xaml" Click="mIExportWorkflowXaml_Click"/>
                 <MenuItem Header="InputParameters" Click="mIExportWorkflowInputParameters_Click"/>
                 <MenuItem Header="ClientData" Click="mIExportWorkflowClientData_Click"/>
+                <MenuItem Header="UIData" Click="mIExportWorkflowUIData_Click"/>
 
                 <Separator/>
                 <MenuItem Header="Corrected Xaml" Click="mIExportWorkflowCorrectedXaml_Click"/>
@@ -64,6 +65,7 @@
                     <MenuItem Header="Xaml" Click="mIUpdateWorkflowXaml_Click"/>
                     <MenuItem Header="InputParameters" Click="mIUpdateWorkflowInputParameters_Click"/>
                     <MenuItem Header="ClientData" Click="mIUpdateWorkflowClientData_Click"/>
+                    <MenuItem Header="UIData" Click="mIUpdateWorkflowUIData_Click"/>
                 </MenuItem>
 
                 <Separator/>

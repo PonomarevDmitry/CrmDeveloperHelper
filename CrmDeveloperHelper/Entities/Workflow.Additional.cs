@@ -14,6 +14,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 public const string clientdata = "ClientData";
 
+                public const string uidata = "UIData";
+
                 public const string name = "Name";
 
                 public const string primaryentity = "EntityName";
