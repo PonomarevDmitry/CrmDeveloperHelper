@@ -335,7 +335,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet slabase_applicablefrom
+                /// Local System  OptionSet slabase_applicablefrom <see cref="OptionSets.applicablefrompicklist"/>
                 /// DefaultFormValue = -1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -493,7 +493,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Global System  OptionSet componentstate
+                /// Global System  OptionSet componentstate <see cref="Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.componentstate"/>
                 /// DefaultFormValue = -1
                 /// 
                 ///         DisplayName:
@@ -1264,7 +1264,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet sla_objecttypecode
+                /// Local System  OptionSet sla_objecttypecode <see cref="OptionSets.objecttypecode"/>
                 /// DefaultFormValue = -1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -1738,7 +1738,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet sla_slatype
+                /// Local System  OptionSet sla_slatype <see cref="OptionSets.slatype"/>
                 /// DefaultFormValue = 0
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -2218,6 +2218,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Указывает, активно или неактивно SLA.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Status")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum statecode
                 {
                     ///<summary>
@@ -2260,6 +2261,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Указывает, активно или неактивно SLA.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Status Reason")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum statuscode
                 {
                     ///<summary>
@@ -2310,6 +2312,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Атрибуты даты обращения
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Date Attributes of case")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum applicablefrompicklist
                 {
                     ///<summary>
@@ -2384,6 +2387,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Указывает, будут ли использоваться экземпляры ключевых показателей эффективности соглашения об уровне обслуживания для сохранения статуса соглашения об уровне обслуживания и регистрации времени сбоя.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("SLA Type")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum slatype
                 {
                     ///<summary>

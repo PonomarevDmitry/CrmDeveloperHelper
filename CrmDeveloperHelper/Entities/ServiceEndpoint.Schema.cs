@@ -186,7 +186,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet serviceendpoint_authtype
+                /// Local System  OptionSet serviceendpoint_authtype <see cref="OptionSets.authtype"/>
                 /// DefaultFormValue = Null
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -288,7 +288,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Global System  OptionSet componentstate
+                /// Global System  OptionSet componentstate <see cref="Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.componentstate"/>
                 /// DefaultFormValue = -1
                 /// 
                 ///         DisplayName:
@@ -335,7 +335,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet serviceendpoint_connectionmode
+                /// Local System  OptionSet serviceendpoint_connectionmode <see cref="OptionSets.connectionmode"/>
                 /// DefaultFormValue = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -402,7 +402,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet serviceendpoint_contract
+                /// Local System  OptionSet serviceendpoint_contract <see cref="OptionSets.contract"/>
                 /// DefaultFormValue = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -975,7 +975,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet serviceendpoint_messageformat
+                /// Local System  OptionSet serviceendpoint_messageformat <see cref="OptionSets.messageformat"/>
                 /// DefaultFormValue = Null
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -1278,7 +1278,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet serviceendpoint_namespaceformat
+                /// Local System  OptionSet serviceendpoint_namespaceformat <see cref="OptionSets.namespaceformat"/>
                 /// DefaultFormValue = Null
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -1760,7 +1760,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet serviceendpoint_userclaim
+                /// Local System  OptionSet serviceendpoint_userclaim <see cref="OptionSets.userclaim"/>
                 /// DefaultFormValue = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -1837,6 +1837,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Тип проверки подлинности для служебной шины
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Authentication type for Service Bus")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum authtype
                 {
                     ///<summary>
@@ -1934,6 +1935,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Режим подключения.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Connection mode")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum connectionmode
                 {
                     ///<summary>
@@ -1984,6 +1986,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Тип контракта.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Contract")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum contract
                 {
                     ///<summary>
@@ -2098,6 +2101,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Тип формата.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Message Format")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum messageformat
                 {
                     ///<summary>
@@ -2151,6 +2155,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Формат пространства имен шины обслуживания
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Format for Service Bus Namespace")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum namespaceformat
                 {
                     ///<summary>
@@ -2201,6 +2206,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Тип значения утверждения пользователя.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("User claim")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum userclaim
                 {
                     ///<summary>

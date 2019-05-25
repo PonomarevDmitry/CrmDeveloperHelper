@@ -233,7 +233,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet contracttemplate_allotmenttypecode
+                /// Local System  OptionSet contracttemplate_allotmenttypecode <see cref="OptionSets.allotmenttypecode"/>
                 /// DefaultFormValue = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -300,7 +300,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet contracttemplate_billingfrequencycode
+                /// Local System  OptionSet contracttemplate_billingfrequencycode <see cref="OptionSets.billingfrequencycode"/>
                 /// DefaultFormValue = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -367,7 +367,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Global System  OptionSet componentstate
+                /// Global System  OptionSet componentstate <see cref="Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.componentstate"/>
                 /// DefaultFormValue = -1
                 /// 
                 ///         DisplayName:
@@ -442,7 +442,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet contracttemplate_contractservicelevelcode
+                /// Local System  OptionSet contracttemplate_contractservicelevelcode <see cref="OptionSets.contractservicelevelcode"/>
                 /// DefaultFormValue = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -1773,6 +1773,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Критерии контрактов, основанные на шаблоне (например, количество обращений, время, даты покрытия).
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Allotment Type")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum allotmenttypecode
                 {
                     ///<summary>
@@ -1835,6 +1836,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Периодичность выставления счетов клиенту или организации по контрактам, основанным на данном шаблоне.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Billing Frequency ")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum billingfrequencycode
                 {
                     ///<summary>
@@ -1921,6 +1923,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Уникальный идентификатор уровня сервиса, указанного в контрактах, основанных на данном шаблоне.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Contract Service Level")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum contractservicelevelcode
                 {
                     ///<summary>

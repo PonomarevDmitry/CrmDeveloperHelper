@@ -361,7 +361,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet workflow_businessprocesstype
+                /// Local System  OptionSet workflow_businessprocesstype <see cref="OptionSets.businessprocesstype"/>
                 /// DefaultFormValue = 0
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -428,7 +428,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet workflow_category
+                /// Local System  OptionSet workflow_category <see cref="OptionSets.category"/>
                 /// DefaultFormValue = 0
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -534,7 +534,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Global System  OptionSet componentstate
+                /// Global System  OptionSet componentstate <see cref="Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.componentstate"/>
                 /// DefaultFormValue = -1
                 /// 
                 ///         DisplayName:
@@ -842,7 +842,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Global System  OptionSet workflow_stage
+                /// Global System  OptionSet workflow_stage <see cref="Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.workflow_stage"/>
                 /// DefaultFormValue = -1
                 /// 
                 ///         DisplayName:
@@ -917,7 +917,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Global System  OptionSet workflow_stage
+                /// Global System  OptionSet workflow_stage <see cref="Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.workflow_stage"/>
                 /// DefaultFormValue = -1
                 /// 
                 ///         DisplayName:
@@ -1557,7 +1557,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet workflow_mode
+                /// Local System  OptionSet workflow_mode <see cref="OptionSets.mode"/>
                 /// DefaultFormValue = 0
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -2671,7 +2671,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Global System  OptionSet workflow_runas
+                /// Global System  OptionSet workflow_runas <see cref="Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.workflow_runas"/>
                 /// DefaultFormValue = 1
                 /// 
                 ///         DisplayName:
@@ -2746,7 +2746,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet workflow_scope
+                /// Local System  OptionSet workflow_scope <see cref="OptionSets.scope"/>
                 /// DefaultFormValue = -1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -3413,7 +3413,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet workflow_type
+                /// Local System  OptionSet workflow_type <see cref="OptionSets.type"/>
                 /// DefaultFormValue = -1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -3558,7 +3558,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Global System  OptionSet workflow_stage
+                /// Global System  OptionSet workflow_stage <see cref="Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.workflow_stage"/>
                 /// DefaultFormValue = -1
                 /// 
                 ///         DisplayName:
@@ -3737,6 +3737,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Состояние процесса.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Status")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum statecode
                 {
                     ///<summary>
@@ -3779,6 +3780,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Состояние процесса.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Status Reason")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum statuscode
                 {
                     ///<summary>
@@ -3833,6 +3835,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Тип бизнес-процесса.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Business Process Type")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum businessprocesstype
                 {
                     ///<summary>
@@ -3882,8 +3885,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (English - United States - 1033): Category of the process.
                 ///     (Russian - 1049): Категория процесса.
                 ///</summary>
-                [System.ComponentModel.TypeConverter("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 [System.ComponentModel.DescriptionAttribute("Category")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum category
                 {
                     ///<summary>
@@ -3969,8 +3972,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (English - United States - 1033): Mode of the process.
                 ///     (Russian - 1049): Режим процесса.
                 ///</summary>
-                [System.ComponentModel.TypeConverter("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 [System.ComponentModel.DescriptionAttribute("Mode")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum mode
                 {
                     ///<summary>
@@ -4021,6 +4024,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Область бизнес-процесса.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Scope")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum scope
                 {
                     ///<summary>
@@ -4095,6 +4099,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Тип бизнес-процесса.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Type")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum type
                 {
                     ///<summary>

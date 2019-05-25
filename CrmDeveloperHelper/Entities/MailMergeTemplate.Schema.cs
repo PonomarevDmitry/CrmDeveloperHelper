@@ -233,7 +233,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Global System  OptionSet componentstate
+                /// Global System  OptionSet componentstate <see cref="Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.componentstate"/>
                 /// DefaultFormValue = -1
                 /// 
                 ///         DisplayName:
@@ -619,7 +619,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet mailmergetemplate_documentformat
+                /// Local System  OptionSet mailmergetemplate_documentformat <see cref="OptionSets.documentformat"/>
                 /// DefaultFormValue = -1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -1104,7 +1104,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet mailmergetemplate_mailmergetype
+                /// Local System  OptionSet mailmergetemplate_mailmergetype <see cref="OptionSets.mailmergetype"/>
                 /// DefaultFormValue = -1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -2331,6 +2331,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Состояние шаблона слияния.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Status")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum statecode
                 {
                     ///<summary>
@@ -2373,6 +2374,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Состояние шаблона слияния.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Status Reason")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum statuscode
                 {
                     ///<summary>
@@ -2427,6 +2429,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Версия используемого шаблоном формата Microsoft Office Word XML.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Document Format")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum documentformat
                 {
                     ///<summary>
@@ -2475,6 +2478,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Раскрывающийся список для выбора типа слияния.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Mail Merge Type")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum mailmergetype
                 {
                     ///<summary>

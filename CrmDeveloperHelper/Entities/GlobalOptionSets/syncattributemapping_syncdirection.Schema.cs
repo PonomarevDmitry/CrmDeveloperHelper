@@ -15,6 +15,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
     ///     syncattributemapping.syncdirection           Sync Direction    False             IncludeSubcomponents
     ///</summary>
     [System.ComponentModel.DescriptionAttribute("Sync Direction")]
+    [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
     public enum syncattributemapping_syncdirection
     {
         ///<summary>

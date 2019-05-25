@@ -18,6 +18,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
     ///     workflow.runas    Run As User    True              IncludeSubcomponents
     ///</summary>
     [System.ComponentModel.DescriptionAttribute("Executing User")]
+    [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
     public enum workflow_runas
     {
         ///<summary>

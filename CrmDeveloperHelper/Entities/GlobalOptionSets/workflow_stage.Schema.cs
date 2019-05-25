@@ -20,6 +20,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
     ///     workflow.updatestage    Update Stage    True              IncludeSubcomponents
     ///</summary>
     [System.ComponentModel.DescriptionAttribute("Workflow Stage")]
+    [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
     public enum workflow_stage
     {
         ///<summary>

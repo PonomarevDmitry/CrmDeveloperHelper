@@ -317,7 +317,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Global System  OptionSet componentstate
+                /// Global System  OptionSet componentstate <see cref="Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.componentstate"/>
                 /// DefaultFormValue = -1
                 /// 
                 ///         DisplayName:
@@ -1593,7 +1593,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet navigationsetting_settingtype
+                /// Local System  OptionSet navigationsetting_settingtype <see cref="OptionSets.settingtype"/>
                 /// DefaultFormValue = Null
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -1720,6 +1720,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Выберите тип параметра, представляемого этой записью параметра навигации. Определяет, какие из четырех меню настройки в приложении будут содержать этот параметр.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Select the type of setting this Navigation Setting record represents. This determines which of the four in-app customization menus will contain this setting.")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum settingtype
                 {
                     ///<summary>

@@ -272,7 +272,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet duplicaterule_baseentitytypecode
+                /// Local System  OptionSet duplicaterule_baseentitytypecode <see cref="OptionSets.baseentitytypecode"/>
                 /// DefaultFormValue = 0
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -885,7 +885,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet duplicaterule_matchingentitytypecode
+                /// Local System  OptionSet duplicaterule_matchingentitytypecode <see cref="OptionSets.matchingentitytypecode"/>
                 /// DefaultFormValue = 0
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -1731,6 +1731,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Состояние правила обнаружения повторных записей.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Status")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum statecode
                 {
                     ///<summary>
@@ -1773,6 +1774,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Состояние правила обнаружения повторных записей.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Status Reason")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum statuscode
                 {
                     ///<summary>

@@ -19,6 +19,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
     ///     invaliddependency.existingdependencytype    Weight             False             IncludeSubcomponents
     ///</summary>
     [System.ComponentModel.DescriptionAttribute("Dependency Type")]
+    [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
     public enum dependencytype
     {
         ///<summary>

@@ -19,6 +19,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
     ///     convertrule.sourcechanneltypecode         Source Type       False             IncludeSubcomponents
     ///</summary>
     [System.ComponentModel.DescriptionAttribute("Channel Activities")]
+    [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
     public enum convertrule_channelactivity
     {
         ///<summary>

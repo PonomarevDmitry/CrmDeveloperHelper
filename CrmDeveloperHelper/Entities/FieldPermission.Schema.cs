@@ -190,7 +190,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Global System  OptionSet field_security_permission_type
+                /// Global System  OptionSet field_security_permission_type <see cref="Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.field_security_permission_type"/>
                 /// DefaultFormValue = 0
                 /// 
                 ///         DisplayName:
@@ -265,7 +265,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Global System  OptionSet field_security_permission_type
+                /// Global System  OptionSet field_security_permission_type <see cref="Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.field_security_permission_type"/>
                 /// DefaultFormValue = 0
                 /// 
                 ///         DisplayName:
@@ -340,7 +340,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Global System  OptionSet field_security_permission_type
+                /// Global System  OptionSet field_security_permission_type <see cref="Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.field_security_permission_type"/>
                 /// DefaultFormValue = 0
                 /// 
                 ///         DisplayName:
@@ -415,7 +415,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Global System  OptionSet componentstate
+                /// Global System  OptionSet componentstate <see cref="Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.componentstate"/>
                 /// DefaultFormValue = -1
                 /// 
                 ///         DisplayName:

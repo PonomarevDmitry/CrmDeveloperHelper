@@ -238,7 +238,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet businessunit_address1_addresstypecode
+                /// Local System  OptionSet businessunit_address1_addresstypecode <see cref="OptionSets.address1_addresstypecode"/>
                 /// DefaultFormValue = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -773,7 +773,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet businessunit_address1_shippingmethodcode
+                /// Local System  OptionSet businessunit_address1_shippingmethodcode <see cref="OptionSets.address1_shippingmethodcode"/>
                 /// DefaultFormValue = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -1111,7 +1111,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet businessunit_address2_addresstypecode
+                /// Local System  OptionSet businessunit_address2_addresstypecode <see cref="OptionSets.address2_addresstypecode"/>
                 /// DefaultFormValue = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -1646,7 +1646,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet businessunit_address2_shippingmethodcode
+                /// Local System  OptionSet businessunit_address2_shippingmethodcode <see cref="OptionSets.address2_shippingmethodcode"/>
                 /// DefaultFormValue = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -3662,6 +3662,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Тип адреса для адреса 1 (например, адрес для выставления счетов, адрес поставки или основной адрес).
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Address 1: Address Type")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum address1_addresstypecode
                 {
                     ///<summary>
@@ -3700,6 +3701,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Способ поставки для адреса 1.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Address 1: Shipping Method ")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum address1_shippingmethodcode
                 {
                     ///<summary>
@@ -3738,6 +3740,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Тип адреса для адреса 2 (например, адрес для выставления счетов, адрес поставки или основной адрес).
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Address 2: Address Type")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum address2_addresstypecode
                 {
                     ///<summary>
@@ -3776,6 +3779,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Способ поставки для адреса 2.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Address 2: Shipping Method ")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum address2_shippingmethodcode
                 {
                     ///<summary>

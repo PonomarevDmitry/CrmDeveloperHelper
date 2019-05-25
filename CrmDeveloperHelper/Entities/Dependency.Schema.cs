@@ -147,7 +147,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Global System  OptionSet dependencytype
+                /// Global System  OptionSet dependencytype <see cref="Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.dependencytype"/>
                 /// DefaultFormValue = Null
                 /// 
                 ///         DisplayName:
@@ -349,7 +349,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Global System  OptionSet componenttype
+                /// Global System  OptionSet componenttype <see cref="Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.componenttype"/>
                 /// DefaultFormValue = Null
                 /// 
                 ///         DisplayName:
@@ -580,7 +580,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Global System  OptionSet componenttype
+                /// Global System  OptionSet componenttype <see cref="Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.componenttype"/>
                 /// DefaultFormValue = Null
                 /// 
                 ///         DisplayName:

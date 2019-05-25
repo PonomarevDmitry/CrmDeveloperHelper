@@ -835,7 +835,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet duplicaterulecondition_operatorcode
+                /// Local System  OptionSet duplicaterulecondition_operatorcode <see cref="OptionSets.operatorcode"/>
                 /// DefaultFormValue = -1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -1184,6 +1184,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Оператор для этого условия правила.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Operator Code")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum operatorcode
                 {
                     ///<summary>

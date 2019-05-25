@@ -23,6 +23,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
     ///     principalattributeaccessmap.updateaccess                                False             IncludeSubcomponents
     ///</summary>
     [System.ComponentModel.DescriptionAttribute("A Yes or No boolean")]
+    [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
     public enum field_security_permission_type
     {
         ///<summary>

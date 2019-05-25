@@ -113,6 +113,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
     ///     workflow.componentstate                                 Component State    True              IncludeSubcomponents
     ///</summary>
     [System.ComponentModel.DescriptionAttribute("Component State")]
+    [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
     public enum componentstate
     {
         ///<summary>

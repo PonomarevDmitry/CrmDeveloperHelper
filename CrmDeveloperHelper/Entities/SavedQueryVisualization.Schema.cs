@@ -231,7 +231,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet savedqueryvisualization_charttype
+                /// Local System  OptionSet savedqueryvisualization_charttype <see cref="OptionSets.charttype"/>
                 /// DefaultFormValue = 0
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -270,7 +270,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Global System  OptionSet componentstate
+                /// Global System  OptionSet componentstate <see cref="Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.componentstate"/>
                 /// DefaultFormValue = -1
                 /// 
                 ///         DisplayName:
@@ -1453,7 +1453,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet chart_usage
+                /// Local System  OptionSet chart_usage <see cref="OptionSets.type"/>
                 /// DefaultFormValue = 0
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -1599,6 +1599,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Задает библиотеку, используемую для отображения визуализации.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Chart Type")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum charttype
                 {
                     ///<summary>
@@ -1648,6 +1649,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Указывает, может ли диаграмма использоваться в DataCentric
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Chart usage area")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum type
                 {
                     ///<summary>

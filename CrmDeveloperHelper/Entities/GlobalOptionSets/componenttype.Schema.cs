@@ -23,6 +23,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
     ///     solutioncomponent.componenttype            Object Type Code                    False             IncludeSubcomponents
     ///</summary>
     [System.ComponentModel.DescriptionAttribute("Component Type")]
+    [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
     public enum componenttype
     {
         ///<summary>

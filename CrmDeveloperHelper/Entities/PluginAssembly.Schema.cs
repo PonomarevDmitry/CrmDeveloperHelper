@@ -190,7 +190,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet pluginassembly_authtype
+                /// Local System  OptionSet pluginassembly_authtype <see cref="OptionSets.authtype"/>
                 /// DefaultFormValue = Null
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -257,7 +257,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Global System  OptionSet componentstate
+                /// Global System  OptionSet componentstate <see cref="Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets.componentstate"/>
                 /// DefaultFormValue = -1
                 /// 
                 ///         DisplayName:
@@ -874,7 +874,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet pluginassembly_isolationmode
+                /// Local System  OptionSet pluginassembly_isolationmode <see cref="OptionSets.isolationmode"/>
                 /// DefaultFormValue = 1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -1585,7 +1585,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet pluginassembly_sourcetype
+                /// Local System  OptionSet pluginassembly_sourcetype <see cref="OptionSets.sourcetype"/>
                 /// DefaultFormValue = 0
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -1845,6 +1845,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Тип проверки подлинности для веб-источников, таких как AzureWebApp, например 0=BasicAuth
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Auth Type")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum authtype
                 {
                     ///<summary>
@@ -1882,6 +1883,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Сведения о том, как сборка подключаемого модуля должна изолироваться во время выполнения (без изоляции, "песочницей" или внешним образом).
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Isolation Mode")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum isolationmode
                 {
                     ///<summary>
@@ -1944,6 +1946,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Расположение сборки, например 0=database, 1=on-disk, 2=Normal, 3=AzureWebApp.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Source Type")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum sourcetype
                 {
                     ///<summary>

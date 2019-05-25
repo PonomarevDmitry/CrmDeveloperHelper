@@ -2413,7 +2413,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet organization_currencydisplayoption
+                /// Local System  OptionSet organization_currencydisplayoption <see cref="OptionSets.currencydisplayoption"/>
                 /// DefaultFormValue = 0
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -2452,7 +2452,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet organization_currencyformatcode
+                /// Local System  OptionSet organization_currencyformatcode <see cref="OptionSets.currencyformatcode"/>
                 /// DefaultFormValue = 0
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -3036,7 +3036,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet organization_dateformatcode
+                /// Local System  OptionSet organization_dateformatcode <see cref="OptionSets.dateformatcode"/>
                 /// DefaultFormValue = -1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -3546,7 +3546,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet organization_defaultrecurrenceendrangetype
+                /// Local System  OptionSet organization_defaultrecurrenceendrangetype <see cref="OptionSets.defaultrecurrenceendrangetype"/>
                 /// DefaultFormValue = Null
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -3776,7 +3776,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet organization_discountcalculationmethod
+                /// Local System  OptionSet organization_discountcalculationmethod <see cref="OptionSets.discountcalculationmethod"/>
                 /// DefaultFormValue = 0
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -3863,7 +3863,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet organization_emailconnectionchannel
+                /// Local System  OptionSet organization_emailconnectionchannel <see cref="OptionSets.emailconnectionchannel"/>
                 /// DefaultFormValue = 0
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -4755,7 +4755,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet organization_fiscalperiodformat
+                /// Local System  OptionSet organization_fiscalperiodformat <see cref="OptionSets.fiscalperiodformatperiod"/>
                 /// DefaultFormValue = -1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -5017,7 +5017,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet organization_fiscalyearformatprefix
+                /// Local System  OptionSet organization_fiscalyearformatprefix <see cref="OptionSets.fiscalyearformatprefix"/>
                 /// DefaultFormValue = Null
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -5084,7 +5084,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet organization_fiscalyearformatsuffix
+                /// Local System  OptionSet organization_fiscalyearformatsuffix <see cref="OptionSets.fiscalyearformatsuffix"/>
                 /// DefaultFormValue = Null
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -5151,7 +5151,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet organization_fiscalyearformatyear
+                /// Local System  OptionSet organization_fiscalyearformatyear <see cref="OptionSets.fiscalyearformatyear"/>
                 /// DefaultFormValue = Null
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -5257,7 +5257,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet organization_fullnameconventioncode
+                /// Local System  OptionSet organization_fullnameconventioncode <see cref="OptionSets.fullnameconventioncode"/>
                 /// DefaultFormValue = 0
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -8639,7 +8639,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet organization_isvintegrationcode
+                /// Local System  OptionSet organization_isvintegrationcode <see cref="OptionSets.isvintegrationcode"/>
                 /// DefaultFormValue = -1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -10297,7 +10297,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet organization_negativeformatcode
+                /// Local System  OptionSet organization_negativeformatcode <see cref="OptionSets.negativeformatcode"/>
                 /// DefaultFormValue = 0
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -10780,7 +10780,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: False    IsValidForUpdate: False
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet organization_organizationstate
+                /// Local System  OptionSet organization_organizationstate <see cref="OptionSets.organizationstate"/>
                 /// DefaultFormValue = 0
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -11092,7 +11092,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet organization_plugintracelogsetting
+                /// Local System  OptionSet organization_plugintracelogsetting <see cref="OptionSets.plugintracelogsetting"/>
                 /// DefaultFormValue = 0
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -11923,7 +11923,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: True
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet organization_reportscripterrors
+                /// Local System  OptionSet organization_reportscripterrors <see cref="OptionSets.reportscripterrors"/>
                 /// DefaultFormValue = -1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -12246,7 +12246,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: True    SourceType: 0
-                /// Local Custom  OptionSet organization_schedulingengine
+                /// Local Custom  OptionSet organization_schedulingengine <see cref="OptionSets.schedulingengine"/>
                 /// DefaultFormValue = 0
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -12514,7 +12514,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet organization_sharepointdeploymenttype
+                /// Local System  OptionSet organization_sharepointdeploymenttype <see cref="OptionSets.sharepointdeploymenttype"/>
                 /// DefaultFormValue = 0
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -13273,7 +13273,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet organization_syncoptinselectionstatus
+                /// Local System  OptionSet organization_syncoptinselectionstatus <see cref="OptionSets.syncoptinselectionstatus"/>
                 /// DefaultFormValue = Null
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -13523,7 +13523,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet organization_timeformatcode
+                /// Local System  OptionSet organization_timeformatcode <see cref="OptionSets.timeformatcode"/>
                 /// DefaultFormValue = -1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -14455,7 +14455,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: True    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet organization_weekstartdaycode
+                /// Local System  OptionSet organization_weekstartdaycode <see cref="OptionSets.weekstartdaycode"/>
                 /// DefaultFormValue = -1
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -14679,7 +14679,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 /// IsValidForCreate: False    IsValidForUpdate: True
                 /// IsValidForRead: True    IsValidForAdvancedFind: False
                 /// IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
-                /// Local System  OptionSet organization_yammerpostmethod
+                /// Local System  OptionSet organization_yammerpostmethod <see cref="OptionSets.yammerpostmethod"/>
                 /// DefaultFormValue = 0
                 /// PropertyName                   Value
                 /// CanBeSecuredForCreate          False
@@ -14775,6 +14775,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Указание о том, следует ли отображать в денежных полях код или символ валюты.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Display currencies using")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum currencydisplayoption
                 {
                     ///<summary>
@@ -14821,6 +14822,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Сведения о том, как символы валюты размещаются в Microsoft CRM.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Information about how currency symbols are placed throughout Microsoft CRM.")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum currencyformatcode
                 {
                     ///<summary>
@@ -14891,6 +14893,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Задает диапазон окончания повтора по умолчанию для использования в диалоговом окне повторения.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("DefaultRecurrenceEndRangeType")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum defaultrecurrenceendrangetype
                 {
                     ///<summary>
@@ -14953,6 +14956,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Способ расчета скидки для продукта QOOI
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Discount calculation Method")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum discountcalculationmethod
                 {
                     ///<summary>
@@ -14999,6 +15003,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Укажите, следует ли использовать для обработки электронной почты маршрутизатор электронной почты или синхронизацию на стороне сервера.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Select whether you want to use the Email Router or server-side synchronization for email processing.")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum emailconnectionchannel
                 {
                     ///<summary>
@@ -15045,6 +15050,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Формат финансового периода
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Fiscal Period Format")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum fiscalperiodformatperiod
                 {
                     ///<summary>
@@ -15151,6 +15157,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Префикс финансового года
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Fiscal Year Format Prefix")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum fiscalyearformatprefix
                 {
                     ///<summary>
@@ -15192,6 +15199,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Суффикс финансового года
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Fiscal Year Format Suffix")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum fiscalyearformatsuffix
                 {
                     ///<summary>
@@ -15245,6 +15253,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Формат финансового года
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Fiscal Year Format")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum fiscalyearformatyear
                 {
                     ///<summary>
@@ -15303,6 +15312,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Порядок, в котором имена отображаются в Microsoft CRM.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Order in which names are to be displayed throughout Microsoft CRM.")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum fullnameconventioncode
                 {
                     ///<summary>
@@ -15421,6 +15431,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Флаг, определяющий, будет ли система MSCRM открыта в окне браузера без адресной строки, панели инструментов и меню.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Flag that determines whether or not MSCRM should be loaded in an browser window that does not have address, tool and menu bars.")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum isvintegrationcode
                 {
                     ///<summary>
@@ -15538,6 +15549,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Сведения, определяющие формат отображения отрицательных значений в Microsoft CRM.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Information that specifies how negative numbers are displayed throughout Microsoft CRM.")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum negativeformatcode
                 {
                     ///<summary>
@@ -15624,6 +15636,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Состояние организации, указывающее, что организация создается, обновляется или является активной.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Organization State")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum organizationstate
                 {
                     ///<summary>
@@ -15694,6 +15707,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Настройка журнала трассировки подключаемых модулей для организации.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Plug-in Trace Log Setting for the Organization.")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum plugintracelogsetting
                 {
                     ///<summary>
@@ -15756,6 +15770,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Список выбора для пользовательских параметров отчета об ошибках скриптов.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Report Script Errors")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum reportscripterrors
                 {
                     ///<summary>
@@ -15822,6 +15837,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Механизм планирования для встреч и действий сервиса
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Scheduling engine for Appointments and Service Activities")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum schedulingengine
                 {
                     ///<summary>
@@ -15855,6 +15871,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Тип развертывания SharePoint
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("SharePoint Deployment Type")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum sharepointdeploymenttype
                 {
                     ///<summary>
@@ -15901,6 +15918,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Показывает состояние операций участия или отказа для синхронизации Dynamics 365 Azure.
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Indicates the status of opt-in or opt-out operations for dynamics 365 azure sync.")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum syncoptinselectionstatus
                 {
                     ///<summary>
@@ -15955,6 +15973,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 ///     (Russian - 1049): Метод публикации в Yammer
                 ///</summary>
                 [System.ComponentModel.DescriptionAttribute("Yammer Post Method")]
+                [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
                 public enum yammerpostmethod
                 {
                     ///<summary>

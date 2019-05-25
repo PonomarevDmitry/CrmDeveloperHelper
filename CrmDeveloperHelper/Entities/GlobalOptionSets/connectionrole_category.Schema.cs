@@ -53,6 +53,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities.GlobalOptionSets
     ///     Territory Manager               True              IncludeSubcomponents
     ///</summary>
     [System.ComponentModel.DescriptionAttribute("Category")]
+    [System.ComponentModel.TypeConverterAttribute("Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.EnumDescriptionTypeConverter")]
     public enum connectionrole_category
     {
         ///<summary>
