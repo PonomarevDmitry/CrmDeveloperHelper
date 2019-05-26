@@ -697,6 +697,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 SdkMessageRequestTreeViewItem node = groupBuilder.TreeNodeBuilder(group.Key, group);
 
+                foreach (var action in actionsOnChilds)
+                {
+                    action?.Invoke(node);
+                }
+
                 var newActionOnChilds = actionsOnChilds;
 
                 if (groupBuilder.ActionOnChildsByKey != null)
@@ -706,11 +711,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 foreach (var childNode in GroupRequestsRecursive(search, group, requestGroups.Skip(1), newActionOnChilds))
                 {
-                    foreach (var action in actionsOnChilds)
-                    {
-                        action?.Invoke(childNode);
-                    }
-
                     node.Items.Add(childNode);
                 }
 
