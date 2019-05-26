@@ -1314,7 +1314,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void RemoveComponentFromSolution_Click(object sender, RoutedEventArgs e)
         {
-            if (GetSolutionComponentsType() != SolutionComponentsType.SolutionComponents)
+            if (GetSolutionComponentsType() != SolutionComponentsType.SolutionComponents
+                || this._solution == null
+                || this._solution.IsManaged.GetValueOrDefault()
+            )
             {
                 return;
             }
@@ -2347,6 +2350,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void btnOpenInWebDefaultSolution_Click(object sender, RoutedEventArgs e)
         {
             _service.ConnectionData.OpenSolutionInWeb(Solution.Schema.InstancesUniqueId.DefaultId);
+        }
+
+        private void lstVSolutionComponents_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                e.Handled = true;
+
+                RemoveComponentFromSolution_Click(null, null);
+            }
         }
     }
 }

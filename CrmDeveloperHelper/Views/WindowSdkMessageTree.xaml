@@ -64,6 +64,10 @@
                 <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" />
                 <MenuItem x:Uid="contMnAddIntoSolution"     Header="Add into Crm Solution" Click="AddIntoCrmSolution_Click" />
 
+                <Separator x:Uid="contMnAddIntoSolutionMessageFilter"/>
+                <MenuItem x:Uid="contMnAddIntoSolutionMessageFilterLast" Header="Add Message Filter into Last Crm Solution" />
+                <MenuItem x:Uid="contMnAddIntoSolutionMessageFilter"     Header="Add Message Filter into Crm Solution" Click="AddMessageFilterIntoCrmSolution_Click" />
+
                 <Separator />
                 <MenuItem Header="Open Plugin Tree" Click="mIOpenPluginTree_Click" />
                 
