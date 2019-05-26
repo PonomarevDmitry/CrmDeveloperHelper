@@ -4,40 +4,67 @@
         xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
         xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
-        Title="Export ApplicationRibbon" Height="198.329" Width="723.667" WindowStartupLocation="Manual">
+        Title="ApplicationRibbon Explorer" Height="200.329" Width="778.667" WindowStartupLocation="Manual">
+    <src:WindowBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleWindows.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </src:WindowBase.Resources>
     <Grid>
-        <ToolBar x:Name="toolBarHeader" Margin="0,0,0,0" VerticalAlignment="Top" Height="33">
-            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                <MenuItem Header="ApplicationRibbon" VerticalAlignment="Center" SubmenuOpened="miApplicationRibbon_SubmenuOpened">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+
+            <RowDefinition Height="100*" />
+
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ToolBar x:Name="toolBarHeader" Grid.Row="0" Margin="0">
+            <Menu Background="{x:Null}">
+                <MenuItem Header="Options" Click="miExportEntityRibbonOptions_Click" />
+            </Menu>
+            
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu Background="{x:Null}">
+                <MenuItem Header="ApplicationRibbon" SubmenuOpened="miApplicationRibbon_SubmenuOpened">
                     <MenuItem Header="Export Application Ribbon" Click="miExportApplicationRibbon_Click"/>
+
                     <Separator/>
                     <MenuItem Header="Export Application RibbonDiffXml" Click="miExportApplicationRibbonDiffXml_Click"/>
+
                     <Separator/>
                     <MenuItem Header="Export Application Ribbon Archive" Click="miExportApplicationRibbonArchive_Click"/>
+
                     <Separator/>
                     <MenuItem Header="Publish Application Ribbon" Click="miPublishApplicationRibbon_Click"/>
+
                     <Separator/>
-                    <MenuItem Header="Update Application RibbonDiffXml" VerticalAlignment="Center" Click="miUpdateApplicationRibbonDiffXml_Click"/>
+                    <MenuItem Header="Update Application RibbonDiffXml" Click="miUpdateApplicationRibbonDiffXml_Click"/>
+
                     <Separator/>
-                    <MenuItem x:Name="miAddApplicationIntoLastSolution" x:Uid="miAddApplicationIntoLastSolution" Header="Add Application Ribbon into Last Crm Solution" VerticalAlignment="Center" />
-                    <MenuItem Header="Add Application Ribbon into Crm Solution" VerticalAlignment="Center" Click="AddApplicationRibbonIntoCrmSolution_Click" />
+                    <MenuItem x:Name="miAddApplicationIntoLastSolution" x:Uid="miAddApplicationIntoLastSolution" Header="Add Application Ribbon into Last Crm Solution" />
+                    <MenuItem Header="Add Application Ribbon into Crm Solution" Click="AddApplicationRibbonIntoCrmSolution_Click" />
+
                     <Separator/>
-                    <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="miApplicationRibbonOpenSolutionsContainingComponentInWindow_Click" />
+                    <MenuItem Header="Open Solutions Containing Component in Window" Click="miApplicationRibbonOpenSolutionsContainingComponentInWindow_Click" />
+
                     <Separator/>
                     <MenuItem Header="Dependent Components">
-                        <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="miApplicationRibbonOpenDependentComponentsInWeb_Click" />
+                        <MenuItem Header="Open Dependent Components in Web" Click="miApplicationRibbonOpenDependentComponentsInWeb_Click" />
                         <Separator/>
-                        <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="miApplicationRibbonOpenDependentComponentsInWindow_Click" />
+                        <MenuItem Header="Open Dependent Components in Window" Click="miApplicationRibbonOpenDependentComponentsInWindow_Click" />
                     </MenuItem>
                 </MenuItem>
             </Menu>
-            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                <MenuItem Header="Options" Click="miExportEntityRibbonOptions_Click" />
-            </Menu>
-            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                <MenuItem Header="Open Entity Information Windows" VerticalAlignment="Center">
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu Background="{x:Null}">
+                <MenuItem Header="Open Entity Information Windows">
                     <MenuItem Header="Metadata" Click="miCreateMetadataFile_Click" />
                     <MenuItem Header="Global OptionSets" Click="miGlobalOptionSets_Click"/>
                     <Separator/>
@@ -52,9 +79,12 @@
                     <MenuItem Header="Message Request Tree" Click="miMessageRequestTree_Click"/>
                 </MenuItem>
             </Menu>
-            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu Background="{x:Null}">
                 <MenuItem Header="Compare Information with other Organization">
+                    <MenuItem Header="Organization Comparer" Click="miOrganizationComparer_Click"/>
+                    <Separator/>
                     <MenuItem Header="Entity Metadata" Click="miCompareMetadataFile_Click"/>
                     <Separator/>
                     <MenuItem Header="Global OptionSets" Click="miCompareGlobalOptionSets_Click"/>
@@ -69,13 +99,26 @@
                 </MenuItem>
             </Menu>
         </ToolBar>
-        <Label Content="Folder" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Height="23" VerticalContentAlignment="Center" Padding="0"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="51,38,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" />
 
-        <Label Content="Action" HorizontalAlignment="Left" Margin="9,66,0,0" Padding="10,0" VerticalAlignment="Top" Height="25" VerticalContentAlignment="Center" />
-        <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,66,0,0" Padding="10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Height="25" Width="254" />
+        <Grid Grid.Row="1" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100*" />
+            </Grid.ColumnDefinitions>
 
-        <ToolBar Margin="0,0,0,31" VerticalAlignment="Bottom" Height="33">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Content="Folder" Grid.Row="0" Grid.Column="0"/>
+            <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" Text="{Binding Path=FolderForExport}" />
+
+            <Label Content="Action" Grid.Row="1" Grid.Column="0" />
+            <ComboBox x:Name="cmBFileAction" Grid.Row="1" Grid.Column="1" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" IsReadOnly="True" SelectedIndex="0" />
+        </Grid>
+
+        <ToolBar Grid.Row="2">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
@@ -91,12 +134,13 @@
                 <Button Content="Close" Click="Button_Click"  HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
-        <StatusBar VerticalAlignment="Bottom">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cmBCurrentConnection" Height="25" IsReadOnly="True" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="10,0" />
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+
+        <StatusBar Grid.Row="3">
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection"/>
+            <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" Padding="10,0" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>
             <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
-            <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>
 </src:WindowBase>
