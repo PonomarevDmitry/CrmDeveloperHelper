@@ -7,6 +7,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
@@ -286,7 +287,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , string entityName
             , Guid entityId
-            , Action actionAfterSave = null
+            , Func<Task> actionAfterSave = null
         )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>

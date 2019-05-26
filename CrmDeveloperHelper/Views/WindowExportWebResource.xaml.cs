@@ -629,7 +629,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var repositoryPublish = new PublishActionsRepository(service);
 
-            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, WebResource.EntityLogicalName, idWebResource, async () => await repositoryPublish.PublishWebResourcesAsync(new[] { idWebResource }));
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, WebResource.EntityLogicalName, idWebResource, () => repositoryPublish.PublishWebResourcesAsync(new[] { idWebResource }));
         }
 
         private async Task PerformDeleteWebResource(string folder, Guid idWebResource, string name)

@@ -941,9 +941,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            var repositoryPublish = new PublishActionsRepository(service);
+
             _commonConfig.Save();
 
-            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, SiteMap.EntityLogicalName, idSiteMap);
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, SiteMap.EntityLogicalName, idSiteMap, () => repositoryPublish.PublishSiteMapsAsync(new[] { idSiteMap }));
         }
 
         private void miOptions_Click(object sender, RoutedEventArgs e)
