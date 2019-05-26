@@ -15,6 +15,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
             {
                 public const string SdkMessageName = Attributes.sdkmessagepairid + "." + SdkMessagePair.Schema.Attributes.sdkmessageid + "." + SdkMessage.Schema.Attributes.name;
 
+                public const string SdkMessageCategoryName = Attributes.sdkmessagepairid + "." + SdkMessagePair.Schema.Attributes.sdkmessageid + "." + SdkMessage.Schema.Attributes.categoryname;
+
                 public const string SdkMessageId = Attributes.sdkmessagepairid + "." + SdkMessagePair.Schema.Attributes.sdkmessageid;
 
                 public const string Namespace = Attributes.sdkmessagepairid + "." + SdkMessagePair.Schema.Attributes.@namespace;
@@ -54,6 +56,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 if (this.Attributes.ContainsKey(Schema.EntityAliasFields.SdkMessageName)
                     && this.Attributes[Schema.EntityAliasFields.SdkMessageName] != null
                     && this.Attributes[Schema.EntityAliasFields.SdkMessageName] is AliasedValue aliasedValue
+                    && aliasedValue.Value is string aliasedValueValue
+                )
+                {
+                    return aliasedValueValue;
+                }
+
+                return "Unknown";
+            }
+        }
+
+        public string SdkMessageCategoryName
+        {
+            get
+            {
+                if (this.Attributes.ContainsKey(Schema.EntityAliasFields.SdkMessageCategoryName)
+                    && this.Attributes[Schema.EntityAliasFields.SdkMessageCategoryName] != null
+                    && this.Attributes[Schema.EntityAliasFields.SdkMessageCategoryName] is AliasedValue aliasedValue
                     && aliasedValue.Value is string aliasedValueValue
                 )
                 {

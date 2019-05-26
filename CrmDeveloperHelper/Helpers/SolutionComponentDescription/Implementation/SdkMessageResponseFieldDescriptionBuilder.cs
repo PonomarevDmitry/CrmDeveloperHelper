@@ -106,7 +106,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                                                 EntityAlias = SdkMessagePair.Schema.Attributes.sdkmessageid,
 
-                                                Columns = new ColumnSet(SdkMessage.Schema.Attributes.name),
+                                                Columns = new ColumnSet(SdkMessage.Schema.Attributes.name, SdkMessage.Schema.Attributes.categoryname),
                                             },
                                         },
                                     },
@@ -153,7 +153,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         protected override FormatTextTableHandler GetDescriptionHeader(bool withManaged, bool withSolutionInfo, bool withUrls, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("Message", "RequestName", "Position", "Name", "PublicName", "Value", "ClrFormatter", "Formatter", "ParameterBindingInformation", "CustomizationLevel", "Behavior");
+            handler.SetHeader("Message", "MessageCategory", "RequestName", "Position", "Name", "PublicName", "Value", "ClrFormatter", "Formatter", "ParameterBindingInformation", "CustomizationLevel", "Behavior");
 
             return handler;
         }
@@ -166,8 +166,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             values.AddRange(new[]
             {
-                EntityDescriptionHandler.GetAttributeString(entity, SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.name)
-                , EntityDescriptionHandler.GetAttributeString(entity, SdkMessagePair.Schema.Attributes.sdkmessageid + "." + SdkMessage.Schema.Attributes.name)
+                EntityDescriptionHandler.GetAttributeString(entity, SdkMessagePair.Schema.Attributes.sdkmessageid + "." + SdkMessage.Schema.Attributes.name)
+                , EntityDescriptionHandler.GetAttributeString(entity, SdkMessagePair.Schema.Attributes.sdkmessageid + "." + SdkMessage.Schema.Attributes.categoryname)
+                , EntityDescriptionHandler.GetAttributeString(entity, SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.name)
                 , entity.Position.ToString()
                 , entity.Name
                 , entity.PublicName
@@ -186,8 +187,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         {
             return new TupleList<string, string>
                 {
-                    { SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.name, "Message" }
-                    , { SdkMessagePair.Schema.Attributes.sdkmessageid + "." + SdkMessage.Schema.Attributes.name, "RequestName" }
+                    { SdkMessagePair.Schema.Attributes.sdkmessageid + "." + SdkMessage.Schema.Attributes.name, "Message" }
+                    , { SdkMessagePair.Schema.Attributes.sdkmessageid + "." + SdkMessage.Schema.Attributes.categoryname, "MessageCategory" }
+                    , { SdkMessageResponse.Schema.Attributes.sdkmessagerequestid + "." + SdkMessageRequest.Schema.Attributes.name, "RequestName" }
                     , { SdkMessageResponseField.Schema.Attributes.position, "Position" }
                     , { SdkMessageResponseField.Schema.Attributes.name, "Name" }
                     , { SdkMessageResponseField.Schema.Attributes.publicname, "PublicName" }

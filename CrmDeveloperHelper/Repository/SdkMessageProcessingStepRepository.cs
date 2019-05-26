@@ -262,7 +262,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                         JoinOperator = Microsoft.Xrm.Sdk.Query.JoinOperator.LeftOuter,
 
-                        Columns = new ColumnSet(SdkMessage.Schema.Attributes.name),
+                        Columns = new ColumnSet(SdkMessage.Schema.Attributes.name, SdkMessage.Schema.Attributes.categoryname),
                     },
                 },
             };
@@ -337,7 +337,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                         EntityAlias = SdkMessage.EntityLogicalName,
 
-                        Columns = new ColumnSet(SdkMessage.Schema.Attributes.name),
+                        Columns = new ColumnSet(SdkMessage.Schema.Attributes.name, SdkMessage.Schema.Attributes.categoryname),
                     },
                 },
             };

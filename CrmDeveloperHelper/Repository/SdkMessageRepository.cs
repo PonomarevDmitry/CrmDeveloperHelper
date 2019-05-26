@@ -151,7 +151,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 EntityName = SdkMessage.EntityLogicalName,
 
-                ColumnSet = new ColumnSet(SdkMessage.EntityPrimaryIdAttribute, SdkMessage.Schema.Attributes.name),
+                ColumnSet = new ColumnSet(SdkMessage.EntityPrimaryIdAttribute, SdkMessage.Schema.Attributes.name, SdkMessage.Schema.Attributes.categoryname),
 
                 Distinct = true,
 

@@ -188,7 +188,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private const string paramEntityName = "EntityName";
         private const string paramMessage = "Message";
         private const string paramEndpoint = "Endpoint";
-        
         private const string paramGrouping = "Grouping";
 
         private void LoadConfiguration()
@@ -320,12 +319,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 GroupFunc = ent => ent.PrimaryObjectTypeCode ?? "none",
                 TreeNodeBuilder = CreateNodeEntity,
+
+                ActionOnChildsByKey = (entityName, node) => node.EntityLogicalName = entityName,
             };
 
             _propertyGroups[GroupingProperty.Message] = new RequestGroupBuilder()
             {
                 GroupFunc = ent => ent.SdkMessageName,
                 TreeNodeBuilder = CreateNodeMessage,
+
+                ActionOnChildsByKey = (message, node) => node.MessageName = message,
+
                 OrderComparer = new MessageComparer(),
             };
 
@@ -414,6 +418,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (hideOthers)
                 {
+                    comboBox.SelectedIndex = 0;
                     comboBox.Visibility = Visibility.Hidden;
                 }
                 else
@@ -598,6 +603,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             public IComparer<string> OrderComparer { get; set; }
 
+            public Action<string, SdkMessageRequestTreeViewItem> ActionOnChildsByKey { get; set; }
+
             public Func<string, IEnumerable<SdkMessageRequest>, SdkMessageRequestTreeViewItem> TreeNodeBuilder { get; set; }
         }
 
@@ -605,12 +612,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             List<SdkMessageRequestTreeViewItem> result = new List<SdkMessageRequestTreeViewItem>();
 
-            result.AddRange(GroupRequestsRecursive(search, search.Requests, requestGroups));
+            result.AddRange(GroupRequestsRecursive(search, search.Requests, requestGroups, new Action<SdkMessageRequestTreeViewItem>[0]));
 
             return result;
         }
 
-        private IEnumerable<SdkMessageRequestTreeViewItem> GroupRequestsRecursive(SdkMessageSearchResult search, IEnumerable<SdkMessageRequest> requests, IEnumerable<RequestGroupBuilder> requestGroups)
+        private IEnumerable<SdkMessageRequestTreeViewItem> GroupRequestsRecursive(
+            SdkMessageSearchResult search
+            , IEnumerable<SdkMessageRequest> requests
+            , IEnumerable<RequestGroupBuilder> requestGroups
+            , IEnumerable<Action<SdkMessageRequestTreeViewItem>> actionsOnChilds
+        )
         {
             if (!requestGroups.Any())
             {
@@ -639,8 +651,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 SdkMessageRequestTreeViewItem node = groupBuilder.TreeNodeBuilder(group.Key, group);
 
-                foreach (var childNode in GroupRequestsRecursive(search, group, requestGroups.Skip(1)))
+                var newActionOnChilds = actionsOnChilds;
+
+                if (groupBuilder.ActionOnChildsByKey != null)
                 {
+                    newActionOnChilds = newActionOnChilds.Union(new Action<SdkMessageRequestTreeViewItem>[] { n => groupBuilder.ActionOnChildsByKey(group.Key, n) });
+                }
+
+                foreach (var childNode in GroupRequestsRecursive(search, group, requestGroups.Skip(1), newActionOnChilds))
+                {
+                    foreach (var action in actionsOnChilds)
+                    {
+                        action?.Invoke(childNode);
+                    }
+
                     node.Items.Add(childNode);
                 }
 
@@ -716,6 +740,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 EntityLogicalName = entityName,
             };
 
+            node.MessageList.AddRange(steps.Where(s => s.SdkMessageId != null).Select(s => s.SdkMessageId.Value).Distinct());
+
             return node;
         }
 
@@ -727,6 +753,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Image = _imageNamespace,
             };
 
+            node.MessageList.AddRange(steps.Where(s => s.SdkMessageId != null).Select(s => s.SdkMessageId.Value).Distinct());
+
             return node;
         }
 
@@ -737,6 +765,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Name = name,
                 Image = _imageImageEndpoint,
             };
+
+            node.MessageList.AddRange(steps.Where(s => s.SdkMessageId != null).Select(s => s.SdkMessageId.Value).Distinct());
 
             return node;
         }
@@ -1293,9 +1323,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var items = contextMenu.Items.OfType<Control>();
 
-            bool isEntity = !string.IsNullOrEmpty(nodeItem.EntityLogicalName) && !string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase);
+            bool hasEntityName = !string.IsNullOrEmpty(nodeItem.EntityLogicalName) && !string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase);
+            bool hasMessageName = !string.IsNullOrEmpty(nodeItem.MessageName);
 
-            bool isMessage = nodeItem.MessageList != null && nodeItem.MessageList.Any();
+            bool isSingleMessage = nodeItem.MessageList != null && nodeItem.MessageList.Count == 1;
 
             bool showDependentComponents = nodeItem.GetId().HasValue && nodeItem.ComponentType.HasValue;
             bool hasIds = nodeItem.GetIdEnumerable().Any() && nodeItem.ComponentType.HasValue;
@@ -1312,9 +1343,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ActivateControls(items, showDependentComponents, "contMnDependentComponents");
 
-            ActivateControls(items, isMessage || isEntity, "contMnSdkMessage");
+            ActivateControls(items, hasMessageName || hasEntityName, "contMnSdkMessage");
 
-            ActivateControls(items, isMessage, "contMnSdkMessageProxyClass");
+            ActivateControls(items, isSingleMessage, "contMnSdkMessageProxyClass");
 
             ActivateControls(items, hasIds, "contMnAddIntoSolution", "contMnAddIntoSolutionLast");
             FillLastSolutionItems(connectionData, items, hasIds, AddIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
@@ -1325,10 +1356,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             //ActivateControls(items, nodeItem.PluginAssembly.HasValue, "contMnAddPluginAssemblyStepsIntoSolution", "contMnAddPluginAssemblyStepsIntoSolutionLast");
             //FillLastSolutionItems(connectionData, items, nodeItem.PluginAssembly.HasValue, mIAddAssemblyStepsIntoSolutionLast_Click, "contMnAddPluginAssemblyStepsIntoSolutionLast");
 
-            ActivateControls(items, isEntity, "contMnEntity");
-            FillLastSolutionItems(connectionData, items, isEntity, AddEntityIntoCrmSolutionLastIncludeSubcomponents_Click, "contMnAddEntityIntoSolutionLastIncludeSubcomponents");
-            FillLastSolutionItems(connectionData, items, isEntity, AddEntityIntoCrmSolutionLastDoNotIncludeSubcomponents_Click, "contMnAddEntityIntoSolutionLastDoNotIncludeSubcomponents");
-            FillLastSolutionItems(connectionData, items, isEntity, AddEntityIntoCrmSolutionLastIncludeAsShellOnly_Click, "contMnAddEntityIntoSolutionLastIncludeAsShellOnly");
+            ActivateControls(items, hasEntityName, "contMnEntity");
+            FillLastSolutionItems(connectionData, items, hasEntityName, AddEntityIntoCrmSolutionLastIncludeSubcomponents_Click, "contMnAddEntityIntoSolutionLastIncludeSubcomponents");
+            FillLastSolutionItems(connectionData, items, hasEntityName, AddEntityIntoCrmSolutionLastDoNotIncludeSubcomponents_Click, "contMnAddEntityIntoSolutionLastDoNotIncludeSubcomponents");
+            FillLastSolutionItems(connectionData, items, hasEntityName, AddEntityIntoCrmSolutionLastIncludeAsShellOnly_Click, "contMnAddEntityIntoSolutionLastIncludeAsShellOnly");
             ActivateControls(items, connectionData.LastSelectedSolutionsUniqueName != null && connectionData.LastSelectedSolutionsUniqueName.Any(), "contMnAddEntityIntoSolutionLast");
 
             CheckSeparatorVisible(items);

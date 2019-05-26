@@ -125,7 +125,7 @@
         </Grid.RowDefinitions>
 
         <Expander Grid.Row="0" Margin="5" Header="Request Proxy Class Generation">
-            <Grid>
+            <Grid Margin="5">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
