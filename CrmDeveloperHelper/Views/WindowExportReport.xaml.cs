@@ -184,7 +184,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             public string Name => Report.Name;
 
-            public string FileName => Report.Name;
+            public string FileName => Report.FileName;
 
             public string ReportTypeCode { get; }
 

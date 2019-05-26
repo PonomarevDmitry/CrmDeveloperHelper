@@ -113,7 +113,7 @@
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
 
-                <DataGridTextColumn Header="Report Name" Width="260" Binding="{Binding ReportName}" />
+                <DataGridTextColumn Header="Report Name" Width="260" Binding="{Binding Name}" />
 
                 <DataGridTextColumn Header="File Name" Width="260" Binding="{Binding FileName}" />
 
