@@ -2932,6 +2932,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var service = await GetService();
 
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ChangingEntityStateFormat1, referenceToChangeState.LogicalName);
+
                 try
                 {
                     await service.ExecuteAsync<Microsoft.Crm.Sdk.Messages.SetStateResponse>(new Microsoft.Crm.Sdk.Messages.SetStateRequest()
@@ -2944,9 +2946,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     nodeItem.IsActive = !nodeItem.IsActive;
 
                     nodeItem.CorrectImage();
+
+                    ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ChangingEntityStateCompletedFormat1, referenceToChangeState.LogicalName);
                 }
                 catch (Exception ex)
                 {
+                    ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ChangingEntityStateFailedFormat1, referenceToChangeState.LogicalName);
+
                     _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
                     _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                 }

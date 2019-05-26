@@ -286,6 +286,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Changing {0} State completed..
+        /// </summary>
+        internal static string ChangingEntityStateCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("ChangingEntityStateCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changing {0} State failed..
+        /// </summary>
+        internal static string ChangingEntityStateFailedFormat1 {
+            get {
+                return ResourceManager.GetString("ChangingEntityStateFailedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changing {0} State....
+        /// </summary>
+        internal static string ChangingEntityStateFormat1 {
+            get {
+                return ResourceManager.GetString("ChangingEntityStateFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checking ConnectionRole Categories in {0} and {1}....
         /// </summary>
         internal static string CheckingConnectionRoleCategoriesFormat2 {
@@ -3436,7 +3463,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Assigning Entities to Team {1} completed..
+        ///   Looks up a localized string similar to {0}. Setting Entities {1} State {2} - {3} completed..
         /// </summary>
         internal static string SettingEntitiesStateCompletedFormat4 {
             get {
@@ -3445,7 +3472,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Assigning Entities to Team {1}....
+        ///   Looks up a localized string similar to {0}. Setting Entities {1} State {2} - {3}....
         /// </summary>
         internal static string SettingEntitiesStateFormat4 {
             get {

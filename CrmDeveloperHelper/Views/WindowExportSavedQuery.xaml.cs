@@ -412,12 +412,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await action(folder, idSavedQuery, entityName, name);
         }
 
-        private Task<string> CreateFileAsync(string folder, Guid savedQueryId, string entityName, string name, string fieldTitle, string xmlContent, string extension)
+        private Task<string> CreateFileAsync(string folder, Guid savedQueryId, string entityName, string name, string fieldTitle, string extension, string xmlContent)
         {
-            return Task.Run(() => CreateFile(folder, savedQueryId, entityName, name, fieldTitle, xmlContent, extension));
+            return Task.Run(() => CreateFile(folder, savedQueryId, entityName, name, fieldTitle, extension, xmlContent));
         }
 
-        private string CreateFile(string folder, Guid savedQueryId, string entityName, string name, string fieldTitle, string xmlContent, string extension)
+        private string CreateFile(string folder, Guid savedQueryId, string entityName, string name, string fieldTitle, string extension, string xmlContent)
         {
             ConnectionData connectionData = null;
 
@@ -531,7 +531,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 folder = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
-            await action(folder, idSavedQuery, entityName, name, fieldName, extension, fieldTitle);
+            await action(folder, idSavedQuery, entityName, name, fieldName, fieldTitle, extension);
         }
 
         private async Task PerformExportXmlToFile(string folder, Guid idSavedQuery, string entityName, string name, string fieldName, string fieldTitle, string extension)
@@ -553,7 +553,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = savedQuery.GetAttributeValue<string>(fieldName);
 
-                string filePath = await CreateFileAsync(folder, idSavedQuery, entityName, name, fieldTitle, xmlContent, extension);
+                string filePath = await CreateFileAsync(folder, idSavedQuery, entityName, name, fieldTitle, extension, xmlContent);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 
@@ -624,7 +624,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = savedQuery.GetAttributeValue<string>(fieldName);
 
-                string filePath = await CreateFileAsync(folder, idSavedQuery, entityName, name, fieldTitle + " BackUp", xmlContent, extension);
+                string filePath = await CreateFileAsync(folder, idSavedQuery, entityName, name, fieldTitle + " BackUp", extension, xmlContent);
 
                 var newText = string.Empty;
                 {
@@ -812,6 +812,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.columnsetxml, SavedQuery.Schema.Headers.columnsetxml, "xml", PerformCopyToClipboardXmlToFileJavaScript);
         }
 
+        private void mICopyToClipboardLayoutJson_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.layoutjson, SavedQuery.Schema.Headers.layoutjson, "json", PerformCopyToClipboardXmlToFileJavaScript);
+        }
+
+        private void mICopyToClipboardOfflineSqlQuery_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.ReturnedTypeCode, entity.Name, SavedQuery.Schema.Attributes.offlinesqlquery, SavedQuery.Schema.Headers.offlinesqlquery, "sql", PerformCopyToClipboardXmlToFileJavaScript);
+        }
+
         private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
@@ -900,12 +924,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, SavedQuery.EntityLogicalName, idSavedQuery);
+            var repository = new PublishActionsRepository(service);
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, SavedQuery.EntityLogicalName, idSavedQuery, () => repository.PublishEntitiesAsync(new[] { entityName }));
         }
 
         private async Task PerformChangeStateSavedQuery(string folder, Guid idSavedQuery, string entityName, string name)
         {
             var service = await GetService();
+
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ChangingEntityStateFormat1, SavedQuery.EntityLogicalName);
 
             var repository = new SavedQueryRepository(service);
 
@@ -922,9 +950,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     State = new OptionSetValue(state),
                     Status = new OptionSetValue(status),
                 });
+
+                var repositoryPublish = new PublishActionsRepository(service);
+
+                await repositoryPublish.PublishEntitiesAsync(new[] { entityName });
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ChangingEntityStateCompletedFormat1, SavedQuery.EntityLogicalName);
             }
             catch (Exception ex)
             {
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ChangingEntityStateFailedFormat1, SavedQuery.EntityLogicalName);
+
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
                 _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
             }

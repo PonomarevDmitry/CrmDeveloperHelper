@@ -1360,10 +1360,10 @@
   </data>
 
   <data name="SettingEntitiesStateCompletedFormat4" xml:space="preserve">
-    <value>{0}. Assigning Entities to Team {1} completed.</value>
+    <value>{0}. Setting Entities {1} State {2} - {3} completed.</value>
   </data>
   <data name="SettingEntitiesStateFormat4" xml:space="preserve">
-    <value>{0}. Assigning Entities to Team {1}...</value>
+    <value>{0}. Setting Entities {1} State {2} - {3}...</value>
   </data>
 
   <data name="AssigningEntitiesToUserCompletedFormat2" xml:space="preserve">
@@ -1541,5 +1541,15 @@
     <value>Discovering Organizations failed.</value>
   </data>
 
+  <data name="ChangingEntityStateFormat1" xml:space="preserve">
+    <value>Changing {0} State...</value>
+  </data>
+  <data name="ChangingEntityStateFailedFormat1" xml:space="preserve">
+    <value>Changing {0} State failed.</value>
+  </data>
+  <data name="ChangingEntityStateCompletedFormat1" xml:space="preserve">
+    <value>Changing {0} State completed.</value>
+  </data>
   
+
 </root>

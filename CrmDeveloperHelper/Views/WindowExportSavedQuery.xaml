@@ -15,11 +15,6 @@
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
                 <MenuItem Header="Open SavedQuery in Web" Click="mIOpenInWeb_Click"/>
 
-                <Separator x:Uid="contMnEntity"/>
-                <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
-                <Separator x:Uid="contMnEntity"/>
-                <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
-
                 <Separator/>
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
@@ -32,6 +27,13 @@
                 <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" />
                 <MenuItem Header="Add into Crm Solution" Click="AddIntoCrmSolution_Click" />
 
+                <Separator x:Uid="contMnEntity" />
+                <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
+                <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
+                
+                <Separator x:Uid="contMnEntity" />
+                <MenuItem x:Uid="contMnEntity" Header="Publish Entity" Click="btnPublishEntity_Click"/>
+                
                 <Separator x:Uid="contMnEntity" />
                 <MenuItem x:Uid="contMnAddEntityIntoSolutionLast" Header="Add Entity into Last Crm Solution">
                     <MenuItem x:Uid="contMnAddEntityIntoSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
@@ -53,6 +55,9 @@
                     <MenuItem Header="Copy Fetch XML in JavaScript to Clipboard" Click="mIExportSavedQueryFetchXmlIntoJavaScript_Click" />
                     <MenuItem Header="Copy Layout XML in JavaScript to Clipboard" Click="mIExportSavedQueryLayoutXmlIntoJavaScript_Click" />
                     <MenuItem Header="Copy ColumnSet XML in JavaScript to Clipboard" Click="mIExportSavedQueryColumnSetXmlIntoJavaScript_Click" />
+
+                    <MenuItem Header="Copy Layout Json to Clipboard" Click="mICopyToClipboardLayoutJson_Click" />
+                    <MenuItem Header="Copy Offline Sql Query to Clipboard" Click="mICopyToClipboardOfflineSqlQuery_Click" />
                 </MenuItem>
 
                 <Separator/>
@@ -70,9 +75,6 @@
                     <MenuItem Header="Layout Json" Click="mIUpdateSavedQueryLayoutJson_Click"/>
                     <MenuItem Header="Offline Sql Query" Click="mIUpdateSavedQueryOfflineSqlQuery_Click"/>
                 </MenuItem>
-
-                <Separator x:Uid="contMnEntity"/>
-                <MenuItem x:Uid="contMnEntity" Header="Publish Entity" Click="btnPublishEntity_Click"/>
 
                 <Separator/>
                 <MenuItem Header="Open Solutions Containing Component in Window" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
@@ -318,7 +320,7 @@
                                 <Separator/>
                                 <MenuItem Header="Open Dependent Components in Window" Click="mIOpenDependentComponentsInWindow_Click" />
                             </MenuItem>
-                            
+
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>

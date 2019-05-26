@@ -22,14 +22,26 @@
                 <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Chart in Editor" Click="mIChangeEntityInEditor_Click"/>
                 <MenuItem Header="Delete Chart" Click="mIDeleteChart_Click" />
 
-                <Separator x:Uid="contMnEntity"/>
-                <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
-                <Separator x:Uid="contMnEntity"/>
-                <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
+                <Separator/>
+                <MenuItem Header="Data Description" Click="mIExportSystemChartDataDescription_Click"/>
+                <MenuItem Header="Presentation Description" Click="mIExportSystemChartPresentationDescription_Click"/>
+
+                <Separator x:Uid="controlChangeEntityAttribute"/>
+                <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Chart Attribute">
+                    <MenuItem Header="Data Description" Click="mIUpdateSystemChartDataDescription_Click"/>
+                    <MenuItem Header="Presentation Description" Click="mIUpdateSystemChartPresentationDescription_Click"/>
+                </MenuItem>
 
                 <Separator/>
                 <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution"  />
                 <MenuItem Header="Add into Crm Solution" Click="AddIntoCrmSolution_Click" />
+
+                <Separator x:Uid="contMnEntity"/>
+                <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
+                <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
+
+                <Separator x:Uid="contMnEntity"/>
+                <MenuItem x:Uid="contMnEntity" Header="Publish Entity" Click="btnPublishEntity_Click"/>
 
                 <Separator x:Uid="contMnEntity" />
                 <MenuItem x:Uid="contMnAddEntityIntoSolutionLast" Header="Add Entity into Last Crm Solution">
@@ -46,19 +58,6 @@
                     <Separator/>
                     <MenuItem Header="Include As ShellOnly" Click="AddIntoCrmSolutionIncludeAsShellOnly_Click" />
                 </MenuItem>
-
-                <Separator/>
-                <MenuItem Header="Data Description" Click="mIExportSystemChartDataDescription_Click"/>
-                <MenuItem Header="Presentation Description" Click="mIExportSystemChartPresentationDescription_Click"/>
-
-                <Separator x:Uid="controlChangeEntityAttribute"/>
-                <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Chart Attribute">
-                    <MenuItem Header="Data Description" Click="mIUpdateSystemChartDataDescription_Click"/>
-                    <MenuItem Header="Presentation Description" Click="mIUpdateSystemChartPresentationDescription_Click"/>
-                </MenuItem>
-
-                <Separator x:Uid="contMnEntity"/>
-                <MenuItem x:Uid="contMnEntity" Header="Publish Entity" Click="btnPublishEntity_Click"/>
 
                 <Separator/>
                 <MenuItem Header="Open Solutions Containing Component in Window" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
