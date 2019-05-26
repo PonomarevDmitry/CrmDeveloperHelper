@@ -287,7 +287,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private void txtBFilterEnitity_KeyDown(object sender, KeyEventArgs e)
+        private void txtBFilter_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {

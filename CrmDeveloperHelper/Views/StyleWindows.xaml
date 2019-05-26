@@ -11,6 +11,19 @@
 
 
     </ResourceDictionary>
+    
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            
+            <RowDefinition Height="100*" />
+            
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+    
     -->
 
     <Style TargetType="{x:Type CheckBox}">
@@ -90,7 +103,7 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
-    
+
     <!--
     <Style TargetType="DataGridCell">
 
