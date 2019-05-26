@@ -819,8 +819,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ActivateControls(items, showDependentComponents, "contMnDependentComponents");
 
-            ActivateControls(items, nodeItem.ComponentType == ComponentType.SdkMessage && !string.IsNullOrEmpty(nodeItem.Name), "contMnSdkMessage");
-
             ActivateControls(items, isEntity, "contMnEntity");
             FillLastSolutionItems(connectionData, items, isEntity, AddEntityIntoCrmSolutionLastIncludeSubcomponents_Click, "contMnAddEntityIntoSolutionLastIncludeSubcomponents");
             FillLastSolutionItems(connectionData, items, isEntity, AddEntityIntoCrmSolutionLastDoNotIncludeSubcomponents_Click, "contMnAddEntityIntoSolutionLastDoNotIncludeSubcomponents");
