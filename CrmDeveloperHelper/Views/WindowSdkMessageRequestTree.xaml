@@ -11,8 +11,11 @@
                 <ResourceDictionary Source="StyleWindows.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
+            <BitmapImage x:Key="ImageRefresh" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Refresh_16.png" />
+
             <BitmapImage x:Key="ImageEntity" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Entity.png" />
             <BitmapImage x:Key="ImageMessage" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/message.gif" />
+            <BitmapImage x:Key="ImageMessageCategory" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/message_category.png" />
             
             <BitmapImage x:Key="ImageField" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Field.png" />
             
@@ -200,12 +203,21 @@
                         </Menu>
                         
                         <Button x:Name="tSBCreateDescription" Content="Create Description" Click="tSBCreateDescription_Click" IsEnabled="False"  />
-                        
-                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+
+                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                        <Button x:Name="tSBRefresh" Click="tSBRefresh_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" />
+                                <TextBlock>Refresh</TextBlock>
+                            </StackPanel>
+                        </Button>
+
+                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                         <Button x:Name="tSBCollapseAll" Content="Collapse All" Click="tSBCollapseAll_Click" IsEnabled="False" />
                         <Button x:Name="tSBExpandAll" Content="Expand All" Click="tSBExpandAll_Click" IsEnabled="False" />
                     </ToolBarPanel>
                 </ToolBar>
+                
                 <TreeView x:Name="trVSdkMessageRequestTree" SelectedItemChanged="trVSdkMessageRequestTree_SelectedItemChanged">
                     <TreeView.Resources>
                         <HierarchicalDataTemplate DataType="{x:Type model:SdkMessageRequestTreeViewItem}" ItemsSource="{Binding Path=Items}">

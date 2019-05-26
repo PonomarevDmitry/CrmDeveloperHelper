@@ -47,8 +47,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly Dictionary<GroupingProperty, RequestGroupBuilder> _propertyGroups = new Dictionary<GroupingProperty, RequestGroupBuilder>();
 
+        private BitmapImage _imageRefresh;
         private BitmapImage _imageEntity;
         private BitmapImage _imageMessage;
+        private BitmapImage _imageMessageCategory;
         private BitmapImage _imageField;
         private BitmapImage _imageRequest;
         private BitmapImage _imageResponse;
@@ -251,8 +253,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void LoadImages()
         {
+            this._imageRefresh = this.Resources["ImageRefresh"] as BitmapImage;
+
             this._imageEntity = this.Resources["ImageEntity"] as BitmapImage;
             this._imageMessage = this.Resources["ImageMessage"] as BitmapImage;
+            this._imageMessageCategory = this.Resources["ImageMessageCategory"] as BitmapImage;
             this._imageField = this.Resources["ImageField"] as BitmapImage;
             this._imageRequest = this.Resources["ImageRequest"] as BitmapImage;
             this._imageResponse = this.Resources["ImageResponse"] as BitmapImage;
@@ -307,6 +312,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             Entity,
             Message,
+            MessageCategory,
             Endpoint,
             Namespace,
         }
@@ -333,6 +339,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 OrderComparer = new MessageComparer(),
             };
 
+            _propertyGroups[GroupingProperty.MessageCategory] = new RequestGroupBuilder()
+            {
+                GroupFunc = ent => ent.SdkMessageCategoryName,
+                TreeNodeBuilder = CreateNodeMessageCategory,
+
+                ActionOnChildsByKey = (messageCategory, node) => node.MessageCategoryName = messageCategory,
+
+                OrderComparer = new MessageComparer(),
+            };
+
             _propertyGroups[GroupingProperty.Namespace] = new RequestGroupBuilder()
             {
                 GroupFunc = ent => ent.Namespace,
@@ -346,6 +362,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             };
 
             mIView.Items.Clear();
+
+            mIView.SubmenuClosed += this.mIView_SubmenuClosed;
+
+            var menuItemRefreshView = new MenuItem()
+            {
+                Header = "Refresh View",
+                Icon = new Image()
+                {
+                    Height = 16,
+                    Width = 16,
+                    Source = _imageRefresh,
+                },
+            };
+
+            menuItemRefreshView.Click += this.mIView_SubmenuClosed;
+
+            mIView.Items.Add(menuItemRefreshView);
+            mIView.Items.Add(new Separator());
 
             this.IncreaseInit();
 
@@ -385,7 +419,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateGroupingVisibility();
         }
 
-        private async void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void mIView_SubmenuClosed(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -404,6 +438,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 await RefreshTreeByViewAsync();
             }
+        }
+
+        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            UpdateGroupingVisibility();
         }
 
         private void UpdateGroupingVisibility()
@@ -427,15 +471,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (comboBox.SelectedItem is GroupingProperty groupingProperty)
                     {
+                        FillGroupingComboBox(usedProperties, comboBox);
+
                         if (usedProperties.Contains(groupingProperty))
                         {
                             hideOthers = true;
-
-                            FillGroupingComboBox(usedProperties, comboBox);
                         }
                         else
                         {
                             usedProperties.Add(groupingProperty);
+
+                            comboBox.SelectedItem = groupingProperty;
                         }
                     }
                     else
@@ -636,7 +682,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var groupBuilder = requestGroups.First();
 
-            var groupsList = requests.GroupBy(groupBuilder.GroupFunc);
+            var groupsList = requests.GroupBy(groupBuilder.GroupFunc, StringComparer.InvariantCultureIgnoreCase);
 
             if (groupBuilder.OrderComparer != null)
             {
@@ -723,6 +769,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Image = _imageMessage,
 
                 MessageName = message,
+            };
+
+            nodeMessage.MessageList.AddRange(steps.Where(s => s.SdkMessageId != null).Select(s => s.SdkMessageId.Value).Distinct());
+
+            return nodeMessage;
+        }
+
+        private SdkMessageRequestTreeViewItem CreateNodeMessageCategory(string messageCategory, IEnumerable<SdkMessageRequest> steps)
+        {
+            var nodeMessage = new SdkMessageRequestTreeViewItem(null)
+            {
+                Name = messageCategory,
+                Image = _imageMessageCategory,
+
+                MessageCategoryName = messageCategory,
             };
 
             nodeMessage.MessageList.AddRange(steps.Where(s => s.SdkMessageId != null).Select(s => s.SdkMessageId.Value).Distinct());
@@ -915,7 +976,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, this.tSBCollapseAll, this.tSBExpandAll, this.menuView);
+            ToggleControl(this.tSProgressBar
+                , cmBCurrentConnection
+                , btnSetCurrentConnection
+                , this.tSBCollapseAll
+                , this.tSBExpandAll
+                , this.tSBRefresh
+                , this.menuView
+            );
 
             UpdateButtonsEnable();
         }
@@ -2261,6 +2329,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, operation);
+        }
+
+        private void tSBRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            ShowExistingSdkMessageRequests();
         }
     }
 }
