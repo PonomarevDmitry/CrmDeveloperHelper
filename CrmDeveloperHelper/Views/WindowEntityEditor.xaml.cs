@@ -29,7 +29,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected readonly IOrganizationServiceExtented _service;
 
-        private readonly Func<Task> _actionAfterSave;
+        private readonly Func<Action<string>, Task> _actionAfterSave;
 
         protected readonly HashSet<string> _ignoredAttributes = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -49,7 +49,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , string entityName
             , Guid entityId
-            , Func<Task> actionAfterSave
+            , Func<Action<string>, Task> actionAfterSave
         )
         {
             IncreaseInit();
@@ -380,7 +380,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (_actionAfterSave != null)
                 {
-                    await _actionAfterSave.Invoke();
+                    await _actionAfterSave.Invoke((s) => UpdateStatus(s));
                 }
 
                 _iWriteToOutput.WriteToOutputEntityInstance(_service.ConnectionData, _entityName, tempEntityId);

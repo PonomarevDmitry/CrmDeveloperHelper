@@ -287,7 +287,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , string entityName
             , Guid entityId
-            , Func<Task> actionAfterSave = null
+        )
+        {
+            OpenEntityEditor(iWriteToOutput, service, commonConfig, entityName, entityId, null);
+        }
+
+        public static void OpenEntityEditor(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string entityName
+            , Guid entityId
+            , Func<Action<string>, Task> actionAfterSave
         )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>

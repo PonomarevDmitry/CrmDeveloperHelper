@@ -924,9 +924,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            var repository = new PublishActionsRepository(service);
+            var repositoryPublish = new PublishActionsRepository(service);
 
-            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, SavedQuery.EntityLogicalName, idSavedQuery, () => repository.PublishEntitiesAsync(new[] { entityName }));
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, SavedQuery.EntityLogicalName, idSavedQuery, async (action) => 
+            {
+                action(string.Format(Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName));
+
+                await repositoryPublish.PublishEntitiesAsync(new[] { entityName });
+
+                action(string.Format(Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat2, service.ConnectionData.Name, entityName));
+            });
         }
 
         private async Task PerformChangeStateSavedQuery(string folder, Guid idSavedQuery, string entityName, string name)

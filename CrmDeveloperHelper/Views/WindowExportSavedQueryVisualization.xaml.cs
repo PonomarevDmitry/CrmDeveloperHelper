@@ -730,7 +730,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, SavedQueryVisualization.EntityLogicalName, idSavedQueryVisualization);
+            var repositoryPublish = new PublishActionsRepository(service);
+
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, SavedQueryVisualization.EntityLogicalName, idSavedQueryVisualization, async (action) =>
+            {
+                action(string.Format(Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName));
+
+                await repositoryPublish.PublishEntitiesAsync(new[] { entityName });
+
+                action(string.Format(Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat2, service.ConnectionData.Name, entityName));
+            });
         }
 
         private async Task PerformDeleteEntity(string folder, Guid idSavedQueryVisualization, string entityName, string name)
