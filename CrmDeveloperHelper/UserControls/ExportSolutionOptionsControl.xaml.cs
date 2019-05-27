@@ -225,7 +225,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             {
                 Binding binding = new Binding
                 {
-                    Path = new PropertyPath(string.Format("{0}.{1}", nameof(ComboBox.SelectedItem), nameof(ExportSolutionConfig.ExportFolder)))
+                    Path = new PropertyPath(string.Format("{0}.{1}", nameof(ComboBox.SelectedItem), nameof(ExportSolutionConfig.ExportFolder))),
+                    UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
+                    Mode = BindingMode.TwoWay,
                 };
                 BindingOperations.SetBinding(cmBExportFolder, ComboBox.TextProperty, binding);
             }

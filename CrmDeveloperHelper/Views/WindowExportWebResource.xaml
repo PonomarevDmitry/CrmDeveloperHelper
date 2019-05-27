@@ -135,7 +135,7 @@
             </Grid.RowDefinitions>
 
             <Label Content="Folder" Grid.Row="0" Grid.Column="0" />
-            <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="7" Text="{Binding Path=FolderForExport}" />
+            <TextBox x:Name="txtBFolder" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="7" Text="{Binding Path=FolderForExport, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
             <Label Content="Filter" Grid.Row="1" Grid.Column="0" />
             <TextBox x:Name="txtBFilter" Grid.Row="1" Grid.Column="1" KeyDown="txtBFilterEnitity_KeyDown" />

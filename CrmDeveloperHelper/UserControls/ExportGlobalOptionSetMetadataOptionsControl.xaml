@@ -85,7 +85,7 @@
 
                         <RadioButton x:Name="rBTab" Grid.Column="0" IsChecked="{Binding Path=GenerateCommonIndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Tab}}" GroupName="IndentType" Content="Tab" />
                         <RadioButton x:Name="rBSpaces" Grid.Column="1" IsChecked="{Binding Path=GenerateCommonIndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Spaces}}" GroupName="IndentType" Content="Spaces" />
-                        <TextBox x:Name="txtBSpaceCount" Grid.Column="2" Text="{Binding Path=GenerateCommonSpaceCount}" />
+                        <TextBox x:Name="txtBSpaceCount" Grid.Column="2" Text="{Binding Path=GenerateCommonSpaceCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                     </Grid>
                 </GroupBox>
 

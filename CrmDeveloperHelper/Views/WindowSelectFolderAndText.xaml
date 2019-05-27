@@ -8,7 +8,7 @@
         Title="Form Title" Height="218" Width="635" WindowStartupLocation="Manual">
     <Grid>
         <Label Content="Folder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="26" Width="187"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="10,36,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="23" Margin="10,36,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center"/>
         
         <Label x:Name="lblText" Content="Text" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" Height="26" Width="312"/>
         <TextBox x:Name="txtBText" Height="23" Margin="10,85,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center"/>

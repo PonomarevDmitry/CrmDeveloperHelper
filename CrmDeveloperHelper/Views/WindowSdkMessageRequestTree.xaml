@@ -150,10 +150,10 @@
                 <CheckBox Grid.Row="0" Grid.Column="2" x:Name="chBSdkMessageRequestMakeAllPropertiesEditable" IsChecked="{Binding Path=GenerateSdkMessageRequestMakeAllPropertiesEditable}" Content="Make All Properties Editable" />
 
                 <Label Content="Namespace Messages C#" Grid.Row="1" Grid.Column="0" />
-                <TextBox x:Name="txtBNamespaceSdkMessagesCSharp" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Path=SelectedItem.NamespaceSdkMessagesCSharp}"  />
+                <TextBox x:Name="txtBNamespaceSdkMessagesCSharp" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Path=SelectedItem.NamespaceSdkMessagesCSharp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
 
                 <Label Content="Namespace Messages JavaScript" Grid.Row="2" Grid.Column="0" />
-                <TextBox x:Name="txtBNamespaceSdkMessagesJavaScript" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Path=SelectedItem.NamespaceSdkMessagesJavaScript}"  />
+                <TextBox x:Name="txtBNamespaceSdkMessagesJavaScript" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Path=SelectedItem.NamespaceSdkMessagesJavaScript, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
 
                 <Label Content="Folder" Grid.Row="3" Grid.Column="0" />
                 <TextBox x:Name="txtBFolder" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" />

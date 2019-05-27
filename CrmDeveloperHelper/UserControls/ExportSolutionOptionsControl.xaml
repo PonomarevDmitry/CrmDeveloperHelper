@@ -73,7 +73,7 @@
         <ComboBox x:Name="cmBVersion" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.OverrideVersion, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedIndex="{Binding Path=SelectedItem.OverrideVersionSelectedIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Path=SelectedItem.LastOverrideVersion}" Height="23" Margin="0,148,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="105"/>
 
         <Label Content="Description" Margin="10,204,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center" HorizontalAlignment="Left"/>
-        <TextBox x:Name="txtBDescription" Text="{Binding SelectedItem.OverrideDescription}" Margin="85,204,10,10" VerticalContentAlignment="Top"/>
+        <TextBox x:Name="txtBDescription" Text="{Binding SelectedItem.OverrideDescription, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="85,204,10,10" VerticalContentAlignment="Top"/>
 
 
     </Grid>

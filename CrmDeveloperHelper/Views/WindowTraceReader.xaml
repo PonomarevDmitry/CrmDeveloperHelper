@@ -54,7 +54,7 @@
             <TabItem Header="Source Folders">
                 <Grid>
                     <Button x:Name="btnAddFolder" Content="Add Folder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Click="btnAddFolderInList_Click" Height="26" Width="121" />
-                    <ComboBox x:Name="cmBFolder" Height="26" Margin="146,10,10,0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.TraceReaderFolder}" ItemsSource="{Binding Path=SelectedItem.TraceReaderLastFolders}" VerticalAlignment="Top" KeyDown="cmBFolder_KeyDown" VerticalContentAlignment="Center"   />
+                    <ComboBox x:Name="cmBFolder" Height="26" Margin="146,10,10,0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.TraceReaderFolder, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Path=SelectedItem.TraceReaderLastFolders}" VerticalAlignment="Top" KeyDown="cmBFolder_KeyDown" VerticalContentAlignment="Center"   />
                     <GroupBox Header="Sources" Margin="10,41,10,0">
                         <DockPanel LastChildFill="True">
                             <ToolBar Height="Auto" Width="Auto" VerticalAlignment="Top" DockPanel.Dock="Top" >
@@ -71,7 +71,7 @@
             <TabItem x:Name="tbITraces" Header="Traces">
                 <Grid>
                     <Label Content="Filter" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-                    <ComboBox x:Name="cmBFilter" Height="26" Margin="58,10,10,0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.TraceReaderFilter}" ItemsSource="{Binding Path=SelectedItem.TraceReaderLastFilters}" VerticalAlignment="Top" KeyDown="cmBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
+                    <ComboBox x:Name="cmBFilter" Height="26" Margin="58,10,10,0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.TraceReaderFilter, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Path=SelectedItem.TraceReaderLastFilters}" VerticalAlignment="Top" KeyDown="cmBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
 
                     <Label Content="File Date Change From" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="24" Padding="0"/>
                     <DatePicker x:Name="dPFileDate" HorizontalAlignment="Left" Margin="136,41,0,0" VerticalAlignment="Top" Height="24" Width="140" SelectedDateFormat="Long" KeyDown="cmBFilterEnitity_KeyDown" FirstDayOfWeek="Monday"/>

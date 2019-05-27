@@ -144,6 +144,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Binding binding = new Binding
                 {
                     Path = new PropertyPath(nameof(CommonConfiguration.FolderForExport)),
+                    UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
+                    Mode = BindingMode.TwoWay,
                 };
                 BindingOperations.SetBinding(txtBFolder, TextBox.TextProperty, binding);
 

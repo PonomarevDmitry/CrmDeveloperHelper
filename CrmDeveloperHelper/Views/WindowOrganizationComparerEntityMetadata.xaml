@@ -192,34 +192,34 @@
                 </Grid.RowDefinitions>
 
                 <Label Content="Namespace Classes C# 1" Grid.Row="0" Grid.Column="0"/>
-                <TextBox x:Name="txtBNamespaceClassesCSharp1" Grid.Row="0" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceClassesCSharp}"/>
+                <TextBox x:Name="txtBNamespaceClassesCSharp1" Grid.Row="0" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceClassesCSharp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
                 <Label Content="Namespace Classes C# 2" Grid.Row="0" Grid.Column="2"/>
-                <TextBox x:Name="txtBNamespaceClassesCSharp2" Grid.Row="0" Grid.Column="3" Text="{Binding Path=SelectedItem.NamespaceClassesCSharp}"/>
+                <TextBox x:Name="txtBNamespaceClassesCSharp2" Grid.Row="0" Grid.Column="3" Text="{Binding Path=SelectedItem.NamespaceClassesCSharp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
                 <Label Content="Namespace Classes JavaScript 1" Grid.Row="1" Grid.Column="0"/>
-                <TextBox x:Name="txtBNamespaceClassesJavaScript1" Grid.Row="1" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceClassesJavaScript}"/>
+                <TextBox x:Name="txtBNamespaceClassesJavaScript1" Grid.Row="1" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceClassesJavaScript, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
                 <Label Content="Namespace Classes JavaScript 2" Grid.Row="1" Grid.Column="2"/>
-                <TextBox x:Name="txtBNamespaceClassesJavaScript2" Grid.Row="1" Grid.Column="3" Text="{Binding Path=SelectedItem.NamespaceClassesJavaScript}"/>
+                <TextBox x:Name="txtBNamespaceClassesJavaScript2" Grid.Row="1" Grid.Column="3" Text="{Binding Path=SelectedItem.NamespaceClassesJavaScript, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
                 <Label Content="Namespace OptionSets C# 1" Grid.Row="2" Grid.Column="0" />
-                <TextBox x:Name="txtBNamespaceOptionSetsCSharp1" Grid.Row="2" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceOptionSetsCSharp}"  />
+                <TextBox x:Name="txtBNamespaceOptionSetsCSharp1" Grid.Row="2" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceOptionSetsCSharp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
 
                 <Label Content="Namespace OptionSets C# 2" Grid.Row="2" Grid.Column="2" />
-                <TextBox x:Name="txtBNamespaceOptionSetsCSharp2" Grid.Row="2" Grid.Column="3" Text="{Binding Path=SelectedItem.NamespaceOptionSetsCSharp}"  />
+                <TextBox x:Name="txtBNamespaceOptionSetsCSharp2" Grid.Row="2" Grid.Column="3" Text="{Binding Path=SelectedItem.NamespaceOptionSetsCSharp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
 
                 <Label Content="Namespace OptionSets JavaScript 1" Grid.Row="3" Grid.Column="0" />
-                <TextBox x:Name="txtBNamespaceOptionSetsJavaScript1" Grid.Row="3" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceOptionSetsJavaScript}"  />
+                <TextBox x:Name="txtBNamespaceOptionSetsJavaScript1" Grid.Row="3" Grid.Column="1" Text="{Binding Path=SelectedItem.NamespaceOptionSetsJavaScript, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
 
                 <Label Content="Namespace OptionSets JavaScript 2" Grid.Row="3" Grid.Column="2" />
-                <TextBox x:Name="txtBNamespaceOptionSetsJavaScript2" Grid.Row="3" Grid.Column="3" Text="{Binding Path=SelectedItem.NamespaceOptionSetsJavaScript}"  />
+                <TextBox x:Name="txtBNamespaceOptionSetsJavaScript2" Grid.Row="3" Grid.Column="3" Text="{Binding Path=SelectedItem.NamespaceOptionSetsJavaScript, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
 
                 <Label Content="TypeConverter Name 1" Grid.Row="4" Grid.Column="0" />
-                <TextBox x:Name="txtBTypeConverterName1" Grid.Row="4" Grid.Column="1" Text="{Binding Path=SelectedItem.TypeConverterName}"  />
+                <TextBox x:Name="txtBTypeConverterName1" Grid.Row="4" Grid.Column="1" Text="{Binding Path=SelectedItem.TypeConverterName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
 
                 <Label Content="TypeConverter Name 2" Grid.Row="4" Grid.Column="2" />
-                <TextBox x:Name="txtBTypeConverterName2" Grid.Row="4" Grid.Column="3" Text="{Binding Path=SelectedItem.TypeConverterName}"  />
+                <TextBox x:Name="txtBTypeConverterName2" Grid.Row="4" Grid.Column="3" Text="{Binding Path=SelectedItem.TypeConverterName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  />
 
             </Grid>
         </Expander>

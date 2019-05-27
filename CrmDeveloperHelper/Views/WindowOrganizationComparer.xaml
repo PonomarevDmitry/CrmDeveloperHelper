@@ -42,7 +42,7 @@
     </src:WindowBase.Resources>
     <Grid>
         <Label Content="Folder for Export" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="5,0" Height="25" Width="123"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="148,12,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" TabIndex="2147483647"/>
+        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="23" Margin="148,12,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" TabIndex="2147483647"/>
 
         <Label Content="Loaded Solution Image" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Height="23" VerticalContentAlignment="Center" Padding="5,0"/>
         <TextBox x:Name="txtBFilePath" Height="23" Margin="148,40,10,0" VerticalAlignment="Top" IsReadOnlyCaretVisible="True" VerticalContentAlignment="Center" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />

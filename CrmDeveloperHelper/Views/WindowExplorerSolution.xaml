@@ -90,10 +90,10 @@
         </Grid>
 
         <Label Content="Folder" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport}" Height="23" Margin="58,73,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" />
+        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="23" Margin="58,73,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" />
 
         <Label Content="Filter" HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Padding="0" Height="23" VerticalContentAlignment="Center"/>
-        <ComboBox x:Name="cmBFilter" Height="23" Margin="58,101,10,0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.ExplorerSolutionFilter}" ItemsSource="{Binding Path=SelectedItem.LastSelectedSolutionsUniqueName}" VerticalAlignment="Top" KeyDown="cmBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
+        <ComboBox x:Name="cmBFilter" Height="23" Margin="58,101,10,0" IsEditable="True" ShouldPreserveUserEnteredPrefix="True" IsSynchronizedWithCurrentItem="False" StaysOpenOnEdit="True" IsTabStop="True" Text="{Binding Path=SelectedItem.ExplorerSolutionFilter, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding Path=SelectedItem.LastSelectedSolutionsUniqueName}" VerticalAlignment="Top" KeyDown="cmBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
 
         <GroupBox Header="Solutions" Margin="10,129,10,69">
             <DockPanel LastChildFill="True">
