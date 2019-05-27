@@ -100,15 +100,14 @@
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
                     <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                    <Setter Property="ToolTip" Value="{Binding Description}" />
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
 
+                <DataGridTextColumn Header="Assembly Name" Width="500" Binding="{Binding AssemblyName}" />
+
                 <DataGridTextColumn Header="TypeName" Width="500" Binding="{Binding TypeName}" />
-
-                <DataGridTextColumn Header="Name" Width="100" Binding="{Binding Name}" />
-
-                <DataGridTextColumn Header="FriendlyName" Width="100" Binding="{Binding FriendlyName}" />
 
 
                 <DataGridTextColumn Header="IsManaged" Width="100" Binding="{Binding IsManaged}" />
@@ -117,12 +116,15 @@
 
                 <DataGridTextColumn Header="WorkflowActivityGroupName" Width="100" Binding="{Binding WorkflowActivityGroupName}" />
 
-
                 <DataGridCheckBoxColumn Width="Auto" Binding="{Binding HasDescription, Mode=OneTime}">
                     <DataGridCheckBoxColumn.Header>
                         <Label Content="D" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Padding="0" ToolTip="Description" />
                     </DataGridCheckBoxColumn.Header>
                 </DataGridCheckBoxColumn>
+
+                <DataGridTextColumn Header="Name" Width="100" Binding="{Binding Name}" />
+
+                <DataGridTextColumn Header="FriendlyName" Width="100" Binding="{Binding FriendlyName}" />
 
             </DataGrid.Columns>
         </DataGrid>

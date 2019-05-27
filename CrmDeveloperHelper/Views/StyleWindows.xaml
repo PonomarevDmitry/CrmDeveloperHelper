@@ -26,6 +26,13 @@
     
     -->
 
+    <Style TargetType="{x:Type RadioButton}">
+        <Setter Property="Padding" Value="2"/>
+        <Setter Property="Margin" Value="2"/>
+
+        <Setter Property="Height" Value="Auto"/>
+    </Style>
+
     <Style TargetType="{x:Type CheckBox}">
         <Setter Property="Padding" Value="2"/>
         <Setter Property="Margin" Value="2"/>

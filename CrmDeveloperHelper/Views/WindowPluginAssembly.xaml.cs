@@ -223,6 +223,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            string workflowActivityGroupName = txtBWorkflowActivityGroupName.Text.Trim();
+
             var updateAssembly = new PluginAssembly();
 
             if (PluginAssembly.PluginAssemblyId.HasValue)
@@ -290,6 +292,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                             PluginAssemblyId = assemblyRef,
                         };
+
+                        if (pluginType.IsWorkflowActivity)
+                        {
+                            pluginTypeEntity.WorkflowActivityGroupName = workflowActivityGroupName;
+                        }
 
                         ToggleControls(false, Properties.WindowStatusStrings.RegisteringPluginTypeFormat2, _service.ConnectionData.Name, pluginType);
 
@@ -521,6 +528,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 txtBFileNameOnServer.Text = this._assemblyLoad.FileName;
             }
+
+            txtBWorkflowActivityGroupName.Text = string.Format("{0} ({1})", this._assemblyLoad.Name, this._assemblyLoad.Version);
 
             var crmPlugins = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
             var crmWorkflows = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);

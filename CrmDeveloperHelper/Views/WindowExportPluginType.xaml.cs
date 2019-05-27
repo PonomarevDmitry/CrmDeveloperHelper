@@ -169,6 +169,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             PluginType.Schema.Attributes.typename
                             , PluginType.Schema.Attributes.name
                             , PluginType.Schema.Attributes.friendlyname
+                            , PluginType.Schema.Attributes.assemblyname
                             , PluginType.Schema.Attributes.workflowactivitygroupname
                             , PluginType.Schema.Attributes.description
                             , PluginType.Schema.Attributes.ismanaged
@@ -190,6 +191,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private class EntityViewItem
         {
+            public string AssemblyName => PluginType.AssemblyName;
+
             public string TypeName => PluginType.TypeName;
 
             public string Name => PluginType.Name;
@@ -218,7 +221,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this.lstVwPluginTypes.Dispatcher.Invoke(() =>
             {
-                foreach (var entity in results.OrderBy(ent => ent.TypeName))
+                foreach (var entity in results
+                    .OrderBy(ent => ent.AssemblyName)
+                    .ThenBy(ent => ent.TypeName)
+                    .ThenBy(ent => ent.FriendlyName)
+                    .ThenBy(ent => ent.Id)
+                )
                 {
                     var item = new EntityViewItem(entity);
 
