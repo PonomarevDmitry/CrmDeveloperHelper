@@ -389,6 +389,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public static string GetCorrectedXaml(string xml, LabelReplacer replacer)
+        {
+            try
+            {
+                xml = xml ?? string.Empty;
+
+                xml = ContentCoparerHelper.RemoveDiacritics(xml);
+
+                if (!TryParseXml(xml, out XElement doc))
+                {
+                    return xml;
+                }
+
+                replacer.FullfillLabelsForWorkflow(doc);
+
+                RemoveEmptyXMLText(doc);
+
+                RenameClasses(doc);
+
+                WorkflowUsedEntitiesHandler.ReplaceGuids(doc);
+
+                return doc.ToString();
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToOutput(null, ex);
+
+#if DEBUG
+                if (System.Diagnostics.Debugger.IsAttached)
+                {
+                    System.Diagnostics.Debugger.Break();
+                }
+#endif
+
+                throw;
+            }
+        }
+
         public static ContentCopareResult CompareXML(string xml1, string xml2, bool withDetails = false, Action<XElement> action = null)
         {
             try

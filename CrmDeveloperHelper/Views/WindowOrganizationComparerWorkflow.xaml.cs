@@ -804,8 +804,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var replacer1 = new LabelReplacer(await TranslationRepository.GetDefaultTranslationFromCacheAsync(service1.ConnectionData.ConnectionId, service1));
                 var replacer2 = new LabelReplacer(await TranslationRepository.GetDefaultTranslationFromCacheAsync(service2.ConnectionData.ConnectionId, service2));
 
-                xml1 = ContentCoparerHelper.ClearXml(xml1, replacer1.FullfillLabelsForWorkflow, ContentCoparerHelper.RenameClasses, WorkflowUsedEntitiesHandler.ReplaceGuids);
-                xml2 = ContentCoparerHelper.ClearXml(xml2, replacer2.FullfillLabelsForWorkflow, ContentCoparerHelper.RenameClasses, WorkflowUsedEntitiesHandler.ReplaceGuids);
+                xml1 = ContentCoparerHelper.GetCorrectedXaml(xml1, replacer1);
+                xml2 = ContentCoparerHelper.GetCorrectedXaml(xml2, replacer2);
 
                 if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
                 {
@@ -847,7 +847,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, Workflow.Schema.Attributes.xaml, Workflow.Schema.Headers.xaml, "xml", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, Workflow.Schema.Attributes.xaml, Workflow.Schema.Headers.xaml, PerformExportXmlToFileAsync);
         }
 
         private void mIExportWorkflow1CorrectedXaml_Click(object sender, RoutedEventArgs e)
@@ -859,7 +859,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, Workflow.Schema.Attributes.xaml, Workflow.Schema.Headers.CorrectedXaml, "xml", PerformExportCorrectedToFileAsync);
+            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, Workflow.Schema.Attributes.xaml, Workflow.Schema.Headers.CorrectedXaml, PerformExportCorrectedToFileAsync);
         }
 
         private void mIExportWorkflow2Xaml_Click(object sender, RoutedEventArgs e)
@@ -871,7 +871,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, Workflow.Schema.Attributes.xaml, Workflow.Schema.Headers.xaml, "xml", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, Workflow.Schema.Attributes.xaml, Workflow.Schema.Headers.xaml, PerformExportXmlToFileAsync);
         }
 
         private void mIExportWorkflow2CorrectedXaml_Click(object sender, RoutedEventArgs e)
@@ -883,7 +883,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, Workflow.Schema.Attributes.xaml, Workflow.Schema.Headers.CorrectedXaml, "xml", PerformExportCorrectedToFileAsync);
+            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, Workflow.Schema.Attributes.xaml, Workflow.Schema.Headers.CorrectedXaml, PerformExportCorrectedToFileAsync);
         }
 
         private void mIExportWorkflow1InputParameters_Click(object sender, RoutedEventArgs e)
@@ -895,7 +895,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, Workflow.Schema.Attributes.inputparameters, Workflow.Schema.Headers.inputparameters, "xml", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, Workflow.Schema.Attributes.inputparameters, Workflow.Schema.Headers.inputparameters, PerformExportXmlToFileAsync);
         }
 
         private void mIExportWorkflow1ClientData_Click(object sender, RoutedEventArgs e)
@@ -907,7 +907,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, Workflow.Schema.Attributes.clientdata, Workflow.Schema.Headers.clientdata, "xml", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, Workflow.Schema.Attributes.clientdata, Workflow.Schema.Headers.clientdata, PerformExportXmlToFileAsync);
         }
 
         private void mIExportWorkflow2InputParameters_Click(object sender, RoutedEventArgs e)
@@ -919,7 +919,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, Workflow.Schema.Attributes.inputparameters, Workflow.Schema.Headers.inputparameters, "xml", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, Workflow.Schema.Attributes.inputparameters, Workflow.Schema.Headers.inputparameters, PerformExportXmlToFileAsync);
         }
 
         private void mIExportWorkflow2ClientData_Click(object sender, RoutedEventArgs e)
@@ -931,7 +931,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, Workflow.Schema.Attributes.clientdata, Workflow.Schema.Headers.clientdata, "xml", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, Workflow.Schema.Attributes.clientdata, Workflow.Schema.Headers.clientdata, PerformExportXmlToFileAsync);
         }
 
         private void mIExportWorkflow1UIData_Click(object sender, RoutedEventArgs e)
@@ -943,7 +943,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, Workflow.Schema.Attributes.uidata, Workflow.Schema.Headers.uidata, "json", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, Workflow.Schema.Attributes.uidata, Workflow.Schema.Headers.uidata, PerformExportXmlToFileAsync);
         }
 
         private void mIExportWorkflow2UIData_Click(object sender, RoutedEventArgs e)
@@ -955,10 +955,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, Workflow.Schema.Attributes.uidata, Workflow.Schema.Headers.uidata, "json", PerformExportXmlToFileAsync);
+            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, Workflow.Schema.Attributes.uidata, Workflow.Schema.Headers.uidata, PerformExportXmlToFileAsync);
         }
 
-        private void ExecuteActionEntity(Guid idWorflow, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, string extension, Func<Guid, Func<Task<IOrganizationServiceExtented>>, string, string, string, Task> action)
+        private void ExecuteActionEntity(Guid idWorflow, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, Func<Guid, Func<Task<IOrganizationServiceExtented>>, string, string, Task> action)
         {
             if (!this.IsControlsEnabled)
             {
@@ -976,10 +976,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
-            action(idWorflow, getService, fieldName, fieldTitle, extension);
+            action(idWorflow, getService, fieldName, fieldTitle);
         }
 
-        private async Task PerformExportXmlToFileAsync(Guid idWorflow, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, string extension)
+        private async Task PerformExportXmlToFileAsync(Guid idWorflow, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle)
         {
             if (!this.IsControlsEnabled)
             {
@@ -1002,6 +1002,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = workflow.GetAttributeValue<string>(fieldName);
 
+                string extension = "json";
+
+                if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                {
+                    extension = "xml";
+
+                    xmlContent = doc.ToString();
+                }
+
                 string filePath = await CreateFileAsync(service.ConnectionData, entityName, category, name, fieldTitle, extension, xmlContent);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
@@ -1010,7 +1019,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ToggleControls(true, Properties.WindowStatusStrings.ExportingXmlFieldToFileCompletedFormat1, fieldTitle);
         }
 
-        private async Task PerformExportCorrectedToFileAsync(Guid idWorflow, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, string extension)
+        private async Task PerformExportCorrectedToFileAsync(Guid idWorflow, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle)
         {
             if (!this.IsControlsEnabled)
             {
@@ -1029,15 +1038,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = workflow.GetAttributeValue<string>(fieldName);
 
-                var replacer1 = new LabelReplacer(await TranslationRepository.GetDefaultTranslationFromCacheAsync(service.ConnectionData.ConnectionId, service));
+                var replacer = new LabelReplacer(await TranslationRepository.GetDefaultTranslationFromCacheAsync(service.ConnectionData.ConnectionId, service));
 
-                xmlContent = ContentCoparerHelper.ClearXml(xmlContent, replacer1.FullfillLabelsForWorkflow, ContentCoparerHelper.RenameClasses, WorkflowUsedEntitiesHandler.ReplaceGuids);
+                xmlContent = ContentCoparerHelper.GetCorrectedXaml(xmlContent, replacer);
 
                 string entityName = workflow.PrimaryEntity;
                 string name = workflow.Name;
                 workflow.FormattedValues.TryGetValue(Workflow.Schema.Attributes.category, out var category);
 
-                string filePath = await CreateFileAsync(service.ConnectionData, entityName, category, name, Workflow.Schema.Headers.CorrectedXaml, extension, xmlContent);
+                string filePath = await CreateFileAsync(service.ConnectionData, entityName, category, name, Workflow.Schema.Headers.CorrectedXaml, "xml", xmlContent);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
