@@ -1,0 +1,1132 @@
+Entity: account
+Form Type: Main
+Form Name: Account
+FormId: 8448b78f-8f42-454e-8e2a-f8196b0419af
+
+
+
+FormLibraries:
+    gbc_/js/entityscripts/account/account.entitymetadata.generated.js
+    gbc_common.js
+
+
+
+
+Events:
+    Form                           name="onload"                 active="true"    application="true"    XPath="//form/events/event"
+        LibraryName                                         FunctionName                            Enabled
+        AppCommon/Account/Account_main_system_library.js    AppCommon.Account.Instance.ra_onload    true
+
+    attribute="parentaccountid"    name="setadditionalparams"    active="true"    application="true"    XPath="//form/tabs/tab/columns/column/sections/section/rows/row/cell/events/event"
+        LibraryName                                         FunctionName                                                      Enabled    PassExecutionContext
+        AppCommon/Account/Account_main_system_library.js    AppCommon.Account.Instance.parentaccountid_setadditionalparams    true       true
+
+
+
+
+
+Tabs and Sections
+    Name                         ShowLabel    Visible    Expanded    Label English - United States - 1033
+    header                       true         true
+    SUMMARY_TAB                  true         true       true        Summary
+        ACCOUNT_INFORMATION      true         true                   ACCOUNT INFORMATION
+        ADDRESS                  true         true                   ADDRESS
+        MapSection               false        true
+        SOCIAL_PANE_TAB          false        true                   SOCIAL PANE
+        Summary_section_6        false        true                   Assistant
+        SUMMARY_TAB_section_6    false        true                   Section
+    DETAILS_TAB                  true         true       true        Details
+        COMPANY_PROFILE          true         true                   COMPANY PROFILE
+        DETAILS_TAB_section_6    true         true                   Description
+        MARKETING                true         true                   MARKETING
+        CONTACT_PREFERENCES      true         true                   CONTACT PREFERENCES
+        BILLING                  true         true                   BILLING
+        SHIPPING                 true         true                   SHIPPING
+        ChildAccounts            true         true                   CHILD ACCOUNTS
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+Tabs, Sections and Controls
+    Name                                   ControlType       Attribute                      ShowLabel    Visible    Disabled    Label English - United States - 1033    AttributeType    Type                         DisplayName English - United States - 1033    DisplayName Russian - 1049
+    header                                 Header                                           true         true
+            header_revenue                 money             revenue                        true         true       false       Annual Revenue                          Money            MoneyAttributeMetadata       Annual Revenue                                Годовой доход
+            header_numberofemployees       integer           numberofemployees              true         true       false       Number of Employees                     Integer          IntegerAttributeMetadata     Number of Employees                           Количество сотрудников
+            header_ownerid                 lookup            ownerid                        true         true       false       Owner                                   Owner            LookupAttributeMetadata      Owner                                         Ответственный
+    SUMMARY_TAB                            Tab                                              true         true                   Summary
+        ACCOUNT_INFORMATION                Section                                          true         true                   ACCOUNT INFORMATION
+            name                           string            name                           true         true       false       Account Name                            String           StringAttributeMetadata      Account Name                                  Название организации
+            telephone1                     string            telephone1                     true         true       false       Phone                                   String           StringAttributeMetadata      Main Phone                                    Основной телефон
+            fax                            string            fax                            true         true       false       Fax                                     String           StringAttributeMetadata      Fax                                           Факс
+            websiteurl                     UnknownControl    websiteurl                     true         true       false       Website                                 String           StringAttributeMetadata      Website                                       Веб-сайт
+            parentaccountid                lookup            parentaccountid                true         true       false       Parent Account                          Lookup           LookupAttributeMetadata      Parent Account                                Головная организация
+            tickersymbol                   UnknownControl    tickersymbol                   true         true       false       Ticker Symbol                           String           StringAttributeMetadata      Ticker Symbol                                 Тикер
+        ADDRESS                            Section                                          true         true                   ADDRESS
+            address1_composite             multistring       address1_composite             false        true       false       Address 1                               Memo             MemoAttributeMetadata        Address 1                                     Адрес 1
+        MapSection                         Section                                          false        true
+            mapcontrol                     UnknownControl                                   false        true       false       Map View
+        SOCIAL_PANE_TAB                    Section                                          false        true                   SOCIAL PANE
+            notescontrol                   NotesControl                                     false        true       false
+        Summary_section_6                  Section                                          false        true                   Assistant
+            ActionCards                    UnknownControl                                   false        true       false       Assistant
+        SUMMARY_TAB_section_6              Section                                          false        true                   Section
+            primarycontactid               lookup            primarycontactid               true         true       false       Primary Contact                         Lookup           LookupAttributeMetadata      Primary Contact                               Основной контакт
+            contactquickform               QuickViewForm     primarycontactid               false        true       false       Primary Contact                         Lookup           LookupAttributeMetadata      Primary Contact                               Основной контакт
+            Contacts                       SubGrid                                          true         true       false       CONTACTS
+            accountopportunitiesgrid       SubGrid                                          true         true       false       RECENT OPPORTUNITIES
+            accountcasessgrid              SubGrid                                          true         true       false       RECENT CASES
+            subgrid_Entitlement            SubGrid                                          true         true       false       ACTIVE ENTITLEMENTS
+    DETAILS_TAB                            Tab                                              true         true                   Details
+        COMPANY_PROFILE                    Section                                          true         true                   COMPANY PROFILE
+            industrycode                   optionset         industrycode                   true         true       false       Industry                                Picklist         PicklistAttributeMetadata    Industry                                      Отрасль
+            sic                            string            sic                            true         true       false       SIC Code                                String           StringAttributeMetadata      SIC Code                                      Код отрасли
+            ownershipcode                  optionset         ownershipcode                  true         true       false       Ownership                               Picklist         PicklistAttributeMetadata    Ownership                                     Тип собственности
+        DETAILS_TAB_section_6              Section                                          true         true                   Description
+            description                    multistring       description                    false        true       false       Description                             Memo             MemoAttributeMetadata        Description                                   Описание
+        MARKETING                          Section                                          true         true                   MARKETING
+            originatingleadid              lookup            originatingleadid              true         true       false       Originating Lead                        Lookup           LookupAttributeMetadata      Originating Lead                              Источник интереса
+            lastusedincampaign             date              lastusedincampaign             true         true       true        Last Campaign Date                      DateTime         DateTimeAttributeMetadata    Last Date Included in Campaign                Последняя дата, включенная в кампанию
+            donotsendmm                    boolean           donotsendmm                    true         true       false       Marketing Materials                     Boolean          BooleanAttributeMetadata     Send Marketing Materials                      Отправка маркетинговых материалов
+        CONTACT_PREFERENCES                Section                                          true         true                   CONTACT PREFERENCES
+            preferredcontactmethodcode     optionset         preferredcontactmethodcode     true         true       false       Contact Method                          Picklist         PicklistAttributeMetadata    Preferred Method of Contact                   Предпочтительный способ связи
+            donotemail                     boolean           donotemail                     true         true       false       Email                                   Boolean          BooleanAttributeMetadata     Do not allow Emails                           Запретить электронную почту
+            followemail                    boolean           followemail                    true         true       false       Follow Email                            Boolean          BooleanAttributeMetadata     Follow Email Activity                         Действие отслеживания эл. почты
+            donotbulkemail                 boolean           donotbulkemail                 true         true       false       Bulk Email                              Boolean          BooleanAttributeMetadata     Do not allow Bulk Emails                      Запретить рассылку по электронной почте
+            donotphone                     boolean           donotphone                     true         true       false       Phone                                   Boolean          BooleanAttributeMetadata     Do not allow Phone Calls                      Запретить звонки
+            donotfax                       boolean           donotfax                       true         true       false       Fax                                     Boolean          BooleanAttributeMetadata     Do not allow Faxes                            Запретить факсы
+            donotpostalmail                boolean           donotpostalmail                true         true       false       Mail                                    Boolean          BooleanAttributeMetadata     Do not allow Mails                            Запретить почту
+        BILLING                            Section                                          true         true                   BILLING
+            transactioncurrencyid          lookup            transactioncurrencyid          true         true       false       Currency                                Lookup           LookupAttributeMetadata      Currency                                      Валюта
+            creditlimit                    money             creditlimit                    true         true       false       Credit Limit                            Money            MoneyAttributeMetadata       Credit Limit                                  Кредитный лимит
+            creditonhold                   boolean           creditonhold                   true         true       false       Credit Hold                             Boolean          BooleanAttributeMetadata     Credit Hold                                   Возможность кредита
+            paymenttermscode               optionset         paymenttermscode               true         true       false       Payment Terms                           Picklist         PicklistAttributeMetadata    Payment Terms                                 Условия оплаты
+        SHIPPING                           Section                                          true         true                   SHIPPING
+            address1_shippingmethodcode    optionset         address1_shippingmethodcode    true         true       false       Shipping Method                         Picklist         PicklistAttributeMetadata    Address 1: Shipping Method                    Адрес 1: способ доставки
+            address1_freighttermscode      optionset         address1_freighttermscode      true         true       false       Freight Terms                           Picklist         PicklistAttributeMetadata    Address 1: Freight Terms                      Адрес 1: условия поставки
+        ChildAccounts                      Section                                          true         true                   CHILD ACCOUNTS
+            ChildAccounts                  SubGrid                                          false        true       false       Child Accounts
+
+
+
+Hidden Attributes:
+address1_addressid
+address2_addressid
+
+
+
+Controls without attributes:
+
+
+    ControlName="mapcontrol",    location="SUMMARY_TAB.MapSection",    visible="true",    disabled="false",    ControlType="UnknownControl",    ClassId="{62B0DF79-0464-470F-8AF7-4483CFEA0C7D}",    CellId="{7c550a71-c8f5-469b-a221-cc4563525b70}"
+        Label description="Map View",    languagecode="English - United States - 1033"
+            Parameters
+              AddressField = address1_composite
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    ControlName="notescontrol",    location="SUMMARY_TAB.SOCIAL_PANE_TAB",    visible="true",    disabled="false",    ControlType="NotesControl",    ClassId="{06375649-c143-495e-a496-c962e5b4488e}",    CellId="{7e87ab43-7321-21c7-5704-24c5c38000c6}"
+        Label description="",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    ControlName="ActionCards",    location="SUMMARY_TAB.Summary_section_6",    visible="true",    disabled="false",    ControlType="UnknownControl",    ClassId="{F9A8A302-114E-466A-B582-6771B2AE0D92}",    CellId="{2D126B5E-B0BB-436D-A8B3-B8A7C6E1F5A9}"
+        Label description="Assistant",    languagecode="English - United States - 1033"
+            Parameters
+              ViewId = {92AFD454-0F2E-4397-A1C8-05E37C6AD699} 'actioncard' 'ActionCard Dashboard'
+              IsUserView = false
+              RelationshipName = 
+              TargetEntityType = actioncard
+              AutoExpand = Fixed
+              EnableViewPicker = false
+              EnableJumpBar = false
+              ChartGridMode = All
+              VisualizationId = 
+              IsUserChart = false
+              EnableChartPicker = false
+              RecordsPerPage = 4
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    ControlName="Contacts",    location="SUMMARY_TAB.SUMMARY_TAB_section_6",    visible="true",    disabled="false",    ControlType="SubGrid",    ClassId="{E7A81278-8635-4d9e-8D4D-59480B391C5B}",    CellId="{8e24c7e3-6a40-5abb-eadb-254eba5478e2}"
+        Label description="CONTACTS",    languagecode="English - United States - 1033"
+            Parameters
+              ViewId = {73BC2D9B-4E0E-424C-8839-ED59D6817E3A} 'contact' 'Active Contacts Subgrid View'
+              IsUserView = false
+              RelationshipName = contact_customer_accounts
+              TargetEntityType = contact
+              AutoExpand = Auto
+              EnableQuickFind = false
+              EnableViewPicker = false
+              ViewIds = 
+              EnableJumpBar = false
+              ChartGridMode = Grid
+              VisualizationId = 
+              IsUserChart = false
+              EnableChartPicker = false
+              RecordsPerPage = 6
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    ControlName="accountopportunitiesgrid",    location="SUMMARY_TAB.SUMMARY_TAB_section_6",    visible="true",    disabled="false",    ControlType="SubGrid",    ClassId="{E7A81278-8635-4d9e-8D4D-59480B391C5B}",    CellId="{245158ED-C47A-4BB5-AAC7-E8C96A655801}"
+        Label description="RECENT OPPORTUNITIES",    languagecode="English - United States - 1033"
+            Parameters
+              ViewId = {9C3F7EE8-ECA7-E211-9FB6-00155DD0EA05} 'opportunity' 'Recent Opportunities'
+              RelationshipName = opportunity_customer_accounts
+              TargetEntityType = opportunity
+              AutoExpand = Fixed
+              EnableQuickFind = false
+              EnableViewPicker = false
+              EnableJumpBar = false
+              EnableChartPicker = false
+              RecordsPerPage = 5
+              IsUserView = false
+              ViewIds = {00000000-0000-0000-00AA-000010003000} 'opportunity' 'My Open Opportunities', {9C3F7EE8-ECA7-E211-9FB6-00155DD0EA05} 'opportunity' 'Recent Opportunities'
+              ChartGridMode = Grid
+              VisualizationId = {8BC5FB18-48F2-4782-9E16-3D452FA4DDCE} 'opportunity' 'Top Customers'
+              IsUserChart = false
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    ControlName="accountcasessgrid",    location="SUMMARY_TAB.SUMMARY_TAB_section_6",    visible="true",    disabled="false",    ControlType="SubGrid",    ClassId="{E7A81278-8635-4d9e-8D4D-59480B391C5B}",    CellId="{3E27EE84-1A25-418B-85F5-CDCC7CD5918D}"
+        Label description="RECENT CASES",    languagecode="English - United States - 1033"
+            Parameters
+              TargetEntityType = incident
+              ViewId = {00000000-0000-0000-00AA-000010001039} 'incident' 'All Cases for Customer'
+              RelationshipName = incident_customer_accounts
+              AutoExpand = Fixed
+              EnableQuickFind = false
+              EnableViewPicker = false
+              EnableJumpBar = false
+              EnableChartPicker = false
+              RecordsPerPage = 5
+              EnableContextualActions = true
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    ControlName="subgrid_Entitlement",    location="SUMMARY_TAB.SUMMARY_TAB_section_6",    visible="true",    disabled="false",    ControlType="SubGrid",    ClassId="{E7A81278-8635-4d9e-8D4D-59480B391C5B}",    CellId="{2c745e48-587d-beb8-297d-055b604013b2}"
+        Label description="ACTIVE ENTITLEMENTS",    languagecode="English - United States - 1033"
+            Parameters
+              ViewId = {961bf8aa-042f-4f4d-bcca-935bfc9a6994} 'entitlement' 'Account Entitlements'
+              IsUserView = false
+              RelationshipName = account_entitlement_Customer
+              TargetEntityType = entitlement
+              AutoExpand = Auto
+              EnableQuickFind = false
+              EnableViewPicker = false
+              EnableJumpBar = false
+              ChartGridMode = Grid
+              VisualizationId = 
+              IsUserChart = false
+              EnableChartPicker = false
+              RecordsPerPage = 6
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    ControlName="ChildAccounts",    location="DETAILS_TAB.ChildAccounts",    visible="true",    disabled="false",    ControlType="SubGrid",    ClassId="{E7A81278-8635-4d9e-8D4D-59480B391C5B}",    CellId="{8b1d7a7a-972c-78c1-d287-82ec5b33d167}"
+        Label description="Child Accounts",    languagecode="English - United States - 1033"
+            Parameters
+              ViewId = {00000000-0000-0000-00AA-000010001002} 'account' 'Active Accounts'
+              IsUserView = false
+              RelationshipName = account_parent_account
+              TargetEntityType = account
+              AutoExpand = Fixed
+              EnableQuickFind = false
+              EnableViewPicker = false
+              ViewIds = {00000000-0000-0000-00AA-000010001002} 'account' 'Active Accounts', {00000000-0000-0000-00AA-000010001001} 'account' 'My Active Accounts'
+              EnableJumpBar = false
+              ChartGridMode = Grid
+              VisualizationId = {74A622C0-5193-DE11-97D4-00155DA3B01E} 'account' 'Accounts by Industry'
+              IsUserChart = false
+              EnableChartPicker = false
+              RecordsPerPage = 4
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+Attributes on form:
+    address1_composite
+    address1_freighttermscode
+    address1_shippingmethodcode
+    creditlimit
+    creditonhold
+    description
+    donotbulkemail
+    donotemail
+    donotfax
+    donotphone
+    donotpostalmail
+    donotsendmm
+    fax
+    followemail
+    industrycode
+    lastusedincampaign
+    name
+    numberofemployees
+    originatingleadid
+    ownerid
+    ownershipcode
+    parentaccountid
+    paymenttermscode
+    preferredcontactmethodcode
+    primarycontactid
+    revenue
+    sic
+    telephone1
+    tickersymbol
+    transactioncurrencyid
+    websiteurl
+
+
+
+Attributes full information:
+
+
+address1_composite
+    // DisplayName:
+    //     (English - United States - 1033): Address 1
+    //     (Russian - 1049): Адрес 1
+    // 
+    // Description:
+    //     (English - United States - 1033): Shows the complete primary address.
+    //     (Russian - 1049): Показывает полный основной адрес.
+    // 
+    // SchemaName: Address1_Composite
+    // MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: False    IsValidForUpdate: False
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+    // MaxLength = 1000
+    // Format = TextArea    ImeMode = Active    IsLocalizable = False
+
+    ControlName="address1_composite",    location="SUMMARY_TAB.ADDRESS",    visible="true",    disabled="false",    ControlType="multistring",    ClassId="{E0DECE4B-6FC8-4a8f-A065-082708572369}",    CellId="{4913500e-605a-809b-e99e-69e2710d09bd}"
+        Label description="Address 1",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+address1_freighttermscode
+    // DisplayName:
+    //     (English - United States - 1033): Address 1: Freight Terms
+    //     (Russian - 1049): Адрес 1: условия поставки
+    // 
+    // Description:
+    //     (English - United States - 1033): Select the freight terms for the primary address to make sure shipping orders are processed correctly.
+    //     (Russian - 1049): Выберите условия поставки для основного адреса, чтобы заказы на поставку обрабатывались правильно.
+    // 
+    // SchemaName: Address1_FreightTermsCode
+    // PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+    // Local System  Managed OptionSet account_address1_freighttermscode <see cref="OptionSets.address1_freighttermscode"/>
+    // DefaultFormValue = -1
+
+    ControlName="address1_freighttermscode",    location="DETAILS_TAB.SHIPPING",    visible="true",    disabled="false",    ControlType="optionset",    ClassId="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}",    CellId="{02719696-a5da-b791-48c3-4e8cb8b110d5}"
+        Label description="Freight Terms",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+address1_shippingmethodcode
+    // DisplayName:
+    //     (English - United States - 1033): Address 1: Shipping Method
+    //     (Russian - 1049): Адрес 1: способ доставки
+    // 
+    // Description:
+    //     (English - United States - 1033): Select a shipping method for deliveries sent to this address.
+    //     (Russian - 1049): Выберите метод поставки для доставок по этому адресу.
+    // 
+    // SchemaName: Address1_ShippingMethodCode
+    // PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: True    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+    // Local System  Managed OptionSet account_address1_shippingmethodcode <see cref="OptionSets.address1_shippingmethodcode"/>
+    // DefaultFormValue = -1
+
+    ControlName="address1_shippingmethodcode",    location="DETAILS_TAB.SHIPPING",    visible="true",    disabled="false",    ControlType="optionset",    ClassId="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}",    CellId="{4d2e776d-7d85-c51b-3900-1ae7323b0a6b}"
+        Label description="Shipping Method",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+creditlimit
+    // DisplayName:
+    //     (English - United States - 1033): Credit Limit
+    //     (Russian - 1049): Кредитный лимит
+    // 
+    // Description:
+    //     (English - United States - 1033): Type the credit limit of the account. This is a useful reference when you address invoice and accounting issues with the customer.
+    //     (Russian - 1049): Введите кредитный лимит организации. Он будет полезен при решении связанных со счетами и бухгалтерским учетом вопросов по данному клиенту.
+    // 
+    // SchemaName: CreditLimit
+    // MoneyAttributeMetadata    AttributeType: Money    AttributeTypeName: MoneyType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+    // MinValue = 0    MaxValue = 100000000000000    Precision = 2    PrecisionSource = 2
+    // IsBaseCurrency = False
+    // ImeMode = Disabled
+
+    ControlName="creditlimit",    location="DETAILS_TAB.BILLING",    visible="true",    disabled="false",    ControlType="money",    ClassId="{533B9E00-756B-4312-95A0-DC888637AC78}",    CellId="{0125719c-a5b0-4230-9817-3fba5d6ebfaf}"
+        Label description="Credit Limit",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+creditonhold
+    // DisplayName:
+    //     (English - United States - 1033): Credit Hold
+    //     (Russian - 1049): Возможность кредита
+    // 
+    // Description:
+    //     (English - United States - 1033): Select whether the credit for the account is on hold. This is a useful reference while addressing the invoice and accounting issues with the customer.
+    //     (Russian - 1049): Укажите, приостановлен ли кредит для организации. Это полезная информация при решении связанных со счетами и бухгалтерским учетом вопросов по данному клиенту.
+    // 
+    // SchemaName: CreditOnHold
+    // BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+    // DefaultValue = False
+    // 
+    // DisplayName:
+    //     (English - United States - 1033): No
+    //     (Russian - 1049): Нет
+    // FalseOption = 0
+    // 
+    // DisplayName:
+    //     (English - United States - 1033): Yes
+    //     (Russian - 1049): Да
+    // TrueOption = 1
+
+    ControlName="creditonhold",    location="DETAILS_TAB.BILLING",    visible="true",    disabled="false",    ControlType="boolean",    ClassId="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}",    CellId="{abc2c862-bcd4-4a4b-ac51-c311d4e66d5b}"
+        Label description="Credit Hold",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+description
+    // DisplayName:
+    //     (English - United States - 1033): Description
+    //     (Russian - 1049): Описание
+    // 
+    // Description:
+    //     (English - United States - 1033): Type additional information to describe the account, such as an excerpt from the company's website.
+    //     (Russian - 1049): Введите дополнительные сведения, описывающие организацию, например отрывок из описания на веб-сайте компании.
+    // 
+    // SchemaName: Description
+    // MemoAttributeMetadata    AttributeType: Memo    AttributeTypeName: MemoType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+    // MaxLength = 2000
+    // Format = TextArea    ImeMode = Auto    IsLocalizable = False
+
+    ControlName="description",    location="DETAILS_TAB.DETAILS_TAB_section_6",    visible="true",    disabled="false",    ControlType="multistring",    ClassId="{E0DECE4B-6FC8-4a8f-A065-082708572369}",    CellId="{a4a726a2-8e3e-79d0-02c3-0a04a6b71089}"
+        Label description="Description",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+donotbulkemail
+    // DisplayName:
+    //     (English - United States - 1033): Do not allow Bulk Emails
+    //     (Russian - 1049): Запретить рассылку по электронной почте
+    // 
+    // Description:
+    //     (English - United States - 1033): Select whether the account allows bulk email sent through campaigns. If Do Not Allow is selected, the account can be added to marketing lists, but is excluded from email.
+    //     (Russian - 1049): Укажите, разрешена ли для организации массовая рассылка электронной почты при кампаниях. Если выбран вариант "Запретить", организацию можно добавлять в маркетинговые списки, но она исключается из рассылок электронной почты.
+    // 
+    // SchemaName: DoNotBulkEMail
+    // BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: False
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+    // DefaultValue = False
+    // 
+    // DisplayName:
+    //     (English - United States - 1033): Allow
+    //     (Russian - 1049): Разрешить
+    // FalseOption = 0
+    // 
+    // DisplayName:
+    //     (English - United States - 1033): Do Not Allow
+    //     (Russian - 1049): Запретить
+    // TrueOption = 1
+
+    ControlName="donotbulkemail",    location="DETAILS_TAB.CONTACT_PREFERENCES",    visible="true",    disabled="false",    ControlType="boolean",    ClassId="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}",    CellId="{cfa09fa5-ccb6-4f97-bd8d-d7e037a7aab1}"
+        Label description="Bulk Email",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+donotemail
+    // DisplayName:
+    //     (English - United States - 1033): Do not allow Emails
+    //     (Russian - 1049): Запретить электронную почту
+    // 
+    // Description:
+    //     (English - United States - 1033): Select whether the account allows direct email sent from Microsoft Dynamics 365.
+    //     (Russian - 1049): Укажите, разрешена ли для организации рассылка электронной почты из Microsoft Dynamics 365.
+    // 
+    // SchemaName: DoNotEMail
+    // BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+    // DefaultValue = False
+    // 
+    // DisplayName:
+    //     (English - United States - 1033): Allow
+    //     (Russian - 1049): Разрешить
+    // FalseOption = 0
+    // 
+    // DisplayName:
+    //     (English - United States - 1033): Do Not Allow
+    //     (Russian - 1049): Запретить
+    // TrueOption = 1
+
+    ControlName="donotemail",    location="DETAILS_TAB.CONTACT_PREFERENCES",    visible="true",    disabled="false",    ControlType="boolean",    ClassId="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}",    CellId="{0a536c64-788d-4f22-a388-fbddfdee8142}"
+        Label description="Email",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+donotfax
+    // DisplayName:
+    //     (English - United States - 1033): Do not allow Faxes
+    //     (Russian - 1049): Запретить факсы
+    // 
+    // Description:
+    //     (English - United States - 1033): Select whether the account allows faxes. If Do Not Allow is selected, the account will be excluded from fax activities distributed in marketing campaigns.
+    //     (Russian - 1049): Укажите, разрешена ли для организации отправка факсов. Если выбран вариант "Запретить", организация исключается из действий по рассылке факсов при маркетинговых кампаниях.
+    // 
+    // SchemaName: DoNotFax
+    // BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+    // DefaultValue = False
+    // 
+    // DisplayName:
+    //     (English - United States - 1033): Allow
+    //     (Russian - 1049): Разрешить
+    // FalseOption = 0
+    // 
+    // DisplayName:
+    //     (English - United States - 1033): Do Not Allow
+    //     (Russian - 1049): Запретить
+    // TrueOption = 1
+
+    ControlName="donotfax",    location="DETAILS_TAB.CONTACT_PREFERENCES",    visible="true",    disabled="false",    ControlType="boolean",    ClassId="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}",    CellId="{12927a20-3614-4546-89fc-9bdbd9b7432f}"
+        Label description="Fax",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+donotphone
+    // DisplayName:
+    //     (English - United States - 1033): Do not allow Phone Calls
+    //     (Russian - 1049): Запретить звонки
+    // 
+    // Description:
+    //     (English - United States - 1033): Select whether the account allows phone calls. If Do Not Allow is selected, the account will be excluded from phone call activities distributed in marketing campaigns.
+    //     (Russian - 1049): Укажите, разрешены ли для организации телефонные звонки. Если выбран вариант "Запретить", организация исключается из действий с телефонными звонками при маркетинговых кампаниях.
+    // 
+    // SchemaName: DoNotPhone
+    // BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+    // DefaultValue = False
+    // 
+    // DisplayName:
+    //     (English - United States - 1033): Allow
+    //     (Russian - 1049): Разрешить
+    // FalseOption = 0
+    // 
+    // DisplayName:
+    //     (English - United States - 1033): Do Not Allow
+    //     (Russian - 1049): Запретить
+    // TrueOption = 1
+
+    ControlName="donotphone",    location="DETAILS_TAB.CONTACT_PREFERENCES",    visible="true",    disabled="false",    ControlType="boolean",    ClassId="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}",    CellId="{f587cb66-b142-47c9-bc7a-009875261840}"
+        Label description="Phone",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+donotpostalmail
+    // DisplayName:
+    //     (English - United States - 1033): Do not allow Mails
+    //     (Russian - 1049): Запретить почту
+    // 
+    // Description:
+    //     (English - United States - 1033): Select whether the account allows direct mail. If Do Not Allow is selected, the account will be excluded from letter activities distributed in marketing campaigns.
+    //     (Russian - 1049): Укажите, разрешена ли для организации прямая рассылка. Если выбран вариант "Запретить", организация исключается из действий по рассылке писем при маркетинговых кампаниях.
+    // 
+    // SchemaName: DoNotPostalMail
+    // BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+    // DefaultValue = False
+    // 
+    // DisplayName:
+    //     (English - United States - 1033): Allow
+    //     (Russian - 1049): Разрешить
+    // FalseOption = 0
+    // 
+    // DisplayName:
+    //     (English - United States - 1033): Do Not Allow
+    //     (Russian - 1049): Запретить
+    // TrueOption = 1
+
+    ControlName="donotpostalmail",    location="DETAILS_TAB.CONTACT_PREFERENCES",    visible="true",    disabled="false",    ControlType="boolean",    ClassId="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}",    CellId="{ed50e866-7968-483d-8388-0e6313d3c784}"
+        Label description="Mail",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+donotsendmm
+    // DisplayName:
+    //     (English - United States - 1033): Send Marketing Materials
+    //     (Russian - 1049): Отправка маркетинговых материалов
+    // 
+    // Description:
+    //     (English - United States - 1033): Select whether the account accepts marketing materials, such as brochures or catalogs.
+    //     (Russian - 1049): Укажите, принимает ли организация маркетинговые материалы, такие как брошюры или каталоги.
+    // 
+    // SchemaName: DoNotSendMM
+    // BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+    // DefaultValue = False
+    // 
+    // DisplayName:
+    //     (English - United States - 1033): Send
+    //     (Russian - 1049): Отправить
+    // FalseOption = 0
+    // 
+    // DisplayName:
+    //     (English - United States - 1033): Do Not Send
+    //     (Russian - 1049): Не отправлять
+    // TrueOption = 1
+
+    ControlName="donotsendmm",    location="DETAILS_TAB.MARKETING",    visible="true",    disabled="false",    ControlType="boolean",    ClassId="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}",    CellId="{0013a9f1-6d23-4080-87a8-f040e1c673fb}"
+        Label description="Marketing Materials",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+fax
+    // DisplayName:
+    //     (English - United States - 1033): Fax
+    //     (Russian - 1049): Факс
+    // 
+    // Description:
+    //     (English - United States - 1033): Type the fax number for the account.
+    //     (Russian - 1049): Введите номер факса для организации.
+    // 
+    // SchemaName: Fax
+    // StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+    // MaxLength = 50
+    // Format = Text    ImeMode = Inactive    IsLocalizable = False
+
+    ControlName="fax",    location="SUMMARY_TAB.ACCOUNT_INFORMATION",    visible="true",    disabled="false",    ControlType="string",    ClassId="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}",    CellId="{8b98a55e-a345-b20e-d46e-801e79d5c1c1}"
+        Label description="Fax",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+followemail
+    // DisplayName:
+    //     (English - United States - 1033): Follow Email Activity
+    //     (Russian - 1049): Действие отслеживания эл. почты
+    // 
+    // Description:
+    //     (English - United States - 1033): Information about whether to allow following email activity like opens, attachment views and link clicks for emails sent to the account.
+    //     (Russian - 1049): Сведения о том, разрешены ли действия отслеживания электронной почты, такие как открытия, просмотры вложений и щелчки по ссылкам для сообщений эл. почты, отправленных организации.
+    // 
+    // SchemaName: FollowEmail
+    // BooleanAttributeMetadata    AttributeType: Boolean    AttributeTypeName: BooleanType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+    // DefaultValue = True
+    // 
+    // DisplayName:
+    //     (English - United States - 1033): Do Not Allow
+    //     (Russian - 1049): Запретить
+    // FalseOption = 0
+    // 
+    // DisplayName:
+    //     (English - United States - 1033): Allow
+    //     (Russian - 1049): Разрешить
+    // TrueOption = 1
+
+    ControlName="followemail",    location="DETAILS_TAB.CONTACT_PREFERENCES",    visible="true",    disabled="false",    ControlType="boolean",    ClassId="{67FAC785-CD58-4f9f-ABB3-4B7DDC6ED5ED}",    CellId="{82b8410d-3b9c-4aca-9968-6b3e493ef92e}"
+        Label description="Follow Email",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+industrycode
+    // DisplayName:
+    //     (English - United States - 1033): Industry
+    //     (Russian - 1049): Отрасль
+    // 
+    // Description:
+    //     (English - United States - 1033): Select the account's primary industry for use in marketing segmentation and demographic analysis.
+    //     (Russian - 1049): Выберите основную отрасль организации, которая будет использоваться при маркетинговом сегментировании и демографическом анализе.
+    // 
+    // SchemaName: IndustryCode
+    // PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+    // Local System  Managed OptionSet account_industrycode <see cref="OptionSets.industrycode"/>
+    // DefaultFormValue = -1
+
+    ControlName="industrycode",    location="DETAILS_TAB.COMPANY_PROFILE",    visible="true",    disabled="false",    ControlType="optionset",    ClassId="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}",    CellId="{59782911-4d1a-38dc-ce49-7dae620dbc51}"
+        Label description="Industry",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+lastusedincampaign
+    // DisplayName:
+    //     (English - United States - 1033): Last Date Included in Campaign
+    //     (Russian - 1049): Последняя дата, включенная в кампанию
+    // 
+    // Description:
+    //     (English - United States - 1033): Shows the date when the account was last included in a marketing campaign or quick campaign.
+    //     (Russian - 1049): Показывает дату последнего включения организации в маркетинговую кампанию или быструю кампанию.
+    // 
+    // SchemaName: LastUsedInCampaign
+    // DateTimeAttributeMetadata    AttributeType: DateTime    AttributeTypeName: DateTimeType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: False    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+    // DateTimeBehavior = UserLocal    CanChangeDateTimeBehavior = False
+    // ImeMode = Inactive    Format = DateOnly
+
+    ControlName="lastusedincampaign",    location="DETAILS_TAB.MARKETING",    visible="true",    disabled="true",    ControlType="date",    ClassId="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}",    CellId="{86b0d247-2f08-455c-a135-91f73860575d}"
+        Label description="Last Campaign Date",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+name
+    // DisplayName:
+    //     (English - United States - 1033): Account Name
+    //     (Russian - 1049): Название организации
+    // 
+    // Description:
+    //     (English - United States - 1033): Type the company or business name.
+    //     (Russian - 1049): Введите наименование компании или предприятия.
+    // 
+    // SchemaName: Name
+    // StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: ApplicationRequired    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+    // MaxLength = 160
+    // Format = Text    ImeMode = Active    IsLocalizable = False
+
+    ControlName="name",    location="SUMMARY_TAB.ACCOUNT_INFORMATION",    visible="true",    disabled="false",    ControlType="string",    ClassId="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}",    CellId="{b0e82a7e-5683-d90c-308a-0d779377ea8a}"
+        Label description="Account Name",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+numberofemployees
+    // DisplayName:
+    //     (English - United States - 1033): Number of Employees
+    //     (Russian - 1049): Количество сотрудников
+    // 
+    // Description:
+    //     (English - United States - 1033): Type the number of employees that work at the account for use in marketing segmentation and demographic analysis.
+    //     (Russian - 1049): Введите число сотрудников, работающих в организации, для использования при маркетинговом сегментировании и демографическом анализе.
+    // 
+    // SchemaName: NumberOfEmployees
+    // IntegerAttributeMetadata    AttributeType: Integer    AttributeTypeName: IntegerType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+    // MinValue = 0    MaxValue = 1000000000
+    // Format = None
+
+    ControlName="header_numberofemployees",    location="header",    visible="true",    disabled="false",    ControlType="integer",    ClassId="{C6D124CA-7EDA-4a60-AEA9-7FB8D318B68F}",    CellId="{2adb5a52-604d-5aad-ba6a-2bbab6c33594}"
+        Label description="Number of Employees",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+originatingleadid
+    // DisplayName:
+    //     (English - United States - 1033): Originating Lead
+    //     (Russian - 1049): Источник интереса
+    // 
+    // Description:
+    //     (English - United States - 1033): Shows the lead that the account was created from if the account was created by converting a lead in Microsoft Dynamics 365. This is used to relate the account to data on the originating lead for use in reporting and analytics.
+    //     (Russian - 1049): Отображение интереса, из которого была создана организация, если она создана посредством преобразования интереса в Microsoft Dynamics 365. Эта информация используется для связи организации с данными по исходному интересу для задач отчетности и аналитики.
+    // 
+    // SchemaName: OriginatingLeadId
+    // LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: False
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+    // Targets: lead
+    // 
+    //     Target lead    PrimaryIdAttribute leadid    PrimaryNameAttribute fullname
+    //         DisplayName:
+    //             (English - United States - 1033): Lead
+    //             (Russian - 1049): Интерес
+    //         
+    //         DisplayCollectionName:
+    //             (English - United States - 1033): Leads
+    //             (Russian - 1049): Интересы
+    //         
+    //         Description:
+    //             (English - United States - 1033): Prospect or potential sales opportunity. Leads are converted into accounts, contacts, or opportunities when they are qualified. Otherwise, they are deleted or archived.
+    //             (Russian - 1049): Заинтересованное лицо или потенциальная возможная сделка. Интересы преобразуются в организации, контакты или возможные сделки после их квалификации. В противном случае они удаляются или архивируются.
+
+    ControlName="originatingleadid",    location="DETAILS_TAB.MARKETING",    visible="true",    disabled="false",    ControlType="lookup",    ClassId="{270BD3DB-D9AF-4782-9025-509E298DEC0A}",    CellId="{b9c3d8fd-12a2-4474-b937-43da8Be00e6f}"
+        Label description="Originating Lead",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ownerid
+    // DisplayName:
+    //     (English - United States - 1033): Owner
+    //     (Russian - 1049): Ответственный
+    // 
+    // Description:
+    //     (English - United States - 1033): Enter the user or team who is assigned to manage the record. This field is updated every time the record is assigned to a different user.
+    //     (Russian - 1049): Введите пользователя или рабочую группу, которым назначено управление записью. Это поле обновляется при каждом назначении записи другому пользователю.
+    // 
+    // SchemaName: OwnerId
+    // LookupAttributeMetadata    AttributeType: Owner    AttributeTypeName: OwnerType    RequiredLevel: SystemRequired    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+    // Targets: systemuser,team
+    // 
+    //     Target systemuser    PrimaryIdAttribute systemuserid    PrimaryNameAttribute fullname
+    //         DisplayName:
+    //             (English - United States - 1033): User
+    //             (Russian - 1049): Пользователь
+    //         
+    //         DisplayCollectionName:
+    //             (English - United States - 1033): Users
+    //             (Russian - 1049): Пользователи
+    //         
+    //         Description:
+    //             (English - United States - 1033): Person with access to the Microsoft CRM system and who owns objects in the Microsoft CRM database.
+    //             (Russian - 1049): Пользователь, имеющий доступ к системе Microsoft CRM, которому принадлежат объекты в базе данных Microsoft CRM.
+    // 
+    //     Target team    PrimaryIdAttribute teamid    PrimaryNameAttribute name
+    //         DisplayName:
+    //             (English - United States - 1033): Team
+    //             (Russian - 1049): Рабочая группа
+    //         
+    //         DisplayCollectionName:
+    //             (English - United States - 1033): Teams
+    //             (Russian - 1049): Рабочие группы
+    //         
+    //         Description:
+    //             (English - United States - 1033): Collection of system users that routinely collaborate. Teams can be used to simplify record sharing and provide team members with common access to organization data when team members belong to different Business Units.
+    //             (Russian - 1049): Набор системных пользователей, которые обычно участвуют в совместной работе. Рабочие группы можно использовать для упрощения предоставления участникам группы общего доступа к записям и данным организации, если участники принадлежат к разным бизнес-единицам.
+
+    ControlName="header_ownerid",    location="header",    visible="true",    disabled="false",    ControlType="lookup",    ClassId="{270BD3DB-D9AF-4782-9025-509E298DEC0A}",    CellId="{54b2d0a2-eb77-b3cd-b60a-03ea6944e98e}"
+        Label description="Owner",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ownershipcode
+    // DisplayName:
+    //     (English - United States - 1033): Ownership
+    //     (Russian - 1049): Тип собственности
+    // 
+    // Description:
+    //     (English - United States - 1033): Select the account's ownership structure, such as public or private.
+    //     (Russian - 1049): Введите тип собственности компании - открытый или закрытый.
+    // 
+    // SchemaName: OwnershipCode
+    // PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+    // Local System  Managed OptionSet account_ownershipcode <see cref="OptionSets.ownershipcode"/>
+    // DefaultFormValue = -1
+
+    ControlName="ownershipcode",    location="DETAILS_TAB.COMPANY_PROFILE",    visible="true",    disabled="false",    ControlType="optionset",    ClassId="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}",    CellId="{1c33ad89-92a1-8433-2378-306259eb57c0}"
+        Label description="Ownership",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+parentaccountid
+    // DisplayName:
+    //     (English - United States - 1033): Parent Account
+    //     (Russian - 1049): Головная организация
+    // 
+    // Description:
+    //     (English - United States - 1033): Choose the parent account associated with this account to show parent and child businesses in reporting and analytics.
+    //     (Russian - 1049): Выберите головную организацию, связанную с этой организацией, для правильного отображения родительских и дочерних предприятий в отчетах и аналитике.
+    // 
+    // SchemaName: ParentAccountId
+    // LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+    // Targets: account
+    // 
+    //     Target account    PrimaryIdAttribute accountid    PrimaryNameAttribute name
+    //         DisplayName:
+    //             (English - United States - 1033): Account
+    //             (Russian - 1049): Организация
+    //         
+    //         DisplayCollectionName:
+    //             (English - United States - 1033): Accounts
+    //             (Russian - 1049): Организации
+    //         
+    //         Description:
+    //             (English - United States - 1033): Business that represents a customer or potential customer. The company that is billed in business transactions.
+    //             (Russian - 1049): Компания, представляющая существующего или потенциального клиента. Компания, которой выставляется счет в деловых транзакциях.
+
+    ControlName="parentaccountid",    location="SUMMARY_TAB.ACCOUNT_INFORMATION",    visible="true",    disabled="false",    ControlType="lookup",    ClassId="{270BD3DB-D9AF-4782-9025-509E298DEC0A}",    CellId="{87DE203E-B03C-44CC-8B06-438202B82553}"
+        Label description="Parent Account",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+paymenttermscode
+    // DisplayName:
+    //     (English - United States - 1033): Payment Terms
+    //     (Russian - 1049): Условия оплаты
+    // 
+    // Description:
+    //     (English - United States - 1033): Select the payment terms to indicate when the customer needs to pay the total amount.
+    //     (Russian - 1049): Выберите условия оплаты, чтобы указать, должен ли клиент уплатить всю сумму.
+    // 
+    // SchemaName: PaymentTermsCode
+    // PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+    // Local System  Managed OptionSet account_paymenttermscode <see cref="OptionSets.paymenttermscode"/>
+    // DefaultFormValue = -1
+
+    ControlName="paymenttermscode",    location="DETAILS_TAB.BILLING",    visible="true",    disabled="false",    ControlType="optionset",    ClassId="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}",    CellId="{0bab9157-d14e-441f-969d-80460634c15e}"
+        Label description="Payment Terms",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+preferredcontactmethodcode
+    // DisplayName:
+    //     (English - United States - 1033): Preferred Method of Contact
+    //     (Russian - 1049): Предпочтительный способ связи
+    // 
+    // Description:
+    //     (English - United States - 1033): Select the preferred method of contact.
+    //     (Russian - 1049): Выберите предпочитаемый способ связи.
+    // 
+    // SchemaName: PreferredContactMethodCode
+    // PicklistAttributeMetadata    AttributeType: Picklist    AttributeTypeName: PicklistType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+    // Local System  Managed OptionSet account_preferredcontactmethodcode <see cref="OptionSets.preferredcontactmethodcode"/>
+    // DefaultFormValue = 1
+
+    ControlName="preferredcontactmethodcode",    location="DETAILS_TAB.CONTACT_PREFERENCES",    visible="true",    disabled="false",    ControlType="optionset",    ClassId="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}",    CellId="{e651d783-6c9f-4e8d-981c-c9577e344e7b}"
+        Label description="Contact Method",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+primarycontactid
+    // DisplayName:
+    //     (English - United States - 1033): Primary Contact
+    //     (Russian - 1049): Основной контакт
+    // 
+    // Description:
+    //     (English - United States - 1033): Choose the primary contact for the account to provide quick access to contact details.
+    //     (Russian - 1049): Выберите основной контакт для организации, используемый для быстрого доступа к данным контакта.
+    // 
+    // SchemaName: PrimaryContactId
+    // LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+    // Targets: contact
+    // 
+    //     Target contact    PrimaryIdAttribute contactid    PrimaryNameAttribute fullname
+    //         DisplayName:
+    //             (English - United States - 1033): Contact
+    //             (Russian - 1049): Контакт
+    //         
+    //         DisplayCollectionName:
+    //             (English - United States - 1033): Contacts
+    //             (Russian - 1049): Контакты
+    //         
+    //         Description:
+    //             (English - United States - 1033): Person with whom a business unit has a relationship, such as customer, supplier, and colleague.
+    //             (Russian - 1049): Лицо, с которым бизнес-единица состоит в отношениях (например, клиент, поставщик, коллега).
+
+    ControlName="primarycontactid",    location="SUMMARY_TAB.SUMMARY_TAB_section_6",    visible="true",    disabled="false",    ControlType="lookup",    ClassId="{270BD3DB-D9AF-4782-9025-509E298DEC0A}",    CellId="{b187688c-8410-5990-16ec-e153968ab583}"
+        Label description="Primary Contact",    languagecode="English - United States - 1033"
+            Parameters
+              FilterRelationshipName = contact_customer_accounts
+              DependentAttributeName = contact.parentcustomerid
+              DependentAttributeType = account
+              AllowFilterOff = true
+              AutoResolve = true
+              DisableMru = false
+              DisableQuickFind = false
+              DisableViewPicker = false
+              DefaultViewId = {A2D479C5-53E3-4C69-ADDD-802327E67A0D} 'contact' 'Contacts Lookup View'
+    ControlName="contactquickform",    location="SUMMARY_TAB.SUMMARY_TAB_section_6",    visible="true",    disabled="false",    ControlType="QuickViewForm",    ClassId="{5C5600E0-1D6E-4205-A272-BE80DA87FD42}",    CellId="{0F664FFF-E39E-4676-9191-CBA16972B21D}"
+        Label description="Primary Contact",    languagecode="English - United States - 1033"
+            Parameters
+              QuickForms = <QuickFormIds><QuickFormId entityname="contact">29DE27BC-A257-4F29-99CF-BAB4A84E688F</QuickFormId></QuickFormIds>
+              ControlMode = Edit
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+revenue
+    // DisplayName:
+    //     (English - United States - 1033): Annual Revenue
+    //     (Russian - 1049): Годовой доход
+    // 
+    // Description:
+    //     (English - United States - 1033): Type the annual revenue for the account, used as an indicator in financial performance analysis.
+    //     (Russian - 1049): Введите годовой доход компании, используемый в качестве индикатора при анализе финансовых результатов.
+    // 
+    // SchemaName: Revenue
+    // MoneyAttributeMetadata    AttributeType: Money    AttributeTypeName: MoneyType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+    // MinValue = 0    MaxValue = 100000000000000    Precision = 2    PrecisionSource = 2
+    // IsBaseCurrency = False
+    // ImeMode = Disabled
+
+    ControlName="header_revenue",    location="header",    visible="true",    disabled="false",    ControlType="money",    ClassId="{533B9E00-756B-4312-95A0-DC888637AC78}",    CellId="{d3e19d4e-b2ae-409f-9b4e-5976527c6c83}"
+        Label description="Annual Revenue",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+sic
+    // DisplayName:
+    //     (English - United States - 1033): SIC Code
+    //     (Russian - 1049): Код отрасли
+    // 
+    // Description:
+    //     (English - United States - 1033): Type the Standard Industrial Classification (SIC) code that indicates the account's primary industry of business, for use in marketing segmentation and demographic analysis.
+    //     (Russian - 1049): Введите код отрасли (SIC), указывающий основную отрасль деятельности организации, для использования при маркетинговом сегментировании и демографическом анализе.
+    // 
+    // SchemaName: SIC
+    // StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+    // MaxLength = 20
+    // Format = Text    ImeMode = Auto    IsLocalizable = False
+
+    ControlName="sic",    location="DETAILS_TAB.COMPANY_PROFILE",    visible="true",    disabled="false",    ControlType="string",    ClassId="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}",    CellId="{930beba3-d531-0808-c403-de95e2ac3e62}"
+        Label description="SIC Code",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+telephone1
+    // DisplayName:
+    //     (English - United States - 1033): Main Phone
+    //     (Russian - 1049): Основной телефон
+    // 
+    // Description:
+    //     (English - United States - 1033): Type the main phone number for this account.
+    //     (Russian - 1049): Введите основной номер телефона для этой организации.
+    // 
+    // SchemaName: Telephone1
+    // StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+    // MaxLength = 50
+    // Format = Text    ImeMode = Inactive    IsLocalizable = False
+
+    ControlName="telephone1",    location="SUMMARY_TAB.ACCOUNT_INFORMATION",    visible="true",    disabled="false",    ControlType="string",    ClassId="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}",    CellId="{3441a91e-47c5-672c-7a20-902d6baa9036}"
+        Label description="Phone",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+tickersymbol
+    // DisplayName:
+    //     (English - United States - 1033): Ticker Symbol
+    //     (Russian - 1049): Тикер
+    // 
+    // Description:
+    //     (English - United States - 1033): Type the stock exchange symbol for the account to track financial performance of the company. You can click the code entered in this field to access the latest trading information from MSN Money.
+    //     (Russian - 1049): Введите обозначение (тикер) организации на фондовой бирже для отслеживания финансовых результатов компании. Щелкнув введенный в этом поле код, вы сможете просмотреть новейшую биржевую информацию на MSN Money.
+    // 
+    // SchemaName: TickerSymbol
+    // StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+    // MaxLength = 10
+    // Format = TickerSymbol    ImeMode = Auto    IsLocalizable = False
+
+    ControlName="tickersymbol",    location="SUMMARY_TAB.ACCOUNT_INFORMATION",    visible="true",    disabled="false",    ControlType="UnknownControl",    ClassId="{1E1FC551-F7A8-43af-AC34-A8DC35C7B6D4}",    CellId="{5f38af3a-3307-47dc-b36d-d9a5de525e6e}"
+        Label description="Ticker Symbol",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+transactioncurrencyid
+    // DisplayName:
+    //     (English - United States - 1033): Currency
+    //     (Russian - 1049): Валюта
+    // 
+    // Description:
+    //     (English - United States - 1033): Choose the local currency for the record to make sure budgets are reported in the correct currency.
+    //     (Russian - 1049): Выберите для записи локальную валюту, чтобы отчеты по бюджетам формировались в правильной валюте.
+    // 
+    // SchemaName: TransactionCurrencyId
+    // LookupAttributeMetadata    AttributeType: Lookup    AttributeTypeName: LookupType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: Simple
+    // Targets: transactioncurrency
+    // 
+    //     Target transactioncurrency    PrimaryIdAttribute transactioncurrencyid    PrimaryNameAttribute currencyname
+    //         DisplayName:
+    //             (English - United States - 1033): Currency
+    //             (Russian - 1049): Валюта
+    //         
+    //         DisplayCollectionName:
+    //             (English - United States - 1033): Currencies
+    //             (Russian - 1049): Валюты
+    //         
+    //         Description:
+    //             (English - United States - 1033): Currency in which a financial transaction is carried out.
+    //             (Russian - 1049): Валюта, в которой выполняется финансовая операция.
+
+    ControlName="transactioncurrencyid",    location="DETAILS_TAB.BILLING",    visible="true",    disabled="false",    ControlType="lookup",    ClassId="{270BD3DB-D9AF-4782-9025-509E298DEC0A}",    CellId="{7cd2b88c-b25c-4729-9c27-f59ebb5a1538}"
+        Label description="Currency",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+websiteurl
+    // DisplayName:
+    //     (English - United States - 1033): Website
+    //     (Russian - 1049): Веб-сайт
+    // 
+    // Description:
+    //     (English - United States - 1033): Type the account's website URL to get quick details about the company profile.
+    //     (Russian - 1049): Введите URL-адрес веб-сайта организации для быстрого получения сведений о профиле компании.
+    // 
+    // SchemaName: WebSiteURL
+    // StringAttributeMetadata    AttributeType: String    AttributeTypeName: StringType    RequiredLevel: None    IsManaged True
+    // IsValidForCreate: True    IsValidForUpdate: True
+    // IsValidForRead: True    IsValidForAdvancedFind: True
+    // IsLogical: False    IsSecured: False    IsCustomAttribute: False    SourceType: 0
+    // MaxLength = 200
+    // Format = Url    ImeMode = Inactive    IsLocalizable = False
+
+    ControlName="websiteurl",    location="SUMMARY_TAB.ACCOUNT_INFORMATION",    visible="true",    disabled="false",    ControlType="UnknownControl",    ClassId="{71716B6C-711E-476c-8AB8-5D11542BFB47}",    CellId="{e6441984-4343-813a-aa7e-e2747ad35390}"
+        Label description="Website",    languagecode="English - United States - 1033"
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
