@@ -369,12 +369,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await action(folder, idCustomControl, name);
         }
 
-        private Task<string> CreateFileAsync(string folder, Guid idCustomControl, string name, string fieldTitle, string extension, string formXml)
+        private Task<string> CreateFileAsync(string folder, Guid idCustomControl, string name, string fieldTitle, string extension, string xmlContent)
         {
-            return Task.Run(() => CreateFile(folder, idCustomControl, name, fieldTitle, extension, formXml));
+            return Task.Run(() => CreateFile(folder, idCustomControl, name, fieldTitle, extension, xmlContent));
         }
 
-        private string CreateFile(string folder, Guid idCustomControl, string name, string fieldTitle, string extension, string formXml)
+        private string CreateFile(string folder, Guid idCustomControl, string name, string fieldTitle, string extension, string xmlContent)
         {
             ConnectionData connectionData = null;
 
@@ -391,16 +391,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             string fileName = EntityFileNameFormatter.GetCustomControlFileName(connectionData.Name, name, fieldTitle, extension);
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-            if (!string.IsNullOrEmpty(formXml))
+            if (!string.IsNullOrEmpty(xmlContent))
             {
                 try
                 {
-                    formXml = ContentCoparerHelper.FormatXmlByConfiguration(formXml, _commonConfig, _xmlOptions
-                        , schemaName: CommonExportXsdSchemasCommand.SchemaManifest
-                       , customControlId: idCustomControl
-                    );
-
-                    File.WriteAllText(filePath, formXml, new UTF8Encoding(false));
+                    File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
                     this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, CustomControl.Schema.EntityLogicalName, name, fieldTitle, filePath);
                 }
@@ -477,9 +472,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var repository = new CustomControlRepository(service);
 
-                var CustomControl = await repository.GetByIdAsync(idCustomControl, new ColumnSet(fieldName));
+                var customControl = await repository.GetByIdAsync(idCustomControl, new ColumnSet(fieldName));
 
-                string xmlContent = CustomControl.GetAttributeValue<string>(fieldName);
+                string xmlContent = customControl.GetAttributeValue<string>(fieldName);
+
+                if (string.Equals(fieldName, CustomControl.Schema.Attributes.manifest, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                        , schemaName: CommonExportXsdSchemasCommand.SchemaManifest
+                        , customControlId: idCustomControl
+                    );
+                }
 
                 string filePath = await CreateFileAsync(folder, idCustomControl, name, fieldTitle, extension, xmlContent);
 
@@ -510,9 +513,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var repository = new CustomControlRepository(service);
 
-                var CustomControl = await repository.GetByIdAsync(idCustomControl, new ColumnSet(fieldName));
+                var customControl = await repository.GetByIdAsync(idCustomControl, new ColumnSet(fieldName));
 
-                string xmlContent = CustomControl.GetAttributeValue<string>(fieldName);
+                string xmlContent = customControl.GetAttributeValue<string>(fieldName);
 
                 {
                     if (ContentCoparerHelper.TryParseXml(xmlContent, out var tempDoc))
@@ -521,7 +524,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                string filePath = await CreateFileAsync(folder, idCustomControl, name, fieldTitle + " BackUp", extension, xmlContent);
+                {
+                    string backUpXmlContent = xmlContent;
+
+                    if (string.Equals(fieldName, CustomControl.Schema.Attributes.manifest, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        backUpXmlContent = ContentCoparerHelper.FormatXmlByConfiguration(backUpXmlContent, _commonConfig, _xmlOptions
+                            , schemaName: CommonExportXsdSchemasCommand.SchemaManifest
+                            , customControlId: idCustomControl
+                        );
+                    }
+
+                    await CreateFileAsync(folder, idCustomControl, name, fieldTitle + " BackUp", extension, backUpXmlContent);
+                }
 
                 var newText = string.Empty;
 
@@ -623,13 +638,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var repository = new CustomControlRepository(service);
 
-                var CustomControl = await repository.GetByIdAsync(idCustomControl, new ColumnSet(true));
+                var customControl = await repository.GetByIdAsync(idCustomControl, new ColumnSet(true));
 
-                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, CustomControl, EntityFileNameFormatter.CustomControlIgnoreFields, service.ConnectionData);
+                await EntityDescriptionHandler.ExportEntityDescriptionAsync(filePath, customControl, EntityFileNameFormatter.CustomControlIgnoreFields, service.ConnectionData);
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ExportedEntityDescriptionForConnectionFormat3
                     , service.ConnectionData.Name
-                    , CustomControl.LogicalName
+                    , customControl.LogicalName
                     , filePath);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
@@ -682,7 +697,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIExportCustomControlFormXml_Click(object sender, RoutedEventArgs e)
+        private void mIExportCustomControlManifest_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -694,7 +709,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.manifest, CustomControl.Schema.Headers.manifest, "xml", PerformExportXmlToFileAsync);
         }
 
-        private void mIExportCustomControlFormJson_Click(object sender, RoutedEventArgs e)
+        private void mIExportCustomControlClientJson_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1106,7 +1121,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIUpdateCustomControlFormXml_Click(object sender, RoutedEventArgs e)
+        private void mIUpdateCustomControlManifest_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1118,7 +1133,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteActionEntityAsync(entity.Id, entity.Name, CustomControl.Schema.Attributes.manifest, CustomControl.Schema.Headers.manifest, "xml", PerformUpdateEntityField);
         }
 
-        private void mIUpdateCustomControlFormJson_Click(object sender, RoutedEventArgs e)
+        private void mIUpdateCustomControlClientJson_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 

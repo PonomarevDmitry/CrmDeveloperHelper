@@ -32,7 +32,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 (
                     CustomControl.Schema.Attributes.name
                     , CustomControl.Schema.Attributes.compatibledatatypes
-                    , CustomControl.Schema.Attributes.manifest
                     , CustomControl.Schema.Attributes.ismanaged
                 );
         }
@@ -40,7 +39,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         protected override FormatTextTableHandler GetDescriptionHeader(bool withManaged, bool withSolutionInfo, bool withUrls, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("Name", "CompatibleDataTypes", "Manifest", "Behavior");
+            handler.SetHeader(CustomControl.Schema.Headers.name, CustomControl.Schema.Headers.compatibledatatypes, "Behavior");
 
             action(handler, withUrls, withManaged, withSolutionInfo);
 
@@ -57,7 +56,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             {
                 entity.Name
                 , entity.CompatibleDataTypes
-                , entity.Manifest
                 , behavior
             });
 
@@ -70,10 +68,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         {
             return new TupleList<string, string>
                 {
-                    { CustomControl.Schema.Attributes.name, "Name" }
-                    , { CustomControl.Schema.Attributes.compatibledatatypes, "CompatibleDataTypes" }
-                    , { CustomControl.Schema.Attributes.manifest, "Manifest" }
-                    , { CustomControl.Schema.Attributes.ismanaged, "IsManaged" }
+                    { CustomControl.Schema.Attributes.name, CustomControl.Schema.Headers.name }
+                    , { CustomControl.Schema.Attributes.compatibledatatypes, CustomControl.Schema.Headers.compatibledatatypes }
+                    , { CustomControl.Schema.Attributes.ismanaged, CustomControl.Schema.Headers.ismanaged }
                     , { "solution.uniquename", "SolutionName" }
                     , { "solution.ismanaged", "SolutionIsManaged" }
                     , { "suppsolution.uniquename", "SupportingName" }

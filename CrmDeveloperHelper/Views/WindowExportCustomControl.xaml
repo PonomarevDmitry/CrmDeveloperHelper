@@ -26,13 +26,13 @@
                 <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
 
                 <Separator/>
-                <MenuItem Header="Manifest" VerticalAlignment="Center" Click="mIExportCustomControlFormXml_Click" />
-                <MenuItem Header="Form Json" VerticalAlignment="Center" Click="mIExportCustomControlFormJson_Click" />
+                <MenuItem Header="Manifest" VerticalAlignment="Center" Click="mIExportCustomControlManifest_Click" />
+                <MenuItem Header="Client Json" VerticalAlignment="Center" Click="mIExportCustomControlClientJson_Click" />
 
                 <Separator />
                 <MenuItem Header="Change CustomControl Attribute" VerticalAlignment="Center">
-                    <MenuItem Header="Manifest" VerticalAlignment="Center" Click="mIUpdateCustomControlFormXml_Click" />
-                    <MenuItem Header="Form Json" VerticalAlignment="Center" Click="mIUpdateCustomControlFormJson_Click" />
+                    <MenuItem Header="Manifest" VerticalAlignment="Center" Click="mIUpdateCustomControlManifest_Click" />
+                    <MenuItem Header="Client Json" VerticalAlignment="Center" Click="mIUpdateCustomControlClientJson_Click" />
                 </MenuItem>
 
                 <Separator/>
@@ -243,13 +243,13 @@
                             <MenuItem Header="Add into Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIExportCustomControlFormXml_Click" />
-                            <MenuItem Header="Form Json" VerticalAlignment="Center" Click="mIExportCustomControlFormJson_Click" />
+                            <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIExportCustomControlManifest_Click" />
+                            <MenuItem Header="Form Json" VerticalAlignment="Center" Click="mIExportCustomControlClientJson_Click" />
 
                             <Separator />
                             <MenuItem Header="Change CustomControl Attribute" VerticalAlignment="Center">
-                                <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIUpdateCustomControlFormXml_Click" />
-                                <MenuItem Header="Form Json" VerticalAlignment="Center" Click="mIUpdateCustomControlFormJson_Click" />
+                                <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIUpdateCustomControlManifest_Click" />
+                                <MenuItem Header="Form Json" VerticalAlignment="Center" Click="mIUpdateCustomControlClientJson_Click" />
                             </MenuItem>
 
                             <Separator/>
