@@ -1027,6 +1027,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ExecuteActionEntity(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], Workflow.Schema.Attributes.uidata, Workflow.Schema.Headers.uidata, PerformExportXmlToFile);
         }
 
+        private void mIExportWorkflowProcessRoleAssignment_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], Workflow.Schema.Attributes.processroleassignment, Workflow.Schema.Headers.processroleassignment, PerformExportXmlToFile);
+        }
+
         private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
@@ -1894,6 +1906,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             ExecuteActionEntity(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], Workflow.Schema.Attributes.uidata, Workflow.Schema.Headers.uidata, PerformUpdateEntityField);
+        }
+
+        private void mIUpdateWorkflowProcessRoleAssignment_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.PrimaryEntity, entity.Name, entity.FormattedValues[Workflow.Schema.Attributes.category], Workflow.Schema.Attributes.processroleassignment, Workflow.Schema.Headers.processroleassignment, PerformUpdateEntityField);
         }
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)

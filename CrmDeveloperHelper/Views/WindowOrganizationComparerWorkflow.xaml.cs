@@ -620,13 +620,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             //await PerformShowingDifferenceCorrectedXamlAsync(linked, showAllways, Workflow.Schema.Attributes.xaml, "CorrectedXaml);
 
-            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, Workflow.Schema.Attributes.xaml, Workflow.Schema.Headers.xaml, "xml");
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, Workflow.Schema.Attributes.xaml, Workflow.Schema.Headers.xaml);
 
-            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, Workflow.Schema.Attributes.inputparameters, Workflow.Schema.Headers.inputparameters, "xml");
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, Workflow.Schema.Attributes.inputparameters, Workflow.Schema.Headers.inputparameters);
 
-            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, Workflow.Schema.Attributes.clientdata, Workflow.Schema.Headers.clientdata, "xml");
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, Workflow.Schema.Attributes.clientdata, Workflow.Schema.Headers.clientdata);
 
-            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, Workflow.Schema.Attributes.uidata, Workflow.Schema.Headers.uidata, "json");
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, Workflow.Schema.Attributes.uidata, Workflow.Schema.Headers.uidata);
+
+            await PerformShowingDifferenceSingleXmlAsync(linked, showAllways, Workflow.Schema.Attributes.processroleassignment, Workflow.Schema.Headers.processroleassignment);
         }
 
         private void mIShowDifferenceXaml_Click(object sender, RoutedEventArgs e)
@@ -638,7 +640,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, Workflow.Schema.Attributes.xaml, Workflow.Schema.Headers.xaml, "xml", PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, Workflow.Schema.Attributes.xaml, Workflow.Schema.Headers.xaml, PerformShowingDifferenceSingleXmlAsync);
         }
 
         private void mIShowDifferenceCorrectedXaml_Click(object sender, RoutedEventArgs e)
@@ -650,7 +652,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, Workflow.Schema.Attributes.xaml, Workflow.Schema.Headers.CorrectedXaml, "xml", PerformShowingDifferenceCorrectedXamlAsync);
+            ExecuteActionLinked(link.Link, true, Workflow.Schema.Attributes.xaml, Workflow.Schema.Headers.CorrectedXaml, PerformShowingDifferenceCorrectedXamlAsync);
         }
 
         private void mIShowDifferenceInputParameters_Click(object sender, RoutedEventArgs e)
@@ -662,7 +664,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, Workflow.Schema.Attributes.inputparameters, Workflow.Schema.Headers.inputparameters, "xml", PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, Workflow.Schema.Attributes.inputparameters, Workflow.Schema.Headers.inputparameters, PerformShowingDifferenceSingleXmlAsync);
         }
 
         private void mIShowDifferenceClientData_Click(object sender, RoutedEventArgs e)
@@ -674,7 +676,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, Workflow.Schema.Attributes.clientdata, Workflow.Schema.Headers.clientdata, "xml", PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, Workflow.Schema.Attributes.clientdata, Workflow.Schema.Headers.clientdata, PerformShowingDifferenceSingleXmlAsync);
         }
 
         private void mIShowDifferenceUIData_Click(object sender, RoutedEventArgs e)
@@ -686,10 +688,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, Workflow.Schema.Attributes.uidata, Workflow.Schema.Headers.uidata, "json", PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, Workflow.Schema.Attributes.uidata, Workflow.Schema.Headers.uidata, PerformShowingDifferenceSingleXmlAsync);
         }
 
-        private void ExecuteActionLinked(LinkedEntities<Workflow> linked, bool showAllways, string fieldName, string fieldTitle, string extension, Func<LinkedEntities<Workflow>, bool, string, string, string, Task> action)
+        private void mIShowDifferenceProcessRoleAssignment_Click(object sender, RoutedEventArgs e)
+        {
+            var link = GetSelectedEntity();
+
+            if (link == null)
+            {
+                return;
+            }
+
+            ExecuteActionLinked(link.Link, true, Workflow.Schema.Attributes.processroleassignment, Workflow.Schema.Headers.processroleassignment, PerformShowingDifferenceSingleXmlAsync);
+        }
+
+        private void ExecuteActionLinked(LinkedEntities<Workflow> linked, bool showAllways, string fieldName, string fieldTitle, Func<LinkedEntities<Workflow>, bool, string, string, Task> action)
         {
             if (!this.IsControlsEnabled)
             {
@@ -712,10 +726,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 _commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
             }
 
-            action(linked, showAllways, fieldName, fieldTitle, extension);
+            action(linked, showAllways, fieldName, fieldTitle);
         }
 
-        private async Task PerformShowingDifferenceSingleXmlAsync(LinkedEntities<Workflow> linked, bool showAllways, string fieldName, string fieldTitle, string extension)
+        private async Task PerformShowingDifferenceSingleXmlAsync(LinkedEntities<Workflow> linked, bool showAllways, string fieldName, string fieldTitle)
         {
             if (!this.IsControlsEnabled)
             {
@@ -751,6 +765,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         string category1 = workflow1.FormattedValues[Workflow.Schema.Attributes.category];
                         string category2 = workflow2.FormattedValues[Workflow.Schema.Attributes.category];
 
+                        string extension = "json";
+
+                        {
+                            if (ContentCoparerHelper.TryParseXml(xml1, out var doc))
+                            {
+                                extension = "xml";
+                                xml1 = doc.ToString();
+                            }
+                        }
+
+                        {
+                            if (ContentCoparerHelper.TryParseXml(xml2, out var doc))
+                            {
+                                extension = "xml";
+                                xml2 = doc.ToString();
+                            }
+                        }
+
                         string filePath1 = await CreateFileAsync(service1.ConnectionData, entityName1, category1, name1, fieldTitle, extension, xml1);
 
                         string filePath2 = await CreateFileAsync(service2.ConnectionData, entityName2, category2, name2, fieldTitle, extension, xml2);
@@ -778,7 +810,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async Task PerformShowingDifferenceCorrectedXamlAsync(LinkedEntities<Workflow> linked, bool showAllways, string fieldName, string fieldTitle, string extension)
+        private async Task PerformShowingDifferenceCorrectedXamlAsync(LinkedEntities<Workflow> linked, bool showAllways, string fieldName, string fieldTitle)
         {
             if (!this.IsControlsEnabled)
             {
@@ -818,9 +850,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string category1 = workflow1.FormattedValues[Workflow.Schema.Attributes.category];
                     string category2 = workflow2.FormattedValues[Workflow.Schema.Attributes.category];
 
-                    string filePath1 = await CreateFileAsync(service1.ConnectionData, entityName1, category1, name1, Workflow.Schema.Headers.CorrectedXaml, extension, xml1);
+                    string filePath1 = await CreateFileAsync(service1.ConnectionData, entityName1, category1, name1, Workflow.Schema.Headers.CorrectedXaml, "xml", xml1);
 
-                    string filePath2 = await CreateFileAsync(service2.ConnectionData, entityName2, category2, name2, Workflow.Schema.Headers.CorrectedXaml, extension, xml2);
+                    string filePath2 = await CreateFileAsync(service2.ConnectionData, entityName2, category2, name2, Workflow.Schema.Headers.CorrectedXaml, "xml", xml2);
 
                     if (File.Exists(filePath1) && File.Exists(filePath2))
                     {
@@ -956,6 +988,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             ExecuteActionEntity(link.Link.Entity2.Id, GetService2, Workflow.Schema.Attributes.uidata, Workflow.Schema.Headers.uidata, PerformExportXmlToFileAsync);
+        }
+
+        private void mIExportWorkflow1ProcessRoleAssignment_Click(object sender, RoutedEventArgs e)
+        {
+            var link = GetSelectedEntity();
+
+            if (link == null && link.Link.Entity1 != null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(link.Link.Entity1.Id, GetService1, Workflow.Schema.Attributes.processroleassignment, Workflow.Schema.Headers.processroleassignment, PerformExportXmlToFileAsync);
+        }
+
+        private void mIExportWorkflow2ProcessRoleAssignment_Click(object sender, RoutedEventArgs e)
+        {
+            var link = GetSelectedEntity();
+
+            if (link == null && link.Link.Entity2 != null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(link.Link.Entity2.Id, GetService2, Workflow.Schema.Attributes.processroleassignment, Workflow.Schema.Headers.processroleassignment, PerformExportXmlToFileAsync);
         }
 
         private void ExecuteActionEntity(Guid idWorflow, Func<Task<IOrganizationServiceExtented>> getService, string fieldName, string fieldTitle, Func<Guid, Func<Task<IOrganizationServiceExtented>>, string, string, Task> action)

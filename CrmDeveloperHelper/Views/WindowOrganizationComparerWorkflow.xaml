@@ -21,6 +21,7 @@
                 <MenuItem x:Uid="menuContextDifference" Header="Difference InputParameters" Click="mIShowDifferenceInputParameters_Click"/>
                 <MenuItem x:Uid="menuContextDifference" Header="Difference ClientData" Click="mIShowDifferenceClientData_Click"/>
                 <MenuItem x:Uid="menuContextDifference" Header="Difference UIData" Click="mIShowDifferenceUIData_Click"/>
+                <MenuItem x:Uid="menuContextDifference" Header="Difference ProcessRoleAssignment" Click="mIShowDifferenceProcessRoleAssignment_Click"/>
                 <Separator x:Uid="menuContextDifference"/>
                 <MenuItem x:Uid="menuContextDifference" Header="Difference Corrected Xaml" Click="mIShowDifferenceCorrectedXaml_Click"/>
                 <Separator x:Uid="menuContextDifference"/>
@@ -49,6 +50,7 @@
                     <MenuItem Header="InputParameters" Click="mIExportWorkflow1InputParameters_Click"/>
                     <MenuItem Header="ClientData" Click="mIExportWorkflow1ClientData_Click"/>
                     <MenuItem Header="UIData" Click="mIExportWorkflow1UIData_Click"/>
+                    <MenuItem Header="ProcessRoleAssignment" Click="mIExportWorkflow1ProcessRoleAssignment_Click"/>
                     <Separator/>
                     <MenuItem Header="Corrected Xaml" Click="mIExportWorkflow1CorrectedXaml_Click"/>
 
@@ -94,6 +96,7 @@
                     <MenuItem Header="InputParameters" Click="mIExportWorkflow2InputParameters_Click"/>
                     <MenuItem Header="ClientData" Click="mIExportWorkflow2ClientData_Click"/>
                     <MenuItem Header="UIData" Click="mIExportWorkflow2UIData_Click"/>
+                    <MenuItem Header="ProcessRoleAssignment" Click="mIExportWorkflow2ProcessRoleAssignment_Click"/>
                     <Separator/>
                     <MenuItem Header="Corrected Xaml" Click="mIExportWorkflow2CorrectedXaml_Click"/>
 
@@ -245,6 +248,7 @@
                             <MenuItem Header="InputParameters" Click="mIShowDifferenceInputParameters_Click"/>
                             <MenuItem Header="ClientData" Click="mIShowDifferenceClientData_Click"/>
                             <MenuItem Header="Difference UIData" Click="mIShowDifferenceUIData_Click"/>
+                            <MenuItem Header="Difference ProcessRoleAssignment" Click="mIShowDifferenceProcessRoleAssignment_Click"/>
                             <Separator/>
                             <MenuItem Header="Corrected Xaml" Click="mIShowDifferenceCorrectedXaml_Click"/>
                         </MenuItem>
@@ -259,6 +263,7 @@
                             <MenuItem Header="InputParameters" Click="mIExportWorkflow1InputParameters_Click"/>
                             <MenuItem Header="ClientData" Click="mIExportWorkflow1ClientData_Click"/>
                             <MenuItem Header="UIData" Click="mIExportWorkflow1UIData_Click"/>
+                            <MenuItem Header="ProcessRoleAssignment" Click="mIExportWorkflow1ProcessRoleAssignment_Click"/>
                             <Separator/>
                             <MenuItem Header="Corrected Xaml" Click="mIExportWorkflow1CorrectedXaml_Click"/>
                         </MenuItem>
@@ -273,6 +278,7 @@
                             <MenuItem Header="InputParameters" Click="mIExportWorkflow2InputParameters_Click"/>
                             <MenuItem Header="ClientData" Click="mIExportWorkflow2ClientData_Click"/>
                             <MenuItem Header="UIData" Click="mIExportWorkflow2UIData_Click"/>
+                            <MenuItem Header="ProcessRoleAssignment" Click="mIExportWorkflow2ProcessRoleAssignment_Click"/>
                             <Separator/>
                             <MenuItem Header="Corrected Xaml" Click="mIExportWorkflow2CorrectedXaml_Click"/>
                         </MenuItem>

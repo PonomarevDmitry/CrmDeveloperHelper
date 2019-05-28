@@ -16,6 +16,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 public const string uidata = "UIData";
 
+                public const string processroleassignment = "ProcessRoleAssignment";
+
                 public const string name = "Name";
 
                 public const string primaryentity = "EntityName";
