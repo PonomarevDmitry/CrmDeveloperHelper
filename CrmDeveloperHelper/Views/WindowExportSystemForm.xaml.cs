@@ -532,33 +532,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    //if (_commonConfig.SetXmlSchemasDuringExport)
-                    //{
-                    //    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaFormXml);
-
-                    //    if (schemasResources != null)
-                    //    {
-                    //        formXml = ContentCoparerHelper.SetXsdSchema(formXml, schemasResources);
-                    //    }
-                    //}
-
-                    //if (_commonConfig.SetIntellisenseContext)
-                    //{
-                    //    formXml = ContentCoparerHelper.SetIntellisenseContextFormId(formXml, formId);
-                    //}
-
-                    //if (_commonConfig.SortXmlAttributes)
-                    //{
-                    //    formXml = ContentCoparerHelper.SortXmlAttributes(formXml);
-                    //}
-
-                    //formXml = ContentCoparerHelper.FormatXml(formXml, _commonConfig.ExportXmlAttributeOnNewLine);
-
-                    formXml = ContentCoparerHelper.FormatXmlByConfiguration(formXml, _commonConfig, _xmlOptions
-                       , schemaName: CommonExportXsdSchemasCommand.SchemaFormXml
-                       , formId: formId
-                    );
-
                     File.WriteAllText(filePath, formXml, new UTF8Encoding(false));
 
                     this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, SystemForm.Schema.EntityLogicalName, name, fieldTitle, filePath);
@@ -642,6 +615,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = systemForm.GetAttributeValue<string>(fieldName);
 
+                if (string.Equals(fieldName, SystemForm.Schema.Attributes.formxml, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                        , schemaName: CommonExportXsdSchemasCommand.SchemaFormXml
+                        , formId: idSystemForm
+                    );
+                }
+
                 string filePath = await CreateFileAsync(folder, idSystemForm, entityName, name, fieldTitle, extension, xmlContent);
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
@@ -682,7 +663,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                string filePath = await CreateFileAsync(folder, idSystemForm, entityName, name, fieldTitle + " BackUp", extension, xmlContent);
+                string backUpXmlContent = xmlContent;
+
+                if (string.Equals(fieldName, SystemForm.Schema.Attributes.formxml, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    backUpXmlContent = ContentCoparerHelper.FormatXmlByConfiguration(backUpXmlContent, _commonConfig, _xmlOptions
+                        , schemaName: CommonExportXsdSchemasCommand.SchemaFormXml
+                        , formId: idSystemForm
+                    );
+                }
+
+                await CreateFileAsync(folder, idSystemForm, entityName, name, fieldTitle + " BackUp", extension, backUpXmlContent);
 
                 var newText = string.Empty;
 

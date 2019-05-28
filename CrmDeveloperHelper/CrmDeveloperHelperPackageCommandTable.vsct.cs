@@ -18,6 +18,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const string guid1String = "64da400e-b4ad-4d67-aa92-4b7acb01ecd5";
         public const string guid2String = "78f03954-2fb8-4087-8ce7-59d71710b3bb";
         public const string guid3String = "4c87b692-1202-46aa-b64c-ef01faec53da";
+        public const string guidJsonString = "f718ca06-cf4f-4a0c-9106-e79e9ee5e7cd";
         public const string guidGroupAndMenuSetString = "6a1a85fe-5657-4ae9-80fe-fa1277f6abc6";
         public const string guidDynamicCommandSetString = "f71ca58c-98fe-4935-a0cb-478a076b9821";
         public const string guidCommandSetString = "15ffcbd5-0856-4bda-b6c8-e6e0b635761d";
@@ -27,6 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public static Guid guid1 = new Guid(guid1String);
         public static Guid guid2 = new Guid(guid2String);
         public static Guid guid3 = new Guid(guid3String);
+        public static Guid guidJson = new Guid(guidJsonString);
         public static Guid guidGroupAndMenuSet = new Guid(guidGroupAndMenuSetString);
         public static Guid guidDynamicCommandSet = new Guid(guidDynamicCommandSetString);
         public static Guid guidCommandSet = new Guid(guidCommandSetString);
@@ -39,6 +41,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int guid1sym1 = 0x0002;
         public const int guid2sym1 = 0x0001;
         public const int guid3sym1 = 0x0103;
+        public const int guidJson_ContextMenu = 0x0003;
         public const int mainGroup = 0x10200;
         public const int mainGroupCode = 0x10201;
         public const int mainGroupSolutionFolder = 0x10202;

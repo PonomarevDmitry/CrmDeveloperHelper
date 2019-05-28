@@ -6349,6 +6349,9 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="mainGroupCode" priority="0xF000">
       <Parent guid="guid3" id="guid3sym1" />
     </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="mainGroupCode" priority="0xF000">
+      <Parent guid="guidJson" id="guidJson_ContextMenu" />
+    </CommandPlacement>
 
     <CommandPlacement guid="guidCommandSet" id="CodeWebResourceUpdateContentPublishCommandId" priority="0x01">
       <Parent guid="guidGroupAndMenuSet" id="mainGroupCode" />
@@ -6718,12 +6721,6 @@
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="mainGroup" priority="0xF000">
       <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_RESULTSLIST" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="mainGroup" priority="0xF000">
-      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_COMMANDWINDOW" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="mainGroup" priority="0xF000">
-      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_OBJSEARCH" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="mainGroup" priority="0xF000">
       <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_OBJSEARCH" />
@@ -10950,6 +10947,10 @@
 
     <GuidSymbol name="guid3" value="{4C87B692-1202-46AA-B64C-EF01FAEC53DA}">
       <IDSymbol name="guid3sym1" value="259" />
+    </GuidSymbol>
+
+    <GuidSymbol name="guidJson" value="{F718CA06-CF4F-4A0C-9106-E79E9EE5E7CD}">
+      <IDSymbol name="guidJson_ContextMenu" value="3" />
     </GuidSymbol>
 
     <GuidSymbol name="guidGroupAndMenuSet" value="{6A1A85FE-5657-4AE9-80FE-FA1277F6ABC6}">
