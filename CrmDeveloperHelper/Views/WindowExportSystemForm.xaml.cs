@@ -898,11 +898,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     await repositoryPublish.PublishEntitiesAsync(new[] { entityName });
                 }
 
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ChangingEntityStateCompletedFormat1, SystemForm.EntityLogicalName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ChangingEntityStateCompletedFormat1, SystemForm.EntityLogicalName);
             }
             catch (Exception ex)
             {
-                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ChangingEntityStateFailedFormat1, SystemForm.EntityLogicalName);
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.ChangingEntityStateFailedFormat1, SystemForm.EntityLogicalName);
 
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
                 _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
