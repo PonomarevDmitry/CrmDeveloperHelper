@@ -45,11 +45,6 @@
                 <Separator x:Uid="contMnEntity"/>
                 <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
                 <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
-                
-                <Separator x:Uid="contMnEntity"/>
-                <MenuItem x:Uid="contMnEntity" Header="Create Entity JavaScript File JsonObject based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFileJsonObject_Click" />
-                <MenuItem x:Uid="contMnEntity" Header="Create Entity JavaScript File AnonymousConstructor based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFileAnonymousConstructor_Click" />
-                <MenuItem x:Uid="contMnEntity" Header="Create Entity JavaScript File TypeConstructor based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFileTypeConstructor_Click" />
 
                 <Separator x:Uid="contMnEntity" />
                 <MenuItem x:Uid="contMnEntity" Header="Publish Entity" Click="btnPublishEntity_Click"/>
@@ -69,7 +64,12 @@
                     <Separator/>
                     <MenuItem Header="Include As ShellOnly" Click="AddIntoCrmSolutionIncludeAsShellOnly_Click" />
                 </MenuItem>
-                
+
+                <Separator x:Uid="contMnEntity"/>
+                <MenuItem x:Uid="contMnEntity" Header="Create Entity JavaScript File JsonObject based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFileJsonObject_Click" />
+                <MenuItem x:Uid="contMnEntity" Header="Create Entity JavaScript File AnonymousConstructor based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFileAnonymousConstructor_Click" />
+                <MenuItem x:Uid="contMnEntity" Header="Create Entity JavaScript File TypeConstructor based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFileTypeConstructor_Click" />
+
                 <Separator/>
                 <MenuItem Header="Download Form WebResouces" VerticalAlignment="Center" Click="mIExportSystemFormWebResources_Click" />
                 
@@ -291,11 +291,6 @@
                             <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm in Editor" Click="mIChangeEntityInEditor_Click"/>
                             <MenuItem x:Uid="contMnChangeState" Header="ChangeState" VerticalAlignment="Center" Click="mIChangeStateSystemForm_Click" />
                             <MenuItem Header="Delete SystemForm" VerticalAlignment="Center" Click="mIDeleteSystemForm_Click" />
-
-                            <Separator/>
-                            <MenuItem Header="Create Entity JavaScript File JsonObject based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFileJsonObject_Click" />
-                            <MenuItem Header="Create Entity JavaScript File AnonymousConstructor based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFileAnonymousConstructor_Click" />
-                            <MenuItem Header="Create Entity JavaScript File TypeConstructor based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFileTypeConstructor_Click" />
                             
                             <Separator/>
                             <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" VerticalAlignment="Center" />
@@ -314,6 +309,11 @@
                             <Separator/>
                             <MenuItem Header="Publish SystemForm" VerticalAlignment="Center" Click="mIPublishSystemForm_Click" />
                             <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
+
+                            <Separator/>
+                            <MenuItem Header="Create Entity JavaScript File JsonObject based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFileJsonObject_Click" />
+                            <MenuItem Header="Create Entity JavaScript File AnonymousConstructor based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFileAnonymousConstructor_Click" />
+                            <MenuItem Header="Create Entity JavaScript File TypeConstructor based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFileTypeConstructor_Click" />
                             
                             <Separator/>
                             <MenuItem Header="Download Form WebResouces" VerticalAlignment="Center" Click="mIExportSystemFormWebResources_Click" />
