@@ -758,7 +758,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     && !string.Equals(entityName, "none", StringComparison.InvariantCultureIgnoreCase)
                 )
                 {
-                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
+                    UpdateStatus(service.ConnectionData, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
                     await repositoryPublish.PublishEntitiesAsync(new[] { entityName });
                 }
 
@@ -867,6 +867,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var service = await GetService();
 
+            ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ChangingEntityStateFormat1, SystemForm.EntityLogicalName);
+
             var repository = new SystemFormRepository(service);
 
             var systemForm = await repository.GetByIdAsync(idSystemForm, new ColumnSet(true));
@@ -892,12 +894,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     && !string.Equals(entityName, "none", StringComparison.InvariantCultureIgnoreCase)
                 )
                 {
-                    _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
+                    UpdateStatus(service.ConnectionData, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
                     await repositoryPublish.PublishEntitiesAsync(new[] { entityName });
                 }
+
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ChangingEntityStateCompletedFormat1, SystemForm.EntityLogicalName);
             }
             catch (Exception ex)
             {
+                ToggleControls(service.ConnectionData, false, Properties.WindowStatusStrings.ChangingEntityStateFailedFormat1, SystemForm.EntityLogicalName);
+
                 _iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
                 _iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
             }
