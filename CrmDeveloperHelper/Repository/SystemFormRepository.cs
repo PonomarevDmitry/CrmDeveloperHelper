@@ -18,7 +18,7 @@ using System.Xml.Schema;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
-    public class SystemFormRepository
+    public class SystemFormRepository : IEntitySaver
     {
         /// <summary>
         /// Сервис CRM
@@ -326,6 +326,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             };
 
             return _service.RetrieveMultipleAll<SystemForm>(query);
+        }
+
+        public async Task<Guid> UpsertAsync(Entity entity, Action<string> updateStatus)
+        {
+            var idEntity = await _service.UpsertAsync(entity);
+
+            var systemForm = await GetByIdAsync(idEntity, new ColumnSet(SystemForm.Schema.Attributes.objecttypecode, SystemForm.Schema.Attributes.name));
+
+            var repositoryPublish = new PublishActionsRepository(_service);
+
+            updateStatus(string.Format(Properties.WindowStatusStrings.PublishingSystemFormFormat3, _service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name));
+
+            await repositoryPublish.PublishDashboardsAsync(new[] { idEntity });
+
+            updateStatus(string.Format(Properties.WindowStatusStrings.PublishingSystemFormCompletedFormat3, _service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name));
+
+            if (!string.IsNullOrEmpty(systemForm.ObjectTypeCode)
+                && !string.Equals(systemForm.ObjectTypeCode, "none", StringComparison.InvariantCultureIgnoreCase)
+            )
+            {
+                updateStatus(string.Format(Properties.WindowStatusStrings.PublishingEntitiesFormat2, _service.ConnectionData.Name, systemForm.ObjectTypeCode));
+
+                await repositoryPublish.PublishEntitiesAsync(new[] { systemForm.ObjectTypeCode });
+
+                updateStatus(string.Format(Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat2, _service.ConnectionData.Name, systemForm.ObjectTypeCode));
+            }
+
+            return idEntity;
         }
     }
 }

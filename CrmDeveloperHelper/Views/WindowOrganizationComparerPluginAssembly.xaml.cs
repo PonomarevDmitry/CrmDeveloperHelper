@@ -486,8 +486,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var repository1 = new PluginAssemblyRepository(service1);
                     var repository2 = new PluginAssemblyRepository(service2);
 
-                    var assembly1 = await repository1.GetAssemblyByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                    var assembly2 = await repository2.GetAssemblyByIdAsync(linked.Entity2.Id, new ColumnSet(true));
+                    var assembly1 = await repository1.GetAssemblyByIdRetrieveRequestAsync(linked.Entity1.Id, new ColumnSet(true));
+                    var assembly2 = await repository2.GetAssemblyByIdRetrieveRequestAsync(linked.Entity2.Id, new ColumnSet(true));
 
                     var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(assembly1, EntityFileNameFormatter.PluginAssemblyIgnoreFields);
                     var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(assembly2, EntityFileNameFormatter.PluginAssemblyIgnoreFields);
@@ -584,7 +584,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var repository = new PluginAssemblyRepository(service);
 
-                var assembly = await repository.GetAssemblyByIdAsync(idAssembly, new ColumnSet(PluginAssembly.Schema.Attributes.name));
+                var assembly = await repository.GetAssemblyByIdRetrieveRequestAsync(idAssembly, new ColumnSet(PluginAssembly.Schema.Attributes.name));
 
                 PluginAssemblyDescriptionHandler handler = new PluginAssemblyDescriptionHandler(service, service.ConnectionData.GetConnectionInfo());
 
@@ -656,7 +656,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var repository = new PluginAssemblyRepository(service);
 
-                var assembly = await repository.GetAssemblyByIdAsync(pluginAssemblyId, new ColumnSet(PluginAssembly.Schema.Attributes.content));
+                var assembly = await repository.GetAssemblyByIdRetrieveRequestAsync(pluginAssemblyId, new ColumnSet(PluginAssembly.Schema.Attributes.content));
 
                 string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, assembly.Name, "Content", "dll");
                 string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
@@ -694,7 +694,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var repository = new PluginAssemblyRepository(service);
 
-                var assembly = await repository.GetAssemblyByIdAsync(pluginAssemblyId, new ColumnSet(true));
+                var assembly = await repository.GetAssemblyByIdRetrieveRequestAsync(pluginAssemblyId, new ColumnSet(true));
 
                 var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(assembly, EntityFileNameFormatter.PluginAssemblyIgnoreFields, service.ConnectionData);
 

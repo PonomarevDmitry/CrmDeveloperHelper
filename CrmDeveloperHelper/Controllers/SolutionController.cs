@@ -328,7 +328,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         if (webId.HasValue)
                         {
-                            webresource = await webResourceRepository.FindByIdAsync(webId.Value);
+                            webresource = await webResourceRepository.GetByIdAsync(webId.Value);
                         }
                     }
 

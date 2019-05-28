@@ -29,8 +29,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         protected readonly IOrganizationServiceExtented _service;
 
-        private readonly Func<Action<string>, Task> _actionAfterSave;
-
         protected readonly HashSet<string> _ignoredAttributes = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
 
         private EntityMetadata _entityMetadata;
@@ -49,7 +47,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , CommonConfiguration commonConfig
             , string entityName
             , Guid entityId
-            , Func<Action<string>, Task> actionAfterSave
         )
         {
             IncreaseInit();
@@ -65,7 +62,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._commonConfig = commonConfig;
             this._entityName = entityName;
             this._entityId = entityId;
-            this._actionAfterSave = actionAfterSave;
 
             this.tSSLblConnectionName.Content = this._service.ConnectionData.Name;
 
@@ -376,12 +372,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                var tempEntityId = await _service.UpsertAsync(updateEntity);
+                var saver = new EntitySaverFactory().GetEntitySaver(_entityName, _service);
 
-                if (_actionAfterSave != null)
-                {
-                    await _actionAfterSave.Invoke((s) => UpdateStatus(s));
-                }
+                var tempEntityId = await saver.UpsertAsync(updateEntity, (s) => UpdateStatus(s));
 
                 _iWriteToOutput.WriteToOutputEntityInstance(_service.ConnectionData, _entityName, tempEntityId);
 

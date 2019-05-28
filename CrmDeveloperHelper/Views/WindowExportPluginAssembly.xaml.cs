@@ -501,7 +501,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var repository = new PluginAssemblyRepository(service);
 
-            var assembly = await repository.GetAssemblyByIdAsync(idPluginAssembly);
+            var assembly = await repository.GetAssemblyByIdRetrieveRequestAsync(idPluginAssembly);
 
             string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, name, EntityFileNameFormatter.Headers.EntityDescription, "txt");
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -564,7 +564,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var repository = new PluginAssemblyRepository(service);
 
-            var assembly = await repository.GetAssemblyByIdAsync(idAssembly, new ColumnSet(PluginAssembly.Schema.Attributes.content));
+            var assembly = await repository.GetAssemblyByIdRetrieveRequestAsync(idAssembly, new ColumnSet(PluginAssembly.Schema.Attributes.content));
 
             string fileName = EntityFileNameFormatter.GetPluginAssemblyFileName(service.ConnectionData.Name, name, "Content", "dll");
             string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -747,7 +747,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var repository = new PluginAssemblyRepository(service);
 
-            var assembly = await repository.GetAssemblyByIdAsync(entity.Id);
+            var assembly = await repository.GetAssemblyByIdRetrieveRequestAsync(entity.Id);
 
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {

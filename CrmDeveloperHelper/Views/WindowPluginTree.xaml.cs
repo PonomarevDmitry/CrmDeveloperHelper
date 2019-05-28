@@ -1535,7 +1535,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (node.PluginAssembly.HasValue && node.ComponentType == ComponentType.PluginAssembly)
             {
                 var repository = new PluginAssemblyRepository(service);
-                var pluginAssembly = await repository.GetAssemblyByIdAsync(node.PluginAssembly.Value);
+                var pluginAssembly = await repository.GetAssemblyByIdRetrieveRequestAsync(node.PluginAssembly.Value);
 
                 if (string.IsNullOrEmpty(fileName))
                 {
@@ -2815,7 +2815,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var repository = new PluginAssemblyRepository(service);
 
-                var pluginAssembly = await repository.GetAssemblyByIdAsync(nodeItem.PluginAssembly.Value);
+                var pluginAssembly = await repository.GetAssemblyByIdRetrieveRequestAsync(nodeItem.PluginAssembly.Value);
 
                 var form = new WindowPluginAssembly(_iWriteToOutput, service, pluginAssembly, null, null);
 

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
-    public class PluginAssemblyRepository
+    public class PluginAssemblyRepository : IEntitySaver
     {
         /// <summary>
         /// Сервис CRM
@@ -269,12 +269,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return coll.Count == 1 ? coll.Select(e => e.ToEntity<PluginAssembly>()).SingleOrDefault() : null;
         }
 
-        public Task<PluginAssembly> GetAssemblyByIdAsync(Guid id, ColumnSet columnSet = null)
+        public Task<PluginAssembly> GetAssemblyByIdRetrieveRequestAsync(Guid id, ColumnSet columnSet = null)
         {
-            return Task.Run(() => GetAssemblyById(id, columnSet));
+            return Task.Run(() => GetAssemblyByIdByRetrieveRequest(id, columnSet));
         }
 
-        private PluginAssembly GetAssemblyById(Guid id, ColumnSet columnSet)
+        private PluginAssembly GetAssemblyByIdByRetrieveRequest(Guid id, ColumnSet columnSet)
         {
             var request = new RetrieveRequest()
             {
@@ -286,6 +286,37 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             var response = (RetrieveResponse)_service.Execute(request);
 
             return response.Entity.ToEntity<PluginAssembly>();
+        }
+
+        public Task<PluginAssembly> GetByIdAsync(Guid idPluginAssembly, ColumnSet columnSet)
+        {
+            return Task.Run(() => GetById(idPluginAssembly, columnSet));
+        }
+
+        public PluginAssembly GetById(Guid idPluginAssembly, ColumnSet columnSet)
+        {
+            QueryExpression query = new QueryExpression()
+            {
+                NoLock = true,
+
+                TopCount = 2,
+
+                EntityName = PluginAssembly.EntityLogicalName,
+
+                ColumnSet = columnSet ?? new ColumnSet(GetAttributes(_service)),
+
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression(PluginAssembly.EntityPrimaryIdAttribute, ConditionOperator.Equal, idPluginAssembly),
+                    },
+                },
+            };
+
+            var coll = _service.RetrieveMultiple(query).Entities;
+
+            return coll.Count == 1 ? coll.Select(e => e.ToEntity<PluginAssembly>()).SingleOrDefault() : null;
         }
 
         public PluginAssembly FindAssemblyByFullName(string name, string versionString, string cultureString, string publicKeyTokenString, ColumnSet columnSet)
@@ -350,6 +381,51 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             };
 
             return _service.RetrieveMultipleAll<PluginAssembly>(query);
+        }
+
+        public async Task<Guid> UpsertAsync(Entity entity, Action<string> updateStatus)
+        {
+            Guid entityId = entity.Id;
+
+            if (entity.Attributes.ContainsKey(PluginAssembly.EntityPrimaryIdAttribute)
+                && entity.Attributes[PluginAssembly.EntityPrimaryIdAttribute] != null
+                && entity.Attributes[PluginAssembly.EntityPrimaryIdAttribute] is Guid tempId
+            )
+            {
+                entityId = tempId;
+            }
+
+            if (entityId == Guid.Empty)
+            {
+                return await _service.CreateAsync(entity);
+            }
+            else
+            {
+                entity.Id = entityId;
+
+                var exists = await GetByIdAsync(entityId, new ColumnSet(false));
+
+                if (exists != null)
+                {
+                    var updateAssembly = await GetAssemblyByIdRetrieveRequestAsync(entityId, new ColumnSet(true));
+
+                    foreach (var attribute in entity.Attributes)
+                    {
+                        updateAssembly.Attributes[attribute.Key] = attribute.Value;
+                    }
+
+                    updateAssembly.Id = entityId;
+                    updateAssembly.PluginAssemblyId = entityId;
+
+                    await _service.UpdateAsync(updateAssembly);
+
+                    return entityId;
+                }
+                else
+                {
+                    return await _service.CreateAsync(entity);
+                }
+            }
         }
     }
 }

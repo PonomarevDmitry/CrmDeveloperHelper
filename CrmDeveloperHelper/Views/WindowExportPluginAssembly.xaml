@@ -100,6 +100,7 @@
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
                     <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                    <Setter Property="ToolTip" Value="{Binding Description}" />
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>

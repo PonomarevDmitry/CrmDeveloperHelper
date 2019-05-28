@@ -17,7 +17,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
     /// <summary>
     /// Репозиторий функций по поиску веб-ресурсов.
     /// </summary>
-    public class WebResourceRepository
+    public class WebResourceRepository : IEntitySaver
     {
         private static string[] _fields = null;
 
@@ -106,9 +106,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return null;
         }
 
-        public Task<WebResource> FindByIdAsync(Guid resourceId, ColumnSet columnSet = null)
+        public Task<WebResource> GetByIdAsync(Guid resourceId, ColumnSet columnSet = null)
         {
-            return Task.Run(() => FindById(resourceId, columnSet));
+            return Task.Run(() => GetById(resourceId, columnSet));
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         /// </summary>
         /// <param name="resourceId"></param>
         /// <returns></returns>
-        private WebResource FindById(Guid resourceId, ColumnSet columnSet)
+        private WebResource GetById(Guid resourceId, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {
@@ -700,6 +700,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             };
 
             return _service.RetrieveMultipleAll<WebResource>(query);
+        }
+
+        public async Task<Guid> UpsertAsync(Entity entity, Action<string> updateStatus)
+        {
+            var idEntity = await _service.UpsertAsync(entity);
+
+            var webResource = await GetByIdAsync(idEntity, new ColumnSet(WebResource.Schema.Attributes.name));
+
+            var repositoryPublish = new PublishActionsRepository(_service);
+
+            updateStatus(string.Format(Properties.WindowStatusStrings.PublishingWebResourceFormat2, _service.ConnectionData.Name, webResource.Name));
+
+            await repositoryPublish.PublishWebResourcesAsync(new[] { idEntity });
+
+            updateStatus(string.Format(Properties.WindowStatusStrings.PublishingWebResourceCompletedFormat2, _service.ConnectionData.Name, webResource.Name));
+
+            return idEntity;
         }
     }
 }

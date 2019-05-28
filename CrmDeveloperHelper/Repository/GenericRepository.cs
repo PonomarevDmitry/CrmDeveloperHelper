@@ -12,16 +12,50 @@ using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
-    public class GenericRepository
+    public class GenericRepository : IEntitySaver
     {
         private readonly IOrganizationServiceExtented _service;
-        private readonly EntityMetadata _entityMetadata;
+
+        private EntityMetadata _entityMetadata;
+
+        private readonly string _entityLogicalName;
+
+        private EntityMetadata EntityMetadata
+        {
+            get
+            {
+                if (_entityLogicalName == null)
+                {
+                    var repository = new EntityMetadataRepository(_service);
+
+                    _entityMetadata = repository.GetEntityMetadata(_entityLogicalName);
+                }
+
+                return _entityMetadata;
+            }
+        }
+
+        public GenericRepository(IOrganizationServiceExtented service, string entityLogicalName)
+        {
+            this._service = service ?? throw new ArgumentNullException(nameof(service));
+
+            if (string.IsNullOrEmpty(entityLogicalName))
+            {
+                throw new ArgumentNullException(nameof(entityLogicalName));
+            }
+
+            this._entityLogicalName = entityLogicalName;
+        }
 
         public GenericRepository(IOrganizationServiceExtented service, EntityMetadata entityMetadata)
         {
             this._service = service ?? throw new ArgumentNullException(nameof(service));
-            this._entityMetadata = entityMetadata;
+
+            this._entityMetadata = entityMetadata ?? throw new ArgumentNullException(nameof(entityMetadata));
+
+            this._entityLogicalName = this._entityMetadata.LogicalName;
         }
+
         public Task<Entity> GetEntityByIdAsync(Guid idEntity, ColumnSet columnSet)
         {
             if (string.IsNullOrEmpty(_entityMetadata.PrimaryIdAttribute))
@@ -128,7 +162,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 },
             };
 
-            return _service.RetrieveMultipleAll<Entity>(query);
+            return await _service.RetrieveMultipleAllAsync<Entity>(query);
         }
 
         public Task<Entity> GetEntityByNameFieldAsync(string name, ColumnSet columnSet)
@@ -188,6 +222,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
 
             return null;
+        }
+
+        public Task<Guid> UpsertAsync(Entity entity, Action<string> updateStatus)
+        {
+            return _service.UpsertAsync(entity);
         }
     }
 }

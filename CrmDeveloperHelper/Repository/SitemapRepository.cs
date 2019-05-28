@@ -18,7 +18,7 @@ using System.Xml.Schema;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
-    public class SitemapRepository
+    public class SitemapRepository : IEntitySaver
     {
         /// <summary>
         /// Сервис CRM
@@ -204,6 +204,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             };
 
             return _service.RetrieveMultipleAll<SiteMap>(query);
+        }
+
+        public async Task<Guid> UpsertAsync(Entity entity, Action<string> updateStatus)
+        {
+            var idEntity = await _service.UpsertAsync(entity);
+
+            var siteMap = await GetByIdAsync(idEntity, new ColumnSet(SiteMap.Schema.Attributes.sitemapname));
+
+            var repositoryPublish = new PublishActionsRepository(_service);
+
+            updateStatus(string.Format(Properties.WindowStatusStrings.PublishingSiteMapFormat3, _service.ConnectionData.Name, siteMap.SiteMapName, idEntity.ToString()));
+
+            await repositoryPublish.PublishSiteMapsAsync(new[] { idEntity });
+
+            updateStatus(string.Format(Properties.WindowStatusStrings.PublishingSiteMapCompletedFormat3, _service.ConnectionData.Name, siteMap.SiteMapName, idEntity.ToString()));
+
+            return idEntity;
         }
     }
 }

@@ -125,7 +125,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     this._iWriteToOutput.WriteToOutput(connectionData, "Custom Web-resource is selected.");
 
-                    webresource = await webResourceRepository.FindByIdAsync(selectedWebResourceId.Value);
+                    webresource = await webResourceRepository.GetByIdAsync(selectedWebResourceId.Value);
 
                     connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
 
@@ -154,7 +154,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (webId.HasValue)
                     {
-                        webresource = await webResourceRepository.FindByIdAsync(webId.Value);
+                        webresource = await webResourceRepository.GetByIdAsync(webId.Value);
                     }
 
                     if (webresource != null)
@@ -199,7 +199,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             {
                                 this._iWriteToOutput.WriteToOutput(connectionData, "Custom Web-resource is selected.");
 
-                                webresource = await webResourceRepository.FindByIdAsync(selectedWebResourceId.Value);
+                                webresource = await webResourceRepository.GetByIdAsync(selectedWebResourceId.Value);
 
                                 connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
 
@@ -352,7 +352,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (webId.HasValue)
                 {
-                    webresource1 = await webResourceRepository1.FindByIdAsync(webId.Value);
+                    webresource1 = await webResourceRepository1.GetByIdAsync(webId.Value);
 
                     if (webresource1 != null)
                     {
@@ -379,7 +379,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (webId.HasValue)
                 {
-                    webresource2 = await webResourceRepository2.FindByIdAsync(webId.Value);
+                    webresource2 = await webResourceRepository2.GetByIdAsync(webId.Value);
 
                     if (webresource2 != null)
                     {

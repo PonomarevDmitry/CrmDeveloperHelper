@@ -144,7 +144,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (lastLinkedWebResource.HasValue && this._lastWebResource == null)
                 {
-                    this._lastWebResource = await repository.FindByIdAsync(lastLinkedWebResource.Value);
+                    this._lastWebResource = await repository.GetByIdAsync(lastLinkedWebResource.Value);
 
                     string name = this._lastWebResource?.Name;
 

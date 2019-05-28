@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
-    public class SavedQueryVisualizationRepository
+    public class SavedQueryVisualizationRepository : IEntitySaver
     {
         /// <summary>
         /// Сервис CRM
@@ -71,12 +71,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             return _service.RetrieveMultipleAll<SavedQueryVisualization>(query);
         }
 
-        public Task<SavedQueryVisualization> GetByIdAsync(Guid idSavedQueryVisualization, ColumnSet columnSet)
+        public Task<SavedQueryVisualization> GetByIdAsync(Guid idChart, ColumnSet columnSet)
         {
-            return Task.Run(() => GetById(idSavedQueryVisualization, columnSet));
+            return Task.Run(() => GetById(idChart, columnSet));
         }
 
-        public SavedQueryVisualization GetById(Guid idSavedQueryVisualization, ColumnSet columnSet)
+        public SavedQueryVisualization GetById(Guid idChart, ColumnSet columnSet)
         {
             QueryExpression query = new QueryExpression()
             {
@@ -92,7 +92,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 {
                     Conditions =
                     {
-                        new ConditionExpression(SavedQueryVisualization.EntityPrimaryIdAttribute, ConditionOperator.Equal, idSavedQueryVisualization),
+                        new ConditionExpression(SavedQueryVisualization.EntityPrimaryIdAttribute, ConditionOperator.Equal, idChart),
                     },
                 },
             };
@@ -170,6 +170,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             };
 
             return _service.RetrieveMultipleAll<SavedQueryVisualization>(query);
+        }
+
+        public async Task<Guid> UpsertAsync(Entity entity, Action<string> updateStatus)
+        {
+            var idEntity = await _service.UpsertAsync(entity);
+
+            var chart = await GetByIdAsync(idEntity, new ColumnSet(SavedQueryVisualization.Schema.Attributes.primaryentitytypecode));
+
+            if (!string.IsNullOrEmpty(chart.PrimaryEntityTypeCode)
+                && !string.Equals(chart.PrimaryEntityTypeCode, "none", StringComparison.InvariantCultureIgnoreCase)
+            )
+            {
+                updateStatus(string.Format(Properties.WindowStatusStrings.PublishingEntitiesFormat2, _service.ConnectionData.Name, chart.PrimaryEntityTypeCode));
+
+                var repositoryPublish = new PublishActionsRepository(_service);
+
+                await repositoryPublish.PublishEntitiesAsync(new[] { chart.PrimaryEntityTypeCode });
+
+                updateStatus(string.Format(Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat2, _service.ConnectionData.Name, chart.PrimaryEntityTypeCode));
+            }
+
+            return idEntity;
         }
     }
 }

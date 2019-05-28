@@ -899,6 +899,7 @@
     <Compile Include="Intellisense\UrlCommandFilterProvider.cs" />
     <Compile Include="Intellisense\XmlGoToDefinitionCommandHandler.cs" />
     <Compile Include="Intellisense\XmlGoToDefinitionCreationListener.cs" />
+    <Compile Include="Interfaces\IEntitySaver.cs" />
     <Compile Include="Interfaces\IOrganizationComparerSource.cs" />
     <Compile Include="Interfaces\IOrganizationServiceExtented.cs" />
     <Compile Include="Interfaces\ISolutionComponentDescriptionBuilder.cs" />
@@ -1048,6 +1049,7 @@
     <Compile Include="Repository\DisplayStringRepository.cs" />
     <Compile Include="Repository\EntityMapRepository.cs" />
     <Compile Include="Repository\EntityMetadataRepository.cs" />
+    <Compile Include="Repository\EntitySaverFactory.cs" />
     <Compile Include="Repository\FieldPermissionRepository.cs" />
     <Compile Include="Repository\FieldSecurityProfileRepository.cs" />
     <Compile Include="Repository\GenericRepository.cs" />

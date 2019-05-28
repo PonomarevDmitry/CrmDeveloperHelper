@@ -289,18 +289,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , Guid entityId
         )
         {
-            OpenEntityEditor(iWriteToOutput, service, commonConfig, entityName, entityId, null);
-        }
-
-        public static void OpenEntityEditor(
-            IWriteToOutput iWriteToOutput
-            , IOrganizationServiceExtented service
-            , CommonConfiguration commonConfig
-            , string entityName
-            , Guid entityId
-            , Func<Action<string>, Task> actionAfterSave
-        )
-        {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
                 try
@@ -311,7 +299,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , commonConfig
                         , entityName
                         , entityId
-                        , actionAfterSave
                     );
 
                     form.ShowDialog();

@@ -286,6 +286,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             bool hasError = false;
 
+            var saver = new EntitySaverFactory().GetEntitySaver(_entityName, _service);
+
             foreach (var id in _entityIds)
             {
                 var updateEntity = new Entity(_entityName)
@@ -304,7 +306,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     _iWriteToOutput.WriteToOutputEntityInstance(_service.ConnectionData, updateEntity);
 
-                    await _service.UpsertAsync(updateEntity);
+                    await saver.UpsertAsync(updateEntity, (s) => UpdateStatus(s));
                 }
                 catch (Exception ex)
                 {
@@ -401,7 +403,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void AttributeControl_RemoveControlClicked(object sender, EventArgs e)
         {
-            if( sender is IAttributeMetadataControl<AttributeMetadata> attributeControl)
+            if (sender is IAttributeMetadataControl<AttributeMetadata> attributeControl)
             {
                 attributeControl.RemoveControlClicked -= AttributeControl_RemoveControlClicked;
                 attributeControl.RemoveControlClicked -= AttributeControl_RemoveControlClicked;

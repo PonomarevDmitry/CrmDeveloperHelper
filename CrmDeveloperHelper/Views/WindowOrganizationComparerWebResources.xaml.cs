@@ -578,8 +578,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var repository1 = new WebResourceRepository(service1);
                 var repository2 = new WebResourceRepository(service2);
 
-                var webResource1 = await repository1.FindByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                var webResource2 = await repository2.FindByIdAsync(linked.Entity2.Id, new ColumnSet(true));
+                var webResource1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
+                var webResource2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
 
                 var desc1 = await EntityDescriptionHandler.GetEntityDescriptionAsync(webResource1, EntityFileNameFormatter.WebResourceIgnoreFields);
                 var desc2 = await EntityDescriptionHandler.GetEntityDescriptionAsync(webResource2, EntityFileNameFormatter.WebResourceIgnoreFields);
@@ -641,7 +641,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
-                var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(true));
+                var webresource = await webResourceRepository.GetByIdAsync(idWebResource, new ColumnSet(true));
 
                 var description = await EntityDescriptionHandler.GetEntityDescriptionAsync(webresource, EntityFileNameFormatter.WebResourceIgnoreFields, service.ConnectionData);
 
@@ -716,7 +716,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
-                var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(true));
+                var webresource = await webResourceRepository.GetByIdAsync(idWebResource, new ColumnSet(true));
 
                 this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Starting downloading {0}", webresource.Name);
 
@@ -785,8 +785,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var repository1 = new WebResourceRepository(service1);
                 var repository2 = new WebResourceRepository(service2);
 
-                var webResource1 = await repository1.FindByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                var webResource2 = await repository2.FindByIdAsync(linked.Entity2.Id, new ColumnSet(true));
+                var webResource1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
+                var webResource2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
 
                 if (showAllways || webResource1.Content != webResource2.Content)
                 {
@@ -852,8 +852,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var repository1 = new WebResourceRepository(service1);
                     var repository2 = new WebResourceRepository(service2);
 
-                    var webResource1 = await repository1.FindByIdAsync(linked.Entity1.Id, new ColumnSet(true));
-                    var webResource2 = await repository2.FindByIdAsync(linked.Entity2.Id, new ColumnSet(true));
+                    var webResource1 = await repository1.GetByIdAsync(linked.Entity1.Id, new ColumnSet(true));
+                    var webResource2 = await repository2.GetByIdAsync(linked.Entity2.Id, new ColumnSet(true));
 
                     string xml1 = webResource1.GetAttributeValue<string>(fieldName);
                     string xml2 = webResource2.GetAttributeValue<string>(fieldName);
@@ -1163,7 +1163,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var repository = new WebResourceRepository(service);
 
-                var webResource = await repository.FindByIdAsync(idWebResource, new ColumnSet(true));
+                var webResource = await repository.GetByIdAsync(idWebResource, new ColumnSet(true));
 
                 string xmlContent = webResource.GetAttributeValue<string>(fieldName);
 

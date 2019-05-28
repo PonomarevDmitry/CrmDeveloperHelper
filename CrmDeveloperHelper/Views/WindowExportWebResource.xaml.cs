@@ -595,7 +595,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
-                var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(true));
+                var webresource = await webResourceRepository.GetByIdAsync(idWebResource, new ColumnSet(true));
 
                 string fileName = EntityFileNameFormatter.GetWebResourceFileName(service.ConnectionData.Name, name, EntityFileNameFormatter.Headers.EntityDescription, "txt");
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
@@ -629,14 +629,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var repositoryPublish = new PublishActionsRepository(service);
 
-            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, WebResource.EntityLogicalName, idWebResource, async (action) =>
-            {
-                action(string.Format(Properties.WindowStatusStrings.PublishingWebResourceFormat2, service.ConnectionData.Name, name));
-
-                await repositoryPublish.PublishWebResourcesAsync(new[] { idWebResource });
-
-                action(string.Format(Properties.WindowStatusStrings.PublishingWebResourceCompletedFormat2, service.ConnectionData.Name, name));
-            });
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, WebResource.EntityLogicalName, idWebResource);
         }
 
         private async Task PerformDeleteWebResource(string folder, Guid idWebResource, string name)
@@ -705,7 +698,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
-                var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(WebResource.Schema.Attributes.content, WebResource.Schema.Attributes.name, WebResource.Schema.Attributes.webresourcetype));
+                var webresource = await webResourceRepository.GetByIdAsync(idWebResource, new ColumnSet(WebResource.Schema.Attributes.content, WebResource.Schema.Attributes.name, WebResource.Schema.Attributes.webresourcetype));
 
                 if (webresource != null && !string.IsNullOrEmpty(webresource.Content))
                 {
@@ -780,7 +773,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
-                var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(true));
+                var webresource = await webResourceRepository.GetByIdAsync(idWebResource, new ColumnSet(true));
 
                 string xmlContent = webresource.GetAttributeValue<string>(fieldName);
 
@@ -821,7 +814,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
-                var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(true));
+                var webresource = await webResourceRepository.GetByIdAsync(idWebResource, new ColumnSet(true));
 
                 string xmlContent = webresource.GetAttributeValue<string>(fieldName);
 
@@ -932,7 +925,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 WebResourceRepository webResourceRepository = new WebResourceRepository(service);
 
-                var webresource = await webResourceRepository.FindByIdAsync(idWebResource, new ColumnSet(true));
+                var webresource = await webResourceRepository.GetByIdAsync(idWebResource, new ColumnSet(true));
 
                 var allExtensions = WebResourceRepository.GetTypeAllExtensions(webresource.WebResourceType.Value);
 

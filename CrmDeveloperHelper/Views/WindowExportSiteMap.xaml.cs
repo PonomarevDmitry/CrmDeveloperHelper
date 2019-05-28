@@ -945,14 +945,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             _commonConfig.Save();
 
-            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, SiteMap.EntityLogicalName, idSiteMap, async (action) =>
-            {
-                action(string.Format(Properties.WindowStatusStrings.PublishingSiteMapFormat3, service.ConnectionData.Name, name, idSiteMap.ToString()));
-
-                await repositoryPublish.PublishSiteMapsAsync(new[] { idSiteMap });
-
-                action(string.Format(Properties.WindowStatusStrings.PublishingSiteMapCompletedFormat3, service.ConnectionData.Name, name, idSiteMap.ToString()));
-            });
+            WindowHelper.OpenEntityEditor(_iWriteToOutput, service, _commonConfig, SiteMap.EntityLogicalName, idSiteMap);
         }
 
         private void miOptions_Click(object sender, RoutedEventArgs e)

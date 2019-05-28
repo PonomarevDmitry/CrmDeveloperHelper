@@ -22,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
     /// <summary>
     /// Репозиторий для работы с SavedQuery
     /// </summary>
-    public class SavedQueryRepository
+    public class SavedQueryRepository : IEntitySaver
     {
         /// <summary>
         /// Сервис CRM
@@ -350,6 +350,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             };
 
             return _service.RetrieveMultipleAll<SavedQuery>(query);
+        }
+
+        public async Task<Guid> UpsertAsync(Entity entity, Action<string> updateStatus)
+        {
+            var idEntity = await _service.UpsertAsync(entity);
+
+            var savedQuery = await GetByIdAsync(idEntity, new ColumnSet(SavedQuery.Schema.Attributes.returnedtypecode));
+
+            if (!string.IsNullOrEmpty(savedQuery.ReturnedTypeCode)
+                && !string.Equals(savedQuery.ReturnedTypeCode, "none", StringComparison.InvariantCultureIgnoreCase)
+            )
+            {
+                updateStatus(string.Format(Properties.WindowStatusStrings.PublishingEntitiesFormat2, _service.ConnectionData.Name, savedQuery.ReturnedTypeCode));
+
+                var repositoryPublish = new PublishActionsRepository(_service);
+
+                await repositoryPublish.PublishEntitiesAsync(new[] { savedQuery.ReturnedTypeCode });
+
+                updateStatus(string.Format(Properties.WindowStatusStrings.PublishingEntitiesCompletedFormat2, _service.ConnectionData.Name, savedQuery.ReturnedTypeCode));
+            }
+
+            return idEntity;
         }
     }
 }
