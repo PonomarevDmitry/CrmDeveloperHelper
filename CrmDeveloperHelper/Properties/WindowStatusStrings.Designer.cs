@@ -61,7 +61,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Adding {1} components into Solution {2}....
+        ///   Looks up a localized string similar to {0}. Adding {1} components to Solution {2}....
         /// </summary>
         internal static string AddingComponentsIntoSolutionFormat3 {
             get {
@@ -70,7 +70,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Adding in solution {1} ApplicationRibbon....
+        ///   Looks up a localized string similar to {0}. Adding to solution {1} ApplicationRibbon....
         /// </summary>
         internal static string AddingInSolutionApplicationRibbonFormat2 {
             get {
@@ -79,7 +79,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}. Adding in solution {1} entity {2}....
+        ///   Looks up a localized string similar to {0}. Adding to solution {1} entity {2}....
         /// </summary>
         internal static string AddingInSolutionEntityFormat3 {
             get {

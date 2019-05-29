@@ -437,7 +437,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 WithUrls = true,
             };
 
-            this._iWriteToOutput.WriteToOutput(connectionData, "WebResources to add into Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
+            this._iWriteToOutput.WriteToOutput(connectionData, "WebResources to add to Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
 
             var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
 
@@ -633,7 +633,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 WithUrls = true,
             };
 
-            this._iWriteToOutput.WriteToOutput(connectionData, "Reports to add into Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
+            this._iWriteToOutput.WriteToOutput(connectionData, "Reports to add to Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
 
             var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
 
@@ -783,7 +783,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     RootComponentBehavior = rootBehavior,
                 })).ToList();
 
-                iWriteToOutput.WriteToOutput(service.ConnectionData, "Components to add into Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
+                iWriteToOutput.WriteToOutput(service.ConnectionData, "Components to add to Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
 
                 var desc = await descriptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
 
@@ -951,7 +951,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 componentsForAdding.AddRange(components.Where(en => en.ComponentType != null && en.ObjectId.HasValue && dictForAdding.Contains(Tuple.Create(en.ComponentType.Value, en.ObjectId.Value))));
 
-                iWriteToOutput.WriteToOutput(service.ConnectionData, "Components to add into Solution {0}: {1}", solution.UniqueName, componentsForAdding.Count);
+                iWriteToOutput.WriteToOutput(service.ConnectionData, "Components to add to Solution {0}: {1}", solution.UniqueName, componentsForAdding.Count);
 
                 var desc = await descriptor.GetSolutionComponentsDescriptionAsync(componentsForAdding);
 
@@ -1259,7 +1259,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 var solutionDesciptor = new SolutionComponentDescriptor(service);
                 solutionDesciptor.SetSettings(commonConfig);
 
-                this._iWriteToOutput.WriteToOutput(connectionData, "PluginAssemblies to add into Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
+                this._iWriteToOutput.WriteToOutput(connectionData, "PluginAssemblies to add to Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
 
                 var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
 
@@ -1466,7 +1466,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             var solutionDesciptor = new SolutionComponentDescriptor(service);
             solutionDesciptor.SetSettings(commonConfig);
 
-            this._iWriteToOutput.WriteToOutput(connectionData, "Processing Steps to add into Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
+            this._iWriteToOutput.WriteToOutput(connectionData, "Processing Steps to add to Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
 
             var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
 
@@ -1688,7 +1688,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             var solutionDesciptor = new SolutionComponentDescriptor(service);
             solutionDesciptor.SetSettings(commonConfig);
 
-            this._iWriteToOutput.WriteToOutput(connectionData, "Processing Steps to add into Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
+            this._iWriteToOutput.WriteToOutput(connectionData, "Processing Steps to add to Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
 
             var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
 

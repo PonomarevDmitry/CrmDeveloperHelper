@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddingComponentsIntoSolutionFormat3" xml:space="preserve">
-    <value>{0}. Adding {1} components into Solution {2}...</value>
+    <value>{0}. Adding {1} components to Solution {2}...</value>
   </data>
   <data name="AddingInSolutionApplicationRibbonFormat2" xml:space="preserve">
-    <value>{0}. Adding in solution {1} ApplicationRibbon...</value>
+    <value>{0}. Adding to solution {1} ApplicationRibbon...</value>
   </data>
   <data name="AddingInSolutionEntityFormat3" xml:space="preserve">
-    <value>{0}. Adding in solution {1} entity {2}...</value>
+    <value>{0}. Adding to solution {1} entity {2}...</value>
   </data>
   <data name="ComparingSolutionsCompletedFormat2" xml:space="preserve">
     <value>Comparing solutions {0} and {1} completed.</value>

@@ -43,14 +43,14 @@
                     <MenuItem Header="Open Entity Explorer" Click="mIOpenEntityExplorer_Click" />
 
                     <Separator/>
-                    <MenuItem x:Uid="contMnAddEntityIntoSolutionLast" Header="Add into Last Crm Solution">
+                    <MenuItem x:Uid="contMnAddEntityIntoSolutionLast" Header="Add to Last Crm Solution">
                         <MenuItem x:Uid="contMnAddEntityIntoSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
                         <Separator/>
                         <MenuItem x:Uid="contMnAddEntityIntoSolutionLastDoNotIncludeSubcomponents" Header="Do Not Include Subcomponents" />
                         <Separator/>
                         <MenuItem x:Uid="contMnAddEntityIntoSolutionLastIncludeAsShellOnly" Header="Include As ShellOnly" />
                     </MenuItem>
-                    <MenuItem Header="Add into Crm Solution">
+                    <MenuItem Header="Add to Crm Solution">
                         <MenuItem Header="Include Subcomponents" Click="AddEntityIntoCrmSolutionIncludeSubcomponents_Click" />
                         <Separator/>
                         <MenuItem Header="Do Not Include Subcomponents" Click="AddEntityIntoCrmSolutionDoNotIncludeSubcomponents_Click" />
@@ -76,8 +76,8 @@
                 <MenuItem x:Uid="contMnSdkMessagePair" Header="Create C# Request Proxy Class" Click="mICreateRequestProxyClassCSharp_Click" />
                 <MenuItem x:Uid="contMnSdkMessagePair" Header="SdkMessagePair">
 
-                    <MenuItem x:Uid="contMnSdkMessagePairAddIntoSolutionLast" Header="Add SdkMessagePair into Last Crm Solution"  />
-                    <MenuItem Header="Add SdkMessagePair into Crm Solution" Click="mIAddSdkMessagePairIntoCrmSolution_Click" />
+                    <MenuItem x:Uid="contMnSdkMessagePairAddIntoSolutionLast" Header="Add SdkMessagePair to Last Crm Solution"  />
+                    <MenuItem Header="Add SdkMessagePair to Crm Solution" Click="mIAddSdkMessagePairIntoCrmSolution_Click" />
 
                     <Separator/>
                     <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="miOpenSdkMessagePairSolutionsContainingComponentInWindow_Click" />
@@ -91,8 +91,8 @@
                 </MenuItem>
 
                 <Separator x:Uid="contMnAddIntoSolution"/>
-                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" />
-                <MenuItem x:Uid="contMnAddIntoSolution"     Header="Add into Crm Solution" Click="AddIntoCrmSolution_Click" />
+                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add to Last Crm Solution" />
+                <MenuItem x:Uid="contMnAddIntoSolution"     Header="Add to Crm Solution" Click="AddIntoCrmSolution_Click" />
 
                 <Separator x:Uid="contMnSdkMessageProxyClass" />
                 <MenuItem x:Uid="contMnSdkMessageProxyClass" Header="Create C# Message Proxy Class" Click="mICreateMessageProxyClassCSharp_Click" />

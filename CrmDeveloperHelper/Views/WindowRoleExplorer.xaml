@@ -94,8 +94,8 @@
                 </MenuItem>
 
                 <Separator/>
-                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" />
-                <MenuItem Header="Add into Crm Solution" Click="AddRoleIntoCrmSolution_Click" />
+                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add to Last Crm Solution" />
+                <MenuItem Header="Add to Crm Solution" Click="AddRoleIntoCrmSolution_Click" />
 
                 <Separator/>
                 <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIRoleOpenSolutionsContainingComponentInWindow_Click" />
@@ -131,14 +131,14 @@
                 <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
 
                 <Separator/>
-                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution">
+                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add to Last Crm Solution">
                     <MenuItem x:Uid="contMnAddIntoSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
                     <Separator/>
                     <MenuItem x:Uid="contMnAddIntoSolutionLastDoNotIncludeSubcomponents" Header="Do Not Include Subcomponents" />
                     <Separator/>
                     <MenuItem x:Uid="contMnAddIntoSolutionLastIncludeAsShellOnly" Header="Include As ShellOnly" />
                 </MenuItem>
-                <MenuItem Header="Add into Crm Solution">
+                <MenuItem Header="Add to Crm Solution">
                     <MenuItem Header="Include Subcomponents" Click="AddIntoCrmSolutionIncludeSubcomponents_Click" />
                     <Separator/>
                     <MenuItem Header="Do Not Include Subcomponents" Click="AddIntoCrmSolutionDoNotIncludeSubcomponents_Click" />

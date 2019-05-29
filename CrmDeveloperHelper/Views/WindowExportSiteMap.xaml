@@ -18,8 +18,8 @@
                 <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
                 
                 <Separator/>
-                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" />
-                <MenuItem Header="Add into Crm Solution" Click="AddIntoCrmSolution_Click" />
+                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add to Last Crm Solution" />
+                <MenuItem Header="Add to Crm Solution" Click="AddIntoCrmSolution_Click" />
                 
                 <Separator/>
                 <MenuItem Header="SiteMap XML" Click="mIExportSiteMapXml_Click"/>

@@ -810,14 +810,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             MenuItem mILinkedComponentAddIntoCurrentSolution = new MenuItem()
             {
-                Header = "Add into Current Solution",
+                Header = "Add to Current Solution",
                 Tag = solutionComponent,
             };
             mILinkedComponentAddIntoCurrentSolution.Click += MILinkedComponentAddIntoCurrentSolution_Click;
 
             MenuItem mILinkedComponentAddIntoSolutionLast = new MenuItem()
             {
-                Header = "Add into Last Crm Solution",
+                Header = "Add to Last Crm Solution",
                 Tag = solutionComponent,
                 Uid = "mILinkedComponentAddIntoSolutionLast",
             };
@@ -826,7 +826,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             MenuItem mILinkedComponentAddIntoSolution = new MenuItem()
             {
-                Header = "Add into Crm Solution",
+                Header = "Add to Crm Solution",
                 Tag = solutionComponent,
             };
             mILinkedComponentAddIntoSolution.Click += MILinkedComponentAddIntoSolution_Click;

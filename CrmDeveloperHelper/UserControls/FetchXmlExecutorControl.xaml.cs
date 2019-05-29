@@ -2388,7 +2388,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         #endregion Delete Entities
 
-        #region Adding into Solution
+        #region Adding to Solution
 
         private async void AddIntoCrmSolutionEntity_Click(object sender, RoutedEventArgs e)
         {
@@ -2648,7 +2648,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
         }
 
-        #endregion Adding into Solution
+        #endregion Adding to Solution
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)
         {

@@ -22,9 +22,9 @@
                 <MenuItem x:Uid="contMnExplorer" Header="Component Explorer" Click="mIOpenExplorer_Click"/>
 
                 <Separator/>
-                <MenuItem x:Uid="contMnAddIntoCurrentSolution" Header="Add into Current Solution" Click="AddIntoCurrentSolution_Click" />
-                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add into Last Crm Solution" />
-                <MenuItem Header="Add into Crm Solution" Click="AddIntoSolution_Click" />
+                <MenuItem x:Uid="contMnAddIntoCurrentSolution" Header="Add to Current Solution" Click="AddIntoCurrentSolution_Click" />
+                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add to Last Crm Solution" />
+                <MenuItem Header="Add to Crm Solution" Click="AddIntoSolution_Click" />
 
                 <Separator x:Uid="contMnRemoveFromSolution" />
                 <MenuItem x:Uid="contMnRemoveFromSolution" Header="Remove Component From Solution" Click="RemoveComponentFromSolution_Click" />

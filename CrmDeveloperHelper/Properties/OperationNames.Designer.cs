@@ -70,7 +70,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Adding Components into Solution {1}.
+        ///   Looks up a localized string similar to {0} - Adding Components to Solution {1}.
         /// </summary>
         internal static string AddingComponentsIntoSolutionFormat2 {
             get {
@@ -97,7 +97,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Adding PluginAssembly into Solution {1}.
+        ///   Looks up a localized string similar to {0} - Adding PluginAssembly to Solution {1}.
         /// </summary>
         internal static string AddingPluginAssemblyIntoSolutionFormat2 {
             get {
@@ -106,7 +106,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Adding PluginAssembly Processing Steps into Solution {1}.
+        ///   Looks up a localized string similar to {0} - Adding PluginAssembly Processing Steps to Solution {1}.
         /// </summary>
         internal static string AddingPluginAssemblyProcessingStepsIntoSolutionFormat2 {
             get {
@@ -124,7 +124,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Adding PluginType Processing Steps into Solution {1}.
+        ///   Looks up a localized string similar to {0} - Adding PluginType Processing Steps to Solution {1}.
         /// </summary>
         internal static string AddingPluginTypeProcessingStepsIntoSolutionFormat2 {
             get {
@@ -133,7 +133,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Adding Reports into Solution {1}.
+        ///   Looks up a localized string similar to {0} - Adding Reports to Solution {1}.
         /// </summary>
         internal static string AddingReportsIntoSolutionFormat2 {
             get {
@@ -151,7 +151,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Adding WebResources into Solution {1}.
+        ///   Looks up a localized string similar to {0} - Adding WebResources to Solution {1}.
         /// </summary>
         internal static string AddingWebResourcesIntoSolutionFormat2 {
             get {
