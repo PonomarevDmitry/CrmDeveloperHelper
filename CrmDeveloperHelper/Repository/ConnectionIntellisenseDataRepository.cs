@@ -84,7 +84,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     _service = localService;
                 }
 
-                return _service;
+                return localService;
             }
         }
 

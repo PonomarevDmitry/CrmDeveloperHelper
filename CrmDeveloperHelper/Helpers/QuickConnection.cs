@@ -30,6 +30,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return _cacheDiscoveryServiceManagement[uri];
             }
 
+            if (!UrlIsAvailable(uri))
+            {
+                return null;
+            }
+
             try
             {
                 var serviceManagement = ServiceConfigurationFactory.CreateManagement<IDiscoveryService>(uri);
@@ -39,7 +44,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     _cacheDiscoveryServiceManagement.TryAdd(uri, serviceManagement);
                 }
 
-                return _cacheDiscoveryServiceManagement[uri];
+                return serviceManagement;
             }
             catch (Exception ex)
             {
@@ -56,6 +61,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return _cacheOrganizationServiceManagement[uri];
             }
 
+            if (!UrlIsAvailable(uri))
+            {
+                return null;
+            }
+
             try
             {
                 var management = ServiceConfigurationFactory.CreateManagement<IOrganizationService>(uri);
@@ -65,7 +75,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                     _cacheOrganizationServiceManagement.TryAdd(uri, management);
                 }
 
-                return _cacheOrganizationServiceManagement[uri];
+                return management;
             }
             catch (Exception ex)
             {
@@ -73,6 +83,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             return null;
+        }
+
+        public static bool UrlIsAvailable(Uri uri)
+        {
+            try
+            {
+                var request = WebRequest.Create(uri) as HttpWebRequest;
+                request.Timeout = 5000;
+                request.Method = "HEAD";
+
+                using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+                {
+                    int statusCode = (int)response.StatusCode;
+                    if (statusCode >= 100 && statusCode < 400)
+                    {
+                        return true;
+                    }
+                    else if (statusCode >= 500 && statusCode <= 510)
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (WebException ex)
+            {
+                DTEHelper.WriteExceptionToLog(ex);
+
+                if (ex.Status == WebExceptionStatus.ProtocolError)
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                DTEHelper.WriteExceptionToLog(ex);
+            }
+
+            return false;
         }
 
         private const int _hoursOrganizationInformation = 20;
@@ -365,7 +413,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (orgUri != null)
             {
-                IServiceManagement<IOrganizationService> serviceManagement = GetOrganizationServiceConfiguration(connectionData, orgUri);
+                var serviceManagement = GetOrganizationServiceConfiguration(connectionData, orgUri);
 
                 if (serviceManagement != null)
                 {
@@ -400,7 +448,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             try
             {
-                IServiceManagement<IDiscoveryService> serviceManagement = GetDiscoveryServiceConfiguration(connectionData, discoveryUrl);
+                var serviceManagement = GetDiscoveryServiceConfiguration(connectionData, discoveryUrl);
 
                 if (serviceManagement != null)
                 {

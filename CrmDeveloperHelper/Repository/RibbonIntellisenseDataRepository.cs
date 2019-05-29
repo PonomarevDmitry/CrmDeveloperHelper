@@ -81,7 +81,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     _service = localService;
                 }
 
-                return _service;
+                return localService;
             }
         }
 
@@ -147,6 +147,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             try
             {
                 var service = await GetServiceAsync();
+
+                if (service == null)
+                {
+                    return;
+                }
 
                 var ribbonData = _RibbonIntellisenseDataCache[entityName];
 
