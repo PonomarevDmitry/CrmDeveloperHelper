@@ -10928,6 +10928,15 @@
 
   <KeyBindings>
     <KeyBinding guid="guidCommandSet" id="CodeXmlExecuteFetchXmlRequestCommandId" editor="guidVSStd97" mod1="Alt" key1="VK_F9" mod2="Alt" key2="VK_F9"/>
+
+    <KeyBinding guid="guidCommandSet" id="CodeWebResourceUpdateContentPublishCommandId" editor="guidVSStd97" mod1="Alt" key1="C" mod2="Alt" key2="P"/>
+
+    <KeyBinding guid="guidCommandSet" id="CommonExportEntityMetadataCommandId" editor="guidVSStd97" mod1="Alt" key1="C" mod2="Alt" key2="E"/>
+
+    <KeyBinding guid="guidCommandSet" id="CommonFindEntityObjectsByIdCommandId" editor="guidVSStd97" mod1="Alt" key1="C" mod2="Alt" key2="F"/>
+
+    <KeyBinding guid="guidCommandSet" id="CommonFindEntityObjectsByNameCommandId" editor="guidVSStd97" mod1="Alt" key1="C" mod2="Alt" key2="H"/>
+
   </KeyBindings>
 
   <Symbols>

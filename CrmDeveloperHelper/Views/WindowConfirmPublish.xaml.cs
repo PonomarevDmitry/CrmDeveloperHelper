@@ -15,6 +15,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 chBDoNotPromtPublishMessage.IsEnabled = false;
                 chBDoNotPromtPublishMessage.Visibility = Visibility.Collapsed;
             }
+
+            btnConfirm.Focus();
         }
 
         /// <summary>

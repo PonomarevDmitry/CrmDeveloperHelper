@@ -91,7 +91,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 var request = WebRequest.Create(uri) as HttpWebRequest;
                 request.Timeout = 5000;
-                request.Method = "HEAD";
 
                 using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
                 {

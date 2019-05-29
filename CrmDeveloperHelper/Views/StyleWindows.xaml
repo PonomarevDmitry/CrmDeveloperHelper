@@ -3,14 +3,17 @@
                     >
 
     <!--
-    <ResourceDictionary>
-        <ResourceDictionary.MergedDictionaries>
-            <ResourceDictionary Source="StyleWindows.xaml"/>
-        </ResourceDictionary.MergedDictionaries>
+    
+    <src:WindowBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleWindows.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
 
 
-    </ResourceDictionary>
+        </ResourceDictionary>
+    </src:WindowBase.Resources>    
     
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

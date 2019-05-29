@@ -246,23 +246,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             ConnectionData connectionData = GetConnectionData();
 
-            if (connectionData != null)
+            if (connectionData == null)
             {
-                if (!_connectionCache.ContainsKey(connectionData.ConnectionId))
-                {
-                    ToggleControls(connectionData, false, string.Empty);
+                return null;
+            }
 
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-                    _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-                    var service = await QuickConnection.ConnectAsync(connectionData);
+            if (_connectionCache.ContainsKey(connectionData.ConnectionId))
+            {
+                return _connectionCache[connectionData.ConnectionId];
+            }
+
+            ToggleControls(connectionData, false, string.Empty);
+
+            _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+            _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            try
+            {
+                var service = await QuickConnection.ConnectAsync(connectionData);
+
+                if (service != null)
+                {
                     _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
                     _connectionCache[connectionData.ConnectionId] = service;
 
-                    ToggleControls(connectionData, true, string.Empty);
+                    return service;
                 }
-
-                return _connectionCache[connectionData.ConnectionId];
+                else
+                {
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                }
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                ToggleControls(connectionData, true, string.Empty);
             }
 
             return null;

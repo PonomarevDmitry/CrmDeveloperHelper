@@ -26,7 +26,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly IWriteToOutput _iWriteToOutput;
 
-        private readonly Dictionary<Guid, IOrganizationServiceExtented> _cacheService = new Dictionary<Guid, IOrganizationServiceExtented>();
+        private readonly Dictionary<Guid, IOrganizationServiceExtented> _connectionCache = new Dictionary<Guid, IOrganizationServiceExtented>();
 
         private readonly CommonConfiguration _commonConfig;
 
@@ -152,19 +152,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async Task<IOrganizationServiceExtented> GetService(ConnectionData connectionData)
         {
-            if (connectionData != null)
+            if (connectionData == null)
             {
-                if (!_cacheService.ContainsKey(connectionData.ConnectionId))
+                return null;
+            }
+
+            if (_connectionCache.ContainsKey(connectionData.ConnectionId))
+            {
+                return _connectionCache[connectionData.ConnectionId];
+            }
+
+            ToggleControls(false, string.Empty);
+
+            _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+            _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            try
+            {
+                var service = await QuickConnection.ConnectAsync(connectionData);
+
+                if (service != null)
                 {
-                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
-                    _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
-                    var service = await QuickConnection.ConnectAsync(connectionData);
                     _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-                    _cacheService[connectionData.ConnectionId] = service;
-                }
+                    _connectionCache[connectionData.ConnectionId] = service;
 
-                return _cacheService[connectionData.ConnectionId];
+                    return service;
+                }
+                else
+                {
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                }
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                ToggleControls(true, string.Empty);
             }
 
             return null;
