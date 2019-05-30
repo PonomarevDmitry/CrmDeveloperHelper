@@ -1236,11 +1236,17 @@
     <Compile Include="Views\WindowExportEntityMetadata.xaml.cs">
       <DependentUpon>WindowExportEntityMetadata.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowExportEntityMetadataOptions.xaml.cs">
+      <DependentUpon>WindowExportEntityMetadataOptions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WindowExportFormEvents.xaml.cs">
       <DependentUpon>WindowExportFormEvents.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowExportGlobalOptionSets.xaml.cs">
       <DependentUpon>WindowExportGlobalOptionSets.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowExportGlobalOptionSetsOptions.xaml.cs">
+      <DependentUpon>WindowExportGlobalOptionSetsOptions.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowExportOrganization.xaml.cs">
       <DependentUpon>WindowExportOrganization.xaml</DependentUpon>
@@ -1959,11 +1965,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\WindowExportEntityMetadataOptions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\WindowExportFormEvents.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowExportGlobalOptionSets.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowExportGlobalOptionSetsOptions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

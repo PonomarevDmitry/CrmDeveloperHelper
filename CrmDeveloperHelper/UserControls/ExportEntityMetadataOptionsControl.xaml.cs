@@ -10,99 +10,99 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
     /// </summary>
     public partial class ExportEntityMetadataOptionsControl : UserControl
     {
-        private readonly CommonConfiguration _commonConfig;
-
-        public ExportEntityMetadataOptionsControl(CommonConfiguration commonConfig)
+        public ExportEntityMetadataOptionsControl()
         {
             InitializeComponent();
-
-            this._commonConfig = commonConfig;
-
-            LoadFromConfig();
         }
 
-        private void LoadFromConfig()
+        public ExportEntityMetadataOptionsControl(CommonConfiguration commonConfig)
+            : this()
         {
-            txtBSpaceCount.DataContext = _commonConfig;
+            BindCommonConfiguration(commonConfig);
+        }
 
-            rBTab.DataContext = _commonConfig;
-            rBSpaces.DataContext = _commonConfig;
+        public void BindCommonConfiguration(CommonConfiguration commonConfig)
+        {
+            txtBSpaceCount.DataContext = commonConfig;
 
-            rBClasses.DataContext = _commonConfig;
-            rBEnums.DataContext = _commonConfig;
+            rBTab.DataContext = commonConfig;
+            rBSpaces.DataContext = commonConfig;
 
-            rBReadOnly.DataContext = _commonConfig;
-            rBConst.DataContext = _commonConfig;
+            rBClasses.DataContext = commonConfig;
+            rBEnums.DataContext = commonConfig;
 
-            chBAttributesProxyClass.DataContext = _commonConfig;
-            chBManyToOneProxyClass.DataContext = _commonConfig;
-            chBManyToManyProxyClass.DataContext = _commonConfig;
-            chBOneToManyProxyClass.DataContext = _commonConfig;
-            chBLocalOptionSetsProxyClass.DataContext = _commonConfig;
-            chBGlobalOptionSetsProxyClass.DataContext = _commonConfig;
-            chBStatusProxyClass.DataContext = _commonConfig;
+            rBReadOnly.DataContext = commonConfig;
+            rBConst.DataContext = commonConfig;
 
-            chBProxyClassWithDebuggerNonUserCode.DataContext = _commonConfig;
-            chBAttributesProxyClassWithNameOf.DataContext = _commonConfig;
-            chBProxyClassUseSchemaConstInCSharpAttributes.DataContext = _commonConfig;
-            chBProxyClassesWithoutObsoleteAttribute.DataContext = _commonConfig;
-            chBProxyClassesMakeAllPropertiesEditable.DataContext = _commonConfig;
-            chBProxyClassesAddConstructorWithAnonymousTypeObject.DataContext = _commonConfig;
+            chBAttributesProxyClass.DataContext = commonConfig;
+            chBManyToOneProxyClass.DataContext = commonConfig;
+            chBManyToManyProxyClass.DataContext = commonConfig;
+            chBOneToManyProxyClass.DataContext = commonConfig;
+            chBLocalOptionSetsProxyClass.DataContext = commonConfig;
+            chBGlobalOptionSetsProxyClass.DataContext = commonConfig;
+            chBStatusProxyClass.DataContext = commonConfig;
 
-            cmBAttributesProxyClassEnumsStateStatus.DataContext = _commonConfig;
-            cmBAttributesProxyClassEnumsLocal.DataContext = _commonConfig;
-            cmBAttributesProxyClassEnumsGlobal.DataContext = _commonConfig;
+            chBProxyClassWithDebuggerNonUserCode.DataContext = commonConfig;
+            chBAttributesProxyClassWithNameOf.DataContext = commonConfig;
+            chBProxyClassUseSchemaConstInCSharpAttributes.DataContext = commonConfig;
+            chBProxyClassesWithoutObsoleteAttribute.DataContext = commonConfig;
+            chBProxyClassesMakeAllPropertiesEditable.DataContext = commonConfig;
+            chBProxyClassesAddConstructorWithAnonymousTypeObject.DataContext = commonConfig;
 
-            chBAttributesProxyClassEnumsUseSchemaStateStatusEnum.DataContext = _commonConfig;
-            chBAttributesProxyClassEnumsUseSchemaLocalEnum.DataContext = _commonConfig;
-            cmBAttributesProxyClassEnumsUseSchemaGlobalEnum.DataContext = _commonConfig;
+            cmBAttributesProxyClassEnumsStateStatus.DataContext = commonConfig;
+            cmBAttributesProxyClassEnumsLocal.DataContext = commonConfig;
+            cmBAttributesProxyClassEnumsGlobal.DataContext = commonConfig;
 
-            chBAddDescriptionAttribute.DataContext = _commonConfig;
-            chBProxyClassAddDescriptionAttribute.DataContext = _commonConfig;
+            chBAttributesProxyClassEnumsUseSchemaStateStatusEnum.DataContext = commonConfig;
+            chBAttributesProxyClassEnumsUseSchemaLocalEnum.DataContext = commonConfig;
+            cmBAttributesProxyClassEnumsUseSchemaGlobalEnum.DataContext = commonConfig;
 
-            chBAddTypeConverterAttributeForEnums.DataContext = _commonConfig;
+            chBAddDescriptionAttribute.DataContext = commonConfig;
+            chBProxyClassAddDescriptionAttribute.DataContext = commonConfig;
 
-            chBAttributesSchema.DataContext = _commonConfig;
-            chBManyToOneSchema.DataContext = _commonConfig;
-            chBManyToManySchema.DataContext = _commonConfig;
-            chBOneToManySchema.DataContext = _commonConfig;
-            chBLocalOptionSetsSchema.DataContext = _commonConfig;
-            chBGlobalOptionSetsSchema.DataContext = _commonConfig;
-            chBStatusSchema.DataContext = _commonConfig;
-            chBKeysSchema.DataContext = _commonConfig;
+            chBAddTypeConverterAttributeForEnums.DataContext = commonConfig;
 
-            chBIntoSchemaClass.DataContext = _commonConfig;
+            chBAttributesSchema.DataContext = commonConfig;
+            chBManyToOneSchema.DataContext = commonConfig;
+            chBManyToManySchema.DataContext = commonConfig;
+            chBOneToManySchema.DataContext = commonConfig;
+            chBLocalOptionSetsSchema.DataContext = commonConfig;
+            chBGlobalOptionSetsSchema.DataContext = commonConfig;
+            chBStatusSchema.DataContext = commonConfig;
+            chBKeysSchema.DataContext = commonConfig;
 
-            chBAllDescriptions.DataContext = _commonConfig;
+            chBIntoSchemaClass.DataContext = commonConfig;
 
-            chBWithDependentComponents.DataContext = _commonConfig;
+            chBAllDescriptions.DataContext = commonConfig;
 
-            chBWithManagedInfo.DataContext = _commonConfig;
+            chBWithDependentComponents.DataContext = commonConfig;
 
-
-
-
-
-            chBForm.DataContext = _commonConfig;
-            chBHomepageGrid.DataContext = _commonConfig;
-            chBSubGrid.DataContext = _commonConfig;
-
-            chBSortRibbonCommandsAndRulesById.DataContext = _commonConfig;
-            chBSortXmlAttributes.DataContext = _commonConfig;
-
-            chBXmlAttributeOnNewLine.DataContext = _commonConfig;
-
-            chBSetXmlSchemas.DataContext = _commonConfig;
-
-            chBSetIntellisenseContext.DataContext = _commonConfig;
+            chBWithManagedInfo.DataContext = commonConfig;
 
 
 
 
 
+            chBForm.DataContext = commonConfig;
+            chBHomepageGrid.DataContext = commonConfig;
+            chBSubGrid.DataContext = commonConfig;
 
-            rBAllcomponents.DataContext = _commonConfig;
-            rBWorkflowPlugin.DataContext = _commonConfig;
+            chBSortRibbonCommandsAndRulesById.DataContext = commonConfig;
+            chBSortXmlAttributes.DataContext = commonConfig;
+
+            chBXmlAttributeOnNewLine.DataContext = commonConfig;
+
+            chBSetXmlSchemas.DataContext = commonConfig;
+
+            chBSetIntellisenseContext.DataContext = commonConfig;
+
+
+
+
+
+
+            rBAllcomponents.DataContext = commonConfig;
+            rBWorkflowPlugin.DataContext = commonConfig;
         }
 
         public event EventHandler<EventArgs> CloseClicked;

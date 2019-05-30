@@ -336,7 +336,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Обновление файла с мета-данными сущности C#.
 
-        public async Task ExecuteUpdateFileWithEntityMetadataCSharpSchema(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
+        public async Task ExecuteUpdateFileWithEntityMetadataCSharpSchema(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity, bool openOptions)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingFileWithEntityMetadataFormat1, connectionData?.Name);
 
@@ -344,7 +344,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdatingFileWithEntityMetadataCSharpSchema(selectedFiles, connectionData, commonConfig, selectEntity);
+                await UpdatingFileWithEntityMetadataCSharpSchema(selectedFiles, connectionData, commonConfig, selectEntity, openOptions);
             }
             catch (Exception ex)
             {
@@ -356,12 +356,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdatingFileWithEntityMetadataCSharpSchema(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
+        private async Task UpdatingFileWithEntityMetadataCSharpSchema(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity, bool openOptions)
         {
             if (connectionData == null)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
+            }
+
+            if (!selectEntity && openOptions)
+            {
+                WindowHelper.OpenEntityMetadataWindowOptions(_iWriteToOutput, connectionData, commonConfig);
             }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
@@ -459,7 +464,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Обновление файла с прокси-классом сущности C#.
 
-        public async Task ExecuteUpdateFileWithEntityMetadataCSharpProxyClass(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
+        public async Task ExecuteUpdateFileWithEntityMetadataCSharpProxyClass(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity, bool openOptions)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingFileWithEntityMetadataFormat1, connectionData?.Name);
 
@@ -467,7 +472,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdatingFileWithEntityMetadataCSharpProxyClass(selectedFiles, connectionData, commonConfig, selectEntity);
+                await UpdatingFileWithEntityMetadataCSharpProxyClass(selectedFiles, connectionData, commonConfig, selectEntity, openOptions);
             }
             catch (Exception ex)
             {
@@ -479,12 +484,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdatingFileWithEntityMetadataCSharpProxyClass(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
+        private async Task UpdatingFileWithEntityMetadataCSharpProxyClass(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity, bool openOptions)
         {
             if (connectionData == null)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
+            }
+
+            if (!selectEntity && openOptions)
+            {
+                WindowHelper.OpenEntityMetadataWindowOptions(_iWriteToOutput, connectionData, commonConfig);
             }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
@@ -584,7 +594,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Обновление файла с мета-данными сущности JavaScript.
 
-        public async Task ExecuteUpdateFileWithEntityMetadataJavaScript(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
+        public async Task ExecuteUpdateFileWithEntityMetadataJavaScript(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity, bool openOptions)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingFileWithEntityMetadataFormat1, connectionData?.Name);
 
@@ -592,7 +602,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdatingFileWithEntityMetadataJavaScript(selectedFiles, connectionData, commonConfig, selectEntity);
+                await UpdatingFileWithEntityMetadataJavaScript(selectedFiles, connectionData, commonConfig, selectEntity, openOptions);
             }
             catch (Exception ex)
             {
@@ -604,12 +614,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdatingFileWithEntityMetadataJavaScript(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
+        private async Task UpdatingFileWithEntityMetadataJavaScript(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity, bool openOptions)
         {
             if (connectionData == null)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
+            }
+
+            if (!selectEntity && openOptions)
+            {
+                WindowHelper.OpenEntityMetadataWindowOptions(_iWriteToOutput, connectionData, commonConfig);
             }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
@@ -655,7 +670,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         var config = new CreateFileJavaScriptConfiguration(
                             tabSpacer
-                            , commonConfig.GenerateSchemaEntityOptionSetsDependentComponents
+                            , commonConfig.GenerateSchemaEntityOptionSetsWithDependentComponents
                             , commonConfig.GenerateSchemaIntoSchemaClass
                         );
 
@@ -701,7 +716,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Обновление файла с глобальными OptionSet-ами C#.
 
-        public async Task ExecuteUpdatingFileWithGlobalOptionSetCSharp(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
+        public async Task ExecuteUpdatingFileWithGlobalOptionSetCSharp(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect, bool openOptions)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingFileWithGlobalOptionSetsFormat1, connectionData?.Name);
 
@@ -709,7 +724,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdatingFileWithGlobalOptionSetCSharp(connectionData, commonConfig, selectedFiles, withSelect);
+                await UpdatingFileWithGlobalOptionSetCSharp(connectionData, commonConfig, selectedFiles, withSelect, openOptions);
             }
             catch (Exception ex)
             {
@@ -721,12 +736,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdatingFileWithGlobalOptionSetCSharp(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
+        private async Task UpdatingFileWithGlobalOptionSetCSharp(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect, bool openOptions)
         {
             if (connectionData == null)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
+            }
+
+            if (!withSelect && openOptions)
+            {
+                WindowHelper.OpenGlobalOptionSetsWindowOptions(_iWriteToOutput, connectionData, commonConfig);
             }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
@@ -814,7 +834,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Обновление файла с глобальными OptionSet-ами JavaScript Single.
 
-        public async Task ExecuteUpdatingFileWithGlobalOptionSetSingleJavaScript(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
+        public async Task ExecuteUpdatingFileWithGlobalOptionSetSingleJavaScript(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect, bool openOptions)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingFileWithGlobalOptionSetsFormat1, connectionData?.Name);
 
@@ -822,7 +842,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdatingFileWithGlobalOptionSetSingleJavaScript(connectionData, commonConfig, selectedFiles, withSelect);
+                await UpdatingFileWithGlobalOptionSetSingleJavaScript(connectionData, commonConfig, selectedFiles, withSelect, openOptions);
             }
             catch (Exception ex)
             {
@@ -834,12 +854,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdatingFileWithGlobalOptionSetSingleJavaScript(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
+        private async Task UpdatingFileWithGlobalOptionSetSingleJavaScript(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect, bool openOptions)
         {
             if (connectionData == null)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
+            }
+
+            if (!withSelect && openOptions)
+            {
+                WindowHelper.OpenGlobalOptionSetsWindowOptions(_iWriteToOutput, connectionData, commonConfig);
             }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
@@ -930,7 +955,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Обновление файла с глобальными OptionSet-ами JavaScript All.
 
-        public async Task ExecuteUpdatingFileWithGlobalOptionSetAllJavaScript(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        public async Task ExecuteUpdatingFileWithGlobalOptionSetAllJavaScript(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, bool openOptions)
         {
             string operation = string.Format(Properties.OperationNames.UpdatingFileWithGlobalOptionSetsFormat1, connectionData?.Name);
 
@@ -938,7 +963,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await UpdatingFileWithGlobalOptionSetAllJavaScript(connectionData, commonConfig, selectedFile);
+                await UpdatingFileWithGlobalOptionSetAllJavaScript(connectionData, commonConfig, selectedFile, openOptions);
             }
             catch (Exception ex)
             {
@@ -950,12 +975,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task UpdatingFileWithGlobalOptionSetAllJavaScript(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        private async Task UpdatingFileWithGlobalOptionSetAllJavaScript(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, bool openOptions)
         {
             if (connectionData == null)
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
                 return;
+            }
+
+            if (openOptions)
+            {
+                WindowHelper.OpenGlobalOptionSetsWindowOptions(_iWriteToOutput, connectionData, commonConfig);
             }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);

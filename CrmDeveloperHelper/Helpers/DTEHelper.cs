@@ -112,7 +112,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            if ((System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Shift) == System.Windows.Input.ModifierKeys.Shift)
+            if ((System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Shift) != 0)
             {
                 connectionData.ConnectionConfiguration.SetCurrentConnection(connectionData.ConnectionId);
                 connectionData.ConnectionConfiguration.Save();
@@ -633,38 +633,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleUpdateGlobalOptionSetsFile(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool withSelect)
-        {
-            CommonConfiguration commonConfig = CommonConfiguration.Get();
-
-            if (connectionData == null)
-            {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
-                {
-                    return;
-                }
-
-                connectionData = crmConfig.CurrentConnectionData;
-            }
-
-            if (connectionData != null && selectedFiles.Count > 0)
-            {
-                ActivateOutputWindow(connectionData);
-                WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                CheckWishToChangeCurrentConnection(connectionData);
-
-                try
-                {
-                    Controller.StartUpdatingFileWithGlobalOptionSets(connectionData, commonConfig, selectedFiles, withSelect);
-                }
-                catch (Exception ex)
-                {
-                    WriteErrorToOutput(connectionData, ex);
-                }
-            }
-        }
-
         public void HandleUpdateEntityMetadataFileCSharpSchema(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool selectEntity)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
@@ -686,9 +654,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 CheckWishToChangeCurrentConnection(connectionData);
 
+                bool openOptions = (System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Control) != 0;
+
                 try
                 {
-                    Controller.StartUpdatingFileWithEntityMetadataCSharpSchema(selectedFiles, connectionData, commonConfig, selectEntity);
+                    Controller.StartUpdatingFileWithEntityMetadataCSharpSchema(selectedFiles, connectionData, commonConfig, selectEntity, openOptions);
                 }
                 catch (Exception ex)
                 {
@@ -718,9 +688,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 CheckWishToChangeCurrentConnection(connectionData);
 
+                bool openOptions = (System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Control) != 0;
+
                 try
                 {
-                    Controller.StartUpdatingFileWithEntityMetadataCSharpProxyClass(selectedFiles, connectionData, commonConfig, selectEntity);
+                    Controller.StartUpdatingFileWithEntityMetadataCSharpProxyClass(selectedFiles, connectionData, commonConfig, selectEntity, openOptions);
                 }
                 catch (Exception ex)
                 {
@@ -750,9 +722,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 CheckWishToChangeCurrentConnection(connectionData);
 
+                bool openOptions = (System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Control) != 0;
+
                 try
                 {
-                    Controller.StartUpdatingFileWithEntityMetadataJavaScript(selectedFiles, connectionData, commonConfig, selectEntity);
+                    Controller.StartUpdatingFileWithEntityMetadataJavaScript(selectedFiles, connectionData, commonConfig, selectEntity, openOptions);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
+        public void HandleUpdateGlobalOptionSetsFile(ConnectionData connectionData, List<SelectedFile> selectedFiles, bool withSelect)
+        {
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && selectedFiles.Count > 0)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                bool openOptions = (System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Control) != 0;
+
+                try
+                {
+                    Controller.StartUpdatingFileWithGlobalOptionSets(connectionData, commonConfig, selectedFiles, withSelect, openOptions);
                 }
                 catch (Exception ex)
                 {
@@ -782,9 +790,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 CheckWishToChangeCurrentConnection(connectionData);
 
+                bool openOptions = (System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Control) != 0;
+
                 try
                 {
-                    Controller.StartUpdatingFileWithGlobalOptionSetSingleJavaScript(selectedFiles, connectionData, commonConfig, selectEntity);
+                    Controller.StartUpdatingFileWithGlobalOptionSetSingleJavaScript(selectedFiles, connectionData, commonConfig, selectEntity, openOptions);
                 }
                 catch (Exception ex)
                 {
@@ -814,9 +824,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 CheckWishToChangeCurrentConnection(connectionData);
 
+                bool openOptions = (System.Windows.Input.Keyboard.Modifiers & System.Windows.Input.ModifierKeys.Control) != 0;
+
                 try
                 {
-                    Controller.StartUpdatingFileWithGlobalOptionSetAllJavaScript(connectionData, commonConfig, selectedFile);
+                    Controller.StartUpdatingFileWithGlobalOptionSetAllJavaScript(connectionData, commonConfig, selectedFile, openOptions);
                 }
                 catch (Exception ex)
                 {

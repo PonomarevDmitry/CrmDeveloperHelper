@@ -105,6 +105,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             worker.Start();
         }
 
+        public static void OpenEntityMetadataWindowOptions(
+            IWriteToOutput iWriteToOutput
+            , ConnectionData connectionData
+            , CommonConfiguration commonConfig
+        )
+        {
+            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowExportEntityMetadataOptions(
+                        iWriteToOutput
+                        , commonConfig
+                        , connectionData
+                    );
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
         public static void OpenEntityAttributeExplorer(
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
@@ -1174,6 +1203,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , isJavaScript
                         , selectedItem
                       );
+
+                    form.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
+        public static void OpenGlobalOptionSetsWindowOptions(
+            IWriteToOutput iWriteToOutput
+            , ConnectionData connectionData
+            , CommonConfiguration commonConfig
+        )
+        {
+            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowExportGlobalOptionSetsOptions(
+                        iWriteToOutput
+                        , commonConfig
+                        , connectionData
+                    );
 
                     form.ShowDialog();
                 }

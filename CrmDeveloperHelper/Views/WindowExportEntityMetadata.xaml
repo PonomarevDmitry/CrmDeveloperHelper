@@ -119,7 +119,9 @@
 
         </ResourceDictionary>
     </src:WindowBase.Resources>
+    
     <DockPanel LastChildFill="True">
+        
         <ToolBar x:Name="toolBarHeader" DockPanel.Dock="Top">
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                 <MenuItem Header="Options" Click="miExportEntityMetadataOptions_Click" />

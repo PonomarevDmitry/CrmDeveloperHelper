@@ -10,39 +10,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
     /// </summary>
     public partial class ExportGlobalOptionSetMetadataOptionsControl : UserControl
     {
-        private readonly CommonConfiguration _commonConfig;
-
-        public ExportGlobalOptionSetMetadataOptionsControl(CommonConfiguration commonConfig)
+        public ExportGlobalOptionSetMetadataOptionsControl()
         {
             InitializeComponent();
-
-            this._commonConfig = commonConfig;
-
-            LoadFromConfig();
         }
 
-        private void LoadFromConfig()
+        public ExportGlobalOptionSetMetadataOptionsControl(CommonConfiguration commonConfig)
+            : this()
         {
-            txtBSpaceCount.DataContext = _commonConfig;
+            BindCommonConfiguration(commonConfig);
+        }
 
-            rBTab.DataContext = _commonConfig;
-            rBSpaces.DataContext = _commonConfig;
+        public void BindCommonConfiguration(CommonConfiguration commonConfig)
+        {
+            txtBSpaceCount.DataContext = commonConfig;
 
-            rBClasses.DataContext = _commonConfig;
-            rBEnums.DataContext = _commonConfig;
+            rBTab.DataContext = commonConfig;
+            rBSpaces.DataContext = commonConfig;
 
-            rBReadOnly.DataContext = _commonConfig;
-            rBConst.DataContext = _commonConfig;
+            rBClasses.DataContext = commonConfig;
+            rBEnums.DataContext = commonConfig;
 
-            chBAllDescriptions.DataContext = _commonConfig;
+            rBReadOnly.DataContext = commonConfig;
+            rBConst.DataContext = commonConfig;
 
-            chBWithDependentComponents.DataContext = _commonConfig;
+            chBAllDescriptions.DataContext = commonConfig;
 
-            chBWithManagedInfo.DataContext = _commonConfig;
+            chBWithDependentComponents.DataContext = commonConfig;
 
-            chBSchemaAddDescriptionAttribute.DataContext = _commonConfig;
+            chBWithManagedInfo.DataContext = commonConfig;
 
-            chBSchemaAddTypeConverterAttributeForEnums.DataContext = _commonConfig;
+            chBSchemaAddDescriptionAttribute.DataContext = commonConfig;
+
+            chBSchemaAddTypeConverterAttributeForEnums.DataContext = commonConfig;
         }
 
         public event EventHandler<EventArgs> CloseClicked;

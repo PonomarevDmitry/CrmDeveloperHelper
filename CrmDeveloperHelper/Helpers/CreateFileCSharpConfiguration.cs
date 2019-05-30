@@ -85,6 +85,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             var result = CreateForSchemaEntity(namespaceClasses, namespaceGlobalOptionSets, typeConverterName, commonConfig);
 
+            result.WithDependentComponents = commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents;
+
             //result.AddDescriptionAttribute = commonConfig.GenerateSchemaAddDescriptionAttribute;
 
             return result;
@@ -116,7 +118,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 GenerateKeys = commonConfig.GenerateSchemaKeys,
 
                 AllDescriptions = commonConfig.GenerateCommonAllDescriptions,
-                WithDependentComponents = commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents,
+                WithDependentComponents = commonConfig.GenerateSchemaEntityOptionSetsWithDependentComponents,
                 ConstantType = commonConfig.GenerateSchemaConstantType,
                 OptionSetExportType = commonConfig.GenerateSchemaOptionSetExportType,
 
@@ -154,7 +156,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 GenerateManyToMany = commonConfig.GenerateProxyClassesManyToMany,
 
                 AllDescriptions = commonConfig.GenerateCommonAllDescriptions,
-                WithDependentComponents = commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents,
+                WithDependentComponents = commonConfig.GenerateSchemaEntityOptionSetsWithDependentComponents,
 
                 WithManagedInfo = commonConfig.SolutionComponentWithManagedInfo,
 

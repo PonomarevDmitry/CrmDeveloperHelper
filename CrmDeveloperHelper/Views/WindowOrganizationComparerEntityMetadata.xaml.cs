@@ -785,7 +785,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var result = new CreateFileJavaScriptConfiguration(
                 tabSpacer
-                , _commonConfig.GenerateSchemaEntityOptionSetsDependentComponents
+                , _commonConfig.GenerateSchemaEntityOptionSetsWithDependentComponents
                 , _commonConfig.GenerateSchemaIntoSchemaClass
             );
 

@@ -78,7 +78,7 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox x:Name="chBWithDependentComponents" IsChecked="{Binding Path=GenerateSchemaEntityOptionSetsDependentComponents}" Content="With dependent components for Global OptionSets" />
+                        <CheckBox x:Name="chBWithDependentComponents" IsChecked="{Binding Path=GenerateSchemaEntityOptionSetsWithDependentComponents}" Content="With dependent components for Global OptionSets" />
                     </StackPanel>
                 </StackPanel>
 

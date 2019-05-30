@@ -101,16 +101,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
         }
 
-        private bool _GenerateSchemaEntityOptionSetsDependentComponents;
+        private bool _GenerateSchemaEntityOptionSetsWithDependentComponents;
         [DataMember]
-        public bool GenerateSchemaEntityOptionSetsDependentComponents
+        public bool GenerateSchemaEntityOptionSetsWithDependentComponents
         {
-            get => _GenerateSchemaEntityOptionSetsDependentComponents;
+            get => _GenerateSchemaEntityOptionSetsWithDependentComponents;
             set
             {
-                this.OnPropertyChanging(nameof(GenerateSchemaEntityOptionSetsDependentComponents));
-                this._GenerateSchemaEntityOptionSetsDependentComponents = value;
-                this.OnPropertyChanged(nameof(GenerateSchemaEntityOptionSetsDependentComponents));
+                this.OnPropertyChanging(nameof(GenerateSchemaEntityOptionSetsWithDependentComponents));
+                this._GenerateSchemaEntityOptionSetsWithDependentComponents = value;
+                this.OnPropertyChanged(nameof(GenerateSchemaEntityOptionSetsWithDependentComponents));
             }
         }
 
@@ -299,7 +299,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             this.GenerateSchemaConstantType = diskData.GenerateSchemaConstantType;
             this.GenerateSchemaOptionSetExportType = diskData.GenerateSchemaOptionSetExportType;
 
-            this.GenerateSchemaEntityOptionSetsDependentComponents = diskData.GenerateSchemaEntityOptionSetsDependentComponents;
+            this.GenerateSchemaEntityOptionSetsWithDependentComponents = diskData.GenerateSchemaEntityOptionSetsWithDependentComponents;
 
             this.GenerateSchemaAddDescriptionAttribute = diskData.GenerateSchemaAddDescriptionAttribute;
         }

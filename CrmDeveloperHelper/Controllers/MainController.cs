@@ -1066,13 +1066,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartUpdatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
+        public void StartUpdatingFileWithEntityMetadataCSharpSchema(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity, bool openOptions)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._entityMetadataController.ExecuteUpdatingFileWithGlobalOptionSetCSharp(connectionData, commonConfig, selectedFiles, withSelect);
+                    this._entityMetadataController.ExecuteUpdateFileWithEntityMetadataCSharpSchema(selectedFiles, connectionData, commonConfig, selectEntity, openOptions);
                 }
                 catch (Exception ex)
                 {
@@ -1083,13 +1083,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartUpdatingFileWithEntityMetadataCSharpSchema(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
+        public void StartUpdatingFileWithEntityMetadataCSharpProxyClass(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity, bool openOptions)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._entityMetadataController.ExecuteUpdateFileWithEntityMetadataCSharpSchema(selectedFiles, connectionData, commonConfig, selectEntity);
+                    this._entityMetadataController.ExecuteUpdateFileWithEntityMetadataCSharpProxyClass(selectedFiles, connectionData, commonConfig, selectEntity, openOptions);
                 }
                 catch (Exception ex)
                 {
@@ -1100,13 +1100,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartUpdatingFileWithEntityMetadataCSharpProxyClass(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
+        public void StartUpdatingFileWithEntityMetadataJavaScript(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity, bool openOptions)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._entityMetadataController.ExecuteUpdateFileWithEntityMetadataCSharpProxyClass(selectedFiles, connectionData, commonConfig, selectEntity);
+                    this._entityMetadataController.ExecuteUpdateFileWithEntityMetadataJavaScript(selectedFiles, connectionData, commonConfig, selectEntity, openOptions);
                 }
                 catch (Exception ex)
                 {
@@ -1117,13 +1117,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartUpdatingFileWithEntityMetadataJavaScript(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
+        public void StartUpdatingFileWithGlobalOptionSets(ConnectionData connectionData, CommonConfiguration commonConfig, IEnumerable<SelectedFile> selectedFiles, bool withSelect, bool openOptions)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._entityMetadataController.ExecuteUpdateFileWithEntityMetadataJavaScript(selectedFiles, connectionData, commonConfig, selectEntity);
+                    this._entityMetadataController.ExecuteUpdatingFileWithGlobalOptionSetCSharp(connectionData, commonConfig, selectedFiles, withSelect, openOptions);
                 }
                 catch (Exception ex)
                 {
@@ -1134,13 +1134,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartUpdatingFileWithGlobalOptionSetSingleJavaScript(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity)
+        public void StartUpdatingFileWithGlobalOptionSetSingleJavaScript(List<SelectedFile> selectedFiles, ConnectionData connectionData, CommonConfiguration commonConfig, bool selectEntity, bool openOptions)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._entityMetadataController.ExecuteUpdatingFileWithGlobalOptionSetSingleJavaScript(connectionData, commonConfig, selectedFiles, selectEntity);
+                    this._entityMetadataController.ExecuteUpdatingFileWithGlobalOptionSetSingleJavaScript(connectionData, commonConfig, selectedFiles, selectEntity, openOptions);
                 }
                 catch (Exception ex)
                 {
@@ -1151,13 +1151,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartUpdatingFileWithGlobalOptionSetAllJavaScript(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile)
+        public void StartUpdatingFileWithGlobalOptionSetAllJavaScript(ConnectionData connectionData, CommonConfiguration commonConfig, SelectedFile selectedFile, bool openOptions)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._entityMetadataController.ExecuteUpdatingFileWithGlobalOptionSetAllJavaScript(connectionData, commonConfig, selectedFile);
+                    this._entityMetadataController.ExecuteUpdatingFileWithGlobalOptionSetAllJavaScript(connectionData, commonConfig, selectedFile, openOptions);
                 }
                 catch (Exception ex)
                 {
