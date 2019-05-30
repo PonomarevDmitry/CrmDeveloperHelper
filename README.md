@@ -2,6 +2,8 @@
 
 Download this extension from the [VS Marketplace](https://marketplace.visualstudio.com/items?itemName=NaviconPonomarevDmitry.CrmDeveloperHelper).
 
+[Wiki](https://github.com/PonomarevDmitry/CrmDeveloperHelper/wiki)
+
 ---------------------------------------
 
 ## Features
@@ -25,8 +27,6 @@ Download this extension from the [VS Marketplace](https://marketplace.visualstud
   - Global OptionSets
   - Plugin Information
 - **Comparing CRM Organizations**
-
-[Wiki](https://github.com/PonomarevDmitry/CrmDeveloperHelper/wiki)
 
 ## License
 [GNU GENERAL PUBLIC LICENSE](LICENSE.md)
