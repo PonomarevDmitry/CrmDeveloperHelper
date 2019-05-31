@@ -68,55 +68,55 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 package
                 , PackageIds.CodeReportShowDifferenceOriginalBodyTextOneByOneCommandId
                 , Report.Schema.Attributes.originalbodytext
-                , "OriginalBodyText"
+                , Report.Schema.Headers.originalbodytext
                 , ShowDifferenceThreeFileType.OneByOne
-                , "Local File <-> {0}      Local File <-> {1}      {0} <-> {1}"
-                );
+                , Properties.CommandNames.ShowDifferenceOneByOneCommandFormat2
+            );
 
             InstanceTwoConnectionsOriginalBodyText = new CodeReportShowDifferenceThreeFileCommand(
                 package
                 , PackageIds.CodeReportShowDifferenceOriginalBodyTextTwoConnectionsCommandId
                 , Report.Schema.Attributes.originalbodytext
-                , "OriginalBodyText"
+                , Report.Schema.Headers.originalbodytext
                 , ShowDifferenceThreeFileType.TwoConnections
-                , "{0} <-> {1}"
-                );
+                , Properties.CommandNames.ShowDifferenceTwoConnectionsCommandFormat2
+            );
 
             InstanceThreeWayOriginalBodyText = new CodeReportShowDifferenceThreeFileCommand(
                 package
                 , PackageIds.CodeReportShowDifferenceOriginalBodyTextThreeWayCommandId
                 , Report.Schema.Attributes.originalbodytext
-                , "OriginalBodyText"
+                , Report.Schema.Headers.originalbodytext
                 , ShowDifferenceThreeFileType.ThreeWay
-                , "{0} <-> Local File <-> {1}"
-                );
+                , Properties.CommandNames.ShowDifferenceThreeWayCommandFormat2
+            );
 
             InstanceOneByOneBodyText = new CodeReportShowDifferenceThreeFileCommand(
                 package
                 , PackageIds.CodeReportShowDifferenceBodyTextOneByOneCommandId
                 , Report.Schema.Attributes.bodytext
-                , "BodyText"
+                , Report.Schema.Headers.bodytext
                 , ShowDifferenceThreeFileType.OneByOne
-                , "Local File <-> {0}      Local File <-> {1}      {0} <-> {1}"
-                );
+                , Properties.CommandNames.ShowDifferenceOneByOneCommandFormat2
+            );
 
             InstanceTwoConnectionsBodyText = new CodeReportShowDifferenceThreeFileCommand(
                 package
                 , PackageIds.CodeReportShowDifferenceBodyTextTwoConnectionsCommandId
                 , Report.Schema.Attributes.bodytext
-                , "BodyText"
+                , Report.Schema.Headers.bodytext
                 , ShowDifferenceThreeFileType.TwoConnections
-                , "{0} <-> {1}"
-                );
+                , Properties.CommandNames.ShowDifferenceTwoConnectionsCommandFormat2
+            );
 
             InstanceThreeWayBodyText = new CodeReportShowDifferenceThreeFileCommand(
                 package
                 , PackageIds.CodeReportShowDifferenceBodyTextThreeWayCommandId
                 , Report.Schema.Attributes.bodytext
-                , "BodyText"
+                , Report.Schema.Headers.bodytext
                 , ShowDifferenceThreeFileType.ThreeWay
-                , "{0} <-> Local File <-> {1}"
-                );
+                , Properties.CommandNames.ShowDifferenceThreeWayCommandFormat2
+            );
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)

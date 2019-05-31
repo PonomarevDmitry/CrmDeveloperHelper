@@ -54,7 +54,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 package
                 , PackageIds.CodeReportShowDifferenceOriginalBodyTextCommandId
                 , Report.Schema.Attributes.originalbodytext
-                , "OriginalBodyText"
+                , Report.Schema.Headers.originalbodytext
                 , false
                 );
 
@@ -62,7 +62,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 package
                 , PackageIds.CodeReportShowDifferenceOriginalBodyTextCustomCommandId
                 , Report.Schema.Attributes.originalbodytext
-                , "OriginalBodyText"
+                , Report.Schema.Headers.originalbodytext
                 , true
                 );
 
@@ -70,7 +70,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 package
                 , PackageIds.CodeReportShowDifferenceBodyTextCommandId
                 , Report.Schema.Attributes.bodytext
-                , "BodyText"
+                , Report.Schema.Headers.bodytext
                 , false
                 );
 
@@ -78,7 +78,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 package
                 , PackageIds.CodeReportShowDifferenceBodyTextCustomCommandId
                 , Report.Schema.Attributes.bodytext
-                , "BodyText"
+                , Report.Schema.Headers.bodytext
                 , true
                 );
         }
@@ -90,12 +90,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 if (sender is OleMenuCommand menuCommand)
                 {
                     menuCommand.Enabled = menuCommand.Visible = true;
-                    
+
                     CommonHandlers.ActionBeforeQueryStatusActiveDocumentReport(this, menuCommand);
 
                     if (menuCommand.Enabled)
                     {
-                        string custom = this._isCustom ? " " + Properties.CommandNames.CodeReportShowDifferenceCommandCustom : string.Empty;
+                        string custom = this._isCustom ? Properties.CommandNames.CodeReportShowDifferenceCommandCustom : string.Empty;
 
                         string name = string.Format(Properties.CommandNames.CodeReportShowDifferenceCommandFormat2, _fieldTitle, custom);
 

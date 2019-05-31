@@ -148,7 +148,7 @@
     <value>Report Explorer</value>
   </data>
   <data name="CodeReportShowDifferenceCommandCustom" xml:space="preserve">
-    <value>with Select</value>
+    <value> with Select</value>
   </data>
   <data name="CodeReportShowDifferenceCommandFormat2" xml:space="preserve">
     <value>Show Difference {0}{1}</value>
@@ -359,5 +359,16 @@
   </data>
   <data name="ProjectUpdatePluginAssemblyCommand" xml:space="preserve">
     <value>Update PluginAssembly</value>
+  </data>
+  <data name="ShowDifferenceOneByOneCommandFormat2" xml:space="preserve">
+    <value>Local File &lt;-&gt; {0}      Local File &lt;-&gt; {1}      {0} &lt;-&gt; {1}</value>
+  </data>
+
+  <data name="ShowDifferenceTwoConnectionsCommandFormat2" xml:space="preserve">
+    <value>{0} &lt;-&gt; {1}</value>
+  </data>
+
+  <data name="ShowDifferenceThreeWayCommandFormat2" xml:space="preserve">
+    <value>{0} &lt;-&gt; Local File &lt;-&gt; {1}</value>
   </data>
 </root>

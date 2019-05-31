@@ -151,7 +151,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to with Select.
+        ///   Looks up a localized string similar to  with Select.
         /// </summary>
         internal static string CodeReportShowDifferenceCommandCustom {
             get {
@@ -786,6 +786,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string ProjectUpdatePluginAssemblyCommand {
             get {
                 return ResourceManager.GetString("ProjectUpdatePluginAssemblyCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Local File &lt;-&gt; {0}      Local File &lt;-&gt; {1}      {0} &lt;-&gt; {1}.
+        /// </summary>
+        internal static string ShowDifferenceOneByOneCommandFormat2 {
+            get {
+                return ResourceManager.GetString("ShowDifferenceOneByOneCommandFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} &lt;-&gt; Local File &lt;-&gt; {1}.
+        /// </summary>
+        internal static string ShowDifferenceThreeWayCommandFormat2 {
+            get {
+                return ResourceManager.GetString("ShowDifferenceThreeWayCommandFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} &lt;-&gt; {1}.
+        /// </summary>
+        internal static string ShowDifferenceTwoConnectionsCommandFormat2 {
+            get {
+                return ResourceManager.GetString("ShowDifferenceTwoConnectionsCommandFormat2", resourceCulture);
             }
         }
     }

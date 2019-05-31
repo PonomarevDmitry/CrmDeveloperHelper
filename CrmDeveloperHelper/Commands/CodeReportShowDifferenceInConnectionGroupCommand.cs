@@ -54,15 +54,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 package
                 , PackageIds.CodeReportShowDifferenceOriginalBodyTextInConnectionGroupCommandId
                 , Report.Schema.Attributes.originalbodytext
-                , "OriginalBodyText"
-                );
+                , Report.Schema.Headers.originalbodytext
+            );
 
             InstanceBodyText = new CodeReportShowDifferenceInConnectionGroupCommand(
                package
                , PackageIds.CodeReportShowDifferenceBodyTextInConnectionGroupCommandId
                , Report.Schema.Attributes.bodytext
-               , "BodyText"
-               );
+               , Report.Schema.Headers.bodytext
+            );
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)

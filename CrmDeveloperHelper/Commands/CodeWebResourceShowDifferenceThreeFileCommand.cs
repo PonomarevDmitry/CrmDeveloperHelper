@@ -53,11 +53,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         public static void Initialize(Package package)
         {
-            InstanceOneByOne = new CodeWebResourceShowDifferenceThreeFileCommand(package, PackageIds.CodeWebResourceShowDifferenceOneByOneCommandId, ShowDifferenceThreeFileType.OneByOne, "Local File <-> {0}      Local File <-> {1}      {0} <-> {1}");
+            InstanceOneByOne = new CodeWebResourceShowDifferenceThreeFileCommand(package, PackageIds.CodeWebResourceShowDifferenceOneByOneCommandId, ShowDifferenceThreeFileType.OneByOne, Properties.CommandNames.ShowDifferenceOneByOneCommandFormat2);
 
-            InstanceTwoConnections = new CodeWebResourceShowDifferenceThreeFileCommand(package, PackageIds.CodeWebResourceShowDifferenceTwoConnectionsCommandId, ShowDifferenceThreeFileType.TwoConnections, "{0} <-> {1}");
+            InstanceTwoConnections = new CodeWebResourceShowDifferenceThreeFileCommand(package, PackageIds.CodeWebResourceShowDifferenceTwoConnectionsCommandId, ShowDifferenceThreeFileType.TwoConnections, Properties.CommandNames.ShowDifferenceTwoConnectionsCommandFormat2);
 
-            InstanceThreeWay = new CodeWebResourceShowDifferenceThreeFileCommand(package, PackageIds.CodeWebResourceShowDifferenceThreeWayCommandId, ShowDifferenceThreeFileType.ThreeWay, "{0} <-> Local File <-> {1}");
+            InstanceThreeWay = new CodeWebResourceShowDifferenceThreeFileCommand(package, PackageIds.CodeWebResourceShowDifferenceThreeWayCommandId, ShowDifferenceThreeFileType.ThreeWay, Properties.CommandNames.ShowDifferenceThreeWayCommandFormat2);
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
