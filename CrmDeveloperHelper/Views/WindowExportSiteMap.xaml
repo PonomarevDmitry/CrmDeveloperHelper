@@ -151,22 +151,29 @@
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
                     <Button x:Name="btnExportAll" Content="Export All SiteMap Xml" Click="btnExportAll_Click" />
+                    
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBExportSiteMap" Header="Export SiteMap Information">
                             <MenuItem Header="Open SiteMap in Web" Click="mIOpenInWeb_Click"/>
+                            
                             <Separator/>
                             <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+                            
                             <Separator/>
                             <MenuItem Header="SiteMap XML" Click="mIExportSiteMapXml_Click"/>
+                            
                             <Separator/>
                             <MenuItem Header="Change SiteMap Attribute">
                                 <MenuItem Header="SiteMap XML" Click="mIUpdateSiteMapXml_Click"/>
                             </MenuItem>
+                            
                             <Separator/>
                             <MenuItem Header="Publish SiteMap" Click="btnPublishSiteMap_Click"/>
+                            
                             <Separator/>
                             <MenuItem Header="Open Solutions Containing Component in Window" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
+                            
                             <Separator/>
                             <MenuItem Header="Dependent Components">
                                 <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
