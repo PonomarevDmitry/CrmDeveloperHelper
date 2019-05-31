@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -178,9 +179,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             var chart = await GetByIdAsync(idEntity, new ColumnSet(SavedQueryVisualization.Schema.Attributes.primaryentitytypecode));
 
-            if (!string.IsNullOrEmpty(chart.PrimaryEntityTypeCode)
-                && !string.Equals(chart.PrimaryEntityTypeCode, "none", StringComparison.InvariantCultureIgnoreCase)
-            )
+            if (chart.PrimaryEntityTypeCode.IsValidEntityName())
             {
                 updateStatus(string.Format(Properties.WindowStatusStrings.PublishingEntitiesFormat2, _service.ConnectionData.Name, chart.PrimaryEntityTypeCode));
 

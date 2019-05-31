@@ -313,7 +313,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             {
                 StringBuilder str = new StringBuilder();
 
-                if (!string.Equals(dashboard.ObjectTypeCode, "none", StringComparison.InvariantCultureIgnoreCase))
+                if (dashboard.ObjectTypeCode.IsValidEntityName())
                 {
                     str.AppendFormat("{0} - ", dashboard.ObjectTypeCode);
                 }

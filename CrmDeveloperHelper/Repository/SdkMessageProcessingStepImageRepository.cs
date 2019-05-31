@@ -295,7 +295,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             SdkMessageProcessingStepImage entity2 = await GetLinked2(id);
             SdkMessageProcessingStepImage entity3 = GetLinked3(id);
 
-            entity1 = EntityExtensions.Merge(entity1, entity2, entity3);
+            entity1.Merge(entity2, entity3);
 
             SdkMessageProcessingStepRepository.FullfillEntitiesSteps(entity1);
 

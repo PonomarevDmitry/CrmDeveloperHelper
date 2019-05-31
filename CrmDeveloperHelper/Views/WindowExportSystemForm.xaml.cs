@@ -269,11 +269,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             });
 
-            if (service.ConnectionData != null
-                && service.ConnectionData.IntellisenseData != null
-                && service.ConnectionData.IntellisenseData.Entities != null
-                && service.ConnectionData.IntellisenseData.Entities.ContainsKey(entityName)
-            )
+            if (service.ConnectionData.IsValidEntityName(entityName))
             {
                 filterEntity = entityName;
             }
@@ -767,9 +763,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 UpdateStatus(service.ConnectionData, Properties.WindowStatusStrings.PublishingSystemFormFormat3, service.ConnectionData.Name, entityName, name);
                 await repositoryPublish.PublishDashboardsAsync(new[] { idSystemForm });
 
-                if (!string.IsNullOrEmpty(entityName)
-                    && !string.Equals(entityName, "none", StringComparison.InvariantCultureIgnoreCase)
-                )
+                if (entityName.IsValidEntityName())
                 {
                     UpdateStatus(service.ConnectionData, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
                     await repositoryPublish.PublishEntitiesAsync(new[] { entityName });
@@ -903,9 +897,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 UpdateStatus(service.ConnectionData, Properties.WindowStatusStrings.PublishingSystemFormFormat3, service.ConnectionData.Name, entityName, name);
                 await repositoryPublish.PublishDashboardsAsync(new[] { idSystemForm });
 
-                if (!string.IsNullOrEmpty(entityName)
-                    && !string.Equals(entityName, "none", StringComparison.InvariantCultureIgnoreCase)
-                )
+                if (entityName.IsValidEntityName())
                 {
                     UpdateStatus(service.ConnectionData, Properties.WindowStatusStrings.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
                     await repositoryPublish.PublishEntitiesAsync(new[] { entityName });
@@ -993,9 +985,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.PublishingSystemFormFailedFormat3, service.ConnectionData.Name, entityName, name);
             }
 
-            if (!string.IsNullOrEmpty(entityName)
-                    && !string.Equals(entityName, "none", StringComparison.InvariantCultureIgnoreCase)
-                )
+            if (entityName.IsValidEntityName())
             {
                 try
                 {
@@ -1019,9 +1009,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var entity = GetSelectedEntity();
 
             if (entity == null
-                && !string.IsNullOrEmpty(entity.ObjectTypeCode)
-                && !string.Equals(entity.ObjectTypeCode, "none", StringComparison.InvariantCultureIgnoreCase)
-                )
+                || !entity.ObjectTypeCode.IsValidEntityName()
+            )
             {
                 return;
             }
@@ -1521,9 +1510,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var entity = GetSelectedEntity();
 
             if (entity == null
-                || string.IsNullOrEmpty(entity.ObjectTypeCode)
-                || string.Equals(entity.ObjectTypeCode, "none", StringComparison.InvariantCultureIgnoreCase)
-                )
+                || !entity.ObjectTypeCode.IsValidEntityName()
+            )
             {
                 return;
             }
@@ -1577,7 +1565,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ActivateControls(items, (nodeItem.SystemForm.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
 
-            bool hasEntity = !string.IsNullOrEmpty(nodeItem.SystemForm.ObjectTypeCode) && !string.Equals(nodeItem.SystemForm.ObjectTypeCode, "none", StringComparison.InvariantCultureIgnoreCase);
+            bool hasEntity = nodeItem.SystemForm.ObjectTypeCode.IsValidEntityName();
             ActivateControls(items, hasEntity, "contMnEntity");
 
             FillLastSolutionItems(connectionData, items, hasEntity, AddToCrmSolutionLastIncludeSubcomponents_Click, "contMnAddEntityToSolutionLastIncludeSubcomponents");
@@ -1947,9 +1935,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var entity = GetSelectedEntity();
 
             if (entity == null
-                || string.IsNullOrEmpty(entity.ObjectTypeCode)
-                || string.Equals(entity.ObjectTypeCode, "none", StringComparison.InvariantCultureIgnoreCase)
-                )
+                || !entity.ObjectTypeCode.IsValidEntityName()
+            )
             {
                 return;
             }
@@ -1967,9 +1954,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var entity = GetSelectedEntity();
 
             if (entity == null
-                || string.IsNullOrEmpty(entity.ObjectTypeCode)
-                || string.Equals(entity.ObjectTypeCode, "none", StringComparison.InvariantCultureIgnoreCase)
-                )
+                || !entity.ObjectTypeCode.IsValidEntityName()
+            )
             {
                 return;
             }

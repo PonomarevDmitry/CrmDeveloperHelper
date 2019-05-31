@@ -342,9 +342,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             updateStatus(string.Format(Properties.WindowStatusStrings.PublishingSystemFormCompletedFormat3, _service.ConnectionData.Name, systemForm.ObjectTypeCode, systemForm.Name));
 
-            if (!string.IsNullOrEmpty(systemForm.ObjectTypeCode)
-                && !string.Equals(systemForm.ObjectTypeCode, "none", StringComparison.InvariantCultureIgnoreCase)
-            )
+            if (systemForm.ObjectTypeCode.IsValidEntityName())
             {
                 updateStatus(string.Format(Properties.WindowStatusStrings.PublishingEntitiesFormat2, _service.ConnectionData.Name, systemForm.ObjectTypeCode));
 

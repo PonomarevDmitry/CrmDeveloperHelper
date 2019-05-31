@@ -358,9 +358,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             var savedQuery = await GetByIdAsync(idEntity, new ColumnSet(SavedQuery.Schema.Attributes.returnedtypecode));
 
-            if (!string.IsNullOrEmpty(savedQuery.ReturnedTypeCode)
-                && !string.Equals(savedQuery.ReturnedTypeCode, "none", StringComparison.InvariantCultureIgnoreCase)
-            )
+            if (savedQuery.ReturnedTypeCode.IsValidEntityName())
             {
                 updateStatus(string.Format(Properties.WindowStatusStrings.PublishingEntitiesFormat2, _service.ConnectionData.Name, savedQuery.ReturnedTypeCode));
 

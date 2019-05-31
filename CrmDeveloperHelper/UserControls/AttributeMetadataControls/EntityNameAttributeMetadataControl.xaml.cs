@@ -66,11 +66,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
                 currentItem = noneItem;
             }
 
-            if (!string.IsNullOrEmpty(_initialValue)
-                && _service.ConnectionData.IntellisenseData != null
-                && _service.ConnectionData.IntellisenseData.Entities != null
-                && !_service.ConnectionData.IntellisenseData.Entities.ContainsKey(_initialValue)
-            )
+            if (_service.ConnectionData.IsValidEntityName(_initialValue))
             {
                 currentItem = new ComboBoxItem()
                 {

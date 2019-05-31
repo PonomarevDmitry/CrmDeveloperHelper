@@ -1,4 +1,5 @@
 ﻿using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -315,7 +316,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public Guid? GetEntityMetadataId(string entityName)
         {
-            if (this.IntellisenseData.Entities != null
+            if (entityName.IsValidEntityName()
+                && this.IntellisenseData.Entities != null
                 && this.IntellisenseData.Entities.ContainsKey(entityName)
                 && this.IntellisenseData.Entities[entityName].MetadataId.HasValue
                 )
@@ -324,6 +326,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             }
 
             return null;
+        }
+
+        public bool IsValidEntityName(string entityName)
+        {
+            if (entityName.IsValidEntityName()
+                && this.IntellisenseData != null
+                && this.IntellisenseData.Entities != null
+                && this.IntellisenseData.Entities.ContainsKey(entityName)
+            )
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public void OpenEntityMetadataInWeb(Guid entityMetadataId)
@@ -337,12 +353,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public void OpenEntityMetadataInWeb(string entityName)
         {
-            if (this.IntellisenseData.Entities != null
-                && this.IntellisenseData.Entities.ContainsKey(entityName)
-                && this.IntellisenseData.Entities[entityName].MetadataId.HasValue
-                )
+            var idEntityMetadata = GetEntityMetadataId(entityName);
+
+            if (idEntityMetadata.HasValue)
             {
-                OpenEntityMetadataInWeb(this.IntellisenseData.Entities[entityName].MetadataId.Value);
+                OpenEntityMetadataInWeb(idEntityMetadata.Value);
             }
         }
 

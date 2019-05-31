@@ -645,21 +645,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (entity.Contains(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode))
             {
-                string primary = (string)entity.GetAttributeValue<AliasedValue>(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode).Value;
+                string primaryEntity = (string)entity.GetAttributeValue<AliasedValue>(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode).Value;
 
-                if (!string.Equals(primary, "none", StringComparison.InvariantCultureIgnoreCase))
+                if (primaryEntity.IsValidEntityName())
                 {
-                    result.Add(primary);
+                    result.Add(primaryEntity);
                 }
             }
 
             if (entity.Contains(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterSecondaryObjectTypeCode))
             {
-                string primary = (string)entity.GetAttributeValue<AliasedValue>(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterSecondaryObjectTypeCode).Value;
+                string primaryEntity = (string)entity.GetAttributeValue<AliasedValue>(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterSecondaryObjectTypeCode).Value;
 
-                if (!string.Equals(primary, "none", StringComparison.InvariantCultureIgnoreCase))
+                if (primaryEntity.IsValidEntityName())
                 {
-                    result.Add(primary);
+                    result.Add(primaryEntity);
                 }
             }
 
@@ -674,13 +674,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 if (step.Contains(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode))
                 {
-                    string primary = (string)step.GetAttributeValue<AliasedValue>(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode).Value;
+                    string primaryEntity = (string)step.GetAttributeValue<AliasedValue>(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode).Value;
 
-                    if (!string.Equals(primary, "none", StringComparison.InvariantCultureIgnoreCase))
+                    if (primaryEntity.IsValidEntityName())
                     {
                         foreach (var item in step.FilteringAttributesStrings)
                         {
-                            result.Add(string.Format("{0}.{1}", primary, item));
+                            result.Add(string.Format("{0}.{1}", primaryEntity, item));
                         }
                     }
                 }
@@ -936,13 +936,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 if (image.Contains(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode))
                 {
-                    string primary = (string)image.GetAttributeValue<AliasedValue>(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode).Value;
+                    string primaryEntity = (string)image.GetAttributeValue<AliasedValue>(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode).Value;
 
-                    if (!string.Equals(primary, "none", StringComparison.InvariantCultureIgnoreCase))
+                    if (primaryEntity.IsValidEntityName())
                     {
                         foreach (var item in image.Attributes1Strings)
                         {
-                            result.Add(string.Format("{0}.{1}", primary, item));
+                            result.Add(string.Format("{0}.{1}", primaryEntity, item));
                         }
                     }
                 }

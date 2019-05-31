@@ -819,7 +819,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var items = contextMenu.Items.OfType<Control>();
 
-            bool isEntity = !string.IsNullOrEmpty(nodeItem.EntityLogicalName) && !string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase);
+            bool isEntity = nodeItem.EntityLogicalName.IsValidEntityName();
 
             bool isMessage = nodeItem.MessageList != null && nodeItem.MessageList.Any() && nodeItem.ComponentType == ComponentType.SdkMessage;
             bool isMessageFilter = nodeItem.MessageFilterList != null && nodeItem.MessageFilterList.Any() && nodeItem.ComponentType == ComponentType.SdkMessageFilter;
@@ -1079,8 +1079,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
             if (nodeItem == null
-                || string.IsNullOrEmpty(nodeItem.EntityLogicalName)
-                || string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase)
+                || !nodeItem.EntityLogicalName.IsValidEntityName()
             )
             {
                 return;
@@ -1099,8 +1098,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
             if (nodeItem == null
-                || string.IsNullOrEmpty(nodeItem.EntityLogicalName)
-                || string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase)
+                || !nodeItem.EntityLogicalName.IsValidEntityName()
             )
             {
                 return;
@@ -1119,8 +1117,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
             if (nodeItem == null
-                || string.IsNullOrEmpty(nodeItem.EntityLogicalName)
-                || string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase)
+                || !nodeItem.EntityLogicalName.IsValidEntityName()
             )
             {
                 return;
@@ -1141,8 +1138,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
             if (nodeItem == null
-                || string.IsNullOrEmpty(nodeItem.EntityLogicalName)
-                || string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase)
+                || !nodeItem.EntityLogicalName.IsValidEntityName()
             )
             {
                 return;
@@ -1184,8 +1180,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
             if (nodeItem == null
-                || string.IsNullOrEmpty(nodeItem.EntityLogicalName)
-                || string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase)
+                || !nodeItem.EntityLogicalName.IsValidEntityName()
             )
             {
                 return;
@@ -1229,8 +1224,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
             if (nodeItem == null
-                || string.IsNullOrEmpty(nodeItem.EntityLogicalName)
-                || string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase)
+                || !nodeItem.EntityLogicalName.IsValidEntityName()
             )
             {
                 return;
@@ -1263,8 +1257,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
             if (nodeItem == null
-                || string.IsNullOrEmpty(nodeItem.EntityLogicalName)
-                || string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase)
+                || !nodeItem.EntityLogicalName.IsValidEntityName()
             )
             {
                 return;
@@ -1349,8 +1342,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
             if (nodeItem == null
-                 || string.IsNullOrEmpty(nodeItem.EntityLogicalName)
-                 || string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase)
+                 || !nodeItem.EntityLogicalName.IsValidEntityName()
             )
             {
                 return;

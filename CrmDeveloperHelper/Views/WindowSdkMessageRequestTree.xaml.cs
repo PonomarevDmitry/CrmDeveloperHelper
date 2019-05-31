@@ -1415,7 +1415,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var items = contextMenu.Items.OfType<Control>();
 
-            bool hasEntityName = !string.IsNullOrEmpty(nodeItem.EntityLogicalName) && !string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase);
+            bool hasEntityName = nodeItem.EntityLogicalName.IsValidEntityName();
             bool hasMessageName = !string.IsNullOrEmpty(nodeItem.MessageName);
 
             bool isSingleMessage = nodeItem.MessageList != null && nodeItem.MessageList.Count == 1;
@@ -1464,8 +1464,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as SdkMessageRequestTreeViewItem;
 
             if (nodeItem == null
-                || string.IsNullOrEmpty(nodeItem.EntityLogicalName)
-                || string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase)
+                || !nodeItem.EntityLogicalName.IsValidEntityName()
             )
             {
                 return;
@@ -1484,8 +1483,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as SdkMessageRequestTreeViewItem;
 
             if (nodeItem == null
-                || string.IsNullOrEmpty(nodeItem.EntityLogicalName)
-                || string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase)
+                || !nodeItem.EntityLogicalName.IsValidEntityName()
             )
             {
                 return;
@@ -1504,8 +1502,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as SdkMessageRequestTreeViewItem;
 
             if (nodeItem == null
-                || string.IsNullOrEmpty(nodeItem.EntityLogicalName)
-                || string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase)
+                || !nodeItem.EntityLogicalName.IsValidEntityName()
             )
             {
                 return;
@@ -1526,8 +1523,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as SdkMessageRequestTreeViewItem;
 
             if (nodeItem == null
-                || string.IsNullOrEmpty(nodeItem.EntityLogicalName)
-                || string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase)
+                || !nodeItem.EntityLogicalName.IsValidEntityName()
             )
             {
                 return;
@@ -1569,8 +1565,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as SdkMessageRequestTreeViewItem;
 
             if (nodeItem == null
-                || string.IsNullOrEmpty(nodeItem.EntityLogicalName)
-                || string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase)
+                || !nodeItem.EntityLogicalName.IsValidEntityName()
             )
             {
                 return;
@@ -1614,8 +1609,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as SdkMessageRequestTreeViewItem;
 
             if (nodeItem == null
-                || string.IsNullOrEmpty(nodeItem.EntityLogicalName)
-                || string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase)
+                || !nodeItem.EntityLogicalName.IsValidEntityName()
             )
             {
                 return;
@@ -1648,8 +1642,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as SdkMessageRequestTreeViewItem;
 
             if (nodeItem == null
-                || string.IsNullOrEmpty(nodeItem.EntityLogicalName)
-                || string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase)
+                || !nodeItem.EntityLogicalName.IsValidEntityName()
             )
             {
                 return;
@@ -1734,8 +1727,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as SdkMessageRequestTreeViewItem;
 
             if (nodeItem == null
-                || string.IsNullOrEmpty(nodeItem.EntityLogicalName)
-                || string.Equals(nodeItem.EntityLogicalName, "none", StringComparison.InvariantCultureIgnoreCase)
+                || !nodeItem.EntityLogicalName.IsValidEntityName()
             )
             {
                 return;

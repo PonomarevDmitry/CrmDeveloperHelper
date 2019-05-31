@@ -265,11 +265,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string filterEntity = null;
 
-            if (service.ConnectionData != null
-                && service.ConnectionData.IntellisenseData != null
-                && service.ConnectionData.IntellisenseData.Entities != null
-                && service.ConnectionData.IntellisenseData.Entities.ContainsKey(entityName)
-            )
+            if (service.ConnectionData.IsValidEntityName(entityName))
             {
                 filterEntity = entityName;
             }
@@ -1341,9 +1337,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var entity = GetSelectedEntity();
 
             if (entity == null
-                || string.IsNullOrEmpty(entity.PrimaryEntity)
-                || string.Equals(entity.PrimaryEntity, "none", StringComparison.InvariantCultureIgnoreCase)
-                )
+                || !entity.PrimaryEntity.IsValidEntityName()
+            )
             {
                 return;
             }
@@ -1361,9 +1356,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var entity = GetSelectedEntity();
 
             if (entity == null
-                || string.IsNullOrEmpty(entity.PrimaryEntity)
-                || string.Equals(entity.PrimaryEntity, "none", StringComparison.InvariantCultureIgnoreCase)
-                )
+                || !entity.PrimaryEntity.IsValidEntityName()
+            )
             {
                 return;
             }
@@ -1470,9 +1464,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var entity = GetSelectedEntity();
 
             if (entity == null
-                || string.IsNullOrEmpty(entity.PrimaryEntity)
-                || string.Equals(entity.PrimaryEntity, "none", StringComparison.InvariantCultureIgnoreCase)
-                )
+                || !entity.PrimaryEntity.IsValidEntityName()
+            )
             {
                 return;
             }
@@ -1525,7 +1518,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ActivateControls(items, (nodeItem.Workflow.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
 
-            bool hasEntity = !string.IsNullOrEmpty(nodeItem.Workflow.PrimaryEntity) && !string.Equals(nodeItem.Workflow.PrimaryEntity, "none", StringComparison.InvariantCultureIgnoreCase);
+            bool hasEntity = nodeItem.Workflow.PrimaryEntity.IsValidEntityName();
             ActivateControls(items, hasEntity, "contMnEntity");
 
             FillLastSolutionItems(connectionData, items, hasEntity, AddToCrmSolutionLastIncludeSubcomponents_Click, "contMnAddEntityToSolutionLastIncludeSubcomponents");

@@ -99,15 +99,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             if (entity != null)
             {
-                if (!string.IsNullOrEmpty(entity.Entity)
-                    && _service.ConnectionData.IntellisenseData != null
-                    && _service.ConnectionData.IntellisenseData.Entities != null
-                    && _service.ConnectionData.IntellisenseData.Entities.ContainsKey(entity.Entity)
-                )
+                var idEntityMetadata = _service.ConnectionData.GetEntityMetadataId(entity.Entity);
+
+                if (idEntityMetadata.HasValue)
                 {
                     result.Add(new SolutionComponent()
                     {
-                        ObjectId = _service.ConnectionData.IntellisenseData.Entities[entity.Entity].MetadataId,
+                        ObjectId = idEntityMetadata.Value,
                         ComponentType = new OptionSetValue((int)ComponentType.Entity),
                     });
                 }

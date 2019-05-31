@@ -1,6 +1,7 @@
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
 using System;
@@ -266,9 +267,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void btnSelectAttributes_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(this._entityName)
-                || string.Equals(this._entityName, "none", StringComparison.InvariantCultureIgnoreCase)
-            )
+            if (!_entityName.IsValidEntityName())
             {
                 return;
             }

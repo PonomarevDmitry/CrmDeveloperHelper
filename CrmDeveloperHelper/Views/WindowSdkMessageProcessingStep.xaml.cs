@@ -1,6 +1,7 @@
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
@@ -622,9 +623,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             string entityName = cmBPrimaryEntity.SelectedItem?.ToString();
 
-            if (string.IsNullOrEmpty(entityName)
-                || string.Equals(entityName, "none", StringComparison.InvariantCultureIgnoreCase)
-            )
+            if (!entityName.IsValidEntityName())
             {
                 return;
             }
@@ -711,18 +710,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             bool hasPrimaryEntity = false;
 
-            if (!string.IsNullOrEmpty(primaryEntity)
-                && !string.Equals(primaryEntity, "none", StringComparison.InvariantCultureIgnoreCase)
-            )
+            if (primaryEntity.IsValidEntityName())
             {
                 hasPrimaryEntity = true;
 
                 nameBuilder.Append(primaryEntity);
             }
 
-            if (!string.IsNullOrEmpty(secondaryEntity)
-                && !string.Equals(secondaryEntity, "none", StringComparison.InvariantCultureIgnoreCase)
-            )
+            if (secondaryEntity.IsValidEntityName())
             {
                 if (hasPrimaryEntity)
                 {

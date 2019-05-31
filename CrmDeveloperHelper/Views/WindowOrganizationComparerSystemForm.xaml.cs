@@ -255,15 +255,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     string filterEntity = null;
 
-                    if (service1.ConnectionData != null
-                        && service1.ConnectionData.IntellisenseData != null
-                        && service1.ConnectionData.IntellisenseData.Entities != null
-                        && service1.ConnectionData.IntellisenseData.Entities.ContainsKey(entityName)
-
-                        && service2.ConnectionData != null
-                        && service2.ConnectionData.IntellisenseData != null
-                        && service2.ConnectionData.IntellisenseData.Entities != null
-                        && service2.ConnectionData.IntellisenseData.Entities.ContainsKey(entityName)
+                    if (service1.ConnectionData.IsValidEntityName(entityName)
+                        && service2.ConnectionData.IsValidEntityName(entityName)
                     )
                     {
                         filterEntity = entityName;
@@ -1937,9 +1930,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var entity = GetSelectedEntity();
 
             if (entity == null
-               || string.IsNullOrEmpty(entity.EntityName)
-               || string.Equals(entity.EntityName, "none", StringComparison.InvariantCultureIgnoreCase)
-               )
+               || !entity.EntityName.IsValidEntityName()
+            )
             {
                 return;
             }
@@ -1954,9 +1946,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var entity = GetSelectedEntity();
 
             if (entity == null
-               || string.IsNullOrEmpty(entity.EntityName)
-               || string.Equals(entity.EntityName, "none", StringComparison.InvariantCultureIgnoreCase)
-               )
+               || !entity.EntityName.IsValidEntityName()
+            )
             {
                 return;
             }
@@ -1971,9 +1962,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var entity = GetSelectedEntity();
 
             if (entity == null
-               || string.IsNullOrEmpty(entity.EntityName)
-               || string.Equals(entity.EntityName, "none", StringComparison.InvariantCultureIgnoreCase)
-               )
+               || !entity.EntityName.IsValidEntityName()
+            )
             {
                 return;
             }
@@ -1988,9 +1978,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var entity = GetSelectedEntity();
 
             if (entity == null
-               || string.IsNullOrEmpty(entity.EntityName)
-               || string.Equals(entity.EntityName, "none", StringComparison.InvariantCultureIgnoreCase)
-               )
+               || !entity.EntityName.IsValidEntityName()
+            )
             {
                 return;
             }
