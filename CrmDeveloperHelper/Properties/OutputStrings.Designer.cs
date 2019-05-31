@@ -205,6 +205,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creating Last Link was cancelled..
+        /// </summary>
+        internal static string CreatingLastLinkWasCanceled {
+            get {
+                return ResourceManager.GetString("CreatingLastLinkWasCanceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current Connection: {0}.
         /// </summary>
         internal static string CurrentConnectionFormat1 {
@@ -237,6 +246,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string DecryptingPasswordErrorFormat1 {
             get {
                 return ResourceManager.GetString("DecryptingPasswordErrorFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleted Last Links: {0}.
+        /// </summary>
+        internal static string DeletedLastLinksFormat1 {
+            get {
+                return ResourceManager.GetString("DeletedLastLinksFormat1", resourceCulture);
             }
         }
         
@@ -934,6 +952,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Report is selected..
+        /// </summary>
+        internal static string ReportIsSelected {
+            get {
+                return ResourceManager.GetString("ReportIsSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Report Not founded by name. FileName: {0}.
         /// </summary>
         internal static string ReportNotFoundedByNameFormat1 {
@@ -1110,6 +1137,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string WebResourceFoundedByNameFormat2 {
             get {
                 return ResourceManager.GetString("WebResourceFoundedByNameFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WebResource is selected..
+        /// </summary>
+        internal static string WebResourceIsSelected {
+            get {
+                return ResourceManager.GetString("WebResourceIsSelected", resourceCulture);
             }
         }
         

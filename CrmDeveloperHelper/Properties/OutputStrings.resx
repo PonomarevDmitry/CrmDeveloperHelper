@@ -528,5 +528,20 @@
     <value>Report Not founded by name. FileName: {0}</value>
   </data>
 
-  
+  <data name="DeletedLastLinksFormat1" xml:space="preserve">
+    <value>Deleted Last Links: {0}</value>
+  </data>
+
+  <data name="ReportIsSelected" xml:space="preserve">
+    <value>Report is selected.</value>
+  </data>
+
+  <data name="WebResourceIsSelected" xml:space="preserve">
+    <value>WebResource is selected.</value>
+  </data>
+
+  <data name="CreatingLastLinkWasCanceled" xml:space="preserve">
+    <value>Creating Last Link was cancelled.</value>
+  </data>
+
 </root>
