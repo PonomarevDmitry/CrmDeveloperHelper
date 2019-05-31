@@ -44,11 +44,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "System Forms in {0}: {1}", Connection1.Name, list1.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.SystemFormsInConnectionFormat2, Connection1.Name, list1.Count));
 
             var list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "System Forms in {0}: {1}", Connection2.Name, list2.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.SystemFormsInConnectionFormat2, Connection2.Name, list2.Count));
 
             if (!list1.Any() && !list2.Any())
             {
@@ -376,11 +376,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "System Saved Queries in {0}: {1}", Connection1.Name, list1.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.SavedQueriesInConnectionFormat2, Connection1.Name, list1.Count));
 
             var list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "System Saved Queries in {0}: {1}", Connection2.Name, list2.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.SavedQueriesInConnectionFormat2, Connection2.Name, list2.Count));
 
             if (!list1.Any() && !list2.Any())
             {
@@ -687,11 +687,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "System Saved Query Visualizations (Charts) in {0}: {1}", Connection1.Name, list1.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.SavedQueryVisualizationsInConnectionFormat2, Connection1.Name, list1.Count));
 
             var list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "System Saved Query Visualizations (Charts) in {0}: {1}", Connection2.Name, list2.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.SavedQueryVisualizationsInConnectionFormat2, Connection2.Name, list2.Count));
 
             if (!list1.Any() && !list2.Any())
             {

@@ -32,11 +32,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Assemblies in {0}: {1}", Connection1.Name, list1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.PluginAssembliesInConnectionFormat2, Connection1.Name, list1.Count()));
 
             var list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Assemblies in {0}: {1}", Connection2.Name, list2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.PluginAssembliesInConnectionFormat2, Connection2.Name, list2.Count()));
 
             if (!list1.Any() && !list2.Any())
             {
@@ -50,11 +50,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var listTypes1 = await taskTypes1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Types in {0}: {1}", Connection1.Name, listTypes1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.PluginTypesInConnectionFormat2, Connection1.Name, listTypes1.Count()));
 
             var listTypes2 = await taskTypes2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Types in {0}: {1}", Connection2.Name, listTypes2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.PluginTypesInConnectionFormat2, Connection2.Name, listTypes2.Count()));
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
             tableOnlyExistsIn1.SetHeader("Name", "IsHidden", "IsManaged");
@@ -258,11 +258,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var list1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Types in {0}: {1}", Connection1.Name, list1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.PluginTypesInConnectionFormat2, Connection1.Name, list1.Count()));
 
             var list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Types in {0}: {1}", Connection2.Name, list2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.PluginTypesInConnectionFormat2, Connection2.Name, list2.Count()));
 
             if (!list1.Any() && !list2.Any())
             {
@@ -401,11 +401,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var listSteps1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Steps in {0}: {1}", Connection1.Name, listSteps1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.PluginStepsInConnectionFormat2, Connection1.Name, listSteps1.Count()));
 
             var listSteps2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Steps in {0}: {1}", Connection2.Name, listSteps2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.PluginStepsInConnectionFormat2, Connection2.Name, listSteps2.Count()));
 
             if (!listSteps1.Any() && !listSteps2.Any())
             {
@@ -419,11 +419,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var listImages1 = await taskImages1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Steps Images in {0}: {1}", Connection1.Name, listImages1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.PluginStepsImagesInConnectionFormat2, Connection1.Name, listImages1.Count()));
 
             var listImages2 = await taskImages2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Steps Images in {0}: {1}", Connection2.Name, listImages2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.PluginStepsImagesInConnectionFormat2, Connection2.Name, listImages2.Count()));
 
             var groups1 = listSteps1.GroupBy(e => new PluginTypeStep()
             {
@@ -1070,11 +1070,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var listSteps1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Steps in {0}: {1}", Connection1.Name, listSteps1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.PluginStepsInConnectionFormat2, Connection1.Name, listSteps1.Count()));
 
             var listSteps2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Steps in {0}: {1}", Connection2.Name, listSteps2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.PluginStepsInConnectionFormat2, Connection2.Name, listSteps2.Count()));
 
             if (!listSteps1.Any() && !listSteps2.Any())
             {
@@ -1088,11 +1088,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var listImages1 = await taskImages1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Steps Images in {0}: {1}", Connection1.Name, listImages1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.PluginStepsImagesInConnectionFormat2, Connection1.Name, listImages1.Count()));
 
             var listImages2 = await taskImages2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Plugin Steps Images in {0}: {1}", Connection2.Name, listImages2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.PluginStepsImagesInConnectionFormat2, Connection2.Name, listImages2.Count()));
 
             var stepsOnlyIn1 = new List<LineWithSublines>();
             var stepsOnlyIn2 = new List<LineWithSublines>();

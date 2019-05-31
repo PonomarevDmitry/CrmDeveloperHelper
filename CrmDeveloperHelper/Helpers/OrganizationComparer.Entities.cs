@@ -1013,19 +1013,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             HashSet<string> listRibbon1 = await task1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Ribbons in {0}: {1}", Connection1.Name, listRibbon1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.RibbonsInConnectionFormat2, Connection1.Name, listRibbon1.Count()));
 
             HashSet<string> listRibbon2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Ribbons in {0}: {1}", Connection2.Name, listRibbon2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.RibbonsInConnectionFormat2, Connection2.Name, listRibbon2.Count()));
 
             var entities1 = await this._comparerSource.GetEntityMetadataCollection1Async();
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Enitites in {0}: {1}", Connection1.Name, entities1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.EntitiesInConnectionFormat2, Connection1.Name, entities1.Count()));
 
             var entities2 = await this._comparerSource.GetEntityMetadataCollection2Async();
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Enitites in {0}: {1}", Connection2.Name, entities2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.EntitiesInConnectionFormat2, Connection2.Name, entities2.Count()));
 
             if (!entities1.Any() && !entities2.Any())
             {

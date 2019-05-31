@@ -196,6 +196,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enitites in {0}: {1}.
+        /// </summary>
+        internal static string EnititesInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("EnititesInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Entities by Audit.
         /// </summary>
         internal static string EntitiesByAuditFileName {
@@ -367,6 +376,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Field Security Profiles in {0}: {1}.
+        /// </summary>
+        internal static string FieldSecurityProfilesInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("FieldSecurityProfilesInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field Security Profiles Permissions in {0}: {1}.
+        /// </summary>
+        internal static string FieldSecurityProfilesPermissionsInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("FieldSecurityProfilesPermissionsInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Differes.
         /// </summary>
         internal static string FullDifference {
@@ -529,11 +556,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PluginAssemblies in {0}: {1}.
+        /// </summary>
+        internal static string PluginAssembliesInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("PluginAssembliesInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Common Plugin Steps in {0} and {1}: {2}.
         /// </summary>
         internal static string PluginStepsCommonFormat3 {
             get {
                 return ResourceManager.GetString("PluginStepsCommonFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plugin Steps Images in {0}: {1}.
+        /// </summary>
+        internal static string PluginStepsImagesInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("PluginStepsImagesInConnectionFormat2", resourceCulture);
             }
         }
         
@@ -592,6 +637,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PluginTypes in {0}: {1}.
+        /// </summary>
+        internal static string PluginTypesInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("PluginTypesInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Associated Connection Roles.
         /// </summary>
         internal static string PrefixAssociatedConnectionRoles {
@@ -615,6 +669,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string PrefixOnlyInConnectionFormat3 {
             get {
                 return ResourceManager.GetString("PrefixOnlyInConnectionFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Privileges in {0}: {1}.
+        /// </summary>
+        internal static string PrivilegesInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("PrivilegesInConnectionFormat2", resourceCulture);
             }
         }
         
@@ -691,11 +754,56 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ribbons in {0}: {1}.
+        /// </summary>
+        internal static string RibbonsInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("RibbonsInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RolePrivileges in {0}: {1}.
+        /// </summary>
+        internal static string RolePrivilegesInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("RolePrivilegesInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Common Roles in {0} and {1}: {2}.
         /// </summary>
         internal static string RolesCommonFormat3 {
             get {
                 return ResourceManager.GetString("RolesCommonFormat3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saved Queries in {0}: {1}.
+        /// </summary>
+        internal static string SavedQueriesInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("SavedQueriesInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saved Query Visualizations (Charts) in {0}: {1}.
+        /// </summary>
+        internal static string SavedQueryVisualizationsInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("SavedQueryVisualizationsInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Security Roles in {0}: {1}.
+        /// </summary>
+        internal static string SecurityRolesInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("SecurityRolesInConnectionFormat2", resourceCulture);
             }
         }
         
@@ -763,11 +871,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SystemForms in {0}: {1}.
+        /// </summary>
+        internal static string SystemFormsInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("SystemFormsInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is Nothing to compare..
         /// </summary>
         internal static string ThereIsNothingToCompare {
             get {
                 return ResourceManager.GetString("ThereIsNothingToCompare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WebResouces in {0}: {1}.
+        /// </summary>
+        internal static string WebResourcesInConnectionFormat2 {
+            get {
+                return ResourceManager.GetString("WebResourcesInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No difference in WebResources..
+        /// </summary>
+        internal static string WebResourcesNoDifference {
+            get {
+                return ResourceManager.GetString("WebResourcesNoDifference", resourceCulture);
             }
         }
         

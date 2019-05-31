@@ -384,4 +384,68 @@
   <data name="RolesCommonFormat3" xml:space="preserve">
     <value>Common Roles in {0} and {1}: {2}</value>
   </data>
+
+  <data name="WebResourcesInConnectionFormat2" xml:space="preserve">
+    <value>WebResouces in {0}: {1}</value>
+  </data>
+  <data name="WebResourcesNoDifference" xml:space="preserve">
+    <value>No difference in WebResources.</value>
+  </data>
+
+  <data name="RibbonsInConnectionFormat2" xml:space="preserve">
+    <value>Ribbons in {0}: {1}</value>
+  </data>
+  <data name="EnititesInConnectionFormat2" xml:space="preserve">
+    <value>Enitites in {0}: {1}</value>
+  </data>
+  
+  <data name="SystemFormsInConnectionFormat2" xml:space="preserve">
+    <value>SystemForms in {0}: {1}</value>
+  </data>
+
+  <data name="SavedQueriesInConnectionFormat2" xml:space="preserve">
+    <value>Saved Queries in {0}: {1}</value>
+  </data>
+
+  <data name="SavedQueryVisualizationsInConnectionFormat2" xml:space="preserve">
+    <value>Saved Query Visualizations (Charts) in {0}: {1}</value>
+  </data>
+
+  <data name="PluginAssembliesInConnectionFormat2" xml:space="preserve">
+    <value>PluginAssemblies in {0}: {1}</value>
+  </data>
+
+  <data name="PluginTypesInConnectionFormat2" xml:space="preserve">
+    <value>PluginTypes in {0}: {1}</value>
+  </data>
+
+  <data name="PluginStepsInConnectionFormat2" xml:space="preserve">
+    <value>Plugin Steps in {0}: {1}</value>
+  </data>
+
+  <data name="PluginStepsImagesInConnectionFormat2" xml:space="preserve">
+    <value>Plugin Steps Images in {0}: {1}</value>
+  </data>
+
+  <data name="SecurityRolesInConnectionFormat2" xml:space="preserve">
+    <value>Security Roles in {0}: {1}</value>
+  </data>
+
+  <data name="PrivilegesInConnectionFormat2" xml:space="preserve">
+    <value>Privileges in {0}: {1}</value>
+  </data>
+
+  <data name="RolePrivilegesInConnectionFormat2" xml:space="preserve">
+    <value>RolePrivileges in {0}: {1}</value>
+  </data>
+
+  <data name="FieldSecurityProfilesInConnectionFormat2" xml:space="preserve">
+    <value>Field Security Profiles in {0}: {1}</value>
+  </data>
+
+  <data name="FieldSecurityProfilesPermissionsInConnectionFormat2" xml:space="preserve">
+    <value>Field Security Profiles Permissions in {0}: {1}</value>
+  </data>
+
+  
 </root>

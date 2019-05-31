@@ -39,7 +39,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var taskPriv1 = new PrivilegeRepository(_comparerSource.Service1).GetListAsync(null);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Security Roles in {0}: {1}", Connection1.Name, list1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.SecurityRolesInConnectionFormat2, Connection1.Name, list1.Count()));
 
 
 
@@ -47,7 +47,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var taskPriv2 = new PrivilegeRepository(_comparerSource.Service2).GetListAsync(null);
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Security Roles in {0}: {1}", Connection2.Name, list2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.SecurityRolesInConnectionFormat2, Connection2.Name, list2.Count()));
 
 
 
@@ -55,7 +55,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var taskPrivRole1 = new RolePrivilegesRepository(_comparerSource.Service1).GetListAsync(list1.Select(e => e.RoleId.Value));
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Privileges in {0}: {1}", Connection1.Name, dictPrivilege1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.PrivilegesInConnectionFormat2, Connection1.Name, dictPrivilege1.Count()));
 
 
 
@@ -64,7 +64,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var taskPrivRole2 = new RolePrivilegesRepository(_comparerSource.Service2).GetListAsync(list2.Select(e => e.RoleId.Value));
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Privileges in {0}: {1}", Connection2.Name, dictPrivilege2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.PrivilegesInConnectionFormat2, Connection2.Name, dictPrivilege2.Count()));
 
 
 
@@ -80,11 +80,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             var listRolePrivilege1 = await taskPrivRole1;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Privileges in {0}: {1}", Connection1.Name, listRolePrivilege1.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.RolePrivilegesInConnectionFormat2, Connection1.Name, listRolePrivilege1.Count()));
 
             var listRolePrivilege2 = await taskPrivRole2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Privileges in {0}: {1}", Connection2.Name, listRolePrivilege2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.RolePrivilegesInConnectionFormat2, Connection2.Name, listRolePrivilege2.Count()));
 
             if (!list1.Any() && !list2.Any())
             {
@@ -496,12 +496,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var task2 = _comparerSource.GetFieldSecurityProfile2Async();
 
             var list1 = await task1;
-
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Field Security Profiles in {0}: {1}", Connection1.Name, list1.Count()));
+            
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.FieldSecurityProfilesInConnectionFormat2, Connection1.Name, list1.Count()));
 
             var list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Field Security Profiles in {0}: {1}", Connection2.Name, list2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.FieldSecurityProfilesInConnectionFormat2, Connection2.Name, list2.Count()));
 
             if (!list1.Any() && !list2.Any())
             {
@@ -514,12 +514,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var taskPerm2 = _comparerSource.GetFieldPermission2Async();
 
             var listPermission1 = await taskPerm1;
-
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Field Security Profiles Permissions in {0}: {1}", Connection1.Name, listPermission1.Count()));
+            
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.FieldSecurityProfilesPermissionsInConnectionFormat2, Connection1.Name, listPermission1.Count()));
 
             var listPermission2 = await taskPerm2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "Field Security Profiles Permissions in {0}: {1}", Connection2.Name, listPermission2.Count()));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.FieldSecurityProfilesPermissionsInConnectionFormat2, Connection2.Name, listPermission2.Count()));
 
             var group1 = listPermission1.GroupBy(e => e.FieldSecurityProfileId.Id);
             var group2 = listPermission2.GroupBy(e => e.FieldSecurityProfileId.Id);
@@ -835,7 +835,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (tableDifferent.Count > 0)
             {
-                diff.Add(string.Format("Different privileges {0} and {1}", Connection1.Name, Connection2.Name));
+                diff.Add(string.Format("Different Privileges {0} and {1}", Connection1.Name, Connection2.Name));
                 tableDifferent.GetFormatedLines(true).ForEach(s => diff.Add(tabSpacer + s));
             }
         }

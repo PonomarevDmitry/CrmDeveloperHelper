@@ -343,12 +343,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             var task2 = _comparerSource.GetWebResource2Async();
 
             List<WebResource> list1 = await task1;
-
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "WebResouces in {0}: {1}", Connection1.Name, list1.Count));
+            
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.WebResourcesInConnectionFormat2, Connection1.Name, list1.Count));
 
             List<WebResource> list2 = await task2;
 
-            content.AppendLine(_iWriteToOutput.WriteToOutput(null, "WebResouces in {0}: {1}", Connection2.Name, list2.Count));
+            content.AppendLine(_iWriteToOutput.WriteToOutput(null, Properties.OrganizationComparerStrings.WebResourcesInConnectionFormat2, Connection2.Name, list2.Count));
 
             if (list1.Count == 0 && list2.Count == 0)
             {
@@ -358,41 +358,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             FormatTextTableHandler tableOnlyExistsIn1 = new FormatTextTableHandler();
-            tableOnlyExistsIn1.SetHeader("Type", "Name", "Id", "IsManaged");
+            tableOnlyExistsIn1.SetHeader(WebResource.Schema.Headers.webresourcetype, WebResource.Schema.Headers.name, WebResource.Schema.Headers.id, WebResource.Schema.Headers.ismanaged);
 
             FormatTextTableHandler tableOnlyExistsIn2 = new FormatTextTableHandler();
-            tableOnlyExistsIn2.SetHeader("Type", "Name", "Id", "IsManaged");
+            tableOnlyExistsIn2.SetHeader(WebResource.Schema.Headers.webresourcetype, WebResource.Schema.Headers.name, WebResource.Schema.Headers.id, WebResource.Schema.Headers.ismanaged);
 
             FormatTextTableHandler tableEqualByTextNotContent = new FormatTextTableHandler();
-            tableEqualByTextNotContent.SetHeader("Type", "Name", "Id");
+            tableEqualByTextNotContent.SetHeader(WebResource.Schema.Headers.webresourcetype, WebResource.Schema.Headers.name, WebResource.Schema.Headers.id);
 
             FormatTextTableHandler tableNotEqualByText = new FormatTextTableHandler();
             if (withDetails)
             {
-                tableNotEqualByText.SetHeader("Type", "Name", "Id", "-Deletes", "(-Length)", "+Inserts", "(+Length)");
+                tableNotEqualByText.SetHeader(WebResource.Schema.Headers.webresourcetype, WebResource.Schema.Headers.name, WebResource.Schema.Headers.id, "-Deletes", "(-Length)", "+Inserts", "(+Length)");
             }
             else
             {
-                tableNotEqualByText.SetHeader("Type", "Name", "Id");
+                tableNotEqualByText.SetHeader(WebResource.Schema.Headers.webresourcetype, WebResource.Schema.Headers.name, WebResource.Schema.Headers.id);
             }
 
             FormatTextTableHandler tableNotEqualByTextOnlyInserts = new FormatTextTableHandler();
-            tableNotEqualByTextOnlyInserts.SetHeader("Type", "Name", "Id", "+Inserts", "(+Length)");
+            tableNotEqualByTextOnlyInserts.SetHeader(WebResource.Schema.Headers.webresourcetype, WebResource.Schema.Headers.name, WebResource.Schema.Headers.id, "+Inserts", "(+Length)");
 
             FormatTextTableHandler tableNotEqualByTextOnlyDeletes = new FormatTextTableHandler();
-            tableNotEqualByTextOnlyDeletes.SetHeader("Type", "Name", "Id", "-Deletes", "(-Length)");
+            tableNotEqualByTextOnlyDeletes.SetHeader(WebResource.Schema.Headers.webresourcetype, WebResource.Schema.Headers.name, WebResource.Schema.Headers.id, "-Deletes", "(-Length)");
 
             FormatTextTableHandler tableNotEqualByTextComplexChanges = new FormatTextTableHandler();
-            tableNotEqualByTextComplexChanges.SetHeader("Type", "Name", "Id", "-Deletes", "(-Length)", "+Inserts", "(+Length)");
+            tableNotEqualByTextComplexChanges.SetHeader(WebResource.Schema.Headers.webresourcetype, WebResource.Schema.Headers.name, WebResource.Schema.Headers.id, "-Deletes", "(-Length)", "+Inserts", "(+Length)");
 
             FormatTextTableHandler tableNotEqualByTextMirror = new FormatTextTableHandler();
-            tableNotEqualByTextMirror.SetHeader("Type", "Name", "Id", "-Deletes", "(-Length)", "+Inserts", "(+Length)");
+            tableNotEqualByTextMirror.SetHeader(WebResource.Schema.Headers.webresourcetype, WebResource.Schema.Headers.name, WebResource.Schema.Headers.id, "-Deletes", "(-Length)", "+Inserts", "(+Length)");
 
             FormatTextTableHandler tableNotEqualByTextMirrorWithInserts = new FormatTextTableHandler();
-            tableNotEqualByTextMirrorWithInserts.SetHeader("Type", "Name", "Id", "-Deletes", "(-Length)", "+Inserts", "(+Length)");
+            tableNotEqualByTextMirrorWithInserts.SetHeader(WebResource.Schema.Headers.webresourcetype, WebResource.Schema.Headers.name, WebResource.Schema.Headers.id, "-Deletes", "(-Length)", "+Inserts", "(+Length)");
 
             FormatTextTableHandler tableNotEqualByTextMirrorWithDeletes = new FormatTextTableHandler();
-            tableNotEqualByTextMirrorWithDeletes.SetHeader("Type", "Name", "Id", "-Deletes", "(-Length)", "+Inserts", "(+Length)");
+            tableNotEqualByTextMirrorWithDeletes.SetHeader(WebResource.Schema.Headers.webresourcetype, WebResource.Schema.Headers.name, WebResource.Schema.Headers.id, "-Deletes", "(-Length)", "+Inserts", "(+Length)");
 
             List<LinkedEntities<WebResource>> commonList = new List<LinkedEntities<WebResource>>();
 
@@ -701,7 +701,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 && tableNotEqualByText.Count == 0
                 )
             {
-                content.AppendLine("No difference in WebResources.");
+                content.AppendLine(Properties.OrganizationComparerStrings.WebResourcesNoDifference);
             }
 
             content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));

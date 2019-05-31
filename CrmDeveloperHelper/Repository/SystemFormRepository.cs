@@ -226,7 +226,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                         using (StreamReader reader = new StreamReader(info.Stream))
                         {
-                            schemas.Add("", XmlReader.Create(reader));
+                            schemas.Add(string.Empty, XmlReader.Create(reader));
                         }
                     }
                 }
@@ -241,7 +241,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (errors.Count > 0)
             {
-                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.TextIsNotValidForFieldFormat1, "FormXml");
+                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.TextIsNotValidForFieldFormat1, CommonExportXsdSchemasCommand.SchemaFormXml);
 
                 foreach (var item in errors)
                 {

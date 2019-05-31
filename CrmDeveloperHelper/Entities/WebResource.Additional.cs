@@ -12,6 +12,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         {
             public static partial class Headers
             {
+                public const string id = "Id";
+
                 public const string content = "Content";
 
                 public const string dependencyxml = "DependencyXml";

@@ -196,15 +196,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         public static string GetFieldNameByXmlRoot(string rootNodeName)
         {
-            if (string.Equals(rootNodeName, "fetch", StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(rootNodeName, CommonExportXsdSchemasCommand.RootFetch, StringComparison.InvariantCultureIgnoreCase))
             {
                 return SavedQuery.Schema.Attributes.fetchxml;
             }
-            else if (string.Equals(rootNodeName, "grid", StringComparison.InvariantCultureIgnoreCase))
+            else if (string.Equals(rootNodeName, CommonExportXsdSchemasCommand.RootGrid, StringComparison.InvariantCultureIgnoreCase))
             {
                 return SavedQuery.Schema.Attributes.layoutxml;
             }
-            else if (string.Equals(rootNodeName, "columnset", StringComparison.InvariantCultureIgnoreCase))
+            else if (string.Equals(rootNodeName, CommonExportXsdSchemasCommand.RootColumnSet, StringComparison.InvariantCultureIgnoreCase))
             {
                 return SavedQuery.Schema.Attributes.columnsetxml;
             }
@@ -214,17 +214,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         public static string GetFieldTitleByXmlRoot(string rootNodeName)
         {
-            if (string.Equals(rootNodeName, "fetch", StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(rootNodeName, CommonExportXsdSchemasCommand.RootFetch, StringComparison.InvariantCultureIgnoreCase))
             {
-                return "FetchXml";
+                return SavedQuery.Schema.Headers.fetchxml;
             }
-            else if (string.Equals(rootNodeName, "grid", StringComparison.InvariantCultureIgnoreCase))
+            else if (string.Equals(rootNodeName, CommonExportXsdSchemasCommand.RootGrid, StringComparison.InvariantCultureIgnoreCase))
             {
-                return "LayoutXml";
+                return SavedQuery.Schema.Headers.layoutxml;
             }
-            else if (string.Equals(rootNodeName, "columnset", StringComparison.InvariantCultureIgnoreCase))
+            else if (string.Equals(rootNodeName, CommonExportXsdSchemasCommand.RootColumnSet, StringComparison.InvariantCultureIgnoreCase))
             {
-                return "ColumnSetXml";
+                return SavedQuery.Schema.Headers.columnsetxml;
             }
 
             throw new ArgumentException(string.Format("Unknown xml root node name - {0}", rootNodeName));
@@ -251,7 +251,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                         using (StreamReader reader = new StreamReader(info.Stream))
                         {
-                            schemas.Add("", XmlReader.Create(reader));
+                            schemas.Add(string.Empty, XmlReader.Create(reader));
                         }
                     }
                 }
