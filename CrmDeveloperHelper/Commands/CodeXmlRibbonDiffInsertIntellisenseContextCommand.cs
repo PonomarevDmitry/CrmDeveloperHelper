@@ -28,7 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(command, menuCommand, out _, "RibbonDiffXml", "RibbonDefinitions");
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(command, menuCommand, out _, CommonExportXsdSchemasCommand.RootRibbonDiffXml, CommonExportXsdSchemasCommand.RootRibbonDefinitions);
         }
     }
 }

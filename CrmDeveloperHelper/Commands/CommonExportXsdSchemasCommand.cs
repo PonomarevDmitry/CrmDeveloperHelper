@@ -14,6 +14,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         public IServiceProvider ServiceProvider => _package;
 
+        public const string RootSiteMap = "SiteMap";
+
+        public const string RootFetch = "fetch";
+        public const string RootGrid = "grid";
+        public const string RootColumnSet = "columnset";
+
+        public const string RootForm = "form";
+        public const string RootRibbonDiffXml = "RibbonDiffXml";
+        public const string RootRibbonDefinitions = "RibbonDefinitions";
+
         private const int _baseIdStart = PackageIds.CommonExportXsdSchemasCommandId;
 
         public const string SchemaFormXml = "FormXml";

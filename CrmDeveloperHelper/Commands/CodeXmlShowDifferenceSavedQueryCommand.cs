@@ -35,10 +35,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(command, menuCommand
                 , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId
                 , out var attribute
-                , "fetch"
-                , "grid"
-                , "columnset"
-                );
+                , CommonExportXsdSchemasCommand.RootFetch
+                , CommonExportXsdSchemasCommand.RootGrid
+                , CommonExportXsdSchemasCommand.RootColumnSet
+            );
 
             CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CodeXmlShowDifferenceSavedQueryCommand);
 
