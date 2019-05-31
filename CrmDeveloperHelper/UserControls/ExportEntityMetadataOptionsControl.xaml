@@ -73,12 +73,12 @@
 
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox x:Name="chBWithManagedInfo" IsChecked="{Binding Path=SolutionComponentWithManagedInfo}" Content="With Managed Info" />
-                        <CheckBox x:Name="chBAllDescriptions" IsChecked="{Binding Path=GenerateCommonAllDescriptions}" Content="All descriptions" />
+                        <CheckBox x:Name="chBWithManagedInfo" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=SolutionComponentWithManagedInfo}" Content="With Managed Info" />
+                        <CheckBox x:Name="chBAllDescriptions" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateCommonAllDescriptions}" Content="All descriptions" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox x:Name="chBWithDependentComponents" IsChecked="{Binding Path=GenerateSchemaEntityOptionSetsWithDependentComponents}" Content="With dependent components for Global OptionSets" />
+                        <CheckBox x:Name="chBWithDependentComponents" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateSchemaEntityOptionSetsWithDependentComponents}" Content="With dependent components for Global OptionSets" />
                     </StackPanel>
                 </StackPanel>
 
@@ -91,9 +91,9 @@
                             <ColumnDefinition Width="100*" />
                         </Grid.ColumnDefinitions>
 
-                        <RadioButton x:Name="rBTab" Grid.Column="0" IsChecked="{Binding Path=GenerateCommonIndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Tab}}" GroupName="IndentType" Content="Tab" />
-                        <RadioButton x:Name="rBSpaces" Grid.Column="1" IsChecked="{Binding Path=GenerateCommonIndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Spaces}}" GroupName="IndentType" Content="Spaces" />
-                        <TextBox x:Name="txtBSpaceCount" Grid.Column="2" Text="{Binding Path=GenerateCommonSpaceCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                        <RadioButton x:Name="rBTab" Grid.Column="0" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateCommonIndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Tab}}" GroupName="IndentType" Content="Tab" />
+                        <RadioButton x:Name="rBSpaces" Grid.Column="1" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateCommonIndentType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:IndentType.Spaces}}" GroupName="IndentType" Content="Spaces" />
+                        <TextBox x:Name="txtBSpaceCount" Grid.Column="2" d:DataContext="{x:Type model:CommonConfiguration}" Text="{Binding Path=GenerateCommonSpaceCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                     </Grid>
                 </GroupBox>
             </Grid>
@@ -111,10 +111,10 @@
                             <ColumnDefinition Width="100*" />
                         </Grid.ColumnDefinitions>
 
-                        <CheckBox Grid.Column="0" x:Name="chBAttributesProxyClass" IsChecked="{Binding Path=GenerateProxyClassesAttributes}" Content="Attributes" />
-                        <CheckBox Grid.Column="1" x:Name="chBOneToManyProxyClass" IsChecked="{Binding Path=GenerateProxyClassesOneToMany}" Content="One to Many" />
-                        <CheckBox Grid.Column="2" x:Name="chBManyToOneProxyClass" IsChecked="{Binding Path=GenerateProxyClassesManyToOne}" Content="Many to One" />
-                        <CheckBox Grid.Column="3" x:Name="chBManyToManyProxyClass" IsChecked="{Binding Path=GenerateProxyClassesManyToMany}" Content="Many to Many" />
+                        <CheckBox Grid.Column="0" x:Name="chBAttributesProxyClass" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateProxyClassesAttributes}" Content="Attributes" />
+                        <CheckBox Grid.Column="1" x:Name="chBOneToManyProxyClass" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateProxyClassesOneToMany}" Content="One to Many" />
+                        <CheckBox Grid.Column="2" x:Name="chBManyToOneProxyClass" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateProxyClassesManyToOne}" Content="Many to One" />
+                        <CheckBox Grid.Column="3" x:Name="chBManyToManyProxyClass" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateProxyClassesManyToMany}" Content="Many to Many" />
                     </Grid>
 
                     <Grid>
@@ -131,13 +131,13 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Row="0" Grid.Column="0" Content="Status and StatusReason Enum Attributes:" />
-                        <ComboBox Grid.Row="0" Grid.Column="1" x:Name="cmBAttributesProxyClassEnumsStateStatus" SelectedItem="{Binding Path=GenerateProxyClassesAttributesEnumsStateStatus}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:ProxyClassAttributeEnums}}}" />
+                        <ComboBox Grid.Row="0" Grid.Column="1" x:Name="cmBAttributesProxyClassEnumsStateStatus" d:DataContext="{x:Type model:CommonConfiguration}" SelectedItem="{Binding Path=GenerateProxyClassesAttributesEnumsStateStatus}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:ProxyClassAttributeEnums}}}" />
 
                         <Label Grid.Row="1" Grid.Column="0" Content="Local OptionSets Enum Attributes:" />
-                        <ComboBox Grid.Row="1" Grid.Column="1" x:Name="cmBAttributesProxyClassEnumsLocal" SelectedItem="{Binding Path=GenerateProxyClassesAttributesEnumsLocal}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:ProxyClassAttributeEnums}}}" />
+                        <ComboBox Grid.Row="1" Grid.Column="1" x:Name="cmBAttributesProxyClassEnumsLocal" d:DataContext="{x:Type model:CommonConfiguration}" SelectedItem="{Binding Path=GenerateProxyClassesAttributesEnumsLocal}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:ProxyClassAttributeEnums}}}" />
 
                         <Label Grid.Row="2" Grid.Column="0" Content="Global OptionSets Enum Attributes:" />
-                        <ComboBox Grid.Row="2" Grid.Column="1" x:Name="cmBAttributesProxyClassEnumsGlobal" SelectedItem="{Binding Path=GenerateProxyClassesAttributesEnumsGlobal}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:ProxyClassAttributeEnums}}}" />
+                        <ComboBox Grid.Row="2" Grid.Column="1" x:Name="cmBAttributesProxyClassEnumsGlobal" d:DataContext="{x:Type model:CommonConfiguration}" SelectedItem="{Binding Path=GenerateProxyClassesAttributesEnumsGlobal}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:ProxyClassAttributeEnums}}}" />
                     </Grid>
 
                     <Grid>
@@ -147,8 +147,8 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <CheckBox Grid.Column="0" x:Name="chBAttributesProxyClassEnumsUseSchemaStateStatusEnum" IsChecked="{Binding Path=GenerateProxyClassesAttributesEnumsUseSchemaStateStatusEnum}" Content="Use Schema Enums for Status and StatusReason" />
-                        <CheckBox Grid.Column="1" x:Name="chBAttributesProxyClassEnumsUseSchemaLocalEnum" IsChecked="{Binding Path=GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum}" Content="Use Schema Enums for Local OptionSets" />
+                        <CheckBox Grid.Column="0" x:Name="chBAttributesProxyClassEnumsUseSchemaStateStatusEnum" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateProxyClassesAttributesEnumsUseSchemaStateStatusEnum}" Content="Use Schema Enums for Status and StatusReason" />
+                        <CheckBox Grid.Column="1" x:Name="chBAttributesProxyClassEnumsUseSchemaLocalEnum" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateProxyClassesAttributesEnumsUseSchemaLocalEnum}" Content="Use Schema Enums for Local OptionSets" />
                     </Grid>
 
                     <Grid>
@@ -159,7 +159,7 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Column="0" Content="Global OptionSets Enum:" />
-                        <ComboBox Grid.Column="1" x:Name="cmBAttributesProxyClassEnumsUseSchemaGlobalEnum" SelectedItem="{Binding Path=GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:ProxyClassAttributeEnumsGlobalOptionSetLocation}}}" />
+                        <ComboBox Grid.Column="1" x:Name="cmBAttributesProxyClassEnumsUseSchemaGlobalEnum" d:DataContext="{x:Type model:CommonConfiguration}" SelectedItem="{Binding Path=GenerateProxyClassesAttributesEnumsUseSchemaGlobalEnum}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:ProxyClassAttributeEnumsGlobalOptionSetLocation}}}" />
                     </Grid>
 
                     <Label Content="Generate OptionSets Enums:" />
@@ -179,20 +179,20 @@
                             <ColumnDefinition Width="100*" />
                         </Grid.ColumnDefinitions>
 
-                        <CheckBox Grid.Row="0" Grid.Column="0" x:Name="chBStatusProxyClass" IsChecked="{Binding Path=GenerateProxyClassesStatusOptionSet}" Content="Status and StatusReason OptionSets" />
-                        <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chBLocalOptionSetsProxyClass" IsChecked="{Binding Path=GenerateProxyClassesLocalOptionSet}" Content="Local OptionSets" />
-                        <CheckBox Grid.Row="0" Grid.Column="2" x:Name="chBGlobalOptionSetsProxyClass" IsChecked="{Binding Path=GenerateProxyClassesGlobalOptionSet}" Content="Global OptionSets" />
+                        <CheckBox Grid.Row="0" Grid.Column="0" x:Name="chBStatusProxyClass" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateProxyClassesStatusOptionSet}" Content="Status and StatusReason OptionSets" />
+                        <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chBLocalOptionSetsProxyClass" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateProxyClassesLocalOptionSet}" Content="Local OptionSets" />
+                        <CheckBox Grid.Row="0" Grid.Column="2" x:Name="chBGlobalOptionSetsProxyClass" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateProxyClassesGlobalOptionSet}" Content="Global OptionSets" />
 
-                        <CheckBox Grid.Row="1" Grid.Column="0" x:Name="chBProxyClassAddDescriptionAttribute" IsChecked="{Binding Path=GenerateProxyClassesAddDescriptionAttribute}" Content="Add Description Attribute" />
+                        <CheckBox Grid.Row="1" Grid.Column="0" x:Name="chBProxyClassAddDescriptionAttribute" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateProxyClassesAddDescriptionAttribute}" Content="Add Description Attribute" />
 
-                        <CheckBox Grid.Row="2" Grid.Column="0" x:Name="chBProxyClassWithDebuggerNonUserCode" IsChecked="{Binding Path=GenerateProxyClassesWithDebuggerNonUserCode}" Content="Add DebuggerNonUserCode Attribute" />
-                        <CheckBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="chBAttributesProxyClassWithNameOf" IsChecked="{Binding Path=GenerateProxyClassesAttributesWithNameOf}" Content="Notify Property Change with nameof" />
+                        <CheckBox Grid.Row="2" Grid.Column="0" x:Name="chBProxyClassWithDebuggerNonUserCode" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateProxyClassesWithDebuggerNonUserCode}" Content="Add DebuggerNonUserCode Attribute" />
+                        <CheckBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="chBAttributesProxyClassWithNameOf" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateProxyClassesAttributesWithNameOf}" Content="Notify Property Change with nameof" />
 
-                        <CheckBox Grid.Row="3" Grid.Column="0" x:Name="chBProxyClassUseSchemaConstInCSharpAttributes" IsChecked="{Binding Path=GenerateProxyClassesUseSchemaConstInCSharpAttributes}" Content="Use Schema Const In C# Attributes" />
-                        <CheckBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="chBProxyClassesAddConstructorWithAnonymousTypeObject" IsChecked="{Binding Path=GenerateProxyClassesAddConstructorWithAnonymousTypeObject}" Content="Add Constructor With AnonymousType Object" />
+                        <CheckBox Grid.Row="3" Grid.Column="0" x:Name="chBProxyClassUseSchemaConstInCSharpAttributes" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateProxyClassesUseSchemaConstInCSharpAttributes}" Content="Use Schema Const In C# Attributes" />
+                        <CheckBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="chBProxyClassesAddConstructorWithAnonymousTypeObject" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateProxyClassesAddConstructorWithAnonymousTypeObject}" Content="Add Constructor With AnonymousType Object" />
 
-                        <CheckBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" x:Name="chBProxyClassesMakeAllPropertiesEditable" IsChecked="{Binding Path=GenerateProxyClassesMakeAllPropertiesEditable}" Content="Make All Properties Editable" />
-                        <CheckBox Grid.Row="4" Grid.Column="1" x:Name="chBProxyClassesWithoutObsoleteAttribute" IsChecked="{Binding Path=GenerateProxyClassesWithoutObsoleteAttribute}" Content="Without ObsoleteAttribute" />
+                        <CheckBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" x:Name="chBProxyClassesMakeAllPropertiesEditable" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateProxyClassesMakeAllPropertiesEditable}" Content="Make All Properties Editable" />
+                        <CheckBox Grid.Row="4" Grid.Column="1" x:Name="chBProxyClassesWithoutObsoleteAttribute" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateProxyClassesWithoutObsoleteAttribute}" Content="Without ObsoleteAttribute" />
 
                     </Grid>
                 </StackPanel>
@@ -201,7 +201,7 @@
             <TabItem Header="EntityMetadata Schema Options">
                 <StackPanel Orientation="Vertical">
 
-                    <CheckBox x:Name="chBIntoSchemaClass" IsChecked="{Binding Path=GenerateSchemaIntoSchemaClass}" Content="Into Schema class" />
+                    <CheckBox x:Name="chBIntoSchemaClass" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateSchemaIntoSchemaClass}" Content="Into Schema class" />
 
                     <Grid>
 
@@ -213,11 +213,11 @@
                             <ColumnDefinition Width="100*" />
                         </Grid.ColumnDefinitions>
 
-                        <CheckBox Grid.Column="0" x:Name="chBAttributesSchema" IsChecked="{Binding Path=GenerateSchemaAttributes}" Content="Attributes" />
-                        <CheckBox Grid.Column="1" x:Name="chBOneToManySchema" IsChecked="{Binding Path=GenerateSchemaOneToMany}" Content="One to Many" />
-                        <CheckBox Grid.Column="2" x:Name="chBManyToOneSchema" IsChecked="{Binding Path=GenerateSchemaManyToOne}" Content="Many to One" />
-                        <CheckBox Grid.Column="3" x:Name="chBManyToManySchema" IsChecked="{Binding Path=GenerateSchemaManyToMany}" Content="Many to Many" />
-                        <CheckBox Grid.Column="4" x:Name="chBKeysSchema" IsChecked="{Binding Path=GenerateSchemaKeys}" Content="Keys"  />
+                        <CheckBox Grid.Column="0" x:Name="chBAttributesSchema" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateSchemaAttributes}" Content="Attributes" />
+                        <CheckBox Grid.Column="1" x:Name="chBOneToManySchema" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateSchemaOneToMany}" Content="One to Many" />
+                        <CheckBox Grid.Column="2" x:Name="chBManyToOneSchema" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateSchemaManyToOne}" Content="Many to One" />
+                        <CheckBox Grid.Column="3" x:Name="chBManyToManySchema" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateSchemaManyToMany}" Content="Many to Many" />
+                        <CheckBox Grid.Column="4" x:Name="chBKeysSchema" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateSchemaKeys}" Content="Keys"  />
                     </Grid>
 
                     <Label Content="Generate OptionSets Enums:" />
@@ -233,12 +233,12 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
 
-                        <CheckBox Grid.Row="0" Grid.Column="0" x:Name="chBStatusSchema" IsChecked="{Binding Path=GenerateSchemaStatusOptionSet}" Content="Status and StatusReason OptionSets" />
-                        <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chBLocalOptionSetsSchema" IsChecked="{Binding Path=GenerateSchemaLocalOptionSet}" Content="Local OptionSets" />
-                        <CheckBox Grid.Row="0" Grid.Column="2" x:Name="chBGlobalOptionSetsSchema" IsChecked="{Binding Path=GenerateSchemaGlobalOptionSet}" Content="Global OptionSets" />
+                        <CheckBox Grid.Row="0" Grid.Column="0" x:Name="chBStatusSchema" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateSchemaStatusOptionSet}" Content="Status and StatusReason OptionSets" />
+                        <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chBLocalOptionSetsSchema" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateSchemaLocalOptionSet}" Content="Local OptionSets" />
+                        <CheckBox Grid.Row="0" Grid.Column="2" x:Name="chBGlobalOptionSetsSchema" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateSchemaGlobalOptionSet}" Content="Global OptionSets" />
 
-                        <CheckBox Grid.Row="1" Grid.Column="0" x:Name="chBAddDescriptionAttribute" IsChecked="{Binding Path=GenerateSchemaAddDescriptionAttribute}" Content="Add Description Attribute" />
-                        <CheckBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" x:Name="chBAddTypeConverterAttributeForEnums" IsChecked="{Binding Path=GenerateSchemaAddTypeConverterAttributeForEnums}" Content="Add TypeConverterAttribute for Enums" />
+                        <CheckBox Grid.Row="1" Grid.Column="0" x:Name="chBAddDescriptionAttribute" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateSchemaAddDescriptionAttribute}" Content="Add Description Attribute" />
+                        <CheckBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" x:Name="chBAddTypeConverterAttributeForEnums" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateSchemaAddTypeConverterAttributeForEnums}" Content="Add TypeConverterAttribute for Enums" />
                     </Grid>
 
                     <Grid>
@@ -250,15 +250,15 @@
 
                         <GroupBox Header="Field Type" Grid.Column="0" HorizontalAlignment="Stretch">
                             <StackPanel Orientation="Horizontal">
-                                <RadioButton x:Name="rBConst" IsChecked="{Binding Path=GenerateSchemaConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.Constant}}" GroupName="ConstantType" Content="Const"   />
-                                <RadioButton x:Name="rBReadOnly" IsChecked="{Binding Path=GenerateSchemaConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.ReadOnlyField}}" GroupName="ConstantType" Content="ReadOnly" />
+                                <RadioButton x:Name="rBConst" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateSchemaConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.Constant}}" GroupName="ConstantType" Content="Const"   />
+                                <RadioButton x:Name="rBReadOnly" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateSchemaConstantType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:ConstantType.ReadOnlyField}}" GroupName="ConstantType" Content="ReadOnly" />
                             </StackPanel>
                         </GroupBox>
 
                         <GroupBox Header="OptionSets Values" Grid.Column="1" HorizontalAlignment="Stretch">
                             <StackPanel Orientation="Horizontal" >
-                                <RadioButton x:Name="rBEnums" IsChecked="{Binding Path=GenerateSchemaOptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Enums}}" GroupName="OptionSets" Content="Enum" />
-                                <RadioButton x:Name="rBClasses" IsChecked="{Binding Path=GenerateSchemaOptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Classes}}" GroupName="OptionSets" Content="Class"  />
+                                <RadioButton x:Name="rBEnums" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateSchemaOptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Enums}}" GroupName="OptionSets" Content="Enum" />
+                                <RadioButton x:Name="rBClasses" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=GenerateSchemaOptionSetExportType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static model:OptionSetExportType.Classes}}" GroupName="OptionSets" Content="Class"  />
                             </StackPanel>
                         </GroupBox>
                     </Grid>
@@ -276,23 +276,23 @@
 
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox x:Name="chBForm" IsChecked="{Binding Path=ExportRibbonXmlForm}" Content="Form" />
-                        <CheckBox x:Name="chBHomepageGrid" IsChecked="{Binding Path=ExportRibbonXmlHomepageGrid}" Content="HomepageGrid" />
-                        <CheckBox x:Name="chBSubGrid" IsChecked="{Binding Path=ExportRibbonXmlSubGrid}" Content="SubGrid" />
+                        <CheckBox x:Name="chBForm" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=ExportRibbonXmlForm}" Content="Form" />
+                        <CheckBox x:Name="chBHomepageGrid" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=ExportRibbonXmlHomepageGrid}" Content="HomepageGrid" />
+                        <CheckBox x:Name="chBSubGrid" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=ExportRibbonXmlSubGrid}" Content="SubGrid" />
                     </StackPanel>
 
-                    <CheckBox x:Name="chBXmlAttributeOnNewLine" IsChecked="{Binding Path=ExportXmlAttributeOnNewLine}" Content="Xml Attribute on New Line" />
-                    <CheckBox x:Name="chBSetXmlSchemas" IsChecked="{Binding Path=SetXmlSchemasDuringExport}" Content="Set Xml Schemas During Export" />
-                    <CheckBox x:Name="chBSetIntellisenseContext" IsChecked="{Binding SetIntellisenseContext}" Content="Set Intellisense Context" />
-                    <CheckBox x:Name="chBSortRibbonCommandsAndRulesById" IsChecked="{Binding SortRibbonCommandsAndRulesById}" Content="Sort Ribbon Commands and Rules by Id" />
-                    <CheckBox x:Name="chBSortXmlAttributes" IsChecked="{Binding SortXmlAttributes}" Content="Sort Xml Attributes" />
+                    <CheckBox x:Name="chBXmlAttributeOnNewLine" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=ExportXmlAttributeOnNewLine}" Content="Xml Attribute on New Line" />
+                    <CheckBox x:Name="chBSetXmlSchemas" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=SetXmlSchemasDuringExport}" Content="Set Xml Schemas During Export" />
+                    <CheckBox x:Name="chBSetIntellisenseContext" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=SetIntellisenseContext}" Content="Set Intellisense Context" />
+                    <CheckBox x:Name="chBSortRibbonCommandsAndRulesById" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=SortRibbonCommandsAndRulesById}" Content="Sort Ribbon Commands and Rules by Id" />
+                    <CheckBox x:Name="chBSortXmlAttributes" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=SortXmlAttributes}" Content="Sort Xml Attributes" />
                 </StackPanel>
             </GroupBox>
 
             <GroupBox Margin="5" Header="Attributes Dependent Components Options" Grid.Column="1" HorizontalAlignment="Stretch">
                 <StackPanel Orientation="Vertical">
-                    <RadioButton x:Name="rBAllcomponents" IsChecked="{Binding Path=AttributesDependentComponentsAllComponents}" Content="All components" />
-                    <RadioButton x:Name="rBWorkflowPlugin" IsChecked="{Binding Path=AttributesDependentComponentsAllComponents, Converter={StaticResource BoolInverter}, Mode=OneWay}" Content="Only Workflow, Plugin Step, Plugin Step Image" />
+                    <RadioButton x:Name="rBAllcomponents" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=AttributesDependentComponentsAllComponents}" Content="All components" />
+                    <RadioButton x:Name="rBWorkflowPlugin" d:DataContext="{x:Type model:CommonConfiguration}" IsChecked="{Binding Path=AttributesDependentComponentsAllComponents, Converter={StaticResource BoolInverter}, Mode=OneWay}" Content="Only Workflow, Plugin Step, Plugin Step Image" />
                 </StackPanel>
             </GroupBox>
         </Grid>
