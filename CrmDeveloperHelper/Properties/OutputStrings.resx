@@ -427,6 +427,106 @@
   <data name="FolderForExportDoesNotExistsFormat1" xml:space="preserve">
     <value>Folder for Export does not exist: {0}</value>
   </data>
-  
 
+  <data name="NoObjectsToAddToSolution" xml:space="preserve">
+    <value>No Objects to add to Solution.</value>
+  </data>
+
+  <data name="NoReportsToAddToSolution" xml:space="preserve">
+    <value>No Reports to add to Solution.</value>
+  </data>
+
+  <data name="NoObjectsToAddToSolutionAllComponentsInSolutionFormant1" xml:space="preserve">
+    <value>No Objects to add to Solution. All components already in Solution {0}</value>
+  </data>
+
+  <data name="NoReportsToAddToSolutionAllComponentsInSolutionFormant1" xml:space="preserve">
+    <value>No Reports to add to Solution. All reports already in Solution {0}</value>
+  </data>
+
+  <data name="ComponentsToAddToSolutionFormat2" xml:space="preserve">
+    <value>Components to add to Solution {0}: {1}</value>
+  </data>
+
+  <data name="WebResourcesToAddToSolutionFormat2" xml:space="preserve">
+    <value>WebResources to add to Solution {0}: {1}</value>
+  </data>
+
+  <data name="ReportsToAddToSolutionFormat2" xml:space="preserve">
+    <value>Reports to add to Solution {0}: {1}</value>
+  </data>
+
+  <data name="NoObjectsToRemoveFromSolutionFormat1" xml:space="preserve">
+    <value>No Objects to remove from Solution {0}.</value>
+  </data>
+
+  <data name="ComponentsToRemoveFromSolutionFormat2" xml:space="preserve">
+    <value>Components to remove from Solution {0}: {1}</value>
+  </data>
+
+  <data name="NoProjectNames" xml:space="preserve">
+    <value>No Project Names.</value>
+  </data>
+
+  <data name="NoPluginAssembliesToAddToSolution" xml:space="preserve">
+    <value>No PluginAssemblies to add to Solution.</value>
+  </data>
+
+  <data name="NoPluginAssembliesToAddToSolutionAllComponentsInSolutionFormant1" xml:space="preserve">
+    <value>No PluginAssemblies to add to Solution. All PluginAssemblies already in Solution {0}</value>
+  </data>
+
+  <data name="PluginAssembliesToAddToSolutionFormat2" xml:space="preserve">
+    <value>PluginAssemblies to add to Solution {0}: {1}</value>
+  </data>
+
+  <data name="NoProcessingStepsToAddToSolution" xml:space="preserve">
+    <value>No Processing Steps to add to Solution.</value>
+  </data>
+
+  <data name="NoProcessingStepsToAddToSolutionAllComponentsInSolutionFormant1" xml:space="preserve">
+    <value>No Processing Steps to add to Solution. All Processing Steps already in Solution {0}</value>
+  </data>
+
+  <data name="ProcessingStepsToAddToSolutionFormat2" xml:space="preserve">
+    <value>Processing Steps to add to Solution {0}: {1}</value>
+  </data>
+
+  <data name="NoPluginTypesFounded" xml:space="preserve">
+    <value>No PluginTypes founded.</value>
+  </data>
+
+  <data name="PluginTypesNotFoundedByNameFormat1" xml:space="preserve">
+    <value>PluginTypes not founded by name {0}.</value>
+  </data>
+
+  <data name="PluginAssembliesNotFoundedByNameFormat1" xml:space="preserve">
+    <value>PluginAssemblies not founded by name {0}.</value>
+  </data>
+
+  <data name="PluginAssembliesNotFoundedByNameFormat1" xml:space="preserve">
+    <value>PluginAssemblies not founded by name {0}.</value>
+  </data>
+
+  <data name="TryingToFindWebResourceByNameFormat1" xml:space="preserve">
+    <value>Trying to find WebResource by name: {0}. Searching...</value>
+  </data>
+
+  <data name="WebResourceFoundedByNameFormat2" xml:space="preserve">
+    <value>WebResource founded by name. WebResourceId: {0} Name: {1}</value>
+  </data>
+
+  <data name="WebResourceNotFoundedByNameFormat1" xml:space="preserve">
+    <value>WebResource Not founded by name. FileName: {0}</value>
+  </data>
+
+  <data name="ReportFoundedByNameFormat2" xml:space="preserve">
+    <value>Report founded by name. WebResourceId: {0} Name: {1}</value>
+  </data>
+
+  <data name="ReportNotFoundedByNameFormat1" xml:space="preserve">
+    <value>Report Not founded by name. FileName: {0}</value>
+  </data>
+
+  
 </root>

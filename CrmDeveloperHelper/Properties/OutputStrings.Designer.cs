@@ -124,6 +124,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Components to add to Solution {0}: {1}.
+        /// </summary>
+        internal static string ComponentsToAddToSolutionFormat2 {
+            get {
+                return ResourceManager.GetString("ComponentsToAddToSolutionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Components to remove from Solution {0}: {1}.
+        /// </summary>
+        internal static string ComponentsToRemoveFromSolutionFormat2 {
+            get {
+                return ResourceManager.GetString("ComponentsToRemoveFromSolutionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connecting to CRM....
         /// </summary>
         internal static string ConnectingToCRM {
@@ -637,6 +655,105 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No Objects to add to Solution..
+        /// </summary>
+        internal static string NoObjectsToAddToSolution {
+            get {
+                return ResourceManager.GetString("NoObjectsToAddToSolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Objects to add to Solution. All components already in Solution {0}.
+        /// </summary>
+        internal static string NoObjectsToAddToSolutionAllComponentsInSolutionFormant1 {
+            get {
+                return ResourceManager.GetString("NoObjectsToAddToSolutionAllComponentsInSolutionFormant1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Objects to remove from Solution {0}..
+        /// </summary>
+        internal static string NoObjectsToRemoveFromSolutionFormat1 {
+            get {
+                return ResourceManager.GetString("NoObjectsToRemoveFromSolutionFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No PluginAssemblies to add to Solution..
+        /// </summary>
+        internal static string NoPluginAssembliesToAddToSolution {
+            get {
+                return ResourceManager.GetString("NoPluginAssembliesToAddToSolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No PluginAssemblies to add to Solution. All PluginAssemblies already in Solution {0}.
+        /// </summary>
+        internal static string NoPluginAssembliesToAddToSolutionAllComponentsInSolutionFormant1 {
+            get {
+                return ResourceManager.GetString("NoPluginAssembliesToAddToSolutionAllComponentsInSolutionFormant1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No PluginTypes founded..
+        /// </summary>
+        internal static string NoPluginTypesFounded {
+            get {
+                return ResourceManager.GetString("NoPluginTypesFounded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Processing Steps to add to Solution..
+        /// </summary>
+        internal static string NoProcessingStepsToAddToSolution {
+            get {
+                return ResourceManager.GetString("NoProcessingStepsToAddToSolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Processing Steps to add to Solution. All Processing Steps already in Solution {0}.
+        /// </summary>
+        internal static string NoProcessingStepsToAddToSolutionAllComponentsInSolutionFormant1 {
+            get {
+                return ResourceManager.GetString("NoProcessingStepsToAddToSolutionAllComponentsInSolutionFormant1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Project Names..
+        /// </summary>
+        internal static string NoProjectNames {
+            get {
+                return ResourceManager.GetString("NoProjectNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Reports to add to Solution..
+        /// </summary>
+        internal static string NoReportsToAddToSolution {
+            get {
+                return ResourceManager.GetString("NoReportsToAddToSolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Reports to add to Solution. All reports already in Solution {0}.
+        /// </summary>
+        internal static string NoReportsToAddToSolutionAllComponentsInSolutionFormant1 {
+            get {
+                return ResourceManager.GetString("NoReportsToAddToSolutionAllComponentsInSolutionFormant1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nothing to publish..
         /// </summary>
         internal static string NothingToPublish {
@@ -682,11 +799,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PluginAssemblies not founded by name {0}..
+        /// </summary>
+        internal static string PluginAssembliesNotFoundedByNameFormat1 {
+            get {
+                return ResourceManager.GetString("PluginAssembliesNotFoundedByNameFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PluginAssemblies to add to Solution {0}: {1}.
+        /// </summary>
+        internal static string PluginAssembliesToAddToSolutionFormat2 {
+            get {
+                return ResourceManager.GetString("PluginAssembliesToAddToSolutionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PluginAssembly not founded by name &apos;{0}&apos;..
         /// </summary>
         internal static string PluginAssemblyNotFoundedByNameFormat1 {
             get {
                 return ResourceManager.GetString("PluginAssemblyNotFoundedByNameFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PluginTypes not founded by name {0}..
+        /// </summary>
+        internal static string PluginTypesNotFoundedByNameFormat1 {
+            get {
+                return ResourceManager.GetString("PluginTypesNotFoundedByNameFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Processing Steps to add to Solution {0}: {1}.
+        /// </summary>
+        internal static string ProcessingStepsToAddToSolutionFormat2 {
+            get {
+                return ResourceManager.GetString("ProcessingStepsToAddToSolutionFormat2", resourceCulture);
             }
         }
         
@@ -772,11 +925,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Report founded by name. WebResourceId: {0} Name: {1}.
+        /// </summary>
+        internal static string ReportFoundedByNameFormat2 {
+            get {
+                return ResourceManager.GetString("ReportFoundedByNameFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report Not founded by name. FileName: {0}.
+        /// </summary>
+        internal static string ReportNotFoundedByNameFormat1 {
+            get {
+                return ResourceManager.GetString("ReportNotFoundedByNameFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}: Report not founded in CRM: {1}.
         /// </summary>
         internal static string ReportNotFoundedInConnectionFormat2 {
             get {
                 return ResourceManager.GetString("ReportNotFoundedInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reports to add to Solution {0}: {1}.
+        /// </summary>
+        internal static string ReportsToAddToSolutionFormat2 {
+            get {
+                return ResourceManager.GetString("ReportsToAddToSolutionFormat2", resourceCulture);
             }
         }
         
@@ -898,6 +1078,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Trying to find WebResource by name: {0}. Searching....
+        /// </summary>
+        internal static string TryingToFindWebResourceByNameFormat1 {
+            get {
+                return ResourceManager.GetString("TryingToFindWebResourceByNameFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Updating Attributes:.
         /// </summary>
         internal static string UpdatingAttributes {
@@ -916,11 +1105,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to WebResource founded by name. WebResourceId: {0} Name: {1}.
+        /// </summary>
+        internal static string WebResourceFoundedByNameFormat2 {
+            get {
+                return ResourceManager.GetString("WebResourceFoundedByNameFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WebResource Not founded by name. FileName: {0}.
+        /// </summary>
+        internal static string WebResourceNotFoundedByNameFormat1 {
+            get {
+                return ResourceManager.GetString("WebResourceNotFoundedByNameFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}: WebResource not founded in CRM: {1}.
         /// </summary>
         internal static string WebResourceNotFoundedInConnectionFormat2 {
             get {
                 return ResourceManager.GetString("WebResourceNotFoundedInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WebResources to add to Solution {0}: {1}.
+        /// </summary>
+        internal static string WebResourcesToAddToSolutionFormat2 {
+            get {
+                return ResourceManager.GetString("WebResourcesToAddToSolutionFormat2", resourceCulture);
             }
         }
         

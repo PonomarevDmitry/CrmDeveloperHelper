@@ -17,6 +17,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 {
     public class SolutionController
     {
+        private const string _tabSpacer = "      ";
+
         private readonly IWriteToOutput _iWriteToOutput = null;
 
         public SolutionController(IWriteToOutput iWriteToOutput)
@@ -305,8 +307,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
                         continue;
                     }
-
-                    this._iWriteToOutput.WriteToOutput(connectionData, "Try to find web-resource by name: {0}. Searching...", selectedFile.Name);
+                    
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.TryingToFindWebResourceByNameFormat1, selectedFile.Name);
 
                     string key = selectedFile.FriendlyFilePath.ToLower();
 
@@ -318,11 +320,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     {
                         var webName = webresource.Name;
 
-                        this._iWriteToOutput.WriteToOutput(connectionData, "WebResource founded by name. WebResourceId: {0} Name: {1}", webresource.Id, webName);
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceFoundedByNameFormat2, webresource.Id, webName);
                     }
                     else
                     {
-                        this._iWriteToOutput.WriteToOutput(connectionData, "WebResource not founded by name. FileName: {0}. Open linking dialog...", selectedFile.Name);
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceNotFoundedByNameFormat1, selectedFile.Name);
 
                         Guid? webId = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
 
@@ -436,8 +438,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 WithSolutionsInfo = true,
                 WithUrls = true,
             };
-
-            this._iWriteToOutput.WriteToOutput(connectionData, "WebResources to add to Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
+            
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourcesToAddToSolutionFormat2, solution.UniqueName, componentsToAdd.Count);
 
             var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
 
@@ -509,11 +511,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     if (reportEntity != null)
                     {
-                        this._iWriteToOutput.WriteToOutput(connectionData, "Report founded by name: {0}", selectedFile.FileName);
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ReportFoundedByNameFormat2, reportEntity.Id.ToString(), reportEntity.Name);
                     }
                     else
                     {
-                        this._iWriteToOutput.WriteToOutput(connectionData, "Report not founded by name: {0}", selectedFile.FileName);
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ReportNotFoundedByNameFormat1, selectedFile.FileName);
 
                         Guid? idLastLink = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
 
@@ -545,7 +547,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!dictForAdding.Any())
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "No Reports to add.");
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoReportsToAddToSolution);
                 return;
             }
 
@@ -615,7 +617,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!dictForAdding.Any())
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "No Reports to add. All reports already in Solution {0}", solution.UniqueName);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoReportsToAddToSolutionAllComponentsInSolutionFormant1, solution.UniqueName);
                 return;
             }
 
@@ -633,7 +635,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 WithUrls = true,
             };
 
-            this._iWriteToOutput.WriteToOutput(connectionData, "Reports to add to Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ReportsToAddToSolutionFormat2, solution.UniqueName, componentsToAdd.Count);
 
             var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
 
@@ -659,7 +661,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 if (!selectedObjects.Any())
                 {
-                    iWriteToOutput.WriteToOutput(service.ConnectionData, "No Objects to add.");
+                    iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NoObjectsToAddToSolution);
                     return;
                 }
 
@@ -695,7 +697,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!dictForAdding.Any())
                 {
-                    iWriteToOutput.WriteToOutput(service.ConnectionData, "No Objects to add.");
+                    iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NoObjectsToAddToSolution);
                     return;
                 }
 
@@ -765,10 +767,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!dictForAdding.Any())
                 {
-                    iWriteToOutput.WriteToOutput(service.ConnectionData, "No Objects to add. All components already in Solution {0}", solution.UniqueName);
+                    iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NoObjectsToAddToSolutionAllComponentsInSolutionFormant1, solution.UniqueName);
                     return;
                 }
-
+                
                 OptionSetValue rootBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents);
 
                 if (rootComponentBehavior.HasValue)
@@ -782,8 +784,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     ComponentType = new OptionSetValue((int)componentType),
                     RootComponentBehavior = rootBehavior,
                 })).ToList();
-
-                iWriteToOutput.WriteToOutput(service.ConnectionData, "Components to add to Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
+                
+                iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ComponentsToAddToSolutionFormat2, solution.UniqueName, componentsToAdd.Count);
 
                 var desc = await descriptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
 
@@ -814,7 +816,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 if (!components.Any())
                 {
-                    iWriteToOutput.WriteToOutput(service.ConnectionData, "No Objects to add.");
+                    iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NoObjectsToAddToSolution);
                     return;
                 }
 
@@ -876,7 +878,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!dictForAdding.Any())
                 {
-                    iWriteToOutput.WriteToOutput(service.ConnectionData, "No Objects to add.");
+                    iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NoObjectsToAddToSolution);
                     return;
                 }
 
@@ -943,7 +945,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!dictForAdding.Any())
                 {
-                    iWriteToOutput.WriteToOutput(service.ConnectionData, "No Objects to add. All components already in Solution {0}", solution.UniqueName);
+                    iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NoObjectsToAddToSolutionAllComponentsInSolutionFormant1, solution.UniqueName);
                     return;
                 }
 
@@ -951,7 +953,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 componentsForAdding.AddRange(components.Where(en => en.ComponentType != null && en.ObjectId.HasValue && dictForAdding.Contains(Tuple.Create(en.ComponentType.Value, en.ObjectId.Value))));
 
-                iWriteToOutput.WriteToOutput(service.ConnectionData, "Components to add to Solution {0}: {1}", solution.UniqueName, componentsForAdding.Count);
+                iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ComponentsToAddToSolutionFormat2, solution.UniqueName, componentsForAdding.Count);
 
                 var desc = await descriptor.GetSolutionComponentsDescriptionAsync(componentsForAdding);
 
@@ -984,7 +986,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 if (!components.Any())
                 {
-                    iWriteToOutput.WriteToOutput(service.ConnectionData, "No Objects to remove.");
+                    iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NoObjectsToRemoveFromSolutionFormat1, solutionUniqueName);
                     return;
                 }
 
@@ -1060,7 +1062,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!dictForRemoving.Any())
                 {
-                    iWriteToOutput.WriteToOutput(service.ConnectionData, "No Objects to remove from {0}.", solution.UniqueName);
+                    iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.NoObjectsToRemoveFromSolutionFormat1, solutionUniqueName);
                     return;
                 }
 
@@ -1068,7 +1070,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 componentsForRemoving.AddRange(components.Where(en => en.ComponentType != null && en.ObjectId.HasValue && dictForRemoving.Contains(Tuple.Create(en.ComponentType.Value, en.ObjectId.Value))));
 
-                iWriteToOutput.WriteToOutput(service.ConnectionData, "Components removed from Solution {0}: {1}", solution.UniqueName, componentsForRemoving.Count);
+                iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ComponentsToRemoveFromSolutionFormat2, solution.UniqueName, componentsForRemoving.Count);
 
                 var desc = await descriptor.GetSolutionComponentsDescriptionAsync(componentsForRemoving);
 
@@ -1121,7 +1123,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (projectNames == null || !projectNames.Any())
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "No Project Names.");
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProjectNames);
                 return;
             }
 
@@ -1170,7 +1172,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!knownAssemblies.Any() && !unknownProjectNames.Any())
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "No Plugin Assemblies to add.");
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoPluginAssembliesToAddToSolution);
                 return;
             }
 
@@ -1242,7 +1244,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (!knownAssemblies.Any())
                 {
-                    this._iWriteToOutput.WriteToOutput(connectionData, "No PluginAssembly to add. All PluginAssemblies already in Solution {0}", solution.UniqueName);
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoPluginAssembliesToAddToSolutionAllComponentsInSolutionFormant1, solution.UniqueName);
 
                     OpenWindowForUnknownProjects(commonConfig, service, unknownProjectNames);
 
@@ -1259,7 +1261,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 var solutionDesciptor = new SolutionComponentDescriptor(service);
                 solutionDesciptor.SetSettings(commonConfig);
 
-                this._iWriteToOutput.WriteToOutput(connectionData, "PluginAssemblies to add to Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.PluginAssembliesToAddToSolutionFormat2, solution.UniqueName, componentsToAdd.Count);
 
                 var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
 
@@ -1308,7 +1310,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (projectNames == null || !projectNames.Any())
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "No Project Names.");
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProjectNames);
                 return;
             }
 
@@ -1358,7 +1360,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!knownAssemblies.Any() && !unknownProjectNames.Any())
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "No Plugin Assemblies founded.");
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoPluginAssembliesToAddToSolution);
                 return;
             }
 
@@ -1376,7 +1378,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!dictForAdding.Any())
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "No Processing Steps to add.");
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProcessingStepsToAddToSolution);
 
                 OpenWindowForUnknownProjects(commonConfig, service, unknownProjectNames);
 
@@ -1449,7 +1451,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!dictForAdding.Any())
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "No Processing Steps to add. All Processing Steps already in Solution {0}", solution.UniqueName);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProcessingStepsToAddToSolutionAllComponentsInSolutionFormant1, solution.UniqueName);
 
                 OpenWindowForUnknownProjects(commonConfig, service, unknownProjectNames);
 
@@ -1466,7 +1468,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             var solutionDesciptor = new SolutionComponentDescriptor(service);
             solutionDesciptor.SetSettings(commonConfig);
 
-            this._iWriteToOutput.WriteToOutput(connectionData, "Processing Steps to add to Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ProcessingStepsToAddToSolutionFormat2, solution.UniqueName, componentsToAdd.Count);
 
             var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
 
@@ -1484,11 +1486,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (unknownProjectNames.Any())
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "PluginAssemblies not founded by name {0}.", unknownProjectNames.Count);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PluginAssembliesNotFoundedByNameFormat1, unknownProjectNames.Count);
 
                 foreach (var projectName in unknownProjectNames)
                 {
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "       {0}", projectName);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "{0}{1}", _tabSpacer, projectName);
                 }
 
                 WindowHelper.OpenPluginAssemblyWindow(
@@ -1534,7 +1536,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (pluginTypeNames == null || !pluginTypeNames.Any())
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "No Project Names.");
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProjectNames);
                 return;
             }
 
@@ -1578,7 +1580,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!knownPluginTypes.Any() && !unknownPluginTypes.Any())
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "No Plugin Types founded.");
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoPluginTypesFounded);
                 return;
             }
 
@@ -1598,7 +1600,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!dictForAdding.Any())
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "No Processing Steps to add.");
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProcessingStepsToAddToSolution);
 
                 OpenWindowForUnknownPluginTypes(commonConfig, service, unknownPluginTypes);
 
@@ -1671,7 +1673,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (!dictForAdding.Any())
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, "No Processing Steps to add. All Processing Steps already in Solution {0}", solution.UniqueName);
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoProcessingStepsToAddToSolutionAllComponentsInSolutionFormant1, solution.UniqueName);
 
                 OpenWindowForUnknownPluginTypes(commonConfig, service, unknownPluginTypes);
 
@@ -1688,7 +1690,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             var solutionDesciptor = new SolutionComponentDescriptor(service);
             solutionDesciptor.SetSettings(commonConfig);
 
-            this._iWriteToOutput.WriteToOutput(connectionData, "Processing Steps to add to Solution {0}: {1}", solution.UniqueName, componentsToAdd.Count);
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ProcessingStepsToAddToSolutionFormat2, solution.UniqueName, componentsToAdd.Count);
 
             var desc = await solutionDesciptor.GetSolutionComponentsDescriptionAsync(componentsToAdd);
 
@@ -1706,11 +1708,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         {
             if (unknownPluginTypes.Any())
             {
-                this._iWriteToOutput.WriteToOutput(service.ConnectionData, "PluginTypes not founded by name {0}.", unknownPluginTypes.Count);
+                this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.PluginTypesNotFoundedByNameFormat1, unknownPluginTypes.Count);
 
                 foreach (var pluginTypeName in unknownPluginTypes)
                 {
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "       {0}", pluginTypeName);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "{0}{1}", _tabSpacer, pluginTypeName);
                 }
 
                 WindowHelper.OpenPluginTypeWindow(
