@@ -2096,7 +2096,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
 
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Coping Solution Components from '{0}' into '{1}'.", solutionSource.UniqueName, solutionTarget.UniqueName);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Coping Solution Components from '{0}' to '{1}'.", solutionSource.UniqueName, solutionTarget.UniqueName);
 
                     await Controllers.SolutionController.AddSolutionComponentsCollectionIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionTarget.UniqueName, componentesOnlyInSource, false);
 
@@ -2104,7 +2104,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "All Solution Components '{0}' already added into '{1}'.", solutionSource.UniqueName, solutionTarget.UniqueName);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "All Solution Components '{0}' already added to '{1}'.", solutionSource.UniqueName, solutionTarget.UniqueName);
                 }
 
                 ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CopingSolutionComponentsToFromCompletedFormat2, solutionSource.UniqueName, solutionTarget.UniqueName);
@@ -2231,7 +2231,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
 
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Coping Solution Components from '{0}' into '{1}'.", sourceName, solutionTarget.UniqueName);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Coping Solution Components from '{0}' to '{1}'.", sourceName, solutionTarget.UniqueName);
 
                     await Controllers.SolutionController.AddSolutionComponentsCollectionIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionTarget.UniqueName, componentesOnlyInSource, false);
 
@@ -2239,7 +2239,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
                 else
                 {
-                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "All Solution Components '{0}' already added into '{1}'.", sourceName, solutionTarget.UniqueName);
+                    this._iWriteToOutput.WriteToOutput(service.ConnectionData, "All Solution Components '{0}' already added to '{1}'.", sourceName, solutionTarget.UniqueName);
                 }
 
                 ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CopingSolutionComponentsToFromCompletedFormat2, solutionTarget.UniqueName, sourceName);

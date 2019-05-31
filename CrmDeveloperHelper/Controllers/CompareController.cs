@@ -740,7 +740,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
             else
             {
-                this._iWriteToOutputAndPublishList.WriteToOutput(connectionData, "No files for adding into Publish List.");
+                this._iWriteToOutputAndPublishList.WriteToOutput(connectionData, "No files for adding to Publish List.");
             }
         }
 
