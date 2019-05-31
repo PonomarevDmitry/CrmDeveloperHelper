@@ -836,24 +836,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ActivateControls(items, CanCreateDescription(nodeItem), "contMnCreateDescription");
             SetControlsName(items, GetCreateDescriptionName(nodeItem), "contMnCreateDescription");
 
-            ActivateControls(items, isMessage || isMessageFilter, "contMnAddIntoSolution", "contMnAddIntoSolutionLast");
-            FillLastSolutionItems(connectionData, items, isMessage || isMessageFilter, AddIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
+            ActivateControls(items, isMessage || isMessageFilter, "contMnAddToSolution", "contMnAddToSolutionLast");
+            FillLastSolutionItems(connectionData, items, isMessage || isMessageFilter, AddToCrmSolutionLast_Click, "contMnAddToSolutionLast");
 
-            ActivateControls(items, !isMessageFilter && nodeItem.MessageList != null && nodeItem.MessageList.Any(), "contMnAddIntoSolutionMessageFilter", "contMnAddIntoSolutionMessageFilterLast");
-            FillLastSolutionItems(connectionData, items, !isMessageFilter && nodeItem.MessageList != null && nodeItem.MessageList.Any(), AddMessageFilterIntoCrmSolutionLast_Click, "contMnAddIntoSolutionMessageFilterLast");
+            ActivateControls(items, !isMessageFilter && nodeItem.MessageList != null && nodeItem.MessageList.Any(), "contMnAddToSolutionMessageFilter", "contMnAddToSolutionMessageFilterLast");
+            FillLastSolutionItems(connectionData, items, !isMessageFilter && nodeItem.MessageList != null && nodeItem.MessageList.Any(), AddMessageFilterToCrmSolutionLast_Click, "contMnAddToSolutionMessageFilterLast");
 
             ActivateControls(items, showDependentComponents, "contMnDependentComponents");
 
             ActivateControls(items, isEntity, "contMnEntity");
-            FillLastSolutionItems(connectionData, items, isEntity, AddEntityIntoCrmSolutionLastIncludeSubcomponents_Click, "contMnAddEntityIntoSolutionLastIncludeSubcomponents");
-            FillLastSolutionItems(connectionData, items, isEntity, AddEntityIntoCrmSolutionLastDoNotIncludeSubcomponents_Click, "contMnAddEntityIntoSolutionLastDoNotIncludeSubcomponents");
-            FillLastSolutionItems(connectionData, items, isEntity, AddEntityIntoCrmSolutionLastIncludeAsShellOnly_Click, "contMnAddEntityIntoSolutionLastIncludeAsShellOnly");
-            ActivateControls(items, connectionData.LastSelectedSolutionsUniqueName != null && connectionData.LastSelectedSolutionsUniqueName.Any(), "contMnAddEntityIntoSolutionLast");
+            FillLastSolutionItems(connectionData, items, isEntity, AddEntityToCrmSolutionLastIncludeSubcomponents_Click, "contMnAddEntityToSolutionLastIncludeSubcomponents");
+            FillLastSolutionItems(connectionData, items, isEntity, AddEntityToCrmSolutionLastDoNotIncludeSubcomponents_Click, "contMnAddEntityToSolutionLastDoNotIncludeSubcomponents");
+            FillLastSolutionItems(connectionData, items, isEntity, AddEntityToCrmSolutionLastIncludeAsShellOnly_Click, "contMnAddEntityToSolutionLastIncludeAsShellOnly");
+            ActivateControls(items, connectionData.LastSelectedSolutionsUniqueName != null && connectionData.LastSelectedSolutionsUniqueName.Any(), "contMnAddEntityToSolutionLast");
 
             CheckSeparatorVisible(items);
         }
 
-        private async void AddIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        private async void AddToCrmSolution_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
@@ -862,10 +862,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await AddIntoSolution(nodeItem, true, null);
+            await AddToSolution(nodeItem, true, null);
         }
 
-        private async void AddIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void AddToCrmSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
@@ -879,22 +879,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 && menuItem.Tag is string solutionUniqueName
             )
             {
-                await AddIntoSolution(nodeItem, false, solutionUniqueName);
+                await AddToSolution(nodeItem, false, solutionUniqueName);
             }
         }
 
-        private async Task AddIntoSolution(PluginTreeViewItem nodeItem, bool withSelect, string solutionUniqueName)
+        private async Task AddToSolution(PluginTreeViewItem nodeItem, bool withSelect, string solutionUniqueName)
         {
             ComponentType? componentType = nodeItem.ComponentType;
             var idList = nodeItem.GetIdEnumerable();
 
             if (componentType.HasValue && idList.Any())
             {
-                await AddComponentsIntoSolution(componentType.Value, idList, null, withSelect, solutionUniqueName);
+                await AddComponentsToSolution(componentType.Value, idList, null, withSelect, solutionUniqueName);
             }
         }
 
-        private async void AddMessageFilterIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        private async void AddMessageFilterToCrmSolution_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
@@ -903,10 +903,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await AddMessageFilterIntoSolution(nodeItem, true, null);
+            await AddMessageFilterToSolution(nodeItem, true, null);
         }
 
-        private async void AddMessageFilterIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void AddMessageFilterToCrmSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
@@ -920,15 +920,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 && menuItem.Tag is string solutionUniqueName
             )
             {
-                await AddMessageFilterIntoSolution(nodeItem, false, solutionUniqueName);
+                await AddMessageFilterToSolution(nodeItem, false, solutionUniqueName);
             }
         }
 
-        private async Task AddMessageFilterIntoSolution(PluginTreeViewItem nodeItem, bool withSelect, string solutionUniqueName)
+        private async Task AddMessageFilterToSolution(PluginTreeViewItem nodeItem, bool withSelect, string solutionUniqueName)
         {
             if (nodeItem.MessageFilterList != null && nodeItem.MessageFilterList.Any())
             {
-                await AddComponentsIntoSolution(ComponentType.SdkMessageFilter, nodeItem.MessageFilterList, null, withSelect, solutionUniqueName);
+                await AddComponentsToSolution(ComponentType.SdkMessageFilter, nodeItem.MessageFilterList, null, withSelect, solutionUniqueName);
             }
         }
 
@@ -1296,55 +1296,55 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.Entity, idMetadata.Value, null);
         }
 
-        private async void AddEntityIntoCrmSolutionIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
+        private async void AddEntityToCrmSolutionIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
         {
-            await AddEntityIntoSolution(e, true, null, RootComponentBehavior.IncludeSubcomponents);
+            await AddEntityToSolution(e, true, null, RootComponentBehavior.IncludeSubcomponents);
         }
 
-        private async void AddEntityIntoCrmSolutionDoNotIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
+        private async void AddEntityToCrmSolutionDoNotIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
         {
-            await AddEntityIntoSolution(e, true, null, RootComponentBehavior.DoNotIncludeSubcomponents);
+            await AddEntityToSolution(e, true, null, RootComponentBehavior.DoNotIncludeSubcomponents);
         }
 
-        private async void AddEntityIntoCrmSolutionIncludeAsShellOnly_Click(object sender, RoutedEventArgs e)
+        private async void AddEntityToCrmSolutionIncludeAsShellOnly_Click(object sender, RoutedEventArgs e)
         {
-            await AddEntityIntoSolution(e, true, null, RootComponentBehavior.IncludeAsShellOnly);
+            await AddEntityToSolution(e, true, null, RootComponentBehavior.IncludeAsShellOnly);
         }
 
-        private async void AddEntityIntoCrmSolutionLastIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is MenuItem menuItem
-               && menuItem.Tag != null
-               && menuItem.Tag is string solutionUniqueName
-            )
-            {
-                await AddEntityIntoSolution(e, false, solutionUniqueName, RootComponentBehavior.IncludeSubcomponents);
-            }
-        }
-
-        private async void AddEntityIntoCrmSolutionLastDoNotIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
+        private async void AddEntityToCrmSolutionLastIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                && menuItem.Tag != null
                && menuItem.Tag is string solutionUniqueName
             )
             {
-                await AddEntityIntoSolution(e, false, solutionUniqueName, RootComponentBehavior.DoNotIncludeSubcomponents);
+                await AddEntityToSolution(e, false, solutionUniqueName, RootComponentBehavior.IncludeSubcomponents);
             }
         }
 
-        private async void AddEntityIntoCrmSolutionLastIncludeAsShellOnly_Click(object sender, RoutedEventArgs e)
+        private async void AddEntityToCrmSolutionLastDoNotIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                && menuItem.Tag != null
                && menuItem.Tag is string solutionUniqueName
             )
             {
-                await AddEntityIntoSolution(e, false, solutionUniqueName, RootComponentBehavior.IncludeAsShellOnly);
+                await AddEntityToSolution(e, false, solutionUniqueName, RootComponentBehavior.DoNotIncludeSubcomponents);
             }
         }
 
-        private async Task AddEntityIntoSolution(RoutedEventArgs e, bool withSelect, string solutionUniqueName, RootComponentBehavior rootComponentBehavior)
+        private async void AddEntityToCrmSolutionLastIncludeAsShellOnly_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+               && menuItem.Tag != null
+               && menuItem.Tag is string solutionUniqueName
+            )
+            {
+                await AddEntityToSolution(e, false, solutionUniqueName, RootComponentBehavior.IncludeAsShellOnly);
+            }
+        }
+
+        private async Task AddEntityToSolution(RoutedEventArgs e, bool withSelect, string solutionUniqueName, RootComponentBehavior rootComponentBehavior)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
@@ -1375,12 +1375,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await AddComponentsIntoSolution(ComponentType.Entity, new[] { idMetadata.Value }, rootComponentBehavior, withSelect, solutionUniqueName);
+            await AddComponentsToSolution(ComponentType.Entity, new[] { idMetadata.Value }, rootComponentBehavior, withSelect, solutionUniqueName);
         }
 
         #endregion Entity Handlers
 
-        private async Task AddComponentsIntoSolution(ComponentType componentType, IEnumerable<Guid> idList, RootComponentBehavior? rootComponentBehavior, bool withSelect, string solutionUniqueName)
+        private async Task AddComponentsToSolution(ComponentType componentType, IEnumerable<Guid> idList, RootComponentBehavior? rootComponentBehavior, bool withSelect, string solutionUniqueName)
         {
             if (!idList.Any())
             {
@@ -1395,7 +1395,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, componentType, idList, rootComponentBehavior, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, componentType, idList, rootComponentBehavior, withSelect);
             }
             catch (Exception ex)
             {

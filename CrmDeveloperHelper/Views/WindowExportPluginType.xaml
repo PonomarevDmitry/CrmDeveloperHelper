@@ -25,16 +25,16 @@
                 <MenuItem Header="Open Plugin Tree" Click="mIOpenPluginTree_Click" />
                 
                 <Separator/>
-                <MenuItem x:Uid="contMnAddPluginTypeStepsIntoSolutionLast" Header="Add Steps for PluginType to Last Crm Solution"  />
-                <MenuItem Header="Add Steps for PluginType to Crm Solution" Click="mIAddPluginTypeStepsIntoSolution_Click" />
+                <MenuItem x:Uid="contMnAddPluginTypeStepsToSolutionLast" Header="Add Steps for PluginType to Last Crm Solution"  />
+                <MenuItem Header="Add Steps for PluginType to Crm Solution" Click="mIAddPluginTypeStepsToSolution_Click" />
                 
                 <Separator/>
-                <MenuItem x:Uid="contMnAddPluginAssemblyIntoSolutionLast" Header="Add PluginAssembly to Last Crm Solution"  />
-                <MenuItem Header="Add PluginAssembly to Crm Solution" Click="AddAssemblyIntoCrmSolution_Click" />
+                <MenuItem x:Uid="contMnAddPluginAssemblyToSolutionLast" Header="Add PluginAssembly to Last Crm Solution"  />
+                <MenuItem Header="Add PluginAssembly to Crm Solution" Click="AddAssemblyToCrmSolution_Click" />
                 
                 <Separator/>
-                <MenuItem x:Uid="contMnAddPluginAssemblyStepsIntoSolutionLast" Header="Add Steps for PluginAssembly to Last Crm Solution"  />
-                <MenuItem Header="Add Steps for PluginAssembly to Crm Solution" Click="mIAddAssemblyStepsIntoSolution_Click" />
+                <MenuItem x:Uid="contMnAddPluginAssemblyStepsToSolutionLast" Header="Add Steps for PluginAssembly to Last Crm Solution"  />
+                <MenuItem Header="Add Steps for PluginAssembly to Crm Solution" Click="mIAddAssemblyStepsToSolution_Click" />
                 
                 <Separator/>
                 <MenuItem Header="Plugin Type Description" Click="mICreatePluginTypeDescription_Click"/>

@@ -1949,23 +1949,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ActivateControls(items, isMessage || isEntity, "contMnSdkMessage");
 
-            ActivateControls(items, nodeItem.PluginAssembly.HasValue && nodeItem.ComponentType != ComponentType.PluginAssembly, "contMnAddPluginAssemblyIntoSolution", "contMnAddPluginAssemblyIntoSolutionLast");
-            FillLastSolutionItems(connectionData, items, nodeItem.PluginAssembly.HasValue && nodeItem.ComponentType != ComponentType.PluginAssembly, AddAssemblyIntoCrmSolutionLast_Click, "contMnAddPluginAssemblyIntoSolutionLast");
+            ActivateControls(items, nodeItem.PluginAssembly.HasValue && nodeItem.ComponentType != ComponentType.PluginAssembly, "contMnAddPluginAssemblyToSolution", "contMnAddPluginAssemblyToSolutionLast");
+            FillLastSolutionItems(connectionData, items, nodeItem.PluginAssembly.HasValue && nodeItem.ComponentType != ComponentType.PluginAssembly, AddAssemblyToCrmSolutionLast_Click, "contMnAddPluginAssemblyToSolutionLast");
 
-            ActivateControls(items, isMessage || isMessageFilter || isPluginAssembly || isStep || isWorkflow, "contMnAddIntoSolution", "contMnAddIntoSolutionLast");
-            FillLastSolutionItems(connectionData, items, isMessage || isMessageFilter || isPluginAssembly || isStep || isWorkflow, AddIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
+            ActivateControls(items, isMessage || isMessageFilter || isPluginAssembly || isStep || isWorkflow, "contMnAddToSolution", "contMnAddToSolutionLast");
+            FillLastSolutionItems(connectionData, items, isMessage || isMessageFilter || isPluginAssembly || isStep || isWorkflow, AddToCrmSolutionLast_Click, "contMnAddToSolutionLast");
 
-            ActivateControls(items, nodeItem.PluginType.HasValue, "contMnAddPluginTypeStepsIntoSolution", "contMnAddPluginTypeStepsIntoSolutionLast");
-            FillLastSolutionItems(connectionData, items, nodeItem.PluginType.HasValue, mIAddPluginTypeStepsIntoSolutionLast_Click, "contMnAddPluginTypeStepsIntoSolutionLast");
+            ActivateControls(items, nodeItem.PluginType.HasValue, "contMnAddPluginTypeStepsToSolution", "contMnAddPluginTypeStepsToSolutionLast");
+            FillLastSolutionItems(connectionData, items, nodeItem.PluginType.HasValue, mIAddPluginTypeStepsToSolutionLast_Click, "contMnAddPluginTypeStepsToSolutionLast");
 
-            ActivateControls(items, nodeItem.PluginAssembly.HasValue, "contMnAddPluginAssemblyStepsIntoSolution", "contMnAddPluginAssemblyStepsIntoSolutionLast", "contMnCompareWithLocalAssembly");
-            FillLastSolutionItems(connectionData, items, nodeItem.PluginAssembly.HasValue, mIAddAssemblyStepsIntoSolutionLast_Click, "contMnAddPluginAssemblyStepsIntoSolutionLast");
+            ActivateControls(items, nodeItem.PluginAssembly.HasValue, "contMnAddPluginAssemblyStepsToSolution", "contMnAddPluginAssemblyStepsToSolutionLast", "contMnCompareWithLocalAssembly");
+            FillLastSolutionItems(connectionData, items, nodeItem.PluginAssembly.HasValue, mIAddAssemblyStepsToSolutionLast_Click, "contMnAddPluginAssemblyStepsToSolutionLast");
 
             ActivateControls(items, isEntity, "contMnEntity");
-            FillLastSolutionItems(connectionData, items, isEntity, AddEntityIntoCrmSolutionLastIncludeSubcomponents_Click, "contMnAddEntityIntoSolutionLastIncludeSubcomponents");
-            FillLastSolutionItems(connectionData, items, isEntity, AddEntityIntoCrmSolutionLastDoNotIncludeSubcomponents_Click, "contMnAddEntityIntoSolutionLastDoNotIncludeSubcomponents");
-            FillLastSolutionItems(connectionData, items, isEntity, AddEntityIntoCrmSolutionLastIncludeAsShellOnly_Click, "contMnAddEntityIntoSolutionLastIncludeAsShellOnly");
-            ActivateControls(items, connectionData.LastSelectedSolutionsUniqueName != null && connectionData.LastSelectedSolutionsUniqueName.Any(), "contMnAddEntityIntoSolutionLast");
+            FillLastSolutionItems(connectionData, items, isEntity, AddEntityToCrmSolutionLastIncludeSubcomponents_Click, "contMnAddEntityToSolutionLastIncludeSubcomponents");
+            FillLastSolutionItems(connectionData, items, isEntity, AddEntityToCrmSolutionLastDoNotIncludeSubcomponents_Click, "contMnAddEntityToSolutionLastDoNotIncludeSubcomponents");
+            FillLastSolutionItems(connectionData, items, isEntity, AddEntityToCrmSolutionLastIncludeAsShellOnly_Click, "contMnAddEntityToSolutionLastIncludeAsShellOnly");
+            ActivateControls(items, connectionData.LastSelectedSolutionsUniqueName != null && connectionData.LastSelectedSolutionsUniqueName.Any(), "contMnAddEntityToSolutionLast");
 
             CheckSeparatorVisible(items);
         }
@@ -2241,55 +2241,55 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.Entity, idMetadata.Value, null);
         }
 
-        private async void AddEntityIntoCrmSolutionIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
+        private async void AddEntityToCrmSolutionIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
         {
-            await AddEntityIntoSolution(e, true, null, RootComponentBehavior.IncludeSubcomponents);
+            await AddEntityToSolution(e, true, null, RootComponentBehavior.IncludeSubcomponents);
         }
 
-        private async void AddEntityIntoCrmSolutionDoNotIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
+        private async void AddEntityToCrmSolutionDoNotIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
         {
-            await AddEntityIntoSolution(e, true, null, RootComponentBehavior.DoNotIncludeSubcomponents);
+            await AddEntityToSolution(e, true, null, RootComponentBehavior.DoNotIncludeSubcomponents);
         }
 
-        private async void AddEntityIntoCrmSolutionIncludeAsShellOnly_Click(object sender, RoutedEventArgs e)
+        private async void AddEntityToCrmSolutionIncludeAsShellOnly_Click(object sender, RoutedEventArgs e)
         {
-            await AddEntityIntoSolution(e, true, null, RootComponentBehavior.IncludeAsShellOnly);
+            await AddEntityToSolution(e, true, null, RootComponentBehavior.IncludeAsShellOnly);
         }
 
-        private async void AddEntityIntoCrmSolutionLastIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is MenuItem menuItem
-               && menuItem.Tag != null
-               && menuItem.Tag is string solutionUniqueName
-               )
-            {
-                await AddEntityIntoSolution(e, false, solutionUniqueName, RootComponentBehavior.IncludeSubcomponents);
-            }
-        }
-
-        private async void AddEntityIntoCrmSolutionLastDoNotIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
+        private async void AddEntityToCrmSolutionLastIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                && menuItem.Tag != null
                && menuItem.Tag is string solutionUniqueName
                )
             {
-                await AddEntityIntoSolution(e, false, solutionUniqueName, RootComponentBehavior.DoNotIncludeSubcomponents);
+                await AddEntityToSolution(e, false, solutionUniqueName, RootComponentBehavior.IncludeSubcomponents);
             }
         }
 
-        private async void AddEntityIntoCrmSolutionLastIncludeAsShellOnly_Click(object sender, RoutedEventArgs e)
+        private async void AddEntityToCrmSolutionLastDoNotIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                && menuItem.Tag != null
                && menuItem.Tag is string solutionUniqueName
                )
             {
-                await AddEntityIntoSolution(e, false, solutionUniqueName, RootComponentBehavior.IncludeAsShellOnly);
+                await AddEntityToSolution(e, false, solutionUniqueName, RootComponentBehavior.DoNotIncludeSubcomponents);
             }
         }
 
-        private async Task AddEntityIntoSolution(RoutedEventArgs e, bool withSelect, string solutionUniqueName, RootComponentBehavior rootComponentBehavior)
+        private async void AddEntityToCrmSolutionLastIncludeAsShellOnly_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+               && menuItem.Tag != null
+               && menuItem.Tag is string solutionUniqueName
+               )
+            {
+                await AddEntityToSolution(e, false, solutionUniqueName, RootComponentBehavior.IncludeAsShellOnly);
+            }
+        }
+
+        private async Task AddEntityToSolution(RoutedEventArgs e, bool withSelect, string solutionUniqueName, RootComponentBehavior rootComponentBehavior)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
@@ -2328,7 +2328,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Entity, new[] { idMetadata.Value }, rootComponentBehavior, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.Entity, new[] { idMetadata.Value }, rootComponentBehavior, withSelect);
             }
             catch (Exception ex)
             {
@@ -2473,7 +2473,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void AddIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        private async void AddToCrmSolution_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
@@ -2482,10 +2482,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await AddIntoSolution(nodeItem, true, null);
+            await AddToSolution(nodeItem, true, null);
         }
 
-        private async void AddIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void AddToCrmSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
@@ -2499,11 +2499,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 && menuItem.Tag is string solutionUniqueName
                 )
             {
-                await AddIntoSolution(nodeItem, false, solutionUniqueName);
+                await AddToSolution(nodeItem, false, solutionUniqueName);
             }
         }
 
-        private async Task AddIntoSolution(PluginTreeViewItem nodeItem, bool withSelect, string solutionUniqueName)
+        private async Task AddToSolution(PluginTreeViewItem nodeItem, bool withSelect, string solutionUniqueName)
         {
             var service = await GetService();
 
@@ -2523,7 +2523,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                    await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, componentType.Value, idList, null, withSelect);
+                    await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, componentType.Value, idList, null, withSelect);
                 }
                 catch (Exception ex)
                 {
@@ -2532,7 +2532,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void mIAddPluginTypeStepsIntoSolution_Click(object sender, RoutedEventArgs e)
+        private async void mIAddPluginTypeStepsToSolution_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
@@ -2541,10 +2541,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await AddPluginTypeStepsIntoSolution(nodeItem.PluginType.Value, true, null);
+            await AddPluginTypeStepsToSolution(nodeItem.PluginType.Value, true, null);
         }
 
-        private async void mIAddPluginTypeStepsIntoSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void mIAddPluginTypeStepsToSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
@@ -2558,11 +2558,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                && menuItem.Tag is string solutionUniqueName
                )
             {
-                await AddPluginTypeStepsIntoSolution(nodeItem.PluginType.Value, false, solutionUniqueName);
+                await AddPluginTypeStepsToSolution(nodeItem.PluginType.Value, false, solutionUniqueName);
             }
         }
 
-        private async Task AddPluginTypeStepsIntoSolution(Guid idPluginType, bool withSelect, string solutionUniqueName)
+        private async Task AddPluginTypeStepsToSolution(Guid idPluginType, bool withSelect, string solutionUniqueName)
         {
             var service = await GetService();
 
@@ -2581,7 +2581,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.SdkMessageProcessingStep, steps.Select(s => s.Id), null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.SdkMessageProcessingStep, steps.Select(s => s.Id), null, withSelect);
             }
             catch (Exception ex)
             {
@@ -2589,7 +2589,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void AddAssemblyIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        private async void AddAssemblyToCrmSolution_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
@@ -2598,10 +2598,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            await AddPluginTypeStepsIntoSolution(nodeItem.PluginAssembly.Value, true, null);
+            await AddPluginTypeStepsToSolution(nodeItem.PluginAssembly.Value, true, null);
         }
 
-        private async void AddAssemblyIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void AddAssemblyToCrmSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
@@ -2615,11 +2615,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 && menuItem.Tag is string solutionUniqueName
                 )
             {
-                await AddAssemblyIntoSolution(nodeItem.PluginAssembly.Value, false, solutionUniqueName);
+                await AddAssemblyToSolution(nodeItem.PluginAssembly.Value, false, solutionUniqueName);
             }
         }
 
-        private async Task AddAssemblyIntoSolution(Guid idPluginAssembly, bool withSelect, string solutionUniqueName)
+        private async Task AddAssemblyToSolution(Guid idPluginAssembly, bool withSelect, string solutionUniqueName)
         {
             _commonConfig.Save();
 
@@ -2629,7 +2629,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.PluginAssembly, new[] { idPluginAssembly }, null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.PluginAssembly, new[] { idPluginAssembly }, null, withSelect);
             }
             catch (Exception ex)
             {
@@ -2637,7 +2637,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void mIAddAssemblyStepsIntoSolution_Click(object sender, RoutedEventArgs e)
+        private async void mIAddAssemblyStepsToSolution_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
@@ -2651,11 +2651,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 && menuItem.Tag is string solutionUniqueName
                 )
             {
-                await AddAssemblyStepsIntoSolution(nodeItem.PluginAssembly.Value, false, solutionUniqueName);
+                await AddAssemblyStepsToSolution(nodeItem.PluginAssembly.Value, false, solutionUniqueName);
             }
         }
 
-        private async void mIAddAssemblyStepsIntoSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void mIAddAssemblyStepsToSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
@@ -2669,11 +2669,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 && menuItem.Tag is string solutionUniqueName
                 )
             {
-                await AddAssemblyStepsIntoSolution(nodeItem.PluginAssembly.Value, false, solutionUniqueName);
+                await AddAssemblyStepsToSolution(nodeItem.PluginAssembly.Value, false, solutionUniqueName);
             }
         }
 
-        private async Task AddAssemblyStepsIntoSolution(Guid idPluginAssembly, bool withSelect, string solutionUniqueName)
+        private async Task AddAssemblyStepsToSolution(Guid idPluginAssembly, bool withSelect, string solutionUniqueName)
         {
             var service = await GetService();
 
@@ -2692,7 +2692,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.SdkMessageProcessingStep, steps.Select(s => s.Id), null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.SdkMessageProcessingStep, steps.Select(s => s.Id), null, withSelect);
             }
             catch (Exception ex)
             {

@@ -36,8 +36,8 @@
                 </MenuItem>
 
                 <Separator/>
-                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
-                <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
+                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
+                <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddToCrmSolution_Click" />
 
                 <Separator/>
                 <MenuItem Header="Publish SystemForm" VerticalAlignment="Center" Click="mIPublishSystemForm_Click" />
@@ -50,19 +50,19 @@
                 <MenuItem x:Uid="contMnEntity" Header="Publish Entity" Click="btnPublishEntity_Click"/>
                 
                 <Separator x:Uid="contMnEntity" />
-                <MenuItem x:Uid="contMnAddEntityIntoSolutionLast" Header="Add Entity to Last Crm Solution">
-                    <MenuItem x:Uid="contMnAddEntityIntoSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
+                <MenuItem x:Uid="contMnAddEntityToSolutionLast" Header="Add Entity to Last Crm Solution">
+                    <MenuItem x:Uid="contMnAddEntityToSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
                     <Separator/>
-                    <MenuItem x:Uid="contMnAddEntityIntoSolutionLastDoNotIncludeSubcomponents" Header="Do Not Include Subcomponents" />
+                    <MenuItem x:Uid="contMnAddEntityToSolutionLastDoNotIncludeSubcomponents" Header="Do Not Include Subcomponents" />
                     <Separator/>
-                    <MenuItem x:Uid="contMnAddEntityIntoSolutionLastIncludeAsShellOnly" Header="Include As ShellOnly" />
+                    <MenuItem x:Uid="contMnAddEntityToSolutionLastIncludeAsShellOnly" Header="Include As ShellOnly" />
                 </MenuItem>
                 <MenuItem x:Uid="contMnEntity" Header="Add Entity to Crm Solution">
-                    <MenuItem Header="Include Subcomponents" Click="AddIntoCrmSolutionIncludeSubcomponents_Click" />
+                    <MenuItem Header="Include Subcomponents" Click="AddToCrmSolutionIncludeSubcomponents_Click" />
                     <Separator/>
-                    <MenuItem Header="Do Not Include Subcomponents" Click="AddIntoCrmSolutionDoNotIncludeSubcomponents_Click" />
+                    <MenuItem Header="Do Not Include Subcomponents" Click="AddToCrmSolutionDoNotIncludeSubcomponents_Click" />
                     <Separator/>
-                    <MenuItem Header="Include As ShellOnly" Click="AddIntoCrmSolutionIncludeAsShellOnly_Click" />
+                    <MenuItem Header="Include As ShellOnly" Click="AddToCrmSolutionIncludeAsShellOnly_Click" />
                 </MenuItem>
 
                 <Separator x:Uid="contMnEntity"/>
@@ -293,8 +293,8 @@
                             <MenuItem Header="Delete SystemForm" VerticalAlignment="Center" Click="mIDeleteSystemForm_Click" />
                             
                             <Separator/>
-                            <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
-                            <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddIntoCrmSolution_Click" />
+                            <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
+                            <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddToCrmSolution_Click" />
                             
                             <Separator/>
                             <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIExportSystemFormFormXml_Click" />

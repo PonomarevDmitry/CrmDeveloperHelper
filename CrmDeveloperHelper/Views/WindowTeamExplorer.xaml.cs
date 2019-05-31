@@ -1279,55 +1279,55 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void AddIntoCrmSolutionIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
+        private async void AddToCrmSolutionIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
         {
-            await AddEntityIntoSolution(true, null, RootComponentBehavior.IncludeSubcomponents);
+            await AddEntityToSolution(true, null, RootComponentBehavior.IncludeSubcomponents);
         }
 
-        private async void AddIntoCrmSolutionDoNotIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
+        private async void AddToCrmSolutionDoNotIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
         {
-            await AddEntityIntoSolution(true, null, RootComponentBehavior.DoNotIncludeSubcomponents);
+            await AddEntityToSolution(true, null, RootComponentBehavior.DoNotIncludeSubcomponents);
         }
 
-        private async void AddIntoCrmSolutionIncludeAsShellOnly_Click(object sender, RoutedEventArgs e)
+        private async void AddToCrmSolutionIncludeAsShellOnly_Click(object sender, RoutedEventArgs e)
         {
-            await AddEntityIntoSolution(true, null, RootComponentBehavior.IncludeAsShellOnly);
+            await AddEntityToSolution(true, null, RootComponentBehavior.IncludeAsShellOnly);
         }
 
-        private async void AddIntoCrmSolutionLastIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is MenuItem menuItem
-               && menuItem.Tag != null
-               && menuItem.Tag is string solutionUniqueName
-               )
-            {
-                await AddEntityIntoSolution(false, solutionUniqueName, RootComponentBehavior.IncludeSubcomponents);
-            }
-        }
-
-        private async void AddIntoCrmSolutionLastDoNotIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
+        private async void AddToCrmSolutionLastIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                && menuItem.Tag != null
                && menuItem.Tag is string solutionUniqueName
                )
             {
-                await AddEntityIntoSolution(false, solutionUniqueName, RootComponentBehavior.DoNotIncludeSubcomponents);
+                await AddEntityToSolution(false, solutionUniqueName, RootComponentBehavior.IncludeSubcomponents);
             }
         }
 
-        private async void AddIntoCrmSolutionLastIncludeAsShellOnly_Click(object sender, RoutedEventArgs e)
+        private async void AddToCrmSolutionLastDoNotIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                && menuItem.Tag != null
                && menuItem.Tag is string solutionUniqueName
                )
             {
-                await AddEntityIntoSolution(false, solutionUniqueName, RootComponentBehavior.IncludeAsShellOnly);
+                await AddEntityToSolution(false, solutionUniqueName, RootComponentBehavior.DoNotIncludeSubcomponents);
             }
         }
 
-        private async Task AddEntityIntoSolution(bool withSelect, string solutionUniqueName, RootComponentBehavior rootComponentBehavior)
+        private async void AddToCrmSolutionLastIncludeAsShellOnly_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem
+               && menuItem.Tag != null
+               && menuItem.Tag is string solutionUniqueName
+               )
+            {
+                await AddEntityToSolution(false, solutionUniqueName, RootComponentBehavior.IncludeAsShellOnly);
+            }
+        }
+
+        private async Task AddEntityToSolution(bool withSelect, string solutionUniqueName, RootComponentBehavior rootComponentBehavior)
         {
             var entityList = GetSelectedEntities();
 
@@ -1345,7 +1345,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.Entity, entityList.Select(item => item.EntityMetadata.MetadataId.Value).ToList(), rootComponentBehavior, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.Entity, entityList.Select(item => item.EntityMetadata.MetadataId.Value).ToList(), rootComponentBehavior, withSelect);
             }
             catch (Exception ex)
             {
@@ -1366,13 +1366,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
                 });
 
-                FillLastSolutionItems(connectionData, items, true, AddIntoCrmSolutionLastIncludeSubcomponents_Click, "contMnAddIntoSolutionLastIncludeSubcomponents");
+                FillLastSolutionItems(connectionData, items, true, AddToCrmSolutionLastIncludeSubcomponents_Click, "contMnAddToSolutionLastIncludeSubcomponents");
 
-                FillLastSolutionItems(connectionData, items, true, AddIntoCrmSolutionLastDoNotIncludeSubcomponents_Click, "contMnAddIntoSolutionLastDoNotIncludeSubcomponents");
+                FillLastSolutionItems(connectionData, items, true, AddToCrmSolutionLastDoNotIncludeSubcomponents_Click, "contMnAddToSolutionLastDoNotIncludeSubcomponents");
 
-                FillLastSolutionItems(connectionData, items, true, AddIntoCrmSolutionLastIncludeAsShellOnly_Click, "contMnAddIntoSolutionLastIncludeAsShellOnly");
+                FillLastSolutionItems(connectionData, items, true, AddToCrmSolutionLastIncludeAsShellOnly_Click, "contMnAddToSolutionLastIncludeAsShellOnly");
 
-                ActivateControls(items, connectionData.LastSelectedSolutionsUniqueName != null && connectionData.LastSelectedSolutionsUniqueName.Any(), "contMnAddIntoSolutionLast");
+                ActivateControls(items, connectionData.LastSelectedSolutionsUniqueName != null && connectionData.LastSelectedSolutionsUniqueName.Any(), "contMnAddToSolutionLast");
             }
         }
 
@@ -1642,27 +1642,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
                 });
 
-                FillLastSolutionItems(connectionData, items, true, AddRoleIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
+                FillLastSolutionItems(connectionData, items, true, AddRoleToCrmSolutionLast_Click, "contMnAddToSolutionLast");
             }
         }
 
-        private async void AddRoleIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        private async void AddRoleToCrmSolution_Click(object sender, RoutedEventArgs e)
         {
-            await AddRoleIntoSolution(true, null);
+            await AddRoleToSolution(true, null);
         }
 
-        private async void AddRoleIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void AddRoleToCrmSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                && menuItem.Tag != null
                && menuItem.Tag is string solutionUniqueName
                )
             {
-                await AddRoleIntoSolution(false, solutionUniqueName);
+                await AddRoleToSolution(false, solutionUniqueName);
             }
         }
 
-        private async Task AddRoleIntoSolution(bool withSelect, string solutionUniqueName)
+        private async Task AddRoleToSolution(bool withSelect, string solutionUniqueName)
         {
             var roleList = GetSelectedRoles();
 
@@ -1680,7 +1680,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.Role, roleList.Select(item => item.Id).ToList(), null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.Role, roleList.Select(item => item.Id).ToList(), null, withSelect);
             }
             catch (Exception ex)
             {

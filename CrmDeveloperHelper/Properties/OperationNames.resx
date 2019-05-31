@@ -117,25 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddingComponentsIntoSolutionFormat2" xml:space="preserve">
+  <data name="AddingComponentsToSolutionFormat2" xml:space="preserve">
     <value>{0} - Adding Components to Solution {1}</value>
   </data>
   <data name="AddingIntoPublishListFilesFormat2" xml:space="preserve">
     <value>{0} - Adding into Publish List Files {1}</value>
   </data>
-  <data name="AddingPluginAssemblyIntoSolutionFormat2" xml:space="preserve">
+  <data name="AddingPluginAssemblyToSolutionFormat2" xml:space="preserve">
     <value>{0} - Adding PluginAssembly to Solution {1}</value>
   </data>
-  <data name="AddingPluginAssemblyProcessingStepsIntoSolutionFormat2" xml:space="preserve">
+  <data name="AddingPluginAssemblyProcessingStepsToSolutionFormat2" xml:space="preserve">
     <value>{0} - Adding PluginAssembly Processing Steps to Solution {1}</value>
   </data>
-  <data name="AddingPluginTypeProcessingStepsIntoSolutionFormat2" xml:space="preserve">
+  <data name="AddingPluginTypeProcessingStepsToSolutionFormat2" xml:space="preserve">
     <value>{0} - Adding PluginType Processing Steps to Solution {1}</value>
   </data>
-  <data name="AddingReportsIntoSolutionFormat2" xml:space="preserve">
+  <data name="AddingReportsToSolutionFormat2" xml:space="preserve">
     <value>{0} - Adding Reports to Solution {1}</value>
   </data>
-  <data name="AddingWebResourcesIntoSolutionFormat2" xml:space="preserve">
+  <data name="AddingWebResourcesToSolutionFormat2" xml:space="preserve">
     <value>{0} - Adding WebResources to Solution {1}</value>
   </data>
   <data name="CheckingComponentTypeEnumFormat1" xml:space="preserve">

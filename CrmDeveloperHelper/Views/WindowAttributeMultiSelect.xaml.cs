@@ -246,7 +246,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var items = contextMenu.Items.OfType<Control>();
 
-            FillLastSolutionItems(_service.ConnectionData, items, true, AddAttributeIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
+            FillLastSolutionItems(_service.ConnectionData, items, true, AddAttributeToCrmSolutionLast_Click, "contMnAddToSolutionLast");
         }
 
         private AttributeSelectItem GetSelectedAttribute()
@@ -274,23 +274,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _service.ConnectionData.OpenAttributeMetadataInWeb(_entityMetadata.MetadataId.Value, attribute.AttributeMetadata.MetadataId.Value);
         }
 
-        private async void AddAttributeIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        private async void AddAttributeToCrmSolution_Click(object sender, RoutedEventArgs e)
         {
-            await AddAttributeIntoSolution(true, null);
+            await AddAttributeToSolution(true, null);
         }
 
-        private async void AddAttributeIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void AddAttributeToCrmSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                && menuItem.Tag != null
                && menuItem.Tag is string solutionUniqueName
                )
             {
-                await AddAttributeIntoSolution(false, solutionUniqueName);
+                await AddAttributeToSolution(false, solutionUniqueName);
             }
         }
 
-        private async Task AddAttributeIntoSolution(bool withSelect, string solutionUniqueName)
+        private async Task AddAttributeToSolution(bool withSelect, string solutionUniqueName)
         {
             var attributeList = GetSelectedAttributes();
 
@@ -305,7 +305,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, _service, null, commonConfig, solutionUniqueName, ComponentType.Attribute, attributeList.Select(item => item.AttributeMetadata.MetadataId.Value).ToList(), null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, _service, null, commonConfig, solutionUniqueName, ComponentType.Attribute, attributeList.Select(item => item.AttributeMetadata.MetadataId.Value).ToList(), null, withSelect);
             }
             catch (Exception ex)
             {

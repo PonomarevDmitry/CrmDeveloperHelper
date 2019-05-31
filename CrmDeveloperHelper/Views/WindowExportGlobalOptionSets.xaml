@@ -15,8 +15,8 @@
                 <MenuItem Header="Open OptionSet Customization in Web" Click="mIOpenInWeb_Click" />
                 
                 <Separator/>
-                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add to Last Crm Solution"  />
-                <MenuItem Header="Add to Crm Solution" Click="AddIntoCrmSolution_Click" />
+                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution"  />
+                <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
                 
                 <Separator/>
                 <MenuItem Header="Create C# File for OptionSet" Click="btnCreateCSharpFileForSingleOptionSet_Click" />

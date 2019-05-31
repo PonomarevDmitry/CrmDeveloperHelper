@@ -2098,7 +2098,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Coping Solution Components from '{0}' to '{1}'.", solutionSource.UniqueName, solutionTarget.UniqueName);
 
-                    await Controllers.SolutionController.AddSolutionComponentsCollectionIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionTarget.UniqueName, componentesOnlyInSource, false);
+                    await Controllers.SolutionController.AddSolutionComponentsCollectionToSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionTarget.UniqueName, componentesOnlyInSource, false);
 
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Copied {0} components.", componentesOnlyInSource.Count.ToString());
                 }
@@ -2233,7 +2233,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, string.Empty);
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Coping Solution Components from '{0}' to '{1}'.", sourceName, solutionTarget.UniqueName);
 
-                    await Controllers.SolutionController.AddSolutionComponentsCollectionIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionTarget.UniqueName, componentesOnlyInSource, false);
+                    await Controllers.SolutionController.AddSolutionComponentsCollectionToSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionTarget.UniqueName, componentesOnlyInSource, false);
 
                     this._iWriteToOutput.WriteToOutput(service.ConnectionData, "Copied {0} components.", componentesOnlyInSource.Count.ToString());
                 }

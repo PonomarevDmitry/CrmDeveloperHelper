@@ -787,23 +787,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void AddIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        private async void AddToCrmSolution_Click(object sender, RoutedEventArgs e)
         {
-            await AddIntoSolution(true, null);
+            await AddToSolution(true, null);
         }
 
-        private async void AddIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void AddToCrmSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                && menuItem.Tag != null
                && menuItem.Tag is string solutionUniqueName
                )
             {
-                await AddIntoSolution(false, solutionUniqueName);
+                await AddToSolution(false, solutionUniqueName);
             }
         }
 
-        private async Task AddIntoSolution(bool withSelect, string solutionUniqueName)
+        private async Task AddToSolution(bool withSelect, string solutionUniqueName)
         {
             var entity = GetSelectedEntity();
 
@@ -820,7 +820,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.SiteMap, new[] { entity.Id }, null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.SiteMap, new[] { entity.Id }, null, withSelect);
             }
             catch (Exception ex)
             {
@@ -841,7 +841,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
                 });
 
-                FillLastSolutionItems(connectionData, items, true, AddIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
+                FillLastSolutionItems(connectionData, items, true, AddToCrmSolutionLast_Click, "contMnAddToSolutionLast");
             }
         }
 

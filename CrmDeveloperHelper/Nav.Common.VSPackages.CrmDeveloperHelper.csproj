@@ -89,15 +89,15 @@
     <DeployExtension>False</DeployExtension>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Commands\CodeCSharpProjectPluginAssemblyAddIntoSolutionInConnectionCommand.cs" />
-    <Compile Include="Commands\CodeCSharpProjectPluginTypeStepsAddIntoSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\CodeCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\AbstractCommand.Generic.cs" />
     <Compile Include="Commands\AddFilesIntoListForPublishCommand.cs" />
     <Compile Include="Commands\CodeCSharpAddPluginStepCommand.cs" />
     <Compile Include="Commands\CodeCSharpAddPluginStepInConnectionCommand.cs" />
     <Compile Include="Commands\CodeCSharpPluginTreeCommand.cs" />
     <Compile Include="Commands\CodeCSharpProjectCompareToCrmAssemblyInConnectionCommand.cs" />
-    <Compile Include="Commands\CodeCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\CodeCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CodeCSharpProjectUpdatePluginAssemblyCommand.cs" />
     <Compile Include="Commands\CodeCSharpProjectUpdatePluginAssemblyInConnectionCommand.cs" />
     <Compile Include="Commands\CodeCSharpUpdateEntityMetadataFileProxyClassCommand.cs" />
@@ -107,17 +107,17 @@
     <Compile Include="Commands\CodeJavaScriptUpdateGlobalOptionSetAllFileCommand.cs" />
     <Compile Include="Commands\CodeJavaScriptUpdateGlobalOptionSetSingleFileCommand.cs" />
     <Compile Include="Commands\CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand.cs" />
-    <Compile Include="Commands\CodeReportAddIntoSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\CodeReportAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CodeReportShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\CodeReportShowDifferenceThreeFileCommand.cs" />
-    <Compile Include="Commands\CodeWebResourceAddIntoSolutionInConnectionCommand.cs" />
-    <Compile Include="Commands\CodeWebResourceAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\CodeWebResourceAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\CodeWebResourceAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\CodeCSharpPluginAssemblyExplorerCommand.cs" />
     <Compile Include="Commands\CodeCSharpPluginTypeExplorerCommand.cs" />
     <Compile Include="Commands\CodeCSharpProjectCompareToCrmAssemblyCommand.cs" />
-    <Compile Include="Commands\CodeCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.cs" />
-    <Compile Include="Commands\CodeCSharpProjectPluginAssemblyStepsAddIntoSolutionLastCommand.cs" />
-    <Compile Include="Commands\CodeCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\CodeCSharpProjectPluginAssemblyAddToSolutionLastCommand.cs" />
+    <Compile Include="Commands\CodeCSharpProjectPluginAssemblyStepsAddToSolutionLastCommand.cs" />
+    <Compile Include="Commands\CodeCSharpProjectPluginTypeStepsAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\CodeWebResourceCompareInConnectionGroupCommand.cs" />
     <Compile Include="Commands\CodeWebResourceOpenInWebCommand.cs" />
     <Compile Include="Commands\CodePublishListAddCommand.cs" />
@@ -127,7 +127,7 @@
     <Compile Include="Commands\CodeReportLinkCreateCommand.cs" />
     <Compile Include="Commands\CodeWebResourceLinkCreateCommand.cs" />
     <Compile Include="Commands\CodePublishListRemoveCommand.cs" />
-    <Compile Include="Commands\CodeReportAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\CodeReportAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\CodeReportOpenInWebCommand.cs" />
     <Compile Include="Commands\CodeReportUpdateCommand.cs" />
     <Compile Include="Commands\CodeWebResourceShowDifferenceCommand.cs" />
@@ -233,14 +233,14 @@
     <Compile Include="Commands\CommonTeamsExplorerCommand.cs" />
     <Compile Include="Commands\CommonTraceExportFileCommand.cs" />
     <Compile Include="Commands\CommonTraceReaderCommand.cs" />
-    <Compile Include="Commands\DocumentsCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.cs" />
-    <Compile Include="Commands\DocumentsCSharpProjectPluginAssemblyStepsAddIntoSolutionLastCommand.cs" />
-    <Compile Include="Commands\DocumentsCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\DocumentsCSharpProjectPluginAssemblyAddToSolutionLastCommand.cs" />
+    <Compile Include="Commands\DocumentsCSharpProjectPluginAssemblyStepsAddToSolutionLastCommand.cs" />
+    <Compile Include="Commands\DocumentsCSharpProjectPluginTypeStepsAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\DocumentsCSharpUpdateEntityMetadataFileProxyClassCommand.cs" />
     <Compile Include="Commands\DocumentsJavaScriptUpdateEntityMetadataFileCommand.cs" />
     <Compile Include="Commands\DocumentsJavaScriptUpdateGlobalOptionSetSingleFileCommand.cs" />
-    <Compile Include="Commands\DocumentsWebResourceAddIntoSolutionInConnectionCommand.cs" />
-    <Compile Include="Commands\DocumentsWebResourceAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\DocumentsWebResourceAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\DocumentsWebResourceAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceCheckEncodingCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceCheckEncodingCompareFilesCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceCheckEncodingCompareWithDetailsFilesCommand.cs" />
@@ -250,7 +250,7 @@
     <Compile Include="Commands\DocumentsReportLinkClearCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceLinkClearCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceLinkCreateCommand.cs" />
-    <Compile Include="Commands\DocumentsReportAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\DocumentsReportAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceShowDependentComponentsCommand.cs" />
     <Compile Include="Commands\DocumentsWebResourceUpdateContentPublishEqualByTextCommand.cs" />
     <Compile Include="Commands\DocumentsCSharpUpdateEntityMetadataFileSchemaCommand.cs" />
@@ -266,9 +266,9 @@
     <Compile Include="Commands\FileCSharpPluginTypeExplorerCommand.cs" />
     <Compile Include="Commands\FileCSharpProjectCompareToCrmAssemblyCommand.cs" />
     <Compile Include="Commands\FileCSharpProjectCompareToCrmAssemblyInConnectionCommand.cs" />
-    <Compile Include="Commands\FileCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.cs" />
-    <Compile Include="Commands\FileCSharpProjectPluginAssemblyStepsAddIntoSolutionLastCommand.cs" />
-    <Compile Include="Commands\FileCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\FileCSharpProjectPluginAssemblyAddToSolutionLastCommand.cs" />
+    <Compile Include="Commands\FileCSharpProjectPluginAssemblyStepsAddToSolutionLastCommand.cs" />
+    <Compile Include="Commands\FileCSharpProjectPluginTypeStepsAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\FileCSharpProjectUpdatePluginAssemblyCommand.cs" />
     <Compile Include="Commands\FileCSharpProjectUpdatePluginAssemblyInConnectionCommand.cs" />
     <Compile Include="Commands\FileCSharpUpdateEntityMetadataFileProxyClassCommand.cs" />
@@ -278,10 +278,10 @@
     <Compile Include="Commands\FileJavaScriptUpdateGlobalOptionSetAllFileCommand.cs" />
     <Compile Include="Commands\FileJavaScriptUpdateGlobalOptionSetSingleFileCommand.cs" />
     <Compile Include="Commands\FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand.cs" />
-    <Compile Include="Commands\FileReportAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\FileReportAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\FileReportOpenInWebCommand.cs" />
     <Compile Include="Commands\FileReportUpdateCommand.cs" />
-    <Compile Include="Commands\FileWebResourceAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\FileWebResourceAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\FileWebResourceCompareInConnectionGroupCommand.cs" />
     <Compile Include="Commands\FileWebResourceOpenInWebCommand.cs" />
     <Compile Include="Commands\FileWebResourceShowDifferenceInConnectionGroupCommand.cs" />
@@ -294,16 +294,16 @@
     <Compile Include="Commands\FolderAddGlobalOptionSetFileInConnectionCommand.cs" />
     <Compile Include="Commands\FolderAddSdkMessageRequestFileInConnectionCommand.cs" />
     <Compile Include="Commands\FolderAddSystemFormJavaScriptFileInConnectionCommand.cs" />
-    <Compile Include="Commands\FolderCSharpProjectPluginAssemblyAddIntoSolutionInConnectionCommand.cs" />
-    <Compile Include="Commands\FolderCSharpProjectPluginAssemblyAddIntoSolutionLastCommand.cs" />
-    <Compile Include="Commands\FolderCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand.cs" />
-    <Compile Include="Commands\FolderCSharpProjectPluginAssemblyStepsAddIntoSolutionLastCommand.cs" />
-    <Compile Include="Commands\FolderCSharpProjectPluginTypeStepsAddIntoSolutionInConnectionCommand.cs" />
-    <Compile Include="Commands\FolderCSharpProjectPluginTypeStepsAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\FolderCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\FolderCSharpProjectPluginAssemblyAddToSolutionLastCommand.cs" />
+    <Compile Include="Commands\FolderCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\FolderCSharpProjectPluginAssemblyStepsAddToSolutionLastCommand.cs" />
+    <Compile Include="Commands\FolderCSharpProjectPluginTypeStepsAddIToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\FolderCSharpProjectPluginTypeStepsAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\FolderCSharpUpdateEntityMetadataFileProxyClassCommand.cs" />
     <Compile Include="Commands\FolderJavaScriptUpdateEntityMetadataFileCommand.cs" />
     <Compile Include="Commands\FolderJavaScriptUpdateGlobalOptionSetSingleFileCommand.cs" />
-    <Compile Include="Commands\FolderWebResourceAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\FolderWebResourceAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\FolderAddPluginConfigurationFileCommand.cs" />
     <Compile Include="Commands\FolderAddSolutionFileCommand.cs" />
     <Compile Include="Commands\FolderWebResourceCheckEncodingCommand.cs" />
@@ -325,8 +325,8 @@
     <Compile Include="Commands\FolderXmlOpenXsdSchemaFolderCommand.cs" />
     <Compile Include="Commands\FolderXmlRemoveXsdSchemaCommand.cs" />
     <Compile Include="Commands\FolderXmlSetXsdSchemaCommand.cs" />
-    <Compile Include="Commands\ListForPublishAddIntoSolutionInConnectionCommand.cs" />
-    <Compile Include="Commands\ListForPublishAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\ListForPublishAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\ListForPublishAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\ListForPublishCompareInConnectionGroupCommand.cs" />
     <Compile Include="Commands\ListForPublishPerformPublishEqualByTextCommand.cs" />
     <Compile Include="Commands\ListForPublishPerformPublishGroupConnectionCommand.cs" />
@@ -334,10 +334,10 @@
     <Compile Include="Commands\OpenFilesCommand.cs" />
     <Compile Include="Commands\ProjectCompareToCrmAssemblyInConnectionCommand.cs" />
     <Compile Include="Commands\ProjectCompareToCrmAssemblyCommand.cs" />
-    <Compile Include="Commands\ProjectPluginAssemblyAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\ProjectPluginAssemblyAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\ProjectPluginAssemblyExplorerCommand.cs" />
-    <Compile Include="Commands\ProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand.cs" />
-    <Compile Include="Commands\ProjectPluginAssemblyStepsAddIntoSolutionLastCommand.cs" />
+    <Compile Include="Commands\ProjectPluginAssemblyStepsAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\ProjectPluginAssemblyStepsAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\ProjectPluginTreeCommand.cs" />
     <Compile Include="Commands\ProjectPluginTypeExplorerCommand.cs" />
     <Compile Include="Commands\ProjectRegisterPluginAssemblyInConnectionCommand.cs" />
@@ -352,10 +352,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CrmDeveloperHelperPackageCommandTable.vsct</DependentUpon>
     </Compile>
-    <Compile Include="Commands\DocumentsCSharpProjectPluginAssemblyAddIntoSolutionInConnectionCommand.cs" />
-    <Compile Include="Commands\DocumentsCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand.cs" />
-    <Compile Include="Commands\DocumentsCSharpProjectPluginTypeStepsAddIntoSolutionInConnectionCommand.cs" />
-    <Compile Include="Commands\DocumentsReportAddIntoSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\DocumentsCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\DocumentsCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\DocumentsCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\DocumentsReportAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Entities\AppConfig.Proxy.cs" />
     <Compile Include="Entities\AppConfig.Schema.cs" />
     <Compile Include="Entities\AppConfigInstance.Proxy.cs" />
@@ -475,12 +475,12 @@
     <Compile Include="Entities\WebWizard.Additional.cs" />
     <Compile Include="Entities\WebWizard.Proxy.cs" />
     <Compile Include="Entities\WebWizard.Schema.cs" />
-    <Compile Include="Commands\FileCSharpProjectPluginAssemblyAddIntoSolutionInConnectionCommand.cs" />
-    <Compile Include="Commands\FileCSharpProjectPluginAssemblyStepsAddIntoSolutionInConnectionCommand.cs" />
-    <Compile Include="Commands\FileCSharpProjectPluginTypeStepsAddIntoSolutionInConnectionCommand.cs" />
-    <Compile Include="Commands\FileReportAddIntoSolutionInConnectionCommand.cs" />
-    <Compile Include="Commands\FileWebResourceAddIntoSolutionInConnectionCommand.cs" />
-    <Compile Include="Commands\FolderWebResourceAddIntoSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\FileCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\FileCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\FileCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\FileReportAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\FileWebResourceAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\FolderWebResourceAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Entities\Workflow.Additional.cs" />
     <Compile Include="Entities\GlobalOptionSets\componentstate.Schema.cs" />
     <Compile Include="Entities\GlobalOptionSets\componenttype.Schema.cs" />
@@ -1002,7 +1002,7 @@
     <Compile Include="Model\WorkflowSetEntityPropertyStep.cs" />
     <Compile Include="Model\WorkflowSetEntityPropertyStepType.cs" />
     <Compile Include="Model\XmlOptionsControls.cs" />
-    <Compile Include="Commands\ProjectPluginAssemblyAddIntoSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\ProjectPluginAssemblyAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\CommandNames.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -31,19 +31,19 @@
                     <MenuItem Header="Open Entity Explorer" Click="mIOpenEntityExplorer_Click" />
 
                     <Separator/>
-                    <MenuItem x:Uid="contMnAddEntityIntoSolutionLast" Header="Add to Last Crm Solution">
-                        <MenuItem x:Uid="contMnAddEntityIntoSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
+                    <MenuItem x:Uid="contMnAddEntityToSolutionLast" Header="Add to Last Crm Solution">
+                        <MenuItem x:Uid="contMnAddEntityToSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
                         <Separator/>
-                        <MenuItem x:Uid="contMnAddEntityIntoSolutionLastDoNotIncludeSubcomponents" Header="Do Not Include Subcomponents" />
+                        <MenuItem x:Uid="contMnAddEntityToSolutionLastDoNotIncludeSubcomponents" Header="Do Not Include Subcomponents" />
                         <Separator/>
-                        <MenuItem x:Uid="contMnAddEntityIntoSolutionLastIncludeAsShellOnly" Header="Include As ShellOnly" />
+                        <MenuItem x:Uid="contMnAddEntityToSolutionLastIncludeAsShellOnly" Header="Include As ShellOnly" />
                     </MenuItem>
                     <MenuItem Header="Add to Crm Solution">
-                        <MenuItem Header="Include Subcomponents" Click="AddEntityIntoCrmSolutionIncludeSubcomponents_Click" />
+                        <MenuItem Header="Include Subcomponents" Click="AddEntityToCrmSolutionIncludeSubcomponents_Click" />
                         <Separator/>
-                        <MenuItem Header="Do Not Include Subcomponents" Click="AddEntityIntoCrmSolutionDoNotIncludeSubcomponents_Click" />
+                        <MenuItem Header="Do Not Include Subcomponents" Click="AddEntityToCrmSolutionDoNotIncludeSubcomponents_Click" />
                         <Separator/>
-                        <MenuItem Header="Include As ShellOnly" Click="AddEntityIntoCrmSolutionIncludeAsShellOnly_Click" />
+                        <MenuItem Header="Include As ShellOnly" Click="AddEntityToCrmSolutionIncludeAsShellOnly_Click" />
                     </MenuItem>
 
                     <Separator />
@@ -60,13 +60,13 @@
                     </MenuItem>
                 </MenuItem>
 
-                <Separator x:Uid="contMnAddIntoSolution"/>
-                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add to Last Crm Solution" />
-                <MenuItem x:Uid="contMnAddIntoSolution"     Header="Add to Crm Solution" Click="AddIntoCrmSolution_Click" />
+                <Separator x:Uid="contMnAddToSolution"/>
+                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
+                <MenuItem x:Uid="contMnAddToSolution"     Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
 
-                <Separator x:Uid="contMnAddIntoSolutionMessageFilter"/>
-                <MenuItem x:Uid="contMnAddIntoSolutionMessageFilterLast" Header="Add Message Filter to Last Crm Solution" />
-                <MenuItem x:Uid="contMnAddIntoSolutionMessageFilter"     Header="Add Message Filter to Crm Solution" Click="AddMessageFilterIntoCrmSolution_Click" />
+                <Separator x:Uid="contMnAddToSolutionMessageFilter"/>
+                <MenuItem x:Uid="contMnAddToSolutionMessageFilterLast" Header="Add Message Filter to Last Crm Solution" />
+                <MenuItem x:Uid="contMnAddToSolutionMessageFilter"     Header="Add Message Filter to Crm Solution" Click="AddMessageFilterToCrmSolution_Click" />
 
                 <Separator />
                 <MenuItem Header="Open Plugin Tree" Click="mIOpenPluginTree_Click" />

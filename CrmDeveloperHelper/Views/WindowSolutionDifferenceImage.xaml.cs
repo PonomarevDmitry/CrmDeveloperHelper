@@ -551,7 +551,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
-            FillLastSolutionItems(connectionData, items, true, AddIntoSolutionLast_Click, "contMnAddIntoSolutionLast");
+            FillLastSolutionItems(connectionData, items, true, AddToSolutionLast_Click, "contMnAddToSolutionLast");
         }
 
         private async void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
@@ -683,23 +683,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void AddIntoSolution_Click(object sender, RoutedEventArgs e)
+        private async void AddToSolution_Click(object sender, RoutedEventArgs e)
         {
-            await AddIntoSolutionAsync(true, null);
+            await AddToSolutionAsync(true, null);
         }
 
-        private async void AddIntoSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void AddToSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
               && menuItem.Tag != null
               && menuItem.Tag is string solutionUniqueName
               )
             {
-                await AddIntoSolutionAsync(false, solutionUniqueName);
+                await AddToSolutionAsync(false, solutionUniqueName);
             }
         }
 
-        private async Task AddIntoSolutionAsync(bool withSelect, string solutionUniqueName)
+        private async Task AddToSolutionAsync(bool withSelect, string solutionUniqueName)
         {
             var solutionImageComponents = lstVwComponents.SelectedItems.OfType<SolutionImageComponent>().ToList();
 
@@ -726,7 +726,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsCollectionIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, solutionComponents, withSelect);
+                await SolutionController.AddSolutionComponentsCollectionToSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, solutionComponents, withSelect);
             }
             catch (Exception ex)
             {

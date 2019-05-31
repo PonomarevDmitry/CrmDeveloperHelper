@@ -736,7 +736,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
-            FillLastSolutionItems(connectionData, new[] { miAddApplicationIntoLastSolution }, true, AddApplicationRibbonIntoCrmSolutionLast_Click, "miAddApplicationIntoLastSolution");
+            FillLastSolutionItems(connectionData, new[] { miAddApplicationTotSolutionLast }, true, AddApplicationRibbonToCrmSolutionLast_Click, "miAddApplicationTotSolutionLast");
         }
 
         private async void miApplicationRibbonOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
@@ -798,23 +798,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void AddApplicationRibbonIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        private async void AddApplicationRibbonToCrmSolution_Click(object sender, RoutedEventArgs e)
         {
-            await AddApplicationRibbonIntoSolution(true, null);
+            await AddApplicationRibbonToSolution(true, null);
         }
 
-        private async void AddApplicationRibbonIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void AddApplicationRibbonToCrmSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                  && menuItem.Tag != null
                  && menuItem.Tag is string solutionUniqueName
                  )
             {
-                await AddApplicationRibbonIntoSolution(false, solutionUniqueName);
+                await AddApplicationRibbonToSolution(false, solutionUniqueName);
             }
         }
 
-        private async Task AddApplicationRibbonIntoSolution(bool withSelect, string solutionUniqueName)
+        private async Task AddApplicationRibbonToSolution(bool withSelect, string solutionUniqueName)
         {
             var service = await GetService();
 
@@ -830,7 +830,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                    await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.RibbonCustomization, new[] { ribbonCustomization.Id }, null, withSelect);
+                    await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.RibbonCustomization, new[] { ribbonCustomization.Id }, null, withSelect);
                 }
                 catch (Exception ex)
                 {

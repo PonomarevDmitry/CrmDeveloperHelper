@@ -26,27 +26,27 @@
                 <MenuItem Header="Delete Workflow" Click="mIDeleteWorkflow_Click" />
 
                 <Separator/>
-                <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add to Last Crm Solution"  />
-                <MenuItem Header="Add to Crm Solution" Click="AddIntoCrmSolution_Click" />
+                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution"  />
+                <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
 
                 <Separator x:Uid="contMnEntity" />
                 <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
                 <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
 
                 <Separator x:Uid="contMnEntity" />
-                <MenuItem x:Uid="contMnAddEntityIntoSolutionLast" Header="Add Entity to Last Crm Solution">
-                    <MenuItem x:Uid="contMnAddEntityIntoSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
+                <MenuItem x:Uid="contMnAddEntityToSolutionLast" Header="Add Entity to Last Crm Solution">
+                    <MenuItem x:Uid="contMnAddEntityToSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
                     <Separator/>
-                    <MenuItem x:Uid="contMnAddEntityIntoSolutionLastDoNotIncludeSubcomponents" Header="Do Not Include Subcomponents" />
+                    <MenuItem x:Uid="contMnAddEntityToSolutionLastDoNotIncludeSubcomponents" Header="Do Not Include Subcomponents" />
                     <Separator/>
-                    <MenuItem x:Uid="contMnAddEntityIntoSolutionLastIncludeAsShellOnly" Header="Include As ShellOnly" />
+                    <MenuItem x:Uid="contMnAddEntityToSolutionLastIncludeAsShellOnly" Header="Include As ShellOnly" />
                 </MenuItem>
                 <MenuItem x:Uid="contMnEntity" Header="Add Entity to Crm Solution">
-                    <MenuItem Header="Include Subcomponents" Click="AddIntoCrmSolutionIncludeSubcomponents_Click" />
+                    <MenuItem Header="Include Subcomponents" Click="AddToCrmSolutionIncludeSubcomponents_Click" />
                     <Separator/>
-                    <MenuItem Header="Do Not Include Subcomponents" Click="AddIntoCrmSolutionDoNotIncludeSubcomponents_Click" />
+                    <MenuItem Header="Do Not Include Subcomponents" Click="AddToCrmSolutionDoNotIncludeSubcomponents_Click" />
                     <Separator/>
-                    <MenuItem Header="Include As ShellOnly" Click="AddIntoCrmSolutionIncludeAsShellOnly_Click" />
+                    <MenuItem Header="Include As ShellOnly" Click="AddToCrmSolutionIncludeAsShellOnly_Click" />
                 </MenuItem>
 
                 <Separator/>
@@ -302,8 +302,8 @@
                             <MenuItem Header="Delete Workflow" Click="mIDeleteWorkflow_Click" />
 
                             <Separator/>
-                            <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add to Last Crm Solution"  />
-                            <MenuItem Header="Add to Crm Solution" Click="AddIntoCrmSolution_Click" />
+                            <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution"  />
+                            <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
                             
                             <Separator/>
                             <MenuItem Header="Xaml" Click="mIExportWorkflowXaml_Click"/>

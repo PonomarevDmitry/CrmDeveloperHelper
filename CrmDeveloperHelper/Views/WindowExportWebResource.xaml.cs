@@ -1104,7 +1104,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
-            FillLastSolutionItems(connectionData, items, true, AddIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
+            FillLastSolutionItems(connectionData, items, true, AddToCrmSolutionLast_Click, "contMnAddToSolutionLast");
 
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as EntityTreeViewItem;
 
@@ -1162,23 +1162,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void AddIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        private void AddToCrmSolution_Click(object sender, RoutedEventArgs e)
         {
-            AddIntoSolution(true, null);
+            AddToSolution(true, null);
         }
 
-        private void AddIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        private void AddToCrmSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
                 && menuItem.Tag is string solutionUniqueName
                 )
             {
-                AddIntoSolution(false, solutionUniqueName);
+                AddToSolution(false, solutionUniqueName);
             }
         }
 
-        private async Task AddIntoSolution(bool withSelect, string solutionUniqueName)
+        private async Task AddToSolution(bool withSelect, string solutionUniqueName)
         {
             var entity = GetSelectedEntity();
 
@@ -1196,7 +1196,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.WebResource, new[] { entity.WebResourceId.Value }, null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.WebResource, new[] { entity.WebResourceId.Value }, null, withSelect);
             }
             catch (Exception ex)
             {

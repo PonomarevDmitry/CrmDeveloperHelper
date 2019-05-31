@@ -237,15 +237,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Добавление веб-ресурса в решение.
 
-        public async Task ExecuteAddingWebResourcesIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
+        public async Task ExecuteAddingWebResourcesToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
-            string operation = string.Format(Properties.OperationNames.AddingWebResourcesIntoSolutionFormat2, connectionData?.Name, solutionUniqueName);
+            string operation = string.Format(Properties.OperationNames.AddingWebResourcesToSolutionFormat2, connectionData?.Name, solutionUniqueName);
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
-                await AddingWebResourcesIntoSolution(connectionData, commonConfig, solutionUniqueName, selectedFiles, withSelect);
+                await AddingWebResourcesToSolution(connectionData, commonConfig, solutionUniqueName, selectedFiles, withSelect);
             }
             catch (Exception ex)
             {
@@ -257,7 +257,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task AddingWebResourcesIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
+        private async Task AddingWebResourcesToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
             if (connectionData == null)
             {
@@ -453,15 +453,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Добавление отчета в решение.
 
-        public async Task ExecuteAddingReportsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
+        public async Task ExecuteAddingReportsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
-            string operation = string.Format(Properties.OperationNames.AddingReportsIntoSolutionFormat2, connectionData?.Name, solutionUniqueName);
+            string operation = string.Format(Properties.OperationNames.AddingReportsToSolutionFormat2, connectionData?.Name, solutionUniqueName);
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
-                await AddingReportsIntoSolution(connectionData, commonConfig, solutionUniqueName, selectedFiles, withSelect);
+                await AddingReportsToSolution(connectionData, commonConfig, solutionUniqueName, selectedFiles, withSelect);
             }
             catch (Exception ex)
             {
@@ -473,7 +473,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task AddingReportsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
+        private async Task AddingReportsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SelectedFile> selectedFiles, bool withSelect)
         {
             if (connectionData == null)
             {
@@ -649,9 +649,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Добавление компонентов в решение.
 
-        public static async Task AddSolutionComponentsGroupIntoSolution(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, SolutionComponentDescriptor descriptor, CommonConfiguration commonConfig, string solutionUniqueName, ComponentType componentType, IEnumerable<Guid> selectedObjects, RootComponentBehavior? rootComponentBehavior, bool withSelect)
+        public static async Task AddSolutionComponentsGroupToSolution(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, SolutionComponentDescriptor descriptor, CommonConfiguration commonConfig, string solutionUniqueName, ComponentType componentType, IEnumerable<Guid> selectedObjects, RootComponentBehavior? rootComponentBehavior, bool withSelect)
         {
-            string operation = string.Format(Properties.OperationNames.AddingComponentsIntoSolutionFormat2, service?.ConnectionData?.Name, solutionUniqueName);
+            string operation = string.Format(Properties.OperationNames.AddingComponentsToSolutionFormat2, service?.ConnectionData?.Name, solutionUniqueName);
 
             iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, operation);
 
@@ -804,9 +804,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        public static async Task AddSolutionComponentsCollectionIntoSolution(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, SolutionComponentDescriptor descriptor, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SolutionComponent> components, bool withSelect)
+        public static async Task AddSolutionComponentsCollectionToSolution(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, SolutionComponentDescriptor descriptor, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<SolutionComponent> components, bool withSelect)
         {
-            string operation = string.Format(Properties.OperationNames.AddingComponentsIntoSolutionFormat2, service?.ConnectionData?.Name, solutionUniqueName);
+            string operation = string.Format(Properties.OperationNames.AddingComponentsToSolutionFormat2, service?.ConnectionData?.Name, solutionUniqueName);
 
             iWriteToOutput.WriteToOutputStartOperation(service?.ConnectionData, operation);
 
@@ -1091,15 +1091,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Добавление сборки в решение по имени.
 
-        public async Task ExecuteAddingPluginAssemblyIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
+        public async Task ExecuteAddingPluginAssemblyToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
         {
-            string operation = string.Format(Properties.OperationNames.AddingPluginAssemblyIntoSolutionFormat2, connectionData?.Name, solutionUniqueName);
+            string operation = string.Format(Properties.OperationNames.AddingPluginAssemblyToSolutionFormat2, connectionData?.Name, solutionUniqueName);
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
-                await AddingPluginAssemblyIntoSolution(connectionData, commonConfig, solutionUniqueName, projectNames, withSelect);
+                await AddingPluginAssemblyToSolution(connectionData, commonConfig, solutionUniqueName, projectNames, withSelect);
             }
             catch (Exception ex)
             {
@@ -1111,7 +1111,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task AddingPluginAssemblyIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
+        private async Task AddingPluginAssemblyToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
         {
             if (connectionData == null)
             {
@@ -1278,15 +1278,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Добавление шагов плагинов сборки в решение по имени.
 
-        public async Task ExecuteAddingPluginAssemblyProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
+        public async Task ExecuteAddingPluginAssemblyProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
         {
-            string operation = string.Format(Properties.OperationNames.AddingPluginAssemblyProcessingStepsIntoSolutionFormat2, connectionData?.Name, solutionUniqueName);
+            string operation = string.Format(Properties.OperationNames.AddingPluginAssemblyProcessingStepsToSolutionFormat2, connectionData?.Name, solutionUniqueName);
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
-                await AddingPluginAssemblyProcessingStepsIntoSolution(connectionData, commonConfig, solutionUniqueName, projectNames, withSelect);
+                await AddingPluginAssemblyProcessingStepsToSolution(connectionData, commonConfig, solutionUniqueName, projectNames, withSelect);
             }
             catch (Exception ex)
             {
@@ -1298,7 +1298,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task AddingPluginAssemblyProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
+        private async Task AddingPluginAssemblyProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> projectNames, bool withSelect)
         {
             if (connectionData == null)
             {
@@ -1504,15 +1504,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Добавление в решение шагов плагинов типа плагина по имени.
 
-        public async Task ExecuteAddingPluginTypeProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> pluginTypeNames, bool withSelect)
+        public async Task ExecuteAddingPluginTypeProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> pluginTypeNames, bool withSelect)
         {
-            string operation = string.Format(Properties.OperationNames.AddingPluginTypeProcessingStepsIntoSolutionFormat2, connectionData?.Name, solutionUniqueName);
+            string operation = string.Format(Properties.OperationNames.AddingPluginTypeProcessingStepsToSolutionFormat2, connectionData?.Name, solutionUniqueName);
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
-                await AddingPluginTypeProcessingStepsIntoSolution(connectionData, commonConfig, solutionUniqueName, pluginTypeNames, withSelect);
+                await AddingPluginTypeProcessingStepsToSolution(connectionData, commonConfig, solutionUniqueName, pluginTypeNames, withSelect);
             }
             catch (Exception ex)
             {
@@ -1524,7 +1524,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task AddingPluginTypeProcessingStepsIntoSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> pluginTypeNames, bool withSelect)
+        private async Task AddingPluginTypeProcessingStepsToSolution(ConnectionData connectionData, CommonConfiguration commonConfig, string solutionUniqueName, IEnumerable<string> pluginTypeNames, bool withSelect)
         {
             if (connectionData == null)
             {

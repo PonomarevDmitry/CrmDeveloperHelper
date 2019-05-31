@@ -63,9 +63,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0}. Adding {1} components to Solution {2}....
         /// </summary>
-        internal static string AddingComponentsIntoSolutionFormat3 {
+        internal static string AddingComponentsToSolutionFormat3 {
             get {
-                return ResourceManager.GetString("AddingComponentsIntoSolutionFormat3", resourceCulture);
+                return ResourceManager.GetString("AddingComponentsToSolutionFormat3", resourceCulture);
             }
         }
         

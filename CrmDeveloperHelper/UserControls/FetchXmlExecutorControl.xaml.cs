@@ -2390,7 +2390,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
         #region Adding to Solution
 
-        private async void AddIntoCrmSolutionEntity_Click(object sender, RoutedEventArgs e)
+        private async void AddToCrmSolutionEntity_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -2412,10 +2412,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await AddIntoSolution(componentType, new[] { entity.Id }, true, null);
+            await AddToSolution(componentType, new[] { entity.Id }, true, null);
         }
 
-        private async void AddIntoCrmSolutionEntityLast_Click(object sender, RoutedEventArgs e)
+        private async void AddToCrmSolutionEntityLast_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -2442,11 +2442,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                && menuItem.Tag is string solutionUniqueName
             )
             {
-                await AddIntoSolution(componentType, new[] { entity.Id }, false, solutionUniqueName);
+                await AddToSolution(componentType, new[] { entity.Id }, false, solutionUniqueName);
             }
         }
 
-        private async void AddIntoCrmSolutionEntityReference_Click(object sender, RoutedEventArgs e)
+        private async void AddToCrmSolutionEntityReference_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -2468,10 +2468,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await AddIntoSolution(componentType, new[] { entity.Id }, true, null);
+            await AddToSolution(componentType, new[] { entity.Id }, true, null);
         }
 
-        private async void AddIntoCrmSolutionEntityReferenceLast_Click(object sender, RoutedEventArgs e)
+        private async void AddToCrmSolutionEntityReferenceLast_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -2498,11 +2498,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                && menuItem.Tag is string solutionUniqueName
             )
             {
-                await AddIntoSolution(componentType, new[] { entity.Id }, false, solutionUniqueName);
+                await AddToSolution(componentType, new[] { entity.Id }, false, solutionUniqueName);
             }
         }
 
-        private async void AddIntoCrmSolutionSelectedEntities_Click(object sender, RoutedEventArgs e)
+        private async void AddToCrmSolutionSelectedEntities_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -2528,10 +2528,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await AddIntoSolution(componentType, selectedEntityIds, true, null);
+            await AddToSolution(componentType, selectedEntityIds, true, null);
         }
 
-        private async void AddIntoCrmSolutionSelectedEntitiesLast_Click(object sender, RoutedEventArgs e)
+        private async void AddToCrmSolutionSelectedEntitiesLast_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -2562,11 +2562,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                && menuItem.Tag is string solutionUniqueName
             )
             {
-                await AddIntoSolution(componentType, selectedEntityIds, false, solutionUniqueName);
+                await AddToSolution(componentType, selectedEntityIds, false, solutionUniqueName);
             }
         }
 
-        private async void AddIntoCrmSolutionAllEntities_Click(object sender, RoutedEventArgs e)
+        private async void AddToCrmSolutionAllEntities_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -2592,10 +2592,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 return;
             }
 
-            await AddIntoSolution(componentType, selectedEntityIds, true, null);
+            await AddToSolution(componentType, selectedEntityIds, true, null);
         }
 
-        private async void AddIntoCrmSolutionAllEntitiesLast_Click(object sender, RoutedEventArgs e)
+        private async void AddToCrmSolutionAllEntitiesLast_Click(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -2626,11 +2626,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                && menuItem.Tag is string solutionUniqueName
             )
             {
-                await AddIntoSolution(componentType, selectedEntityIds, false, solutionUniqueName);
+                await AddToSolution(componentType, selectedEntityIds, false, solutionUniqueName);
             }
         }
 
-        private async Task AddIntoSolution(ComponentType componentType, IEnumerable<Guid> entityIds, bool withSelect, string solutionUniqueName)
+        private async Task AddToSolution(ComponentType componentType, IEnumerable<Guid> entityIds, bool withSelect, string solutionUniqueName)
         {
             var commonConfig = CommonConfiguration.Get();
 
@@ -2640,7 +2640,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, commonConfig, solutionUniqueName, componentType, entityIds, null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, commonConfig, solutionUniqueName, componentType, entityIds, null, withSelect);
             }
             catch (Exception ex)
             {
@@ -2671,11 +2671,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 hasSolutionComponentEntityReference = SolutionComponent.GetEntityComponentType(entityReferenceView?.LogicalName, out _);
             }
 
-            WindowBase.ActivateControls(items, hasSolutionComponentEntity, "contMnAddIntoSolution", "contMnAddIntoSolutionLast");
-            WindowBase.FillLastSolutionItems(this.ConnectionData, items, hasSolutionComponentEntity, AddIntoCrmSolutionEntityLast_Click, "contMnAddIntoSolutionLast");
+            WindowBase.ActivateControls(items, hasSolutionComponentEntity, "contMnAddToSolution", "contMnAddToSolutionLast");
+            WindowBase.FillLastSolutionItems(this.ConnectionData, items, hasSolutionComponentEntity, AddToCrmSolutionEntityLast_Click, "contMnAddToSolutionLast");
 
-            WindowBase.ActivateControls(items, hasSolutionComponentEntityReference, "contMnAddIntoSolutionEntityReference", "contMnAddIntoSolutionEntityReferenceLast");
-            WindowBase.FillLastSolutionItems(this.ConnectionData, items, hasSolutionComponentEntityReference, AddIntoCrmSolutionEntityReferenceLast_Click, "contMnAddIntoSolutionEntityReferenceLast");
+            WindowBase.ActivateControls(items, hasSolutionComponentEntityReference, "contMnAddToSolutionEntityReference", "contMnAddToSolutionEntityReferenceLast");
+            WindowBase.FillLastSolutionItems(this.ConnectionData, items, hasSolutionComponentEntityReference, AddToCrmSolutionEntityReferenceLast_Click, "contMnAddToSolutionEntityReferenceLast");
         }
 
         private void SelectedEntities_SubmenuOpened(object sender, RoutedEventArgs e)
@@ -2692,8 +2692,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 && GetSelectedEntities().Any(en => en.Id != Guid.Empty)
                 ;
 
-            WindowBase.ActivateControls(items, hasSolutionComponentEntity, "contMnAddIntoSolution", "contMnAddIntoSolutionLast");
-            WindowBase.FillLastSolutionItems(this.ConnectionData, items, hasSolutionComponentEntity, AddIntoCrmSolutionSelectedEntitiesLast_Click, "contMnAddIntoSolutionLast");
+            WindowBase.ActivateControls(items, hasSolutionComponentEntity, "contMnAddToSolution", "contMnAddToSolutionLast");
+            WindowBase.FillLastSolutionItems(this.ConnectionData, items, hasSolutionComponentEntity, AddToCrmSolutionSelectedEntitiesLast_Click, "contMnAddToSolutionLast");
         }
 
         private void AllEntities_SubmenuOpened(object sender, RoutedEventArgs e)
@@ -2710,8 +2710,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
                 && _entityCollection.Entities.Any(en => en.Id != Guid.Empty)
                 ;
 
-            WindowBase.ActivateControls(items, hasSolutionComponentEntity, "contMnAddIntoSolution", "contMnAddIntoSolutionLast");
-            WindowBase.FillLastSolutionItems(this.ConnectionData, items, hasSolutionComponentEntity, AddIntoCrmSolutionAllEntitiesLast_Click, "contMnAddIntoSolutionLast");
+            WindowBase.ActivateControls(items, hasSolutionComponentEntity, "contMnAddToSolution", "contMnAddToSolutionLast");
+            WindowBase.FillLastSolutionItems(this.ConnectionData, items, hasSolutionComponentEntity, AddToCrmSolutionAllEntitiesLast_Click, "contMnAddToSolutionLast");
         }
     }
 }

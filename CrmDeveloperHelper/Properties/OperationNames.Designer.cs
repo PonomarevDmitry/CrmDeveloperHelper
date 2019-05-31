@@ -72,9 +72,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} - Adding Components to Solution {1}.
         /// </summary>
-        internal static string AddingComponentsIntoSolutionFormat2 {
+        internal static string AddingComponentsToSolutionFormat2 {
             get {
-                return ResourceManager.GetString("AddingComponentsIntoSolutionFormat2", resourceCulture);
+                return ResourceManager.GetString("AddingComponentsToSolutionFormat2", resourceCulture);
             }
         }
         
@@ -99,18 +99,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} - Adding PluginAssembly to Solution {1}.
         /// </summary>
-        internal static string AddingPluginAssemblyIntoSolutionFormat2 {
+        internal static string AddingPluginAssemblyToSolutionFormat2 {
             get {
-                return ResourceManager.GetString("AddingPluginAssemblyIntoSolutionFormat2", resourceCulture);
+                return ResourceManager.GetString("AddingPluginAssemblyToSolutionFormat2", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0} - Adding PluginAssembly Processing Steps to Solution {1}.
         /// </summary>
-        internal static string AddingPluginAssemblyProcessingStepsIntoSolutionFormat2 {
+        internal static string AddingPluginAssemblyProcessingStepsToSolutionFormat2 {
             get {
-                return ResourceManager.GetString("AddingPluginAssemblyProcessingStepsIntoSolutionFormat2", resourceCulture);
+                return ResourceManager.GetString("AddingPluginAssemblyProcessingStepsToSolutionFormat2", resourceCulture);
             }
         }
         
@@ -126,18 +126,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} - Adding PluginType Processing Steps to Solution {1}.
         /// </summary>
-        internal static string AddingPluginTypeProcessingStepsIntoSolutionFormat2 {
+        internal static string AddingPluginTypeProcessingStepsToSolutionFormat2 {
             get {
-                return ResourceManager.GetString("AddingPluginTypeProcessingStepsIntoSolutionFormat2", resourceCulture);
+                return ResourceManager.GetString("AddingPluginTypeProcessingStepsToSolutionFormat2", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0} - Adding Reports to Solution {1}.
         /// </summary>
-        internal static string AddingReportsIntoSolutionFormat2 {
+        internal static string AddingReportsToSolutionFormat2 {
             get {
-                return ResourceManager.GetString("AddingReportsIntoSolutionFormat2", resourceCulture);
+                return ResourceManager.GetString("AddingReportsToSolutionFormat2", resourceCulture);
             }
         }
         
@@ -153,9 +153,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} - Adding WebResources to Solution {1}.
         /// </summary>
-        internal static string AddingWebResourcesIntoSolutionFormat2 {
+        internal static string AddingWebResourcesToSolutionFormat2 {
             get {
-                return ResourceManager.GetString("AddingWebResourcesIntoSolutionFormat2", resourceCulture);
+                return ResourceManager.GetString("AddingWebResourcesToSolutionFormat2", resourceCulture);
             }
         }
         

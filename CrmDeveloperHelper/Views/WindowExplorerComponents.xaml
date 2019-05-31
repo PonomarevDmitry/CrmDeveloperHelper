@@ -17,9 +17,9 @@
             <MenuItem x:Uid="contMnExplorer" Header="Component Explorer" VerticalAlignment="Center" Click="mIOpenExplorer_Click"/>
 
             <Separator/>
-            <MenuItem x:Uid="contMnAddIntoCurrentSolution" Header="Add to Current Solution" VerticalAlignment="Center" Click="AddIntoCurrentSolution_Click" />
-            <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
-            <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddIntoSolution_Click" />
+            <MenuItem x:Uid="contMnAddToCurrentSolution" Header="Add to Current Solution" VerticalAlignment="Center" Click="AddToCurrentSolution_Click" />
+            <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
+            <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddToSolution_Click" />
 
             <Separator x:Uid="contMnLinkedComponents" />
             <MenuItem x:Uid="contMnLinkedComponents" Header="Linked Components" />

@@ -15,19 +15,19 @@
             <MenuItem Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
 
             <Separator/>
-            <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add to Last Crm Solution">
-                <MenuItem x:Uid="contMnAddIntoSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
+            <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution">
+                <MenuItem x:Uid="contMnAddToSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
                 <Separator/>
-                <MenuItem x:Uid="contMnAddIntoSolutionLastDoNotIncludeSubcomponents" Header="Do Not Include Subcomponents" />
+                <MenuItem x:Uid="contMnAddToSolutionLastDoNotIncludeSubcomponents" Header="Do Not Include Subcomponents" />
                 <Separator/>
-                <MenuItem x:Uid="contMnAddIntoSolutionLastIncludeAsShellOnly" Header="Include As ShellOnly" />
+                <MenuItem x:Uid="contMnAddToSolutionLastIncludeAsShellOnly" Header="Include As ShellOnly" />
             </MenuItem>
             <MenuItem Header="Add to Crm Solution">
-                <MenuItem Header="Include Subcomponents" Click="AddIntoCrmSolutionIncludeSubcomponents_Click" />
+                <MenuItem Header="Include Subcomponents" Click="AddToCrmSolutionIncludeSubcomponents_Click" />
                 <Separator/>
-                <MenuItem Header="Do Not Include Subcomponents" Click="AddIntoCrmSolutionDoNotIncludeSubcomponents_Click" />
+                <MenuItem Header="Do Not Include Subcomponents" Click="AddToCrmSolutionDoNotIncludeSubcomponents_Click" />
                 <Separator/>
-                <MenuItem Header="Include As ShellOnly" Click="AddIntoCrmSolutionIncludeAsShellOnly_Click" />
+                <MenuItem Header="Include As ShellOnly" Click="AddToCrmSolutionIncludeAsShellOnly_Click" />
             </MenuItem>
 
             <Separator/>
@@ -87,8 +87,8 @@
         <ContextMenu x:Key="listContextMenuEntityRelationship" Opened="ContextMenuEntityRelationship_Opened">
             <MenuItem Header="Open EntityRelationship Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityRelationshipInWeb_Click" />
             <Separator/>
-            <MenuItem x:Uid="contMnAddIntoSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
-            <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddEntityRelationshipIntoCrmSolution_Click" />
+            <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
+            <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddEntityRelationshipToCrmSolution_Click" />
             <Separator/>
             <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIEntityRelationshipOpenSolutionsContainingComponentInWindow_Click" />
             <Separator/>

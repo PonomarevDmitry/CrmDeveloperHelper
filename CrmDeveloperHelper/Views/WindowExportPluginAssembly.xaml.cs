@@ -637,23 +637,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void AddIntoCrmSolution_Click(object sender, RoutedEventArgs e)
+        private async void AddToCrmSolution_Click(object sender, RoutedEventArgs e)
         {
-            await AddIntoSolution(true, null);
+            await AddToSolution(true, null);
         }
 
-        private async void AddIntoCrmSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void AddToCrmSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
                 && menuItem.Tag is string solutionUniqueName
                 )
             {
-                await AddIntoSolution(false, solutionUniqueName);
+                await AddToSolution(false, solutionUniqueName);
             }
         }
 
-        private async Task AddIntoSolution(bool withSelect, string solutionUniqueName)
+        private async Task AddToSolution(bool withSelect, string solutionUniqueName)
         {
             var entity = GetSelectedEntity();
 
@@ -671,7 +671,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.PluginAssembly, new[] { entity.Id }, null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, descriptor, _commonConfig, solutionUniqueName, ComponentType.PluginAssembly, new[] { entity.Id }, null, withSelect);
             }
             catch (Exception ex)
             {
@@ -679,23 +679,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void mIAddAssemblyStepsIntoSolution_Click(object sender, RoutedEventArgs e)
+        private async void mIAddAssemblyStepsToSolution_Click(object sender, RoutedEventArgs e)
         {
-            await AddAssemblyStepsIntoSolution(true, null);
+            await AddAssemblyStepsToSolution(true, null);
         }
 
-        private async void mIAddAssemblyStepsIntoSolutionLast_Click(object sender, RoutedEventArgs e)
+        private async void mIAddAssemblyStepsToSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag != null
                 && menuItem.Tag is string solutionUniqueName
                 )
             {
-                await AddAssemblyStepsIntoSolution(false, solutionUniqueName);
+                await AddAssemblyStepsToSolution(false, solutionUniqueName);
             }
         }
 
-        private async Task AddAssemblyStepsIntoSolution(bool withSelect, string solutionUniqueName)
+        private async Task AddAssemblyStepsToSolution(bool withSelect, string solutionUniqueName)
         {
             var entity = GetSelectedEntity();
 
@@ -721,7 +721,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
 
-                await SolutionController.AddSolutionComponentsGroupIntoSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.SdkMessageProcessingStep, steps.Select(s => s.Id), null, withSelect);
+                await SolutionController.AddSolutionComponentsGroupToSolution(_iWriteToOutput, service, null, _commonConfig, solutionUniqueName, ComponentType.SdkMessageProcessingStep, steps.Select(s => s.Id), null, withSelect);
             }
             catch (Exception ex)
             {
@@ -803,9 +803,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
                 });
 
-                FillLastSolutionItems(connectionData, items, true, AddIntoCrmSolutionLast_Click, "contMnAddIntoSolutionLast");
+                FillLastSolutionItems(connectionData, items, true, AddToCrmSolutionLast_Click, "contMnAddToSolutionLast");
 
-                FillLastSolutionItems(connectionData, items, true, mIAddAssemblyStepsIntoSolutionLast_Click, "contMnAddPluginAssemblyStepsIntoSolutionLast");
+                FillLastSolutionItems(connectionData, items, true, mIAddAssemblyStepsToSolutionLast_Click, "contMnAddPluginAssemblyStepsToSolutionLast");
             }
         }
 
