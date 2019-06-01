@@ -2105,10 +2105,17 @@
           <MenuText>Show Difference OriginalBodyText in Connection Group</MenuText>
         </Strings>
       </Menu>
+      
       <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceOriginalBodyTextMultiple_MenuTwoConnectionsDyn" priority="0x0107" type="Menu">
         <Strings>
           <ButtonText>Show Difference OriginalBodyText in Two Connections</ButtonText>
           <MenuText>Show Difference OriginalBodyText in Two Connections</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceOriginalBodyTextMultiple_MenuOneByOneDyn" priority="0x0107" type="Menu">
+        <Strings>
+          <ButtonText>Show Difference Local File and OriginalBodyText Two Connections One by One</ButtonText>
+          <MenuText>Show Difference Local File and OriginalBodyText Two Connections One by One</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceOriginalBodyTextMultiple_MenuThreeWayDyn" priority="0x0107" type="Menu">
@@ -2117,16 +2124,24 @@
           <MenuText>Show Three Way Difference OriginalBodyText</MenuText>
         </Strings>
       </Menu>
+      
       <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceBodyText_MenuConnectionDyn" priority="0x0107" type="Menu">
         <Strings>
           <ButtonText>Show Difference BodyText in Connection Group</ButtonText>
           <MenuText>Show Difference BodyText in Connection Group</MenuText>
         </Strings>
       </Menu>
+      
       <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceBodyTextMultiple_MenuTwoConnectionsDyn" priority="0x0107" type="Menu">
         <Strings>
           <ButtonText>Show Difference BodyText in Two Connections</ButtonText>
           <MenuText>Show Difference BodyText in Two Connections</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceBodyTextMultiple_MenuOneByOneDyn" priority="0x0107" type="Menu">
+        <Strings>
+          <ButtonText>Show Difference Local File and BodyText Two Connections One by One</ButtonText>
+          <MenuText>Show Difference Local File and BodyText Two Connections One by One</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceBodyTextMultiple_MenuThreeWayDyn" priority="0x0107" type="Menu">
@@ -8476,15 +8491,15 @@
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceOriginalBodyText" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceOriginalBodyTextMultiple_MenuTwoConnectionsDyn" priority="0x0104">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceOriginalBodyTextMultiple_MenuTwoConnectionsDyn" priority="0x0100">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceOriginalBodyTextMultiple" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceOriginalBodyTextMultiple_MenuOneByOneDyn" priority="0x0105">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceOriginalBodyTextMultiple_MenuOneByOneDyn" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceOriginalBodyTextMultiple" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceOriginalBodyTextMultiple_MenuThreeWayDyn" priority="0x0106">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceOriginalBodyTextMultiple_MenuThreeWayDyn" priority="0x0120">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceOriginalBodyTextMultiple" />
     </CommandPlacement>
 

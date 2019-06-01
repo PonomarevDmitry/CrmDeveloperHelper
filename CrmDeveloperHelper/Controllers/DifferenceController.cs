@@ -649,7 +649,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (string.IsNullOrEmpty(fieldName))
             {
                 fieldName = Report.Schema.Attributes.originalbodytext;
-                fieldTitle = "OriginalBodyText";
+                fieldTitle = Report.Schema.Headers.originalbodytext;
             }
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
@@ -898,7 +898,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (string.IsNullOrEmpty(fieldName))
             {
                 fieldName = Report.Schema.Attributes.originalbodytext;
-                fieldTitle = "OriginalBodyText";
+                fieldTitle = Report.Schema.Headers.originalbodytext;
             }
 
             this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.ConnectingToCRM);
@@ -1018,7 +1018,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (reportEntity1 != null)
             {
-                var textReport = reportEntity1.OriginalBodyText;
+                var textReport = reportEntity1.GetAttributeValue<string>(fieldName);
 
                 if (ContentCoparerHelper.TryParseXml(textReport, out var doc))
                 {
@@ -1035,7 +1035,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             if (reportEntity2 != null)
             {
-                var textReport = reportEntity2.OriginalBodyText;
+                var textReport = reportEntity2.GetAttributeValue<string>(fieldName);
 
                 if (ContentCoparerHelper.TryParseXml(textReport, out var doc))
                 {
