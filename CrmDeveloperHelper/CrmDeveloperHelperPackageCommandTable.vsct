@@ -9221,11 +9221,11 @@
     </CommandPlacement>
 
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupAddToSolution_MenuAddToSolution" priority="0x0110">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupAddToSolution_MenuAddToSolution" priority="0x0100">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupAddToSolution" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupAddToSolution_MenuAddToSolution_GroupLastSolution" priority="0x0110">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupAddToSolution_MenuAddToSolution_GroupLastSolution" priority="0x0100">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupAddToSolution_MenuAddToSolution" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupAddToSolution_MenuAddToSolution_GroupConnectionDyn" priority="0x0110">
@@ -9234,10 +9234,10 @@
 
 
 
-    <CommandPlacement guid="guidCommandSet" id="FileReportLinkCreateCommandId" priority="0x0110">
+    <CommandPlacement guid="guidCommandSet" id="FileReportLinkCreateCommandId" priority="0x0100">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupLastLink" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="FileReportLinkClearCommandId" priority="0x0111">
+    <CommandPlacement guid="guidCommandSet" id="FileReportLinkClearCommandId" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupLastLink" />
     </CommandPlacement>
 

@@ -69,7 +69,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         menuCommand.Enabled = menuCommand.Visible = true;
 
-                        CommonHandlers.ActionBeforeQueryStatusSolutionExplorerReportAny(this, menuCommand);
+                        CommonHandlers.ActionBeforeQueryStatusSolutionExplorerReportSingle(this, menuCommand);
                     }
                 }
             }
