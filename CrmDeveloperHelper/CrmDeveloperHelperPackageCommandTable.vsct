@@ -1189,12 +1189,6 @@
           <MenuText>C# or JavaScript EntityMetadata File</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata_MenuSystemFormDyn" priority="0x0209" type="Menu">
-        <Strings>
-          <ButtonText>JavaScript File Based on SystemForm</ButtonText>
-          <MenuText>JavaScript File Based on SystemForm</MenuText>
-        </Strings>
-      </Menu>
       <Menu guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata_MenuGlobalOptionSetDyn" priority="0x0209" type="Menu">
         <Strings>
           <ButtonText>C# or JavaScript Global OptionSet File</ButtonText>
@@ -1205,6 +1199,12 @@
         <Strings>
           <ButtonText>C# or JavaScript SdkMessageRequest Proxy Class File</ButtonText>
           <MenuText>C# or JavaScript SdkMessageRequest Proxy Class File</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata_MenuSystemFormDyn" priority="0x0209" type="Menu">
+        <Strings>
+          <ButtonText>JavaScript File Based on SystemForm</ButtonText>
+          <MenuText>JavaScript File Based on SystemForm</MenuText>
         </Strings>
       </Menu>
 
@@ -7281,13 +7281,13 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata_MenuEntityDyn" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata_MenuSystemFormDyn" priority="0x0610">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata_MenuGlobalOptionSetDyn" priority="0x0610">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata_MenuGlobalOptionSetDyn" priority="0x0620">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata_MenuSdkMessageRequestDyn" priority="0x0620">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata_MenuSdkMessageRequestDyn" priority="0x0630">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata_MenuSystemFormDyn" priority="0x0630">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuFolder_GroupMetadata" />
     </CommandPlacement>
 
