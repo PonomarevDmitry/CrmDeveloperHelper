@@ -9,15 +9,15 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class CodeReportUpdateCommand : IServiceProviderOwner
+    internal sealed class FileReportCreateCommand : IServiceProviderOwner
     {
         private readonly Package _package;
 
         public IServiceProvider ServiceProvider => this._package;
 
-        private const int _baseIdStart = PackageIds.CodeReportUpdateCommandId;
+        private const int _baseIdStart = PackageIds.FileReportCreateCommandId;
 
-        private CodeReportUpdateCommand(Package package)
+        private FileReportCreateCommand(Package package)
         {
             this._package = package ?? throw new ArgumentNullException(nameof(package));
 
@@ -40,11 +40,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        public static CodeReportUpdateCommand Instance { get; private set; }
+        public static FileReportCreateCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new CodeReportUpdateCommand(package);
+            Instance = new FileReportCreateCommand(package);
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -67,16 +67,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                         menuCommand.Text = connectionData.NameWithCurrentMark;
 
-                        if (connectionData.IsReadOnly)
-                        {
-                            menuCommand.Enabled = menuCommand.Visible = false;
-                        }
-                        else
-                        {
-                            menuCommand.Enabled = menuCommand.Visible = true;
+                        menuCommand.Enabled = menuCommand.Visible = true;
 
-                            CommonHandlers.ActionBeforeQueryStatusActiveDocumentReport(this, menuCommand);
-                        }
+                        CommonHandlers.ActionBeforeQueryStatusSolutionExplorerReportAny(this, menuCommand);
                     }
                 }
             }
@@ -112,12 +105,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 {
                     var connectionData = connectionsList[index];
 
-                    if (!connectionData.IsReadOnly)
-                    {
-                        var helper = DTEHelper.Create(applicationObject);
-
-                        helper.HandleReportUpdateCommand(connectionData);
-                    }
+                    connectionData.OpenReportCreateInWeb();
                 }
             }
             catch (Exception ex)

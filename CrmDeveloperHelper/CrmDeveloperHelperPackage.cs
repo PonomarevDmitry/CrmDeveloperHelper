@@ -129,6 +129,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeReportLinkClearCommand.Initialize(this);
             CodeReportLinkCreateCommand.Initialize(this);
             CodeReportUpdateCommand.Initialize(this);
+            CodeReportCreateCommand.Initialize(this);
             CodeReportShowDifferenceCommand.Initialize(this);
             CodeReportShowDifferenceInConnectionGroupCommand.Initialize(this);
             CodeReportShowDifferenceThreeFileCommand.Initialize(this);
@@ -208,6 +209,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileReportLinkClearCommand.Initialize(this);
             FileReportLinkCreateCommand.Initialize(this);
             FileReportUpdateCommand.Initialize(this);
+            FileReportCreateCommand.Initialize(this);
             FileReportOpenInWebCommand.Initialize(this);
 
             FileReportAddToSolutionLastCommand.Initialize(this);

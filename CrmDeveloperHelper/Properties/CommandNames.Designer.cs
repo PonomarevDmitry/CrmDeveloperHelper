@@ -169,15 +169,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update Report in Crm.
-        /// </summary>
-        internal static string CodeReportUpdateCommand {
-            get {
-                return ResourceManager.GetString("CodeReportUpdateCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Compare File with details.
         /// </summary>
         internal static string CodeWebResourceCompareWithDetailsCommand {
@@ -624,15 +615,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string FileReportExplorerCommand {
             get {
                 return ResourceManager.GetString("FileReportExplorerCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Update Report in Crm.
-        /// </summary>
-        internal static string FileReportUpdateCommand {
-            get {
-                return ResourceManager.GetString("FileReportUpdateCommand", resourceCulture);
             }
         }
         

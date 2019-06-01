@@ -153,9 +153,6 @@
   <data name="CodeReportShowDifferenceCommandFormat2" xml:space="preserve">
     <value>Show Difference {0}{1}</value>
   </data>
-  <data name="CodeReportUpdateCommand" xml:space="preserve">
-    <value>Update Report in Crm</value>
-  </data>
   <data name="CodeWebResourceCompareWithDetailsCommand" xml:space="preserve">
     <value>Compare File with details</value>
   </data>
@@ -305,9 +302,6 @@
   </data>
   <data name="FileReportExplorerCommand" xml:space="preserve">
     <value>Report Explorer</value>
-  </data>
-  <data name="FileReportUpdateCommand" xml:space="preserve">
-    <value>Update Report in Crm</value>
   </data>
   <data name="FileWebResourceCompareCommand" xml:space="preserve">
     <value>Compare Files</value>

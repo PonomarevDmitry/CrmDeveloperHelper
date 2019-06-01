@@ -893,23 +893,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleReportUpdateCommand()
+        public void HandleReportUpdateCommand(ConnectionData connectionData)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
             }
 
             List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsReportType, false).Take(2).ToList();
-
-            var connectionData = crmConfig.CurrentConnectionData;
 
             if (connectionData != null && commonConfig != null && selectedFiles.Count == 1)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
 
                 try
                 {

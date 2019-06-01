@@ -108,6 +108,7 @@
     <Compile Include="Commands\CodeJavaScriptUpdateGlobalOptionSetSingleFileCommand.cs" />
     <Compile Include="Commands\CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand.cs" />
     <Compile Include="Commands\CodeReportAddToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\CodeReportCreateCommand.cs" />
     <Compile Include="Commands\CodeReportShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\CodeReportShowDifferenceThreeFileCommand.cs" />
     <Compile Include="Commands\CodeWebResourceAddToSolutionInConnectionCommand.cs" />
@@ -279,6 +280,7 @@
     <Compile Include="Commands\FileJavaScriptUpdateGlobalOptionSetSingleFileCommand.cs" />
     <Compile Include="Commands\FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand.cs" />
     <Compile Include="Commands\FileReportAddToSolutionLastCommand.cs" />
+    <Compile Include="Commands\FileReportCreateCommand.cs" />
     <Compile Include="Commands\FileReportOpenInWebCommand.cs" />
     <Compile Include="Commands\FileReportUpdateCommand.cs" />
     <Compile Include="Commands\FileWebResourceAddToSolutionLastCommand.cs" />

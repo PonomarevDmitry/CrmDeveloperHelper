@@ -108,6 +108,7 @@
 
 
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupUpdate" priority="0x0601" />
+      <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupUpdate_MenuConnectionDyn_Group" priority="0x0601" />
 
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceOriginalBodyText" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceOriginalBodyText_MenuConnectionDyn_Group" priority="0x0601"/>
@@ -122,6 +123,9 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceBodyTextMultiple_MenuTwoConnectionsDyn_Group" priority="0x0601"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceBodyTextMultiple_MenuOneByOneDyn_Group" priority="0x0601"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceBodyTextMultiple_MenuThreeWayDyn_Group" priority="0x0601"/>
+
+      <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupCreate" priority="0x0601" />
+      <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupCreate_MenuConnectionDyn_Group" priority="0x0601" />
 
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupExplorer" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb" priority="0x0602" />
@@ -292,11 +296,14 @@
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenMultiAdd_MenuAddIntoPulishList_GroupWithMirrorChanges" priority="0x060C" />
 
       <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupUpdate" priority="0x0601" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupUpdate_MenuConnectionDyn_Group" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenInWebDyn_Group" priority="0x0605"/>
       <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" priority="0x0605"/>
       <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInWindowDyn_Group" priority="0x0605"/>
       <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn_Group" priority="0x0605"/>
+      <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupCreate" priority="0x0601" />
+      <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupCreate_MenuConnectionDyn_Group" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupExplorer" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupAddToSolution" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupAddToSolution_MenuAddToSolution_GroupLastSolution" priority="0x0601" />
@@ -2224,6 +2231,18 @@
         </Strings>
       </Menu>
 
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupUpdate_MenuConnectionDyn" priority="0x0107" type="Menu">
+        <Strings>
+          <ButtonText>Update Report in Crm</ButtonText>
+          <MenuText>Update Report in Crm</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupCreate_MenuConnectionDyn" priority="0x0107" type="Menu">
+        <Strings>
+          <ButtonText>Create Report in Crm</ButtonText>
+          <MenuText>Create Report in Crm</MenuText>
+        </Strings>
+      </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenInWebDyn" priority="0x0107" type="Menu">
         <Strings>
           <ButtonText>Open Report in Web</ButtonText>
@@ -2276,6 +2295,18 @@
         </Strings>
       </Menu>
 
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuReport_GroupUpdate_MenuConnectionDyn" priority="0x0107" type="Menu">
+        <Strings>
+          <ButtonText>Update Report in Crm</ButtonText>
+          <MenuText>Update Report in Crm</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuReport_GroupCreate_MenuConnectionDyn" priority="0x0107" type="Menu">
+        <Strings>
+          <ButtonText>Create Report in Crm</ButtonText>
+          <MenuText>Create Report in Crm</MenuText>
+        </Strings>
+      </Menu>
       <Menu guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenInWebDyn" priority="0x0107" type="Menu">
         <Strings>
           <ButtonText>Open Report in Web</ButtonText>
@@ -2874,11 +2905,23 @@
       </Button>
 
 
-      <Button guid="guidCommandSet" id="CodeReportUpdateCommandId" priority="0x0100" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeReportUpdateCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Update Report in Crm</ButtonText>
+          <ButtonText>Update Report in Crm Placeholder</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidDynamicCommandSet" id="CodeReportCreateCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Create Report in Crm Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3917,11 +3960,22 @@
 
 
 
-      <Button guid="guidCommandSet" id="FileReportUpdateCommandId" priority="0x0110" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FileReportUpdateCommandId" priority="0x0110" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Update Report in Crm</ButtonText>
+          <ButtonText>Update Report in Crm Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidDynamicCommandSet" id="FileReportCreateCommandId" priority="0x0110" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Create Report in Crm Placeholder</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="FileReportExplorerCommandId" priority="0x0110" type="Button">
@@ -6527,28 +6581,31 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupUpdate" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceOriginalBodyText" priority="0x0601">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceOriginalBodyText" priority="0x0610">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceOriginalBodyTextMultiple" priority="0x0602">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceOriginalBodyTextMultiple" priority="0x0620">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceBodyText" priority="0x0603">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceBodyText" priority="0x0630">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceBodyTextMultiple" priority="0x0604">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceBodyTextMultiple" priority="0x0640">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupExplorer" priority="0x0605">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupCreate" priority="0x0650">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb" priority="0x0606">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupExplorer" priority="0x0660">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupAddToSolution" priority="0x0607">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb" priority="0x0670">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupLastLink" priority="0x0608">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupAddToSolution" priority="0x0680">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupLastLink" priority="0x0690">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport" />
     </CommandPlacement>
 
@@ -6890,19 +6947,22 @@
 
 
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupUpdate" priority="0x0601">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupUpdate" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb" priority="0x0601">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupCreate" priority="0x0610">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupExplorer" priority="0x0601">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupExplorer" priority="0x0620">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupAddToSolution" priority="0x0601">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb" priority="0x0630">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupLastLink" priority="0x0602">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupAddToSolution" priority="0x0640">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuReport" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupLastLink" priority="0x0650">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport" />
     </CommandPlacement>
 
@@ -7292,20 +7352,20 @@
     </CommandPlacement>
 
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate" priority="0x060A">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupUpdate" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare" priority="0x060B">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupCompare" priority="0x0610">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupRegister" priority="0x060B">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupRegister" priority="0x0620">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupAddToSolution" priority="0x060C">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupAddToSolution" priority="0x0630">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupDescription" priority="0x060E">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="folderMenuProject_GroupDescription" priority="0x0640">
       <Parent guid="guidGroupAndMenuSet" id="folderMenuProject" />
     </CommandPlacement>
 
@@ -8401,7 +8461,7 @@
 
 
 
-    <CommandPlacement guid="guidCommandSet" id="CodeReportUpdateCommandId" priority="0x0100">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupUpdate_MenuConnectionDyn" priority="0x0100">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupUpdate" />
     </CommandPlacement>
 
@@ -8456,7 +8516,9 @@
     </CommandPlacement>
 
 
-
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupCreate_MenuConnectionDyn" priority="0x0100">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupCreate" />
+    </CommandPlacement>
 
 
     <CommandPlacement guid="guidCommandSet" id="CodeReportExplorerCommandId" priority="0x0102">
@@ -9118,8 +9180,12 @@
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupLastLink" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="FileReportUpdateCommandId" priority="0x0110">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupUpdate_MenuConnectionDyn" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupUpdate" />
+    </CommandPlacement>
+      
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupCreate_MenuConnectionDyn" priority="0x0110">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupCreate" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenInWebDyn" priority="0x0110">
@@ -10144,6 +10210,20 @@
     <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlUpdateSavedQueryInConnectionGroupCommandId" priority="0x108">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupUpdateSavedQuery_MenuConnectionDyn_Group" />
     </CommandPlacement>
+    
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupUpdate_MenuConnectionDyn_Group" priority="0x0103">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupUpdate_MenuConnectionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeReportUpdateCommandId" priority="0x0103">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupUpdate_MenuConnectionDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupCreate_MenuConnectionDyn_Group" priority="0x0103">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupCreate_MenuConnectionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeReportCreateCommandId" priority="0x0103">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupCreate_MenuConnectionDyn_Group" />
+    </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceOriginalBodyText_MenuConnectionDyn_Group" priority="0x0103">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupShowDifferenceOriginalBodyText_MenuConnectionDyn" />
@@ -10568,6 +10648,20 @@
 
     <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceAddToSolutionInConnectionCommandId" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupAddToSolution_MenuAddToSolution_GroupConnectionDyn" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupUpdate_MenuConnectionDyn_Group" priority="0x0110">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupUpdate_MenuConnectionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileReportUpdateCommandId" priority="0x0110">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupUpdate_MenuConnectionDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupCreate_MenuConnectionDyn_Group" priority="0x0110">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupCreate_MenuConnectionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileReportCreateCommandId" priority="0x0110">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupCreate_MenuConnectionDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenInWebDyn_Group" priority="0x0110">
@@ -11103,7 +11197,10 @@
 
 
       <IDSymbol name="codeMenuReport" value="0x100B" />
+      
       <IDSymbol name="codeMenuReport_GroupUpdate" value="0x10FE" />
+      <IDSymbol name="codeMenuReport_GroupUpdate_MenuConnectionDyn" value="0x132C" />
+      <IDSymbol name="codeMenuReport_GroupUpdate_MenuConnectionDyn_Group" value="0x132D" />
 
       <IDSymbol name="codeMenuReport_GroupShowDifferenceOriginalBodyText" value="0x100C" />
 
@@ -11136,6 +11233,10 @@
 
       <IDSymbol name="codeMenuReport_GroupShowDifferenceBodyTextMultiple_MenuThreeWayDyn" value="0x1211" />
       <IDSymbol name="codeMenuReport_GroupShowDifferenceBodyTextMultiple_MenuThreeWayDyn_Group" value="0x1212" />
+
+      <IDSymbol name="codeMenuReport_GroupCreate" value="0x1330" />
+      <IDSymbol name="codeMenuReport_GroupCreate_MenuConnectionDyn" value="0x1331" />
+      <IDSymbol name="codeMenuReport_GroupCreate_MenuConnectionDyn_Group" value="0x1332" />
 
       <IDSymbol name="codeMenuReport_GroupLastLink" value="0x100D" />
       <IDSymbol name="codeMenuReport_GroupExplorer" value="0x100E" />
@@ -11482,7 +11583,11 @@
       <IDSymbol name="fileMenuWebResource_GroupLastLink" value="0x1027" />
 
       <IDSymbol name="fileMenuReport" value="0x1105" />
+      
       <IDSymbol name="fileMenuReport_GroupUpdate" value="0x1028" />
+      <IDSymbol name="fileMenuReport_GroupUpdate_MenuConnectionDyn" value="0x132E" />
+      <IDSymbol name="fileMenuReport_GroupUpdate_MenuConnectionDyn_Group" value="0x132F" />
+      
       <IDSymbol name="fileMenuReport_GroupOpenInWeb" value="0x107F" />
 
       <IDSymbol name="fileMenuReport_GroupOpenInWeb_MenuOpenInWebDyn" value="0x1154" />
@@ -11496,6 +11601,10 @@
 
       <IDSymbol name="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn" value="0x115A" />
       <IDSymbol name="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn_Group" value="0x115B" />
+
+      <IDSymbol name="fileMenuReport_GroupCreate" value="0x1333" />
+      <IDSymbol name="fileMenuReport_GroupCreate_MenuConnectionDyn" value="0x1334" />
+      <IDSymbol name="fileMenuReport_GroupCreate_MenuConnectionDyn_Group" value="0x1335" />
 
       <IDSymbol name="fileMenuReport_GroupExplorer" value="0x10FD" />
 
@@ -12364,8 +12473,14 @@
       <IDSymbol name="FolderAddGlobalOptionSetFileInConnectionCommandId" value="9350" />
       <IDSymbol name="FolderAddSdkMessageRequestFileInConnectionCommandId" value="9700" />
       <IDSymbol name="FolderAddSystemFormJavaScriptFileInConnectionCommandId" value="9750" />
+
+      <IDSymbol name="CodeReportUpdateCommandId" value="9800" />
+      <IDSymbol name="FileReportUpdateCommandId" value="9850" />
+
+      <IDSymbol name="CodeReportCreateCommandId" value="9900" />
+      <IDSymbol name="FileReportCreateCommandId" value="9950" />
       
-      <!-- 9800 -->
+      <!-- 10000 -->
 
     </GuidSymbol>
 
@@ -12457,7 +12572,7 @@
 
 
 
-      <IDSymbol name="CodeReportUpdateCommandId" value="0x2128" />
+      
 
       <IDSymbol name="CodeCSharpProjectUpdatePluginAssemblyCommandId" value="0x2192" />
 
@@ -12648,7 +12763,7 @@
 
 
 
-      <IDSymbol name="FileReportUpdateCommandId" value="0x2129" />
+      
 
       <IDSymbol name="FileReportExplorerCommandId" value="0x2055" />
 
@@ -12915,7 +13030,7 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x132C -->
+    <!-- 0x1336 -->
 
     <!-- Commands -->
     <!-- 0x21A4 -->
