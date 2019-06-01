@@ -44,9 +44,8 @@
                 
                 <Separator x:Uid="controlChangeEntityAttribute"/>
                 <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Report Attribute" >
+                    <MenuItem Header="Body Text" Click="mIUpdateReportBodyText_Click"/>
                     <MenuItem Header="Default Filter" Click="mIUpdateReportDefaultFilter_Click"/>
-                    <MenuItem Header="Custom Report Xml" Click="mIUpdateReportCustomReportXml_Click"/>
-                    <MenuItem Header="ScheduleXml" Click="mIUpdateReportScheduleXml_Click"/>
                 </MenuItem>
                 
                 <Separator/>
@@ -122,6 +121,7 @@
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
                     <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                    <Setter Property="ToolTip" Value="{Binding Description}" />
                 </Style>
             </DataGrid.ItemContainerStyle>
             <DataGrid.Columns>
@@ -135,6 +135,12 @@
                 <DataGridTextColumn Header="Viewable By" Width="100" Binding="{Binding IsPersonal}" />
 
                 <DataGridTextColumn Header="Owner" Width="100" Binding="{Binding Owner}" />
+
+                <DataGridCheckBoxColumn Width="Auto" Binding="{Binding HasDescription, Mode=OneTime}">
+                    <DataGridCheckBoxColumn.Header>
+                        <Label Content="D" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" Padding="0" ToolTip="Description" />
+                    </DataGridCheckBoxColumn.Header>
+                </DataGridCheckBoxColumn>
 
             </DataGrid.Columns>
         </DataGrid>
@@ -190,9 +196,8 @@
                             
                             <Separator x:Uid="controlChangeEntityAttribute"/>
                             <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change Report Attribute" >
+                                <MenuItem Header="Body Text" Click="mIUpdateReportBodyText_Click"/>
                                 <MenuItem Header="Default Filter" Click="mIUpdateReportDefaultFilter_Click"/>
-                                <MenuItem Header="Custom Report Xml" Click="mIUpdateReportCustomReportXml_Click"/>
-                                <MenuItem Header="ScheduleXml" Click="mIUpdateReportScheduleXml_Click"/>
                             </MenuItem>
                             
                             <Separator/>

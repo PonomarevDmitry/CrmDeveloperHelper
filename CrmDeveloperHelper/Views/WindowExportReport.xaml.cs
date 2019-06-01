@@ -189,6 +189,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             , Report.Schema.Attributes.reporttypecode
                             , Report.Schema.Attributes.filename
                             , Report.Schema.Attributes.iscustomizable
+                            , Report.Schema.Attributes.description
                         ));
                 }
             }
@@ -213,6 +214,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             public string Owner => Report.OwnerId?.Name;
 
             public string IsPersonal { get; }
+
+            public string Description => Report.Description;
+
+            public bool HasDescription => !string.IsNullOrEmpty(Report.Description);
 
             public Report Report { get; }
 
@@ -1050,6 +1055,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private void mIUpdateReportBodyText_Click(object sender, RoutedEventArgs e)
+        {
+            var entity = GetSelectedEntity();
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.bodytext, Report.Schema.Headers.bodytext, PerformUpdateEntityField);
+        }
+
         private void mIUpdateReportDefaultFilter_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
@@ -1059,31 +1076,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.defaultfilter, Report.Schema.Headers.defaultfilter, PerformExportXmlToFile);
-        }
-
-        private void mIUpdateReportCustomReportXml_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.customreportxml, Report.Schema.Headers.customreportxml, PerformExportXmlToFile);
-        }
-
-        private void mIUpdateReportScheduleXml_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.schedulexml, Report.Schema.Headers.schedulexml, PerformExportXmlToFile);
+            ExecuteActionEntity(entity.Id, entity.Name, entity.FileName, Report.Schema.Attributes.defaultfilter, Report.Schema.Headers.defaultfilter, PerformUpdateEntityField);
         }
 
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)

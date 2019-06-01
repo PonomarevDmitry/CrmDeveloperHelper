@@ -108,7 +108,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (this._lastLinkedReport.HasValue && string.IsNullOrEmpty(txtBLastLink.Text))
                 {
-                    var report = await repository.GetByIdAsync(this._lastLinkedReport.Value, new ColumnSet(Report.Schema.Attributes.name, Report.Schema.Attributes.filename, Report.Schema.Attributes.reporttypecode));
+                    var report = await repository.GetByIdAsync(this._lastLinkedReport.Value
+                        , new ColumnSet(
+                            Report.Schema.Attributes.name
+                            , Report.Schema.Attributes.ispersonal
+                            , Report.Schema.Attributes.ownerid
+                            , Report.Schema.Attributes.reporttypecode
+                            , Report.Schema.Attributes.filename
+                            , Report.Schema.Attributes.iscustomizable
+                            , Report.Schema.Attributes.description
+                        ));
 
                     if (report != null)
                     {
@@ -143,13 +152,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             public string Name => Report.Name;
 
-            public string FileName => Report.Name;
+            public string FileName => Report.FileName;
 
             public string ReportTypeCode { get; }
 
             public string Owner => Report.OwnerId?.Name;
 
             public string IsPersonal { get; }
+
+            public string Description => Report.Description;
+
+            public bool HasDescription => !string.IsNullOrEmpty(Report.Description);
 
             public Report Report { get; }
 
