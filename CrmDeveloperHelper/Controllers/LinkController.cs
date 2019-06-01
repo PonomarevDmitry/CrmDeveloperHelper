@@ -260,62 +260,61 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             foreach (var selectedFile in selectedFiles)
             {
-                if (File.Exists(selectedFile.FilePath))
-                {
-                    var idLastLink = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
-
-                    bool? dialogResult = null;
-                    Guid? selectedWebResourceId = null;
-
-                    bool showNext = false;
-
-                    var t = new Thread((ThreadStart)(() =>
-                    {
-                        try
-                        {
-                            var form = new Views.WindowWebResourceSelectOrCreate(this._iWriteToOutput, service, connectionData, selectedFile, idLastLink);
-                            form.ShowSkipButton();
-
-                            dialogResult = form.ShowDialog();
-                            selectedWebResourceId = form.SelectedWebResourceId;
-                            showNext = form.ShowNext;
-                        }
-                        catch (Exception ex)
-                        {
-                            DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                        }
-                    }));
-                    t.SetApartmentState(ApartmentState.STA);
-                    t.Start();
-
-                    t.Join();
-
-                    if (dialogResult.GetValueOrDefault())
-                    {
-                        if (selectedWebResourceId.HasValue)
-                        {
-                            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceIsSelected);
-
-                            var webresource = await webResourceRepository.GetByIdAsync(selectedWebResourceId.Value);
-
-                            connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
-
-                            connectionData.Save();
-                        }
-                        else
-                        {
-                            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceNotFoundedByNameFormat1, selectedFile.Name);
-                        }
-                    }
-                    else if (!showNext)
-                    {
-                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatingLastLinkWasCanceled);
-                        return;
-                    }
-                }
-                else
+                if (!File.Exists(selectedFile.FilePath))
                 {
                     this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                    continue;
+                }
+
+                var idLastLink = connectionData.GetLastLinkForFile(selectedFile.FriendlyFilePath);
+
+                bool? dialogResult = null;
+                Guid? selectedWebResourceId = null;
+
+                bool showNext = false;
+
+                var t = new Thread((ThreadStart)(() =>
+                {
+                    try
+                    {
+                        var form = new Views.WindowWebResourceSelectOrCreate(this._iWriteToOutput, service, connectionData, selectedFile, idLastLink);
+                        form.ShowSkipButton();
+
+                        dialogResult = form.ShowDialog();
+                        selectedWebResourceId = form.SelectedWebResourceId;
+                        showNext = form.ShowNext;
+                    }
+                    catch (Exception ex)
+                    {
+                        DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                    }
+                }));
+                t.SetApartmentState(ApartmentState.STA);
+                t.Start();
+
+                t.Join();
+
+                if (dialogResult.GetValueOrDefault())
+                {
+                    if (selectedWebResourceId.HasValue)
+                    {
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceIsSelected);
+
+                        var webresource = await webResourceRepository.GetByIdAsync(selectedWebResourceId.Value);
+
+                        connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
+
+                        connectionData.Save();
+                    }
+                    else
+                    {
+                        this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.WebResourceNotFoundedByNameFormat1, selectedFile.Name);
+                    }
+                }
+                else if (!showNext)
+                {
+                    this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CreatingLastLinkWasCanceled);
+                    return;
                 }
             }
         }
@@ -352,7 +351,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            if (File.Exists(selectedFile.FilePath))
+            if (!File.Exists(selectedFile.FilePath))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
                 return;
