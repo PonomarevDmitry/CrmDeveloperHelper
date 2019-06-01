@@ -787,6 +787,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 tabSpacer
                 , _commonConfig.GenerateSchemaEntityOptionSetsWithDependentComponents
                 , _commonConfig.GenerateSchemaIntoSchemaClass
+                , _commonConfig.GenerateSchemaGlobalOptionSet
             );
 
             return result;

@@ -672,6 +672,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             tabSpacer
                             , commonConfig.GenerateSchemaEntityOptionSetsWithDependentComponents
                             , commonConfig.GenerateSchemaIntoSchemaClass
+                            , commonConfig.GenerateSchemaGlobalOptionSet
                         );
 
                         string operation = string.Format(Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, connectionData?.Name, entityMetadata.LogicalName);

@@ -171,6 +171,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 await GenerateOptionSetEnums(new[] { attrib }, attrib.OptionSet);
             }
 
+            if(_config.GenerateGlobalOptionSets)
             {
                 var groups = picklists.Where(p => p.OptionSet.IsGlobal.GetValueOrDefault()).GroupBy(p => p.OptionSet.MetadataId, (k, g) => new { g.First().OptionSet, Attributes = g }).OrderBy(e => e.OptionSet.Name);
 
