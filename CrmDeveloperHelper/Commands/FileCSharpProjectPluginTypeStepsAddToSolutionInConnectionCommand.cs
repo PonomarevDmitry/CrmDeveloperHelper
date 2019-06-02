@@ -132,7 +132,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     if (pluginTypeNames.Any())
                     {
-                        helper.HandleAddingPluginAssemblyToSolutionByProjectCommand(connectionData, null, true, pluginTypeNames.ToArray());
+                        helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(connectionData, null, true, pluginTypeNames.ToArray());
                     }
                 }
             }
