@@ -3,138 +3,163 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" d:DesignHeight="418" d:DesignWidth="882">
+             mc:Ignorable="d" d:DesignHeight="418" d:DesignWidth="882">
     <UserControl.Resources>
-        <ContextMenu x:Key="listContextMenuEntity" Opened="ContextMenu_Opened">
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Views/StyleWindows.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
-            <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
+            <ContextMenu x:Key="listContextMenuEntity" Opened="ContextMenu_Opened">
 
-            <Separator/>
-            <MenuItem Header="Open Entity Metadata Window" Click="mIOpenEntityMetadataWindow_Click"/>
+                <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
 
-            <Separator/>
-            <MenuItem Header="Clipboard">
-                <MenuItem Header="Copy Entity Id" Click="mICopyEntityId_Click"/>
-                <MenuItem Header="Copy Entity Name" Click="mICopyEntityName_Click"/>
-                <MenuItem Header="Copy Entity Url" Click="mICopyEntityUrl_Click"/>
-            </MenuItem>
-
-            <Separator/>
-            <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
-
-            <Separator x:Uid="contMnAddToSolution" />
-            <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution"  />
-            <MenuItem x:Uid="contMnAddToSolution" Header="Add to Crm Solution" Click="AddToCrmSolutionEntity_Click" />
-
-            <Separator/>
-            <MenuItem Header="Change Entity">
-                <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
-                
                 <Separator/>
-                <MenuItem Header="Assign Entity to User" Click="mIAssignEntityToUser_Click"/>
-                <MenuItem Header="Assign Entity to Team" Click="mIAssignEntityToTeam_Click"/>
-                
+                <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click"/>
+
                 <Separator/>
-                <MenuItem Header="Set State Entity" Click="mISetStateEntity_Click"/>
-                
+                <MenuItem Header="Open Entity Explorer" Click="mIOpenEntityExplorer_Click"/>
+
                 <Separator/>
-                <MenuItem Header="Execute Workflow on Entity" Click="mIExecuteWorkflowOnEntity_Click"/>
-                
+                <MenuItem Header="Clipboard">
+                    <MenuItem Header="Copy Entity Id" Click="mICopyEntityId_Click"/>
+                    <MenuItem Header="Copy Entity Name" Click="mICopyEntityName_Click"/>
+                    <MenuItem Header="Copy Entity Url" Click="mICopyEntityUrl_Click"/>
+                </MenuItem>
+
                 <Separator/>
-                <MenuItem Header="Delete Entity" Click="mIDeleteEntity_Click"/>
-            </MenuItem>
+                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
-        </ContextMenu>
+                <Separator x:Uid="contMnAddToSolution" />
+                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution"  />
+                <MenuItem x:Uid="contMnAddToSolution" Header="Add to Crm Solution" Click="AddToCrmSolutionEntity_Click" />
 
-        <ContextMenu x:Key="listContextMenuEntityReference" Opened="ContextMenu_Opened">
-            <MenuItem Header="Open EntityReference Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityReferenceCustomizationInWeb_Click" />
-            <Separator/>
-            <MenuItem Header="Open EntityReference Metadata Window" Click="mIOpenEntityReferenceMetadataWindow_Click"/>
-
-            <Separator/>
-            <MenuItem Header="Clipboard EntityReference">
-                <MenuItem Header="Copy EntityReference Id" Click="mICopyEntityReferenceId_Click"/>
-                <MenuItem Header="Copy EntityReference Name" Click="mICopyEntityReferenceName_Click"/>
-                <MenuItem Header="Copy EntityReference EntityName" Click="mICopyEntityReferenceEntityName_Click"/>
-                <MenuItem Header="Copy EntityReference Url" Click="mICopyEntityReferenceUrl_Click"/>
-            </MenuItem>
-
-            <Separator/>
-            <MenuItem Header="Create EntityReference Description" Click="mICreateEntityReferenceDescription_Click"/>
-
-            <Separator x:Uid="contMnAddToSolutionEntityReference" />
-            <MenuItem x:Uid="contMnAddToSolutionEntityReferenceLast" Header="Add EntityReference to Last Crm Solution"  />
-            <MenuItem x:Uid="contMnAddToSolutionEntityReference" Header="Add EntityReference to Crm Solution" Click="AddToCrmSolutionEntityReference_Click" />
-
-            <Separator/>
-            <MenuItem Header="Change EntityReference in Editor" Click="mIChangeEntityReferenceInEditor_Click"/>
-
-            <Separator/>
-            <MenuItem Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
-
-            <Separator/>
-            <MenuItem Header="Open Entity Metadata Window" Click="mIOpenEntityMetadataWindow_Click"/>
-
-            <Separator/>
-            <MenuItem Header="Clipboard">
-                <MenuItem Header="Copy Entity Id" Click="mICopyEntityId_Click"/>
-                <MenuItem Header="Copy Entity Name" Click="mICopyEntityName_Click"/>
-                <MenuItem Header="Copy Entity Url" Click="mICopyEntityUrl_Click"/>
-            </MenuItem>
-
-            <Separator/>
-            <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
-
-            <Separator x:Uid="contMnAddToSolution" />
-            <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution"  />
-            <MenuItem x:Uid="contMnAddToSolution" Header="Add to Crm Solution" Click="AddToCrmSolutionEntity_Click" />
-
-            <Separator/>
-            <MenuItem Header="Change Entity">
-                <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
-                
                 <Separator/>
-                <MenuItem Header="Assign Entity to User" Click="mIAssignEntityToUser_Click"/>
-                <MenuItem Header="Assign Entity to Team" Click="mIAssignEntityToTeam_Click"/>
-                
+                <MenuItem Header="Change Entity">
+                    <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
+
+                    <Separator/>
+                    <MenuItem Header="Assign Entity to User" Click="mIAssignEntityToUser_Click"/>
+                    <MenuItem Header="Assign Entity to Team" Click="mIAssignEntityToTeam_Click"/>
+
+                    <Separator/>
+                    <MenuItem Header="Set State Entity" Click="mISetStateEntity_Click"/>
+
+                    <Separator/>
+                    <MenuItem Header="Execute Workflow on Entity" Click="mIExecuteWorkflowOnEntity_Click"/>
+
+                    <Separator/>
+                    <MenuItem Header="Delete Entity" Click="mIDeleteEntity_Click"/>
+                </MenuItem>
+
+            </ContextMenu>
+
+            <ContextMenu x:Key="listContextMenuEntityReference" Opened="ContextMenu_Opened">
+                <MenuItem Header="Open EntityReference Customization in Web" Click="mIOpenEntityReferenceCustomizationInWeb_Click" />
+
                 <Separator/>
-                <MenuItem Header="Set State Entity" Click="mISetStateEntity_Click"/>
-                
+                <MenuItem Header="Open EntityReference List in Web" Click="mIOpenEntityReferenceListInWeb_Click"/>
+
                 <Separator/>
-                <MenuItem Header="Execute Workflow on Entity" Click="mIExecuteWorkflowOnEntity_Click"/>
-                
+                <MenuItem Header="Open EntityReference Explorer" Click="mIOpenEntityReferenceExplorer_Click"/>
+
                 <Separator/>
-                <MenuItem Header="Delete Entity" Click="mIDeleteEntity_Click"/>
-            </MenuItem>
-        </ContextMenu>
+                <MenuItem Header="Clipboard EntityReference">
+                    <MenuItem Header="Copy EntityReference Id" Click="mICopyEntityReferenceId_Click"/>
+                    <MenuItem Header="Copy EntityReference Name" Click="mICopyEntityReferenceName_Click"/>
+                    <MenuItem Header="Copy EntityReference EntityName" Click="mICopyEntityReferenceEntityName_Click"/>
+                    <MenuItem Header="Copy EntityReference Url" Click="mICopyEntityReferenceUrl_Click"/>
+                </MenuItem>
+
+                <Separator/>
+                <MenuItem Header="Create EntityReference Description" Click="mICreateEntityReferenceDescription_Click"/>
+
+                <Separator x:Uid="contMnAddToSolutionEntityReference" />
+                <MenuItem x:Uid="contMnAddToSolutionEntityReferenceLast" Header="Add EntityReference to Last Crm Solution"  />
+                <MenuItem x:Uid="contMnAddToSolutionEntityReference" Header="Add EntityReference to Crm Solution" Click="AddToCrmSolutionEntityReference_Click" />
+
+                <Separator/>
+                <MenuItem Header="Change EntityReference in Editor" Click="mIChangeEntityReferenceInEditor_Click"/>
+
+                <Separator/>
+                <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
+
+                <Separator/>
+                <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click"/>
+
+                <Separator/>
+                <MenuItem Header="Open Entity Explorer" Click="mIOpenEntityExplorer_Click"/>
+
+                <Separator/>
+                <MenuItem Header="Clipboard">
+                    <MenuItem Header="Copy Entity Id" Click="mICopyEntityId_Click"/>
+                    <MenuItem Header="Copy Entity Name" Click="mICopyEntityName_Click"/>
+                    <MenuItem Header="Copy Entity Url" Click="mICopyEntityUrl_Click"/>
+                </MenuItem>
+
+                <Separator/>
+                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+
+                <Separator x:Uid="contMnAddToSolution" />
+                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution"  />
+                <MenuItem x:Uid="contMnAddToSolution" Header="Add to Crm Solution" Click="AddToCrmSolutionEntity_Click" />
+
+                <Separator/>
+                <MenuItem Header="Change Entity">
+                    <MenuItem Header="Change Entity in Editor" Click="mIChangeEntityInEditor_Click"/>
+
+                    <Separator/>
+                    <MenuItem Header="Assign Entity to User" Click="mIAssignEntityToUser_Click"/>
+                    <MenuItem Header="Assign Entity to Team" Click="mIAssignEntityToTeam_Click"/>
+
+                    <Separator/>
+                    <MenuItem Header="Set State Entity" Click="mISetStateEntity_Click"/>
+
+                    <Separator/>
+                    <MenuItem Header="Execute Workflow on Entity" Click="mIExecuteWorkflowOnEntity_Click"/>
+
+                    <Separator/>
+                    <MenuItem Header="Delete Entity" Click="mIDeleteEntity_Click"/>
+                </MenuItem>
+            </ContextMenu>
+
+        </ResourceDictionary>
     </UserControl.Resources>
     
-    <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True">
-        
-        <StatusBar VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection" VerticalAlignment="Center"/>
-            <ComboBox x:Name="cmBCurrentConnection" Height="20" IsReadOnly="True" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
-            <Button x:Name="stBtnExecuteFetchXml" Content="Execute Fetch Xml" Click="btnExecuteFetchXml_Click" Margin="18,3" />
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-            <StatusBarItem x:Name="stBIStatus" Content="" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-        </StatusBar>
-        
-        <TabControl x:Name="tabControl" DockPanel.Dock="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*" />
+
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TabControl x:Name="tabControl" Grid.Row="0">
             
             <TabItem x:Name="tbFetchXml" IsSelected="False" Header="Fetch Xml" >
-                <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="true">
-                    <ToolBar VerticalAlignment="Top" Height="30" DockPanel.Dock="Top">
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+
+                        <RowDefinition Height="100*" />
+                    </Grid.RowDefinitions>
+
+                    <ToolBar Grid.Row="0">
                         <Button x:Name="btnExecuteFetchXml" Content="Execute Fetch Xml" Click="btnExecuteFetchXml_Click"/>
+                        
                         <Separator/>
                         <Button Content="Copy JavaScript FetchXml to Clipboard" Click="btnCopyJavaScriptToClipboardCode_Click"/>
                     </ToolBar>
-                    <Grid Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Bottom" Margin="5">
+
+                    <Grid Grid.Row="1" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition x:Name="columnParameters" Width="50*"/>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition x:Name="columnFetchText" Width="50*"/>
                         </Grid.ColumnDefinitions>
-                        <GroupBox x:Name="grBParameters" Grid.Column="0" Header="Parameters">
+
+                        <GroupBox Grid.Column="0" Margin="5" x:Name="grBParameters" Header="Parameters">
                             <DataGrid x:Name="dGrParameters" ColumnHeaderHeight="30" ItemsSource="{Binding Path=SelectedItem.FetchXmlRequestParameterList}" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Name" Width="Auto" Binding="{Binding Name}"/>
@@ -143,22 +168,32 @@
                                 </DataGrid.Columns>
                             </DataGrid>
                         </GroupBox>
-                        <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
-                        <GroupBox Grid.Column="2" Header="Fetch Xml Text">
-                            <TextBox x:Name="txtBFetchXml" IsReadOnly="True" IsReadOnlyCaretVisible="True" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
+                        
+                        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        
+                        <GroupBox Grid.Column="2" Margin="5" Header="Fetch Xml Text">
+                            <TextBox x:Name="txtBFetchXml" IsReadOnly="True" IsReadOnlyCaretVisible="True" AcceptsReturn="True" AcceptsTab="True" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
                         </GroupBox>
                     </Grid>
-                </DockPanel>
+                </Grid>
             </TabItem>
             
             <TabItem x:Name="tbErrorText" IsEnabled="False" Visibility="Collapsed" IsSelected="False" Header="Error Text">
-                <TextBox x:Name="txtBErrorText" Margin="5" IsReadOnly="True" IsReadOnlyCaretVisible="True" AcceptsReturn="True" AcceptsTab="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
+                <TextBox x:Name="txtBErrorText" Margin="5" IsReadOnly="True" IsReadOnlyCaretVisible="True" AcceptsReturn="True" AcceptsTab="True" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" />
             </TabItem>
             
             <TabItem x:Name="tbResults" IsEnabled="False" Visibility="Collapsed" IsSelected="False" Header="Results">
-                <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="true">
-                    <ToolBar VerticalAlignment="Top" Height="30" DockPanel.Dock="Top">
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+
+                        <RowDefinition Height="100*" />
+                    </Grid.RowDefinitions>
+
+                    <ToolBar Grid.Row="0">
                         <Button x:Name="btnExecuteFetchXml2" Content="Execute Fetch Xml" Click="btnExecuteFetchXml_Click"/>
+                        
                         <Separator/>
                         <Button Content="Copy JavaScript FetchXml to Clipboard" Click="btnCopyJavaScriptToClipboardCode_Click"/>
 
@@ -166,7 +201,7 @@
                         <Button x:Name="btnCreateEntityInstance" Content="Create Entity Instance" Click="btnCreateEntityInstance_Click"/>
 
                         <Separator/>
-                        <Menu x:Name="menuSelectedEntities" VerticalAlignment="Stretch" Background="{x:Null}">
+                        <Menu x:Name="menuSelectedEntities" Background="{x:Null}">
                             <MenuItem Header="Selected Entities" SubmenuOpened="SelectedEntities_SubmenuOpened">
                                 <MenuItem Header="Bulk Edit Selected Entities" Click="miBulkEditSelectedEntites_Click"/>
                                 
@@ -190,7 +225,7 @@
                         </Menu>
 
                         <Separator/>
-                        <Menu x:Name="menuAllEntities" VerticalAlignment="Stretch" Background="{x:Null}">
+                        <Menu x:Name="menuAllEntities" Background="{x:Null}">
                             <MenuItem Header="All Entities" SubmenuOpened="AllEntities_SubmenuOpened">
                                 <MenuItem Header="Bulk Edit All Entities" Click="miBulkEditAllEntites_Click"/>
                                 
@@ -214,7 +249,7 @@
                         </Menu>
 
                         <Separator/>
-                        <Menu x:Name="menuTransferToConnection" VerticalAlignment="Stretch" Background="{x:Null}">
+                        <Menu x:Name="menuTransferToConnection" Background="{x:Null}">
                             <MenuItem x:Name="mITransferToConnection" Header="Transfer to Connection" SubmenuOpened="mITransferToConnection_SubmenuOpened">
                                 <MenuItem x:Name="mITransferSelectedEntitiesToConnection" Header="Transfer Selected Entities to Connection" />
                                 
@@ -224,7 +259,7 @@
                         </Menu>
                     </ToolBar>
                     
-                    <DataGrid x:Name="dGrResults" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="Cell" MouseDoubleClick="dGrResults_MouseDoubleClick" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+                    <DataGrid x:Name="dGrResults" Grid.Row="1" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="Cell" MouseDoubleClick="dGrResults_MouseDoubleClick" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
                         <DataGrid.Resources>
                             <Style TargetType="Hyperlink">
                                 <EventSetter Event="Click" Handler="dGrResults_Hyperlink_Click"/>
@@ -242,9 +277,17 @@
                             </Style>
                         </DataGrid.ItemContainerStyle>
                     </DataGrid>
-                </DockPanel>
+                </Grid>
             </TabItem>
-            
+
         </TabControl>
-    </DockPanel>
+
+        <StatusBar Grid.Row="1">
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection"/>
+            <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
+            <Button x:Name="stBtnExecuteFetchXml" Content="Execute Fetch Xml" Click="btnExecuteFetchXml_Click" Margin="20,3" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>
+            <StatusBarItem x:Name="stBIStatus" Content=""/>
+        </StatusBar>
+    </Grid>
 </UserControl>

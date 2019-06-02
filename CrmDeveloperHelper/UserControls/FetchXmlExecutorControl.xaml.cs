@@ -308,6 +308,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             var service = await GetServiceAsync(connectionData);
 
+            if (service == null)
+            {
+                return;
+            }
+
             try
             {
                 var request = new RetrieveMultipleRequest()
@@ -1060,7 +1065,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             this.ConnectionData?.OpenEntityMetadataInWeb(entity.LogicalName);
         }
 
-        private async void mIOpenEntityMetadataWindow_Click(object sender, RoutedEventArgs e)
+        private void mIOpenEntityListInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            if (!TryFindEntityFromDataRowView(e, out var entity))
+            {
+                return;
+            }
+
+            this.ConnectionData?.OpenEntityInstanceListInWeb(entity.LogicalName);
+        }
+
+        private async void mIOpenEntityExplorer_Click(object sender, RoutedEventArgs e)
         {
             if (!TryFindEntityFromDataRowView(e, out var entity))
             {
@@ -1070,6 +1085,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             if (this.ConnectionData != null)
             {
                 var service = await GetServiceAsync(this.ConnectionData);
+
+                if (service == null)
+                {
+                    return;
+                }
 
                 var commonConfig = CommonConfiguration.Get();
 
@@ -1124,6 +1144,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             if (this.ConnectionData != null)
             {
                 var service = await GetServiceAsync(this.ConnectionData);
+
+                if (service == null)
+                {
+                    return;
+                }
 
                 var entityFull = service.RetrieveByQuery<Entity>(entity.LogicalName, entity.Id, new ColumnSet(true));
 
@@ -1185,7 +1210,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             this.ConnectionData?.OpenEntityMetadataInWeb(entityReferenceView.LogicalName);
         }
 
-        private async void mIOpenEntityReferenceMetadataWindow_Click(object sender, RoutedEventArgs e)
+        private void mIOpenEntityReferenceListInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            if (!TryFindEntityReferenceViewFromRow(e, out var entityReferenceView))
+            {
+                return;
+            }
+
+            this.ConnectionData?.OpenEntityInstanceListInWeb(entityReferenceView.LogicalName);
+        }
+
+        private async void mIOpenEntityReferenceExplorer_Click(object sender, RoutedEventArgs e)
         {
             if (!TryFindEntityReferenceViewFromRow(e, out var entityReferenceView))
             {
@@ -1195,6 +1230,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             if (this.ConnectionData != null)
             {
                 var service = await GetServiceAsync(this.ConnectionData);
+
+                if (service == null)
+                {
+                    return;
+                }
 
                 var commonConfig = CommonConfiguration.Get();
 
@@ -1257,6 +1297,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             if (this.ConnectionData != null)
             {
                 var service = await GetServiceAsync(this.ConnectionData);
+
+                if (service == null)
+                {
+                    return;
+                }
 
                 var entityFull = service.RetrieveByQuery<Entity>(entityReferenceView.LogicalName, entityReferenceView.Id, new ColumnSet(true));
 
@@ -1489,6 +1534,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             var service = await GetServiceAsync(this.ConnectionData);
 
+            if (service == null)
+            {
+                return;
+            }
+
             var repository = new WorkflowRepository(service);
 
             Func<string, Task<IEnumerable<Workflow>>> getter = (string filter) => repository.GetListAsync(
@@ -1642,6 +1692,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             var service = await GetServiceAsync(this.ConnectionData);
 
+            if (service == null)
+            {
+                return;
+            }
+
             var repository = new SystemUserRepository(service);
 
             Func<string, Task<IEnumerable<SystemUser>>> getter = (string filter) => repository.GetUsersAsync(filter
@@ -1788,6 +1843,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             var service = await GetServiceAsync(this.ConnectionData);
 
+            if (service == null)
+            {
+                return;
+            }
+
             var repository = new TeamRepository(service);
 
             Func<string, Task<IEnumerable<Team>>> getter = (string filter) => repository.GetOwnerTeamsAsync(filter
@@ -1871,6 +1931,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
 
             var service = await GetServiceAsync(this.ConnectionData);
 
+            if (service == null)
+            {
+                return;
+            }
+
             var commonConfig = CommonConfiguration.Get();
 
             WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, _entityCollection.EntityName, Guid.Empty);
@@ -1896,6 +1961,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             {
                 var service = await GetServiceAsync(this.ConnectionData);
 
+                if (service == null)
+                {
+                    return;
+                }
+
                 var commonConfig = CommonConfiguration.Get();
 
                 WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, entity.LogicalName, entity.Id);
@@ -1917,6 +1987,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             if (this.ConnectionData != null)
             {
                 var service = await GetServiceAsync(this.ConnectionData);
+
+                if (service == null)
+                {
+                    return;
+                }
 
                 var commonConfig = CommonConfiguration.Get();
 
@@ -1985,6 +2060,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
 
             var service = await GetServiceAsync(this.ConnectionData);
+
+            if (service == null)
+            {
+                return;
+            }
 
             var entitiesIds = entityIds.Where(i => i != Guid.Empty).Distinct().ToList();
 
@@ -2074,6 +2154,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
 
             var service = await GetServiceAsync(this.ConnectionData);
+
+            if (service == null)
+            {
+                return;
+            }
 
             var commonConfig = CommonConfiguration.Get();
 
@@ -2246,6 +2331,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
         {
             var targetService = await GetServiceAsync(targetConnectionData);
 
+            if (targetService == null)
+            {
+                return;
+            }
+
             ToggleControls(targetService.ConnectionData, false, Properties.WindowStatusStrings.GettingEntityMetadataFormat1, _entityCollection.EntityName);
 
             EntityMetadataRepository repository = new EntityMetadataRepository(targetService);
@@ -2355,6 +2445,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             }
 
             var service = await GetServiceAsync(this.ConnectionData);
+
+            if (service == null)
+            {
+                return;
+            }
 
             string operationName = string.Format(Properties.OperationNames.DeletingEntitiesFormat2, service.ConnectionData.Name, entityName);
 
@@ -2635,6 +2730,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls
             var commonConfig = CommonConfiguration.Get();
 
             var service = await GetServiceAsync(this.ConnectionData);
+
+            if (service == null)
+            {
+                return;
+            }
 
             try
             {
