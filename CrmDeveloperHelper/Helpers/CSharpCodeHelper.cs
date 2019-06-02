@@ -48,7 +48,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 childDomain.SetData(configAssemblies, assembliesReferences.ToArray());
                 childDomain.DoCallBack(new CrossAppDomainDelegate(GetFileTypeFullNameInAppDomain));
 
-                return childDomain.GetData(configResult).ToString();
+                return childDomain.GetData(configResult)?.ToString();
             }
             catch (Exception ex)
             {
