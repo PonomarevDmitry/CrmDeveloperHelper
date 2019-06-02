@@ -107,7 +107,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var helper = DTEHelper.Create(applicationObject);
 
-                    var listFiles = helper.GetOpenedDocumentsAsDocument(FileOperations.SupportsCSharpType);
+                    var listFiles = helper.GetOpenedDocumentsAsDocument(FileOperations.SupportsCSharpType).ToList();
 
                     var pluginTypeNames = new List<string>();
 

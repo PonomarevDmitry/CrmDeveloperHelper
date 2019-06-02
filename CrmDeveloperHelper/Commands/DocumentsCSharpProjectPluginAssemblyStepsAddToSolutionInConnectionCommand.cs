@@ -108,11 +108,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var listProjects = helper.GetOpenedDocumentsAsDocument(FileOperations.SupportsCSharpType)
                                  .Where(i => i.ProjectItem?.ContainingProject != null && !string.IsNullOrEmpty(i.ProjectItem?.ContainingProject?.Name))
-                                 .Select(i => i.ProjectItem.ContainingProject.Name);
+                                 .Select(i => i.ProjectItem.ContainingProject.Name)
+                                 .ToArray()
+                                 ;
 
                     if (listProjects.Any())
                     {
-                        helper.HandleAddingPluginAssemblyProcessingStepsByProjectCommand(connectionData, null, true, listProjects.ToArray());
+                        helper.HandleAddingPluginAssemblyProcessingStepsByProjectCommand(connectionData, null, true, listProjects);
                     }
                 }
             }
