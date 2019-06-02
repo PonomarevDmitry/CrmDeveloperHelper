@@ -1370,6 +1370,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData != null)
             {
+                _sdkMessageSearchResult = null;
+
                 FillEntityNames(connectionData);
 
                 ShowExistingSdkMessageRequests();

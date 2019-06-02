@@ -769,7 +769,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.Dispatcher.Invoke(() =>
             {
-                trVMessageTree.ItemsSource = null;
                 connectionData = cmBCurrentConnection.SelectedItem as ConnectionData;
             });
 
