@@ -214,6 +214,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             , ImportJob.Schema.Attributes.completedon
                             , ImportJob.Schema.Attributes.createdon
                             , ImportJob.Schema.Attributes.createdby
+                            , ImportJob.Schema.Attributes.importcontext
+                            , ImportJob.Schema.Attributes.operationcontext
                         ));
 
                     SwitchEntityDatesToLocalTime(list);
@@ -260,10 +262,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             public string CreatedBy => ImportJob.CreatedBy?.Name;
 
+            public string ImportContext => ImportJob.ImportContext;
+
+            public string OperationContext => ImportJob.OperationContext;
+
             public ImportJob ImportJob { get; private set; }
 
-            public EntityViewItem(ImportJob ImportJob
-            )
+            public EntityViewItem(ImportJob ImportJob)
             {
                 this.ImportJob = ImportJob;
             }
@@ -578,6 +583,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             {
                                 this._iWriteToOutput.OpenFileInExcel(service.ConnectionData, filePath);
                             }
+                            else if (_commonConfig.DefaultFileAction != FileAction.None)
+                            {
+                                this._iWriteToOutput.SelectFileInFolder(service.ConnectionData, filePath);
+                            }
+                        }
+                        else if(_commonConfig.DefaultFileAction != FileAction.None)
+                        {
+                            this._iWriteToOutput.SelectFileInFolder(service.ConnectionData, filePath);
                         }
 
                         this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, service.ConnectionData.Name, ImportJob.Schema.EntityLogicalName, name, fieldTitle, filePath);

@@ -56,6 +56,10 @@
 
                 <DataGridTextColumn Header="Created By" Width="150" Binding="{Binding CreatedBy}" />
 
+                <DataGridTextColumn Header="ImportContext" Width="150" Binding="{Binding ImportContext}" />
+
+                <DataGridTextColumn Header="OperationContext" Width="150" Binding="{Binding OperationContext}" />
+
             </DataGrid.Columns>
         </DataGrid>
 
