@@ -74,7 +74,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         {
             if (Enum.IsDefined(typeof(ComponentType), componentType))
             {
-                return ((ComponentType)componentType).ToString();
+                return Helpers.EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute((ComponentType)componentType);
             }
 
             return "Unknown";
