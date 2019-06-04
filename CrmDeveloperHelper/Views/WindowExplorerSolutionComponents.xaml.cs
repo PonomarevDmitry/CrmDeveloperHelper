@@ -462,7 +462,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private SolutionComponentViewItem GetSelectedEntity()
+        private SolutionComponentViewItem GetSelectedSolutionComponent()
         {
             return this.lstVSolutionComponents.SelectedItems.OfType<SolutionComponentViewItem>().Count() == 1
                 ? this.lstVSolutionComponents.SelectedItems.OfType<SolutionComponentViewItem>().SingleOrDefault() : null;
@@ -519,7 +519,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void btnExportAll_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedSolutionComponent();
 
             if (entity == null)
             {
@@ -536,7 +536,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void mICreateEntityDescription_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedSolutionComponent();
 
             if (entity == null)
             {
@@ -600,138 +600,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             base.OnKeyDown(e);
         }
 
-        private void mIExportDependentComponents_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            ExecuteAction(entity, PerformCreatingFileWithDependentComponents);
-        }
-
-        private void mIExportRequiredComponents_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            ExecuteAction(entity, PerformCreatingFileWithRequiredComponents);
-        }
-
-        private void mIExportDependenciesForDelete_Click(object sender, RoutedEventArgs e)
-        {
-            var entity = GetSelectedEntity();
-
-            if (entity == null)
-            {
-                return;
-            }
-
-            ExecuteAction(entity, PerformCreatingFileWithDependenciesForDelete);
-        }
-
-        private async Task PerformCreatingFileWithDependentComponents(string folder, SolutionComponentViewItem solutionComponentViewItem)
-        {
-            this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Starting downloading {0} {1}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name);
-
-            var dependencyRepository = new DependencyRepository(_service);
-
-            var descriptorHandler = new DependencyDescriptionHandler(_descriptor);
-
-            var coll = await dependencyRepository.GetDependentComponentsAsync(solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value);
-
-            string description = await descriptorHandler.GetDescriptionDependentAsync(coll);
-
-            if (!string.IsNullOrEmpty(description))
-            {
-                var fileName = _descriptor.GetFileName(this._service.ConnectionData.Name, solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value, "Dependent Components", "txt");
-
-                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
-
-                File.WriteAllText(filePath, description, new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "{0} {1} Dependent Components exported to {2}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name, filePath);
-
-                this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "{0} {1} has no Dependent Components.", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name);
-                this._iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
-            }
-        }
-
-        private async Task PerformCreatingFileWithRequiredComponents(string folder, SolutionComponentViewItem solutionComponentViewItem)
-        {
-            this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Starting downloading {0} {1}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name);
-
-            var dependencyRepository = new DependencyRepository(_service);
-
-            var descriptorHandler = new DependencyDescriptionHandler(_descriptor);
-
-            var coll = await dependencyRepository.GetRequiredComponentsAsync(solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value);
-
-            string description = await descriptorHandler.GetDescriptionRequiredAsync(coll);
-
-            if (!string.IsNullOrEmpty(description))
-            {
-                var fileName = _descriptor.GetFileName(this._service.ConnectionData.Name, solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value, "Required Components", "txt");
-
-                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
-
-                File.WriteAllText(filePath, description, new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "{0} {1} Required Components exported to {2}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name, filePath);
-
-                this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "{0} {1} has no Required Components.", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name);
-                this._iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
-            }
-        }
-
-        private async Task PerformCreatingFileWithDependenciesForDelete(string folder, SolutionComponentViewItem solutionComponentViewItem)
-        {
-            this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Starting downloading {0} {1}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name);
-
-            var dependencyRepository = new DependencyRepository(_service);
-
-            var descriptorHandler = new DependencyDescriptionHandler(_descriptor);
-
-            var coll = await dependencyRepository.GetDependenciesForDeleteAsync(solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value);
-
-            string description = await descriptorHandler.GetDescriptionDependentAsync(coll);
-
-            if (!string.IsNullOrEmpty(description))
-            {
-                var fileName = _descriptor.GetFileName(this._service.ConnectionData.Name, solutionComponentViewItem.SolutionComponent.ComponentType.Value, solutionComponentViewItem.SolutionComponent.ObjectId.Value, "Dependencies For Delete", "txt");
-
-                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
-
-                File.WriteAllText(filePath, description, new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "{0} {1} Dependencies For Delete exported to {2}", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name, filePath);
-
-                this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "{0} {1} has no Dependencies For Delete.", solutionComponentViewItem.ComponentType, solutionComponentViewItem.Name);
-                this._iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
-            }
-        }
-
         private void mIOpenDependentComponentsInWeb_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedSolutionComponent();
 
             if (entity == null)
             {
@@ -743,7 +614,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void mIOpenInWeb_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedSolutionComponent();
 
             if (entity == null)
             {
@@ -835,17 +706,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             FillLastSolutionItems(_service.ConnectionData, items, true, AddToSolutionLast_Click, "contMnAddToSolutionLast");
 
-            var entity = GetSelectedEntity();
+            var selectedSolutionComponent = GetSelectedSolutionComponent();
 
             var hasExplorer = false;
 
-            if (entity != null)
+            if (selectedSolutionComponent != null)
             {
-                hasExplorer = HasExplorer(entity.SolutionComponent.ComponentType?.Value);
+                hasExplorer = HasExplorer(selectedSolutionComponent.SolutionComponent.ComponentType?.Value);
 
                 if (hasExplorer)
                 {
-                    var componentType = (ComponentType)entity.SolutionComponent.ComponentType.Value;
+                    var componentType = (ComponentType)selectedSolutionComponent.SolutionComponent.ComponentType.Value;
 
                     string componentName = string.Format("{0} Explorer", componentType.ToString());
 
@@ -861,9 +732,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 menuItemLinkedComponent.Items.Clear();
 
-                if (entity != null)
+                if (selectedSolutionComponent != null)
                 {
-                    var linkedComponents = _descriptor.GetLinkedComponents(entity.SolutionComponent);
+                    var linkedComponents = _descriptor.GetLinkedComponents(selectedSolutionComponent.SolutionComponent);
 
                     if (linkedComponents != null && linkedComponents.Any())
                     {
@@ -876,7 +747,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                 Header = string.Format("{0} - {1}", item.Component.ComponentTypeName, item.Name).Replace("_", "__"),
                             };
 
-                            FillComponentActions(menuItem.Items, item.Component);
+                            FillLinkedSolutionComponentActions(menuItem.Items, item.Component);
 
                             menuItemLinkedComponent.Items.Add(menuItem);
                         }
@@ -887,7 +758,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void FillComponentActions(ItemCollection itemCollection, SolutionComponent solutionComponent)
+        private void FillLinkedSolutionComponentActions(ItemCollection itemCollection, SolutionComponent solutionComponent)
         {
             MenuItem mILinkedComponentOpenInWeb = new MenuItem()
             {
@@ -1264,7 +1135,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void mIOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedSolutionComponent();
 
             if (entity == null)
             {
@@ -1285,7 +1156,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void mIOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedSolutionComponent();
 
             if (entity == null)
             {
@@ -2240,7 +2111,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private void mIOpenExplorer_Click(object sender, RoutedEventArgs e)
         {
-            var entity = GetSelectedEntity();
+            var entity = GetSelectedSolutionComponent();
 
             if (entity == null)
             {

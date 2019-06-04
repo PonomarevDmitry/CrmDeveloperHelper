@@ -60,15 +60,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             if (metaData != null)
             {
-                var behavior = solutionComponent.RootComponentBehavior?.Value;
-
                 result.Add(new SolutionImageComponent()
                 {
                     ComponentType = (int)ComponentType.Entity,
-                    SchemaName = metaData.LogicalName,
-                    RootComponentBehavior = behavior.GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
 
-                    Description = GenerateDescriptionSingleInternal(metaData, behavior, false, true, false),
+                    SchemaName = metaData.LogicalName,
+
+                    RootComponentBehavior = (int)solutionComponent.RootComponentBehaviorEnum.GetValueOrDefault(SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0),
+
+                    Description = GenerateDescriptionSingleInternal(metaData, solutionComponent.RootComponentBehavior?.Value, false, true, false),
                 });
             }
         }
@@ -107,9 +107,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
                     FillSolutionComponentInternal(result, metaData, behavior);
 
-                    if (behavior == (int)RootComponentBehavior.IncludeAsShellOnly
-                        || behavior == (int)RootComponentBehavior.DoNotIncludeSubcomponents
-                        )
+                    if (behavior == (int)SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_As_Shell_Only_2
+                        || behavior == (int)SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Do_not_include_subcomponents_1
+                    )
                     {
                         var elementEntity = GetEntityElement(docCustomizations, metaData.LogicalName);
 
@@ -159,8 +159,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                             var component = new SolutionComponent()
                             {
                                 ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
+
                                 ObjectId = relationMetadata.MetadataId.Value,
-                                RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+
+                                RootComponentBehaviorEnum = SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0,
                             };
 
                             result.Add(component);
@@ -180,8 +182,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                             var component = new SolutionComponent()
                             {
                                 ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
+
                                 ObjectId = relationMetadata.MetadataId.Value,
-                                RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+
+                                RootComponentBehaviorEnum = SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0,
                             };
 
                             result.Add(component);
@@ -223,8 +227,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                         var component = new SolutionComponent()
                         {
                             ComponentType = new OptionSetValue((int)ComponentType.DisplayString),
+
                             ObjectId = entity.Id,
-                            RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+
+                            RootComponentBehaviorEnum = SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0,
                         };
 
                         result.Add(component);
@@ -253,8 +259,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     var component = new SolutionComponent()
                     {
                         ComponentType = new OptionSetValue((int)ComponentType.SavedQueryVisualization),
+
                         ObjectId = entity.Id,
-                        RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+
+                        RootComponentBehaviorEnum = SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0,
                     };
 
                     result.Add(component);
@@ -282,8 +290,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     var component = new SolutionComponent()
                     {
                         ComponentType = new OptionSetValue((int)ComponentType.SavedQuery),
+
                         ObjectId = entity.Id,
-                        RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+
+                        RootComponentBehaviorEnum = SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0,
                     };
 
                     result.Add(component);
@@ -309,8 +319,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     var component = new SolutionComponent()
                     {
                         ComponentType = new OptionSetValue((int)ComponentType.EntityKey),
+
                         ObjectId = entityKeyMetadata.MetadataId.Value,
-                        RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+
+                        RootComponentBehaviorEnum = SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0,
                     };
 
                     result.Add(component);
@@ -336,8 +348,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                     var component = new SolutionComponent()
                     {
                         ComponentType = new OptionSetValue((int)ComponentType.Attribute),
+
                         ObjectId = attributeMetadata.MetadataId.Value,
-                        RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+
+                        RootComponentBehaviorEnum = SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0,
                     };
 
                     result.Add(component);
@@ -359,8 +373,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             var component = new SolutionComponent()
             {
                 ComponentType = new OptionSetValue(this.ComponentTypeValue),
+
                 ObjectId = metaData.MetadataId.Value,
-                RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+
+                RootComponentBehaviorEnum = SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0,
             };
 
             if (behavior.HasValue)

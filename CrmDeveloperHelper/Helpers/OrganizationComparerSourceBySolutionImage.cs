@@ -82,7 +82,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (solutionComponents.Any())
                 {
                     var entities = solutionComponents
-                        .Where(c => (c.RootComponentBehavior?.Value ?? (int)RootComponentBehavior.IncludeSubcomponents) == (int)RootComponentBehavior.IncludeSubcomponents && c.ObjectId.HasValue)
+                        .Where(c => c.RootComponentBehaviorEnum.GetValueOrDefault(SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0) == SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0
+                            && c.ObjectId.HasValue)
                         .Select(e => descriptor.MetadataSource.GetEntityMetadata(e.ObjectId.Value))
                         .Where(e => e != null)
                         .Select(e => e.LogicalName)
@@ -294,7 +295,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (solutionComponents.Any())
                 {
                     var entities = solutionComponents
-                        .Where(c => (c.RootComponentBehavior?.Value ?? (int)RootComponentBehavior.IncludeSubcomponents) == (int)RootComponentBehavior.IncludeSubcomponents && c.ObjectId.HasValue)
+                        .Where(c => c.RootComponentBehaviorEnum.GetValueOrDefault(SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0) == SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0
+                            && c.ObjectId.HasValue)
                         .Select(e => descriptor.MetadataSource.GetEntityMetadata(e.ObjectId.Value))
                         .Where(e => e != null)
                         .Select(e => e.LogicalName)
@@ -376,7 +378,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (solutionComponents.Any())
                 {
                     var entities = solutionComponents
-                        .Where(c => (c.RootComponentBehavior?.Value ?? (int)RootComponentBehavior.IncludeSubcomponents) == (int)RootComponentBehavior.IncludeSubcomponents && c.ObjectId.HasValue)
+                        .Where(c => c.RootComponentBehaviorEnum.GetValueOrDefault(SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0) == SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0
+                            && c.ObjectId.HasValue)
                         .Select(e => descriptor.MetadataSource.GetEntityMetadata(e.ObjectId.Value))
                         .Where(e => e != null)
                         .Select(e => e.LogicalName)
@@ -562,7 +565,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (solutionComponents.Any())
                 {
                     var entities = solutionComponents
-                        .Where(c => (c.RootComponentBehavior?.Value ?? (int)RootComponentBehavior.IncludeSubcomponents) == (int)RootComponentBehavior.IncludeSubcomponents && c.ObjectId.HasValue)
+                        .Where(c => c.RootComponentBehaviorEnum.GetValueOrDefault(SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0) == (int)SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0
+                            && c.ObjectId.HasValue)
                         .Select(e => descriptor.MetadataSource.GetEntityMetadata(e.ObjectId.Value))
                         .Where(e => e != null)
                         .Select(e => e.LogicalName)
@@ -618,7 +622,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (solutionComponents.Any())
                 {
                     var entities = solutionComponents
-                        .Where(c => (c.RootComponentBehavior?.Value ?? (int)RootComponentBehavior.IncludeSubcomponents) == (int)RootComponentBehavior.IncludeSubcomponents && c.ObjectId.HasValue)
+                        .Where(c => c.RootComponentBehaviorEnum.GetValueOrDefault(SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0) == SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0
+                            && c.ObjectId.HasValue)
                         .Select(e => descriptor.MetadataSource.GetEntityMetadata(e.ObjectId.Value))
                         .Where(e => e != null)
                         .Select(e => e.LogicalName)
@@ -674,7 +679,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 if (solutionComponents.Any())
                 {
                     var entities = solutionComponents
-                        .Where(c => (c.RootComponentBehavior?.Value ?? (int)RootComponentBehavior.IncludeSubcomponents) == (int)RootComponentBehavior.IncludeSubcomponents && c.ObjectId.HasValue)
+                        .Where(c => c.RootComponentBehaviorEnum.GetValueOrDefault(SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0) == SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0
+                            && c.ObjectId.HasValue)
                         .Select(e => descriptor.MetadataSource.GetEntityMetadata(e.ObjectId.Value))
                         .Where(e => e != null)
                         .Select(e => e.LogicalName)

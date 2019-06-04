@@ -1934,27 +1934,38 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 case ComponentType.OptionSet:
                 case ComponentType.EntityRelationship:
                 case ComponentType.EntityKey:
+
                 case ComponentType.Role:
                 case ComponentType.Organization:
+
                 case ComponentType.SavedQuery:
                 case ComponentType.SavedQueryVisualization:
                 case ComponentType.SystemForm:
+
                 case ComponentType.Workflow:
                 case ComponentType.Report:
                 case ComponentType.WebResource:
                 case ComponentType.SiteMap:
+
                 case ComponentType.PluginType:
                 case ComponentType.PluginAssembly:
+
                 case ComponentType.SdkMessageProcessingStep:
                 case ComponentType.SdkMessageProcessingStepImage:
+
                 case ComponentType.SdkMessage:
                 case ComponentType.SdkMessageFilter:
+
                 case ComponentType.SdkMessagePair:
                 case ComponentType.SdkMessageRequest:
                 case ComponentType.SdkMessageRequestField:
                 case ComponentType.SdkMessageResponse:
                 case ComponentType.SdkMessageResponseField:
+
                 case ComponentType.RibbonCustomization:
+
+                case ComponentType.CustomControl:
+
                     return true;
             }
 
@@ -2044,17 +2055,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     break;
 
                 case ComponentType.SdkMessageProcessingStep:
-                    OpenPluginTreeWindow(iWriteToOutput, service, commonConfig);
-                    break;
-
                 case ComponentType.SdkMessageProcessingStepImage:
                     OpenPluginTreeWindow(iWriteToOutput, service, commonConfig);
                     break;
 
                 case ComponentType.SdkMessage:
-                    OpenSdkMessageTreeWindow(iWriteToOutput, service, commonConfig, null, componentName);
-                    break;
-
                 case ComponentType.SdkMessageFilter:
                     OpenSdkMessageTreeWindow(iWriteToOutput, service, commonConfig, null, componentName);
                     break;
@@ -2064,17 +2069,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     break;
 
                 case ComponentType.SdkMessageRequest:
-                    OpenSdkMessageRequestTreeWindow(iWriteToOutput, service, commonConfig);
-                    break;
-
                 case ComponentType.SdkMessageRequestField:
-                    OpenSdkMessageRequestTreeWindow(iWriteToOutput, service, commonConfig);
-                    break;
-
                 case ComponentType.SdkMessageResponse:
-                    OpenSdkMessageRequestTreeWindow(iWriteToOutput, service, commonConfig);
-                    break;
-
                 case ComponentType.SdkMessageResponseField:
                     OpenSdkMessageRequestTreeWindow(iWriteToOutput, service, commonConfig);
                     break;

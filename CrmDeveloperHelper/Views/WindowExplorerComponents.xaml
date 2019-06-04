@@ -7,51 +7,96 @@
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
         Title="Solution Components" Height="538.662" Width="755" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
-        <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-            <MenuItem Header="Open in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleWindows.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
-            <Separator/>
-            <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
 
-            <Separator x:Uid="contMnExplorer"/>
-            <MenuItem x:Uid="contMnExplorer" Header="Component Explorer" VerticalAlignment="Center" Click="mIOpenExplorer_Click"/>
+            <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+                <MenuItem Header="Open in Web" Click="mIOpenInWeb_Click" />
 
-            <Separator/>
-            <MenuItem x:Uid="contMnAddToCurrentSolution" Header="Add to Current Solution" VerticalAlignment="Center" Click="AddToCurrentSolution_Click" />
-            <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
-            <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddToSolution_Click" />
-
-            <Separator x:Uid="contMnLinkedComponents" />
-            <MenuItem x:Uid="contMnLinkedComponents" Header="Linked Components" />
-
-            <Separator/>
-            <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
-            <Separator/>
-            <MenuItem Header="Dependent Components">
-                <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
                 <Separator/>
-                <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
+                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+
+                <Separator x:Uid="contMnExplorer"/>
+                <MenuItem x:Uid="contMnExplorer" Header="Component Explorer" Click="mIOpenExplorer_Click"/>
+
+                <Separator x:Uid="contMnAddToCurrentSolution"/>
+                <MenuItem x:Uid="contMnAddToCurrentSolution" Header="Add to Current Solution" Click="AddToCurrentSolutionIncludeSubcomponents_Click" />
+
+                <Separator x:Uid="contMnAddToSolution" />
+                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
+                <MenuItem x:Uid="contMnAddToSolution" Header="Add to Crm Solution" Click="AddToCrmSolutionIncludeSubcomponents_Click" />
+
+                <Separator x:Uid="contMnAddToSolutionWithBehaviour" />
+                <MenuItem x:Uid="contMnAddToSolutionWithBehaviourLast" Header="Add to Last Crm Solution">
+                    <MenuItem x:Uid="contMnAddToSolutionWithBehaviourLastIncludeSubcomponents" Header="Include Subcomponents" />
+
+                    <Separator/>
+                    <MenuItem x:Uid="contMnAddToSolutionWithBehaviourLastDoNotIncludeSubcomponents" Header="Do not include subcomponents" />
+
+                    <Separator/>
+                    <MenuItem x:Uid="contMnAddToSolutionWithBehaviourLastIncludeAsShellOnly" Header="Include As Shell Only" />
+                </MenuItem>
+                <MenuItem x:Uid="contMnAddToSolutionWithBehaviour" Header="Add to Crm Solution">
+                    <MenuItem Header="Include Subcomponents" Click="AddToCrmSolutionIncludeSubcomponents_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Do not include subcomponents" Click="AddToCrmSolutionDoNotIncludeSubcomponents_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Include As Shell Only" Click="AddToCrmSolutionIncludeAsShellOnly_Click" />
+                </MenuItem>
+
+                <Separator x:Uid="contMnLinkedComponents" />
+                <MenuItem x:Uid="contMnLinkedComponents" Header="Linked Components" />
+
                 <Separator/>
-                <MenuItem Header="Dependent Components" VerticalAlignment="Center" Click="mIExportDependentComponents_Click" />
-                <MenuItem Header="Required Components" VerticalAlignment="Center" Click="mIExportRequiredComponents_Click" />
-                <MenuItem Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportDependenciesForDelete_Click" />
-            </MenuItem>
-            <Separator/>
-            <MenuItem Header="Open Solution in Web" VerticalAlignment="Center" Click="OpenSolutionInWeb_Click" />
-            <Separator/>
-            <MenuItem Header="Open SolutionImage Window" Click="mIOpenSolutionImage_Click" />
-            <Separator/>
-            <MenuItem Header="Open Solution DifferenceImage Window" Click="mIOpenSolutionDifferenceImage_Click" />
-            <Separator/>
-            <MenuItem Header="Open Organization DifferenceImage Window" Click="mIOpenOrganizationDifferenceImage_Click" />
-        </ContextMenu>
+                <MenuItem Header="Open Solutions Containing Component in Window" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
+
+                <Separator/>
+                <MenuItem Header="Dependent Components">
+                    <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Open Dependent Components in Window" Click="mIOpenDependentComponentsInWindow_Click" />
+                </MenuItem>
+
+                <Separator/>
+                <MenuItem Header="Open Solution in Web" Click="OpenSolutionInWeb_Click" />
+
+                <Separator/>
+                <MenuItem Header="Open SolutionImage Window" Click="mIOpenSolutionImage_Click" />
+
+                <Separator/>
+                <MenuItem Header="Open Solution DifferenceImage Window" Click="mIOpenSolutionDifferenceImage_Click" />
+
+                <Separator/>
+                <MenuItem Header="Open Organization DifferenceImage Window" Click="mIOpenOrganizationDifferenceImage_Click" />
+            </ContextMenu>
+
+        </ResourceDictionary>
     </src:WindowBase.Resources>
     <Grid>
-        <ToolBar x:Name="toolBarHeader" Margin="0,0,0,0" VerticalAlignment="Top" Height="33">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+
+            <RowDefinition Height="100*" />
+
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ToolBar x:Name="toolBarHeader" Grid.Row="0" Margin="0">
             <Button Content="Description Options" Click="miDescriptionOptions_Click"/>
+            
             <Separator/>
-            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                <MenuItem Header="Open Solution Component Windows" VerticalAlignment="Center">
+            <Menu Background="{x:Null}">
+                <MenuItem Header="Open Solution Component Windows">
                     <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click" />
                     <Separator/>
                     <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer_Click"/>
@@ -88,11 +133,13 @@
             <Button Content="Open Solution Explorer" Click="miOpenSolutionExplorer_Click" />
 
             <Separator/>
-            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                <MenuItem Header="Open in Web" VerticalAlignment="Center">
+            <Menu Background="{x:Null}">
+                <MenuItem Header="Open in Web">
                     <MenuItem Header="Customization" Click="btnOpenInWebCustomization_Click" />
+                    
                     <Separator/>
                     <MenuItem Header="Solution List" Click="btnOpenInWebSolutionList_Click" />
+                    
                     <Separator/>
                     <MenuItem Header="Default Solution" Click="btnOpenInWebDefaultSolution_Click"/>
                 </MenuItem>
@@ -101,14 +148,25 @@
             <Separator x:Name="sepSolutionDescription" Visibility="Collapsed"/>
             <Button x:Name="miSolutionDescription" Content="Solution Description" Visibility="Collapsed" Click="miSolutionDescription_Click" />
         </ToolBar>
-        
-        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Padding="2" Height="23" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txtBFilter" Height="23" Margin="52,38,339,0"   VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown" VerticalContentAlignment="Center" />
 
-        <Label Content="Component Type" HorizontalAlignment="Right" Margin="0,38,238,0" VerticalAlignment="Top" Padding="2" Height="23" VerticalContentAlignment="Stretch"/>
-        <ComboBox x:Name="cmBComponentType" ItemsSource="{Binding Source={helpers:EnumBindingSource {helpers:NullableType entities:ComponentType}, SortByName=True}}" Height="23" Margin="0,38,10,0" VerticalAlignment="Top" IsEditable="False" HorizontalAlignment="Right" SelectionChanged="cmBComponentType_SelectionChanged" Width="223" />
+        <Grid Grid.Row="1" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="50*"/>
 
-        <DataGrid x:Name="lstVSolutionComponents" AutoGenerateColumns="False" Margin="10,66,10,93" SelectionMode="Extended" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="30*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Filter" Grid.Row="0" Grid.Column="0"/>
+            <TextBox x:Name="txtBFilter" Grid.Row="0" Grid.Column="1" KeyDown="txtBFilterEnitity_KeyDown" />
+
+            <Label Content="Component Type" Grid.Row="0" Grid.Column="2" />
+            <ComboBox x:Name="cmBComponentType" Grid.Row="0" Grid.Column="3" ItemsSource="{Binding Source={helpers:EnumBindingSource {helpers:NullableType entities:ComponentType}, SortByName=True}}" IsEditable="False" SelectionChanged="cmBComponentType_SelectionChanged" />
+            
+        </Grid>
+
+        <DataGrid x:Name="lstVSolutionComponents" AutoGenerateColumns="False" Grid.Row="2" Margin="5" SelectionMode="Extended" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -135,9 +193,23 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,62" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Padding="10,0" Height="26"/>
-        <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="69,0,0,62" Padding="10,0" VerticalAlignment="Bottom" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Width="234" VerticalContentAlignment="Center" Height="26" />
-        <ToolBar Margin="0,0,0,24" VerticalAlignment="Bottom" Height="33">
+
+        <Grid Grid.Row="3" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="30*" />
+                <ColumnDefinition Width="50*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Content="Action" Grid.Row="0" Grid.Column="0" />
+            <ComboBox x:Name="cmBFileAction" Grid.Row="0" Grid.Column="1" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" SelectedIndex="0" />
+        </Grid>
+
+        <ToolBar Grid.Row="4" Margin="0">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
@@ -152,17 +224,18 @@
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
                     <Button x:Name="btnExportAll" Content="Export All Solution Component Information" Click="btnExportAll_Click" />
+                    
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                    <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                        <MenuItem x:Name="mISolutionInformation" Header="Solution Information" VerticalAlignment="Center">
-                            <MenuItem Header="Open Solution in Web" VerticalAlignment="Center" Click="OpenSolutionInWeb_Click" />
+                    <Menu Background="{x:Null}">
+                        <MenuItem x:Name="mISolutionInformation" Header="Solution Information">
+                            <MenuItem Header="Open Solution in Web" Click="OpenSolutionInWeb_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Create Solution Image" VerticalAlignment="Center" Click="mICreateSolutionImage_Click" />
-                            <MenuItem Header="Create Solution Image and Open Organization Comparer Window" VerticalAlignment="Center" Click="mICreateSolutionImageAndOpenOrganizationComparer_Click" />
+                            <MenuItem Header="Create Solution Image" Click="mICreateSolutionImage_Click" />
+                            <MenuItem Header="Create Solution Image and Open Organization Comparer Window" Click="mICreateSolutionImageAndOpenOrganizationComparer_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Components" VerticalAlignment="Center" Click="mIComponentsIn_Click" />
+                            <MenuItem Header="Components" Click="mIComponentsIn_Click" />
 
                             <Separator/>
                             <MenuItem Header="Open SolutionImage Window" Click="mIOpenSolutionImage_Click" />
@@ -174,34 +247,36 @@
                             <MenuItem Header="Open Organization DifferenceImage Window" Click="mIOpenOrganizationDifferenceImage_Click" />
                         </MenuItem>
                     </Menu>
+                    
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                    <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                        <MenuItem x:Name="tSDDBExportSolutionComponent" Header="Export Solution Component Information" VerticalAlignment="Center">
-                            <MenuItem Header="Open in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click" />
+                    <Menu Background="{x:Null}">
+                        <MenuItem x:Name="tSDDBExportSolutionComponent" Header="Export Solution Component Information">
+                            <MenuItem Header="Open in Web" Click="mIOpenInWeb_Click" />
+                            
                             <Separator/>
-                            <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+                            <MenuItem x:Name="mICreateEntityDescription" Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
+                            
                             <Separator/>
-                            <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
+                            <MenuItem Header="Open Solutions Containing Component in Window" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
+                            
                             <Separator/>
                             <MenuItem Header="Dependent Components">
-                                <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                                <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
+                                
                                 <Separator/>
-                                <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
-                                <Separator/>
-                                <MenuItem Header="Dependent Components" VerticalAlignment="Center" Click="mIExportDependentComponents_Click" />
-                                <MenuItem Header="Required Components" VerticalAlignment="Center" Click="mIExportRequiredComponents_Click" />
-                                <MenuItem Header="Dependencies For Delete" VerticalAlignment="Center" Click="mIExportDependenciesForDelete_Click" />
+                                <MenuItem Header="Open Dependent Components in Window" Click="mIOpenDependentComponentsInWindow_Click" />
                             </MenuItem>
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>
-                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
-        <StatusBar Height="24" VerticalAlignment="Bottom">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center"/>
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-            <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+
+        <StatusBar Grid.Row="5" Margin="0">
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
+            <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>
 </src:WindowBase>

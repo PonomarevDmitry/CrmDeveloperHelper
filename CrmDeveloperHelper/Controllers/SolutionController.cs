@@ -651,7 +651,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Добавление компонентов в решение.
 
-        public static async Task AddSolutionComponentsGroupToSolution(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, SolutionComponentDescriptor descriptor, CommonConfiguration commonConfig, string solutionUniqueName, ComponentType componentType, IEnumerable<Guid> selectedObjects, RootComponentBehavior? rootComponentBehavior, bool withSelect)
+        public static async Task AddSolutionComponentsGroupToSolution(IWriteToOutput iWriteToOutput, IOrganizationServiceExtented service, SolutionComponentDescriptor descriptor, CommonConfiguration commonConfig, string solutionUniqueName, ComponentType componentType, IEnumerable<Guid> selectedObjects, SolutionComponent.Schema.OptionSets.rootcomponentbehavior? rootComponentBehavior, bool withSelect)
         {
             string operation = string.Format(Properties.OperationNames.AddingComponentsToSolutionFormat2, service?.ConnectionData?.Name, solutionUniqueName);
 
@@ -771,19 +771,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     return;
                 }
                 
-                OptionSetValue rootBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents);
-
-                if (rootComponentBehavior.HasValue)
-                {
-                    rootBehavior = new OptionSetValue((int)rootComponentBehavior.Value);
-                }
-
-                var componentsToAdd = dictForAdding.Select(e => new SolutionComponent(new
+                var componentsToAdd = dictForAdding.Select(e => new SolutionComponent()
                 {
                     ObjectId = e,
                     ComponentType = new OptionSetValue((int)componentType),
-                    RootComponentBehavior = rootBehavior,
-                })).ToList();
+                    RootComponentBehaviorEnum = rootComponentBehavior,
+                }).ToList();
                 
                 iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.ComponentsToAddToSolutionFormat2, solution.UniqueName, componentsToAdd.Count);
 
@@ -1458,12 +1451,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            var componentsToAdd = dictForAdding.Select(e => new SolutionComponent(new
+            var componentsToAdd = dictForAdding.Select(e => new SolutionComponent()
             {
                 ObjectId = e.Key,
                 ComponentType = new OptionSetValue((int)ComponentType.SdkMessageProcessingStep),
-                RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
-            })).ToList();
+                RootComponentBehaviorEnum = SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0,
+            }).ToList();
 
             var solutionDesciptor = new SolutionComponentDescriptor(service);
             solutionDesciptor.SetSettings(commonConfig);
@@ -1680,12 +1673,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 return;
             }
 
-            var componentsToAdd = dictForAdding.Select(e => new SolutionComponent(new
+            var componentsToAdd = dictForAdding.Select(e => new SolutionComponent()
             {
                 ObjectId = e.Key,
                 ComponentType = new OptionSetValue((int)ComponentType.SdkMessageProcessingStep),
-                RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
-            })).ToList();
+                RootComponentBehaviorEnum = SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0,
+            }).ToList();
 
             var solutionDesciptor = new SolutionComponentDescriptor(service);
             solutionDesciptor.SetSettings(commonConfig);

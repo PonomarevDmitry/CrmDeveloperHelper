@@ -650,7 +650,6 @@
     <Compile Include="Entities\Role.Schema.cs" />
     <Compile Include="Entities\RolePrivileges.Proxy.cs" />
     <Compile Include="Entities\RolePrivileges.Schema.cs" />
-    <Compile Include="Entities\GlobalOptionSets\RootComponentBehavior.cs" />
     <Compile Include="Entities\RoutingRule.Proxy.cs" />
     <Compile Include="Entities\RoutingRule.Schema.cs" />
     <Compile Include="Entities\RoutingRuleItem.Proxy.cs" />

@@ -41,11 +41,6 @@
                     
                     <Separator/>
                     <MenuItem Header="Open Dependent Components in Window" Click="mIOpenDependentComponentsInWindow_Click" />
-                    
-                    <Separator/>
-                    <MenuItem Header="Dependent Components" Click="mIExportDependentComponents_Click" />
-                    <MenuItem Header="Required Components" Click="mIExportRequiredComponents_Click" />
-                    <MenuItem Header="Dependencies For Delete" Click="mIExportDependenciesForDelete_Click" />
                 </MenuItem>
                 
                 <Separator/>
@@ -278,11 +273,6 @@
                                 
                                 <Separator/>
                                 <MenuItem Header="Open Dependent Components in Window" Click="mIOpenDependentComponentsInWindow_Click" />
-                                
-                                <Separator/>
-                                <MenuItem Header="Dependent Components" Click="mIExportDependentComponents_Click" />
-                                <MenuItem Header="Required Components" Click="mIExportRequiredComponents_Click" />
-                                <MenuItem Header="Dependencies For Delete" Click="mIExportDependenciesForDelete_Click" />
                             </MenuItem>
                         </MenuItem>
                     </Menu>

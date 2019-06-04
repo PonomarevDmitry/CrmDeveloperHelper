@@ -1227,17 +1227,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private async void AddToCrmSolutionIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
         {
-            await AddEntityToSolution(true, null, RootComponentBehavior.IncludeSubcomponents);
+            await AddEntityToSolution(true, null, SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0);
         }
 
         private async void AddToCrmSolutionDoNotIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
         {
-            await AddEntityToSolution(true, null, RootComponentBehavior.DoNotIncludeSubcomponents);
+            await AddEntityToSolution(true, null, SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Do_not_include_subcomponents_1);
         }
 
         private async void AddToCrmSolutionIncludeAsShellOnly_Click(object sender, RoutedEventArgs e)
         {
-            await AddEntityToSolution(true, null, RootComponentBehavior.IncludeAsShellOnly);
+            await AddEntityToSolution(true, null, SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_As_Shell_Only_2);
         }
 
         private async void AddToCrmSolutionLastIncludeSubcomponents_Click(object sender, RoutedEventArgs e)
@@ -1247,7 +1247,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                && menuItem.Tag is string solutionUniqueName
                )
             {
-                await AddEntityToSolution(false, solutionUniqueName, RootComponentBehavior.IncludeSubcomponents);
+                await AddEntityToSolution(false, solutionUniqueName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0);
             }
         }
 
@@ -1258,7 +1258,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                && menuItem.Tag is string solutionUniqueName
                )
             {
-                await AddEntityToSolution(false, solutionUniqueName, RootComponentBehavior.DoNotIncludeSubcomponents);
+                await AddEntityToSolution(false, solutionUniqueName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Do_not_include_subcomponents_1);
             }
         }
 
@@ -1269,11 +1269,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                && menuItem.Tag is string solutionUniqueName
                )
             {
-                await AddEntityToSolution(false, solutionUniqueName, RootComponentBehavior.IncludeAsShellOnly);
+                await AddEntityToSolution(false, solutionUniqueName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_As_Shell_Only_2);
             }
         }
 
-        private async Task AddEntityToSolution(bool withSelect, string solutionUniqueName, RootComponentBehavior rootComponentBehavior)
+        private async Task AddEntityToSolution(bool withSelect, string solutionUniqueName, SolutionComponent.Schema.OptionSets.rootcomponentbehavior rootComponentBehavior)
         {
             var entityList = GetSelectedEntities();
 

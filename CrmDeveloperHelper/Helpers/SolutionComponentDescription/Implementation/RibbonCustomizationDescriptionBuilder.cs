@@ -95,8 +95,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 result.Add(new SolutionImageComponent()
                 {
                     SchemaName = string.Format("{0}:RibbonDiffXml", entity.Entity),
+
                     ComponentType = (solutionComponent.ComponentType?.Value).GetValueOrDefault(),
-                    RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
+
+                    RootComponentBehavior = (int)solutionComponent.RootComponentBehaviorEnum.GetValueOrDefault(SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0),
 
                     Description = GenerateDescriptionSingle(solutionComponent, true, false, false),
                 });

@@ -79,8 +79,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 result.Add(new SolutionImageComponent()
                 {
                     ComponentType = (int)ComponentType.PluginAssembly,
+
                     SchemaName = string.Format("{0}, Version={1}, Culture={2}, PublicKeyToken={3}", entity.Name, entity.Version, entity.Culture, entity.PublicKeyToken),
-                    RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
+
+                    RootComponentBehavior = (int)solutionComponent.RootComponentBehaviorEnum.GetValueOrDefault(SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0),
 
                     Description = GenerateDescriptionSingle(solutionComponent, true, false, false),
                 });

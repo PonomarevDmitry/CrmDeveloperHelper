@@ -82,19 +82,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
         public static string GetRootComponentBehaviorName(int? behavior)
         {
-            string result = Entities.RootComponentBehavior.IncludeSubcomponents.ToString();
-
-            if (behavior.HasValue && Enum.IsDefined(typeof(RootComponentBehavior), behavior.Value))
+            if (behavior.HasValue && Enum.IsDefined(typeof(Schema.OptionSets.rootcomponentbehavior), behavior.Value))
             {
-                RootComponentBehavior componentBehavior = (RootComponentBehavior)behavior.Value;
+                var componentBehavior = (Schema.OptionSets.rootcomponentbehavior)behavior.Value;
 
-                result = componentBehavior.ToString();
+                return Helpers.EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(componentBehavior);
             }
 
-            return result;
+            return Helpers.EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0);
         }
 
-        internal static bool IsComponentTypeMetadata(ComponentType componentType)
+        public static bool IsComponentTypeWithBehaviour(int? componentType)
+        {
+            return componentType == (int)Entities.ComponentType.Entity;
+        }
+
+        public static bool IsComponentTypeMetadata(ComponentType componentType)
         {
             switch (componentType)
             {

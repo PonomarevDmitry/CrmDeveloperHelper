@@ -174,17 +174,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     AddRequiredComponents = false,
                 };
 
-                if (component.RootComponentBehavior != null)
+                if (component.RootComponentBehaviorEnum == SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Do_not_include_subcomponents_1)
                 {
-                    if (component.RootComponentBehavior.Value == (int)RootComponentBehavior.DoNotIncludeSubcomponents)
-                    {
-                        request.DoNotIncludeSubcomponents = true;
-                    }
-                    else if (component.RootComponentBehavior.Value == (int)RootComponentBehavior.IncludeAsShellOnly)
-                    {
-                        request.DoNotIncludeSubcomponents = true;
-                        request.IncludedComponentSettingsValues = new string[0];
-                    }
+                    request.DoNotIncludeSubcomponents = true;
+                }
+                else if (component.RootComponentBehaviorEnum == SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_As_Shell_Only_2)
+                {
+                    request.DoNotIncludeSubcomponents = true;
+                    request.IncludedComponentSettingsValues = new string[0];
                 }
 
                 try

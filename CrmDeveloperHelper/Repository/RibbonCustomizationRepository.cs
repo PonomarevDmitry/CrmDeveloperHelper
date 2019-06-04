@@ -639,7 +639,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         {
                             ComponentType = new OptionSetValue((int)ComponentType.Entity),
                             ObjectId = entityMetadata.MetadataId.Value,
-                            RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+                            RootComponentBehaviorEnum =  SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0,
                         }});
                     }
 
@@ -656,7 +656,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         {
                             ComponentType = new OptionSetValue((int)ComponentType.RibbonCustomization),
                             ObjectId = ribbonCustomization.Id,
-                            RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+                            RootComponentBehaviorEnum =  SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0,
                         }});
                     }
 
@@ -828,7 +828,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                             {
                                 ComponentType = new OptionSetValue((int)ComponentType.Entity),
                                 ObjectId = entityMetadata.MetadataId.Value,
-                                RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+                                RootComponentBehaviorEnum =  SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0,
                             }});
                     }
 
@@ -845,7 +845,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                         {
                             ComponentType = new OptionSetValue((int)ComponentType.RibbonCustomization),
                             ObjectId = ribbonCustomization.Id,
-                            RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+                            RootComponentBehaviorEnum =  SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0,
                         }});
                     }
 

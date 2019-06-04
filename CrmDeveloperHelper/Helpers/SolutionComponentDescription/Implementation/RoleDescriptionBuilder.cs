@@ -179,7 +179,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 var imageComponent = new SolutionImageComponent()
                 {
                     ComponentType = this.ComponentTypeValue,
-                    RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
+
+                    RootComponentBehavior = (int)solutionComponent.RootComponentBehaviorEnum.GetValueOrDefault(SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0),
 
                     Description = GenerateDescriptionSingle(solutionComponent, true, false, false),
                 };

@@ -408,8 +408,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             result.Add(new SolutionImageComponent()
             {
                 ObjectId = solutionComponent.ObjectId,
+
                 ComponentType = this.ComponentTypeValue,
-                RootComponentBehavior = (solutionComponent.RootComponentBehavior?.Value).GetValueOrDefault((int)RootComponentBehavior.IncludeSubcomponents),
+
+                RootComponentBehavior = (int)solutionComponent.RootComponentBehaviorEnum.GetValueOrDefault(SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0),
 
                 Description = GenerateDescriptionSingle(solutionComponent, true, false, false),
             });
@@ -454,8 +456,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
                 var component = new SolutionComponent()
                 {
                     ComponentType = new OptionSetValue(this.ComponentTypeValue),
+
                     ObjectId = entityId,
-                    RootComponentBehavior = new OptionSetValue((int)RootComponentBehavior.IncludeSubcomponents),
+
+                    RootComponentBehaviorEnum = SolutionComponent.Schema.OptionSets.rootcomponentbehavior.Include_Subcomponents_0,
                 };
 
                 if (behavior.HasValue)
