@@ -4,27 +4,53 @@
                 xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
                 Title="Select Attribute" Height="538.662" Width="717" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
-        <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-            <MenuItem Header="Open Attribute Customization in Web" VerticalAlignment="Center" Click="mIOpenAttributeInWeb_Click" />
-            <Separator/>
-            <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
-            <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddAttributeToCrmSolution_Click" />
-            <Separator/>
-            <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIAttributeOpenSolutionsContainingComponentInWindow_Click" />
-            <Separator/>
-            <MenuItem Header="Dependent Components">
-                <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIAttributeOpenDependentComponentsInWeb_Click" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleWindows.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+                <MenuItem Header="Open Attribute Customization in Web" Click="mIOpenAttributeInWeb_Click" />
+                
                 <Separator/>
-                <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIAttributeOpenDependentComponentsInWindow_Click" />
-            </MenuItem>
-        </ContextMenu>
+                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
+                <MenuItem Header="Add to Crm Solution" Click="AddAttributeToCrmSolution_Click" />
+                
+                <Separator/>
+                <MenuItem Header="Open Solutions Containing Component in Window" Click="mIAttributeOpenSolutionsContainingComponentInWindow_Click" />
+                
+                <Separator/>
+                <MenuItem Header="Dependent Components">
+                    <MenuItem Header="Open Dependent Components in Web" Click="mIAttributeOpenDependentComponentsInWeb_Click" />
+                    <Separator/>
+                    <MenuItem Header="Open Dependent Components in Window" Click="mIAttributeOpenDependentComponentsInWindow_Click" />
+                </MenuItem>
+            </ContextMenu>
+
+        </ResourceDictionary>
     </src:WindowBase.Resources>
     <Grid>
 
-        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBFilter" Height="26" Margin="51,10,10,0" IsTabStop="True" VerticalAlignment="Top" KeyDown="txtBFilter_KeyDown" VerticalContentAlignment="Center" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
 
-        <DataGrid x:Name="lstVwAttributes" AutoGenerateColumns="False" Margin="10,41,10,62" SelectionMode="Single" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" MouseDoubleClick="lstVwAttributes_MouseDoubleClick" SelectionChanged="lstVwAttributes_SelectionChanged">
+            <RowDefinition Height="100*" />
+
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Filter" Grid.Column="0" />
+            <TextBox x:Name="txtBFilter" Grid.Column="1" IsTabStop="True" KeyDown="txtBFilter_KeyDown" />
+        </Grid>
+
+        <DataGrid x:Name="lstVwAttributes" AutoGenerateColumns="False" Grid.Row="1" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" MouseDoubleClick="lstVwAttributes_MouseDoubleClick" SelectionChanged="lstVwAttributes_SelectionChanged">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -46,7 +72,8 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <ToolBar Margin="0,0,0,24" VerticalAlignment="Bottom" Height="33">
+
+        <ToolBar Grid.Row="2" Margin="0">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
@@ -62,15 +89,18 @@
                 <ToolBarPanel x:Name="toolStrip" Orientation="Horizontal" >
 
                 </ToolBarPanel>
+                
                 <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" TabIndex="20"/>
+                
                 <Separator Margin="10,0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" HorizontalAlignment="Right" DockPanel.Dock="Right" />
                 <Button x:Name="btnSelectAttribute" Content="Select Attribute" Click="btnSelectAttribute_Click" HorizontalAlignment="Right" DockPanel.Dock="Right" TabIndex="10" />
             </DockPanel>
         </ToolBar>
-        <StatusBar Height="24" VerticalAlignment="Bottom">
-            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" VerticalAlignment="Center"/>
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-            <StatusBarItem x:Name="stBIStatus" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+        
+        <StatusBar Grid.Row="3" Margin="0">
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
+            <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>
 </src:WindowBase>
