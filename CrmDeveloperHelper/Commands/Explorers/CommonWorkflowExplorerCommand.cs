@@ -3,16 +3,16 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class CommonExportWorkflowCommand : AbstractCommand
+    internal sealed class CommonWorkflowExplorerCommand : AbstractCommand
     {
-        private CommonExportWorkflowCommand(Package package)
+        private CommonWorkflowExplorerCommand(Package package)
            : base(package, PackageGuids.guidCommandSet, PackageIds.CommonExportWorkflowCommandId, ActionExecute, null) { }
 
-        public static CommonExportWorkflowCommand Instance { get; private set; }
+        public static CommonWorkflowExplorerCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new CommonExportWorkflowCommand(package);
+            Instance = new CommonWorkflowExplorerCommand(package);
         }
 
         private static void ActionExecute(DTEHelper helper)

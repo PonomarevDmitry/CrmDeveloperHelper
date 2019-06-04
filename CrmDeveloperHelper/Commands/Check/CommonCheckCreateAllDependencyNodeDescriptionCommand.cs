@@ -7,7 +7,7 @@ using System.ComponentModel.Design;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class CommonCreateAllDependencyNodeDescriptionCommand : IServiceProviderOwner
+    internal sealed class CommonCheckCreateAllDependencyNodeDescriptionCommand : IServiceProviderOwner
     {
         private readonly Package _package;
 
@@ -15,7 +15,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         private const int _baseIdStart = PackageIds.CommonCreateAllDependencyNodeDescriptionCommandId;
 
-        private CommonCreateAllDependencyNodeDescriptionCommand(Package package)
+        private CommonCheckCreateAllDependencyNodeDescriptionCommand(Package package)
         {
             this._package = package ?? throw new ArgumentNullException(nameof(package));
 
@@ -38,11 +38,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        public static CommonCreateAllDependencyNodeDescriptionCommand Instance { get; private set; }
+        public static CommonCheckCreateAllDependencyNodeDescriptionCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new CommonCreateAllDependencyNodeDescriptionCommand(package);
+            Instance = new CommonCheckCreateAllDependencyNodeDescriptionCommand(package);
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)

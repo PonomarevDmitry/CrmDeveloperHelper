@@ -385,21 +385,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonPublishAllInCrmConnectionCommand.Initialize(this);
             CommonCrmConnectionCommand.Initialize(this);
             CommonCrmConnectionTestCommand.Initialize(this);
-            CommonExportEntityMetadataCommand.Initialize(this);
+            CommonEntityMetadataExplorerCommand.Initialize(this);
             CommonEntityAttributeExplorerCommand.Initialize(this);
             CommonEntityKeyExplorerCommand.Initialize(this);
             CommonEntityRelationshipOneToManyExplorerCommand.Initialize(this);
             CommonEntityRelationshipManyToManyExplorerCommand.Initialize(this);
             CommonEntityPrivilegesExplorerCommand.Initialize(this);
             CommonExportFormEventsCommand.Initialize(this);
-            CommonExportGlobalOptionSetsCommand.Initialize(this);
-            CommonExportOrganizationCommand.Initialize(this);
+            CommonGlobalOptionSetsExplorerCommand.Initialize(this);
+            CommonOrganizationExplorerCommand.Initialize(this);
             CommonExportPluginAssemblyExplorerCommand.Initialize(this);
             CommonExportPluginTypeExplorerCommand.Initialize(this);
             CommonExportReportCommand.Initialize(this);
-            CommonExportCustomControlCommand.Initialize(this);
-            CommonExportApplicationRibbonXmlCommand.Initialize(this);
-            CommonExportSiteMapCommand.Initialize(this);
+            CommonCustomControlExplorerCommand.Initialize(this);
+            CommonApplicationRibbonExplorerCommand.Initialize(this);
+            CommonSiteMapExplorerCommand.Initialize(this);
 
             CommonSolutionExplorerCommand.Initialize(this);
             CommonSolutionExplorerInConnectionCommand.Initialize(this);
@@ -407,11 +407,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CommonOpenSolutionImageCommand.Initialize(this);
             CommonOpenSolutionDifferenceImageCommand.Initialize(this);
-            CommonExportSystemFormXmlCommand.Initialize(this);
-            CommonExportSystemSavedQueryVisualizationXmlCommand.Initialize(this);
-            CommonExportSystemSavedQueryXmlCommand.Initialize(this);
+            CommonSystemFormExplorerCommand.Initialize(this);
+            CommonSystemSavedQueryVisualizationExplorerCommand.Initialize(this);
+            CommonSystemSavedQueryExplorerCommand.Initialize(this);
             CommonExportWebResourceCommand.Initialize(this);
-            CommonExportWorkflowCommand.Initialize(this);
+            CommonWorkflowExplorerCommand.Initialize(this);
 
             CommonSystemUsersExplorerCommand.Initialize(this);
             CommonTeamsExplorerCommand.Initialize(this);
@@ -440,7 +440,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonSdkMessageRequestTreeCommand.Initialize(this);
             CommonExportOpenLastSelectedSolutionCommand.Initialize(this);
             CommonCheckComponentTypeEnumCommand.Initialize(this);
-            CommonCreateAllDependencyNodeDescriptionCommand.Initialize(this);
+            CommonCheckCreateAllDependencyNodeDescriptionCommand.Initialize(this);
             CommonOpenDefaultSolutionInWebCommand.Initialize(this);
 
 

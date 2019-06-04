@@ -4,16 +4,16 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class CommonExportOrganizationCommand : AbstractCommand
+    internal sealed class CommonOrganizationExplorerCommand : AbstractCommand
     {
-        private CommonExportOrganizationCommand(Package package)
+        private CommonOrganizationExplorerCommand(Package package)
            : base(package, PackageGuids.guidCommandSet, PackageIds.CommonExportOrganizationCommandId, ActionExecute, ActionBeforeQueryStatus) { }
 
-        public static CommonExportOrganizationCommand Instance { get; private set; }
+        public static CommonOrganizationExplorerCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new CommonExportOrganizationCommand(package);
+            Instance = new CommonOrganizationExplorerCommand(package);
         }
 
         private static void ActionExecute(DTEHelper helper)

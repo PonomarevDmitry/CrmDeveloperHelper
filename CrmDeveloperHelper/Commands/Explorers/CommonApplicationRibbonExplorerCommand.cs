@@ -3,16 +3,16 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class CommonExportApplicationRibbonXmlCommand : AbstractCommand
+    internal sealed class CommonApplicationRibbonExplorerCommand : AbstractCommand
     {
-        private CommonExportApplicationRibbonXmlCommand(Package package)
+        private CommonApplicationRibbonExplorerCommand(Package package)
            : base(package, PackageGuids.guidCommandSet, PackageIds.CommonExportApplicationRibbonXmlCommandId, ActionExecute, null) { }
 
-        public static CommonExportApplicationRibbonXmlCommand Instance { get; private set; }
+        public static CommonApplicationRibbonExplorerCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new CommonExportApplicationRibbonXmlCommand(package);
+            Instance = new CommonApplicationRibbonExplorerCommand(package);
         }
 
         private static void ActionExecute(DTEHelper helper)
