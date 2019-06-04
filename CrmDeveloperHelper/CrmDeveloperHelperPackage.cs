@@ -3,6 +3,19 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Threading;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Connections;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.FindEdit;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.PluginConfigurations;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.ToolWindowPanes;
@@ -364,7 +377,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             ListForPublishAddToSolutionLastCommand.Initialize(this);
             ListForPublishAddToSolutionInConnectionCommand.Initialize(this);
 
-
+            CommonCurrentConnectionCommand.Initialize(this);
+            CommonPublishAllInCrmConnectionCommand.Initialize(this);
+            CommonCrmConnectionCommand.Initialize(this);
+            CommonCrmConnectionTestCommand.Initialize(this);
 
             CommonCheckEntitiesNamesAndShowDependentComponentsCommand.Initialize(this);
             CommonCheckEntitiesNamesCommand.Initialize(this);
@@ -378,25 +394,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonCheckPluginImagesRequiredComponentsCommand.Initialize(this);
             CommonCheckPluginStepsCommand.Initialize(this);
             CommonCheckPluginStepsRequiredComponentsCommand.Initialize(this);
-            CommonOpenCrmWebSiteCommand.Initialize(this);
-            CommonCurrentConnectionCommand.Initialize(this);
-            CommonOpenConfigFolderCommand.Initialize(this);
-            CommonConfigCommand.Initialize(this);
-            CommonPublishAllInCrmConnectionCommand.Initialize(this);
-            CommonCrmConnectionCommand.Initialize(this);
-            CommonCrmConnectionTestCommand.Initialize(this);
             CommonEntityMetadataExplorerCommand.Initialize(this);
             CommonEntityAttributeExplorerCommand.Initialize(this);
             CommonEntityKeyExplorerCommand.Initialize(this);
             CommonEntityRelationshipOneToManyExplorerCommand.Initialize(this);
             CommonEntityRelationshipManyToManyExplorerCommand.Initialize(this);
             CommonEntityPrivilegesExplorerCommand.Initialize(this);
-            CommonExportFormEventsCommand.Initialize(this);
             CommonGlobalOptionSetsExplorerCommand.Initialize(this);
             CommonOrganizationExplorerCommand.Initialize(this);
-            CommonExportPluginAssemblyExplorerCommand.Initialize(this);
-            CommonExportPluginTypeExplorerCommand.Initialize(this);
-            CommonExportReportCommand.Initialize(this);
+            CommonPluginAssemblyExplorerCommand.Initialize(this);
+            CommonPluginTypeExplorerCommand.Initialize(this);
             CommonCustomControlExplorerCommand.Initialize(this);
             CommonApplicationRibbonExplorerCommand.Initialize(this);
             CommonSiteMapExplorerCommand.Initialize(this);
@@ -404,6 +411,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonSolutionExplorerCommand.Initialize(this);
             CommonSolutionExplorerInConnectionCommand.Initialize(this);
             CommonImportJobExplorerInConnectionCommand.Initialize(this);
+
+            CommonOpenCrmWebSiteCommand.Initialize(this);
+            CommonOpenConfigFolderCommand.Initialize(this);
+            CommonConfigCommand.Initialize(this);
+            CommonExportFormEventsCommand.Initialize(this);
+            CommonExportReportCommand.Initialize(this);
 
             CommonOpenSolutionImageCommand.Initialize(this);
             CommonOpenSolutionDifferenceImageCommand.Initialize(this);

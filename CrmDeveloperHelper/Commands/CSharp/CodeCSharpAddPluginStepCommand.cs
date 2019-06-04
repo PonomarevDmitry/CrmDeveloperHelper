@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
     internal sealed class CodeCSharpAddPluginStepCommand : AbstractCommand
     {

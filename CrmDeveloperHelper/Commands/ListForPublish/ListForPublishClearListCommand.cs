@@ -3,7 +3,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using System.Windows;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 {
     internal sealed class ListForPublishClearListCommand : AbstractCommand
     {

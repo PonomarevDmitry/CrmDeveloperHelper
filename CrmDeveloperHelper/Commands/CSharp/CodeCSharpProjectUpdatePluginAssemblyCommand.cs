@@ -2,7 +2,7 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
     internal sealed class CodeCSharpProjectUpdatePluginAssemblyCommand : AbstractCommand
     {

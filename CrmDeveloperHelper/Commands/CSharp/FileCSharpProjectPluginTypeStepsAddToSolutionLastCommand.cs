@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
     internal sealed class FileCSharpProjectPluginTypeStepsAddToSolutionLastCommand : IServiceProviderOwner
     {

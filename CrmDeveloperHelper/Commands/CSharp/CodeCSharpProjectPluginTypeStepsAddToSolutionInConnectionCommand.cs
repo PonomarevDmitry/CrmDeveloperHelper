@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
     internal sealed class CodeCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand : IServiceProviderOwner
     {

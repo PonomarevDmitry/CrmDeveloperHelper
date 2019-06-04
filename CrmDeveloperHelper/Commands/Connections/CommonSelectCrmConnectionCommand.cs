@@ -5,7 +5,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.ComponentModel.Design;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Connections
 {
     internal sealed class CommonSelectCrmConnectionCommand : IServiceProviderOwner
     {

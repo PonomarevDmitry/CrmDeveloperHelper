@@ -5,7 +5,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 {
     internal sealed class CodePublishListRemoveCommand : AbstractCommand
     {
