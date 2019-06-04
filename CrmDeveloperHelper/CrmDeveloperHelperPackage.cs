@@ -416,7 +416,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonOpenConfigFolderCommand.Initialize(this);
             CommonConfigCommand.Initialize(this);
             CommonExportFormEventsCommand.Initialize(this);
-            CommonExportReportCommand.Initialize(this);
+            CommonReportExplorerCommand.Initialize(this);
 
             CommonOpenSolutionImageCommand.Initialize(this);
             CommonOpenSolutionDifferenceImageCommand.Initialize(this);

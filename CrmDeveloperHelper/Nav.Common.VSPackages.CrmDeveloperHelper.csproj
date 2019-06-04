@@ -213,7 +213,7 @@
     <Compile Include="Commands\CommonExportFormEventsCommand.cs" />
     <Compile Include="Commands\Explorers\CommonGlobalOptionSetsExplorerCommand.cs" />
     <Compile Include="Commands\Explorers\CommonOrganizationExplorerCommand.cs" />
-    <Compile Include="Commands\Reports\CommonExportReportCommand.cs" />
+    <Compile Include="Commands\Explorers\CommonReportExplorerCommand.cs" />
     <Compile Include="Commands\Explorers\CommonApplicationRibbonExplorerCommand.cs" />
     <Compile Include="Commands\Explorers\CommonSiteMapExplorerCommand.cs" />
     <Compile Include="Commands\Explorers\CommonSolutionExplorerCommand.cs" />
