@@ -423,7 +423,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonSystemFormExplorerCommand.Initialize(this);
             CommonSystemSavedQueryVisualizationExplorerCommand.Initialize(this);
             CommonSystemSavedQueryExplorerCommand.Initialize(this);
-            CommonExportWebResourceCommand.Initialize(this);
+            CommonWebResourceExplorerCommand.Initialize(this);
             CommonWorkflowExplorerCommand.Initialize(this);
 
             CommonSystemUsersExplorerCommand.Initialize(this);

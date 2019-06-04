@@ -7,7 +7,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
     internal sealed class CommonEntityMetadataExplorerCommand : AbstractCommand
     {
         private CommonEntityMetadataExplorerCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonExportEntityMetadataCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonEntityMetadataExplorerCommandId, ActionExecute, ActionBeforeQueryStatus) { }
 
         public static CommonEntityMetadataExplorerCommand Instance { get; private set; }
 

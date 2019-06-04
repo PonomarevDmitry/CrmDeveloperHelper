@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
     internal sealed class CommonSiteMapExplorerCommand : AbstractCommand
     {
         private CommonSiteMapExplorerCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonExportSiteMapCommandId, ActionExecute, null) { }
+           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonSiteMapExplorerCommandId, ActionExecute, null) { }
 
         public static CommonSiteMapExplorerCommand Instance { get; private set; }
 

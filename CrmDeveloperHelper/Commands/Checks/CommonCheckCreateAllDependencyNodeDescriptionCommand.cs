@@ -13,7 +13,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
 
         public IServiceProvider ServiceProvider => this._package;
 
-        private const int _baseIdStart = PackageIds.CommonCreateAllDependencyNodeDescriptionCommandId;
+        private const int _baseIdStart = PackageIds.CommonCheckCreateAllDependencyNodeDescriptionCommandId;
 
         private CommonCheckCreateAllDependencyNodeDescriptionCommand(Package package)
         {

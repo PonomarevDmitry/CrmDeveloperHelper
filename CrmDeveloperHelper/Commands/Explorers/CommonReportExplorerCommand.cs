@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
     internal sealed class CommonReportExplorerCommand : AbstractCommand
     {
         private CommonReportExplorerCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonExportReportCommandId, ActionExecute, null) { }
+           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonReportExplorerCommandId, ActionExecute, null) { }
 
         public static CommonReportExplorerCommand Instance { get; private set; }
 

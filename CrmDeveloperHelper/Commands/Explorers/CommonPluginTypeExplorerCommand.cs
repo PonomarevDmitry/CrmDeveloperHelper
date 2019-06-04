@@ -6,7 +6,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
     internal sealed class CommonPluginTypeExplorerCommand : AbstractCommand
     {
         private CommonPluginTypeExplorerCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonExportPluginTypeExplorerCommandId, ActionExecute, null) { }
+           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonPluginTypeExplorerCommandId, ActionExecute, null) { }
 
         public static CommonPluginTypeExplorerCommand Instance { get; private set; }
 
