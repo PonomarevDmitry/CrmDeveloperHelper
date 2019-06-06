@@ -475,7 +475,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     var item = (this.lstVwWorkflows.SelectedItems[0] as EntityViewItem);
 
-                    tSDDBShowDifference.IsEnabled = enabled && item.Link.Entity1 != null && item.Link.Entity2 != null;
+                    btnShowDifferenceAll.IsEnabled = tSDDBShowDifference.IsEnabled = enabled && item.Link.Entity1 != null && item.Link.Entity2 != null;
+
                     tSDDBConnection1.IsEnabled = enabled && item.Link.Entity1 != null;
                     tSDDBConnection2.IsEnabled = enabled && item.Link.Entity2 != null;
                 }

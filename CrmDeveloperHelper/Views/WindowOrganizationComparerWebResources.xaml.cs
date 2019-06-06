@@ -359,8 +359,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                   )
                 {
                     var item = new EntityViewItem(
-                        link.Entity1.FormattedValues[WebResource.Schema.Attributes.webresourcetype]
-                        , link.Entity1.Name
+                        link.Entity1.Name
+                        , link.Entity1.FormattedValues[WebResource.Schema.Attributes.webresourcetype]
                         , link.Entity1.DisplayName
                         , link.Entity2?.DisplayName
                         , link);
@@ -421,7 +421,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     var item = (this.lstVwWebResources.SelectedItems[0] as EntityViewItem);
 
-                    tSDDBShowDifference.IsEnabled = enabled && item.Link.Entity1 != null && item.Link.Entity2 != null;
+                    btnShowDifferenceAll.IsEnabled = tSDDBShowDifference.IsEnabled = enabled && item.Link.Entity1 != null && item.Link.Entity2 != null;
                     tSDDBConnection1.IsEnabled = enabled && item.Link.Entity1 != null;
                     tSDDBConnection2.IsEnabled = enabled && item.Link.Entity2 != null;
                 }
