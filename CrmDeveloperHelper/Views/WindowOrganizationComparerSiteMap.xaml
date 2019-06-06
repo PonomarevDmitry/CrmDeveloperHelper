@@ -26,7 +26,7 @@
                     <MenuItem Header="Open SiteMap in Web" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Create Entity Description" />
+                    <MenuItem Header="Create Entity Description" Click="mIExportSiteMap1EntityDescription_Click" />
                     <MenuItem Header="SiteMap XML" Click="mIExportSiteMap1SiteMapXml_Click" />
 
                     <Separator/>
@@ -38,7 +38,7 @@
                     <MenuItem Header="Open SiteMap in Web" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Create Entity Description" />
+                    <MenuItem Header="Create Entity Description" Click="mIExportSiteMap2EntityDescription_Click" />
                     <MenuItem Header="SiteMap XML" Click="mIExportSiteMap2SiteMapXml_Click" />
 
                     <Separator/>
@@ -178,7 +178,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection1" Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Export from {0}">
-                            <MenuItem Header="Create Entity Description" />
+                            <MenuItem Header="Create Entity Description" Click="mIExportSiteMap1EntityDescription_Click" />
                             
                             <Separator/>
                             <MenuItem Header="SiteMap XML" Click="mIExportSiteMap1SiteMapXml_Click" />
@@ -188,7 +188,7 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Export from {0}">
-                            <MenuItem Header="Create Entity Description" />
+                            <MenuItem Header="Create Entity Description" Click="mIExportSiteMap2EntityDescription_Click" />
                             
                             <Separator/>
                             <MenuItem Header="SiteMap XML" Click="mIExportSiteMap2SiteMapXml_Click" />
