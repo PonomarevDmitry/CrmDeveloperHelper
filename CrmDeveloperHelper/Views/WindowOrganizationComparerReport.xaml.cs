@@ -489,8 +489,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
+                filePath = string.Empty;
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, Report.Schema.EntityLogicalName, name, fieldTitle);
-                this._iWriteToOutput.ActivateOutputWindow(connectionData);
             }
 
             return filePath;
@@ -523,7 +523,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 filePath = string.Empty;
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, Report.Schema.EntityLogicalName, name, fieldTitle);
-                this._iWriteToOutput.ActivateOutputWindow(connectionData);
             }
 
             return filePath;
@@ -687,6 +686,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         string filePath2 = await CreateFileAsync(service2.ConnectionData, report2.Name, report2.Id, fieldTitle, xml2);
 
+                        if (!File.Exists(filePath1))
+                        {
+                            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service1.ConnectionData.Name, Report.Schema.EntityLogicalName, report1.Name, fieldTitle);
+                        }
+
+                        if (!File.Exists(filePath2))
+                        {
+                            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service2.ConnectionData.Name, Report.Schema.EntityLogicalName, report2.Name, fieldTitle);
+                        }
+
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
                             this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
@@ -801,7 +810,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     else
                     {
                         this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, Report.Schema.EntityLogicalName, reportWithBodyBinary.Name, fieldTitle);
-                        this._iWriteToOutput.ActivateOutputWindow(service.ConnectionData);
                     }
                 }
 
