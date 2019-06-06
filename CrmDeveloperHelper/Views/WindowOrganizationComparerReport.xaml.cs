@@ -689,11 +689,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         if (!File.Exists(filePath1))
                         {
                             this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service1.ConnectionData.Name, Report.Schema.EntityLogicalName, report1.Name, fieldTitle);
+                            this._iWriteToOutput.ActivateOutputWindow(null);
                         }
 
                         if (!File.Exists(filePath2))
                         {
                             this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service2.ConnectionData.Name, Report.Schema.EntityLogicalName, report2.Name, fieldTitle);
+                            this._iWriteToOutput.ActivateOutputWindow(null);
                         }
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
@@ -761,6 +763,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = await CreateFileAsync(service.ConnectionData, report.Name, report.Id, fieldTitle, xmlContent);
 
+                if (!File.Exists(filePath))
+                {
+                    this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, Report.Schema.EntityLogicalName, report.Name, fieldTitle);
+                    this._iWriteToOutput.ActivateOutputWindow(null);
+                }
+
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
 
@@ -786,13 +794,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     Report reportWithBodyBinary = await repository.GetByIdAsync(idReport, new ColumnSet(true));
 
-                    string extension = Path.GetExtension(reportWithBodyBinary.FileName);
-
-                    string fileName = EntityFileNameFormatter.GetReportFileName(service.ConnectionData.Name, reportWithBodyBinary.Name, reportWithBodyBinary.Id, fieldTitle, extension);
-                    string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
                     if (!string.IsNullOrEmpty(reportWithBodyBinary.BodyBinary))
                     {
+                        string extension = Path.GetExtension(reportWithBodyBinary.FileName);
+
+                        string fileName = EntityFileNameFormatter.GetReportFileName(service.ConnectionData.Name, reportWithBodyBinary.Name, reportWithBodyBinary.Id, fieldTitle, extension);
+                        string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
                         var array = Convert.FromBase64String(reportWithBodyBinary.BodyBinary);
 
                         File.WriteAllBytes(filePath, array);
@@ -810,6 +818,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     else
                     {
                         this._iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, Report.Schema.EntityLogicalName, reportWithBodyBinary.Name, fieldTitle);
+                        this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, Report.Schema.EntityLogicalName, reportWithBodyBinary.Name, fieldTitle);
+                        this._iWriteToOutput.ActivateOutputWindow(null);
                     }
                 }
 
