@@ -1265,5 +1265,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.Report, entity.Link.Entity2.Id);
             }
         }
+
+        private async void mIConnection1OpenReportListInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService1();
+
+            service.ConnectionData.OpenEntityInstanceListInWeb(Report.EntityLogicalName);
+        }
+
+        private async void mIConnection2OpenReportListInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService2();
+
+            service.ConnectionData.OpenEntityInstanceListInWeb(Report.EntityLogicalName);
+        }
     }
 }
