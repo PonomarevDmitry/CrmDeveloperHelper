@@ -5,7 +5,7 @@
         xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
         xmlns:entities="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Entities"
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
-        Title="Solution Components" Height="538.662" Width="755" WindowStartupLocation="Manual">
+        Title="Solution Components Explorer" Height="538.662" Width="755" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
