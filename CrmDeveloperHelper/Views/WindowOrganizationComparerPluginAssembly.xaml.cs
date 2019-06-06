@@ -50,11 +50,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
-            tSDDBConnection1.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection1.Name);
-            tSDDBConnection2.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection2.Name);
-
-            this.Resources["ConnectionName1"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection1.Name);
-            this.Resources["ConnectionName2"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection2.Name);
+            this.Resources["ConnectionName1"] = connection1.Name;
+            this.Resources["ConnectionName2"] = connection2.Name;
 
             LoadFromConfig();
 
@@ -793,11 +790,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (connection1 != null && connection2 != null)
                 {
-                    tSDDBConnection1.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection1.Name);
-                    tSDDBConnection2.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection2.Name);
-
-                    this.Resources["ConnectionName1"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection1.Name);
-                    this.Resources["ConnectionName2"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection2.Name);
+                    this.Resources["ConnectionName1"] = connection1.Name;
+                    this.Resources["ConnectionName2"] = connection2.Name;
 
                     UpdateButtonsEnable();
 

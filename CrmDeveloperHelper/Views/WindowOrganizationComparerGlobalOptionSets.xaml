@@ -14,13 +14,16 @@
 
             <clr:String x:Key="ConnectionName1">Connection 1</clr:String>
             <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
+            
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
                 <MenuItem x:Uid="menuContextDifference" Header="Difference C# File Single OptionSet" Click="btnDifferenceCSharpFileSingle_Click" />
                 <Separator x:Uid="menuContextDifference" />
+                
                 <MenuItem x:Uid="menuContextDifference" Header="Difference JavaScript File Json Object Single OptionSet" Click="btnDifferenceJavaScriptFileSingleJsonObject_Click" />
                 <Separator x:Uid="menuContextDifference" />
-                <MenuItem x:Uid="menuContextDifference" Header="Show Difference">
+
+                <MenuItem x:Uid="menuContextDifference" Header="Organization Comparer">
                     <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
                     <Separator/>
                     <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
@@ -35,14 +38,18 @@
                 </MenuItem>
                 <Separator x:Uid="menuContextDifference"/>
 
-                <MenuItem Header="{DynamicResource ConnectionName1}">
+                <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Create from {0}">
                     <MenuItem Header="Open OptionSet in Web" VerticalAlignment="Center" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
                     <Separator/>
 
                     <MenuItem Header="Create C# File Single OptionSets" Click="btnConnection1CSharpSingle_Click" />
+                    
                     <Separator/>
                     <MenuItem Header="Create JavaScript File Json Object Single OptionSet" Click="btnConnection1JavaScriptSingleJsonObject_Click"/>
-                    <Separator/>
+                </MenuItem>
+
+                <Separator/>
+                <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Get Entity Information {0}">
                     <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile1_Click"/>
                     <Separator/>
                     <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer1_Click"/>
@@ -69,15 +76,19 @@
                     <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree1_Click"/>
                 </MenuItem>
 
-                <Separator x:Uid="menuContextDifference"/>
-                <MenuItem x:Uid="menuContextDifference" Header="{DynamicResource ConnectionName2}">
+                <Separator x:Uid="menuContextConnection2"/>
+                <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Create from {0}">
                     <MenuItem Header="Open OptionSet in Web" VerticalAlignment="Center" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
                     <Separator/>
 
                     <MenuItem Header="Create C# File Single OptionSets"  Click="btnConnection2CSharpSingle_Click" />
+                    
                     <Separator/>
                     <MenuItem Header="Create JavaScript Json Object File Single OptionSet" Click="btnConnection2JavaScriptSingleJsonObject_Click"/>
-                    <Separator/>
+                </MenuItem>
+
+                <Separator x:Uid="menuContextConnection2"/>
+                <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Get Entity Information {0}">
                     <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile2_Click"/>
                     <Separator/>
                     <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer2_Click"/>
@@ -106,14 +117,11 @@
 
             </ContextMenu>
             
-            <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
-
         </ResourceDictionary>
     </src:WindowBase.Resources>
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -126,6 +134,83 @@
 
         <ToolBar x:Name="toolBarHeader" Grid.Row="0">
             <Button Content="Options" Click="miOptions_Click"/>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu Background="{x:Null}">
+                <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Get Entity Information {0}">
+                    <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile1_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer1_Click"/>
+                    <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer1_Click"/>
+                    <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer1_Click"/>
+                    <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer1_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity Privileges Explorer" Click="btnEntityPrivilegesExplorer1_Click"/>
+                    <Separator/>
+                    <MenuItem Header="SecurityRoles Explorer" Click="btnSecurityRolesExplorer1_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets1_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Forms" Click="btnSystemForms1_Click"/>
+                    <MenuItem Header="Views" Click="btnSavedQuery1_Click"/>
+                    <MenuItem Header="Charts" Click="btnSavedChart1_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Workflows" Click="btnWorkflows1_Click"/>
+                    <Separator/>
+                    <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon1_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Plugin Tree" Click="btnPluginTree1_Click"/>
+                    <MenuItem Header="Message Tree" Click="btnMessageTree1_Click"/>
+                    <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree1_Click"/>
+                </MenuItem>
+            </Menu>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu Background="{x:Null}">
+                <MenuItem Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Get Entity Information {0}">
+                    <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile2_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer2_Click"/>
+                    <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer2_Click"/>
+                    <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer2_Click"/>
+                    <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer2_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity Privileges Explorer" Click="btnEntityPrivilegesExplorer2_Click"/>
+                    <Separator/>
+                    <MenuItem Header="SecurityRoles Explorer" Click="btnSecurityRolesExplorer2_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets2_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Forms" Click="btnSystemForms2_Click"/>
+                    <MenuItem Header="Views" Click="btnSavedQuery2_Click"/>
+                    <MenuItem Header="Charts" Click="btnSavedChart2_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Workflows" Click="btnWorkflows2_Click"/>
+                    <Separator/>
+                    <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon2_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Plugin Tree" Click="btnPluginTree2_Click"/>
+                    <MenuItem Header="Message Tree" Click="btnMessageTree2_Click"/>
+                    <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree2_Click"/>
+                </MenuItem>
+            </Menu>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu Background="{x:Null}">
+                <MenuItem Header="Organization Comparer">
+                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
+                    <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
+                    <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
+                    <Separator/>
+                    <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
+                </MenuItem>
+            </Menu>
         </ToolBar>
 
         <Expander Grid.Row="1" Margin="5" Header="Namespaces">
@@ -189,16 +274,7 @@
 
         </Grid>
 
-        <Grid Grid.Row="3" Margin="5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="100*" />
-            </Grid.ColumnDefinitions>
-
-            
-        </Grid>
-
-        <DataGrid x:Name="lstVwOptionSets" AutoGenerateColumns="False" Grid.Row="4" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwOptionSets_MouseDoubleClick" SelectionChanged="lstVwOptionSets_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+        <DataGrid x:Name="lstVwOptionSets" AutoGenerateColumns="False" Grid.Row="3" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwOptionSets_MouseDoubleClick" SelectionChanged="lstVwOptionSets_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -220,7 +296,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <ToolBar Grid.Row="5">
+        <ToolBar Grid.Row="4">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
@@ -237,50 +313,66 @@
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
                             <MenuItem Header="C# File Single OptionSet" Click="btnDifferenceCSharpFileSingle_Click" />
+                            
                             <Separator />
                             <MenuItem Header="Difference JavaScript File Json Object Single OptionSet" Click="btnDifferenceJavaScriptFileSingleJsonObject_Click" />
+                            
                             <Separator/>
                             <MenuItem Header="C# File All OptionSets" Click="btnDifferenceCSharpFile_Click"  />
+                            
                             <Separator/>
                             <MenuItem Header="JavaScript File Json Object All OptionSets" Click="btnDifferenceJavaScriptFileJsonObject_Click"/>
                         </MenuItem>
                     </Menu>
                     
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                        <MenuItem x:Name="tSDDBConnection1" Header="Connection 1">
+                        <MenuItem x:Name="tSDDBConnection1" Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Export from {0}">
+                            <MenuItem Header="Open OptionSet in Web" VerticalAlignment="Center" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
+
+                            <Separator/>
                             <MenuItem Header="Create C# File Single OptionSets" Click="btnConnection1CSharpSingle_Click"  />
+                            
                             <Separator/>
                             <MenuItem Header="Create JavaScript File Json Object Single OptionSet" Click="btnConnection1JavaScriptSingleJsonObject_Click"/>
+                            
                             <Separator/>
                             <MenuItem Header="Create C# File All OptionSets" Click="btnConnection1CSharp_Click"  />
+                            
                             <Separator/>
                             <MenuItem Header="Create JavaScript File Json Object All OptionSets" Click="btnConnection1JavaScriptJsonObject_Click" />
                         </MenuItem>
                     </Menu>
                     
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                        <MenuItem x:Name="tSDDBConnection2" Header="Connection 2">
+                        <MenuItem x:Name="tSDDBConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Export from {0}">
+                            <MenuItem Header="Open OptionSet in Web" VerticalAlignment="Center" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
+
+                            <Separator/>
                             <MenuItem Header="Create C# File Single OptionSets"  Click="btnConnection2CSharpSingle_Click" />
+                            
                             <Separator/>
                             <MenuItem Header="Create JavaScript File Json Object Single OptionSet" Click="btnConnection2JavaScriptSingleJsonObject_Click"/>
+                            
                             <Separator/>
                             <MenuItem Header="Create C# File All OptionSets" Click="btnConnection2CSharp_Click" />
+                            
                             <Separator/>
                             <MenuItem Header="Create JavaScript File Json Object All OptionSets" Click="btnConnection2JavaScriptJsonObject_Click" />
                         </MenuItem>
                     </Menu>
                     
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Label Content="Action" HorizontalAlignment="Left" Padding="10,0" VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
                     <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" IsReadOnly="True" Padding="10,0" Width="180" SelectedIndex="0" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" />
                 </ToolBarPanel>
+                
                 <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
 
-        <StatusBar Grid.Row="6" >
+        <StatusBar Grid.Row="5" >
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>
             <StatusBarItem x:Name="stBIStatus" Content="" />
         </StatusBar>

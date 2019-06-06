@@ -70,11 +70,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 Focusable = true,
             };
 
-            tSDDBConnection1.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection1.Name);
-            tSDDBConnection2.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection2.Name);
-
-            this.Resources["ConnectionName1"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection1.Name);
-            this.Resources["ConnectionName2"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection2.Name);
+            this.Resources["ConnectionName1"] = connection1.Name;
+            this.Resources["ConnectionName2"] = connection2.Name;
 
             LoadFromConfig();
 
@@ -422,6 +419,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     var item = (this.lstVwEntities.SelectedItems[0] as LinkedEntityMetadata);
 
                     tSDDBShowDifference.IsEnabled = enabled && item.EntityMetadata1 != null && item.EntityMetadata2 != null;
+
                     tSDDBConnection1.IsEnabled = enabled && item.EntityMetadata1 != null;
                     tSDDBConnection2.IsEnabled = enabled && item.EntityMetadata2 != null;
                 }
@@ -1107,11 +1105,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (connection1 != null && connection2 != null)
                 {
-                    tSDDBConnection1.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection1.Name);
-                    tSDDBConnection2.Header = string.Format(Properties.OperationNames.ExportFromConnectionFormat1, connection2.Name);
-
-                    this.Resources["ConnectionName1"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection1.Name);
-                    this.Resources["ConnectionName2"] = string.Format(Properties.OperationNames.CreateFromConnectionFormat1, connection2.Name);
+                    this.Resources["ConnectionName1"] = connection1.Name;
+                    this.Resources["ConnectionName2"] = connection2.Name;
 
                     UpdateButtonsEnable();
 
@@ -1628,7 +1623,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (linkedEntityMetadata != null
                      && linkedEntityMetadata.EntityMetadata1 != null
                      && linkedEntityMetadata.EntityMetadata2 != null
-                     )
+                )
                 {
                     menuContextDifference.IsEnabled = true;
                     menuContextDifference.Visibility = Visibility.Visible;
@@ -1641,8 +1636,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 menuContextConnection2.Visibility = Visibility.Collapsed;
 
                 if (linkedEntityMetadata != null
-                     && linkedEntityMetadata.EntityMetadata2 != null
-                     )
+                    && linkedEntityMetadata.EntityMetadata2 != null
+                )
                 {
                     menuContextConnection2.IsEnabled = true;
                     menuContextConnection2.Visibility = Visibility.Visible;

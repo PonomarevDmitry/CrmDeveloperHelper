@@ -125,6 +125,7 @@
         <ToolBar x:Name="toolBarHeader" DockPanel.Dock="Top">
             <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                 <MenuItem Header="Options" Click="miExportEntityMetadataOptions_Click" />
+                
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                 <MenuItem Header="Open Entity Information" VerticalAlignment="Center">
                     <MenuItem Header="Entity Attribute Explorer" Click="miEntityAttributeExplorer_Click"/>
@@ -150,6 +151,7 @@
                     <MenuItem Header="Message Tree" Click="miMessageTree_Click"/>
                     <MenuItem Header="Message Request Tree" Click="miMessageRequestTree_Click"/>
                 </MenuItem>
+                
                 <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                 <MenuItem Header="Compare Information with other Organization">
                     <MenuItem Header="Organization Comparer" Click="miOrganizationComparer_Click"/>

@@ -97,20 +97,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Adding PluginAssembly to Solution {1}.
-        /// </summary>
-        internal static string AddingPluginAssemblyToSolutionFormat2 {
-            get {
-                return ResourceManager.GetString("AddingPluginAssemblyToSolutionFormat2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} - Adding PluginAssembly Processing Steps to Solution {1}.
         /// </summary>
         internal static string AddingPluginAssemblyProcessingStepsToSolutionFormat2 {
             get {
                 return ResourceManager.GetString("AddingPluginAssemblyProcessingStepsToSolutionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Adding PluginAssembly to Solution {1}.
+        /// </summary>
+        internal static string AddingPluginAssemblyToSolutionFormat2 {
+            get {
+                return ResourceManager.GetString("AddingPluginAssemblyToSolutionFormat2", resourceCulture);
             }
         }
         
@@ -736,15 +736,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create from {0}.
-        /// </summary>
-        internal static string CreateFromConnectionFormat1 {
-            get {
-                return ResourceManager.GetString("CreateFromConnectionFormat1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} - Creating all Dependency Nodes Description.
         /// </summary>
         internal static string CreatingAllDependencyNodesDescriptionFormat1 {
@@ -1002,15 +993,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string ExecutingWorkflowFormat2 {
             get {
                 return ResourceManager.GetString("ExecutingWorkflowFormat2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Export from {0}.
-        /// </summary>
-        internal static string ExportFromConnectionFormat1 {
-            get {
-                return ResourceManager.GetString("ExportFromConnectionFormat1", resourceCulture);
             }
         }
         

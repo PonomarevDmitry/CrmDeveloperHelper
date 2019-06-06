@@ -7,77 +7,137 @@
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
         Title="Report Comparer" Height="538.662" Width="752" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
-        <clr:String x:Key="ConnectionName1">Connection 1</clr:String>
-        <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
-        <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleWindows.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
-            <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
-            <Separator x:Uid="menuContextDifference"/>
-            <MenuItem x:Uid="menuContextDifference" Header="Difference Body Text" VerticalAlignment="Center" Click="mIShowDifferenceBodyText_Click"/>
-            <MenuItem x:Uid="menuContextDifference" Header="Difference Original Body Text" VerticalAlignment="Center" Click="mIShowDifferenceOriginalBodyText_Click"/>
-            <MenuItem x:Uid="menuContextDifference" Header="Difference Default Filter" VerticalAlignment="Center" Click="mIShowDifferenceDefaultFilter_Click"/>
-            <MenuItem x:Uid="menuContextDifference" Header="Difference Custom Report Xml" VerticalAlignment="Center" Click="mIShowDifferenceCustomReportXml_Click" />
-            <MenuItem x:Uid="menuContextDifference" Header="Difference ScheduleXml" VerticalAlignment="Center" Click="mIShowDifferenceScheduleXml_Click" />
-            <MenuItem x:Uid="menuContextDifference" Header="Difference Query Info" VerticalAlignment="Center" Click="mIShowDifferenceQueryInfo_Click" />
-            <Separator x:Uid="menuContextDifference"/>
-            <MenuItem x:Uid="menuContextDifference" Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
-            <Separator x:Uid="menuContextDifference"/>
+            <clr:String x:Key="ConnectionName1">Connection 1</clr:String>
+            <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
 
-            <MenuItem Header="{DynamicResource ConnectionName1}">
-                <MenuItem Header="Open Report in Web" VerticalAlignment="Center" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
-                <Separator/>
+            <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
-                <MenuItem Header="Create Entity Description" Click="mIExportReport1EntityDescription_Click" />
-                <Separator/>
-                <MenuItem Header="Body Text" VerticalAlignment="Center" Click="mIExportReport1BodyText_Click"/>
-                <MenuItem Header="Original Body Text" VerticalAlignment="Center" Click="mIExportReport1OriginalBodyText_Click"/>
-                <MenuItem Header="Default Filter" VerticalAlignment="Center" Click="mIExportReport1DefaultFilter_Click"/>
-                <MenuItem Header="Custom Report Xml" VerticalAlignment="Center" Click="mIExportReport1CustomReportXml_Click"/>
-                <MenuItem Header="ScheduleXml" VerticalAlignment="Center" Click="mIExportReport1ScheduleXml_Click"/>
-                <MenuItem Header="Query Info" VerticalAlignment="Center" Click="mIExportReport1QueryInfo_Click"/>
-                <Separator/>
-                <MenuItem Header="Body Binary" VerticalAlignment="Center" Click="mIExportReport1BodyBinary_Click"/>
-                <Separator/>
-                <MenuItem Header="Report" Click="btnExportReport1_Click"/>
-            </MenuItem>
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
 
-            <Separator x:Uid="menuContextConnection2"/>
-            <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}">
-                <MenuItem Header="Open Report in Web" VerticalAlignment="Center" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
-                <Separator/>
-                
-                <MenuItem Header="Create Entity Description" Click="mIExportReport2EntityDescription_Click" />
-                <Separator/>
-                <MenuItem Header="Body Text" VerticalAlignment="Center" Click="mIExportReport2BodyText_Click"/>
-                <MenuItem Header="Original Body Text" VerticalAlignment="Center" Click="mIExportReport2OriginalBodyText_Click"/>
-                <MenuItem Header="Default Filter" VerticalAlignment="Center" Click="mIExportReport2DefaultFilter_Click"/>
-                <MenuItem Header="Custom Report Xml" VerticalAlignment="Center" Click="mIExportReport2CustomReportXml_Click"/>
-                <MenuItem Header="ScheduleXml" VerticalAlignment="Center" Click="mIExportReport2ScheduleXml_Click" />
-                <MenuItem Header="Query Info" VerticalAlignment="Center" Click="mIExportReport2QueryInfo_Click"/>
-                <Separator/>
-                <MenuItem Header="Body Binary" VerticalAlignment="Center" Click="mIExportReport2BodyBinary_Click"/>
-                <Separator/>
-                <MenuItem Header="Report" Click="btnExportReport2_Click"/>
-            </MenuItem>
-        </ContextMenu>
+                <Separator x:Uid="menuContextDifference"/>
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Body Text" VerticalAlignment="Center" Click="mIShowDifferenceBodyText_Click"/>
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Original Body Text" VerticalAlignment="Center" Click="mIShowDifferenceOriginalBodyText_Click"/>
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Default Filter" VerticalAlignment="Center" Click="mIShowDifferenceDefaultFilter_Click"/>
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Custom Report Xml" VerticalAlignment="Center" Click="mIShowDifferenceCustomReportXml_Click" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference ScheduleXml" VerticalAlignment="Center" Click="mIShowDifferenceScheduleXml_Click" />
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Query Info" VerticalAlignment="Center" Click="mIShowDifferenceQueryInfo_Click" />
+
+                <Separator x:Uid="menuContextDifference"/>
+                <MenuItem x:Uid="menuContextDifference" Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                <Separator x:Uid="menuContextDifference"/>
+
+                <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Create from {0}">
+                    <MenuItem Header="Open Report in Web" VerticalAlignment="Center" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Create Entity Description" Click="mIExportReport1EntityDescription_Click" />
+                    
+                    <Separator/>
+                    <MenuItem Header="Body Text" VerticalAlignment="Center" Click="mIExportReport1BodyText_Click"/>
+                    <MenuItem Header="Original Body Text" VerticalAlignment="Center" Click="mIExportReport1OriginalBodyText_Click"/>
+                    <MenuItem Header="Default Filter" VerticalAlignment="Center" Click="mIExportReport1DefaultFilter_Click"/>
+                    <MenuItem Header="Custom Report Xml" VerticalAlignment="Center" Click="mIExportReport1CustomReportXml_Click"/>
+                    <MenuItem Header="ScheduleXml" VerticalAlignment="Center" Click="mIExportReport1ScheduleXml_Click"/>
+                    <MenuItem Header="Query Info" VerticalAlignment="Center" Click="mIExportReport1QueryInfo_Click"/>
+                    
+                    <Separator/>
+                    <MenuItem Header="Body Binary" VerticalAlignment="Center" Click="mIExportReport1BodyBinary_Click"/>
+                    
+                    <Separator/>
+                    <MenuItem Header="Report Explorer" Click="btnExportReport1_Click"/>
+                </MenuItem>
+
+                <Separator x:Uid="menuContextConnection2"/>
+                <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Create from {0}">
+                    <MenuItem Header="Open Report in Web" VerticalAlignment="Center" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
+
+                    <Separator/>
+                    <MenuItem Header="Create Entity Description" Click="mIExportReport2EntityDescription_Click" />
+                    
+                    <Separator/>
+                    <MenuItem Header="Body Text" VerticalAlignment="Center" Click="mIExportReport2BodyText_Click"/>
+                    <MenuItem Header="Original Body Text" VerticalAlignment="Center" Click="mIExportReport2OriginalBodyText_Click"/>
+                    <MenuItem Header="Default Filter" VerticalAlignment="Center" Click="mIExportReport2DefaultFilter_Click"/>
+                    <MenuItem Header="Custom Report Xml" VerticalAlignment="Center" Click="mIExportReport2CustomReportXml_Click"/>
+                    <MenuItem Header="ScheduleXml" VerticalAlignment="Center" Click="mIExportReport2ScheduleXml_Click" />
+                    <MenuItem Header="Query Info" VerticalAlignment="Center" Click="mIExportReport2QueryInfo_Click"/>
+                    
+                    <Separator/>
+                    <MenuItem Header="Body Binary" VerticalAlignment="Center" Click="mIExportReport2BodyBinary_Click"/>
+                    
+                    <Separator/>
+                    <MenuItem Header="Report Explorer" Click="btnExportReport2_Click"/>
+                </MenuItem>
+            </ContextMenu>
+
+        </ResourceDictionary>
     </src:WindowBase.Resources>
     <Grid>
-        <Grid Height="25" Margin="10,10,10,0" VerticalAlignment="Top">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            
+            <RowDefinition Height="100*" />
+
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ToolBar Grid.Row="0" Margin="0">
+            <Menu Background="{x:Null}">
+                <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Get Entity Information {0}">
+                    <MenuItem Header="Report Explorer" Click="btnExportReport1_Click"/>
+                </MenuItem>
+            </Menu>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu Background="{x:Null}">
+                <MenuItem Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Get Entity Information {0}">
+                    <MenuItem Header="Report Explorer" Click="btnExportReport2_Click"/>
+                </MenuItem>
+            </Menu>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu Background="{x:Null}">
+                <MenuItem Header="Organization Comparer">
+                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                </MenuItem>
+            </Menu>
+        </ToolBar>
+
+        <Grid Grid.Row="1" Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="100*"/>
+                
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="100*"/>
             </Grid.ColumnDefinitions>
 
-            <Label Content="Connection 1 to CRM:" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0" Grid.Column="0"/>
-            <ComboBox x:Name="cmBConnection1" IsReadOnly="True" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0"  Grid.Row="0" Grid.Column="1"/>
-            <Label Content="Connection 2 to CRM:" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0" Grid.Column="2"/>
-            <ComboBox x:Name="cmBConnection2" IsReadOnly="True" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0"  Grid.Row="0" Grid.Column="3"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Content="Connection 1 to CRM:" Grid.Row="0" Grid.Column="0"/>
+            <ComboBox x:Name="cmBConnection1" Grid.Row="0" Grid.Column="1" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
+
+            <Label Content="Connection 2 to CRM:" Grid.Row="0" Grid.Column="2"/>
+            <ComboBox x:Name="cmBConnection2" Grid.Row="0" Grid.Column="3" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
+
+            <Label Content="Filter" Grid.Row="1" Grid.Column="0"/>
+            <TextBox x:Name="txtBFilter" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" KeyDown="txtBFilterEnitity_KeyDown" />
+
         </Grid>
-        <Label Content="Filter" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Height="23"/>
-        <TextBox x:Name="txtBFilter" Height="23" Margin="51,40,10,0"   VerticalAlignment="Top" KeyDown="txtBFilterEnitity_KeyDown"  VerticalContentAlignment="Center" />
-        <DataGrid x:Name="lstVwReports" AutoGenerateColumns="False" Margin="10,68,10,93" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+        
+        <DataGrid x:Name="lstVwReports" AutoGenerateColumns="False" Grid.Row="2" Margin="5" SelectionMode="Single" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -96,9 +156,23 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="Action" HorizontalAlignment="Left" Margin="10,0,0,62" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="26" Width="53"/>
-        <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,0,0,62" Padding="10,0" VerticalAlignment="Bottom" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" HorizontalAlignment="Left" Width="254" Height="26" />
-        <ToolBar Margin="0,0,0,24" VerticalAlignment="Bottom" Height="33">
+
+        <Grid Grid.Row="3" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="30*" />
+                <ColumnDefinition Width="50*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Content="Action" Grid.Row="0" Grid.Column="0" />
+            <ComboBox x:Name="cmBFileAction" Grid.Row="0" Grid.Column="1" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" SelectedIndex="0" />
+        </Grid>
+
+        <ToolBar Grid.Row="4" Margin="0">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
@@ -113,56 +187,65 @@
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
                     <Button x:Name="btnShowDifferenceAll" Content="Show difference for All" Click="btnShowDifferenceAll_Click"/>
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                    <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                    
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                    <Menu VerticalAlignment="Center" Background="{x:Null}">
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
-                            <MenuItem x:Name="mIShowDifferenceEntityDescription" Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                            <MenuItem Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+                            
                             <Separator/>
-                            <MenuItem x:Name="mIShowDifferenceBodyText" Header="Body Text" VerticalAlignment="Center" Click="mIShowDifferenceBodyText_Click"/>
-                            <MenuItem x:Name="mIShowDifferenceOriginalBodyText" Header="Original Body Text" VerticalAlignment="Center" Click="mIShowDifferenceOriginalBodyText_Click"/>
-                            <MenuItem x:Name="mIShowDifferenceDefaultFilter" Header="Default Filter" VerticalAlignment="Center" Click="mIShowDifferenceDefaultFilter_Click"/>
-                            <MenuItem x:Name="mIShowDifferenceCustomReportXml" Header="Custom Report Xml" VerticalAlignment="Center" Click="mIShowDifferenceCustomReportXml_Click" />
-                            <MenuItem x:Name="mIShowDifferenceScheduleXml" Header="ScheduleXml" VerticalAlignment="Center" Click="mIShowDifferenceScheduleXml_Click" />
-                            <MenuItem x:Name="mIShowDifferenceQueryInfo" Header="Query Info" VerticalAlignment="Center" Click="mIShowDifferenceQueryInfo_Click" />
+                            <MenuItem Header="Body Text" VerticalAlignment="Center" Click="mIShowDifferenceBodyText_Click"/>
+                            <MenuItem Header="Original Body Text" VerticalAlignment="Center" Click="mIShowDifferenceOriginalBodyText_Click"/>
+                            <MenuItem Header="Default Filter" VerticalAlignment="Center" Click="mIShowDifferenceDefaultFilter_Click"/>
+                            <MenuItem Header="Custom Report Xml" VerticalAlignment="Center" Click="mIShowDifferenceCustomReportXml_Click" />
+                            <MenuItem Header="ScheduleXml" VerticalAlignment="Center" Click="mIShowDifferenceScheduleXml_Click" />
+                            <MenuItem Header="Query Info" VerticalAlignment="Center" Click="mIShowDifferenceQueryInfo_Click" />
                         </MenuItem>
                     </Menu>
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                    <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                        <MenuItem x:Name="tSDDBConnection1" Header="Connection 1">
-                            <MenuItem x:Name="mIExportReport1EntityDescription" Header="Create Entity Description" Click="mIExportReport1EntityDescription_Click" />
+                    
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                    <Menu VerticalAlignment="Center" Background="{x:Null}">
+                        <MenuItem x:Name="tSDDBConnection1" Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Export from {0}">
+                            <MenuItem Header="Create Entity Description" Click="mIExportReport1EntityDescription_Click" />
+                            
                             <Separator/>
-                            <MenuItem x:Name="mIExportReport1BodyText" Header="Body Text" VerticalAlignment="Center" Click="mIExportReport1BodyText_Click"/>
-                            <MenuItem x:Name="mIExportReport1OriginalBodyText" Header="Original Body Text" VerticalAlignment="Center" Click="mIExportReport1OriginalBodyText_Click"/>
-                            <MenuItem x:Name="mIExportReport1DefaultFilter" Header="Default Filter" VerticalAlignment="Center" Click="mIExportReport1DefaultFilter_Click"/>
-                            <MenuItem x:Name="mIExportReport1CustomReportXml" Header="Custom Report Xml" VerticalAlignment="Center" Click="mIExportReport1CustomReportXml_Click"/>
-                            <MenuItem x:Name="mIExportReport1ScheduleXml" Header="ScheduleXml" VerticalAlignment="Center" Click="mIExportReport1ScheduleXml_Click"/>
-                            <MenuItem x:Name="mIExportReport1QueryInfo" Header="Query Info" VerticalAlignment="Center" Click="mIExportReport1QueryInfo_Click"/>
+                            <MenuItem Header="Body Text" VerticalAlignment="Center" Click="mIExportReport1BodyText_Click"/>
+                            <MenuItem Header="Original Body Text" VerticalAlignment="Center" Click="mIExportReport1OriginalBodyText_Click"/>
+                            <MenuItem Header="Default Filter" VerticalAlignment="Center" Click="mIExportReport1DefaultFilter_Click"/>
+                            <MenuItem Header="Custom Report Xml" VerticalAlignment="Center" Click="mIExportReport1CustomReportXml_Click"/>
+                            <MenuItem Header="ScheduleXml" VerticalAlignment="Center" Click="mIExportReport1ScheduleXml_Click"/>
+                            <MenuItem Header="Query Info" VerticalAlignment="Center" Click="mIExportReport1QueryInfo_Click"/>
+                            
                             <Separator/>
-                            <MenuItem x:Name="mIExportReport1BodyBinary" Header="Body Binary" VerticalAlignment="Center" Click="mIExportReport1BodyBinary_Click"/>
+                            <MenuItem Header="Body Binary" VerticalAlignment="Center" Click="mIExportReport1BodyBinary_Click"/>
                         </MenuItem>
                     </Menu>
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-                    <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                        <MenuItem x:Name="tSDDBConnection2" Header="Connection 2">
-                            <MenuItem x:Name="mIExportReport2EntityDescription" Header="Create Entity Description" Click="mIExportReport2EntityDescription_Click" />
+                    
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                    <Menu VerticalAlignment="Center" Background="{x:Null}">
+                        <MenuItem x:Name="tSDDBConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Export from {0}">
+                            <MenuItem Header="Create Entity Description" Click="mIExportReport2EntityDescription_Click" />
+                            
                             <Separator/>
-                            <MenuItem x:Name="mIExportReport2BodyText" Header="Body Text" VerticalAlignment="Center" Click="mIExportReport2BodyText_Click"/>
-                            <MenuItem x:Name="mIExportReport2OriginalBodyText" Header="Original Body Text" VerticalAlignment="Center" Click="mIExportReport2OriginalBodyText_Click"/>
-                            <MenuItem x:Name="mIExportReport2DefaultFilter" Header="Default Filter" VerticalAlignment="Center" Click="mIExportReport2DefaultFilter_Click"/>
-                            <MenuItem x:Name="mIExportReport2CustomReportXml" Header="Custom Report Xml" VerticalAlignment="Center" Click="mIExportReport2CustomReportXml_Click"/>
-                            <MenuItem x:Name="mIExportReport2ScheduleXml" Header="ScheduleXml" VerticalAlignment="Center" Click="mIExportReport2ScheduleXml_Click" />
-                            <MenuItem x:Name="mIExportReport2QueryInfo" Header="Query Info" VerticalAlignment="Center" Click="mIExportReport2QueryInfo_Click"/>
+                            <MenuItem Header="Body Text" VerticalAlignment="Center" Click="mIExportReport2BodyText_Click"/>
+                            <MenuItem Header="Original Body Text" VerticalAlignment="Center" Click="mIExportReport2OriginalBodyText_Click"/>
+                            <MenuItem Header="Default Filter" VerticalAlignment="Center" Click="mIExportReport2DefaultFilter_Click"/>
+                            <MenuItem Header="Custom Report Xml" VerticalAlignment="Center" Click="mIExportReport2CustomReportXml_Click"/>
+                            <MenuItem Header="ScheduleXml" VerticalAlignment="Center" Click="mIExportReport2ScheduleXml_Click" />
+                            <MenuItem Header="Query Info" VerticalAlignment="Center" Click="mIExportReport2QueryInfo_Click"/>
+                            
                             <Separator/>
-                            <MenuItem x:Name="mIExportReport2BodyBinary" Header="Body Binary" VerticalAlignment="Center" Click="mIExportReport2BodyBinary_Click"/>
+                            <MenuItem Header="Body Binary" VerticalAlignment="Center" Click="mIExportReport2BodyBinary_Click"/>
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>
                 <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
-        <StatusBar Height="24" VerticalAlignment="Bottom">
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-            <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+
+        <StatusBar Grid.Row="5" Margin="0">
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
+            <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>
 </src:WindowBase>

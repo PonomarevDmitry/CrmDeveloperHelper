@@ -5,45 +5,37 @@
         xmlns:clr="clr-namespace:System;assembly=mscorlib"
         xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
-        Title="ApplicationRibbon Comparer" Height="161.662" Width="895" WindowStartupLocation="Manual">
+        Title="ApplicationRibbon Comparer" Height="193.662" Width="895" WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
-        <clr:String x:Key="ConnectionName1">Connection 1</clr:String>
-        <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleWindows.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <clr:String x:Key="ConnectionName1">Connection 1</clr:String>
+            <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
+
+        </ResourceDictionary>
     </src:WindowBase.Resources>
     <Grid>
-        <ToolBar x:Name="toolBarHeader" Margin="0,0,0,0" VerticalAlignment="Top" Height="33">
-            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                <MenuItem Header="Options" Click="miExportEntityRibbonOptions_Click" />
-            </Menu>
-            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference ApplicationRibbon">
-                    <MenuItem Header="Application Ribbon" Click="mIDifferenceApplicationRibbon_Click" />
-                    <Separator/>
-                    <MenuItem Header="Application RibbonDiffXml" Click="mIDifferenceApplicationRibbonDiffXml_Click" />
-                    <Separator/>
-                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
-                    <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
-                    <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
-                </MenuItem>
-            </Menu>
-            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                <MenuItem x:Name="tSDDBConnection1" Header="Connection 1">
-                    <MenuItem Header="Export Application Ribbon" Click="mIConnection1ApplicationRibbon_Click"  />
-                    <Separator/>
-                    <MenuItem Header="Export Application RibbonDiffXml" Click="mIConnection1ApplicationRibbonDiffXml_Click"  />
-                    <Separator/>
-                    <MenuItem Header="Export Application Ribbon Archive" Click="mIConnection1ApplicationRibbonArchive_Click"  />
-                    <Separator/>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+
+            <RowDefinition Height="100*" />
+
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ToolBar x:Name="toolBarHeader" Grid.Row="0" Margin="0">
+            <Button Content="Options" Click="miExportEntityRibbonOptions_Click"/>
+            
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu Background="{x:Null}">
+                <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Get Entity Information {0}">
                     <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile1_Click"/>
                     <Separator/>
                     <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer1_Click"/>
@@ -70,15 +62,10 @@
                     <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree1_Click"/>
                 </MenuItem>
             </Menu>
-            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0,10,0" />
-            <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                <MenuItem x:Name="tSDDBConnection2" Header="Connection 2">
-                    <MenuItem Header="Export Application Ribbon" Click="mIConnection2ApplicationRibbon_Click" />
-                    <Separator/>
-                    <MenuItem Header="Export Application RibbonDiffXml" Click="mIConnection2ApplicationRibbonDiffXml_Click" />
-                    <Separator/>
-                    <MenuItem Header="Export Application Ribbon Archive" Click="mIConnection2ApplicationRibbonArchive_Click"  />
-                    <Separator/>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu Background="{x:Null}">
+                <MenuItem Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Get Entity Information {0}">
                     <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile2_Click"/>
                     <Separator/>
                     <MenuItem Header="Entity Attribute Explorer" Click="btnEntityAttributeExplorer2_Click"/>
@@ -105,9 +92,27 @@
                     <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree2_Click"/>
                 </MenuItem>
             </Menu>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Menu Background="{x:Null}">
+                <MenuItem Header="Organization Comparer">
+                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
+                    <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
+                    <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
+                </MenuItem>
+            </Menu>
+            
         </ToolBar>
 
-        <Grid Height="25" Margin="10,38,10,0" VerticalAlignment="Top">
+        <Grid Grid.Row="1" Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="50*"/>
@@ -115,13 +120,29 @@
                 <ColumnDefinition Width="50*"/>
             </Grid.ColumnDefinitions>
 
-            <Label Content="Connection 1 to CRM:" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0" Grid.Column="0"/>
-            <ComboBox x:Name="cmBConnection1" IsReadOnly="True" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0"  Grid.Row="0" Grid.Column="1"/>
-            <Label Content="Connection 2 to CRM:" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0" Grid.Column="2"/>
-            <ComboBox x:Name="cmBConnection2" IsReadOnly="True" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0"  Grid.Row="0" Grid.Column="3"/>
+            <Label Content="Connection 1 to CRM:" Grid.Row="0" Grid.Column="0"/>
+            <ComboBox x:Name="cmBConnection1" Grid.Row="0" Grid.Column="1" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
+            
+            <Label Content="Connection 2 to CRM:" Grid.Row="0" Grid.Column="2"/>
+            <ComboBox x:Name="cmBConnection2" Grid.Row="0" Grid.Column="3" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" />
         </Grid>
 
-        <ToolBar Margin="0,0,0,24" VerticalAlignment="Bottom" Height="33">
+        <Grid Grid.Row="3" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="30*" />
+                <ColumnDefinition Width="50*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Content="Action" Grid.Row="0" Grid.Column="0" />
+            <ComboBox x:Name="cmBFileAction" Grid.Row="0" Grid.Column="1" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" SelectedIndex="0" />
+        </Grid>
+
+        <ToolBar Grid.Row="4" Margin="0">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
@@ -135,15 +156,50 @@
                     </Style>
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
-                    <Label Content="Action" HorizontalAlignment="Left" Padding="10,0" VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
-                    <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" IsReadOnly="True" Padding="10,0" Width="180" SelectedIndex="0" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" />
+
+                    <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                        <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference ApplicationRibbon">
+                            <MenuItem Header="Application Ribbon" Click="mIDifferenceApplicationRibbon_Click" />
+
+                            <Separator/>
+                            <MenuItem Header="Application RibbonDiffXml" Click="mIDifferenceApplicationRibbonDiffXml_Click" />
+                        </MenuItem>
+                    </Menu>
+
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                    <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                        <MenuItem x:Name="tSDDBConnection1" Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Export from {0}">
+                            <MenuItem Header="Export Application Ribbon" Click="mIConnection1ApplicationRibbon_Click"  />
+
+                            <Separator/>
+                            <MenuItem Header="Export Application RibbonDiffXml" Click="mIConnection1ApplicationRibbonDiffXml_Click"  />
+
+                            <Separator/>
+                            <MenuItem Header="Export Application Ribbon Archive" Click="mIConnection1ApplicationRibbonArchive_Click"  />
+                        </MenuItem>
+                    </Menu>
+
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                    <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                        <MenuItem x:Name="tSDDBConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Export from {0}">
+                            <MenuItem Header="Export Application Ribbon" Click="mIConnection2ApplicationRibbon_Click" />
+
+                            <Separator/>
+                            <MenuItem Header="Export Application RibbonDiffXml" Click="mIConnection2ApplicationRibbonDiffXml_Click" />
+
+                            <Separator/>
+                            <MenuItem Header="Export Application Ribbon Archive" Click="mIConnection2ApplicationRibbonArchive_Click"  />
+                        </MenuItem>
+                    </Menu>
+
                 </ToolBarPanel>
-                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
-        <StatusBar Height="24" VerticalAlignment="Bottom">
-            <ProgressBar x:Name="tSProgressBar" Width="200" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-            <StatusBarItem x:Name="stBIStatus"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+
+        <StatusBar Grid.Row="5" Margin="0">
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
+            <StatusBarItem x:Name="stBIStatus" />
         </StatusBar>
     </Grid>
 </src:WindowBase>
