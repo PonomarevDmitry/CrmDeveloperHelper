@@ -291,10 +291,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     //siteMapXml = ContentCoparerHelper.FormatXml(siteMapXml, commonConfig.ExportXmlAttributeOnNewLine);
 
-                    siteMapXml = ContentCoparerHelper.FormatXmlByConfiguration(siteMapXml, commonConfig, WindowExportSiteMap._xmlOptions
+                    siteMapXml = ContentCoparerHelper.FormatXmlByConfiguration(siteMapXml, commonConfig, WindowExplorerSiteMap._xmlOptions
                        , schemaName: CommonExportXsdSchemasCommand.SchemaSiteMapXml
                        , siteMapUniqueName: siteMap.SiteMapNameUnique ?? string.Empty
-                       );
+                    );
 
                     File.WriteAllText(filePath2, siteMapXml, new UTF8Encoding(false));
 
@@ -458,10 +458,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         //siteMapXml = ContentCoparerHelper.FormatXml(siteMapXml, commonConfig.ExportXmlAttributeOnNewLine);
 
-                        siteMapXml = ContentCoparerHelper.FormatXmlByConfiguration(siteMapXml, commonConfig, WindowExportSiteMap._xmlOptions
+                        siteMapXml = ContentCoparerHelper.FormatXmlByConfiguration(siteMapXml, commonConfig, WindowExplorerSiteMap._xmlOptions
                             , schemaName: CommonExportXsdSchemasCommand.SchemaSiteMapXml
                             , siteMapUniqueName: siteMap.SiteMapNameUnique ?? string.Empty
-                            );
+                        );
 
                         File.WriteAllText(filePath, siteMapXml, new UTF8Encoding(false));
 
@@ -628,10 +628,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                     //formXml = ContentCoparerHelper.FormatXml(formXml, commonConfig.ExportXmlAttributeOnNewLine);
 
-                    formXml = ContentCoparerHelper.FormatXmlByConfiguration(formXml, commonConfig, WindowExportSystemForm._xmlOptions
-                            , schemaName: CommonExportXsdSchemasCommand.SchemaFormXml
-                            , formId: systemForm.Id
-                            );
+                    formXml = ContentCoparerHelper.FormatXmlByConfiguration(formXml, commonConfig, WindowExplorerSystemForm._xmlOptions
+                        , schemaName: CommonExportXsdSchemasCommand.SchemaFormXml
+                        , formId: systemForm.Id
+                    );
 
                     File.WriteAllText(filePath2, formXml, new UTF8Encoding(false));
 
@@ -810,10 +810,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                         //formXml = ContentCoparerHelper.FormatXml(formXml, commonConfig.ExportXmlAttributeOnNewLine);
 
-                        formXml = ContentCoparerHelper.FormatXmlByConfiguration(formXml, commonConfig, WindowExportSystemForm._xmlOptions
+                        formXml = ContentCoparerHelper.FormatXmlByConfiguration(formXml, commonConfig, WindowExplorerSystemForm._xmlOptions
                             , schemaName: CommonExportXsdSchemasCommand.SchemaFormXml
                             , formId: systemForm.Id
-                            );
+                        );
 
                         File.WriteAllText(filePath, formXml, new UTF8Encoding(false));
 
@@ -982,10 +982,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     //    xmlContent = docTemp.ToString();
                     //}
 
-                    xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, commonConfig, WindowExportSavedQuery._xmlOptions
+                    xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, commonConfig, WindowExplorerSavedQuery._xmlOptions
                         , schemaName: CommonExportXsdSchemasCommand.SchemaFetch
                         , savedQueryId: savedQueryId
-                        );
+                    );
 
                     File.WriteAllText(filePath2, xmlContent, new UTF8Encoding(false));
 
@@ -1182,10 +1182,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         //    xmlContent = docTemp.ToString();
                         //}
 
-                        xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, commonConfig, WindowExportSavedQuery._xmlOptions
+                        xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, commonConfig, WindowExplorerSavedQuery._xmlOptions
                             , schemaName: CommonExportXsdSchemasCommand.SchemaFetch
                             , savedQueryId: savedQueryId
-                            );
+                        );
 
                         File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 

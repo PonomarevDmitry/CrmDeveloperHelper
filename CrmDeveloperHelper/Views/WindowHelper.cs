@@ -81,7 +81,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowExportEntityMetadata(
+                    var form = new WindowExplorerEntityMetadata(
                         iWriteToOutput
                         , service
                         , commonConfig
@@ -115,7 +115,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowExportEntityMetadataOptions(
+                    var form = new WindowExplorerEntityMetadataOptions(
                         iWriteToOutput
                         , commonConfig
                         , connectionData
@@ -145,7 +145,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowEntityAttributeExplorer(
+                    var form = new WindowExplorerEntityAttribute(
                         iWriteToOutput
                         , service
                         , commonConfig
@@ -176,7 +176,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowEntityKeyExplorer(
+                    var form = new WindowExplorerEntityKey(
                         iWriteToOutput
                         , service
                         , commonConfig
@@ -207,7 +207,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowEntityRelationshipOneToManyExplorer(
+                    var form = new WindowExplorerEntityRelationshipOneToMany(
                         iWriteToOutput
                         , service
                         , commonConfig
@@ -238,7 +238,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowEntityRelationshipManyToManyExplorer(
+                    var form = new WindowExplorerEntityRelationshipManyToMany(
                         iWriteToOutput
                         , service
                         , commonConfig
@@ -289,7 +289,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowEntityPrivilegesExplorer(
+                    var form = new WindowExplorerEntityPrivileges(
                         iWriteToOutput
                         , service
                         , commonConfig
@@ -419,7 +419,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowExportRibbon(
+                    var form = new WindowExplorerApplicationRibbon(
                         iWriteToOutput
                         , service
                         , commonConfig
@@ -481,7 +481,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowExportSystemForm(
+                    var form = new WindowExplorerSystemForm(
                         iWriteToOutput
                         , service
                         , commonConfig
@@ -515,7 +515,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowExportSavedQuery(
+                    var form = new WindowExplorerSavedQuery(
                         iWriteToOutput
                         , service
                         , commonConfig
@@ -548,7 +548,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowExportSavedQueryVisualization(
+                    var form = new WindowExplorerSavedQueryVisualization(
                         iWriteToOutput
                         , service
                         , commonConfig
@@ -582,7 +582,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowExportWorkflow(
+                    var form = new WindowExplorerWorkflow(
                         iWriteToOutput
                         , service
                         , commonConfig
@@ -614,7 +614,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowExportCustomControl(
+                    var form = new WindowExplorerCustomControl(
                         iWriteToOutput
                         , service
                         , commonConfig
@@ -830,7 +830,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowSystemUserExplorer(
+                    var form = new WindowExplorerSystemUser(
                         iWriteToOutput
                         , service
                         , commonConfig
@@ -875,7 +875,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowTeamExplorer(
+                    var form = new WindowExplorerTeam(
                         iWriteToOutput
                         , service
                         , commonConfig
@@ -929,7 +929,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowRoleExplorer(
+                    var form = new WindowExplorerRole(
                         iWriteToOutput
                         , service
                         , commonConfig
@@ -1192,7 +1192,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowExportGlobalOptionSets(
+                    var form = new WindowExplorerGlobalOptionSets(
                         iWriteToOutput
                         , service
                         , commonConfig
@@ -1202,7 +1202,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , filePath
                         , isJavaScript
                         , selectedItem
-                      );
+                    );
 
                     form.ShowDialog();
                 }
@@ -1227,7 +1227,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowExportGlobalOptionSetsOptions(
+                    var form = new WindowExplorerGlobalOptionSetsOptions(
                         iWriteToOutput
                         , commonConfig
                         , connectionData
@@ -1257,7 +1257,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowExportReport(
+                    var form = new WindowExplorerReport(
                         iWriteToOutput
                         , service
                         , commonConfig
@@ -1287,7 +1287,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowExportSiteMap(
+                    var form = new WindowExplorerSiteMap(
                         iWriteToOutput
                         , service
                         , commonConfig
@@ -1326,7 +1326,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowExportWebResource(
+                    var form = new WindowExplorerWebResource(
                         iWriteToOutput
                         , service
                         , commonConfig
@@ -1357,12 +1357,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowExportPluginType(
+                    var form = new WindowExplorerPluginType(
                         iWriteToOutput
                         , service
                         , commonConfig
                         , selection
-                        );
+                    );
 
                     form.ShowDialog();
                 }
@@ -1388,12 +1388,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowExportPluginAssembly(
+                    var form = new WindowExplorerPluginAssembly(
                         iWriteToOutput
                         , service
                         , commonConfig
                         , selection
-                        );
+                    );
 
                     form.ShowDialog();
                 }
@@ -1418,11 +1418,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    var form = new WindowExportOrganization(
+                    var form = new WindowExplorerOrganization(
                         iWriteToOutput
                         , service
                         , commonConfig
-                        );
+                    );
 
                     form.ShowDialog();
                 }

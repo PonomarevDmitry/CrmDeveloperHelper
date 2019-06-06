@@ -1191,8 +1191,8 @@
     <Compile Include="Views\WindowCrmConnectionUserCard.xaml.cs">
       <DependentUpon>WindowCrmConnectionUserCard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowEntityAttributeExplorer.xaml.cs">
-      <DependentUpon>WindowEntityAttributeExplorer.xaml</DependentUpon>
+    <Compile Include="Views\WindowExplorerEntityAttribute.xaml.cs">
+      <DependentUpon>WindowExplorerEntityAttribute.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowEntityBulkEditor.xaml.cs">
       <DependentUpon>WindowEntityBulkEditor.xaml</DependentUpon>
@@ -1203,17 +1203,17 @@
     <Compile Include="Views\WindowEntityEditor.xaml.cs">
       <DependentUpon>WindowEntityEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowEntityKeyExplorer.xaml.cs">
-      <DependentUpon>WindowEntityKeyExplorer.xaml</DependentUpon>
+    <Compile Include="Views\WindowExplorerEntityKey.xaml.cs">
+      <DependentUpon>WindowExplorerEntityKey.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowEntityRelationshipManyToManyExplorer.xaml.cs">
-      <DependentUpon>WindowEntityRelationshipManyToManyExplorer.xaml</DependentUpon>
+    <Compile Include="Views\WindowExplorerEntityRelationshipManyToMany.xaml.cs">
+      <DependentUpon>WindowExplorerEntityRelationshipManyToMany.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowEntityRelationshipOneToManyExplorer.xaml.cs">
-      <DependentUpon>WindowEntityRelationshipOneToManyExplorer.xaml</DependentUpon>
+    <Compile Include="Views\WindowExplorerEntityRelationshipOneToMany.xaml.cs">
+      <DependentUpon>WindowExplorerEntityRelationshipOneToMany.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowEntityPrivilegesExplorer.xaml.cs">
-      <DependentUpon>WindowEntityPrivilegesExplorer.xaml</DependentUpon>
+    <Compile Include="Views\WindowExplorerEntityPrivileges.xaml.cs">
+      <DependentUpon>WindowExplorerEntityPrivileges.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowEntitySelect.Generic.cs" />
     <Compile Include="Views\WindowEntitySelect.xaml.cs">
@@ -1231,59 +1231,59 @@
     <Compile Include="Views\WindowExplorerSolutionComponents.xaml.cs">
       <DependentUpon>WindowExplorerSolutionComponents.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowExportCustomControl.xaml.cs">
-      <DependentUpon>WindowExportCustomControl.xaml</DependentUpon>
+    <Compile Include="Views\WindowExplorerCustomControl.xaml.cs">
+      <DependentUpon>WindowExplorerCustomControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowExportEntityMetadata.xaml.cs">
-      <DependentUpon>WindowExportEntityMetadata.xaml</DependentUpon>
+    <Compile Include="Views\WindowExplorerEntityMetadata.xaml.cs">
+      <DependentUpon>WindowExplorerEntityMetadata.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowExportEntityMetadataOptions.xaml.cs">
-      <DependentUpon>WindowExportEntityMetadataOptions.xaml</DependentUpon>
+    <Compile Include="Views\WindowExplorerEntityMetadataOptions.xaml.cs">
+      <DependentUpon>WindowExplorerEntityMetadataOptions.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowExportFormEvents.xaml.cs">
       <DependentUpon>WindowExportFormEvents.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowExportGlobalOptionSets.xaml.cs">
-      <DependentUpon>WindowExportGlobalOptionSets.xaml</DependentUpon>
+    <Compile Include="Views\WindowExplorerGlobalOptionSets.xaml.cs">
+      <DependentUpon>WindowExplorerGlobalOptionSets.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowExportGlobalOptionSetsOptions.xaml.cs">
-      <DependentUpon>WindowExportGlobalOptionSetsOptions.xaml</DependentUpon>
+    <Compile Include="Views\WindowExplorerGlobalOptionSetsOptions.xaml.cs">
+      <DependentUpon>WindowExplorerGlobalOptionSetsOptions.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowExportOrganization.xaml.cs">
-      <DependentUpon>WindowExportOrganization.xaml</DependentUpon>
+    <Compile Include="Views\WindowExplorerOrganization.xaml.cs">
+      <DependentUpon>WindowExplorerOrganization.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowExportPluginAssembly.xaml.cs">
-      <DependentUpon>WindowExportPluginAssembly.xaml</DependentUpon>
+    <Compile Include="Views\WindowExplorerPluginAssembly.xaml.cs">
+      <DependentUpon>WindowExplorerPluginAssembly.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowExportPluginType.xaml.cs">
-      <DependentUpon>WindowExportPluginType.xaml</DependentUpon>
+    <Compile Include="Views\WindowExplorerPluginType.xaml.cs">
+      <DependentUpon>WindowExplorerPluginType.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowExportReport.xaml.cs">
-      <DependentUpon>WindowExportReport.xaml</DependentUpon>
+    <Compile Include="Views\WindowExplorerReport.xaml.cs">
+      <DependentUpon>WindowExplorerReport.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowExportApplicationRibbon.xaml.cs">
-      <DependentUpon>WindowExportApplicationRibbon.xaml</DependentUpon>
+    <Compile Include="Views\WindowExplorerApplicationRibbon.xaml.cs">
+      <DependentUpon>WindowExplorerApplicationRibbon.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowExportSavedQuery.xaml.cs">
-      <DependentUpon>WindowExportSavedQuery.xaml</DependentUpon>
+    <Compile Include="Views\WindowExplorerSavedQuery.xaml.cs">
+      <DependentUpon>WindowExplorerSavedQuery.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowExportSavedQueryVisualization.xaml.cs">
-      <DependentUpon>WindowExportSavedQueryVisualization.xaml</DependentUpon>
+    <Compile Include="Views\WindowExplorerSavedQueryVisualization.xaml.cs">
+      <DependentUpon>WindowExplorerSavedQueryVisualization.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowExportSiteMap.xaml.cs">
-      <DependentUpon>WindowExportSiteMap.xaml</DependentUpon>
+    <Compile Include="Views\WindowExplorerSiteMap.xaml.cs">
+      <DependentUpon>WindowExplorerSiteMap.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowExplorerSolution.xaml.cs">
       <DependentUpon>WindowExplorerSolution.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowExportSystemForm.xaml.cs">
-      <DependentUpon>WindowExportSystemForm.xaml</DependentUpon>
+    <Compile Include="Views\WindowExplorerSystemForm.xaml.cs">
+      <DependentUpon>WindowExplorerSystemForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowExportWebResource.xaml.cs">
-      <DependentUpon>WindowExportWebResource.xaml</DependentUpon>
+    <Compile Include="Views\WindowExplorerWebResource.xaml.cs">
+      <DependentUpon>WindowExplorerWebResource.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowExportWorkflow.xaml.cs">
-      <DependentUpon>WindowExportWorkflow.xaml</DependentUpon>
+    <Compile Include="Views\WindowExplorerWorkflow.xaml.cs">
+      <DependentUpon>WindowExplorerWorkflow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowFileActionByExtension.xaml.cs">
       <DependentUpon>WindowFileActionByExtension.xaml</DependentUpon>
@@ -1346,8 +1346,8 @@
     <Compile Include="Views\WindowPluginConfigurationPluginType.xaml.cs">
       <DependentUpon>WindowPluginConfigurationPluginType.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowRoleExplorer.xaml.cs">
-      <DependentUpon>WindowRoleExplorer.xaml</DependentUpon>
+    <Compile Include="Views\WindowExplorerRole.xaml.cs">
+      <DependentUpon>WindowExplorerRole.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowSdkMessageProcessingStep.xaml.cs">
       <DependentUpon>WindowSdkMessageProcessingStep.xaml</DependentUpon>
@@ -1394,11 +1394,11 @@
     <Compile Include="Views\WindowStatusSelect.xaml.cs">
       <DependentUpon>WindowStatusSelect.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowSystemUserExplorer.xaml.cs">
-      <DependentUpon>WindowSystemUserExplorer.xaml</DependentUpon>
+    <Compile Include="Views\WindowExplorerSystemUser.xaml.cs">
+      <DependentUpon>WindowExplorerSystemUser.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowTeamExplorer.xaml.cs">
-      <DependentUpon>WindowTeamExplorer.xaml</DependentUpon>
+    <Compile Include="Views\WindowExplorerTeam.xaml.cs">
+      <DependentUpon>WindowExplorerTeam.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowTextField.xaml.cs">
       <DependentUpon>WindowTextField.xaml</DependentUpon>
@@ -1906,7 +1906,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowEntityAttributeExplorer.xaml">
+    <Page Include="Views\WindowExplorerEntityAttribute.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1922,19 +1922,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowEntityKeyExplorer.xaml">
+    <Page Include="Views\WindowExplorerEntityKey.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowEntityRelationshipManyToManyExplorer.xaml">
+    <Page Include="Views\WindowExplorerEntityRelationshipManyToMany.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowEntityRelationshipOneToManyExplorer.xaml">
+    <Page Include="Views\WindowExplorerEntityRelationshipOneToMany.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowEntityPrivilegesExplorer.xaml">
+    <Page Include="Views\WindowExplorerEntityPrivileges.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1958,15 +1958,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowExportCustomControl.xaml">
+    <Page Include="Views\WindowExplorerCustomControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowExportEntityMetadata.xaml">
+    <Page Include="Views\WindowExplorerEntityMetadata.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowExportEntityMetadataOptions.xaml">
+    <Page Include="Views\WindowExplorerEntityMetadataOptions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1974,43 +1974,43 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowExportGlobalOptionSets.xaml">
+    <Page Include="Views\WindowExplorerGlobalOptionSets.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowExportGlobalOptionSetsOptions.xaml">
+    <Page Include="Views\WindowExplorerGlobalOptionSetsOptions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowExportOrganization.xaml">
+    <Page Include="Views\WindowExplorerOrganization.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowExportPluginAssembly.xaml">
+    <Page Include="Views\WindowExplorerPluginAssembly.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowExportPluginType.xaml">
+    <Page Include="Views\WindowExplorerPluginType.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowExportReport.xaml">
+    <Page Include="Views\WindowExplorerReport.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowExportApplicationRibbon.xaml">
+    <Page Include="Views\WindowExplorerApplicationRibbon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowExportSavedQuery.xaml">
+    <Page Include="Views\WindowExplorerSavedQuery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowExportSavedQueryVisualization.xaml">
+    <Page Include="Views\WindowExplorerSavedQueryVisualization.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowExportSiteMap.xaml">
+    <Page Include="Views\WindowExplorerSiteMap.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -2018,15 +2018,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowExportSystemForm.xaml">
+    <Page Include="Views\WindowExplorerSystemForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowExportWebResource.xaml">
+    <Page Include="Views\WindowExplorerWebResource.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowExportWorkflow.xaml">
+    <Page Include="Views\WindowExplorerWorkflow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -2110,7 +2110,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowRoleExplorer.xaml">
+    <Page Include="Views\WindowExplorerRole.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -2174,11 +2174,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowSystemUserExplorer.xaml">
+    <Page Include="Views\WindowExplorerSystemUser.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WindowTeamExplorer.xaml">
+    <Page Include="Views\WindowExplorerTeam.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

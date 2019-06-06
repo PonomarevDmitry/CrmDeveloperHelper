@@ -1,0 +1,817 @@
+﻿<src:WindowBase x:Class="Nav.Common.VSPackages.CrmDeveloperHelper.Views.WindowExplorerEntityAttribute"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
+        xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
+        xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
+        xmlns:sdk="clr-namespace:Microsoft.Xrm.Sdk.Metadata;assembly=Microsoft.Xrm.Sdk"
+        Title="Entity Attribute Explorer" Height="538.662" Width="1233" WindowStartupLocation="Manual">
+    <src:WindowBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleWindows.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <BitmapImage x:Key="ImageRefresh" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Refresh_16.png" />
+
+            <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
+                <MenuItem Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
+                
+                <Separator/>
+                <MenuItem Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
+
+                <Separator/>
+                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution">
+                    <MenuItem x:Uid="contMnAddToSolutionLastIncludeSubcomponents" Header="Include Subcomponents" />
+                    <Separator/>
+                    <MenuItem x:Uid="contMnAddToSolutionLastDoNotIncludeSubcomponents" Header="Do Not Include Subcomponents" />
+                    <Separator/>
+                    <MenuItem x:Uid="contMnAddToSolutionLastIncludeAsShellOnly" Header="Include As ShellOnly" />
+                </MenuItem>
+                <MenuItem Header="Add to Crm Solution">
+                    <MenuItem Header="Include Subcomponents" Click="AddToCrmSolutionIncludeSubcomponents_Click" />
+                    <Separator/>
+                    <MenuItem Header="Do Not Include Subcomponents" Click="AddToCrmSolutionDoNotIncludeSubcomponents_Click" />
+                    <Separator/>
+                    <MenuItem Header="Include As ShellOnly" Click="AddToCrmSolutionIncludeAsShellOnly_Click" />
+                </MenuItem>
+
+                <Separator/>
+                <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
+                
+                <Separator/>
+                <MenuItem Header="Open Solutions Containing Component in Window" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
+                
+                <Separator/>
+                <MenuItem Header="Dependent Components">
+                    <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
+                    <Separator/>
+                    <MenuItem Header="Open Dependent Components in Window" Click="mIOpenDependentComponentsInWindow_Click" />
+                </MenuItem>
+                
+                <Separator/>
+                <MenuItem Header="Get Other Entity Information">
+                    <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
+                    <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
+                    <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity Privileges Explorer" Click="miEntityPrivilegesExplorer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="SecurityRoles Explorer" Click="miSecurityRolesExplorer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Forms" Click="btnSystemForms_Click"/>
+                    <MenuItem Header="Views" Click="btnSavedQuery_Click"/>
+                    <MenuItem Header="Charts" Click="btnSavedChart_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Workflows" Click="btnWorkflows_Click"/>
+                    <Separator/>
+                    <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Plugin Tree" Click="btnPluginTree_Click"/>
+                    <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
+                    <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
+                </MenuItem>
+                
+                <Separator/>
+                <MenuItem Header="Compare Information with other Organization">
+                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
+                    <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
+                    <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
+                    <Separator/>
+                    <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
+                </MenuItem>
+            </ContextMenu>
+
+            <ContextMenu x:Key="listContextMenuAttribute" Opened="ContextMenuAttribute_Opened">
+                <MenuItem Header="Open Attribute Customization in Web" Click="mIOpenAttributeInWeb_Click" />
+                
+                <Separator/>
+                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
+                <MenuItem Header="Add to Crm Solution" Click="AddAttributeToCrmSolution_Click" />
+                
+                <Separator/>
+                <MenuItem Header="Open Solutions Containing Component in Window" Click="mIAttributeOpenSolutionsContainingComponentInWindow_Click" />
+                
+                <Separator/>
+                <MenuItem Header="Dependent Components">
+                    <MenuItem Header="Open Dependent Components in Web" Click="mIAttributeOpenDependentComponentsInWeb_Click" />
+                    <Separator/>
+                    <MenuItem Header="Open Dependent Components in Window" Click="mIAttributeOpenDependentComponentsInWindow_Click" />
+                </MenuItem>
+            </ContextMenu>
+
+        </ResourceDictionary>
+    </src:WindowBase.Resources>
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="100*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <ToolBar Grid.Row="0">
+            <Menu Background="{x:Null}">
+                <MenuItem Header="Open Entity Information">
+                    <MenuItem Header="Entity Metadata" Click="btnCreateMetadataFile_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity Relationship One-To-Many Explorer" Click="btnEntityRelationshipOneToManyExplorer_Click"/>
+                    <MenuItem Header="Entity Relationship Many-To-Many Explorer" Click="btnEntityRelationshipManyToManyExplorer_Click"/>
+                    <MenuItem Header="Entity Key Explorer" Click="btnEntityKeyExplorer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity Privileges Explorer" Click="miEntityPrivilegesExplorer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="SecurityRoles Explorer" Click="miSecurityRolesExplorer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Global OptionSets" Click="btnGlobalOptionSets_Click" />
+                    <Separator/>
+                    <MenuItem Header="Forms" Click="btnSystemForms_Click" />
+                    <MenuItem Header="Views" Click="btnSavedQuery_Click" />
+                    <MenuItem Header="Charts" Click="btnSavedChart_Click" />
+                    <Separator/>
+                    <MenuItem Header="Workflows" Click="btnWorkflows_Click" />
+                    <Separator/>
+                    <MenuItem Header="ApplicationRibbon" Click="btnExportApplicationRibbon_Click" />
+                    <Separator/>
+                    <MenuItem Header="Plugin Tree" Click="btnPluginTree_Click" />
+                    <MenuItem Header="Message Tree" Click="btnMessageTree_Click"/>
+                    <MenuItem Header="Message Request Tree" Click="btnMessageRequestTree_Click"/>
+                </MenuItem>
+            </Menu>
+            <Separator />
+            <Menu Background="{x:Null}">
+                <MenuItem Header="Compare Information with other Organization">
+                    <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Entity Metadata" Click="btnCompareMetadataFile_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Global OptionSets" Click="btnCompareGlobalOptionSets_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Forms" Click="btnCompareSystemForms_Click"/>
+                    <MenuItem Header="Views" Click="btnCompareSavedQuery_Click"/>
+                    <MenuItem Header="Charts" Click="btnCompareSavedChart_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Workflows" Click="btnCompareWorkflows_Click"/>
+                    <Separator/>
+                    <MenuItem Header="ApplicationRibbon" Click="btnCompareApplicationRibbons_Click"/>
+                </MenuItem>
+            </Menu>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Button x:Name="mIClearEntityCacheAndRefresh" Click="mIClearEntityCacheAndRefresh_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" />
+                    <TextBlock>Clear Entity Cache and Refresh</TextBlock>
+                </StackPanel>
+            </Button>
+
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+            <Button x:Name="mISaveChanges" Content="Save Changes" Click="mISaveChanges_Click" />
+        </ToolBar>
+
+        <Grid Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="columnEntity" Width="600"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="50*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="100*" />
+                </Grid.RowDefinitions>
+
+                <ToolBar Grid.Row="0" Margin="0" Height="Auto">
+                    <Menu Background="{x:Null}">
+                        <MenuItem Header="Select Entities">
+                            <MenuItem Header="Select Custom Entities" Click="miSelectCustomEntities_Click"/>
+                            <Separator/>
+                            <MenuItem Header="Select IsAuditEnabled with Value">
+                                <MenuItem Header="False" Click="miSelectEntityIsAuditEnabledWithFalse_Click"/>
+                                <MenuItem Header="True"  Click="miSelectEntityIsAuditEnabledWithTrue_Click"/>
+                            </MenuItem>
+                        </MenuItem>
+                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                        <MenuItem Header="Set Entity Property">
+                            <MenuItem Header="IsAuditEnabled to">
+                                <MenuItem Header="False" Click="mISetEntitiesIsAuditEnabledToFalse_Click"/>
+                                <MenuItem Header="True"  Click="mISetEntitiesIsAuditEnabledToTrue_Click"/>
+                            </MenuItem>
+                        </MenuItem>
+                    </Menu>
+                </ToolBar>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Filter" Padding="0" Margin="5" Grid.Row="0" Grid.Column="0"/>
+                    <TextBox x:Name="txtBFilterEnitity"  Padding="0" Margin="5" KeyDown="txtBFilterEnitity_KeyDown" Grid.Row="0" Grid.Column="1" />
+                </Grid>
+
+                <DataGrid x:Name="lstVwEntities" Grid.Row="2" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" MouseDoubleClick="lstVwEntities_MouseDoubleClick" SelectionChanged="lstVwEntities_SelectionChanged" CanUserResizeRows="False" HeadersVisibility="Column" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" DockPanel.Dock="Top">
+                    <DataGrid.Resources>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.ItemContainerStyle>
+                        <Style TargetType="{x:Type DataGridRow}">
+                            <Setter Property="ContextMenu" Value="{StaticResource listContextMenu}"/>
+                        </Style>
+                    </DataGrid.ItemContainerStyle>
+                    <DataGrid.Columns>
+
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsChanged, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True">
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="Ch" Margin="0" Padding="0" ToolTip="Is Changed" />
+                            </DataGridCheckBoxColumn.Header>
+                            <DataGridCheckBoxColumn.ElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.ElementStyle>
+                            <DataGridCheckBoxColumn.EditingElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultEditingElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.EditingElementStyle>
+                          
+                        </DataGridCheckBoxColumn>
+
+                        <DataGridTextColumn x:Name="colEntityName" Header="Entity Name" Width="260" Binding="{Binding LogicalName}" IsReadOnly="True" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn x:Name="colEntityDisplayName" Header="Display Name" Width="260" Binding="{Binding DisplayName}" IsReadOnly="True" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsAuditEnabled, UpdateSourceTrigger=PropertyChanged}">
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="Audit" Margin="0" Padding="0" ToolTip="Is Audit Enabled" />
+                            </DataGridCheckBoxColumn.Header>
+                            <DataGridCheckBoxColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="IsEnabled" Value="{Binding Path=IsAuditEnabledCanBeChanged}"/>
+                                    <Setter Property="IsTabStop" Value="{Binding Path=IsAuditEnabledCanBeChanged}"/>
+                                    <Setter Property="Focusable" Value="{Binding Path=IsAuditEnabledCanBeChanged}"/>
+                                    <Setter Property="IsHitTestVisible" Value="{Binding Path=IsAuditEnabledCanBeChanged}"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.CellStyle>
+                            <DataGridCheckBoxColumn.ElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.ElementStyle>
+                            <DataGridCheckBoxColumn.EditingElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultEditingElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.EditingElementStyle>
+                        </DataGridCheckBoxColumn>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+
+            <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+
+            <Grid Grid.Column="2">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="100*" />
+                </Grid.RowDefinitions>
+
+                <ToolBar Margin="0" Height="Auto" Grid.Row="0">
+                    <Menu Background="{x:Null}">
+                        <MenuItem Header="Select Attributes">
+                            <MenuItem Header="Select Custom Attributes" Click="miSelectCustomAttributes_Click"/>
+                            <Separator/>
+                            <MenuItem Header="Select Attributes on Forms" Click="miSelectAttributesOnForms_Click"/>
+                            <Separator/>
+                            <MenuItem Header="Select Required Level with Value">
+                                <MenuItem Header="None" Click="miSelectAttributeRequiredLevelWithNone_Click"/>
+                                <MenuItem Header="Recommended" Click="miSelectAttributeRequiredLevelWithRecommended_Click"/>
+                                <MenuItem Header="ApplicationRequired" Click="miSelectAttributeRequiredLevelWithApplicationRequired_Click"/>
+                                <MenuItem Header="SystemRequired" Click="miSelectAttributeRequiredLevelWithSystemRequired_Click"/>
+                            </MenuItem>
+                            <MenuItem Header="Select IsAuditEnabled with Value">
+                                <MenuItem Header="False" Click="miSelectAttributeIsAuditEnabledWithFalse_Click"/>
+                                <MenuItem Header="True"  Click="miSelectAttributeIsAuditEnabledWithTrue_Click"/>
+                            </MenuItem>
+                            <MenuItem Header="Select IsCustomizable with Value">
+                                <MenuItem Header="False" Click="miSelectAttributeIsCustomizableWithFalse_Click"/>
+                                <MenuItem Header="True"  Click="miSelectAttributeIsCustomizableWithTrue_Click"/>
+                            </MenuItem>
+                            <MenuItem Header="Select IsRenameable with Value">
+                                <MenuItem Header="False" Click="miSelectAttributeIsRenameableWithFalse_Click"/>
+                                <MenuItem Header="True"  Click="miSelectAttributeIsRenameableWithTrue_Click"/>
+                            </MenuItem>
+                            <MenuItem Header="Select IsValidForAdvancedFind with Value">
+                                <MenuItem Header="False" Click="miSelectAttributeIsValidForAdvancedFindWithFalse_Click"/>
+                                <MenuItem Header="True"  Click="miSelectAttributeIsValidForAdvancedFindWithTrue_Click"/>
+                            </MenuItem>
+                            <MenuItem Header="Select CanModifyAdditionalSettings with Value">
+                                <MenuItem Header="False" Click="miSelectAttributeCanModifyAdditionalSettingsWithFalse_Click"/>
+                                <MenuItem Header="True"  Click="miSelectAttributeCanModifyAdditionalSettingsWithTrue_Click"/>
+                            </MenuItem>
+                            <MenuItem Header="Select IsSecured with Value">
+                                <MenuItem Header="False" Click="miSelectAttributeIsSecuredWithFalse_Click"/>
+                                <MenuItem Header="True"  Click="miSelectAttributeIsSecuredWithTrue_Click"/>
+                            </MenuItem>
+                            <MenuItem Header="Select IsDataSourceSecret with Value">
+                                <MenuItem Header="False" Click="miSelectAttributeIsDataSourceSecretWithFalse_Click"/>
+                                <MenuItem Header="True"  Click="miSelectAttributeIsDataSourceSecretWithTrue_Click"/>
+                            </MenuItem>
+                            <MenuItem Header="Select IsValidForForm with Value">
+                                <MenuItem Header="False" Click="miSelectAttributeIsValidForFormWithFalse_Click"/>
+                                <MenuItem Header="True"  Click="miSelectAttributeIsValidForFormWithTrue_Click"/>
+                            </MenuItem>
+                            <MenuItem Header="Select IsRequiredForForm with Value">
+                                <MenuItem Header="False" Click="miSelectAttributeIsRequiredForFormWithFalse_Click"/>
+                                <MenuItem Header="True"  Click="miSelectAttributeIsRequiredForFormWithTrue_Click"/>
+                            </MenuItem>
+                            <MenuItem Header="Select IsValidForGrid with Value">
+                                <MenuItem Header="False" Click="miSelectAttributeIsValidForGridWithFalse_Click"/>
+                                <MenuItem Header="True"  Click="miSelectAttributeIsValidForGridWithTrue_Click"/>
+                            </MenuItem>
+                            <MenuItem Header="Select IsSortableEnabled with Value">
+                                <MenuItem Header="False" Click="miSelectAttributeIsSortableEnabledWithFalse_Click"/>
+                                <MenuItem Header="True"  Click="miSelectAttributeIsSortableEnabledWithTrue_Click"/>
+                            </MenuItem>
+                            <MenuItem Header="Select IsGlobalFilterEnabled with Value">
+                                <MenuItem Header="False" Click="miSelectAttributeIsGlobalFilterEnabledWithFalse_Click"/>
+                                <MenuItem Header="True"  Click="miSelectAttributeIsGlobalFilterEnabledWithTrue_Click"/>
+                            </MenuItem>
+                        </MenuItem>
+                    </Menu>
+
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+
+                    <Menu Background="{x:Null}">
+
+                        <MenuItem Header="Set Attribute Property">
+                            <MenuItem Header="Required Level to">
+                                <MenuItem Header="None" Click="mISetAttributesRequiredLevelToNone_Click"/>
+                                <MenuItem Header="Recommended" Click="mISetAttributesRequiredLevelToRecommended_Click"/>
+                                <MenuItem Header="ApplicationRequired" Click="mISetAttributesRequiredLevelToApplicationRequired_Click"/>
+                                <MenuItem Header="SystemRequired" Click="mISetAttributesRequiredLevelToSystemRequired_Click"/>
+                            </MenuItem>
+                            <MenuItem Header="IsAuditEnabled to">
+                                <MenuItem Header="False" Click="mISetAttributesIsAuditEnabledToFalse_Click"/>
+                                <MenuItem Header="True"  Click="mISetAttributesIsAuditEnabledToTrue_Click"/>
+                            </MenuItem>
+                            <MenuItem Header="IsCustomizable to">
+                                <MenuItem Header="False" Click="mISetAttributesIsCustomizableToFalse_Click"/>
+                                <MenuItem Header="True"  Click="mISetAttributesIsCustomizableToTrue_Click"/>
+                            </MenuItem>
+                            <MenuItem Header="IsRenameable to">
+                                <MenuItem Header="False" Click="mISetAttributesIsRenameableToFalse_Click"/>
+                                <MenuItem Header="True"  Click="mISetAttributesIsRenameableToTrue_Click"/>
+                            </MenuItem>
+                            <MenuItem Header="IsValidForAdvancedFind to">
+                                <MenuItem Header="False" Click="mISetAttributesIsValidForAdvancedFindToFalse_Click"/>
+                                <MenuItem Header="True"  Click="mISetAttributesIsValidForAdvancedFindToTrue_Click"/>
+                            </MenuItem>
+                            <MenuItem Header="CanModifyAdditionalSettings to">
+                                <MenuItem Header="False" Click="mISetAttributesCanModifyAdditionalSettingsToFalse_Click"/>
+                                <MenuItem Header="True"  Click="mISetAttributesCanModifyAdditionalSettingsToTrue_Click"/>
+                            </MenuItem>
+                            <MenuItem Header="IsSecured to">
+                                <MenuItem Header="False" Click="mISetAttributesIsSecuredToFalse_Click"/>
+                                <MenuItem Header="True"  Click="mISetAttributesIsSecuredToTrue_Click"/>
+                            </MenuItem>
+                            <MenuItem Header="IsDataSourceSecret to">
+                                <MenuItem Header="False" Click="mISetAttributesIsDataSourceSecretToFalse_Click"/>
+                                <MenuItem Header="True"  Click="mISetAttributesIsDataSourceSecretToTrue_Click"/>
+                            </MenuItem>
+                            <MenuItem Header="IsValidForForm to">
+                                <MenuItem Header="False" Click="mISetAttributesIsValidForFormToFalse_Click"/>
+                                <MenuItem Header="True"  Click="mISetAttributesIsValidForFormToTrue_Click"/>
+                            </MenuItem>
+                            <MenuItem Header="IsRequiredForForm to">
+                                <MenuItem Header="False" Click="mISetAttributesIsRequiredForFormToFalse_Click"/>
+                                <MenuItem Header="True"  Click="mISetAttributesIsRequiredForFormToTrue_Click"/>
+                            </MenuItem>
+                            <MenuItem Header="IsValidForGrid to">
+                                <MenuItem Header="False" Click="mISetAttributesIsValidForGridToFalse_Click"/>
+                                <MenuItem Header="True"  Click="mISetAttributesIsValidForGridToTrue_Click"/>
+                            </MenuItem>
+                            <MenuItem Header="IsSortableEnabled to">
+                                <MenuItem Header="False" Click="mISetAttributesIsSortableEnabledToFalse_Click"/>
+                                <MenuItem Header="True"  Click="mISetAttributesIsSortableEnabledToTrue_Click"/>
+                            </MenuItem>
+                            <MenuItem Header="IsGlobalFilterEnabled to">
+                                <MenuItem Header="False" Click="mISetAttributesIsGlobalFilterEnabledToFalse_Click"/>
+                                <MenuItem Header="True"  Click="mISetAttributesIsGlobalFilterEnabledToTrue_Click"/>
+                            </MenuItem>
+                        </MenuItem>
+                    </Menu>
+
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
+                    <Button x:Name="mIClearAttributeCacheAndRefresh" Click="mIClearAttributeCacheAndRefresh_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="16" Height="16"  Source="{StaticResource ImageRefresh}" />
+                            <TextBlock>Clear Attribute Cache and Refresh</TextBlock>
+                        </StackPanel>
+                    </Button>
+                </ToolBar>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Filter" Padding="0" Margin="5" Grid.Row="0" Grid.Column="0"/>
+                    <TextBox x:Name="txtBFilterAttribute"  Padding="0" Margin="5" KeyDown="txtBFilterAttribute_KeyDown" Grid.Row="0" Grid.Column="1" />
+                </Grid>
+
+                <DataGrid x:Name="lstVwAttributes" Grid.Row="2" Margin="5" AutoGenerateColumns="False" SelectionMode="Extended" SelectionUnit="FullRow" CanUserResizeRows="False" HeadersVisibility="Column" MouseDoubleClick="lstVwAttributes_MouseDoubleClick" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Grid.Column="2">
+                    <DataGrid.Resources>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.ItemContainerStyle>
+                        <Style TargetType="{x:Type DataGridRow}">
+                            <Setter Property="ContextMenu" Value="{StaticResource listContextMenuAttribute}"/>
+                        </Style>
+                    </DataGrid.ItemContainerStyle>
+                    <DataGrid.Columns>
+
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsChanged, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True">
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="Ch" Margin="0" Padding="0" ToolTip="Is Changed" />
+                            </DataGridCheckBoxColumn.Header>
+                            <DataGridCheckBoxColumn.ElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.ElementStyle>
+                            <DataGridCheckBoxColumn.EditingElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultEditingElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.EditingElementStyle>
+                        </DataGridCheckBoxColumn>
+
+                        <DataGridTextColumn x:Name="colAttributeName" Header="Attribute Name" Width="260" Binding="{Binding LogicalName}" IsReadOnly="True" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn x:Name="colAttributeDisplayName" Header="Display Name" Width="260" Binding="{Binding DisplayName}" IsReadOnly="True" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn x:Name="colAttributeType" Header="Attribute Type" Width="260" Binding="{Binding AttributeTypeName}" IsReadOnly="True" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTemplateColumn Width="Auto" CanUserSort="True" SortMemberPath="RequiredLevel">
+                            <DataGridTemplateColumn.Header>
+                                <Label Content="Req" Margin="0" Padding="0" ToolTip="Required Level" />
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox SelectedItem="{Binding Path=RequiredLevel, UpdateSourceTrigger=PropertyChanged}" 
+                                              IsEnabled="{Binding Path=RequiredLevelCanBeChanged}" 
+                                              IsTabStop="{Binding Path=RequiredLevelCanBeChanged}" 
+                                              Focusable="{Binding Path=RequiredLevelCanBeChanged}" 
+                                              IsHitTestVisible="{Binding Path=RequiredLevelCanBeChanged}"  
+                                              ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type sdk:AttributeRequiredLevel}}}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsAuditEnabled, UpdateSourceTrigger=PropertyChanged}">
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="Audit" Margin="0" Padding="0" ToolTip="Is Audit Enabled" />
+                            </DataGridCheckBoxColumn.Header>
+                            <DataGridCheckBoxColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="IsEnabled" Value="{Binding Path=IsAuditEnabledCanBeChanged}"/>
+                                    <Setter Property="IsTabStop" Value="{Binding Path=IsAuditEnabledCanBeChanged}"/>
+                                    <Setter Property="Focusable" Value="{Binding Path=IsAuditEnabledCanBeChanged}"/>
+                                    <Setter Property="IsHitTestVisible" Value="{Binding Path=IsAuditEnabledCanBeChanged}"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.CellStyle>
+                            <DataGridCheckBoxColumn.ElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.ElementStyle>
+                            <DataGridCheckBoxColumn.EditingElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultEditingElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.EditingElementStyle>
+                        </DataGridCheckBoxColumn>
+
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsCustomizable, UpdateSourceTrigger=PropertyChanged}">
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="Cust" Margin="0" Padding="0" ToolTip="Is Customizable" />
+                            </DataGridCheckBoxColumn.Header>
+                            <DataGridCheckBoxColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="IsEnabled" Value="{Binding Path=IsCustomizableCanBeChanged}"/>
+                                    <Setter Property="IsTabStop" Value="{Binding Path=IsCustomizableCanBeChanged}"/>
+                                    <Setter Property="Focusable" Value="{Binding Path=IsCustomizableCanBeChanged}"/>
+                                    <Setter Property="IsHitTestVisible" Value="{Binding Path=IsCustomizableCanBeChanged}"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.CellStyle>
+                            <DataGridCheckBoxColumn.ElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.ElementStyle>
+                            <DataGridCheckBoxColumn.EditingElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultEditingElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.EditingElementStyle>
+                        </DataGridCheckBoxColumn>
+
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsRenameable, UpdateSourceTrigger=PropertyChanged}">
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="Rename" Margin="0" Padding="0" ToolTip="Is Renameable" />
+                            </DataGridCheckBoxColumn.Header>
+                            <DataGridCheckBoxColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="IsEnabled" Value="{Binding Path=IsRenameableCanBeChanged}"/>
+                                    <Setter Property="IsTabStop" Value="{Binding Path=IsRenameableCanBeChanged}"/>
+                                    <Setter Property="Focusable" Value="{Binding Path=IsRenameableCanBeChanged}"/>
+                                    <Setter Property="IsHitTestVisible" Value="{Binding Path=IsRenameableCanBeChanged}"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.CellStyle>
+                            <DataGridCheckBoxColumn.ElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.ElementStyle>
+                            <DataGridCheckBoxColumn.EditingElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultEditingElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.EditingElementStyle>
+                        </DataGridCheckBoxColumn>
+
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsValidForAdvancedFind, UpdateSourceTrigger=PropertyChanged}">
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="A.F" Margin="0" Padding="0" ToolTip="Is Valid For Advanced Find" />
+                            </DataGridCheckBoxColumn.Header>
+                            <DataGridCheckBoxColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="IsEnabled" Value="{Binding Path=IsValidForAdvancedFindCanBeChanged}"/>
+                                    <Setter Property="IsTabStop" Value="{Binding Path=IsValidForAdvancedFindCanBeChanged}"/>
+                                    <Setter Property="Focusable" Value="{Binding Path=IsValidForAdvancedFindCanBeChanged}"/>
+                                    <Setter Property="IsHitTestVisible" Value="{Binding Path=IsValidForAdvancedFindCanBeChanged}"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.CellStyle>
+                            <DataGridCheckBoxColumn.ElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.ElementStyle>
+                            <DataGridCheckBoxColumn.EditingElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultEditingElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.EditingElementStyle>
+                        </DataGridCheckBoxColumn>
+
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding CanModifyAdditionalSettings, UpdateSourceTrigger=PropertyChanged}">
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="A.S" Margin="0" Padding="0" ToolTip="Can Modify Additional Settings" />
+                            </DataGridCheckBoxColumn.Header>
+                            <DataGridCheckBoxColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="IsEnabled" Value="{Binding Path=CanModifyAdditionalSettingsCanBeChanged}"/>
+                                    <Setter Property="IsTabStop" Value="{Binding Path=CanModifyAdditionalSettingsCanBeChanged}"/>
+                                    <Setter Property="Focusable" Value="{Binding Path=CanModifyAdditionalSettingsCanBeChanged}"/>
+                                    <Setter Property="IsHitTestVisible" Value="{Binding Path=CanModifyAdditionalSettingsCanBeChanged}"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.CellStyle>
+                            <DataGridCheckBoxColumn.ElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.ElementStyle>
+                            <DataGridCheckBoxColumn.EditingElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultEditingElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.EditingElementStyle>
+                        </DataGridCheckBoxColumn>
+
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsSecured, UpdateSourceTrigger=PropertyChanged}">
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="Sec" Margin="0" Padding="0" ToolTip="Is Secured" />
+                            </DataGridCheckBoxColumn.Header>
+                            <DataGridCheckBoxColumn.ElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.ElementStyle>
+                            <DataGridCheckBoxColumn.EditingElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultEditingElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.EditingElementStyle>
+                        </DataGridCheckBoxColumn>
+
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsDataSourceSecret, UpdateSourceTrigger=PropertyChanged}">
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="DS.S" Margin="0" Padding="0" ToolTip="Is DataSource Secret" />
+                            </DataGridCheckBoxColumn.Header>
+                            <DataGridCheckBoxColumn.ElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.ElementStyle>
+                            <DataGridCheckBoxColumn.EditingElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultEditingElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.EditingElementStyle>
+                        </DataGridCheckBoxColumn>
+
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsValidForForm, UpdateSourceTrigger=PropertyChanged}">
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="V.f.F" Margin="0" Padding="0" ToolTip="Is Valid For Form" />
+                            </DataGridCheckBoxColumn.Header>
+                            <DataGridCheckBoxColumn.ElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.ElementStyle>
+                            <DataGridCheckBoxColumn.EditingElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultEditingElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.EditingElementStyle>
+                        </DataGridCheckBoxColumn>
+
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsRequiredForForm, UpdateSourceTrigger=PropertyChanged}">
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="R.f.F" Margin="0" Padding="0" ToolTip="Is Required For Form" />
+                            </DataGridCheckBoxColumn.Header>
+                            <DataGridCheckBoxColumn.ElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.ElementStyle>
+                            <DataGridCheckBoxColumn.EditingElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultEditingElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.EditingElementStyle>
+                        </DataGridCheckBoxColumn>
+
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsValidForGrid, UpdateSourceTrigger=PropertyChanged}">
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="V.f.G" Margin="0" Padding="0" ToolTip="Is Valid For Grid" />
+                            </DataGridCheckBoxColumn.Header>
+                            <DataGridCheckBoxColumn.ElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.ElementStyle>
+                            <DataGridCheckBoxColumn.EditingElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultEditingElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.EditingElementStyle>
+                        </DataGridCheckBoxColumn>
+
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsSortableEnabled, UpdateSourceTrigger=PropertyChanged}">
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="Sort" Margin="0" Padding="0" ToolTip="Is Sortable Enabled" />
+                            </DataGridCheckBoxColumn.Header>
+                            <DataGridCheckBoxColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="IsEnabled" Value="{Binding Path=IsSortableEnabledCanBeChanged}"/>
+                                    <Setter Property="IsTabStop" Value="{Binding Path=IsSortableEnabledCanBeChanged}"/>
+                                    <Setter Property="Focusable" Value="{Binding Path=IsSortableEnabledCanBeChanged}"/>
+                                    <Setter Property="IsHitTestVisible" Value="{Binding Path=IsSortableEnabledCanBeChanged}"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.CellStyle>
+                            <DataGridCheckBoxColumn.ElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.ElementStyle>
+                            <DataGridCheckBoxColumn.EditingElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultEditingElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.EditingElementStyle>
+                        </DataGridCheckBoxColumn>
+
+                        <DataGridCheckBoxColumn Width="Auto" Binding="{Binding IsGlobalFilterEnabled, UpdateSourceTrigger=PropertyChanged}">
+                            <DataGridCheckBoxColumn.Header>
+                                <Label Content="G.F" Margin="0" Padding="0" ToolTip="Is Global Filter Enabled" />
+                            </DataGridCheckBoxColumn.Header>
+                            <DataGridCheckBoxColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="IsEnabled" Value="{Binding Path=IsGlobalFilterEnabledCanBeChanged}"/>
+                                    <Setter Property="IsTabStop" Value="{Binding Path=IsGlobalFilterEnabledCanBeChanged}"/>
+                                    <Setter Property="Focusable" Value="{Binding Path=IsGlobalFilterEnabledCanBeChanged}"/>
+                                    <Setter Property="IsHitTestVisible" Value="{Binding Path=IsGlobalFilterEnabledCanBeChanged}"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.CellStyle>
+                            <DataGridCheckBoxColumn.ElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.ElementStyle>
+                            <DataGridCheckBoxColumn.EditingElementStyle>
+                                <Style TargetType="CheckBox" BasedOn="{x:Static DataGridCheckBoxColumn.DefaultEditingElementStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridCheckBoxColumn.EditingElementStyle>
+                        </DataGridCheckBoxColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Grid>
+
+        <StatusBar Grid.Row="2">
+            <StatusBarItem x:Name="tSSLblConnectionName" Content="Connection"/>
+            <ComboBox x:Name="cmBCurrentConnection" IsReadOnly="True" SelectionChanged="cmBCurrentConnection_SelectionChanged" Padding="10,0" />
+            <ProgressBar x:Name="tSProgressBar" Width="200" Height="15"/>
+            <Button x:Name="btnSetCurrentConnection" Content="Set" ToolTip="Set Current Connection" Click="btnSetCurrentConnection_Click"/>
+            <StatusBarItem x:Name="stBIStatus" />
+        </StatusBar>
+    </Grid>
+</src:WindowBase>
