@@ -28,7 +28,7 @@
                 <Separator x:Uid="menuContextDifference"/>
 
                 <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Create from {0}">
-                    <MenuItem Header="Open WebResource in Web" VerticalAlignment="Center" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
+                    <MenuItem Header="Open WebResource in Web" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
                     <Separator/>
 
                     <MenuItem Header="Create Entity Description" Click="mIExportWebResource1EntityDescription_Click"/>
@@ -41,7 +41,7 @@
 
                 <Separator x:Uid="menuContextConnection2"/>
                 <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Create from {0}">
-                    <MenuItem Header="Open WebResource in Web" VerticalAlignment="Center" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
+                    <MenuItem Header="Open WebResource in Web" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
 
                     <Separator/>
                     <MenuItem Header="Create Entity Description" Click="mIExportWebResource2EntityDescription_Click"/>
@@ -224,8 +224,8 @@
                             
                             <Separator/>
                             <MenuItem Header="Content" Click="mIShowDifferenceContent_Click"/>
-                            <MenuItem x:Uid="menuContextDifference" Header="Difference ContentJson" Click="mIShowDifferenceContentJson_Click"/>
-                            <MenuItem x:Uid="menuContextDifference" Header="Difference Dependency Xml" Click="mIShowDifferenceDependencyXml_Click"/>
+                            <MenuItem Header="ContentJson" Click="mIShowDifferenceContentJson_Click"/>
+                            <MenuItem Header="Dependency Xml" Click="mIShowDifferenceDependencyXml_Click"/>
                         </MenuItem>
                     </Menu>
                     
@@ -253,7 +253,7 @@
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>
-                <Button Content="Close" Click="Button_Click" HorizontalContentAlignment="Right" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
         
