@@ -1534,7 +1534,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (service != null)
             {
-                service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.Report, entity.OptionSetMetadata2.MetadataId.Value);
+                service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.OptionSet, entity.OptionSetMetadata2.MetadataId.Value);
             }
         }
     }
