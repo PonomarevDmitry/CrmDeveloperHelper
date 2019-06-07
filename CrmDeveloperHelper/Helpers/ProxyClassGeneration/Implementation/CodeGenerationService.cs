@@ -43,6 +43,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         private static readonly string SdkMessageNamespaceFieldName = "SdkMessageNamespace";
         private static readonly string SdkMessageRequestNameFieldName = "SdkMessageRequestName";
 
+        private static readonly string EntityLogicalNameFieldName = "EntityLogicalName";
+        private static readonly string EntitySchemaNameFieldName = "EntitySchemaName";
+        private static readonly string EntityTypeCodeFieldName = "EntityTypeCode";
+
+        private static readonly string EntityPrimaryIdAttributeFieldName = "EntityPrimaryIdAttribute";
+        private static readonly string EntityPrimaryNameAttributeFieldName = "EntityPrimaryNameAttribute";
+        private static readonly string EntityPrimaryImageAttributeFieldName = "EntityPrimaryImageAttribute";
+
         private readonly CreateFileCSharpConfiguration _config;
 
         public CodeGenerationService(CreateFileCSharpConfiguration config)
@@ -361,11 +369,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             var entityClassName = iCodeGenerationServiceProvider.NamingService.GetNameForEntity(entityMetadata, iCodeGenerationServiceProvider);
 
+            iCodeGenerationServiceProvider.NamingService.SetCurrentTypeName(entityClassName);
+
             var entityClass = this.Class(entityClassName, TypeRef(EntityClassBaseType)
                 , Attribute(typeof(DataContractAttribute))
             );
 
-            CodeExpression entityLogicalNameAttributeRef = FieldRef(entityClassName, "EntityLogicalName");
+            CodeExpression entityLogicalNameAttributeRef = FieldRef(iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata, iCodeGenerationServiceProvider), EntityLogicalNameFieldName);
 
             entityClass.CustomAttributes.Add(Attribute(EntityLogicalNameAttribute, AttributeArg(entityLogicalNameAttributeRef)));
 
@@ -402,8 +412,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         {
             var memberCollection = new CodeTypeMemberCollection();
 
-            CodeExpression primatyIdAttributeRef = VarRef("EntityPrimaryIdAttribute");
-            CodeExpression primatyNameAttributeRef = VarRef("EntityPrimaryNameAttribute");
+            CodeExpression primatyIdAttributeRef = FieldRef(iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata, iCodeGenerationServiceProvider), EntityPrimaryIdAttributeFieldName);
+            CodeExpression primatyNameAttributeRef = FieldRef(iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata, iCodeGenerationServiceProvider), EntityPrimaryNameAttributeFieldName);
 
             {
                 CodeRegionDirective startCodeRegionDirective = null;
@@ -700,28 +710,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             entityClass.BaseTypes.Add(TypeRef(typeof(INotifyPropertyChanging)));
             entityClass.BaseTypes.Add(TypeRef(typeof(INotifyPropertyChanged)));
 
-            entityClass.Members.Add(this.BuildClassConstant("EntityLogicalName", typeof(string), entityMetadata.LogicalName));
+            entityClass.Members.Add(this.BuildClassConstant(EntityLogicalNameFieldName, typeof(string), entityMetadata.LogicalName));
 
-            entityClass.Members.Add(this.BuildClassConstant("EntitySchemaName", typeof(string), entityMetadata.SchemaName));
+            entityClass.Members.Add(this.BuildClassConstant(EntitySchemaNameFieldName, typeof(string), entityMetadata.SchemaName));
 
             if (entityMetadata.ObjectTypeCode.HasValue && !entityMetadata.IsCustomEntity.GetValueOrDefault())
             {
-                entityClass.Members.Add(this.BuildClassConstant("EntityTypeCode", typeof(int), entityMetadata.ObjectTypeCode));
+                entityClass.Members.Add(this.BuildClassConstant(EntityTypeCodeFieldName, typeof(int), entityMetadata.ObjectTypeCode));
             }
 
             if (!string.IsNullOrEmpty(entityMetadata.PrimaryIdAttribute))
             {
-                entityClass.Members.Add(this.BuildClassConstant("EntityPrimaryIdAttribute", typeof(string), entityMetadata.PrimaryIdAttribute));
+                entityClass.Members.Add(this.BuildClassConstant(EntityPrimaryIdAttributeFieldName, typeof(string), entityMetadata.PrimaryIdAttribute));
             }
 
             if (!string.IsNullOrEmpty(entityMetadata.PrimaryNameAttribute))
             {
-                entityClass.Members.Add(this.BuildClassConstant("EntityPrimaryNameAttribute", typeof(string), entityMetadata.PrimaryNameAttribute));
+                entityClass.Members.Add(this.BuildClassConstant(EntityPrimaryNameAttributeFieldName, typeof(string), entityMetadata.PrimaryNameAttribute));
             }
 
             if (!string.IsNullOrEmpty(entityMetadata.PrimaryImageAttribute))
             {
-                entityClass.Members.Add(this.BuildClassConstant("EntityPrimaryImageAttribute", typeof(string), entityMetadata.PrimaryImageAttribute));
+                entityClass.Members.Add(this.BuildClassConstant(EntityPrimaryImageAttributeFieldName, typeof(string), entityMetadata.PrimaryImageAttribute));
             }
 
             entityClass.Members.Add(this.EntityConstructorDefault(entityMetadata, iCodeGenerationServiceProvider));
@@ -768,7 +778,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         )
         {
             var codeConstructor = this.Constructor();
-            codeConstructor.BaseConstructorArgs.Add(VarRef("EntityLogicalName"));
+
+            codeConstructor.BaseConstructorArgs.Add(FieldRef(iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata, iCodeGenerationServiceProvider), EntityLogicalNameFieldName));
 
             codeConstructor.Comments.AddRange(CommentSummary(iCodeGenerationServiceProvider.NamingService.GetCommentsForEntityDefaultConstructor(entityMetadata, iCodeGenerationServiceProvider)));
 
@@ -781,6 +792,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         )
         {
             var codeConstructor = this.Constructor();
+
+            string primatyIdAttributeRef = string.Format("{0}.{1}",iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata, iCodeGenerationServiceProvider).BaseType, EntityPrimaryIdAttributeFieldName);
 
             codeConstructor.Parameters.Add(new CodeParameterDeclarationExpression(typeof(Object), "anonymousObject"));
 
@@ -811,10 +824,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 {0}{0}{0}{0}switch (name)
 {0}{0}{0}{0}{{
 {0}{0}{0}{0}{0}case ""id"":
-{0}{0}{0}{0}{0}case EntityPrimaryIdAttribute:
+{0}{0}{0}{0}{0}case {1}:
 {0}{0}{0}{0}{0}{0}if (value is System.Guid idValue)
 {0}{0}{0}{0}{0}{0}{{
-{0}{0}{0}{0}{0}{0}{0}Attributes[EntityPrimaryIdAttribute] = base.Id = idValue;
+{0}{0}{0}{0}{0}{0}{0}Attributes[{1}] = base.Id = idValue;
 {0}{0}{0}{0}{0}{0}}}
 {0}{0}{0}{0}{0}{0}break;
 
@@ -829,7 +842,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 {0}{0}{0}{0}{0}{0}}}
 {0}{0}{0}{0}{0}{0}break;
 {0}{0}{0}{0}}}
-{0}{0}{0}}}", _config.TabSpacer)));
+{0}{0}{0}}}", _config.TabSpacer, primatyIdAttributeRef)));
 
             return codeConstructor;
         }
@@ -1802,7 +1815,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateServiceContext(iCodeGenerationServiceProvider))
             {
-                var codeTypeDeclaration = this.Class(iCodeGenerationServiceProvider.NamingService.GetNameForServiceContext(iCodeGenerationServiceProvider), ServiceContextBaseType);
+                string serviceContextName = iCodeGenerationServiceProvider.NamingService.GetNameForServiceContext(iCodeGenerationServiceProvider);
+
+                var codeTypeDeclaration = this.Class(serviceContextName, ServiceContextBaseType);
+
+                iCodeGenerationServiceProvider.NamingService.SetCurrentTypeName(serviceContextName);
 
                 codeTypeDeclaration.Members.Add(this.ServiceContextConstructor(iCodeGenerationServiceProvider));
 
@@ -1927,6 +1944,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             var requestClass = this.Class(requestClassName, RequestClassBaseType);
 
+            iCodeGenerationServiceProvider.NamingService.SetCurrentTypeName(requestClassName);
+
             requestClass.Members.Add(this.BuildClassConstant(SdkMessageNamespaceFieldName, typeof(string), messagePair.MessageNamespace));
             requestClass.Members.Add(this.BuildClassConstant(SdkMessageRequestNameFieldName, typeof(string), messagePair.Request.Name));
 
@@ -2041,11 +2060,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
-            var codeTypeDeclaration = this.Class(string.Format(CultureInfo.InvariantCulture, "{0}{1}", iCodeGenerationServiceProvider.NamingService.GetNameForMessagePair(messagePair, iCodeGenerationServiceProvider), ResponseClassSuffix)
+            string responseClassName = string.Format(CultureInfo.InvariantCulture, "{0}{1}", iCodeGenerationServiceProvider.NamingService.GetNameForMessagePair(messagePair, iCodeGenerationServiceProvider), ResponseClassSuffix);
+
+            var codeTypeDeclaration = this.Class(
+                responseClassName
                 , ResponseClassBaseType
                 , Attribute(typeof(DataContractAttribute), AttributeArg("Namespace", sdkMessageNamespaceAttributeRef))
                 , Attribute(typeof(ResponseProxyAttribute), AttributeArg(null, sdkMessageRequestNameAttributeRef))
             );
+
+            iCodeGenerationServiceProvider.NamingService.SetCurrentTypeName(responseClassName);
 
             codeTypeDeclaration.Members.Add(this.Constructor());
 

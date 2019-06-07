@@ -2,6 +2,7 @@
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Client;
 using Microsoft.Xrm.Sdk.Metadata;
+using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -16,12 +17,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
     internal sealed class NamingService : INamingService
     {
         private static Regex nameRegex = new Regex("[a-z0-9_]*", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant);
-
-        private const string ConflictResolutionSuffix = "1";
-
-        private const string ReferencingReflexiveRelationshipPrefix = "Referencing";
-        private const string ReferencedReflexiveRelationshipPrefix = "Referenced";
-
+        private string _typeName;
         private readonly string _serviceContextName;
 
         private readonly Dictionary<string, int> _nameMap;
@@ -157,14 +153,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             var validName = GetNameForAttribute(entityMetadata, attributeMetadata, iCodeGenerationServiceProvider);
 
-            if (this._reservedAttributeNames.Contains(validName))
-            {
-                validName += "1";
-            }
+            validName = ResolveConflictName(validName, s => this._reservedAttributeNames.Contains(s) || string.Equals(s, _typeName, StringComparison.InvariantCultureIgnoreCase));
 
             this._knowNames.Add(entityMetadata.MetadataId.Value.ToString() + attributeMetadata.MetadataId.Value, validName);
 
             return validName;
+        }
+
+        private string ResolveConflictName(string validName, Func<string, bool> conflictChecker)
+        {
+            int index = 0;
+            string result = validName;
+
+            while (conflictChecker(result))
+            {
+                index++;
+
+                result = string.Format("{0}{1}", validName, index);
+            }
+
+            return result;
         }
 
         public string GetNameForAttribute(
@@ -192,23 +200,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         )
         {
             string str = reflexiveRole.HasValue ? reflexiveRole.Value.ToString() : string.Empty;
-            if (this._knowNames.ContainsKey(entityMetadata.MetadataId.Value.ToString() + relationshipMetadata.MetadataId.Value + str))
+
+            string keyRelationship = entityMetadata.MetadataId.Value.ToString() + relationshipMetadata.MetadataId.Value + str;
+
+            if (this._knowNames.ContainsKey(keyRelationship))
             {
-                return this._knowNames[entityMetadata.MetadataId.Value.ToString() + relationshipMetadata.MetadataId.Value + str];
+                return this._knowNames[keyRelationship];
             }
 
             string validName = NamingService.CreateValidName(relationshipMetadata.SchemaName + (!reflexiveRole.HasValue ? string.Empty : reflexiveRole.Value == EntityRole.Referenced ? "_Referenced" : "_Referencing"));
 
             Dictionary<string, string> knownNamesForEntityMetadata = this._knowNames.Where(d => d.Key.StartsWith(entityMetadata.MetadataId.Value.ToString())).ToDictionary(d => d.Key, d => d.Value);
 
-            if (this._reservedAttributeNames.Contains(validName)
-                || knownNamesForEntityMetadata.ContainsValue(validName)
-            )
-            {
-                validName += "1";
-            }
+            validName = ResolveConflictName(validName, s => this._reservedAttributeNames.Contains(s) || knownNamesForEntityMetadata.ContainsValue(s) || string.Equals(s, _typeName, StringComparison.InvariantCultureIgnoreCase));
 
-            this._knowNames.Add(entityMetadata.MetadataId.Value.ToString() + relationshipMetadata.MetadataId.Value + str, validName);
+            this._knowNames.Add(keyRelationship, validName);
 
             return validName;
         }
@@ -386,6 +392,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         public IEnumerable<string> GetCommentsForResponseField(CodeGenerationSdkMessageResponse response, Entities.SdkMessageResponseField responseField, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
         {
             return Enumerable.Empty<string>();
+        }
+
+        public void SetCurrentTypeName(string typeName)
+        {
+            this._typeName = typeName;
         }
     }
 }
