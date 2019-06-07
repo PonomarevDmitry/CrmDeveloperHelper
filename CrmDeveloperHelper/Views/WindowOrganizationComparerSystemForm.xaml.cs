@@ -558,32 +558,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    //if (_commonConfig.SetXmlSchemasDuringExport)
-                    //{
-                    //    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaFormXml);
-
-                    //    if (schemasResources != null)
-                    //    {
-                    //        formXml = ContentCoparerHelper.SetXsdSchema(formXml, schemasResources);
-                    //    }
-                    //}
-
-                    //if (_commonConfig.SetIntellisenseContext)
-                    //{
-                    //    formXml = ContentCoparerHelper.SetIntellisenseContextFormId(formXml, formId);
-                    //}
-
-                    //if (_commonConfig.SortXmlAttributes)
-                    //{
-                    //    formXml = ContentCoparerHelper.SortXmlAttributes(formXml);
-                    //}
-
-                    //formXml = ContentCoparerHelper.FormatXml(formXml, _commonConfig.ExportXmlAttributeOnNewLine);
-
-                    formXml = ContentCoparerHelper.FormatXmlByConfiguration(formXml, _commonConfig, _xmlOptions
-                        , schemaName: CommonExportXsdSchemasCommand.SchemaFormXml
-                        , formId: formId
+                    if (string.Equals(extension, "xml", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        formXml = ContentCoparerHelper.FormatXmlByConfiguration(formXml, _commonConfig, _xmlOptions
+                            , schemaName: CommonExportXsdSchemasCommand.SchemaFormXml
+                            , formId: formId
                         );
+                    }
+                    else if (string.Equals(extension, "json", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        formXml = ContentCoparerHelper.FormatJson(formXml);
+                    }
 
                     File.WriteAllText(filePath, formXml, new UTF8Encoding(false));
 

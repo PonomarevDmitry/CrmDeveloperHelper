@@ -563,9 +563,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                    if (string.Equals(extension, "xml", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        xmlContent = doc.ToString();
+                        if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                        {
+                            xmlContent = doc.ToString();
+                        }
+                    }
+                    else if (string.Equals(extension, "xml", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
                     }
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
@@ -790,6 +797,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                 extension = "xml";
                                 xml1 = doc.ToString();
                             }
+                            else
+                            {
+                                xml1 = ContentCoparerHelper.FormatJson(xml1);
+                            }
                         }
 
                         {
@@ -797,6 +808,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             {
                                 extension = "xml";
                                 xml2 = doc.ToString();
+                            }
+                            else
+                            {
+                                xml2 = ContentCoparerHelper.FormatJson(xml2);
                             }
                         }
 
@@ -1082,6 +1097,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     extension = "xml";
 
                     xmlContent = doc.ToString();
+                }
+                else
+                {
+                    xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
                 }
 
                 string filePath = await CreateFileAsync(service.ConnectionData, entityName, category, name, fieldTitle, extension, xmlContent);

@@ -538,11 +538,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
-                    {
-                        xmlContent = doc.ToString();
-                    }
-
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
                     this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, Workflow.Schema.EntityLogicalName, name, fieldTitle, filePath);
@@ -669,6 +664,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     xmlContent = doc.ToString();
                 }
+                else
+                {
+                    xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
+                }
 
                 string filePath = await CreateFileAsync(folder, entityName, category, name, fieldTitle, xmlContent, extension);
 
@@ -713,9 +712,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                         xmlContent = doc.ToString();
                     }
-                }
+                    else
+                    {
+                        xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
+                    }
 
-                string filePath = await CreateFileAsync(folder, entityName, category, name, fieldTitle + " BackUp", xmlContent, extension);
+                    await CreateFileAsync(folder, entityName, category, name, fieldTitle + " BackUp", xmlContent, extension);
+                }
 
                 var newText = string.Empty;
                 bool? dialogResult = false;
@@ -1151,6 +1154,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             Workflow workflow = await repository.GetByIdAsync(idWorkflow, new ColumnSet(fieldName));
 
             string xmlContent = workflow.GetAttributeValue<string>(fieldName);
+
+            if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+            {
+                xmlContent = doc.ToString();
+            }
 
             string filePath1 = await CreateFileAsync(folder, entityName, category, name, fieldTitle1, xmlContent, "xml");
             string filePath2 = await CreateCorrectedFileAsync(folder, entityName, category, name, fieldTitle2, xmlContent);

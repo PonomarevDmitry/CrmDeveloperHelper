@@ -1,9 +1,12 @@
 ﻿using Microsoft.Xrm.Sdk.Query;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.UserControls;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -31,6 +35,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly CommonConfiguration _commonConfig;
 
         private readonly ObservableCollection<EntityViewItem> _itemsSource;
+
+        private readonly Popup _optionsPopup;
+
+        public static readonly XmlOptionsControls _xmlOptions = XmlOptionsControls.XmlFull;
 
         public WindowOrganizationComparerWebResources(
             IWriteToOutput iWriteToOutput
@@ -50,6 +58,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             BindingOperations.EnableCollectionSynchronization(connection1.ConnectionConfiguration.Connections, sysObjectConnections);
 
             InitializeComponent();
+
+            var child = new ExportXmlOptionsControl(_commonConfig, _xmlOptions);
+            child.CloseClicked += Child_CloseClicked;
+            this._optionsPopup = new Popup
+            {
+                Child = child,
+
+                PlacementTarget = toolBarHeader,
+                Placement = PlacementMode.Bottom,
+                StaysOpen = false,
+                Focusable = true,
+            };
 
             cmBType.ItemsSource = new EnumBindingSourceExtension(typeof(WebResource.Schema.OptionSets.webresourcetype?)).ProvideValue(null) as IEnumerable;
 
@@ -519,7 +539,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 filePath = string.Empty;
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, WebResource.Schema.EntityLogicalName, name, fieldTitle);
-                this._iWriteToOutput.ActivateOutputWindow(connectionData);
             }
 
             return filePath;
@@ -841,7 +860,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, WebResource.Schema.Attributes.contentjson, SavedQuery.Schema.Headers.fetchxml, "json", PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, WebResource.Schema.Attributes.contentjson, WebResource.Schema.Headers.contentjson, "json", PerformShowingDifferenceSingleXmlAsync);
         }
 
         private void mIShowDifferenceDependencyXml_Click(object sender, RoutedEventArgs e)
@@ -853,7 +872,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionLinked(link.Link, true, WebResource.Schema.Attributes.dependencyxml, SavedQuery.Schema.Headers.fetchxml, "xml", PerformShowingDifferenceSingleXmlAsync);
+            ExecuteActionLinked(link.Link, true, WebResource.Schema.Attributes.dependencyxml, WebResource.Schema.Headers.dependencyxml, "xml", PerformShowingDifferenceSingleXmlAsync);
         }
 
         private async Task PerformShowingDifferenceSingleXmlAsync(LinkedEntities<WebResource> linked, bool showAllways, string fieldName, string fieldTitle, string extension)
@@ -883,8 +902,50 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2, false).IsEqual)
                     {
-                        string filePath1 = await CreateFileAsync(service1.ConnectionData, webResource1.Name, fieldTitle, extension, xml1);
-                        string filePath2 = await CreateFileAsync(service2.ConnectionData, webResource2.Name, fieldTitle, extension, xml2);
+                        if (!string.IsNullOrEmpty(xml1))
+                        {
+                            if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                xml1 = ContentCoparerHelper.FormatXmlByConfiguration(xml1, _commonConfig, _xmlOptions
+                                    , schemaName: CommonExportXsdSchemasCommand.SchemaDependencyXml
+                                   , webResourceName: webResource1.Name
+                                );
+                            }
+                            else if (string.Equals(fieldName, WebResource.Schema.Attributes.contentjson, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                xml1 = ContentCoparerHelper.FormatJson(xml1);
+                            }
+                        }
+
+                        if (!string.IsNullOrEmpty(xml2))
+                        {
+                            if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                xml2 = ContentCoparerHelper.FormatXmlByConfiguration(xml2, _commonConfig, _xmlOptions
+                                    , schemaName: CommonExportXsdSchemasCommand.SchemaDependencyXml
+                                   , webResourceName: webResource2.Name
+                                );
+                            }
+                            else if (string.Equals(fieldName, WebResource.Schema.Attributes.contentjson, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                xml2 = ContentCoparerHelper.FormatJson(xml2);
+                            }
+                        }
+
+                        string filePath1 = await CreateFileAsync(service1.ConnectionData, webResource1.Name, fieldTitle, xml1, extension);
+                        string filePath2 = await CreateFileAsync(service2.ConnectionData, webResource2.Name, fieldTitle, xml2, extension);
+
+                        if (!File.Exists(filePath1))
+                        {
+                            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service1.ConnectionData.Name, Report.Schema.EntityLogicalName, webResource1.Name, fieldTitle);
+                            this._iWriteToOutput.ActivateOutputWindow(null);
+                        }
+
+                        if (!File.Exists(filePath2))
+                        {
+                            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service2.ConnectionData.Name, Report.Schema.EntityLogicalName, webResource2.Name, fieldTitle);
+                            this._iWriteToOutput.ActivateOutputWindow(null);
+                        }
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
@@ -930,11 +991,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
-                    {
-                        xmlContent = doc.ToString();
-                    }
-
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
                     this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldExportedToFormat5, connectionData.Name, WebResource.Schema.EntityLogicalName, name, fieldTitle, filePath);
@@ -946,8 +1002,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
+                filePath = string.Empty;
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, WebResource.Schema.EntityLogicalName, name, fieldTitle);
-                this._iWriteToOutput.ActivateOutputWindow(connectionData);
             }
 
             return filePath;
@@ -1187,7 +1243,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = webResource.GetAttributeValue<string>(fieldName);
 
-                string filePath = await CreateFileAsync(service.ConnectionData, webResource.Name, fieldTitle, extension, xmlContent);
+                if (!string.IsNullOrEmpty(xmlContent))
+                {
+                    if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                            , schemaName: CommonExportXsdSchemasCommand.SchemaDependencyXml
+                           , webResourceName: webResource.Name
+                        );
+                    }
+                    else if (string.Equals(fieldName, WebResource.Schema.Attributes.contentjson, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
+                    }
+                }
+
+                string filePath = await CreateFileAsync(service.ConnectionData, webResource.Name, fieldTitle, xmlContent, extension);
+
+                if (!File.Exists(filePath))
+                {
+                    this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, Report.Schema.EntityLogicalName, webResource.Name, fieldTitle);
+                    this._iWriteToOutput.ActivateOutputWindow(null);
+                }
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
@@ -1203,6 +1280,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             ShowExistingWebResources();
+        }
+
+        private void miOptions_Click(object sender, RoutedEventArgs e)
+        {
+            this._optionsPopup.IsOpen = true;
+            this._optionsPopup.Child.Focus();
+        }
+        private void Child_CloseClicked(object sender, EventArgs e)
+        {
+            if (_optionsPopup.IsOpen)
+            {
+                _optionsPopup.IsOpen = false;
+                this.Focus();
+            }
         }
     }
 }

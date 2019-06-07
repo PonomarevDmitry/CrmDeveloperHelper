@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.Xrm.Sdk;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -1419,6 +1420,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             return changeText;
+        }
+
+        public static string FormatJson(string xmlContent)
+        {
+            if (string.IsNullOrEmpty(xmlContent))
+            {
+                return xmlContent;
+            }
+
+            JToken parsedJson = JToken.Parse(xmlContent);
+
+            if (parsedJson == null)
+            {
+                return xmlContent;
+            }
+
+            return parsedJson.ToString(Newtonsoft.Json.Formatting.Indented);
         }
 
         public static void RemoveXsdSchemaInDocument(EnvDTE.Document document)

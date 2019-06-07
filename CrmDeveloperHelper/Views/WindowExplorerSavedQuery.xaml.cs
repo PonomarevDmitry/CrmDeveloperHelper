@@ -458,30 +458,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (string.Equals(extension, "xml", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        //if (_commonConfig.SetXmlSchemasDuringExport)
-                        //{
-                        //    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaFetch);
-
-                        //    if (schemasResources != null)
-                        //    {
-                        //        xmlContent = ContentCoparerHelper.SetXsdSchema(xmlContent, schemasResources);
-                        //    }
-                        //}
-
-                        //if (_commonConfig.SetIntellisenseContext)
-                        //{
-                        //    xmlContent = ContentCoparerHelper.SetIntellisenseContextSavedQueryId(xmlContent, savedQueryId);
-                        //}
-
-                        //if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
-                        //{
-                        //    xmlContent = doc.ToString();
-                        //}
-
                         xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
                            , schemaName: CommonExportXsdSchemasCommand.SchemaFetch
                            , savedQueryId: savedQueryId
-                           );
+                        );
+                    }
+                    else if (string.Equals(extension, "json", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
                     }
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
@@ -604,11 +588,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = savedQuery.GetAttributeValue<string>(fieldName);
 
-                if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                if (string.Equals(extension, "xml", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    xmlContent = doc.ToString();
+                    if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
+                    {
+                        xmlContent = doc.ToString();
 
-                    xmlContent = ContentCoparerHelper.FormatToJavaScript(fieldName, xmlContent);
+                        xmlContent = ContentCoparerHelper.FormatToJavaScript(fieldName, xmlContent);
+                    }
+                }
+                else if (string.Equals(extension, "json", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
                 }
 
                 Clipboard.SetText(xmlContent);

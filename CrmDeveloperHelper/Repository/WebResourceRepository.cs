@@ -240,13 +240,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             var result = GetListAll(name, webResourceType, managed, hidden, columnSet).Where(w => w.WebResourceType != null &&
                 (
-                    w.WebResourceType.Value == (int)WebResource.Schema.OptionSets.webresourcetype.Webpage_HTML_1
-                    || w.WebResourceType.Value == (int)WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_CSS_2
-                    || w.WebResourceType.Value == (int)WebResource.Schema.OptionSets.webresourcetype.Script_JScript_3
-                    || w.WebResourceType.Value == (int)WebResource.Schema.OptionSets.webresourcetype.Data_XML_4
-                    || w.WebResourceType.Value == (int)WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_XSL_9
-                    || w.WebResourceType.Value == (int)WebResource.Schema.OptionSets.webresourcetype.Vector_format_SVG_11
-                    || w.WebResourceType.Value == (int)WebResource.Schema.OptionSets.webresourcetype.String_RESX_12
+                    w.WebResourceTypeEnum == WebResource.Schema.OptionSets.webresourcetype.Webpage_HTML_1
+                    || w.WebResourceTypeEnum == WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_CSS_2
+                    || w.WebResourceTypeEnum == WebResource.Schema.OptionSets.webresourcetype.Script_JScript_3
+                    || w.WebResourceTypeEnum == WebResource.Schema.OptionSets.webresourcetype.Data_XML_4
+                    || w.WebResourceTypeEnum == WebResource.Schema.OptionSets.webresourcetype.Style_Sheet_XSL_9
+                    || w.WebResourceTypeEnum == WebResource.Schema.OptionSets.webresourcetype.Vector_format_SVG_11
+                    || w.WebResourceTypeEnum == WebResource.Schema.OptionSets.webresourcetype.String_RESX_12
                 )
             ).ToList();
 
@@ -272,39 +272,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 EntityName = WebResource.EntityLogicalName,
 
                 ColumnSet = columnSet ?? new ColumnSet(GetAttributes(_service)),
-
-                LinkEntities =
-                {
-                    new LinkEntity()
-                    {
-                        JoinOperator = JoinOperator.LeftOuter,
-
-                        LinkFromEntityName = WebResource.EntityLogicalName,
-                        LinkFromAttributeName = WebResource.Schema.Attributes.solutionid,
-
-                        LinkToEntityName = Solution.EntityLogicalName,
-                        LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
-
-                        EntityAlias = Solution.EntityLogicalName,
-
-                        Columns = new ColumnSet(Solution.Schema.Attributes.uniquename, Solution.Schema.Attributes.ismanaged),
-                    },
-
-                    new LinkEntity()
-                    {
-                        JoinOperator = JoinOperator.LeftOuter,
-
-                        LinkFromEntityName = WebResource.EntityLogicalName,
-                        LinkFromAttributeName = WebResource.Schema.Attributes.supportingsolutionid,
-
-                        LinkToEntityName = Solution.EntityLogicalName,
-                        LinkToAttributeName = Solution.EntityPrimaryIdAttribute,
-
-                        EntityAlias = Solution.Schema.EntityAliasFields.SupportingSolution,
-
-                        Columns = new ColumnSet(Solution.Schema.Attributes.uniquename, Solution.Schema.Attributes.ismanaged),
-                    },
-                },
 
                 Orders =
                 {

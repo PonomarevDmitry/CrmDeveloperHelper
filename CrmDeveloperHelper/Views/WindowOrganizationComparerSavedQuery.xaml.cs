@@ -546,10 +546,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
-                        , schemaName: CommonExportXsdSchemasCommand.SchemaFetch
-                        , savedQueryId: savedQueryId
-                    );
+                    if (string.Equals(extension, "xml", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                            , schemaName: CommonExportXsdSchemasCommand.SchemaFetch
+                            , savedQueryId: savedQueryId
+                        );
+                    }
+                    else if (string.Equals(extension, "json", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
+                    }
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 

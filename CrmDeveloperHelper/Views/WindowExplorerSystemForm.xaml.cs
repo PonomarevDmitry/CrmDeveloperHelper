@@ -640,6 +640,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         , formId: idSystemForm
                     );
                 }
+                else if (string.Equals(fieldName, SystemForm.Schema.Attributes.formjson, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
+                }
 
                 string filePath = await CreateFileAsync(folder, idSystemForm, entityName, name, fieldTitle, extension, xmlContent);
 
@@ -674,24 +678,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = systemForm.GetAttributeValue<string>(fieldName);
 
+                if (string.Equals(fieldName, SystemForm.Schema.Attributes.formxml, StringComparison.InvariantCultureIgnoreCase))
                 {
                     if (ContentCoparerHelper.TryParseXml(xmlContent, out var tempDoc))
                     {
                         xmlContent = tempDoc.ToString();
                     }
                 }
-
-                string backUpXmlContent = xmlContent;
-
-                if (string.Equals(fieldName, SystemForm.Schema.Attributes.formxml, StringComparison.InvariantCultureIgnoreCase))
+                else if (string.Equals(fieldName, SystemForm.Schema.Attributes.formjson, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    backUpXmlContent = ContentCoparerHelper.FormatXmlByConfiguration(backUpXmlContent, _commonConfig, _xmlOptions
-                        , schemaName: CommonExportXsdSchemasCommand.SchemaFormXml
-                        , formId: idSystemForm
-                    );
+                    xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
                 }
 
-                await CreateFileAsync(folder, idSystemForm, entityName, name, fieldTitle + " BackUp", extension, backUpXmlContent);
+                {
+                    string backUpXmlContent = xmlContent;
+
+                    if (string.Equals(fieldName, SystemForm.Schema.Attributes.formxml, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        backUpXmlContent = ContentCoparerHelper.FormatXmlByConfiguration(backUpXmlContent, _commonConfig, _xmlOptions
+                            , schemaName: CommonExportXsdSchemasCommand.SchemaFormXml
+                            , formId: idSystemForm
+                        );
+                    }
+                    else if (string.Equals(fieldName, SystemForm.Schema.Attributes.formjson, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        backUpXmlContent = ContentCoparerHelper.FormatJson(backUpXmlContent);
+                    }
+
+                    await CreateFileAsync(folder, idSystemForm, entityName, name, fieldTitle + " BackUp", extension, backUpXmlContent);
+                }
 
                 var newText = string.Empty;
 

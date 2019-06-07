@@ -498,12 +498,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = customControl.GetAttributeValue<string>(fieldName);
 
-                if (string.Equals(fieldName, CustomControl.Schema.Attributes.manifest, StringComparison.InvariantCultureIgnoreCase))
+                if (!string.IsNullOrEmpty(xmlContent))
                 {
-                    xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
-                        , schemaName: CommonExportXsdSchemasCommand.SchemaManifest
-                        , customControlId: idCustomControl
-                    );
+                    if (string.Equals(fieldName, CustomControl.Schema.Attributes.manifest, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
+                            , schemaName: CommonExportXsdSchemasCommand.SchemaManifest
+                            , customControlId: idCustomControl
+                        );
+                    }
+                    else if (string.Equals(fieldName, CustomControl.Schema.Attributes.clientjson, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
+                    }
                 }
 
                 string filePath = await CreateFileAsync(folder, idCustomControl, name, fieldTitle, extension, xmlContent);
@@ -539,11 +546,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string xmlContent = customControl.GetAttributeValue<string>(fieldName);
 
+                if (string.Equals(fieldName, CustomControl.Schema.Attributes.manifest, StringComparison.InvariantCultureIgnoreCase))
                 {
                     if (ContentCoparerHelper.TryParseXml(xmlContent, out var tempDoc))
                     {
                         xmlContent = tempDoc.ToString();
                     }
+                }
+                else if (string.Equals(fieldName, CustomControl.Schema.Attributes.clientjson, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    xmlContent = ContentCoparerHelper.FormatJson(xmlContent);
                 }
 
                 {
@@ -555,6 +567,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             , schemaName: CommonExportXsdSchemasCommand.SchemaManifest
                             , customControlId: idCustomControl
                         );
+                    }
+                    else if (string.Equals(fieldName, CustomControl.Schema.Attributes.clientjson, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        backUpXmlContent = ContentCoparerHelper.FormatJson(backUpXmlContent);
                     }
 
                     await CreateFileAsync(folder, idCustomControl, name, fieldTitle + " BackUp", extension, backUpXmlContent);
