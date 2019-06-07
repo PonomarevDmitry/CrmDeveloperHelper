@@ -40,7 +40,7 @@
                 </MenuItem>
                 <Separator x:Uid="menuContextDifference"/>
 
-                <MenuItem Header="{DynamicResource ConnectionName1}">
+                <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Create from {0}">
                     <MenuItem Header="Open SystemForm in Web" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
                     <Separator/>
 
@@ -86,7 +86,7 @@
                 </MenuItem>
 
                 <Separator x:Uid="menuContextConnection2"/>
-                <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}">
+                <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Create from {0}">
                     <MenuItem Header="Open SystemForm in Web" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
                     <Separator/>
 

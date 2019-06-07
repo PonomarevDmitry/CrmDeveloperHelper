@@ -20,8 +20,8 @@
 
                 <Separator/>
                 <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SavedQuery in Editor" Click="mIChangeEntityInEditor_Click"/>
-                <MenuItem x:Uid="contMnChangeState" Header="ChangeState" VerticalAlignment="Center" Click="mIChangeStateSavedQuery_Click" />
-                <MenuItem Header="Delete SavedQuery" VerticalAlignment="Center" Click="mIDeleteSavedQuery_Click" />
+                <MenuItem x:Uid="contMnChangeState" Header="ChangeState" Click="mIChangeStateSavedQuery_Click" />
+                <MenuItem Header="Delete SavedQuery" Click="mIDeleteSavedQuery_Click" />
 
                 <Separator/>
                 <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
@@ -68,7 +68,7 @@
                 <MenuItem Header="Offline Sql Query" Click="mIExportSavedQueryOfflineSqlQuery_Click"/>
 
                 <Separator x:Uid="controlChangeEntityAttribute"/>
-                <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SavedQuery Attribute" VerticalAlignment="Center">
+                <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SavedQuery Attribute">
                     <MenuItem Header="Fetch XML" Click="mIUpdateSavedQueryFetchXml_Click"/>
                     <MenuItem Header="Layout XML" Click="mIUpdateSavedQueryLayoutXml_Click"/>
                     <MenuItem Header="ColumnSet XML" Click="mIUpdateSavedQueryColumnSetXml_Click"/>
@@ -282,8 +282,8 @@
 
                             <Separator/>
                             <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SavedQuery in Editor" Click="mIChangeEntityInEditor_Click"/>
-                            <MenuItem x:Uid="contMnChangeState" Header="ChangeState" VerticalAlignment="Center" Click="mIChangeStateSavedQuery_Click" />
-                            <MenuItem Header="Delete SavedQuery" VerticalAlignment="Center" Click="mIDeleteSavedQuery_Click" />
+                            <MenuItem x:Uid="contMnChangeState" Header="ChangeState" Click="mIChangeStateSavedQuery_Click" />
+                            <MenuItem Header="Delete SavedQuery" Click="mIDeleteSavedQuery_Click" />
 
                             <Separator/>
                             <MenuItem Header="Clipboard">
@@ -300,7 +300,7 @@
                             <MenuItem Header="Offline Sql Query" Click="mIExportSavedQueryOfflineSqlQuery_Click"/>
 
                             <Separator x:Uid="controlChangeEntityAttribute"/>
-                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SavedQuery Attribute" VerticalAlignment="Center">
+                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SavedQuery Attribute">
                                 <MenuItem Header="Fetch XML" Click="mIUpdateSavedQueryFetchXml_Click"/>
                                 <MenuItem Header="Layout XML" Click="mIUpdateSavedQueryLayoutXml_Click"/>
                                 <MenuItem Header="ColumnSet XML" Click="mIUpdateSavedQueryColumnSetXml_Click"/>

@@ -12,39 +12,39 @@
             </ResourceDictionary.MergedDictionaries>
 
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
-                <MenuItem Header="Open SystemForm in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
+                <MenuItem Header="Open SystemForm in Web" Click="mIOpenInWeb_Click"/>
                 
                 <Separator/>
-                <MenuItem Header="Form Description" VerticalAlignment="Center" Click="mIExportSystemFormDescription_Click" />
+                <MenuItem Header="Form Description" Click="mIExportSystemFormDescription_Click" />
 
                 <Separator/>
-                <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+                <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
                 <Separator />
                 <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm in Editor" Click="mIChangeEntityInEditor_Click"/>
-                <MenuItem x:Uid="contMnChangeState" Header="ChangeState" VerticalAlignment="Center" Click="mIChangeStateSystemForm_Click" />
-                <MenuItem Header="Delete SystemForm" VerticalAlignment="Center" Click="mIDeleteSystemForm_Click" />
+                <MenuItem x:Uid="contMnChangeState" Header="ChangeState" Click="mIChangeStateSystemForm_Click" />
+                <MenuItem Header="Delete SystemForm" Click="mIDeleteSystemForm_Click" />
 
                 <Separator/>
-                <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIExportSystemFormFormXml_Click" />
-                <MenuItem Header="Form Json" VerticalAlignment="Center" Click="mIExportSystemFormFormJson_Click" />
+                <MenuItem Header="Form XML" Click="mIExportSystemFormFormXml_Click" />
+                <MenuItem Header="Form Json" Click="mIExportSystemFormFormJson_Click" />
 
                 <Separator x:Uid="controlChangeEntityAttribute" />
-                <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm Attribute" VerticalAlignment="Center">
-                    <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIUpdateSystemFormFormXml_Click" />
-                    <MenuItem Header="Form Json" VerticalAlignment="Center" Click="mIUpdateSystemFormFormJson_Click" />
+                <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm Attribute">
+                    <MenuItem Header="Form XML" Click="mIUpdateSystemFormFormXml_Click" />
+                    <MenuItem Header="Form Json" Click="mIUpdateSystemFormFormJson_Click" />
                 </MenuItem>
 
                 <Separator/>
-                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
-                <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddToCrmSolution_Click" />
+                <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
+                <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
 
                 <Separator/>
-                <MenuItem Header="Publish SystemForm" VerticalAlignment="Center" Click="mIPublishSystemForm_Click" />
+                <MenuItem Header="Publish SystemForm" Click="mIPublishSystemForm_Click" />
 
                 <Separator x:Uid="contMnEntity"/>
-                <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Web" VerticalAlignment="Center" Click="mIOpenEntityInWeb_Click" />
-                <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Web" VerticalAlignment="Center" Click="mIOpenEntityListInWeb_Click" />
+                <MenuItem x:Uid="contMnEntity" Header="Open Entity Customization in Web" Click="mIOpenEntityInWeb_Click" />
+                <MenuItem x:Uid="contMnEntity" Header="Open Entity List in Web" Click="mIOpenEntityListInWeb_Click" />
 
                 <Separator x:Uid="contMnEntity" />
                 <MenuItem x:Uid="contMnEntity" Header="Publish Entity" Click="btnPublishEntity_Click"/>
@@ -66,21 +66,21 @@
                 </MenuItem>
 
                 <Separator x:Uid="contMnEntity"/>
-                <MenuItem x:Uid="contMnEntity" Header="Create Entity JavaScript File JsonObject based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFileJsonObject_Click" />
-                <MenuItem x:Uid="contMnEntity" Header="Create Entity JavaScript File AnonymousConstructor based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFileAnonymousConstructor_Click" />
-                <MenuItem x:Uid="contMnEntity" Header="Create Entity JavaScript File TypeConstructor based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFileTypeConstructor_Click" />
+                <MenuItem x:Uid="contMnEntity" Header="Create Entity JavaScript File JsonObject based on Form" Click="mIExportSystemFormEntityJavaScriptFileJsonObject_Click" />
+                <MenuItem x:Uid="contMnEntity" Header="Create Entity JavaScript File AnonymousConstructor based on Form" Click="mIExportSystemFormEntityJavaScriptFileAnonymousConstructor_Click" />
+                <MenuItem x:Uid="contMnEntity" Header="Create Entity JavaScript File TypeConstructor based on Form" Click="mIExportSystemFormEntityJavaScriptFileTypeConstructor_Click" />
 
                 <Separator/>
-                <MenuItem Header="Download Form WebResouces" VerticalAlignment="Center" Click="mIExportSystemFormWebResources_Click" />
+                <MenuItem Header="Download Form WebResouces" Click="mIExportSystemFormWebResources_Click" />
                 
                 <Separator/>
-                <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
+                <MenuItem Header="Open Solutions Containing Component in Window" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
                 
                 <Separator/>
                 <MenuItem Header="Dependent Components">
-                    <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                    <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
                     <Separator/>
-                    <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
+                    <MenuItem Header="Open Dependent Components in Window" Click="mIOpenDependentComponentsInWindow_Click" />
                 </MenuItem>
                 
                 <Separator/>
@@ -278,54 +278,54 @@
                     <Button x:Name="btnExportAll" Content="Export All Form Information" Click="btnExportAll_Click" />
                     
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
-                    <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
-                        <MenuItem x:Name="tSDDBExportSystemForm" Header="Export Form Information" VerticalAlignment="Center" SubmenuOpened="tSDDBExportSystemForm_SubmenuOpened">
-                            <MenuItem Header="Open SystemForm in Web" VerticalAlignment="Center" Click="mIOpenInWeb_Click"/>
+                    <Menu Background="{x:Null}">
+                        <MenuItem x:Name="tSDDBExportSystemForm" Header="Export Form Information" SubmenuOpened="tSDDBExportSystemForm_SubmenuOpened">
+                            <MenuItem Header="Open SystemForm in Web" Click="mIOpenInWeb_Click"/>
                             <Separator/>
-                            <MenuItem Header="Form Description" VerticalAlignment="Center" Click="mIExportSystemFormDescription_Click" />
+                            <MenuItem Header="Form Description" Click="mIExportSystemFormDescription_Click" />
                             
                             <Separator/>
-                            <MenuItem Header="Create Entity Description" VerticalAlignment="Center" Click="mICreateEntityDescription_Click"/>
+                            <MenuItem Header="Create Entity Description" Click="mICreateEntityDescription_Click"/>
 
                             <Separator/>
                             <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm in Editor" Click="mIChangeEntityInEditor_Click"/>
-                            <MenuItem x:Uid="contMnChangeState" Header="ChangeState" VerticalAlignment="Center" Click="mIChangeStateSystemForm_Click" />
-                            <MenuItem Header="Delete SystemForm" VerticalAlignment="Center" Click="mIDeleteSystemForm_Click" />
+                            <MenuItem x:Uid="contMnChangeState" Header="ChangeState" Click="mIChangeStateSystemForm_Click" />
+                            <MenuItem Header="Delete SystemForm" Click="mIDeleteSystemForm_Click" />
                             
                             <Separator/>
-                            <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" VerticalAlignment="Center" />
-                            <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddToCrmSolution_Click" />
+                            <MenuItem x:Uid="contMnAddToSolutionLast" Header="Add to Last Crm Solution" />
+                            <MenuItem Header="Add to Crm Solution" Click="AddToCrmSolution_Click" />
                             
                             <Separator/>
-                            <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIExportSystemFormFormXml_Click" />
-                            <MenuItem Header="Form Json" VerticalAlignment="Center" Click="mIExportSystemFormFormJson_Click" />
+                            <MenuItem Header="Form XML" Click="mIExportSystemFormFormXml_Click" />
+                            <MenuItem Header="Form Json" Click="mIExportSystemFormFormJson_Click" />
                             
                             <Separator x:Uid="controlChangeEntityAttribute"/>
-                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm Attribute" VerticalAlignment="Center">
-                                <MenuItem Header="Form XML" VerticalAlignment="Center" Click="mIUpdateSystemFormFormXml_Click" />
-                                <MenuItem Header="Form Json" VerticalAlignment="Center" Click="mIUpdateSystemFormFormJson_Click" />
+                            <MenuItem x:Uid="controlChangeEntityAttribute" Header="Change SystemForm Attribute">
+                                <MenuItem Header="Form XML" Click="mIUpdateSystemFormFormXml_Click" />
+                                <MenuItem Header="Form Json" Click="mIUpdateSystemFormFormJson_Click" />
                             </MenuItem>
                             
                             <Separator/>
-                            <MenuItem Header="Publish SystemForm" VerticalAlignment="Center" Click="mIPublishSystemForm_Click" />
+                            <MenuItem Header="Publish SystemForm" Click="mIPublishSystemForm_Click" />
                             <MenuItem Header="Publish Entity" Click="btnPublishEntity_Click"/>
 
                             <Separator/>
-                            <MenuItem Header="Create Entity JavaScript File JsonObject based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFileJsonObject_Click" />
-                            <MenuItem Header="Create Entity JavaScript File AnonymousConstructor based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFileAnonymousConstructor_Click" />
-                            <MenuItem Header="Create Entity JavaScript File TypeConstructor based on Form" VerticalAlignment="Center" Click="mIExportSystemFormEntityJavaScriptFileTypeConstructor_Click" />
+                            <MenuItem Header="Create Entity JavaScript File JsonObject based on Form" Click="mIExportSystemFormEntityJavaScriptFileJsonObject_Click" />
+                            <MenuItem Header="Create Entity JavaScript File AnonymousConstructor based on Form" Click="mIExportSystemFormEntityJavaScriptFileAnonymousConstructor_Click" />
+                            <MenuItem Header="Create Entity JavaScript File TypeConstructor based on Form" Click="mIExportSystemFormEntityJavaScriptFileTypeConstructor_Click" />
                             
                             <Separator/>
-                            <MenuItem Header="Download Form WebResouces" VerticalAlignment="Center" Click="mIExportSystemFormWebResources_Click" />
+                            <MenuItem Header="Download Form WebResouces" Click="mIExportSystemFormWebResources_Click" />
                             
                             <Separator/>
-                            <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
+                            <MenuItem Header="Open Solutions Containing Component in Window" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
                             
                             <Separator/>
                             <MenuItem Header="Dependent Components">
-                                <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
+                                <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
                                 <Separator/>
-                                <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
+                                <MenuItem Header="Open Dependent Components in Window" Click="mIOpenDependentComponentsInWindow_Click" />
                             </MenuItem>
                         </MenuItem>
                     </Menu>
