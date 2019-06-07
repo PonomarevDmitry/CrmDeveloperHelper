@@ -516,28 +516,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
 
-                string fileName = null;
-
-                if (optionSets.Count() == 1)
-                {
-                    fileName = string.Format("{0}.{1}.Generated.cs", service.ConnectionData.Name, optionSets.First().Name);
-                }
-                else
-                {
-                    fileName = string.Format("{0}.GlobalOptionSets.cs", service.ConnectionData.Name);
-                }
-
-                if (this._selectedItem != null)
-                {
-                    if (optionSets.Count() == 1)
-                    {
-                        fileName = string.Format("{0}.Generated.cs", optionSets.First().Name);
-                    }
-                    else
-                    {
-                        fileName = "GlobalOptionSets.cs";
-                    }
-                }
+                string fileName = CreateGlobalOptionSetsFileCSharpHandler.CreateFileNameCSharp(service.ConnectionData, optionSets, this._selectedItem != null);
 
                 string filePath = Path.Combine(folder, fileName);
 
@@ -634,28 +613,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
 
-                string fileName = null;
-
-                if (optionSets.Count() == 1)
-                {
-                    fileName = string.Format("{0}.{1}.generated.js", service.ConnectionData.Name, optionSets.First().Name);
-                }
-                else
-                {
-                    fileName = string.Format("{0}.globaloptionsets.js", service.ConnectionData.Name);
-                }
-
-                if (this._selectedItem != null)
-                {
-                    if (optionSets.Count() == 1)
-                    {
-                        fileName = string.Format("{0}.generated.js", optionSets.First().Name);
-                    }
-                    else
-                    {
-                        fileName = "globaloptionsets.js";
-                    }
-                }
+                string fileName = CreateGlobalOptionSetsFileCSharpHandler.CreateFileNameJavaScript(service.ConnectionData, optionSets, this._selectedItem != null);
 
                 string filePath = Path.Combine(folder, fileName);
 

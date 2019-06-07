@@ -508,8 +508,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             CreateFileCSharpConfiguration config1 = GetCSharpConfigSchema(service1.ConnectionData);
             CreateFileCSharpConfiguration config2 = GetCSharpConfigSchema(service2.ConnectionData);
 
-            string fileName1 = string.Format("{0}.{1}.Generated.cs", service1.ConnectionData.Name, linkedEntityMetadata.EntityMetadata1.SchemaName);
-            string fileName2 = string.Format("{0}.{1}.Generated.cs", service2.ConnectionData.Name, linkedEntityMetadata.EntityMetadata2.SchemaName);
+            string fileName1 = CreateFileWithEntityMetadataCSharpHandler.CreateFileNameForSchema(service1.ConnectionData, linkedEntityMetadata.EntityMetadata1.SchemaName, false);
+            string fileName2 = CreateFileWithEntityMetadataCSharpHandler.CreateFileNameForSchema(service2.ConnectionData, linkedEntityMetadata.EntityMetadata2.SchemaName, false);
 
             string filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName1));
             string filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName2));
@@ -615,8 +615,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             CreateFileCSharpConfiguration config1 = GetCSharpConfigProxyClass(service1.ConnectionData, linkedEntityMetadata.LogicalName);
             CreateFileCSharpConfiguration config2 = GetCSharpConfigProxyClass(service2.ConnectionData, linkedEntityMetadata.LogicalName);
 
-            string fileName1 = string.Format("{0}.{1}.cs", service1.ConnectionData.Name, linkedEntityMetadata.EntityMetadata1.SchemaName);
-            string fileName2 = string.Format("{0}.{1}.cs", service2.ConnectionData.Name, linkedEntityMetadata.EntityMetadata2.SchemaName);
+            string fileName1 = CreateFileWithEntityMetadataCSharpHandler.CreateFileNameForProxy(service1.ConnectionData, linkedEntityMetadata.EntityMetadata1.SchemaName, false);
+            string fileName2 = CreateFileWithEntityMetadataCSharpHandler.CreateFileNameForProxy(service2.ConnectionData, linkedEntityMetadata.EntityMetadata2.SchemaName, false);
 
             string filePath1 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName1));
             string filePath2 = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName2));
@@ -847,7 +847,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var config = GetCSharpConfigSchema(service.ConnectionData);
 
-            string fileName = string.Format("{0}.{1}.Generated.cs", service.ConnectionData.Name, entityMetadata.SchemaName);
+            string fileName = CreateFileWithEntityMetadataCSharpHandler.CreateFileNameForSchema(service.ConnectionData, entityMetadata.SchemaName, false);
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             try
@@ -939,7 +939,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var config = GetCSharpConfigProxyClass(service.ConnectionData, entityMetadata.LogicalName);
 
-            string fileName = string.Format("{0}.{1}.cs", service.ConnectionData.Name, entityMetadata.SchemaName);
+            string fileName = CreateFileWithEntityMetadataCSharpHandler.CreateFileNameForProxy(service.ConnectionData, entityMetadata.SchemaName, false);
             string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             try

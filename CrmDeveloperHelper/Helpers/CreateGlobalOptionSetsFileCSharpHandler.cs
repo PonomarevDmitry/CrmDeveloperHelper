@@ -245,5 +245,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteLine("}");
         }
+
+        public static string CreateFileNameJavaScript(ConnectionData connectionData, IEnumerable<OptionSetMetadata> optionSets, bool withoutConnectionName)
+        {
+            string fileName = null;
+
+            if (optionSets.Count() == 1)
+            {
+                fileName = string.Format("{0}.generated.js", optionSets.First().Name);
+            }
+            else
+            {
+                fileName = "globaloptionsets.js";
+            }
+
+            if (!withoutConnectionName)
+            {
+                fileName = string.Format("{0}.{1}", connectionData.Name, fileName);
+            }
+
+            return fileName;
+        }
+
+        public static string CreateFileNameCSharp(ConnectionData connectionData, IEnumerable<OptionSetMetadata> optionSets, bool withoutConnectionName)
+        {
+            string fileName = null;
+
+            if (optionSets.Count() == 1)
+            {
+                fileName = string.Format("{0}.Schema.cs", optionSets.First().Name);
+            }
+            else
+            {
+                fileName = "GlobalOptionSets.cs";
+            }
+
+            if (!withoutConnectionName)
+            {
+                fileName = string.Format("{0}.{1}", connectionData.Name, fileName);
+            }
+
+            return fileName;
+        }
     }
 }

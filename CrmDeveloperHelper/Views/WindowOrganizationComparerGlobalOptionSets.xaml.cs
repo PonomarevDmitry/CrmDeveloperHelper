@@ -462,18 +462,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             });
         }
 
-        private string CreateFileName(IEnumerable<OptionSetMetadata> optionSets, ConnectionData connection, string extenstion)
+        private string CreateFileNameJavaScript(IEnumerable<OptionSetMetadata> optionSets, ConnectionData connection)
         {
-            string fileName = null;
+            string fileName = CreateGlobalOptionSetsFileCSharpHandler.CreateFileNameJavaScript(connection, optionSets, false);
 
-            if (optionSets.Count() == 1)
-            {
-                fileName = string.Format("{0}.{1}.Generated.{2}", connection.Name, optionSets.First().Name, extenstion);
-            }
-            else
-            {
-                fileName = string.Format("{0}.GlobalOptionSets.{1}", connection.Name, extenstion);
-            }
+            return Path.Combine(_commonConfig.FolderForExport, fileName);
+        }
+
+        private string CreateFileNameCSharp(IEnumerable<OptionSetMetadata> optionSets, ConnectionData connection)
+        {
+            string fileName = CreateGlobalOptionSetsFileCSharpHandler.CreateFileNameCSharp(connection, optionSets, false);
 
             return Path.Combine(_commonConfig.FolderForExport, fileName);
         }
@@ -550,8 +548,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 try
                 {
-                    string filePath1 = CreateFileName(optionSets1, service1.ConnectionData, "cs");
-                    string filePath2 = CreateFileName(optionSets2, service2.ConnectionData, "cs");
+                    string filePath1 = CreateFileNameCSharp(optionSets1, service1.ConnectionData);
+                    string filePath2 = CreateFileNameCSharp(optionSets2, service2.ConnectionData);
 
                     var config1 = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(service1.ConnectionData.NamespaceClassesCSharp, service1.ConnectionData.NamespaceOptionSetsCSharp, service1.ConnectionData.TypeConverterName, _commonConfig);
                     var config2 = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(service2.ConnectionData.NamespaceClassesCSharp, service2.ConnectionData.NamespaceOptionSetsCSharp, service2.ConnectionData.TypeConverterName, _commonConfig);
@@ -676,8 +674,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 try
                 {
-                    string filePath1 = CreateFileName(optionSets1, service1.ConnectionData, "js");
-                    string filePath2 = CreateFileName(optionSets2, service2.ConnectionData, "js");
+                    string filePath1 = CreateFileNameJavaScript(optionSets1, service1.ConnectionData);
+                    string filePath2 = CreateFileNameJavaScript(optionSets2, service2.ConnectionData);
 
                     string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
                     var constantType = _commonConfig.GenerateSchemaConstantType;
@@ -813,7 +811,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 var service = await getService();
 
-                string filePath = CreateFileName(optionSets, service.ConnectionData, "cs");
+                string filePath = CreateFileNameCSharp(optionSets, service.ConnectionData);
 
                 var config = CreateFileCSharpConfiguration.CreateForSchemaGlobalOptionSet(service.ConnectionData.NamespaceClassesCSharp, service.ConnectionData.NamespaceOptionSetsCSharp, service.ConnectionData.TypeConverterName, _commonConfig);
 
@@ -923,7 +921,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var service = await getService();
 
-                string filePath = CreateFileName(optionSets, service.ConnectionData, "js");
+                string filePath = CreateFileNameJavaScript(optionSets, service.ConnectionData);
 
                 using (var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(service, _iWriteToOutput, tabSpacer, withDependentComponents))
                 {

@@ -1623,5 +1623,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             WriteLine();
             WriteLine("#endregion EntityKeys.");
         }
+
+        public static string CreateFileNameForSchema(ConnectionData connectionData, string entitySchemaName, bool withoutConnectionName)
+        {
+            string fileName = string.Format("{0}.Schema.cs", entitySchemaName);
+
+            if (!withoutConnectionName)
+            {
+                fileName = string.Format("{0}.{1}", connectionData.Name, fileName);
+            }
+
+            return fileName;
+        }
+
+        public static string CreateFileNameForProxy(ConnectionData connectionData, string entitySchemaName, bool withoutConnectionName)
+        {
+            string fileName = string.Format("{0}.Proxy.cs", entitySchemaName);
+
+            if (!withoutConnectionName)
+            {
+                fileName = string.Format("{0}.{1}", connectionData.Name, fileName);
+            }
+
+            return fileName;
+        }
     }
 }

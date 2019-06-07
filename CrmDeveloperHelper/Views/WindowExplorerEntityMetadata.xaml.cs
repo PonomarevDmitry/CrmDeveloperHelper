@@ -789,12 +789,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var config = CreateFileCSharpConfiguration.CreateForSchemaEntity(service.ConnectionData.NamespaceClassesCSharp, service.ConnectionData.NamespaceOptionSetsCSharp, service.ConnectionData.TypeConverterName, _commonConfig);
 
-                string fileName = string.Format("{0}.{1}.Generated.cs", service.ConnectionData.Name, entityMetadata.EntityMetadata.SchemaName);
-
-                if (this._selectedItem != null)
-                {
-                    fileName = string.Format("{0}.Generated.cs", entityMetadata.EntityMetadata.SchemaName);
-                }
+                string fileName = CreateFileWithEntityMetadataCSharpHandler.CreateFileNameForSchema(service.ConnectionData, entityMetadata.EntityMetadata.SchemaName, this._selectedItem != null);
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -866,12 +861,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var config = CreateFileCSharpConfiguration.CreateForProxyClass(service.ConnectionData.NamespaceClassesCSharp, service.ConnectionData.NamespaceOptionSetsCSharp, _commonConfig);
 
-                string fileName = string.Format("{0}.{1}.cs", service.ConnectionData.Name, entityMetadata.EntityMetadata.SchemaName);
-
-                if (this._selectedItem != null)
-                {
-                    fileName = string.Format("{0}.cs", entityMetadata.EntityMetadata.SchemaName);
-                }
+                string fileName = CreateFileWithEntityMetadataCSharpHandler.CreateFileNameForProxy(service.ConnectionData, entityMetadata.EntityMetadata.SchemaName, this._selectedItem != null);
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
