@@ -901,6 +901,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 return;
             }
+
             ToggleControls(false, Properties.WindowStatusStrings.ShowingDifferenceFormWebResourcesFormat2, linked.Entity1.ObjectTypeCode, linked.Entity1.Name);
 
             var service1 = await GetService1();
@@ -1361,7 +1362,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(false, Properties.WindowStatusStrings.DownloadingSystemFormWebResourcesCompletedFormat2, entityName, name);
+            ToggleControls(true, Properties.WindowStatusStrings.DownloadingSystemFormWebResourcesCompletedFormat2, entityName, name);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
