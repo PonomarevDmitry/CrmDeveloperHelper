@@ -467,7 +467,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     if (service != null)
                     {
-                        service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.SavedQuery, item.Workflow.Id);
+                        service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.Workflow, item.Workflow.Id);
                     }
                 }
             }
