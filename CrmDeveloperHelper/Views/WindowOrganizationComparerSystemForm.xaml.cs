@@ -978,7 +978,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceFormWebResourcesFormat2, linked.Entity1.ObjectTypeCode, linked.Entity1.Name);
+            ToggleControls(true, Properties.WindowStatusStrings.ShowingDifferenceFormWebResourcesCompletedFormat2, linked.Entity1.ObjectTypeCode, linked.Entity1.Name);
         }
 
         private Task<string> CreateWebResourceAsync(string folder, ConnectionData connectionData, string resName, WebResource webresource)
