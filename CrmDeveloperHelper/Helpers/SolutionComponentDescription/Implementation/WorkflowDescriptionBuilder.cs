@@ -46,7 +46,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
         protected override FormatTextTableHandler GetDescriptionHeader(bool withManaged, bool withSolutionInfo, bool withUrls, Action<FormatTextTableHandler, bool, bool, bool> action)
         {
             FormatTextTableHandler handler = new FormatTextTableHandler();
-            handler.SetHeader("Entity", "Category", "Name", "Type", "Scope", "Mode", "StatusCode", "IsCustomizable", "Behavior");
+            handler.SetHeader(
+                Workflow.Schema.Headers.primaryentity
+                , Workflow.Schema.Headers.category
+                , Workflow.Schema.Headers.name
+                , Workflow.Schema.Headers.uniquename
+                , Workflow.Schema.Headers.businessprocesstype
+                , Workflow.Schema.Headers.scope
+                , Workflow.Schema.Headers.mode
+                , Workflow.Schema.Headers.statuscode
+                , Workflow.Schema.Headers.iscustomizable
+                , "Behavior"
+            );
 
             AppendIntoTableHeader(handler, withUrls, withManaged, withSolutionInfo);
 
@@ -59,13 +70,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
 
             List<string> values = new List<string>();
 
-            string name = entity.Name;
-
-            if (!string.IsNullOrEmpty(entity.UniqueName))
-            {
-                name += string.Format("    (UniqueName \"{0}\")", entity.UniqueName);
-            }
-
             entity.FormattedValues.TryGetValue(Workflow.Schema.Attributes.category, out string category);
             entity.FormattedValues.TryGetValue(Workflow.Schema.Attributes.businessprocesstype, out string businessprocesstype);
             entity.FormattedValues.TryGetValue(Workflow.Schema.Attributes.scope, out string scope);
@@ -76,7 +80,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.SolutionComponentDesc
             {
                 entity.PrimaryEntity
                 , category
-                , name
+                , entity.Name
+                , entity.UniqueName
                 , businessprocesstype
                 , scope
                 , mode

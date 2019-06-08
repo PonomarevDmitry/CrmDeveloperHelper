@@ -256,10 +256,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     var columnSet = new ColumnSet
                     (
-                        Workflow.Schema.Attributes.category
-                        , Workflow.Schema.Attributes.name
+                        Workflow.Schema.Attributes.name
                         , Workflow.Schema.Attributes.uniquename
+                        , Workflow.Schema.Attributes.category
+                        , Workflow.Schema.Attributes.mode
                         , Workflow.Schema.Attributes.primaryentity
+                        , Workflow.Schema.Attributes.statecode
+                        , Workflow.Schema.Attributes.statuscode
                     );
 
                     List<LinkedEntities<Workflow>> temp = new List<LinkedEntities<Workflow>>();
@@ -370,23 +373,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private class EntityViewItem
         {
-            public string EntityName { get; private set; }
+            public string EntityName => Link.Entity1?.PrimaryEntity;
 
-            public string Category { get; private set; }
+            public string Category { get; }
 
-            public string WorkflowName1 { get; private set; }
+            public string WorkflowName1 => Link.Entity1?.Name;
 
-            public string WorkflowName2 { get; private set; }
+            public string WorkflowName2 => Link.Entity2?.Name;
+
+            public string WorkflowUniqueName1 => Link.Entity1?.UniqueName;
+
+            public string WorkflowUniqueName2 => Link.Entity2?.UniqueName;
+
+            public string StatusCode1 { get; }
+
+            public string StatusCode2 { get; }
 
             public LinkedEntities<Workflow> Link { get; private set; }
 
-            public EntityViewItem(string entityName, string category, LinkedEntities<Workflow> link, string workflowName1, string workflowName2)
+            public EntityViewItem(LinkedEntities<Workflow> link)
             {
-                this.EntityName = entityName;
-                this.WorkflowName1 = workflowName1;
-                this.WorkflowName2 = workflowName2;
-                this.Category = category;
                 this.Link = link;
+
+                link.Entity1.FormattedValues.TryGetValue(Workflow.Schema.Attributes.category, out var category);
+                this.Category = category;
+
+                link.Entity1.FormattedValues.TryGetValue(Workflow.Schema.Attributes.statuscode, out var statuscode1);
+                this.StatusCode1 = statuscode1;
+
+                if (link.Entity2 != null)
+                {
+                    link.Entity2.FormattedValues.TryGetValue(Workflow.Schema.Attributes.statuscode, out var statuscode2);
+                    this.StatusCode2 = statuscode2;
+                }
             }
         }
 
@@ -401,24 +420,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                       .ThenBy(ent => ent.Entity2?.Name)
                   )
                 {
-                    string name1 = link.Entity1.Name;
-
-                    if (!string.IsNullOrEmpty(link.Entity1.UniqueName))
-                    {
-                        name1 += string.Format("    (UniqueName \"{0}\")", link.Entity1.UniqueName);
-                    }
-
-                    string name2 = link.Entity2?.Name;
-
-                    if (!string.IsNullOrEmpty(link.Entity2?.UniqueName))
-                    {
-                        name2 += string.Format("    (UniqueName \"{0}\")", link.Entity2.UniqueName);
-                    }
-
-                    string entityName = link.Entity1.PrimaryEntity;
-                    string category = link.Entity1.FormattedValues[Workflow.Schema.Attributes.category];
-
-                    var item = new EntityViewItem(entityName, category, link, name1, name2);
+                    var item = new EntityViewItem(link);
 
                     this._itemsSource.Add(item);
                 }
@@ -1899,6 +1901,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void cmBCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ShowExistingWorkflows();
+        }
+
+        private async void mIConnection1OpenWorkflowListInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService1();
+
+            if (service != null)
+            {
+                service.ConnectionData.OpenEntityInstanceListInWeb(Workflow.EntityLogicalName);
+            }
+        }
+
+        private async void mIConnection2OpenWorkflowListInWeb_Click(object sender, RoutedEventArgs e)
+        {
+            var service = await GetService2();
+
+            if (service != null)
+            {
+                service.ConnectionData.OpenEntityInstanceListInWeb(Workflow.EntityLogicalName);
+            }
         }
     }
 }

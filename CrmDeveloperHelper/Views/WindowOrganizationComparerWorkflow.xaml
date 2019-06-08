@@ -14,7 +14,7 @@
 
             <clr:String x:Key="ConnectionName1">Connection 1</clr:String>
             <clr:String x:Key="ConnectionName2">Connection 2</clr:String>
-            
+
             <ContextMenu x:Key="listContextMenu" Opened="ContextMenu_Opened">
 
                 <MenuItem x:Uid="menuContextDifference" Header="Difference Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
@@ -23,11 +23,11 @@
                 <MenuItem x:Uid="menuContextDifference" Header="Difference ClientData" Click="mIShowDifferenceClientData_Click"/>
                 <MenuItem x:Uid="menuContextDifference" Header="Difference UIData" Click="mIShowDifferenceUIData_Click"/>
                 <MenuItem x:Uid="menuContextDifference" Header="Difference ProcessRoleAssignment" Click="mIShowDifferenceProcessRoleAssignment_Click"/>
-                <Separator x:Uid="menuContextDifference"/>
-                
-                <MenuItem x:Uid="menuContextDifference" Header="Difference Corrected Xaml" Click="mIShowDifferenceCorrectedXaml_Click"/>
-                <Separator x:Uid="menuContextDifference"/>
 
+                <Separator x:Uid="menuContextDifference"/>
+                <MenuItem x:Uid="menuContextDifference" Header="Difference Corrected Xaml" Click="mIShowDifferenceCorrectedXaml_Click"/>
+
+                <Separator x:Uid="menuContextDifference"/>
                 <MenuItem x:Uid="menuContextDifference" Header="Organization Comparer">
                     <MenuItem Header="Organization Comparer" Click="btnOrganizationComparer_Click"/>
                     <Separator/>
@@ -45,19 +45,22 @@
 
                 <MenuItem Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Create from {0}">
                     <MenuItem Header="Open Workflow in Web" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
-                    <Separator/>
+                    <MenuItem Header="Open Workflow List in Web" Click="mIConnection1OpenWorkflowListInWeb_Click" />
 
+                    <Separator/>
                     <MenuItem Header="Create Entity Description" Click="mIExportWorkflow1EntityDescription_Click"/>
                     <MenuItem Header="Xaml" Click="mIExportWorkflow1Xaml_Click"/>
                     <MenuItem Header="InputParameters" Click="mIExportWorkflow1InputParameters_Click"/>
                     <MenuItem Header="ClientData" Click="mIExportWorkflow1ClientData_Click"/>
                     <MenuItem Header="UIData" Click="mIExportWorkflow1UIData_Click"/>
                     <MenuItem Header="ProcessRoleAssignment" Click="mIExportWorkflow1ProcessRoleAssignment_Click"/>
+
                     <Separator/>
                     <MenuItem Header="Corrected Xaml" Click="mIExportWorkflow1CorrectedXaml_Click"/>
 
                     <Separator/>
                     <MenuItem Header="Open Entity Customization in Web" Click="miConnection1OpenEntityMetadataInWeb_Click" />
+
                     <Separator/>
                     <MenuItem Header="Open Entity List in Web" Click="miConnection1OpenEntityInstanceListInWeb_Click" />
                 </MenuItem>
@@ -93,19 +96,22 @@
                 <Separator x:Uid="menuContextConnection2"/>
                 <MenuItem x:Uid="menuContextConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Create from {0}">
                     <MenuItem Header="Open Workflow in Web" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
-                    <Separator/>
+                    <MenuItem Header="Open Workflow List in Web" Click="mIConnection2OpenWorkflowListInWeb_Click" />
 
+                    <Separator/>
                     <MenuItem Header="Create Entity Description" Click="mIExportWorkflow2EntityDescription_Click"/>
                     <MenuItem Header="Xaml" Click="mIExportWorkflow2Xaml_Click"/>
                     <MenuItem Header="InputParameters" Click="mIExportWorkflow2InputParameters_Click"/>
                     <MenuItem Header="ClientData" Click="mIExportWorkflow2ClientData_Click"/>
                     <MenuItem Header="UIData" Click="mIExportWorkflow2UIData_Click"/>
                     <MenuItem Header="ProcessRoleAssignment" Click="mIExportWorkflow2ProcessRoleAssignment_Click"/>
+
                     <Separator/>
                     <MenuItem Header="Corrected Xaml" Click="mIExportWorkflow2CorrectedXaml_Click"/>
 
                     <Separator/>
                     <MenuItem Header="Open Entity Customization in Web" Click="miConnection2OpenEntityMetadataInWeb_Click" />
+
                     <Separator/>
                     <MenuItem Header="Open Entity List in Web" Click="miConnection2OpenEntityInstanceListInWeb_Click" />
                 </MenuItem>
@@ -142,14 +148,14 @@
 
         </ResourceDictionary>
     </src:WindowBase.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            
+
             <RowDefinition Height="100*" />
-            
+
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -237,7 +243,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="50*"/>
-                
+
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="50*"/>
             </Grid.ColumnDefinitions>
@@ -289,6 +295,14 @@
 
                 <DataGridTextColumn Header="Workflow Name2" Width="240" Binding="{Binding WorkflowName2}" />
 
+                <DataGridTextColumn Header="Unique Name1" Width="150" Binding="{Binding WorkflowUniqueName1}" />
+
+                <DataGridTextColumn Header="Unique Name2" Width="150" Binding="{Binding WorkflowUniqueName2}" />
+
+                <DataGridTextColumn Header="Status1" Width="150" Binding="{Binding StatusCode1}" />
+
+                <DataGridTextColumn Header="Status2" Width="150" Binding="{Binding StatusCode2}" />
+
             </DataGrid.Columns>
         </DataGrid>
 
@@ -322,53 +336,79 @@
                 </DockPanel.Resources>
                 <ToolBarPanel Orientation="Horizontal" >
                     <Button x:Name="btnShowDifferenceAll" Content="Show difference for All" Click="btnShowDifferenceAll_Click"/>
-                    
+
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
                             <MenuItem Header="Entity Description" Click="mIShowDifferenceEntityDescription_Click"/>
+
                             <Separator/>
                             <MenuItem Header="Xaml" Click="mIShowDifferenceXaml_Click"/>
                             <MenuItem Header="InputParameters" Click="mIShowDifferenceInputParameters_Click"/>
                             <MenuItem Header="ClientData" Click="mIShowDifferenceClientData_Click"/>
                             <MenuItem Header="Difference UIData" Click="mIShowDifferenceUIData_Click"/>
                             <MenuItem Header="Difference ProcessRoleAssignment" Click="mIShowDifferenceProcessRoleAssignment_Click"/>
+
                             <Separator/>
                             <MenuItem Header="Corrected Xaml" Click="mIShowDifferenceCorrectedXaml_Click"/>
                         </MenuItem>
                     </Menu>
-                    
+
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection1" Header="{DynamicResource ConnectionName1}" HeaderStringFormat="Export from {0}">
+                            <MenuItem Header="Open Workflow in Web" Click="mIConnection1OpenSolutionComponentInWeb_Click" />
+                            <MenuItem Header="Open Workflow List in Web" Click="mIConnection1OpenWorkflowListInWeb_Click" />
+
+                            <Separator/>
                             <MenuItem Header="Create Entity Description" Click="mIExportWorkflow1EntityDescription_Click"/>
+
                             <Separator/>
                             <MenuItem Header="Xaml" Click="mIExportWorkflow1Xaml_Click"/>
                             <MenuItem Header="InputParameters" Click="mIExportWorkflow1InputParameters_Click"/>
                             <MenuItem Header="ClientData" Click="mIExportWorkflow1ClientData_Click"/>
                             <MenuItem Header="UIData" Click="mIExportWorkflow1UIData_Click"/>
                             <MenuItem Header="ProcessRoleAssignment" Click="mIExportWorkflow1ProcessRoleAssignment_Click"/>
+
                             <Separator/>
                             <MenuItem Header="Corrected Xaml" Click="mIExportWorkflow1CorrectedXaml_Click"/>
+
+                            <Separator/>
+                            <MenuItem Header="Open Entity Customization in Web" Click="miConnection1OpenEntityMetadataInWeb_Click" />
+
+                            <Separator/>
+                            <MenuItem Header="Open Entity List in Web" Click="miConnection1OpenEntityInstanceListInWeb_Click" />
                         </MenuItem>
                     </Menu>
-                    
+
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="tSDDBConnection2" Header="{DynamicResource ConnectionName2}" HeaderStringFormat="Export from {0}">
+                            <MenuItem Header="Open Workflow in Web" Click="mIConnection2OpenSolutionComponentInWeb_Click" />
+                            <MenuItem Header="Open Workflow List in Web" Click="mIConnection2OpenWorkflowListInWeb_Click" />
+
+                            <Separator/>
                             <MenuItem Header="Create Entity Description" Click="mIExportWorkflow2EntityDescription_Click"/>
+
                             <Separator/>
                             <MenuItem Header="Xaml" Click="mIExportWorkflow2Xaml_Click"/>
                             <MenuItem Header="InputParameters" Click="mIExportWorkflow2InputParameters_Click"/>
                             <MenuItem Header="ClientData" Click="mIExportWorkflow2ClientData_Click"/>
                             <MenuItem Header="UIData" Click="mIExportWorkflow2UIData_Click"/>
                             <MenuItem Header="ProcessRoleAssignment" Click="mIExportWorkflow2ProcessRoleAssignment_Click"/>
+
                             <Separator/>
                             <MenuItem Header="Corrected Xaml" Click="mIExportWorkflow2CorrectedXaml_Click"/>
+
+                            <Separator/>
+                            <MenuItem Header="Open Entity Customization in Web" Click="miConnection2OpenEntityMetadataInWeb_Click" />
+
+                            <Separator/>
+                            <MenuItem Header="Open Entity List in Web" Click="miConnection2OpenEntityInstanceListInWeb_Click" />
                         </MenuItem>
                     </Menu>
                 </ToolBarPanel>
-                
+
                 <Button Content="Close" Click="Button_Click" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
             </DockPanel>
         </ToolBar>
