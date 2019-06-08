@@ -818,8 +818,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }
 
                         string filePath1 = await CreateFileAsync(service1.ConnectionData, entityName1, category1, name1, fieldTitle, extension, xml1);
-
                         string filePath2 = await CreateFileAsync(service2.ConnectionData, entityName2, category2, name2, fieldTitle, extension, xml2);
+
+                        if (!File.Exists(filePath1))
+                        {
+                            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service1.ConnectionData.Name, Workflow.Schema.EntityLogicalName, workflow1.Name, fieldTitle);
+                            this._iWriteToOutput.ActivateOutputWindow(null);
+                        }
+
+                        if (!File.Exists(filePath2))
+                        {
+                            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service2.ConnectionData.Name, Workflow.Schema.EntityLogicalName, workflow2.Name, fieldTitle);
+                            this._iWriteToOutput.ActivateOutputWindow(null);
+                        }
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
@@ -885,8 +896,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string category2 = workflow2.FormattedValues[Workflow.Schema.Attributes.category];
 
                     string filePath1 = await CreateFileAsync(service1.ConnectionData, entityName1, category1, name1, Workflow.Schema.Headers.CorrectedXaml, "xml", xml1);
-
                     string filePath2 = await CreateFileAsync(service2.ConnectionData, entityName2, category2, name2, Workflow.Schema.Headers.CorrectedXaml, "xml", xml2);
+
+                    if (!File.Exists(filePath1))
+                    {
+                        this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service1.ConnectionData.Name, Workflow.Schema.EntityLogicalName, workflow1.Name, fieldTitle);
+                        this._iWriteToOutput.ActivateOutputWindow(null);
+                    }
+
+                    if (!File.Exists(filePath2))
+                    {
+                        this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service2.ConnectionData.Name, Workflow.Schema.EntityLogicalName, workflow2.Name, fieldTitle);
+                        this._iWriteToOutput.ActivateOutputWindow(null);
+                    }
 
                     if (File.Exists(filePath1) && File.Exists(filePath2))
                     {
@@ -1107,6 +1129,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = await CreateFileAsync(service.ConnectionData, entityName, category, name, fieldTitle, extension, xmlContent);
 
+                if (!File.Exists(filePath))
+                {
+                    this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, workflow.Name, fieldTitle);
+                    this._iWriteToOutput.ActivateOutputWindow(null);
+                }
+
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
 
@@ -1141,6 +1169,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 workflow.FormattedValues.TryGetValue(Workflow.Schema.Attributes.category, out var category);
 
                 string filePath = await CreateFileAsync(service.ConnectionData, entityName, category, name, Workflow.Schema.Headers.CorrectedXaml, "xml", xmlContent);
+
+                if (!File.Exists(filePath))
+                {
+                    this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, Workflow.Schema.EntityLogicalName, workflow.Name, fieldTitle);
+                    this._iWriteToOutput.ActivateOutputWindow(null);
+                }
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
