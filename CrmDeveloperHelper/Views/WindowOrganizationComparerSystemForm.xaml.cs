@@ -581,6 +581,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
             else
             {
+                filePath = string.Empty;
+
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityFieldIsEmptyFormat4, connectionData.Name, SystemForm.Schema.EntityLogicalName, name, fieldTitle);
                 this._iWriteToOutput.ActivateOutputWindow(connectionData);
             }
@@ -859,6 +861,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         string filePath1 = await CreateFileAsync(service1.ConnectionData, linked.Entity1.Id, linked.Entity1.ObjectTypeCode, linked.Entity1.Name, fieldTitle, extension, xml1);
                         string filePath2 = await CreateFileAsync(service2.ConnectionData, linked.Entity2.Id, linked.Entity2.ObjectTypeCode, linked.Entity2.Name, fieldTitle, extension, xml2);
 
+                        if (!File.Exists(filePath1))
+                        {
+                            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service1.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, systemForm1.Name, fieldTitle);
+                            this._iWriteToOutput.ActivateOutputWindow(null);
+                        }
+
+                        if (!File.Exists(filePath2))
+                        {
+                            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service2.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, systemForm2.Name, fieldTitle);
+                            this._iWriteToOutput.ActivateOutputWindow(null);
+                        }
+
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
                             this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
@@ -1054,6 +1068,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string xmlContent = systemForm.GetAttributeValue<string>(fieldName);
 
                 string filePath = await CreateFileAsync(service.ConnectionData, idSystemForm, systemForm.ObjectTypeCode, systemForm.Name, fieldTitle, extension, xmlContent);
+
+                if (!File.Exists(filePath))
+                {
+                    this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SystemForm.Schema.EntityLogicalName, systemForm.Name, fieldTitle);
+                    this._iWriteToOutput.ActivateOutputWindow(null);
+                }
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }

@@ -752,6 +752,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         string filePath1 = await CreateFileAsync(service1.ConnectionData, savedQuery1.Id, savedQuery1.ReturnedTypeCode, savedQuery1.Name, fieldTitle, extension, xml1);
                         string filePath2 = await CreateFileAsync(service2.ConnectionData, savedQuery2.Id, savedQuery2.ReturnedTypeCode, savedQuery2.Name, fieldTitle, extension, xml2);
 
+                        if (!File.Exists(filePath1))
+                        {
+                            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service1.ConnectionData.Name, SavedQuery.Schema.EntityLogicalName, savedQuery1.Name, fieldTitle);
+                            this._iWriteToOutput.ActivateOutputWindow(null);
+                        }
+
+                        if (!File.Exists(filePath2))
+                        {
+                            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service2.ConnectionData.Name, SavedQuery.Schema.EntityLogicalName, savedQuery2.Name, fieldTitle);
+                            this._iWriteToOutput.ActivateOutputWindow(null);
+                        }
+
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
                             this._iWriteToOutput.ProcessStartProgramComparer(filePath1, filePath2, Path.GetFileName(filePath1), Path.GetFileName(filePath2));
@@ -936,6 +948,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string xmlContent = savedQuery.GetAttributeValue<string>(fieldName);
 
                 string filePath = await CreateFileAsync(service.ConnectionData, savedQuery.Id, savedQuery.ReturnedTypeCode, savedQuery.Name, fieldTitle, extension, xmlContent);
+
+                if (!File.Exists(filePath))
+                {
+                    this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SavedQuery.Schema.EntityLogicalName, savedQuery.Name, fieldTitle);
+                    this._iWriteToOutput.ActivateOutputWindow(null);
+                }
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }

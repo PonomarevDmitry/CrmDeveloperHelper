@@ -511,24 +511,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 try
                 {
-                    //if (_commonConfig.SetXmlSchemasDuringExport)
-                    //{
-                    //    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaVisualizationDataDescription);
-
-                    //    if (schemasResources != null)
-                    //    {
-                    //        xmlContent = ContentCoparerHelper.SetXsdSchema(xmlContent, schemasResources);
-                    //    }
-                    //}
-
-                    //if (ContentCoparerHelper.TryParseXml(xmlContent, out var doc))
-                    //{
-                    //    xmlContent = doc.ToString();
-                    //}
-
                     xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
                         , schemaName: CommonExportXsdSchemasCommand.SchemaVisualizationDataDescription
-                        );
+                    );
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));
 
@@ -681,8 +666,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     if (showAllways || !ContentCoparerHelper.CompareXML(xml1, xml2).IsEqual)
                     {
                         string filePath1 = await CreateFileAsync(service1.ConnectionData, chart1.PrimaryEntityTypeCode, chart1.Name, fieldTitle, xml1);
-
                         string filePath2 = await CreateFileAsync(service2.ConnectionData, chart2.PrimaryEntityTypeCode, chart2.Name, fieldTitle, xml2);
+
+                        if (!File.Exists(filePath1))
+                        {
+                            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service1.ConnectionData.Name, SavedQueryVisualization.Schema.EntityLogicalName, chart1.Name, fieldTitle);
+                            this._iWriteToOutput.ActivateOutputWindow(null);
+                        }
+
+                        if (!File.Exists(filePath2))
+                        {
+                            this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service2.ConnectionData.Name, SavedQueryVisualization.Schema.EntityLogicalName, chart2.Name, fieldTitle);
+                            this._iWriteToOutput.ActivateOutputWindow(null);
+                        }
 
                         if (File.Exists(filePath1) && File.Exists(filePath2))
                         {
@@ -796,6 +792,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string xmlContent = chart.GetAttributeValue<string>(fieldName);
 
                 string filePath = await CreateFileAsync(service.ConnectionData, chart.PrimaryEntityTypeCode, chart.Name, fieldTitle, xmlContent);
+
+                if (!File.Exists(filePath))
+                {
+                    this._iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.EntityFieldIsEmptyFormat4, service.ConnectionData.Name, SavedQueryVisualization.Schema.EntityLogicalName, chart.Name, fieldTitle);
+                    this._iWriteToOutput.ActivateOutputWindow(null);
+                }
 
                 this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
             }
