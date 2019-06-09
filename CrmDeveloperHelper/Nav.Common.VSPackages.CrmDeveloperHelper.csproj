@@ -150,6 +150,8 @@
     <Compile Include="Commands\Xmls\CodeXmlOpenXsdSchemaFolderCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRibbonDiffInsertIntellisenseContextCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRibbonDiffRemoveIntellisenseContextCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlSavedQueryExplorerCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlSavedQueryOpenInWebCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSetXsdSchemaCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlShowDifferenceRibbonCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlShowDifferenceRibbonDiffXmlCommand.cs" />
@@ -163,6 +165,9 @@
     <Compile Include="Commands\Xmls\CodeXmlShowDifferenceSystemFormCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlShowDifferenceSystemFormInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSiteMapExplorerCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlSiteMapOpenInWebCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlSystemFormExplorerCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlSystemFormOpenInWebCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlUpdateRibbonDiffXmlCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlUpdateSavedQueryCommand.cs" />

@@ -1243,6 +1243,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleSiteMapOpenInWebCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                try
+                {
+                    Controller.StartSiteMapOpenInWeb(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
         public void HandleSystemFormDifferenceCommand(ConnectionData connectionData, SelectedFile selectedFile)
         {
             if (selectedFile == null)
@@ -1317,6 +1354,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
+        public void HandleSystemFormOpenInWebCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                try
+                {
+                    Controller.StartSystemFormOpenInWeb(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
         public void HandleSavedQueryDifferenceCommand(ConnectionData connectionData, SelectedFile selectedFile)
         {
             if (selectedFile == null)
@@ -1383,6 +1457,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 try
                 {
                     Controller.StartSavedQueryUpdate(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToOutput(connectionData, ex);
+                }
+            }
+        }
+
+        public void HandleSavedQueryOpenInWebCommand(ConnectionData connectionData, SelectedFile selectedFile)
+        {
+            if (selectedFile == null)
+            {
+                return;
+            }
+
+            CommonConfiguration commonConfig = CommonConfiguration.Get();
+
+            if (connectionData == null)
+            {
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
+            }
+
+            if (connectionData != null && commonConfig != null)
+            {
+                ActivateOutputWindow(connectionData);
+                WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                try
+                {
+                    Controller.StartSavedQueryOpenInWeb(selectedFile, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -2964,7 +3075,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartOpenEntityAttributeExplorer(selection, connectionData, commonConfig);
+                    Controller.StartExplorerEntityAttribute(selection, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -2992,7 +3103,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartOpenEntityKeyExplorer(selection, connectionData, commonConfig);
+                    Controller.StartExplorerEntityKey(selection, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -3020,7 +3131,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartOpenEntityRelationshipOneToManyExplorer(selection, connectionData, commonConfig);
+                    Controller.StartExplorerEntityRelationshipOneToMany(selection, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -3048,7 +3159,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartOpenEntityRelationshipManyToManyExplorer(selection, connectionData, commonConfig);
+                    Controller.StartExplorerEntityRelationshipManyToMany(selection, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -3076,7 +3187,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartOpenEntityPrivilegesExplorer(selection, connectionData, commonConfig);
+                    Controller.StartExplorerEntityPrivileges(selection, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -3179,7 +3290,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartExportOrganizationInformation(connectionData, commonConfig);
+                    Controller.StartExplorerOrganizationInformation(connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -3509,12 +3620,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleExportSystemForm()
+        public void HandleExplorerSystemForm()
         {
-            HandleExportSystemForm(null, null);
+            string selection = GetSelectedText();
+
+            HandleExplorerSystemForm(null, null, selection);
         }
 
-        public void HandleExportSystemForm(ConnectionData connectionData, SelectedItem selectedItem)
+        public void HandleExplorerSystemForm(string selection)
+        {
+            HandleExplorerSystemForm(null, null, selection);
+        }
+
+        public void HandleExplorerSystemForm(ConnectionData connectionData, SelectedItem selectedItem)
+        {
+            HandleExplorerSystemForm(connectionData, selectedItem, string.Empty);
+        }
+
+        private void HandleExplorerSystemForm(ConnectionData connectionData, SelectedItem selectedItem, string selection)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -3528,8 +3651,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 connectionData = crmConfig.CurrentConnectionData;
             }
 
-            string selection = GetSelectedText();
-
             if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow(connectionData);
@@ -3539,7 +3660,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartExportSystemFormXml(connectionData, commonConfig, selection, selectedItem);
+                    Controller.StartExplorerSystemForm(connectionData, commonConfig, selection, selectedItem);
                 }
                 catch (Exception ex)
                 {
@@ -3567,7 +3688,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartExportCustomControl(selection, connectionData, commonConfig);
+                    Controller.StartExplorerCustomControl(selection, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -3576,10 +3697,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleExportSystemSavedQuery()
+        public void HandleExplorerSystemSavedQuery()
+        {
+            string selection = GetSelectedText();
+
+            HandleExplorerSystemSavedQuery(selection);
+        }
+
+        public void HandleExplorerSystemSavedQuery(string selection)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
-            string selection = GetSelectedText();
 
             if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
             {
@@ -3595,7 +3722,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartExportSystemSavedQueryXml(selection, connectionData, commonConfig);
+                    Controller.StartExplorerSystemSavedQueryXml(selection, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -3623,7 +3750,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartExportSystemSavedQueryVisualizationXml(selection, connectionData, commonConfig);
+                    Controller.StartExplorerSystemSavedQueryVisualization(selection, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -3679,7 +3806,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartExportWorkflow(selection, connectionData, commonConfig);
+                    Controller.StartExplorerWorkflow(selection, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {

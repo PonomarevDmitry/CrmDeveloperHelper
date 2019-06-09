@@ -103,6 +103,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int codeMenuXml_GroupXsdSchema_MenuSetXsdSchemas_Group = 0x1221;
         public const int codeMenuXml_GroupIntellisenseContext = 0x1226;
         public const int codeMenuXml_GroupShowDifferenceSiteMap = 0x1222;
+        public const int codeMenuXml_GroupShowDifferenceSiteMap_MenuOpenInWebConnectionDyn = 0x1336;
+        public const int codeMenuXml_GroupShowDifferenceSiteMap_MenuOpenInWebConnectionDyn_Group = 0x1337;
         public const int codeMenuXml_GroupShowDifferenceSiteMap_MenuConnectionDyn = 0x1247;
         public const int codeMenuXml_GroupShowDifferenceSiteMap_MenuConnectionDyn_Group = 0x1248;
         public const int codeMenuXml_GroupShowDifferenceSiteMap_MenuSiteMapsDyn = 0x1223;
@@ -120,6 +122,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int codeMenuXml_GroupUpdateRibbonDiffXml_MenuConnectionDyn = 0x1245;
         public const int codeMenuXml_GroupUpdateRibbonDiffXml_MenuConnectionDyn_Group = 0x1246;
         public const int codeMenuXml_GroupShowDifferenceSystemForm = 0x1250;
+        public const int codeMenuXml_GroupShowDifferenceSystemForm_MenuOpenInWebConnectionDyn = 0x1338;
+        public const int codeMenuXml_GroupShowDifferenceSystemForm_MenuOpenInWebConnectionDyn_Group = 0x1339;
         public const int codeMenuXml_GroupShowDifferenceSystemForm_MenuConnectionDyn = 0x1251;
         public const int codeMenuXml_GroupShowDifferenceSystemForm_MenuConnectionDyn_Group = 0x1252;
         public const int codeMenuXml_GroupUpdateSystemForm = 0x1253;
@@ -910,6 +914,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int FileReportUpdateCommandId = 0x267A;
         public const int CodeReportCreateCommandId = 0x26AC;
         public const int FileReportCreateCommandId = 0x26DE;
+        public const int CodeXmlSiteMapOpenInWebCommandId = 0x2710;
+        public const int CodeXmlSystemFormOpenInWebCommandId = 0x2742;
+        public const int CodeXmlSavedQueryOpenInWebCommandId = 0x2774;
         public const int CodeWebResourceUpdateContentPublishCommandId = 0x2000;
         public const int CodeWebResourceShowDifferenceCommandId = 0x2001;
         public const int CodeWebResourceShowDifferenceCustomCommandId = 0x2002;
@@ -928,8 +935,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeXmlShowDifferenceRibbonCommandId = 0x217B;
         public const int CodeXmlShowDifferenceRibbonDiffXmlCommandId = 0x217C;
         public const int CodeXmlUpdateRibbonDiffXmlCommandId = 0x217D;
+        public const int CodeXmlSystemFormExplorerCommandId = 0x21A5;
         public const int CodeXmlShowDifferenceSystemFormCommandId = 0x2184;
         public const int CodeXmlUpdateSystemFormCommandId = 0x2185;
+        public const int CodeXmlSavedQueryExplorerCommandId = 0x21A6;
         public const int CodeXmlShowDifferenceSavedQueryCommandId = 0x2186;
         public const int CodeXmlUpdateSavedQueryCommandId = 0x2187;
         public const int CodeXmlRemoveXsdSchemaCommandId = 0x216E;

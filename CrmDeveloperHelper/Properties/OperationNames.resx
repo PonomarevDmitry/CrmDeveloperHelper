@@ -621,17 +621,26 @@
   <data name="UpdatingSiteMapFormat1" xml:space="preserve">
     <value>{0} - Updating SiteMap</value>
   </data>
+  <data name="OpeningSiteMapInWebFormat1" xml:space="preserve">
+    <value>{0} - Opening SiteMap in Web</value>
+  </data>
   <data name="DifferenceSystemFormFormat1" xml:space="preserve">
     <value>{0} - Difference SystemForm</value>
   </data>
   <data name="UpdatingSystemFormFormat1" xml:space="preserve">
     <value>{0} - Updating SystemForm</value>
   </data>
+  <data name="OpeningSystemFormInWebFormat1" xml:space="preserve">
+    <value>{0} - Opening SystemForm in Web</value>
+  </data>
   <data name="DifferenceSavedQueryFormat1" xml:space="preserve">
     <value>{0} - Difference SavedQuery</value>
   </data>
   <data name="UpdatingSavedQueryFormat1" xml:space="preserve">
     <value>{0} - Updating SavedQuery</value>
+  </data>
+  <data name="OpeningSavedQueryInWebFormat1" xml:space="preserve">
+    <value>{0} - Opening SavedQuery in Web</value>
   </data>
   <data name="CheckingWorkflowsStatusCodesFormat2" xml:space="preserve">
     <value>Checking Workflow states in {0} and {1}</value>

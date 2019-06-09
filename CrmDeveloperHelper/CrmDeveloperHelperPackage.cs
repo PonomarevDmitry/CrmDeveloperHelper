@@ -94,31 +94,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlRibbonDiffInsertIntellisenseContextCommand.Initialize(this);
             CodeXmlRibbonDiffRemoveIntellisenseContextCommand.Initialize(this);
 
+            CodeXmlSiteMapOpenInWebCommand.Initialize(this);
             CodeXmlSiteMapExplorerCommand.Initialize(this);
             CodeXmlShowDifferenceSiteMapDefaultCommand.Initialize(this);
             CodeXmlShowDifferenceSiteMapCommand.Initialize(this);
             CodeXmlShowDifferenceSiteMapInConnectionGroupCommand.Initialize(this);
-
             CodeXmlUpdateSiteMapCommand.Initialize(this);
             CodeXmlUpdateSiteMapInConnectionGroupCommand.Initialize(this);
 
+            CodeXmlSystemFormExplorerCommand.Initialize(this);
+            CodeXmlSystemFormOpenInWebCommand.Initialize(this);
             CodeXmlShowDifferenceSystemFormCommand.Initialize(this);
             CodeXmlShowDifferenceSystemFormInConnectionGroupCommand.Initialize(this);
-
             CodeXmlUpdateSystemFormCommand.Initialize(this);
             CodeXmlUpdateSystemFormInConnectionGroupCommand.Initialize(this);
 
+            CodeXmlSavedQueryExplorerCommand.Initialize(this);
+            CodeXmlSavedQueryOpenInWebCommand.Initialize(this);
             CodeXmlShowDifferenceSavedQueryCommand.Initialize(this);
             CodeXmlShowDifferenceSavedQueryInConnectionGroupCommand.Initialize(this);
-
             CodeXmlUpdateSavedQueryCommand.Initialize(this);
             CodeXmlUpdateSavedQueryInConnectionGroupCommand.Initialize(this);
 
             CodeXmlShowDifferenceRibbonCommand.Initialize(this);
             CodeXmlShowDifferenceRibbonInConnectionGroupCommand.Initialize(this);
+
             CodeXmlShowDifferenceRibbonDiffXmlCommand.Initialize(this);
             CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommand.Initialize(this);
-
             CodeXmlUpdateRibbonDiffXmlCommand.Initialize(this);
             CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommand.Initialize(this);
 

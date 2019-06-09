@@ -1348,6 +1348,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Opening SavedQuery in Web.
+        /// </summary>
+        internal static string OpeningSavedQueryInWebFormat1 {
+            get {
+                return ResourceManager.GetString("OpeningSavedQueryInWebFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Opening SecurityRoles Explorer.
         /// </summary>
         internal static string OpeningSecurityRolesExplorerFormat1 {
@@ -1357,11 +1366,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Opening SiteMap in Web.
+        /// </summary>
+        internal static string OpeningSiteMapInWebFormat1 {
+            get {
+                return ResourceManager.GetString("OpeningSiteMapInWebFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Opening Solution.
         /// </summary>
         internal static string OpeningSolutionFormat1 {
             get {
                 return ResourceManager.GetString("OpeningSolutionFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Opening SystemForm in Web.
+        /// </summary>
+        internal static string OpeningSystemFormInWebFormat1 {
+            get {
+                return ResourceManager.GetString("OpeningSystemFormInWebFormat1", resourceCulture);
             }
         }
         

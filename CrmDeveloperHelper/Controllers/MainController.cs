@@ -268,6 +268,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
+        public void StartSiteMapOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteOpenInWebSiteMap(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
         public void StartSystemFormDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
@@ -302,6 +319,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
+        public void StartSystemFormOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteOpenInWebSystemForm(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
         public void StartSavedQueryDifference(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
@@ -326,6 +360,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 try
                 {
                     this._exportXmlController.ExecuteUpdateSavedQuery(selectedFile, connectionData, commonConfig);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartSavedQueryOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._exportXmlController.ExecuteOpenInWebSavedQuery(selectedFile, connectionData, commonConfig);
                 }
                 catch (Exception ex)
                 {
@@ -964,7 +1015,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartOpenEntityAttributeExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartExplorerEntityAttribute(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {
@@ -981,7 +1032,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartOpenEntityKeyExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartExplorerEntityKey(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {
@@ -998,7 +1049,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartOpenEntityRelationshipOneToManyExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartExplorerEntityRelationshipOneToMany(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {
@@ -1015,7 +1066,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartOpenEntityRelationshipManyToManyExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartExplorerEntityRelationshipManyToMany(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {
@@ -1032,7 +1083,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartOpenEntityPrivilegesExplorer(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartExplorerEntityPrivileges(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {
@@ -1185,7 +1236,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartExportOrganizationInformation(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartExplorerOrganizationInformation(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {
@@ -1202,7 +1253,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartExportSystemSavedQueryXml(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartExplorerSystemSavedQueryXml(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {
@@ -1219,7 +1270,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartExportSystemSavedQueryVisualizationXml(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartExplorerSystemSavedQueryVisualization(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {
@@ -1236,7 +1287,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartExportSystemFormXml(ConnectionData connectionData, CommonConfiguration commonConfig, string selection, EnvDTE.SelectedItem selectedItem)
+        public void StartExplorerSystemForm(ConnectionData connectionData, CommonConfiguration commonConfig, string selection, EnvDTE.SelectedItem selectedItem)
         {
             var worker = new Thread(() =>
             {
@@ -1253,7 +1304,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartExportCustomControl(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartExplorerCustomControl(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {
@@ -1270,7 +1321,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartExportWorkflow(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartExplorerWorkflow(string selection, ConnectionData connectionData, CommonConfiguration commonConfig)
         {
             var worker = new Thread(() =>
             {

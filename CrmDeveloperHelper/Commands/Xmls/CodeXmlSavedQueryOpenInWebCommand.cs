@@ -1,22 +1,23 @@
-﻿using EnvDTE;
-using Microsoft.VisualStudio.Shell;
+﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Linq;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    public class FolderAddSystemFormJavaScriptFileInConnectionCommand : IServiceProviderOwner
+    internal sealed class CodeXmlSavedQueryOpenInWebCommand : IServiceProviderOwner
     {
         private readonly Package _package;
 
         public IServiceProvider ServiceProvider => this._package;
 
-        private const int _baseIdStart = PackageIds.FolderAddSystemFormJavaScriptFileInConnectionCommandId;
+        private const int _baseIdStart = PackageIds.CodeXmlSavedQueryOpenInWebCommandId;
 
-        private FolderAddSystemFormJavaScriptFileInConnectionCommand(Package package)
+        private CodeXmlSavedQueryOpenInWebCommand(Package package)
         {
             this._package = package ?? throw new ArgumentNullException(nameof(package));
 
@@ -39,11 +40,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
             }
         }
 
-        public static FolderAddSystemFormJavaScriptFileInConnectionCommand Instance { get; private set; }
+        public static CodeXmlSavedQueryOpenInWebCommand Instance { get; private set; }
 
         public static void Initialize(Package package)
         {
-            Instance = new FolderAddSystemFormJavaScriptFileInConnectionCommand(package);
+            Instance = new CodeXmlSavedQueryOpenInWebCommand(package);
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -58,17 +59,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
 
                     var connectionConfig = ConnectionConfiguration.Get();
 
-                    var connectionsList = connectionConfig.Connections;
+                    var connectionsList = connectionConfig.GetConnectionsByGroupWithoutCurrent();
 
                     if (0 <= index && index < connectionsList.Count)
                     {
                         var connectionData = connectionsList[index];
 
-                        menuCommand.Text = connectionData.NameWithCurrentMark;
+                        menuCommand.Text = connectionData.Name;
 
                         menuCommand.Enabled = menuCommand.Visible = true;
 
-                        CommonHandlers.ActiveSolutionExplorerFolderSingle(this, menuCommand);
+                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(this, menuCommand
+                            , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId
+                            , out var attribute
+                            , CommonExportXsdSchemasCommand.RootFetch
+                            , CommonExportXsdSchemasCommand.RootGrid
+                            , CommonExportXsdSchemasCommand.RootColumnSet
+                        );
+
+                        if (attribute == null
+                            || !Guid.TryParse(attribute.Value, out _)
+                        )
+                        {
+                            menuCommand.Enabled = menuCommand.Visible = false;
+                        }
                     }
                 }
             }
@@ -98,7 +112,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
 
                 var connectionConfig = Model.ConnectionConfiguration.Get();
 
-                var connectionsList = connectionConfig.Connections;
+                var connectionsList = connectionConfig.GetConnectionsByGroupWithoutCurrent();
 
                 if (0 <= index && index < connectionsList.Count)
                 {
@@ -106,11 +120,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
 
                     var helper = DTEHelper.Create(applicationObject);
 
-                    SelectedItem selectedItem = helper.GetSelectedProjectItem();
+                    List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsXmlType).Take(2).ToList();
 
-                    if (selectedItem != null)
+                    if (selectedFiles.Count == 1)
                     {
-                        helper.HandleExplorerSystemForm(connectionData, selectedItem);
+                        helper.HandleSavedQueryOpenInWebCommand(connectionData, selectedFiles[0]);
                     }
                 }
             }
