@@ -328,32 +328,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         list = list
                         .Where(ent =>
-                            ent.LogicalName.ToLower().Contains(textName)
+                            ent.LogicalName.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
 
-                            || (ent.EntityMetadata1 != null && ent.EntityMetadata1?.DisplayName != null && ent.EntityMetadata1.DisplayName.LocalizedLabels
-                                .Where(l => !string.IsNullOrEmpty(l.Label))
-                                .Any(lbl => lbl.Label.ToLower().Contains(textName))
-                                )
+                            || 
+                            (
+                                ent.EntityMetadata1 != null 
+                                && ent.EntityMetadata1.DisplayName != null
+                                && ent.EntityMetadata1.DisplayName.LocalizedLabels != null
+                                && ent.EntityMetadata1.DisplayName.LocalizedLabels
+                                    .Where(l => !string.IsNullOrEmpty(l.Label))
+                                    .Any(lbl => lbl.Label.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
+                            )
 
-                            //|| (ent.EntityMetadata1.Description != null && ent.EntityMetadata1.Description.LocalizedLabels
-                            //    .Where(l => !string.IsNullOrEmpty(l.Label))
-                            //    .Any(lbl => lbl.Label.ToLower().Contains(textName)))
-
-                            //|| (ent.EntityMetadata1.DisplayCollectionName != null && ent.EntityMetadata1.DisplayCollectionName.LocalizedLabels
-                            //    .Where(l => !string.IsNullOrEmpty(l.Label))
-                            //    .Any(lbl => lbl.Label.ToLower().Contains(textName)))
-
-                            || (ent.EntityMetadata2 != null && ent.EntityMetadata2.DisplayName != null && ent.EntityMetadata2.DisplayName.LocalizedLabels
-                                .Where(l => !string.IsNullOrEmpty(l.Label))
-                                .Any(lbl => lbl.Label.ToLower().Contains(textName)))
-
-                        //|| (ent.EntityMetadata2.Description != null && ent.EntityMetadata2.Description.LocalizedLabels
-                        //    .Where(l => !string.IsNullOrEmpty(l.Label))
-                        //    .Any(lbl => lbl.Label.ToLower().Contains(textName)))
-
-                        //|| (ent.EntityMetadata2.DisplayCollectionName != null && ent.EntityMetadata2.DisplayCollectionName.LocalizedLabels
-                        //    .Where(l => !string.IsNullOrEmpty(l.Label))
-                        //    .Any(lbl => lbl.Label.ToLower().Contains(textName)))
+                            || 
+                            (
+                                ent.EntityMetadata2 != null 
+                                && ent.EntityMetadata2.DisplayName != null
+                                && ent.EntityMetadata2.DisplayName.LocalizedLabels != null
+                                && ent.EntityMetadata2.DisplayName.LocalizedLabels
+                                    .Where(l => !string.IsNullOrEmpty(l.Label))
+                                    .Any(lbl => lbl.Label.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
+                            )
                         );
                     }
                 }

@@ -278,18 +278,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     if (Guid.TryParse(textName, out Guid tempGuid))
                     {
-                        list = list.Where(ent =>
-                            ent.SolutionComponent.ObjectId == tempGuid
-                        );
+                        list = list.Where(ent => ent.SolutionComponent.ObjectId == tempGuid);
                     }
                     else
                     {
                         list = list.Where(ent =>
                         {
-                            var name = ent.Name?.ToLower() ?? string.Empty;
-                            var nameUnique = ent.DisplayName?.ToLower() ?? string.Empty;
+                            var name = ent.Name ?? string.Empty;
+                            var nameUnique = ent.DisplayName ?? string.Empty;
 
-                            return name.Contains(textName) || nameUnique.Contains(textName);
+                            return name.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1 || nameUnique.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1;
                         });
                     }
                 }

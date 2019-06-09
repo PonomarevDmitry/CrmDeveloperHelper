@@ -325,10 +325,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     list = list.Where(ent =>
                     {
-                        var type = ent.ObjectTypeCode.ToLower();
-                        var name = ent.Name.ToLower();
-
-                        return type.Contains(textName) || name.Contains(textName);
+                        return ent.ObjectTypeCode.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1 || ent.Name.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1;
                     });
                 }
             }

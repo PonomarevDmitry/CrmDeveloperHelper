@@ -295,16 +295,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     list = list.Where(ent =>
                     {
-                        var nameUnique1 = (ent.Entity1?.SiteMapName ?? string.Empty).ToLower();
-                        var name1 = (ent.Entity1?.SiteMapNameUnique ?? string.Empty).ToLower();
+                        var nameUnique1 = ent.Entity1?.SiteMapName ?? string.Empty;
+                        var name1 = ent.Entity1?.SiteMapNameUnique ?? string.Empty;
 
-                        var nameUnique2 = (ent.Entity2?.SiteMapName ?? string.Empty).ToLower();
-                        var name2 = (ent.Entity2?.SiteMapNameUnique ?? string.Empty).ToLower();
+                        var nameUnique2 = ent.Entity2?.SiteMapName ?? string.Empty;
+                        var name2 = ent.Entity2?.SiteMapNameUnique ?? string.Empty;
 
-                        return nameUnique1.Contains(textName)
-                            || name1.Contains(textName)
-                            || nameUnique2.Contains(textName)
-                            || name2.Contains(textName)
+                        return nameUnique1.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                            || name1.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                            || nameUnique2.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                            || name2.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
                             ;
                     });
                 }

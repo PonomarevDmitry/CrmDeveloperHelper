@@ -50,7 +50,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 entityName = entityName.ToLower();
 
-                result.SdkMessageProcessingStep = listSteps.Where(ent => ent.PrimaryObjectTypeCodeName.ToLower().Contains(entityName)).ToList();
+                result.SdkMessageProcessingStep = listSteps.Where(ent => ent.PrimaryObjectTypeCodeName.IndexOf(entityName, StringComparison.InvariantCultureIgnoreCase) > -1).ToList();
             }
 
             result.SdkMessageProcessingStepImage = await this._repositoryImage.GetAllSdkMessageProcessingStepImageAsync();

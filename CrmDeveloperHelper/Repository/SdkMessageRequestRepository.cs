@@ -98,7 +98,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             {
                 filterEntity = filterEntity.ToLower();
 
-                result = result.Where(ent => ent.PrimaryObjectTypeCode != null && ent.PrimaryObjectTypeCode.ToLower().Contains(filterEntity));
+                result = result.Where(ent => ent.PrimaryObjectTypeCode != null && ent.PrimaryObjectTypeCode.IndexOf(filterEntity, StringComparison.InvariantCultureIgnoreCase) > -1);
             }
 
             return result.ToList();

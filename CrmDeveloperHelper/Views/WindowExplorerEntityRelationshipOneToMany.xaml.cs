@@ -290,10 +290,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         list = list
                         .Where(ent =>
-                            ent.LogicalName.ToLower().Contains(textName)
-                            || (ent.DisplayName != null && ent.EntityMetadata.DisplayName.LocalizedLabels
-                                .Where(l => !string.IsNullOrEmpty(l.Label))
-                                .Any(lbl => lbl.Label.ToLower().Contains(textName)))
+                            ent.LogicalName.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                            || 
+                            (
+                                ent.DisplayName != null 
+                                && ent.EntityMetadata.DisplayName.LocalizedLabels
+                                    .Where(l => !string.IsNullOrEmpty(l.Label))
+                                    .Any(lbl => lbl.Label.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
+                            )
 
                         //|| (ent.Description != null && ent.Description.LocalizedLabels
                         //    .Where(l => !string.IsNullOrEmpty(l.Label))
@@ -488,11 +492,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     list = list
                     .Where(ent =>
-                        ent.SchemaName.ToLower().Contains(textName)
-                        || (ent.OneToManyRelationshipMetadata.AssociatedMenuConfiguration != null
+                        ent.SchemaName.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                        || 
+                        (
+                            ent.OneToManyRelationshipMetadata.AssociatedMenuConfiguration != null
                             && ent.OneToManyRelationshipMetadata.AssociatedMenuConfiguration.Label.LocalizedLabels
-                            .Where(l => !string.IsNullOrEmpty(l.Label))
-                            .Any(lbl => lbl.Label.ToLower().Contains(textName)))
+                                .Where(l => !string.IsNullOrEmpty(l.Label))
+                                .Any(lbl => lbl.Label.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
+                        )
 
                     //|| (ent.Description != null && ent.Description.LocalizedLabels
                     //    .Where(l => !string.IsNullOrEmpty(l.Label))

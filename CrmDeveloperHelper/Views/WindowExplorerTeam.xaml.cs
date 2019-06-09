@@ -567,10 +567,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         list = list
                         .Where(ent =>
-                            ent.LogicalName.ToLower().Contains(textName)
-                            || (ent.DisplayName != null && ent.DisplayName.LocalizedLabels
-                                .Where(l => !string.IsNullOrEmpty(l.Label))
-                                .Any(lbl => lbl.Label.ToLower().Contains(textName)))
+                            ent.LogicalName.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                            || 
+                            (
+                                ent.DisplayName != null 
+                                && ent.DisplayName.LocalizedLabels
+                                    .Where(l => !string.IsNullOrEmpty(l.Label))
+                                    .Any(lbl => lbl.Label.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
+                            )
                         );
                     }
                 }

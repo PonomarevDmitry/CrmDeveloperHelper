@@ -170,14 +170,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             && ent.StateCodeLabel.LocalizedLabels != null
                             && ent.StateCodeLabel.LocalizedLabels
                                 .Where(l => !string.IsNullOrEmpty(l.Label))
-                                .Any(lbl => lbl.Label.ToLower().Contains(textName))
+                                .Any(lbl => lbl.Label.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
                         )
                         || (
                             ent.StatusCodeLabel != null
                             && ent.StatusCodeLabel.LocalizedLabels != null
                             && ent.StatusCodeLabel.LocalizedLabels
                                 .Where(l => !string.IsNullOrEmpty(l.Label))
-                                .Any(lbl => lbl.Label.ToLower().Contains(textName))
+                                .Any(lbl => lbl.Label.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
                         )
                     );
                 }

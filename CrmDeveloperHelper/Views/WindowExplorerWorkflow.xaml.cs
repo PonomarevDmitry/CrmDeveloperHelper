@@ -323,11 +323,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     list = list.Where(ent =>
                     {
-                        var type = ent.PrimaryEntity?.ToLower() ?? string.Empty;
-                        var name = ent.Name?.ToLower() ?? string.Empty;
-                        var nameUnique = ent.UniqueName?.ToLower() ?? string.Empty;
+                        var type = ent.PrimaryEntity ?? string.Empty;
+                        var name = ent.Name ?? string.Empty;
+                        var nameUnique = ent.UniqueName ?? string.Empty;
 
-                        return type.Contains(textName) || name.Contains(textName) || nameUnique.Contains(textName);
+                        return type.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                            || name.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                            || nameUnique.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                            ;
                     });
                 }
             }

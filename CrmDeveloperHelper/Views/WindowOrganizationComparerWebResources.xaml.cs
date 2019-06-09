@@ -326,16 +326,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     list = list.Where(ent =>
                     {
-                        var name1 = ent.Entity1?.Name.ToLower() ?? string.Empty;
-                        var name2 = ent.Entity2?.Name.ToLower() ?? string.Empty;
+                        var name1 = ent.Entity1?.Name ?? string.Empty;
+                        var name2 = ent.Entity2?.Name ?? string.Empty;
 
-                        var displayname1 = ent.Entity1?.DisplayName.ToLower() ?? string.Empty;
-                        var displayname2 = ent.Entity2?.DisplayName.ToLower() ?? string.Empty;
+                        var displayname1 = ent.Entity1?.DisplayName ?? string.Empty;
+                        var displayname2 = ent.Entity2?.DisplayName ?? string.Empty;
 
-                        return name1.Contains(textName)
-                            || name2.Contains(textName)
-                            || displayname1.Contains(textName)
-                            || displayname2.Contains(textName)
+                        return name1.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                            || name2.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                            || displayname1.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                            || displayname2.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
                             ;
                     });
                 }

@@ -205,8 +205,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (!string.IsNullOrEmpty(textName))
             {
                 filter = filter.Where(ent =>
-                ent.Entity1.Name.ToLower().Contains(textName)
-                || ent.Entity2.Name.ToLower().Contains(textName)
+                    ent.Entity1.Name.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                    || ent.Entity2.Name.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
                 );
             }
 

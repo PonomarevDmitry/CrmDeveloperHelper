@@ -402,15 +402,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     list = list
                     .Where(ent =>
-                        ent.Name.ToLower().Contains(textName)
+                        ent.Name.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
 
-                        || (ent.OptionSetMetadata1 != null && ent.OptionSetMetadata1.DisplayName != null && ent.OptionSetMetadata1.DisplayName.LocalizedLabels
-                            .Where(l => !string.IsNullOrEmpty(l.Label))
-                            .Any(lbl => lbl.Label.ToLower().Contains(textName)))
+                        || 
+                        (
+                            ent.OptionSetMetadata1 != null 
+                            && ent.OptionSetMetadata1.DisplayName != null
+                            && ent.OptionSetMetadata1.DisplayName.LocalizedLabels != null
+                            && ent.OptionSetMetadata1.DisplayName.LocalizedLabels
+                                .Where(l => !string.IsNullOrEmpty(l.Label))
+                                .Any(lbl => lbl.Label.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
+                        )
 
-                        || (ent.OptionSetMetadata2 != null && ent.OptionSetMetadata2.DisplayName != null && ent.OptionSetMetadata2.DisplayName.LocalizedLabels
-                            .Where(l => !string.IsNullOrEmpty(l.Label))
-                            .Any(lbl => lbl.Label.ToLower().Contains(textName)))
+                        || 
+                        (
+                            ent.OptionSetMetadata2 != null 
+                            && ent.OptionSetMetadata2.DisplayName != null 
+                            && ent.OptionSetMetadata2.DisplayName.LocalizedLabels != null
+                            && ent.OptionSetMetadata2.DisplayName.LocalizedLabels
+                                .Where(l => !string.IsNullOrEmpty(l.Label))
+                                .Any(lbl => lbl.Label.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1)
+                        )
                     );
                 }
             }

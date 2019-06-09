@@ -151,7 +151,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 var attrTypeArguments = element.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "TypeArguments", StringComparison.InvariantCultureIgnoreCase));
 
-                if (attrTypeArguments == null || !attrTypeArguments.Value.Contains("String"))
+                if (attrTypeArguments == null || attrTypeArguments.Value.IndexOf("String", StringComparison.InvariantCultureIgnoreCase) == -1)
                 {
                     return false;
                 }
@@ -184,7 +184,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 var attrTypeArguments = element.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "TypeArguments", StringComparison.InvariantCultureIgnoreCase));
 
-                if (attrTypeArguments == null || !attrTypeArguments.Value.Contains("Object[]"))
+                if (attrTypeArguments == null || attrTypeArguments.Value.IndexOf("Object[]", StringComparison.InvariantCultureIgnoreCase) == -1)
                 {
                     return false;
                 }
@@ -199,7 +199,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            if (!element.Value.Contains("Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.Guid"))
+            if (element.Value.IndexOf("Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.Guid", StringComparison.InvariantCultureIgnoreCase) == -1)
             {
                 return false;
             }
@@ -217,7 +217,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 var attrTypeArguments = element.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "TypeArguments", StringComparison.InvariantCultureIgnoreCase));
 
-                if (attrTypeArguments == null || !attrTypeArguments.Value.Contains("Object"))
+                if (attrTypeArguments == null || attrTypeArguments.Value.IndexOf("Object", StringComparison.InvariantCultureIgnoreCase) == -1)
                 {
                     return false;
                 }
@@ -245,7 +245,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 var attrTypeArguments = element.Attributes().FirstOrDefault(a => string.Equals(a.Name.LocalName, "TypeArguments", StringComparison.InvariantCultureIgnoreCase));
 
-                if (attrTypeArguments == null || !attrTypeArguments.Value.Contains("Object[]"))
+                if (attrTypeArguments == null || attrTypeArguments.Value.IndexOf("Object[]", StringComparison.InvariantCultureIgnoreCase) == -1)
                 {
                     return false;
                 }
@@ -260,7 +260,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
 
-            if (!element.Value.Contains("Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.EntityReference"))
+            if (element.Value.IndexOf("Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.EntityReference", StringComparison.InvariantCultureIgnoreCase) == -1)
             {
                 return false;
             }

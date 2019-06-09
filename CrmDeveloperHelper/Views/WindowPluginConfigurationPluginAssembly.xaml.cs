@@ -146,7 +146,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!string.IsNullOrEmpty(textName))
             {
-                filter = filter.Where(s => s.Name.ToLower().Contains(textName));
+                filter = filter.Where(s => s.Name.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1);
             }
 
             foreach (var assembly in filter)

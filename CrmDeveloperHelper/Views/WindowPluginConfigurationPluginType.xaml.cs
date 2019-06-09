@@ -168,7 +168,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (!string.IsNullOrEmpty(textName))
             {
-                filter = filter.Where(s => s.PluginType.TypeName.ToLower().Contains(textName));
+                filter = filter.Where(s => s.PluginType.TypeName.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1);
             }
 
             foreach (var plugintype in filter)

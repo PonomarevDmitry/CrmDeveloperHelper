@@ -297,11 +297,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     list = list.Where(ent =>
                     {
-                        var name1 = ent.Entity1?.Name.ToLower();
-                        var name2 = ent.Entity2?.Name.ToLower();
+                        var name1 = ent.Entity1?.Name;
+                        var name2 = ent.Entity2?.Name;
 
-                        return name1.Contains(textName)
-                            || name2.Contains(textName)
+                        return name1.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                            || name2.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
                             ;
                     });
                 }

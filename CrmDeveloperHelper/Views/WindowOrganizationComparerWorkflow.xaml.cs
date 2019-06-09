@@ -348,21 +348,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     list = list.Where(ent =>
                     {
-                        var type1 = ent.Entity1?.PrimaryEntity?.ToLower() ?? string.Empty;
-                        var name1 = ent.Entity1?.Name?.ToLower() ?? string.Empty;
+                        var type1 = ent.Entity1?.PrimaryEntity ?? string.Empty;
+                        var name1 = ent.Entity1?.Name ?? string.Empty;
 
-                        var type2 = ent.Entity2?.PrimaryEntity?.ToLower() ?? string.Empty;
-                        var name2 = ent.Entity2?.Name?.ToLower() ?? string.Empty;
+                        var type2 = ent.Entity2?.PrimaryEntity ?? string.Empty;
+                        var name2 = ent.Entity2?.Name ?? string.Empty;
 
-                        var nameUnique1 = ent.Entity1?.UniqueName?.ToLower() ?? string.Empty;
-                        var nameUnique2 = ent.Entity2?.UniqueName?.ToLower() ?? string.Empty;
+                        var nameUnique1 = ent.Entity1?.UniqueName ?? string.Empty;
+                        var nameUnique2 = ent.Entity2?.UniqueName ?? string.Empty;
 
-                        return type1.Contains(textName)
-                            || name1.Contains(textName)
-                            || type2.Contains(textName)
-                            || name2.Contains(textName)
-                            || nameUnique1.Contains(textName)
-                            || nameUnique2.Contains(textName)
+                        return type1.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                            || name1.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                            || type2.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                            || name2.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                            || nameUnique1.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                            || nameUnique2.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
                             ;
                     });
                 }
