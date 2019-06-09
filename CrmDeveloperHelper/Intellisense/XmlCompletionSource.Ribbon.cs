@@ -243,7 +243,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     }
                 }
 
-                if (_controlsWithImagesXmlElements.Contains(currentNodeName) && ImagesXmlAttributes.Contains(currentAttributeName))
+                if (_controlsWithImagesXmlElements.Contains(currentNodeName) 
+                    && ImagesXmlAttributes.Contains(currentAttributeName)
+                )
                 {
                     FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
 
@@ -262,7 +264,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 }
 
                 if (string.Equals(currentNodeName, "CustomAction", StringComparison.InvariantCultureIgnoreCase)
-                    && string.Equals(currentAttributeName, "Location", StringComparison.InvariantCultureIgnoreCase))
+                    && string.Equals(currentAttributeName, "Location", StringComparison.InvariantCultureIgnoreCase)
+                )
                 {
                     if (ribbonIntellisenseData != null)
                     {
@@ -319,7 +322,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     && string.Equals(currentXmlNode.Parent.Name.LocalName, "EnableRules", StringComparison.InvariantCultureIgnoreCase)
                     && currentXmlNode.Parent.Parent != null
                     && string.Equals(currentXmlNode.Parent.Parent.Name.LocalName, "CommandDefinition", StringComparison.InvariantCultureIgnoreCase)
-                    )
+                )
                 {
                     var localValues = FillEnableRulesLocal(completionSets, applicableTo, doc, "EnableRules");
 
@@ -337,7 +340,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     && string.Equals(currentXmlNode.Parent.Name.LocalName, "DisplayRules", StringComparison.InvariantCultureIgnoreCase)
                     && currentXmlNode.Parent.Parent != null
                     && string.Equals(currentXmlNode.Parent.Parent.Name.LocalName, "CommandDefinition", StringComparison.InvariantCultureIgnoreCase)
-                    )
+                )
                 {
                     var localValues = FillDisplayRulesLocal(completionSets, applicableTo, doc, "DisplayRules");
 
@@ -356,7 +359,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                         || string.Equals(currentNodeName, "EntityPropertyRule", StringComparison.InvariantCultureIgnoreCase)
                         || string.Equals(currentNodeName, "FormEntityContextRule", StringComparison.InvariantCultureIgnoreCase)
                         || string.Equals(currentNodeName, "EntityPrivilegeRule", StringComparison.InvariantCultureIgnoreCase)
-                    ))
+                    )
+                )
                 {
                     FillEntityNamesInList(completionSets, applicableTo, repositoryEntities, false, false);
                 }
@@ -366,17 +370,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     (
                         string.Equals(currentNodeName, "RibbonDiffXml", StringComparison.InvariantCultureIgnoreCase)
                         || string.Equals(currentNodeName, "RibbonDefinitions", StringComparison.InvariantCultureIgnoreCase)
-                    ))
+                    )
+                )
                 {
                     FillEntityNamesInList(completionSets, applicableTo, repositoryEntities, false, false);
                 }
 
                 if (string.Equals(currentNodeName, "ValueRule", StringComparison.InvariantCultureIgnoreCase)
-                   && string.Equals(currentAttributeName, "Field", StringComparison.InvariantCultureIgnoreCase))
+                   && string.Equals(currentAttributeName, "Field", StringComparison.InvariantCultureIgnoreCase)
+                )
                 {
                     if (attrEntityName != null
                         && !string.IsNullOrEmpty(attrEntityName.Value)
-                        )
+                    )
                     {
                         var entityIntellisenseData = repositoryEntities.GetEntitiesIntellisenseData();
 
@@ -390,13 +396,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 }
 
                 if (string.Equals(currentNodeName, "ValueRule", StringComparison.InvariantCultureIgnoreCase)
-                   && string.Equals(currentAttributeName, "Value", StringComparison.InvariantCultureIgnoreCase))
+                   && string.Equals(currentAttributeName, "Value", StringComparison.InvariantCultureIgnoreCase)
+                )
                 {
                     if (attrEntityName != null
                         && !string.IsNullOrEmpty(attrEntityName.Value)
                         && currentXmlNode.Attribute("Field") != null
                         && !string.IsNullOrEmpty(currentXmlNode.Attribute("Field").Value)
-                        )
+                    )
                     {
                         FillEntityAttributeValues(completionSets, applicableTo, repositoryEntities, attrEntityName.Value, currentXmlNode.Attribute("Field").Value);
                     }

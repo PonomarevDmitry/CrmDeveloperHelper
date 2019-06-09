@@ -123,7 +123,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             }
             else if (string.Equals(doc.Name.ToString(), "RibbonDiffXml", StringComparison.InvariantCultureIgnoreCase)
                 || string.Equals(doc.Name.ToString(), "RibbonDefinitions", StringComparison.InvariantCultureIgnoreCase)
-                )
+            )
             {
                 var repositoryEntities = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
                 var repositoryWebResource = WebResourceIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
