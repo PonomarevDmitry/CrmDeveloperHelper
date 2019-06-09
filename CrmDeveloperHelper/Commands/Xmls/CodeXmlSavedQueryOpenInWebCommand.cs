@@ -59,13 +59,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
                     var connectionConfig = ConnectionConfiguration.Get();
 
-                    var connectionsList = connectionConfig.GetConnectionsByGroupWithoutCurrent();
+                    var connectionsList = connectionConfig.Connections;
 
                     if (0 <= index && index < connectionsList.Count)
                     {
                         var connectionData = connectionsList[index];
 
-                        menuCommand.Text = connectionData.Name;
+                        menuCommand.Text = connectionData.NameWithCurrentMark;
 
                         menuCommand.Enabled = menuCommand.Visible = true;
 
@@ -112,7 +112,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 
                 var connectionConfig = Model.ConnectionConfiguration.Get();
 
-                var connectionsList = connectionConfig.GetConnectionsByGroupWithoutCurrent();
+                var connectionsList = connectionConfig.Connections;
 
                 if (0 <= index && index < connectionsList.Count)
                 {

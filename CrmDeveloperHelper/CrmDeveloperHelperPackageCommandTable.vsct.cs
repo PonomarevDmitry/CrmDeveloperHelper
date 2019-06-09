@@ -130,6 +130,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int codeMenuXml_GroupUpdateSystemForm_MenuConnectionDyn = 0x1254;
         public const int codeMenuXml_GroupUpdateSystemForm_MenuConnectionDyn_Group = 0x1255;
         public const int codeMenuXml_GroupShowDifferenceSavedQuery = 0x1256;
+        public const int codeMenuXml_GroupShowDifferenceSavedQuery_MenuOpenInWebConnectionDyn = 0x133A;
+        public const int codeMenuXml_GroupShowDifferenceSavedQuery_MenuOpenInWebConnectionDyn_Group = 0x133B;
         public const int codeMenuXml_GroupShowDifferenceSavedQuery_MenuConnectionDyn = 0x1257;
         public const int codeMenuXml_GroupShowDifferenceSavedQuery_MenuConnectionDyn_Group = 0x1258;
         public const int codeMenuXml_GroupUpdateSavedQuery = 0x1259;

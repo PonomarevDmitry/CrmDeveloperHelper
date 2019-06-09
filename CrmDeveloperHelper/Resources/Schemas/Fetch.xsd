@@ -466,16 +466,17 @@
                 <xs:complexType>
                   <xs:sequence></xs:sequence>
                   <xs:attribute name="name" type="xs:string" use="required" />
-                  <xs:attribute name="width" type="xs:integer" use="optional" />
+                  <xs:attribute name="width" type="xs:nonNegativeInteger" use="optional" />
                   <xs:attribute name="LabelId" type="xs:string" use="optional" />
                   <xs:attribute name="label" type="xs:string" use="optional" />
                   <xs:attribute name="desc" type="xs:string" use="optional" />
                   <xs:attribute name="ishidden" type="xs:boolean" use="optional" />
                   <xs:attribute name="disableSorting" type="xs:boolean" use="optional" />
                   <xs:attribute name="disableMetaDataBinding" type="xs:boolean" use="optional" />
-                  <xs:attribute name="cellType" type ="xs:string" />
-                  <xs:attribute name="imageproviderwebresource" type ="xs:string" />
-                  <xs:attribute name="imageproviderfunctionname" type ="xs:string" />
+                  <xs:attribute name="addedby" type="xs:string" />
+                  <xs:attribute name="cellType" type="xs:string" />
+                  <xs:attribute name="imageproviderwebresource" type="xs:string" />
+                  <xs:attribute name="imageproviderfunctionname" type="xs:string" />
                 </xs:complexType>
               </xs:element>
             </xs:sequence>
@@ -483,6 +484,36 @@
             <xs:attribute name="id" type="xs:string" use="required" />
             <xs:attribute name="multiobjectidfield" type="xs:string" />
             <xs:attribute name="layoutstyle" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="controlDescriptions" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="controlDescription" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="customControl" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="parameters" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip"></xs:any>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="id" type="guid" use="optional" />
+                        <xs:attribute name="formFactor" type="xs:integer" use="optional" />
+                        <xs:attribute name="name" type="xs:string" use="optional" />
+                        <xs:attribute name="version" type="xs:string" use="optional" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="forControl" type="xs:string" use="optional" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:sequence>
