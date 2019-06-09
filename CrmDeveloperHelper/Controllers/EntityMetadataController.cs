@@ -1458,8 +1458,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             string fileText = File.ReadAllText(selectedFile.FilePath);
 
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.ValidatingRibbonDiffXml);
-
             if (!ContentCoparerHelper.TryParseXmlDocument(fileText, out var doc))
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
@@ -1554,8 +1552,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
             string fileText = File.ReadAllText(selectedFile.FilePath);
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.ValidatingRibbonDiffXml);
 
             if (!ContentCoparerHelper.TryParseXmlDocument(fileText, out var doc))
             {
