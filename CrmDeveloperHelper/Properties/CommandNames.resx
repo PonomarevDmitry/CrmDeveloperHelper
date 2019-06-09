@@ -201,6 +201,12 @@
   <data name="CodeXmlUpdateEntityRibbonDiffXmlCommandFormat1" xml:space="preserve">
     <value>Update {0} RibbonDiffXml</value>
   </data>
+  <data name="CodeXmlApplicationRibbonExplorerCommand" xml:space="preserve">
+    <value>Open ApplicationRibbon Explorer</value>
+  </data>
+  <data name="CodeXmlEntityRibbonExplorerCommand" xml:space="preserve">
+    <value>Open Entity Explorer</value>
+  </data>
   <data name="CodeXmlUpdateSavedQueryCommand" xml:space="preserve">
     <value>Update SavedQuery</value>
   </data>

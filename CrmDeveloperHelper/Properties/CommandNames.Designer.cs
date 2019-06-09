@@ -214,6 +214,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open ApplicationRibbon Explorer.
+        /// </summary>
+        internal static string CodeXmlApplicationRibbonExplorerCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlApplicationRibbonExplorerCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Entity Explorer.
+        /// </summary>
+        internal static string CodeXmlEntityRibbonExplorerCommand {
+            get {
+                return ResourceManager.GetString("CodeXmlEntityRibbonExplorerCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Execute Fetch Xml All.
         /// </summary>
         internal static string CodeXmlExecuteFetchXmlRequestCommand {

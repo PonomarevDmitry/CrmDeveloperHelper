@@ -93,7 +93,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             var allForms = (await repository.GetListAsync(string.Empty))
                 .OrderBy(ent => ent.ObjectTypeCode)
                 .ThenBy(ent => ent.Type.Value)
-                .ThenBy(ent => ent.Name);
+                .ThenBy(ent => ent.Name)
+                ;
 
             SolutionComponentDescriptor descriptor = new SolutionComponentDescriptor(service);
 
@@ -155,9 +156,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (content.Length > 0)
             {
                 string fileName = string.Format("{0}{1} {2}.txt"
-                , (!string.IsNullOrEmpty(connectionDataName) ? connectionDataName + "." : string.Empty)
-                , fileNameFormat.Trim()
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
+                    , (!string.IsNullOrEmpty(connectionDataName) ? connectionDataName + "." : string.Empty)
+                    , fileNameFormat.Trim()
+                    , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+                );
 
                 filePath = Path.Combine(fileFolder, FileOperations.RemoveWrongSymbols(fileName));
 
@@ -269,7 +271,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    siteMapXml = ContentCoparerHelper.FormatXmlByConfiguration(siteMapXml, commonConfig, WindowExplorerSiteMap._xmlOptions
+                    siteMapXml = ContentCoparerHelper.FormatXmlByConfiguration(siteMapXml
+                        , commonConfig
+                        , WindowExplorerSiteMap._xmlOptions
                        , schemaName: CommonExportXsdSchemasCommand.SchemaSiteMapXml
                        , siteMapUniqueName: siteMap.SiteMapNameUnique ?? string.Empty
                     );
@@ -412,7 +416,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 {
                     try
                     {
-                        siteMapXml = ContentCoparerHelper.FormatXmlByConfiguration(siteMapXml, commonConfig, WindowExplorerSiteMap._xmlOptions
+                        siteMapXml = ContentCoparerHelper.FormatXmlByConfiguration(siteMapXml
+                            , commonConfig
+                            , WindowExplorerSiteMap._xmlOptions
                             , schemaName: CommonExportXsdSchemasCommand.SchemaSiteMapXml
                             , siteMapUniqueName: siteMap.SiteMapNameUnique ?? string.Empty
                         );
@@ -592,20 +598,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2
                     , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId.ToString()
                     , selectedFile.FilePath
-                    );
+                );
 
                 return;
             }
 
             if (string.IsNullOrEmpty(attribute.Value)
                 || !Guid.TryParse(attribute.Value, out var systemFormId)
-                )
+            )
             {
                 this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
                     , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId.ToString()
                     , attribute.Value
                     , selectedFile.FilePath
-                    );
+                );
 
                 return;
             }
@@ -736,7 +742,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId.ToString()
                     , attribute.Value
                     , selectedFile.FilePath
-                    );
+                );
 
                 return;
             }
@@ -1019,11 +1025,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 || !Guid.TryParse(attribute.Value, out var savedQueryId)
                 )
             {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
+                this._iWriteToOutput.WriteToOutput(connectionData
+                    , Properties.OutputStrings.XmlAttributeNotValidGuidFormat3
                     , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId.ToString()
                     , attribute.Value
                     , selectedFile.FilePath
-                    );
+                );
 
                 return;
             }

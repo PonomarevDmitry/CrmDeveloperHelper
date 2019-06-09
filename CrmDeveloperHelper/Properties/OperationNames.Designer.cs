@@ -1276,6 +1276,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Opening Entity in Web.
+        /// </summary>
+        internal static string OpeningEntityInWebFormat1 {
+            get {
+                return ResourceManager.GetString("OpeningEntityInWebFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Opening Entity Key Explorer.
         /// </summary>
         internal static string OpeningEntityKeyExplorerFormat1 {
@@ -1344,6 +1353,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string OpeningReportFormat1 {
             get {
                 return ResourceManager.GetString("OpeningReportFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Opening Ribbon Explorer.
+        /// </summary>
+        internal static string OpeningRibbonExplorerFormat1 {
+            get {
+                return ResourceManager.GetString("OpeningRibbonExplorerFormat1", resourceCulture);
             }
         }
         

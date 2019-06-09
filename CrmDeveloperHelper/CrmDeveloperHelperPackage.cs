@@ -116,9 +116,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeXmlUpdateSavedQueryCommand.Initialize(this);
             CodeXmlUpdateSavedQueryInConnectionGroupCommand.Initialize(this);
 
+            CodeXmlEntityRibbonOpenInWebCommand.Initialize(this);
+            CodeXmlRibbonExplorerCommand.Initialize(this);
             CodeXmlShowDifferenceRibbonCommand.Initialize(this);
             CodeXmlShowDifferenceRibbonInConnectionGroupCommand.Initialize(this);
-
             CodeXmlShowDifferenceRibbonDiffXmlCommand.Initialize(this);
             CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommand.Initialize(this);
             CodeXmlUpdateRibbonDiffXmlCommand.Initialize(this);

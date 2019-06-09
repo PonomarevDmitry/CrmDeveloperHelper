@@ -83,6 +83,8 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupUpdateSiteMap_MenuConnectionDyn_Group" priority="0x0601" />
 
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceRibbon" priority="0x0601" />
+      
+      <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceRibbon_MenuOpenEntityInWebConnectionDyn_Group" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceRibbon_MenuConnectionDyn_Group" priority="0x0601" />
 
       <Group guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceRibbonDiffXml" priority="0x0601" />
@@ -799,6 +801,13 @@
         </Strings>
       </Menu>
 
+      
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceRibbon_MenuOpenEntityInWebConnectionDyn" priority="0x0204" type="Menu">
+        <Strings>
+          <ButtonText>Open Entity in Web</ButtonText>
+          <MenuText>Open Entity in Web</MenuText>
+        </Strings>
+      </Menu>
       <Menu guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceRibbon_MenuConnectionDyn" priority="0x0204" type="Menu">
         <Strings>
           <ButtonText>Show Difference Ribbon in Connection Group</ButtonText>
@@ -2760,10 +2769,25 @@
 
 
 
+      
 
 
-
-
+      <Button guid="guidDynamicCommandSet" id="CodeXmlEntityRibbonOpenInWebCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Open Entity in Web Placeholder</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="CodeXmlRibbonExplorerCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Open Ribbon Explorer</ButtonText>
+        </Strings>
+      </Button>
       <Button guid="guidCommandSet" id="CodeXmlShowDifferenceRibbonCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
@@ -8480,10 +8504,16 @@
 
 
 
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlShowDifferenceRibbonCommandId" priority="0x107">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceRibbon_MenuOpenEntityInWebConnectionDyn" priority="0x100">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceRibbon" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceRibbon_MenuConnectionDyn" priority="0x108">
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlRibbonExplorerCommandId" priority="0x110">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceRibbon" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlShowDifferenceRibbonCommandId" priority="0x120">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceRibbon" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceRibbon_MenuConnectionDyn" priority="0x130">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceRibbon" />
     </CommandPlacement>
 
@@ -10264,6 +10294,15 @@
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupUpdateSiteMap_MenuConnectionDyn_Group" />
     </CommandPlacement>
 
+
+    
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceRibbon_MenuOpenEntityInWebConnectionDyn_Group" priority="0x108">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceRibbon_MenuOpenEntityInWebConnectionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeXmlEntityRibbonOpenInWebCommandId" priority="0x108">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceRibbon_MenuOpenEntityInWebConnectionDyn_Group" />
+    </CommandPlacement>
+
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceRibbon_MenuConnectionDyn_Group" priority="0x108">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceRibbon_MenuConnectionDyn" />
     </CommandPlacement>
@@ -11283,6 +11322,10 @@
       <IDSymbol name="codeMenuXml_GroupUpdateSiteMap_MenuConnectionDyn_Group" value="0x124F" />
 
       <IDSymbol name="codeMenuXml_GroupShowDifferenceRibbon" value="0x123E" />
+
+      <IDSymbol name="codeMenuXml_GroupShowDifferenceRibbon_MenuOpenEntityInWebConnectionDyn" value="0x133C" />
+      <IDSymbol name="codeMenuXml_GroupShowDifferenceRibbon_MenuOpenEntityInWebConnectionDyn_Group" value="0x133D" />
+      
       <IDSymbol name="codeMenuXml_GroupShowDifferenceRibbon_MenuConnectionDyn" value="0x123F" />
       <IDSymbol name="codeMenuXml_GroupShowDifferenceRibbon_MenuConnectionDyn_Group" value="0x1240" />
 
@@ -12612,8 +12655,9 @@
       <IDSymbol name="CodeXmlSiteMapOpenInWebCommandId" value="10000" />
       <IDSymbol name="CodeXmlSystemFormOpenInWebCommandId" value="10050" />
       <IDSymbol name="CodeXmlSavedQueryOpenInWebCommandId" value="10100" />
-
-      <!-- 10150 -->
+      <IDSymbol name="CodeXmlEntityRibbonOpenInWebCommandId" value="10150" />
+      
+      <!-- 10200 -->
 
     </GuidSymbol>
 
@@ -12665,6 +12709,7 @@
       <IDSymbol name="CodeXmlShowDifferenceSiteMapCommandId" value="0x217E" />
       <IDSymbol name="CodeXmlUpdateSiteMapCommandId" value="0x2183" />
 
+      <IDSymbol name="CodeXmlRibbonExplorerCommandId" value="0x21A7" />
       <IDSymbol name="CodeXmlShowDifferenceRibbonCommandId" value="0x217B" />
       <IDSymbol name="CodeXmlShowDifferenceRibbonDiffXmlCommandId" value="0x217C" />
       <IDSymbol name="CodeXmlUpdateRibbonDiffXmlCommandId" value="0x217D" />
@@ -13166,10 +13211,10 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x133C -->
+    <!-- 0x133E -->
 
     <!-- Commands -->
-    <!-- 0x21A7 -->
+    <!-- 0x21A8 -->
 
 
   </Symbols>

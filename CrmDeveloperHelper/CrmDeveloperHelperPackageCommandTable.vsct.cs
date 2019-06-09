@@ -113,6 +113,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int codeMenuXml_GroupUpdateSiteMap_MenuConnectionDyn = 0x124E;
         public const int codeMenuXml_GroupUpdateSiteMap_MenuConnectionDyn_Group = 0x124F;
         public const int codeMenuXml_GroupShowDifferenceRibbon = 0x123E;
+        public const int codeMenuXml_GroupShowDifferenceRibbon_MenuOpenEntityInWebConnectionDyn = 0x133C;
+        public const int codeMenuXml_GroupShowDifferenceRibbon_MenuOpenEntityInWebConnectionDyn_Group = 0x133D;
         public const int codeMenuXml_GroupShowDifferenceRibbon_MenuConnectionDyn = 0x123F;
         public const int codeMenuXml_GroupShowDifferenceRibbon_MenuConnectionDyn_Group = 0x1240;
         public const int codeMenuXml_GroupShowDifferenceRibbonDiffXml = 0x1241;
@@ -919,6 +921,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeXmlSiteMapOpenInWebCommandId = 0x2710;
         public const int CodeXmlSystemFormOpenInWebCommandId = 0x2742;
         public const int CodeXmlSavedQueryOpenInWebCommandId = 0x2774;
+        public const int CodeXmlEntityRibbonOpenInWebCommandId = 0x27A6;
         public const int CodeWebResourceUpdateContentPublishCommandId = 0x2000;
         public const int CodeWebResourceShowDifferenceCommandId = 0x2001;
         public const int CodeWebResourceShowDifferenceCustomCommandId = 0x2002;
@@ -934,6 +937,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeXmlSiteMapExplorerCommandId = 0x21A4;
         public const int CodeXmlShowDifferenceSiteMapCommandId = 0x217E;
         public const int CodeXmlUpdateSiteMapCommandId = 0x2183;
+        public const int CodeXmlRibbonExplorerCommandId = 0x21A7;
         public const int CodeXmlShowDifferenceRibbonCommandId = 0x217B;
         public const int CodeXmlShowDifferenceRibbonDiffXmlCommandId = 0x217C;
         public const int CodeXmlUpdateRibbonDiffXmlCommandId = 0x217D;

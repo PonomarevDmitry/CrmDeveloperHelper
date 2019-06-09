@@ -1131,7 +1131,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 ribbonXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonXml, commonConfig, XmlOptionsControls.RibbonFull
                    , ribbonEntityName: entityName ?? string.Empty
-                   );
+                );
 
                 fileTitle2 = EntityFileNameFormatter.GetEntityRibbonFileName(service.ConnectionData.Name, entityName);
 
@@ -1147,7 +1147,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 ribbonXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonXml, commonConfig, XmlOptionsControls.RibbonFull
                    , ribbonEntityName: entityName ?? string.Empty
-                   );
+                );
 
                 fileTitle2 = EntityFileNameFormatter.GetApplicationRibbonFileName(service.ConnectionData.Name);
 
@@ -1420,6 +1420,194 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             await repositoryRibbonCustomization.PerformUpdateRibbonDiffXml(_iWriteToOutput, commonConfig, doc, entityMetadata, ribbonCustomization);
+        }
+
+        public async Task ExecuteOpenRibbonExplorer(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.OpeningRibbonExplorerFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await OpenRibbonExplorer(selectedFile, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task OpenRibbonExplorer(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            if (!File.Exists(selectedFile.FilePath))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                return;
+            }
+
+            string fileText = File.ReadAllText(selectedFile.FilePath);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.ValidatingRibbonDiffXml);
+
+            if (!ContentCoparerHelper.TryParseXmlDocument(fileText, out var doc))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
+                _iWriteToOutput.ActivateOutputWindow(connectionData);
+                return;
+            }
+
+            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName);
+
+            if (attribute == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName.ToString(), selectedFile.FilePath);
+                return;
+            }
+
+            string entityName = attribute.Value;
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            var repositoryRibbonCustomization = new RibbonCustomizationRepository(service);
+
+            if (!string.IsNullOrEmpty(entityName))
+            {
+                WindowHelper.OpenEntityMetadataWindow(_iWriteToOutput, service, commonConfig, entityName);
+            }
+            else
+            {
+                WindowHelper.OpenApplicationRibbonWindow(_iWriteToOutput, service, commonConfig);
+            }
+        }
+
+        public async Task ExecuteEntityRibbonOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            string operation = string.Format(Properties.OperationNames.OpeningEntityInWebFormat1, connectionData?.Name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await EntityRibbonOpenInWeb(selectedFile, connectionData, commonConfig);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task EntityRibbonOpenInWeb(SelectedFile selectedFile, ConnectionData connectionData, CommonConfiguration commonConfig)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            if (!File.Exists(selectedFile.FilePath))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotExistsFormat1, selectedFile.FilePath);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            string fileText = File.ReadAllText(selectedFile.FilePath);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.WindowStatusStrings.ValidatingRibbonDiffXml);
+
+            if (!ContentCoparerHelper.TryParseXmlDocument(fileText, out var doc))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileTextIsNotXmlFormat1, selectedFile.FilePath);
+                _iWriteToOutput.ActivateOutputWindow(connectionData);
+
+                WindowHelper.OpenEntityMetadataWindow(_iWriteToOutput, service, commonConfig);
+
+                return;
+            }
+
+            var attribute = doc.Root.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName);
+
+            if (attribute == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.FileNotContainsXmlAttributeFormat2, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName.ToString(), selectedFile.FilePath);
+
+                WindowHelper.OpenEntityMetadataWindow(_iWriteToOutput, service, commonConfig);
+
+                return;
+            }
+
+            string entityName = attribute.Value;
+
+            if (string.IsNullOrEmpty(entityName))
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData
+                    , Properties.OutputStrings.XmlAttributeIsEmptyFormat2
+                    , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName.ToString()
+                    , selectedFile.FilePath
+                );
+
+                WindowHelper.OpenEntityMetadataWindow(_iWriteToOutput, service, commonConfig);
+
+                return;
+            }
+
+            var repository = new EntityMetadataRepository(service);
+
+            EntityMetadata entityMetadata = await repository.GetEntityMetadataAsync(entityName);
+
+            if (entityMetadata == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.EntityNotExistsInConnectionFormat2, entityName, connectionData.Name);
+                _iWriteToOutput.ActivateOutputWindow(connectionData);
+
+                WindowHelper.OpenEntityMetadataWindow(_iWriteToOutput, service, commonConfig, entityName);
+
+                return;
+            }
+
+            service.ConnectionData.OpenEntityMetadataInWeb(entityMetadata.MetadataId.Value);
         }
     }
 }

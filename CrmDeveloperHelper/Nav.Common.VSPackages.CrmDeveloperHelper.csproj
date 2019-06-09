@@ -143,6 +143,7 @@
     <Compile Include="Commands\WebResources\CodeWebResourceShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceShowDifferenceThreeFileCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlEntityRibbonOpenInWebCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRemoveXsdSchemaCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlConvertFetchXmlToJavaScriptCodeCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlExecuteFetchXmlRequestCommand.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Commands\Xmls\CodeXmlOpenXsdSchemaFolderCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRibbonDiffInsertIntellisenseContextCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRibbonDiffRemoveIntellisenseContextCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlRibbonExplorerCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSavedQueryExplorerCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSavedQueryOpenInWebCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlSetXsdSchemaCommand.cs" />

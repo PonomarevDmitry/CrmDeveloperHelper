@@ -1195,6 +1195,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Xml Attribute {0} is empty in file: {1}.
+        /// </summary>
+        internal static string XmlAttributeIsEmptyFormat2 {
+            get {
+                return ResourceManager.GetString("XmlAttributeIsEmptyFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Xml Attribute {0} not Valid Guid &quot;{1}&quot; in file: {2}.
         /// </summary>
         internal static string XmlAttributeNotValidGuidFormat3 {
