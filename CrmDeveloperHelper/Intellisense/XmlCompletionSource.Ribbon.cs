@@ -124,7 +124,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             , ConnectionIntellisenseDataRepository repositoryEntities
             , WebResourceIntellisenseDataRepository repositoryWebResource
             , RibbonIntellisenseDataRepository repositoryRibbon
-            )
+        )
         {
             SnapshotPoint currentPoint = (session.TextView.Caret.Position.BufferPosition) - 1;
 

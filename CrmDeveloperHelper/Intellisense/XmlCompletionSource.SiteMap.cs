@@ -133,27 +133,43 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
             {
                 if (string.Equals(currentNodeName, "SiteMap", StringComparison.InvariantCultureIgnoreCase))
                 {
+                    #region Urls
+
                     if (string.Equals(currentAttributeName, "Url", StringComparison.InvariantCultureIgnoreCase))
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Urls, "Urls");
 
                         FillWebResourcesText(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesHtml?.Values?.ToList(), "WebResources");
                     }
+
+                    #endregion Urls
                 }
                 else if (string.Equals(currentNodeName, "Area", StringComparison.InvariantCultureIgnoreCase))
                 {
+                    #region Urls
+
                     if (string.Equals(currentAttributeName, "Url", StringComparison.InvariantCultureIgnoreCase))
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Urls, "Urls");
 
                         FillWebResourcesText(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesHtml?.Values?.ToList(), "WebResources");
                     }
+
+                    #endregion Urls
+
+                    #region Icons
+
                     else if (string.Equals(currentAttributeName, "Icon", StringComparison.InvariantCultureIgnoreCase))
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Icons, "Icons");
 
                         FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
                     }
+
+                    #endregion Icons
+
+                    #region Resources
+
                     else if (string.Equals(currentAttributeName, "ResourceId", StringComparison.InvariantCultureIgnoreCase))
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().ResourceIds, "Resources");
@@ -166,21 +182,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().ToolTipResourseIds, "Resources");
                     }
+
+                    #endregion Resources
                 }
                 else if (string.Equals(currentNodeName, "Group", StringComparison.InvariantCultureIgnoreCase))
                 {
+                    #region Urls
+
                     if (string.Equals(currentAttributeName, "Url", StringComparison.InvariantCultureIgnoreCase))
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Urls, "Urls");
 
                         FillWebResourcesText(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesHtml?.Values?.ToList(), "WebResources");
                     }
+
+                    #endregion Urls
+
+                    #region Icons
+
                     else if (string.Equals(currentAttributeName, "Icon", StringComparison.InvariantCultureIgnoreCase))
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Icons, "Icons");
 
                         FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
                     }
+
+                    #endregion Icons
+
+                    #region Resources
+
                     else if (string.Equals(currentAttributeName, "ResourceId", StringComparison.InvariantCultureIgnoreCase))
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().ResourceIds, "Resources");
@@ -193,32 +223,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().ToolTipResourseIds, "Resources");
                     }
+
+                    #endregion Resources
                 }
                 else if (string.Equals(currentNodeName, "SubArea", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    if (string.Equals(currentAttributeName, "Entity", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        FillEntityNamesInList(completionSets, applicableTo, repositoryEntities, false);
-                    }
-                    else if (string.Equals(currentAttributeName, "Sku", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        applicableTo = SkipComma(snapshot, extent, applicableTo);
+                    #region Urls
 
-                        FillSku(completionSets, applicableTo);
-                    }
-                    else if (string.Equals(currentAttributeName, "Client", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        applicableTo = SkipComma(snapshot, extent, applicableTo);
-
-                        FillClient(completionSets, applicableTo);
-                    }
-
-                    else if (string.Equals(currentAttributeName, "Url", StringComparison.InvariantCultureIgnoreCase))
+                    if (string.Equals(currentAttributeName, "Url", StringComparison.InvariantCultureIgnoreCase))
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Urls, "Urls");
 
                         FillWebResourcesText(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesHtml?.Values?.ToList(), "WebResources");
                     }
+
+                    #endregion Urls
+
+                    #region Icons
+
                     else if (string.Equals(currentAttributeName, "Icon", StringComparison.InvariantCultureIgnoreCase))
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().Icons, "Icons");
@@ -232,10 +254,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                         FillWebResourcesIcons(completionSets, applicableTo, repositoryWebResource.GetWebResourceIntellisenseData()?.WebResourcesIcon?.Values?.ToList(), "WebResources");
                     }
 
-                    else if (string.Equals(currentAttributeName, "DefaultDashboard", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        FillDashboards(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData()?.Dashboards?.Values?.ToList(), "Dashboards");
-                    }
+                    #endregion Icons
+
+                    #region Resources
+
                     else if (string.Equals(currentAttributeName, "ResourceId", StringComparison.InvariantCultureIgnoreCase))
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().ResourceIds, "Resources");
@@ -248,6 +270,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().ToolTipResourseIds, "Resources");
                     }
+
+                    #endregion Resources
+
+                    #region Panes
 
                     else if (string.Equals(currentAttributeName, "GetStartedPanePath", StringComparison.InvariantCultureIgnoreCase))
                     {
@@ -264,6 +290,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                     else if (string.Equals(currentAttributeName, "GetStartedPanePathAdminOutlook", StringComparison.InvariantCultureIgnoreCase))
                     {
                         FillIntellisenseBySet(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData().GetStartedPanePathAdminOutlooks, "Panes");
+                    }
+
+                    #endregion Panes
+
+                    else if (string.Equals(currentAttributeName, "Entity", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillEntityNamesInList(completionSets, applicableTo, repositoryEntities, false);
+                    }
+                    else if (string.Equals(currentAttributeName, "Sku", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        applicableTo = SkipComma(snapshot, extent, applicableTo);
+
+                        FillSku(completionSets, applicableTo);
+                    }
+                    else if (string.Equals(currentAttributeName, "Client", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        applicableTo = SkipComma(snapshot, extent, applicableTo);
+
+                        FillClient(completionSets, applicableTo);
+                    }
+
+                    else if (string.Equals(currentAttributeName, "DefaultDashboard", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        FillDashboards(completionSets, applicableTo, repositorySiteMap.GetSiteMapIntellisenseData()?.Dashboards?.Values?.ToList(), "Dashboards");
                     }
 
                     else if (string.Equals(currentAttributeName, "CheckExtensionProperty", StringComparison.InvariantCultureIgnoreCase))
@@ -286,7 +336,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 }
                 else if (string.Equals(currentNodeName, "Title", StringComparison.InvariantCultureIgnoreCase)
                     || string.Equals(currentNodeName, "Description", StringComparison.InvariantCultureIgnoreCase)
-                    )
+                )
                 {
                     if (string.Equals(currentAttributeName, "LCID", StringComparison.InvariantCultureIgnoreCase))
                     {
