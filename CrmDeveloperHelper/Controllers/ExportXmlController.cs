@@ -223,7 +223,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 if (ContentCoparerHelper.TryParseXml(fileText, out var doc))
                 {
-                    var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeSiteMapNameUnique);
+                    var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSiteMapNameUnique);
 
                     if (attribute != null && !string.IsNullOrEmpty(attribute.Value))
                     {

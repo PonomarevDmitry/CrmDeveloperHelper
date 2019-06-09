@@ -118,7 +118,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Экспортирование Sitemap Xml.
 
-        public async Task ExecuteOpeningSitemapExplorer(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public async Task ExecuteOpeningSitemapExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string filter)
         {
             string operation = string.Format(Properties.OperationNames.ExportingSitemapXmlFormat1, connectionData?.Name);
 
@@ -126,7 +126,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await OpeningSitemapExplorer(connectionData, commonConfig);
+                await OpeningSitemapExplorer(connectionData, commonConfig, filter);
             }
             catch (Exception ex)
             {
@@ -138,7 +138,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task OpeningSitemapExplorer(ConnectionData connectionData, CommonConfiguration commonConfig)
+        private async Task OpeningSitemapExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string filter)
         {
             if (connectionData == null)
             {
@@ -161,7 +161,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
 
-            WindowHelper.OpenExportSiteMapWindow(this._iWriteToOutput, service, commonConfig);
+            WindowHelper.OpenExportSiteMapWindow(this._iWriteToOutput, service, commonConfig, filter);
         }
 
         #endregion Экспортирование Sitemap Xml.

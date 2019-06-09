@@ -44,7 +44,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
              IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            )
+            , string filter
+        )
         {
             this.IncreaseInit();
 
@@ -72,6 +73,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             };
 
             LoadFromConfig();
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                txtBFilter.Text = filter;
+            }
 
             txtBFilter.SelectionLength = 0;
             txtBFilter.SelectionStart = txtBFilter.Text.Length;
@@ -223,8 +229,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     list = list.Where(ent =>
                     {
-                        return (ent.SiteMapName ?? string.Empty).Contains(textName)
-                                || (ent.SiteMapNameUnique ?? string.Empty).Contains(textName);
+                        return (ent.SiteMapName ?? string.Empty).IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                                || (ent.SiteMapNameUnique ?? string.Empty).IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                                ;
                     });
                 }
             }

@@ -1168,13 +1168,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartExportSitemapXml(ConnectionData connectionData, CommonConfiguration commonConfig)
+        public void StartExplorerSitemapXml(ConnectionData connectionData, CommonConfiguration commonConfig, string filter)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._explorerController.ExecuteOpeningSitemapExplorer(connectionData, commonConfig);
+                    this._explorerController.ExecuteOpeningSitemapExplorer(connectionData, commonConfig, filter);
                 }
                 catch (Exception ex)
                 {

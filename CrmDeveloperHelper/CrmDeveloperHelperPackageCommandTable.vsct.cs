@@ -922,6 +922,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeXmlConvertFetchXmlToJavaScriptCodeCommandId = 0x2161;
         public const int CodeXmlRibbonDiffInsertIntellisenseContextCommandId = 0x2178;
         public const int CodeXmlRibbonDiffRemoveIntellisenseContextCommandId = 0x2179;
+        public const int CodeXmlSiteMapExplorerCommandId = 0x21A4;
         public const int CodeXmlShowDifferenceSiteMapCommandId = 0x217E;
         public const int CodeXmlUpdateSiteMapCommandId = 0x2183;
         public const int CodeXmlShowDifferenceRibbonCommandId = 0x217B;

@@ -3337,7 +3337,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleExportSitemap()
+        public void HandleExplorerSitemap(string filter = null)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -3355,7 +3355,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 try
                 {
-                    Controller.StartExportSitemapXml(connectionData, commonConfig);
+                    Controller.StartExplorerSitemapXml(connectionData, commonConfig, filter);
                 }
                 catch (Exception ex)
                 {

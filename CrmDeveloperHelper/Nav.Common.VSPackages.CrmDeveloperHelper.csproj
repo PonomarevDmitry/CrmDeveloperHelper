@@ -162,6 +162,7 @@
     <Compile Include="Commands\Xmls\CodeXmlShowDifferenceSiteMapInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlShowDifferenceSystemFormCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlShowDifferenceSystemFormInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\Xmls\CodeXmlSiteMapExplorerCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlUpdateRibbonDiffXmlCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlUpdateSavedQueryCommand.cs" />

@@ -1018,7 +1018,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         ExplorerController contr = new ExplorerController(this._iWriteToOutput);
 
-                        contr.ExecuteOpeningSitemapExplorer(connection1, _commonConfig);
+                        contr.ExecuteOpeningSitemapExplorer(connection1, _commonConfig, string.Empty);
                     }
                     catch (Exception ex)
                     {

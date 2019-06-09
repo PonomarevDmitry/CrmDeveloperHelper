@@ -17,7 +17,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 
         private static void ActionExecute(DTEHelper helper)
         {
-            helper.HandleExportSitemap();
+            helper.HandleExplorerSitemap();
         }
     }
 }

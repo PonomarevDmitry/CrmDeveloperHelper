@@ -2565,6 +2565,13 @@
         </Strings>
       </Button>
 
+      <Button guid="guidCommandSet" id="CodeXmlSiteMapExplorerCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>SiteMap Explorer</ButtonText>
+        </Strings>
+      </Button>
       <Button guid="guidCommandSet" id="CodeXmlShowDifferenceSiteMapCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
@@ -2591,7 +2598,6 @@
           <ButtonText>Show Difference with Default SiteMap Placeholder</ButtonText>
         </Strings>
       </Button>
-
 
       <Button guid="guidCommandSet" id="CodeXmlUpdateSiteMapCommandId" priority="0x0100" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -8385,15 +8391,17 @@
 
 
 
-
-    <CommandPlacement guid="guidCommandSet" id="CodeXmlShowDifferenceSiteMapCommandId" priority="0x107">
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlSiteMapExplorerCommandId" priority="0x0100">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap_MenuConnectionDyn" priority="0x108">
+    <CommandPlacement guid="guidCommandSet" id="CodeXmlShowDifferenceSiteMapCommandId" priority="0x0110">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap_MenuConnectionDyn" priority="0x0120">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap_MenuSiteMapsDyn" priority="0x109">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap_MenuSiteMapsDyn" priority="0x0130">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuXml_GroupShowDifferenceSiteMap" />
     </CommandPlacement>
 
@@ -12540,6 +12548,7 @@
       <IDSymbol name="CodeXmlRibbonDiffInsertIntellisenseContextCommandId" value="0x2178" />
       <IDSymbol name="CodeXmlRibbonDiffRemoveIntellisenseContextCommandId" value="0x2179" />
 
+      <IDSymbol name="CodeXmlSiteMapExplorerCommandId" value="0x21A4" />
       <IDSymbol name="CodeXmlShowDifferenceSiteMapCommandId" value="0x217E" />
       <IDSymbol name="CodeXmlUpdateSiteMapCommandId" value="0x2183" />
 
@@ -13045,7 +13054,7 @@
     <!-- 0x1336 -->
 
     <!-- Commands -->
-    <!-- 0x21A4 -->
+    <!-- 0x21A5 -->
 
 
   </Symbols>

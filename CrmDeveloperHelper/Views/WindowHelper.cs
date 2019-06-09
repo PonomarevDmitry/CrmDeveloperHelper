@@ -1281,7 +1281,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , IOrganizationServiceExtented service
             , CommonConfiguration commonConfig
-            )
+        )
+        {
+            OpenExportSiteMapWindow(iWriteToOutput, service, commonConfig, string.Empty);
+        }
+
+        public static void OpenExportSiteMapWindow(
+            IWriteToOutput iWriteToOutput
+            , IOrganizationServiceExtented service
+            , CommonConfiguration commonConfig
+            , string filter
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -1291,6 +1301,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput
                         , service
                         , commonConfig
+                        , filter
                     );
 
                     form.ShowDialog();
