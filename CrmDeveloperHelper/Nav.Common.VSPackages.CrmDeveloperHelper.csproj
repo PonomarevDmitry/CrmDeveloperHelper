@@ -91,7 +91,6 @@
   <ItemGroup>
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.cs" />
-    <Compile Include="Commands\AbstractCommand.Generic.cs" />
     <Compile Include="Commands\ListForPublish\AddFilesIntoListForPublishCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpAddPluginStepCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpAddPluginStepInConnectionCommand.cs" />
