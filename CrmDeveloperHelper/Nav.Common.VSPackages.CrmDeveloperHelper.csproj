@@ -89,6 +89,7 @@
     <DeployExtension>False</DeployExtension>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\AbstractAddObjectToSolutionLastCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\ListForPublish\AddFilesIntoListForPublishCommand.cs" />

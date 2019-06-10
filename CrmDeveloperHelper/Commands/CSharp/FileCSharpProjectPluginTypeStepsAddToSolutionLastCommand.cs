@@ -9,137 +9,60 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
-    internal sealed class FileCSharpProjectPluginTypeStepsAddToSolutionLastCommand : IServiceProviderOwner
+    internal sealed class FileCSharpProjectPluginTypeStepsAddToSolutionLastCommand : AbstractAddObjectToSolutionLastCommand
     {
-        private readonly Package _package;
-
-        public IServiceProvider ServiceProvider => this._package;
-
-        private const int _baseIdStart = PackageIds.FileCSharpProjectPluginTypeStepsAddToSolutionLastCommandId;
-
-        private FileCSharpProjectPluginTypeStepsAddToSolutionLastCommand(Package package)
+        private FileCSharpProjectPluginTypeStepsAddToSolutionLastCommand(OleMenuCommandService commandService)
+            : base(
+                commandService
+                , PackageIds.FileCSharpProjectPluginTypeStepsAddToSolutionLastCommandId
+                , ActionExecuteAsync
+                , ActionBeforeQueryStatus
+            )
         {
-            this._package = package ?? throw new ArgumentNullException(nameof(package));
 
-            OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-
-            if (commandService != null)
-            {
-                for (int i = 0; i < ConnectionData.CountLastSolutions; i++)
-                {
-                    var menuCommandID = new CommandID(PackageGuids.guidDynamicCommandSet, _baseIdStart + i);
-
-                    var menuCommand = new OleMenuCommand(this.menuItemCallback, menuCommandID);
-
-                    menuCommand.Enabled = menuCommand.Visible = false;
-
-                    menuCommand.BeforeQueryStatus += menuItem_BeforeQueryStatus;
-
-                    commandService.AddCommand(menuCommand);
-                }
-            }
         }
 
         public static FileCSharpProjectPluginTypeStepsAddToSolutionLastCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FileCSharpProjectPluginTypeStepsAddToSolutionLastCommand(package);
+            Instance = new FileCSharpProjectPluginTypeStepsAddToSolutionLastCommand(commandService);
         }
 
-        private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
+        private static async void ActionExecuteAsync(DTEHelper helper, ConnectionData connectionData, string solutionUniqueName)
         {
-            try
+            var listFiles = helper.GetSelectedProjectItemsInSolutionExplorer(FileOperations.SupportsCSharpType, false).ToList();
+
+            var pluginTypeNames = new List<string>();
+            var handledFilePaths = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+            helper.ActivateOutputWindow(null);
+
+            foreach (var item in listFiles)
             {
-                if (sender is OleMenuCommand menuCommand)
+                string filePath = item.FileNames[1];
+
+                if (handledFilePaths.Add(filePath))
                 {
-                    menuCommand.Enabled = menuCommand.Visible = false;
+                    helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, filePath);
+                    var typeName = await PropertiesHelper.GetTypeFullNameAsync(item);
 
-                    var connectionConfig = ConnectionConfiguration.Get();
-
-                    if (connectionConfig.CurrentConnectionData != null)
+                    if (!string.IsNullOrEmpty(typeName))
                     {
-                        var index = menuCommand.CommandID.ID - _baseIdStart;
-
-                        if (0 <= index && index < connectionConfig.CurrentConnectionData.LastSelectedSolutionsUniqueName.Count)
-                        {
-                            menuCommand.Text = connectionConfig.CurrentConnectionData.LastSelectedSolutionsUniqueName.ElementAt(index);
-
-                            menuCommand.Enabled = menuCommand.Visible = true;
-
-                            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(this, menuCommand, false);
-                        }
+                        pluginTypeNames.Add(typeName);
                     }
                 }
             }
-            catch (Exception ex)
+
+            if (pluginTypeNames.Any())
             {
-                DTEHelper.WriteExceptionToOutput(null, ex);
+                helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(null, solutionUniqueName, false, pluginTypeNames.ToArray());
             }
         }
 
-        private async void menuItemCallback(object sender, EventArgs e)
+        private static void ActionBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            try
-            {
-                OleMenuCommand menuCommand = sender as OleMenuCommand;
-                if (menuCommand == null)
-                {
-                    return;
-                }
-
-                var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
-                if (applicationObject == null)
-                {
-                    return;
-                }
-
-                var connectionConfig = ConnectionConfiguration.Get();
-
-                if (connectionConfig.CurrentConnectionData != null)
-                {
-                    var index = menuCommand.CommandID.ID - _baseIdStart;
-
-                    if (0 <= index && index < connectionConfig.CurrentConnectionData.LastSelectedSolutionsUniqueName.Count)
-                    {
-                        string solutionUniqueName = connectionConfig.CurrentConnectionData.LastSelectedSolutionsUniqueName.ElementAt(index);
-
-                        var helper = DTEHelper.Create(applicationObject);
-
-                        var listFiles = helper.GetSelectedProjectItemsInSolutionExplorer(FileOperations.SupportsCSharpType, false).ToList();
-
-                        var pluginTypeNames = new List<string>();
-                        var handledFilePaths = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-
-                        helper.ActivateOutputWindow(null);
-
-                        foreach (var item in listFiles)
-                        {
-                            string filePath = item.FileNames[1];
-
-                            if (handledFilePaths.Add(filePath))
-                            {
-                                helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, filePath);
-                                var typeName = await PropertiesHelper.GetTypeFullNameAsync(item);
-
-                                if (!string.IsNullOrEmpty(typeName))
-                                {
-                                    pluginTypeNames.Add(typeName);
-                                }
-                            }
-                        }
-
-                        if (pluginTypeNames.Any())
-                        {
-                            helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(null, solutionUniqueName, false, pluginTypeNames.ToArray());
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                DTEHelper.WriteExceptionToOutput(null, ex);
-            }
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(applicationObject, menuCommand, false);
         }
     }
 }
