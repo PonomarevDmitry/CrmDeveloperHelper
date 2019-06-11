@@ -17,12 +17,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         }
 
-        protected sealed override ICollection<ConnectionData> GetConnectionDataSource(ConnectionConfiguration connectionConfig)
+        protected override ICollection<ConnectionData> GetElementSourceCollection()
         {
+            var connectionConfig = ConnectionConfiguration.Get();
+
             return connectionConfig.GetConnectionsByGroupWithoutCurrent();
         }
 
-        protected override string GetConnectionName(ConnectionData connectionData)
+        protected override string GetElementName(ConnectionData connectionData)
         {
             return connectionData.Name;
         }
