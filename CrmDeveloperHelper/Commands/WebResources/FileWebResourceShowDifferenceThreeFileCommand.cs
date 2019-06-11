@@ -1,48 +1,22 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.ComponentModel.Design;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    public sealed class FileWebResourceShowDifferenceThreeFileCommand : IServiceProviderOwner
+    internal sealed class FileWebResourceShowDifferenceThreeFileCommand : AbstractDynamicCommandConnectionPair
     {
-        private readonly Package _package;
-
-        public IServiceProvider ServiceProvider => this._package;
-
         private readonly ShowDifferenceThreeFileType _differenceType;
 
-        private readonly int _baseIdStart;
-        private readonly string _formatButtonName;
-
-        private FileWebResourceShowDifferenceThreeFileCommand(Package package, int baseIdStart, ShowDifferenceThreeFileType differenceType, string formatButtonName)
+        private FileWebResourceShowDifferenceThreeFileCommand(OleMenuCommandService commandService, int baseIdStart, ShowDifferenceThreeFileType differenceType, string formatButtonName)
+            : base(
+                commandService
+                , baseIdStart
+                , formatButtonName
+            )
         {
-            this._differenceType = differenceType;
-            this._baseIdStart = baseIdStart;
-            this._formatButtonName = formatButtonName;
 
-            this._package = package ?? throw new ArgumentNullException(nameof(package));
-
-            OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-
-            if (commandService != null)
-            {
-                for (int i = 0; i < ConnectionData.CountConnectionToQuickList; i++)
-                {
-                    var menuCommandID = new CommandID(PackageGuids.guidDynamicCommandSet, _baseIdStart + i);
-
-                    var menuCommand = new OleMenuCommand(this.menuItemCallback, menuCommandID);
-
-                    menuCommand.Enabled = menuCommand.Visible = false;
-
-                    menuCommand.BeforeQueryStatus += menuItem_BeforeQueryStatus;
-
-                    commandService.AddCommand(menuCommand);
-                }
-            }
         }
 
         public static FileWebResourceShowDifferenceThreeFileCommand InstanceOneByOne { get; private set; }
@@ -51,102 +25,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
         public static FileWebResourceShowDifferenceThreeFileCommand InstanceThreeWay { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            InstanceOneByOne = new FileWebResourceShowDifferenceThreeFileCommand(package, PackageIds.FileWebResourceShowDifferenceOneByOneCommandId, ShowDifferenceThreeFileType.OneByOne, Properties.CommandNames.ShowDifferenceOneByOneCommandFormat2);
+            InstanceOneByOne = new FileWebResourceShowDifferenceThreeFileCommand(commandService, PackageIds.FileWebResourceShowDifferenceOneByOneCommandId, ShowDifferenceThreeFileType.OneByOne, Properties.CommandNames.ShowDifferenceOneByOneCommandFormat2);
 
-            InstanceTwoConnections = new FileWebResourceShowDifferenceThreeFileCommand(package, PackageIds.FileWebResourceShowDifferenceTwoConnectionsCommandId, ShowDifferenceThreeFileType.TwoConnections, Properties.CommandNames.ShowDifferenceTwoConnectionsCommandFormat2);
+            InstanceTwoConnections = new FileWebResourceShowDifferenceThreeFileCommand(commandService, PackageIds.FileWebResourceShowDifferenceTwoConnectionsCommandId, ShowDifferenceThreeFileType.TwoConnections, Properties.CommandNames.ShowDifferenceTwoConnectionsCommandFormat2);
 
-            InstanceThreeWay = new FileWebResourceShowDifferenceThreeFileCommand(package, PackageIds.FileWebResourceShowDifferenceThreeWayCommandId, ShowDifferenceThreeFileType.ThreeWay, Properties.CommandNames.ShowDifferenceThreeWayCommandFormat2);
+            InstanceThreeWay = new FileWebResourceShowDifferenceThreeFileCommand(commandService, PackageIds.FileWebResourceShowDifferenceThreeWayCommandId, ShowDifferenceThreeFileType.ThreeWay, Properties.CommandNames.ShowDifferenceThreeWayCommandFormat2);
         }
 
-        private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
+        protected override void CommandAction(DTEHelper helper, Tuple<ConnectionData, ConnectionData> connectionDataPair)
         {
-            try
+            if (this._differenceType == ShowDifferenceThreeFileType.ThreeWay)
             {
-                if (sender is OleMenuCommand menuCommand)
+                var commonConfig = Model.CommonConfiguration.Get();
+
+                if (!commonConfig.DifferenceThreeWayAvaliable())
+                {
+                    return;
+                }
+            }
+
+            helper.HandleWebResourceThreeFileDifferenceCommand(connectionDataPair.Item1, connectionDataPair.Item2, _differenceType);
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, Tuple<ConnectionData, ConnectionData> connectionDataPair, OleMenuCommand menuCommand)
+        {
+            if (this._differenceType == ShowDifferenceThreeFileType.ThreeWay)
+            {
+                var commonConfig = Model.CommonConfiguration.Get();
+
+                if (!commonConfig.DifferenceThreeWayAvaliable())
                 {
                     menuCommand.Enabled = menuCommand.Visible = false;
 
-                    if (this._differenceType == ShowDifferenceThreeFileType.ThreeWay)
-                    {
-                        var commonConfig = Model.CommonConfiguration.Get();
-
-                        if (!commonConfig.DifferenceThreeWayAvaliable())
-                        {
-                            return;
-                        }
-                    }
-
-                    var index = menuCommand.CommandID.ID - _baseIdStart;
-
-                    var connectionConfig = Model.ConnectionConfiguration.Get();
-
-                    var list = connectionConfig.GetConnectionPairsByGroup();
-
-                    if (0 <= index && index < list.Count)
-                    {
-                        var connectionDataPair = list[index];
-
-                        menuCommand.Text = string.Format(_formatButtonName, connectionDataPair.Item1.Name, connectionDataPair.Item2.Name);
-
-                        menuCommand.Enabled = menuCommand.Visible = true;
-
-                        CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextSingle(this, menuCommand);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                DTEHelper.WriteExceptionToOutput(null, ex);
-            }
-        }
-
-        private void menuItemCallback(object sender, EventArgs e)
-        {
-            try
-            {
-                OleMenuCommand menuCommand = sender as OleMenuCommand;
-                if (menuCommand == null)
-                {
                     return;
                 }
-
-                var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
-                if (applicationObject == null)
-                {
-                    return;
-                }
-
-                if (this._differenceType == ShowDifferenceThreeFileType.ThreeWay)
-                {
-                    var commonConfig = Model.CommonConfiguration.Get();
-
-                    if (!commonConfig.DifferenceThreeWayAvaliable())
-                    {
-                        return;
-                    }
-                }
-
-                var index = menuCommand.CommandID.ID - _baseIdStart;
-
-                var connectionConfig = Model.ConnectionConfiguration.Get();
-
-                var list = connectionConfig.GetConnectionPairsByGroup();
-
-                if (0 <= index && index < list.Count)
-                {
-                    var connectionPair = list[index];
-
-                    var helper = DTEHelper.Create(applicationObject);
-
-                    helper.HandleWebResourceThreeFileDifferenceCommand(connectionPair.Item1, connectionPair.Item2, _differenceType);
-                }
             }
-            catch (Exception ex)
-            {
-                DTEHelper.WriteExceptionToOutput(null, ex);
-            }
+
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextSingle(applicationObject, menuCommand);
         }
     }
 }

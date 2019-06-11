@@ -1,53 +1,33 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.ComponentModel.Design;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 {
-    public sealed class CodeReportShowDifferenceThreeFileCommand : IServiceProviderOwner
+    internal sealed class CodeReportShowDifferenceThreeFileCommand : AbstractDynamicCommandConnectionPair
     {
-        private readonly Package _package;
         private readonly string _fieldName;
         private readonly string _fieldTitle;
-
-        public IServiceProvider ServiceProvider => this._package;
-
         private readonly ShowDifferenceThreeFileType _differenceType;
 
-        private readonly int _baseIdStart;
-        private readonly string _formatButtonName;
-
-        private CodeReportShowDifferenceThreeFileCommand(Package package, int baseIdStart, string fieldName, string fieldTitle, ShowDifferenceThreeFileType differenceType, string formatButtonName)
+        private CodeReportShowDifferenceThreeFileCommand(
+            OleMenuCommandService commandService
+            , int baseIdStart
+            , string fieldName
+            , string fieldTitle
+            , ShowDifferenceThreeFileType differenceType
+            , string formatButtonName
+        ) : base(
+                commandService
+                , baseIdStart
+                , formatButtonName
+            )
         {
             this._differenceType = differenceType;
-            this._baseIdStart = baseIdStart;
-            this._formatButtonName = formatButtonName;
             this._fieldName = fieldName;
             this._fieldTitle = fieldTitle;
-
-            this._package = package ?? throw new ArgumentNullException(nameof(package));
-
-            OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-
-            if (commandService != null)
-            {
-                for (int i = 0; i < ConnectionData.CountConnectionToQuickList; i++)
-                {
-                    var menuCommandID = new CommandID(PackageGuids.guidDynamicCommandSet, _baseIdStart + i);
-
-                    var menuCommand = new OleMenuCommand(this.menuItemCallback, menuCommandID);
-
-                    menuCommand.Enabled = menuCommand.Visible = false;
-
-                    menuCommand.BeforeQueryStatus += menuItem_BeforeQueryStatus;
-
-                    commandService.AddCommand(menuCommand);
-                }
-            }
         }
 
         public static CodeReportShowDifferenceThreeFileCommand InstanceOneByOneOriginalBodyText { get; private set; }
@@ -62,10 +42,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 
         public static CodeReportShowDifferenceThreeFileCommand InstanceThreeWayBodyText { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
             InstanceOneByOneOriginalBodyText = new CodeReportShowDifferenceThreeFileCommand(
-                package
+                commandService
                 , PackageIds.CodeReportShowDifferenceOriginalBodyTextOneByOneCommandId
                 , Report.Schema.Attributes.originalbodytext
                 , Report.Schema.Headers.originalbodytext
@@ -74,7 +54,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
             );
 
             InstanceTwoConnectionsOriginalBodyText = new CodeReportShowDifferenceThreeFileCommand(
-                package
+                commandService
                 , PackageIds.CodeReportShowDifferenceOriginalBodyTextTwoConnectionsCommandId
                 , Report.Schema.Attributes.originalbodytext
                 , Report.Schema.Headers.originalbodytext
@@ -83,7 +63,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
             );
 
             InstanceThreeWayOriginalBodyText = new CodeReportShowDifferenceThreeFileCommand(
-                package
+                commandService
                 , PackageIds.CodeReportShowDifferenceOriginalBodyTextThreeWayCommandId
                 , Report.Schema.Attributes.originalbodytext
                 , Report.Schema.Headers.originalbodytext
@@ -92,7 +72,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
             );
 
             InstanceOneByOneBodyText = new CodeReportShowDifferenceThreeFileCommand(
-                package
+                commandService
                 , PackageIds.CodeReportShowDifferenceBodyTextOneByOneCommandId
                 , Report.Schema.Attributes.bodytext
                 , Report.Schema.Headers.bodytext
@@ -101,7 +81,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
             );
 
             InstanceTwoConnectionsBodyText = new CodeReportShowDifferenceThreeFileCommand(
-                package
+                commandService
                 , PackageIds.CodeReportShowDifferenceBodyTextTwoConnectionsCommandId
                 , Report.Schema.Attributes.bodytext
                 , Report.Schema.Headers.bodytext
@@ -110,7 +90,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
             );
 
             InstanceThreeWayBodyText = new CodeReportShowDifferenceThreeFileCommand(
-                package
+                commandService
                 , PackageIds.CodeReportShowDifferenceBodyTextThreeWayCommandId
                 , Report.Schema.Attributes.bodytext
                 , Report.Schema.Headers.bodytext
@@ -119,93 +99,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
             );
         }
 
-        private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
+        protected override void CommandAction(DTEHelper helper, Tuple<ConnectionData, ConnectionData> connectionDataPair)
         {
-            try
+            if (this._differenceType == ShowDifferenceThreeFileType.ThreeWay)
             {
-                if (sender is OleMenuCommand menuCommand)
+                var commonConfig = Model.CommonConfiguration.Get();
+
+                if (!commonConfig.DifferenceThreeWayAvaliable())
                 {
-                    menuCommand.Enabled = menuCommand.Visible = false;
-
-                    if (this._differenceType == ShowDifferenceThreeFileType.ThreeWay)
-                    {
-                        var commonConfig = Model.CommonConfiguration.Get();
-
-                        if (!commonConfig.DifferenceThreeWayAvaliable())
-                        {
-                            return;
-                        }
-                    }
-
-                    var index = menuCommand.CommandID.ID - _baseIdStart;
-
-                    var connectionConfig = Model.ConnectionConfiguration.Get();
-
-                    var list = connectionConfig.GetConnectionPairsByGroup();
-
-                    if (0 <= index && index < list.Count)
-                    {
-                        var connectionDataPair = list[index];
-
-                        menuCommand.Text = string.Format(_formatButtonName, connectionDataPair.Item1.Name, connectionDataPair.Item2.Name);
-
-                        menuCommand.Enabled = menuCommand.Visible = true;
-
-                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentReport(this, menuCommand);
-                    }
+                    return;
                 }
             }
-            catch (Exception ex)
-            {
-                DTEHelper.WriteExceptionToOutput(null, ex);
-            }
+
+            helper.HandleReportThreeFileDifferenceCommand(connectionDataPair.Item1, connectionDataPair.Item2, _fieldName, _fieldTitle, _differenceType);
         }
 
-        private void menuItemCallback(object sender, EventArgs e)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, Tuple<ConnectionData, ConnectionData> connectionDataPair, OleMenuCommand menuCommand)
         {
-            try
+            if (this._differenceType == ShowDifferenceThreeFileType.ThreeWay)
             {
-                OleMenuCommand menuCommand = sender as OleMenuCommand;
-                if (menuCommand == null)
+                var commonConfig = Model.CommonConfiguration.Get();
+
+                if (!commonConfig.DifferenceThreeWayAvaliable())
                 {
+                    menuCommand.Enabled = menuCommand.Visible = false;
                     return;
                 }
-
-                var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
-                if (applicationObject == null)
-                {
-                    return;
-                }
-
-                if (this._differenceType == ShowDifferenceThreeFileType.ThreeWay)
-                {
-                    var commonConfig = Model.CommonConfiguration.Get();
-
-                    if (!commonConfig.DifferenceThreeWayAvaliable())
-                    {
-                        return;
-                    }
-                }
-
-                var index = menuCommand.CommandID.ID - _baseIdStart;
-
-                var connectionConfig = Model.ConnectionConfiguration.Get();
-
-                var list = connectionConfig.GetConnectionPairsByGroup();
-
-                if (0 <= index && index < list.Count)
-                {
-                    var connectionPair = list[index];
-
-                    var helper = DTEHelper.Create(applicationObject);
-
-                    helper.HandleReportThreeFileDifferenceCommand(connectionPair.Item1, connectionPair.Item2, _fieldName, _fieldTitle, _differenceType);
-                }
             }
-            catch (Exception ex)
-            {
-                DTEHelper.WriteExceptionToOutput(null, ex);
-            }
+
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentReport(applicationObject, menuCommand);
         }
     }
 }
