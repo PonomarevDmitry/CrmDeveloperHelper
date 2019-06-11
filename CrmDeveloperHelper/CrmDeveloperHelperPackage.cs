@@ -473,7 +473,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonPluginTreeCommand.Initialize(this);
             CommonSdkMessageTreeCommand.Initialize(this);
             CommonSdkMessageRequestTreeCommand.Initialize(this);
-            CommonExportOpenLastSelectedSolutionCommand.Initialize(this);
+            CommonExportOpenLastSelectedSolutionCommand.Initialize(commandService);
             CommonCheckComponentTypeEnumCommand.Initialize(commandService);
             CommonCheckCreateAllDependencyNodeDescriptionCommand.Initialize(commandService);
             CommonOpenDefaultSolutionInWebCommand.Initialize(commandService);
