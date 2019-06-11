@@ -743,7 +743,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        internal static void ActionBeforeQueryStatusSolutionExplorerSingleItemContainsProject(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        internal static void ActionBeforeQueryStatusSolutionExplorerSingleItemContainsProject(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
             ObjectCache cache = MemoryCache.Default;
             const string cacheName = nameof(ActionBeforeQueryStatusSolutionExplorerSingleItemContainsProject);
@@ -756,16 +756,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             else
             {
-                if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
+                var helper = DTEHelper.Create(applicationObject);
+
+                var projectItem = helper.GetSingleSelectedProjectItemInSolutionExplorer(FileOperations.SupportsCSharpType);
+
+                if (projectItem != null && projectItem.ContainingProject != null)
                 {
-                    var helper = DTEHelper.Create(applicationObject);
-
-                    var projectItem = helper.GetSingleSelectedProjectItemInSolutionExplorer(FileOperations.SupportsCSharpType);
-
-                    if (projectItem != null && projectItem.ContainingProject != null)
-                    {
-                        visible = true;
-                    }
+                    visible = true;
                 }
 
                 cache.Set(cacheName, visible, new CacheItemPolicy()
@@ -775,6 +772,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
+        internal static void ActionBeforeQueryStatusSolutionExplorerSingleItemContainsProject(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        {
+            if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
+            {
+                ActionBeforeQueryStatusSolutionExplorerSingleItemContainsProject(applicationObject, menuCommand);
+            }
+            else
             {
                 menuCommand.Enabled = menuCommand.Visible = false;
             }
@@ -1039,7 +1048,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        internal static void ActionBeforeQueryStatusSolutionExplorerCSharpSingle(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        internal static void ActionBeforeQueryStatusSolutionExplorerCSharpSingle(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
             ObjectCache cache = MemoryCache.Default;
             const string cacheName = nameof(ActionBeforeQueryStatusSolutionExplorerCSharpSingle);
@@ -1052,10 +1061,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             else
             {
-                if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
-                {
-                    visible = CheckInSolutionExplorerSingle(applicationObject, FileOperations.SupportsCSharpType);
-                }
+                visible = CheckInSolutionExplorerSingle(applicationObject, FileOperations.SupportsCSharpType);
 
                 cache.Set(cacheName, visible, new CacheItemPolicy()
                 {
@@ -1064,6 +1070,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
+        internal static void ActionBeforeQueryStatusSolutionExplorerCSharpSingle(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        {
+            if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
+            {
+                ActionBeforeQueryStatusSolutionExplorerCSharpSingle(applicationObject, menuCommand);
+            }
+            else
             {
                 menuCommand.Enabled = menuCommand.Visible = false;
             }
