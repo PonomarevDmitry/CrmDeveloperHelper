@@ -12,8 +12,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             : base(
                 commandService
                 , PackageIds.DocumentsCSharpProjectPluginTypeStepsAddToSolutionLastCommandId
-                , ActionExecuteAsync
-                , CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsCSharp
             )
         {
 
@@ -26,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             Instance = new DocumentsCSharpProjectPluginTypeStepsAddToSolutionLastCommand(commandService);
         }
 
-        private static async void ActionExecuteAsync(DTEHelper helper, ConnectionData connectionData, string solutionUniqueName)
+        protected override async void CommandAction(DTEHelper helper, string solutionUniqueName)
         {
             var list = helper.GetOpenedDocumentsAsDocument(FileOperations.SupportsCSharpType).ToList();
 
@@ -49,6 +47,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             {
                 helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(null, solutionUniqueName, false, pluginTypeNames.ToArray());
             }
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, string solutionUniqueName, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsCSharp(applicationObject, menuCommand);
         }
     }
 }

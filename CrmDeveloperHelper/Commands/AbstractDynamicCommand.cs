@@ -1,5 +1,4 @@
-﻿using EnvDTE80;
-using Microsoft.VisualStudio.Shell;
+﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using System;
 using System.Collections.Generic;
@@ -114,7 +113,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
         }
 
-        protected virtual void CommandBeforeQueryStatus(DTE2 applicationObject, T element, OleMenuCommand menuCommand)
+        protected virtual void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, T element, OleMenuCommand menuCommand)
         {
 
         }

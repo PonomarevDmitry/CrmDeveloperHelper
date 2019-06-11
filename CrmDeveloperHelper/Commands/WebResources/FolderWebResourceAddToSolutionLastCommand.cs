@@ -12,8 +12,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
             : base(
                 commandService
                 , PackageIds.FolderWebResourceAddToSolutionLastCommandId
-                , ActionExecute
-                , CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceRecursive
             )
         {
 
@@ -26,11 +24,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
             Instance = new FolderWebResourceAddToSolutionLastCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper, ConnectionData connectionData, string solutionUniqueName)
+        protected override void CommandAction(DTEHelper helper, string solutionUniqueName)
         {
             List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceTextType, true).ToList();
 
             helper.HandleAddingWebResourcesToSolutionCommand(null, solutionUniqueName, false, selectedFiles);
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, string solutionUniqueName, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceRecursive(applicationObject, menuCommand);
         }
     }
 }

@@ -15,8 +15,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
             : base(
                 commandService
                 , PackageIds.ListForPublishAddToSolutionLastCommandId
-                , ActionExecute
-                , CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceTextAny
             )
         {
 
@@ -29,21 +27,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
             Instance = new ListForPublishAddToSolutionLastCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper, ConnectionData connectionData, string solutionUniqueName)
+        protected override void CommandAction(DTEHelper helper, string solutionUniqueName)
         {
-            List<SelectedFile> selectedFiles = helper.GetSelectedFilesFromListForPublish().ToList();
+            var connectionConfig = ConnectionConfiguration.Get();
 
-            if (selectedFiles.Count > 0)
+            if (connectionConfig.CurrentConnectionData != null)
             {
-                helper.ShowListForPublish(connectionData);
+                List<SelectedFile> selectedFiles = helper.GetSelectedFilesFromListForPublish().ToList();
 
-                helper.HandleAddingWebResourcesToSolutionCommand(null, solutionUniqueName, false, selectedFiles);
+                if (selectedFiles.Count > 0)
+                {
+                    helper.ShowListForPublish(connectionConfig.CurrentConnectionData);
+
+                    helper.HandleAddingWebResourcesToSolutionCommand(null, solutionUniqueName, false, selectedFiles);
+                }
+                else
+                {
+                    helper.WriteToOutput(connectionConfig.CurrentConnectionData, Properties.OutputStrings.PublishListIsEmpty);
+                    helper.ActivateOutputWindow(connectionConfig.CurrentConnectionData);
+                }
             }
-            else
-            {
-                helper.WriteToOutput(connectionData, Properties.OutputStrings.PublishListIsEmpty);
-                helper.ActivateOutputWindow(connectionData);
-            }
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, string solutionUniqueName, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceTextAny(applicationObject, menuCommand);
         }
     }
 }

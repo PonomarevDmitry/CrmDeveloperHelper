@@ -15,8 +15,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
             : base(
                 commandService
                 , PackageIds.DocumentsWebResourceAddToSolutionLastCommandId
-                , ActionExecute
-                , CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsWebResource
             )
         {
 
@@ -29,11 +27,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
             Instance = new DocumentsWebResourceAddToSolutionLastCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper, ConnectionData connectionData, string solutionUniqueName)
+        protected override void CommandAction(DTEHelper helper, string solutionUniqueName)
         {
             List<SelectedFile> selectedFiles = helper.GetOpenedDocuments(FileOperations.SupportsWebResourceType).ToList();
 
             helper.HandleAddingWebResourcesToSolutionCommand(null, solutionUniqueName, false, selectedFiles);
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, string solutionUniqueName, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsWebResource(applicationObject, menuCommand);
         }
     }
 }

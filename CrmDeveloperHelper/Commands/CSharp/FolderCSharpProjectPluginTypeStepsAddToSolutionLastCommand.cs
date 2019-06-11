@@ -15,8 +15,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             : base(
                 commandService
                 , PackageIds.FolderCSharpProjectPluginTypeStepsAddToSolutionLastCommandId
-                , ActionExecuteAsync
-                , ActionBeforeQueryStatus
             )
         {
 
@@ -29,7 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             Instance = new FolderCSharpProjectPluginTypeStepsAddToSolutionLastCommand(commandService);
         }
 
-        private static async void ActionExecuteAsync(DTEHelper helper, ConnectionData connectionData, string solutionUniqueName)
+        protected override async void CommandAction(DTEHelper helper, string solutionUniqueName)
         {
             var listFiles = helper.GetSelectedProjectItemsInSolutionExplorer(FileOperations.SupportsCSharpType, true).ToList();
 
@@ -60,7 +58,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             }
         }
 
-        private static void ActionBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, string solutionUniqueName, OleMenuCommand menuCommand)
         {
             CommonHandlers.ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(applicationObject, menuCommand, true);
         }

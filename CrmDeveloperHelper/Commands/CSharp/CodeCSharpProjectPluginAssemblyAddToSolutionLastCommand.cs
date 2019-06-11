@@ -10,8 +10,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             : base(
                 commandService
                 , PackageIds.CodeCSharpProjectPluginAssemblyAddToSolutionLastCommandId
-                , ActionExecute
-                , ActionBeforeQueryStatus
             )
         {
 
@@ -24,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             Instance = new CodeCSharpProjectPluginAssemblyAddToSolutionLastCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper, ConnectionData connectionData, string solutionUniqueName)
+        protected override void CommandAction(DTEHelper helper, string solutionUniqueName)
         {
             var document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsCSharpType);
 
@@ -37,7 +35,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             }
         }
 
-        private static void ActionBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, string solutionUniqueName, OleMenuCommand menuCommand)
         {
             CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp(applicationObject, menuCommand);
 

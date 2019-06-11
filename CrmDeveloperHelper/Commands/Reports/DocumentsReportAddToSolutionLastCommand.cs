@@ -12,8 +12,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
             : base(
                 commandService
                 , PackageIds.DocumentsReportAddToSolutionLastCommandId
-                , ActionExecute
-                , CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsReport
             )
         {
 
@@ -26,11 +24,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
             Instance = new DocumentsReportAddToSolutionLastCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper, ConnectionData connectionData, string solutionUniqueName)
+        protected override void CommandAction(DTEHelper helper, string solutionUniqueName)
         {
             List<SelectedFile> selectedFiles = helper.GetOpenedDocuments(FileOperations.SupportsReportType).ToList();
 
             helper.HandleAddingReportsToSolutionCommand(null, solutionUniqueName, false, selectedFiles);
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, string solutionUniqueName, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsReport(applicationObject, menuCommand);
         }
     }
 }

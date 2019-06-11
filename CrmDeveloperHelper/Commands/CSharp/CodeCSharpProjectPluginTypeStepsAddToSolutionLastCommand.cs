@@ -10,8 +10,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             : base(
                 commandService
                 , PackageIds.CodeCSharpProjectPluginTypeStepsAddToSolutionLastCommandId
-                , ActionExecuteAsync
-                , ActionBeforeQueryStatus
             )
         {
 
@@ -24,7 +22,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             Instance = new CodeCSharpProjectPluginTypeStepsAddToSolutionLastCommand(commandService);
         }
 
-        private static async void ActionExecuteAsync(DTEHelper helper, ConnectionData connectionData, string solutionUniqueName)
+        protected override async void CommandAction(DTEHelper helper, string solutionUniqueName)
         {
             var document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsCSharpType);
 
@@ -36,7 +34,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             helper.HandleAddingPluginTypeProcessingStepsByProjectCommand(null, solutionUniqueName, false, fileType);
         }
 
-        private static void ActionBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, string solutionUniqueName, OleMenuCommand menuCommand)
         {
             CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp(applicationObject, menuCommand);
 
