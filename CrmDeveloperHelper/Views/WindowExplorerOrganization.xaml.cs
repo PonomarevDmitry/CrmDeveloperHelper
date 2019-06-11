@@ -394,7 +394,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         || string.Equals(fieldTitle, Organization.Schema.Attributes.referencesitemapxml, StringComparison.InvariantCultureIgnoreCase)
                         )
                     {
-                        schemaName = CommonExportXsdSchemasCommand.SchemaSiteMapXml;
+                        schemaName = AbstractDynamicCommandXsdSchemas.SchemaSiteMapXml;
                     }
 
                     siteMapXml = ContentCoparerHelper.FormatXmlByConfiguration(siteMapXml, _commonConfig, _xmlOptions

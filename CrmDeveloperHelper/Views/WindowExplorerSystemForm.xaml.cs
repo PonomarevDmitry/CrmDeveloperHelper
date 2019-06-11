@@ -633,7 +633,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (string.Equals(fieldName, SystemForm.Schema.Attributes.formxml, StringComparison.InvariantCultureIgnoreCase))
                 {
                     xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
-                        , schemaName: CommonExportXsdSchemasCommand.SchemaFormXml
+                        , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
                         , formId: idSystemForm
                     );
                 }
@@ -693,7 +693,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     if (string.Equals(fieldName, SystemForm.Schema.Attributes.formxml, StringComparison.InvariantCultureIgnoreCase))
                     {
                         backUpXmlContent = ContentCoparerHelper.FormatXmlByConfiguration(backUpXmlContent, _commonConfig, _xmlOptions
-                            , schemaName: CommonExportXsdSchemasCommand.SchemaFormXml
+                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
                             , formId: idSystemForm
                         );
                     }

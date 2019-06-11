@@ -1,92 +1,33 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
-using System;
-using System.ComponentModel.Design;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class CommonExportDefaultSitemapsCommand : IServiceProviderOwner
+    internal sealed class CommonExportDefaultSitemapsCommand : AbstractDynamicCommandDefaultSiteMap
     {
-        private readonly Package _package;
-
-        public IServiceProvider ServiceProvider => _package;
-
-        private const int _baseIdStart = PackageIds.CommonExportDefaultSitemapsCommandId;
-
-        internal static string[] ListDefaultSitemaps { get; private set; } = new string[]
+        private CommonExportDefaultSitemapsCommand(OleMenuCommandService commandService)
+            : base(
+                commandService
+                , PackageIds.CommonExportDefaultSitemapsCommandId
+            )
         {
-            "2011"
-            , "2013"
-            , "2015"
-            , "2015SP1"
-            , "2016"
-            , "2016SP1"
-            , "365.8.2"
-        };
 
-        private CommonExportDefaultSitemapsCommand(Package package)
-        {
-            _package = package ?? throw new ArgumentNullException(nameof(package));
-
-            OleMenuCommandService commandService = ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-
-            if (commandService != null)
-            {
-                for (int i = 0; i < ListDefaultSitemaps.Length; i++)
-                {
-                    CommandID menuCommandID = new CommandID(PackageGuids.guidDynamicCommandSet, _baseIdStart + i);
-
-                    OleMenuCommand menuCommand = new OleMenuCommand(menuItemCallback, menuCommandID);
-
-                    menuCommand.Enabled = menuCommand.Visible = true;
-
-                    menuCommand.Text = ListDefaultSitemaps[i];
-
-                    commandService.AddCommand(menuCommand);
-                }
-            }
         }
 
         public static CommonExportDefaultSitemapsCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonExportDefaultSitemapsCommand(package);
+            Instance = new CommonExportDefaultSitemapsCommand(commandService);
         }
 
-        private void menuItemCallback(object sender, EventArgs e)
+        protected override void CommandAction(DTEHelper helper, string selectedSitemap)
         {
-            try
-            {
-                OleMenuCommand menuCommand = sender as OleMenuCommand;
-                if (menuCommand == null)
-                {
-                    return;
-                }
+            helper.HandleExportDefaultSitemap(selectedSitemap);
+        }
 
-                EnvDTE80.DTE2 applicationObject = ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
-                if (applicationObject == null)
-                {
-                    return;
-                }
-
-                int index = menuCommand.CommandID.ID - _baseIdStart;
-
-                if (0 <= index && index < ListDefaultSitemaps.Length)
-                {
-                    string selectedSitemap = ListDefaultSitemaps[index];
-
-                    DTEHelper helper = DTEHelper.Create(applicationObject);
-
-                    helper.HandleExportDefaultSitemap(selectedSitemap);
-                }
-            }
-            catch (Exception ex)
-            {
-                DTEHelper.WriteExceptionToOutput(null, ex);
-            }
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, string selectedSitemap, OleMenuCommand menuCommand)
+        {
         }
     }
 }

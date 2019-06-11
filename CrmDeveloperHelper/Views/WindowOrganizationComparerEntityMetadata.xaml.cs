@@ -1818,7 +1818,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     if (!string.IsNullOrEmpty(ribbonDiffXml))
                     {
                         ribbonDiffXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonDiffXml, _commonConfig, XmlOptionsControls.RibbonFull
-                            , schemaName: CommonExportXsdSchemasCommand.SchemaRibbonXml
+                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
                             , ribbonEntityName: entity.LogicalName
                             );
 
@@ -1836,7 +1836,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     if (!string.IsNullOrEmpty(ribbonDiffXml))
                     {
                         ribbonDiffXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonDiffXml, _commonConfig, XmlOptionsControls.RibbonFull
-                            , schemaName: CommonExportXsdSchemasCommand.SchemaRibbonXml
+                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
                             , ribbonEntityName: entity.LogicalName
                             );
 
@@ -2085,7 +2085,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string ribbonDiffXml = await repositoryRibbonCustomization.GetRibbonDiffXmlAsync(_iWriteToOutput, entityMetadata, null);
 
                 ribbonDiffXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonDiffXml, _commonConfig, XmlOptionsControls.RibbonFull
-                    , schemaName: CommonExportXsdSchemasCommand.SchemaRibbonXml
+                    , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
                     , ribbonEntityName: entityMetadata.LogicalName
                     );
 

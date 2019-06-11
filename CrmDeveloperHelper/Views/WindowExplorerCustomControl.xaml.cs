@@ -503,7 +503,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     if (string.Equals(fieldName, CustomControl.Schema.Attributes.manifest, StringComparison.InvariantCultureIgnoreCase))
                     {
                         xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
-                            , schemaName: CommonExportXsdSchemasCommand.SchemaManifest
+                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaManifest
                             , customControlId: idCustomControl
                         );
                     }
@@ -564,7 +564,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     if (string.Equals(fieldName, CustomControl.Schema.Attributes.manifest, StringComparison.InvariantCultureIgnoreCase))
                     {
                         backUpXmlContent = ContentCoparerHelper.FormatXmlByConfiguration(backUpXmlContent, _commonConfig, _xmlOptions
-                            , schemaName: CommonExportXsdSchemasCommand.SchemaManifest
+                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaManifest
                             , customControlId: idCustomControl
                         );
                     }

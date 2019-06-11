@@ -452,7 +452,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     //if (_commonConfig.SetXmlSchemasDuringExport)
                     //{
-                    //    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaVisualizationDataDescription);
+                    //    var schemasResources = AbstractDynamicCommandXsdSchemas.GetXsdSchemas(AbstractDynamicCommandXsdSchemas.SchemaVisualizationDataDescription);
 
                     //    if (schemasResources != null)
                     //    {
@@ -466,7 +466,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     //}
 
                     xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
-                          , schemaName: CommonExportXsdSchemasCommand.SchemaVisualizationDataDescription
+                          , schemaName: AbstractDynamicCommandXsdSchemas.SchemaVisualizationDataDescription
                           );
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));

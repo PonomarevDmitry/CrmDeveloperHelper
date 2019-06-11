@@ -561,7 +561,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     if (string.Equals(extension, "xml", StringComparison.InvariantCultureIgnoreCase))
                     {
                         formXml = ContentCoparerHelper.FormatXmlByConfiguration(formXml, _commonConfig, _xmlOptions
-                            , schemaName: CommonExportXsdSchemasCommand.SchemaFormXml
+                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
                             , formId: formId
                         );
                     }

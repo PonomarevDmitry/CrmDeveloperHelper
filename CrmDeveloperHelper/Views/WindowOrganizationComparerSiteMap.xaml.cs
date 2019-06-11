@@ -489,7 +489,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     //if (_commonConfig.SetXmlSchemasDuringExport)
                     //{
-                    //    var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaSiteMapXml);
+                    //    var schemasResources = AbstractDynamicCommandXsdSchemas.GetXsdSchemas(AbstractDynamicCommandXsdSchemas.SchemaSiteMapXml);
 
                     //    if (schemasResources != null)
                     //    {
@@ -510,7 +510,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     //siteMapXml = ContentCoparerHelper.FormatXml(siteMapXml, _commonConfig.ExportXmlAttributeOnNewLine);
 
                     siteMapXml = ContentCoparerHelper.FormatXmlByConfiguration(siteMapXml, _commonConfig, _xmlOptions
-                        , schemaName: CommonExportXsdSchemasCommand.SchemaSiteMapXml
+                        , schemaName: AbstractDynamicCommandXsdSchemas.SchemaSiteMapXml
                         , siteMapUniqueName: nameUnique ?? string.Empty
                         );
 

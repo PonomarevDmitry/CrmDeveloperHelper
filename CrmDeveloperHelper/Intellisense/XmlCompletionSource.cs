@@ -93,19 +93,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 return;
             }
 
-            if (string.Equals(doc.Name.ToString(), "fetch", StringComparison.InvariantCultureIgnoreCase))
+            if (string.Equals(doc.Name.ToString(), Commands.AbstractDynamicCommandXsdSchemas.RootFetch, StringComparison.InvariantCultureIgnoreCase))
             {
                 var repository = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
 
                 FillSessionForFetchXml(session, completionSets, snapshot, doc, connectionConfig.CurrentConnectionData, repository);
             }
-            else if (string.Equals(doc.Name.ToString(), "grid", StringComparison.InvariantCultureIgnoreCase))
+            else if (string.Equals(doc.Name.ToString(), Commands.AbstractDynamicCommandXsdSchemas.RootGrid, StringComparison.InvariantCultureIgnoreCase))
             {
                 var repository = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
 
                 FillSessionForGridXml(session, completionSets, snapshot, doc, connectionConfig.CurrentConnectionData, repository);
             }
-            else if (string.Equals(doc.Name.ToString(), "savedquery", StringComparison.InvariantCultureIgnoreCase))
+            else if (string.Equals(doc.Name.ToString(), Commands.AbstractDynamicCommandXsdSchemas.RootSavedQuery, StringComparison.InvariantCultureIgnoreCase))
             {
                 var repository = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
 
@@ -113,7 +113,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
                 FillSessionForGridXml(session, completionSets, snapshot, doc, connectionConfig.CurrentConnectionData, repository);
             }
-            else if (string.Equals(doc.Name.ToString(), "SiteMap", StringComparison.InvariantCultureIgnoreCase))
+            else if (string.Equals(doc.Name.ToString(), Commands.AbstractDynamicCommandXsdSchemas.RootSiteMap, StringComparison.InvariantCultureIgnoreCase))
             {
                 var repositoryEntities = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
                 var repositorySiteMap = SiteMapIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);
@@ -121,8 +121,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
 
                 FillSessionForSiteMap(triggerPoint.Value, session, completionSets, snapshot, doc, connectionConfig.CurrentConnectionData, repositoryEntities, repositorySiteMap, repositoryWebResource);
             }
-            else if (string.Equals(doc.Name.ToString(), "RibbonDiffXml", StringComparison.InvariantCultureIgnoreCase)
-                || string.Equals(doc.Name.ToString(), "RibbonDefinitions", StringComparison.InvariantCultureIgnoreCase)
+            else if (string.Equals(doc.Name.ToString(), Commands.AbstractDynamicCommandXsdSchemas.RootRibbonDiffXml, StringComparison.InvariantCultureIgnoreCase)
+                || string.Equals(doc.Name.ToString(), Commands.AbstractDynamicCommandXsdSchemas.RootRibbonDefinitions, StringComparison.InvariantCultureIgnoreCase)
             )
             {
                 var repositoryEntities = ConnectionIntellisenseDataRepository.GetRepository(connectionConfig.CurrentConnectionData);

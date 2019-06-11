@@ -512,7 +512,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 try
                 {
                     xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
-                        , schemaName: CommonExportXsdSchemasCommand.SchemaVisualizationDataDescription
+                        , schemaName: AbstractDynamicCommandXsdSchemas.SchemaVisualizationDataDescription
                     );
 
                     File.WriteAllText(filePath, xmlContent, new UTF8Encoding(false));

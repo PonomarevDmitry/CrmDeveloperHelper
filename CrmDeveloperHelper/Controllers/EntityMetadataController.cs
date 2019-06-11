@@ -1267,7 +1267,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string ribbonDiffXml = await repositoryRibbonCustomization.GetRibbonDiffXmlAsync(_iWriteToOutput, entityMetadata, ribbonCustomization);
 
             ribbonDiffXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonDiffXml, commonConfig, XmlOptionsControls.RibbonFull
-                , schemaName: CommonExportXsdSchemasCommand.SchemaRibbonXml
+                , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
                 , ribbonEntityName: entityName ?? string.Empty
                 );
 

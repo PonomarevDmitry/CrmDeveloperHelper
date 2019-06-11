@@ -806,7 +806,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     if (string.Equals(fieldName, WebResource.Schema.Attributes.dependencyxml, StringComparison.InvariantCultureIgnoreCase))
                     {
                         xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
-                            , schemaName: CommonExportXsdSchemasCommand.SchemaDependencyXml
+                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaDependencyXml
                            , webResourceName: webresource.Name
                         );
                     }

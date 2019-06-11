@@ -35,9 +35,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(command, menuCommand
                 , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId
                 , out var attribute
-                , CommonExportXsdSchemasCommand.RootFetch
-                , CommonExportXsdSchemasCommand.RootGrid
-                , CommonExportXsdSchemasCommand.RootColumnSet
+                , AbstractDynamicCommandXsdSchemas.RootFetch
+                , AbstractDynamicCommandXsdSchemas.RootGrid
+                , AbstractDynamicCommandXsdSchemas.RootColumnSet
             );
 
             CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CodeXmlUpdateSavedQueryCommand);

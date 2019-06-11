@@ -88,8 +88,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 return false;
             }
 
-            if (!string.Equals(doc.Name.ToString(), "RibbonDiffXml", StringComparison.InvariantCultureIgnoreCase)
-                && !string.Equals(doc.Name.ToString(), "RibbonDefinitions", StringComparison.InvariantCultureIgnoreCase)
+            if (!string.Equals(doc.Name.ToString(), Commands.AbstractDynamicCommandXsdSchemas.RootRibbonDiffXml, StringComparison.InvariantCultureIgnoreCase)
+                && !string.Equals(doc.Name.ToString(), Commands.AbstractDynamicCommandXsdSchemas.RootRibbonDefinitions, StringComparison.InvariantCultureIgnoreCase)
             )
             {
                 return false;
@@ -103,7 +103,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 .Where(s => s.Span.Start < currentPoint.Position)
                 .OrderByDescending(s => s.Span.Start.Position)
                 .ToList();
-            
+
             var firstDelimiter = firstSpans.FirstOrDefault(s => s.ClassificationType.IsOfType("XML Attribute Quotes"));
 
             var lastSpans = spans

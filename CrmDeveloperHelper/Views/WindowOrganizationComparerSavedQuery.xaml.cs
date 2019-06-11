@@ -549,7 +549,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     if (string.Equals(extension, "xml", StringComparison.InvariantCultureIgnoreCase))
                     {
                         xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, _commonConfig, _xmlOptions
-                            , schemaName: CommonExportXsdSchemasCommand.SchemaFetch
+                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFetch
                             , savedQueryId: savedQueryId
                         );
                     }

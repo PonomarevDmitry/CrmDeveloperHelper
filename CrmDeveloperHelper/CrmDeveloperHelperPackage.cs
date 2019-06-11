@@ -114,7 +114,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CodeXmlSiteMapOpenInWebCommand.Initialize(commandService);
             CodeXmlSiteMapExplorerCommand.Initialize(this);
-            CodeXmlShowDifferenceSiteMapDefaultCommand.Initialize(this);
+            CodeXmlShowDifferenceSiteMapDefaultCommand.Initialize(commandService);
             CodeXmlShowDifferenceSiteMapCommand.Initialize(this);
             CodeXmlShowDifferenceSiteMapInConnectionGroupCommand.Initialize(commandService);
             CodeXmlUpdateSiteMapCommand.Initialize(this);
@@ -148,10 +148,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileXmlOpenXsdSchemaFolderCommand.Initialize(this);
             FolderXmlOpenXsdSchemaFolderCommand.Initialize(this);
 
-            CodeXmlSetXsdSchemaCommand.Initialize(this);
-            DocumentsXmlSetXsdSchemaCommand.Initialize(this);
-            FileXmlSetXsdSchemaCommand.Initialize(this);
-            FolderXmlSetXsdSchemaCommand.Initialize(this);
+            CodeXmlSetXsdSchemaCommand.Initialize(commandService);
+            DocumentsXmlSetXsdSchemaCommand.Initialize(commandService);
+            FileXmlSetXsdSchemaCommand.Initialize(commandService);
+            FolderXmlSetXsdSchemaCommand.Initialize(commandService);
 
             CodeXmlRemoveXsdSchemaCommand.Initialize(this);
             DocumentsXmlRemoveXsdSchemaCommand.Initialize(this);
@@ -452,8 +452,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonTeamsExplorerCommand.Initialize(this);
             CommonSecurityRolesExplorerCommand.Initialize(this);
 
-            CommonExportDefaultSitemapsCommand.Initialize(this);
-            CommonExportXsdSchemasCommand.Initialize(this);
+            CommonExportDefaultSitemapsCommand.Initialize(commandService);
+            CommonExportXsdSchemasCommand.Initialize(commandService);
             CommonOpenXsdSchemaFolderCommand.Initialize(this);
 
             CommonFindEntityObjectsByNameCommand.Initialize(this);

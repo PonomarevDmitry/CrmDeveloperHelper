@@ -368,8 +368,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Intellisense
                 if (string.Equals(currentAttributeName, IntellisenseContext.NameIntellisenseContextName + ":" + IntellisenseContext.NameIntellisenseContextAttributeEntityName, StringComparison.InvariantCultureIgnoreCase)
                     &&
                     (
-                        string.Equals(currentNodeName, "RibbonDiffXml", StringComparison.InvariantCultureIgnoreCase)
-                        || string.Equals(currentNodeName, "RibbonDefinitions", StringComparison.InvariantCultureIgnoreCase)
+                        string.Equals(currentNodeName, Commands.AbstractDynamicCommandXsdSchemas.RootRibbonDiffXml, StringComparison.InvariantCultureIgnoreCase)
+                        || string.Equals(currentNodeName, Commands.AbstractDynamicCommandXsdSchemas.RootRibbonDefinitions, StringComparison.InvariantCultureIgnoreCase)
                     )
                 )
                 {

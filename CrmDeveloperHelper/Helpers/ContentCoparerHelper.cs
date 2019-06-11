@@ -833,7 +833,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 && commonConfig.SetXmlSchemasDuringExport
                 )
             {
-                var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(schemaName);
+                var schemasResources = AbstractDynamicCommandXsdSchemas.GetXsdSchemas(schemaName);
 
                 if (schemasResources != null)
                 {

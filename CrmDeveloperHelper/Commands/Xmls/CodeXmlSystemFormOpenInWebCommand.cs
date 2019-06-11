@@ -42,7 +42,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                 , menuCommand
                 , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId
                 , out var attribute
-                , CommonExportXsdSchemasCommand.RootForm
+                , AbstractDynamicCommandXsdSchemas.RootForm
             );
 
             if (attribute == null

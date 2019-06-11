@@ -539,7 +539,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             XmlSchemaSet schemas = new XmlSchemaSet();
 
             {
-                var schemasResources = CommonExportXsdSchemasCommand.GetXsdSchemas(CommonExportXsdSchemasCommand.SchemaRibbonXml);
+                var schemasResources = AbstractDynamicCommandXsdSchemas.GetXsdSchemas(AbstractDynamicCommandXsdSchemas.SchemaRibbonXml);
 
                 if (schemasResources != null)
                 {
@@ -565,7 +565,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (errors.Count > 0)
             {
-                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.TextIsNotValidForFieldFormat1, CommonExportXsdSchemasCommand.SchemaRibbonXml);
+                iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.TextIsNotValidForFieldFormat1, AbstractDynamicCommandXsdSchemas.SchemaRibbonXml);
 
                 foreach (var item in errors)
                 {
@@ -696,7 +696,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 }
 
                 ribbonDiffXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonDiffXml, commonConfig, XmlOptionsControls.RibbonFull
-                    , schemaName: CommonExportXsdSchemasCommand.SchemaRibbonXml
+                    , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
                     , ribbonEntityName: entityMetadata?.LogicalName ?? string.Empty
                     );
 

@@ -274,7 +274,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     siteMapXml = ContentCoparerHelper.FormatXmlByConfiguration(siteMapXml
                         , commonConfig
                         , WindowExplorerSiteMap._xmlOptions
-                       , schemaName: CommonExportXsdSchemasCommand.SchemaSiteMapXml
+                       , schemaName: AbstractDynamicCommandXsdSchemas.SchemaSiteMapXml
                        , siteMapUniqueName: siteMap.SiteMapNameUnique ?? string.Empty
                     );
 
@@ -419,7 +419,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         siteMapXml = ContentCoparerHelper.FormatXmlByConfiguration(siteMapXml
                             , commonConfig
                             , WindowExplorerSiteMap._xmlOptions
-                            , schemaName: CommonExportXsdSchemasCommand.SchemaSiteMapXml
+                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaSiteMapXml
                             , siteMapUniqueName: siteMap.SiteMapNameUnique ?? string.Empty
                         );
 
@@ -654,7 +654,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 try
                 {
                     formXml = ContentCoparerHelper.FormatXmlByConfiguration(formXml, commonConfig, WindowExplorerSystemForm._xmlOptions
-                        , schemaName: CommonExportXsdSchemasCommand.SchemaFormXml
+                        , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
                         , formId: systemForm.Id
                     );
 
@@ -814,7 +814,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     try
                     {
                         formXml = ContentCoparerHelper.FormatXmlByConfiguration(formXml, commonConfig, WindowExplorerSystemForm._xmlOptions
-                            , schemaName: CommonExportXsdSchemasCommand.SchemaFormXml
+                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFormXml
                             , formId: systemForm.Id
                         );
 
@@ -1074,7 +1074,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 try
                 {
                     xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, commonConfig, WindowExplorerSavedQuery._xmlOptions
-                        , schemaName: CommonExportXsdSchemasCommand.SchemaFetch
+                        , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFetch
                         , savedQueryId: savedQueryId
                     );
 
@@ -1254,7 +1254,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     try
                     {
                         xmlContent = ContentCoparerHelper.FormatXmlByConfiguration(xmlContent, commonConfig, WindowExplorerSavedQuery._xmlOptions
-                            , schemaName: CommonExportXsdSchemasCommand.SchemaFetch
+                            , schemaName: AbstractDynamicCommandXsdSchemas.SchemaFetch
                             , savedQueryId: savedQueryId
                         );
 

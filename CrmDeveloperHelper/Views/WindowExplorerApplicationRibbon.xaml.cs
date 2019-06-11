@@ -562,7 +562,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
 
                 ribbonDiffXml = ContentCoparerHelper.FormatXmlByConfiguration(ribbonDiffXml, _commonConfig, _xmlOptions
-                    , schemaName: CommonExportXsdSchemasCommand.SchemaRibbonXml
+                    , schemaName: AbstractDynamicCommandXsdSchemas.SchemaRibbonXml
                     , ribbonEntityName: string.Empty
                     );
 
