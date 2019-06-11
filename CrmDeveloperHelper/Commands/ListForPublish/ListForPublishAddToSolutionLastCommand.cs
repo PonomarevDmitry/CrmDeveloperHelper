@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 {
-    internal sealed class ListForPublishAddToSolutionLastCommand : AbstractDynamicCommandAddObjectToSolutionLast
+    internal sealed class ListForPublishAddToSolutionLastCommand : AbstractDynamicCommandOnSolutionLast
     {
         private ListForPublishAddToSolutionLastCommand(OleMenuCommandService commandService)
             : base(

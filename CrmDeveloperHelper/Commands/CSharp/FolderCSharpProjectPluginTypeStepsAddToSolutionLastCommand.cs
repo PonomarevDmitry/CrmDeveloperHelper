@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
-    internal sealed class FolderCSharpProjectPluginTypeStepsAddToSolutionLastCommand : AbstractDynamicCommandAddObjectToSolutionLast
+    internal sealed class FolderCSharpProjectPluginTypeStepsAddToSolutionLastCommand : AbstractDynamicCommandOnSolutionLast
     {
         private FolderCSharpProjectPluginTypeStepsAddToSolutionLastCommand(OleMenuCommandService commandService)
             : base(

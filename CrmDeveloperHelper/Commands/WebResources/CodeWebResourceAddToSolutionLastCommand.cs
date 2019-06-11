@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class CodeWebResourceAddToSolutionLastCommand : AbstractDynamicCommandAddObjectToSolutionLast
+    internal sealed class CodeWebResourceAddToSolutionLastCommand : AbstractDynamicCommandOnSolutionLast
     {
         private CodeWebResourceAddToSolutionLastCommand(OleMenuCommandService commandService)
             : base(

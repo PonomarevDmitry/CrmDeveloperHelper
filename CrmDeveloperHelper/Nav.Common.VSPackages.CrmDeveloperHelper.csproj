@@ -89,7 +89,7 @@
     <DeployExtension>False</DeployExtension>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Commands\AbstractDynamicCommandAddObjectToSolutionLast.cs" />
+    <Compile Include="Commands\AbstractDynamicCommandOnSolutionLast.cs" />
     <Compile Include="Commands\AbstractDynamicCommandByConnection.cs" />
     <Compile Include="Commands\AbstractDynamicCommandByConnectionAll.cs" />
     <Compile Include="Commands\AbstractDynamicCommandByConnectionByGroupWithCurrent.cs" />
