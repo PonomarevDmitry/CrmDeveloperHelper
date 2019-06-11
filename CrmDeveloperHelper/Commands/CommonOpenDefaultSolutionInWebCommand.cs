@@ -23,10 +23,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             Instance = new CommonOpenDefaultSolutionInWebCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper, ConnectionData connectionData)
-        {
-        }
-
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
             connectionData.OpenSolutionInWeb(Solution.Schema.InstancesUniqueId.DefaultId);

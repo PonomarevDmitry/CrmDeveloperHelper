@@ -957,7 +957,6 @@
     <Compile Include="Model\FormTab.cs" />
     <Compile Include="Model\IndentType.cs" />
     <Compile Include="Interfaces\IWriteToOutputAndPublishList.cs" />
-    <Compile Include="Interfaces\IServiceProviderOwner.cs" />
     <Compile Include="Interfaces\IWriteToOutput.cs" />
     <Compile Include="Model\JavaScriptObjectType.cs" />
     <Compile Include="Model\LabelDifferenceResult.cs" />

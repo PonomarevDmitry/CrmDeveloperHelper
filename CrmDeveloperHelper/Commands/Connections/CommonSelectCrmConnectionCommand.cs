@@ -22,11 +22,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Connections
             Instance = new CommonSelectCrmConnectionCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper, ConnectionData connectionData)
-        {
-           
-        }
-
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
             connectionData.ConnectionConfiguration.SetCurrentConnection(connectionData.ConnectionId);

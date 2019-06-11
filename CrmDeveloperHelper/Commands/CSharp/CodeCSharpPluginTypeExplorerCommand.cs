@@ -16,7 +16,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             Instance = new CodeCSharpPluginTypeExplorerCommand(commandService);
         }
 
-        private static async void ActionExecute(DTEHelper helper)
+        protected override async void CommandAction(DTEHelper helper)
         {
             try
             {
@@ -24,6 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 
                 helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, document?.FullName);
                 helper.ActivateOutputWindow(null);
+
                 string fileType = await PropertiesHelper.GetTypeFullNameAsync(document);
 
                 helper.HandleOpenPluginTypeExplorer(fileType);

@@ -22,10 +22,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
             Instance = new CommonCheckPluginStepsCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper, ConnectionData connectionData)
-        {
-        }
-
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
             helper.HandleCheckPluginSteps(connectionData);

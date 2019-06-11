@@ -22,10 +22,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Connections
             Instance = new CommonPublishAllInCrmConnectionCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper, ConnectionData connectionData)
-        {
-        }
-
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
             helper.HandlePublishAll(connectionData);
