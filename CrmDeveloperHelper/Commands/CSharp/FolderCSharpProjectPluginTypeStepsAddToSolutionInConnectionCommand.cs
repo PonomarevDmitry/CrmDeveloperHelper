@@ -7,27 +7,27 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
-    internal sealed class FileCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand : AbstractCommandByConnectionAll
+    internal sealed class FolderCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand : AbstractCommandByConnectionAll
     {
-        private FileCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
+        private FolderCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
             : base(
                 commandService
-                , PackageIds.FileCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommandId
+                , PackageIds.FolderCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommandId
             )
         {
 
         }
 
-        public static FileCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand Instance { get; private set; }
+        public static FolderCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FileCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand(commandService);
+            Instance = new FolderCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand(commandService);
         }
 
         protected override async void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            var listFiles = helper.GetSelectedProjectItemsInSolutionExplorer(FileOperations.SupportsCSharpType, false).ToList();
+            var listFiles = helper.GetSelectedProjectItemsInSolutionExplorer(FileOperations.SupportsCSharpType, true).ToList();
 
             var pluginTypeNames = new List<string>();
             var handledFilePaths = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
@@ -58,7 +58,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(applicationObject, menuCommand, false);
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(applicationObject, menuCommand, true);
         }
     }
 }

@@ -1,136 +1,54 @@
 using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
-using System;
-using System.ComponentModel.Design;
 using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    public sealed class CodeXmlExecuteFetchXmlRequestInConnectionsCommand : IServiceProviderOwner
+    internal sealed class CodeXmlExecuteFetchXmlRequestInConnectionsCommand : AbstractCommandByConnectionAll
     {
-        private readonly Package _package;
-
-        public IServiceProvider ServiceProvider => this._package;
-
-        private const int _baseIdStart = PackageIds.CodeXmlExecuteFetchXmlRequestInConnectionsCommandId;
-
-        private CodeXmlExecuteFetchXmlRequestInConnectionsCommand(Package package)
+        private CodeXmlExecuteFetchXmlRequestInConnectionsCommand(OleMenuCommandService commandService)
+            : base(
+                commandService
+                , PackageIds.CodeXmlExecuteFetchXmlRequestInConnectionsCommandId
+            )
         {
-            this._package = package ?? throw new ArgumentNullException(nameof(package));
 
-            OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-
-            if (commandService != null)
-            {
-                for (int i = 0; i < ConnectionData.CountConnectionToQuickList; i++)
-                {
-                    var menuCommandID = new CommandID(PackageGuids.guidDynamicCommandSet, _baseIdStart + i);
-
-                    var menuCommand = new OleMenuCommand(this.menuItemCallback, menuCommandID);
-
-                    menuCommand.Enabled = menuCommand.Visible = false;
-
-                    menuCommand.BeforeQueryStatus += menuItem_BeforeQueryStatus;
-
-                    commandService.AddCommand(menuCommand);
-                }
-            }
         }
 
         public static CodeXmlExecuteFetchXmlRequestInConnectionsCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlExecuteFetchXmlRequestInConnectionsCommand(package);
+            Instance = new CodeXmlExecuteFetchXmlRequestInConnectionsCommand(commandService);
         }
 
-        private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
+        protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            try
+            var selectedFile = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsXmlType).FirstOrDefault();
+
+            if (selectedFile == null)
             {
-                if (sender is OleMenuCommand menuCommand)
+                return;
+            }
+
+            if (helper.ApplicationObject.ActiveWindow != null
+               && helper.ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
+               && helper.ApplicationObject.ActiveWindow.Document != null
+            )
+            {
+                if (!helper.ApplicationObject.ActiveWindow.Document.Saved)
                 {
-                    menuCommand.Enabled = menuCommand.Visible = false;
-
-                    var index = menuCommand.CommandID.ID - _baseIdStart;
-
-                    var connectionConfig = ConnectionConfiguration.Get();
-
-                    var connectionsList = connectionConfig.Connections;
-
-                    if (0 <= index && index < connectionsList.Count)
-                    {
-                        var connectionData = connectionsList[index];
-
-                        menuCommand.Text = connectionData.NameWithCurrentMark;
-
-                        menuCommand.Enabled = menuCommand.Visible = true;
-
-                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(this, menuCommand, out _, CommonExportXsdSchemasCommand.RootFetch);
-                    }
+                    helper.ApplicationObject.ActiveWindow.Document.Save();
                 }
             }
-            catch (Exception ex)
-            {
-                DTEHelper.WriteExceptionToOutput(null, ex);
-            }
+
+            helper.HandleExecutingFetchXml(connectionData, selectedFile, true);
         }
 
-        private void menuItemCallback(object sender, EventArgs e)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)
         {
-            try
-            {
-                OleMenuCommand menuCommand = sender as OleMenuCommand;
-                if (menuCommand == null)
-                {
-                    return;
-                }
-
-                var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
-                if (applicationObject == null)
-                {
-                    return;
-                }
-
-                var index = menuCommand.CommandID.ID - _baseIdStart;
-
-                var connectionConfig = ConnectionConfiguration.Get();
-
-                var connectionsList = connectionConfig.Connections;
-
-                if (0 <= index && index < connectionsList.Count)
-                {
-                    var connectionData = connectionsList[index];
-
-                    var helper = DTEHelper.Create(applicationObject);
-
-                    var selectedFile = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsXmlType).FirstOrDefault();
-
-                    if (selectedFile == null)
-                    {
-                        return;
-                    }
-
-                    if (helper.ApplicationObject.ActiveWindow != null
-                       && helper.ApplicationObject.ActiveWindow.Type == EnvDTE.vsWindowType.vsWindowTypeDocument
-                       && helper.ApplicationObject.ActiveWindow.Document != null
-                       )
-                    {
-                        if (!helper.ApplicationObject.ActiveWindow.Document.Saved)
-                        {
-                            helper.ApplicationObject.ActiveWindow.Document.Save();
-                        }
-                    }
-
-                    helper.HandleExecutingFetchXml(connectionData, selectedFile, true);
-                }
-            }
-            catch (Exception ex)
-            {
-                DTEHelper.WriteExceptionToOutput(null, ex);
-            }
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(applicationObject, menuCommand, out _, CommonExportXsdSchemasCommand.RootFetch);
         }
     }
 }

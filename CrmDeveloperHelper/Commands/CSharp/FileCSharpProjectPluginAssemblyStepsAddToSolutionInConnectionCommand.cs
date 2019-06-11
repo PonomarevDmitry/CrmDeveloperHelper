@@ -1,128 +1,48 @@
 using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.ComponentModel.Design;
 using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
-    internal sealed class FileCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand : IServiceProviderOwner
+    internal sealed class FileCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand : AbstractCommandByConnectionAll
     {
-        private readonly Package _package;
-
-        public IServiceProvider ServiceProvider => this._package;
-
-        private const int _baseIdStart = PackageIds.FileCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommandId;
-
-        private FileCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand(Package package)
+        private FileCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
+            : base(
+                commandService
+                , PackageIds.FileCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommandId
+            )
         {
-            this._package = package ?? throw new ArgumentNullException(nameof(package));
 
-            OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-
-            if (commandService != null)
-            {
-                for (int i = 0; i < ConnectionData.CountConnectionToQuickList; i++)
-                {
-                    var menuCommandID = new CommandID(PackageGuids.guidDynamicCommandSet, _baseIdStart + i);
-
-                    var menuCommand = new OleMenuCommand(this.menuItemCallback, menuCommandID);
-
-                    menuCommand.Enabled = menuCommand.Visible = false;
-
-                    menuCommand.BeforeQueryStatus += menuItem_BeforeQueryStatus;
-
-                    commandService.AddCommand(menuCommand);
-                }
-            }
         }
 
         public static FileCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FileCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand(package);
+            Instance = new FileCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand(commandService);
         }
 
-        private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
+        protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            try
+            var listProjects = helper
+                   .GetSelectedProjectItemsInSolutionExplorer(FileOperations.SupportsCSharpType, false)
+                   .Where(i => i.ContainingProject != null && !string.IsNullOrEmpty(i.ContainingProject?.Name))
+                   .Select(i => i.ContainingProject.Name)
+                   .Distinct(StringComparer.InvariantCultureIgnoreCase)
+                   .ToArray()
+                   ;
+
+            if (listProjects.Any())
             {
-                if (sender is OleMenuCommand menuCommand)
-                {
-                    menuCommand.Enabled = menuCommand.Visible = false;
-
-                    var index = menuCommand.CommandID.ID - _baseIdStart;
-
-                    var connectionConfig = ConnectionConfiguration.Get();
-
-                    var connectionsList = connectionConfig.Connections;
-
-                    if (0 <= index && index < connectionsList.Count)
-                    {
-                        var connectionData = connectionsList[index];
-
-                        menuCommand.Text = connectionData.NameWithCurrentMark;
-
-                        menuCommand.Enabled = menuCommand.Visible = true;
-
-                        CommonHandlers.ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(this, menuCommand, false);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                DTEHelper.WriteExceptionToOutput(null, ex);
+                helper.HandleAddingPluginAssemblyProcessingStepsByProjectCommand(connectionData, null, true, listProjects);
             }
         }
 
-        private void menuItemCallback(object sender, EventArgs e)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)
         {
-            try
-            {
-                OleMenuCommand menuCommand = sender as OleMenuCommand;
-                if (menuCommand == null)
-                {
-                    return;
-                }
-
-                var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
-                if (applicationObject == null)
-                {
-                    return;
-                }
-
-                var index = menuCommand.CommandID.ID - _baseIdStart;
-
-                var connectionConfig = Model.ConnectionConfiguration.Get();
-
-                var connectionsList = connectionConfig.Connections;
-
-                if (0 <= index && index < connectionsList.Count)
-                {
-                    var connectionData = connectionsList[index];
-
-                    var helper = DTEHelper.Create(applicationObject);
-
-                    var listProjects = helper.GetSelectedProjectItemsInSolutionExplorer(FileOperations.SupportsCSharpType, false)
-                                 .Where(i => i.ContainingProject != null && !string.IsNullOrEmpty(i.ContainingProject?.Name))
-                                 .Select(i => i.ContainingProject.Name)
-                                 .Distinct(StringComparer.InvariantCultureIgnoreCase)
-                                 .ToArray()
-                                 ;
-
-                    if (listProjects.Any())
-                    {
-                        helper.HandleAddingPluginAssemblyProcessingStepsByProjectCommand(connectionData, null, true, listProjects);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                DTEHelper.WriteExceptionToOutput(null, ex);
-            }
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerAnyItemContainsProject(applicationObject, menuCommand, false);
         }
     }
 }

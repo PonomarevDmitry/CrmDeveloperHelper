@@ -90,6 +90,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Commands\AbstractAddObjectToSolutionLastCommand.cs" />
+    <Compile Include="Commands\AbstractCommandByConnection.cs" />
+    <Compile Include="Commands\AbstractCommandByConnectionAll.cs" />
+    <Compile Include="Commands\AbstractCommandByConnectionWithoutCurrent.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\ListForPublish\AddFilesIntoListForPublishCommand.cs" />
@@ -308,7 +311,7 @@
     <Compile Include="Commands\CSharp\FolderCSharpProjectPluginAssemblyAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\CSharp\FolderCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\FolderCSharpProjectPluginAssemblyStepsAddToSolutionLastCommand.cs" />
-    <Compile Include="Commands\CSharp\FolderCSharpProjectPluginTypeStepsAddIToSolutionInConnectionCommand.cs" />
+    <Compile Include="Commands\CSharp\FolderCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\FolderCSharpProjectPluginTypeStepsAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\CSharp\FolderCSharpUpdateEntityMetadataFileProxyClassCommand.cs" />
     <Compile Include="Commands\JavaScripts\FolderJavaScriptUpdateEntityMetadataFileCommand.cs" />

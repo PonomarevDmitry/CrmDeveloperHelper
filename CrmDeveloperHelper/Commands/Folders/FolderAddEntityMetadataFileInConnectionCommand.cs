@@ -8,116 +8,37 @@ using System.ComponentModel.Design;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
 {
-    internal sealed class FolderAddEntityMetadataFileInConnectionCommand : IServiceProviderOwner
+    internal sealed class FolderAddEntityMetadataFileInConnectionCommand : AbstractCommandByConnectionAll
     {
-        private readonly Package _package;
-
-        public IServiceProvider ServiceProvider => this._package;
-
-        private const int _baseIdStart = PackageIds.FolderAddEntityMetadataFileInConnectionCommandId;
-
-        private FolderAddEntityMetadataFileInConnectionCommand(Package package)
+        private FolderAddEntityMetadataFileInConnectionCommand(OleMenuCommandService commandService)
+            : base(
+                commandService
+                , PackageIds.FolderAddEntityMetadataFileInConnectionCommandId
+            )
         {
-            this._package = package ?? throw new ArgumentNullException(nameof(package));
 
-            OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-
-            if (commandService != null)
-            {
-                for (int i = 0; i < ConnectionData.CountConnectionToQuickList; i++)
-                {
-                    var menuCommandID = new CommandID(PackageGuids.guidDynamicCommandSet, _baseIdStart + i);
-
-                    var menuCommand = new OleMenuCommand(this.menuItemCallback, menuCommandID);
-
-                    menuCommand.Enabled = menuCommand.Visible = false;
-
-                    menuCommand.BeforeQueryStatus += menuItem_BeforeQueryStatus;
-
-                    commandService.AddCommand(menuCommand);
-                }
-            }
         }
 
         public static FolderAddEntityMetadataFileInConnectionCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FolderAddEntityMetadataFileInConnectionCommand(package);
+            Instance = new FolderAddEntityMetadataFileInConnectionCommand(commandService);
         }
 
-        private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
+        protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            try
+            SelectedItem selectedItem = helper.GetSelectedProjectItem();
+
+            if (selectedItem != null)
             {
-                if (sender is OleMenuCommand menuCommand)
-                {
-                    menuCommand.Enabled = menuCommand.Visible = false;
-
-                    var index = menuCommand.CommandID.ID - _baseIdStart;
-
-                    var connectionConfig = ConnectionConfiguration.Get();
-
-                    var connectionsList = connectionConfig.Connections;
-
-                    if (0 <= index && index < connectionsList.Count)
-                    {
-                        var connectionData = connectionsList[index];
-
-                        menuCommand.Text = connectionData.NameWithCurrentMark;
-
-                        menuCommand.Enabled = menuCommand.Visible = true;
-
-                        CommonHandlers.ActiveSolutionExplorerFolderSingle(this, menuCommand);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                DTEHelper.WriteExceptionToOutput(null, ex);
+                helper.HandleExportFileWithEntityMetadata(connectionData, selectedItem);
             }
         }
 
-        private void menuItemCallback(object sender, EventArgs e)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)
         {
-            try
-            {
-                OleMenuCommand menuCommand = sender as OleMenuCommand;
-                if (menuCommand == null)
-                {
-                    return;
-                }
-
-                var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
-                if (applicationObject == null)
-                {
-                    return;
-                }
-
-                var index = menuCommand.CommandID.ID - _baseIdStart;
-
-                var connectionConfig = Model.ConnectionConfiguration.Get();
-
-                var connectionsList = connectionConfig.Connections;
-
-                if (0 <= index && index < connectionsList.Count)
-                {
-                    var connectionData = connectionsList[index];
-
-                    var helper = DTEHelper.Create(applicationObject);
-
-                    SelectedItem selectedItem = helper.GetSelectedProjectItem();
-
-                    if (selectedItem != null)
-                    {
-                        helper.HandleExportFileWithEntityMetadata(connectionData, selectedItem);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                DTEHelper.WriteExceptionToOutput(null, ex);
-            }
+            CommonHandlers.ActiveSolutionExplorerFolderSingle(applicationObject, menuCommand);
         }
     }
 }
