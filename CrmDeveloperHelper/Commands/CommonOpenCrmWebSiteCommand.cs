@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class CommonOpenCrmWebSiteCommand : AbstractCommandByConnectionAll
+    internal sealed class CommonOpenCrmWebSiteCommand : AbstractDynamicCommandByConnectionAll
     {
         private readonly OpenCrmWebSiteType _crmWebSiteType;
 

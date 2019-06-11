@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 {
-    internal sealed class CommonTraceReaderCommand : AbstractCommandByConnectionAll
+    internal sealed class CommonTraceReaderCommand : AbstractDynamicCommandByConnectionAll
     {
         private CommonTraceReaderCommand(OleMenuCommandService commandService)
             : base(

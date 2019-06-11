@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
-    internal sealed class FileCSharpUpdateEntityMetadataFileProxyClassCommand : AbstractCommandByConnectionAll
+    internal sealed class FileCSharpUpdateEntityMetadataFileProxyClassCommand : AbstractDynamicCommandByConnectionAll
     {
         private FileCSharpUpdateEntityMetadataFileProxyClassCommand(OleMenuCommandService commandService)
             : base(

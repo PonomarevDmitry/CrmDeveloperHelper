@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommand : AbstractCommandByConnectionByGroupWithoutCurrent
+    internal sealed class CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithoutCurrent
     {
         private CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommand(OleMenuCommandService commandService)
             : base(

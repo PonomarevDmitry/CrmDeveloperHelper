@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 {
-    internal sealed class CodeReportUpdateCommand : AbstractCommandByConnectionAll
+    internal sealed class CodeReportUpdateCommand : AbstractDynamicCommandByConnectionAll
     {
         private CodeReportUpdateCommand(OleMenuCommandService commandService)
             : base(

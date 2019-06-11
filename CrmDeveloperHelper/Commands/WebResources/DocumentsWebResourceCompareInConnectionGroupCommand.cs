@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class DocumentsWebResourceCompareInConnectionGroupCommand : AbstractCommandByConnectionByGroupWithCurrent
+    internal sealed class DocumentsWebResourceCompareInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
     {
         private readonly bool _withDetails;
 

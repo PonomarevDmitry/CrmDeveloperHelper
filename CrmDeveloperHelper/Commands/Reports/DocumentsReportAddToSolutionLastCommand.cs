@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 {
-    internal sealed class DocumentsReportAddToSolutionLastCommand : AbstractAddObjectToSolutionLastCommand
+    internal sealed class DocumentsReportAddToSolutionLastCommand : AbstractDynamicCommandAddObjectToSolutionLast
     {
         private DocumentsReportAddToSolutionLastCommand(OleMenuCommandService commandService)
             : base(

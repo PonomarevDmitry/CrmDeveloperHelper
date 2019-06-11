@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
-    internal sealed class FileCSharpUpdateGlobalOptionSetsFileCommand : AbstractCommandByConnectionAll
+    internal sealed class FileCSharpUpdateGlobalOptionSetsFileCommand : AbstractDynamicCommandByConnectionAll
     {
         private FileCSharpUpdateGlobalOptionSetsFileCommand(OleMenuCommandService commandService)
             : base(

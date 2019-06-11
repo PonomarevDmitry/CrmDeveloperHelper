@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlExecuteFetchXmlRequestInConnectionsCommand : AbstractCommandByConnectionAll
+    internal sealed class CodeXmlExecuteFetchXmlRequestInConnectionsCommand : AbstractDynamicCommandByConnectionAll
     {
         private CodeXmlExecuteFetchXmlRequestInConnectionsCommand(OleMenuCommandService commandService)
             : base(

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 {
-    internal sealed class FileReportAddToSolutionInConnectionCommand : AbstractCommandByConnectionAll
+    internal sealed class FileReportAddToSolutionInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private FileReportAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
             : base(

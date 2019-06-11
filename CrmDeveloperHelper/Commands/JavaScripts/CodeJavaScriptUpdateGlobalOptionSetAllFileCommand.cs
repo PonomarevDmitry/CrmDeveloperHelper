@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
 {
-    internal sealed class CodeJavaScriptUpdateGlobalOptionSetAllFileCommand : AbstractCommandByConnectionAll
+    internal sealed class CodeJavaScriptUpdateGlobalOptionSetAllFileCommand : AbstractDynamicCommandByConnectionAll
     {
         private CodeJavaScriptUpdateGlobalOptionSetAllFileCommand(OleMenuCommandService commandService)
             : base(

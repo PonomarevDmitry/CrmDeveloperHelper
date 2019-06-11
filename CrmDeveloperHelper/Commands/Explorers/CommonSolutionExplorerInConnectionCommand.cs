@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 {
-    internal sealed class CommonSolutionExplorerInConnectionCommand : AbstractCommandByConnectionWithoutCurrent
+    internal sealed class CommonSolutionExplorerInConnectionCommand : AbstractDynamicCommandByConnectionWithoutCurrent
     {
         private CommonSolutionExplorerInConnectionCommand(OleMenuCommandService commandService)
             : base(

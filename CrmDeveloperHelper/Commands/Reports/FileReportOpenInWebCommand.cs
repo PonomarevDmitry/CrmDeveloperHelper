@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 {
-    internal sealed class FileReportOpenInWebCommand : AbstractCommandByConnectionByGroupWithCurrent
+    internal sealed class FileReportOpenInWebCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
     {
         private readonly ActionOpenComponent _actionOpen;
 

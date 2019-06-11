@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 {
-    internal sealed class CodeReportCreateCommand : AbstractCommandByConnectionAll
+    internal sealed class CodeReportCreateCommand : AbstractDynamicCommandByConnectionAll
     {
         private CodeReportCreateCommand(OleMenuCommandService commandService)
             : base(

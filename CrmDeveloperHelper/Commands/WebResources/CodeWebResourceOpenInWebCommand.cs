@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class CodeWebResourceOpenInWebCommand : AbstractCommandByConnectionByGroupWithCurrent
+    internal sealed class CodeWebResourceOpenInWebCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
     {
         private readonly ActionOpenComponent _actionOpen;
 

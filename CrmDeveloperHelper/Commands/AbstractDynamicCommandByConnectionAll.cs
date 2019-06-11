@@ -5,9 +5,9 @@ using System;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal abstract class AbstractCommandByConnectionAll : AbstractCommandByConnection
+    internal abstract class AbstractDynamicCommandByConnectionAll : AbstractDynamicCommandByConnection
     {
-        public AbstractCommandByConnectionAll(
+        public AbstractDynamicCommandByConnectionAll(
             OleMenuCommandService commandService
             , int baseIdStart
         ) : base(

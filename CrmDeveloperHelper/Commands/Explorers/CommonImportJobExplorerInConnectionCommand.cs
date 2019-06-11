@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 {
-    internal sealed class CommonImportJobExplorerInConnectionCommand : AbstractCommandByConnectionAll
+    internal sealed class CommonImportJobExplorerInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private CommonImportJobExplorerInConnectionCommand(OleMenuCommandService commandService)
             : base(

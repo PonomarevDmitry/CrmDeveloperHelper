@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class DocumentsWebResourceAddToSolutionLastCommand : AbstractAddObjectToSolutionLastCommand
+    internal sealed class DocumentsWebResourceAddToSolutionLastCommand : AbstractDynamicCommandAddObjectToSolutionLast
     {
         private DocumentsWebResourceAddToSolutionLastCommand(OleMenuCommandService commandService)
             : base(

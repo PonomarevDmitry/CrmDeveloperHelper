@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 {
-    internal sealed class FileReportUpdateCommand : AbstractCommandByConnectionAll
+    internal sealed class FileReportUpdateCommand : AbstractDynamicCommandByConnectionAll
     {
         private FileReportUpdateCommand(OleMenuCommandService commandService)
             : base(

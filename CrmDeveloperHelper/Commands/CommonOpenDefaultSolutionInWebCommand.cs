@@ -5,7 +5,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class CommonOpenDefaultSolutionInWebCommand : AbstractCommandByConnectionAll
+    internal sealed class CommonOpenDefaultSolutionInWebCommand : AbstractDynamicCommandByConnectionAll
     {
         private CommonOpenDefaultSolutionInWebCommand(OleMenuCommandService commandService)
             : base(

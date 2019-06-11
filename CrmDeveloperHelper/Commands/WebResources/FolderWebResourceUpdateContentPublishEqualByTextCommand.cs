@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class FolderWebResourceUpdateContentPublishEqualByTextCommand : AbstractCommandByConnectionByGroupWithCurrent
+    internal sealed class FolderWebResourceUpdateContentPublishEqualByTextCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
     {
         private FolderWebResourceUpdateContentPublishEqualByTextCommand(OleMenuCommandService commandService)
             : base(

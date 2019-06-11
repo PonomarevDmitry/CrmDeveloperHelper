@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlUpdateSystemFormInConnectionGroupCommand : AbstractCommandByConnectionByGroupWithoutCurrent
+    internal sealed class CodeXmlUpdateSystemFormInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithoutCurrent
     {
         private CodeXmlUpdateSystemFormInConnectionGroupCommand(OleMenuCommandService commandService)
             : base(

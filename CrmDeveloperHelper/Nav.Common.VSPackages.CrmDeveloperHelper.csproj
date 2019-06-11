@@ -89,12 +89,13 @@
     <DeployExtension>False</DeployExtension>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Commands\AbstractAddObjectToSolutionLastCommand.cs" />
-    <Compile Include="Commands\AbstractCommandByConnection.cs" />
-    <Compile Include="Commands\AbstractCommandByConnectionAll.cs" />
-    <Compile Include="Commands\AbstractCommandByConnectionByGroupWithCurrent.cs" />
-    <Compile Include="Commands\AbstractCommandByConnectionByGroupWithoutCurrent.cs" />
-    <Compile Include="Commands\AbstractCommandByConnectionWithoutCurrent.cs" />
+    <Compile Include="Commands\AbstractDynamicCommandAddObjectToSolutionLast.cs" />
+    <Compile Include="Commands\AbstractDynamicCommandByConnection.cs" />
+    <Compile Include="Commands\AbstractDynamicCommandByConnectionAll.cs" />
+    <Compile Include="Commands\AbstractDynamicCommandByConnectionByGroupWithCurrent.cs" />
+    <Compile Include="Commands\AbstractDynamicCommandByConnectionByGroupWithoutCurrent.cs" />
+    <Compile Include="Commands\AbstractDynamicCommandByConnectionWithoutCurrent.cs" />
+    <Compile Include="Commands\AbstractDynamicCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\ListForPublish\AddFilesIntoListForPublishCommand.cs" />

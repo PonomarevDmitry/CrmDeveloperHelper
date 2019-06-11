@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class CodeWebResourceShowDifferenceInConnectionGroupCommand : AbstractCommandByConnectionByGroupWithoutCurrent
+    internal sealed class CodeWebResourceShowDifferenceInConnectionGroupCommand : AbstractDynamicCommandByConnectionByGroupWithoutCurrent
     {
         private CodeWebResourceShowDifferenceInConnectionGroupCommand(OleMenuCommandService commandService)
             : base(

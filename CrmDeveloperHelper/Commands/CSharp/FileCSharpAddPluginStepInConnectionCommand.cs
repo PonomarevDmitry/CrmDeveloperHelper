@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
-    internal sealed class FileCSharpAddPluginStepInConnectionCommand : AbstractCommandByConnectionWithoutCurrent
+    internal sealed class FileCSharpAddPluginStepInConnectionCommand : AbstractDynamicCommandByConnectionWithoutCurrent
     {
         private FileCSharpAddPluginStepInConnectionCommand(OleMenuCommandService commandService)
             : base(

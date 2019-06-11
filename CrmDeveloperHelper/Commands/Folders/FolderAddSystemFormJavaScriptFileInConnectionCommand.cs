@@ -5,7 +5,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
 {
-    internal sealed class FolderAddSystemFormJavaScriptFileInConnectionCommand : AbstractCommandByConnectionAll
+    internal sealed class FolderAddSystemFormJavaScriptFileInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private FolderAddSystemFormJavaScriptFileInConnectionCommand(OleMenuCommandService commandService)
             : base(

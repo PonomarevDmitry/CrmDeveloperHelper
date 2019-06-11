@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
 {
-    internal sealed class ProjectRegisterPluginAssemblyInConnectionCommand : AbstractCommandByConnectionAll
+    internal sealed class ProjectRegisterPluginAssemblyInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private ProjectRegisterPluginAssemblyInConnectionCommand(OleMenuCommandService commandService)
             : base(

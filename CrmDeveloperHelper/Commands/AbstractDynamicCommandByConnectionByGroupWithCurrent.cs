@@ -2,9 +2,9 @@
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal abstract class AbstractCommandByConnectionByGroupWithCurrent : AbstractCommandByConnection
+    internal abstract class AbstractDynamicCommandByConnectionByGroupWithCurrent : AbstractDynamicCommandByConnection
     {
-        public AbstractCommandByConnectionByGroupWithCurrent(
+        public AbstractDynamicCommandByConnectionByGroupWithCurrent(
             OleMenuCommandService commandService
             , int baseIdStart
         ) : base(

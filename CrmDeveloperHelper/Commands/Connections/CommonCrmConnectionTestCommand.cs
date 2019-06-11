@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Connections
 {
-    internal sealed class CommonCrmConnectionTestCommand : AbstractCommandByConnectionAll
+    internal sealed class CommonCrmConnectionTestCommand : AbstractDynamicCommandByConnectionAll
     {
         private CommonCrmConnectionTestCommand(OleMenuCommandService commandService)
             : base(

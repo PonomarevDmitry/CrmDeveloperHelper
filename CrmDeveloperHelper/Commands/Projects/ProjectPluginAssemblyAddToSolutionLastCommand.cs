@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
 {
-    internal sealed class ProjectPluginAssemblyAddToSolutionLastCommand : AbstractAddObjectToSolutionLastCommand
+    internal sealed class ProjectPluginAssemblyAddToSolutionLastCommand : AbstractDynamicCommandAddObjectToSolutionLast
     {
         private ProjectPluginAssemblyAddToSolutionLastCommand(OleMenuCommandService commandService)
             : base(

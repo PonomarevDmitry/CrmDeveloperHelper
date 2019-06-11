@@ -6,7 +6,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
 {
-    internal sealed class FolderAddSdkMessageRequestFileInConnectionCommand : AbstractCommandByConnectionAll
+    internal sealed class FolderAddSdkMessageRequestFileInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private FolderAddSdkMessageRequestFileInConnectionCommand(OleMenuCommandService commandService)
             : base(

@@ -1,35 +1,32 @@
-﻿using EnvDTE80;
-using Microsoft.VisualStudio.Shell;
+﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel.Design;
 using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal abstract class AbstractCommandByConnection
+    internal abstract class AbstractDynamicCommandAddObjectToSolutionLast
     {
         protected readonly int _baseIdStart;
 
-        private readonly Func<ConnectionConfiguration, ICollection<ConnectionData>> _connectionDataSource;
-        private readonly Func<ConnectionData, string> _connectionDataName;
+        protected readonly Action<DTEHelper, ConnectionData, string> _action;
+        private readonly Action<EnvDTE80.DTE2, OleMenuCommand> _actionBeforeQueryStatus;
 
-        public AbstractCommandByConnection(
+        public AbstractDynamicCommandAddObjectToSolutionLast(
             OleMenuCommandService commandService
             , int baseIdStart
-            , Func<ConnectionConfiguration, ICollection<ConnectionData>> connectionDataSource
-            , Func<ConnectionData, string> connectionDataName
+            , Action<DTEHelper, ConnectionData, string> action
+            , Action<EnvDTE80.DTE2, OleMenuCommand> actionBeforeQueryStatus
         )
         {
             this._baseIdStart = baseIdStart;
 
-            this._connectionDataSource = connectionDataSource ?? throw new ArgumentNullException(nameof(connectionDataSource));
-            this._connectionDataName = connectionDataName ?? throw new ArgumentNullException(nameof(connectionDataName));
+            this._action = action ?? throw new ArgumentNullException(nameof(action));
+            this._actionBeforeQueryStatus = actionBeforeQueryStatus ?? throw new ArgumentNullException(nameof(actionBeforeQueryStatus));
 
-            for (int i = 0; i < ConnectionData.CountConnectionToQuickList; i++)
+            for (int i = 0; i < ConnectionData.CountLastSolutions; i++)
             {
                 var menuCommandID = new CommandID(PackageGuids.guidDynamicCommandSet, _baseIdStart + i);
 
@@ -57,21 +54,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                         return;
                     }
 
-                    var index = menuCommand.CommandID.ID - _baseIdStart;
+                    var connectionConfig = ConnectionConfiguration.Get();
 
-                    var connectionConfig = Model.ConnectionConfiguration.Get();
-
-                    var connectionsList = _connectionDataSource(connectionConfig);
-
-                    if (0 <= index && index < connectionsList.Count)
+                    if (connectionConfig.CurrentConnectionData != null)
                     {
-                        var connectionData = connectionsList.ElementAt(index);
+                        var index = menuCommand.CommandID.ID - _baseIdStart;
 
-                        menuCommand.Text = _connectionDataName(connectionData);
+                        if (0 <= index && index < connectionConfig.CurrentConnectionData.LastSelectedSolutionsUniqueName.Count)
+                        {
+                            menuCommand.Text = connectionConfig.CurrentConnectionData.LastSelectedSolutionsUniqueName.ElementAt(index);
 
-                        menuCommand.Enabled = menuCommand.Visible = true;
+                            menuCommand.Enabled = menuCommand.Visible = true;
 
-                        CommandBeforeQueryStatus(applicationObject, connectionData, menuCommand);
+                            this._actionBeforeQueryStatus?.Invoke(applicationObject, menuCommand);
+                        }
                     }
                 }
             }
@@ -97,35 +93,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     return;
                 }
 
-                var index = menuCommand.CommandID.ID - _baseIdStart;
-
                 var connectionConfig = ConnectionConfiguration.Get();
 
-                var connectionsList = _connectionDataSource(connectionConfig);
-
-                if (0 <= index && index < connectionsList.Count)
+                if (connectionConfig.CurrentConnectionData != null)
                 {
-                    var connectionData = connectionsList.ElementAt(index);
+                    var index = menuCommand.CommandID.ID - _baseIdStart;
 
-                    var helper = DTEHelper.Create(applicationObject);
+                    if (0 <= index && index < connectionConfig.CurrentConnectionData.LastSelectedSolutionsUniqueName.Count)
+                    {
+                        string solutionUniqueName = connectionConfig.CurrentConnectionData.LastSelectedSolutionsUniqueName.ElementAt(index);
 
-                    CommandAction(helper, connectionData);
+                        var helper = DTEHelper.Create(applicationObject);
+
+                        this._action.Invoke(helper, connectionConfig.CurrentConnectionData, solutionUniqueName);
+                    }
                 }
             }
             catch (Exception ex)
             {
                 DTEHelper.WriteExceptionToOutput(null, ex);
             }
-        }
-
-        protected virtual void CommandAction(DTEHelper helper, ConnectionData connectionData)
-        {
-
-        }
-
-        protected virtual void CommandBeforeQueryStatus(DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)
-        {
-
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class DocumentsWebResourceAddToSolutionInConnectionCommand : AbstractCommandByConnectionAll
+    internal sealed class DocumentsWebResourceAddToSolutionInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private DocumentsWebResourceAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
             : base(

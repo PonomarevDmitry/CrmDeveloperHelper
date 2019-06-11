@@ -5,7 +5,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
 {
-    internal sealed class FolderAddGlobalOptionSetFileInConnectionCommand : AbstractCommandByConnectionAll
+    internal sealed class FolderAddGlobalOptionSetFileInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private FolderAddGlobalOptionSetFileInConnectionCommand(OleMenuCommandService commandService)
             : base(

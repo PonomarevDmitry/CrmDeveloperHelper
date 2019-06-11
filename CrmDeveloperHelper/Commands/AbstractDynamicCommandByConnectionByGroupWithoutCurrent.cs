@@ -2,15 +2,15 @@
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal abstract class AbstractCommandByConnectionWithoutCurrent : AbstractCommandByConnection
+    internal abstract class AbstractDynamicCommandByConnectionByGroupWithoutCurrent : AbstractDynamicCommandByConnection
     {
-        public AbstractCommandByConnectionWithoutCurrent(
+        public AbstractDynamicCommandByConnectionByGroupWithoutCurrent(
             OleMenuCommandService commandService
             , int baseIdStart
         ) : base(
             commandService
             , baseIdStart
-            , config => config.GetConnectionsWithoutCurrent()
+            , config => config.GetConnectionsByGroupWithoutCurrent()
             , connectionData => connectionData.Name
         )
         {

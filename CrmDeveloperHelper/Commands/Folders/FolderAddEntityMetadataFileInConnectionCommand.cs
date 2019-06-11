@@ -8,7 +8,7 @@ using System.ComponentModel.Design;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
 {
-    internal sealed class FolderAddEntityMetadataFileInConnectionCommand : AbstractCommandByConnectionAll
+    internal sealed class FolderAddEntityMetadataFileInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private FolderAddEntityMetadataFileInConnectionCommand(OleMenuCommandService commandService)
             : base(

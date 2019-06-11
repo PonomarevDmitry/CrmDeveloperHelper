@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 {
-    internal sealed class ListForPublishAddToSolutionInConnectionCommand : AbstractCommandByConnectionAll
+    internal sealed class ListForPublishAddToSolutionInConnectionCommand : AbstractDynamicCommandByConnectionAll
     {
         private ListForPublishAddToSolutionInConnectionCommand(OleMenuCommandService commandService)
             : base(

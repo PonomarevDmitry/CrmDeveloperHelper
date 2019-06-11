@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlSystemFormOpenInWebCommand : AbstractCommandByConnectionAll
+    internal sealed class CodeXmlSystemFormOpenInWebCommand : AbstractDynamicCommandByConnectionAll
     {
         private CodeXmlSystemFormOpenInWebCommand(OleMenuCommandService commandService)
             : base(

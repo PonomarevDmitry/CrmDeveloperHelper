@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 {
-    internal sealed class ListForPublishPerformPublishEqualByTextCommand : AbstractCommandByConnectionByGroupWithCurrent
+    internal sealed class ListForPublishPerformPublishEqualByTextCommand : AbstractDynamicCommandByConnectionByGroupWithCurrent
     {
         private ListForPublishPerformPublishEqualByTextCommand(OleMenuCommandService commandService)
             : base(

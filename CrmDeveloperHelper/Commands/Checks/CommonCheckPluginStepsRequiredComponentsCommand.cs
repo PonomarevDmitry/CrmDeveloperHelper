@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
 {
-    internal sealed class CommonCheckPluginStepsRequiredComponentsCommand : AbstractCommandByConnectionAll
+    internal sealed class CommonCheckPluginStepsRequiredComponentsCommand : AbstractDynamicCommandByConnectionAll
     {
         private CommonCheckPluginStepsRequiredComponentsCommand(OleMenuCommandService commandService)
             : base(

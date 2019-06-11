@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
 {
-    internal sealed class CommonCheckGlobalOptionSetDuplicateCommand : AbstractCommandByConnectionAll
+    internal sealed class CommonCheckGlobalOptionSetDuplicateCommand : AbstractDynamicCommandByConnectionAll
     {
         private CommonCheckGlobalOptionSetDuplicateCommand(OleMenuCommandService commandService)
             : base(

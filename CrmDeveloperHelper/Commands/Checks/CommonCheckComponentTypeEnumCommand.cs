@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
 {
-    internal sealed class CommonCheckComponentTypeEnumCommand : AbstractCommandByConnectionAll
+    internal sealed class CommonCheckComponentTypeEnumCommand : AbstractDynamicCommandByConnectionAll
     {
         private CommonCheckComponentTypeEnumCommand(OleMenuCommandService commandService)
             : base(
