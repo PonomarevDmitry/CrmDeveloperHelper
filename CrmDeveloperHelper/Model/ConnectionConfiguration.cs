@@ -236,7 +236,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             {
                 if (_singleton != null)
                 {
-                    var applicationObject = CrmDeveloperHelperPackage.ServiceProvider?.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
+                    var applicationObject = CrmDeveloperHelperPackage.Singleton.ApplicationObject;
                     _singleton.SetCurrentSolution(applicationObject?.Solution?.FullName);
 
                     return _singleton;
@@ -255,7 +255,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                     _singleton = result;
                     _singleton.LoadConnectionsFromDisk();
 
-                    var applicationObject = CrmDeveloperHelperPackage.ServiceProvider?.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
+                    var applicationObject = CrmDeveloperHelperPackage.Singleton.ApplicationObject;
                     result.SetCurrentSolution(applicationObject?.Solution?.FullName);
                 }
 

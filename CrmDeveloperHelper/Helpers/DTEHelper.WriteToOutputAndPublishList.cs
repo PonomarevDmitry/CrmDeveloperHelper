@@ -1274,7 +1274,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return this;
         }
 
-        public IWriteToOutput ProcessStartProgramComparer(string filePath1, string filePath2, string fileTitle1, string fileTitle2)
+        public async void ProcessStartProgramComparer(string filePath1, string filePath2, string fileTitle1, string fileTitle2)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -1337,7 +1337,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     bool diffExecuted = false;
 
-                    var commandService = CrmDeveloperHelperPackage.ServiceProvider?.GetService(typeof(System.ComponentModel.Design.IMenuCommandService)) as Microsoft.VisualStudio.Shell.OleMenuCommandService;
+                    var commandService = await CrmDeveloperHelperPackage.Singleton.GetServiceAsync(typeof(System.ComponentModel.Design.IMenuCommandService)) as Microsoft.VisualStudio.Shell.OleMenuCommandService;
                     if (commandService != null)
                     {
                         //Tools.DiffFiles
@@ -1366,8 +1366,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 this.OpenFile(null, filePath2);
             }
-
-            return this;
         }
 
         public IWriteToOutput ProcessStartProgramComparerThreeWayFile(string fileLocalPath, string filePath1, string filePath2, string fileLocalTitle, string fileTitle1, string fileTitle2)

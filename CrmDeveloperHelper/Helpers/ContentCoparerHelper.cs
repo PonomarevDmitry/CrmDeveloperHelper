@@ -1,6 +1,7 @@
 ﻿using EnvDTE;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Operations;
 using Microsoft.VisualStudio.TextManager.Interop;
@@ -1089,7 +1090,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private static readonly string patternIntellisenseContextSiteMapNameUnique = string.Format(replaceIntellisenseContextSiteMapNameUniqueFormat1, "([^\"]*)");
         private const string replaceIntellisenseContextSiteMapNameUniqueFormat1 = " " + Intellisense.Model.IntellisenseContext.NameIntellisenseContextName + ":" + Intellisense.Model.IntellisenseContext.NameIntellisenseContextAttributeSiteMapNameUnique + "=\"{0}\"";
 
-        private static void GetTextViewAndMakeAction(Document document, string operationName, Action<IWpfTextView> action)
+        public static object VsShellAsyncUtilities { get; private set; }
+
+        private static async System.Threading.Tasks.Task GetTextViewAndMakeAction(Document document, string operationName, Action<IWpfTextView> action)
         {
             var vsTextView = GetIVsTextView(document.FullName);
 
@@ -1104,7 +1107,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 return;
             }
 
-            var componentModel = (IComponentModel)CrmDeveloperHelperPackage.ServiceProvider.GetService(typeof(SComponentModel));
+            var componentModel = (IComponentModel)await CrmDeveloperHelperPackage.Singleton.GetServiceAsync(typeof(SComponentModel));
             var undoHistoryRegistry = componentModel.DefaultExportProvider.GetExportedValue<ITextUndoHistoryRegistry>();
 
             undoHistoryRegistry.TryGetHistory(wpfTextView.TextBuffer, out var history);
@@ -1521,12 +1524,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private static IVsTextView GetIVsTextView(string filePath)
         {
-            if (CrmDeveloperHelperPackage.ServiceProvider == null)
+            if (CrmDeveloperHelperPackage.Singleton == null)
             {
                 return null;
             }
 
-            return VsShellUtilities.IsDocumentOpen(CrmDeveloperHelperPackage.ServiceProvider, filePath, Guid.Empty, out var uiHierarchy,
+            IServiceProvider provider = (IServiceProvider)(Package)CrmDeveloperHelperPackage.Singleton;
+
+            return VsShellUtilities.IsDocumentOpen(provider, filePath, Guid.Empty, out var uiHierarchy,
                 out var itemId, out var windowFrame)
                 ? VsShellUtilities.GetTextView(windowFrame)
                 : null;

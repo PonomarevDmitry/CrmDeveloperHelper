@@ -44,7 +44,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 
         IWriteToOutput SelectFileInFolder(ConnectionData connectionData, string filePath);
 
-        IWriteToOutput ProcessStartProgramComparer(string file1, string file2, string fileTitle1, string fileTitle2);
+        void ProcessStartProgramComparer(string file1, string file2, string fileTitle1, string fileTitle2);
 
         IWriteToOutput ProcessStartProgramComparerThreeWayFile(string fileLocalPath, string filePath1, string filePath2, string fileLocalTitle, string fileTitle1, string fileTitle2);
 

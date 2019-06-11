@@ -28,17 +28,22 @@ using System.Runtime.InteropServices;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper
 {
-    [PackageRegistration(UseManagedResourcesOnly = true)]
-    [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
-    [Guid(PackageGuids.guidCrmDeveloperHelperPackageString)]
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
-    [ProvideMenuResource("Menus.ctmenu", 1)]
-    [ProvideToolWindow(typeof(FetchXmlExecutorToolWindowPane), Style = VsDockStyle.Tabbed, MultiInstances = true, DocumentLikeTool = true, Transient = true)]
-    [ProvideAutoLoad(UIContextGuids80.SolutionExists)]
-    public sealed class CrmDeveloperHelperPackage : Package
-    {
-        public static IServiceProvider ServiceProvider => Singleton;
+    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
 
+    [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
+
+    [Guid(PackageGuids.guidCrmDeveloperHelperPackageString)]
+
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
+
+    [ProvideMenuResource("Menus.ctmenu", 1)]
+
+    [ProvideToolWindow(typeof(FetchXmlExecutorToolWindowPane), Style = VsDockStyle.Tabbed, MultiInstances = true, DocumentLikeTool = true, Transient = true)]
+
+    [ProvideAutoLoad(UIContextGuids80.SolutionExists, PackageAutoLoadFlags.BackgroundLoad)]
+
+    public sealed class CrmDeveloperHelperPackage : AsyncPackage
+    {
         public static CrmDeveloperHelperPackage Singleton { get; private set; }
 
         private EnvDTE80.DTE2 _applicationObject;
@@ -75,11 +80,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
         #region Package Members
 
-        protected override void Initialize()
+        protected override async System.Threading.Tasks.Task InitializeAsync(System.Threading.CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
-            base.Initialize();
+            await base.InitializeAsync(cancellationToken, progress);
 
-            OleMenuCommandService commandService = this.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
+            // When initialized asynchronously, we *may* be on a background thread at this point.
+            // Do any initialization that requires the UI thread after switching to the UI thread.
+            // Otherwise, remove the switch to the UI thread if you don't need it.
+            await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+
+            OleMenuCommandService commandService = await this.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
 
             CodeWebResourceCheckEncodingCommand.Initialize(commandService);
             CodeWebResourceCompareWithDetailsCommand.Initialize(commandService);
@@ -496,13 +506,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             Singleton = this;
 
-            System.Threading.Tasks.Task.Run(() => Model.CommonConfiguration.Get());
-            System.Threading.Tasks.Task.Run(() => Model.ConnectionConfiguration.Get());
+            System.Threading.Tasks.Task.Run(() => CommonConfiguration.Get());
+            System.Threading.Tasks.Task.Run(() => ConnectionConfiguration.Get());
 
             //Repository.ConnectionIntellisenseDataRepository.LoadIntellisenseCache();
         }
 
-        internal void ExecuteFetchXmlQueryAsync(string filePath, ConnectionData connectionData, IWriteToOutput iWriteToOutput, bool strictConnection)
+        internal async System.Threading.Tasks.Task ExecuteFetchXmlQueryAsync(string filePath, ConnectionData connectionData, IWriteToOutput iWriteToOutput, bool strictConnection)
         {
             var panes = FindOrCreateFetchXmlExecutorToolWindowPane(filePath);
 
@@ -520,6 +530,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             {
                 item.Execute();
             }
+
+            await this.JoinableTaskFactory.SwitchToMainThreadAsync();
 
             if (connectionPane != null)
             {
