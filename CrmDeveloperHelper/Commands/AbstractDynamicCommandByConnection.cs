@@ -14,20 +14,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
     {
         protected readonly int _baseIdStart;
 
-        private readonly Func<ConnectionConfiguration, ICollection<ConnectionData>> _connectionDataSource;
-        private readonly Func<ConnectionData, string> _connectionDataName;
-
         public AbstractDynamicCommandByConnection(
             OleMenuCommandService commandService
             , int baseIdStart
-            , Func<ConnectionConfiguration, ICollection<ConnectionData>> connectionDataSource
-            , Func<ConnectionData, string> connectionDataName
         )
         {
             this._baseIdStart = baseIdStart;
-
-            this._connectionDataSource = connectionDataSource ?? throw new ArgumentNullException(nameof(connectionDataSource));
-            this._connectionDataName = connectionDataName ?? throw new ArgumentNullException(nameof(connectionDataName));
 
             for (int i = 0; i < ConnectionData.CountConnectionToQuickList; i++)
             {
@@ -61,13 +53,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                     var connectionConfig = Model.ConnectionConfiguration.Get();
 
-                    var connectionsList = _connectionDataSource(connectionConfig);
+                    var connectionsList = GetConnectionDataSource(connectionConfig);
 
                     if (0 <= index && index < connectionsList.Count)
                     {
                         var connectionData = connectionsList.ElementAt(index);
 
-                        menuCommand.Text = _connectionDataName(connectionData);
+                        menuCommand.Text = GetConnectionName(connectionData);
 
                         menuCommand.Enabled = menuCommand.Visible = true;
 
@@ -101,7 +93,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                 var connectionConfig = ConnectionConfiguration.Get();
 
-                var connectionsList = _connectionDataSource(connectionConfig);
+                var connectionsList = GetConnectionDataSource(connectionConfig);
 
                 if (0 <= index && index < connectionsList.Count)
                 {
@@ -117,6 +109,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                 DTEHelper.WriteExceptionToOutput(null, ex);
             }
         }
+
+        protected abstract ICollection<ConnectionData> GetConnectionDataSource(ConnectionConfiguration connectionConfig);
+
+        protected abstract string GetConnectionName(ConnectionData connectionData);
 
         protected virtual void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {

@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.Shell;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
+using System.Collections.Generic;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
@@ -10,11 +12,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         ) : base(
             commandService
             , baseIdStart
-            , config => config.GetConnectionsByGroupWithCurrent()
-            , connectionData => connectionData.NameWithCurrentMark
         )
         {
 
+        }
+
+        protected sealed override ICollection<ConnectionData> GetConnectionDataSource(ConnectionConfiguration connectionConfig)
+        {
+            return connectionConfig.GetConnectionsByGroupWithCurrent();
+        }
+
+        protected override string GetConnectionName(ConnectionData connectionData)
+        {
+            return connectionData.NameWithCurrentMark;
         }
     }
 }
