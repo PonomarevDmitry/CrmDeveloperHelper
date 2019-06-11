@@ -1,137 +1,59 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
-    internal sealed class CodeXmlUpdateSiteMapInConnectionGroupCommand : IServiceProviderOwner
+    internal sealed class CodeXmlUpdateSiteMapInConnectionGroupCommand : AbstractCommandByConnectionByGroupWithoutCurrent
     {
-        private readonly Package _package;
-
-        public IServiceProvider ServiceProvider => this._package;
-
-        private const int _baseIdStart = PackageIds.CodeXmlUpdateSiteMapInConnectionGroupCommandId;
-
-        private CodeXmlUpdateSiteMapInConnectionGroupCommand(Package package)
+        private CodeXmlUpdateSiteMapInConnectionGroupCommand(OleMenuCommandService commandService)
+            : base(
+                commandService
+                , PackageIds.CodeXmlUpdateSiteMapInConnectionGroupCommandId
+            )
         {
-            this._package = package ?? throw new ArgumentNullException(nameof(package));
 
-            OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-
-            if (commandService != null)
-            {
-                for (int i = 0; i < ConnectionData.CountConnectionToQuickList; i++)
-                {
-                    var menuCommandID = new CommandID(PackageGuids.guidDynamicCommandSet, _baseIdStart + i);
-
-                    var menuCommand = new OleMenuCommand(this.menuItemCallback, menuCommandID);
-
-                    menuCommand.Enabled = menuCommand.Visible = false;
-
-                    menuCommand.BeforeQueryStatus += menuItem_BeforeQueryStatus;
-
-                    commandService.AddCommand(menuCommand);
-                }
-            }
         }
 
         public static CodeXmlUpdateSiteMapInConnectionGroupCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlUpdateSiteMapInConnectionGroupCommand(package);
+            Instance = new CodeXmlUpdateSiteMapInConnectionGroupCommand(commandService);
         }
 
-        private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
+        protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            try
+            List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsXmlType).Take(2).ToList();
+
+            if (selectedFiles.Count == 1)
             {
-                if (sender is OleMenuCommand menuCommand)
-                {
-                    menuCommand.Enabled = menuCommand.Visible = false;
-
-                    var index = menuCommand.CommandID.ID - _baseIdStart;
-
-                    var connectionConfig = ConnectionConfiguration.Get();
-
-                    var connectionsList = connectionConfig.GetConnectionsByGroupWithoutCurrent();
-
-                    if (0 <= index && index < connectionsList.Count)
-                    {
-                        var connectionData = connectionsList[index];
-
-                        menuCommand.Text = connectionData.Name;
-
-                        menuCommand.Enabled = menuCommand.Visible = true;
-
-                        CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(this, menuCommand, out var doc, CommonExportXsdSchemasCommand.RootSiteMap);
-
-                        if (doc != null)
-                        {
-                            string siteMapUniqueName = "Default";
-
-                            var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSiteMapNameUnique);
-
-                            if (attribute != null && !string.IsNullOrEmpty(attribute.Value))
-                            {
-                                siteMapUniqueName = attribute.Value;
-                            }
-
-                            menuCommand.Text = string.Format(Properties.CommandNames.CommandNameWithConnectionFormat2, siteMapUniqueName, connectionData.Name);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                DTEHelper.WriteExceptionToOutput(null, ex);
+                helper.HandleSiteMapUpdateCommand(connectionData, selectedFiles.FirstOrDefault());
             }
         }
 
-        private void menuItemCallback(object sender, EventArgs e)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)
         {
-            try
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(applicationObject
+                , menuCommand
+                , out var doc
+                , CommonExportXsdSchemasCommand.RootSiteMap
+            );
+
+            if (doc != null)
             {
-                OleMenuCommand menuCommand = sender as OleMenuCommand;
-                if (menuCommand == null)
+                string siteMapUniqueName = "Default";
+
+                var attribute = doc.Attribute(Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSiteMapNameUnique);
+
+                if (attribute != null && !string.IsNullOrEmpty(attribute.Value))
                 {
-                    return;
+                    siteMapUniqueName = attribute.Value;
                 }
 
-                var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
-                if (applicationObject == null)
-                {
-                    return;
-                }
-
-                var index = menuCommand.CommandID.ID - _baseIdStart;
-
-                var connectionConfig = Model.ConnectionConfiguration.Get();
-
-                var connectionsList = connectionConfig.GetConnectionsByGroupWithoutCurrent();
-
-                if (0 <= index && index < connectionsList.Count)
-                {
-                    var connectionData = connectionsList[index];
-
-                    var helper = DTEHelper.Create(applicationObject);
-
-                    List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsXmlType).Take(2).ToList();
-
-                    if (selectedFiles.Count == 1)
-                    {
-                        helper.HandleSiteMapUpdateCommand(connectionData, selectedFiles.FirstOrDefault());
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                DTEHelper.WriteExceptionToOutput(null, ex);
+                menuCommand.Text = string.Format(Properties.CommandNames.CommandNameWithConnectionFormat2, siteMapUniqueName, connectionData.Name);
             }
         }
     }

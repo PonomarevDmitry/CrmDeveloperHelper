@@ -92,6 +92,7 @@
     <Compile Include="Commands\AbstractAddObjectToSolutionLastCommand.cs" />
     <Compile Include="Commands\AbstractCommandByConnection.cs" />
     <Compile Include="Commands\AbstractCommandByConnectionAll.cs" />
+    <Compile Include="Commands\AbstractCommandByConnectionByGroupWithoutCurrent.cs" />
     <Compile Include="Commands\AbstractCommandByConnectionWithoutCurrent.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.cs" />
@@ -122,7 +123,7 @@
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyStepsAddToSolutionLastCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginTypeStepsAddToSolutionLastCommand.cs" />
-    <Compile Include="Commands\WebResources\CodeWebResourceCompareInConnectionGroupCommand.cs" />
+    <Compile Include="Commands\WebResources\CodeWebResourceCompareWithDetailsInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceOpenInWebCommand.cs" />
     <Compile Include="Commands\ListForPublish\CodePublishListAddCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceCheckEncodingCommand.cs" />
