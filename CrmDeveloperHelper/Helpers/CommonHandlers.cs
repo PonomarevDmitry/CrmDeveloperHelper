@@ -841,7 +841,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        internal static void ActionBeforeQueryStatusOpenedDocumentsWebResourceText(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        internal static void ActionBeforeQueryStatusOpenedDocumentsWebResourceText(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
             ObjectCache cache = MemoryCache.Default;
             const string cacheName = nameof(ActionBeforeQueryStatusOpenedDocumentsWebResourceText);
@@ -854,10 +854,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             else
             {
-                if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
-                {
-                    visible = CheckOpenedDocumentsExtension(applicationObject, FileOperations.SupportsWebResourceTextType);
-                }
+                visible = CheckOpenedDocumentsExtension(applicationObject, FileOperations.SupportsWebResourceTextType);
 
                 cache.Set(cacheName, visible, new CacheItemPolicy()
                 {
@@ -866,6 +863,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
+        internal static void ActionBeforeQueryStatusOpenedDocumentsWebResourceText(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        {
+            if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
+            {
+                ActionBeforeQueryStatusOpenedDocumentsWebResourceText(applicationObject, menuCommand);
+            }
+            else
             {
                 menuCommand.Enabled = menuCommand.Visible = false;
             }
@@ -1291,7 +1300,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        internal static void ActionBeforeQueryStatusSolutionExplorerWebResourceSingle(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        internal static void ActionBeforeQueryStatusSolutionExplorerWebResourceSingle(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
             ObjectCache cache = MemoryCache.Default;
             const string cacheName = nameof(ActionBeforeQueryStatusSolutionExplorerWebResourceSingle);
@@ -1304,10 +1313,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             else
             {
-                if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
-                {
-                    visible = CheckInSolutionExplorerSingle(applicationObject, FileOperations.SupportsWebResourceType);
-                }
+                visible = CheckInSolutionExplorerSingle(applicationObject, FileOperations.SupportsWebResourceType);
 
                 cache.Set(cacheName, visible, new CacheItemPolicy()
                 {
@@ -1316,6 +1322,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
+        internal static void ActionBeforeQueryStatusSolutionExplorerWebResourceSingle(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        {
+            if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
+            {
+                ActionBeforeQueryStatusSolutionExplorerWebResourceSingle(applicationObject, menuCommand);
+            }
+            else
             {
                 menuCommand.Enabled = menuCommand.Visible = false;
             }

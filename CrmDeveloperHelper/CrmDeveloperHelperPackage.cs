@@ -89,7 +89,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeWebResourceShowDifferenceInConnectionGroupCommand.Initialize(commandService);
             CodeWebResourceShowDifferenceThreeFileCommand.Initialize(this);
             CodeWebResourceExplorerCommand.Initialize(this);
-            CodeWebResourceOpenInWebCommand.Initialize(this);
+            CodeWebResourceOpenInWebCommand.Initialize(commandService);
             CodeWebResourceLinkClearCommand.Initialize(this);
             CodeWebResourceLinkCreateCommand.Initialize(this);
             CodeWebResourceUpdateContentPublishCommand.Initialize(this);
@@ -169,7 +169,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeReportShowDifferenceInConnectionGroupCommand.Initialize(commandService);
             CodeReportShowDifferenceThreeFileCommand.Initialize(this);
             CodeReportExplorerCommand.Initialize(this);
-            CodeReportOpenInWebCommand.Initialize(this);
+            CodeReportOpenInWebCommand.Initialize(commandService);
 
             CodeReportAddToSolutionLastCommand.Initialize(commandService);
             CodeReportAddToSolutionInConnectionCommand.Initialize(commandService);
@@ -217,7 +217,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileWebResourceCompareWithDetailsCommand.Initialize(this);
             FileWebResourceCompareInConnectionGroupCommand.Initialize(commandService);
             FileWebResourceExplorerCommand.Initialize(this);
-            FileWebResourceOpenInWebCommand.Initialize(this);
+            FileWebResourceOpenInWebCommand.Initialize(commandService);
             FileWebResourceLinkClearCommand.Initialize(this);
             FileWebResourceLinkCreateCommand.Initialize(this);
             FileWebResourceShowDependentComponentsCommand.Initialize(this);
@@ -226,7 +226,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileWebResourceShowDifferenceInConnectionGroupCommand.Initialize(commandService);
             FileWebResourceShowDifferenceThreeFileCommand.Initialize(this);
             FileWebResourceUpdateContentPublishCommand.Initialize(this);
-            FileWebResourceUpdateContentPublishEqualByTextCommand.Initialize(this);
+            FileWebResourceUpdateContentPublishEqualByTextCommand.Initialize(commandService);
             FileWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(commandService);
 
             FileWebResourceAddToSolutionLastCommand.Initialize(commandService);
@@ -245,7 +245,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileReportLinkCreateCommand.Initialize(this);
             FileReportUpdateCommand.Initialize(commandService);
             FileReportCreateCommand.Initialize(commandService);
-            FileReportOpenInWebCommand.Initialize(this);
+            FileReportOpenInWebCommand.Initialize(commandService);
 
             FileReportAddToSolutionLastCommand.Initialize(commandService);
             FileReportAddToSolutionInConnectionCommand.Initialize(commandService);
@@ -285,12 +285,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             DocumentsWebResourceCheckEncodingCompareWithDetailsFilesCommand.Initialize(this);
             DocumentsWebResourceCompareCommand.Initialize(this);
             DocumentsWebResourceCompareWithDetailsCommand.Initialize(this);
-            DocumentsWebResourceCompareInConnectionGroupCommand.Initialize(this);
+            DocumentsWebResourceCompareInConnectionGroupCommand.Initialize(commandService);
             DocumentsWebResouceLinkClearCommand.Initialize(this);
             DocumentsWebResouceLinkCreateCommand.Initialize(this);
             DocumentsWebResourceShowDependentComponentsCommand.Initialize(this);
-            DocumentsWebResourceUpdateContentPublishEqualByTextCommand.Initialize(this);
-            DocumentsWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(this);
+            DocumentsWebResourceUpdateContentPublishEqualByTextCommand.Initialize(commandService);
+            DocumentsWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(commandService);
 
             DocumentsWebResourceAddToSolutionLastCommand.Initialize(commandService);
             DocumentsWebResourceAddToSolutionInConnectionCommand.Initialize(commandService);
@@ -343,7 +343,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FolderWebResourceLinkCreateCommand.Initialize(this);
             FolderWebResourceShowDependentComponentsCommand.Initialize(this);
             FolderWebResourceUpdateContentPublishCommand.Initialize(this);
-            FolderWebResourceUpdateContentPublishEqualByTextCommand.Initialize(this);
+            FolderWebResourceUpdateContentPublishEqualByTextCommand.Initialize(commandService);
             FolderWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(commandService);
 
             FolderWebResourceAddToSolutionLastCommand.Initialize(commandService);
@@ -392,8 +392,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             ListForPublishCompareInConnectionGroupCommand.Initialize(commandService);
             ListForPublishFilesAddCommand.Initialize(this);
             ListForPublishFilesRemoveCommand.Initialize(this);
-            ListForPublishPerformPublishEqualByTextCommand.Initialize(this);
-            ListForPublishPerformPublishGroupConnectionCommand.Initialize(this);
+            ListForPublishPerformPublishEqualByTextCommand.Initialize(commandService);
+            ListForPublishPerformPublishGroupConnectionCommand.Initialize(commandService);
             ListForPublishShowListCommand.Initialize(this);
 
             ListForPublishAddToSolutionLastCommand.Initialize(commandService);

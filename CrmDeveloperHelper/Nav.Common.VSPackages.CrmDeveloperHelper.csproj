@@ -92,6 +92,7 @@
     <Compile Include="Commands\AbstractAddObjectToSolutionLastCommand.cs" />
     <Compile Include="Commands\AbstractCommandByConnection.cs" />
     <Compile Include="Commands\AbstractCommandByConnectionAll.cs" />
+    <Compile Include="Commands\AbstractCommandByConnectionByGroupWithCurrent.cs" />
     <Compile Include="Commands\AbstractCommandByConnectionByGroupWithoutCurrent.cs" />
     <Compile Include="Commands\AbstractCommandByConnectionWithoutCurrent.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.cs" />
