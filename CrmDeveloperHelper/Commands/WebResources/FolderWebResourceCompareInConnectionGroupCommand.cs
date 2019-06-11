@@ -13,7 +13,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
         private FolderWebResourceCompareInConnectionGroupCommand(OleMenuCommandService commandService, int baseIdStart, bool withDetails)
             : base(
                 commandService
-                , PackageIds.FolderWebResourceCompareInConnectionGroupCommandId
+                , baseIdStart
             )
         {
             this._withDetails = withDetails;
