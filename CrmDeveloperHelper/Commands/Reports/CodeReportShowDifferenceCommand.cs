@@ -1,33 +1,29 @@
 using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
-using System;
-using System.ComponentModel.Design;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 {
-    internal sealed class CodeReportShowDifferenceCommand
+    internal sealed class CodeReportShowDifferenceCommand : AbstractCommand
     {
         private readonly string _fieldName;
         private readonly string _fieldTitle;
         private readonly bool _isCustom;
 
-        private CodeReportShowDifferenceCommand(OleMenuCommandService commandService, int commandId, string fieldName, string fieldTitle, bool isCustom)
+        private CodeReportShowDifferenceCommand(
+            OleMenuCommandService commandService
+            , int commandId
+            , string fieldName
+            , string fieldTitle
+            , bool isCustom
+        ) : base(
+            commandService
+            , commandId
+        )
         {
             this._fieldName = fieldName;
             this._fieldTitle = fieldTitle;
             this._isCustom = isCustom;
-
-            var menuCommandID = new CommandID(PackageGuids.guidCommandSet, commandId);
-
-            var menuCommand = new OleMenuCommand(this.menuItemCallback, menuCommandID);
-
-            menuCommand.Enabled = menuCommand.Visible = false;
-
-            menuCommand.BeforeQueryStatus += menuItem_BeforeQueryStatus;
-
-            commandService.AddCommand(menuCommand);
         }
 
         public static CodeReportShowDifferenceCommand InstanceOriginalBodyText { get; private set; }
@@ -73,63 +69,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
             );
         }
 
-        private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
+        protected override void CommandAction(DTEHelper helper)
         {
-            try
-            {
-                if (sender is OleMenuCommand menuCommand)
-                {
-                    menuCommand.Enabled = menuCommand.Visible = false;
-
-                    var applicationObject = CrmDeveloperHelperPackage.Singleton.ApplicationObject;
-                    if (applicationObject == null)
-                    {
-                        return;
-                    }
-
-                    menuCommand.Enabled = menuCommand.Visible = true;
-
-                    CommonHandlers.ActionBeforeQueryStatusActiveDocumentReport(applicationObject, menuCommand);
-
-                    if (menuCommand.Enabled)
-                    {
-                        string custom = this._isCustom ? Properties.CommandNames.CodeReportShowDifferenceCommandCustom : string.Empty;
-
-                        string name = string.Format(Properties.CommandNames.CodeReportShowDifferenceCommandFormat2, _fieldTitle, custom);
-
-                        CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, name);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                DTEHelper.WriteExceptionToOutput(null, ex);
-            }
+            helper.HandleReportDifferenceCommand(null, _fieldName, _fieldTitle, _isCustom);
         }
 
-        private void menuItemCallback(object sender, EventArgs e)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            try
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentReport(applicationObject, menuCommand);
+
+            if (menuCommand.Enabled)
             {
-                OleMenuCommand menuCommand = sender as OleMenuCommand;
-                if (menuCommand == null)
-                {
-                    return;
-                }
+                string custom = this._isCustom ? Properties.CommandNames.CodeReportShowDifferenceCommandCustom : string.Empty;
 
-                var applicationObject = CrmDeveloperHelperPackage.Singleton.ApplicationObject;
-                if (applicationObject == null)
-                {
-                    return;
-                }
+                string name = string.Format(Properties.CommandNames.CodeReportShowDifferenceCommandFormat2, _fieldTitle, custom);
 
-                var helper = DTEHelper.Create(applicationObject);
-
-                helper.HandleReportDifferenceCommand(null, _fieldName, _fieldTitle, _isCustom);
-            }
-            catch (Exception ex)
-            {
-                DTEHelper.WriteExceptionToOutput(null, ex);
+                CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, name);
             }
         }
     }

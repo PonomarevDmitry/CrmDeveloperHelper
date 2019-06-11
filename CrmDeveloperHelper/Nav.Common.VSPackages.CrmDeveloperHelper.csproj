@@ -101,7 +101,6 @@
     <Compile Include="Commands\AbstractDynamicCommandXsdSchemas.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.cs" />
-    <Compile Include="Commands\ListForPublish\AddFilesIntoListForPublishCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpAddPluginStepCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpAddPluginStepInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpPluginTreeCommand.cs" />
@@ -116,6 +115,8 @@
     <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateGlobalOptionSetAllFileCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateGlobalOptionSetSingleFileCommand.cs" />
     <Compile Include="Commands\JavaScripts\CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand.cs" />
+    <Compile Include="Commands\ListForPublish\ListForPublishMultiDifferenceCommand.cs" />
+    <Compile Include="Commands\ListForPublish\ListForPublishOpenFilesCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportCreateCommand.cs" />
     <Compile Include="Commands\Reports\CodeReportShowDifferenceInConnectionGroupCommand.cs" />
@@ -152,6 +153,14 @@
     <Compile Include="Commands\WebResources\CodeWebResourceShowDifferenceInConnectionGroupCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceShowDifferenceThreeFileCommand.cs" />
     <Compile Include="Commands\WebResources\CodeWebResourceUpdateContentPublishGroupConnectionCommand.cs" />
+    <Compile Include="Commands\WebResources\DocumentsWebResourceAddFilesIntoListForPublishCommand.cs" />
+    <Compile Include="Commands\WebResources\DocumentsWebResourceMultiDifferenceCommand.cs" />
+    <Compile Include="Commands\WebResources\FileWebResourceAddFilesIntoListForPublishCommand.cs" />
+    <Compile Include="Commands\WebResources\FileWebResourceMultiDifferenceCommand.cs" />
+    <Compile Include="Commands\WebResources\FileWebResourceOpenFilesCommand.cs" />
+    <Compile Include="Commands\WebResources\FolderWebResourceAddFilesIntoListForPublishCommand.cs" />
+    <Compile Include="Commands\WebResources\FolderWebResourceMultiDifferenceCommand.cs" />
+    <Compile Include="Commands\WebResources\FolderWebResourceOpenFilesCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlEntityRibbonOpenInWebCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlRemoveXsdSchemaCommand.cs" />
     <Compile Include="Commands\Xmls\CodeXmlConvertFetchXmlToJavaScriptCodeCommand.cs" />
@@ -349,8 +358,6 @@
     <Compile Include="Commands\ListForPublish\ListForPublishCompareInConnectionGroupCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishPerformPublishEqualByTextCommand.cs" />
     <Compile Include="Commands\ListForPublish\ListForPublishPerformPublishGroupConnectionCommand.cs" />
-    <Compile Include="Commands\MultiDifferenceCommand.cs" />
-    <Compile Include="Commands\OpenFilesCommand.cs" />
     <Compile Include="Commands\Projects\ProjectCompareToCrmAssemblyInConnectionCommand.cs" />
     <Compile Include="Commands\Projects\ProjectCompareToCrmAssemblyCommand.cs" />
     <Compile Include="Commands\Projects\ProjectPluginAssemblyAddToSolutionLastCommand.cs" />

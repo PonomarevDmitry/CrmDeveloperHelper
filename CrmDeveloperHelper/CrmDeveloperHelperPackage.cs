@@ -491,9 +491,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
 
 
-            OpenFilesCommand.Initialize(commandService);
-            MultiDifferenceCommand.Initialize(commandService);
-            AddFilesIntoListForPublishCommand.Initialize(commandService);
+            FileWebResourceOpenFilesCommand.Initialize(commandService);
+            FolderWebResourceOpenFilesCommand.Initialize(commandService);
+            ListForPublishOpenFilesCommand.Initialize(commandService);
+
+            DocumentsWebResourceMultiDifferenceCommand.Initialize(commandService);
+            FileWebResourceMultiDifferenceCommand.Initialize(commandService);
+            FolderWebResourceMultiDifferenceCommand.Initialize(commandService);
+            ListForPublishMultiDifferenceCommand.Initialize(commandService);
+
+            FileWebResourceAddFilesIntoListForPublishCommand.Initialize(commandService);
+            DocumentsWebResourceAddFilesIntoListForPublishCommand.Initialize(commandService);
+            FolderWebResourceAddFilesIntoListForPublishCommand.Initialize(commandService);
 
             CommonSelectCrmConnectionCommand.Initialize(commandService);
 
