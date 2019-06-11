@@ -1,31 +1,21 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
     internal sealed class CodeCSharpProjectUpdatePluginAssemblyCommand : AbstractCommand
     {
-        private CodeCSharpProjectUpdatePluginAssemblyCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeCSharpProjectUpdatePluginAssemblyCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CodeCSharpProjectUpdatePluginAssemblyCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeCSharpProjectUpdatePluginAssemblyCommandId) { }
 
         public static CodeCSharpProjectUpdatePluginAssemblyCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeCSharpProjectUpdatePluginAssemblyCommand(package);
+            Instance = new CodeCSharpProjectUpdatePluginAssemblyCommand(commandService);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
-        {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp(command, menuCommand);
-
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentContainingProject(command, menuCommand);
-            
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CodeCSharpProjectUpdatePluginAssemblyCommand);
-        }
-
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             var document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsCSharpType);
 
@@ -36,6 +26,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             {
                 helper.HandleUpdatingPluginAssemblyCommand(null, document.ProjectItem.ContainingProject);
             }
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp(applicationObject, menuCommand);
+
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentContainingProject(applicationObject, menuCommand);
+
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeCSharpProjectUpdatePluginAssemblyCommand);
         }
     }
 }

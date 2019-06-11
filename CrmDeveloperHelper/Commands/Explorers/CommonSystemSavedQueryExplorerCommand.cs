@@ -5,17 +5,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 {
     internal sealed class CommonSystemSavedQueryExplorerCommand : AbstractCommand
     {
-        private CommonSystemSavedQueryExplorerCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonSystemSavedQueryExplorerCommandId, ActionExecute, null) { }
+        private CommonSystemSavedQueryExplorerCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.CommonSystemSavedQueryExplorerCommandId) { }
 
         public static CommonSystemSavedQueryExplorerCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonSystemSavedQueryExplorerCommand(package);
+            Instance = new CommonSystemSavedQueryExplorerCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleExplorerSystemSavedQuery();
         }

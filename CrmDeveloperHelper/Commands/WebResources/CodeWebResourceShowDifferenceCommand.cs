@@ -6,26 +6,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
     internal sealed class CodeWebResourceShowDifferenceCommand : AbstractCommand
     {
-        private CodeWebResourceShowDifferenceCommand(Package package)
-          : base(package, PackageGuids.guidCommandSet, PackageIds.CodeWebResourceShowDifferenceCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CodeWebResourceShowDifferenceCommand(OleMenuCommandService commandService)
+          : base(commandService, PackageIds.CodeWebResourceShowDifferenceCommandId) { }
 
         public static CodeWebResourceShowDifferenceCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeWebResourceShowDifferenceCommand(package);
+            Instance = new CodeWebResourceShowDifferenceCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleWebResourceDifferenceCommand(null, false);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentWebResourceText(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentWebResourceText(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CodeWebResourceShowDifferenceCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeWebResourceShowDifferenceCommand);
         }
     }
 }

@@ -8,21 +8,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 {
     internal sealed class FileReportLinkCreateCommand : AbstractCommand
     {
-        private FileReportLinkCreateCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FileReportLinkCreateCommandId, ActionExecute, CommonHandlers.ActionBeforeQueryStatusSolutionExplorerReportSingle) { }
+        private FileReportLinkCreateCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.FileReportLinkCreateCommandId) { }
 
         public static FileReportLinkCreateCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FileReportLinkCreateCommand(package);
+            Instance = new FileReportLinkCreateCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsReportType, false).ToList();
 
             helper.HandleCreateLaskLinkReportCommand(selectedFiles);
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerReportSingle(applicationObject, menuCommand);
         }
     }
 }

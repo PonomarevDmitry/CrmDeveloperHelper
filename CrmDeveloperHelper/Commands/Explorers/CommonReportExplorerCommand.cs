@@ -5,17 +5,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 {
     internal sealed class CommonReportExplorerCommand : AbstractCommand
     {
-        private CommonReportExplorerCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonReportExplorerCommandId, ActionExecute, null) { }
+        private CommonReportExplorerCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.CommonReportExplorerCommandId) { }
 
         public static CommonReportExplorerCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonReportExplorerCommand(package);
+            Instance = new CommonReportExplorerCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleExportReport();
         }

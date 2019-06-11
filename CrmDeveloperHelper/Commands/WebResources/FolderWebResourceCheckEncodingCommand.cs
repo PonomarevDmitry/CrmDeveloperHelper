@@ -8,21 +8,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
     internal sealed class FolderWebResourceCheckEncodingCommand : AbstractCommand
     {
-        private FolderWebResourceCheckEncodingCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FolderWebResourceCheckEncodingCommandId, ActionExecute, CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursive) { }
+        private FolderWebResourceCheckEncodingCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.FolderWebResourceCheckEncodingCommandId) { }
 
         public static FolderWebResourceCheckEncodingCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FolderWebResourceCheckEncodingCommand(package);
+            Instance = new FolderWebResourceCheckEncodingCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceTextType, true).ToList();
 
             helper.HandleCheckFileEncodingCommand(selectedFiles);
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursive(applicationObject, menuCommand);
         }
     }
 }

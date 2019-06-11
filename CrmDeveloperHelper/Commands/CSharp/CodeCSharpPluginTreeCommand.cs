@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.Shell;
+﻿using EnvDTE80;
+using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using System;
 
@@ -6,14 +7,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
     internal sealed class CodeCSharpPluginTreeCommand : AbstractCommand
     {
-        private CodeCSharpPluginTreeCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeCSharpPluginTreeCommandId, ActionExecute, CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp) { }
+        private CodeCSharpPluginTreeCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeCSharpPluginTreeCommandId) { }
 
         public static CodeCSharpPluginTreeCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeCSharpPluginTreeCommand(package);
+            Instance = new CodeCSharpPluginTreeCommand(commandService);
         }
 
         private static async void ActionExecute(DTEHelper helper)
@@ -24,6 +25,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 
                 helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, document?.FullName);
                 helper.ActivateOutputWindow(null);
+
                 string fileType = await PropertiesHelper.GetTypeFullNameAsync(document);
 
                 helper.HandleOpenPluginTree(string.Empty, fileType, string.Empty);
@@ -32,6 +34,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             {
                 DTEHelper.WriteExceptionToOutput(null, ex);
             }
+        }
+
+        protected override void CommandBeforeQueryStatus(DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp(applicationObject, menuCommand);
         }
     }
 }

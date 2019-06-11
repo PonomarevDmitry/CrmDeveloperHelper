@@ -9,30 +9,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
     internal sealed class CodeWebResourceUpdateContentPublishCommand : AbstractCommand
     {
-        private CodeWebResourceUpdateContentPublishCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeWebResourceUpdateContentPublishCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CodeWebResourceUpdateContentPublishCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeWebResourceUpdateContentPublishCommandId) { }
 
         public static CodeWebResourceUpdateContentPublishCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeWebResourceUpdateContentPublishCommand(package);
+            Instance = new CodeWebResourceUpdateContentPublishCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsWebResourceType).ToList();
 
             helper.HandleUpdateContentWebResourcesAndPublishCommand(null, selectedFiles);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusConnectionIsNotReadOnly(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusConnectionIsNotReadOnly(applicationObject, menuCommand);
 
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentWebResource(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentWebResource(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CodeWebResourceUpdateContentPublishCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeWebResourceUpdateContentPublishCommand);
         }
     }
 }

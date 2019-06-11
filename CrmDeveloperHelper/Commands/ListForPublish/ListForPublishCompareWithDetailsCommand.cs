@@ -6,28 +6,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 {
     internal sealed class ListForPublishCompareWithDetailsCommand : AbstractCommand
     {
-        private ListForPublishCompareWithDetailsCommand(Package package)
-          : base(package, PackageGuids.guidCommandSet, PackageIds.ListForPublishCompareWithDetailsCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private ListForPublishCompareWithDetailsCommand(OleMenuCommandService commandService)
+          : base(commandService, PackageIds.ListForPublishCompareWithDetailsCommandId) { }
 
         public static ListForPublishCompareWithDetailsCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new ListForPublishCompareWithDetailsCommand(package);
+            Instance = new ListForPublishCompareWithDetailsCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleFileCompareListForPublishCommand(null, true);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusConnectionIsNotReadOnly(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusConnectionIsNotReadOnly(applicationObject, menuCommand);
 
-            CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceAny(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceAny(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.ListForPublishCompareWithDetailsCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.ListForPublishCompareWithDetailsCommand);
         }
     }
 }

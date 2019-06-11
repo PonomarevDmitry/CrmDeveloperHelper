@@ -7,24 +7,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
     internal sealed class FileCSharpAddPluginStepCommand : AbstractCommand
     {
-        private FileCSharpAddPluginStepCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FileCSharpAddPluginStepCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private FileCSharpAddPluginStepCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.FileCSharpAddPluginStepCommandId) { }
 
         public static FileCSharpAddPluginStepCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FileCSharpAddPluginStepCommand(package);
+            Instance = new FileCSharpAddPluginStepCommand(commandService);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
-        {
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpSingle(command, menuCommand);
-
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerSingleItemContainsProject(command, menuCommand);
-        }
-
-        private static async void ActionExecute(DTEHelper helper)
+        private async void CommandAction(DTEHelper helper)
         {
             try
             {
@@ -34,6 +27,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
                 {
                     helper.WriteToOutput(null, Properties.OutputStrings.GettingClassFullNameFromFileFormat1, projectItem.FileNames[1]);
                     helper.ActivateOutputWindow(null);
+
                     string fileType = await PropertiesHelper.GetTypeFullNameAsync(projectItem);
 
                     helper.HandleAddPluginStep(fileType, null);
@@ -43,6 +37,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             {
                 DTEHelper.WriteExceptionToOutput(null, ex);
             }
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpSingle(applicationObject, menuCommand);
+
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerSingleItemContainsProject(applicationObject, menuCommand);
         }
     }
 }

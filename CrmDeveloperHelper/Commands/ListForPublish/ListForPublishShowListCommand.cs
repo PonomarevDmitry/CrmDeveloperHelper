@@ -6,28 +6,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 {
     internal sealed class ListForPublishShowListCommand : AbstractCommand
     {
-        private ListForPublishShowListCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.ListForPublishShowListCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private ListForPublishShowListCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.ListForPublishShowListCommandId) { }
 
         public static ListForPublishShowListCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new ListForPublishShowListCommand(package);
+            Instance = new ListForPublishShowListCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.ShowListForPublish(null);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusConnectionIsNotReadOnly(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusConnectionIsNotReadOnly(applicationObject, menuCommand);
 
-            CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceAny(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceAny(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.ListForPublishShowListCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.ListForPublishShowListCommand);
         }
     }
 }

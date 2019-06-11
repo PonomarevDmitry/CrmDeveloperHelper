@@ -6,19 +6,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
 {
     internal sealed class ProjectPluginTypeExplorerCommand : AbstractCommand
     {
-        private ProjectPluginTypeExplorerCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.ProjectPluginTypeExplorerCommandId, ActionExecute, CommonHandlers.ActiveSolutionExplorerProjectAny)
+        private ProjectPluginTypeExplorerCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.ProjectPluginTypeExplorerCommandId)
         {
         }
 
         public static ProjectPluginTypeExplorerCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new ProjectPluginTypeExplorerCommand(package);
+            Instance = new ProjectPluginTypeExplorerCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             var projects = helper.GetSelectedProjects();
 
@@ -26,6 +26,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
             {
                 helper.HandleOpenPluginTypeExplorer(projects.First().Name);
             }
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActiveSolutionExplorerProjectAny(applicationObject, menuCommand);
         }
     }
 }

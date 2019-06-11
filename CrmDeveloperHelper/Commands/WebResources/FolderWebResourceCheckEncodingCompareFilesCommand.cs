@@ -8,21 +8,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
     internal sealed class FolderWebResourceCheckEncodingCompareFilesCommand : AbstractCommand
     {
-        private FolderWebResourceCheckEncodingCompareFilesCommand(Package package)
-              : base(package, PackageGuids.guidCommandSet, PackageIds.FolderWebResourceCheckEncodingCompareFilesCommandId, ActionExecute, CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursive) { }
+        private FolderWebResourceCheckEncodingCompareFilesCommand(OleMenuCommandService commandService)
+              : base(commandService, PackageIds.FolderWebResourceCheckEncodingCompareFilesCommandId) { }
 
         public static FolderWebResourceCheckEncodingCompareFilesCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FolderWebResourceCheckEncodingCompareFilesCommand(package);
+            Instance = new FolderWebResourceCheckEncodingCompareFilesCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceTextType, true).ToList();
 
             helper.HandleCompareFilesWithoutUTF8EncodingCommand(selectedFiles, false);
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursive(applicationObject, menuCommand);
         }
     }
 }

@@ -6,24 +6,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
     internal sealed class FileCSharpPluginAssemblyExplorerCommand : AbstractCommand
     {
-        private FileCSharpPluginAssemblyExplorerCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FileCSharpPluginAssemblyExplorerCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private FileCSharpPluginAssemblyExplorerCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.FileCSharpPluginAssemblyExplorerCommandId) { }
 
         public static FileCSharpPluginAssemblyExplorerCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FileCSharpPluginAssemblyExplorerCommand(package);
+            Instance = new FileCSharpPluginAssemblyExplorerCommand(commandService);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
-        {
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpSingle(command, menuCommand);
-
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerSingleItemContainsProject(command, menuCommand);
-        }
-
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             var projectItem = helper.GetSingleSelectedProjectItemInSolutionExplorer(FileOperations.SupportsCSharpType);
 
@@ -42,6 +35,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 
                 helper.HandleOpenPluginAssemblyExplorer(selection);
             }
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpSingle(applicationObject, menuCommand);
+
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerSingleItemContainsProject(applicationObject, menuCommand);
         }
     }
 }

@@ -5,17 +5,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 {
     internal sealed class CommonSystemSavedQueryVisualizationExplorerCommand : AbstractCommand
     {
-        private CommonSystemSavedQueryVisualizationExplorerCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonSystemSavedQueryVisualizationExplorerCommandId, ActionExecute, null) { }
+        private CommonSystemSavedQueryVisualizationExplorerCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.CommonSystemSavedQueryVisualizationExplorerCommandId) { }
 
         public static CommonSystemSavedQueryVisualizationExplorerCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonSystemSavedQueryVisualizationExplorerCommand(package);
+            Instance = new CommonSystemSavedQueryVisualizationExplorerCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleExportSystemSavedQueryVisualization();
         }

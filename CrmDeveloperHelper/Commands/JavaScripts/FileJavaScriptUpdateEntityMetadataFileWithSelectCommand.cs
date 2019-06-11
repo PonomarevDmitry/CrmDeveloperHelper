@@ -9,28 +9,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
 {
     internal sealed class FileJavaScriptUpdateEntityMetadataFileWithSelectCommand : AbstractCommand
     {
-        private FileJavaScriptUpdateEntityMetadataFileWithSelectCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FileJavaScriptUpdateEntityMetadataFileWithSelectCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private FileJavaScriptUpdateEntityMetadataFileWithSelectCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.FileJavaScriptUpdateEntityMetadataFileWithSelectCommandId) { }
 
         public static FileJavaScriptUpdateEntityMetadataFileWithSelectCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FileJavaScriptUpdateEntityMetadataFileWithSelectCommand(package);
+            Instance = new FileJavaScriptUpdateEntityMetadataFileWithSelectCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsJavaScriptType, false).ToList();
 
             helper.HandleUpdateEntityMetadataFileJavaScript(null, selectedFiles, true);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerJavaScriptSingle(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerJavaScriptSingle(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.FileJavaScriptUpdateEntityMetadataFileWithSelectCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.FileJavaScriptUpdateEntityMetadataFileWithSelectCommand);
         }
     }
 }

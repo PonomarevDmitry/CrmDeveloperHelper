@@ -7,17 +7,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
     internal sealed class FolderXmlRemoveXsdSchemaCommand : AbstractCommand
     {
-        private FolderXmlRemoveXsdSchemaCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FolderXmlRemoveXsdSchemaCommandId, ActionExecute, CommonHandlers.ActionBeforeQueryStatusSolutionExplorerXmlRecursive) { }
+        private FolderXmlRemoveXsdSchemaCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.FolderXmlRemoveXsdSchemaCommandId) { }
 
         public static FolderXmlRemoveXsdSchemaCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FolderXmlRemoveXsdSchemaCommand(package);
+            Instance = new FolderXmlRemoveXsdSchemaCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             var listFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsXmlType, true).ToList();
 
@@ -33,6 +33,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                     ContentCoparerHelper.RemoveXsdSchemaInFile(filePath);
                 }
             }
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerXmlRecursive(applicationObject, menuCommand);
         }
     }
 }

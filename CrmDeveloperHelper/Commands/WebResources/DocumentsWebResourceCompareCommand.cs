@@ -9,28 +9,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
     internal sealed class DocumentsWebResourceCompareCommand : AbstractCommand
     {
-        private DocumentsWebResourceCompareCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.DocumentsWebResourceCompareCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private DocumentsWebResourceCompareCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.DocumentsWebResourceCompareCommandId) { }
 
         public static DocumentsWebResourceCompareCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new DocumentsWebResourceCompareCommand(package);
+            Instance = new DocumentsWebResourceCompareCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetOpenedDocuments(FileOperations.SupportsWebResourceType).ToList();
 
             helper.HandleFileCompareCommand(null, selectedFiles, false);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsWebResource(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsWebResource(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.DocumentsWebResourceCompareCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.DocumentsWebResourceCompareCommand);
         }
     }
 }

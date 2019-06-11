@@ -6,24 +6,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 {
     internal sealed class CommonEntityPrivilegesExplorerCommand : AbstractCommand
     {
-        private CommonEntityPrivilegesExplorerCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonEntityPrivilegesExplorerCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CommonEntityPrivilegesExplorerCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.CommonEntityPrivilegesExplorerCommandId) { }
 
         public static CommonEntityPrivilegesExplorerCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonEntityPrivilegesExplorerCommand(package);
+            Instance = new CommonEntityPrivilegesExplorerCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleOpenEntityPrivilegesExplorer();
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CommonEntityPrivilegesExplorerCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CommonEntityPrivilegesExplorerCommand);
         }
     }
 }

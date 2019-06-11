@@ -9,28 +9,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
     internal sealed class FolderWebResourceCompareCommand : AbstractCommand
     {
-        private FolderWebResourceCompareCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FolderWebResourceCompareCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private FolderWebResourceCompareCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.FolderWebResourceCompareCommandId) { }
 
         public static FolderWebResourceCompareCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FolderWebResourceCompareCommand(package);
+            Instance = new FolderWebResourceCompareCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceTextType, true).ToList();
 
             helper.HandleFileCompareCommand(null, selectedFiles, false);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceRecursive(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceRecursive(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.FolderWebResourceCompareCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.FolderWebResourceCompareCommand);
         }
     }
 }

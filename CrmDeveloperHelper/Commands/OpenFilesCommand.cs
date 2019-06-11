@@ -10,29 +10,26 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class OpenFilesCommand : IServiceProviderOwner
+    internal sealed class OpenFilesCommand
     {
         private readonly Func<DTEHelper, IEnumerable<SelectedFile>> _listGetter;
         private readonly Package _package;
         private readonly Guid _guidCommandset;
         private readonly int _idCommand;
-        private readonly Action<IServiceProviderOwner, OleMenuCommand> _actionBeforeQueryStatus;
+        private readonly Action<EnvDTE80.DTE2, OleMenuCommand> _actionBeforeQueryStatus;
         private readonly bool _inTextEditor;
         private readonly OpenFilesType _openFilesType;
 
-        public IServiceProvider ServiceProvider => this._package;
-
         private OpenFilesCommand(
-            Package package
+            OleMenuCommandService commandService
             , Guid guidCommandset
             , int idCommand
             , Func<DTEHelper, IEnumerable<SelectedFile>> listGetter
             , OpenFilesType openFilesType
-            , Action<IServiceProviderOwner, OleMenuCommand> actionBeforeQueryStatus
+            , Action<EnvDTE80.DTE2, OleMenuCommand> actionBeforeQueryStatus
             , bool inTextEditor
         )
         {
-            this._package = package ?? throw new ArgumentNullException(nameof(package));
             this._actionBeforeQueryStatus = actionBeforeQueryStatus;
             this._guidCommandset = guidCommandset;
             this._idCommand = idCommand;
@@ -40,18 +37,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             this._openFilesType = openFilesType;
             this._inTextEditor = inTextEditor;
 
-            OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-            if (commandService != null)
+            var menuCommandID = new CommandID(this._guidCommandset, this._idCommand);
+            var menuItem = new OleMenuCommand(this.MenuItemCallback, menuCommandID);
+            if (actionBeforeQueryStatus != null)
             {
-                var menuCommandID = new CommandID(this._guidCommandset, this._idCommand);
-                var menuItem = new OleMenuCommand(this.MenuItemCallback, menuCommandID);
-                if (actionBeforeQueryStatus != null)
-                {
-                    menuItem.BeforeQueryStatus += MenuItem_BeforeQueryStatus;
-                }
-
-                commandService.AddCommand(menuItem);
+                menuItem.BeforeQueryStatus += MenuItem_BeforeQueryStatus;
             }
+
+            commandService.AddCommand(menuItem);
         }
 
         private static TupleList<int, OpenFilesType, bool> _commandsListforPublish = new TupleList<int, OpenFilesType, bool>()
@@ -185,56 +178,44 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             return null;
         }
 
-        private static void ActionBeforeQueryStatusListForPublishWebResourceTextAnyInTextEditor(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        private static void ActionBeforeQueryStatusListForPublishWebResourceTextAnyInTextEditor(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            menuCommand.Enabled = menuCommand.Visible = true;
-
-            CommonHandlers.ActionBeforeQueryStatusTextEditorProgramExists(command, menuCommand);
-            CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceTextAny(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusTextEditorProgramExists(applicationObject, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceTextAny(applicationObject, menuCommand);
         }
 
-        private static void ActionBeforeQueryStatusSolutionExplorerWebResourceTextAnyInTextEditor(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        private static void ActionBeforeQueryStatusSolutionExplorerWebResourceTextAnyInTextEditor(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            menuCommand.Enabled = menuCommand.Visible = true;
-
-            CommonHandlers.ActionBeforeQueryStatusTextEditorProgramExists(command, menuCommand);
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextAny(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusTextEditorProgramExists(applicationObject, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextAny(applicationObject, menuCommand);
         }
 
-        private static void ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursiveInTextEditor(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        private static void ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursiveInTextEditor(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            menuCommand.Enabled = menuCommand.Visible = true;
-
-            CommonHandlers.ActionBeforeQueryStatusTextEditorProgramExists(command, menuCommand);
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursive(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusTextEditorProgramExists(applicationObject, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursive(applicationObject, menuCommand);
         }
 
-        internal static void ActionBeforeQueryStatusListForPublishWebResourceTextAny(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        internal static void ActionBeforeQueryStatusListForPublishWebResourceTextAny(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            menuCommand.Enabled = menuCommand.Visible = true;
-
-            CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceTextAny(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceTextAny(applicationObject, menuCommand);
         }
 
-        internal static void ActionBeforeQueryStatusSolutionExplorerWebResourceTextAny(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        internal static void ActionBeforeQueryStatusSolutionExplorerWebResourceTextAny(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            menuCommand.Enabled = menuCommand.Visible = true;
-
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextAny(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextAny(applicationObject, menuCommand);
         }
 
-        internal static void ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursive(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        internal static void ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursive(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            menuCommand.Enabled = menuCommand.Visible = true;
-
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursive(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursive(applicationObject, menuCommand);
         }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
             foreach (var item in _commandsListforPublish)
             {
-                Action<IServiceProviderOwner, OleMenuCommand> actionBeforeQueryStatus = null;
+                Action<EnvDTE80.DTE2, OleMenuCommand> actionBeforeQueryStatus = null;
 
                 if (item.Item3)
                 {
@@ -245,14 +226,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     actionBeforeQueryStatus = ActionBeforeQueryStatusListForPublishWebResourceTextAny;
                 }
 
-                var command = new OpenFilesCommand(package, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetSelectedFilesInListForPublish, item.Item2, actionBeforeQueryStatus, item.Item3);
+                var command = new OpenFilesCommand(commandService, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetSelectedFilesInListForPublish, item.Item2, actionBeforeQueryStatus, item.Item3);
 
                 _instances.TryAdd(Tuple.Create<Func<DTEHelper, IEnumerable<SelectedFile>>, OpenFilesType, bool>(CommonHandlers.GetSelectedFilesInListForPublish, item.Item2, item.Item3), command);
             }
 
             foreach (var item in _commandsFile)
             {
-                Action<IServiceProviderOwner, OleMenuCommand> actionBeforeQueryStatus = null;
+                Action<EnvDTE80.DTE2, OleMenuCommand> actionBeforeQueryStatus = null;
 
                 if (item.Item3)
                 {
@@ -263,14 +244,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     actionBeforeQueryStatus = ActionBeforeQueryStatusSolutionExplorerWebResourceTextAny;
                 }
 
-                var command = new OpenFilesCommand(package, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetSelectedFiles, item.Item2, actionBeforeQueryStatus, item.Item3);
+                var command = new OpenFilesCommand(commandService, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetSelectedFiles, item.Item2, actionBeforeQueryStatus, item.Item3);
 
                 _instances.TryAdd(Tuple.Create<Func<DTEHelper, IEnumerable<SelectedFile>>, OpenFilesType, bool>(CommonHandlers.GetSelectedFiles, item.Item2, item.Item3), command);
             }
 
             foreach (var item in _commandsFolder)
             {
-                Action<IServiceProviderOwner, OleMenuCommand> actionBeforeQueryStatus = null;
+                Action<EnvDTE80.DTE2, OleMenuCommand> actionBeforeQueryStatus = null;
 
                 if (item.Item3)
                 {
@@ -281,7 +262,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     actionBeforeQueryStatus = ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursive;
                 }
 
-                var command = new OpenFilesCommand(package, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetSelectedFilesRecursive, item.Item2, actionBeforeQueryStatus, item.Item3);
+                var command = new OpenFilesCommand(commandService, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetSelectedFilesRecursive, item.Item2, actionBeforeQueryStatus, item.Item3);
 
                 _instances.TryAdd(Tuple.Create<Func<DTEHelper, IEnumerable<SelectedFile>>, OpenFilesType, bool>(CommonHandlers.GetSelectedFilesRecursive, item.Item2, item.Item3), command);
             }
@@ -293,7 +274,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             {
                 if (sender is OleMenuCommand menuCommand)
                 {
-                    _actionBeforeQueryStatus?.Invoke(this, menuCommand);
+                    menuCommand.Enabled = menuCommand.Visible = false;
+
+                    var applicationObject = CrmDeveloperHelperPackage.Singleton.ApplicationObject;
+                    if (applicationObject == null)
+                    {
+                        return;
+                    }
+
+                    menuCommand.Enabled = menuCommand.Visible = true;
+
+                    _actionBeforeQueryStatus?.Invoke(applicationObject, menuCommand);
                 }
             }
             catch (Exception ex)
@@ -312,7 +303,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     return;
                 }
 
-                var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
+                var applicationObject = CrmDeveloperHelperPackage.Singleton.ApplicationObject;
                 if (applicationObject == null)
                 {
                     return;

@@ -5,17 +5,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 {
     internal sealed class CommonWorkflowExplorerCommand : AbstractCommand
     {
-        private CommonWorkflowExplorerCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonWorkflowExplorerCommandId, ActionExecute, null) { }
+        private CommonWorkflowExplorerCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.CommonWorkflowExplorerCommandId) { }
 
         public static CommonWorkflowExplorerCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonWorkflowExplorerCommand(package);
+            Instance = new CommonWorkflowExplorerCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleExportWorkflows();
         }

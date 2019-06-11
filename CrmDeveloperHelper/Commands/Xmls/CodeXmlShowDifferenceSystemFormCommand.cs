@@ -10,17 +10,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
     internal sealed class CodeXmlShowDifferenceSystemFormCommand : AbstractCommand
     {
-        private CodeXmlShowDifferenceSystemFormCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeXmlShowDifferenceSystemFormCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CodeXmlShowDifferenceSystemFormCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeXmlShowDifferenceSystemFormCommandId) { }
 
         public static CodeXmlShowDifferenceSystemFormCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlShowDifferenceSystemFormCommand(package);
+            Instance = new CodeXmlShowDifferenceSystemFormCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsXmlType).Take(2).ToList();
 
@@ -30,11 +30,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             }
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(command, menuCommand, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId, out var attribute, AbstractDynamicCommandXsdSchemas.RootForm);
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(applicationObject, menuCommand, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeFormId, out var attribute, AbstractDynamicCommandXsdSchemas.RootForm);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CodeXmlShowDifferenceSystemFormCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeXmlShowDifferenceSystemFormCommand);
 
             if (attribute == null
                 || !Guid.TryParse(attribute.Value, out _)

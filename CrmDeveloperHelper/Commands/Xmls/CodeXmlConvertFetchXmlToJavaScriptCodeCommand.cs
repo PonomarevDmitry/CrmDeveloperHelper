@@ -9,17 +9,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
     internal sealed class CodeXmlConvertFetchXmlToJavaScriptCodeCommand : AbstractCommand
     {
-        private CodeXmlConvertFetchXmlToJavaScriptCodeCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeXmlConvertFetchXmlToJavaScriptCodeCommandId, ActionExecute, CommonHandlers.ActionBeforeQueryStatusActiveDocumentXml) { }
+        private CodeXmlConvertFetchXmlToJavaScriptCodeCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeXmlConvertFetchXmlToJavaScriptCodeCommandId) { }
 
         public static CodeXmlConvertFetchXmlToJavaScriptCodeCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlConvertFetchXmlToJavaScriptCodeCommand(package);
+            Instance = new CodeXmlConvertFetchXmlToJavaScriptCodeCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             EnvDTE.Document document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsXmlType);
 
@@ -37,6 +37,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                     Clipboard.SetText(jsCode);
                 }
             }
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentXml(applicationObject, menuCommand);
         }
     }
 }

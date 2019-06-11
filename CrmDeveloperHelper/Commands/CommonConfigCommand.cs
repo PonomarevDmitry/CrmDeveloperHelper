@@ -5,17 +5,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
     internal sealed class CommonConfigCommand : AbstractCommand
     {
-        private CommonConfigCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonConfigCommandId, ActionExecute, null) { }
+        private CommonConfigCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.CommonConfigCommandId) { }
 
         public static CommonConfigCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonConfigCommand(package);
+            Instance = new CommonConfigCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.OpenCommonConfiguration();
         }

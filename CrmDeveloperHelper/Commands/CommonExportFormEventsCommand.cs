@@ -5,17 +5,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
     internal sealed class CommonExportFormEventsCommand : AbstractCommand
     {
-        private CommonExportFormEventsCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonExportFormEventsCommandId, ActionExecute, null) { }
+        private CommonExportFormEventsCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.CommonExportFormEventsCommandId) { }
 
         public static CommonExportFormEventsCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonExportFormEventsCommand(package);
+            Instance = new CommonExportFormEventsCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleExportFormEvents();
         }

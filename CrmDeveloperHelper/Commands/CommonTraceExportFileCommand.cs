@@ -5,17 +5,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
     internal class CommonTraceExportFileCommand : AbstractCommand
     {
-        private CommonTraceExportFileCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CommonTraceExportFileCommandId, ActionExecute, null) { }
+        private CommonTraceExportFileCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CommonTraceExportFileCommandId) { }
 
         public static CommonTraceExportFileCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonTraceExportFileCommand(package);
+            Instance = new CommonTraceExportFileCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleExportTraceEnableFile();
         }

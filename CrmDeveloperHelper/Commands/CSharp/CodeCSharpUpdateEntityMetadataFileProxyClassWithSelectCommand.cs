@@ -1,6 +1,5 @@
-﻿using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,28 +8,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
     internal sealed class CodeCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand : AbstractCommand
     {
-        private CodeCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeCSharpUpdateEntityMetadataFileProxyClassWithSelectCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CodeCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeCSharpUpdateEntityMetadataFileProxyClassWithSelectCommandId) { }
 
         public static CodeCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand(package);
+            Instance = new CodeCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsCSharpType).ToList();
 
             helper.HandleUpdateEntityMetadataFileCSharpProxyClass(null, selectedFiles, true);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CodeCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeCSharpUpdateEntityMetadataFileProxyClassWithSelectCommand);
         }
     }
 }

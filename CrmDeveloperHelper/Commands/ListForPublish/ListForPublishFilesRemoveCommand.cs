@@ -8,28 +8,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 {
     internal sealed class ListForPublishFilesRemoveCommand : AbstractCommand
     {
-        private ListForPublishFilesRemoveCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.ListForPublishFilesRemoveCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private ListForPublishFilesRemoveCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.ListForPublishFilesRemoveCommandId) { }
 
         public static ListForPublishFilesRemoveCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new ListForPublishFilesRemoveCommand(package);
+            Instance = new ListForPublishFilesRemoveCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             var selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsWebResourceType).ToList();
 
             helper.RemoveFromListForPublish(selectedFiles);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusConnectionIsNotReadOnly(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusConnectionIsNotReadOnly(applicationObject, menuCommand);
 
-            CommonHandlers.ActionBeforeQueryStatusFilesToAdd(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusFilesToAdd(applicationObject, menuCommand);
         }
     }
 }

@@ -1,34 +1,32 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 {
     internal sealed class ListForPublishFilesAddCommand : AbstractCommand
     {
-        private ListForPublishFilesAddCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.ListForPublishFilesAddCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private ListForPublishFilesAddCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.ListForPublishFilesAddCommandId) { }
 
         public static ListForPublishFilesAddCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new ListForPublishFilesAddCommand(package);
+            Instance = new ListForPublishFilesAddCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             var selectedFiles = helper.GetSelectedFilesAll(FileOperations.SupportsWebResourceType, true);
 
             helper.AddToListForPublish(selectedFiles);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusConnectionIsNotReadOnly(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusConnectionIsNotReadOnly(applicationObject, menuCommand);
 
-            CommonHandlers.ActionBeforeQueryStatusFilesToAdd(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusFilesToAdd(applicationObject, menuCommand);
         }
     }
 }

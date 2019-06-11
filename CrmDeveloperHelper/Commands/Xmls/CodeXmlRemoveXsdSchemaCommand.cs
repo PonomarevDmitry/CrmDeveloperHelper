@@ -5,17 +5,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
     internal sealed class CodeXmlRemoveXsdSchemaCommand : AbstractCommand
     {
-        private CodeXmlRemoveXsdSchemaCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeXmlRemoveXsdSchemaCommandId, ActionExecute, CommonHandlers.ActionBeforeQueryStatusActiveDocumentXml) { }
+        private CodeXmlRemoveXsdSchemaCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeXmlRemoveXsdSchemaCommandId) { }
 
         public static CodeXmlRemoveXsdSchemaCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlRemoveXsdSchemaCommand(package);
+            Instance = new CodeXmlRemoveXsdSchemaCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             EnvDTE.Document document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsXmlType);
 
@@ -23,6 +23,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             {
                 ContentCoparerHelper.RemoveXsdSchemaInDocument(document);
             }
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentXml(applicationObject, menuCommand);
         }
     }
 }

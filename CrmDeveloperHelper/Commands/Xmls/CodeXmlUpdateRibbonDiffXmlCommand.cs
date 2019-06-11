@@ -9,17 +9,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
     internal sealed class CodeXmlUpdateRibbonDiffXmlCommand : AbstractCommand
     {
-        private CodeXmlUpdateRibbonDiffXmlCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeXmlUpdateRibbonDiffXmlCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CodeXmlUpdateRibbonDiffXmlCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeXmlUpdateRibbonDiffXmlCommandId) { }
 
         public static CodeXmlUpdateRibbonDiffXmlCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlUpdateRibbonDiffXmlCommand(package);
+            Instance = new CodeXmlUpdateRibbonDiffXmlCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsXmlType).Take(2).ToList();
 
@@ -29,9 +29,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             }
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(command, menuCommand, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName, out var attribute, AbstractDynamicCommandXsdSchemas.RootRibbonDiffXml);
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(applicationObject, menuCommand, Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeEntityName, out var attribute, AbstractDynamicCommandXsdSchemas.RootRibbonDiffXml);
 
             if (attribute != null)
             {
@@ -44,9 +44,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                     nameCommand = string.Format(Properties.CommandNames.CodeXmlUpdateEntityRibbonDiffXmlCommandFormat1, entityName);
                 }
 
-                CommonHandlers.ActionBeforeQueryStatusConnectionIsNotReadOnly(command, menuCommand);
+                CommonHandlers.ActionBeforeQueryStatusConnectionIsNotReadOnly(applicationObject, menuCommand);
 
-                CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, nameCommand);
+                CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, nameCommand);
             }
         }
     }

@@ -6,26 +6,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
     internal sealed class CodeWebResourceExplorerCommand : AbstractCommand
     {
-        private CodeWebResourceExplorerCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeWebResourceExplorerCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CodeWebResourceExplorerCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeWebResourceExplorerCommandId) { }
 
         public static CodeWebResourceExplorerCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeWebResourceExplorerCommand(package);
+            Instance = new CodeWebResourceExplorerCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleOpenWebResourceExplorerCommand();
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentWebResource(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentWebResource(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CodeWebResourceExplorerCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeWebResourceExplorerCommand);
         }
     }
 }

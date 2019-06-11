@@ -6,26 +6,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
     internal sealed class FileCSharpProjectCompareToCrmAssemblyCommand : AbstractCommand
     {
-        private FileCSharpProjectCompareToCrmAssemblyCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FileCSharpProjectCompareToCrmAssemblyCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private FileCSharpProjectCompareToCrmAssemblyCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.FileCSharpProjectCompareToCrmAssemblyCommandId) { }
 
         public static FileCSharpProjectCompareToCrmAssemblyCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FileCSharpProjectCompareToCrmAssemblyCommand(package);
+            Instance = new FileCSharpProjectCompareToCrmAssemblyCommand(commandService);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
-        {
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpSingle(command, menuCommand);
-
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerSingleItemContainsProject(command, menuCommand);
-
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.FileCSharpProjectCompareToCrmAssemblyCommand);
-        }
-
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             var projectItem = helper.GetSingleSelectedProjectItemInSolutionExplorer(FileOperations.SupportsCSharpType);
 
@@ -33,6 +24,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             {
                 helper.HandleComparingPluginAssemblyAndLocalAssemblyCommand(null, projectItem.ContainingProject);
             }
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpSingle(applicationObject, menuCommand);
+
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerSingleItemContainsProject(applicationObject, menuCommand);
+
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.FileCSharpProjectCompareToCrmAssemblyCommand);
         }
     }
 }

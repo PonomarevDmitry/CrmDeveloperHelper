@@ -8,21 +8,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
     internal sealed class DocumentsWebResouceLinkCreateCommand : AbstractCommand
     {
-        private DocumentsWebResouceLinkCreateCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.DocumentsWebResourceLinkCreateCommandId, ActionExecute, CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsWebResource) { }
+        private DocumentsWebResouceLinkCreateCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.DocumentsWebResourceLinkCreateCommandId) { }
 
         public static DocumentsWebResouceLinkCreateCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new DocumentsWebResouceLinkCreateCommand(package);
+            Instance = new DocumentsWebResouceLinkCreateCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetOpenedDocuments(FileOperations.SupportsWebResourceType).ToList();
 
             helper.HandleCreateLaskLinkWebResourcesMultipleCommand(selectedFiles);
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsWebResource(applicationObject, menuCommand);
         }
     }
 }

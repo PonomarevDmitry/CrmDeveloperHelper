@@ -1,41 +1,21 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using System;
 using System.ComponentModel.Design;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal abstract class AbstractCommand : IServiceProviderOwner
+    internal abstract class AbstractCommand
     {
-        protected readonly Package _package;
-        protected readonly Guid _guidCommandset;
-        protected readonly int _idCommand;
-        protected readonly Action<DTEHelper> _action;
-        private readonly Action<IServiceProviderOwner, OleMenuCommand> _actionBeforeQueryStatus;
-
-        public IServiceProvider ServiceProvider => this._package;
-
-        protected AbstractCommand(Package package, Guid guidCommandset, int idCommand, Action<DTEHelper> action, Action<IServiceProviderOwner, OleMenuCommand> actionBeforeQueryStatus)
+        protected AbstractCommand(OleMenuCommandService commandService, int idCommand)
         {
-            this._package = package ?? throw new ArgumentNullException(nameof(package));
-            this._action = action ?? throw new ArgumentNullException(nameof(action));
-            this._actionBeforeQueryStatus = actionBeforeQueryStatus;
-            this._guidCommandset = guidCommandset;
-            this._idCommand = idCommand;
+            var menuCommandID = new CommandID(PackageGuids.guidCommandSet, idCommand);
 
-            OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-            if (commandService != null)
-            {
-                var menuCommandID = new CommandID(this._guidCommandset, this._idCommand);
-                var menuItem = new OleMenuCommand(this.menuItemCallback, menuCommandID);
-                if (actionBeforeQueryStatus != null)
-                {
-                    menuItem.BeforeQueryStatus += menuItem_BeforeQueryStatus;
-                }
+            var menuItem = new OleMenuCommand(this.menuItemCallback, menuCommandID);
 
-                commandService.AddCommand(menuItem);
-            }
+            menuItem.BeforeQueryStatus += menuItem_BeforeQueryStatus;
+
+            commandService.AddCommand(menuItem);
         }
 
         protected void menuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -44,9 +24,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             {
                 if (sender is OleMenuCommand menuCommand)
                 {
+                    menuCommand.Enabled = menuCommand.Visible = false;
+
+                    var applicationObject = CrmDeveloperHelperPackage.Singleton.ApplicationObject;
+                    if (applicationObject == null)
+                    {
+                        return;
+                    }
+
                     menuCommand.Enabled = menuCommand.Visible = true;
 
-                    _actionBeforeQueryStatus?.Invoke(this, menuCommand);
+                    CommandBeforeQueryStatus(applicationObject, menuCommand);
                 }
             }
             catch (Exception ex)
@@ -65,7 +53,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     return;
                 }
 
-                var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
+                var applicationObject = CrmDeveloperHelperPackage.Singleton.ApplicationObject;
                 if (applicationObject == null)
                 {
                     return;
@@ -73,13 +61,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 
                 var helper = DTEHelper.Create(applicationObject);
 
-                _action?.Invoke(helper);
+                CommandAction(helper);
             }
             catch (Exception ex)
             {
                 DTEHelper.WriteExceptionToOutput(null, ex);
             }
-           
+        }
+
+        protected virtual void CommandAction(DTEHelper helper)
+        {
+
+        }
+
+        protected virtual void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+
         }
     }
 }

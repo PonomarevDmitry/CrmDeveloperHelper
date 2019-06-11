@@ -8,21 +8,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 {
     internal sealed class FileReportLinkClearCommand : AbstractCommand
     {
-        private FileReportLinkClearCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FileReportLinkClearCommandId, ActionExecute, CommonHandlers.ActionBeforeQueryStatusSolutionExplorerReportAny) { }
+        private FileReportLinkClearCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.FileReportLinkClearCommandId) { }
 
         public static FileReportLinkClearCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FileReportLinkClearCommand(package);
+            Instance = new FileReportLinkClearCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsReportType, false).ToList();
 
             helper.HandleFileClearLink(selectedFiles);
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerReportAny(applicationObject, menuCommand);
         }
     }
 }

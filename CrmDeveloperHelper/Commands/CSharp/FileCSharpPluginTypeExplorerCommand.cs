@@ -7,24 +7,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
     internal sealed class FileCSharpPluginTypeExplorerCommand : AbstractCommand
     {
-        private FileCSharpPluginTypeExplorerCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FileCSharpPluginTypeExplorerCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private FileCSharpPluginTypeExplorerCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.FileCSharpPluginTypeExplorerCommandId) { }
 
         public static FileCSharpPluginTypeExplorerCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FileCSharpPluginTypeExplorerCommand(package);
+            Instance = new FileCSharpPluginTypeExplorerCommand(commandService);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
-        {
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpSingle(command, menuCommand);
-
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerSingleItemContainsProject(command, menuCommand);
-        }
-
-        private static async void ActionExecute(DTEHelper helper)
+        private async void CommandAction(DTEHelper helper)
         {
             try
             {
@@ -43,6 +36,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             {
                 DTEHelper.WriteExceptionToOutput(null, ex);
             }
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpSingle(applicationObject, menuCommand);
+
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerSingleItemContainsProject(applicationObject, menuCommand);
         }
     }
 }

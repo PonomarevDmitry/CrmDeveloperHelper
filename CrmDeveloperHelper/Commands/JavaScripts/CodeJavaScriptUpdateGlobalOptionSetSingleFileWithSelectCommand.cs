@@ -1,6 +1,5 @@
-﻿using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,28 +8,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts
 {
     internal sealed class CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand : AbstractCommand
     {
-        private CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommandId) { }
 
         public static CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand(package);
+            Instance = new CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsJavaScriptType).ToList();
 
             helper.HandleUpdateGlobalOptionSetSingleFileJavaScript(null, selectedFiles, true);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentJavaScript(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentJavaScript(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand);
         }
     }
 }

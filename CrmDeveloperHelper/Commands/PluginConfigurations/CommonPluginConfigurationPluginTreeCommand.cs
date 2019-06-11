@@ -5,17 +5,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.PluginConfigurations
 {
     internal sealed class CommonPluginConfigurationPluginTreeCommand : AbstractCommand
     {
-        private CommonPluginConfigurationPluginTreeCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonPluginConfigurationPluginTreeCommandId, ActionExecute, null) { }
+        private CommonPluginConfigurationPluginTreeCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.CommonPluginConfigurationPluginTreeCommandId) { }
 
         public static CommonPluginConfigurationPluginTreeCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonPluginConfigurationPluginTreeCommand(package);
+            Instance = new CommonPluginConfigurationPluginTreeCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandlePluginConfigurationTree();
         }

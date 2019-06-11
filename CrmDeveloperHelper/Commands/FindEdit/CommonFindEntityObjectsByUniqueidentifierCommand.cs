@@ -5,17 +5,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.FindEdit
 {
     internal sealed class CommonFindEntityObjectsByUniqueidentifierCommand : AbstractCommand
     {
-        private CommonFindEntityObjectsByUniqueidentifierCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonFindEntityObjectsByUniqueidentifierCommandId, ActionExecute, null) { }
+        private CommonFindEntityObjectsByUniqueidentifierCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.CommonFindEntityObjectsByUniqueidentifierCommandId) { }
 
         public static CommonFindEntityObjectsByUniqueidentifierCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonFindEntityObjectsByUniqueidentifierCommand(package);
+            Instance = new CommonFindEntityObjectsByUniqueidentifierCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleFindEntityByUniqueidentifier();
         }

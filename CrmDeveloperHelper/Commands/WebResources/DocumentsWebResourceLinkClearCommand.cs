@@ -8,21 +8,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
     internal sealed class DocumentsWebResouceLinkClearCommand : AbstractCommand
     {
-        private DocumentsWebResouceLinkClearCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.DocumentsWebResourceLinkClearCommandId, ActionExecute, CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsWebResource) { }
+        private DocumentsWebResouceLinkClearCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.DocumentsWebResourceLinkClearCommandId) { }
 
         public static DocumentsWebResouceLinkClearCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new DocumentsWebResouceLinkClearCommand(package);
+            Instance = new DocumentsWebResouceLinkClearCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetOpenedDocuments(FileOperations.SupportsWebResourceType).ToList();
 
             helper.HandleFileClearLink(selectedFiles);
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsWebResource(applicationObject, menuCommand);
         }
     }
 }

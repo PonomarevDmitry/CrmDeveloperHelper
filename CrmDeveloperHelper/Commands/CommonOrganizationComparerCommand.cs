@@ -5,17 +5,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
     internal sealed class CommonOrganizationComparerCommand : AbstractCommand
     {
-        private CommonOrganizationComparerCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonOrganizationComparerCommandId, ActionExecute, null) { }
+        private CommonOrganizationComparerCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.CommonOrganizationComparerCommandId) { }
 
         public static CommonOrganizationComparerCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonOrganizationComparerCommand(package);
+            Instance = new CommonOrganizationComparerCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleOrganizationComparer();
         }

@@ -12,45 +12,37 @@ using System.Collections.Concurrent;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
-    internal sealed class MultiDifferenceCommand : IServiceProviderOwner
+    internal sealed class MultiDifferenceCommand
     {
         private readonly Func<DTEHelper, IEnumerable<SelectedFile>> _listGetter;
-        private readonly Package _package;
         private readonly Guid _guidCommandset;
         private readonly int _idCommand;
-        private readonly Action<IServiceProviderOwner, OleMenuCommand> _actionBeforeQueryStatus;
+        private readonly Action<EnvDTE80.DTE2, OleMenuCommand> _actionBeforeQueryStatus;
         private readonly OpenFilesType _openFilesType;
 
-        public IServiceProvider ServiceProvider => this._package;
-
         private MultiDifferenceCommand(
-            Package package
+            OleMenuCommandService commandService
             , Guid guidCommandset
             , int idCommand
             , Func<DTEHelper, IEnumerable<SelectedFile>> listGetter
             , OpenFilesType openFilesType
-            , Action<IServiceProviderOwner, OleMenuCommand> actionBeforeQueryStatus
+            , Action<EnvDTE80.DTE2, OleMenuCommand> actionBeforeQueryStatus
         )
         {
-            this._package = package ?? throw new ArgumentNullException(nameof(package));
             this._actionBeforeQueryStatus = actionBeforeQueryStatus;
             this._guidCommandset = guidCommandset;
             this._idCommand = idCommand;
             this._listGetter = listGetter;
             this._openFilesType = openFilesType;
 
-            OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-            if (commandService != null)
+            var menuCommandID = new CommandID(this._guidCommandset, this._idCommand);
+            var menuItem = new OleMenuCommand(this.MenuItemCallback, menuCommandID);
+            if (actionBeforeQueryStatus != null)
             {
-                var menuCommandID = new CommandID(this._guidCommandset, this._idCommand);
-                var menuItem = new OleMenuCommand(this.MenuItemCallback, menuCommandID);
-                if (actionBeforeQueryStatus != null)
-                {
-                    menuItem.BeforeQueryStatus += MenuItem_BeforeQueryStatus;
-                }
-
-                commandService.AddCommand(menuItem);
+                menuItem.BeforeQueryStatus += MenuItem_BeforeQueryStatus;
             }
+
+            commandService.AddCommand(menuItem);
         }
 
         private static TupleList<int, OpenFilesType> _commandsListforPublish = new TupleList<int, OpenFilesType>()
@@ -123,63 +115,55 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             return null;
         }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
             foreach (var item in _commandsListforPublish)
             {
-                var command = new MultiDifferenceCommand(package, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetSelectedFilesInListForPublish, item.Item2, ActionBeforeQueryStatusListForPublishWebResourceTextAnyDifferenceProgramm);
+                var command = new MultiDifferenceCommand(commandService, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetSelectedFilesInListForPublish, item.Item2, ActionBeforeQueryStatusListForPublishWebResourceTextAnyDifferenceProgramm);
 
                 _instances.TryAdd(Tuple.Create((Func<DTEHelper, IEnumerable<SelectedFile>>)CommonHandlers.GetSelectedFilesInListForPublish, item.Item2), command);
             }
 
             foreach (var item in _commandsDocuments)
             {
-                var command = new MultiDifferenceCommand(package, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetOpenedDocuments, item.Item2, ActionBeforeQueryStatusOpenedDocumentsWebResourceTextDifferenceProgramm);
+                var command = new MultiDifferenceCommand(commandService, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetOpenedDocuments, item.Item2, ActionBeforeQueryStatusOpenedDocumentsWebResourceTextDifferenceProgramm);
 
                 _instances.TryAdd(Tuple.Create((Func<DTEHelper, IEnumerable<SelectedFile>>)CommonHandlers.GetOpenedDocuments, item.Item2), command);
             }
 
             foreach (var item in _commandsFile)
             {
-                var command = new MultiDifferenceCommand(package, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetSelectedFiles, item.Item2, ActionBeforeQueryStatusSolutionExplorerWebResourceTextAnyDifferenceProgramm);
+                var command = new MultiDifferenceCommand(commandService, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetSelectedFiles, item.Item2, ActionBeforeQueryStatusSolutionExplorerWebResourceTextAnyDifferenceProgramm);
 
                 _instances.TryAdd(Tuple.Create((Func<DTEHelper, IEnumerable<SelectedFile>>)CommonHandlers.GetSelectedFiles, item.Item2), command);
             }
 
             foreach (var item in _commandsFolder)
             {
-                var command = new MultiDifferenceCommand(package, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetSelectedFilesRecursive, item.Item2, ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursiveDifferenceProgramm);
+                var command = new MultiDifferenceCommand(commandService, PackageGuids.guidCommandSet, item.Item1, CommonHandlers.GetSelectedFilesRecursive, item.Item2, ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursiveDifferenceProgramm);
 
                 _instances.TryAdd(Tuple.Create((Func<DTEHelper, IEnumerable<SelectedFile>>)CommonHandlers.GetSelectedFilesRecursive, item.Item2), command);
             }
         }
 
-        private static void ActionBeforeQueryStatusListForPublishWebResourceTextAnyDifferenceProgramm(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        private static void ActionBeforeQueryStatusListForPublishWebResourceTextAnyDifferenceProgramm(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            menuCommand.Enabled = menuCommand.Visible = true;
-
-            CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceTextAny(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusListForPublishWebResourceTextAny(applicationObject, menuCommand);
         }
 
-        private static void ActionBeforeQueryStatusOpenedDocumentsWebResourceTextDifferenceProgramm(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        private static void ActionBeforeQueryStatusOpenedDocumentsWebResourceTextDifferenceProgramm(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            menuCommand.Enabled = menuCommand.Visible = true;
-
-            CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsWebResourceText(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusOpenedDocumentsWebResourceText(applicationObject, menuCommand);
         }
 
-        private static void ActionBeforeQueryStatusSolutionExplorerWebResourceTextAnyDifferenceProgramm(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        private static void ActionBeforeQueryStatusSolutionExplorerWebResourceTextAnyDifferenceProgramm(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            menuCommand.Enabled = menuCommand.Visible = true;
-
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextAny(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextAny(applicationObject, menuCommand);
         }
 
-        private static void ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursiveDifferenceProgramm(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        private static void ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursiveDifferenceProgramm(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            menuCommand.Enabled = menuCommand.Visible = true;
-
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursive(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextRecursive(applicationObject, menuCommand);
         }
 
         private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -188,7 +172,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             {
                 if (sender is OleMenuCommand menuCommand)
                 {
-                    _actionBeforeQueryStatus?.Invoke(this, menuCommand);
+
+                    menuCommand.Enabled = menuCommand.Visible = false;
+
+                    var applicationObject = CrmDeveloperHelperPackage.Singleton.ApplicationObject;
+                    if (applicationObject == null)
+                    {
+                        return;
+                    }
+
+                    menuCommand.Enabled = menuCommand.Visible = true;
+
+                    _actionBeforeQueryStatus?.Invoke(applicationObject, menuCommand);
                 }
             }
             catch (Exception ex)
@@ -207,7 +202,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
                     return;
                 }
 
-                var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
+                var applicationObject = CrmDeveloperHelperPackage.Singleton.ApplicationObject;
                 if (applicationObject == null)
                 {
                     return;

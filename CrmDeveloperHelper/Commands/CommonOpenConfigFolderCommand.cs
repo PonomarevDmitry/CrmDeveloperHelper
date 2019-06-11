@@ -8,17 +8,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
     internal sealed class CommonOpenConfigFolderCommand : AbstractCommand
     {
-        private CommonOpenConfigFolderCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CommonOpenConfigFolderCommandId, ActionExecute, null) { }
+        private CommonOpenConfigFolderCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CommonOpenConfigFolderCommandId) { }
 
         public static CommonOpenConfigFolderCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonOpenConfigFolderCommand(package);
+            Instance = new CommonOpenConfigFolderCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             var directory = FileOperations.GetConfigurationFolder();
 

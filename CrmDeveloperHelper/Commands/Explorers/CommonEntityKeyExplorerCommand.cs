@@ -6,25 +6,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 {
     internal sealed class CommonEntityKeyExplorerCommand : AbstractCommand
     {
-        private CommonEntityKeyExplorerCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonEntityKeyExplorerCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CommonEntityKeyExplorerCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.CommonEntityKeyExplorerCommandId) { }
 
         public static CommonEntityKeyExplorerCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonEntityKeyExplorerCommand(package);
+            Instance = new CommonEntityKeyExplorerCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleOpenEntityKeyExplorer();
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
             
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CommonEntityKeyExplorerCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CommonEntityKeyExplorerCommand);
         }
     }
 }

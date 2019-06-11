@@ -6,24 +6,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Connections
 {
     internal sealed class CommonCurrentConnectionCommand : AbstractCommand
     {
-        private CommonCurrentConnectionCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CommonCurrentConnectionCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CommonCurrentConnectionCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CommonCurrentConnectionCommandId) { }
 
         public static CommonCurrentConnectionCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonCurrentConnectionCommand(package);
+            Instance = new CommonCurrentConnectionCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleOpenCrmInWeb(null, Model.OpenCrmWebSiteType.CrmWebApplication);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CommonCurrentConnectionCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CommonCurrentConnectionCommand);
         }
     }
 }

@@ -1,33 +1,32 @@
 using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 {
     internal sealed class CodeReportExplorerCommand : AbstractCommand
     {
-        private CodeReportExplorerCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeReportExplorerCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CodeReportExplorerCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeReportExplorerCommandId) { }
 
         public static CodeReportExplorerCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeReportExplorerCommand(package);
+            Instance = new CodeReportExplorerCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleOpenReportExplorerCommand();
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentReport(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentReport(applicationObject, menuCommand);
 
             if (menuCommand.Enabled)
             {
-                CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CodeReportExplorerCommand);
+                CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeReportExplorerCommand);
             }
         }
     }

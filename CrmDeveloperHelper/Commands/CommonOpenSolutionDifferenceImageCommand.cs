@@ -6,24 +6,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
 {
     internal sealed class CommonOpenSolutionDifferenceImageCommand : AbstractCommand
     {
-        private CommonOpenSolutionDifferenceImageCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonOpenSolutionDifferenceImageCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CommonOpenSolutionDifferenceImageCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.CommonOpenSolutionDifferenceImageCommandId) { }
 
         public static CommonOpenSolutionDifferenceImageCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonOpenSolutionDifferenceImageCommand(package);
+            Instance = new CommonOpenSolutionDifferenceImageCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleOpenSolutionDifferenceImageWindow();
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CommonOpenSolutionDifferenceImageCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CommonOpenSolutionDifferenceImageCommand);
         }
     }
 }

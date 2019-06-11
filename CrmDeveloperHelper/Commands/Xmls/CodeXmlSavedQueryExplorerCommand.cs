@@ -11,17 +11,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
     internal sealed class CodeXmlSavedQueryExplorerCommand : AbstractCommand
     {
-        private CodeXmlSavedQueryExplorerCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeXmlSavedQueryExplorerCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CodeXmlSavedQueryExplorerCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeXmlSavedQueryExplorerCommandId) { }
 
         public static CodeXmlSavedQueryExplorerCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlSavedQueryExplorerCommand(package);
+            Instance = new CodeXmlSavedQueryExplorerCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsXmlType).Take(2).ToList();
 
@@ -38,9 +38,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             }
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(command, menuCommand
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(applicationObject, menuCommand
                 , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId
                 , out var attribute
                 , AbstractDynamicCommandXsdSchemas.RootFetch

@@ -9,17 +9,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
     internal sealed class CodeXmlShowDifferenceSiteMapCommand : AbstractCommand
     {
-        private CodeXmlShowDifferenceSiteMapCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeXmlShowDifferenceSiteMapCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CodeXmlShowDifferenceSiteMapCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeXmlShowDifferenceSiteMapCommandId) { }
 
         public static CodeXmlShowDifferenceSiteMapCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlShowDifferenceSiteMapCommand(package);
+            Instance = new CodeXmlShowDifferenceSiteMapCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsXmlType).Take(2).ToList();
 
@@ -29,9 +29,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             }
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(command, menuCommand, out var doc, AbstractDynamicCommandXsdSchemas.RootSiteMap);
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(applicationObject, menuCommand, out var doc, AbstractDynamicCommandXsdSchemas.RootSiteMap);
 
             if (doc != null)
             {
@@ -44,7 +44,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                     nameCommand = string.Format(Properties.CommandNames.CodeXmlShowDifferenceSiteMapByNameCommandFormat1, attribute.Value);
                 }
 
-                CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, nameCommand);
+                CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, nameCommand);
             }
         }
     }

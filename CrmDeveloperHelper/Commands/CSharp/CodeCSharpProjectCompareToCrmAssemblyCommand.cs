@@ -1,41 +1,40 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
     internal sealed class CodeCSharpProjectCompareToCrmAssemblyCommand : AbstractCommand
     {
-        private CodeCSharpProjectCompareToCrmAssemblyCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeCSharpProjectCompareToCrmAssemblyCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CodeCSharpProjectCompareToCrmAssemblyCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeCSharpProjectCompareToCrmAssemblyCommandId) { }
 
         public static CodeCSharpProjectCompareToCrmAssemblyCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeCSharpProjectCompareToCrmAssemblyCommand(package);
+            Instance = new CodeCSharpProjectCompareToCrmAssemblyCommand(commandService);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
-        {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp(command, menuCommand);
-
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentContainingProject(command, menuCommand);
-            
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CodeCSharpProjectCompareToCrmAssemblyCommand);
-        }
-
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             var document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsCSharpType);
 
             if (document != null
                 && document.ProjectItem != null
                 && document.ProjectItem.ContainingProject != null
-                )
+            )
             {
                 helper.HandleComparingPluginAssemblyAndLocalAssemblyCommand(null, document.ProjectItem.ContainingProject);
             }
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp(applicationObject, menuCommand);
+
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentContainingProject(applicationObject, menuCommand);
+
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeCSharpProjectCompareToCrmAssemblyCommand);
         }
     }
 }

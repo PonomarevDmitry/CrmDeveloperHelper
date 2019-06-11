@@ -6,24 +6,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 {
     internal sealed class CommonEntityRelationshipManyToManyExplorerCommand : AbstractCommand
     {
-        private CommonEntityRelationshipManyToManyExplorerCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonEntityRelationshipManyToManyExplorerCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CommonEntityRelationshipManyToManyExplorerCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.CommonEntityRelationshipManyToManyExplorerCommandId) { }
 
         public static CommonEntityRelationshipManyToManyExplorerCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonEntityRelationshipManyToManyExplorerCommand(package);
+            Instance = new CommonEntityRelationshipManyToManyExplorerCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleOpenEntityRelationshipManyToManyExplorer();
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CommonEntityRelationshipManyToManyExplorerCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CommonEntityRelationshipManyToManyExplorerCommand);
         }
     }
 }

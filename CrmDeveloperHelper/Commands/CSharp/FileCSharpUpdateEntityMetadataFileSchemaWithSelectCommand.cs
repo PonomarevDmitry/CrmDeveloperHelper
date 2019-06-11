@@ -9,28 +9,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
     internal sealed class FileCSharpUpdateEntityMetadataFileSchemaWithSelectCommand : AbstractCommand
     {
-        private FileCSharpUpdateEntityMetadataFileSchemaWithSelectCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FileCSharpUpdateEntityMetadataFileSchemaWithSelectCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private FileCSharpUpdateEntityMetadataFileSchemaWithSelectCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.FileCSharpUpdateEntityMetadataFileSchemaWithSelectCommandId) { }
 
         public static FileCSharpUpdateEntityMetadataFileSchemaWithSelectCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FileCSharpUpdateEntityMetadataFileSchemaWithSelectCommand(package);
+            Instance = new FileCSharpUpdateEntityMetadataFileSchemaWithSelectCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsCSharpType, false).ToList();
 
             helper.HandleUpdateEntityMetadataFileCSharpSchema(null, selectedFiles, true);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpSingle(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpSingle(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.FileCSharpUpdateEntityMetadataFileSchemaWithSelectCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.FileCSharpUpdateEntityMetadataFileSchemaWithSelectCommand);
         }
     }
 }

@@ -6,34 +6,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
     internal sealed class CodeCSharpPluginAssemblyExplorerCommand : AbstractCommand
     {
-        private CodeCSharpPluginAssemblyExplorerCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeCSharpPluginAssemblyExplorerCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CodeCSharpPluginAssemblyExplorerCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeCSharpPluginAssemblyExplorerCommandId) { }
 
         public static CodeCSharpPluginAssemblyExplorerCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeCSharpPluginAssemblyExplorerCommand(package);
+            Instance = new CodeCSharpPluginAssemblyExplorerCommand(commandService);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
-        {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp(command, menuCommand);
-
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentContainingProject(command, menuCommand);
-        }
-
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             var document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsCSharpType);
 
             if (document != null
                 && document.ProjectItem != null
                 && document.ProjectItem.ContainingProject != null
-                )
+            )
             {
                 helper.HandleOpenPluginAssemblyExplorer(document.ProjectItem.ContainingProject.Name);
             }
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp(applicationObject, menuCommand);
+
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentContainingProject(applicationObject, menuCommand);
         }
     }
 }

@@ -7,17 +7,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
     internal sealed class CodeXmlExecuteFetchXmlRequestCommand : AbstractCommand
     {
-        private CodeXmlExecuteFetchXmlRequestCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeXmlExecuteFetchXmlRequestCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CodeXmlExecuteFetchXmlRequestCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeXmlExecuteFetchXmlRequestCommandId) { }
 
         public static CodeXmlExecuteFetchXmlRequestCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlExecuteFetchXmlRequestCommand(package);
+            Instance = new CodeXmlExecuteFetchXmlRequestCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             var selectedFile = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsXmlType).FirstOrDefault();
 
@@ -40,11 +40,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             helper.HandleExecutingFetchXml(null, selectedFile, false);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(command, menuCommand, out _, AbstractDynamicCommandXsdSchemas.RootFetch);
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(applicationObject, menuCommand, out _, AbstractDynamicCommandXsdSchemas.RootFetch);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CodeXmlExecuteFetchXmlRequestCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeXmlExecuteFetchXmlRequestCommand);
         }
     }
 }

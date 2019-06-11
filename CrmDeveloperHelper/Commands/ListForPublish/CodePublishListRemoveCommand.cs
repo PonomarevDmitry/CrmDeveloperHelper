@@ -1,7 +1,6 @@
-﻿using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
-using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,28 +8,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish
 {
     internal sealed class CodePublishListRemoveCommand : AbstractCommand
     {
-        private CodePublishListRemoveCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodePublishListRemoveCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CodePublishListRemoveCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodePublishListRemoveCommandId) { }
 
         public static CodePublishListRemoveCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodePublishListRemoveCommand(package);
+            Instance = new CodePublishListRemoveCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsWebResourceType).ToList();
 
             helper.RemoveFromListForPublish(selectedFiles);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusConnectionIsNotReadOnly(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusConnectionIsNotReadOnly(applicationObject, menuCommand);
 
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentWebResource(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentWebResource(applicationObject, menuCommand);
         }
     }
 }

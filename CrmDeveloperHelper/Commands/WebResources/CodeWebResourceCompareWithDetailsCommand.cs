@@ -12,28 +12,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
     /// </summary>
     internal sealed class CodeWebResourceCompareWithDetailsCommand : AbstractCommand
     {
-        private CodeWebResourceCompareWithDetailsCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeWebResourceCompareWithDetailsCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CodeWebResourceCompareWithDetailsCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeWebResourceCompareWithDetailsCommandId) { }
 
         public static CodeWebResourceCompareWithDetailsCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeWebResourceCompareWithDetailsCommand(package);
+            Instance = new CodeWebResourceCompareWithDetailsCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsWebResourceType).ToList();
 
             helper.HandleFileCompareCommand(null, selectedFiles, true);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentWebResourceText(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentWebResourceText(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CodeWebResourceCompareWithDetailsCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeWebResourceCompareWithDetailsCommand);
         }
     }
 }

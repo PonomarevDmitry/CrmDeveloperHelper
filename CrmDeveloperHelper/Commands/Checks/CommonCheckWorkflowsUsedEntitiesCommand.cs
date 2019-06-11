@@ -5,17 +5,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
 {
     internal sealed class CommonCheckWorkflowsUsedEntitiesCommand : AbstractCommand
     {
-        private CommonCheckWorkflowsUsedEntitiesCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonCheckWorkflowsUsedEntitiesCommandId, ActionExecute, null) { }
+        private CommonCheckWorkflowsUsedEntitiesCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.CommonCheckWorkflowsUsedEntitiesCommandId) { }
 
         public static CommonCheckWorkflowsUsedEntitiesCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonCheckWorkflowsUsedEntitiesCommand(package);
+            Instance = new CommonCheckWorkflowsUsedEntitiesCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleCheckingWorkflowsUsedEntities();
         }

@@ -5,17 +5,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 {
     internal sealed class CommonCustomControlExplorerCommand : AbstractCommand
     {
-        private CommonCustomControlExplorerCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonCustomControlExplorerCommandId, ActionExecute, null) { }
+        private CommonCustomControlExplorerCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.CommonCustomControlExplorerCommandId) { }
 
         public static CommonCustomControlExplorerCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonCustomControlExplorerCommand(package);
+            Instance = new CommonCustomControlExplorerCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleExportCustomControl();
         }

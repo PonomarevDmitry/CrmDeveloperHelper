@@ -5,17 +5,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.PluginConfigurations
 {
     internal sealed class CommonPluginConfigurationComparerPluginAssemblyCommand : AbstractCommand
     {
-        private CommonPluginConfigurationComparerPluginAssemblyCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonPluginConfigurationComparerPluginAssemblyCommandId, ActionExecute, null) { }
+        private CommonPluginConfigurationComparerPluginAssemblyCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.CommonPluginConfigurationComparerPluginAssemblyCommandId) { }
 
         public static CommonPluginConfigurationComparerPluginAssemblyCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonPluginConfigurationComparerPluginAssemblyCommand(package);
+            Instance = new CommonPluginConfigurationComparerPluginAssemblyCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandlePluginConfigurationComparerPluginAssembly();
         }

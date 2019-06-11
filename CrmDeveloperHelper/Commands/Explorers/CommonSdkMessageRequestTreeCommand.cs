@@ -5,17 +5,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 {
     internal sealed class CommonSdkMessageRequestTreeCommand : AbstractCommand
     {
-        private CommonSdkMessageRequestTreeCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonSdkMessageRequestTreeCommandId, ActionExecute, null) { }
+        private CommonSdkMessageRequestTreeCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.CommonSdkMessageRequestTreeCommandId) { }
 
         public static CommonSdkMessageRequestTreeCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonSdkMessageRequestTreeCommand(package);
+            Instance = new CommonSdkMessageRequestTreeCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleSdkMessageRequestTree();
         }

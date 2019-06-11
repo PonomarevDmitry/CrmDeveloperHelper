@@ -6,14 +6,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
     internal sealed class CodeCSharpPluginTypeExplorerCommand : AbstractCommand
     {
-        private CodeCSharpPluginTypeExplorerCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeCSharpPluginTypeExplorerCommandId, ActionExecute, CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp) { }
+        private CodeCSharpPluginTypeExplorerCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeCSharpPluginTypeExplorerCommandId) { }
 
         public static CodeCSharpPluginTypeExplorerCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeCSharpPluginTypeExplorerCommand(package);
+            Instance = new CodeCSharpPluginTypeExplorerCommand(commandService);
         }
 
         private static async void ActionExecute(DTEHelper helper)
@@ -32,6 +32,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             {
                 DTEHelper.WriteExceptionToOutput(null, ex);
             }
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentCSharp(applicationObject, menuCommand);
         }
     }
 }

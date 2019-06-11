@@ -9,28 +9,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
     internal sealed class FolderWebResourceCompareWithDetailsCommand : AbstractCommand
     {
-        private FolderWebResourceCompareWithDetailsCommand(Package package)
-              : base(package, PackageGuids.guidCommandSet, PackageIds.FolderWebResourceCompareWithDetailsCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private FolderWebResourceCompareWithDetailsCommand(OleMenuCommandService commandService)
+              : base(commandService, PackageIds.FolderWebResourceCompareWithDetailsCommandId) { }
 
         public static FolderWebResourceCompareWithDetailsCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FolderWebResourceCompareWithDetailsCommand(package);
+            Instance = new FolderWebResourceCompareWithDetailsCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceType, true).ToList();
 
             helper.HandleFileCompareCommand(null, selectedFiles, true);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceRecursive(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceRecursive(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.FolderWebResourceCompareWithDetailsCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.FolderWebResourceCompareWithDetailsCommand);
         }
     }
 }

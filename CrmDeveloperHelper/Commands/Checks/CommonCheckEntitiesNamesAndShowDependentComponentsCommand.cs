@@ -5,17 +5,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks
 {
     internal sealed class CommonCheckEntitiesNamesAndShowDependentComponentsCommand : AbstractCommand
     {
-        private CommonCheckEntitiesNamesAndShowDependentComponentsCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonCheckEntitiesNamesAndShowDependentComponentsCommandId, ActionExecute, null) { }
+        private CommonCheckEntitiesNamesAndShowDependentComponentsCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.CommonCheckEntitiesNamesAndShowDependentComponentsCommandId) { }
 
         public static CommonCheckEntitiesNamesAndShowDependentComponentsCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonCheckEntitiesNamesAndShowDependentComponentsCommand(package);
+            Instance = new CommonCheckEntitiesNamesAndShowDependentComponentsCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleCheckEntitiesNamesAndShowDependentComponents();
         }

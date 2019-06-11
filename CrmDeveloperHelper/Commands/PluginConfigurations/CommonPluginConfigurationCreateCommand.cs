@@ -5,17 +5,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.PluginConfigurations
 {
     internal sealed class CommonPluginConfigurationCreateCommand : AbstractCommand
     {
-        private CommonPluginConfigurationCreateCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonPluginConfigurationCreateCommandId, ActionExecute, null) { }
+        private CommonPluginConfigurationCreateCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.CommonPluginConfigurationCreateCommandId) { }
 
         public static CommonPluginConfigurationCreateCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonPluginConfigurationCreateCommand(package);
+            Instance = new CommonPluginConfigurationCreateCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandlePluginConfigurationCreate();
         }

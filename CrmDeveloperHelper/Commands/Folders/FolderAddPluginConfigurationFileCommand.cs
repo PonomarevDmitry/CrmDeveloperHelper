@@ -6,26 +6,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
 {
     internal sealed class FolderAddPluginConfigurationFileCommand : AbstractCommand
     {
-        private FolderAddPluginConfigurationFileCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FolderAddPluginConfigurationFileCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private FolderAddPluginConfigurationFileCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.FolderAddPluginConfigurationFileCommandId) { }
 
         public static FolderAddPluginConfigurationFileCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FolderAddPluginConfigurationFileCommand(package);
+            Instance = new FolderAddPluginConfigurationFileCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleExportPluginConfigurationInfoFolder();
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActiveSolutionExplorerFolderSingle(command, menuCommand);
+            CommonHandlers.ActiveSolutionExplorerFolderSingle(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.FolderAddPluginConfigurationFileCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.FolderAddPluginConfigurationFileCommand);
         }
     }
 }

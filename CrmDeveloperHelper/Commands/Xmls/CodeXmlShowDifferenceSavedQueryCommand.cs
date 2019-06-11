@@ -10,17 +10,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
     internal sealed class CodeXmlShowDifferenceSavedQueryCommand : AbstractCommand
     {
-        private CodeXmlShowDifferenceSavedQueryCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeXmlShowDifferenceSavedQueryCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CodeXmlShowDifferenceSavedQueryCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeXmlShowDifferenceSavedQueryCommandId) { }
 
         public static CodeXmlShowDifferenceSavedQueryCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlShowDifferenceSavedQueryCommand(package);
+            Instance = new CodeXmlShowDifferenceSavedQueryCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetOpenedFileInCodeWindow(FileOperations.SupportsXmlType).Take(2).ToList();
 
@@ -30,9 +30,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             }
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(command, menuCommand
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRootWithAttribute(applicationObject, menuCommand
                 , Intellisense.Model.IntellisenseContext.IntellisenseContextAttributeSavedQueryId
                 , out var attribute
                 , AbstractDynamicCommandXsdSchemas.RootFetch
@@ -40,7 +40,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                 , AbstractDynamicCommandXsdSchemas.RootColumnSet
             );
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CodeXmlShowDifferenceSavedQueryCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeXmlShowDifferenceSavedQueryCommand);
 
             if (attribute == null
                 || !Guid.TryParse(attribute.Value, out _)

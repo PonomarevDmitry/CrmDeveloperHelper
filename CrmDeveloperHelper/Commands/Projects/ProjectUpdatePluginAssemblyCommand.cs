@@ -6,28 +6,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects
 {
     internal sealed class ProjectUpdatePluginAssemblyCommand : AbstractCommand
     {
-        private ProjectUpdatePluginAssemblyCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.ProjectUpdatePluginAssemblyCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private ProjectUpdatePluginAssemblyCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.ProjectUpdatePluginAssemblyCommandId) { }
 
         public static ProjectUpdatePluginAssemblyCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new ProjectUpdatePluginAssemblyCommand(package);
+            Instance = new ProjectUpdatePluginAssemblyCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             var project = helper.GetSelectedProject();
 
             helper.HandleUpdatingPluginAssemblyCommand(null, project);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActiveSolutionExplorerProjectSingle(command, menuCommand);
+            CommonHandlers.ActiveSolutionExplorerProjectSingle(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.ProjectUpdatePluginAssemblyCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.ProjectUpdatePluginAssemblyCommand);
         }
     }
 }

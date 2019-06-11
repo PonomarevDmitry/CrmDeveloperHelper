@@ -8,21 +8,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
     internal sealed class FileWebResourceCheckEncodingOpenFilesCommand : AbstractCommand
     {
-        private FileWebResourceCheckEncodingOpenFilesCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FileWebResourceCheckEncodingOpenFilesCommandId, ActionExecute, CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextAny) { }
+        private FileWebResourceCheckEncodingOpenFilesCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.FileWebResourceCheckEncodingOpenFilesCommandId) { }
 
         public static FileWebResourceCheckEncodingOpenFilesCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FileWebResourceCheckEncodingOpenFilesCommand(package);
+            Instance = new FileWebResourceCheckEncodingOpenFilesCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceTextType, false).ToList();
 
             helper.HandleCheckOpenFilesWithoutUTF8EncodingCommand(selectedFiles);
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextAny(applicationObject, menuCommand);
         }
     }
 }

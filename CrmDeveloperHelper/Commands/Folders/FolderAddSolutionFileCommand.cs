@@ -6,26 +6,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders
 {
     internal sealed class FolderAddSolutionFileCommand : AbstractCommand
     {
-        private FolderAddSolutionFileCommand(Package package)
-              : base(package, PackageGuids.guidCommandSet, PackageIds.FolderAddSolutionFileCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private FolderAddSolutionFileCommand(OleMenuCommandService commandService)
+              : base(commandService, PackageIds.FolderAddSolutionFileCommandId) { }
 
         public static FolderAddSolutionFileCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FolderAddSolutionFileCommand(package);
+            Instance = new FolderAddSolutionFileCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleExportSolution();
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActiveSolutionExplorerFolderSingle(command, menuCommand);
+            CommonHandlers.ActiveSolutionExplorerFolderSingle(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.FolderAddSolutionFileCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.FolderAddSolutionFileCommand);
         }
     }
 }

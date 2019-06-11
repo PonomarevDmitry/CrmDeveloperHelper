@@ -7,37 +7,27 @@ using System.ComponentModel.Design;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 {
-    internal sealed class CodeReportShowDifferenceCommand : IServiceProviderOwner
+    internal sealed class CodeReportShowDifferenceCommand
     {
-        private readonly Package _package;
         private readonly string _fieldName;
         private readonly string _fieldTitle;
         private readonly bool _isCustom;
 
-        public IServiceProvider ServiceProvider => this._package;
-
-        private CodeReportShowDifferenceCommand(Package package, int commandId, string fieldName, string fieldTitle, bool isCustom)
+        private CodeReportShowDifferenceCommand(OleMenuCommandService commandService, int commandId, string fieldName, string fieldTitle, bool isCustom)
         {
             this._fieldName = fieldName;
             this._fieldTitle = fieldTitle;
             this._isCustom = isCustom;
 
-            this._package = package ?? throw new ArgumentNullException(nameof(package));
+            var menuCommandID = new CommandID(PackageGuids.guidCommandSet, commandId);
 
-            OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
+            var menuCommand = new OleMenuCommand(this.menuItemCallback, menuCommandID);
 
-            if (commandService != null)
-            {
-                var menuCommandID = new CommandID(PackageGuids.guidCommandSet, commandId);
+            menuCommand.Enabled = menuCommand.Visible = false;
 
-                var menuCommand = new OleMenuCommand(this.menuItemCallback, menuCommandID);
+            menuCommand.BeforeQueryStatus += menuItem_BeforeQueryStatus;
 
-                menuCommand.Enabled = menuCommand.Visible = false;
-
-                menuCommand.BeforeQueryStatus += menuItem_BeforeQueryStatus;
-
-                commandService.AddCommand(menuCommand);
-            }
+            commandService.AddCommand(menuCommand);
         }
 
         public static CodeReportShowDifferenceCommand InstanceOriginalBodyText { get; private set; }
@@ -48,39 +38,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 
         public static CodeReportShowDifferenceCommand InstanceBodyTextCustom { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
             InstanceOriginalBodyText = new CodeReportShowDifferenceCommand(
-                package
+                commandService
                 , PackageIds.CodeReportShowDifferenceOriginalBodyTextCommandId
                 , Report.Schema.Attributes.originalbodytext
                 , Report.Schema.Headers.originalbodytext
                 , false
-                );
+            );
 
             InstanceOriginalBodyTextCustom = new CodeReportShowDifferenceCommand(
-                package
+                commandService
                 , PackageIds.CodeReportShowDifferenceOriginalBodyTextCustomCommandId
                 , Report.Schema.Attributes.originalbodytext
                 , Report.Schema.Headers.originalbodytext
                 , true
-                );
+            );
 
             InstanceBodyText = new CodeReportShowDifferenceCommand(
-                package
+                commandService
                 , PackageIds.CodeReportShowDifferenceBodyTextCommandId
                 , Report.Schema.Attributes.bodytext
                 , Report.Schema.Headers.bodytext
                 , false
-                );
+            );
 
             InstanceBodyTextCustom = new CodeReportShowDifferenceCommand(
-                package
+                commandService
                 , PackageIds.CodeReportShowDifferenceBodyTextCustomCommandId
                 , Report.Schema.Attributes.bodytext
                 , Report.Schema.Headers.bodytext
                 , true
-                );
+            );
         }
 
         private void menuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -89,9 +79,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
             {
                 if (sender is OleMenuCommand menuCommand)
                 {
+                    menuCommand.Enabled = menuCommand.Visible = false;
+
+                    var applicationObject = CrmDeveloperHelperPackage.Singleton.ApplicationObject;
+                    if (applicationObject == null)
+                    {
+                        return;
+                    }
+
                     menuCommand.Enabled = menuCommand.Visible = true;
 
-                    CommonHandlers.ActionBeforeQueryStatusActiveDocumentReport(this, menuCommand);
+                    CommonHandlers.ActionBeforeQueryStatusActiveDocumentReport(applicationObject, menuCommand);
 
                     if (menuCommand.Enabled)
                     {
@@ -99,7 +97,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 
                         string name = string.Format(Properties.CommandNames.CodeReportShowDifferenceCommandFormat2, _fieldTitle, custom);
 
-                        CommonHandlers.CorrectCommandNameForConnectionName(this, menuCommand, name);
+                        CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, name);
                     }
                 }
             }
@@ -119,7 +117,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
                     return;
                 }
 
-                var applicationObject = this.ServiceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
+                var applicationObject = CrmDeveloperHelperPackage.Singleton.ApplicationObject;
                 if (applicationObject == null)
                 {
                     return;

@@ -5,19 +5,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
     internal sealed class FileXmlOpenXsdSchemaFolderCommand : AbstractCommand
     {
-        private FileXmlOpenXsdSchemaFolderCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.FileXmlOpenXsdSchemaFolderCommandId, ActionExecute, CommonHandlers.ActionBeforeQueryStatusSolutionExplorerXmlAny) { }
+        private FileXmlOpenXsdSchemaFolderCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.FileXmlOpenXsdSchemaFolderCommandId) { }
 
         public static FileXmlOpenXsdSchemaFolderCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FileXmlOpenXsdSchemaFolderCommand(package);
+            Instance = new FileXmlOpenXsdSchemaFolderCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleOpenXsdSchemaFolder();
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerXmlAny(applicationObject, menuCommand);
         }
     }
 }

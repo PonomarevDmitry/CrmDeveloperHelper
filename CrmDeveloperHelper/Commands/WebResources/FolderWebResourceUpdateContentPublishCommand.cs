@@ -9,30 +9,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
     internal sealed class FolderWebResourceUpdateContentPublishCommand : AbstractCommand
     {
-        private FolderWebResourceUpdateContentPublishCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FolderWebResourceUpdateContentPublishCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private FolderWebResourceUpdateContentPublishCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.FolderWebResourceUpdateContentPublishCommandId) { }
 
         public static FolderWebResourceUpdateContentPublishCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FolderWebResourceUpdateContentPublishCommand(package);
+            Instance = new FolderWebResourceUpdateContentPublishCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceTextType, true).ToList();
 
             helper.HandleUpdateContentWebResourcesAndPublishCommand(null, selectedFiles);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusConnectionIsNotReadOnly(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusConnectionIsNotReadOnly(applicationObject, menuCommand);
 
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceRecursive(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceRecursive(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.FolderWebResourceUpdateContentPublishCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.FolderWebResourceUpdateContentPublishCommand);
         }
     }
 }

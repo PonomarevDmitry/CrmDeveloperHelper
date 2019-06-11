@@ -2083,7 +2083,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        internal static void ActionBeforeQueryStatusFilesToAdd(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        internal static void ActionBeforeQueryStatusFilesToAdd(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
             ObjectCache cache = MemoryCache.Default;
             const string cacheName = nameof(ActionBeforeQueryStatusFilesToAdd);
@@ -2096,12 +2096,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             else
             {
-                if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
-                {
-                    var helper = DTEHelper.Create(applicationObject);
+                var helper = DTEHelper.Create(applicationObject);
 
-                    visible = helper.GetSelectedFilesAll(FileOperations.SupportsWebResourceType, true).Any();
-                }
+                visible = helper.GetSelectedFilesAll(FileOperations.SupportsWebResourceType, true).Any();
 
                 cache.Set(cacheName, visible, new CacheItemPolicy()
                 {
@@ -2110,6 +2107,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
 
             if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
+
+        internal static void ActionBeforeQueryStatusFilesToAdd(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        {
+            if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
+            {
+                ActionBeforeQueryStatusFilesToAdd(applicationObject, menuCommand);
+            }
+            else
             {
                 menuCommand.Enabled = menuCommand.Visible = false;
             }
@@ -2146,23 +2155,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return selectedFiles;
         }
 
-        internal static void CorrectCommandNameForConnectionName(IServiceProviderOwner command, OleMenuCommand menuCommand, string name)
+        internal static void CorrectCommandNameForConnectionName(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand, string name)
         {
-            if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
-            {
-                var helper = DTEHelper.Create(applicationObject);
-                var connection = helper.GetCurrentConnectionName();
+            var helper = DTEHelper.Create(applicationObject);
+            var connection = helper.GetCurrentConnectionName();
 
-                if (!string.IsNullOrEmpty(connection))
-                {
-                    name = string.Format(Properties.CommandNames.CommandNameWithConnectionFormat2, name, connection);
-                }
+            if (!string.IsNullOrEmpty(connection))
+            {
+                name = string.Format(Properties.CommandNames.CommandNameWithConnectionFormat2, name, connection);
             }
 
             menuCommand.Text = name;
         }
 
-        internal static void ActionBeforeQueryStatusTextEditorProgramExists(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        internal static void CorrectCommandNameForConnectionName(IServiceProviderOwner command, OleMenuCommand menuCommand, string name)
+        {
+            if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
+            {
+                CorrectCommandNameForConnectionName(applicationObject, menuCommand, name);
+            }
+        }
+
+        internal static void ActionBeforeQueryStatusTextEditorProgramExists(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
             ObjectCache cache = MemoryCache.Default;
             const string cacheName = nameof(ActionBeforeQueryStatusTextEditorProgramExists);
@@ -2175,12 +2189,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
             else
             {
-                if (command.ServiceProvider.GetService(typeof(EnvDTE.DTE)) is EnvDTE80.DTE2 applicationObject)
-                {
-                    var helper = DTEHelper.Create(applicationObject);
-
-                    visible = CommonConfiguration.Get().TextEditorProgramExists();
-                }
+                visible = CommonConfiguration.Get().TextEditorProgramExists();
 
                 cache.Set(cacheName, visible, new CacheItemPolicy()
                 {
@@ -2192,6 +2201,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             {
                 menuCommand.Enabled = menuCommand.Visible = false;
             }
+        }
+
+        internal static void ActionBeforeQueryStatusTextEditorProgramExists(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        {
+            ActionBeforeQueryStatusTextEditorProgramExists((EnvDTE80.DTE2)null, menuCommand);
         }
 
         internal static void ActionBeforeQueryStatusConnectionIsNotReadOnly(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)

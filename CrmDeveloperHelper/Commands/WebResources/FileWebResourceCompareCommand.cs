@@ -9,28 +9,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
     internal sealed class FileWebResourceCompareCommand : AbstractCommand
     {
-        private FileWebResourceCompareCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FileWebResourceCompareCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private FileWebResourceCompareCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.FileWebResourceCompareCommandId) { }
 
         public static FileWebResourceCompareCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FileWebResourceCompareCommand(package);
+            Instance = new FileWebResourceCompareCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceType, false).ToList();
 
             helper.HandleFileCompareCommand(null, selectedFiles, false);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceAny(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceAny(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.FileWebResourceCompareCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.FileWebResourceCompareCommand);
         }
     }
 }

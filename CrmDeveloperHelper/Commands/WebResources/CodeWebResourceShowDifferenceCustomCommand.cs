@@ -6,26 +6,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
     internal sealed class CodeWebResourceShowDifferenceCustomCommand : AbstractCommand
     {
-        private CodeWebResourceShowDifferenceCustomCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeWebResourceShowDifferenceCustomCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CodeWebResourceShowDifferenceCustomCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeWebResourceShowDifferenceCustomCommandId) { }
 
         public static CodeWebResourceShowDifferenceCustomCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeWebResourceShowDifferenceCustomCommand(package);
+            Instance = new CodeWebResourceShowDifferenceCustomCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleWebResourceDifferenceCommand(null, true);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentWebResourceText(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentWebResourceText(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.CodeWebResourceShowDifferenceCustomCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.CodeWebResourceShowDifferenceCustomCommand);
         }
     }
 }

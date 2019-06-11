@@ -6,26 +6,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
     internal sealed class FileWebResourceShowDifferenceCommand : AbstractCommand
     {
-        private FileWebResourceShowDifferenceCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FileWebResourceShowDifferenceCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private FileWebResourceShowDifferenceCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.FileWebResourceShowDifferenceCommandId) { }
 
         public static FileWebResourceShowDifferenceCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FileWebResourceShowDifferenceCommand(package);
+            Instance = new FileWebResourceShowDifferenceCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleWebResourceDifferenceCommand(null, false);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextSingle(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextSingle(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.FileWebResourceShowDifferenceCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.FileWebResourceShowDifferenceCommand);
         }
     }
 }

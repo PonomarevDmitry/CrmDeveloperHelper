@@ -5,17 +5,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
     internal sealed class CommonWebResourceExplorerCommand : AbstractCommand
     {
-        private CommonWebResourceExplorerCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonWebResourceExplorerCommandId, ActionExecute, null) { }
+        private CommonWebResourceExplorerCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.CommonWebResourceExplorerCommandId) { }
 
         public static CommonWebResourceExplorerCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonWebResourceExplorerCommand(package);
+            Instance = new CommonWebResourceExplorerCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleExportWebResource();
         }

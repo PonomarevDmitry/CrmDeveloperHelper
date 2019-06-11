@@ -5,17 +5,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.FindEdit
 {
     internal sealed class CommonFindEntityObjectsContainsStringCommand : AbstractCommand
     {
-        private CommonFindEntityObjectsContainsStringCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonFindEntityObjectsContainsStringCommandId, ActionExecute, null) { }
+        private CommonFindEntityObjectsContainsStringCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.CommonFindEntityObjectsContainsStringCommandId) { }
 
         public static CommonFindEntityObjectsContainsStringCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonFindEntityObjectsContainsStringCommand(package);
+            Instance = new CommonFindEntityObjectsContainsStringCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleFindContainsString();
         }

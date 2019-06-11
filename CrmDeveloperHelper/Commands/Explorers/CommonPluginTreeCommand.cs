@@ -5,17 +5,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Explorers
 {
     internal sealed class CommonPluginTreeCommand : AbstractCommand
     {
-        private CommonPluginTreeCommand(Package package)
-           : base(package, PackageGuids.guidCommandSet, PackageIds.CommonPluginTreeCommandId, ActionExecute, null) { }
+        private CommonPluginTreeCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.CommonPluginTreeCommandId) { }
 
         public static CommonPluginTreeCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CommonPluginTreeCommand(package);
+            Instance = new CommonPluginTreeCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             string selection = helper.GetSelectedText();
 

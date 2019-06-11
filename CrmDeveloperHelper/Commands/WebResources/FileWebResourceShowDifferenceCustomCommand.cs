@@ -6,26 +6,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
     internal sealed class FileWebResourceShowDifferenceCustomCommand : AbstractCommand
     {
-        private FileWebResourceShowDifferenceCustomCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FileWebResourceShowDifferenceCustomCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private FileWebResourceShowDifferenceCustomCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.FileWebResourceShowDifferenceCustomCommandId) { }
 
         public static FileWebResourceShowDifferenceCustomCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FileWebResourceShowDifferenceCustomCommand(package);
+            Instance = new FileWebResourceShowDifferenceCustomCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleWebResourceDifferenceCommand(null, true);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextSingle(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceTextSingle(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.FileWebResourceShowDifferenceCustromCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.FileWebResourceShowDifferenceCustromCommand);
         }
     }
 }

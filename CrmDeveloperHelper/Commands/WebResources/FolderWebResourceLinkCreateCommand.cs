@@ -8,21 +8,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
     internal sealed class FolderWebResourceLinkCreateCommand : AbstractCommand
     {
-        private FolderWebResourceLinkCreateCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FolderWebResourceLinkCreateCommandId, ActionExecute, CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceRecursive) { }
+        private FolderWebResourceLinkCreateCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.FolderWebResourceLinkCreateCommandId) { }
 
         public static FolderWebResourceLinkCreateCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FolderWebResourceLinkCreateCommand(package);
+            Instance = new FolderWebResourceLinkCreateCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsWebResourceType, true).ToList();
 
             helper.HandleCreateLaskLinkWebResourcesMultipleCommand(selectedFiles);
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceRecursive(applicationObject, menuCommand);
         }
     }
 }

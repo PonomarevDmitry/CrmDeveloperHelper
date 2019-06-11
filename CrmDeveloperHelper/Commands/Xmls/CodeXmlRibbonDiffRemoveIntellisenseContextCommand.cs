@@ -7,17 +7,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
     internal sealed class CodeXmlRibbonDiffRemoveIntellisenseContextCommand : AbstractCommand
     {
-        private CodeXmlRibbonDiffRemoveIntellisenseContextCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.CodeXmlRibbonDiffRemoveIntellisenseContextCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private CodeXmlRibbonDiffRemoveIntellisenseContextCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.CodeXmlRibbonDiffRemoveIntellisenseContextCommandId) { }
 
         public static CodeXmlRibbonDiffRemoveIntellisenseContextCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new CodeXmlRibbonDiffRemoveIntellisenseContextCommand(package);
+            Instance = new CodeXmlRibbonDiffRemoveIntellisenseContextCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             EnvDTE.Document document = helper.GetOpenedDocumentInCodeWindow(FileOperations.SupportsXmlType);
 
@@ -27,9 +27,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
             }
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(command, menuCommand, out _, AbstractDynamicCommandXsdSchemas.RootRibbonDiffXml, AbstractDynamicCommandXsdSchemas.RootRibbonDefinitions);
+            CommonHandlers.ActionBeforeQueryStatusActiveDocumentIsXmlWithRoot(applicationObject, menuCommand, out _, AbstractDynamicCommandXsdSchemas.RootRibbonDiffXml, AbstractDynamicCommandXsdSchemas.RootRibbonDefinitions);
         }
     }
 }

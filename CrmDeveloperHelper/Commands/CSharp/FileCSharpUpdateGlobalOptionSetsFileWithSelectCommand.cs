@@ -9,28 +9,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
 {
     internal sealed class FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand : AbstractCommand
     {
-        private FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FileCSharpUpdateGlobalOptionSetsFileWithSelectCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.FileCSharpUpdateGlobalOptionSetsFileWithSelectCommandId) { }
 
         public static FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand(package);
+            Instance = new FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             List<SelectedFile> selectedFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsCSharpType, false).ToList();
 
             helper.HandleUpdateGlobalOptionSetsFile(null, selectedFiles, true);
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpSingle(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerCSharpSingle(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.FileCSharpUpdateGlobalOptionSetsFileWithSelectCommand);
         }
     }
 }

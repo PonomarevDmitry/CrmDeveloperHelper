@@ -6,26 +6,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
     internal sealed class FileWebResourceExplorerCommand : AbstractCommand
     {
-        private FileWebResourceExplorerCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FileWebResourceExplorerCommandId, ActionExecute, ActionBeforeQueryStatus) { }
+        private FileWebResourceExplorerCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.FileWebResourceExplorerCommandId) { }
 
         public static FileWebResourceExplorerCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FileWebResourceExplorerCommand(package);
+            Instance = new FileWebResourceExplorerCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             helper.HandleOpenWebResourceExplorerCommand();
         }
 
-        private static void ActionBeforeQueryStatus(IServiceProviderOwner command, OleMenuCommand menuCommand)
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {
-            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceSingle(command, menuCommand);
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerWebResourceSingle(applicationObject, menuCommand);
 
-            CommonHandlers.CorrectCommandNameForConnectionName(command, menuCommand, Properties.CommandNames.FileWebResourceExplorerCommand);
+            CommonHandlers.CorrectCommandNameForConnectionName(applicationObject, menuCommand, Properties.CommandNames.FileWebResourceExplorerCommand);
         }
     }
 }

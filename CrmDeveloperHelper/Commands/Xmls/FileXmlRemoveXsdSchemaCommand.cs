@@ -7,17 +7,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
 {
     internal sealed class FileXmlRemoveXsdSchemaCommand : AbstractCommand
     {
-        private FileXmlRemoveXsdSchemaCommand(Package package)
-            : base(package, PackageGuids.guidCommandSet, PackageIds.FileXmlRemoveXsdSchemaCommandId, ActionExecute, CommonHandlers.ActionBeforeQueryStatusSolutionExplorerXmlAny) { }
+        private FileXmlRemoveXsdSchemaCommand(OleMenuCommandService commandService)
+            : base(commandService, PackageIds.FileXmlRemoveXsdSchemaCommandId) { }
 
         public static FileXmlRemoveXsdSchemaCommand Instance { get; private set; }
 
-        public static void Initialize(Package package)
+        public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new FileXmlRemoveXsdSchemaCommand(package);
+            Instance = new FileXmlRemoveXsdSchemaCommand(commandService);
         }
 
-        private static void ActionExecute(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper)
         {
             var listFiles = helper.GetSelectedFilesInSolutionExplorer(FileOperations.SupportsXmlType, false);
 
@@ -33,6 +33,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Xmls
                     ContentCoparerHelper.RemoveXsdSchemaInFile(filePath);
                 }
             }
+        }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.ActionBeforeQueryStatusSolutionExplorerXmlAny(applicationObject, menuCommand);
         }
     }
 }
