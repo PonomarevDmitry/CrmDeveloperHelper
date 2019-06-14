@@ -508,7 +508,6 @@
 
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck" priority="0x0601" />
-      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupCrmObjects" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupWorkflows" priority="0x0603" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership" priority="0x0604" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership_MenuDyn_Group" priority="0x0604" />
@@ -526,6 +525,7 @@
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginImagesDyn_Group" priority="0x0608" />
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupFind" priority="0x0603" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupCrmObjects" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupAttribute" priority="0x0603" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupFindById" priority="0x0603" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupChange" priority="0x0603" />
@@ -5697,30 +5697,21 @@
 
 
 
-      <Button guid="guidCommandSet" id="CommonCheckEntitiesNamesCommandId" priority="0x010B" type="Button">
-        <Strings>
-          <ButtonText>CRM Objects names for prefix</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="CommonCheckEntitiesNamesAndShowDependentComponentsCommandId" priority="0x010C" type="Button">
-        <Strings>
-          <ButtonText>CRM Objects names for prefix and show dependent components</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidCommandSet" id="CommonCheckMarkedToDeleteAndShowDependentComponentsCommandId" priority="0x010D" type="Button">
-        <Strings>
-          <ButtonText>CRM Objects marked to delete and show dependent components</ButtonText>
-        </Strings>
-      </Button>
 
-      <Button guid="guidCommandSet" id="CommonCheckWorkflowsUsedEntitiesCommandId" priority="0x010E" type="Button">
+
+      <Button guid="guidCommandSet" id="CommonFindEntitiesNamesCommandId" priority="0x010B" type="Button">
         <Strings>
-          <ButtonText>Workflows used Entities</ButtonText>
+          <ButtonText>Find CRM Objects names for prefix</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="CommonCheckWorkflowsUsedNotExistsEntitiesCommandId" priority="0x010E" type="Button">
+      <Button guid="guidCommandSet" id="CommonFindEntitiesNamesAndShowDependentComponentsCommandId" priority="0x010C" type="Button">
         <Strings>
-          <ButtonText>Workflows used Not Exists Entities</ButtonText>
+          <ButtonText>Find CRM Objects names for prefix and show dependent components</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="CommonFindMarkedToDeleteAndShowDependentComponentsCommandId" priority="0x010D" type="Button">
+        <Strings>
+          <ButtonText>Find CRM Objects marked to delete and show dependent components</ButtonText>
         </Strings>
       </Button>
 
@@ -5751,6 +5742,20 @@
       </Button>
 
 
+
+
+      <Button guid="guidCommandSet" id="CommonCheckWorkflowsUsedEntitiesCommandId" priority="0x010E" type="Button">
+        <Strings>
+          <ButtonText>Workflows used Entities</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="CommonCheckWorkflowsUsedNotExistsEntitiesCommandId" priority="0x010E" type="Button">
+        <Strings>
+          <ButtonText>Workflows used Not Exists Entities</ButtonText>
+        </Strings>
+      </Button>
+      
+      
 
       <Button guid="guidDynamicCommandSet" id="CommonCheckEntitiesOwnerShipsCommandId" priority="0x0110" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
@@ -8003,9 +8008,6 @@
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupCrmObjects" priority="0x0600">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck" />
-    </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupWorkflows" priority="0x0610">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck" />
     </CommandPlacement>
@@ -8025,13 +8027,16 @@
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupAttribute" priority="0x0600">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupCrmObjects" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupFindById" priority="0x0610">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupAttribute" priority="0x0610">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupChange" priority="0x0620">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupFindById" priority="0x0620">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupChange" priority="0x0630">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind" />
     </CommandPlacement>
 
@@ -8097,15 +8102,7 @@
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="CommonCheckEntitiesNamesCommandId" priority="0x0600">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupCrmObjects" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonCheckEntitiesNamesAndShowDependentComponentsCommandId" priority="0x0610">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupCrmObjects" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonCheckMarkedToDeleteAndShowDependentComponentsCommandId" priority="0x0620">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupCrmObjects" />
-    </CommandPlacement>
+
 
     <CommandPlacement guid="guidCommandSet" id="CommonCheckWorkflowsUsedEntitiesCommandId" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupCheck_MenuCheck_GroupWorkflows" />
@@ -8156,7 +8153,15 @@
     </CommandPlacement>
 
 
-
+    <CommandPlacement guid="guidCommandSet" id="CommonFindEntitiesNamesCommandId" priority="0x0600">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupCrmObjects" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonFindEntitiesNamesAndShowDependentComponentsCommandId" priority="0x0610">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupCrmObjects" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonFindMarkedToDeleteAndShowDependentComponentsCommandId" priority="0x0620">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupCrmObjects" />
+    </CommandPlacement>
 
     <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsByNameCommandId" priority="0x0100">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupAttribute" />
@@ -12118,7 +12123,6 @@
       <IDSymbol name="commonMenu_GroupCheck" value="0x10D2" />
 
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck" value="0x10D3" />
-      <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupCrmObjects" value="0x10D4" />
       <IDSymbol name="commonMenu_GroupCheck_MenuCheck_GroupWorkflows" value="0x1213" />
 
 
@@ -12155,6 +12159,7 @@
       <IDSymbol name="commonMenu_GroupFind" value="0x10D5" />
 
       <IDSymbol name="commonMenu_GroupFind_MenuFind" value="0x1324" />
+      <IDSymbol name="commonMenu_GroupFind_MenuFind_GroupCrmObjects" value="0x10D4" />
       <IDSymbol name="commonMenu_GroupFind_MenuFind_GroupAttribute" value="0x1325" />
       <IDSymbol name="commonMenu_GroupFind_MenuFind_GroupFindById" value="0x1326" />
       <IDSymbol name="commonMenu_GroupFind_MenuFind_GroupChange" value="0x1327" />
@@ -12820,9 +12825,9 @@
 
 
 
-      <IDSymbol name="CommonCheckEntitiesNamesCommandId" value="0x201E" />
-      <IDSymbol name="CommonCheckEntitiesNamesAndShowDependentComponentsCommandId" value="0x201F" />
-      <IDSymbol name="CommonCheckMarkedToDeleteAndShowDependentComponentsCommandId" value="0x2020" />
+      <IDSymbol name="CommonFindEntitiesNamesCommandId" value="0x201E" />
+      <IDSymbol name="CommonFindEntitiesNamesAndShowDependentComponentsCommandId" value="0x201F" />
+      <IDSymbol name="CommonFindMarkedToDeleteAndShowDependentComponentsCommandId" value="0x2020" />
 
       <IDSymbol name="CommonCheckWorkflowsUsedEntitiesCommandId" value="0x216C" />
       <IDSymbol name="CommonCheckWorkflowsUsedNotExistsEntitiesCommandId" value="0x216D" />

@@ -414,14 +414,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonCrmConnectionCommand.Initialize(commandService);
             CommonCrmConnectionTestCommand.Initialize(commandService);
 
-            CommonCheckEntitiesNamesAndShowDependentComponentsCommand.Initialize(commandService);
-            CommonCheckEntitiesNamesCommand.Initialize(commandService);
+            CommonFindEntitiesNamesAndShowDependentComponentsCommand.Initialize(commandService);
+            CommonFindEntitiesNamesCommand.Initialize(commandService);
             CommonCheckEntitiesOwnerShipsCommand.Initialize(commandService);
             CommonCheckWorkflowsUsedEntitiesCommand.Initialize(commandService);
             CommonCheckWorkflowsUsedNotExistsEntitiesCommand.Initialize(commandService);
             CommonCheckGlobalOptionSetDuplicateCommand.Initialize(commandService);
             CommonCheckManagedElementsCommand.Initialize(commandService);
-            CommonCheckMarkedToDeleteAndShowDependentComponentsCommand.Initialize(commandService);
+            CommonFindMarkedToDeleteAndShowDependentComponentsCommand.Initialize(commandService);
             CommonCheckPluginImagesCommand.Initialize(commandService);
             CommonCheckPluginImagesRequiredComponentsCommand.Initialize(commandService);
             CommonCheckPluginStepsCommand.Initialize(commandService);

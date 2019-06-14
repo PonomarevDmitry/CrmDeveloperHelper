@@ -572,7 +572,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int commonMenu = 0x10D1;
         public const int commonMenu_GroupCheck = 0x10D2;
         public const int commonMenu_GroupCheck_MenuCheck = 0x10D3;
-        public const int commonMenu_GroupCheck_MenuCheck_GroupCrmObjects = 0x10D4;
         public const int commonMenu_GroupCheck_MenuCheck_GroupWorkflows = 0x1213;
         public const int commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership = 0x10D6;
         public const int commonMenu_GroupCheck_MenuCheck_GroupEntitiesOwnership_MenuDyn = 0x125F;
@@ -599,6 +598,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int commonMenu_GroupCheck_MenuCheck_GroupPluginRequiredComponents_MenuPluginImagesDyn_Group = 0x1270;
         public const int commonMenu_GroupFind = 0x10D5;
         public const int commonMenu_GroupFind_MenuFind = 0x1324;
+        public const int commonMenu_GroupFind_MenuFind_GroupCrmObjects = 0x10D4;
         public const int commonMenu_GroupFind_MenuFind_GroupAttribute = 0x1325;
         public const int commonMenu_GroupFind_MenuFind_GroupFindById = 0x1326;
         public const int commonMenu_GroupFind_MenuFind_GroupChange = 0x1327;
@@ -978,9 +978,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int ListForPublishFilesAddCommandId = 0x201A;
         public const int ListForPublishFilesRemoveCommandId = 0x201B;
         public const int ListForPublishClearListCommandId = 0x201C;
-        public const int CommonCheckEntitiesNamesCommandId = 0x201E;
-        public const int CommonCheckEntitiesNamesAndShowDependentComponentsCommandId = 0x201F;
-        public const int CommonCheckMarkedToDeleteAndShowDependentComponentsCommandId = 0x2020;
+        public const int CommonFindEntitiesNamesCommandId = 0x201E;
+        public const int CommonFindEntitiesNamesAndShowDependentComponentsCommandId = 0x201F;
+        public const int CommonFindMarkedToDeleteAndShowDependentComponentsCommandId = 0x2020;
         public const int CommonCheckWorkflowsUsedEntitiesCommandId = 0x216C;
         public const int CommonCheckWorkflowsUsedNotExistsEntitiesCommandId = 0x216D;
         public const int CommonFindEntityObjectsByNameCommandId = 0x2021;
