@@ -1208,6 +1208,7 @@
     <Compile Include="Views\WindowCrmConnectionCard.xaml.cs">
       <DependentUpon>WindowCrmConnectionCard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowCrmConnectionHandler.cs" />
     <Compile Include="Views\WindowCrmConnectionList.xaml.cs">
       <DependentUpon>WindowCrmConnectionList.xaml</DependentUpon>
     </Compile>

@@ -2621,7 +2621,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData != null && commonConfig != null)
             {
-                var dialog = new WindowSelectEntityIdToFind(commonConfig, connectionData, string.Format("Find Entity in {0} by Id", connectionData.Name));
+                var dialog = new WindowSelectEntityIdToFind(commonConfig, connectionData, string.Format("Edit Entity in {0} by Id", connectionData.Name));
 
                 if (dialog.ShowDialog().GetValueOrDefault())
                 {

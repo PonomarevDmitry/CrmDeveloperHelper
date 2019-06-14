@@ -44,6 +44,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
+            var commonConfig = CommonConfiguration.Get();
+
+            WindowCrmConnectionHandler.InitializeConnectionMenuItems(miConnection, this._iWriteToOutput, commonConfig, GetSelectedConnection);
+
             lstVwConnections.ItemsSource = this._crmConfig.Connections;
 
             lstVwArchiveConnections.ItemsSource = this._crmConfig.ArchiveConnections;
@@ -168,7 +172,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     bool enabled = IsControlsEnabled && this.lstVwConnections.SelectedItems.Count > 0;
 
-                    UIElement[] list = { tSBEdit, tSBCreateCopy, tSBMoveToArchive, tSBUp, tSBDown, tSBTestConnection };
+                    UIElement[] list = { tSBEdit, tSBCreateCopy, tSBMoveToArchive, tSBUp, tSBDown, tSBTestConnection, miConnection };
 
                     foreach (var button in list)
                     {
@@ -1220,6 +1224,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
 
             Clipboard.SetText(connectionData.ConnectionId.ToString());
+        }
+
+        private ConnectionData GetSelectedConnection()
+        {
+            return this.lstVwConnections.SelectedItems.OfType<ConnectionData>().Count() == 1
+                ? this.lstVwConnections.SelectedItems.OfType<ConnectionData>().SingleOrDefault() : null;
         }
     }
 }

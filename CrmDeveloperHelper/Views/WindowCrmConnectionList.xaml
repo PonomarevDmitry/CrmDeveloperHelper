@@ -145,12 +145,14 @@
                                         </MenuItem>
                                     </MenuItem>
                                 </Menu>
+                                
                                 <Button x:Name="tSBEdit" HorizontalAlignment="Left" IsEnabled="False" Click="tSBEdit_Click">
                                     <StackPanel>
                                         <Image Width="16" Height="16"  Source="{StaticResource ImageEdit}"  />
                                         <TextBlock >Edit</TextBlock>
                                     </StackPanel>
                                 </Button>
+                                
                                 <Separator/>
                                 <Button x:Name="tSBTestConnection" HorizontalAlignment="Left" IsEnabled="False" Click="tSBTestConnection_Click">
                                     <StackPanel>
@@ -158,17 +160,20 @@
                                         <TextBlock >Test Connection</TextBlock>
                                     </StackPanel>
                                 </Button>
+                                
                                 <Separator/>
                                 <Button x:Name="tSBUp" HorizontalAlignment="Left" IsEnabled="False" Click="tSBUp_Click">
                                     <StackPanel>
                                         <Image Width="16" Height="16"  Source="{StaticResource ImageUp}"  />
                                     </StackPanel>
                                 </Button>
+                                
                                 <Button x:Name="tSBDown" HorizontalAlignment="Left" IsEnabled="False" Click="tSBDown_Click">
                                     <StackPanel>
                                         <Image Width="16" Height="16"  Source="{StaticResource ImageDown}"  />
                                     </StackPanel>
                                 </Button>
+                                
                                 <Separator/>
                                 <Button x:Name="tSBOpenFolder" HorizontalAlignment="Left" Click="tSBOpenFolder_Click" >
                                     <StackPanel>
@@ -176,6 +181,13 @@
                                         <TextBlock >Open Folder</TextBlock>
                                     </StackPanel>
                                 </Button>
+                                
+                                <Separator/>
+                                <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
+                                    <MenuItem x:Name="miConnection" Header="Connection">
+
+                                    </MenuItem>
+                                </Menu>
                             </ToolBarPanel>
                             <Button x:Name="tSBMoveToArchive" HorizontalAlignment="Right" DockPanel.Dock="Right" IsEnabled="False" Click="tSBMoveToArchive_Click" >
                                 <StackPanel>

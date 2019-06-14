@@ -1434,8 +1434,8 @@
 
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupExport_MenuExport" priority="0x0107" type="Menu">
         <Strings>
-          <ButtonText>Export</ButtonText>
-          <MenuText>Export</MenuText>
+          <ButtonText>Explorers</ButtonText>
+          <MenuText>Explorers</MenuText>
         </Strings>
       </Menu>
 
