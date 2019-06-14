@@ -155,7 +155,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                         this._iWriteToOutput
                         , commonConfig
                         , filePath
-                        );
+                    );
 
                     form.ShowDialog();
                 }

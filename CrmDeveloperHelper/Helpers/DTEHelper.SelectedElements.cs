@@ -466,5 +466,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 yield return item;
             }
         }
+
+        public ConnectionData GetOutputWindowConnection()
+        {
+            if (ApplicationObject.ActiveWindow.Object != null
+                && ApplicationObject.ActiveWindow.Object is OutputWindow outputWindow
+                && outputWindow.ActivePane != null
+            )
+            {
+                var outputWindowPane = outputWindow.ActivePane;
+
+                if (!string.IsNullOrEmpty(outputWindowPane.Guid)
+                    && Guid.TryParse(outputWindowPane.Guid, out var paneGuid)
+                )
+                {
+                    var connectionConfig = ConnectionConfiguration.Get();
+
+                    var connectionData = connectionConfig.Connections.FirstOrDefault(c => c.ConnectionId == paneGuid);
+
+                    return connectionData;
+                }
+            }
+
+            return null;
+        }
     }
 }

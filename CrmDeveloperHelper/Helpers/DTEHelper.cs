@@ -1838,14 +1838,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleCheckingWorkflowsUsedEntities()
         {
+            HandleCheckingWorkflowsUsedEntities(null);
+        }
+
+        public void HandleCheckingWorkflowsUsedEntities(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
@@ -1884,14 +1892,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleCheckingWorkflowsNotExistingUsedEntities()
         {
+            HandleCheckingWorkflowsNotExistingUsedEntities(null);
+        }
+
+        public void HandleCheckingWorkflowsNotExistingUsedEntities(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
@@ -2087,17 +2103,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleCheckEntitiesNames()
         {
+            HandleCheckEntitiesNames(null);
+        }
+
+        public void HandleCheckEntitiesNames(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
+                CheckWishToChangeCurrentConnection(connectionData);
+
                 var dialog = new WindowSelectFolderAndText(commonConfig, connectionData, "Select Entity Name Prefix", "Entity Name Prefix");
 
                 if (dialog.ShowDialog().GetValueOrDefault())
@@ -2126,17 +2152,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleCheckEntitiesNamesAndShowDependentComponents()
         {
+            HandleCheckEntitiesNamesAndShowDependentComponents(null);
+        }
+
+        public void HandleCheckEntitiesNamesAndShowDependentComponents(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
+                CheckWishToChangeCurrentConnection(connectionData);
+
                 var dialog = new WindowSelectFolderAndText(commonConfig, connectionData, "Select Entity Name Prefix", "Entity Name Prefix");
 
                 if (dialog.ShowDialog().GetValueOrDefault())
@@ -2162,20 +2198,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 }
             }
         }
-
         public void HandleCheckMarkedAndShowDependentComponents()
+        {
+            HandleCheckMarkedAndShowDependentComponents(null);
+        }
+
+        public void HandleCheckMarkedAndShowDependentComponents(ConnectionData connectionData)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
+                CheckWishToChangeCurrentConnection(connectionData);
+
                 var dialog = new WindowSelectFolderAndText(commonConfig, connectionData, "Select mark to delete", "Mark to delete");
 
                 if (dialog.ShowDialog().GetValueOrDefault())
@@ -2492,17 +2537,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleFindByName()
         {
+            HandleFindByName(null);
+        }
+
+        public void HandleFindByName(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
+                CheckWishToChangeCurrentConnection(connectionData);
+
                 var dialog = new WindowSelectFolderAndText(commonConfig, connectionData, "Select Element Name", "Element Name");
 
                 if (dialog.ShowDialog().GetValueOrDefault())
@@ -2531,17 +2586,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleFindContainsString()
         {
+            HandleFindContainsString(null);
+        }
+
+        public void HandleFindContainsString(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
+                CheckWishToChangeCurrentConnection(connectionData);
+
                 var dialog = new WindowSelectFolderAndText(commonConfig, connectionData, "Select String for contain", "String for contain");
 
                 if (dialog.ShowDialog().GetValueOrDefault())
@@ -2570,17 +2635,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleFindEntityById()
         {
+            HandleFindEntityById(null);
+        }
+
+        public void HandleFindEntityById(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
+                CheckWishToChangeCurrentConnection(connectionData);
+
                 var dialog = new WindowSelectEntityIdToFind(commonConfig, connectionData, string.Format("Find Entity in {0} by Id", connectionData.Name));
 
                 if (dialog.ShowDialog().GetValueOrDefault())
@@ -2610,17 +2685,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleEditEntityById()
         {
+            HandleEditEntityById(null);
+        }
+
+        public void HandleEditEntityById(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
+                CheckWishToChangeCurrentConnection(connectionData);
+
                 var dialog = new WindowSelectEntityIdToFind(commonConfig, connectionData, string.Format("Edit Entity in {0} by Id", connectionData.Name));
 
                 if (dialog.ShowDialog().GetValueOrDefault())
@@ -2650,17 +2735,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleFindEntityByUniqueidentifier()
         {
+            HandleFindEntityByUniqueidentifier(null);
+        }
+
+        public void HandleFindEntityByUniqueidentifier(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
+                CheckWishToChangeCurrentConnection(connectionData);
+
                 var dialog = new WindowSelectEntityIdToFind(commonConfig, connectionData, string.Format("Find Entity in {0} by Uniqueidentifier", connectionData.Name));
 
                 if (dialog.ShowDialog().GetValueOrDefault())
@@ -2690,19 +2785,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleOpenPluginTree(string entityFilter, string pluginTypeFilter, string messageFilter)
         {
+            HandleOpenPluginTree(null, entityFilter, pluginTypeFilter, messageFilter);
+        }
+
+        public void HandleOpenPluginTree(ConnectionData connectionData, string entityFilter, string pluginTypeFilter, string messageFilter)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
 
                 try
                 {
@@ -2717,21 +2822,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleSdkMessageTree()
         {
+            HandleSdkMessageTree(null);
+        }
+
+        public void HandleSdkMessageTree(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
             }
-
-            string selection = GetSelectedText();
-
-            var connectionData = crmConfig.CurrentConnectionData;
 
             if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                string selection = GetSelectedText();
 
                 try
                 {
@@ -2746,21 +2861,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleOpenSystemUsersExplorer()
         {
+            HandleOpenSystemUsersExplorer(null);
+        }
+
+        public void HandleOpenSystemUsersExplorer(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
             }
-
-            string selection = GetSelectedText();
-
-            var connectionData = crmConfig.CurrentConnectionData;
 
             if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                string selection = GetSelectedText();
 
                 try
                 {
@@ -2775,21 +2900,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleOpenTeamsExplorer()
         {
+            HandleOpenTeamsExplorer(null);
+        }
+
+        public void HandleOpenTeamsExplorer(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
             }
-
-            string selection = GetSelectedText();
-
-            var connectionData = crmConfig.CurrentConnectionData;
 
             if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                string selection = GetSelectedText();
 
                 try
                 {
@@ -2804,21 +2939,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleOpenSecurityRolesExplorer()
         {
+            HandleOpenSecurityRolesExplorer(null);
+        }
+
+        public void HandleOpenSecurityRolesExplorer(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
             }
-
-            string selection = GetSelectedText();
-
-            var connectionData = crmConfig.CurrentConnectionData;
 
             if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                string selection = GetSelectedText();
 
                 try
                 {
@@ -2833,19 +2978,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandlePluginConfigurationCreate()
         {
+            HandlePluginConfigurationCreate(null);
+        }
+
+        public void HandlePluginConfigurationCreate(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
 
                 var form = new WindowPluginConfiguration(commonConfig, true);
 
@@ -2923,11 +3078,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandlePluginConfigurationTree()
         {
+            HandlePluginConfigurationTree(null);
+        }
+
+        public void HandlePluginConfigurationTree(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
+
+                connectionData = crmConfig.CurrentConnectionData;
             }
 
             List<SelectedFile> selectedFiles = GetSelectedFilesAll(FileOperations.SupportsXmlType, false).Take(2).ToList();
@@ -2939,12 +3104,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 filePath = selectedFiles[0].FilePath;
             }
 
-            var connectionData = crmConfig.CurrentConnectionData;
-
             if (connectionData != null && commonConfig != null && Directory.Exists(commonConfig.FolderForExport))
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
 
                 try
                 {
@@ -3047,6 +3212,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             HandleExportFileWithEntityMetadata(null, null);
         }
 
+        public void HandleExportFileWithEntityMetadata(ConnectionData connectionData)
+        {
+            HandleExportFileWithEntityMetadata(connectionData, null);
+        }
+
         public void HandleExportFileWithEntityMetadata(ConnectionData connectionData, SelectedItem selectedItem)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
@@ -3091,6 +3261,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             HandleSdkMessageRequestTree(null, null);
         }
 
+        public void HandleSdkMessageRequestTree(ConnectionData connectionData)
+        {
+            HandleSdkMessageRequestTree(connectionData, null);
+        }
+
         public void HandleSdkMessageRequestTree(ConnectionData connectionData, SelectedItem selectedItem)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
@@ -3132,20 +3307,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleOpenEntityAttributeExplorer()
         {
+            HandleOpenEntityAttributeExplorer(null);
+        }
+
+        public void HandleOpenEntityAttributeExplorer(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
-            string selection = GetSelectedText();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                string selection = GetSelectedText();
 
                 try
                 {
@@ -3160,20 +3346,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleOpenEntityKeyExplorer()
         {
+            HandleOpenEntityKeyExplorer(null);
+        }
+
+        public void HandleOpenEntityKeyExplorer(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
             string selection = GetSelectedText();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
 
                 try
                 {
@@ -3188,20 +3384,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleOpenEntityRelationshipOneToManyExplorer()
         {
+            HandleOpenEntityRelationshipOneToManyExplorer(null);
+        }
+
+        public void HandleOpenEntityRelationshipOneToManyExplorer(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
-            string selection = GetSelectedText();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                string selection = GetSelectedText();
 
                 try
                 {
@@ -3216,20 +3423,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleOpenEntityRelationshipManyToManyExplorer()
         {
+            HandleOpenEntityRelationshipManyToManyExplorer(null);
+        }
+
+        public void HandleOpenEntityRelationshipManyToManyExplorer(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
-            string selection = GetSelectedText();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                string selection = GetSelectedText();
 
                 try
                 {
@@ -3244,20 +3462,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleOpenEntityPrivilegesExplorer()
         {
+            HandleOpenEntityPrivilegesExplorer(null);
+        }
+
+        public void HandleOpenEntityPrivilegesExplorer(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
-            string selection = GetSelectedText();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                string selection = GetSelectedText();
 
                 try
                 {
@@ -3270,21 +3499,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleExportFormEvents()
+        public void HandleExportFormEvents(ConnectionData connectionData)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
 
                 var form = new WindowExportFormEvents(commonConfig);
 
@@ -3305,6 +3539,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public void HandleExportGlobalOptionSets()
         {
             HandleExportGlobalOptionSets(null, null);
+        }
+
+        public void HandleExportGlobalOptionSets(ConnectionData connectionData)
+        {
+            HandleExportGlobalOptionSets(connectionData, null);
         }
 
         public void HandleExportGlobalOptionSets(ConnectionData connectionData, SelectedItem selectedItem)
@@ -3348,19 +3587,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleExportOrganizationInformation()
         {
+            HandleExportOrganizationInformation(null);
+        }
+
+        public void HandleExportOrganizationInformation(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
 
                 try
                 {
@@ -3375,26 +3624,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleOpenPluginAssemblyExplorer()
         {
-            string selection = GetSelectedText();
-
-            HandleOpenPluginAssemblyExplorer(selection);
+            HandleOpenPluginAssemblyExplorer(null, null);
         }
 
         public void HandleOpenPluginAssemblyExplorer(string selection)
         {
+            HandleOpenPluginAssemblyExplorer(null, selection);
+        }
+
+        public void HandleOpenPluginAssemblyExplorer(ConnectionData connectionData)
+        {
+            string selection = GetSelectedText();
+
+            HandleOpenPluginAssemblyExplorer(connectionData, selection);
+        }
+
+        public void HandleOpenPluginAssemblyExplorer(ConnectionData connectionData, string selection)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
 
                 try
                 {
@@ -3409,19 +3673,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleOpenPluginTypeExplorer(string selection)
         {
+            HandleOpenPluginTypeExplorer(null, selection);
+        }
+
+        public void HandleOpenPluginTypeExplorer(ConnectionData connectionData, string selection)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
 
                 try
                 {
@@ -3468,20 +3742,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleExportReport()
         {
+            HandleExportReport(null);
+        }
+
+        public void HandleExportReport(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
-            string selection = GetSelectedText();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                string selection = GetSelectedText();
 
                 try
                 {
@@ -3496,20 +3781,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleExportRibbon()
         {
+            HandleExportRibbon(null);
+        }
+
+        public void HandleExportRibbon(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
-            string selection = GetSelectedText();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                string selection = GetSelectedText();
 
                 try
                 {
@@ -3522,21 +3818,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public void HandleExplorerSitemap(string filter = null)
+        public void HandleExplorerSitemap()
+        {
+            HandleExplorerSitemap(null, null);
+        }
+
+        public void HandleExplorerSitemap(string filter)
+        {
+            HandleExplorerSitemap(null, filter);
+        }
+
+        public void HandleExplorerSitemap(ConnectionData connectionData)
+        {
+            HandleExplorerSitemap(connectionData, null);
+        }
+
+        public void HandleExplorerSitemap(ConnectionData connectionData, string filter)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
 
                 try
                 {
@@ -3615,14 +3931,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleOpenSolutionImageWindow()
         {
+            HandleOpenSolutionImageWindow(null);
+        }
+
+        public void HandleOpenSolutionImageWindow(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null)
             {
@@ -3642,14 +3966,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleOpenSolutionDifferenceImageWindow()
         {
+            HandleOpenSolutionDifferenceImageWindow(null);
+        }
+
+        public void HandleOpenSolutionDifferenceImageWindow(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null)
             {
@@ -3669,19 +4001,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleOpenOrganizationDifferenceImageWindow()
         {
+            HandleOpenOrganizationDifferenceImageWindow(null);
+        }
+
+        public void HandleOpenOrganizationDifferenceImageWindow(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
 
                 try
                 {
@@ -3701,9 +4043,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             HandleExplorerSystemForm(null, null, selection);
         }
 
+        public void HandleExplorerSystemForm(ConnectionData connectionData)
+        {
+            string selection = GetSelectedText();
+
+            HandleExplorerSystemForm(connectionData, null, selection);
+        }
+
         public void HandleExplorerSystemForm(string selection)
         {
             HandleExplorerSystemForm(null, null, selection);
+        }
+
+        public void HandleExplorerSystemForm(ConnectionData connectionData, string selection)
+        {
+            HandleExplorerSystemForm(connectionData, null, selection);
         }
 
         public void HandleExplorerSystemForm(ConnectionData connectionData, SelectedItem selectedItem)
@@ -3745,20 +4099,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleExportCustomControl()
         {
+            HandleExportCustomControl(null);
+        }
+
+        public void HandleExportCustomControl(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
-            string selection = GetSelectedText();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                string selection = GetSelectedText();
 
                 try
                 {
@@ -3775,24 +4140,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             string selection = GetSelectedText();
 
-            HandleExplorerSystemSavedQuery(selection);
+            HandleExplorerSystemSavedQuery(null, selection);
+        }
+
+        public void HandleExplorerSystemSavedQuery(ConnectionData connectionData)
+        {
+            string selection = GetSelectedText();
+
+            HandleExplorerSystemSavedQuery(connectionData, selection);
         }
 
         public void HandleExplorerSystemSavedQuery(string selection)
         {
+            HandleExplorerSystemSavedQuery(null, selection);
+        }
+
+        public void HandleExplorerSystemSavedQuery(ConnectionData connectionData, string selection)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
 
                 try
                 {
@@ -3807,20 +4189,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleExportSystemSavedQueryVisualization()
         {
+            HandleExportSystemSavedQueryVisualization(null);
+        }
+
+        public void HandleExportSystemSavedQueryVisualization(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
-            string selection = GetSelectedText();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
+
+                string selection = GetSelectedText();
 
                 try
                 {
@@ -3835,20 +4228,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleExportWebResource()
         {
+            HandleExportWebResource(null);
+        }
+
+        public void HandleExportWebResource(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
             string selection = GetSelectedText();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
 
                 try
                 {
@@ -3863,20 +4266,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public void HandleExportWorkflows()
         {
+            HandleExportWorkflows(null);
+        }
+
+        public void HandleExportWorkflows(ConnectionData connectionData)
+        {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
             string selection = GetSelectedText();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (connectionData == null)
             {
-                return;
-            }
+                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                {
+                    return;
+                }
 
-            var connectionData = crmConfig.CurrentConnectionData;
+                connectionData = crmConfig.CurrentConnectionData;
+            }
 
             if (connectionData != null && commonConfig != null)
             {
                 ActivateOutputWindow(connectionData);
                 WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                CheckWishToChangeCurrentConnection(connectionData);
 
                 try
                 {

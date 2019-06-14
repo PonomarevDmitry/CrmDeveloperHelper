@@ -28,6 +28,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         private const string _loggerErrors = "ErrorLogger";
 
         private const string _outputWindowPaneName = "Crm Developer Helper";
+
         private static readonly Guid _outputWindowPaneId = new Guid("6997AAB4-2C13-46E9-9E24-BE82DD295BC9");
 
         private const string _tabSpacer = "    ";

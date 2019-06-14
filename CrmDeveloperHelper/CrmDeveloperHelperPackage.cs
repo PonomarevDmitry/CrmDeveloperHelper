@@ -1,7 +1,5 @@
-﻿using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.Shell;
+﻿using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.VisualStudio.Threading;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Checks;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Connections;
@@ -11,6 +9,10 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.FindEdit;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Folders;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.JavaScripts;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Checks;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Explorers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.PluginConfigurations;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.PluginConfigurations;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports;
@@ -505,6 +507,97 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FolderWebResourceAddFilesIntoListForPublishCommand.Initialize(commandService);
 
             CommonSelectCrmConnectionCommand.Initialize(commandService);
+
+            #region Output Windows
+
+            OutputSelectCrmConnectionCommand.Initialize(commandService);
+            OutputTestCrmConnectionCommand.Initialize(commandService);
+
+            OutputOpenCrmWebSiteCommand.Initialize(commandService);
+            OutputExportOpenLastSelectedSolutionCommand.Initialize(commandService);
+            OutputOpenDefaultSolutionInWebCommand.Initialize(commandService);
+
+            OutputOpenOrganizationDifferenceImageCommand.Initialize(commandService);
+            OutputOpenSolutionDifferenceImageCommand.Initialize(commandService);
+            OutputOpenSolutionImageCommand.Initialize(commandService);
+
+            OutputOrganizationComparerCommand.Initialize(commandService);
+
+            OutputExportFormEventsCommand.Initialize(commandService);
+
+            OutputApplicationRibbonExplorerCommand.Initialize(commandService);
+            OutputCheckComponentTypeEnumCommand.Initialize(commandService);
+            OutputCheckCreateAllDependencyNodeDescriptionCommand.Initialize(commandService);
+            OutputCheckEntitiesOwnerShipsCommand.Initialize(commandService);
+            OutputCheckGlobalOptionSetDuplicateCommand.Initialize(commandService);
+            OutputCheckManagedElementsCommand.Initialize(commandService);
+            OutputCheckPluginImagesCommand.Initialize(commandService);
+            OutputCheckPluginImagesRequiredComponentsCommand.Initialize(commandService);
+            OutputCheckPluginStepsCommand.Initialize(commandService);
+            OutputCheckPluginStepsRequiredComponentsCommand.Initialize(commandService);
+            OutputCheckWorkflowsUsedEntitiesCommand.Initialize(commandService);
+            OutputCheckWorkflowsUsedNotExistsEntitiesCommand.Initialize(commandService);
+            OutputCustomControlExplorerCommand.Initialize(commandService);
+            OutputEditEntityObjectsByIdCommand.Initialize(commandService);
+            OutputEntityAttributeExplorerCommand.Initialize(commandService);
+            OutputEntityKeyExplorerCommand.Initialize(commandService);
+            OutputEntityMetadataExplorerCommand.Initialize(commandService);
+            OutputEntityPrivilegesExplorerCommand.Initialize(commandService);
+            OutputEntityRelationshipManyToManyExplorerCommand.Initialize(commandService);
+            OutputEntityRelationshipOneToManyExplorerCommand.Initialize(commandService);
+            OutputFindEntitiesNamesAndShowDependentComponentsCommand.Initialize(commandService);
+            OutputFindEntitiesNamesCommand.Initialize(commandService);
+            OutputFindEntityObjectsByIdCommand.Initialize(commandService);
+            OutputFindEntityObjectsByNameCommand.Initialize(commandService);
+            OutputFindEntityObjectsByUniqueidentifierCommand.Initialize(commandService);
+            OutputFindEntityObjectsContainsStringCommand.Initialize(commandService);
+            OutputFindMarkedToDeleteAndShowDependentComponentsCommand.Initialize(commandService);
+            OutputGlobalOptionSetsExplorerCommand.Initialize(commandService);
+            OutputImportJobExplorerInConnectionCommand.Initialize(commandService);
+            OutputOrganizationExplorerCommand.Initialize(commandService);
+            OutputPluginAssemblyExplorerCommand.Initialize(commandService);
+            OutputPluginTreeCommand.Initialize(commandService);
+            OutputPluginTypeExplorerCommand.Initialize(commandService);
+            OutputReportExplorerCommand.Initialize(commandService);
+            OutputSdkMessageRequestTreeCommand.Initialize(commandService);
+            OutputSdkMessageTreeCommand.Initialize(commandService);
+            OutputSecurityRolesExplorerCommand.Initialize(commandService);
+            OutputSiteMapExplorerCommand.Initialize(commandService);
+            OutputSolutionExplorerCommand.Initialize(commandService);
+            OutputSystemFormExplorerCommand.Initialize(commandService);
+            OutputSystemSavedQueryExplorerCommand.Initialize(commandService);
+            OutputSystemSavedQueryVisualizationExplorerCommand.Initialize(commandService);
+            OutputSystemUsersExplorerCommand.Initialize(commandService);
+            OutputTeamsExplorerCommand.Initialize(commandService);
+            OutputTraceExportFileCommand.Initialize(commandService);
+            OutputTraceReaderCommand.Initialize(commandService);
+            OutputWebResourceExplorerCommand.Initialize(commandService);
+            OutputWorkflowExplorerCommand.Initialize(commandService);
+
+            OutputPluginConfigurationComparerPluginAssemblyCommand.Initialize(commandService);
+            OutputPluginConfigurationCreateCommand.Initialize(commandService);
+            OutputPluginConfigurationPluginAssemblyCommand.Initialize(commandService);
+            OutputPluginConfigurationPluginTreeCommand.Initialize(commandService);
+            OutputPluginConfigurationPluginTypeCommand.Initialize(commandService);
+
+            OutputPublishAllInCrmConnectionCommand.Initialize(commandService);
+
+
+            //Output.Initialize(commandService);
+            //Output.Initialize(commandService);
+            //Output.Initialize(commandService);
+            //Output.Initialize(commandService);
+            //Output.Initialize(commandService);
+            //Output.Initialize(commandService);
+            //Output.Initialize(commandService);
+            //Output.Initialize(commandService);
+            //Output.Initialize(commandService);
+
+            #endregion Output Windows
+
+
+
+
 
 
             //Folder.Initialize(commandService);

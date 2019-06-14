@@ -1730,5 +1730,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 menuCommand.Enabled = menuCommand.Visible = false;
             }
         }
+
+        internal static void ActionBeforeQueryStatusIsConnectionOutput(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
+        {
+            bool visible = false;
+
+            var helper = DTEHelper.Create(applicationObject);
+
+            var connectionData = helper.GetOutputWindowConnection();
+
+            visible = connectionData != null;
+
+            if (visible == false)
+            {
+                menuCommand.Enabled = menuCommand.Visible = false;
+            }
+        }
     }
 }
