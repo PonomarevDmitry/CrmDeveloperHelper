@@ -30,6 +30,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces
 
         IWriteToOutput ActivateOutputWindow(ConnectionData connectionData);
 
+        IWriteToOutput ActivateOutputWindow(ConnectionData connectionData, System.Windows.Window window);
+
         IWriteToOutput ActivateVisualStudioWindow();
 
         IWriteToOutput PerformAction(ConnectionData connectionData, string filePath, bool hideFilePathUri = false);

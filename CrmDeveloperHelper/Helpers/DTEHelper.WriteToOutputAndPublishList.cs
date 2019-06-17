@@ -474,6 +474,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         public IWriteToOutput ActivateOutputWindow(ConnectionData connectionData)
         {
+            return ActivateOutputWindow(connectionData, null);
+        }
+
+        public IWriteToOutput ActivateOutputWindow(ConnectionData connectionData, System.Windows.Window window)
+        {
             var outputWindowLocal = GetOutputWindow(connectionData);
 
             if (outputWindowLocal != null)
@@ -497,6 +502,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 {
                     WriteExceptionToLog(ex);
                 }
+            }
+
+            if (window != null)
+            {
+                window.Dispatcher.Invoke(() =>
+                {
+                    window.Focus();
+                    window.Activate();
+                });
             }
 
             return this;
@@ -1073,7 +1087,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return this;
                 }
@@ -1139,7 +1153,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return this;
                 }
@@ -1178,7 +1192,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return this;
                 }

@@ -223,6 +223,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current Crm Connection is not Selected. Please select connection..
+        /// </summary>
+        internal static string CurrentCrmConnectionIsNotSelected {
+            get {
+                return ResourceManager.GetString("CurrentCrmConnectionIsNotSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current Service Endpoint Connection {0}: {1}.
         /// </summary>
         internal static string CurrentServiceEndpointConnectionFormat2 {

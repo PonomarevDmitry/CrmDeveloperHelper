@@ -547,4 +547,17 @@
     <value>Creating Last Link was cancelled.</value>
   </data>
 
+  <data name="CurrentCrmConnectionIsNotSelected" xml:space="preserve">
+    <value>Current Crm Connection is not Selected. Please select connection.</value>
+  </data>
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
 </root>

@@ -441,7 +441,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     menuItemPluginInformation.Items.Add(menuItemPluginTypeExplorer);
                     menuItemPluginInformation.Items.Add(menuItemPluginAssemblyExplorer);
-                    miConnection.Items.Add(new Separator());
+                    menuItemPluginInformation.Items.Add(new Separator());
                     menuItemPluginInformation.Items.Add(menuItemPluginTree);
                     menuItemPluginInformation.Items.Add(menuItemMessageTree);
                     menuItemPluginInformation.Items.Add(menuItemMessageRequestTree);
@@ -494,6 +494,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     menuItemSecurityRolesExplorer.Click += (s, e) => miSecurityRolesExplorer_Click(iWriteToOutput, commonConfig, getSelectedSingleConnection);
 
                     menuItemSecurity.Items.Add(menuItemEntityPrivilegesExplorer);
+                    menuItemSecurity.Items.Add(new Separator());
                     menuItemSecurity.Items.Add(menuItemSystemUsersExplorer);
                     menuItemSecurity.Items.Add(menuItemTeamsExplorer);
                     menuItemSecurity.Items.Add(menuItemSecurityRolesExplorer);

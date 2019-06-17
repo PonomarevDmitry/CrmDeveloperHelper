@@ -29,12 +29,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly ConnectionConfiguration _crmConfig;
         private readonly IWriteToOutput _iWriteToOutput;
 
+        private readonly bool _currentConnectionChoosing;
+
         private readonly ObservableCollection<OrganizationDetailViewItem> _itemsSource;
 
-        public WindowCrmConnectionList(IWriteToOutput iWriteToOutput, ConnectionConfiguration crmConfig)
+        public WindowCrmConnectionList(IWriteToOutput iWriteToOutput, ConnectionConfiguration crmConfig, bool currentConnectionChoosing = false)
         {
             this._crmConfig = crmConfig;
             this._iWriteToOutput = iWriteToOutput;
+            this._currentConnectionChoosing = currentConnectionChoosing;
 
             BindingOperations.EnableCollectionSynchronization(this._crmConfig.Connections, sysObjectConnections);
             BindingOperations.EnableCollectionSynchronization(this._crmConfig.ArchiveConnections, sysObjectArchiveConnections);
@@ -431,7 +434,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 catch (Exception ex)
                 {
                     _iWriteToOutput.WriteErrorToOutput(null, ex);
-                    _iWriteToOutput.ActivateOutputWindow(null);
+                    _iWriteToOutput.ActivateOutputWindow(null, this);
                 }
             });
 
@@ -454,7 +457,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(null, ex);
-                _iWriteToOutput.ActivateOutputWindow(null);
+                _iWriteToOutput.ActivateOutputWindow(null, this);
 
                 connectionData = null;
             }
@@ -509,7 +512,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(connectionData, false, Properties.WindowStatusStrings.StartTestingConnectionFormat1, connectionData.Name);
 
-            var testResult = await QuickConnection.TestConnectAsync(connectionData, this._iWriteToOutput);
+            var task = QuickConnection.TestConnectAsync(connectionData, this._iWriteToOutput);
+
+            this.Focus();
+            this.Activate();
+
+            var testResult = await task;
 
             if (testResult)
             {
@@ -620,11 +628,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._crmConfig.Save();
 
                 _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
-                _iWriteToOutput.ActivateOutputWindow(null);
 
-                this.DialogResult = true;
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
+                _iWriteToOutput.ActivateOutputWindow(connectionData, this);
 
-                this.Close();
+                if (this._currentConnectionChoosing)
+                {
+                    this.DialogResult = true;
+
+                    this.Close();
+                }
             }
         }
 
@@ -648,7 +661,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         _crmConfig.SetCurrentConnection(null);
 
                         _iWriteToOutput.WriteToOutput(null, Properties.WindowStatusStrings.ConnectionIsNotSelected);
-                        _iWriteToOutput.ActivateOutputWindow(null);
+                        _iWriteToOutput.ActivateOutputWindow(null, this);
                     }
 
                     this.Dispatcher.Invoke(() =>
@@ -854,7 +867,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(connectionData, false, Properties.WindowStatusStrings.StartTestingConnectionFormat1, connectionData.Name);
 
-            var testResult = await QuickConnection.TestConnectAsync(connectionData, this._iWriteToOutput);
+            var task = QuickConnection.TestConnectAsync(connectionData, this._iWriteToOutput);
+
+            this.Focus();
+            this.Activate();
+
+            var testResult = await task;
 
             if (testResult)
             {
@@ -996,18 +1014,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (sender is Button button)
             {
-                if (((FrameworkElement)e.OriginalSource).DataContext is ConnectionData item)
+                if (((FrameworkElement)e.OriginalSource).DataContext is ConnectionData connectionData)
                 {
-                    this._crmConfig.SetCurrentConnection(item.ConnectionId);
+                    this._crmConfig.SetCurrentConnection(connectionData.ConnectionId);
 
                     this._crmConfig.Save();
 
-                    _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentConnectionFormat1, item.Name);
-                    _iWriteToOutput.ActivateOutputWindow(null);
+                    _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
 
-                    this.DialogResult = true;
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
 
-                    this.Close();
+                    _iWriteToOutput.ActivateOutputWindow(connectionData, this);
+
+                    if (this._currentConnectionChoosing)
+                    {
+                        this.DialogResult = true;
+
+                        this.Close();
+                    }
                 }
             }
         }
@@ -1140,7 +1164,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (!Uri.TryCreate(discoveryServiceUrl, UriKind.Absolute, out Uri discoveryServiceUri))
             {
                 _iWriteToOutput.WriteToOutput(null, Properties.WindowStatusStrings.DiscoveryServiceCouldNotBeReceived);
-                _iWriteToOutput.ActivateOutputWindow(null);
+                _iWriteToOutput.ActivateOutputWindow(null, this);
                 return;
             }
 
@@ -1155,7 +1179,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (serviceManagement == null)
                 {
                     ToggleControls(null, true, Properties.WindowStatusStrings.DiscoveryServiceConfigurationCouldNotBeReceived);
-                    _iWriteToOutput.ActivateOutputWindow(null);
+                    _iWriteToOutput.ActivateOutputWindow(null, this);
                     return;
                 }
 
@@ -1166,7 +1190,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 if (discoveryService == null)
                 {
                     ToggleControls(null, true, Properties.WindowStatusStrings.DiscoveryServiceCouldNotBeReceived);
-                    _iWriteToOutput.ActivateOutputWindow(null);
+                    _iWriteToOutput.ActivateOutputWindow(null, this);
                     return;
                 }
 

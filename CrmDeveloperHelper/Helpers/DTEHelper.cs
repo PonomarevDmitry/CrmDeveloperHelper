@@ -121,7 +121,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public bool HasCRMConnection(out ConnectionConfiguration connectionConfig)
+        public bool HasCurrentCrmConnection(out ConnectionConfiguration connectionConfig)
         {
             bool result = false;
 
@@ -129,7 +129,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionConfig.CurrentConnectionData == null)
             {
-                var crmConnection = new WindowCrmConnectionList(this, connectionConfig);
+                this.WriteToOutput(null, Properties.OutputStrings.CurrentCrmConnectionIsNotSelected);
+                this.ActivateOutputWindow(null);
+
+                var crmConnection = new WindowCrmConnectionList(this, connectionConfig, true);
 
                 crmConnection.ShowDialog();
 
@@ -147,7 +150,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -184,7 +187,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -248,7 +251,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -307,7 +310,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -344,7 +347,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -381,7 +384,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -418,7 +421,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -450,7 +453,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -492,7 +495,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -536,7 +539,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -580,7 +583,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -617,7 +620,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -639,7 +642,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -673,7 +676,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -707,7 +710,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -741,7 +744,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -775,7 +778,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -809,7 +812,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -843,7 +846,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -899,7 +902,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -931,7 +934,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
             {
                 return;
             }
@@ -964,7 +967,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -1016,7 +1019,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -1046,7 +1049,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
             {
                 return;
             }
@@ -1075,7 +1078,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
             {
                 return;
             }
@@ -1104,7 +1107,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -1143,7 +1146,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -1180,7 +1183,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -1217,7 +1220,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -1254,7 +1257,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -1291,7 +1294,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -1328,7 +1331,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -1365,7 +1368,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -1402,7 +1405,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -1439,7 +1442,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -1476,7 +1479,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -1513,7 +1516,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -1550,7 +1553,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -1602,7 +1605,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -1639,7 +1642,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -1711,7 +1714,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
             {
                 return;
             }
@@ -1744,7 +1747,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -1794,7 +1797,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
             {
                 return;
             }
@@ -1847,7 +1850,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -1901,7 +1904,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -1948,7 +1951,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
             {
                 return;
             }
@@ -1973,7 +1976,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -2002,7 +2005,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
             {
                 return;
             }
@@ -2056,7 +2059,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -2112,7 +2115,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -2161,7 +2164,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -2209,7 +2212,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -2253,7 +2256,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -2285,7 +2288,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -2317,7 +2320,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -2349,7 +2352,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -2381,7 +2384,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -2413,7 +2416,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -2445,7 +2448,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -2477,7 +2480,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -2509,7 +2512,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -2546,7 +2549,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -2595,7 +2598,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -2644,7 +2647,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -2694,7 +2697,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -2744,7 +2747,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -2794,7 +2797,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -2831,7 +2834,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -2870,7 +2873,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -2909,7 +2912,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -2948,7 +2951,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -2987,7 +2990,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -3087,7 +3090,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -3181,7 +3184,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -3230,7 +3233,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -3279,7 +3282,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -3316,7 +3319,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -3356,7 +3359,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -3393,7 +3396,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -3432,7 +3435,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -3471,7 +3474,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -3505,7 +3508,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -3559,7 +3562,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -3596,7 +3599,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -3645,7 +3648,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -3682,7 +3685,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -3714,7 +3717,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -3751,7 +3754,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -3790,7 +3793,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -3839,7 +3842,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -3871,7 +3874,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -3903,7 +3906,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -3940,7 +3943,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -3975,7 +3978,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -4010,7 +4013,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -4071,7 +4074,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -4108,7 +4111,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -4161,7 +4164,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -4198,7 +4201,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -4238,7 +4241,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -4276,7 +4279,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -4306,7 +4309,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
             {
                 return;
             }
@@ -4353,7 +4356,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
             {
                 return;
             }
@@ -4385,7 +4388,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
             {
                 return;
             }
@@ -4412,7 +4415,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
             {
                 return;
             }
@@ -4441,7 +4444,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
-            if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+            if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
             {
                 return;
             }
@@ -4475,7 +4478,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
@@ -4504,7 +4507,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData == null)
             {
-                if (!HasCRMConnection(out ConnectionConfiguration crmConfig))
+                if (!HasCurrentCrmConnection(out ConnectionConfiguration crmConfig))
                 {
                     return;
                 }
