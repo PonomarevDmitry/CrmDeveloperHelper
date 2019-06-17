@@ -632,6 +632,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     };
                     menuItemSolutionExplorer.Click += (s, e) => miExplorerSolutionComponents_Click(iWriteToOutput, commonConfig, getSelectedSingleConnection);
 
+                    var menuItemImportJobExplorer = new MenuItem()
+                    {
+                        Header = "ImportJob Explorer",
+                    };
+                    menuItemImportJobExplorer.Click += (s, e) => miExplorerImportJob_Click(iWriteToOutput, commonConfig, getSelectedSingleConnection);
+
                     var menuItemOpenSolutionImageWindow = new MenuItem()
                     {
                         Header = "Open SolutionImage Window",
@@ -645,6 +651,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     menuItemOpenSolutionDifferenceImage.Click += (s, e) => miOpenSolutionDifferenceImage_Click(iWriteToOutput, commonConfig, getSelectedSingleConnection);
 
                     menuItemSolutions.Items.Add(menuItemSolutionExplorer);
+
+                    menuItemSolutions.Items.Add(new Separator());
+                    menuItemSolutions.Items.Add(menuItemImportJobExplorer);
 
                     menuItemSolutions.Items.Add(new Separator());
                     menuItemSolutions.Items.Add(menuItemOpenSolutionImageWindow);
@@ -1195,6 +1204,31 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         SolutionController contr = new SolutionController(iWriteToOutput);
 
                         contr.ExecuteOpeningSolutionExlorerWindow(null, connection, commonConfig);
+                    }
+                    catch (Exception ex)
+                    {
+                        iWriteToOutput.WriteErrorToOutput(null, ex);
+                    }
+                });
+                backWorker.Start();
+            }
+        }
+
+        private static void miExplorerImportJob_Click(IWriteToOutput iWriteToOutput, CommonConfiguration commonConfig, Func<ConnectionData> getSelectedSingleConnection)
+        {
+            var connection = getSelectedSingleConnection();
+
+            if (connection != null)
+            {
+                commonConfig.Save();
+
+                var backWorker = new Thread(() =>
+                {
+                    try
+                    {
+                        SolutionController contr = new SolutionController(iWriteToOutput);
+
+                        contr.ExecuteOpeningImportJobExlorerWindow(connection, commonConfig);
                     }
                     catch (Exception ex)
                     {
