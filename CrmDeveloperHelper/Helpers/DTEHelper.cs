@@ -2104,12 +2104,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return connectionConfig?.CurrentConnectionData?.LastSelectedSolutionsUniqueName?.FirstOrDefault();
         }
 
-        public void HandleCheckEntitiesNames()
+        public void HandleFindEntityObjectsByPrefix()
         {
-            HandleCheckEntitiesNames(null);
+            HandleFindEntityObjectsByPrefix(null);
         }
 
-        public void HandleCheckEntitiesNames(ConnectionData connectionData)
+        public void HandleFindEntityObjectsByPrefix(ConnectionData connectionData)
         {
             CommonConfiguration commonConfig = CommonConfiguration.Get();
 
@@ -2142,7 +2142,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                         try
                         {
-                            Controller.StartCheckEntitiesNames(connectionData, commonConfig, dialog.GetText());
+                            Controller.StartFindEntityObjectsByPrefix(connectionData, commonConfig, dialog.GetText());
                         }
                         catch (Exception ex)
                         {

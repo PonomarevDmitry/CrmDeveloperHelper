@@ -3,16 +3,16 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.FindEdit
 {
-    internal sealed class OutputFindEntitiesNamesAndShowDependentComponentsCommand : AbstractCommand
+    internal sealed class OutputFindEntityObjectsByPrefixCommand : AbstractCommand
     {
-        private OutputFindEntitiesNamesAndShowDependentComponentsCommand(OleMenuCommandService commandService)
-           : base(commandService, PackageIds.OutputFindEntitiesNamesAndShowDependentComponentsCommandId) { }
+        private OutputFindEntityObjectsByPrefixCommand(OleMenuCommandService commandService)
+           : base(commandService, PackageIds.OutputFindEntityObjectsByPrefixCommandId) { }
 
-        public static OutputFindEntitiesNamesAndShowDependentComponentsCommand Instance { get; private set; }
+        public static OutputFindEntityObjectsByPrefixCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new OutputFindEntitiesNamesAndShowDependentComponentsCommand(commandService);
+            Instance = new OutputFindEntityObjectsByPrefixCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper)
@@ -24,7 +24,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.FindEdit
                 return;
             }
 
-            helper.HandleCheckEntitiesNamesAndShowDependentComponents(connectionData);
+            helper.HandleFindEntityObjectsByPrefix(connectionData);
         }
 
         protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)

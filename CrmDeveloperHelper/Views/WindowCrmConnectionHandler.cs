@@ -1600,7 +1600,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         {
                             var contr = new FindsController(iWriteToOutput);
 
-                            contr.ExecuteCheckingEntitiesNames(connection, commonConfig, dialog.Prefix);
+                            contr.ExecuteFindingEntityObjectsByPrefix(connection, commonConfig, dialog.Prefix);
                         }
                         catch (Exception ex)
                         {

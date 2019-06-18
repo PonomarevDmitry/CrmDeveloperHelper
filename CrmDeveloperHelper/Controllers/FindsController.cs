@@ -30,7 +30,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #region Проверка имена на префикс.
 
-        public async Task ExecuteCheckingEntitiesNames(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
+        public async Task ExecuteFindingEntityObjectsByPrefix(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
         {
             prefix = prefix.TrimEnd(' ', '_').Trim();
             prefix = string.Format("{0}_", prefix);
@@ -41,7 +41,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             try
             {
-                await CheckingEntitiesNames(connectionData, commonConfig, prefix);
+                await FindingEntityObjectsByPrefix(connectionData, commonConfig, prefix);
             }
             catch (Exception ex)
             {
@@ -53,7 +53,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task CheckingEntitiesNames(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
+        private async Task FindingEntityObjectsByPrefix(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
         {
             if (connectionData == null)
             {

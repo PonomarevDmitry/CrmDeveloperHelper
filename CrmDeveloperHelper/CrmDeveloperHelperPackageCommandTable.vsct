@@ -7252,7 +7252,7 @@
 
 
 
-      <Button guid="guidCommandSet" id="CommonFindEntitiesNamesCommandId" priority="0x010B" type="Button">
+      <Button guid="guidCommandSet" id="CommonFindEntityObjectsByPrefixCommandId" priority="0x010B" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -7261,7 +7261,7 @@
           <ButtonText>Find Entity Objects names for prefix</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="CommonFindEntitiesNamesAndShowDependentComponentsCommandId" priority="0x010C" type="Button">
+      <Button guid="guidCommandSet" id="CommonFindEntityObjectsByPrefixAndShowDependentComponentsCommandId" priority="0x010C" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -7270,7 +7270,7 @@
           <ButtonText>Find Entity Objects names for prefix and show dependent components</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="CommonFindMarkedToDeleteAndShowDependentComponentsCommandId" priority="0x010D" type="Button">
+      <Button guid="guidCommandSet" id="CommonFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommandId" priority="0x010D" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -7298,7 +7298,7 @@
           <ButtonText>Find Entity Objects contains string</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="CommonFindEntityObjectsByIdCommandId" priority="0x0110" type="Button">
+      <Button guid="guidCommandSet" id="CommonFindEntitiesByIdCommandId" priority="0x0110" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -7307,7 +7307,7 @@
           <ButtonText>Find Entities by Id</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="CommonFindEntityObjectsByUniqueidentifierCommandId" priority="0x0110" type="Button">
+      <Button guid="guidCommandSet" id="CommonFindEntitiesByUniqueidentifierCommandId" priority="0x0110" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -7316,7 +7316,7 @@
           <ButtonText>Find Entities by Uniqueidentifier</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="CommonEditEntityObjectsByIdCommandId" priority="0x0110" type="Button">
+      <Button guid="guidCommandSet" id="CommonEditEntitiesByIdCommandId" priority="0x0110" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -8381,7 +8381,7 @@
 
 
 
-      <Button guid="guidCommandSet" id="OutputFindEntitiesNamesCommandId" priority="0x6000" type="Button">
+      <Button guid="guidCommandSet" id="OutputFindEntityObjectsByPrefixCommandId" priority="0x6000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -8390,7 +8390,7 @@
           <ButtonText>Find Entity Objects names for prefix</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="OutputFindEntitiesNamesAndShowDependentComponentsCommandId" priority="0x6000" type="Button">
+      <Button guid="guidCommandSet" id="OutputFindEntityObjectsByPrefixAndShowDependentComponentsCommandId" priority="0x6000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -8399,7 +8399,7 @@
           <ButtonText>Find Entity Objects names for prefix and show dependent components</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="OutputFindMarkedToDeleteAndShowDependentComponentsCommandId" priority="0x6000" type="Button">
+      <Button guid="guidCommandSet" id="OutputFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommandId" priority="0x6000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -8427,7 +8427,7 @@
           <ButtonText>Find Entity Objects contains string</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="OutputFindEntityObjectsByIdCommandId" priority="0x6000" type="Button">
+      <Button guid="guidCommandSet" id="OutputFindEntitiesByIdCommandId" priority="0x6000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -8436,7 +8436,7 @@
           <ButtonText>Find Entities by Id</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="OutputFindEntityObjectsByUniqueidentifierCommandId" priority="0x6000" type="Button">
+      <Button guid="guidCommandSet" id="OutputFindEntitiesByUniqueidentifierCommandId" priority="0x6000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -8445,7 +8445,7 @@
           <ButtonText>Find Entities by Uniqueidentifier</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="OutputEditEntityObjectsByIdCommandId" priority="0x6000" type="Button">
+      <Button guid="guidCommandSet" id="OutputEditEntitiesByIdCommandId" priority="0x6000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -10890,13 +10890,13 @@
     </CommandPlacement>
 
 
-    <CommandPlacement guid="guidCommandSet" id="CommonFindEntitiesNamesCommandId" priority="0x0600">
+    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsByPrefixCommandId" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupCrmObjects" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonFindEntitiesNamesAndShowDependentComponentsCommandId" priority="0x0610">
+    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsByPrefixAndShowDependentComponentsCommandId" priority="0x0610">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupCrmObjects" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonFindMarkedToDeleteAndShowDependentComponentsCommandId" priority="0x0620">
+    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommandId" priority="0x0620">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupCrmObjects" />
     </CommandPlacement>
 
@@ -10907,14 +10907,14 @@
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupAttribute" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsByIdCommandId" priority="0x0100">
+    <CommandPlacement guid="guidCommandSet" id="CommonFindEntitiesByIdCommandId" priority="0x0100">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupFindById" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsByUniqueidentifierCommandId" priority="0x0110">
+    <CommandPlacement guid="guidCommandSet" id="CommonFindEntitiesByUniqueidentifierCommandId" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupFindById" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="CommonEditEntityObjectsByIdCommandId" priority="0x0100">
+    <CommandPlacement guid="guidCommandSet" id="CommonEditEntitiesByIdCommandId" priority="0x0100">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupChange" />
     </CommandPlacement>
 
@@ -14232,13 +14232,13 @@
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupCheck_MenuCheck_GroupWorkflows" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="OutputFindEntitiesNamesCommandId" priority="0x0600">
+    <CommandPlacement guid="guidCommandSet" id="OutputFindEntityObjectsByPrefixCommandId" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupFind_MenuFind_GroupCrmObjects" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputFindEntitiesNamesAndShowDependentComponentsCommandId" priority="0x0610">
+    <CommandPlacement guid="guidCommandSet" id="OutputFindEntityObjectsByPrefixAndShowDependentComponentsCommandId" priority="0x0610">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupFind_MenuFind_GroupCrmObjects" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputFindMarkedToDeleteAndShowDependentComponentsCommandId" priority="0x0620">
+    <CommandPlacement guid="guidCommandSet" id="OutputFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommandId" priority="0x0620">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupFind_MenuFind_GroupCrmObjects" />
     </CommandPlacement>
 
@@ -14249,14 +14249,14 @@
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupFind_MenuFind_GroupAttribute" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="OutputFindEntityObjectsByIdCommandId" priority="0x0100">
+    <CommandPlacement guid="guidCommandSet" id="OutputFindEntitiesByIdCommandId" priority="0x0100">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupFind_MenuFind_GroupFindById" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputFindEntityObjectsByUniqueidentifierCommandId" priority="0x0110">
+    <CommandPlacement guid="guidCommandSet" id="OutputFindEntitiesByUniqueidentifierCommandId" priority="0x0110">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupFind_MenuFind_GroupFindById" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="OutputEditEntityObjectsByIdCommandId" priority="0x0100">
+    <CommandPlacement guid="guidCommandSet" id="OutputEditEntitiesByIdCommandId" priority="0x0100">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupFind_MenuFind_GroupChange" />
     </CommandPlacement>
 
@@ -14635,9 +14635,9 @@
 
     <KeyBinding guid="guidCommandSet" id="CommonEntityMetadataExplorerCommandId" editor="guidVSStd97" mod1="Alt" key1="C" mod2="Alt" key2="E"/>
 
-    <KeyBinding guid="guidCommandSet" id="CommonFindEntityObjectsByIdCommandId" editor="guidVSStd97" mod1="Alt" key1="C" mod2="Alt" key2="F"/>
+    <KeyBinding guid="guidCommandSet" id="CommonFindEntitiesByIdCommandId" editor="guidVSStd97" mod1="Alt" key1="C" mod2="Alt" key2="F"/>
 
-    <KeyBinding guid="guidCommandSet" id="CommonFindEntityObjectsByNameCommandId" editor="guidVSStd97" mod1="Alt" key1="C" mod2="Alt" key2="H"/>
+    <KeyBinding guid="guidCommandSet" id="CommonEditEntitiesByIdCommandId" editor="guidVSStd97" mod1="Alt" key1="C" mod2="Alt" key2="H"/>
 
   </KeyBindings>
 
@@ -16372,18 +16372,19 @@
 
 
 
-      <IDSymbol name="CommonFindEntitiesNamesCommandId" value="0x201E" />
-      <IDSymbol name="CommonFindEntitiesNamesAndShowDependentComponentsCommandId" value="0x201F" />
-      <IDSymbol name="CommonFindMarkedToDeleteAndShowDependentComponentsCommandId" value="0x2020" />
+      <IDSymbol name="CommonFindEntityObjectsByPrefixCommandId" value="0x201E" />
+      <IDSymbol name="CommonFindEntityObjectsByPrefixAndShowDependentComponentsCommandId" value="0x201F" />
+      <IDSymbol name="CommonFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommandId" value="0x2020" />
 
       <IDSymbol name="CommonCheckWorkflowsUsedEntitiesCommandId" value="0x216C" />
       <IDSymbol name="CommonCheckWorkflowsUsedNotExistsEntitiesCommandId" value="0x216D" />
 
       <IDSymbol name="CommonFindEntityObjectsByNameCommandId" value="0x2021" />
       <IDSymbol name="CommonFindEntityObjectsContainsStringCommandId" value="0x2022" />
-      <IDSymbol name="CommonFindEntityObjectsByIdCommandId" value="0x20FD" />
-      <IDSymbol name="CommonFindEntityObjectsByUniqueidentifierCommandId" value="0x2149" />
-      <IDSymbol name="CommonEditEntityObjectsByIdCommandId" value="0x2195" />
+      
+      <IDSymbol name="CommonFindEntitiesByIdCommandId" value="0x20FD" />
+      <IDSymbol name="CommonFindEntitiesByUniqueidentifierCommandId" value="0x2149" />
+      <IDSymbol name="CommonEditEntitiesByIdCommandId" value="0x2195" />
 
 
       <IDSymbol name="CommonPluginConfigurationCreateCommandId" value="0x202A" />
@@ -16806,6 +16807,9 @@
 
       <IDSymbol name="OutputTraceReaderCommandId" value="0x21D" />
 
+      <IDSymbol name="OutputCheckWorkflowsUsedEntitiesCommandId" value="0x21DB" />
+      <IDSymbol name="OutputCheckWorkflowsUsedNotExistsEntitiesCommandId" value="0x21DC" />
+
       <IDSymbol name="OutputCheckEntitiesOwnerShipsCommandId" value="0x21CE" />
 
       <IDSymbol name="OutputCheckGlobalOptionSetDuplicateCommandId" value="0x21CF" />
@@ -16823,18 +16827,16 @@
       <IDSymbol name="OutputImportJobExplorerInConnectionCommandId" value="0x21D7" />
 
 
-      <IDSymbol name="OutputFindEntitiesNamesCommandId" value="0x21D8" />
-      <IDSymbol name="OutputFindEntitiesNamesAndShowDependentComponentsCommandId" value="0x21D9" />
-      <IDSymbol name="OutputFindMarkedToDeleteAndShowDependentComponentsCommandId" value="0x21DA" />
-
-      <IDSymbol name="OutputCheckWorkflowsUsedEntitiesCommandId" value="0x21DB" />
-      <IDSymbol name="OutputCheckWorkflowsUsedNotExistsEntitiesCommandId" value="0x21DC" />
+      <IDSymbol name="OutputFindEntityObjectsByPrefixCommandId" value="0x21D8" />
+      <IDSymbol name="OutputFindEntityObjectsByPrefixAndShowDependentComponentsCommandId" value="0x21D9" />
+      <IDSymbol name="OutputFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommandId" value="0x21DA" />
 
       <IDSymbol name="OutputFindEntityObjectsByNameCommandId" value="0x21DD" />
       <IDSymbol name="OutputFindEntityObjectsContainsStringCommandId" value="0x21DE" />
-      <IDSymbol name="OutputFindEntityObjectsByIdCommandId" value="0x21DF" />
-      <IDSymbol name="OutputFindEntityObjectsByUniqueidentifierCommandId" value="0x21E0" />
-      <IDSymbol name="OutputEditEntityObjectsByIdCommandId" value="0x21E1" />
+      
+      <IDSymbol name="OutputFindEntitiesByIdCommandId" value="0x21DF" />
+      <IDSymbol name="OutputFindEntitiesByUniqueidentifierCommandId" value="0x21E0" />
+      <IDSymbol name="OutputEditEntitiesByIdCommandId" value="0x21E1" />
 
 
       <IDSymbol name="OutputPluginConfigurationCreateCommandId" value="0x21E2" />

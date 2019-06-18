@@ -663,13 +663,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// Проверка CRM на существование сущностей с префиксом new_.
         /// </summary>
         /// <param name="config"></param>
-        public void StartCheckEntitiesNames(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
+        public void StartFindEntityObjectsByPrefix(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._findsController.ExecuteCheckingEntitiesNames(connectionData, commonConfig, prefix);
+                    this._findsController.ExecuteFindingEntityObjectsByPrefix(connectionData, commonConfig, prefix);
                 }
                 catch (Exception ex)
                 {
