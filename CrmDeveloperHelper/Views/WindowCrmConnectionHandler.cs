@@ -1777,6 +1777,46 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private static void miEditEntityObjectsById_Click(IWriteToOutput iWriteToOutput, CommonConfiguration commonConfig, Func<ConnectionData> getSelectedSingleConnection)
+        {
+            var connection = getSelectedSingleConnection();
+
+            if (connection != null)
+            {
+                var dialog = new WindowSelectEntityIdToFind(commonConfig, connection, string.Format("Edit Entity in {0} by Id", connection.Name));
+
+                if (dialog.ShowDialog().GetValueOrDefault())
+                {
+                    string entityName = dialog.EntityTypeName;
+                    int? entityTypeCode = dialog.EntityTypeCode;
+                    Guid entityId = dialog.EntityId;
+
+                    var connectionData = dialog.GetConnectionData();
+
+                    if (connectionData != null)
+                    {
+                        commonConfig.Save();
+
+                        var backWorker = new Thread(() =>
+                        {
+                            try
+                            {
+                                var contr = new FindsController(iWriteToOutput);
+
+                                contr.ExecuteEditEntityById(connectionData, commonConfig, entityName, entityTypeCode, entityId);
+                            }
+                            catch (Exception ex)
+                            {
+                                iWriteToOutput.WriteErrorToOutput(null, ex);
+                            }
+                        });
+
+                        backWorker.Start();
+                    }
+                }
+            }
+        }
+
         #endregion Finds
 
         #region Кнопки Check.
@@ -2080,46 +2120,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                 var contr = new CheckController(iWriteToOutput);
 
                                 contr.ExecuteFindEntityByUniqueidentifier(connectionData, commonConfig, entityName, entityTypeCode, entityId);
-                            }
-                            catch (Exception ex)
-                            {
-                                iWriteToOutput.WriteErrorToOutput(null, ex);
-                            }
-                        });
-
-                        backWorker.Start();
-                    }
-                }
-            }
-        }
-
-        private static void miEditEntityObjectsById_Click(IWriteToOutput iWriteToOutput, CommonConfiguration commonConfig, Func<ConnectionData> getSelectedSingleConnection)
-        {
-            var connection = getSelectedSingleConnection();
-
-            if (connection != null)
-            {
-                var dialog = new WindowSelectEntityIdToFind(commonConfig, connection, string.Format("Edit Entity in {0} by Id", connection.Name));
-
-                if (dialog.ShowDialog().GetValueOrDefault())
-                {
-                    string entityName = dialog.EntityTypeName;
-                    int? entityTypeCode = dialog.EntityTypeCode;
-                    Guid entityId = dialog.EntityId;
-
-                    var connectionData = dialog.GetConnectionData();
-
-                    if (connectionData != null)
-                    {
-                        commonConfig.Save();
-
-                        var backWorker = new Thread(() =>
-                        {
-                            try
-                            {
-                                var contr = new CheckController(iWriteToOutput);
-
-                                contr.ExecuteEditEntityById(connectionData, commonConfig, entityName, entityTypeCode, entityId);
                             }
                             catch (Exception ex)
                             {

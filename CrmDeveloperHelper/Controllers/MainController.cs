@@ -892,7 +892,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._checkController.ExecuteEditEntityById(connectionData, commonConfig, entityName, entityTypeCode, entityId);
+                    this._findsController.ExecuteEditEntityById(connectionData, commonConfig, entityName, entityTypeCode, entityId);
                 }
                 catch (Exception ex)
                 {

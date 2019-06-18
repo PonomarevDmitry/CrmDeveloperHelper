@@ -6,6 +6,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Repository;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Views;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -790,7 +791,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
 
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingEntitiesMetadata);
+
                 var allEntities = await repositoryEntity.GetEntitiesWithAttributesAndRelationshipsAsync();
+
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CheckingEntitiesMetadata);
 
                 foreach (EntityMetadata currentEntity in allEntities)
                 {
@@ -859,9 +864,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
 
             string fileName = string.Format("{0}.Finding CRM Objects names for {1} at {2}.txt"
-            , connectionData.Name
-            , name
-            , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
+                , connectionData.Name
+                , name
+                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
             );
 
             if (string.IsNullOrEmpty(commonConfig.FolderForExport))
@@ -940,7 +945,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
 
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingEntitiesMetadata);
+
                 var allEntities = await repositoryEntity.GetEntitiesWithAttributesAndRelationshipsAsync();
+
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CheckingEntitiesMetadata);
 
                 foreach (EntityMetadata currentEntity in allEntities)
                 {
@@ -1145,6 +1154,91 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Поиск элементов по идентификатору.
+
+        #region Редактирование элементов по идентификатору.
+
+        public async Task ExecuteEditEntityById(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
+        {
+            string operation = string.Format(Properties.OperationNames.EditingCRMObjectsByIdEntityNameEntityTypeCodeFormat4, connectionData?.Name, entityId, entityName, entityTypeCode);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await EditEntityById(connectionData, commonConfig, entityName, entityTypeCode, entityId);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task EditEntityById(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            EntityMetadataRepository repository = new EntityMetadataRepository(service);
+
+            var entityMetadataList = await repository.GetEntitiesPropertiesAsync(entityName, entityTypeCode, "LogicalName", "PrimaryIdAttribute", "IsIntersect", "Attributes");
+
+            List<EntityReference> listEntities = new List<EntityReference>();
+
+            foreach (var item in entityMetadataList.OrderBy(e => e.LogicalName))
+            {
+                var primaryAttr = item.Attributes.FirstOrDefault(a => string.Equals(a.LogicalName, item.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase));
+
+                if (primaryAttr != null && primaryAttr.AttributeType == AttributeTypeCode.Uniqueidentifier)
+                {
+                    var generalRepository = new GenericRepository(service, item);
+
+                    Entity entity = await generalRepository.GetEntityByIdAsync(entityId, new ColumnSet(false));
+
+                    if (entity != null)
+                    {
+                        listEntities.Add(entity.ToEntityReference());
+                    }
+                }
+            }
+
+            if (!listEntities.Any())
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoObjectsInCRMWereFounded);
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsFoundedInCRMFormat1, listEntities.Count);
+
+            foreach (var item in listEntities)
+            {
+                WindowHelper.OpenEntityEditor(_iWriteToOutput, service, commonConfig, item.LogicalName, item.Id);
+            }
+        }
+
+        #endregion Редактирование элементов по идентификатору.
 
         public static void WriteToContentDictionary(
             SolutionComponentDescriptor descriptor
