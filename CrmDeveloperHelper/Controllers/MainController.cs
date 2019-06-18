@@ -19,6 +19,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         private readonly DifferenceController _differenceController;
         private readonly ExplorerController _explorerController;
         private readonly CheckController _checkController;
+        private readonly FindsController _findsController;
         private readonly ExportXmlController _exportXmlController;
         private readonly PluginConfigurationController _pluginConfigurationController;
         private readonly SolutionController _solutionController;
@@ -44,6 +45,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._compareController = new CompareController(outputWindow);
             this._explorerController = new ExplorerController(outputWindow);
             this._checkController = new CheckController(outputWindow);
+            this._findsController = new FindsController(outputWindow);
             this._exportXmlController = new ExportXmlController(outputWindow);
             this._pluginConfigurationController = new PluginConfigurationController(outputWindow);
             this._differenceController = new DifferenceController(outputWindow);
@@ -655,6 +657,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
+        #region Finds
+
         /// <summary>
         /// Проверка CRM на существование сущностей с префиксом new_.
         /// </summary>
@@ -665,7 +669,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._checkController.ExecuteCheckingEntitiesNames(connectionData, commonConfig, prefix);
+                    this._findsController.ExecuteCheckingEntitiesNames(connectionData, commonConfig, prefix);
                 }
                 catch (Exception ex)
                 {
@@ -682,7 +686,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._checkController.ExecuteCheckingEntitiesNamesAndShowDependentComponents(connectionData, commonConfig, prefix);
+                    this._findsController.ExecuteCheckingEntitiesNamesAndShowDependentComponents(connectionData, commonConfig, prefix);
                 }
                 catch (Exception ex)
                 {
@@ -699,7 +703,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 try
                 {
-                    this._checkController.ExecuteCheckingMarkedToDelete(connectionData, commonConfig, prefix);
+                    this._findsController.ExecuteCheckingMarkedToDelete(connectionData, commonConfig, prefix);
                 }
                 catch (Exception ex)
                 {
@@ -709,6 +713,59 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
             worker.Start();
         }
+
+        public void StartFindEntityElementsByName(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._findsController.ExecuteFindEntityElementsByName(connectionData, commonConfig, name);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartFindEntityElementsContainsString(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._findsController.ExecuteFindEntityElementsContainsString(connectionData, commonConfig, name);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartFindEntityById(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._findsController.ExecuteFindEntityById(connectionData, commonConfig, entityName, entityTypeCode, entityId);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        #endregion Finds
 
         public void StartCheckPluginImages(ConnectionData connectionData, CommonConfiguration commonConfig)
         {
@@ -819,57 +876,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 try
                 {
                     this._checkPluginController.ExecuteCheckingPluginSteps(connectionData, commonConfig);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        public void StartFindEntityElementsByName(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._checkController.ExecuteFindEntityElementsByName(connectionData, commonConfig, name);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        public void StartFindEntityElementsContainsString(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._checkController.ExecuteFindEntityElementsContainsString(connectionData, commonConfig, name);
-                }
-                catch (Exception ex)
-                {
-                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
-                }
-            });
-
-            worker.Start();
-        }
-
-        public void StartFindEntityById(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
-        {
-            var worker = new Thread(() =>
-            {
-                try
-                {
-                    this._checkController.ExecuteFindEntityById(connectionData, commonConfig, entityName, entityTypeCode, entityId);
                 }
                 catch (Exception ex)
                 {

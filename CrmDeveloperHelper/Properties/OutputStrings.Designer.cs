@@ -124,6 +124,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Checking Entities Metadata....
+        /// </summary>
+        internal static string CheckingEntitiesMetadata {
+            get {
+                return ResourceManager.GetString("CheckingEntitiesMetadata", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking WebResources....
+        /// </summary>
+        internal static string CheckingWebResources {
+            get {
+                return ResourceManager.GetString("CheckingWebResources", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Components to add to Solution {0}: {1}.
         /// </summary>
         internal static string ComponentsToAddToSolutionFormat2 {
@@ -277,6 +295,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dependent Components:.
+        /// </summary>
+        internal static string DependentComponents {
+            get {
+                return ResourceManager.GetString("DependentComponents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Difference was cancelled..
         /// </summary>
         internal static string DifferenceWasCancelled {
@@ -304,6 +331,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Entity Attributes names marked to delete by &apos;{0}&apos;: {1}.
+        /// </summary>
+        internal static string EntityAttributesNamesMarkedToDeleteFormat2 {
+            get {
+                return ResourceManager.GetString("EntityAttributesNamesMarkedToDeleteFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Entity Attributes names with prefix &apos;{0}&apos;: {1}.
         /// </summary>
         internal static string EntityAttributesNamesWithPrefixFormat2 {
@@ -327,6 +363,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string EntityFieldIsEmptyFormat4 {
             get {
                 return ResourceManager.GetString("EntityFieldIsEmptyFormat4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entity names marked to delete by &apos;{0}&apos;: {1}.
+        /// </summary>
+        internal static string EntityNamesMarkedToDeleteFormat2 {
+            get {
+                return ResourceManager.GetString("EntityNamesMarkedToDeleteFormat2", resourceCulture);
             }
         }
         
@@ -597,6 +642,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string GettingClassFullNameFromFileFormat1 {
             get {
                 return ResourceManager.GetString("GettingClassFullNameFromFileFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting Entities Metadata....
+        /// </summary>
+        internal static string GettingEntitiesMetadata {
+            get {
+                return ResourceManager.GetString("GettingEntitiesMetadata", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting WebResources....
+        /// </summary>
+        internal static string GettingWebResources {
+            get {
+                return ResourceManager.GetString("GettingWebResources", resourceCulture);
             }
         }
         
@@ -1173,6 +1236,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string WebResourceNotFoundedInConnectionFormat2 {
             get {
                 return ResourceManager.GetString("WebResourceNotFoundedInConnectionFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WebResources names marked to delete by &apos;{0}&apos;: {1}.
+        /// </summary>
+        internal static string WebResourcesMarkedToDeleteFormat2 {
+            get {
+                return ResourceManager.GetString("WebResourcesMarkedToDeleteFormat2", resourceCulture);
             }
         }
         

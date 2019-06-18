@@ -30,584 +30,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput = iWriteToOutput;
         }
 
-        #region Проверка имена на префикс.
-
-        public async Task ExecuteCheckingEntitiesNames(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
-        {
-            prefix = prefix.TrimEnd(' ', '_').Trim();
-            prefix = string.Format("{0}_", prefix);
-
-            string operation = string.Format(Properties.OperationNames.CheckingCRMObjectsNamesForPrefixFormat2, connectionData?.Name, prefix);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                await CheckingEntitiesNames(connectionData, commonConfig, prefix);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
-        }
-
-        private async Task CheckingEntitiesNames(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            StringBuilder content = new StringBuilder();
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
-
-            List<SolutionComponent> wrongEntityNames = new List<SolutionComponent>();
-            List<SolutionComponent> wrongEntityAttributes = new List<SolutionComponent>();
-            List<SolutionComponent> wrongEntityRelationshipsManyToOne = new List<SolutionComponent>();
-            List<SolutionComponent> wrongEntityRelationshipsManyToMany = new List<SolutionComponent>();
-
-            List<SolutionComponent> wrongWebResourceNames = new List<SolutionComponent>();
-
-            {
-                EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
-
-                var allEntities = await repositoryEntity.GetEntitiesWithAttributesAndRelationshipsAsync();
-
-                foreach (EntityMetadata currentEntity in allEntities)
-                {
-                    if (currentEntity.LogicalName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        wrongEntityNames.Add(new SolutionComponent()
-                        {
-                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
-                            ObjectId = currentEntity.MetadataId,
-                        });
-                    }
-
-                    foreach (var currentAttribute in currentEntity.Attributes)
-                    {
-                        if (string.IsNullOrEmpty(currentAttribute.AttributeOf))
-                        {
-                            if (currentAttribute.LogicalName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                wrongEntityAttributes.Add(new SolutionComponent()
-                                {
-                                    ComponentType = new OptionSetValue((int)ComponentType.Attribute),
-                                    ObjectId = currentAttribute.MetadataId,
-                                });
-                            }
-                        }
-                    }
-
-                    foreach (var currentRelationship in currentEntity.ManyToOneRelationships)
-                    {
-                        if (currentRelationship.SchemaName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            wrongEntityRelationshipsManyToOne.Add(new SolutionComponent()
-                            {
-                                ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
-                                ObjectId = currentRelationship.MetadataId,
-                            });
-                        }
-                    }
-
-                    foreach (var currentRelationship in currentEntity.ManyToManyRelationships)
-                    {
-                        if (currentRelationship.SchemaName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            wrongEntityRelationshipsManyToMany.Add(new SolutionComponent()
-                            {
-                                ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
-                                ObjectId = currentRelationship.MetadataId,
-                            });
-                        }
-                    }
-                }
-            }
-
-            {
-                WebResourceRepository repositoryWebResource = new WebResourceRepository(service);
-
-                var coll = await repositoryWebResource.GetListAllAsync(string.Empty);
-
-                foreach (var webResource in coll)
-                {
-                    string name = webResource.Name;
-
-                    if (name.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        wrongEntityRelationshipsManyToMany.Add(new SolutionComponent()
-                        {
-                            ComponentType = new OptionSetValue((int)ComponentType.WebResource),
-                            ObjectId = webResource.Id,
-                        });
-                    }
-                }
-            }
-
-            var descriptor = new SolutionComponentDescriptor(service);
-            descriptor.SetSettings(commonConfig);
-
-            await WriteToContentList(descriptor, wrongEntityNames, content, Properties.OutputStrings.EntityNamesWithPrefixFormat2, prefix);
-
-            await WriteToContentList(descriptor, wrongEntityAttributes, content, Properties.OutputStrings.EntityAttributesNamesWithPrefixFormat2, prefix);
-
-            await WriteToContentList(descriptor, wrongEntityRelationshipsManyToOne, content, Properties.OutputStrings.ManyToOneRelationshipsNamesWithPrefixFormat2, prefix);
-
-            await WriteToContentList(descriptor, wrongEntityRelationshipsManyToMany, content, Properties.OutputStrings.ManyToManyRelationshipsNamesWithPrefixFormat2, prefix);
-
-            await WriteToContentList(descriptor, wrongWebResourceNames, content, Properties.OutputStrings.WebResourcesWithPrefixFormat2, prefix);
-
-            int totalErrors =
-                wrongEntityNames.Count
-                + wrongEntityAttributes.Count
-                + wrongEntityRelationshipsManyToOne.Count
-                + wrongEntityRelationshipsManyToMany.Count
-                + wrongWebResourceNames.Count
-                ;
-
-            if (totalErrors == 0)
-            {
-                content.AppendLine();
-                content.AppendFormat(Properties.OutputStrings.NoObjectsInCRMFoundedWithPrefixFormat1, prefix).AppendLine();
-            }
-
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-
-            string fileName = EntityFileNameFormatter.GetCheckEntityNamesForPrefixFileName(connectionData.Name, prefix);
-
-            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
-
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-        }
-
-        #endregion Проверка имена на префикс.
-
-        #region Проверка имена на префикс и показ зависимых объектов.
-
-        public async Task ExecuteCheckingEntitiesNamesAndShowDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
-        {
-            prefix = prefix.TrimEnd(' ', '_');
-            prefix = string.Format("{0}_", prefix);
-
-            string operation = string.Format(Properties.OperationNames.CheckingCRMObjectsNamesForPrefixAndShowDependentComponentsFormat2, connectionData?.Name, prefix);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                await CheckingEntitiesNamesAndShowDependentComponents(connectionData, commonConfig, prefix);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
-        }
-
-        private async Task CheckingEntitiesNamesAndShowDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            StringBuilder content = new StringBuilder();
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
-
-            Dictionary<string, string> wrongEntityNames = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
-            Dictionary<string, string> wrongEntityAttributes = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
-            Dictionary<string, string> wrongEntityRelationshipsManyToOne = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
-            Dictionary<string, string> wrongEntityRelationshipsManyToMany = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
-
-            Dictionary<string, string> wrongWebResourceNames = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
-
-            var descriptor = new SolutionComponentDescriptor(service);
-            descriptor.SetSettings(commonConfig);
-
-            DependencyRepository dependencyRepository = new DependencyRepository(service);
-
-            DependencyDescriptionHandler descriptorHandler = new DependencyDescriptionHandler(descriptor);
-
-            {
-                EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
-
-                var allEntities = await repositoryEntity.GetEntitiesWithAttributesAndRelationshipsAsync();
-
-                foreach (EntityMetadata currentEntity in allEntities)
-                {
-                    foreach (var currentAttribute in currentEntity.Attributes)
-                    {
-                        if (currentAttribute.AttributeOf == null)
-                        {
-                            if (currentAttribute.LogicalName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                string name = string.Format("{0}.{1}", currentEntity.LogicalName, currentAttribute.LogicalName);
-
-                                var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.Attribute, currentAttribute.MetadataId.Value);
-
-                                var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
-
-                                wrongEntityAttributes.Add(name, desc);
-                            }
-                        }
-                    }
-
-                    foreach (var currentRelationship in currentEntity.ManyToOneRelationships)
-                    {
-                        if (currentRelationship.SchemaName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            string name = string.Format("{0}.{1}", currentEntity.LogicalName, currentRelationship.SchemaName);
-
-                            if (!wrongEntityRelationshipsManyToOne.ContainsKey(name))
-                            {
-                                var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.EntityRelationship, currentRelationship.MetadataId.Value);
-
-                                var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
-
-                                wrongEntityRelationshipsManyToOne.Add(name, desc);
-                            }
-                        }
-                    }
-
-                    foreach (var currentRelationship in currentEntity.ManyToManyRelationships)
-                    {
-                        if (currentRelationship.SchemaName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            string name = string.Format("{0}.{1}", currentEntity.LogicalName, currentRelationship.SchemaName);
-
-                            if (!wrongEntityRelationshipsManyToMany.ContainsKey(name))
-                            {
-                                var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.EntityRelationship, currentRelationship.MetadataId.Value);
-
-                                var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
-
-                                wrongEntityRelationshipsManyToMany.Add(name, desc);
-                            }
-                        }
-                    }
-
-                    var wrongEntity = currentEntity.LogicalName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase);
-                    if (wrongEntity)
-                    {
-                        var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.Entity, currentEntity.MetadataId.Value);
-
-                        var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
-
-                        wrongEntityNames.Add(currentEntity.LogicalName, desc);
-                    }
-                }
-            }
-
-            {
-                WebResourceRepository repositoryWebResource = new WebResourceRepository(service);
-
-                var webResources = await repositoryWebResource.GetListAllAsync();
-
-                foreach (var webResource in webResources)
-                {
-                    string name = webResource.Name;
-
-                    if (name.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        string longName = string.Format("'{1}' {0}", name, webResource.FormattedValues[WebResource.Schema.Attributes.webresourcetype]);
-
-                        var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.WebResource, webResource.Id);
-
-                        var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
-
-                        wrongWebResourceNames.Add(longName, desc);
-                    }
-                }
-            }
-
-            WriteToContentDictionary(content, wrongEntityNames, "Entity names with prefix '" + prefix + "': {0}");
-
-            WriteToContentDictionary(content, wrongEntityAttributes, "Entity Attributes names with prefix '" + prefix + "': {0}");
-
-            WriteToContentDictionary(content, wrongEntityRelationshipsManyToOne, "Many to One Relationships names with prefix '" + prefix + "': {0}");
-
-            WriteToContentDictionary(content, wrongEntityRelationshipsManyToMany, "Many to Many Relationships names with prefix '" + prefix + "': {0}");
-
-            WriteToContentDictionary(content, wrongWebResourceNames, "WebResounce names with prefix '" + prefix + "': {0}");
-
-            int totalErrors = wrongEntityNames.Count
-                + wrongEntityAttributes.Count
-                + wrongEntityRelationshipsManyToOne.Count
-                + wrongEntityRelationshipsManyToMany.Count
-                + wrongWebResourceNames.Count
-                ;
-
-            if (totalErrors == 0)
-            {
-                content.AppendLine();
-                content.AppendFormat("No Objects in CRM founded with prefix '{0}'.", prefix).AppendLine();
-            }
-
-            string fileName = string.Format("{0}.CRM Objects names for prefix '{1}' and show dependent components at {2}.txt", connectionData.Name, prefix, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
-
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-
-            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with CRM Objects names for prefix '{0}' and show dependent components: {1}", prefix, filePath);
-
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-        }
-
-        #endregion Проверка имена на префикс и показ зависимых объектов.
-
-        #region Проверка сущностей помеченных на удаление.
-
-        public async Task ExecuteCheckingMarkedToDelete(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
-        {
-            string operation = string.Format(Properties.OperationNames.CheckingCRMObjectsMarkedToDeleteByAndShowDependentComponentsFormat2, connectionData?.Name, prefix);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                await CheckingMarkedToDelete(connectionData, commonConfig, prefix);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
-        }
-
-        private async Task CheckingMarkedToDelete(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            StringBuilder content = new StringBuilder();
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
-
-            Dictionary<string, string> wrongEntityNames = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
-            Dictionary<string, string> wrongEntityAttributes = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
-            Dictionary<string, string> wrongEntityRelationshipsManyToOne = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
-            Dictionary<string, string> wrongEntityRelationshipsManyToMany = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
-
-            Dictionary<string, string> wrongWebResourceNames = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
-
-            var descriptor = new SolutionComponentDescriptor(service);
-            descriptor.SetSettings(commonConfig);
-
-            var descriptorHandler = new DependencyDescriptionHandler(descriptor);
-
-            var dependencyRepository = new DependencyRepository(service);
-
-            {
-                EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
-
-                var allEntities = await repositoryEntity.GetEntitiesWithAttributesAndRelationshipsAsync();
-
-                foreach (EntityMetadata currentEntity in allEntities)
-                {
-                    foreach (var currentAttribute in currentEntity.Attributes)
-                    {
-                        if (currentAttribute.AttributeOf == null)
-                        {
-                            bool marked = IsMakedToDelete(prefix, currentAttribute.LogicalName, currentAttribute.DisplayName);
-
-                            if (marked)
-                            {
-                                string name = string.Format("{0}.{1}", currentEntity.LogicalName, currentAttribute.LogicalName);
-
-                                var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.Attribute, currentAttribute.MetadataId.Value);
-
-                                var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
-
-                                wrongEntityAttributes.Add(name, desc);
-                            }
-                        }
-                    }
-
-                    var wrongEntity = IsMakedToDelete(prefix, currentEntity.LogicalName, currentEntity.DisplayName);
-
-                    if (wrongEntity)
-                    {
-                        var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.Entity, currentEntity.MetadataId.Value);
-
-                        var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
-
-                        wrongEntityNames.Add(currentEntity.LogicalName, desc);
-                    }
-                }
-            }
-
-            {
-                WebResourceRepository repositoryWebResource = new WebResourceRepository(service);
-
-                var collWebResources = await repositoryWebResource.GetListAllAsync(string.Empty);
-
-                foreach (var webResource in collWebResources)
-                {
-                    string name = webResource.Name;
-
-                    if (name.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        string longName = string.Format("'{1}' {0}", name, webResource.FormattedValues[WebResource.Schema.Attributes.webresourcetype]);
-
-                        var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.WebResource, webResource.Id);
-
-                        var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
-
-                        wrongWebResourceNames.Add(longName, desc);
-                    }
-                }
-            }
-
-            WriteToContentDictionary(content, wrongEntityNames, Properties.OutputStrings.EntityNamesWithPrefixFormat2, prefix);
-
-            WriteToContentDictionary(content, wrongEntityAttributes, Properties.OutputStrings.EntityAttributesNamesWithPrefixFormat2, prefix);
-
-            WriteToContentDictionary(content, wrongEntityRelationshipsManyToOne, Properties.OutputStrings.ManyToOneRelationshipsNamesWithPrefixFormat2, prefix);
-
-            WriteToContentDictionary(content, wrongEntityRelationshipsManyToMany, Properties.OutputStrings.ManyToManyRelationshipsNamesWithPrefixFormat2, prefix);
-
-            WriteToContentDictionary(content, wrongWebResourceNames, Properties.OutputStrings.WebResourcesWithPrefixFormat2, prefix);
-
-            int totalErrors = wrongEntityAttributes.Count
-                + wrongEntityNames.Count
-                + wrongEntityRelationshipsManyToOne.Count
-                + wrongEntityRelationshipsManyToMany.Count
-                + wrongWebResourceNames.Count
-                ;
-
-            if (totalErrors == 0)
-            {
-                content.AppendLine();
-                content.AppendFormat(Properties.OutputStrings.NoObjectsInCRMFoundedWithPrefixFormat1, prefix).AppendLine();
-            }
-
-            string fileName = string.Format("{0}.CRM Objects marked to delete by '{1}' and show dependent components at {2}.txt", connectionData.Name, prefix, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
-
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-
-            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-            this._iWriteToOutput.WriteToOutput(connectionData, "Created file with CRM Objects marked to delete by '{0}' and show dependent components: {1}", prefix, filePath);
-
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-        }
-
-        private bool IsMakedToDelete(string prefix, string logicalName, Label label)
-        {
-            if (logicalName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
-            {
-                return true;
-            }
-
-            if (label != null)
-            {
-                foreach (var item in label.LocalizedLabels)
-                {
-                    if (item.Label.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-        }
-
-        #endregion Проверка имена на префикс и показ зависимых объектов.
-
         #region Проверка уровня собственности сущностей.
 
         public async Task ExecuteCheckingEntitiesOwnership(ConnectionData connectionData, CommonConfiguration commonConfig)
@@ -957,7 +379,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
 
             var descriptor = new SolutionComponentDescriptor(service);
-            descriptor.SetSettings(commonConfig);
+            descriptor.WithUrls = true;
+            descriptor.WithManagedInfo = true;
+            descriptor.WithSolutionsInfo = true;
 
             var descriptorHandler = new DependencyDescriptionHandler(descriptor);
 
@@ -969,7 +393,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             List<string> listNotFoundedInCRMNoLink = new List<string>();
             List<string> listLastLinkEqualByContent = new List<string>();
 
-            Dictionary<string, string> webResourceDescriptions = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+            List<SolutionComponent> webResourceNames = new List<SolutionComponent>();
+
+            Dictionary<SolutionComponent, string> webResourceDescriptions = new Dictionary<SolutionComponent, string>();
 
             WebResourceRepository repositoryWebResource = new WebResourceRepository(service);
 
@@ -1013,21 +439,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             isconnectionDataDirty = true;
                             connectionData.AddMapping(webresource.Id, selectedFile.FriendlyFilePath);
 
-                            string webName = webresource.Name;
-
-                            string longName = string.Format("{0}    and    '{1}'    '{2}'", selectedFile.FriendlyFilePath, webName, webresource.FormattedValues[WebResource.Schema.Attributes.webresourcetype]);
-
                             var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.WebResource, webresource.Id);
 
                             var desc = await descriptorHandler.GetDescriptionDependentAsync(coll);
 
                             if (!string.IsNullOrEmpty(desc))
                             {
-                                webResourceDescriptions.Add(longName, desc);
+                                var component = new SolutionComponent()
+                                {
+                                    ComponentType = new OptionSetValue((int)ComponentType.WebResource),
+                                    ObjectId = webresource.Id,
+                                };
+
+                                webResourceNames.Add(component);
+
+                                webResourceDescriptions.Add(component, desc);
                             }
                             else
                             {
-                                tableWithoutDependenComponents.AddLine(selectedFile.FriendlyFilePath, webName, "'" + webresource.FormattedValues[WebResource.Schema.Attributes.webresourcetype] + "'");
+                                tableWithoutDependenComponents.AddLine(selectedFile.FriendlyFilePath, webresource.Name, "'" + webresource.FormattedValues[WebResource.Schema.Attributes.webresourcetype] + "'");
                             }
                         }
                         else
@@ -1050,15 +480,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 connectionData.Save();
             }
 
-            WriteToContentList(listNotFoundedInCRMNoLink, content, "File NOT FOUNDED in CRM: {0}");
+            FindsController.WriteToContentList(listNotFoundedInCRMNoLink, content, "File NOT FOUNDED in CRM: {0}");
 
-            WriteToContentList(listLastLinkEqualByContent, content, "Files NOT FOUNDED in CRM, but has Last Link: {0}");
+            FindsController.WriteToContentList(listLastLinkEqualByContent, content, "Files NOT FOUNDED in CRM, but has Last Link: {0}");
 
-            WriteToContentList(listNotExistsOnDisk, content, Properties.OutputStrings.FileNotExistsFormat1);
+            FindsController.WriteToContentList(listNotExistsOnDisk, content, Properties.OutputStrings.FileNotExistsFormat1);
 
-            WriteToContentList(tableWithoutDependenComponents.GetFormatedLines(true), content, "Files without dependent components: {0}");
+            FindsController.WriteToContentList(tableWithoutDependenComponents.GetFormatedLines(true), content, "Files without dependent components: {0}");
 
-            WriteToContentDictionary(content, webResourceDescriptions, "WebResource dependent components: {0}");
+            FindsController.WriteToContentDictionary(descriptor, content, webResourceNames, webResourceDescriptions, "WebResource dependent components: {0}");
 
             string fileName = string.Format("{0}.WebResourceDependent at {1}.txt", connectionData.Name, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
 
@@ -1134,7 +564,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             var entityMetadataSource = new SolutionComponentMetadataSource(service);
 
             var descriptor = new SolutionComponentDescriptor(service);
-            descriptor.SetSettings(commonConfig);
+            descriptor.WithUrls = true;
+            descriptor.WithManagedInfo = true;
+            descriptor.WithSolutionsInfo = true;
 
             var dependencyRepository = new DependencyRepository(service);
             var descriptorHandler = new DependencyDescriptionHandler(descriptor);
@@ -1212,412 +644,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Проверка глобальных OptionSet на дубликаты на сущности.
-
-        #region Поиск элементов сущности с именем.
-
-        public async Task ExecuteFindEntityElementsByName(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
-        {
-            string operation = string.Format(Properties.OperationNames.FindingCRMObjectsNamesFormat2, connectionData?.Name, name);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                await FindindEntityElementsByName(connectionData, commonConfig, name);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
-        }
-
-        private async Task FindindEntityElementsByName(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            StringBuilder content = new StringBuilder();
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
-
-            List<SolutionComponent> listEntityAttributes = new List<SolutionComponent>();
-            List<SolutionComponent> listEntityRelationshipsManyToOne = new List<SolutionComponent>();
-            List<SolutionComponent> listEntityRelationshipsManyToMany = new List<SolutionComponent>();
-
-            {
-                EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
-
-                var allEntities = await repositoryEntity.GetEntitiesWithAttributesAndRelationshipsAsync();
-
-                foreach (EntityMetadata currentEntity in allEntities)
-                {
-                    foreach (var currentAttribute in currentEntity.Attributes)
-                    {
-                        if (string.IsNullOrEmpty(currentAttribute.AttributeOf))
-                        {
-                            if (string.Equals(currentAttribute.LogicalName, name, StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                listEntityAttributes.Add(new SolutionComponent()
-                                {
-                                    ComponentType = new OptionSetValue((int)ComponentType.Attribute),
-                                    ObjectId = currentAttribute.MetadataId,
-                                });
-                            }
-                        }
-                    }
-
-                    foreach (var currentRelationship in currentEntity.ManyToOneRelationships)
-                    {
-                        if (string.Equals(currentRelationship.SchemaName, name, StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            listEntityRelationshipsManyToOne.Add(new SolutionComponent()
-                            {
-                                ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
-                                ObjectId = currentRelationship.MetadataId,
-                            });
-                        }
-                    }
-
-                    foreach (var currentRelationship in currentEntity.ManyToManyRelationships)
-                    {
-                        if (string.Equals(currentRelationship.SchemaName, name, StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            listEntityRelationshipsManyToMany.Add(new SolutionComponent()
-                            {
-                                ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
-                                ObjectId = currentRelationship.MetadataId,
-                            });
-                        }
-                    }
-                }
-            }
-
-            var descriptor = new SolutionComponentDescriptor(service);
-            descriptor.SetSettings(commonConfig);
-
-            await WriteToContentList(descriptor, listEntityAttributes, content, "Entity Attributes names with name '" + name + "': {0}");
-
-            await WriteToContentList(descriptor, listEntityRelationshipsManyToOne, content, "Many to One Relationships names with name '" + name + "': {0}");
-
-            await WriteToContentList(descriptor, listEntityRelationshipsManyToMany, content, "Many to Many Relationships names with name '" + name + "': {0}");
-
-            int totalErrors =
-                listEntityAttributes.Count
-                + listEntityRelationshipsManyToOne.Count
-                + listEntityRelationshipsManyToMany.Count
-                ;
-
-            if (totalErrors == 0)
-            {
-                content.AppendLine();
-                content.AppendFormat("No Objects in CRM founded with name '{0}'.", name).AppendLine();
-            }
-
-            string fileName = string.Format("{0}.Finding CRM Objects names for {1} at {2}.txt"
-            , connectionData.Name
-            , name
-            , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
-            );
-
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-
-            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
-
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-        }
-
-        #endregion Поиск элементов сущности с именем.
-
-        #region Поиск элементов, содержащих строку.
-
-        public async Task ExecuteFindEntityElementsContainsString(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
-        {
-            string operation = string.Format(Properties.OperationNames.FindingCRMObjectscontainsNameFormat2, connectionData?.Name, name);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                await FindindEntityElementsContainsString(connectionData, commonConfig, name);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
-        }
-
-        private async Task FindindEntityElementsContainsString(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            StringBuilder content = new StringBuilder();
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
-
-            List<SolutionComponent> listEntityAttributes = new List<SolutionComponent>();
-            List<SolutionComponent> listEntityRelationshipsManyToOne = new List<SolutionComponent>();
-            List<SolutionComponent> listEntityRelationshipsManyToMany = new List<SolutionComponent>();
-
-            {
-                EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
-
-                var allEntities = await repositoryEntity.GetEntitiesWithAttributesAndRelationshipsAsync();
-
-                foreach (EntityMetadata currentEntity in allEntities)
-                {
-                    foreach (var currentAttribute in currentEntity.Attributes)
-                    {
-                        if (currentAttribute.AttributeOf == null)
-                        {
-                            if (Regex.IsMatch(currentAttribute.LogicalName, name, RegexOptions.IgnoreCase))
-                            {
-                                listEntityAttributes.Add(new SolutionComponent()
-                                {
-                                    ComponentType = new OptionSetValue((int)ComponentType.Attribute),
-                                    ObjectId = currentAttribute.MetadataId,
-                                });
-                            }
-                        }
-                    }
-
-                    foreach (var currentRelationship in currentEntity.ManyToOneRelationships)
-                    {
-                        if (Regex.IsMatch(currentRelationship.SchemaName, name, RegexOptions.IgnoreCase))
-                        {
-                            listEntityRelationshipsManyToOne.Add(new SolutionComponent()
-                            {
-                                ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
-                                ObjectId = currentRelationship.MetadataId,
-                            });
-                        }
-                    }
-
-                    foreach (var currentRelationship in currentEntity.ManyToManyRelationships)
-                    {
-                        if (Regex.IsMatch(currentRelationship.SchemaName, name, RegexOptions.IgnoreCase))
-                        {
-                            listEntityRelationshipsManyToMany.Add(new SolutionComponent()
-                            {
-                                ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
-                                ObjectId = currentRelationship.MetadataId,
-                            });
-                        }
-                    }
-                }
-            }
-
-            var descriptor = new SolutionComponentDescriptor(service);
-            descriptor.SetSettings(commonConfig);
-
-            await WriteToContentList(descriptor, listEntityAttributes, content, "Entity Attributes names contains '" + name + "': {0}");
-
-            await WriteToContentList(descriptor, listEntityRelationshipsManyToOne, content, "Many to One Relationships names contains '" + name + "': {0}");
-
-            await WriteToContentList(descriptor, listEntityRelationshipsManyToMany, content, "Many to Many Relationships names contains '" + name + "': {0}");
-
-            int totalErrors =
-                listEntityAttributes.Count
-                + listEntityRelationshipsManyToOne.Count
-                + listEntityRelationshipsManyToMany.Count
-                ;
-
-            if (totalErrors == 0)
-            {
-                content.AppendLine();
-                content.AppendFormat("No Objects in CRM founded that contains '{0}'.", name).AppendLine();
-            }
-            string fileName = string.Format("{0}.Finding CRM Objects names contains {1} at {2}.txt"
-                , connectionData.Name
-                , name
-                , DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss")
-            );
-
-            if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(commonConfig.FolderForExport))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-
-            string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
-
-            this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-        }
-
-        #endregion Поиск элементов, содержащих строку.
-
-        #region Поиск элементов по идентификатору.
-
-        public async Task ExecuteFindEntityById(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
-        {
-            string operation = string.Format(Properties.OperationNames.FindingCRMObjectsByIdEntityNameEntityTypeCodeFormat4, connectionData?.Name, entityId, entityName, entityTypeCode);
-
-            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
-
-            try
-            {
-                await FindEntityById(connectionData, commonConfig, entityName, entityTypeCode, entityId);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
-            }
-            finally
-            {
-                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
-            }
-        }
-
-        private async Task FindEntityById(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
-        {
-            if (connectionData == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
-                return;
-            }
-
-            StringBuilder content = new StringBuilder();
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
-
-            // Подключаемся к CRM.
-            var service = await QuickConnection.ConnectAsync(connectionData);
-
-            if (service == null)
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
-                return;
-            }
-
-            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
-
-            EntityMetadataRepository repository = new EntityMetadataRepository(service);
-
-            var entityMetadataList = await repository.GetEntitiesPropertiesAsync(entityName, entityTypeCode, "LogicalName", "PrimaryIdAttribute", "IsIntersect", "Attributes");
-
-            bool finded = false;
-
-            foreach (var item in entityMetadataList.OrderBy(e => e.LogicalName))
-            {
-                var primaryAttr = item.Attributes.FirstOrDefault(a => string.Equals(a.LogicalName, item.PrimaryIdAttribute, StringComparison.InvariantCultureIgnoreCase));
-
-                if (primaryAttr != null && primaryAttr.AttributeType == AttributeTypeCode.Uniqueidentifier)
-                {
-                    var generalRepository = new GenericRepository(service, item);
-
-                    Entity entity = await generalRepository.GetEntityByIdAsync(entityId, new ColumnSet(true));
-
-                    if (entity != null)
-                    {
-                        finded = true;
-
-                        content
-                            .AppendLine()
-                            .AppendLine()
-                            .AppendLine(new string('-', 150))
-                            .AppendLine()
-                            .AppendLine()
-                            .AppendLine(await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, null, connectionData))
-                            ;
-                    }
-                }
-            }
-
-            if (finded)
-            {
-                string fileName = EntityFileNameFormatter.GetFindingCRMObjectsByIdFileName(connectionData.Name, entityId);
-
-                if (string.IsNullOrEmpty(commonConfig.FolderForExport))
-                {
-                    _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                    commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-                }
-                else if (!Directory.Exists(commonConfig.FolderForExport))
-                {
-                    _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
-                    commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
-                }
-
-                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
-
-                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
-
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
-
-                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
-            }
-            else
-            {
-                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoObjectsInCRMWereFounded);
-                this._iWriteToOutput.ActivateOutputWindow(connectionData);
-            }
-        }
-
-        #endregion Поиск элементов по идентификатору.
 
         #region Редактирование элементов по идентификатору.
 
@@ -2037,7 +1063,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                 }).ToList();
 
                 var descriptor = new SolutionComponentDescriptor(service);
-                descriptor.SetSettings(commonConfig);
+                descriptor.WithUrls = true;
+                descriptor.WithManagedInfo = true;
+                descriptor.WithSolutionsInfo = true;
 
                 descriptor.MetadataSource.DownloadEntityMetadata();
 
@@ -2137,7 +1165,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             var descriptor = new SolutionComponentDescriptor(service);
-            descriptor.SetSettings(commonConfig);
+            descriptor.WithUrls = true;
+            descriptor.WithManagedInfo = true;
+            descriptor.WithSolutionsInfo = true;
+
             var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, descriptor);
 
             var stringBuider = new StringBuilder();
@@ -2216,7 +1247,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
             var descriptor = new SolutionComponentDescriptor(service);
-            descriptor.SetSettings(commonConfig);
+            descriptor.WithUrls = true;
+            descriptor.WithManagedInfo = true;
+            descriptor.WithSolutionsInfo = true;
+
             var workflowDescriptor = new WorkflowUsedEntitiesDescriptor(_iWriteToOutput, service, descriptor);
 
             var stringBuider = new StringBuilder();
@@ -2231,78 +1265,5 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         }
 
         #endregion Поиск несуществующих используемых в БП сущностей
-
-        private void WriteToContentDictionary(StringBuilder content, Dictionary<string, string> dict, string formatList, params object[] args)
-        {
-            if (dict.Count > 0)
-            {
-                if (content.Length > 0) { content.AppendLine(); }
-
-                List<object> temp = new List<object>(args)
-                {
-                    dict.Count
-                };
-
-                content.AppendFormat(formatList, temp.ToArray()).AppendLine();
-
-                var query = dict.Keys.OrderBy(s => s);
-
-                foreach (var key in query)
-                {
-                    if (content.Length > 0) { content.AppendLine(); }
-
-                    content.AppendLine(new string('-', 150));
-
-                    var item = dict[key];
-
-                    content.AppendLine(tabSpacer + key);
-
-                    if (!string.IsNullOrEmpty(item))
-                    {
-                        content.AppendLine(tabSpacer + tabSpacer + item);
-                    }
-                }
-            }
-        }
-
-        private static async Task WriteToContentList(SolutionComponentDescriptor descriptor, List<SolutionComponent> list, StringBuilder content, string formatList, params object[] args)
-        {
-            if (list.Count == 0)
-            {
-                return;
-            }
-
-            if (content.Length > 0) { content.AppendLine(); }
-
-            List<object> temp = new List<object>(args)
-            {
-                list.Count
-            };
-
-            content.AppendFormat(formatList, temp.ToArray()).AppendLine();
-
-            string description = await descriptor.GetSolutionComponentsDescriptionAsync(list);
-
-            content.AppendLine(description);
-        }
-
-        private static void WriteToContentList(List<string> list, StringBuilder content, string formatList, params object[] args)
-        {
-            if (list.Count > 0)
-            {
-                if (content.Length > 0) { content.AppendLine(); }
-
-                List<object> temp = new List<object>(args)
-                {
-                    list.Count
-                };
-
-                content.AppendFormat(formatList, temp.ToArray()).AppendLine();
-
-                list.Sort();
-
-                list.ForEach(item => content.AppendLine(tabSpacer + item));
-            }
-        }
     }
 }

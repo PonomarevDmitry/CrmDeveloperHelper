@@ -550,14 +550,36 @@
   <data name="CurrentCrmConnectionIsNotSelected" xml:space="preserve">
     <value>Current Crm Connection is not Selected. Please select connection.</value>
   </data>
-  
-  
-  
-  
-  
-  
-  
-  
+
+  <data name="EntityNamesMarkedToDeleteFormat2" xml:space="preserve">
+    <value>Entity names marked to delete by '{0}': {1}</value>
+  </data>
+  <data name="EntityAttributesNamesMarkedToDeleteFormat2" xml:space="preserve">
+    <value>Entity Attributes names marked to delete by '{0}': {1}</value>
+  </data>
+  <data name="WebResourcesMarkedToDeleteFormat2" xml:space="preserve">
+    <value>WebResources names marked to delete by '{0}': {1}</value>
+  </data>
+
+
+  <data name="DependentComponents" xml:space="preserve">
+    <value>Dependent Components:</value>
+  </data>
+
+  <data name="GettingEntitiesMetadata" xml:space="preserve">
+    <value>Getting Entities Metadata...</value>
+  </data>
+  <data name="CheckingEntitiesMetadata" xml:space="preserve">
+    <value>Checking Entities Metadata...</value>
+  </data>
+
+  <data name="GettingWebResources" xml:space="preserve">
+    <value>Getting WebResources...</value>
+  </data>
+  <data name="CheckingWebResources" xml:space="preserve">
+    <value>Checking WebResources...</value>
+  </data>
 
   
+
 </root>

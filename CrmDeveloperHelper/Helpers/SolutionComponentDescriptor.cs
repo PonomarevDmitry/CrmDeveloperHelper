@@ -48,8 +48,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         public void SetSettings(CommonConfiguration commonConfig)
         {
             this.WithUrls = commonConfig.SolutionComponentWithUrl;
-            this.WithManagedInfo = commonConfig.SolutionComponentWithUrl;
-            this.WithUrls = commonConfig.SolutionComponentWithUrl;
+            this.WithSolutionsInfo = commonConfig.SolutionComponentWithSolutionInfo;
+            this.WithManagedInfo = commonConfig.SolutionComponentWithManagedInfo;
         }
 
         public Task<string> GetSolutionComponentsDescriptionAsync(IEnumerable<SolutionComponent> components)
@@ -78,7 +78,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         , name
                         , gr.Key.ToString()
                         , gr.Count().ToString()
-                        ).AppendLine();
+                    ).AppendLine();
 
                     var descriptionBuilder = GetDescriptionBuilder(gr.Key);
 
