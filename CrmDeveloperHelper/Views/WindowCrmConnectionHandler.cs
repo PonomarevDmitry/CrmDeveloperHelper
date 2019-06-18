@@ -157,19 +157,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     var menuItemFindObjectsNamesForPrefix = new MenuItem()
                     {
-                        Header = "Find CRM Objects names for prefix",
+                        Header = "Find Entity Objects names for prefix",
                     };
                     menuItemFindObjectsNamesForPrefix.Click += (s, e) => miFindObjectsNamesForPrefix_Click(iWriteToOutput, commonConfig, getSelectedSingleConnection);
 
                     var menuItemFindObjectsNamesForPrefixAndShowDependentComponents = new MenuItem()
                     {
-                        Header = "Find CRM Objects names for prefix and show dependent components",
+                        Header = "Find Entity Objects names for prefix and show dependent components",
                     };
                     menuItemFindObjectsNamesForPrefixAndShowDependentComponents.Click += (s, e) => miFindObjectsNamesForPrefixAndShowDependentComponents_Click(iWriteToOutput, commonConfig, getSelectedSingleConnection);
 
                     var menuItemFindObjectsMarkedToDeleteAndShowDependentComponents = new MenuItem()
                     {
-                        Header = "Find CRM Objects marked to delete and show dependent components",
+                        Header = "Find Entity Objects marked to delete and show dependent components",
                     };
                     menuItemFindObjectsMarkedToDeleteAndShowDependentComponents.Click += (s, e) => miFindObjectsMarkedToDeleteAndShowDependentComponents_Click(iWriteToOutput, commonConfig, getSelectedSingleConnection);
 
@@ -187,19 +187,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     var menuItemFindEntityObjectsById = new MenuItem()
                     {
-                        Header = "Find Entity Objects by Id",
+                        Header = "Find Entities by Id",
                     };
                     menuItemFindEntityObjectsById.Click += (s, e) => miFindEntityObjectsById_Click(iWriteToOutput, commonConfig, getSelectedSingleConnection);
 
                     var menuItemFindEntityObjectsByUniqueidentifier = new MenuItem()
                     {
-                        Header = "Find Entity Objects by Uniqueidentifier",
+                        Header = "Find Entities by Uniqueidentifier",
                     };
                     menuItemFindEntityObjectsByUniqueidentifier.Click += (s, e) => miFindEntityObjectsByUniqueidentifier_Click(iWriteToOutput, commonConfig, getSelectedSingleConnection);
 
                     var menuItemEditEntityObjectsById = new MenuItem()
                     {
-                        Header = "Edit Entity Objects by Id",
+                        Header = "Edit Entities by Id",
                     };
                     menuItemEditEntityObjectsById.Click += (s, e) => miEditEntityObjectsById_Click(iWriteToOutput, commonConfig, getSelectedSingleConnection);
 

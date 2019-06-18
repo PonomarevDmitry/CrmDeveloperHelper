@@ -645,9 +645,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 foreach (var webResource in collWebResources)
                 {
-                    string name = webResource.Name;
+                    string name = webResource.DisplayName;
 
-                    if (name.StartsWith(deleteMark, StringComparison.InvariantCultureIgnoreCase))
+                    if (!string.IsNullOrEmpty(name)
+                        && name.StartsWith(deleteMark, StringComparison.InvariantCultureIgnoreCase)
+                    )
                     {
                         var component = new SolutionComponent()
                         {
@@ -655,7 +657,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                             ObjectId = webResource.Id,
                         };
 
-                        wrongEntityNames.Add(component);
+                        wrongWebResourceNames.Add(component);
 
                         var coll = await dependencyRepository.GetDependentComponentsAsync((int)ComponentType.WebResource, webResource.Id);
 

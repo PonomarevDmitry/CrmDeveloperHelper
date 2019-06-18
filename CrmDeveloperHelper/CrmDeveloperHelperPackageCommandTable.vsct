@@ -7258,7 +7258,7 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Find CRM Objects names for prefix</ButtonText>
+          <ButtonText>Find Entity Objects names for prefix</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CommonFindEntitiesNamesAndShowDependentComponentsCommandId" priority="0x010C" type="Button">
@@ -7267,7 +7267,7 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Find CRM Objects names for prefix and show dependent components</ButtonText>
+          <ButtonText>Find Entity Objects names for prefix and show dependent components</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CommonFindMarkedToDeleteAndShowDependentComponentsCommandId" priority="0x010D" type="Button">
@@ -7276,7 +7276,7 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Find CRM Objects marked to delete and show dependent components</ButtonText>
+          <ButtonText>Find Entity Objects marked to delete and show dependent components</ButtonText>
         </Strings>
       </Button>
 
@@ -7304,7 +7304,7 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Find Entity Objects by Id</ButtonText>
+          <ButtonText>Find Entities by Id</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CommonFindEntityObjectsByUniqueidentifierCommandId" priority="0x0110" type="Button">
@@ -7313,7 +7313,7 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Find Entity Objects by Uniqueidentifier</ButtonText>
+          <ButtonText>Find Entities by Uniqueidentifier</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CommonEditEntityObjectsByIdCommandId" priority="0x0110" type="Button">
@@ -7322,7 +7322,7 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Edit Entity Objects by Id</ButtonText>
+          <ButtonText>Edit Entities by Id</ButtonText>
         </Strings>
       </Button>
 
@@ -8387,7 +8387,7 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Find CRM Objects names for prefix</ButtonText>
+          <ButtonText>Find Entity Objects names for prefix</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="OutputFindEntitiesNamesAndShowDependentComponentsCommandId" priority="0x6000" type="Button">
@@ -8396,7 +8396,7 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Find CRM Objects names for prefix and show dependent components</ButtonText>
+          <ButtonText>Find Entity Objects names for prefix and show dependent components</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="OutputFindMarkedToDeleteAndShowDependentComponentsCommandId" priority="0x6000" type="Button">
@@ -8405,7 +8405,7 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Find CRM Objects marked to delete and show dependent components</ButtonText>
+          <ButtonText>Find Entity Objects marked to delete and show dependent components</ButtonText>
         </Strings>
       </Button>
 
@@ -8433,7 +8433,7 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Find Entity Objects by Id</ButtonText>
+          <ButtonText>Find Entities by Id</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="OutputFindEntityObjectsByUniqueidentifierCommandId" priority="0x6000" type="Button">
@@ -8442,7 +8442,7 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Find Entity Objects by Uniqueidentifier</ButtonText>
+          <ButtonText>Find Entities by Uniqueidentifier</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="OutputEditEntityObjectsByIdCommandId" priority="0x6000" type="Button">
@@ -8451,7 +8451,7 @@
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
-          <ButtonText>Edit Entity Objects by Id</ButtonText>
+          <ButtonText>Edit Entities by Id</ButtonText>
         </Strings>
       </Button>
 
