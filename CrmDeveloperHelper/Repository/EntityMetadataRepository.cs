@@ -18,15 +18,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 {
     public class EntityMetadataRepository
     {
-        /// <summary>
-        /// Сервис CRM
-        /// </summary>
         private readonly IOrganizationServiceExtented _service;
 
-        /// <summary>
-        /// Конструктор репозитория функция по поиску издателей.
-        /// </summary>
-        /// <param name="service"></param>
         public EntityMetadataRepository(IOrganizationServiceExtented service)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
@@ -39,7 +32,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private List<EntityMetadata> GetEntitiesDisplayName()
         {
-            MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression("LogicalName", "DisplayName", "SchemaName", "Description", "DisplayCollectionName", "OwnershipType", "IsIntersect", "ObjectTypeCode")
+            MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression
+            (
+                nameof(EntityMetadata.LogicalName)
+                , nameof(EntityMetadata.DisplayName)
+                , nameof(EntityMetadata.SchemaName)
+                , nameof(EntityMetadata.Description)
+                , nameof(EntityMetadata.DisplayCollectionName)
+                , nameof(EntityMetadata.OwnershipType)
+                , nameof(EntityMetadata.IsIntersect)
+                , nameof(EntityMetadata.ObjectTypeCode)
+            )
             {
                 AllProperties = false
             };
@@ -66,17 +69,21 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private List<EntityMetadata> GetEntitiesWithAttributesAndRelationships()
         {
-            MetadataPropertiesExpression relationshipProperties = new MetadataPropertiesExpression(
-                "SchemaName",
-                "ReferencedEntity",
-                "ReferencingEntity",
-                "ReferencedAttribute",
-                "ReferencingAttribute",
-                "Entity1LogicalName",
-                "Entity2LogicalName",
-                "Entity1IntersectAttribute",
-                "Entity2IntersectAttribute"
-                )
+            MetadataPropertiesExpression relationshipProperties = new MetadataPropertiesExpression
+            (
+                nameof(RelationshipMetadataBase.SchemaName)
+
+                , nameof(OneToManyRelationshipMetadata.ReferencedEntity)
+                , nameof(OneToManyRelationshipMetadata.ReferencingEntity)
+                , nameof(OneToManyRelationshipMetadata.ReferencedAttribute)
+                , nameof(OneToManyRelationshipMetadata.ReferencingAttribute)
+
+                , nameof(ManyToManyRelationshipMetadata.Entity1LogicalName)
+                , nameof(ManyToManyRelationshipMetadata.Entity2LogicalName)
+                , nameof(ManyToManyRelationshipMetadata.Entity1IntersectAttribute)
+                , nameof(ManyToManyRelationshipMetadata.Entity2IntersectAttribute)
+
+            )
             { AllProperties = false };
 
             EntityQueryExpression entityQueryExpression = new EntityQueryExpression()
@@ -85,7 +92,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 AttributeQuery = new AttributeQueryExpression()
                 {
-                    Properties = new MetadataPropertiesExpression("AttributeOf", "LogicalName", "EntityLogicalName")
+                    Properties = new MetadataPropertiesExpression
+                    (
+                        nameof(AttributeMetadata.LogicalName)
+                        , nameof(AttributeMetadata.AttributeOf)
+                        , nameof(AttributeMetadata.EntityLogicalName)
+                        , nameof(AttributeMetadata.DisplayName)
+                        , nameof(AttributeMetadata.Description)
+                    )
                 },
 
                 RelationshipQuery = new RelationshipQueryExpression()
@@ -98,7 +112,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
             if (isEntityKeyExists)
             {
-                entityQueryExpression.KeyQuery = new EntityKeyQueryExpression() { Properties = new MetadataPropertiesExpression("EntityLogicalName", "LogicalName", "KeyAttributes") };
+                entityQueryExpression.KeyQuery = new EntityKeyQueryExpression()
+                {
+                    Properties = new MetadataPropertiesExpression
+                    (
+                        nameof(EntityKeyMetadata.LogicalName)
+                        , nameof(EntityKeyMetadata.EntityLogicalName)
+                        , nameof(EntityKeyMetadata.KeyAttributes)
+                    )
+                };
             }
 
             RetrieveMetadataChangesRequest request = new RetrieveMetadataChangesRequest()
@@ -120,12 +142,30 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private List<EntityMetadata> GetEntitiesWithAttributes()
         {
-            MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression("LogicalName", "DisplayName", "SchemaName", "Description", "DisplayCollectionName", "OwnershipType", "Attributes", "ObjectTypeCode")
+            MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression
+            (
+                nameof(EntityMetadata.LogicalName)
+                , nameof(EntityMetadata.DisplayName)
+                , nameof(EntityMetadata.SchemaName)
+                , nameof(EntityMetadata.Description)
+                , nameof(EntityMetadata.DisplayCollectionName)
+                , nameof(EntityMetadata.OwnershipType)
+                , nameof(EntityMetadata.ObjectTypeCode)
+                , nameof(EntityMetadata.Attributes)
+            )
             {
                 AllProperties = false
             };
 
-            MetadataPropertiesExpression attributeProperties = new MetadataPropertiesExpression("AttributeOf", "LogicalName", "DisplayName", "SchemaName", "EntityLogicalName", "OptionSet")
+            MetadataPropertiesExpression attributeProperties = new MetadataPropertiesExpression
+            (
+                nameof(AttributeMetadata.LogicalName)
+                , nameof(AttributeMetadata.AttributeOf)
+                , nameof(AttributeMetadata.EntityLogicalName)
+                , nameof(AttributeMetadata.SchemaName)
+                , nameof(AttributeMetadata.DisplayName)
+                , nameof(EnumAttributeMetadata.OptionSet)
+            )
             {
                 AllProperties = false
             };
@@ -160,7 +200,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             try
             {
                 MetadataFilterExpression entityFilter = new MetadataFilterExpression(LogicalOperator.And);
-                entityFilter.Conditions.Add(new MetadataConditionExpression("LogicalName", MetadataConditionOperator.Equals, entityName));
+                entityFilter.Conditions.Add(new MetadataConditionExpression(nameof(EntityMetadata.LogicalName), MetadataConditionOperator.Equals, entityName));
 
                 var entityQueryExpression = new EntityQueryExpression()
                 {
@@ -205,17 +245,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
         private EntityMetadata GetEntityMetadataWithAttributes(string entityName)
         {
             MetadataFilterExpression entityFilter = new MetadataFilterExpression(LogicalOperator.And);
-            entityFilter.Conditions.Add(new MetadataConditionExpression("LogicalName", MetadataConditionOperator.Equals, entityName));
+            entityFilter.Conditions.Add(new MetadataConditionExpression(nameof(EntityMetadata.LogicalName), MetadataConditionOperator.Equals, entityName));
 
-            MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression(
-                "LogicalName"
-                , "DisplayName"
-                , "SchemaName"
-                , "Description"
-                , "PrimaryIdAttribute"
-                , "PrimaryNameAttribute"
-                , "Attributes"
-                , "ObjectTypeCode"
+            MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression
+            (
+                nameof(EntityMetadata.LogicalName)
+                , nameof(EntityMetadata.DisplayName)
+                , nameof(EntityMetadata.SchemaName)
+                , nameof(EntityMetadata.Description)
+                , nameof(EntityMetadata.PrimaryIdAttribute)
+                , nameof(EntityMetadata.PrimaryNameAttribute)
+                , nameof(EntityMetadata.ObjectTypeCode)
+                , nameof(EntityMetadata.Attributes)
             )
             {
                 AllProperties = false
@@ -253,7 +294,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             try
             {
                 MetadataFilterExpression entityFilter = new MetadataFilterExpression(LogicalOperator.And);
-                entityFilter.Conditions.Add(new MetadataConditionExpression("LogicalName", MetadataConditionOperator.Equals, entityName));
+                entityFilter.Conditions.Add(new MetadataConditionExpression(nameof(EntityMetadata.LogicalName), MetadataConditionOperator.Equals, entityName));
 
                 var entityQueryExpression = new EntityQueryExpression()
                 {
@@ -296,7 +337,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 AttributeQuery = new AttributeQueryExpression()
                 {
-                    Properties = new MetadataPropertiesExpression("LogicalName", "AttributeType"),
+                    Properties = new MetadataPropertiesExpression
+                    (
+                        nameof(AttributeMetadata.LogicalName)
+                        , nameof(AttributeMetadata.AttributeType)
+                    ),
                 },
             };
 
@@ -306,12 +351,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 if (!string.IsNullOrEmpty(entityName))
                 {
-                    criteria.Conditions.Add(new MetadataConditionExpression("LogicalName", MetadataConditionOperator.Equals, entityName));
+                    criteria.Conditions.Add(new MetadataConditionExpression(nameof(EntityMetadata.LogicalName), MetadataConditionOperator.Equals, entityName));
                 }
 
                 if (entityTypeCode.HasValue)
                 {
-                    criteria.Conditions.Add(new MetadataConditionExpression("ObjectTypeCode", MetadataConditionOperator.Equals, entityTypeCode.Value));
+                    criteria.Conditions.Add(new MetadataConditionExpression(nameof(EntityMetadata.ObjectTypeCode), MetadataConditionOperator.Equals, entityTypeCode.Value));
                 }
 
                 entityQueryExpression.Criteria = criteria;
@@ -462,7 +507,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private List<EntityMetadata> GetEntitiesDisplayNameWithPrivileges()
         {
-            MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression("LogicalName", "DisplayName", "SchemaName", "Description", "ObjectTypeCode", "Privileges")
+            MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression
+            (
+                nameof(EntityMetadata.LogicalName)
+                , nameof(EntityMetadata.DisplayName)
+                , nameof(EntityMetadata.SchemaName)
+                , nameof(EntityMetadata.Description)
+                , nameof(EntityMetadata.ObjectTypeCode)
+                , nameof(EntityMetadata.Privileges)
+            )
             {
                 AllProperties = false
             };
@@ -489,12 +542,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private List<EntityMetadata> GetEntitiesWithAttributesForAudit()
         {
-            MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression("LogicalName", "IsAuditEnabled", "Attributes")
+            MetadataPropertiesExpression entityProperties = new MetadataPropertiesExpression
+            (
+                nameof(EntityMetadata.LogicalName)
+                , nameof(EntityMetadata.IsAuditEnabled)
+                , nameof(EntityMetadata.Attributes)
+            )
             {
                 AllProperties = false
             };
 
-            MetadataPropertiesExpression attributeProperties = new MetadataPropertiesExpression("AttributeOf", "EntityLogicalName", "LogicalName", "IsAuditEnabled")
+            MetadataPropertiesExpression attributeProperties = new MetadataPropertiesExpression
+            (
+                nameof(AttributeMetadata.LogicalName)
+                , nameof(AttributeMetadata.EntityLogicalName)
+                , nameof(AttributeMetadata.IsAuditEnabled)
+                , nameof(AttributeMetadata.AttributeOf)
+            )
             {
                 AllProperties = false
             };
