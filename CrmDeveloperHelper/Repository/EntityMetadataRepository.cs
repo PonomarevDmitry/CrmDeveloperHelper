@@ -341,6 +341,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                     (
                         nameof(AttributeMetadata.LogicalName)
                         , nameof(AttributeMetadata.AttributeType)
+                        , nameof(AttributeMetadata.IsValidForRead)
                     ),
                 },
             };

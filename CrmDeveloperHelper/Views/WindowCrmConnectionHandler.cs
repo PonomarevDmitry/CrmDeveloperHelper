@@ -2117,7 +2117,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         {
                             try
                             {
-                                var contr = new CheckController(iWriteToOutput);
+                                var contr = new FindsController(iWriteToOutput);
 
                                 contr.ExecuteFindEntityByUniqueidentifier(connectionData, commonConfig, entityName, entityTypeCode, entityId);
                             }

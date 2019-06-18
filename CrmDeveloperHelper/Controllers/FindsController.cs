@@ -1157,6 +1157,126 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
         #endregion Поиск элементов по идентификатору.
 
+        #region Поиск элементов по любому Guid.
+
+        public async Task ExecuteFindEntityByUniqueidentifier(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
+        {
+            string operation = string.Format(Properties.OperationNames.FindingCRMObjectsByUniqueidentifierEntityNameEntityTypeCodeFormat4, connectionData?.Name, entityId, entityName, entityTypeCode);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await FindEntityByUniqueidentifier(connectionData, commonConfig, entityName, entityTypeCode, entityId);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task FindEntityByUniqueidentifier(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            StringBuilder content = new StringBuilder();
+
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM));
+
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription()));
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            content.AppendLine(this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint));
+
+            EntityMetadataRepository repository = new EntityMetadataRepository(service);
+
+            var entityMetadataList = await repository.GetEntitiesPropertiesAsync(entityName, entityTypeCode
+                , nameof(EntityMetadata.LogicalName)
+                , nameof(EntityMetadata.PrimaryIdAttribute)
+                , nameof(EntityMetadata.IsIntersect)
+                , nameof(EntityMetadata.Attributes)
+            );
+
+            bool finded = false;
+
+            foreach (var item in entityMetadataList.OrderBy(e => e.LogicalName))
+            {
+                foreach (var field in item.Attributes
+                    .Where(a => a.AttributeType == AttributeTypeCode.Uniqueidentifier && a.IsValidForRead.GetValueOrDefault(true))
+                    .OrderBy(a => a.LogicalName)
+                )
+                {
+                    var generalRepository = new GenericRepository(service, item);
+
+                    var entityList = await generalRepository.GetEntitiesByFieldAsync(field.LogicalName, entityId, new ColumnSet(true));
+
+                    if (entityList != null)
+                    {
+                        foreach (var entity in entityList)
+                        {
+                            finded = true;
+
+                            content
+                                .AppendLine()
+                                .AppendLine()
+                                .AppendLine(new string('-', 150))
+                                .AppendLine()
+                                .AppendLine()
+                                .AppendLine(await EntityDescriptionHandler.GetEntityDescriptionAsync(entity, null, connectionData))
+                            ;
+                        }
+                    }
+                }
+            }
+
+            if (finded)
+            {
+                string fileName = EntityFileNameFormatter.GetFindingCRMObjectsByUniqueidentifierFileName(connectionData.Name, entityId);
+
+                if (string.IsNullOrEmpty(commonConfig.FolderForExport))
+                {
+                    _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
+                    commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+                }
+                else if (!Directory.Exists(commonConfig.FolderForExport))
+                {
+                    _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, commonConfig.FolderForExport);
+                    commonConfig.FolderForExport = FileOperations.GetDefaultFolderForExportFilePath();
+                }
+
+                string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
+
+                File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ObjectsInCRMWereExportedToFormat1, filePath);
+
+                this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
+            }
+            else
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoObjectsInCRMWereFounded);
+                this._iWriteToOutput.ActivateOutputWindow(connectionData);
+            }
+        }
+
+        #endregion Поиск элементов по любому Guid.
+
         #region Редактирование элементов по идентификатору.
 
         public async Task ExecuteEditEntityById(ConnectionData connectionData, CommonConfiguration commonConfig, string entityName, int? entityTypeCode, Guid entityId)
