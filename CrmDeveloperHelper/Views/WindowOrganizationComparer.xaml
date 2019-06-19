@@ -14,6 +14,7 @@
         <BitmapImage x:Key="ImageEdit" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Edit.png" />
         <BitmapImage x:Key="ImageOpenFolder" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/OpenFolder.png" />
         <BitmapImage x:Key="ImageCopy" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Copy.png" />
+        <BitmapImage x:Key="ImageSelect" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Select.png" />
         <BitmapImage x:Key="ImageCheck" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Check.png" />
 
         <ContextMenu x:Key="listContextMenu">
@@ -22,6 +23,7 @@
                     <Image Width="16" Height="16" Source="{StaticResource ImageCheck}"/>
                 </MenuItem.Icon>
             </MenuItem>
+            
             <Separator/>
             <MenuItem Header="Edit" VerticalAlignment="Center" Click="tSBEdit_Click">
                 <MenuItem.Icon>
@@ -33,6 +35,18 @@
                     <Image Width="16" Height="16" Source="{StaticResource ImageCopy}"/>
                 </MenuItem.Icon>
             </MenuItem>
+
+            <Separator/>
+            <MenuItem Header="Select Connection" Click="tSBSelectConnection_Click">
+                <MenuItem.Icon>
+                    <Image Width="16" Height="16" Source="{StaticResource ImageSelect}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+
+            <Separator/>
+            <MenuItem Header="Select Connection File in Folder" Click="tSBSelectConnectionFileInFolder_Click" />
+            <MenuItem Header="Copy Connection Id" Click="tSBCopyConnectionId_Click" />
+
             <Separator/>
             <MenuItem Header="Move to Archive" VerticalAlignment="Center" Click="tSBMoveToArchive_Click">
                 <MenuItem.Icon>

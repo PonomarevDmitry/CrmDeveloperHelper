@@ -411,6 +411,52 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private void tSBSelectConnection_Click(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (lstVwConnections.SelectedItems.Count == 1)
+            {
+                ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
+
+                this._crmConfig.SetCurrentConnection(connectionData.ConnectionId);
+
+                this._crmConfig.Save();
+
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
+
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
+                _iWriteToOutput.ActivateOutputWindow(connectionData, this);
+            }
+        }
+
+        private void tSBSelectConnectionFileInFolder_Click(object sender, RoutedEventArgs e)
+        {
+            var connectionData = ((FrameworkElement)e.OriginalSource).DataContext as ConnectionData;
+
+            if (connectionData == null)
+            {
+                return;
+            }
+
+            _iWriteToOutput.SelectFileInFolder(connectionData, connectionData.Path);
+        }
+
+        private void tSBCopyConnectionId_Click(object sender, RoutedEventArgs e)
+        {
+            var connectionData = ((FrameworkElement)e.OriginalSource).DataContext as ConnectionData;
+
+            if (connectionData == null)
+            {
+                return;
+            }
+
+            Clipboard.SetText(connectionData.ConnectionId.ToString());
+        }
+
         private void tSBMoveToArchive_Click(object sender, RoutedEventArgs e)
         {
             if (lstVwConnections.SelectedItems.Count == 1)
