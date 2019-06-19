@@ -1206,22 +1206,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return (ConnectionConfiguration.Get().CurrentConnectionData?.IsReadOnly).GetValueOrDefault() == false;
         }
 
-        internal static void ActionBeforeQueryStatusIsConnectionOutput(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
-        {
-            bool visible = false;
-
-            var helper = DTEHelper.Create(applicationObject);
-
-            var connectionData = helper.GetOutputWindowConnection();
-
-            visible = connectionData != null;
-
-            if (visible == false)
-            {
-                menuCommand.Enabled = menuCommand.Visible = false;
-            }
-        }
-
         private static bool CacheValue(string cacheName, Func<bool> valueGetter)
         {
             bool result = false;

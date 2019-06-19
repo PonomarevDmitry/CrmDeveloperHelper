@@ -99,6 +99,8 @@
     <Compile Include="Commands\AbstractDynamicCommand.cs" />
     <Compile Include="Commands\AbstractDynamicCommandConnectionPair.cs" />
     <Compile Include="Commands\AbstractDynamicCommandXsdSchemas.cs" />
+    <Compile Include="Commands\AbstractOutputWindowCommand.cs" />
+    <Compile Include="Commands\AbstractOutputWindowDynamicCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpAddPluginStepCommand.cs" />

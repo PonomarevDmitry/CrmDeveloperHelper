@@ -2,10 +2,11 @@ using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
 {
-    internal sealed class OutputOrganizationComparerCommand : AbstractCommand
+    internal sealed class OutputOrganizationComparerCommand : AbstractOutputWindowCommand
     {
         private OutputOrganizationComparerCommand(OleMenuCommandService commandService)
            : base(commandService, PackageIds.OutputOrganizationComparerCommandId) { }
@@ -17,14 +18,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
             Instance = new OutputOrganizationComparerCommand(commandService);
         }
 
-        protected override void CommandAction(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
             helper.HandleOrganizationComparer();
-        }
-
-        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
-        {
-            CommonHandlers.ActionBeforeQueryStatusIsConnectionOutput(applicationObject, menuCommand);
         }
     }
 }

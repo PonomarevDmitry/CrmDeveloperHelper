@@ -1,9 +1,10 @@
 ﻿using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.PluginConfigurations
 {
-    internal sealed class OutputPluginConfigurationPluginTreeCommand : AbstractCommand
+    internal sealed class OutputPluginConfigurationPluginTreeCommand : AbstractOutputWindowCommand
     {
         private OutputPluginConfigurationPluginTreeCommand(OleMenuCommandService commandService)
            : base(commandService, PackageIds.OutputPluginConfigurationPluginTreeCommandId) { }
@@ -15,21 +16,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Plugin
             Instance = new OutputPluginConfigurationPluginTreeCommand(commandService);
         }
 
-        protected override void CommandAction(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            var connectionData = helper.GetOutputWindowConnection();
-
-            if (connectionData == null)
-            {
-                return;
-            }
-
             helper.HandlePluginConfigurationTree(connectionData);
-        }
-
-        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
-        {
-            CommonHandlers.ActionBeforeQueryStatusIsConnectionOutput(applicationObject, menuCommand);
         }
     }
 }

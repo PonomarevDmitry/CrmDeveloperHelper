@@ -1,9 +1,10 @@
 using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
 {
-    internal sealed class OutputOpenSolutionImageCommand : AbstractCommand
+    internal sealed class OutputOpenSolutionImageCommand : AbstractOutputWindowCommand
     {
         private OutputOpenSolutionImageCommand(OleMenuCommandService commandService)
            : base(commandService, PackageIds.OutputOpenSolutionImageCommandId) { }
@@ -15,21 +16,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
             Instance = new OutputOpenSolutionImageCommand(commandService);
         }
 
-        protected override void CommandAction(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            var connectionData = helper.GetOutputWindowConnection();
-
-            if (connectionData == null)
-            {
-                return;
-            }
-
             helper.HandleOpenSolutionImageWindow(connectionData);
-        }
-
-        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
-        {
-            CommonHandlers.ActionBeforeQueryStatusIsConnectionOutput(applicationObject, menuCommand);
         }
     }
 }

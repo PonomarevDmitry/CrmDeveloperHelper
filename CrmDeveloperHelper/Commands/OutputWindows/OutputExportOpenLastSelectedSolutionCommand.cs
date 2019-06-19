@@ -8,10 +8,8 @@ using System.Collections.ObjectModel;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
 {
-    internal sealed class OutputExportOpenLastSelectedSolutionCommand : AbstractDynamicCommand<string>
+    internal sealed class OutputExportOpenLastSelectedSolutionCommand : AbstractOutputWindowDynamicCommand<string>
     {
-        private readonly Collection<string> EmptyCollection = new Collection<string>();
-
         private readonly ActionOpenComponent _actionOpen;
 
         private OutputExportOpenLastSelectedSolutionCommand(OleMenuCommandService commandService, int baseIdStart, ActionOpenComponent action)
@@ -35,44 +33,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
             InstanceOpenInWindow = new OutputExportOpenLastSelectedSolutionCommand(commandService, PackageIds.OutputExportOpenLastSelectedSolutionInWindowCommandId, ActionOpenComponent.OpenInWindow);
         }
 
-        protected override ICollection<string> GetElementSourceCollection()
+        protected override ICollection<string> GetElementSourceCollection(ConnectionData connectionData)
         {
-            var applicationObject = CrmDeveloperHelperPackage.Singleton.ApplicationObject;
-            if (applicationObject != null)
-            {
-                var helper = DTEHelper.Create(applicationObject);
-
-                var connectionData = helper.GetOutputWindowConnection();
-
-                if (connectionData != null)
-                {
-                    return connectionData.LastSelectedSolutionsUniqueName;
-                }
-            }
-
-            return EmptyCollection;
+            return connectionData.LastSelectedSolutionsUniqueName;
         }
 
-        protected override string GetElementName(string solutionUniqueName)
+        protected override string GetElementName(ConnectionData connectionData, string solutionUniqueName)
         {
             return solutionUniqueName;
         }
 
-        protected override void CommandAction(DTEHelper helper, string solutionUniqueName)
+        protected override void CommandAction(DTEHelper helper, ConnectionData connectionData, string solutionUniqueName)
         {
-            var connectionData = helper.GetOutputWindowConnection();
-
-            if (connectionData == null)
-            {
-                return;
-            }
-
             helper.HandleOpenLastSelectedSolution(connectionData, solutionUniqueName, this._actionOpen);
-        }
-
-        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, string element, OleMenuCommand menuCommand)
-        {
-            CommonHandlers.ActionBeforeQueryStatusIsConnectionOutput(applicationObject, menuCommand);
         }
     }
 }

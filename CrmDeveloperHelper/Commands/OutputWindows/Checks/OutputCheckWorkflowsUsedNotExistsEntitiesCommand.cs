@@ -4,7 +4,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Checks
 {
-    internal sealed class OutputCheckWorkflowsUsedNotExistsEntitiesCommand : AbstractCommand
+    internal sealed class OutputCheckWorkflowsUsedNotExistsEntitiesCommand : AbstractOutputWindowCommand
     {
         private OutputCheckWorkflowsUsedNotExistsEntitiesCommand(OleMenuCommandService commandService)
            : base(commandService, PackageIds.OutputCheckWorkflowsUsedNotExistsEntitiesCommandId) { }
@@ -16,21 +16,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Checks
             Instance = new OutputCheckWorkflowsUsedNotExistsEntitiesCommand(commandService);
         }
 
-        protected override void CommandAction(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            var connectionData = helper.GetOutputWindowConnection();
-
-            if (connectionData == null)
-            {
-                return;
-            }
-
             helper.HandleCheckingWorkflowsNotExistingUsedEntities(connectionData);
-        }
-
-        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
-        {
-            CommonHandlers.ActionBeforeQueryStatusIsConnectionOutput(applicationObject, menuCommand);
         }
     }
 }

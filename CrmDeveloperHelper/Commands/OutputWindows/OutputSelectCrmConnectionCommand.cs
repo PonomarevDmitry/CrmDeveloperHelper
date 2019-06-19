@@ -1,9 +1,10 @@
 using Microsoft.VisualStudio.Shell;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
 {
-    internal sealed class OutputSelectCrmConnectionCommand : AbstractCommand
+    internal sealed class OutputSelectCrmConnectionCommand : AbstractOutputWindowCommand
     {
         private OutputSelectCrmConnectionCommand(OleMenuCommandService commandService)
             : base(
@@ -21,26 +22,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
             Instance = new OutputSelectCrmConnectionCommand(commandService);
         }
 
-        protected override void CommandAction(DTEHelper helper)
+        protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            var connectionData = helper.GetOutputWindowConnection();
-
-            if (connectionData == null)
-            {
-                return;
-            }
-
             connectionData.ConnectionConfiguration.SetCurrentConnection(connectionData.ConnectionId);
 
             connectionData.ConnectionConfiguration.Save();
 
             helper.WriteToOutput(null, Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
             helper.ActivateOutputWindow(null);
-        }
-
-        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
-        {
-            CommonHandlers.ActionBeforeQueryStatusIsConnectionOutput(applicationObject, menuCommand);
         }
     }
 }
