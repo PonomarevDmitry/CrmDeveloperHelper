@@ -69,10 +69,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
             }
         }
 
-        protected virtual void CommandAction(DTEHelper helper)
-        {
-
-        }
+        protected abstract void CommandAction(DTEHelper helper);
 
         protected virtual void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand)
         {

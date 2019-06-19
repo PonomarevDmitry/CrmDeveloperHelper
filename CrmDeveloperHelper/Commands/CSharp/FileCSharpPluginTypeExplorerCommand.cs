@@ -17,7 +17,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.CSharp
             Instance = new FileCSharpPluginTypeExplorerCommand(commandService);
         }
 
-        private async void CommandAction(DTEHelper helper)
+        protected override async void CommandAction(DTEHelper helper)
         {
             try
             {
