@@ -5,15 +5,74 @@
         xmlns:src="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Views"
         xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
-        Title="Create Plugin Configuration" Height="218" Width="635" WindowStartupLocation="Manual">
+        Title="Create Plugin Configuration" 
+        ResizeMode="CanMinimize"
+        SizeToContent="Height"
+        Width="635"
+        WindowStartupLocation="Manual">
+    <src:WindowBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleWindows.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </src:WindowBase.Resources>
     <Grid>
-        <Label Content="Folder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="26" Width="187"/>
-        <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="23" Margin="10,36,10,0"   VerticalAlignment="Top" TabIndex="2147483647" VerticalContentAlignment="Center"/>
-        <Label Content="Plugin Configuration File Name" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" Height="26" Width="312"/>
-        <TextBox x:Name="txtBFileName" Text="{Binding Path=PluginConfigurationFileName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="23" Margin="10,85,10,0"   VerticalAlignment="Top" TabIndex="2147483647" VerticalContentAlignment="Center"/>
-        <Label Content="Action" HorizontalAlignment="Left" Margin="10,113,0,0" Padding="10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="26" Width="53"/>
-        <ComboBox x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" Margin="68,113,305,0" Padding="10,0" VerticalAlignment="Top" VerticalContentAlignment="Center" IsReadOnly="True" SelectedIndex="0" Height="26" />
-        <Button x:Name="btnCreateFile" Content="Create Plugin Configuration" Margin="0,0,127,12" Click="btnCreateFile_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="181"/>
-        <Button x:Name="btnCancel" Content="Cancel" Margin="0,0,10,12" Click="btnCancel_Click" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+
+            <RowDefinition Height="Auto" />
+            
+            <RowDefinition Height="10" />
+            
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Content="Folder"/>
+        <TextBox Grid.Row="1" x:Name="txtBFolder" Text="{Binding Path=FolderForExport, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+
+        <Label Grid.Row="2" Content="Plugin Configuration File Name" />
+        <TextBox Grid.Row="3" x:Name="txtBFileName" Text="{Binding Path=PluginConfigurationFileName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+
+        <Grid Grid.Row="4" >
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="100*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Connection to CRM:" />
+            <ComboBox Grid.Row="0" Grid.Column="1" x:Name="cmBConnection" IsReadOnly="True" />
+
+            <Label Grid.Row="1" Grid.Column="0" Content="Action" />
+            <ComboBox Grid.Row="1" Grid.Column="1" x:Name="cmBFileAction" SelectedItem="{Binding Path=DefaultFileAction}" ItemsSource="{Binding Source={helpers:EnumBindingSource {x:Type model:FileAction}}}" />
+        </Grid>
+
+        <Grid Grid.Row="6" >
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*" />
+                <ColumnDefinition Width="Auto" />
+
+                <ColumnDefinition Width="50" />
+
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="1" x:Name="btnCreateFile" Content="Create Plugin Configuration" Click="btnCreateFile_Click" />
+            <Button Grid.Column="3" x:Name="btnCancel" Content="Cancel" Click="btnCancel_Click" />
+        </Grid>
+
     </Grid>
 </src:WindowBase>

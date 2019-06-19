@@ -3000,15 +3000,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData != null)
             {
-                ActivateOutputWindow(connectionData);
-                WriteToOutputEmptyLines(connectionData, commonConfig);
-
                 CheckWishToChangeCurrentConnection(connectionData);
 
-                var form = new WindowPluginConfiguration(commonConfig, true);
+                var form = new WindowPluginConfiguration(commonConfig, connectionData, true);
 
                 if (form.ShowDialog().GetValueOrDefault())
                 {
+                    connectionData = form.GetConnectionData();
+
+                    ActivateOutputWindow(connectionData);
+                    WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                    CheckWishToChangeCurrentConnection(connectionData);
+
                     try
                     {
                         Controller.StartExportPluginConfiguration(connectionData, commonConfig);
@@ -4455,13 +4459,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData != null && selectedItem != null)
             {
-                ActivateOutputWindow(connectionData);
-                WriteToOutputEmptyLines(connectionData, commonConfig);
-
-                var form = new WindowPluginConfiguration(commonConfig, true);
+                var form = new WindowPluginConfiguration(commonConfig, connectionData, true);
 
                 if (form.ShowDialog().GetValueOrDefault())
                 {
+                    connectionData = form.GetConnectionData();
+
+                    ActivateOutputWindow(connectionData);
+                    WriteToOutputEmptyLines(connectionData, commonConfig);
+
+                    CheckWishToChangeCurrentConnection(connectionData);
+
                     try
                     {
                         Controller.StartExportPluginConfigurationIntoFolder(selectedItem, connectionData, commonConfig);

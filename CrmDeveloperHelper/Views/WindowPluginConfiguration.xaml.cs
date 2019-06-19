@@ -4,28 +4,36 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
     public partial class WindowPluginConfiguration : WindowBase
     {
+        private readonly object sysObjectConnections = new object();
+
         private readonly CommonConfiguration _commonConfig;
 
         private bool _showExportFolder;
 
-        public WindowPluginConfiguration(CommonConfiguration commonConfig, bool showExportFolder)
+        public WindowPluginConfiguration(CommonConfiguration commonConfig, ConnectionData connectionData, bool showExportFolder)
         {
             InitializeComponent();
-
-            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
 
             this._commonConfig = commonConfig;
             this._showExportFolder = showExportFolder;
 
+            InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
+
+            BindingOperations.EnableCollectionSynchronization(connectionData.ConnectionConfiguration.Connections, sysObjectConnections);
+
             txtBFolder.IsReadOnly = !showExportFolder;
 
             LoadConfigs();
+
+            cmBConnection.ItemsSource = connectionData.ConnectionConfiguration.Connections;
+            cmBConnection.SelectedItem = connectionData;
 
             txtBFileName.Focus();
         }
@@ -93,6 +101,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.DialogResult = true;
             this.Close();
+        }
+
+        public ConnectionData GetConnectionData()
+        {
+            ConnectionData connectionData = null;
+
+            this.Dispatcher.Invoke(() =>
+            {
+                connectionData = cmBConnection.SelectedItem as ConnectionData;
+            });
+
+            return connectionData;
         }
     }
 }

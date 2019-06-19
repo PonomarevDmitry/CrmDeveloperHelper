@@ -217,13 +217,18 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 ConnectionData connectionData = lstVwConnections.SelectedItems[0] as ConnectionData;
 
-                var form = new WindowCrmConnectionCard(this._iWriteToOutput, connectionData, _crmConfig.Users);
-
-                form.ShowDialog();
-
-                connectionData.Save();
-                this._crmConfig.Save();
+                CallEditConnection(connectionData);
             }
+        }
+
+        private void CallEditConnection(ConnectionData connectionData)
+        {
+            var form = new WindowCrmConnectionCard(_iWriteToOutput, connectionData, _crmConfig.Users);
+
+            form.ShowDialog();
+
+            connectionData.Save();
+            this._crmConfig.Save();
         }
 
         private void tSBCreateCopy_Click(object sender, RoutedEventArgs e)
@@ -2146,6 +2151,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this._solutionImage = null;
             txtBFilePath.Text = string.Empty;
+        }
+
+        private void lstVwConnections_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                var item = ((FrameworkElement)e.OriginalSource).DataContext as ConnectionData;
+
+                if (item != null)
+                {
+                    CallEditConnection(item);
+                }
+            }
         }
     }
 }

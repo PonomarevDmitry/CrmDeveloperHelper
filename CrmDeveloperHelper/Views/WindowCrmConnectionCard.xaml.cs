@@ -46,6 +46,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             RefreshUserList();
 
             LoadConnectionData(connectionData);
+
+            txtBName.SelectionLength = 0;
+            txtBName.SelectionStart = txtBName.Text.Length;
+
+            txtBName.Focus();
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -225,7 +230,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             txtBNamespaceOptionSetsCSharp.Text = connectionData.NamespaceOptionSetsCSharp;
             txtBNamespaceOptionSetsJavaScript.Text = connectionData.NamespaceOptionSetsJavaScript;
 
-            txtBNamespaceSdkMessagesCSharp.Text =     connectionData.NamespaceSdkMessagesCSharp;
+            txtBNamespaceSdkMessagesCSharp.Text = connectionData.NamespaceSdkMessagesCSharp;
             txtBNamespaceSdkMessagesJavaScript.Text = connectionData.NamespaceSdkMessagesJavaScript;
 
             txtBTypeConverterName.Text = connectionData.TypeConverterName;

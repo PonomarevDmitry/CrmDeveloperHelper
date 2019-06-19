@@ -1370,7 +1370,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connection != null)
             {
-                var form = new WindowPluginConfiguration(commonConfig, true);
+                var form = new WindowPluginConfiguration(commonConfig, connection, true);
 
                 if (form.ShowDialog().GetValueOrDefault())
                 {
