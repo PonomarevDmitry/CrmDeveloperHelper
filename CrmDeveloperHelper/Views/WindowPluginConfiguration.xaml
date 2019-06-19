@@ -6,9 +6,9 @@
         xmlns:helpers="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Helpers"
         xmlns:model="clr-namespace:Nav.Common.VSPackages.CrmDeveloperHelper.Model"
         Title="Create Plugin Configuration" 
-        ResizeMode="CanMinimize"
+        ResizeMode="CanResize"
         SizeToContent="Height"
-        Width="635"
+        Width="700"
         WindowStartupLocation="Manual">
     <src:WindowBase.Resources>
         <ResourceDictionary>
@@ -18,7 +18,7 @@
 
         </ResourceDictionary>
     </src:WindowBase.Resources>
-    <Grid>
+    <Grid Margin="10">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
