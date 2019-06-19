@@ -1314,10 +1314,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     _commonConfig.Save();
 
-                    string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
-
                     var config = new CreateFileJavaScriptConfiguration(
-                        tabSpacer
+                        _commonConfig.GetTabSpacer()
                         , _commonConfig.GenerateSchemaEntityOptionSetsWithDependentComponents
                         , _commonConfig.GenerateSchemaIntoSchemaClass
                         , _commonConfig.GenerateSchemaGlobalOptionSet

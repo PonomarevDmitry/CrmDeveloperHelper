@@ -4,7 +4,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 {
     public partial class CommonConfiguration
     {
-        private int _GenerateCommonSpaceCount = 4;
+        private const int _defaultGenerateCommonSpaceCount = 4;
+
+        private int _GenerateCommonSpaceCount = _defaultGenerateCommonSpaceCount;
         /// <summary>
         /// Количество пробелов для отступа в файле с метаданными сущности
         /// </summary>
@@ -17,6 +19,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 if (_GenerateCommonSpaceCount == value)
                 {
                     return;
+                }
+
+                if (value <= 0)
+                {
+                    value = _defaultGenerateCommonSpaceCount;
                 }
 
                 this.OnPropertyChanging(nameof(GenerateCommonSpaceCount));
@@ -275,6 +282,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                 this.OnPropertyChanging(nameof(GenerateSchemaIntoSchemaClass));
                 this._GenerateSchemaIntoSchemaClass = value;
                 this.OnPropertyChanged(nameof(GenerateSchemaIntoSchemaClass));
+            }
+        }
+
+        public string GetTabSpacer()
+        {
+            if (this.GenerateCommonSpaceCount <= 0)
+            {
+                this.GenerateCommonSpaceCount = _defaultGenerateCommonSpaceCount;
+            }
+
+            switch (this.GenerateCommonIndentType)
+            {
+                case IndentType.Tab:
+                    return "\t";
+
+                case IndentType.Spaces:
+                default:
+                    return new string(' ', this.GenerateCommonSpaceCount);
             }
         }
 

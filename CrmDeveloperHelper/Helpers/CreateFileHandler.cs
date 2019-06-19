@@ -1607,19 +1607,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             return options;
         }
 
-        public static string GetTabSpacer(IndentType indentType, int tabCount)
-        {
-            switch (indentType)
-            {
-                case IndentType.Tab:
-                    return "\t";
-
-                case IndentType.Spaces:
-                default:
-                    return new string(' ', tabCount);
-            }
-        }
-
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
 

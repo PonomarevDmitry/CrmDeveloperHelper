@@ -774,10 +774,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private CreateFileJavaScriptConfiguration GetJavaScriptConfig(string entityName)
         {
-            var tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
-
             var result = new CreateFileJavaScriptConfiguration(
-                tabSpacer
+                _commonConfig.GetTabSpacer()
                 , _commonConfig.GenerateSchemaEntityOptionSetsWithDependentComponents
                 , _commonConfig.GenerateSchemaIntoSchemaClass
                 , _commonConfig.GenerateSchemaGlobalOptionSet
@@ -837,8 +835,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
 
             ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityMetadata.LogicalName);
-
-            string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
 
             var config = GetCSharpConfigSchema(service.ConnectionData);
 
@@ -929,8 +925,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputStartOperation(service.ConnectionData, Properties.OperationNames.CreatingFileWithEntityMetadataForEntityFormat2, service.ConnectionData.Name, entityMetadata.LogicalName);
 
             ToggleControls(false, Properties.WindowStatusStrings.CreatingFileForEntityFormat1, entityMetadata.LogicalName);
-
-            string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
 
             var config = GetCSharpConfigProxyClass(service.ConnectionData, entityMetadata.LogicalName);
 

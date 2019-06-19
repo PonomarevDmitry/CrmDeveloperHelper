@@ -101,7 +101,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             var result = new CreateFileCSharpConfiguration
             {
-                TabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.GenerateCommonIndentType, commonConfig.GenerateCommonSpaceCount),
+                TabSpacer = commonConfig.GetTabSpacer(),
 
                 NamespaceClasses = namespaceClasses,
                 NamespaceGlobalOptionSets = namespaceGlobalOptionSets,
@@ -141,7 +141,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             var result = new CreateFileCSharpConfiguration
             {
-                TabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.GenerateCommonIndentType, commonConfig.GenerateCommonSpaceCount),
+                TabSpacer = commonConfig.GetTabSpacer(),
 
                 NamespaceClasses = namespaceClasses,
                 NamespaceGlobalOptionSets = namespaceGlobalOptionSets,
@@ -188,7 +188,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         {
             var result = new CreateFileCSharpConfiguration
             {
-                TabSpacer = CreateFileHandler.GetTabSpacer(commonConfig.GenerateCommonIndentType, commonConfig.GenerateCommonSpaceCount),
+                TabSpacer = commonConfig.GetTabSpacer(),
 
                 NamespaceClasses = namespaceClasses,
                 NamespaceGlobalOptionSets = namespaceGlobalOptionSets,

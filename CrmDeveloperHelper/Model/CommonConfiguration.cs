@@ -530,6 +530,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
             UpdateTextEditorProgramExists();
             UpdateDifferenceProgramExists();
             UpdateDifferenceThreeWayAvaliable();
+
+            if (this._GenerateCommonSpaceCount <= 0)
+            {
+                this._GenerateCommonSpaceCount = _defaultGenerateCommonSpaceCount;
+            }
         }
 
         /// <summary>

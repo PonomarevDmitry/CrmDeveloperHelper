@@ -518,8 +518,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
-
                 string fileName = CreateGlobalOptionSetsFileCSharpHandler.CreateFileNameCSharp(service.ConnectionData, optionSets, this._selectedItem != null);
 
                 string filePath = Path.Combine(folder, fileName);
@@ -615,8 +613,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
-
                 string fileName = CreateGlobalOptionSetsFileCSharpHandler.CreateFileNameJavaScript(service.ConnectionData, optionSets, this._selectedItem != null);
 
                 string filePath = Path.Combine(folder, fileName);
@@ -629,7 +625,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 using (var handler = new CreateGlobalOptionSetsFileJavaScriptHandler(
                     service
                     , _iWriteToOutput
-                    , tabSpacer
+                    , _commonConfig.GetTabSpacer()
                     , _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents
                 ))
                 {

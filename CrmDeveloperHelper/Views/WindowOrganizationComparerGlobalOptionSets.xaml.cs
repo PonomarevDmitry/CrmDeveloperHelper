@@ -689,7 +689,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     string filePath1 = CreateFileNameJavaScript(optionSets1, service1.ConnectionData);
                     string filePath2 = CreateFileNameJavaScript(optionSets2, service2.ConnectionData);
 
-                    string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
+                    string tabSpacer = _commonConfig.GetTabSpacer();
                     var constantType = _commonConfig.GenerateSchemaConstantType;
 
                     var withDependentComponents = _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents;
@@ -927,7 +927,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                string tabSpacer = CreateFileHandler.GetTabSpacer(_commonConfig.GenerateCommonIndentType, _commonConfig.GenerateCommonSpaceCount);
+                string tabSpacer = _commonConfig.GetTabSpacer();
 
                 var withDependentComponents = _commonConfig.GenerateSchemaGlobalOptionSetsWithDependentComponents;
 
