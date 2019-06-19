@@ -118,6 +118,9 @@
                                 <Style TargetType="{x:Type Separator}" BasedOn="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}">
                                     <Setter Property="Margin" Value="10,0" />
                                 </Style>
+                                <Style TargetType="{x:Type MenuItem}">
+                                    <Setter Property="Padding" Value="2" />
+                                </Style>
                             </DockPanel.Resources>
                             <ToolBarPanel Orientation="Horizontal" >
                                 <Menu Background="{x:Null}" VerticalContentAlignment="Center" VerticalAlignment="Center">
