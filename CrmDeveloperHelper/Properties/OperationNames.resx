@@ -144,14 +144,20 @@
   <data name="CheckingCRMEntityOwnershipFormat1" xml:space="preserve">
     <value>{0} - Checking CRM Entity Ownership</value>
   </data>
-  <data name="CheckingCRMObjectsMarkedToDeleteByAndShowDependentComponentsFormat2" xml:space="preserve">
-    <value>{0} - Checking CRM Objects marked to delete by '{1}' and show dependent components</value>
+  <data name="FindingCRMObjectsMarkedToDeleteByAndShowDependentComponentsFormat2" xml:space="preserve">
+    <value>{0} - Finding CRM Objects marked to delete by '{1}' and show dependent components</value>
+  </data>
+  <data name="FindingCRMObjectsMarkedToDeleteInExplorerFormat2" xml:space="preserve">
+    <value>{0} - Finding CRM Objects marked to delete by '{1}' in Explorer</value>
   </data>
   <data name="CheckingCRMObjectsNamesAndShowDependentComponents" xml:space="preserve">
     <value>{0} - Checking CRM Objects names and show dependent components</value>
   </data>
-  <data name="CheckingCRMObjectsNamesForPrefixFormat2" xml:space="preserve">
-    <value>{0} - Checking CRM Objects names for prefix '{1}'</value>
+  <data name="FindingCRMObjectsNamesForPrefixFormat2" xml:space="preserve">
+    <value>{0} - Finding CRM Objects names for prefix '{1}'</value>
+  </data>
+  <data name="FindingCRMObjectsNamesForPrefixInExplorerFormat2" xml:space="preserve">
+    <value>{0} - Finding CRM Objects names for prefix '{1}' and showing in Explorer</value>
   </data>
   <data name="CheckingCRMObjectsNamesForPrefixAndShowDependentComponentsFormat2" xml:space="preserve">
     <value>{0} - Checking CRM Objects names for prefix '{1}' and show dependent components</value>
@@ -285,9 +291,19 @@
   <data name="FindingCRMObjectscontainsNameFormat2" xml:space="preserve">
     <value>{0} - Finding CRM Objects names contains '{1}'</value>
   </data>
-  <data name="FindingCRMObjectsNamesFormat2" xml:space="preserve">
-    <value>{0} - Finding CRM Objects names for '{1}'</value>
+
+  <data name="FindingCRMObjectscontainsNameInExplorerFormat2" xml:space="preserve">
+    <value>{0} - Finding CRM Objects names contains '{1}' in Explorer</value>
   </data>
+  
+  <data name="FindingCRMObjectsByNameFormat2" xml:space="preserve">
+    <value>{0} - Finding CRM Objects by name for '{1}'</value>
+  </data>
+
+  <data name="FindingCRMObjectsByNameInExplorerFormat2" xml:space="preserve">
+    <value>{0} - Finding CRM Objects by name for '{1}' and showing in Explorer</value>
+  </data>
+  
   <data name="MultiDifferenceFormat2" xml:space="preserve">
     <value>{0} - Multi Difference {1}</value>
   </data>

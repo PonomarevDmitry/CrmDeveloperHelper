@@ -2,7 +2,7 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.FindEdit
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.FindEdit
 {
     internal sealed class OutputEditEntitiesByIdCommand : AbstractOutputWindowCommand
     {

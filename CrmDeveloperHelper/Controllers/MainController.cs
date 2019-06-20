@@ -662,7 +662,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
         /// <summary>
         /// Проверка CRM на существование сущностей с префиксом new_.
         /// </summary>
-        /// <param name="config"></param>
         public void StartFindEntityObjectsByPrefix(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
         {
             var worker = new Thread(() =>
@@ -680,13 +679,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartCheckEntitiesNamesAndShowDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
+        /// <summary>
+        /// Проверка CRM на существование сущностей с префиксом new_.
+        /// </summary>
+        public void StartFindEntityObjectsByPrefixInExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._findsController.ExecuteCheckingEntitiesNamesAndShowDependentComponents(connectionData, commonConfig, prefix);
+                    this._findsController.ExecuteFindingEntityObjectsByPrefixInExplorer(connectionData, commonConfig, prefix);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+        
+        public void StartFindEntityObjectsByPrefixAndShowDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._findsController.ExecuteFindingEntityObjectsByPrefixAndShowDependentComponents(connectionData, commonConfig, prefix);
                 }
                 catch (Exception ex)
                 {
@@ -697,13 +716,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartCheckMarkedToDeleteAndShowDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
+        public void StartFindMarkedToDeleteAndShowDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
-                    this._findsController.ExecuteCheckingMarkedToDelete(connectionData, commonConfig, prefix);
+                    this._findsController.ExecuteFindingMarkedToDeleteAndShowDependentComponents(connectionData, commonConfig, prefix);
                 }
                 catch (Exception ex)
                 {
@@ -714,7 +733,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartFindEntityElementsByName(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
+        public void StartFindMarkedToDeleteInExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._findsController.ExecuteFindingMarkedToDeleteInExplorer(connectionData, commonConfig, prefix);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartFindEntityObjectsByName(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
         {
             var worker = new Thread(() =>
             {
@@ -731,13 +767,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             worker.Start();
         }
 
-        public void StartFindEntityElementsContainsString(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
+        public void StartFindEntityObjectsByNameInExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._findsController.ExecuteFindEntityElementsByNameInExplorer(connectionData, commonConfig, name);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartFindEntityObjectsContainsString(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
         {
             var worker = new Thread(() =>
             {
                 try
                 {
                     this._findsController.ExecuteFindEntityElementsContainsString(connectionData, commonConfig, name);
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
+                }
+            });
+
+            worker.Start();
+        }
+
+        public void StartFindEntityObjectsContainsStringInExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
+        {
+            var worker = new Thread(() =>
+            {
+                try
+                {
+                    this._findsController.ExecuteFindEntityElementsContainsStringInExplorer(connectionData, commonConfig, name);
                 }
                 catch (Exception ex)
                 {

@@ -25,7 +25,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands
         {
             InstanceOpenInWeb = new CommonExportOpenLastSelectedSolutionCommand(commandService, PackageIds.CommonExportOpenLastSelectedSolutionInWebCommandId, ActionOpenComponent.OpenInWeb);
 
-            InstanceOpenInWindow = new CommonExportOpenLastSelectedSolutionCommand(commandService, PackageIds.CommonExportOpenLastSelectedSolutionInWindowCommandId, ActionOpenComponent.OpenInWindow);
+            InstanceOpenInWindow = new CommonExportOpenLastSelectedSolutionCommand(commandService, PackageIds.CommonExportOpenLastSelectedSolutionInExplorerCommandId, ActionOpenComponent.OpenInExplorer);
         }
 
         protected override void CommandAction(DTEHelper helper, string solutionUniqueName)

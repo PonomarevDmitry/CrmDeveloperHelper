@@ -12,6 +12,7 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.ListForPublish;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Checks;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.Explorers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.FindEdit;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.PluginConfigurations;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.PluginConfigurations;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Projects;
@@ -416,14 +417,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonCrmConnectionCommand.Initialize(commandService);
             CommonCrmConnectionTestCommand.Initialize(commandService);
 
-            CommonFindEntityObjectsByPrefixAndShowDependentComponentsCommand.Initialize(commandService);
-            CommonFindEntityObjectsByPrefixCommand.Initialize(commandService);
+        
+
             CommonCheckEntitiesOwnerShipsCommand.Initialize(commandService);
             CommonCheckWorkflowsUsedEntitiesCommand.Initialize(commandService);
             CommonCheckWorkflowsUsedNotExistsEntitiesCommand.Initialize(commandService);
             CommonCheckGlobalOptionSetDuplicateCommand.Initialize(commandService);
             CommonCheckManagedElementsCommand.Initialize(commandService);
-            CommonFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommand.Initialize(commandService);
             CommonCheckPluginImagesCommand.Initialize(commandService);
             CommonCheckPluginImagesRequiredComponentsCommand.Initialize(commandService);
             CommonCheckPluginStepsCommand.Initialize(commandService);
@@ -468,11 +468,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonExportXsdSchemasCommand.Initialize(commandService);
             CommonOpenXsdSchemaFolderCommand.Initialize(commandService);
 
-            CommonFindEntityObjectsByNameCommand.Initialize(commandService);
-            CommonFindEntityObjectsContainsStringCommand.Initialize(commandService);
-            CommonFindEntitiesByIdCommand.Initialize(commandService);
-            CommonEditEntitiesByIdCommand.Initialize(commandService);
-            CommonFindEntitiesByUniqueidentifierCommand.Initialize(commandService);
+            
             CommonOrganizationComparerCommand.Initialize(commandService);
             CommonOpenOrganizationDifferenceImageCommand.Initialize(commandService);
             CommonTraceExportFileCommand.Initialize(commandService);
@@ -508,6 +504,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CommonSelectCrmConnectionCommand.Initialize(commandService);
 
+            #region Finds and Edits
+
+            CommonFindEntityObjectsByPrefixCommand.Initialize(commandService);
+            CommonFindEntityObjectsByPrefixInExplorerCommand.Initialize(commandService);
+
+            CommonFindEntityObjectsByPrefixAndShowDependentComponentsCommand.Initialize(commandService);
+
+            CommonFindEntityObjectsMarkedToDeleteInExplorerCommand.Initialize(commandService);
+            CommonFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommand.Initialize(commandService);
+
+            CommonFindEntityObjectsByNameCommand.Initialize(commandService);
+            CommonFindEntityObjectsByNameInExplorerCommand.Initialize(commandService);
+
+            CommonFindEntityObjectsContainsStringCommand.Initialize(commandService);
+            CommonFindEntityObjectsContainsStringInExplorerCommand.Initialize(commandService);
+
+            CommonFindEntitiesByIdCommand.Initialize(commandService);
+            CommonFindEntitiesByUniqueidentifierCommand.Initialize(commandService);
+
+            CommonEditEntitiesByIdCommand.Initialize(commandService);
+
+            #endregion Finds and Edits
+
             #region Output Windows
 
             OutputSelectCrmConnectionCommand.Initialize(commandService);
@@ -525,6 +544,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             OutputExportFormEventsCommand.Initialize(commandService);
 
+            #region Finds and Edits
+
+            OutputFindEntityObjectsByPrefixCommand.Initialize(commandService);
+            OutputFindEntityObjectsByPrefixInExplorerCommand.Initialize(commandService);
+
+            OutputFindEntityObjectsByPrefixAndShowDependentComponentsCommand.Initialize(commandService);
+
+            OutputFindEntityObjectsMarkedToDeleteInExplorerCommand.Initialize(commandService);
+            OutputFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommand.Initialize(commandService);
+
+            OutputFindEntityObjectsByNameCommand.Initialize(commandService);
+            OutputFindEntityObjectsByNameInExplorerCommand.Initialize(commandService);
+
+            OutputFindEntityObjectsContainsStringCommand.Initialize(commandService);
+            OutputFindEntityObjectsContainsStringInExplorerCommand.Initialize(commandService);
+
+            OutputFindEntitiesByIdCommand.Initialize(commandService);
+            OutputFindEntitiesByUniqueidentifierCommand.Initialize(commandService);
+
+            OutputEditEntitiesByIdCommand.Initialize(commandService);
+
+            #endregion Finds and Edits
+
+            #region PluginConfiguration
+
+            OutputPluginConfigurationComparerPluginAssemblyCommand.Initialize(commandService);
+            OutputPluginConfigurationCreateCommand.Initialize(commandService);
+            OutputPluginConfigurationPluginAssemblyCommand.Initialize(commandService);
+            OutputPluginConfigurationPluginTreeCommand.Initialize(commandService);
+            OutputPluginConfigurationPluginTypeCommand.Initialize(commandService);
+
+            #endregion PluginConfiguration
+
             OutputApplicationRibbonExplorerCommand.Initialize(commandService);
             OutputCheckComponentTypeEnumCommand.Initialize(commandService);
             OutputCheckCreateAllDependencyNodeDescriptionCommand.Initialize(commandService);
@@ -538,20 +590,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             OutputCheckWorkflowsUsedEntitiesCommand.Initialize(commandService);
             OutputCheckWorkflowsUsedNotExistsEntitiesCommand.Initialize(commandService);
             OutputCustomControlExplorerCommand.Initialize(commandService);
-            OutputEditEntitiesByIdCommand.Initialize(commandService);
             OutputEntityAttributeExplorerCommand.Initialize(commandService);
             OutputEntityKeyExplorerCommand.Initialize(commandService);
             OutputEntityMetadataExplorerCommand.Initialize(commandService);
             OutputEntityPrivilegesExplorerCommand.Initialize(commandService);
             OutputEntityRelationshipManyToManyExplorerCommand.Initialize(commandService);
             OutputEntityRelationshipOneToManyExplorerCommand.Initialize(commandService);
-            OutputFindEntityObjectsByPrefixAndShowDependentComponentsCommand.Initialize(commandService);
-            OutputFindEntityObjectsByPrefixCommand.Initialize(commandService);
-            OutputFindEntitiesByIdCommand.Initialize(commandService);
-            OutputFindEntityObjectsByNameCommand.Initialize(commandService);
-            OutputFindEntitiesByUniqueidentifierCommand.Initialize(commandService);
-            OutputFindEntityObjectsContainsStringCommand.Initialize(commandService);
-            OutputFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommand.Initialize(commandService);
+            
             OutputGlobalOptionSetsExplorerCommand.Initialize(commandService);
             OutputImportJobExplorerInConnectionCommand.Initialize(commandService);
             OutputOrganizationExplorerCommand.Initialize(commandService);
@@ -573,12 +618,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             OutputTraceReaderCommand.Initialize(commandService);
             OutputWebResourceExplorerCommand.Initialize(commandService);
             OutputWorkflowExplorerCommand.Initialize(commandService);
-
-            OutputPluginConfigurationComparerPluginAssemblyCommand.Initialize(commandService);
-            OutputPluginConfigurationCreateCommand.Initialize(commandService);
-            OutputPluginConfigurationPluginAssemblyCommand.Initialize(commandService);
-            OutputPluginConfigurationPluginTreeCommand.Initialize(commandService);
-            OutputPluginConfigurationPluginTypeCommand.Initialize(commandService);
 
             OutputPublishAllInCrmConnectionCommand.Initialize(commandService);
 

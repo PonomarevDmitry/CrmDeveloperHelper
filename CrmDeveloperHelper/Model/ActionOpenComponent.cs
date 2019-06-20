@@ -6,12 +6,12 @@
 
         OpenInWeb = 1,
 
-        OpenInWindow = 2,
+        OpenInExplorer = 2,
 
         OpenDependentComponentsInWeb = 3,
 
-        OpenDependentComponentsInWindow = 4,
+        OpenDependentComponentsInExplorer = 4,
 
-        OpenSolutionsContainingComponentInWindow = 5,
+        OpenSolutionsContainingComponentInExplorer = 5,
     }
 }

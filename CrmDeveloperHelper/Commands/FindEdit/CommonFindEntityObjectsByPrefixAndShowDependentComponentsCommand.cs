@@ -17,7 +17,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.FindEdit
 
         protected override void CommandAction(DTEHelper helper)
         {
-            helper.HandleCheckEntitiesNamesAndShowDependentComponents();
+            helper.HandleFindEntityObjectsByPrefixAndShowDependentComponents();
         }
     }
 }

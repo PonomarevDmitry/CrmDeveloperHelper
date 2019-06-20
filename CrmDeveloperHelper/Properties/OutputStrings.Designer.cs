@@ -727,6 +727,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No Objects in CRM founded marked to delete by &apos;{0}&apos;..
+        /// </summary>
+        internal static string NoObjectsInCRMFoundedMarkedToDeleteFormat1 {
+            get {
+                return ResourceManager.GetString("NoObjectsInCRMFoundedMarkedToDeleteFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No Objects in CRM founded with prefix &apos;{0}&apos;..
         /// </summary>
         internal static string NoObjectsInCRMFoundedWithPrefixFormat1 {

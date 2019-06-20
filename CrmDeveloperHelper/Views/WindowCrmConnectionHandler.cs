@@ -1631,7 +1631,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         {
                             var contr = new FindsController(iWriteToOutput);
 
-                            contr.ExecuteCheckingEntitiesNamesAndShowDependentComponents(connection, commonConfig, dialog.Prefix);
+                            contr.ExecuteFindingEntityObjectsByPrefixAndShowDependentComponents(connection, commonConfig, dialog.Prefix);
                         }
                         catch (Exception ex)
                         {
@@ -1662,7 +1662,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         {
                             var contr = new FindsController(iWriteToOutput);
 
-                            contr.ExecuteCheckingMarkedToDelete(connection, commonConfig, dialog.Prefix);
+                            contr.ExecuteFindingMarkedToDeleteAndShowDependentComponents(connection, commonConfig, dialog.Prefix);
                         }
                         catch (Exception ex)
                         {

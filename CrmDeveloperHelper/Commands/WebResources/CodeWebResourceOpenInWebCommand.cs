@@ -21,9 +21,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
         public static CodeWebResourceOpenInWebCommand InstanceOpenDependentComponentsInWeb { get; private set; }
 
-        public static CodeWebResourceOpenInWebCommand InstanceOpenDependentComponentsInWindow { get; private set; }
+        public static CodeWebResourceOpenInWebCommand InstanceOpenDependentComponentsInExplorer { get; private set; }
 
-        public static CodeWebResourceOpenInWebCommand InstanceOpenSolutionsContainingComponentInWindow { get; private set; }
+        public static CodeWebResourceOpenInWebCommand InstanceOpenSolutionsContainingComponentInExplorer { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
@@ -31,9 +31,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 
             InstanceOpenDependentComponentsInWeb = new CodeWebResourceOpenInWebCommand(commandService, PackageIds.CodeWebResourceOpenDependentInWebCommandId, ActionOpenComponent.OpenDependentComponentsInWeb);
 
-            InstanceOpenDependentComponentsInWindow = new CodeWebResourceOpenInWebCommand(commandService, PackageIds.CodeWebResourceOpenDependentInWindowCommandId, ActionOpenComponent.OpenDependentComponentsInWindow);
+            InstanceOpenDependentComponentsInExplorer = new CodeWebResourceOpenInWebCommand(commandService, PackageIds.CodeWebResourceOpenDependentInExplorerCommandId, ActionOpenComponent.OpenDependentComponentsInExplorer);
 
-            InstanceOpenSolutionsContainingComponentInWindow = new CodeWebResourceOpenInWebCommand(commandService, PackageIds.CodeWebResourceOpenSolutionsContainingComponentInWindowCommandId, ActionOpenComponent.OpenSolutionsContainingComponentInWindow);
+            InstanceOpenSolutionsContainingComponentInExplorer = new CodeWebResourceOpenInWebCommand(commandService, PackageIds.CodeWebResourceOpenSolutionsContainingComponentInExplorerCommandId, ActionOpenComponent.OpenSolutionsContainingComponentInExplorer);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)

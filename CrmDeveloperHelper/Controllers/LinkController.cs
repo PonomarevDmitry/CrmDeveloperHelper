@@ -467,7 +467,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 connectionData.OpenSolutionComponentDependentComponentsInWeb(Entities.ComponentType.Report, reportEntity.Id);
             }
-            else if (action == ActionOpenComponent.OpenDependentComponentsInWindow)
+            else if (action == ActionOpenComponent.OpenDependentComponentsInExplorer)
             {
                 WindowHelper.OpenSolutionComponentDependenciesWindow(
                     _iWriteToOutput
@@ -478,7 +478,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , reportEntity.Id
                     , null);
             }
-            else if (action == ActionOpenComponent.OpenSolutionsContainingComponentInWindow)
+            else if (action == ActionOpenComponent.OpenSolutionsContainingComponentInExplorer)
             {
                 WindowHelper.OpenExplorerSolutionWindow(
                     _iWriteToOutput
@@ -649,7 +649,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 connectionData.OpenSolutionComponentDependentComponentsInWeb(Entities.ComponentType.WebResource, webresource.Id);
             }
-            else if (action == ActionOpenComponent.OpenDependentComponentsInWindow)
+            else if (action == ActionOpenComponent.OpenDependentComponentsInExplorer)
             {
                 WindowHelper.OpenSolutionComponentDependenciesWindow(
                     _iWriteToOutput
@@ -660,7 +660,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
                     , webresource.Id
                     , null);
             }
-            else if (action == ActionOpenComponent.OpenSolutionsContainingComponentInWindow)
+            else if (action == ActionOpenComponent.OpenSolutionsContainingComponentInExplorer)
             {
                 WindowHelper.OpenExplorerSolutionWindow(
                     _iWriteToOutput
@@ -738,7 +738,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             {
                 connectionData.OpenSolutionInWeb(solution.Id);
             }
-            else if (action == ActionOpenComponent.OpenInWindow)
+            else if (action == ActionOpenComponent.OpenInExplorer)
             {
                 WindowHelper.OpenSolutionComponentDependenciesWindow(this._iWriteToOutput, service, null, commonConfig, solution.UniqueName, null);
             }

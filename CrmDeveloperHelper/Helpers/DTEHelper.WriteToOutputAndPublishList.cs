@@ -1163,7 +1163,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             if (connectionData != null && !string.IsNullOrEmpty(solutionUniqueName))
             {
-                this.HandleOpenLastSelectedSolution(connectionData, solutionUniqueName, ActionOpenComponent.OpenInWindow);
+                this.HandleOpenLastSelectedSolution(connectionData, solutionUniqueName, ActionOpenComponent.OpenInExplorer);
             }
 
             return this;

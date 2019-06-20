@@ -2113,6 +2113,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loading Components....
+        /// </summary>
+        internal static string LoadingComponents {
+            get {
+                return ResourceManager.GetString("LoadingComponents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} components loaded..
+        /// </summary>
+        internal static string LoadingComponentsCompletedFormat1 {
+            get {
+                return ResourceManager.GetString("LoadingComponentsCompletedFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading components from Solution Image....
         /// </summary>
         internal static string LoadingComponentsFromSolutionImage {

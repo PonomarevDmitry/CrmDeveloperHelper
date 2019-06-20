@@ -376,6 +376,9 @@
   <data name="NoObjectsInCRMFoundedWithPrefixFormat1" xml:space="preserve">
     <value>No Objects in CRM founded with prefix '{0}'.</value>
   </data>
+  <data name="NoObjectsInCRMFoundedMarkedToDeleteFormat1" xml:space="preserve">
+    <value>No Objects in CRM founded marked to delete by '{0}'.</value>
+  </data>
   <data name="WebResourcesWithPrefixFormat2" xml:space="preserve">
     <value>WebResources names with prefix '{0}': {1}</value>
   </data>

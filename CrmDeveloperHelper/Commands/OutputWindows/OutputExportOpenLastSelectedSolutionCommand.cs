@@ -24,13 +24,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
 
         public static OutputExportOpenLastSelectedSolutionCommand InstanceOpenInWeb { get; private set; }
 
-        public static OutputExportOpenLastSelectedSolutionCommand InstanceOpenInWindow { get; private set; }
+        public static OutputExportOpenLastSelectedSolutionCommand InstanceOpenInExplorer { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
             InstanceOpenInWeb = new OutputExportOpenLastSelectedSolutionCommand(commandService, PackageIds.OutputExportOpenLastSelectedSolutionInWebCommandId, ActionOpenComponent.OpenInWeb);
 
-            InstanceOpenInWindow = new OutputExportOpenLastSelectedSolutionCommand(commandService, PackageIds.OutputExportOpenLastSelectedSolutionInWindowCommandId, ActionOpenComponent.OpenInWindow);
+            InstanceOpenInExplorer = new OutputExportOpenLastSelectedSolutionCommand(commandService, PackageIds.OutputExportOpenLastSelectedSolutionInExplorerCommandId, ActionOpenComponent.OpenInExplorer);
         }
 
         protected override ICollection<string> GetElementSourceCollection(ConnectionData connectionData)

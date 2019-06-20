@@ -2,7 +2,7 @@
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 
-namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.FindEdit
+namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows.FindEdit
 {
     internal sealed class OutputFindEntityObjectsByNameCommand : AbstractOutputWindowCommand
     {
@@ -18,7 +18,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.FindEdit
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)
         {
-            helper.HandleFindByName(connectionData);
+            helper.HandleFindEntityObjectsByName(connectionData);
         }
     }
 }

@@ -55,8 +55,8 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb" priority="0x0605"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenInWebDyn_Group" priority="0x0605"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" priority="0x0605"/>
-      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWindowDyn_Group" priority="0x0605"/>
-      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn_Group" priority="0x0605"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group" priority="0x0605"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" priority="0x0605"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupAddToSolution" priority="0x0605"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupAddToSolution_MenuAddToSolution_GroupLastSolution" priority="0x0605"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupAddToSolution_MenuAddToSolution_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x0605"/>
@@ -139,8 +139,8 @@
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenInWebDyn_Group" priority="0x0605"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" priority="0x0605"/>
-      <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInWindowDyn_Group" priority="0x0605"/>
-      <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn_Group" priority="0x0605"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group" priority="0x0605"/>
+      <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" priority="0x0605"/>
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupAddToSolution" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupAddToSolution_MenuAddToSolution_GroupLastSolution" priority="0x0602" />
       <Group guid="guidGroupAndMenuSet" id="codeMenuReport_GroupAddToSolution_MenuAddToSolution_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x0602" />
@@ -279,8 +279,8 @@
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb" priority="0x0609" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenInWebDyn_Group" priority="0x0605"/>
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" priority="0x0605"/>
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWindowDyn_Group" priority="0x0605"/>
-      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn_Group" priority="0x0605"/>
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group" priority="0x0605"/>
+      <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" priority="0x0605"/>
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupAddToSolution" priority="0x0609" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupAddToSolution_MenuAddToSolution_GroupLastSolution" priority="0x0609" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupAddToSolution_MenuAddToSolution_GroupLastSolution_MenuLastSolutionDyn_Group" priority="0x0609" />
@@ -308,8 +308,8 @@
       <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenInWebDyn_Group" priority="0x0605"/>
       <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" priority="0x0605"/>
-      <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInWindowDyn_Group" priority="0x0605"/>
-      <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn_Group" priority="0x0605"/>
+      <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group" priority="0x0605"/>
+      <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" priority="0x0605"/>
       <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupCreate" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupCreate_MenuConnectionDyn_Group" priority="0x0601" />
       <Group guid="guidGroupAndMenuSet" id="fileMenuReport_GroupExplorer" priority="0x0601" />
@@ -570,7 +570,7 @@
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands" priority="0x0604" />
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuImportJobDyn_Group" priority="0x0604" />
-      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInWindowDyn_Group" priority="0x0610" />
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInExplorerDyn_Group" priority="0x0610" />
 
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpenInWeb" priority="0x0604" />
 
@@ -690,7 +690,7 @@
 
       <Group guid="guidGroupAndMenuSet" id="outputMenu_GroupSolutions" priority="0x6000" />
       <Group guid="guidGroupAndMenuSet" id="outputMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands" priority="0x6000" />
-      <Group guid="guidGroupAndMenuSet" id="outputMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInWindowDyn_Group" priority="0x6000" />
+      <Group guid="guidGroupAndMenuSet" id="outputMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInExplorerDyn_Group" priority="0x6000" />
       <Group guid="guidGroupAndMenuSet" id="outputMenu_GroupSolutions_MenuSolutions_GroupSolutionOpenInWeb" priority="0x6000" />
       <Group guid="guidGroupAndMenuSet" id="outputMenu_GroupSolutions_MenuSolutions_GroupSolutionOpenInWeb_MenuOpenLastSolutionDyn_Group" priority="0x6000" />
 
@@ -1663,11 +1663,11 @@
         </Strings>
       </Menu>
 
-      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInWindowDyn" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInExplorerDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Last Solution in Window</ButtonText>
-          <MenuText>Open Last Solution in Window</MenuText>
+          <ButtonText>Open Last Solution in Explorer</ButtonText>
+          <MenuText>Open Last Solution in Explorer</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuImportJobDyn" priority="0x0107" type="Menu">
@@ -2575,18 +2575,18 @@
           <MenuText>Open WebResource Dependent Components in Web</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWindowDyn" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInExplorerDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open WebResource Dependent Components in Window</ButtonText>
-          <MenuText>Open WebResource Dependent Components in Window</MenuText>
+          <ButtonText>Open WebResource Dependent Components in Explorer</ButtonText>
+          <MenuText>Open WebResource Dependent Components in Explorer</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions Containing WebResource in Window</ButtonText>
-          <MenuText>Open Solutions Containing WebResource in Window</MenuText>
+          <ButtonText>Open Solutions Containing WebResource in Explorer</ButtonText>
+          <MenuText>Open Solutions Containing WebResource in Explorer</MenuText>
         </Strings>
       </Menu>
 
@@ -2618,18 +2618,18 @@
           <MenuText>Open Report Dependent Components in Web</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInWindowDyn" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInExplorerDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Report Dependent Components in Window</ButtonText>
-          <MenuText>Open Report Dependent Components in Window</MenuText>
+          <ButtonText>Open Report Dependent Components in Explorer</ButtonText>
+          <MenuText>Open Report Dependent Components in Explorer</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions Containing Report in Window</ButtonText>
-          <MenuText>Open Solutions Containing Report in Window</MenuText>
+          <ButtonText>Open Solutions Containing Report in Explorer</ButtonText>
+          <MenuText>Open Solutions Containing Report in Explorer</MenuText>
         </Strings>
       </Menu>
 
@@ -2649,18 +2649,18 @@
           <MenuText>Open WebResource Dependent Components in Web</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWindowDyn" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInExplorerDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open WebResource Dependent Components in Window</ButtonText>
-          <MenuText>Open WebResource Dependent Components in Window</MenuText>
+          <ButtonText>Open WebResource Dependent Components in Explorer</ButtonText>
+          <MenuText>Open WebResource Dependent Components in Explorer</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions Containing WebResource in Window</ButtonText>
-          <MenuText>Open Solutions Containing WebResource in Window</MenuText>
+          <ButtonText>Open Solutions Containing WebResource in Explorer</ButtonText>
+          <MenuText>Open Solutions Containing WebResource in Explorer</MenuText>
         </Strings>
       </Menu>
 
@@ -2692,18 +2692,18 @@
           <MenuText>Open Report Dependent Components in Web</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInWindowDyn" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInExplorerDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Report Dependent Components in Window</ButtonText>
-          <MenuText>Open Report Dependent Components in Window</MenuText>
+          <ButtonText>Open Report Dependent Components in Explorer</ButtonText>
+          <MenuText>Open Report Dependent Components in Explorer</MenuText>
         </Strings>
       </Menu>
-      <Menu guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn" priority="0x0107" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions Containing Report in Window</ButtonText>
-          <MenuText>Open Solutions Containing Report in Window</MenuText>
+          <ButtonText>Open Solutions Containing Report in Explorer</ButtonText>
+          <MenuText>Open Solutions Containing Report in Explorer</MenuText>
         </Strings>
       </Menu>
 
@@ -2802,11 +2802,11 @@
         </Strings>
       </Menu>
 
-      <Menu guid="guidGroupAndMenuSet" id="outputMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInWindowDyn" priority="0x6000" type="Menu">
+      <Menu guid="guidGroupAndMenuSet" id="outputMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInExplorerDyn" priority="0x6000" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
-          <ButtonText>Open Last Solution in Window</ButtonText>
-          <MenuText>Open Last Solution in Window</MenuText>
+          <ButtonText>Open Last Solution in Explorer</ButtonText>
+          <MenuText>Open Last Solution in Explorer</MenuText>
         </Strings>
       </Menu>
 
@@ -3577,7 +3577,7 @@
           <ButtonText>Open WebResource Dependent Components in Web Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeWebResourceOpenDependentInWindowCommandId" priority="0x0107" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeWebResourceOpenDependentInExplorerCommandId" priority="0x0107" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -3585,10 +3585,10 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open WebResource Dependent Components in Window Placeholder</ButtonText>
+          <ButtonText>Open WebResource Dependent Components in Explorer Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeWebResourceOpenSolutionsContainingComponentInWindowCommandId" priority="0x0106" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeWebResourceOpenSolutionsContainingComponentInExplorerCommandId" priority="0x0106" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -3596,7 +3596,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions Containing WebResource in Window Placeholder</ButtonText>
+          <ButtonText>Open Solutions Containing WebResource in Explorer Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -3836,7 +3836,7 @@
           <ButtonText>Open Report Dependent Components in Web Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeReportOpenDependentInWindowCommandId" priority="0x0107" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeReportOpenDependentInExplorerCommandId" priority="0x0107" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -3844,10 +3844,10 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open Report Dependent Components in Window Placeholder</ButtonText>
+          <ButtonText>Open Report Dependent Components in Explorer Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CodeReportOpenSolutionsContainingComponentInWindowInWindowCommandId" priority="0x0107" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CodeReportOpenSolutionsContainingComponentInExplorerCommandId" priority="0x0107" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -3855,7 +3855,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions Containing Report in Window Placeholder</ButtonText>
+          <ButtonText>Open Solutions Containing Report in Explorer Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -4946,7 +4946,7 @@
           <ButtonText>Open WebResource Dependent Components in Web Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceOpenDependentInWindowCommandId" priority="0x0110" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FileWebResourceOpenDependentInExplorerCommandId" priority="0x0110" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -4954,10 +4954,10 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open WebResource Dependent Components in Window Placeholder</ButtonText>
+          <ButtonText>Open WebResource Dependent Components in Explorer Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileWebResourceOpenSolutionsContainingComponentInWindowInWindowCommandId" priority="0x0110" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FileWebResourceOpenSolutionsContainingComponentInExplorerCommandId" priority="0x0110" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -4965,7 +4965,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions Containing WebResource in Window Placeholder</ButtonText>
+          <ButtonText>Open Solutions Containing WebResource in Explorer Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -5071,7 +5071,7 @@
           <ButtonText>Open Report Dependent Components in Web Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileReportOpenDependentInWindowCommandId" priority="0x0112" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FileReportOpenDependentInExplorerCommandId" priority="0x0112" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -5079,10 +5079,10 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open Report Dependent Components in Window Placeholder</ButtonText>
+          <ButtonText>Open Report Dependent Components in Explorer Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="FileReportOpenSolutionsContainingComponentInWindowInWindowCommandId" priority="0x0113" type="Button">
+      <Button guid="guidDynamicCommandSet" id="FileReportOpenSolutionsContainingComponentInExplorerCommandId" priority="0x0113" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -5090,7 +5090,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open Solutions Containing Report in Window Placeholder</ButtonText>
+          <ButtonText>Open Solutions Containing Report in Explorer Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -7252,13 +7252,22 @@
 
 
 
-      <Button guid="guidCommandSet" id="CommonFindEntityObjectsByPrefixCommandId" priority="0x010B" type="Button">
+      <Button guid="guidCommandSet" id="CommonFindEntityObjectsByPrefixCommandId" priority="0x6000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
           <ButtonText>Find Entity Objects names for prefix</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="CommonFindEntityObjectsByPrefixInExplorerCommandId" priority="0x6000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Find Entity Objects names for prefix in Explorer</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="CommonFindEntityObjectsByPrefixAndShowDependentComponentsCommandId" priority="0x010C" type="Button">
@@ -7270,7 +7279,17 @@
           <ButtonText>Find Entity Objects names for prefix and show dependent components</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidCommandSet" id="CommonFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommandId" priority="0x010D" type="Button">
+      
+      <Button guid="guidCommandSet" id="CommonFindEntityObjectsMarkedToDeleteInExplorerCommandId" priority="0x6000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Find Entity Objects marked to delete in Explorer</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="CommonFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommandId" priority="0x6000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -7280,7 +7299,7 @@
         </Strings>
       </Button>
 
-      <Button guid="guidCommandSet" id="CommonFindEntityObjectsByNameCommandId" priority="0x010E" type="Button">
+      <Button guid="guidCommandSet" id="CommonFindEntityObjectsByNameCommandId" priority="0x6000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -7289,6 +7308,16 @@
           <ButtonText>Find Entity Objects by name</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="CommonFindEntityObjectsByNameInExplorerCommandId" priority="0x6000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Find Entity Objects by name in Explorer</ButtonText>
+        </Strings>
+      </Button>
+      
       <Button guid="guidCommandSet" id="CommonFindEntityObjectsContainsStringCommandId" priority="0x010F" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -7298,6 +7327,16 @@
           <ButtonText>Find Entity Objects contains string</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="CommonFindEntityObjectsContainsStringInExplorerCommandId" priority="0x010F" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Find Entity Objects contains string in Explorer</ButtonText>
+        </Strings>
+      </Button>
+      
       <Button guid="guidCommandSet" id="CommonFindEntitiesByIdCommandId" priority="0x0110" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -7841,7 +7880,7 @@
           <ButtonText>Open Solution in Web Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="CommonExportOpenLastSelectedSolutionInWindowCommandId" priority="0x012C" type="Button">
+      <Button guid="guidDynamicCommandSet" id="CommonExportOpenLastSelectedSolutionInExplorerCommandId" priority="0x012C" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -7849,7 +7888,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open Solution in Window Placeholder</ButtonText>
+          <ButtonText>Open Solution in Explorer Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -8355,7 +8394,7 @@
           <ButtonText>Open Solution in Web Placeholder</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidDynamicCommandSet" id="OutputExportOpenLastSelectedSolutionInWindowCommandId" priority="0x6000" type="Button">
+      <Button guid="guidDynamicCommandSet" id="OutputExportOpenLastSelectedSolutionInExplorerCommandId" priority="0x6000" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -8363,7 +8402,7 @@
         <CommandFlag>DontCache</CommandFlag>
         <CommandFlag>TextChanges</CommandFlag>
         <Strings>
-          <ButtonText>Open Solution in Window Placeholder</ButtonText>
+          <ButtonText>Open Solution in Explorer Placeholder</ButtonText>
         </Strings>
       </Button>
 
@@ -8390,6 +8429,16 @@
           <ButtonText>Find Entity Objects names for prefix</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="OutputFindEntityObjectsByPrefixInExplorerCommandId" priority="0x6000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Find Entity Objects names for prefix in Explorer</ButtonText>
+        </Strings>
+      </Button>
+      
       <Button guid="guidCommandSet" id="OutputFindEntityObjectsByPrefixAndShowDependentComponentsCommandId" priority="0x6000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -8397,6 +8446,16 @@
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
           <ButtonText>Find Entity Objects names for prefix and show dependent components</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandSet" id="OutputFindEntityObjectsMarkedToDeleteInExplorerCommandId" priority="0x6000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Find Entity Objects marked to delete in Explorer</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="OutputFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommandId" priority="0x6000" type="Button">
@@ -8408,7 +8467,7 @@
           <ButtonText>Find Entity Objects marked to delete and show dependent components</ButtonText>
         </Strings>
       </Button>
-
+      
       <Button guid="guidCommandSet" id="OutputFindEntityObjectsByNameCommandId" priority="0x6000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -8418,6 +8477,16 @@
           <ButtonText>Find Entity Objects by name</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="OutputFindEntityObjectsByNameInExplorerCommandId" priority="0x6000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Find Entity Objects by name in Explorer</ButtonText>
+        </Strings>
+      </Button>
+      
       <Button guid="guidCommandSet" id="OutputFindEntityObjectsContainsStringCommandId" priority="0x6000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -8427,6 +8496,16 @@
           <ButtonText>Find Entity Objects contains string</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCommandSet" id="OutputFindEntityObjectsContainsStringInExplorerCommandId" priority="0x6000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Find Entity Objects contains string in Explorer</ButtonText>
+        </Strings>
+      </Button>
+      
       <Button guid="guidCommandSet" id="OutputFindEntitiesByIdCommandId" priority="0x6000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10893,17 +10972,29 @@
     <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsByPrefixCommandId" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupCrmObjects" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsByPrefixAndShowDependentComponentsCommandId" priority="0x0610">
+    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsByPrefixInExplorerCommandId" priority="0x0610">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupCrmObjects" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommandId" priority="0x0620">
+    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsByPrefixAndShowDependentComponentsCommandId" priority="0x0620">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupCrmObjects" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsMarkedToDeleteInExplorerCommandId" priority="0x0630">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupCrmObjects" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommandId" priority="0x0640">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupCrmObjects" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsByNameCommandId" priority="0x0100">
+    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsByNameCommandId" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupAttribute" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsContainsStringCommandId" priority="0x0110">
+    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsByNameInExplorerCommandId" priority="0x0610">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupAttribute" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsContainsStringCommandId" priority="0x0620">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupAttribute" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonFindEntityObjectsContainsStringInExplorerCommandId" priority="0x0630">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupFind_MenuFind_GroupAttribute" />
     </CommandPlacement>
 
@@ -11035,7 +11126,7 @@
     </CommandPlacement>
 
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInWindowDyn" priority="0x0600">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInExplorerDyn" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuImportJobDyn" priority="0x0610">
@@ -11136,11 +11227,11 @@
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWindowDyn" priority="0x0107">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInExplorerDyn" priority="0x0107">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn" priority="0x0108">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn" priority="0x0108">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb" />
     </CommandPlacement>
 
@@ -11399,11 +11490,11 @@
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInWindowDyn" priority="0x0106">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInExplorerDyn" priority="0x0106">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn" priority="0x0107">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn" priority="0x0107">
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb" />
     </CommandPlacement>
 
@@ -12019,10 +12110,10 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWebDyn" priority="0x0111">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWindowDyn" priority="0x0112">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInExplorerDyn" priority="0x0112">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn" priority="0x0113">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn" priority="0x0113">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb" />
     </CommandPlacement>
 
@@ -12060,10 +12151,10 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInWebDyn" priority="0x0111">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInWindowDyn" priority="0x0112">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInExplorerDyn" priority="0x0112">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn" priority="0x0113">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn" priority="0x0113">
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb" />
     </CommandPlacement>
 
@@ -12881,11 +12972,11 @@
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpenInWeb_MenuOpenDefaultSolutionDyn_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInWindowDyn_Group" priority="0x012D">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInWindowDyn" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInExplorerDyn_Group" priority="0x012D">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInExplorerDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CommonExportOpenLastSelectedSolutionInWindowCommandId" priority="0x012D">
-      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInWindowDyn_Group" />
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonExportOpenLastSelectedSolutionInExplorerCommandId" priority="0x012D">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInExplorerDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionOpenInWeb_MenuOpenLastSolutionDyn_Group" priority="0x012E">
@@ -12972,18 +13063,18 @@
       <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWindowDyn_Group" priority="0x0107">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWindowDyn" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group" priority="0x0107">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInExplorerDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeWebResourceOpenDependentInWindowCommandId" priority="0x0107">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWindowDyn_Group" />
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeWebResourceOpenDependentInExplorerCommandId" priority="0x0107">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn_Group" priority="0x0108">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" priority="0x0108">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeWebResourceOpenSolutionsContainingComponentInWindowCommandId" priority="0x0108">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn_Group" />
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeWebResourceOpenSolutionsContainingComponentInExplorerCommandId" priority="0x0108">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuWebResource_GroupAddToSolution_MenuAddToSolution_GroupLastSolution_MenuLastSolutionDyn" priority="0x0105">
@@ -13194,18 +13285,18 @@
       <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInWindowDyn_Group" priority="0x0106">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInWindowDyn" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group" priority="0x0106">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInExplorerDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeReportOpenDependentInWindowCommandId" priority="0x0106">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInWindowDyn_Group" />
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeReportOpenDependentInExplorerCommandId" priority="0x0106">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn_Group" priority="0x0107">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" priority="0x0107">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CodeReportOpenSolutionsContainingComponentInWindowInWindowCommandId" priority="0x0107">
-      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn_Group" />
+    <CommandPlacement guid="guidDynamicCommandSet" id="CodeReportOpenSolutionsContainingComponentInExplorerCommandId" priority="0x0107">
+      <Parent guid="guidGroupAndMenuSet" id="codeMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="codeMenuReport_GroupAddToSolution_MenuAddToSolution_GroupLastSolution_MenuLastSolutionDyn" priority="0x0102">
@@ -13521,18 +13612,18 @@
       <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWindowDyn_Group" priority="0x0112">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWindowDyn" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group" priority="0x0112">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInExplorerDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOpenDependentInWindowCommandId" priority="0x0112">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWindowDyn_Group" />
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOpenDependentInExplorerCommandId" priority="0x0112">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn_Group" priority="0x0113">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" priority="0x0113">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOpenSolutionsContainingComponentInWindowInWindowCommandId" priority="0x0113">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn_Group" />
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileWebResourceOpenSolutionsContainingComponentInExplorerCommandId" priority="0x0113">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuWebResource_GroupAddToSolution_MenuAddToSolution_GroupLastSolution_MenuLastSolutionDyn" priority="0x0110">
@@ -13577,18 +13668,18 @@
       <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInWindowDyn_Group" priority="0x0112">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInWindowDyn" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group" priority="0x0112">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInExplorerDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileReportOpenDependentInWindowCommandId" priority="0x0112">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInWindowDyn_Group" />
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileReportOpenDependentInExplorerCommandId" priority="0x0112">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn_Group" priority="0x0113">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" priority="0x0113">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="FileReportOpenSolutionsContainingComponentInWindowInWindowCommandId" priority="0x0113">
-      <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn_Group" />
+    <CommandPlacement guid="guidDynamicCommandSet" id="FileReportOpenSolutionsContainingComponentInExplorerCommandId" priority="0x0113">
+      <Parent guid="guidGroupAndMenuSet" id="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="fileMenuReport_GroupAddToSolution_MenuAddToSolution_GroupLastSolution_MenuLastSolutionDyn" priority="0x0110">
@@ -14235,17 +14326,29 @@
     <CommandPlacement guid="guidCommandSet" id="OutputFindEntityObjectsByPrefixCommandId" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupFind_MenuFind_GroupCrmObjects" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputFindEntityObjectsByPrefixAndShowDependentComponentsCommandId" priority="0x0610">
+    <CommandPlacement guid="guidCommandSet" id="OutputFindEntityObjectsByPrefixInExplorerCommandId" priority="0x0610">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupFind_MenuFind_GroupCrmObjects" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommandId" priority="0x0620">
+    <CommandPlacement guid="guidCommandSet" id="OutputFindEntityObjectsByPrefixAndShowDependentComponentsCommandId" priority="0x0620">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupFind_MenuFind_GroupCrmObjects" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="OutputFindEntityObjectsMarkedToDeleteInExplorerCommandId" priority="0x0630">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupFind_MenuFind_GroupCrmObjects" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="OutputFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommandId" priority="0x0640">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupFind_MenuFind_GroupCrmObjects" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="OutputFindEntityObjectsByNameCommandId" priority="0x0100">
+    <CommandPlacement guid="guidCommandSet" id="OutputFindEntityObjectsByNameCommandId" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupFind_MenuFind_GroupAttribute" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputFindEntityObjectsContainsStringCommandId" priority="0x0110">
+    <CommandPlacement guid="guidCommandSet" id="OutputFindEntityObjectsByNameInExplorerCommandId" priority="0x0610">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupFind_MenuFind_GroupAttribute" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="OutputFindEntityObjectsContainsStringCommandId" priority="0x0620">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupFind_MenuFind_GroupAttribute" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="OutputFindEntityObjectsContainsStringInExplorerCommandId" priority="0x0630">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupFind_MenuFind_GroupAttribute" />
     </CommandPlacement>
 
@@ -14377,7 +14480,7 @@
 
 
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="outputMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInWindowDyn" priority="0x0600">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="outputMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInExplorerDyn" priority="0x0600">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands" />
     </CommandPlacement>
     <CommandPlacement guid="guidCommandSet" id="OutputImportJobExplorerInConnectionCommandId" priority="0x0610">
@@ -14582,11 +14685,11 @@
 
 
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="outputMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInWindowDyn_Group" priority="0x0600">
-      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInWindowDyn" />
+    <CommandPlacement guid="guidGroupAndMenuSet" id="outputMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInExplorerDyn_Group" priority="0x0600">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInExplorerDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="OutputExportOpenLastSelectedSolutionInWindowCommandId" priority="0x0600">
-      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInWindowDyn_Group" />
+    <CommandPlacement guid="guidDynamicCommandSet" id="OutputExportOpenLastSelectedSolutionInExplorerCommandId" priority="0x0600">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInExplorerDyn_Group" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidGroupAndMenuSet" id="outputMenu_GroupSolutions_MenuSolutions_GroupSolutionOpenInWeb_MenuOpenLastSolutionDyn_Group" priority="0x0600">
@@ -14723,11 +14826,11 @@
       <IDSymbol name="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWebDyn" value="0x113E" />
       <IDSymbol name="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" value="0x113F" />
 
-      <IDSymbol name="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWindowDyn" value="0x1140" />
-      <IDSymbol name="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWindowDyn_Group" value="0x1141" />
+      <IDSymbol name="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInExplorerDyn" value="0x1140" />
+      <IDSymbol name="codeMenuWebResource_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group" value="0x1141" />
 
-      <IDSymbol name="codeMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn" value="0x1142" />
-      <IDSymbol name="codeMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn_Group" value="0x1143" />
+      <IDSymbol name="codeMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn" value="0x1142" />
+      <IDSymbol name="codeMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" value="0x1143" />
 
       <IDSymbol name="codeMenuWebResource_GroupAddToSolution" value="0x10F3" />
 
@@ -14874,11 +14977,11 @@
       <IDSymbol name="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInWebDyn" value="0x1146" />
       <IDSymbol name="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" value="0x1147" />
 
-      <IDSymbol name="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInWindowDyn" value="0x1148" />
-      <IDSymbol name="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInWindowDyn_Group" value="0x1149" />
+      <IDSymbol name="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInExplorerDyn" value="0x1148" />
+      <IDSymbol name="codeMenuReport_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group" value="0x1149" />
 
-      <IDSymbol name="codeMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn" value="0x114A" />
-      <IDSymbol name="codeMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn_Group" value="0x114B" />
+      <IDSymbol name="codeMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn" value="0x114A" />
+      <IDSymbol name="codeMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" value="0x114B" />
 
       <IDSymbol name="codeMenuReport_GroupAddToSolution" value="0x10F4" />
 
@@ -15189,11 +15292,11 @@
       <IDSymbol name="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWebDyn" value="0x114E" />
       <IDSymbol name="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" value="0x114F" />
 
-      <IDSymbol name="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWindowDyn" value="0x1150" />
-      <IDSymbol name="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInWindowDyn_Group" value="0x1151" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInExplorerDyn" value="0x1150" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group" value="0x1151" />
 
-      <IDSymbol name="fileMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn" value="0x1152" />
-      <IDSymbol name="fileMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn_Group" value="0x1153" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn" value="0x1152" />
+      <IDSymbol name="fileMenuWebResource_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" value="0x1153" />
 
       <IDSymbol name="fileMenuWebResource_GroupAddToSolution" value="0x10F5" />
 
@@ -15221,11 +15324,11 @@
       <IDSymbol name="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInWebDyn" value="0x1156" />
       <IDSymbol name="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInWebDyn_Group" value="0x1157" />
 
-      <IDSymbol name="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInWindowDyn" value="0x1158" />
-      <IDSymbol name="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInWindowDyn_Group" value="0x1159" />
+      <IDSymbol name="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInExplorerDyn" value="0x1158" />
+      <IDSymbol name="fileMenuReport_GroupOpenInWeb_MenuOpenDependentInExplorerDyn_Group" value="0x1159" />
 
-      <IDSymbol name="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn" value="0x115A" />
-      <IDSymbol name="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInWindowDyn_Group" value="0x115B" />
+      <IDSymbol name="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn" value="0x115A" />
+      <IDSymbol name="fileMenuReport_GroupOpenInWeb_MenuOpenSolutionsContainingComponentInExplorerDyn_Group" value="0x115B" />
 
       <IDSymbol name="fileMenuReport_GroupCreate" value="0x1333" />
       <IDSymbol name="fileMenuReport_GroupCreate_MenuConnectionDyn" value="0x1334" />
@@ -15659,8 +15762,8 @@
 
       <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands" value="0x119B" />
 
-      <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInWindowDyn" value="0x1118" />
-      <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInWindowDyn_Group" value="0x1119" />
+      <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInExplorerDyn" value="0x1118" />
+      <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInExplorerDyn_Group" value="0x1119" />
 
       <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuImportJobDyn" value="0x12E0" />
       <IDSymbol name="commonMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuImportJobDyn_Group" value="0x12E1" />
@@ -15871,8 +15974,8 @@
 
       <IDSymbol name="outputMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands" value="0x1365" />
 
-      <IDSymbol name="outputMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInWindowDyn" value="0x137B" />
-      <IDSymbol name="outputMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInWindowDyn_Group" value="0x137C" />
+      <IDSymbol name="outputMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInExplorerDyn" value="0x137B" />
+      <IDSymbol name="outputMenu_GroupSolutions_MenuSolutions_GroupSolutionCommands_MenuOpenLastSolutionInExplorerDyn_Group" value="0x137C" />
 
       <IDSymbol name="outputMenu_GroupSolutions_MenuSolutions_GroupSolutionOpenInWeb" value="0x1366" />
 
@@ -15953,7 +16056,7 @@
       <IDSymbol name="ProjectPluginAssemblyStepsAddToSolutionLastCommandId" value="380" />
 
       <IDSymbol name="CommonExportOpenLastSelectedSolutionInWebCommandId" value="400" />
-      <IDSymbol name="CommonExportOpenLastSelectedSolutionInWindowCommandId" value="420" />
+      <IDSymbol name="CommonExportOpenLastSelectedSolutionInExplorerCommandId" value="420" />
 
       <IDSymbol name="CodeCSharpProjectPluginAssemblyAddToSolutionLastCommandId" value="440" />
       <IDSymbol name="CodeCSharpProjectPluginAssemblyStepsAddToSolutionLastCommandId" value="460" />
@@ -15974,23 +16077,23 @@
 
       <IDSymbol name="CodeWebResourceOpenInWebCommandId" value="850" />
       <IDSymbol name="CodeWebResourceOpenDependentInWebCommandId" value="900" />
-      <IDSymbol name="CodeWebResourceOpenDependentInWindowCommandId" value="950" />
-      <IDSymbol name="CodeWebResourceOpenSolutionsContainingComponentInWindowCommandId" value="1000" />
+      <IDSymbol name="CodeWebResourceOpenDependentInExplorerCommandId" value="950" />
+      <IDSymbol name="CodeWebResourceOpenSolutionsContainingComponentInExplorerCommandId" value="1000" />
 
       <IDSymbol name="FileWebResourceOpenInWebCommandId" value="1050" />
       <IDSymbol name="FileWebResourceOpenDependentInWebCommandId" value="1100" />
-      <IDSymbol name="FileWebResourceOpenDependentInWindowCommandId" value="1150" />
-      <IDSymbol name="FileWebResourceOpenSolutionsContainingComponentInWindowInWindowCommandId" value="1200" />
+      <IDSymbol name="FileWebResourceOpenDependentInExplorerCommandId" value="1150" />
+      <IDSymbol name="FileWebResourceOpenSolutionsContainingComponentInExplorerCommandId" value="1200" />
 
       <IDSymbol name="CodeReportOpenInWebCommandId" value="1250" />
       <IDSymbol name="CodeReportOpenDependentInWebCommandId" value="1300" />
-      <IDSymbol name="CodeReportOpenDependentInWindowCommandId" value="1350" />
-      <IDSymbol name="CodeReportOpenSolutionsContainingComponentInWindowInWindowCommandId" value="1400" />
+      <IDSymbol name="CodeReportOpenDependentInExplorerCommandId" value="1350" />
+      <IDSymbol name="CodeReportOpenSolutionsContainingComponentInExplorerCommandId" value="1400" />
 
       <IDSymbol name="FileReportOpenInWebCommandId" value="1450" />
       <IDSymbol name="FileReportOpenDependentInWebCommandId" value="1500" />
-      <IDSymbol name="FileReportOpenDependentInWindowCommandId" value="1550" />
-      <IDSymbol name="FileReportOpenSolutionsContainingComponentInWindowInWindowCommandId" value="1600" />
+      <IDSymbol name="FileReportOpenDependentInExplorerCommandId" value="1550" />
+      <IDSymbol name="FileReportOpenSolutionsContainingComponentInExplorerCommandId" value="1600" />
 
       <IDSymbol name="CodeWebResourceShowDifferenceThreeWayCommandId" value="1750" />
       <IDSymbol name="FileWebResourceShowDifferenceThreeWayCommandId" value="1800" />
@@ -16207,7 +16310,7 @@
       <IDSymbol name="CodeXmlEntityRibbonOpenInWebCommandId" value="10150" />
 
       <IDSymbol name="OutputExportOpenLastSelectedSolutionInWebCommandId" value="10200" />
-      <IDSymbol name="OutputExportOpenLastSelectedSolutionInWindowCommandId" value="10250" />
+      <IDSymbol name="OutputExportOpenLastSelectedSolutionInExplorerCommandId" value="10250" />
 
       <!-- 10300 -->
 
@@ -16373,14 +16476,21 @@
 
 
       <IDSymbol name="CommonFindEntityObjectsByPrefixCommandId" value="0x201E" />
+      <IDSymbol name="CommonFindEntityObjectsByPrefixInExplorerCommandId" value="0x2201" />
+
       <IDSymbol name="CommonFindEntityObjectsByPrefixAndShowDependentComponentsCommandId" value="0x201F" />
+
+      <IDSymbol name="CommonFindEntityObjectsMarkedToDeleteInExplorerCommandId" value="0x2203" />
       <IDSymbol name="CommonFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommandId" value="0x2020" />
 
       <IDSymbol name="CommonCheckWorkflowsUsedEntitiesCommandId" value="0x216C" />
       <IDSymbol name="CommonCheckWorkflowsUsedNotExistsEntitiesCommandId" value="0x216D" />
 
       <IDSymbol name="CommonFindEntityObjectsByNameCommandId" value="0x2021" />
+      <IDSymbol name="CommonFindEntityObjectsByNameInExplorerCommandId" value="0x2205" />
+      
       <IDSymbol name="CommonFindEntityObjectsContainsStringCommandId" value="0x2022" />
+      <IDSymbol name="CommonFindEntityObjectsContainsStringInExplorerCommandId" value="0x2207" />
       
       <IDSymbol name="CommonFindEntitiesByIdCommandId" value="0x20FD" />
       <IDSymbol name="CommonFindEntitiesByUniqueidentifierCommandId" value="0x2149" />
@@ -16828,11 +16938,18 @@
 
 
       <IDSymbol name="OutputFindEntityObjectsByPrefixCommandId" value="0x21D8" />
+      <IDSymbol name="OutputFindEntityObjectsByPrefixInExplorerCommandId" value="0x2202" />
+      
       <IDSymbol name="OutputFindEntityObjectsByPrefixAndShowDependentComponentsCommandId" value="0x21D9" />
+
+      <IDSymbol name="OutputFindEntityObjectsMarkedToDeleteInExplorerCommandId" value="0x2204" />
       <IDSymbol name="OutputFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommandId" value="0x21DA" />
 
       <IDSymbol name="OutputFindEntityObjectsByNameCommandId" value="0x21DD" />
+      <IDSymbol name="OutputFindEntityObjectsByNameInExplorerCommandId" value="0x2206" />
+      
       <IDSymbol name="OutputFindEntityObjectsContainsStringCommandId" value="0x21DE" />
+      <IDSymbol name="OutputFindEntityObjectsContainsStringInExplorerCommandId" value="0x2208" />
       
       <IDSymbol name="OutputFindEntitiesByIdCommandId" value="0x21DF" />
       <IDSymbol name="OutputFindEntitiesByUniqueidentifierCommandId" value="0x21E0" />
@@ -16953,7 +17070,7 @@
     <!-- 0x137F -->
 
     <!-- Commands -->
-    <!-- 0x2201 -->
+    <!-- 0x2209 -->
 
 
   </Symbols>

@@ -277,15 +277,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Checking CRM Objects marked to delete by &apos;{1}&apos; and show dependent components.
-        /// </summary>
-        internal static string CheckingCRMObjectsMarkedToDeleteByAndShowDependentComponentsFormat2 {
-            get {
-                return ResourceManager.GetString("CheckingCRMObjectsMarkedToDeleteByAndShowDependentComponentsFormat2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} - Checking CRM Objects names and show dependent components.
         /// </summary>
         internal static string CheckingCRMObjectsNamesAndShowDependentComponents {
@@ -300,15 +291,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CheckingCRMObjectsNamesForPrefixAndShowDependentComponentsFormat2 {
             get {
                 return ResourceManager.GetString("CheckingCRMObjectsNamesForPrefixAndShowDependentComponentsFormat2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} - Checking CRM Objects names for prefix &apos;{1}&apos;.
-        /// </summary>
-        internal static string CheckingCRMObjectsNamesForPrefixFormat2 {
-            get {
-                return ResourceManager.GetString("CheckingCRMObjectsNamesForPrefixFormat2", resourceCulture);
             }
         }
         
@@ -1204,6 +1186,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - Finding CRM Objects by name for &apos;{1}&apos;.
+        /// </summary>
+        internal static string FindingCRMObjectsByNameFormat2 {
+            get {
+                return ResourceManager.GetString("FindingCRMObjectsByNameFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Finding CRM Objects by name for &apos;{1}&apos; and showing in Explorer.
+        /// </summary>
+        internal static string FindingCRMObjectsByNameInExplorerFormat2 {
+            get {
+                return ResourceManager.GetString("FindingCRMObjectsByNameInExplorerFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Finding CRM Objects by Uniqueidentifier &apos;{1}&apos;, entityName &apos;{2}&apos;, entityTypeCode &apos;{3}&apos;.
         /// </summary>
         internal static string FindingCRMObjectsByUniqueidentifierEntityNameEntityTypeCodeFormat4 {
@@ -1222,11 +1222,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} - Finding CRM Objects names for &apos;{1}&apos;.
+        ///   Looks up a localized string similar to {0} - Finding CRM Objects names contains &apos;{1}&apos; in Explorer.
         /// </summary>
-        internal static string FindingCRMObjectsNamesFormat2 {
+        internal static string FindingCRMObjectscontainsNameInExplorerFormat2 {
             get {
-                return ResourceManager.GetString("FindingCRMObjectsNamesFormat2", resourceCulture);
+                return ResourceManager.GetString("FindingCRMObjectscontainsNameInExplorerFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Finding CRM Objects marked to delete by &apos;{1}&apos; and show dependent components.
+        /// </summary>
+        internal static string FindingCRMObjectsMarkedToDeleteByAndShowDependentComponentsFormat2 {
+            get {
+                return ResourceManager.GetString("FindingCRMObjectsMarkedToDeleteByAndShowDependentComponentsFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Finding CRM Objects marked to delete by &apos;{1}&apos; in Explorer.
+        /// </summary>
+        internal static string FindingCRMObjectsMarkedToDeleteInExplorerFormat2 {
+            get {
+                return ResourceManager.GetString("FindingCRMObjectsMarkedToDeleteInExplorerFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Finding CRM Objects names for prefix &apos;{1}&apos;.
+        /// </summary>
+        internal static string FindingCRMObjectsNamesForPrefixFormat2 {
+            get {
+                return ResourceManager.GetString("FindingCRMObjectsNamesForPrefixFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - Finding CRM Objects names for prefix &apos;{1}&apos; and showing in Explorer.
+        /// </summary>
+        internal static string FindingCRMObjectsNamesForPrefixInExplorerFormat2 {
+            get {
+                return ResourceManager.GetString("FindingCRMObjectsNamesForPrefixInExplorerFormat2", resourceCulture);
             }
         }
         

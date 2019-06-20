@@ -21,9 +21,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 
         public static CodeReportOpenInWebCommand InstanceOpenDependentComponentsInWeb { get; private set; }
 
-        public static CodeReportOpenInWebCommand InstanceOpenDependentComponentsInWindow { get; private set; }
+        public static CodeReportOpenInWebCommand InstanceOpenDependentComponentsInExplorer { get; private set; }
 
-        public static CodeReportOpenInWebCommand InstanceOpenSolutionsContainingComponentInWindow { get; private set; }
+        public static CodeReportOpenInWebCommand InstanceOpenSolutionsContainingComponentInExplorer { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
@@ -31,9 +31,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.Reports
 
             InstanceOpenDependentComponentsInWeb = new CodeReportOpenInWebCommand(commandService, PackageIds.CodeReportOpenDependentInWebCommandId, ActionOpenComponent.OpenDependentComponentsInWeb);
 
-            InstanceOpenDependentComponentsInWindow = new CodeReportOpenInWebCommand(commandService, PackageIds.CodeReportOpenDependentInWindowCommandId, ActionOpenComponent.OpenDependentComponentsInWindow);
+            InstanceOpenDependentComponentsInExplorer = new CodeReportOpenInWebCommand(commandService, PackageIds.CodeReportOpenDependentInExplorerCommandId, ActionOpenComponent.OpenDependentComponentsInExplorer);
 
-            InstanceOpenSolutionsContainingComponentInWindow = new CodeReportOpenInWebCommand(commandService, PackageIds.CodeReportOpenSolutionsContainingComponentInWindowInWindowCommandId, ActionOpenComponent.OpenSolutionsContainingComponentInWindow);
+            InstanceOpenSolutionsContainingComponentInExplorer = new CodeReportOpenInWebCommand(commandService, PackageIds.CodeReportOpenSolutionsContainingComponentInExplorerCommandId, ActionOpenComponent.OpenSolutionsContainingComponentInExplorer);
         }
 
         protected override void CommandAction(DTEHelper helper, ConnectionData connectionData)

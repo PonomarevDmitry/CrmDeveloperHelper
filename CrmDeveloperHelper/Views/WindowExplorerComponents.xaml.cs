@@ -181,7 +181,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._itemsSource.Clear();
 
-            ToggleControls(false, Properties.WindowStatusStrings.LoadingRequiredComponents);
+            ToggleControls(false, Properties.WindowStatusStrings.LoadingComponents);
 
             int? category = null;
 
@@ -261,7 +261,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadSolutionComponents(enumerable);
 
-            ToggleControls(true, Properties.WindowStatusStrings.LoadingRequiredComponentsCompletedFormat1, enumerable.Count());
+            ToggleControls(true, Properties.WindowStatusStrings.LoadingComponentsCompletedFormat1, enumerable.Count());
         }
 
         private static IEnumerable<SolutionComponentViewItem> FilterList(IEnumerable<SolutionComponentViewItem> list, string textName)

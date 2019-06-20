@@ -28,14 +28,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput = iWriteToOutput;
         }
 
-        #region Проверка имена на префикс.
+        #region Find components with prefix
 
         public async Task ExecuteFindingEntityObjectsByPrefix(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
         {
             prefix = prefix.TrimEnd(' ', '_').Trim();
             prefix = string.Format("{0}_", prefix);
 
-            string operation = string.Format(Properties.OperationNames.CheckingCRMObjectsNamesForPrefixFormat2, connectionData?.Name, prefix);
+            string operation = string.Format(Properties.OperationNames.FindingCRMObjectsNamesForPrefixFormat2, connectionData?.Name, prefix);
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
@@ -157,9 +157,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 foreach (var webResource in coll)
                 {
-                    string name = webResource.Name;
-
-                    if (name.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+                    if (webResource.Name.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
                     {
                         wrongEntityRelationshipsManyToMany.Add(new SolutionComponent()
                         {
@@ -221,22 +219,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
-        #endregion Проверка имена на префикс.
+        #endregion Find components with prefix
 
-        #region Проверка имена на префикс и показ зависимых объектов.
+        #region Find components with prefix and show in Explorer
 
-        public async Task ExecuteCheckingEntitiesNamesAndShowDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
+        public async Task ExecuteFindingEntityObjectsByPrefixInExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
         {
-            prefix = prefix.TrimEnd(' ', '_');
+            prefix = prefix.TrimEnd(' ', '_').Trim();
             prefix = string.Format("{0}_", prefix);
 
-            string operation = string.Format(Properties.OperationNames.CheckingCRMObjectsNamesForPrefixAndShowDependentComponentsFormat2, connectionData?.Name, prefix);
+            string operation = string.Format(Properties.OperationNames.FindingCRMObjectsNamesForPrefixInExplorerFormat2, connectionData?.Name, prefix);
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
-                await CheckingEntitiesNamesAndShowDependentComponents(connectionData, commonConfig, prefix);
+                await FindingEntityObjectsByPrefixInExplorer(connectionData, commonConfig, prefix);
             }
             catch (Exception ex)
             {
@@ -248,7 +246,153 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task CheckingEntitiesNamesAndShowDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
+        private async Task FindingEntityObjectsByPrefixInExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            List<SolutionComponent> wrongElements = new List<SolutionComponent>();
+
+            {
+                EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
+
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingEntitiesMetadata);
+
+                var allEntities = await repositoryEntity.GetEntitiesWithAttributesAndRelationshipsAsync();
+
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CheckingEntitiesMetadata);
+
+                foreach (EntityMetadata currentEntity in allEntities)
+                {
+                    if (currentEntity.LogicalName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        wrongElements.Add(new SolutionComponent()
+                        {
+                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                            ObjectId = currentEntity.MetadataId,
+                        });
+                    }
+
+                    foreach (var currentAttribute in currentEntity.Attributes)
+                    {
+                        if (string.IsNullOrEmpty(currentAttribute.AttributeOf))
+                        {
+                            if (currentAttribute.LogicalName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                wrongElements.Add(new SolutionComponent()
+                                {
+                                    ComponentType = new OptionSetValue((int)ComponentType.Attribute),
+                                    ObjectId = currentAttribute.MetadataId,
+                                });
+                            }
+                        }
+                    }
+
+                    foreach (var currentRelationship in currentEntity.ManyToOneRelationships)
+                    {
+                        if (currentRelationship.SchemaName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            wrongElements.Add(new SolutionComponent()
+                            {
+                                ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
+                                ObjectId = currentRelationship.MetadataId,
+                            });
+                        }
+                    }
+
+                    foreach (var currentRelationship in currentEntity.ManyToManyRelationships)
+                    {
+                        if (currentRelationship.SchemaName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            wrongElements.Add(new SolutionComponent()
+                            {
+                                ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
+                                ObjectId = currentRelationship.MetadataId,
+                            });
+                        }
+                    }
+                }
+            }
+
+            {
+                WebResourceRepository repositoryWebResource = new WebResourceRepository(service);
+
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingWebResources);
+
+                var coll = await repositoryWebResource.GetListAllAsync(string.Empty, new ColumnSet(WebResource.Schema.Attributes.name, WebResource.Schema.Attributes.displayname, WebResource.Schema.Attributes.webresourcetype));
+
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CheckingWebResources);
+
+                foreach (var webResource in coll)
+                {
+                    if (webResource.Name.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        wrongElements.Add(new SolutionComponent()
+                        {
+                            ComponentType = new OptionSetValue((int)ComponentType.WebResource),
+                            ObjectId = webResource.Id,
+                        });
+                    }
+                }
+            }
+
+            if (wrongElements.Count == 0)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoObjectsInCRMFoundedWithPrefixFormat1, prefix);
+                return;
+            }
+
+            string name = string.Format("Components with prefix '{0}'", prefix);
+
+            WindowHelper.OpenExplorerComponentsWindow(_iWriteToOutput, service, null, commonConfig, wrongElements, null, name, null);
+        }
+
+        #endregion Find components with prefix and show in Explorer
+
+        #region Find components with prefix and show dependent components
+
+        public async Task ExecuteFindingEntityObjectsByPrefixAndShowDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
+        {
+            prefix = prefix.TrimEnd(' ', '_');
+            prefix = string.Format("{0}_", prefix);
+
+            string operation = string.Format(Properties.OperationNames.CheckingCRMObjectsNamesForPrefixAndShowDependentComponentsFormat2, connectionData?.Name, prefix);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await FindingEntityObjectsByPrefixAndShowDependentComponents(connectionData, commonConfig, prefix);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task FindingEntityObjectsByPrefixAndShowDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, string prefix)
         {
             if (connectionData == null)
             {
@@ -425,9 +569,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 foreach (var webResource in webResources)
                 {
-                    string name = webResource.Name;
-
-                    if (name.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+                    if (webResource.Name.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
                     {
                         var component = new SolutionComponent()
                         {
@@ -504,19 +646,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
-        #endregion Проверка имена на префикс и показ зависимых объектов.
+        #endregion Find components with prefix and show dependent components
 
-        #region Проверка сущностей помеченных на удаление.
-
-        public async Task ExecuteCheckingMarkedToDelete(ConnectionData connectionData, CommonConfiguration commonConfig, string deleteMark)
+        private bool IsMakedToDelete(string prefix, string logicalName, Label label)
         {
-            string operation = string.Format(Properties.OperationNames.CheckingCRMObjectsMarkedToDeleteByAndShowDependentComponentsFormat2, connectionData?.Name, deleteMark);
+            if (logicalName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return true;
+            }
+
+            if (label != null)
+            {
+                foreach (var item in label.LocalizedLabels)
+                {
+                    if (item.Label.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        #region Finding Marked to Delelete and Show Dependent.
+
+        public async Task ExecuteFindingMarkedToDeleteAndShowDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, string deleteMark)
+        {
+            string operation = string.Format(Properties.OperationNames.FindingCRMObjectsMarkedToDeleteByAndShowDependentComponentsFormat2, connectionData?.Name, deleteMark);
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
             try
             {
-                await CheckingMarkedToDelete(connectionData, commonConfig, deleteMark);
+                await FindingMarkedToDeleteAndShowDependentComponents(connectionData, commonConfig, deleteMark);
             }
             catch (Exception ex)
             {
@@ -528,7 +691,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             }
         }
 
-        private async Task CheckingMarkedToDelete(ConnectionData connectionData, CommonConfiguration commonConfig, string deleteMark)
+        private async Task FindingMarkedToDeleteAndShowDependentComponents(ConnectionData connectionData, CommonConfiguration commonConfig, string deleteMark)
         {
             if (connectionData == null)
             {
@@ -645,10 +808,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
 
                 foreach (var webResource in collWebResources)
                 {
-                    string name = webResource.DisplayName;
-
-                    if (!string.IsNullOrEmpty(name)
-                        && name.StartsWith(deleteMark, StringComparison.InvariantCultureIgnoreCase)
+                    if (!string.IsNullOrEmpty(webResource.DisplayName)
+                        && webResource.DisplayName.StartsWith(deleteMark, StringComparison.InvariantCultureIgnoreCase)
                     )
                     {
                         var component = new SolutionComponent()
@@ -691,7 +852,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             if (totalErrors == 0)
             {
                 content.AppendLine();
-                content.AppendFormat(Properties.OutputStrings.NoObjectsInCRMFoundedWithPrefixFormat1, deleteMark).AppendLine();
+                content.AppendFormat(Properties.OutputStrings.NoObjectsInCRMFoundedMarkedToDeleteFormat1, deleteMark).AppendLine();
             }
 
             string fileName = string.Format("{0}.CRM Objects marked to delete by '{1}' and show dependent components at {2}.txt", connectionData.Name, deleteMark, DateTime.Now.ToString("yyyy.MM.dd HH-mm-ss"));
@@ -716,34 +877,143 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
-        private bool IsMakedToDelete(string prefix, string logicalName, Label label)
+        #endregion Finding Marked to Delelete and Show Dependent.
+
+        #region Finding Marked to Delelete in Explorer.
+
+        public async Task ExecuteFindingMarkedToDeleteInExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string deleteMark)
         {
-            if (logicalName.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+            string operation = string.Format(Properties.OperationNames.FindingCRMObjectsMarkedToDeleteInExplorerFormat2, connectionData?.Name, deleteMark);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
             {
-                return true;
+                await FindingMarkedToDeleteInExplorer(connectionData, commonConfig, deleteMark);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task FindingMarkedToDeleteInExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string deleteMark)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
             }
 
-            if (label != null)
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
             {
-                foreach (var item in label.LocalizedLabels)
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            List<SolutionComponent> wrongElements = new List<SolutionComponent>();
+
+            {
+                EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
+
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingEntitiesMetadata);
+
+                var allEntities = await repositoryEntity.GetEntitiesWithAttributesAndRelationshipsAsync();
+
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CheckingEntitiesMetadata);
+
+                foreach (EntityMetadata currentEntity in allEntities.OrderBy(e => e.LogicalName))
                 {
-                    if (item.Label.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+                    foreach (var currentAttribute in currentEntity.Attributes.OrderBy(a => a.LogicalName))
                     {
-                        return true;
+                        if (currentAttribute.AttributeOf == null)
+                        {
+                            bool marked = IsMakedToDelete(deleteMark, currentAttribute.LogicalName, currentAttribute.DisplayName);
+
+                            if (marked)
+                            {
+                                var component = new SolutionComponent()
+                                {
+                                    ComponentType = new OptionSetValue((int)ComponentType.Attribute),
+                                    ObjectId = currentAttribute.MetadataId.Value,
+                                };
+
+                                wrongElements.Add(component);
+                            }
+                        }
+                    }
+
+                    var wrongEntity = IsMakedToDelete(deleteMark, currentEntity.LogicalName, currentEntity.DisplayName);
+                    if (wrongEntity)
+                    {
+                        var component = new SolutionComponent()
+                        {
+                            ComponentType = new OptionSetValue((int)ComponentType.Entity),
+                            ObjectId = currentEntity.MetadataId.Value,
+                        };
+
+                        wrongElements.Add(component);
                     }
                 }
             }
 
-            return false;
+            {
+                WebResourceRepository repositoryWebResource = new WebResourceRepository(service);
+
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingWebResources);
+
+                var collWebResources = await repositoryWebResource.GetListAllAsync(string.Empty, new ColumnSet(WebResource.Schema.Attributes.name, WebResource.Schema.Attributes.displayname, WebResource.Schema.Attributes.webresourcetype));
+
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CheckingWebResources);
+
+                foreach (var webResource in collWebResources)
+                {
+                    if (!string.IsNullOrEmpty(webResource.DisplayName)
+                        && webResource.DisplayName.StartsWith(deleteMark, StringComparison.InvariantCultureIgnoreCase)
+                    )
+                    {
+                        var component = new SolutionComponent()
+                        {
+                            ComponentType = new OptionSetValue((int)ComponentType.WebResource),
+                            ObjectId = webResource.Id,
+                        };
+
+                        wrongElements.Add(component);
+                    }
+                }
+            }
+
+            if (wrongElements.Count == 0)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoObjectsInCRMFoundedMarkedToDeleteFormat1, deleteMark);
+                return;
+            }
+
+            string name = string.Format("Components marked to delete by '{0}'", deleteMark);
+
+            WindowHelper.OpenExplorerComponentsWindow(_iWriteToOutput, service, null, commonConfig, wrongElements, null, name, null);
         }
 
-        #endregion Проверка имена на префикс и показ зависимых объектов.
+        #endregion Finding Marked to Delelete in Explorer.
 
-        #region Поиск элементов сущности с именем.
+        #region Finding components with name
 
         public async Task ExecuteFindEntityElementsByName(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
         {
-            string operation = string.Format(Properties.OperationNames.FindingCRMObjectsNamesFormat2, connectionData?.Name, name);
+            string operation = string.Format(Properties.OperationNames.FindingCRMObjectsByNameFormat2, connectionData?.Name, name);
 
             this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
 
@@ -891,9 +1161,121 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
-        #endregion Поиск элементов сущности с именем.
+        #endregion Finding components with name
 
-        #region Поиск элементов, содержащих строку.
+        #region Finding components with name in Explorer
+
+        public async Task ExecuteFindEntityElementsByNameInExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
+        {
+            string operation = string.Format(Properties.OperationNames.FindingCRMObjectsByNameInExplorerFormat2, connectionData?.Name, name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await FindindEntityElementsByNameInExplorer(connectionData, commonConfig, name);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task FindindEntityElementsByNameInExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            List<SolutionComponent> listComponents = new List<SolutionComponent>();
+
+            {
+                EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
+
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingEntitiesMetadata);
+
+                var allEntities = await repositoryEntity.GetEntitiesWithAttributesAndRelationshipsAsync();
+
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CheckingEntitiesMetadata);
+
+                foreach (EntityMetadata currentEntity in allEntities)
+                {
+                    foreach (var currentAttribute in currentEntity.Attributes)
+                    {
+                        if (string.IsNullOrEmpty(currentAttribute.AttributeOf))
+                        {
+                            if (string.Equals(currentAttribute.LogicalName, name, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                listComponents.Add(new SolutionComponent()
+                                {
+                                    ComponentType = new OptionSetValue((int)ComponentType.Attribute),
+                                    ObjectId = currentAttribute.MetadataId,
+                                });
+                            }
+                        }
+                    }
+
+                    foreach (var currentRelationship in currentEntity.ManyToOneRelationships)
+                    {
+                        if (string.Equals(currentRelationship.SchemaName, name, StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            listComponents.Add(new SolutionComponent()
+                            {
+                                ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
+                                ObjectId = currentRelationship.MetadataId,
+                            });
+                        }
+                    }
+
+                    foreach (var currentRelationship in currentEntity.ManyToManyRelationships)
+                    {
+                        if (string.Equals(currentRelationship.SchemaName, name, StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            listComponents.Add(new SolutionComponent()
+                            {
+                                ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
+                                ObjectId = currentRelationship.MetadataId,
+                            });
+                        }
+                    }
+                }
+            }
+
+            if (listComponents.Count == 0)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, "No Entity Objects in CRM founded with name '{0}'.", name);
+                return;
+            }
+
+            string nameWindow = string.Format("Components with name '{0}'", name);
+
+            WindowHelper.OpenExplorerComponentsWindow(_iWriteToOutput, service, null, commonConfig, listComponents, null, nameWindow, null);
+        }
+
+        #endregion Finding components with name in Explorer
+
+        #region Finding components with name contains string
 
         public async Task ExecuteFindEntityElementsContainsString(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
         {
@@ -1044,7 +1426,120 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Controllers
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
         }
 
-        #endregion Поиск элементов, содержащих строку.
+        #endregion Finding components with name contains string
+
+        #region Finding components with name contains string in Explorer
+
+        public async Task ExecuteFindEntityElementsContainsStringInExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
+        {
+            string operation = string.Format(Properties.OperationNames.FindingCRMObjectscontainsNameInExplorerFormat2, connectionData?.Name, name);
+
+            this._iWriteToOutput.WriteToOutputStartOperation(connectionData, operation);
+
+            try
+            {
+                await FindindEntityElementsContainsStringInExplorer(connectionData, commonConfig, name);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                this._iWriteToOutput.WriteToOutputEndOperation(connectionData, operation);
+            }
+        }
+
+        private async Task FindindEntityElementsContainsStringInExplorer(ConnectionData connectionData, CommonConfiguration commonConfig, string name)
+        {
+            if (connectionData == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.NoCurrentCRMConnection);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+
+            this._iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            // Подключаемся к CRM.
+            var service = await QuickConnection.ConnectAsync(connectionData);
+
+            if (service == null)
+            {
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                return;
+            }
+
+            this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+
+            List<SolutionComponent> listComponents = new List<SolutionComponent>();
+
+            {
+                EntityMetadataRepository repositoryEntity = new EntityMetadataRepository(service);
+
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.GettingEntitiesMetadata);
+
+                var allEntities = await repositoryEntity.GetEntitiesWithAttributesAndRelationshipsAsync();
+
+                this._iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CheckingEntitiesMetadata);
+
+                foreach (EntityMetadata currentEntity in allEntities)
+                {
+                    foreach (var currentAttribute in currentEntity.Attributes)
+                    {
+                        if (currentAttribute.AttributeOf == null)
+                        {
+                            if (Regex.IsMatch(currentAttribute.LogicalName, name, RegexOptions.IgnoreCase))
+                            {
+                                listComponents.Add(new SolutionComponent()
+                                {
+                                    ComponentType = new OptionSetValue((int)ComponentType.Attribute),
+                                    ObjectId = currentAttribute.MetadataId,
+                                });
+                            }
+                        }
+                    }
+
+                    foreach (var currentRelationship in currentEntity.ManyToOneRelationships)
+                    {
+                        if (Regex.IsMatch(currentRelationship.SchemaName, name, RegexOptions.IgnoreCase))
+                        {
+                            listComponents.Add(new SolutionComponent()
+                            {
+                                ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
+                                ObjectId = currentRelationship.MetadataId,
+                            });
+                        }
+                    }
+
+                    foreach (var currentRelationship in currentEntity.ManyToManyRelationships)
+                    {
+                        if (Regex.IsMatch(currentRelationship.SchemaName, name, RegexOptions.IgnoreCase))
+                        {
+                            listComponents.Add(new SolutionComponent()
+                            {
+                                ComponentType = new OptionSetValue((int)ComponentType.EntityRelationship),
+                                ObjectId = currentRelationship.MetadataId,
+                            });
+                        }
+                    }
+                }
+            }
+
+            if (listComponents.Count == 0)
+            {
+                _iWriteToOutput.WriteToOutput(connectionData, "No Objects in CRM founded that contains '{0}'.", name);
+
+                return;
+            }
+
+            string nameWindow = string.Format("Components with name '{0}'", name);
+
+            WindowHelper.OpenExplorerComponentsWindow(_iWriteToOutput, service, null, commonConfig, listComponents, null, nameWindow, null);
+        }
+
+        #endregion Finding components with name contains string in Explorer
 
         #region Поиск элементов по идентификатору.
 

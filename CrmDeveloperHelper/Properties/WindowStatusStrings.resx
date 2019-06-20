@@ -750,6 +750,14 @@
   <data name="LoadingRequiredComponentsCompletedFormat1" xml:space="preserve">
     <value>{0} required components loaded.</value>
   </data>
+
+  <data name="LoadingComponents" xml:space="preserve">
+    <value>Loading Components...</value>
+  </data>
+  <data name="LoadingComponentsCompletedFormat1" xml:space="preserve">
+    <value>{0} components loaded.</value>
+  </data>
+
   <data name="LoadingSavedQueries" xml:space="preserve">
     <value>Loading saved queries...</value>
   </data>
