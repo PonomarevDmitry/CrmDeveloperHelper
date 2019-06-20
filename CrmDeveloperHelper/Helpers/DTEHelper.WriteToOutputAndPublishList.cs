@@ -831,28 +831,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                 , UrlCommandFilter.PrefixOpenSolution
                 , connectionData.ConnectionId.ToString()
                 , HttpUtility.UrlEncode(solutionUniqueName)
-                );
+            );
 
             string urlOpenSolutionList = string.Format("{0}:///crm.com?ConnectionId={1}"
                 , UrlCommandFilter.PrefixOpenSolutionList
                 , connectionData.ConnectionId.ToString()
-                );
+            );
 
 
             this.WriteToOutput(connectionData, string.Empty);
-            this.WriteToOutput(connectionData, "Selected Solution            : {0}", solutionUniqueName);
+            this.WriteToOutput(connectionData, "Selected Solution              : {0}", solutionUniqueName);
 
             this.WriteToOutput(connectionData, string.Empty);
-            this.WriteToOutput(connectionData, "Open Solution List in Web    : {0}", connectionData.GetOpenCrmWebSiteUrl(OpenCrmWebSiteType.Solutions));
+            this.WriteToOutput(connectionData, "Open Solution List in Web      : {0}", connectionData.GetOpenCrmWebSiteUrl(OpenCrmWebSiteType.Solutions));
 
             this.WriteToOutput(connectionData, string.Empty);
-            this.WriteToOutput(connectionData, "Open Solution in Web         : {0}", solutionUrl);
+            this.WriteToOutput(connectionData, "Open Solution in Web           : {0}", solutionUrl);
 
             this.WriteToOutput(connectionData, string.Empty);
-            this.WriteToOutput(connectionData, "Open Solution Explorer       : {0}", urlOpenSolutionList);
+            this.WriteToOutput(connectionData, "Open Solutions Explorer        : {0}", urlOpenSolutionList);
 
             this.WriteToOutput(connectionData, string.Empty);
-            this.WriteToOutput(connectionData, "Open Solution in Windows     : {0}", urlOpenSolution);
+            this.WriteToOutput(connectionData, "Open Solution in Explorer      : {0}", urlOpenSolution);
 
             this.WriteToOutput(connectionData, string.Empty);
 

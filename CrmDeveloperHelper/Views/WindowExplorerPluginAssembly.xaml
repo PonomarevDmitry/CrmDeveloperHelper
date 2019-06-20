@@ -41,13 +41,13 @@
                 <MenuItem Header="Export Assembly Binary Content" Click="mIExportPluginAssemblyBinaryContent_Click"/>
 
                 <Separator/>
-                <MenuItem Header="Open Solutions Containing Component in Window" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem Header="Open Solutions Containing Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
 
                 <Separator/>
                 <MenuItem Header="Dependent Components">
                     <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
                     <Separator/>
-                    <MenuItem Header="Open Dependent Components in Window" Click="mIOpenDependentComponentsInExplorer_Click" />
+                    <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>
 
                 <Separator/>
@@ -214,13 +214,13 @@
                             <MenuItem x:Name="mIExportPluginAssemblyBinaryContent" Header="Export Assembly Binary Content" Click="mIExportPluginAssemblyBinaryContent_Click"/>
                             
                             <Separator/>
-                            <MenuItem Header="Open Solutions Containing Component in Window" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
+                            <MenuItem Header="Open Solutions Containing Component in Explorer" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
                             
                             <Separator/>
                             <MenuItem Header="Dependent Components">
                                 <MenuItem Header="Open Dependent Components in Web" Click="mIOpenDependentComponentsInWeb_Click" />
                                 <Separator/>
-                                <MenuItem Header="Open Dependent Components in Window" Click="mIOpenDependentComponentsInExplorer_Click" />
+                                <MenuItem Header="Open Dependent Components in Explorer" Click="mIOpenDependentComponentsInExplorer_Click" />
                             </MenuItem>
                         </MenuItem>
                     </Menu>

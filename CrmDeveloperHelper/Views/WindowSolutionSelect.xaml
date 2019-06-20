@@ -7,7 +7,7 @@
         <ContextMenu x:Key="listContextMenu">
             <MenuItem Header="Select Solution" VerticalAlignment="Center" Click="btnSelectSolution_Click"/>
             <Separator/>
-            <MenuItem Header="Open Components in Window" VerticalAlignment="Center" Click="btnOpenComponentsInExplorer_Click"/>
+            <MenuItem Header="Open Components in Explorer" VerticalAlignment="Center" Click="btnOpenComponentsInExplorer_Click"/>
             <Separator/>
             <MenuItem Header="Open in Web" VerticalAlignment="Center" Click="btnOpenSolutionInWeb_Click"/>
             <Separator/>

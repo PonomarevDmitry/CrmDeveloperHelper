@@ -51,13 +51,13 @@
                     <MenuItem Header="Add Application Ribbon to Crm Solution" Click="AddApplicationRibbonToCrmSolution_Click" />
 
                     <Separator/>
-                    <MenuItem Header="Open Solutions Containing Component in Window" Click="miApplicationRibbonOpenSolutionsContainingComponentInExplorer_Click" />
+                    <MenuItem Header="Open Solutions Containing Component in Explorer" Click="miApplicationRibbonOpenSolutionsContainingComponentInExplorer_Click" />
 
                     <Separator/>
                     <MenuItem Header="Dependent Components">
                         <MenuItem Header="Open Dependent Components in Web" Click="miApplicationRibbonOpenDependentComponentsInWeb_Click" />
                         <Separator/>
-                        <MenuItem Header="Open Dependent Components in Window" Click="miApplicationRibbonOpenDependentComponentsInExplorer_Click" />
+                        <MenuItem Header="Open Dependent Components in Explorer" Click="miApplicationRibbonOpenDependentComponentsInExplorer_Click" />
                     </MenuItem>
                 </MenuItem>
             </Menu>

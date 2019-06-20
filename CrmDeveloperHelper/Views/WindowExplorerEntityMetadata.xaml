@@ -64,13 +64,13 @@
                 <MenuItem Header="Publish Entity" Click="miPublishEntity_Click"/>
 
                 <Separator/>
-                <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="miOpenSolutionsContainingComponentInExplorer_Click" />
+                <MenuItem Header="Open Solutions Containing Component in Explorer" VerticalAlignment="Center" Click="miOpenSolutionsContainingComponentInExplorer_Click" />
 
                 <Separator/>
                 <MenuItem Header="Dependent Components">
                     <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="miOpenDependentComponentsInWeb_Click" />
                     <Separator/>
-                    <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="miOpenDependentComponentsInExplorer_Click" />
+                    <MenuItem Header="Open Dependent Components in Explorer" VerticalAlignment="Center" Click="miOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>
 
                 <Separator/>
