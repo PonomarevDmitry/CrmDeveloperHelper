@@ -365,6 +365,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
         )
         {
+            HashSet<string> linkedEntities = GetLinkedEntities(entityMetadata);
+
+            if (linkedEntities.Any())
+            {
+                iCodeGenerationServiceProvider.MetadataProviderService.StoreEntities(linkedEntities);
+            }
+
             var declarationCollection = new CodeTypeDeclarationCollection();
 
             var entityClassName = iCodeGenerationServiceProvider.NamingService.GetNameForEntity(entityMetadata, iCodeGenerationServiceProvider);
@@ -406,6 +413,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             declarationCollection.Add(entityClass);
 
             return declarationCollection;
+        }
+
+        private static HashSet<string> GetLinkedEntities(EntityMetadata entityMetadata)
+        {
+            HashSet<string> result = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+            foreach (var oneToMany in entityMetadata.OneToManyRelationships)
+            {
+                result.Add(oneToMany.ReferencingEntity);
+            }
+
+            foreach (var oneToMany in entityMetadata.ManyToOneRelationships)
+            {
+                result.Add(oneToMany.ReferencedEntity);
+            }
+
+            foreach (var manyToMany in entityMetadata.ManyToManyRelationships)
+            {
+                result.Add(entityMetadata.LogicalName != manyToMany.Entity1LogicalName ? manyToMany.Entity1LogicalName : manyToMany.Entity2LogicalName);
+            }
+
+            return result;
         }
 
         private CodeTypeMemberCollection BuildAttributeTypeMembers(CodeTypeDeclarationCollection declarationCollection, EntityMetadata entityMetadata, ICodeGenerationServiceProvider iCodeGenerationServiceProvider)
@@ -750,7 +779,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
                     new CodeRegionDirective(CodeRegionMode.Start, regionName),
                 },
             });
-            
+
             entityClass.Members.Add(this.Event("PropertyChanged", typeof(PropertyChangedEventHandler), typeof(INotifyPropertyChanged)));
             entityClass.Members.Add(this.Event("PropertyChanging", typeof(PropertyChangingEventHandler), typeof(INotifyPropertyChanging)));
             entityClass.Members.Add(this.RaiseEvent("OnPropertyChanged", "PropertyChanged", typeof(PropertyChangedEventArgs)));
@@ -793,7 +822,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
         {
             var codeConstructor = this.Constructor();
 
-            string primatyIdAttributeRef = string.Format("{0}.{1}",iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata, iCodeGenerationServiceProvider).BaseType, EntityPrimaryIdAttributeFieldName);
+            string primatyIdAttributeRef = string.Format("{0}.{1}", iCodeGenerationServiceProvider.TypeMappingService.GetTypeForEntity(entityMetadata, iCodeGenerationServiceProvider).BaseType, EntityPrimaryIdAttributeFieldName);
 
             codeConstructor.Parameters.Add(new CodeParameterDeclarationExpression(typeof(Object), "anonymousObject"));
 
@@ -1328,9 +1357,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             CodeRegionDirective startCodeRegionDirective = null;
 
-            foreach (var oneToMany in entityMetadata.OneToManyRelationships.OfType<OneToManyRelationshipMetadata>().OrderBy(metadata => metadata.SchemaName))
+            foreach (var oneToMany in entityMetadata.OneToManyRelationships.OrderBy(metadata => metadata.SchemaName))
             {
-                var otherEntityMetadata = GetEntityMetadata(oneToMany.ReferencingEntity, iCodeGenerationServiceProvider);
+                var otherEntityMetadata = iCodeGenerationServiceProvider.MetadataProviderService.GetEntityMetadata(oneToMany.ReferencingEntity);
+
                 if (otherEntityMetadata != null
                     && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateEntity(otherEntityMetadata, iCodeGenerationServiceProvider)
                     && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateRelationship(oneToMany, otherEntityMetadata, CodeGenerationRelationshipType.OneToManyRelationship, iCodeGenerationServiceProvider)
@@ -1500,7 +1530,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             foreach (var manyToMany in entityMetadata.ManyToManyRelationships.OfType<ManyToManyRelationshipMetadata>().OrderBy(metadata => metadata.SchemaName))
             {
-                var otherEntityMetadata = GetEntityMetadata(entityMetadata.LogicalName != manyToMany.Entity1LogicalName ? manyToMany.Entity1LogicalName : manyToMany.Entity2LogicalName, iCodeGenerationServiceProvider);
+                var otherEntityMetadata = iCodeGenerationServiceProvider.MetadataProviderService.GetEntityMetadata(entityMetadata.LogicalName != manyToMany.Entity1LogicalName ? manyToMany.Entity1LogicalName : manyToMany.Entity2LogicalName);
                 if (otherEntityMetadata != null)
                 {
                     if (iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateEntity(otherEntityMetadata, iCodeGenerationServiceProvider)
@@ -1652,7 +1682,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
 
             foreach (var manyToOne in entityMetadata.ManyToOneRelationships.OrderBy(metadata => metadata.SchemaName))
             {
-                var otherEntity = GetEntityMetadata(manyToOne.ReferencedEntity, iCodeGenerationServiceProvider);
+                var otherEntity = iCodeGenerationServiceProvider.MetadataProviderService.GetEntityMetadata(manyToOne.ReferencedEntity);
 
                 if (otherEntity != null
                     && iCodeGenerationServiceProvider.CodeWriterFilterService.GenerateEntity(otherEntity, iCodeGenerationServiceProvider)
@@ -1796,14 +1826,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers.ProxyClassGeneration
             }
 
             return Attribute(RelationshipSchemaNameAttribute, AttributeArg(relationshipNameRef));
-        }
-
-        private static EntityMetadata GetEntityMetadata(
-            string entityLogicalName
-            , ICodeGenerationServiceProvider iCodeGenerationServiceProvider
-        )
-        {
-            return iCodeGenerationServiceProvider.MetadataProviderService.GetEntityMetadata(entityLogicalName);
         }
 
         private CodeTypeDeclarationCollection BuildServiceContext(

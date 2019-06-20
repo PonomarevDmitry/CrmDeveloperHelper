@@ -237,6 +237,48 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
             }
         }
 
+        public List<EntityMetadata> GetEntityMetadataList(IEnumerable<string> entityList)
+        {
+            try
+            {
+                MetadataFilterExpression entityFilter = new MetadataFilterExpression(LogicalOperator.And);
+                entityFilter.Conditions.Add(new MetadataConditionExpression(nameof(EntityMetadata.LogicalName), MetadataConditionOperator.In, entityList.ToArray()));
+
+                var entityQueryExpression = new EntityQueryExpression()
+                {
+                    Properties = new MetadataPropertiesExpression() { AllProperties = true },
+                    AttributeQuery = new AttributeQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } },
+                    RelationshipQuery = new RelationshipQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } },
+                    LabelQuery = new LabelQueryExpression(),
+
+                    Criteria = entityFilter,
+                };
+
+                var isEntityKeyExists = _service.IsRequestExists(SdkMessageRequest.Instances.RetrieveEntityKeyRequest);
+
+                if (isEntityKeyExists)
+                {
+                    entityQueryExpression.KeyQuery = new EntityKeyQueryExpression() { Properties = new MetadataPropertiesExpression() { AllProperties = true } };
+                }
+
+                var response = (RetrieveMetadataChangesResponse)_service.Execute(
+                    new RetrieveMetadataChangesRequest()
+                    {
+                        ClientVersionStamp = null,
+                        Query = entityQueryExpression,
+                    }
+                );
+
+                return response.EntityMetadata.ToList();
+            }
+            catch (Exception ex)
+            {
+                Helpers.DTEHelper.WriteExceptionToOutput(_service.ConnectionData, ex);
+
+                return null;
+            }
+        }
+
         public Task<EntityMetadata> GetEntityMetadataWithAttributesAsync(string entityName)
         {
             return Task.Run(() => GetEntityMetadataWithAttributes(entityName));
