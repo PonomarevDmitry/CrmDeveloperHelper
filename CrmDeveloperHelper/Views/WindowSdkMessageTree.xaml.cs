@@ -983,7 +983,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             CreateDescription(nodeItem);
         }
 
-        private async void miOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        private async void miOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
@@ -1044,7 +1044,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void mIOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
@@ -1174,7 +1174,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._iWriteToOutput.WriteToOutputEndOperation(service.ConnectionData, Properties.OperationNames.PublishingEntitiesFormat2, service.ConnectionData.Name, entityName);
         }
 
-        private async void miOpenEntitySolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        private async void miOpenEntitySolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
@@ -1251,7 +1251,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             connectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.Entity, idMetadata.Value);
         }
 
-        private async void miOpenEntityDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        private async void miOpenEntityDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 

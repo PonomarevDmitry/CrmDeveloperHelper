@@ -1190,7 +1190,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void mIOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1207,7 +1207,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, descriptor, _commonConfig, (int)ComponentType.Entity, entity.EntityMetadata.MetadataId.Value, null);
         }
 
-        private async void mIOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1247,7 +1247,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void mIEntityKeyOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIEntityKeyOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entityKey = GetSelectedEntityKey();
 
@@ -1264,7 +1264,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, descriptor, _commonConfig, (int)ComponentType.EntityKey, entityKey.EntityKeyMetadata.MetadataId.Value, null);
         }
 
-        private async void mIEntityKeyOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIEntityKeyOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entityKey = GetSelectedEntityKey();
 

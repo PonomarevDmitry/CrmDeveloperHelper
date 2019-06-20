@@ -1343,7 +1343,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void mIOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1360,7 +1360,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, descriptor, _commonConfig, (int)ComponentType.Entity, entity.EntityMetadata.MetadataId.Value, null);
         }
 
-        private async void mIOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1666,7 +1666,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void mIRoleOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIRoleOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
         {
             if (!(e.OriginalSource is MenuItem menuItem))
             {
@@ -1722,7 +1722,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void mIRoleOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIRoleOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
             if (!(e.OriginalSource is MenuItem menuItem))
             {

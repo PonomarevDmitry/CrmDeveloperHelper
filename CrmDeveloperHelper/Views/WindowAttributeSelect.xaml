@@ -17,13 +17,13 @@
                 <MenuItem Header="Add to Crm Solution" Click="AddAttributeToCrmSolution_Click" />
                 
                 <Separator/>
-                <MenuItem Header="Open Solutions Containing Component in Window" Click="mIAttributeOpenSolutionsContainingComponentInWindow_Click" />
+                <MenuItem Header="Open Solutions Containing Component in Window" Click="mIAttributeOpenSolutionsContainingComponentInExplorer_Click" />
                 
                 <Separator/>
                 <MenuItem Header="Dependent Components">
                     <MenuItem Header="Open Dependent Components in Web" Click="mIAttributeOpenDependentComponentsInWeb_Click" />
                     <Separator/>
-                    <MenuItem Header="Open Dependent Components in Window" Click="mIAttributeOpenDependentComponentsInWindow_Click" />
+                    <MenuItem Header="Open Dependent Components in Window" Click="mIAttributeOpenDependentComponentsInExplorer_Click" />
                 </MenuItem>
             </ContextMenu>
 

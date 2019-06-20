@@ -314,7 +314,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIAttributeOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        private void mIAttributeOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var attribute = GetSelectedAttribute();
 
@@ -347,7 +347,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _service.ConnectionData.OpenSolutionComponentDependentComponentsInWeb(ComponentType.Attribute, attribute.AttributeMetadata.MetadataId.Value);
         }
 
-        private void mIAttributeOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        private void mIAttributeOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var attribute = GetSelectedAttribute();
 

@@ -1191,7 +1191,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void mIOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1207,7 +1207,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.Entity, entity.EntityMetadata.MetadataId.Value, null);
         }
 
-        private async void mIOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1247,7 +1247,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void mIAttributeOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIAttributeOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var attribute = GetSelectedAttribute();
 
@@ -1263,7 +1263,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.Attribute, attribute.AttributeMetadata.MetadataId.Value, null);
         }
 
-        private async void mIAttributeOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIAttributeOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var attribute = GetSelectedAttribute();
 

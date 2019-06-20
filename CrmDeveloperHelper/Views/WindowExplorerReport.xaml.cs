@@ -962,7 +962,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             ActivateControls(tSDDBExportReport.Items.OfType<Control>(), (report?.IsCustomizable?.Value).GetValueOrDefault(true), "controlChangeEntityAttribute");
         }
 
-        private async void mIOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -986,7 +986,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 );
         }
 
-        private async void mIOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 

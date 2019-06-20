@@ -356,7 +356,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._service.ConnectionData.OpenCrmWebSite(OpenCrmWebSiteType.Customization);
         }
 
-        private void btnOpenComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        private void btnOpenComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 

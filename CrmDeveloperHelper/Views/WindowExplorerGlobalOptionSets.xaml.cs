@@ -880,7 +880,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void mIOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -904,7 +904,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 );
         }
 
-        private async void mIOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 

@@ -15,13 +15,13 @@
             <MenuItem Header="Add to Crm Solution" VerticalAlignment="Center" Click="AddToSolution_Click" />
             
             <Separator/>
-            <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInWindow_Click" />
+            <MenuItem Header="Open Solutions Containing Component in Window" VerticalAlignment="Center" Click="mIOpenSolutionsContainingComponentInExplorer_Click" />
             
             <Separator/>
             <MenuItem Header="Dependent Components">
                 <MenuItem Header="Open Dependent Components in Web" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWeb_Click" />
                 <Separator/>
-                <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInWindow_Click" />
+                <MenuItem Header="Open Dependent Components in Window" VerticalAlignment="Center" Click="mIOpenDependentComponentsInExplorer_Click" />
             </MenuItem>
         </ContextMenu>
     </src:WindowBase.Resources>

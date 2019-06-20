@@ -1316,7 +1316,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void mIOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1332,7 +1332,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.Entity, entity.EntityMetadata.MetadataId.Value, null);
         }
 
-        private async void mIOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1372,7 +1372,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void mISecurityRoleOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mISecurityRoleOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var role = GetSelectedSecurityRole();
 
@@ -1388,7 +1388,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.Role, role.Role.RoleId.Value, null);
         }
 
-        private async void mISecurityRoleOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mISecurityRoleOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var role = GetSelectedSecurityRole();
 

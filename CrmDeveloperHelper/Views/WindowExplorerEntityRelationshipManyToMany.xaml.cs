@@ -1186,7 +1186,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void mIOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1202,7 +1202,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.Entity, entity.EntityMetadata.MetadataId.Value, null);
         }
 
-        private async void mIOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedEntity();
 
@@ -1242,7 +1242,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void mIEntityRelationshipOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIEntityRelationshipOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entityRelationship = GetSelectedEntityRelationship();
 
@@ -1258,7 +1258,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             WindowHelper.OpenSolutionComponentDependenciesWindow(_iWriteToOutput, service, null, _commonConfig, (int)ComponentType.EntityRelationship, entityRelationship.ManyToManyRelationshipMetadata.MetadataId.Value, null);
         }
 
-        private async void mIEntityRelationshipOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        private async void mIEntityRelationshipOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entityRelationship = GetSelectedEntityRelationship();
 

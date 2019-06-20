@@ -767,12 +767,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             };
             mILinkedComponentOpenInWeb.Click += MILinkedComponentOpenInWeb_Click;
 
-            MenuItem mILinkedComponentOpenInstanceListInWindow = new MenuItem()
+            MenuItem mILinkedComponentOpenEntityListInWeb = new MenuItem()
             {
                 Header = "Open Entity List in Web",
                 Tag = solutionComponent,
             };
-            mILinkedComponentOpenInstanceListInWindow.Click += MILinkedComponentOpenInstanceListInWindow_Click;
+            mILinkedComponentOpenEntityListInWeb.Click += mILinkedComponentOpenEntityListInWeb_Click;
 
             MenuItem mILinkedComponentOpenExplorer = new MenuItem()
             {
@@ -804,12 +804,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             };
             mILinkedComponentAddToSolution.Click += MILinkedComponentAddToSolution_Click;
 
-            MenuItem mILinkedComponentOpenSolutionsContainingComponentInWindow = new MenuItem()
+            MenuItem mILinkedComponentOpenSolutionsContainingComponentInExplorer = new MenuItem()
             {
-                Header = "Open Solutions Containing Component in Window",
+                Header = "Open Solutions Containing Component in Explorer",
                 Tag = solutionComponent,
             };
-            mILinkedComponentOpenSolutionsContainingComponentInWindow.Click += MILinkedComponentOpenSolutionsContainingComponentInWindow_Click;
+            mILinkedComponentOpenSolutionsContainingComponentInExplorer.Click += MILinkedComponentOpenSolutionsContainingComponentInExplorer_Click;
 
             MenuItem mILinkedComponentOpenDependentComponentsInWeb = new MenuItem()
             {
@@ -818,12 +818,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             };
             mILinkedComponentOpenDependentComponentsInWeb.Click += MILinkedComponentOpenDependentComponentsInWeb_Click;
 
-            MenuItem mILinkedComponentOpenDependentComponentsInWindow = new MenuItem()
+            MenuItem mILinkedComponentOpenDependentComponentsInExplorer = new MenuItem()
             {
-                Header = "Open Dependent Components in Window",
+                Header = "Open Dependent Components in Explorer",
                 Tag = solutionComponent,
             };
-            mILinkedComponentOpenDependentComponentsInWindow.Click += MILinkedComponentOpenDependentComponentsInWindow_Click;
+            mILinkedComponentOpenDependentComponentsInExplorer.Click += MILinkedComponentOpenDependentComponentsInExplorer_Click;
 
             //MenuItem mILinkedComponent = new MenuItem()
             //{
@@ -836,7 +836,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (solutionComponent.ComponentType?.Value == (int)ComponentType.Entity)
             {
                 itemCollection.Add(new Separator());
-                itemCollection.Add(mILinkedComponentOpenInstanceListInWindow);
+                itemCollection.Add(mILinkedComponentOpenEntityListInWeb);
             }
 
             if (HasExplorer(solutionComponent.ComponentType?.Value))
@@ -856,11 +856,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             itemCollection.Add(mILinkedComponentAddToSolution);
 
             itemCollection.Add(new Separator());
-            itemCollection.Add(mILinkedComponentOpenSolutionsContainingComponentInWindow);
+            itemCollection.Add(mILinkedComponentOpenSolutionsContainingComponentInExplorer);
 
             itemCollection.Add(new Separator());
             itemCollection.Add(mILinkedComponentOpenDependentComponentsInWeb);
-            itemCollection.Add(mILinkedComponentOpenDependentComponentsInWindow);
+            itemCollection.Add(mILinkedComponentOpenDependentComponentsInExplorer);
         }
 
         private void MILinkedComponentOpenInWeb_Click(object sender, RoutedEventArgs e)
@@ -876,7 +876,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _service.UrlGenerator.OpenSolutionComponentInWeb((ComponentType)solutionComponent.ComponentType.Value, solutionComponent.ObjectId.Value);
         }
 
-        private void MILinkedComponentOpenInstanceListInWindow_Click(object sender, RoutedEventArgs e)
+        private void mILinkedComponentOpenEntityListInWeb_Click(object sender, RoutedEventArgs e)
         {
             if (!(sender is MenuItem menuItem)
                || menuItem.Tag == null
@@ -979,7 +979,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             await AddComponentsToSolution(true, null, new[] { solutionComponent });
         }
 
-        private void MILinkedComponentOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        private void MILinkedComponentOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
         {
             if (!(sender is MenuItem menuItem)
                || menuItem.Tag == null
@@ -1014,7 +1014,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this._service.ConnectionData.OpenSolutionComponentDependentComponentsInWeb((ComponentType)solutionComponent.ComponentType.Value, solutionComponent.ObjectId.Value);
         }
 
-        private void MILinkedComponentOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        private void MILinkedComponentOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
             if (!(sender is MenuItem menuItem)
                || menuItem.Tag == null
@@ -1133,7 +1133,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        private void mIOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedSolutionComponent();
 
@@ -1154,7 +1154,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , null);
         }
 
-        private void mIOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        private void mIOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var entity = GetSelectedSolutionComponent();
 

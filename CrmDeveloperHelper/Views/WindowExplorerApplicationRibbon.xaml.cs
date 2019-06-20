@@ -739,7 +739,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             FillLastSolutionItems(connectionData, new[] { miAddApplicationTotSolutionLast }, true, AddApplicationRibbonToCrmSolutionLast_Click, "miAddApplicationTotSolutionLast");
         }
 
-        private async void miApplicationRibbonOpenSolutionsContainingComponentInWindow_Click(object sender, RoutedEventArgs e)
+        private async void miApplicationRibbonOpenSolutionsContainingComponentInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var service = await GetService();
 
@@ -776,7 +776,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void miApplicationRibbonOpenDependentComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        private async void miApplicationRibbonOpenDependentComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
             var service = await GetService();
 

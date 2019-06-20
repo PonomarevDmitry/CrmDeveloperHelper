@@ -800,12 +800,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             };
             mICreateEntityDescription.Click += mICreateEntityDescription_Click;
 
-            MenuItem mIOpenComponentsInWindow = new MenuItem()
+            MenuItem mIOpenComponentsInExplorer = new MenuItem()
             {
-                Header = string.Format("Open Solution Components in Window for {0}", solution.UniqueNameEscapeUnderscore),
+                Header = string.Format("Open Solution Components in Explorer for {0}", solution.UniqueNameEscapeUnderscore),
                 Tag = solution,
             };
-            mIOpenComponentsInWindow.Click += mIOpenComponentsInWindow_Click;
+            mIOpenComponentsInExplorer.Click += mIOpenComponentsInExplorer_Click;
 
             MenuItem mIUsedEntitiesInWorkflows = new MenuItem()
             {
@@ -862,7 +862,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
 
 
-            itemCollection.Add(mIOpenComponentsInWindow);
+            itemCollection.Add(mIOpenComponentsInExplorer);
             itemCollection.Add(new Separator());
             itemCollection.Add(mIOpenSolutionInWeb);
 
@@ -1446,13 +1446,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void mIOpenComponentsInWindow_Click(object sender, RoutedEventArgs e)
+        private void mIOpenComponentsInExplorer_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem menuItem
                 && menuItem.Tag is Solution solution
                 )
             {
-                ExecuteActionOnSingleSolutionWithoutFolderCheck(solution, PerformOpenSolutionComponentsInWindow);
+                ExecuteActionOnSingleSolutionWithoutFolderCheck(solution, PerformOpenSolutionComponentsInExplorer);
             }
         }
 
@@ -1463,7 +1463,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 && !string.IsNullOrEmpty(solution.Description)
                 )
             {
-                ExecuteActionOnSingleSolutionWithoutFolderCheck(solution, PerformOpenSolutionDescriptionInWindow);
+                ExecuteActionOnSingleSolutionWithoutFolderCheck(solution, PerformOpenSolutionDescriptionInExplorer);
             }
         }
 
@@ -1598,7 +1598,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async Task PerformOpenSolutionComponentsInWindow(string folder, Solution solution)
+        private async Task PerformOpenSolutionComponentsInExplorer(string folder, Solution solution)
         {
             var service = await GetService();
 
@@ -1615,7 +1615,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async Task PerformOpenSolutionDescriptionInWindow(string folder, Solution solution)
+        private async Task PerformOpenSolutionDescriptionInExplorer(string folder, Solution solution)
         {
             if (solution == null || string.IsNullOrEmpty(solution.Description))
             {
@@ -2929,7 +2929,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (item != null && item.Solution != null)
                 {
-                    ExecuteActionOnSingleSolutionWithoutFolderCheck(item.Solution, PerformOpenSolutionComponentsInWindow);
+                    ExecuteActionOnSingleSolutionWithoutFolderCheck(item.Solution, PerformOpenSolutionComponentsInExplorer);
                 }
             }
         }
