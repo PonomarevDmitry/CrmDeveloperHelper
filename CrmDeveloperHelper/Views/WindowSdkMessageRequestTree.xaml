@@ -198,8 +198,7 @@
                             </Style>
                         </ToolBarPanel.Resources>
                         <Menu x:Name="menuView" IsEnabled="False">
-                            <MenuItem x:Name="mIView" Header="View">
-                            </MenuItem>
+                            <MenuItem x:Name="mIView" Header="View" />
                         </Menu>
                         
                         <Button x:Name="tSBCreateDescription" Content="Create Description" Click="tSBCreateDescription_Click" IsEnabled="False"  />

@@ -36,14 +36,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private SdkMessageSearchResult _sdkMessageSearchResult = null;
 
-        private readonly List<GroupingProperty> _groupingPropertiesAll = Enum.GetValues(typeof(GroupingProperty)).OfType<GroupingProperty>().ToList();
-
         private readonly List<GroupingProperty> _currentGrouping = new List<GroupingProperty>()
         {
             GroupingProperty.Endpoint,
             GroupingProperty.Message,
             GroupingProperty.Entity,
         };
+
+        private readonly List<GroupingProperty> _groupingPropertiesAll = Enum.GetValues(typeof(GroupingProperty)).OfType<GroupingProperty>().ToList();
 
         private readonly Dictionary<GroupingProperty, RequestGroupBuilder> _propertyGroups = new Dictionary<GroupingProperty, RequestGroupBuilder>();
 
