@@ -278,9 +278,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                 if (idOrganization.HasValue)
                 {
-                    var organization = service
-                        .Retrieve(Organization.EntityLogicalName, idOrganization.Value, new ColumnSet(Organization.Schema.Attributes.languagecode, Organization.Schema.Attributes.basecurrencyid))
-                        .ToEntity<Organization>();
+                    var organization = await service
+                        .RetrieveAsync<Organization>(Organization.EntityLogicalName, idOrganization.Value, new ColumnSet(Organization.Schema.Attributes.languagecode, Organization.Schema.Attributes.basecurrencyid))
+                        ;
 
                     if (organization.BaseCurrencyId != null)
                     {

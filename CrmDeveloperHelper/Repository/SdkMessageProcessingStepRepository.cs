@@ -35,14 +35,39 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
         private List<SdkMessageProcessingStep> GetAllSdkMessageProcessingStep(List<PluginStage> list, string pluginName, string messageName)
         {
+            var linkPluginType = new LinkEntity()
+            {
+                LinkFromEntityName = SdkMessageProcessingStep.EntityLogicalName,
+                LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.eventhandler,
+
+                LinkToEntityName = PluginType.EntityLogicalName,
+                LinkToAttributeName = PluginType.EntityPrimaryIdAttribute,
+
+                EntityAlias = SdkMessageProcessingStep.Schema.Attributes.eventhandler,
+
+                Columns = new ColumnSet(PluginType.Schema.Attributes.typename, PluginType.Schema.Attributes.assemblyname, PluginType.Schema.Attributes.pluginassemblyid),
+            };
+
+            var linkMessage = new LinkEntity()
+            {
+                LinkFromEntityName = SdkMessageProcessingStep.EntityLogicalName,
+                LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.sdkmessageid,
+
+                LinkToEntityName = SdkMessage.EntityLogicalName,
+                LinkToAttributeName = SdkMessage.EntityPrimaryIdAttribute,
+
+                EntityAlias = SdkMessageProcessingStep.Schema.Attributes.sdkmessageid,
+
+                Columns = new ColumnSet(SdkMessage.Schema.Attributes.categoryname),
+            };
+
             QueryExpression query = new QueryExpression()
             {
-                EntityName = SdkMessageProcessingStep.EntityLogicalName,
-                ColumnSet = new ColumnSet(true),
-
                 NoLock = true,
 
-                Distinct = true,
+                EntityName = SdkMessageProcessingStep.EntityLogicalName,
+
+                ColumnSet = new ColumnSet(true),
 
                 Criteria =
                 {
@@ -54,6 +79,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                 LinkEntities =
                 {
+                    linkPluginType,
+
+                    linkMessage,
+
                     new LinkEntity()
                     {
                         LinkFromEntityName = SdkMessageProcessingStep.EntityLogicalName,
@@ -64,24 +93,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                         EntityAlias = SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid,
 
-                        JoinOperator = Microsoft.Xrm.Sdk.Query.JoinOperator.LeftOuter,
+                        JoinOperator = JoinOperator.LeftOuter,
 
                         Columns = new ColumnSet(SdkMessageFilter.Schema.Attributes.primaryobjecttypecode, SdkMessageFilter.Schema.Attributes.secondaryobjecttypecode),
                     },
                 },
-            };
-
-            var linkPluginType = new LinkEntity()
-            {
-                LinkFromEntityName = SdkMessageProcessingStep.EntityLogicalName,
-                LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.eventhandler,
-
-                LinkToEntityName = PluginType.EntityLogicalName,
-                LinkToAttributeName = PluginType.EntityPrimaryIdAttribute,
-
-                EntityAlias = SdkMessageProcessingStep.Schema.Attributes.eventhandler,
-
-                Columns = new ColumnSet(PluginType.Schema.Attributes.typename, PluginType.Schema.Attributes.pluginassemblyid),
             };
 
             if (!string.IsNullOrEmpty(pluginName))
@@ -89,24 +105,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 linkPluginType.LinkCriteria.Conditions.Add(new ConditionExpression(PluginType.Schema.Attributes.typename, ConditionOperator.Like, "%" + pluginName + "%"));
             }
 
-            query.LinkEntities.Add(linkPluginType);
-
             if (!string.IsNullOrEmpty(messageName))
             {
-                var linkMessage = new LinkEntity()
-                {
-                    LinkFromEntityName = SdkMessageProcessingStep.EntityLogicalName,
-                    LinkFromAttributeName = SdkMessageProcessingStep.Schema.Attributes.sdkmessageid,
-
-                    LinkToEntityName = SdkMessage.EntityLogicalName,
-                    LinkToAttributeName = SdkMessage.EntityPrimaryIdAttribute,
-
-                    EntityAlias = SdkMessageProcessingStep.Schema.Attributes.sdkmessageid,
-                };
-
                 linkMessage.LinkCriteria.Conditions.Add(new ConditionExpression(SdkMessage.Schema.Attributes.name, ConditionOperator.Like, messageName + "%"));
-
-                query.LinkEntities.Add(linkMessage);
             }
 
             if (list != null && list.Count > 0)
@@ -162,8 +163,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 );
             }
 
-            query.Criteria.AddCondition(SdkMessageProcessingStep.Schema.Attributes.ishidden, ConditionOperator.Equal, false);
-
             var result = _service.RetrieveMultipleAll<SdkMessageProcessingStep>(query);
 
             FullfillEntitiesSteps(result);
@@ -186,14 +185,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                 item.Attributes.Add(
                     SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterPrimaryObjectTypeCode
                     , new AliasedValue(SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid, SdkMessageFilter.Schema.Attributes.primaryobjecttypecode, "none")
-                    );
+                );
             }
 
             if (!item.Contains(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterSecondaryObjectTypeCode))
             {
                 item.Attributes.Add(SdkMessageProcessingStep.Schema.EntityAliasFields.SdkMessageFilterSecondaryObjectTypeCode
                     , new AliasedValue(SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid, SdkMessageFilter.Schema.Attributes.secondaryobjecttypecode, "none")
-                    );
+                );
             }
         }
 
@@ -232,7 +231,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                         EntityAlias = SdkMessageProcessingStep.Schema.Attributes.sdkmessagefilterid,
 
-                        JoinOperator = Microsoft.Xrm.Sdk.Query.JoinOperator.LeftOuter,
+                        JoinOperator = JoinOperator.LeftOuter,
 
                         Columns = new ColumnSet(SdkMessageFilter.Schema.Attributes.primaryobjecttypecode, SdkMessageFilter.Schema.Attributes.secondaryobjecttypecode),
                     },
@@ -247,7 +246,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                         EntityAlias = SdkMessageProcessingStep.Schema.Attributes.eventhandler,
 
-                        Columns = new ColumnSet(PluginType.Schema.Attributes.typename),
+                        Columns = new ColumnSet(PluginType.Schema.Attributes.typename, PluginType.Schema.Attributes.assemblyname, PluginType.Schema.Attributes.pluginassemblyid),
                     },
 
                     new LinkEntity()
@@ -260,7 +259,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                         EntityAlias = SdkMessageProcessingStep.Schema.Attributes.sdkmessageid,
 
-                        JoinOperator = Microsoft.Xrm.Sdk.Query.JoinOperator.LeftOuter,
+                        JoinOperator = JoinOperator.LeftOuter,
 
                         Columns = new ColumnSet(SdkMessage.Schema.Attributes.name, SdkMessage.Schema.Attributes.categoryname),
                     },
@@ -316,7 +315,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
 
                         EntityAlias = PluginType.EntityLogicalName,
 
-                        Columns = new ColumnSet(PluginType.Schema.Attributes.typename),
+                        Columns = new ColumnSet(PluginType.Schema.Attributes.typename, PluginType.Schema.Attributes.assemblyname, PluginType.Schema.Attributes.pluginassemblyid),
 
                         LinkCriteria =
                         {
@@ -376,6 +375,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Repository
                             , (int)SdkMessageProcessingStep.Schema.OptionSets.stage.Pre_operation_20
                             , (int)SdkMessageProcessingStep.Schema.OptionSets.stage.Post_operation_40
                         ),
+
                         new ConditionExpression(SdkMessageProcessingStep.Schema.Attributes.ishidden, ConditionOperator.Equal, false),
                     },
                 },

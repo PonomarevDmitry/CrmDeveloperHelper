@@ -18,6 +18,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
@@ -36,28 +37,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly ObservableCollection<PluginTreeViewItem> _pluginTree = new ObservableCollection<PluginTreeViewItem>();
 
-        private View _currentView = View.ByEntity;
+        private BitmapImage _imageRefresh;
 
         private BitmapImage _imagePluginAssembly;
-        private BitmapImage _imageEntity;
-        private BitmapImage _imageImage;
-        private BitmapImage _imageMessage;
         private BitmapImage _imagePluginType;
-        private BitmapImage _imageStage;
+
+        private BitmapImage _imageEntity;
+
+        private BitmapImage _imageMessage;
+        private BitmapImage _imageMessageCategory;
+
         private BitmapImage _imageStep;
         private BitmapImage _imageStepDisabled;
+        private BitmapImage _imageImage;
+
+        private BitmapImage _imageStage;
+        private BitmapImage _imageMode;
+
         private BitmapImage _imageBusinessRule;
         private BitmapImage _imageBusinessProcess;
         private BitmapImage _imageWorkflowActivity;
 
         private readonly CommonConfiguration _commonConfig;
 
-        private enum View
+        private readonly List<GroupingProperty> _currentGrouping = new List<GroupingProperty>()
         {
-            ByEntity = 0,
-            ByAssembly = 1,
-            ByMessage = 2,
-        }
+            GroupingProperty.PluginAssembly
+            , GroupingProperty.PluginType
+            , GroupingProperty.Entity
+            , GroupingProperty.Message
+        };
+
+        private readonly List<GroupingProperty> _groupingPropertiesAll = Enum.GetValues(typeof(GroupingProperty)).OfType<GroupingProperty>().ToList();
+
+        private readonly Dictionary<GroupingProperty, RequestGroupBuilder> _propertyGroups = new Dictionary<GroupingProperty, RequestGroupBuilder>();
 
         public WindowPluginTree(
             IWriteToOutput iWriteToOutput
@@ -66,7 +79,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , string entityFilter
             , string pluginTypeFilter
             , string messageFilter
-            )
+        )
         {
             this.IncreaseInit();
 
@@ -90,6 +103,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             FillEntityNames(service.ConnectionData);
 
             LoadImages();
+
+            FillViewGroups();
 
             LoadConfiguration();
 
@@ -135,7 +150,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private const string paramBusinessRules = "BusinessRules";
         private const string paramBusinessProcesses = "BusinessProcesses";
 
-        private const string paramView = "View";
+        private const string paramGrouping = "Grouping";
 
         private void LoadConfiguration()
         {
@@ -161,34 +176,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.chBBusinessProcesses.IsChecked = winConfig.GetValueBool(paramBusinessProcesses).GetValueOrDefault();
 
             {
-                var temp = winConfig.GetValueString(paramView);
+                var tempGroupingName = winConfig.GetValueString(paramGrouping);
 
-                if (!string.IsNullOrEmpty(temp))
+                if (!string.IsNullOrEmpty(tempGroupingName))
                 {
-                    if (Enum.TryParse<View>(temp, out View tempView))
+                    List<GroupingProperty> list = new List<GroupingProperty>();
+
+                    this.IncreaseInit();
+
+                    var split = tempGroupingName.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    foreach (var item in split)
                     {
-                        this._currentView = tempView;
-
-                        this.IncreaseInit();
-
-                        rBViewByEntity.IsChecked = rBViewByAssembly.IsChecked = rBViewByMessage.IsChecked = false;
-
-                        switch (this._currentView)
+                        if (Enum.TryParse<GroupingProperty>(item, out var tempGrouping))
                         {
-                            case View.ByAssembly:
-                                rBViewByAssembly.IsChecked = true;
-                                break;
-                            case View.ByMessage:
-                                rBViewByMessage.IsChecked = true;
-                                break;
-                            case View.ByEntity:
-                            default:
-                                rBViewByEntity.IsChecked = true;
-                                break;
+                            if (!list.Contains(tempGrouping))
+                            {
+                                list.Add(tempGrouping);
+                            }
                         }
-
-                        this.DecreaseInit();
                     }
+
+                    if (list.Any())
+                    {
+                        _currentGrouping.Clear();
+
+                        _currentGrouping.AddRange(list);
+                    }
+
+                    this.DecreaseInit();
                 }
             }
         }
@@ -210,19 +226,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             winConfig.DictBool[paramBusinessProcesses] = this.chBBusinessProcesses.IsChecked.GetValueOrDefault();
 
-            winConfig.DictString[paramView] = this._currentView.ToString();
+            winConfig.DictString[paramGrouping] = string.Join(",", _currentGrouping.Select(g => g.ToString()));
         }
 
         private void LoadImages()
         {
+            this._imageRefresh = this.Resources["ImageRefresh"] as BitmapImage;
+
             this._imagePluginAssembly = this.Resources["ImagePluginAssembly"] as BitmapImage;
-            this._imageEntity = this.Resources["ImageEntity"] as BitmapImage;
-            this._imageImage = this.Resources["ImageImage"] as BitmapImage;
-            this._imageMessage = this.Resources["ImageMessage"] as BitmapImage;
             this._imagePluginType = this.Resources["ImagePluginType"] as BitmapImage;
-            this._imageStage = this.Resources["ImageStage"] as BitmapImage;
+
+            this._imageEntity = this.Resources["ImageEntity"] as BitmapImage;
+
+            this._imageMessage = this.Resources["ImageMessage"] as BitmapImage;
+            this._imageMessageCategory = this.Resources["ImageMessageCategory"] as BitmapImage;
+
             this._imageStep = this.Resources["ImageStep"] as BitmapImage;
             this._imageStepDisabled = this.Resources["ImageStepDisabled"] as BitmapImage;
+            this._imageImage = this.Resources["ImageImage"] as BitmapImage;
+
+            this._imageStage = this.Resources["ImageStage"] as BitmapImage;
+            this._imageMode = this.Resources["ImageMode"] as BitmapImage;
+
             this._imageBusinessRule = this.Resources["ImageBusinessRule"] as BitmapImage;
             this._imageBusinessProcess = this.Resources["ImageBusinessProcess"] as BitmapImage;
             this._imageWorkflowActivity = this.Resources["ImageWorkflowActivity"] as BitmapImage;
@@ -293,6 +318,1030 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return null;
         }
 
+        private enum GroupingProperty
+        {
+            Entity,
+
+            Message,
+
+            MessageCategory,
+
+            PluginAssembly,
+
+            PluginType,
+
+            Stage,
+
+            Mode,
+        }
+
+        private void FillViewGroups()
+        {
+            _propertyGroups.Clear();
+
+            _propertyGroups[GroupingProperty.Entity] = new RequestGroupBuilder()
+            {
+                GroupingProperty = GroupingProperty.Entity,
+                FillTree = FillTreeByEntity,
+                GroupSteps = GroupStepsByEntity,
+            };
+
+            _propertyGroups[GroupingProperty.Message] = new RequestGroupBuilder()
+            {
+                GroupingProperty = GroupingProperty.Message,
+                FillTree = FillTreeByMessage,
+                GroupSteps = GroupStepsByMessage,
+            };
+
+            _propertyGroups[GroupingProperty.MessageCategory] = new RequestGroupBuilder()
+            {
+                GroupingProperty = GroupingProperty.MessageCategory,
+                FillTree = FillTreeByMessageCategory,
+                GroupSteps = GroupStepsByMessageCategory,
+            };
+
+            _propertyGroups[GroupingProperty.PluginAssembly] = new RequestGroupBuilder()
+            {
+                GroupingProperty = GroupingProperty.PluginAssembly,
+                FillTree = FillTreeByPluginAssembly,
+                GroupSteps = GroupStepsByPluginAssembly,
+            };
+
+            _propertyGroups[GroupingProperty.PluginType] = new RequestGroupBuilder()
+            {
+                GroupingProperty = GroupingProperty.PluginType,
+                FillTree = FillTreeByPluginType,
+                GroupSteps = GroupStepsByPluginType,
+            };
+
+            _propertyGroups[GroupingProperty.Stage] = new RequestGroupBuilder()
+            {
+                GroupingProperty = GroupingProperty.Stage,
+                FillTree = FillTreeByStage,
+                GroupSteps = GroupStepsByStage,
+            };
+
+            _propertyGroups[GroupingProperty.Mode] = new RequestGroupBuilder()
+            {
+                GroupingProperty = GroupingProperty.Mode,
+                FillTree = FillTreeByMode,
+                GroupSteps = GroupStepsByMode,
+            };
+
+            mIView.Items.Clear();
+
+            mIView.SubmenuClosed += this.mIView_SubmenuClosed;
+
+            var menuItemRefreshView = new MenuItem()
+            {
+                Header = "Refresh View",
+                Icon = new Image()
+                {
+                    Height = 16,
+                    Width = 16,
+                    Source = _imageRefresh,
+                },
+            };
+
+            menuItemRefreshView.Click += this.mIView_SubmenuClosed;
+
+            mIView.Items.Add(menuItemRefreshView);
+            mIView.Items.Add(new Separator());
+
+            this.IncreaseInit();
+
+            for (int i = 0; i < _groupingPropertiesAll.Count; i++)
+            {
+                var comboBox = new ComboBox()
+                {
+                    Visibility = Visibility.Collapsed,
+
+                    VerticalContentAlignment = VerticalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Stretch,
+
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+
+                    Background = Brushes.White,
+                };
+
+                comboBox.Items.Add(string.Empty);
+
+                foreach (var item in _groupingPropertiesAll)
+                {
+                    comboBox.Items.Add(item);
+                }
+
+                if (i < this._currentGrouping.Count)
+                {
+                    comboBox.SelectedItem = this._currentGrouping[i];
+                }
+
+                comboBox.SelectionChanged += this.comboBox_SelectionChanged;
+
+                mIView.Items.Add(comboBox);
+            }
+
+            this.DecreaseInit();
+
+            UpdateGroupingVisibility();
+        }
+
+        private async void mIView_SubmenuClosed(object sender, RoutedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            UpdateGroupingVisibility();
+
+            var grouping = GetGrouping();
+
+            if (!this._currentGrouping.SequenceEqual(grouping))
+            {
+                this._currentGrouping.Clear();
+
+                this._currentGrouping.AddRange(grouping);
+
+                await ShowExistingPlugins();
+            }
+        }
+
+        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!IsControlsEnabled)
+            {
+                return;
+            }
+
+            UpdateGroupingVisibility();
+        }
+
+        private void UpdateGroupingVisibility()
+        {
+            this.IncreaseInit();
+
+            HashSet<GroupingProperty> usedProperties = new HashSet<GroupingProperty>();
+
+            bool hideOthers = false;
+
+            foreach (var comboBox in mIView.Items.OfType<ComboBox>())
+            {
+                if (hideOthers)
+                {
+                    comboBox.SelectedIndex = 0;
+                    comboBox.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    comboBox.Visibility = Visibility.Visible;
+
+                    if (comboBox.SelectedItem is GroupingProperty groupingProperty)
+                    {
+                        FillGroupingComboBox(usedProperties, comboBox);
+
+                        if (usedProperties.Contains(groupingProperty))
+                        {
+                            hideOthers = true;
+                        }
+                        else
+                        {
+                            usedProperties.Add(groupingProperty);
+
+                            comboBox.SelectedItem = groupingProperty;
+                        }
+                    }
+                    else
+                    {
+                        hideOthers = true;
+
+                        FillGroupingComboBox(usedProperties, comboBox);
+                    }
+                }
+            }
+
+            this.DecreaseInit();
+        }
+
+        private void FillGroupingComboBox(HashSet<GroupingProperty> usedProperties, ComboBox comboBox)
+        {
+            comboBox.Items.Clear();
+
+            comboBox.Items.Add(string.Empty);
+
+            comboBox.SelectedIndex = 0;
+
+            foreach (var item in _groupingPropertiesAll.Where(p => !usedProperties.Contains(p)))
+            {
+                comboBox.Items.Add(item);
+            }
+        }
+
+        private List<GroupingProperty> GetGrouping()
+        {
+            List<GroupingProperty> result = new List<GroupingProperty>();
+
+            foreach (var comboBox in mIView.Items.OfType<ComboBox>())
+            {
+                if (comboBox.SelectedItem is GroupingProperty groupingProperty)
+                {
+                    if (!result.Contains(groupingProperty))
+                    {
+                        result.Add(groupingProperty);
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return result;
+        }
+
+        private class RequestGroupBuilder
+        {
+            public GroupingProperty GroupingProperty { get; set; }
+
+            public Func<
+                IOrganizationServiceExtented
+                , List<PluginStage>
+                , string
+                , string
+                , string
+                , IEnumerable<RequestGroupBuilder>
+                , Task>
+                FillTree
+            { get; set; }
+
+            public Func<
+                PluginSearchResult
+                , IEnumerable<SdkMessageProcessingStep>
+                , IEnumerable<RequestGroupBuilder>
+                , IEnumerable<Action<PluginTreeViewItem>>
+                , IEnumerable<PluginTreeViewItem>
+                > GroupSteps
+            { get; set; }
+
+            public override string ToString() => this.GroupingProperty.ToString();
+        }
+
+        #region Entity
+
+        private async Task FillTreeByEntity(
+            IOrganizationServiceExtented service
+            , List<PluginStage> stages
+            , string pluginTypeNameFilter
+            , string messageNameFilter
+            , string entityNameFilter
+            , IEnumerable<RequestGroupBuilder> requestGroups
+        )
+        {
+            PluginSearchRepository repository = new PluginSearchRepository(service);
+
+            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter);
+
+            foreach (var nodeEntity in GroupStepsByEntity(
+                search
+                , search.SdkMessageProcessingStep
+                , requestGroups
+                , new Action<PluginTreeViewItem>[0]
+            ))
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    _pluginTree.Add(nodeEntity);
+                });
+            }
+
+            //var groupsList = steps.GroupBy(s => s.PrimaryObjectTypeCodeName, StringComparer.InvariantCultureIgnoreCase);
+
+            //List<ProcessingStep> processingSteps = new List<ProcessingStep>();
+
+            //processingSteps.AddRange(searchResult.SdkMessageProcessingStep.Select(e => new ProcessingStep(e.PrimaryObjectTypeCodeName, e.SdkMessageId?.Name ?? "Unknown", e.Stage?.Value, e.Mode?.Value == (int)SdkMessageProcessingStep.Schema.OptionSets.mode.Asynchronous_1, e.Rank, e.Name, e)));
+
+            //var repWorkflow = new WorkflowRepository(service);
+
+            //if (withBusinessProcesses)
+            //{
+            //    IEnumerable<Workflow> businessProcesses = await repWorkflow.GetListAsync(entityNameFilter, (int)Workflow.Schema.OptionSets.category.Workflow_0, null, _columnSetWorkflow);
+
+            //    foreach (var item in businessProcesses)
+            //    {
+            //        if ("Create".StartsWith(messageNameFilter, StringComparison.InvariantCultureIgnoreCase) && item.TriggerOnCreate.GetValueOrDefault())
+            //        {
+            //            processingSteps.Add(new ProcessingStep(item.PrimaryEntity, "Create", item.CreateStage?.Value ?? (int)SdkMessageProcessingStep.Schema.OptionSets.stage.Post_operation_40, item.Mode?.Value == (int)Workflow.Schema.OptionSets.mode.Background_0, item.Rank, item.Name, item));
+            //        }
+
+            //        if ("Update".StartsWith(messageNameFilter, StringComparison.InvariantCultureIgnoreCase) && !string.IsNullOrEmpty(item.TriggerOnUpdateAttributeList))
+            //        {
+            //            processingSteps.Add(new ProcessingStep(item.PrimaryEntity, "Update", item.UpdateStage?.Value ?? (int)SdkMessageProcessingStep.Schema.OptionSets.stage.Post_operation_40, item.Mode?.Value == (int)Workflow.Schema.OptionSets.mode.Background_0, item.Rank, item.Name, item));
+            //        }
+
+            //        if ("Delete".StartsWith(messageNameFilter, StringComparison.InvariantCultureIgnoreCase) && item.TriggerOnDelete.GetValueOrDefault())
+            //        {
+            //            processingSteps.Add(new ProcessingStep(item.PrimaryEntity, "Delete", item.DeleteStage?.Value ?? (int)SdkMessageProcessingStep.Schema.OptionSets.stage.Post_operation_40, item.Mode?.Value == (int)Workflow.Schema.OptionSets.mode.Background_0, item.Rank, item.Name, item));
+            //        }
+            //    }
+            //}
+
+            //var listEntities = new HashSet<string>(processingSteps.Select(ent => ent.EntityName), StringComparer.InvariantCultureIgnoreCase);
+
+            //IEnumerable<Workflow> businessRules = null;
+
+            //if (withBusinessRules)
+            //{
+            //    businessRules = await repWorkflow.GetListAsync(entityNameFilter, (int)Workflow.Schema.OptionSets.category.Business_Rule_2, null, _columnSetWorkflow);
+
+            //    foreach (var item in businessRules)
+            //    {
+            //        listEntities.Add(item.PrimaryEntity);
+            //    }
+            //}
+
+            //foreach (var entityName in listEntities.OrderBy(s => s))
+            //{
+            //    var grEntity = processingSteps.Where(e => string.Equals(e.EntityName, entityName, StringComparison.InvariantCultureIgnoreCase));
+
+            //    PluginTreeViewItem nodeEntity = CreateNodeMessageFilter(entityName, null, grEntity.Where(e => e.Entity is SdkMessageProcessingStep).Select(e => e.Entity as SdkMessageProcessingStep));
+
+            //    //if (businessRules != null)
+            //    //{
+            //    //    var entityRules = businessRules.Where(w => string.Equals(w.PrimaryEntity, entityName, StringComparison.InvariantCultureIgnoreCase));
+
+            //    //    if (entityRules.Any())
+            //    //    {
+            //    //        var nodeRules = CreateNodeBusinessRules(entityName);
+
+            //    //        nodeEntity.Items.Add(nodeRules);
+            //    //        nodeRules.Parent = nodeEntity;
+
+            //    //        foreach (var item in entityRules.OrderBy(w => w.Name))
+            //    //        {
+            //    //            var nodeRule = CreateNodeBusinessRule(item);
+
+            //    //            nodeRules.Items.Add(nodeRule);
+            //    //            nodeRule.Parent = nodeRules;
+            //    //        }
+            //    //    }
+            //    //}
+
+            //    var groupsByMessages = grEntity.GroupBy(e => e.Message).OrderBy(mess => mess.Key, new MessageComparer());
+
+            //    foreach (var grMessage in groupsByMessages)
+            //    {
+            //        PluginTreeViewItem nodeMessage = CreateNodeMessage(grMessage.Key, grMessage.Where(e => e.Entity is SdkMessageProcessingStep).Select(e => e.Entity as SdkMessageProcessingStep));
+
+            //        nodeEntity.Items.Add(nodeMessage);
+            //        nodeMessage.Parent = nodeEntity;
+
+            //        var groupsStage = grMessage.GroupBy(ent => ent.Stage.Value).OrderBy(item => item.Key);
+
+            //        foreach (var stage in groupsStage)
+            //        {
+            //            PluginTreeViewItem nodeStage = null;
+            //            PluginTreeViewItem nodePostAsynch = null;
+
+            //            foreach (var step in stage.OrderBy(s => s.AsyncMode).ThenBy(s => s.Rank).ThenBy(s => s.Name))
+            //            {
+            //                PluginTreeViewItem nodeTarget = null;
+
+            //                if (step.AsyncMode)
+            //                {
+            //                    if (nodePostAsynch == null)
+            //                    {
+            //                        nodePostAsynch = CreateNodeStage(stage.Key, step.AsyncMode ? 1 : 0);
+
+            //                        nodeMessage.Items.Add(nodePostAsynch);
+            //                        nodePostAsynch.Parent = nodeMessage;
+            //                    }
+
+            //                    nodeTarget = nodePostAsynch;
+            //                }
+            //                else
+            //                {
+            //                    if (nodeStage == null)
+            //                    {
+            //                        nodeStage = CreateNodeStage(stage.Key, step.AsyncMode ? 1 : 0);
+
+            //                        nodeMessage.Items.Add(nodeStage);
+            //                        nodeStage.Parent = nodeMessage;
+            //                    }
+
+            //                    nodeTarget = nodeStage;
+            //                }
+
+            //                PluginTreeViewItem nodeStep = CreateNodeStep(step.Entity, searchResult.SdkMessageProcessingStepImage);
+
+            //                nodeTarget.Items.Add(nodeStep);
+            //                nodeStep.Parent = nodeTarget;
+
+            //                nodeStep.IsExpanded = true;
+            //            }
+
+            //            if (nodeStage != null)
+            //            {
+            //                nodeStage.IsExpanded = true;
+            //            }
+
+            //            if (nodePostAsynch != null)
+            //            {
+            //                nodePostAsynch.IsExpanded = true;
+            //            }
+            //        }
+
+            //        nodeMessage.IsExpanded = true;
+            //    }
+
+
+            //}
+        }
+
+        private IEnumerable<PluginTreeViewItem> GroupStepsByEntity(
+            PluginSearchResult search
+            , IEnumerable<SdkMessageProcessingStep> steps
+            , IEnumerable<RequestGroupBuilder> requestGroups
+            , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
+        )
+        {
+            var groupsList = steps.GroupBy(s => s.PrimaryObjectTypeCodeName, StringComparer.InvariantCultureIgnoreCase);
+
+            foreach (var grEntity in groupsList)
+            {
+                var nodeEntity = new PluginTreeViewItem(ComponentType.Entity)
+                {
+                    Name = grEntity.Key,
+                    Image = _imageEntity,
+
+                    EntityLogicalName = grEntity.Key,
+                };
+
+                foreach (var action in actionsOnChilds)
+                {
+                    action?.Invoke(nodeEntity);
+                }
+
+                var newActionOnChilds = actionsOnChilds.Union(new Action<PluginTreeViewItem>[] { n => n.EntityLogicalName = grEntity.Key });
+
+                RecursiveGroup(nodeEntity, search, grEntity, requestGroups, newActionOnChilds);
+
+                yield return nodeEntity;
+            }
+        }
+
+        #endregion Entity
+
+        #region Message
+
+        private async Task FillTreeByMessage(
+            IOrganizationServiceExtented service
+            , List<PluginStage> stages
+            , string pluginTypeNameFilter
+            , string messageNameFilter
+            , string entityNameFilter
+            , IEnumerable<RequestGroupBuilder> requestGroups
+        )
+        {
+            PluginSearchRepository repository = new PluginSearchRepository(service);
+
+            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter);
+
+            foreach (var nodeMessage in GroupStepsByMessage(
+                search
+                , search.SdkMessageProcessingStep
+                , requestGroups
+                , new Action<PluginTreeViewItem>[0]
+            ))
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    _pluginTree.Add(nodeMessage);
+                });
+            }
+        }
+
+        private IEnumerable<PluginTreeViewItem> GroupStepsByMessage(
+            PluginSearchResult search
+            , IEnumerable<SdkMessageProcessingStep> steps
+            , IEnumerable<RequestGroupBuilder> requestGroups
+            , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
+        )
+        {
+            var groupsList = steps.GroupBy(ent => ent.SdkMessageId?.Name ?? "Unknown").OrderBy(mess => mess.Key, new MessageComparer());
+
+            foreach (var grMessage in groupsList)
+            {
+                var nodeMessage = new PluginTreeViewItem(ComponentType.SdkMessage)
+                {
+                    Name = grMessage.Key,
+                    Image = _imageMessage,
+
+                    MessageName = grMessage.Key,
+                };
+
+                nodeMessage.MessageList.AddRange(steps.Where(s => s.SdkMessageId != null).Select(s => s.SdkMessageId.Id).Distinct());
+
+                nodeMessage.MessageFilterList.AddRange(steps.Where(s => s.SdkMessageFilterId != null).Select(s => s.SdkMessageFilterId.Id).Distinct());
+
+                foreach (var action in actionsOnChilds)
+                {
+                    action?.Invoke(nodeMessage);
+                }
+
+                var newActionOnChilds = actionsOnChilds.Union(new Action<PluginTreeViewItem>[] { n => n.MessageName = grMessage.Key });
+
+                RecursiveGroup(nodeMessage, search, grMessage, requestGroups, newActionOnChilds);
+
+                yield return nodeMessage;
+            }
+        }
+
+        #endregion Message
+
+        #region Message Category
+
+        private async Task FillTreeByMessageCategory(
+            IOrganizationServiceExtented service
+            , List<PluginStage> stages
+            , string pluginTypeNameFilter
+            , string messageNameFilter
+            , string entityNameFilter
+            , IEnumerable<RequestGroupBuilder> requestGroups
+        )
+        {
+            PluginSearchRepository repository = new PluginSearchRepository(service);
+
+            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter);
+
+            foreach (var nodeEntity in GroupStepsByMessageCategory(
+                search
+                , search.SdkMessageProcessingStep
+                , requestGroups
+                , new Action<PluginTreeViewItem>[0]
+            ))
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    _pluginTree.Add(nodeEntity);
+                });
+            }
+        }
+
+        private IEnumerable<PluginTreeViewItem> GroupStepsByMessageCategory(
+            PluginSearchResult search
+            , IEnumerable<SdkMessageProcessingStep> steps
+            , IEnumerable<RequestGroupBuilder> requestGroups
+            , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
+        )
+        {
+            var groupsList = steps.GroupBy(ent => ent.MessageCategoryName ?? "Unknown").OrderBy(mess => mess.Key, new MessageComparer());
+
+            foreach (var grMessageCategory in groupsList)
+            {
+                var nodeMessageCategory = new PluginTreeViewItem(ComponentType.SdkMessage)
+                {
+                    Name = grMessageCategory.Key,
+                    Image = _imageMessageCategory,
+
+                    MessageCategoryName = grMessageCategory.Key,
+                };
+
+                foreach (var action in actionsOnChilds)
+                {
+                    action?.Invoke(nodeMessageCategory);
+                }
+
+                var newActionOnChilds = actionsOnChilds.Union(new Action<PluginTreeViewItem>[] { n => n.MessageCategoryName = grMessageCategory.Key });
+
+                RecursiveGroup(nodeMessageCategory, search, grMessageCategory, requestGroups, newActionOnChilds);
+
+                yield return nodeMessageCategory;
+            }
+        }
+
+        #endregion Message Category
+
+        #region PluginAssembly
+
+        private async Task FillTreeByPluginAssembly(
+            IOrganizationServiceExtented service
+            , List<PluginStage> stages
+            , string pluginTypeNameFilter
+            , string messageNameFilter
+            , string entityNameFilter
+            , IEnumerable<RequestGroupBuilder> requestGroups
+        )
+        {
+            var repositoryPluginType = new PluginTypeRepository(service);
+            var pluginTypeList = await repositoryPluginType.GetPluginTypesAsync(pluginTypeNameFilter, null);
+
+            var repository = new PluginSearchRepository(service);
+            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter);
+
+            var groupAssemblyList = pluginTypeList.GroupBy(p => new { p.PluginAssemblyId.Id, Name = p.AssemblyName });
+
+            var stepsByPluginAssemblyDict = search.SdkMessageProcessingStep.GroupBy(s => s.PluginAssemblyId).ToDictionary(s => s.Key);
+
+            foreach (var grPluginAssembly in groupAssemblyList.OrderBy(a => a.Key.Name))
+            {
+                var nodePluginAssembly = new PluginTreeViewItem(ComponentType.PluginAssembly)
+                {
+                    Name = grPluginAssembly.Key.Name,
+                    Image = _imagePluginAssembly,
+
+                    PluginAssemblyId = grPluginAssembly.Key.Id,
+                };
+
+                if (requestGroups.Any() && requestGroups.First().GroupingProperty == GroupingProperty.PluginType)
+                {
+                    var stepsByPluginTypeDict = search.SdkMessageProcessingStep.GroupBy(s => s.EventHandler.Id).ToDictionary(s => s.Key);
+
+                    foreach (var pluginType in grPluginAssembly
+                        .OrderBy(p => p.IsWorkflowActivity.GetValueOrDefault())
+                        .ThenBy(p => p.TypeName)
+                    )
+                    {
+                        var nodePluginType = new PluginTreeViewItem(ComponentType.PluginType)
+                        {
+                            Name = pluginType.TypeName,
+                            Image = pluginType.IsWorkflowActivity.GetValueOrDefault() ? _imageWorkflowActivity : _imagePluginType,
+
+                            PluginTypeId = pluginType.PluginTypeId,
+                            PluginAssemblyId = pluginType.PluginAssemblyId?.Id,
+
+                            IsWorkflowActivity = pluginType.IsWorkflowActivity.GetValueOrDefault(),
+                        };
+
+                        nodePluginAssembly.Items.Add(nodePluginType);
+                        nodePluginType.Parent = nodePluginAssembly;
+
+                        if (stepsByPluginTypeDict.ContainsKey(pluginType.Id))
+                        {
+                            var steps = stepsByPluginTypeDict[pluginType.Id];
+
+                            var newActionOnChilds = new Action<PluginTreeViewItem>[]
+                            {
+                                n => {
+                                    n.PluginTypeId = pluginType.PluginTypeId;
+                                    n.PluginAssemblyId = pluginType.PluginAssemblyId?.Id;
+                                }
+                            };
+
+                            RecursiveGroup(nodePluginType, search, steps, requestGroups.Skip(1), newActionOnChilds);
+                        }
+                    }
+                }
+                else
+                {
+                    var newActionOnChilds = new Action<PluginTreeViewItem>[] { n => n.PluginAssemblyId = grPluginAssembly.Key.Id };
+
+                    if (stepsByPluginAssemblyDict.ContainsKey(grPluginAssembly.Key.Id))
+                    {
+                        var steps = stepsByPluginAssemblyDict[grPluginAssembly.Key.Id];
+
+                        RecursiveGroup(nodePluginAssembly, search, steps, requestGroups, newActionOnChilds);
+                    }
+                }
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    _pluginTree.Add(nodePluginAssembly);
+                });
+            }
+        }
+
+        private IEnumerable<PluginTreeViewItem> GroupStepsByPluginAssembly(
+            PluginSearchResult search
+            , IEnumerable<SdkMessageProcessingStep> steps
+            , IEnumerable<RequestGroupBuilder> requestGroups
+            , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
+        )
+        {
+            var groupsList = steps
+                .GroupBy(ent => new
+                {
+                    ent.PluginAssemblyName,
+                    ent.PluginAssemblyId
+                })
+                .OrderBy(s => s.Key.PluginAssemblyName)
+                ;
+
+            foreach (var grPluginAssembly in groupsList)
+            {
+                var nodePluginAssembly = new PluginTreeViewItem(ComponentType.PluginAssembly)
+                {
+                    Name = grPluginAssembly.Key.PluginAssemblyName,
+                    Image = _imagePluginAssembly,
+
+                    PluginAssemblyId = grPluginAssembly.Key.PluginAssemblyId,
+                };
+
+                foreach (var action in actionsOnChilds)
+                {
+                    action?.Invoke(nodePluginAssembly);
+                }
+
+                var newActionOnChilds = actionsOnChilds.Union(new Action<PluginTreeViewItem>[] { n => n.PluginAssemblyId = grPluginAssembly.Key.PluginAssemblyId });
+
+                RecursiveGroup(nodePluginAssembly, search, grPluginAssembly, requestGroups, newActionOnChilds);
+
+                yield return nodePluginAssembly;
+            }
+        }
+
+        #endregion PluginAssembly
+
+        #region PluginType
+
+        private async Task FillTreeByPluginType(
+            IOrganizationServiceExtented service
+            , List<PluginStage> stages
+            , string pluginTypeNameFilter
+            , string messageNameFilter
+            , string entityNameFilter
+            , IEnumerable<RequestGroupBuilder> requestGroups
+        )
+        {
+            var repositoryPluginType = new PluginTypeRepository(service);
+            var pluginTypeList = await repositoryPluginType.GetPluginTypesAsync(pluginTypeNameFilter, null);
+
+            var repository = new PluginSearchRepository(service);
+            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter);
+
+            var stepsByPluginTypeDict = search.SdkMessageProcessingStep.GroupBy(s => s.EventHandler.Id).ToDictionary(s => s.Key);
+
+            foreach (var pluginType in pluginTypeList
+                .OrderBy(p => p.IsWorkflowActivity.GetValueOrDefault())
+                .ThenBy(p => p.AssemblyName)
+                .ThenBy(p => p.TypeName)
+            )
+            {
+                var nodePluginType = new PluginTreeViewItem(ComponentType.PluginType)
+                {
+                    Name = pluginType.TypeName,
+                    Image = pluginType.IsWorkflowActivity.GetValueOrDefault() ? _imageWorkflowActivity : _imagePluginType,
+
+                    PluginTypeId = pluginType.PluginTypeId,
+                    PluginAssemblyId = pluginType.PluginAssemblyId?.Id,
+
+                    IsWorkflowActivity = pluginType.IsWorkflowActivity.GetValueOrDefault(),
+                };
+
+                if (stepsByPluginTypeDict.ContainsKey(pluginType.Id))
+                {
+                    var steps = stepsByPluginTypeDict[pluginType.Id];
+
+                    var newActionOnChilds = new Action<PluginTreeViewItem>[]
+                    {
+                        n => {
+                            n.PluginTypeId = pluginType.PluginTypeId;
+                            n.PluginAssemblyId = pluginType.PluginAssemblyId?.Id;
+                        }
+                    };
+
+                    RecursiveGroup(nodePluginType, search, steps, requestGroups, newActionOnChilds);
+                }
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    _pluginTree.Add(nodePluginType);
+                });
+            }
+        }
+
+        private IEnumerable<PluginTreeViewItem> GroupStepsByPluginType(
+            PluginSearchResult search
+            , IEnumerable<SdkMessageProcessingStep> steps
+            , IEnumerable<RequestGroupBuilder> requestGroups
+            , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
+        )
+        {
+            var groupsList = steps
+                .GroupBy(ent => new
+                {
+                    PluginTypeName = ent.EventHandler.Name,
+                    PluginTypeId = ent.EventHandler.Id,
+                    ent.PluginAssemblyName,
+                    ent.PluginAssemblyId
+                })
+                .OrderBy(s => s.Key.PluginAssemblyName)
+                .ThenBy(s => s.Key.PluginTypeName)
+                ;
+
+            foreach (var grPluginType in groupsList)
+            {
+                var nodePluginType = new PluginTreeViewItem(ComponentType.PluginType)
+                {
+                    Name = grPluginType.Key.PluginTypeName,
+                    Image = _imagePluginType,
+
+                    PluginTypeId = grPluginType.Key.PluginTypeId,
+                    PluginAssemblyId = grPluginType.Key.PluginAssemblyId,
+
+                    IsWorkflowActivity = false,
+                };
+
+                foreach (var action in actionsOnChilds)
+                {
+                    action?.Invoke(nodePluginType);
+                }
+
+                var newActionOnChilds = actionsOnChilds.Union(new Action<PluginTreeViewItem>[]
+                    {
+                        n => {
+                            n.PluginTypeId = grPluginType.Key.PluginTypeId;
+                            n.PluginAssemblyId = grPluginType.Key.PluginAssemblyId;
+                        }
+                    }
+                );
+
+                RecursiveGroup(nodePluginType, search, grPluginType, requestGroups, actionsOnChilds);
+
+                yield return nodePluginType;
+            }
+        }
+
+        #endregion PluginType
+
+        #region Stage
+
+        private async Task FillTreeByStage(
+            IOrganizationServiceExtented service
+            , List<PluginStage> stages
+            , string pluginTypeNameFilter
+            , string messageNameFilter
+            , string entityNameFilter
+            , IEnumerable<RequestGroupBuilder> requestGroups
+        )
+        {
+            PluginSearchRepository repository = new PluginSearchRepository(service);
+
+            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter);
+
+            foreach (var grStage in GroupStepsByStage(
+                search
+                , search.SdkMessageProcessingStep
+                , requestGroups
+                , new Action<PluginTreeViewItem>[0]
+            ))
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    _pluginTree.Add(grStage);
+                });
+            }
+        }
+
+        private IEnumerable<PluginTreeViewItem> GroupStepsByStage(
+            PluginSearchResult search
+            , IEnumerable<SdkMessageProcessingStep> steps
+            , IEnumerable<RequestGroupBuilder> requestGroups
+            , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
+        )
+        {
+            var groupsList = steps.GroupBy(ent => new { Stage = ent.Stage.Value, Mode = ent.Mode.Value }).OrderBy(s => s.Key.Stage).ThenBy(s => s.Key.Mode);
+
+            foreach (var grStage in groupsList)
+            {
+                string name = SdkMessageProcessingStepRepository.GetStageName(grStage.Key.Stage, grStage.Key.Mode);
+
+                var nodeStage = new PluginTreeViewItem(null)
+                {
+                    Name = name,
+                    Image = _imageStage,
+                };
+
+                foreach (var action in actionsOnChilds)
+                {
+                    action?.Invoke(nodeStage);
+                }
+
+                RecursiveGroup(nodeStage, search, grStage, requestGroups, actionsOnChilds);
+
+                yield return nodeStage;
+            }
+        }
+
+        #endregion Stage
+
+        #region Mode
+
+        private async Task FillTreeByMode(
+            IOrganizationServiceExtented service
+            , List<PluginStage> stages
+            , string pluginTypeNameFilter
+            , string messageNameFilter
+            , string entityNameFilter
+            , IEnumerable<RequestGroupBuilder> requestGroups
+        )
+        {
+            PluginSearchRepository repository = new PluginSearchRepository(service);
+
+            PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter);
+
+            foreach (var grMode in GroupStepsByMode(
+                search
+                , search.SdkMessageProcessingStep
+                , requestGroups
+                , new Action<PluginTreeViewItem>[0]
+            ))
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    _pluginTree.Add(grMode);
+                });
+            }
+        }
+
+        private IEnumerable<PluginTreeViewItem> GroupStepsByMode(
+            PluginSearchResult search
+            , IEnumerable<SdkMessageProcessingStep> steps
+            , IEnumerable<RequestGroupBuilder> requestGroups
+            , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
+        )
+        {
+            var groupsList = steps.GroupBy(ent => ent.ModeEnum.Value).OrderBy(s => s.Key);
+
+            foreach (var grMode in groupsList)
+            {
+                string name = Helpers.EnumDescriptionTypeConverter.GetEnumNameByDescriptionAttribute(grMode.Key);
+
+                var nodeMode = new PluginTreeViewItem(null)
+                {
+                    Name = name,
+                    Image = _imageMode,
+                };
+
+                foreach (var action in actionsOnChilds)
+                {
+                    action?.Invoke(nodeMode);
+                }
+
+                RecursiveGroup(nodeMode, search, grMode, requestGroups, actionsOnChilds);
+
+                yield return nodeMode;
+            }
+        }
+
+        #endregion Mode
+
+        private void RecursiveGroup(
+            PluginTreeViewItem nodeParent
+            , PluginSearchResult search
+            , IEnumerable<SdkMessageProcessingStep> steps
+            , IEnumerable<RequestGroupBuilder> requestGroups
+            , IEnumerable<Action<PluginTreeViewItem>> newActionOnChilds
+        )
+        {
+            if (requestGroups.Any())
+            {
+                var groupBuilder = requestGroups.First();
+
+                foreach (var node in groupBuilder.GroupSteps(
+                    search
+                    , steps
+                    , requestGroups.Skip(1)
+                    , newActionOnChilds
+                ))
+                {
+                    nodeParent.Items.Add(node);
+                    node.Parent = nodeParent;
+                }
+            }
+            else
+            {
+                foreach (var node in GetAllSteps(search, steps, newActionOnChilds))
+                {
+                    nodeParent.Items.Add(node);
+                    node.Parent = nodeParent;
+                }
+            }
+        }
+
+        private IEnumerable<PluginTreeViewItem> GetAllSteps(
+            PluginSearchResult search
+            , IEnumerable<SdkMessageProcessingStep> steps
+            , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
+        )
+        {
+            foreach (var step in steps
+                .OrderBy(s => s.Stage.Value)
+                .ThenBy(s => s.Mode.Value)
+                .ThenBy(s => s.Rank)
+                .ThenBy(s => s.Name)
+            )
+            {
+                PluginTreeViewItem nodeStep = CreateNodeStep(step, search.SdkMessageProcessingStepImage);
+
+                foreach (var action in actionsOnChilds)
+                {
+                    action?.Invoke(nodeStep);
+                }
+
+                yield return nodeStep;
+            }
+        }
+
         private async Task ShowExistingPlugins()
         {
             if (!this.IsControlsEnabled)
@@ -333,23 +1382,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 if (service != null)
                 {
-                    PluginSearchRepository repository = new PluginSearchRepository(service);
+                    List<RequestGroupBuilder> requestGroups = _currentGrouping.Select(g => _propertyGroups[g]).ToList();
 
-                    switch (_currentView)
-                    {
-                        case View.ByAssembly:
-                            await FillTreeByAssembly(service, stages, pluginTypeName, messageName, entityName);
-                            break;
+                    var first = requestGroups.First();
 
-                        case View.ByMessage:
-                            await FillTreeByMessage(service, stages, pluginTypeName, messageName, entityName);
-                            break;
-
-                        case View.ByEntity:
-                        default:
-                            await FillTreeByEntity(service, stages, pluginTypeName, messageName, entityName, withBusinessRules, withBusinessProcesses);
-                            break;
-                    }
+                    await first.FillTree(service, stages, pluginTypeName, messageName, entityName, requestGroups.Skip(1));
 
                     ExpandNodes(_pluginTree);
 
@@ -470,421 +1507,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , Workflow.Schema.Attributes.triggerondelete
         );
 
-        private async Task FillTreeByEntity(
-            IOrganizationServiceExtented service
-            , List<PluginStage> stages
-            , string pluginTypeNameFilter
-            , string messageNameFilter
-            , string entityNameFilter
-            , bool withBusinessRules
-            , bool withBusinessProcesses
-            )
-        {
-            PluginSearchRepository repository = new PluginSearchRepository(service);
-
-            PluginSearchResult searchResult = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter);
-
-            List<ProcessingStep> processingSteps = new List<ProcessingStep>();
-
-            processingSteps.AddRange(searchResult.SdkMessageProcessingStep.Select(e => new ProcessingStep(e.PrimaryObjectTypeCodeName, e.SdkMessageId?.Name ?? "Unknown", e.Stage?.Value, e.Mode?.Value == (int)SdkMessageProcessingStep.Schema.OptionSets.mode.Asynchronous_1, e.Rank, e.Name, e)));
-
-            var repWorkflow = new WorkflowRepository(service);
-
-            if (withBusinessProcesses)
-            {
-                IEnumerable<Workflow> businessProcesses = await repWorkflow.GetListAsync(entityNameFilter, (int)Workflow.Schema.OptionSets.category.Workflow_0, null, _columnSetWorkflow);
-
-                foreach (var item in businessProcesses)
-                {
-                    if ("Create".StartsWith(messageNameFilter, StringComparison.InvariantCultureIgnoreCase) && item.TriggerOnCreate.GetValueOrDefault())
-                    {
-                        processingSteps.Add(new ProcessingStep(item.PrimaryEntity, "Create", item.CreateStage?.Value ?? (int)SdkMessageProcessingStep.Schema.OptionSets.stage.Post_operation_40, item.Mode?.Value == (int)Workflow.Schema.OptionSets.mode.Background_0, item.Rank, item.Name, item));
-                    }
-
-                    if ("Update".StartsWith(messageNameFilter, StringComparison.InvariantCultureIgnoreCase) && !string.IsNullOrEmpty(item.TriggerOnUpdateAttributeList))
-                    {
-                        processingSteps.Add(new ProcessingStep(item.PrimaryEntity, "Update", item.UpdateStage?.Value ?? (int)SdkMessageProcessingStep.Schema.OptionSets.stage.Post_operation_40, item.Mode?.Value == (int)Workflow.Schema.OptionSets.mode.Background_0, item.Rank, item.Name, item));
-                    }
-
-                    if ("Delete".StartsWith(messageNameFilter, StringComparison.InvariantCultureIgnoreCase) && item.TriggerOnDelete.GetValueOrDefault())
-                    {
-                        processingSteps.Add(new ProcessingStep(item.PrimaryEntity, "Delete", item.DeleteStage?.Value ?? (int)SdkMessageProcessingStep.Schema.OptionSets.stage.Post_operation_40, item.Mode?.Value == (int)Workflow.Schema.OptionSets.mode.Background_0, item.Rank, item.Name, item));
-                    }
-                }
-            }
-
-            var listEntities = new HashSet<string>(processingSteps.Select(ent => ent.EntityName), StringComparer.InvariantCultureIgnoreCase);
-
-            IEnumerable<Workflow> businessRules = null;
-
-            if (withBusinessRules)
-            {
-                businessRules = await repWorkflow.GetListAsync(entityNameFilter, (int)Workflow.Schema.OptionSets.category.Business_Rule_2, null, _columnSetWorkflow);
-
-                foreach (var item in businessRules)
-                {
-                    listEntities.Add(item.PrimaryEntity);
-                }
-            }
-
-            foreach (var entityName in listEntities.OrderBy(s => s))
-            {
-                var grEntity = processingSteps.Where(e => string.Equals(e.EntityName, entityName, StringComparison.InvariantCultureIgnoreCase));
-
-                PluginTreeViewItem nodeEntity = CreateNodeMessageFilter(entityName, null, grEntity.Where(e => e.Entity is SdkMessageProcessingStep).Select(e => e.Entity as SdkMessageProcessingStep));
-
-                if (businessRules != null)
-                {
-                    var entityRules = businessRules.Where(w => string.Equals(w.PrimaryEntity, entityName, StringComparison.InvariantCultureIgnoreCase));
-
-                    if (entityRules.Any())
-                    {
-                        var nodeRules = CreateNodeBusinessRules(entityName);
-
-                        nodeEntity.Items.Add(nodeRules);
-                        nodeRules.Parent = nodeEntity;
-
-                        foreach (var item in entityRules.OrderBy(w => w.Name))
-                        {
-                            var nodeRule = CreateNodeBusinessRule(item);
-
-                            nodeRules.Items.Add(nodeRule);
-                            nodeRule.Parent = nodeRules;
-                        }
-                    }
-                }
-
-                var groupsByMessages = grEntity.GroupBy(e => e.Message).OrderBy(mess => mess.Key, new MessageComparer());
-
-                foreach (var grMessage in groupsByMessages)
-                {
-                    PluginTreeViewItem nodeMessage = CreateNodeMessage(grMessage.Key, grMessage.Where(e => e.Entity is SdkMessageProcessingStep).Select(e => e.Entity as SdkMessageProcessingStep));
-
-                    nodeEntity.Items.Add(nodeMessage);
-                    nodeMessage.Parent = nodeEntity;
-
-                    var groupsStage = grMessage.GroupBy(ent => ent.Stage.Value).OrderBy(item => item.Key);
-
-                    foreach (var stage in groupsStage)
-                    {
-                        PluginTreeViewItem nodeStage = null;
-                        PluginTreeViewItem nodePostAsynch = null;
-
-                        foreach (var step in stage.OrderBy(s => s.AsyncMode).ThenBy(s => s.Rank).ThenBy(s => s.Name))
-                        {
-                            PluginTreeViewItem nodeTarget = null;
-
-                            if (step.AsyncMode)
-                            {
-                                if (nodePostAsynch == null)
-                                {
-                                    nodePostAsynch = CreateNodeStage(stage.Key, step.AsyncMode ? 1 : 0);
-
-                                    nodeMessage.Items.Add(nodePostAsynch);
-                                    nodePostAsynch.Parent = nodeMessage;
-                                }
-
-                                nodeTarget = nodePostAsynch;
-                            }
-                            else
-                            {
-                                if (nodeStage == null)
-                                {
-                                    nodeStage = CreateNodeStage(stage.Key, step.AsyncMode ? 1 : 0);
-
-                                    nodeMessage.Items.Add(nodeStage);
-                                    nodeStage.Parent = nodeMessage;
-                                }
-
-                                nodeTarget = nodeStage;
-                            }
-
-                            PluginTreeViewItem nodeStep = CreateNodeStep(step.Entity, searchResult.SdkMessageProcessingStepImage);
-
-                            nodeTarget.Items.Add(nodeStep);
-                            nodeStep.Parent = nodeTarget;
-
-                            nodeStep.IsExpanded = true;
-                        }
-
-                        if (nodeStage != null)
-                        {
-                            nodeStage.IsExpanded = true;
-                        }
-
-                        if (nodePostAsynch != null)
-                        {
-                            nodePostAsynch.IsExpanded = true;
-                        }
-                    }
-
-                    nodeMessage.IsExpanded = true;
-                }
-
-                this.Dispatcher.Invoke(() =>
-                {
-                    _pluginTree.Add(nodeEntity);
-                });
-            }
-        }
-
-        private async Task FillTreeByMessage(IOrganizationServiceExtented service, List<PluginStage> stages, string pluginTypeName, string messageName, string entityName)
-        {
-            PluginSearchRepository repository = new PluginSearchRepository(service);
-
-            PluginSearchResult searchResult = await repository.FindAllAsync(stages, pluginTypeName, messageName, entityName);
-
-            var groupsByMessage = searchResult.SdkMessageProcessingStep.GroupBy(ent => ent.SdkMessageId?.Name ?? "Unknown").OrderBy(mess => mess.Key, new MessageComparer());
-
-            foreach (var grMessage in groupsByMessage)
-            {
-                var nodeMessage = CreateNodeMessage(grMessage.Key, grMessage);
-
-                var groupsByEntity = grMessage.GroupBy(ent => ent.PrimaryObjectTypeCodeName).OrderBy(e => e.Key);
-
-                foreach (var grEntity in groupsByEntity)
-                {
-                    PluginTreeViewItem nodeEntity = CreateNodeMessageFilter(grEntity.Key, grMessage.Key, grEntity);
-
-                    nodeMessage.Items.Add(nodeEntity);
-                    nodeEntity.Parent = nodeMessage;
-
-                    var groupsStage = grEntity.GroupBy(ent => ent.Stage.Value).OrderBy(item => item.Key);
-
-                    foreach (var stage in groupsStage)
-                    {
-                        PluginTreeViewItem nodeStage = null;
-                        PluginTreeViewItem nodePostAsynch = null;
-
-                        foreach (var step in stage.OrderBy(s => s.Mode.Value).ThenBy(s => s.Rank).ThenBy(s => s.Name))
-                        {
-                            PluginTreeViewItem nodeTarget = null;
-
-                            if (step.Mode.Value == (int)SdkMessageProcessingStep.Schema.OptionSets.mode.Asynchronous_1)
-                            {
-                                if (nodePostAsynch == null)
-                                {
-                                    nodePostAsynch = CreateNodeStage(stage.Key, step.Mode.Value);
-
-                                    nodeEntity.Items.Add(nodePostAsynch);
-                                    nodePostAsynch.Parent = nodeEntity;
-                                }
-
-                                nodeTarget = nodePostAsynch;
-                            }
-                            else
-                            {
-                                if (nodeStage == null)
-                                {
-                                    nodeStage = CreateNodeStage(stage.Key, step.Mode.Value);
-
-                                    nodeEntity.Items.Add(nodeStage);
-                                    nodeStage.Parent = nodeEntity;
-                                }
-
-                                nodeTarget = nodeStage;
-                            }
-
-                            PluginTreeViewItem nodeStep = CreateNodeStep(step, searchResult.SdkMessageProcessingStepImage);
-
-                            nodeTarget.Items.Add(nodeStep);
-                            nodeStep.Parent = nodeTarget;
-
-                            nodeStep.IsExpanded = true;
-                        }
-
-                        if (nodeStage != null)
-                        {
-                            nodeStage.IsExpanded = true;
-                        }
-
-                        if (nodePostAsynch != null)
-                        {
-                            nodePostAsynch.IsExpanded = true;
-                        }
-                    }
-                }
-
-                this.Dispatcher.Invoke(() =>
-                {
-                    _pluginTree.Add(nodeMessage);
-                });
-            }
-        }
-
-        private async Task FillTreeByAssembly(IOrganizationServiceExtented service, List<PluginStage> stages, string pluginTypeName, string messageName, string entityName)
-        {
-            var repositoryPluginType = new PluginTypeRepository(service);
-            var repository = new PluginSearchRepository(service);
-
-            var pluginTypeList = await repositoryPluginType.GetPluginTypesAsync(pluginTypeName, null);
-            PluginSearchResult searchResult = await repository.FindAllAsync(stages, pluginTypeName, messageName, entityName);
-
-            var assemblyList = pluginTypeList.GroupBy(p => new { p.PluginAssemblyId.Id, Name = p.AssemblyName });
-            //var pluginTypeDict = pluginTypeList.GroupBy(p => p.PluginAssemblyId.Id).ToDictionary(p => p.Key);
-            var stepsByPluginTypeDict = searchResult.SdkMessageProcessingStep.GroupBy(s => s.EventHandler.Id).ToDictionary(s => s.Key);
-
-            foreach (var assemblyGroup in assemblyList.OrderBy(a => a.Key.Name))
-            {
-                PluginTreeViewItem nodeAssembly = CreateNodeAssembly(assemblyGroup.Key.Name, assemblyGroup.Key.Id);
-
-                foreach (var pluginType in assemblyGroup.OrderBy(p => p.IsWorkflowActivity.GetValueOrDefault()).ThenBy(p => p.TypeName))
-                {
-                    PluginTreeViewItem nodePluginType = CreateNodePluginType(pluginType.TypeName, pluginType.Id, assemblyGroup.Key.Id, pluginType.IsWorkflowActivity.GetValueOrDefault());
-                    nodeAssembly.Items.Add(nodePluginType);
-                    nodePluginType.Parent = nodeAssembly;
-
-                    if (stepsByPluginTypeDict.ContainsKey(pluginType.Id))
-                    {
-                        var groupsByEnity = stepsByPluginTypeDict[pluginType.Id].GroupBy(s => s.PrimaryObjectTypeCodeName).OrderBy(gr => gr.Key);
-
-                        foreach (var grEntity in groupsByEnity)
-                        {
-                            var nodeEntity = CreateNodeMessageFilter(grEntity.Key, null, grEntity);
-
-                            nodePluginType.Items.Add(nodeEntity);
-                            nodeEntity.Parent = nodePluginType;
-
-                            var groupsByMessages = grEntity.GroupBy(ent => ent.SdkMessageId?.Name ?? "Unknown").OrderBy(mess => mess.Key, new MessageComparer());
-
-                            foreach (var grMessage in groupsByMessages)
-                            {
-                                PluginTreeViewItem nodeMessage = CreateNodeMessage(grMessage.Key, grMessage);
-
-                                nodeEntity.Items.Add(nodeMessage);
-                                nodeMessage.Parent = nodeEntity;
-
-                                var groupsStage = grMessage.GroupBy(ent => ent.Stage.Value).OrderBy(item => item.Key);
-
-                                foreach (var stage in groupsStage)
-                                {
-                                    PluginTreeViewItem nodeStage = null;
-                                    PluginTreeViewItem nodePostAsynch = null;
-
-                                    foreach (var step in stage.OrderBy(s => s.Mode.Value).ThenBy(s => s.Rank).ThenBy(s => s.Name))
-                                    {
-                                        PluginTreeViewItem nodeTarget = null;
-
-                                        if (step.Mode.Value == (int)SdkMessageProcessingStep.Schema.OptionSets.mode.Asynchronous_1)
-                                        {
-                                            if (nodePostAsynch == null)
-                                            {
-                                                nodePostAsynch = CreateNodeStage(stage.Key, step.Mode.Value);
-
-                                                nodeMessage.Items.Add(nodePostAsynch);
-                                                nodePostAsynch.Parent = nodeMessage;
-                                            }
-
-                                            nodeTarget = nodePostAsynch;
-                                        }
-                                        else
-                                        {
-                                            if (nodeStage == null)
-                                            {
-                                                nodeStage = CreateNodeStage(stage.Key, step.Mode.Value);
-
-                                                nodeMessage.Items.Add(nodeStage);
-                                                nodeStage.Parent = nodeMessage;
-                                            }
-
-                                            nodeTarget = nodeStage;
-                                        }
-
-                                        PluginTreeViewItem nodeStep = CreateNodeStep(step, searchResult.SdkMessageProcessingStepImage);
-
-                                        nodeTarget.Items.Add(nodeStep);
-                                        nodeStep.Parent = nodeTarget;
-
-                                        nodeStep.IsExpanded = true;
-                                    }
-
-                                    if (nodeStage != null)
-                                    {
-                                        nodeStage.IsExpanded = true;
-                                    }
-
-                                    if (nodePostAsynch != null)
-                                    {
-                                        nodePostAsynch.IsExpanded = true;
-                                    }
-                                }
-
-                                nodeMessage.IsExpanded = true;
-                            }
-
-                            nodeEntity.IsExpanded = true;
-                        }
-                    }
-                }
-
-                this.Dispatcher.Invoke(() =>
-                {
-                    _pluginTree.Add(nodeAssembly);
-                });
-            }
-        }
-
-        private PluginTreeViewItem CreateNodeAssembly(string assemblyName, Guid? idPluginAssembly)
-        {
-            var nodeAssembly = new PluginTreeViewItem(ComponentType.PluginAssembly)
-            {
-                Name = assemblyName,
-                Image = _imagePluginAssembly,
-
-                PluginAssembly = idPluginAssembly,
-            };
-
-            return nodeAssembly;
-        }
-
-        private PluginTreeViewItem CreateNodePluginType(string pluginTypeName, Guid? idPluginType, Guid? idPluginAssembly, bool isWorkflowActivity)
-        {
-            var nodeType = new PluginTreeViewItem(ComponentType.PluginType)
-            {
-                Name = pluginTypeName,
-                Image = isWorkflowActivity ? _imageWorkflowActivity : _imagePluginType,
-
-                PluginType = idPluginType,
-                PluginAssembly = idPluginAssembly,
-
-                IsWorkflowActivity = isWorkflowActivity,
-            };
-
-            return nodeType;
-        }
-
-        private PluginTreeViewItem CreateNodeStage(int stage, int mode)
-        {
-            string name = SdkMessageProcessingStepRepository.GetStageName(stage, mode);
-
-            var nodeStage = new PluginTreeViewItem(null)
-            {
-                Name = name,
-                Image = _imageStage,
-            };
-
-            return nodeStage;
-        }
-
-        private PluginTreeViewItem CreateNodeBusinessRule(Entities.Workflow businessRule)
-        {
-            var nodeStep = new PluginTreeViewItem(ComponentType.Workflow)
-            {
-                Name = businessRule.Name,
-
-                Workflow = businessRule.Id,
-
-                IsActive = businessRule.StateCodeEnum == Workflow.Schema.OptionSets.statecode.Activated_1,
-
-                ImageActive = _imageStep,
-                ImageInactive = _imageStepDisabled,
-            };
-
-            nodeStep.Image = businessRule.StateCodeEnum == Workflow.Schema.OptionSets.statecode.Activated_1 ? _imageStep : _imageStepDisabled;
-
-            return nodeStep;
-        }
-
         private PluginTreeViewItem CreateNodeStep(Entity entity, IEnumerable<SdkMessageProcessingStepImage> images)
         {
             PluginTreeViewItem nodeStep = null;
@@ -919,7 +1541,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     Name = nameStep,
 
-                    Workflow = workflow.Id,
+                    WorkflowId = workflow.Id,
 
                     IsActive = workflow.StateCodeEnum == Workflow.Schema.OptionSets.statecode.Activated_1,
 
@@ -941,10 +1563,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             nodeStep.Name = nameStep;
             nodeStep.Tooltip = tooltipStep;
             nodeStep.EntityLogicalName = step.PrimaryObjectTypeCodeName;
-            nodeStep.PluginAssembly = step.PluginAssemblyId;
-            nodeStep.PluginType = step.EventHandler?.Id;
+            nodeStep.PluginAssemblyId = step.PluginAssemblyId;
+            nodeStep.PluginTypeId = step.EventHandler?.Id;
             nodeStep.MessageName = step.SdkMessageId?.Name;
-            nodeStep.Step = step.Id;
+            nodeStep.StepId = step.Id;
             nodeStep.IsActive = step.StateCodeEnum == SdkMessageProcessingStep.Schema.OptionSets.statecode.Enabled_0;
             nodeStep.ImageActive = _imageStep;
             nodeStep.ImageInactive = _imageStepDisabled;
@@ -962,43 +1584,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             nodeImage.Image = _imageImage;
             nodeImage.EntityLogicalName = entityName;
             nodeImage.MessageName = messageName;
-            nodeImage.PluginAssembly = idPluginAssembly;
-            nodeImage.PluginType = idPluginType;
-            nodeImage.Step = image.SdkMessageProcessingStepImageId;
-            nodeImage.StepImage = image.Id;
-        }
-
-        private PluginTreeViewItem CreateNodeMessage(string messageName, IEnumerable<SdkMessageProcessingStep> steps)
-        {
-            var nodeMessage = new PluginTreeViewItem(ComponentType.SdkMessage)
-            {
-                Name = messageName,
-                Image = _imageMessage,
-
-                MessageName = messageName,
-            };
-
-            nodeMessage.MessageList.AddRange(steps.Where(s => s.SdkMessageId != null).Select(s => s.SdkMessageId.Id).Distinct());
-
-            nodeMessage.MessageFilterList.AddRange(steps.Where(s => s.SdkMessageFilterId != null).Select(s => s.SdkMessageFilterId.Id).Distinct());
-
-            return nodeMessage;
-        }
-
-        private PluginTreeViewItem CreateNodeMessageFilter(string entityName, string messageName, IEnumerable<SdkMessageProcessingStep> steps)
-        {
-            var nodeMessage = new PluginTreeViewItem(ComponentType.SdkMessageFilter)
-            {
-                Name = entityName,
-                Image = _imageEntity,
-
-                EntityLogicalName = entityName,
-                MessageName = messageName,
-            };
-
-            nodeMessage.MessageFilterList.AddRange(steps.Where(s => s.SdkMessageFilterId != null).Select(s => s.SdkMessageFilterId.Id).Distinct());
-
-            return nodeMessage;
+            nodeImage.PluginAssemblyId = idPluginAssembly;
+            nodeImage.PluginTypeId = idPluginType;
+            nodeImage.StepId = image.SdkMessageProcessingStepImageId;
+            nodeImage.StepImageId = image.Id;
         }
 
         private PluginTreeViewItem CreateNodeBusinessRules(string entityName)
@@ -1012,6 +1601,25 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             };
 
             return result;
+        }
+
+        private PluginTreeViewItem CreateNodeBusinessRule(Entities.Workflow businessRule)
+        {
+            var nodeStep = new PluginTreeViewItem(ComponentType.Workflow)
+            {
+                Name = businessRule.Name,
+
+                WorkflowId = businessRule.Id,
+
+                IsActive = businessRule.StateCodeEnum == Workflow.Schema.OptionSets.statecode.Activated_1,
+
+                ImageActive = _imageStep,
+                ImageInactive = _imageStepDisabled,
+            };
+
+            nodeStep.Image = businessRule.StateCodeEnum == Workflow.Schema.OptionSets.statecode.Activated_1 ? _imageStep : _imageStepDisabled;
+
+            return nodeStep;
         }
 
         private string GetStepTooltip(Entities.SdkMessageProcessingStep step)
@@ -1201,27 +1809,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return "Create Description";
             }
 
-            if (item.PluginAssembly.HasValue && item.ComponentType == ComponentType.PluginAssembly)
+            if (item.PluginAssemblyId.HasValue && item.ComponentType == ComponentType.PluginAssembly)
             {
                 return "Create Plugin Assembly Description";
             }
 
-            if (item.PluginType.HasValue && item.ComponentType == ComponentType.PluginType)
+            if (item.PluginTypeId.HasValue && item.ComponentType == ComponentType.PluginType)
             {
                 return "Create Plugin Type Description";
             }
 
-            if (item.Step.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStep)
+            if (item.StepId.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStep)
             {
                 return "Create Step Description";
             }
 
-            if (item.StepImage.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStepImage)
+            if (item.StepImageId.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStepImage)
             {
                 return "Create Image Description";
             }
 
-            if (item.Workflow.HasValue && item.ComponentType == ComponentType.Workflow)
+            if (item.WorkflowId.HasValue && item.ComponentType == ComponentType.Workflow)
             {
                 return "Create Workflow Description";
             }
@@ -1246,17 +1854,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return "Update";
             }
 
-            if (item.PluginAssembly.HasValue && item.ComponentType == ComponentType.PluginAssembly)
+            if (item.PluginAssemblyId.HasValue && item.ComponentType == ComponentType.PluginAssembly)
             {
                 return "Update Plugin Assembly";
             }
 
-            if (item.Step.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStep)
+            if (item.StepId.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStep)
             {
                 return "Update Step";
             }
 
-            if (item.StepImage.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStepImage)
+            if (item.StepImageId.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStepImage)
             {
                 return "Update Image";
             }
@@ -1271,27 +1879,27 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return "Edit in Editor";
             }
 
-            if (item.PluginAssembly.HasValue && item.ComponentType == ComponentType.PluginAssembly)
+            if (item.PluginAssemblyId.HasValue && item.ComponentType == ComponentType.PluginAssembly)
             {
                 return "Edit Plugin Assembly in Editor";
             }
 
-            if (item.PluginType.HasValue && item.ComponentType == ComponentType.PluginType)
+            if (item.PluginTypeId.HasValue && item.ComponentType == ComponentType.PluginType)
             {
                 return "Edit Plugin Type in Editor";
             }
 
-            if (item.Step.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStep)
+            if (item.StepId.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStep)
             {
                 return "Edit Step in Editor";
             }
 
-            if (item.StepImage.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStepImage)
+            if (item.StepImageId.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStepImage)
             {
                 return "Edit Image in Editor";
             }
 
-            if (item.Workflow.HasValue && item.ComponentType == ComponentType.Workflow)
+            if (item.WorkflowId.HasValue && item.ComponentType == ComponentType.Workflow)
             {
                 return "Edit Workflow in Editor";
             }
@@ -1308,12 +1916,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var action = item.IsActive ? "Deactivate" : "Activate";
 
-            if (item.Step.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStep)
+            if (item.StepId.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStep)
             {
                 return $"{action} Step";
             }
 
-            if (item.Workflow.HasValue && item.ComponentType == ComponentType.Workflow)
+            if (item.WorkflowId.HasValue && item.ComponentType == ComponentType.Workflow)
             {
                 return $"{action} Workflow";
             }
@@ -1328,22 +1936,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return "Delete";
             }
 
-            if (item.PluginAssembly.HasValue && item.ComponentType == ComponentType.PluginAssembly)
+            if (item.PluginAssemblyId.HasValue && item.ComponentType == ComponentType.PluginAssembly)
             {
                 return "Delete Plugin Assembly";
             }
 
-            if (item.PluginType.HasValue && item.ComponentType == ComponentType.PluginType)
+            if (item.PluginTypeId.HasValue && item.ComponentType == ComponentType.PluginType)
             {
                 return "Delete Plugin Type";
             }
 
-            if (item.Step.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStep)
+            if (item.StepId.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStep)
             {
                 return "Delete Step";
             }
 
-            if (item.StepImage.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStepImage)
+            if (item.StepImageId.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStepImage)
             {
                 return "Delete Image";
             }
@@ -1356,13 +1964,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return ((item.MessageList != null && item.MessageList.Any()) && item.ComponentType == ComponentType.SdkMessage)
                 || ((item.MessageFilterList != null && item.MessageFilterList.Any()) && item.ComponentType == ComponentType.SdkMessageFilter)
 
-                || (item.PluginAssembly.HasValue && item.ComponentType == ComponentType.PluginAssembly)
-                || (item.PluginType.HasValue && item.ComponentType == ComponentType.PluginType)
+                || (item.PluginAssemblyId.HasValue && item.ComponentType == ComponentType.PluginAssembly)
+                || (item.PluginTypeId.HasValue && item.ComponentType == ComponentType.PluginType)
 
-                || (item.Step.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStep)
-                || (item.StepImage.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStepImage)
+                || (item.StepId.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStep)
+                || (item.StepImageId.HasValue && item.ComponentType == ComponentType.SdkMessageProcessingStepImage)
 
-                || (item.Workflow.HasValue && item.ComponentType == ComponentType.Workflow)
+                || (item.WorkflowId.HasValue && item.ComponentType == ComponentType.Workflow)
                 ;
         }
 
@@ -1396,36 +2004,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void trVPluginTree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             UpdateButtonsEnable();
-        }
-
-        private void rBViewByEntity_Checked(object sender, RoutedEventArgs e)
-        {
-            if (this._currentView != View.ByEntity)
-            {
-                this._currentView = View.ByEntity;
-
-                ShowExistingPlugins();
-            }
-        }
-
-        private void rBViewByAssembly_Checked(object sender, RoutedEventArgs e)
-        {
-            if (this._currentView != View.ByAssembly)
-            {
-                this._currentView = View.ByAssembly;
-
-                ShowExistingPlugins();
-            }
-        }
-
-        private void rBViewByMessage_Checked(object sender, RoutedEventArgs e)
-        {
-            if (this._currentView != View.ByMessage)
-            {
-                this._currentView = View.ByMessage;
-
-                ShowExistingPlugins();
-            }
         }
 
         private void tSBCollapseAll_Click(object sender, RoutedEventArgs e)
@@ -1554,10 +2132,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             bool appendConnectionInfo = true;
 
-            if (node.PluginAssembly.HasValue && node.ComponentType == ComponentType.PluginAssembly)
+            if (node.PluginAssemblyId.HasValue && node.ComponentType == ComponentType.PluginAssembly)
             {
                 var repository = new PluginAssemblyRepository(service);
-                var pluginAssembly = await repository.GetAssemblyByIdRetrieveRequestAsync(node.PluginAssembly.Value);
+                var pluginAssembly = await repository.GetAssemblyByIdRetrieveRequestAsync(node.PluginAssemblyId.Value);
 
                 if (string.IsNullOrEmpty(fileName))
                 {
@@ -1591,10 +2169,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            if (node.PluginType.HasValue && node.ComponentType == ComponentType.PluginType)
+            if (node.PluginTypeId.HasValue && node.ComponentType == ComponentType.PluginType)
             {
                 var repository = new PluginTypeRepository(service);
-                var pluginType = await repository.GetPluginTypeByIdAsync(node.PluginType.Value);
+                var pluginType = await repository.GetPluginTypeByIdAsync(node.PluginTypeId.Value);
 
                 if (string.IsNullOrEmpty(fileName))
                 {
@@ -1645,10 +2223,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            if (node.Step.HasValue && node.ComponentType == ComponentType.SdkMessageProcessingStep)
+            if (node.StepId.HasValue && node.ComponentType == ComponentType.SdkMessageProcessingStep)
             {
                 var repository = new SdkMessageProcessingStepRepository(service);
-                var step = await repository.GetStepByIdAsync(node.Step.Value);
+                var step = await repository.GetStepByIdAsync(node.StepId.Value);
 
                 if (string.IsNullOrEmpty(fileName))
                 {
@@ -1698,10 +2276,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            if (node.StepImage.HasValue && node.ComponentType == ComponentType.SdkMessageProcessingStepImage)
+            if (node.StepImageId.HasValue && node.ComponentType == ComponentType.SdkMessageProcessingStepImage)
             {
                 var repository = new SdkMessageProcessingStepImageRepository(service);
-                SdkMessageProcessingStepImage stepImage = await repository.GetStepImageByIdAsync(node.StepImage.Value);
+                SdkMessageProcessingStepImage stepImage = await repository.GetStepImageByIdAsync(node.StepImageId.Value);
 
                 if (string.IsNullOrEmpty(fileName))
                 {
@@ -1801,10 +2379,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
 
-            if (node.Workflow.HasValue && node.ComponentType == ComponentType.Workflow)
+            if (node.WorkflowId.HasValue && node.ComponentType == ComponentType.Workflow)
             {
                 var repository = new WorkflowRepository(service);
-                var workflow = await repository.GetByIdAsync(node.Workflow.Value);
+                var workflow = await repository.GetByIdAsync(node.WorkflowId.Value);
 
                 if (string.IsNullOrEmpty(fileName))
                 {
@@ -1908,12 +2486,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             bool isMessage = nodeItem.MessageList != null && nodeItem.MessageList.Any() && nodeItem.ComponentType == ComponentType.SdkMessage;
             bool isMessageFilter = nodeItem.MessageFilterList != null && nodeItem.MessageFilterList.Any() && nodeItem.ComponentType == ComponentType.SdkMessageFilter;
 
-            bool isPluginAssembly = nodeItem.PluginAssembly.HasValue && nodeItem.ComponentType == ComponentType.PluginAssembly;
-            bool isPluginType = nodeItem.PluginType.HasValue && nodeItem.ComponentType == ComponentType.PluginType;
-            bool isStep = nodeItem.Step.HasValue && nodeItem.ComponentType == ComponentType.SdkMessageProcessingStep;
-            bool isStepImage = nodeItem.Step.HasValue && nodeItem.ComponentType == ComponentType.SdkMessageProcessingStepImage;
+            bool isPluginAssembly = nodeItem.PluginAssemblyId.HasValue && nodeItem.ComponentType == ComponentType.PluginAssembly;
+            bool isPluginType = nodeItem.PluginTypeId.HasValue && nodeItem.ComponentType == ComponentType.PluginType;
+            bool isStep = nodeItem.StepId.HasValue && nodeItem.ComponentType == ComponentType.SdkMessageProcessingStep;
+            bool isStepImage = nodeItem.StepId.HasValue && nodeItem.ComponentType == ComponentType.SdkMessageProcessingStepImage;
 
-            bool isWorkflow = nodeItem.Workflow.HasValue && nodeItem.ComponentType == ComponentType.Workflow;
+            bool isWorkflow = nodeItem.WorkflowId.HasValue && nodeItem.ComponentType == ComponentType.Workflow;
 
             bool showDependentComponents = nodeItem.GetId().HasValue && nodeItem.ComponentType.HasValue;
 
@@ -1948,17 +2526,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ActivateControls(items, isMessage || isEntity, "contMnSdkMessage");
 
-            ActivateControls(items, nodeItem.PluginAssembly.HasValue && nodeItem.ComponentType != ComponentType.PluginAssembly, "contMnAddPluginAssemblyToSolution", "contMnAddPluginAssemblyToSolutionLast");
-            FillLastSolutionItems(connectionData, items, nodeItem.PluginAssembly.HasValue && nodeItem.ComponentType != ComponentType.PluginAssembly, AddAssemblyToCrmSolutionLast_Click, "contMnAddPluginAssemblyToSolutionLast");
+            ActivateControls(items, nodeItem.PluginAssemblyId.HasValue && nodeItem.ComponentType != ComponentType.PluginAssembly, "contMnAddPluginAssemblyToSolution", "contMnAddPluginAssemblyToSolutionLast");
+            FillLastSolutionItems(connectionData, items, nodeItem.PluginAssemblyId.HasValue && nodeItem.ComponentType != ComponentType.PluginAssembly, AddAssemblyToCrmSolutionLast_Click, "contMnAddPluginAssemblyToSolutionLast");
 
             ActivateControls(items, isMessage || isMessageFilter || isPluginAssembly || isStep || isWorkflow, "contMnAddToSolution", "contMnAddToSolutionLast");
             FillLastSolutionItems(connectionData, items, isMessage || isMessageFilter || isPluginAssembly || isStep || isWorkflow, AddToCrmSolutionLast_Click, "contMnAddToSolutionLast");
 
-            ActivateControls(items, nodeItem.PluginType.HasValue, "contMnAddPluginTypeStepsToSolution", "contMnAddPluginTypeStepsToSolutionLast");
-            FillLastSolutionItems(connectionData, items, nodeItem.PluginType.HasValue, mIAddPluginTypeStepsToSolutionLast_Click, "contMnAddPluginTypeStepsToSolutionLast");
+            ActivateControls(items, nodeItem.PluginTypeId.HasValue, "contMnAddPluginTypeStepsToSolution", "contMnAddPluginTypeStepsToSolutionLast");
+            FillLastSolutionItems(connectionData, items, nodeItem.PluginTypeId.HasValue, mIAddPluginTypeStepsToSolutionLast_Click, "contMnAddPluginTypeStepsToSolutionLast");
 
-            ActivateControls(items, nodeItem.PluginAssembly.HasValue, "contMnAddPluginAssemblyStepsToSolution", "contMnAddPluginAssemblyStepsToSolutionLast", "contMnCompareWithLocalAssembly");
-            FillLastSolutionItems(connectionData, items, nodeItem.PluginAssembly.HasValue, mIAddAssemblyStepsToSolutionLast_Click, "contMnAddPluginAssemblyStepsToSolutionLast");
+            ActivateControls(items, nodeItem.PluginAssemblyId.HasValue, "contMnAddPluginAssemblyStepsToSolution", "contMnAddPluginAssemblyStepsToSolutionLast", "contMnCompareWithLocalAssembly");
+            FillLastSolutionItems(connectionData, items, nodeItem.PluginAssemblyId.HasValue, mIAddAssemblyStepsToSolutionLast_Click, "contMnAddPluginAssemblyStepsToSolutionLast");
 
             ActivateControls(items, isEntity, "contMnEntity");
             FillLastSolutionItems(connectionData, items, isEntity, AddEntityToCrmSolutionLastIncludeSubcomponents_Click, "contMnAddEntityToSolutionLastIncludeSubcomponents");
@@ -2002,7 +2580,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
             if (nodeItem == null
-                || !nodeItem.Workflow.HasValue
+                || !nodeItem.WorkflowId.HasValue
             )
             {
                 return;
@@ -2012,7 +2590,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (service != null)
             {
-                service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.Workflow, nodeItem.Workflow.Value);
+                service.UrlGenerator.OpenSolutionComponentInWeb(ComponentType.Workflow, nodeItem.WorkflowId.Value);
             }
         }
 
@@ -2353,7 +2931,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (nodeItem == null
                 || nodeItem.ComponentType != ComponentType.Workflow
-                || !nodeItem.Workflow.HasValue
+                || !nodeItem.WorkflowId.HasValue
                 )
             {
                 return;
@@ -2362,7 +2940,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService();
 
             var repository = new WorkflowRepository(service);
-            var workflow = await repository.GetByIdAsync(nodeItem.Workflow.Value, new ColumnSet(Workflow.Schema.Attributes.name, Workflow.Schema.Attributes.primaryentity));
+            var workflow = await repository.GetByIdAsync(nodeItem.WorkflowId.Value, new ColumnSet(Workflow.Schema.Attributes.name, Workflow.Schema.Attributes.primaryentity));
 
             string entityName = string.Empty;
 
@@ -2525,19 +3103,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
-            if (nodeItem == null || !nodeItem.PluginType.HasValue)
+            if (nodeItem == null || !nodeItem.PluginTypeId.HasValue)
             {
                 return;
             }
 
-            await AddPluginTypeStepsToSolution(nodeItem.PluginType.Value, true, null);
+            await AddPluginTypeStepsToSolution(nodeItem.PluginTypeId.Value, true, null);
         }
 
         private async void mIAddPluginTypeStepsToSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
-            if (nodeItem == null || !nodeItem.PluginType.HasValue)
+            if (nodeItem == null || !nodeItem.PluginTypeId.HasValue)
             {
                 return;
             }
@@ -2547,7 +3125,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                && menuItem.Tag is string solutionUniqueName
                )
             {
-                await AddPluginTypeStepsToSolution(nodeItem.PluginType.Value, false, solutionUniqueName);
+                await AddPluginTypeStepsToSolution(nodeItem.PluginTypeId.Value, false, solutionUniqueName);
             }
         }
 
@@ -2582,19 +3160,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
-            if (nodeItem == null || !nodeItem.PluginAssembly.HasValue)
+            if (nodeItem == null || !nodeItem.PluginAssemblyId.HasValue)
             {
                 return;
             }
 
-            await AddPluginTypeStepsToSolution(nodeItem.PluginAssembly.Value, true, null);
+            await AddPluginTypeStepsToSolution(nodeItem.PluginAssemblyId.Value, true, null);
         }
 
         private async void AddAssemblyToCrmSolutionLast_Click(object sender, RoutedEventArgs e)
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
-            if (nodeItem == null || !nodeItem.PluginAssembly.HasValue)
+            if (nodeItem == null || !nodeItem.PluginAssemblyId.HasValue)
             {
                 return;
             }
@@ -2604,7 +3182,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 && menuItem.Tag is string solutionUniqueName
                 )
             {
-                await AddAssemblyToSolution(nodeItem.PluginAssembly.Value, false, solutionUniqueName);
+                await AddAssemblyToSolution(nodeItem.PluginAssemblyId.Value, false, solutionUniqueName);
             }
         }
 
@@ -2630,7 +3208,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
-            if (nodeItem == null || !nodeItem.PluginAssembly.HasValue)
+            if (nodeItem == null || !nodeItem.PluginAssemblyId.HasValue)
             {
                 return;
             }
@@ -2640,7 +3218,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 && menuItem.Tag is string solutionUniqueName
                 )
             {
-                await AddAssemblyStepsToSolution(nodeItem.PluginAssembly.Value, false, solutionUniqueName);
+                await AddAssemblyStepsToSolution(nodeItem.PluginAssemblyId.Value, false, solutionUniqueName);
             }
         }
 
@@ -2648,7 +3226,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
-            if (nodeItem == null || !nodeItem.PluginAssembly.HasValue)
+            if (nodeItem == null || !nodeItem.PluginAssemblyId.HasValue)
             {
                 return;
             }
@@ -2658,7 +3236,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 && menuItem.Tag is string solutionUniqueName
                 )
             {
-                await AddAssemblyStepsToSolution(nodeItem.PluginAssembly.Value, false, solutionUniqueName);
+                await AddAssemblyStepsToSolution(nodeItem.PluginAssemblyId.Value, false, solutionUniqueName);
             }
         }
 
@@ -2695,7 +3273,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (nodePluginType == null
                 || nodePluginType.ComponentType != ComponentType.PluginType
-                || !nodePluginType.PluginType.HasValue
+                || !nodePluginType.PluginTypeId.HasValue
             )
             {
                 return;
@@ -2705,7 +3283,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var step = new SdkMessageProcessingStep()
             {
-                EventHandler = new EntityReference(PluginType.EntityLogicalName, nodePluginType.PluginType.Value),
+                EventHandler = new EntityReference(PluginType.EntityLogicalName, nodePluginType.PluginTypeId.Value),
             };
 
             List<SdkMessageFilter> filters = null;
@@ -2752,7 +3330,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (nodeStep == null
                 || nodeStep.ComponentType != ComponentType.SdkMessageProcessingStep
-                || !nodeStep.Step.HasValue
+                || !nodeStep.StepId.HasValue
                 || !nodeStep.EntityLogicalName.IsValidEntityName()
             )
             {
@@ -2763,7 +3341,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var image = new SdkMessageProcessingStepImage()
             {
-                SdkMessageProcessingStepId = new EntityReference(SdkMessageProcessingStep.EntityLogicalName, nodeStep.Step.Value),
+                SdkMessageProcessingStepId = new EntityReference(SdkMessageProcessingStep.EntityLogicalName, nodeStep.StepId.Value),
             };
 
             var form = new WindowSdkMessageProcessingStepImage(_iWriteToOutput, service, image, nodeStep.EntityLogicalName, nodeStep.MessageName);
@@ -2778,7 +3356,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 {
                     PluginTreeViewItem nodeImage = new PluginTreeViewItem(ComponentType.SdkMessageProcessingStepImage);
 
-                    FillNodeImageInformation(nodeImage, image, nodeStep.EntityLogicalName, nodeStep.MessageName, nodeStep.PluginType, nodeStep.PluginAssembly);
+                    FillNodeImageInformation(nodeImage, image, nodeStep.EntityLogicalName, nodeStep.MessageName, nodeStep.PluginTypeId, nodeStep.PluginAssemblyId);
 
                     nodeStep.Items.Add(nodeImage);
                     nodeImage.Parent = nodeStep;
@@ -2798,12 +3376,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var service = await GetService();
 
             if (nodeItem.ComponentType == ComponentType.SdkMessageProcessingStepImage
-                && nodeItem.StepImage.HasValue
+                && nodeItem.StepImageId.HasValue
             )
             {
                 var repositoryImage = new SdkMessageProcessingStepImageRepository(service);
 
-                var image = await repositoryImage.GetStepImageByIdAsync(nodeItem.StepImage.Value);
+                var image = await repositoryImage.GetStepImageByIdAsync(nodeItem.StepImageId.Value);
 
                 var form = new WindowSdkMessageProcessingStepImage(_iWriteToOutput, service, image, nodeItem.EntityLogicalName, nodeItem.MessageName);
 
@@ -2813,19 +3391,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     this.trVPluginTree.Dispatcher.Invoke(() =>
                     {
-                        FillNodeImageInformation(nodeItem, image, nodeItem.EntityLogicalName, nodeItem.MessageName, nodeItem.PluginType, nodeItem.PluginAssembly);
+                        FillNodeImageInformation(nodeItem, image, nodeItem.EntityLogicalName, nodeItem.MessageName, nodeItem.PluginTypeId, nodeItem.PluginAssemblyId);
 
                         this.trVPluginTree.UpdateLayout();
                     });
                 }
             }
             else if (nodeItem.ComponentType == ComponentType.PluginAssembly
-                && nodeItem.PluginAssembly.HasValue
+                && nodeItem.PluginAssemblyId.HasValue
             )
             {
                 var repository = new PluginAssemblyRepository(service);
 
-                var pluginAssembly = await repository.GetAssemblyByIdRetrieveRequestAsync(nodeItem.PluginAssembly.Value);
+                var pluginAssembly = await repository.GetAssemblyByIdRetrieveRequestAsync(nodeItem.PluginAssemblyId.Value);
 
                 var form = new WindowPluginAssembly(_iWriteToOutput, service, pluginAssembly, null, null);
 
@@ -2835,7 +3413,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 }
             }
             else if (nodeItem.ComponentType == ComponentType.SdkMessageProcessingStep
-                && nodeItem.Step.HasValue
+                && nodeItem.StepId.HasValue
             )
             {
                 List<SdkMessageFilter> filters = null;
@@ -2858,7 +3436,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var repositoryStep = new SdkMessageProcessingStepRepository(service);
 
-                var step = await repositoryStep.GetStepByIdAsync(nodeItem.Step.Value);
+                var step = await repositoryStep.GetStepByIdAsync(nodeItem.StepId.Value);
 
                 var form = new WindowSdkMessageProcessingStep(_iWriteToOutput, service, filters, step);
 
@@ -2917,19 +3495,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             int? status = null;
 
             if (nodeItem.ComponentType == ComponentType.SdkMessageProcessingStep
-                && nodeItem.Step.HasValue
+                && nodeItem.StepId.HasValue
             )
             {
-                referenceToChangeState = new EntityReference(SdkMessageProcessingStep.EntityLogicalName, nodeItem.Step.Value);
+                referenceToChangeState = new EntityReference(SdkMessageProcessingStep.EntityLogicalName, nodeItem.StepId.Value);
 
                 state = nodeItem.IsActive ? (int)SdkMessageProcessingStep.Schema.OptionSets.statecode.Disabled_1 : (int)SdkMessageProcessingStep.Schema.OptionSets.statecode.Enabled_0;
                 status = nodeItem.IsActive ? (int)SdkMessageProcessingStep.Schema.OptionSets.statuscode.Disabled_1_Disabled_2 : (int)SdkMessageProcessingStep.Schema.OptionSets.statuscode.Enabled_0_Enabled_1;
             }
             else if (nodeItem.ComponentType == ComponentType.Workflow
-               && nodeItem.Workflow.HasValue
+               && nodeItem.WorkflowId.HasValue
             )
             {
-                referenceToChangeState = new EntityReference(Workflow.EntityLogicalName, nodeItem.Workflow.Value);
+                referenceToChangeState = new EntityReference(Workflow.EntityLogicalName, nodeItem.WorkflowId.Value);
 
                 state = nodeItem.IsActive ? (int)Workflow.Schema.OptionSets.statecode.Draft_0 : (int)Workflow.Schema.OptionSets.statecode.Activated_1;
                 status = nodeItem.IsActive ? (int)Workflow.Schema.OptionSets.statuscode.Draft_0_Draft_1 : (int)Workflow.Schema.OptionSets.statuscode.Activated_1_Activated_2;
@@ -2981,34 +3559,34 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             EntityReference referenceToDelete = null;
 
             if (nodeItem.ComponentType == ComponentType.SdkMessageProcessingStepImage
-                && nodeItem.StepImage.HasValue
+                && nodeItem.StepImageId.HasValue
             )
             {
-                referenceToDelete = new EntityReference(SdkMessageProcessingStepImage.EntityLogicalName, nodeItem.StepImage.Value);
+                referenceToDelete = new EntityReference(SdkMessageProcessingStepImage.EntityLogicalName, nodeItem.StepImageId.Value);
             }
             else if (nodeItem.ComponentType == ComponentType.SdkMessageProcessingStep
-                && nodeItem.Step.HasValue
+                && nodeItem.StepId.HasValue
             )
             {
-                referenceToDelete = new EntityReference(SdkMessageProcessingStep.EntityLogicalName, nodeItem.Step.Value);
+                referenceToDelete = new EntityReference(SdkMessageProcessingStep.EntityLogicalName, nodeItem.StepId.Value);
             }
             else if (nodeItem.ComponentType == ComponentType.PluginType
-                && nodeItem.PluginType.HasValue
+                && nodeItem.PluginTypeId.HasValue
             )
             {
-                referenceToDelete = new EntityReference(PluginType.EntityLogicalName, nodeItem.PluginType.Value);
+                referenceToDelete = new EntityReference(PluginType.EntityLogicalName, nodeItem.PluginTypeId.Value);
             }
             else if (nodeItem.ComponentType == ComponentType.PluginAssembly
-               && nodeItem.PluginAssembly.HasValue
+               && nodeItem.PluginAssemblyId.HasValue
             )
             {
-                referenceToDelete = new EntityReference(PluginAssembly.EntityLogicalName, nodeItem.PluginAssembly.Value);
+                referenceToDelete = new EntityReference(PluginAssembly.EntityLogicalName, nodeItem.PluginAssemblyId.Value);
             }
             else if (nodeItem.ComponentType == ComponentType.Workflow
-               && nodeItem.Workflow.HasValue
+               && nodeItem.WorkflowId.HasValue
             )
             {
-                referenceToDelete = new EntityReference(Workflow.EntityLogicalName, nodeItem.Workflow.Value);
+                referenceToDelete = new EntityReference(Workflow.EntityLogicalName, nodeItem.WorkflowId.Value);
             }
 
             if (referenceToDelete != null)
@@ -3076,7 +3654,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             var nodeItem = ((FrameworkElement)e.OriginalSource).DataContext as PluginTreeViewItem;
 
-            if (nodeItem == null || !nodeItem.PluginAssembly.HasValue)
+            if (nodeItem == null || !nodeItem.PluginAssemblyId.HasValue)
             {
                 return;
             }
@@ -3098,7 +3676,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             var controller = new PluginController(_iWriteToOutput);
 
-            string filePath = await controller.CreateFileWithAssemblyComparing(_commonConfig.FolderForExport, service, nodeItem.PluginAssembly.Value, nodeItem.Name, null);
+            string filePath = await controller.CreateFileWithAssemblyComparing(_commonConfig.FolderForExport, service, nodeItem.PluginAssemblyId.Value, nodeItem.Name, null);
 
             this._iWriteToOutput.PerformAction(service.ConnectionData, filePath);
 

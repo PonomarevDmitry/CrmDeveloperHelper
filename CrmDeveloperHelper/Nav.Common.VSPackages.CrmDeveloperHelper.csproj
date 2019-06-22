@@ -1523,6 +1523,7 @@
     <Content Include="app.config">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Resource Include="Resources\Mode.png" />
     <Resource Include="Resources\message_category.png" />
     <Resource Include="Resources\endpoint.png" />
     <Resource Include="Resources\Icons\16x16_resx.png" />

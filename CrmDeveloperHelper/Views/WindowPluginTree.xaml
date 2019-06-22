@@ -11,14 +11,23 @@
                 <ResourceDictionary Source="StyleWindows.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
+            <BitmapImage x:Key="ImageRefresh" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Refresh_16.png" />
+
             <BitmapImage x:Key="ImagePluginAssembly" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/assembly.gif" />
-            <BitmapImage x:Key="ImageEntity" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Entity.png" />
-            <BitmapImage x:Key="ImageImage" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/image.gif" />
-            <BitmapImage x:Key="ImageMessage" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/message.gif" />
             <BitmapImage x:Key="ImagePluginType" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/plugin.gif" />
-            <BitmapImage x:Key="ImageStage" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Stage.gif" />
+
+            <BitmapImage x:Key="ImageEntity" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Entity.png" />
+            
+            <BitmapImage x:Key="ImageMessage" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/message.gif" />
+            <BitmapImage x:Key="ImageMessageCategory" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/message_category.png" />
+
             <BitmapImage x:Key="ImageStep" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Step.gif" />
             <BitmapImage x:Key="ImageStepDisabled" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/stepdisabled.gif" />
+            <BitmapImage x:Key="ImageImage" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/image.gif" />
+
+            <BitmapImage x:Key="ImageStage" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Stage.gif" />
+            <BitmapImage x:Key="ImageMode" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Mode.png" />
+            
             <BitmapImage x:Key="ImageBusinessRule" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/BusinessRule.png" />
             <BitmapImage x:Key="ImageBusinessProcess" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/BusinessProcess.png" />
 
@@ -202,11 +211,7 @@
                             </Style>
                         </ToolBarPanel.Resources>
                         <Menu x:Name="menuView" IsEnabled="False">
-                            <MenuItem Header="View" >
-                                <RadioButton x:Name="rBViewByEntity" GroupName="View" Content="Display By Entity" IsChecked="True" Checked="rBViewByEntity_Checked"/>
-                                <RadioButton x:Name="rBViewByAssembly" GroupName="View" Content="Display By Assembly" Checked="rBViewByAssembly_Checked"/>
-                                <RadioButton x:Name="rBViewByMessage" GroupName="View" Content="Display By Message" Checked="rBViewByMessage_Checked"/>
-                            </MenuItem>
+                            <MenuItem x:Name="mIView" Header="View" />
                         </Menu>
                         <Button x:Name="tSBCreateDescription" Content="Create Description" Click="tSBCreateDescription_Click" IsEnabled="False"  />
                         

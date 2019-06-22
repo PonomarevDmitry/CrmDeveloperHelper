@@ -15,7 +15,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
 
                 public const string SdkMessageFilterSecondaryObjectTypeCode = Attributes.sdkmessagefilterid + "." + SdkMessageFilter.Schema.Attributes.secondaryobjecttypecode;
 
+                public const string SdkMessageCategoryName = Attributes.sdkmessageid + "." + SdkMessage.Schema.Attributes.categoryname;
+
                 public const string PluginAssemblyId = Attributes.eventhandler + "." + PluginType.Schema.Attributes.pluginassemblyid;
+
+                public const string PluginAssemblyName = Attributes.eventhandler + "." + PluginType.Schema.Attributes.assemblyname;
             }
         }
 
@@ -23,13 +27,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         {
             get
             {
-                if (this.Attributes.ContainsKey(Schema.EntityAliasFields.PluginAssemblyId)
-                    && this.Attributes[Schema.EntityAliasFields.PluginAssemblyId] != null
-                    && this.Attributes[Schema.EntityAliasFields.PluginAssemblyId] is AliasedValue aliasedValue
-                    && aliasedValue.Value is EntityReference aliasedValueValue
+                if (this.Attributes.ContainsKey(Schema.EntityAliasFields.PluginAssemblyName)
+                    && this.Attributes[Schema.EntityAliasFields.PluginAssemblyName] != null
+                    && this.Attributes[Schema.EntityAliasFields.PluginAssemblyName] is AliasedValue aliasedValue
+                    && aliasedValue.Value is string aliasedValueValue
                     )
                 {
-                    return aliasedValueValue.Name;
+                    return aliasedValueValue;
                 }
 
                 return "Unknown";
@@ -50,6 +54,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
                 }
 
                 return null;
+            }
+        }
+
+        public string MessageCategoryName
+        {
+            get
+            {
+                if (this.Attributes.ContainsKey(Schema.EntityAliasFields.SdkMessageCategoryName)
+                    && this.Attributes[Schema.EntityAliasFields.SdkMessageCategoryName] != null
+                    && this.Attributes[Schema.EntityAliasFields.SdkMessageCategoryName] is AliasedValue aliasedValue
+                    && aliasedValue.Value is string aliasedValueValue
+                    )
+                {
+                    return aliasedValueValue;
+                }
+
+                return "none";
             }
         }
 

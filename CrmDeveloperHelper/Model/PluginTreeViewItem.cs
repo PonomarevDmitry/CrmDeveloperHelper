@@ -186,21 +186,23 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public string MessageName { get; set; }
 
+        public string MessageCategoryName { get; set; }
+
         public List<Guid> MessageList { get; }
 
         public List<Guid> MessageFilterList { get; }
 
         public string EntityLogicalName { get; set; }
 
-        public Guid? PluginAssembly { get; set; }
+        public Guid? PluginAssemblyId { get; set; }
 
-        public Guid? PluginType { get; set; }
+        public Guid? PluginTypeId { get; set; }
 
-        public Guid? Step { get; set; }
+        public Guid? StepId { get; set; }
 
-        public Guid? StepImage { get; set; }
+        public Guid? StepImageId { get; set; }
 
-        public Guid? Workflow { get; set; }
+        public Guid? WorkflowId { get; set; }
 
         public ComponentType? ComponentType { get; private set; }
 
@@ -246,29 +248,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public Guid? GetId()
         {
-            if (this.PluginAssembly.HasValue && this.ComponentType == Entities.ComponentType.PluginAssembly)
+            if (this.PluginAssemblyId.HasValue && this.ComponentType == Entities.ComponentType.PluginAssembly)
             {
-                return this.PluginAssembly.Value;
+                return this.PluginAssemblyId.Value;
             }
 
-            if (this.PluginType.HasValue && this.ComponentType == Entities.ComponentType.PluginType)
+            if (this.PluginTypeId.HasValue && this.ComponentType == Entities.ComponentType.PluginType)
             {
-                return this.PluginType.Value;
+                return this.PluginTypeId.Value;
             }
 
-            if (this.Step.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageProcessingStep)
+            if (this.StepId.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageProcessingStep)
             {
-                return this.Step.Value;
+                return this.StepId.Value;
             }
 
-            if (this.StepImage.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageProcessingStepImage)
+            if (this.StepImageId.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageProcessingStepImage)
             {
-                return this.StepImage.Value;
+                return this.StepImageId.Value;
             }
 
-            if (this.Workflow.HasValue && this.ComponentType == Entities.ComponentType.Workflow)
+            if (this.WorkflowId.HasValue && this.ComponentType == Entities.ComponentType.Workflow)
             {
-                return this.Workflow.Value;
+                return this.WorkflowId.Value;
             }
 
             if (this.MessageList.Count == 1 && this.ComponentType == Entities.ComponentType.SdkMessage)
@@ -286,29 +288,29 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public IEnumerable<Guid> GetIdEnumerable()
         {
-            if (this.PluginAssembly.HasValue && this.ComponentType == Entities.ComponentType.PluginAssembly)
+            if (this.PluginAssemblyId.HasValue && this.ComponentType == Entities.ComponentType.PluginAssembly)
             {
-                yield return this.PluginAssembly.Value;
+                yield return this.PluginAssemblyId.Value;
             }
 
-            if (this.PluginType.HasValue && this.ComponentType == Entities.ComponentType.PluginType)
+            if (this.PluginTypeId.HasValue && this.ComponentType == Entities.ComponentType.PluginType)
             {
-                yield return this.PluginType.Value;
+                yield return this.PluginTypeId.Value;
             }
 
-            if (this.Step.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageProcessingStep)
+            if (this.StepId.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageProcessingStep)
             {
-                yield return this.Step.Value;
+                yield return this.StepId.Value;
             }
 
-            if (this.StepImage.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageProcessingStepImage)
+            if (this.StepImageId.HasValue && this.ComponentType == Entities.ComponentType.SdkMessageProcessingStepImage)
             {
-                yield return this.StepImage.Value;
+                yield return this.StepImageId.Value;
             }
 
-            if (this.Workflow.HasValue && this.ComponentType == Entities.ComponentType.Workflow)
+            if (this.WorkflowId.HasValue && this.ComponentType == Entities.ComponentType.Workflow)
             {
-                yield return this.Workflow.Value;
+                yield return this.WorkflowId.Value;
             }
 
             if (this.ComponentType == Entities.ComponentType.SdkMessage)

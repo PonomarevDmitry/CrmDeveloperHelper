@@ -477,12 +477,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return "Create Description";
             }
 
-            if (item.PluginAssembly.HasValue)
+            if (item.PluginAssemblyId.HasValue)
             {
                 return "Create Plugin Assembly Description";
             }
 
-            if (item.PluginType.HasValue)
+            if (item.PluginTypeId.HasValue)
             {
                 return "Create Plugin Type Description";
             }
@@ -497,12 +497,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return "Create Message Filter Description";
             }
 
-            if (item.Step.HasValue)
+            if (item.StepId.HasValue)
             {
                 return "Create Step Description";
             }
 
-            if (item.StepImage.HasValue)
+            if (item.StepImageId.HasValue)
             {
                 return "Create Image Description";
             }
@@ -512,12 +512,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private bool CanCreateDescription(PluginTreeViewItem item)
         {
-            return item.PluginAssembly.HasValue
-                || item.PluginType.HasValue
+            return item.PluginAssemblyId.HasValue
+                || item.PluginTypeId.HasValue
                 || (item.MessageList != null && item.MessageList.Any())
                 || (item.MessageFilterList != null && item.MessageFilterList.Any())
-                || item.Step.HasValue
-                || item.StepImage.HasValue
+                || item.StepId.HasValue
+                || item.StepImageId.HasValue
                 ;
         }
 
