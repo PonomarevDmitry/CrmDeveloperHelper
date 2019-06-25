@@ -478,43 +478,47 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this.IncreaseInit();
 
-            HashSet<GroupingProperty> usedProperties = new HashSet<GroupingProperty>();
-
-            bool hideOthers = false;
+            List<GroupingProperty> selectedProperties = new List<GroupingProperty>();
 
             foreach (var comboBox in mIView.Items.OfType<ComboBox>())
             {
-                if (hideOthers)
+                if (comboBox.SelectedItem is GroupingProperty groupingProperty)
+                {
+                    if (!selectedProperties.Contains(groupingProperty))
+                    {
+                        selectedProperties.Add(groupingProperty);
+                    }
+                }
+            }
+
+            HashSet<GroupingProperty> usedProperties = new HashSet<GroupingProperty>();
+
+            int index = 0;
+
+            foreach (var comboBox in mIView.Items.OfType<ComboBox>())
+            {
+                FillGroupingComboBox(usedProperties, comboBox);
+
+                if (index < selectedProperties.Count)
+                {
+                    usedProperties.Add(selectedProperties[index]);
+
+                    comboBox.SelectedItem = selectedProperties[index];
+
+                    comboBox.Visibility = Visibility.Visible;
+                }
+                else if (index == selectedProperties.Count)
+                {
+                    comboBox.SelectedIndex = 0;
+                    comboBox.Visibility = Visibility.Visible;
+                }
+                else
                 {
                     comboBox.SelectedIndex = 0;
                     comboBox.Visibility = Visibility.Hidden;
                 }
-                else
-                {
-                    comboBox.Visibility = Visibility.Visible;
 
-                    if (comboBox.SelectedItem is GroupingProperty groupingProperty)
-                    {
-                        FillGroupingComboBox(usedProperties, comboBox);
-
-                        if (usedProperties.Contains(groupingProperty))
-                        {
-                            hideOthers = true;
-                        }
-                        else
-                        {
-                            usedProperties.Add(groupingProperty);
-
-                            comboBox.SelectedItem = groupingProperty;
-                        }
-                    }
-                    else
-                    {
-                        hideOthers = true;
-
-                        FillGroupingComboBox(usedProperties, comboBox);
-                    }
-                }
+                index++;
             }
 
             this.DecreaseInit();
