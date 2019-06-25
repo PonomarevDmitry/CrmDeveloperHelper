@@ -1,3 +1,4 @@
+using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Query;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
@@ -2065,6 +2066,93 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.ExportedOrganizationDifferenceImageToFileFormat3, Connection1.Name, Connection2.Name, filePath);
 
             _iWriteToOutput.WriteToOutputFilePathUri(null, filePath);
+        }
+
+        public Task<string> CheckApplicationRibbonsAsync(bool withDetails)
+        {
+            return Task.Run(async () => await CheckApplicationRibbons(withDetails));
+        }
+
+        private async Task<string> CheckApplicationRibbons(bool withDetails)
+        {
+            StringBuilder content = new StringBuilder();
+
+            await _comparerSource.InitializeConnection(_iWriteToOutput, content);
+
+            string operation = string.Format(Properties.OperationNames.CheckingApplicationRibbonsFormat2, Connection1.Name, Connection2.Name);
+
+            if (withDetails)
+            {
+                operation = string.Format(Properties.OperationNames.CheckingApplicationRibbonsWithDetailsFormat2, Connection1.Name, Connection2.Name);
+            }
+
+            content.AppendLine(_iWriteToOutput.WriteToOutputStartOperation(null, operation));
+
+            RetrieveApplicationRibbonRequest request = new RetrieveApplicationRibbonRequest();
+
+            string xml1 = string.Empty;
+            string xml2 = string.Empty;
+
+            try
+            {
+                RetrieveApplicationRibbonResponse response1 = (RetrieveApplicationRibbonResponse)_comparerSource.Service1.Execute(request);
+                RetrieveApplicationRibbonResponse response2 = (RetrieveApplicationRibbonResponse)_comparerSource.Service2.Execute(request);
+
+                byte[] array1 = FileOperations.UnzipRibbon(response1.CompressedApplicationRibbonXml);
+                byte[] array2 = FileOperations.UnzipRibbon(response2.CompressedApplicationRibbonXml);
+
+                xml1 = Encoding.UTF8.GetString(array1);
+                xml2 = Encoding.UTF8.GetString(array2);
+
+                xml1 = ContentCoparerHelper.RemoveDiacritics(xml1);
+                xml2 = ContentCoparerHelper.RemoveDiacritics(xml2);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
+            }
+
+            ContentCopareResult compare = ContentCoparerHelper.CompareXML(xml1, xml2, withDetails);
+
+            if (!compare.IsEqual)
+            {
+                var repository1 = new RibbonCustomizationRepository(_comparerSource.Service1);
+                var ribbonCustomization1 = await repository1.FindApplicationRibbonCustomizationAsync();
+
+                var repository2 = new RibbonCustomizationRepository(_comparerSource.Service2);
+                var ribbonCustomization2 = await repository2.FindApplicationRibbonCustomizationAsync();
+
+                this.ImageBuilder.AddComponentDifferent((int)ComponentType.RibbonCustomization, ribbonCustomization1.Id, ribbonCustomization2.Id, ":ApplicationRibbonDiffXml");
+
+                content.AppendLine().AppendLine("Application Ribbons are DIFFERENT.");
+
+                if (withDetails)
+                {
+                    content.AppendFormat("Inserts {0}   InsertLength {1}   Deletes {2}    DeleteLength {3}    {4}"
+                       , string.Format("+{0}", compare.Inserts)
+                       , string.Format("(+{0})", compare.InsertLength)
+                       , string.Format("-{0}", compare.Deletes)
+                       , string.Format("(-{0})", compare.DeleteLength)
+                       , compare.GetDescription()
+                    );
+                }
+            }
+            else
+            {
+                content.AppendLine().AppendLine("Application Ribbons are equal.");
+            }
+
+            content.AppendLine().AppendLine().AppendLine(_iWriteToOutput.WriteToOutputEndOperation(null, operation));
+
+            string fileName = EntityFileNameFormatter.GetDifferenceConnectionsForFieldFileName(_OrgOrgName, string.Format("ApplicationRibbons{0}", withDetails ? " with details" : string.Empty));
+
+            string filePath = Path.Combine(_folder, FileOperations.RemoveWrongSymbols(fileName));
+
+            File.WriteAllText(filePath, content.ToString(), new UTF8Encoding(false));
+
+            await SaveOrganizationDifferenceImage();
+
+            return filePath;
         }
     }
 }

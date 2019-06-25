@@ -171,102 +171,32 @@
                         </Menu>
                         
                         <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" >
-                            <MenuItem x:Name="tSDDBCompareOrganizations" Header="Compare Organizations">
-                                <MenuItem Header="Organizations" Click="tSMIOrganizations_Click"/>
-                                <Separator/>
-                                <MenuItem Header="Entity Information">
-                                    <MenuItem Header="Entities" Click="tSMIEntities_Click"/>
-                                    <MenuItem Header="Entities by Audit" Click="tSMIEntitiesByAudit_Click"/>
-                                    <MenuItem Header="Entity Labels" Click="tSMIEntityLabels_Click"/>
-                                    <MenuItem Header="Entity Maps" Click="tSMIEntityMaps_Click"/>
-                                    <Separator/>
-                                    <MenuItem Header="All Entity Metadata" Click="tSMICompareAllEntityMetadata_Click"/>
-                                    <Separator/>
-                                    <MenuItem Header="System Forms" Click="tSMISystemForms_Click"/>
-                                    <MenuItem Header="System Views" Click="tSMISystemSavedQueries_Click"/>
-                                    <MenuItem Header="System Charts" Click="tSMISystemCharts_Click"/>
-                                    <Separator/>
-                                    <MenuItem Header="All Entity Objects" Click="tSMICompareAllEntityObjects_Click"/>
-                                    <Separator/>
-                                    <MenuItem Header="Ribbons" Click="tSMIRibbons_Click"/>
-                                    <MenuItem Header="Ribbons with details" Click="tSMIRibbonsWithDetails_Click"/>
-                                    <MenuItem Header="Display Strings" Click="tSMIDisplayStrings_Click"/>
-                                    <Separator/>
-                                    <MenuItem Header="All Entity Information" Click="tSMICompareAllEntityInformation_Click"/>
-                                </MenuItem>
-                                <MenuItem Header="Plugin Information">
-                                    <MenuItem Header="Plugin Assemblies" Click="tSMIPluginAssemblies_Click"/>
-                                    <MenuItem Header="Plugin Types" Click="tSMIPluginTypes_Click"/>
-                                    <MenuItem Header="Plugin Steps by PluginType Names" Click="tSMIPluginStepsByPluginTypeNames_Click"/>
-                                    <MenuItem Header="Plugin Steps by Ids" Click="tSMIPluginStepsByIds_Click"/>
-                                    <MenuItem Header="Plugin Steps States" Click="tSMIPluginStepsStates_Click"/>
-                                    <Separator/>
-                                    <MenuItem Header="All Plugin Information" Click="tSMICompareAllPluginInformation_Click"/>
-                                </MenuItem>
-                                <Separator/>
-                                <MenuItem Header="Global OptionSets" Click="tSMIGlobalOptionSets_Click" />
-                                <Separator/>
-                                <MenuItem Header="SiteMaps" Click="tSMISitemaps_Click" />
-                                <Separator/>
-                                <MenuItem Header="Translation Information">
-                                    <MenuItem Header="Default Translations" Click="tSMIDefaultTranslations_Click" />
-                                    <MenuItem Header="Field Translations" Click="tSMIFieldTranslations_Click" />
-                                    <Separator/>
-                                    <MenuItem Header="Compare All Translations" Click="tSMICompareAllTranslations_Click" />
-                                </MenuItem>
-                                <Separator/>
-                                <MenuItem Header="WebResources" Click="tSMIWebResources_Click" />
-                                <MenuItem Header="WebResources with details" Click="tSMIWebResourcesWithDetails_Click" />
-                                <Separator/>
-                                <MenuItem Header="Reports" Click="tSMIReports_Click" />
-                                <MenuItem Header="Templates">
-                                    <MenuItem Header="Email Templates" Click="tSMIEmailTemplate_Click" />
-                                    <MenuItem Header="MailMergeTemplates" Click="tSMIMailMergeTemplate_Click" />
-                                    <MenuItem Header="KBArticleTemplates" Click="tSMIKBArticleTemplate_Click" />
-                                    <MenuItem Header="Contract Templates" Click="tSMIContractTemplate_Click" />
-                                    <Separator/>
-                                    <MenuItem Header="Compare All Templates" Click="tSMICompareAllTemplates_Click" />
-                                </MenuItem>
-                                <Separator/>
-                                <MenuItem Header="Connection Information">
-                                    <MenuItem Header="Connection Roles" Click="tSMIConnectionRoles_Click" />
-                                    <MenuItem Header="Connection Role Categories" Click="tSMIConnectionRoleCategories_Click" />
-                                    <Separator/>
-                                    <MenuItem Header="All Connection Information" Click="tSMICompareAllConnectionInformation_Click" />
-                                </MenuItem>
-                                <Separator/>
-                                <MenuItem Header="Workflows states" Click="tSMIWorkflowsStates_Click" />
-                                <MenuItem Header="Workflows attributes" Click="tSMIWorkflows_Click" />
-                                <MenuItem Header="Workflows attributes with details" Click="tSMIWorkflowsWithDetails_Click" />
-                                <Separator/>
-                                <MenuItem Header="Security Information">
-                                    <MenuItem Header="Security Roles" Click="tSMISecurityRoles_Click" />
-                                    <MenuItem Header="Field Security Profiles" Click="tSMIFieldSecurityProfiles_Click" />
-                                    <Separator/>
-                                    <MenuItem Header="Compare All Security" Click="tSMICompareAllSecurity_Click" />
-                                </MenuItem>
-                                <Separator/>
-                                <MenuItem Header="Compare All" Click="tSMICompareAll_Click" />
-                            </MenuItem>
+                            <MenuItem x:Name="miCompareOrganizations" Header="Compare Organizations" Click="miCompareOrganizations_Click" />
                         </Menu>
                         
                         <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" >
                             <MenuItem x:Name="tSDDBShowDifference" Header="Show Difference">
                                 <MenuItem Header="Entity Metadata" Click="tSMIDifferenceEntityMetadata_Click"/>
+                                
                                 <Separator/>
                                 <MenuItem Header="System Forms" Click="tSMIDifferenceSystemForms_Click" />
                                 <MenuItem Header="System Views" Click="tSMIDifferenceSystemSavedQueries_Click" />
                                 <MenuItem Header="System Charts" Click="tSMIDifferenceSystemCharts_Click" />
+                                
                                 <Separator/>
                                 <MenuItem Header="Global OptionSets" Click="tSMIDifferenceGlobalOptionSets_Click" />
+                                
                                 <Separator/>
                                 <MenuItem Header="Sitemaps" Click="tSMIDifferenceSitemaps_Click" />
+                                
                                 <Separator/>
                                 <MenuItem Header="WebResources" Click="tSMIDifferenceWebResources_Click" />
                                 <MenuItem Header="Reports" Click="tSMIDifferenceReports_Click" />
+                                
                                 <Separator/>
                                 <MenuItem Header="Plugin Assemblies" Click="tSMIDifferencePluginAssemblies_Click" />
                                 <MenuItem Header="Workflows" Click="tSMIDifferenceWorkflows_Click" />
+                                
                                 <Separator/>
                                 <MenuItem Header="ApplicationRibbons" Click="tSMIDifferenceApplicationRibbons_Click" />
                             </MenuItem>
@@ -276,14 +206,19 @@
                         <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" >
                             <MenuItem x:Name="tSDDBTransfer" Header="Transfer">
                                 <MenuItem x:Name="tSMITransferAuditFrom1To2" Header="Audit from 1 to 2" Click="tSMITransferAuditFrom1To2_Click"/>
+                                
                                 <Separator/>
                                 <MenuItem x:Name="tSMITransferAuditFrom2To1" Header="Audit from 2 to 1" Click="tSMITransferAuditFrom2To1_Click"/>
+                                
                                 <Separator/>
                                 <MenuItem x:Name="tSMITransferWorkflowsStatesFrom1To2" Header="Workflows States from 1 to 2" Click="tSMITransferWorkflowsStatesFrom1To2_Click"/>
+                                
                                 <Separator/>
                                 <MenuItem x:Name="tSMITransferWorkflowsStatesFrom2To1" Header="Workflows States from 2 to 1" Click="tSMITransferWorkflowsStatesFrom2To1_Click"/>
+                                
                                 <Separator/>
                                 <MenuItem x:Name="tSMITransferPluginStepsStatesFrom1To2" Header="Plugin Steps States from 1 to 2" Click="tSMITransferPluginStepsStatesFrom1To2_Click"/>
+                                
                                 <Separator/>
                                 <MenuItem x:Name="tSMITransferPluginStepsStatesFrom2To1" Header="Plugin Steps States from 2 to 1" Click="tSMITransferPluginStepsStatesFrom2To1_Click"/>
                             </MenuItem>

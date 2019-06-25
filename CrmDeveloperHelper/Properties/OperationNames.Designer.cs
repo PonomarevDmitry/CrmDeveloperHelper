@@ -232,6 +232,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Checking Application Ribbons in {0} and {1}.
+        /// </summary>
+        internal static string CheckingApplicationRibbonsFormat2 {
+            get {
+                return ResourceManager.GetString("CheckingApplicationRibbonsFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking Application Ribbons with details in {0} and {1}.
+        /// </summary>
+        internal static string CheckingApplicationRibbonsWithDetailsFormat2 {
+            get {
+                return ResourceManager.GetString("CheckingApplicationRibbonsWithDetailsFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Checking ComponentType Enum.
         /// </summary>
         internal static string CheckingComponentTypeEnumFormat1 {
@@ -354,6 +372,24 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CheckingEntityMapsFormat2 {
             get {
                 return ResourceManager.GetString("CheckingEntityMapsFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking Entity Ribbons in {0} and {1}.
+        /// </summary>
+        internal static string CheckingEntityRibbonsFormat2 {
+            get {
+                return ResourceManager.GetString("CheckingEntityRibbonsFormat2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking Entity Ribbons with details in {0} and {1}.
+        /// </summary>
+        internal static string CheckingEntityRibbonsWithDetailsFormat2 {
+            get {
+                return ResourceManager.GetString("CheckingEntityRibbonsWithDetailsFormat2", resourceCulture);
             }
         }
         
@@ -525,24 +561,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string CheckingReportsFormat2 {
             get {
                 return ResourceManager.GetString("CheckingReportsFormat2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Checking Ribbons in {0} and {1}.
-        /// </summary>
-        internal static string CheckingRibbonsFormat2 {
-            get {
-                return ResourceManager.GetString("CheckingRibbonsFormat2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Checking Ribbons with details in {0} and {1}.
-        /// </summary>
-        internal static string CheckingRibbonsWithDetailsFormat2 {
-            get {
-                return ResourceManager.GetString("CheckingRibbonsWithDetailsFormat2", resourceCulture);
             }
         }
         

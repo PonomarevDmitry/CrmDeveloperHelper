@@ -28,6 +28,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private readonly CommonConfiguration _commonConfig;
 
+        private Dictionary<OrganizationComparerOperation, Func<OrganizationComparer, Task>> _operationHandlers;
+
         public WindowOrganizationComparer(
             IWriteToOutput iWriteToOutput
             , ConnectionConfiguration crmConfig
@@ -46,6 +48,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             InitializeComponent();
 
+            FillOperationHandlers();
+
             WindowCrmConnectionHandler.InitializeConnectionMenuItems(miConnection, this._iWriteToOutput, this._commonConfig, GetSelectedSingleConnection);
 
             LoadFromConfig();
@@ -56,6 +60,78 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 LoadSolutionImage(solutionImageFilePath);
             }
+        }
+
+        private void FillOperationHandlers()
+        {
+            _operationHandlers = new Dictionary<OrganizationComparerOperation, Func<OrganizationComparer, Task>>()
+            {
+                { OrganizationComparerOperation.Organizations, AnalizeOrganizations },
+
+                { OrganizationComparerOperation.Entities, AnalizeEntities },
+
+                { OrganizationComparerOperation.EntitiesByAudit, AnalizeEntitiesByAudit },
+
+                { OrganizationComparerOperation.EntityLabels, AnalizeEntityLabels },
+
+                { OrganizationComparerOperation.EntityMaps, AnalizeEntityMaps },
+
+                { OrganizationComparerOperation.EntityRibbons, AnalizeEntityRibbons },
+
+                { OrganizationComparerOperation.EntityRibbonsWithDetails, AnalizeEntityRibbonsWithDetails },
+
+                { OrganizationComparerOperation.ConnectionRoleCategories, AnalizeConnectionRoleCategories },
+
+                { OrganizationComparerOperation.ConnectionRoles, AnalizeConnectionRoles },
+
+                { OrganizationComparerOperation.ContractTemplates, AnalizeContractTemplates },
+
+                { OrganizationComparerOperation.DisplayStrings, AnalizeDisplayStrings },
+
+                { OrganizationComparerOperation.EmailTemplates, AnalizeEmailTemplates },
+
+                { OrganizationComparerOperation.FieldSecurityProfiles, AnalizeFieldSecurityProfiles },
+
+                { OrganizationComparerOperation.GlobalOptionSets, AnalizeGlobalOptionSets },
+
+                { OrganizationComparerOperation.KBArticleTemplates, AnalizeKBArticleTemplates },
+
+                { OrganizationComparerOperation.MailMergeTemplates, AnalizeMailMergeTemplates },
+
+                { OrganizationComparerOperation.PluginAssemblies, AnalizePluginAssemblies },
+
+                { OrganizationComparerOperation.PluginSteps, AnalizePluginSteps },
+
+                { OrganizationComparerOperation.PluginStepsByStates, AnalizePluginStepsByStates },
+
+                { OrganizationComparerOperation.PluginTypes, AnalizePluginTypes },
+
+                { OrganizationComparerOperation.Reports, AnalizeReports },
+
+                { OrganizationComparerOperation.SecurityRoles, AnalizeSecurityRoles },
+
+                { OrganizationComparerOperation.SiteMaps, AnalizeSiteMaps },
+
+                { OrganizationComparerOperation.SystemCharts, AnalizeSystemSavedQueryVisualizations },
+
+                { OrganizationComparerOperation.SystemForms, AnalizeSystemForms },
+
+                { OrganizationComparerOperation.SystemViews, AnalizeSystemSavedQueries },
+
+                { OrganizationComparerOperation.WebResources, AnalizeWebResources },
+
+                { OrganizationComparerOperation.WebResourcesWithDetails, AnalizeWebResourcesWithDetails },
+
+                { OrganizationComparerOperation.WorkflowsAttributes, AnalizeWorkflowsAttributes },
+
+                { OrganizationComparerOperation.WorkflowsAttributesWithDetails, AnalizeWorkflowsAttributesWithDetails },
+
+                { OrganizationComparerOperation.WorkflowsStates, AnalizeWorkflowsStates },
+
+                { OrganizationComparerOperation.ApplicationRibbons, AnalizeApplicationRibbons },
+
+                { OrganizationComparerOperation.ApplicationRibbonsWithDetails, AnalizeApplicationRibbonsWithDetails },
+            };
         }
 
         private void LoadFromConfig()
@@ -151,7 +227,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         bool enabled = this.IsControlsEnabled && connection1 != null && connection2 != null;
 
-                        UIElement[] list = { tSDDBCompareOrganizations, tSDDBTransfer };
+                        UIElement[] list = { miCompareOrganizations, tSDDBTransfer };
 
                         foreach (var button in list)
                         {
@@ -766,66 +842,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #endregion Формы сравнения.
 
-        private async Task ExecuteOperation(Func<OrganizationComparer, Task> function)
-        {
-            if (!this.IsControlsEnabled)
-            {
-                return;
-            }
-
-            GetSelectedConnections(out ConnectionData connection1, out ConnectionData connection2);
-
-            if (connection1 == null || connection2 == null)
-            {
-                return;
-            }
-
-            if (MessageBox.Show(Properties.MessageBoxStrings.ExecuteOperation, Properties.MessageBoxStrings.QuestionTitle, MessageBoxButton.OKCancel, MessageBoxImage.Information, MessageBoxResult.Cancel) != MessageBoxResult.OK)
-            {
-                return;
-            }
-
-            string folder = string.Empty;
-            txtBFolder.Dispatcher.Invoke(() =>
-            {
-                folder = txtBFolder.Text.Trim();
-            });
-
-            if (string.IsNullOrEmpty(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportIsEmpty);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-            else if (!Directory.Exists(folder))
-            {
-                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportDoesNotExistsFormat1, folder);
-                folder = FileOperations.GetDefaultFolderForExportFilePath();
-            }
-
-            this._iWriteToOutput.WriteToOutputStartOperation(null, Properties.OperationNames.ComparingConnectionsFormat2, connection1.Name, connection2.Name);
-
-            ToggleControls(null, false, Properties.WindowStatusStrings.ComparingConnectionsFormat2, connection1.Name, connection2.Name);
-
-            try
-            {
-                var source = CreateOrganizationComparerSource(connection1, connection2);
-
-                OrganizationComparer comparer = new OrganizationComparer(source, this._iWriteToOutput, folder);
-
-                await function(comparer);
-
-                ToggleControls(null, true, Properties.WindowStatusStrings.ComparingConnectionsFormat2, connection1.Name, connection2.Name);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(null, ex);
-
-                ToggleControls(null, true, Properties.WindowStatusStrings.ComparingConnectionsFormat2, connection1.Name, connection2.Name);
-            }
-
-            this._iWriteToOutput.WriteToOutputEndOperation(null, Properties.OperationNames.ComparingConnectionsFormat2, connection1.Name, connection2.Name);
-        }
-
         private IOrganizationComparerSource CreateOrganizationComparerSource(ConnectionData connection1, ConnectionData connection2)
         {
             if (_solutionImage != null && _solutionImage.Components.Any())
@@ -838,166 +854,45 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #region Кнопки сравнения сред.
 
-        #region Кнопки сравнения сред несколькими процедурами.
-
-        private void tSMICompareAll_Click(object sender, RoutedEventArgs e)
+        private async void miCompareOrganizations_Click(object sender, RoutedEventArgs e)
         {
-            var functions = new List<Func<OrganizationComparer, Task>>()
+            var form = new WindowOrganizationComparerOperationMultiSelect();
+
+            if (!form.ShowDialog().GetValueOrDefault())
             {
-                AnalizeOrganizations
+                return;
+            }
 
-                , AnalizeGlobalOptionSets
-                , AnalizeEntities
-                , AnalizeEntityLabels
-                , AnalizeEntityMaps
+            List<OrganizationComparerOperation> operations = form.GetOperations();
 
-                , AnalizeSystemForms
-                , AnalizeSystemSavedQueries
-                , AnalizeSystemSavedQueryVisualizations
+            if (!operations.Any())
+            {
+                return;
+            }
 
-                , AnalizeDisplayStrings
-
-                , AnalizeConnectionRoles
-                , AnalizeConnectionRoleCategories
-
-                , AnalizeWebResourcesWithDetails
-
-                , AnalizeSitemaps
-
-                , AnalizeDefaultTranslations
-                , AnalizeFieldTranslations
-
-                , AnalizeWorkflowsStates
-                , AnalizeWorkflowsWithDetails
-
-                , AnalizeReports
-
-                , AnalizeEmailTemplate
-                , AnalizeMailMergeTemplates
-                , AnalizeKBArticleTemplates
-                , AnalizeContractTemplate
-
-                , AnalizeSecurityRoles
-                , AnalizeFieldSecurityProfiles
-
-                , AnalizePluginAssemblies
-                , AnalizePluginTypes
-
-                , AnalizePluginStepsStates
-
-                , AnalizePluginStepsByPluginTypeNames
-                , AnalizePluginStepsByIds
-
-                , AnalizeRibbonsWithDetails
-            };
-
-            ExecuteListOperation(functions);
+            await ExecuteListOperation(operations);
         }
 
-        private void tSMICompareAllEntityMetadata_Click(object sender, RoutedEventArgs e)
+        private async Task ExecuteListOperation(IEnumerable<OrganizationComparerOperation> operations)
         {
-            var functions = new List<Func<OrganizationComparer, Task>>()
+            if (!this.IsControlsEnabled)
             {
-                AnalizeEntities
-                , AnalizeEntityLabels
-                , AnalizeEntityMaps
-            };
+                return;
+            }
 
-            ExecuteListOperation(functions);
-        }
-
-        private void tSMICompareAllEntityObjects_Click(object sender, RoutedEventArgs e)
-        {
-            var functions = new List<Func<OrganizationComparer, Task>>()
+            if (!operations.Any())
             {
-                AnalizeSystemForms
-                , AnalizeSystemSavedQueries
-                , AnalizeSystemSavedQueryVisualizations
-            };
+                return;
+            }
 
-            ExecuteListOperation(functions);
-        }
+            var functions = operations.Where(o => _operationHandlers.ContainsKey(o)).Select(o => _operationHandlers[o]).ToList();
 
-        private void tSMICompareAllEntityInformation_Click(object sender, RoutedEventArgs e)
-        {
-            var functions = new List<Func<OrganizationComparer, Task>>()
+            if (!functions.Any())
             {
-                AnalizeEntities
-                , AnalizeEntityLabels
-                , AnalizeEntityMaps
+                return;
+            }
 
-                , AnalizeSystemForms
-                , AnalizeSystemSavedQueries
-                , AnalizeSystemSavedQueryVisualizations
-
-                , AnalizeDisplayStrings
-
-                , AnalizeRibbonsWithDetails
-            };
-
-            ExecuteListOperation(functions);
-        }
-
-        private void tSMICompareAllTranslations_Click(object sender, RoutedEventArgs e)
-        {
-            var functions = new List<Func<OrganizationComparer, Task>>()
-            {
-                AnalizeDefaultTranslations
-                , AnalizeFieldTranslations
-            };
-
-            ExecuteListOperation(functions);
-        }
-
-        private void tSMICompareAllTemplates_Click(object sender, RoutedEventArgs e)
-        {
-            var functions = new List<Func<OrganizationComparer, Task>>()
-            {
-                AnalizeEmailTemplate
-                , AnalizeMailMergeTemplates
-                , AnalizeKBArticleTemplates
-                , AnalizeContractTemplate
-            };
-
-            ExecuteListOperation(functions);
-        }
-
-        private void tSMICompareAllConnectionInformation_Click(object sender, RoutedEventArgs e)
-        {
-            var functions = new List<Func<OrganizationComparer, Task>>()
-            {
-                AnalizeConnectionRoles
-                , AnalizeConnectionRoleCategories
-            };
-
-            ExecuteListOperation(functions);
-        }
-
-        private void tSMICompareAllPluginInformation_Click(object sender, RoutedEventArgs e)
-        {
-            var functions = new List<Func<OrganizationComparer, Task>>()
-            {
-                AnalizePluginAssemblies
-                , AnalizePluginTypes
-
-                , AnalizePluginStepsStates
-
-                , AnalizePluginStepsByPluginTypeNames
-                , AnalizePluginStepsByIds
-            };
-
-            ExecuteListOperation(functions);
-        }
-
-        private void tSMICompareAllSecurity_Click(object sender, RoutedEventArgs e)
-        {
-            var functions = new List<Func<OrganizationComparer, Task>>()
-            {
-                AnalizeSecurityRoles
-                , AnalizeFieldSecurityProfiles
-            };
-
-            ExecuteListOperation(functions);
+            await ExecuteListOperation(functions);
         }
 
         private async Task ExecuteListOperation(List<Func<OrganizationComparer, Task>> functions)
@@ -1075,13 +970,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        #endregion Кнопки сравнения сред несколькими процедурами.
-
-        private void tSMIGlobalOptionSets_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeGlobalOptionSets);
-        }
-
         private async Task AnalizeGlobalOptionSets(OrganizationComparer comparer)
         {
             try
@@ -1098,11 +986,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
-        }
-
-        private void tSMISystemForms_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeSystemForms);
         }
 
         private async Task AnalizeSystemForms(OrganizationComparer comparer)
@@ -1123,11 +1006,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMISystemSavedQueries_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeSystemSavedQueries);
-        }
-
         private async Task AnalizeSystemSavedQueries(OrganizationComparer comparer)
         {
             try
@@ -1144,11 +1022,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
-        }
-
-        private void tSMISystemCharts_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeSystemSavedQueryVisualizations);
         }
 
         private async Task AnalizeSystemSavedQueryVisualizations(OrganizationComparer comparer)
@@ -1169,11 +1042,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIConnectionRoles_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeConnectionRoles);
-        }
-
         private async Task AnalizeConnectionRoles(OrganizationComparer comparer)
         {
             try
@@ -1190,11 +1058,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
-        }
-
-        private void tSMIConnectionRoleCategories_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeConnectionRoleCategories);
         }
 
         private async Task AnalizeConnectionRoleCategories(OrganizationComparer comparer)
@@ -1215,20 +1078,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIRibbons_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeRibbons);
-        }
-
-        private async Task AnalizeRibbons(OrganizationComparer comparer)
+        private async Task AnalizeEntityRibbons(OrganizationComparer comparer)
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingRibbonsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.WindowStatusStrings.CheckingEntityRibbonsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
-                string filePath = await comparer.CheckRibbonsAsync(false);
+                string filePath = await comparer.CheckEntityRibbonsAsync(false);
 
-                this._iWriteToOutput.WriteToOutput(null, "Check Ribbons in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
+                this._iWriteToOutput.WriteToOutput(null, "Check Entity Ribbons in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
                 this._iWriteToOutput.PerformAction(null, filePath);
             }
@@ -1238,20 +1096,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIRibbonsWithDetails_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeRibbonsWithDetails);
-        }
-
-        private async Task AnalizeRibbonsWithDetails(OrganizationComparer comparer)
+        private async Task AnalizeEntityRibbonsWithDetails(OrganizationComparer comparer)
         {
             try
             {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingRibbonsWithDetailsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+                UpdateStatus(null, Properties.WindowStatusStrings.CheckingEntityRibbonsWithDetailsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
-                string filePath = await comparer.CheckRibbonsAsync(true);
+                string filePath = await comparer.CheckEntityRibbonsAsync(true);
 
-                this._iWriteToOutput.WriteToOutput(null, "Check Ribbons with details in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
+                this._iWriteToOutput.WriteToOutput(null, "Check Entity Ribbons with details in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
                 this._iWriteToOutput.PerformAction(null, filePath);
             }
@@ -1261,9 +1114,40 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIDisplayStrings_Click(object sender, RoutedEventArgs e)
+        private async Task AnalizeApplicationRibbons(OrganizationComparer comparer)
         {
-            ExecuteOperation(AnalizeDisplayStrings);
+            try
+            {
+                UpdateStatus(null, Properties.WindowStatusStrings.CheckingApplicationRibbonsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+
+                string filePath = await comparer.CheckApplicationRibbonsAsync(false);
+
+                this._iWriteToOutput.WriteToOutput(null, "Check Application Ribbons in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
+
+                this._iWriteToOutput.PerformAction(null, filePath);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
+            }
+        }
+
+        private async Task AnalizeApplicationRibbonsWithDetails(OrganizationComparer comparer)
+        {
+            try
+            {
+                UpdateStatus(null, Properties.WindowStatusStrings.CheckingApplicationRibbonsWithDetailsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+
+                string filePath = await comparer.CheckApplicationRibbonsAsync(true);
+
+                this._iWriteToOutput.WriteToOutput(null, "Check Application Ribbons with details in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
+
+                this._iWriteToOutput.PerformAction(null, filePath);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
+            }
         }
 
         private async Task AnalizeDisplayStrings(OrganizationComparer comparer)
@@ -1284,11 +1168,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIWebResources_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeWebResources);
-        }
-
         private async Task AnalizeWebResources(OrganizationComparer comparer)
         {
             try
@@ -1305,11 +1184,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
-        }
-
-        private void tSMIWebResourcesWithDetails_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeWebResourcesWithDetails);
         }
 
         private async Task AnalizeWebResourcesWithDetails(OrganizationComparer comparer)
@@ -1330,12 +1204,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMISitemaps_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeSitemaps);
-        }
-
-        private async Task AnalizeSitemaps(OrganizationComparer comparer)
+        private async Task AnalizeSiteMaps(OrganizationComparer comparer)
         {
             try
             {
@@ -1351,11 +1220,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
-        }
-
-        private void tSMISecurityRoles_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeSecurityRoles);
         }
 
         private async Task AnalizeSecurityRoles(OrganizationComparer comparer)
@@ -1376,12 +1240,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIWorkflows_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeWorkflows);
-        }
-
-        private async Task AnalizeWorkflows(OrganizationComparer comparer)
+        private async Task AnalizeWorkflowsAttributes(OrganizationComparer comparer)
         {
             try
             {
@@ -1399,12 +1258,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIWorkflowsWithDetails_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeWorkflowsWithDetails);
-        }
-
-        private async Task AnalizeWorkflowsWithDetails(OrganizationComparer comparer)
+        private async Task AnalizeWorkflowsAttributesWithDetails(OrganizationComparer comparer)
         {
             try
             {
@@ -1420,11 +1274,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
-        }
-
-        private void tSMIWorkflowsStates_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeWorkflowsStates);
         }
 
         private async Task AnalizeWorkflowsStates(OrganizationComparer comparer)
@@ -1445,11 +1294,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIReports_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeReports);
-        }
-
         private async Task AnalizeReports(OrganizationComparer comparer)
         {
             try
@@ -1468,12 +1312,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIEmailTemplate_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeEmailTemplate);
-        }
-
-        private async Task AnalizeEmailTemplate(OrganizationComparer comparer)
+        private async Task AnalizeEmailTemplates(OrganizationComparer comparer)
         {
             try
             {
@@ -1489,11 +1328,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
-        }
-
-        private void tSMIMailMergeTemplate_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeMailMergeTemplates);
         }
 
         private async Task AnalizeMailMergeTemplates(OrganizationComparer comparer)
@@ -1514,11 +1348,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIKBArticleTemplate_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeKBArticleTemplates);
-        }
-
         private async Task AnalizeKBArticleTemplates(OrganizationComparer comparer)
         {
             try
@@ -1537,12 +1366,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIContractTemplate_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeContractTemplate);
-        }
-
-        private async Task AnalizeContractTemplate(OrganizationComparer comparer)
+        private async Task AnalizeContractTemplates(OrganizationComparer comparer)
         {
             try
             {
@@ -1558,11 +1382,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
-        }
-
-        private void tSMIFieldSecurityProfiles_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeFieldSecurityProfiles);
         }
 
         private async Task AnalizeFieldSecurityProfiles(OrganizationComparer comparer)
@@ -1583,11 +1402,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIEntities_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeEntities);
-        }
-
         private async Task AnalizeEntities(OrganizationComparer comparer)
         {
             try
@@ -1604,11 +1418,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
-        }
-
-        private void tSMIEntitiesByAudit_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeEntitiesByAudit);
         }
 
         private async Task AnalizeEntitiesByAudit(OrganizationComparer comparer)
@@ -1629,11 +1438,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIEntityLabels_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeEntityLabels);
-        }
-
         private async Task AnalizeEntityLabels(OrganizationComparer comparer)
         {
             try
@@ -1650,11 +1454,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
-        }
-
-        private void tSMIEntityMaps_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeEntityMaps);
         }
 
         private async Task AnalizeEntityMaps(OrganizationComparer comparer)
@@ -1675,11 +1474,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIPluginAssemblies_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizePluginAssemblies);
-        }
-
         private async Task AnalizePluginAssemblies(OrganizationComparer comparer)
         {
             try
@@ -1696,11 +1490,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             {
                 this._iWriteToOutput.WriteErrorToOutput(null, ex);
             }
-        }
-
-        private void tSMIPluginTypes_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizePluginTypes);
         }
 
         private async Task AnalizePluginTypes(OrganizationComparer comparer)
@@ -1721,43 +1510,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIPluginStepsByPluginTypeNames_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizePluginStepsByPluginTypeNames);
-        }
-
-        private async Task AnalizePluginStepsByPluginTypeNames(OrganizationComparer comparer)
-        {
-            try
-            {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingPluginStepsByPluginTypeNamesFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
-
-                string filePath = await comparer.CheckPluginStepsByPluginTypeNamesAsync();
-
-                this._iWriteToOutput.WriteToOutput(null, "Check Plugin Steps by Plugin Type Names in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
-
-                this._iWriteToOutput.PerformAction(null, filePath);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(null, ex);
-            }
-        }
-
-        private void tSMIPluginStepsByIds_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizePluginStepsByIds);
-        }
-
-        private async Task AnalizePluginStepsByIds(OrganizationComparer comparer)
+        private async Task AnalizePluginSteps(OrganizationComparer comparer)
         {
             try
             {
                 UpdateStatus(null, Properties.WindowStatusStrings.CheckingPluginStepsByIdsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
 
-                string filePath = await comparer.CheckPluginStepsByIdsAsync();
+                string filePath = await comparer.CheckPluginStepsAsync();
 
-                this._iWriteToOutput.WriteToOutput(null, "Check Plugin Steps by Ids in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
+                this._iWriteToOutput.WriteToOutput(null, "Check Plugin Steps in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
                 this._iWriteToOutput.PerformAction(null, filePath);
             }
@@ -1767,12 +1528,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIPluginStepsStates_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizePluginStepsStates);
-        }
-
-        private async Task AnalizePluginStepsStates(OrganizationComparer comparer)
+        private async Task AnalizePluginStepsByStates(OrganizationComparer comparer)
         {
             try
             {
@@ -1790,9 +1546,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIDefaultTranslations_Click(object sender, RoutedEventArgs e)
+        private async Task AnalizeOrganizations(OrganizationComparer comparer)
         {
-            ExecuteOperation(AnalizeDefaultTranslations);
+            try
+            {
+                UpdateStatus(null, Properties.WindowStatusStrings.CheckingOrganizationsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
+
+                string filePath = await comparer.CheckOrganizationsAsync();
+
+                this._iWriteToOutput.WriteToOutput(null, "Check Organizations in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
+
+                this._iWriteToOutput.PerformAction(null, filePath);
+            }
+            catch (Exception ex)
+            {
+                this._iWriteToOutput.WriteErrorToOutput(null, ex);
+            }
         }
 
         private async Task AnalizeDefaultTranslations(OrganizationComparer comparer)
@@ -1813,11 +1582,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private void tSMIFieldTranslations_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeFieldTranslations);
-        }
-
         private async Task AnalizeFieldTranslations(OrganizationComparer comparer)
         {
             try
@@ -1827,29 +1591,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 string filePath = await comparer.CheckFieldTranslationsAsync();
 
                 this._iWriteToOutput.WriteToOutput(null, "Check Field Translations in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
-
-                this._iWriteToOutput.PerformAction(null, filePath);
-            }
-            catch (Exception ex)
-            {
-                this._iWriteToOutput.WriteErrorToOutput(null, ex);
-            }
-        }
-
-        private void tSMIOrganizations_Click(object sender, RoutedEventArgs e)
-        {
-            ExecuteOperation(AnalizeOrganizations);
-        }
-
-        private async Task AnalizeOrganizations(OrganizationComparer comparer)
-        {
-            try
-            {
-                UpdateStatus(null, Properties.WindowStatusStrings.CheckingOrganizationsFormat2, comparer.Connection1.Name, comparer.Connection2.Name);
-
-                string filePath = await comparer.CheckOrganizationsAsync();
-
-                this._iWriteToOutput.WriteToOutput(null, "Check Organizations in {0} and {1} exported into file {2}", comparer.Connection1.Name, comparer.Connection2.Name, filePath);
 
                 this._iWriteToOutput.PerformAction(null, filePath);
             }

@@ -550,12 +550,21 @@
   <data name="CheckingReportsFormat2" xml:space="preserve">
     <value>Checking Reports in {0} and {1}</value>
   </data>
-  <data name="CheckingRibbonsFormat2" xml:space="preserve">
-    <value>Checking Ribbons in {0} and {1}</value>
+
+  <data name="CheckingEntityRibbonsFormat2" xml:space="preserve">
+    <value>Checking Entity Ribbons in {0} and {1}</value>
   </data>
-  <data name="CheckingRibbonsWithDetailsFormat2" xml:space="preserve">
-    <value>Checking Ribbons with details in {0} and {1}</value>
+  <data name="CheckingEntityRibbonsWithDetailsFormat2" xml:space="preserve">
+    <value>Checking Entity Ribbons with details in {0} and {1}</value>
   </data>
+  
+  <data name="CheckingApplicationRibbonsFormat2" xml:space="preserve">
+    <value>Checking Application Ribbons in {0} and {1}</value>
+  </data>
+  <data name="CheckingApplicationRibbonsWithDetailsFormat2" xml:space="preserve">
+    <value>Checking Application Ribbons with details in {0} and {1}</value>
+  </data>
+
   <data name="CheckingSecurityRolesFormat2" xml:space="preserve">
     <value>Checking SecurityRoles in {0} and {1}</value>
   </data>

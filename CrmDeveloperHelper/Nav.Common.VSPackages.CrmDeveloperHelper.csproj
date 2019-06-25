@@ -841,6 +841,7 @@
     <Compile Include="Helpers\OrganizationComparer.Security.cs" />
     <Compile Include="Helpers\OrganizationComparer.Templates.cs" />
     <Compile Include="Helpers\OrganizationComparer.Translations.cs" />
+    <Compile Include="Helpers\OrganizationComparerOperation.cs" />
     <Compile Include="Helpers\OrganizationComparerSource.cs" />
     <Compile Include="Helpers\OrganizationComparerSourceBySolutionImage.cs" />
     <Compile Include="Helpers\OrganizationCustomizationTransfer.cs" />
@@ -1396,6 +1397,9 @@
     </Compile>
     <Compile Include="Views\WindowOrganizationComparerGlobalOptionSets.xaml.cs">
       <DependentUpon>WindowOrganizationComparerGlobalOptionSets.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowOrganizationComparerOperationMultiSelect.xaml.cs">
+      <DependentUpon>WindowOrganizationComparerOperationMultiSelect.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowOrganizationComparerPluginAssembly.xaml.cs">
       <DependentUpon>WindowOrganizationComparerPluginAssembly.xaml</DependentUpon>
@@ -2147,6 +2151,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WindowOrganizationComparerGlobalOptionSets.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WindowOrganizationComparerOperationMultiSelect.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
