@@ -124,7 +124,7 @@
             </Grid.RowDefinitions>
 
             <Label Content="Filter" Grid.Column="0" Grid.Row="0" />
-            <TextBox x:Name="txtBFilter" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" />
+            <TextBox x:Name="txtBFilter" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" KeyDown="txtBFilterEnitity_KeyDown" />
 
             <Label Content="Component Type" Grid.Column="0" Grid.Row="1" />
             <ComboBox x:Name="cmBComponentType" Grid.Column="1" Grid.Row="1" IsEditable="False" ItemsSource="{Binding Source={helpers:EnumBindingSource {helpers:NullableType entities:ComponentType}, SortByName=True}}" SelectionChanged="cmBComponentType_SelectionChanged" />
