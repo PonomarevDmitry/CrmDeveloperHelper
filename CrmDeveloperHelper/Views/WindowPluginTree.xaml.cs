@@ -104,9 +104,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             LoadImages();
 
-            FillViewGroups();
-
             LoadConfiguration();
+
+            FillViewGroups();
 
             FocusOnComboBoxTextBox(cmBEntityName);
 
