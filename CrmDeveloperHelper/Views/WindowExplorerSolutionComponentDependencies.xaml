@@ -89,7 +89,7 @@
             <Separator/>
             <Menu Background="{x:Null}">
                 <MenuItem Header="Open in Web">
-                    <MenuItem Header="Solution Component" Click="btnOpenInWebSolutionComponent_Click" />
+                    <MenuItem Header="Current Solution Component" Click="btnOpenInWebCurrentSolutionComponent_Click" />
 
                     <Separator/>
                     <MenuItem Header="Customization" Click="btnOpenInWebCustomization_Click" />

@@ -1385,7 +1385,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             _service.ConnectionData.OpenCrmWebSite(OpenCrmWebSiteType.Customization);
         }
 
-        private void btnOpenInWebSolutionComponent_Click(object sender, RoutedEventArgs e)
+        private void btnOpenInWebCurrentSolutionComponent_Click(object sender, RoutedEventArgs e)
         {
             if (SolutionComponent.IsDefinedComponentType(_componentType))
             {
