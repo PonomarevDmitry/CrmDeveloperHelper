@@ -20,9 +20,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
         public Guid? RequestId { get; set; }
 
+        public Guid? ActivityId { get; set; }
+
         public string Process { get; set; }
 
-        public int Thread { get; set; }
+        public string Thread { get; set; }
+
+        public int? ThreadNumber { get; set; }
 
         public string Category { get; set; }
 
@@ -200,9 +204,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                                         break;
 
                                     case "Thread":
+                                        traceRecord.Thread = value;
+
                                         if (int.TryParse(value, out var threadNumber))
                                         {
-                                            traceRecord.Thread = threadNumber;
+                                            traceRecord.ThreadNumber = threadNumber;
                                         }
                                         break;
 
@@ -213,7 +219,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                                     case "User":
                                         if (Guid.TryParse(value, out var userGuid)
                                             && userGuid != Guid.Empty
-                                            )
+                                        )
                                         {
                                             traceRecord.UserId = userGuid;
                                         }
@@ -227,9 +233,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
                                         {
                                             if (Guid.TryParse(value, out var requestGuid)
                                                 && requestGuid != Guid.Empty
-                                                )
+                                            )
                                             {
                                                 traceRecord.RequestId = requestGuid;
+                                            }
+                                        }
+                                        break;
+
+                                    case "ActivityId":
+                                        {
+                                            if (Guid.TryParse(value, out var activityId)
+                                                && activityId != Guid.Empty
+                                            )
+                                            {
+                                                traceRecord.ActivityId = activityId;
                                             }
                                         }
                                         break;

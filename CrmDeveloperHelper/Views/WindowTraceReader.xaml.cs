@@ -252,6 +252,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             string textName = string.Empty;
             Guid? requestId = null;
+            Guid? activityId = null;
             int? threadNumber = null;
 
             this.Dispatcher.Invoke(() =>
@@ -262,46 +263,66 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 cmBFilter.Text = textName;
 
-                if (Guid.TryParse(txtBRequestId.Text, out var tempGuid)
-                    && tempGuid != Guid.Empty
-                )
                 {
-                    requestId = tempGuid;
+                    if (Guid.TryParse(txtBRequestId.Text, out var tempGuid)
+                        && tempGuid != Guid.Empty
+                    )
+                    {
+                        requestId = tempGuid;
+                    }
                 }
 
-                if (int.TryParse(txtBRequestId.Text, out var tempInt))
+                {
+                    if (Guid.TryParse(txtBActivityId.Text, out var tempGuid)
+                        && tempGuid != Guid.Empty
+                    )
+                    {
+                        activityId = tempGuid;
+                    }
+                }
+
+                if (int.TryParse(txtBThread.Text, out var tempInt))
                 {
                     threadNumber = tempInt;
                 }
             });
 
-            list = await FilterTraceRecordsAsync(list, textName, requestId, threadNumber);
+            list = await FilterTraceRecordsAsync(list, textName, requestId, activityId, threadNumber);
 
             LoadTraceRecords(list, dictUsers);
 
             ToggleControls(connectionData, true, Properties.WindowStatusStrings.FilteringTraceFilesCompletedFormat1, list.Count());
         }
 
-        private Task<IEnumerable<TraceRecord>> FilterTraceRecordsAsync(IEnumerable<TraceRecord> list, string textName, Guid? requestId, int? threadNumber)
+        private Task<IEnumerable<TraceRecord>> FilterTraceRecordsAsync(IEnumerable<TraceRecord> list, string textName, Guid? requestId, Guid? activityId, int? threadNumber)
         {
-            if (string.IsNullOrEmpty(textName) && !requestId.HasValue && !threadNumber.HasValue)
+            if (string.IsNullOrEmpty(textName)
+                && !requestId.HasValue
+                && !activityId.HasValue
+                && !threadNumber.HasValue
+            )
             {
                 return Task.FromResult(list);
             }
 
-            return Task.Run(() => FilterTraceRecords(list, textName, requestId, threadNumber));
+            return Task.Run(() => FilterTraceRecords(list, textName, requestId, activityId, threadNumber));
         }
 
-        private IEnumerable<TraceRecord> FilterTraceRecords(IEnumerable<TraceRecord> list, string textName, Guid? requestId, int? threadNumber)
+        private IEnumerable<TraceRecord> FilterTraceRecords(IEnumerable<TraceRecord> list, string textName, Guid? requestId, Guid? activityId, int? threadNumber)
         {
             if (requestId.HasValue)
             {
                 list = list.Where(t => t.RequestId.HasValue && t.RequestId.Value == requestId.Value);
             }
 
+            if (activityId.HasValue)
+            {
+                list = list.Where(t => t.ActivityId.HasValue && t.ActivityId.Value == activityId.Value);
+            }
+
             if (threadNumber.HasValue)
             {
-                list = list.Where(t => t.Thread == threadNumber.Value);
+                list = list.Where(t => t.ThreadNumber == threadNumber.Value);
             }
 
             if (!string.IsNullOrEmpty(textName))
@@ -319,7 +340,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 }
 
-                list = list.Where(t => (t.RequestId.HasValue && hash.Contains(t.RequestId.Value)) || t.Description.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1);
+                list = list.Where(t =>
+                    (t.RequestId.HasValue && hash.Contains(t.RequestId.Value))
+                    || t.Description.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
+                );
             }
 
             return list.ToList();
