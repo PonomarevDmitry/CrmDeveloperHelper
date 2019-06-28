@@ -115,9 +115,14 @@
             <Separator/>
             <Menu Background="{x:Null}">
                 <MenuItem Header="Open in Web">
+                    <MenuItem Header="Current Solution" Click="OpenSolutionInWeb_Click" />
+
+                    <Separator/>
                     <MenuItem Header="Customization" Click="btnOpenInWebCustomization_Click" />
+                    
                     <Separator/>
                     <MenuItem Header="Solution List" Click="btnOpenInWebSolutionList_Click" />
+                    
                     <Separator/>
                     <MenuItem Header="Default Solution" Click="btnOpenInWebDefaultSolution_Click"/>
                 </MenuItem>
@@ -215,16 +220,16 @@
                     <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Margin="10,0" />
                     <Menu Background="{x:Null}">
                         <MenuItem x:Name="mISolutionInformation" Header="Solution Information">
-                            <MenuItem Header="Open Solution in Web" Click="OpenSolutionInWeb_Click" />
+                            <MenuItem Header="Open Current Solution in Web" Click="OpenSolutionInWeb_Click" />
 
                             <Separator/>
-                            <MenuItem Header="Create Entity Description" Click="mICreateSolutionEntityDescription_Click" />
+                            <MenuItem Header="Create Current Solution Entity Description" Click="mICreateSolutionEntityDescription_Click" />
 
                             <Separator x:Name="sepClearUnManagedSolution" Visibility="Collapsed" IsEnabled="False"/>
-                            <MenuItem x:Name="miClearUnManagedSolution" Header="Clear UnManaged Solution" Click="miClearUnManagedSolution_Click" Visibility="Collapsed" IsEnabled="False"/>
+                            <MenuItem x:Name="miClearUnManagedSolution" Header="Clear Current UnManaged Solution" Click="miClearUnManagedSolution_Click" Visibility="Collapsed" IsEnabled="False"/>
                             
                             <Separator x:Name="sepClearUnManagedSolution2" Visibility="Collapsed" IsEnabled="False"/>
-                            <MenuItem x:Name="miSelectAsLastSelected" Header="Select Solution as Last Selected" Click="miSelectAsLastSelected_Click" Visibility="Collapsed" IsEnabled="False"/>
+                            <MenuItem x:Name="miSelectAsLastSelected" Header="Select Current Solution as Last Selected" Click="miSelectAsLastSelected_Click" Visibility="Collapsed" IsEnabled="False"/>
                             
                             <Separator/>
                             <MenuItem Header="Used Entities in Workflows" Click="mIUsedEntitiesInWorkflows_Click" />
