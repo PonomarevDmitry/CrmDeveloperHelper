@@ -55,6 +55,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             this.TraceRecord = item;
 
             this.Title = string.Format("TraceRecord: {0:yyyy.MM.dd HH:mm:ss.fff}", item.Date);
+
             this.txtBDescription.Text = item.Description;
 
             txtBDescription.Focus();

@@ -493,6 +493,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export Solution Profile is Not Selected..
+        /// </summary>
+        internal static string ExportSolutionProfileIsNotSelected {
+            get {
+                return ResourceManager.GetString("ExportSolutionProfileIsNotSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File does not contain Xml Attribute {0}: {1}.
         /// </summary>
         internal static string FileNotContainsXmlAttributeFormat2 {
@@ -552,6 +561,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string FolderForExportIsEmpty {
             get {
                 return ResourceManager.GetString("FolderForExportIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder for Export Solution is empty..
+        /// </summary>
+        internal static string FolderForExportSolutionIsEmpty {
+            get {
+                return ResourceManager.GetString("FolderForExportSolutionIsEmpty", resourceCulture);
             }
         }
         
@@ -687,6 +705,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         internal static string NoChangesInEntityFormat1 {
             get {
                 return ResourceManager.GetString("NoChangesInEntityFormat1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No CRM Connection..
+        /// </summary>
+        internal static string NoCRMConnection {
+            get {
+                return ResourceManager.GetString("NoCRMConnection", resourceCulture);
             }
         }
         

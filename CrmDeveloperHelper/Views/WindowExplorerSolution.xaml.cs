@@ -1129,11 +1129,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (connectionData == null)
             {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.NoCRMConnection);
+                _iWriteToOutput.ActivateOutputWindow(null, this);
                 return;
             }
 
             if (exportSolutionProfile == null)
             {
+                _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ExportSolutionProfileIsNotSelected);
+                _iWriteToOutput.ActivateOutputWindow(connectionData, this);
                 return;
             }
 
@@ -1141,6 +1145,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             if (string.IsNullOrEmpty(exportFolder))
             {
+                _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FolderForExportSolutionIsEmpty);
+                _iWriteToOutput.ActivateOutputWindow(connectionData, this);
                 return;
             }
 
@@ -1181,11 +1187,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             if (!Directory.Exists(fileExportFolder))
             {
                 Directory.CreateDirectory(fileExportFolder);
-            }
-
-            if (connectionData == null)
-            {
-                return;
             }
 
             ExportSolutionOverrideInformation solutionExportInfo = new ExportSolutionOverrideInformation(
@@ -1809,14 +1810,14 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
-        private async void ExecuteActionOnSolutionAndSolutionCollection(Solution[] solutions, Solution solution, Func<string, Solution[], Solution, Task> action)
+        private async void ExecuteActionOnSolutionAndSolutionCollection(Solution[] solutionsArray, Solution solution, Func<string, Solution[], Solution, Task> action)
         {
             if (!this.IsControlsEnabled)
             {
                 return;
             }
 
-            if (solutions == null || solution == null)
+            if (solutionsArray == null || solution == null)
             {
                 return;
             }
@@ -1836,7 +1837,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             try
             {
-                await action(folder, solutions, solution);
+                await action(folder, solutionsArray, solution);
             }
             catch (Exception ex)
             {
@@ -3018,6 +3019,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 if (string.IsNullOrEmpty(selectedPath) || !File.Exists(selectedPath))
                 {
+                    _iWriteToOutput.WriteToOutput(null, Properties.OutputStrings.FileNotExistsFormat1);
+                    _iWriteToOutput.ActivateOutputWindow(null, this);
                     return;
                 }
             }

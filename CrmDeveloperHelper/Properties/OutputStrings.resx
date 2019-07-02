@@ -197,6 +197,11 @@
   <data name="GetRelationshipMetadataByStringFormat1" xml:space="preserve">
     <value>GetRelationshipMetadata(string {0})</value>
   </data>
+
+  <data name="NoCRMConnection" xml:space="preserve">
+    <value>No CRM Connection.</value>
+  </data>
+  
   <data name="NoCRMConnection1" xml:space="preserve">
     <value>No CRM Connection 1.</value>
   </data>
@@ -424,6 +429,14 @@
 
   <data name="NoChangesInEntityFormat1" xml:space="preserve">
     <value>No changes in Entity {0}</value>
+  </data>
+
+  <data name="ExportSolutionProfileIsNotSelected" xml:space="preserve">
+    <value>Export Solution Profile is Not Selected.</value>
+  </data>
+
+  <data name="FolderForExportSolutionIsEmpty" xml:space="preserve">
+    <value>Folder for Export Solution is empty.</value>
   </data>
 
   <data name="FolderForExportIsEmpty" xml:space="preserve">
