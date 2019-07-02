@@ -1242,7 +1242,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                    await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, _solution.Id, _solution.UniqueName);
+                    SolutionImage solutionImage = await solutionDescriptor.CreateSolutionImageAsync(_solution.Id, _solution.UniqueName);
+
+                    await solutionImage.SaveAsync(filePath);
                 }
 
                 {
@@ -1255,7 +1257,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                    await solutionDescriptor.CreateSolutionImageWithComponentsAsync(filePath, _solution.UniqueName, solutionComponents);
+                    SolutionImage solutionImage = await solutionDescriptor.CreateSolutionImageWithComponentsAsync(_solution.UniqueName, solutionComponents);
+
+                    await solutionImage.SaveAsync(filePath);
                 }
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(this._service);
@@ -1322,7 +1326,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     string filePath = Path.Combine(_commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                    await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, _solution.Id, _solution.UniqueName);
+                    SolutionImage solutionImage = await solutionDescriptor.CreateSolutionImageAsync(_solution.Id, _solution.UniqueName);
+
+                    await solutionImage.SaveAsync(filePath);
                 }
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(this._service);
@@ -1752,7 +1758,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id, solution.UniqueName);
+                SolutionImage solutionImage = await solutionDescriptor.CreateSolutionImageAsync(solution.Id, solution.UniqueName);
+
+                await solutionImage.SaveAsync(filePath);
 
                 this._iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, _service.ConnectionData.Name, filePath);
 
@@ -1776,24 +1784,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
 
-                string fileName = EntityFileNameFormatter.GetSolutionFileName(
-                    _service.ConnectionData.Name
-                    , solution.UniqueName
-                    , "SolutionImage"
-                    , "xml"
-                );
-
-                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
-
-                await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id, solution.UniqueName);
-
-                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, _service.ConnectionData.Name, filePath);
-
-                this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
+                SolutionImage solutionImage = await solutionDescriptor.CreateSolutionImageAsync(solution.Id, solution.UniqueName);
 
                 _commonConfig.Save();
 
-                WindowHelper.OpenOrganizationComparerWindow(_iWriteToOutput, _service.ConnectionData.ConnectionConfiguration, _commonConfig, filePath);
+                WindowHelper.OpenOrganizationComparerWindow(_iWriteToOutput, _service.ConnectionData.ConnectionConfiguration, _commonConfig, solutionImage);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageCompletedFormat1, solution.UniqueName);
             }

@@ -437,7 +437,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                     string filePath = Path.Combine(commonConfig.FolderForExport, FileOperations.RemoveWrongSymbols(fileName));
 
-                    await solutionDescriptor.CreateFileWithSolutionImageAsync(filePath, solution.Id, solution.UniqueName);
+                    SolutionImage solutionImage = await solutionDescriptor.CreateSolutionImageAsync(solution.Id, solution.UniqueName);
+
+                    await solutionImage.SaveAsync(filePath);
                 }
 
                 SolutionComponentRepository repository = new SolutionComponentRepository(_service);

@@ -18,6 +18,7 @@
         <BitmapImage x:Key="ImageCheck" DecodePixelWidth="16" DecodePixelHeight="16" UriSource="pack://application:,,,/Nav.Common.VSPackages.CrmDeveloperHelper;component/Resources/Check.png" />
 
         <ContextMenu x:Key="listContextMenu">
+            
             <MenuItem Header="Test Connection" VerticalAlignment="Center" Click="tSBTestConnection_Click">
                 <MenuItem.Icon>
                     <Image Width="16" Height="16" Source="{StaticResource ImageCheck}"/>
@@ -53,14 +54,15 @@
                     <Image Width="16" Height="16" Source="{StaticResource ImageDelete}"/>
                 </MenuItem.Icon>
             </MenuItem>
+            
         </ContextMenu>
     </src:WindowBase.Resources>
     <Grid>
         <Label Content="Folder for Export" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="5,0" Height="25" Width="123"/>
         <TextBox x:Name="txtBFolder" Text="{Binding Path=FolderForExport, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="23" Margin="148,12,10,0"   VerticalAlignment="Top" VerticalContentAlignment="Center" TabIndex="2147483647"/>
 
-        <Label Content="Loaded Solution Image" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Height="23" VerticalContentAlignment="Center" Padding="5,0"/>
-        <TextBox x:Name="txtBFilePath" Height="23" Margin="148,40,10,0" VerticalAlignment="Top" IsReadOnlyCaretVisible="True" VerticalContentAlignment="Center" IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+        <Label Content="Solution Image" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Height="23" VerticalContentAlignment="Center" Padding="5,0" />
+        <ComboBox x:Name="cmBSolutionImage" IsTabStop="True" Height="23" Margin="148,40,10,0" VerticalAlignment="Top" />
 
         <DockPanel LastChildFill="True" Margin="10,69,10,63">
             <ToolBar VerticalAlignment="Top" DockPanel.Dock="Top" >
@@ -91,7 +93,9 @@
                             <Setter Property="Margin" Value="10,0,10,0" />
                         </Style>
                     </DockPanel.Resources>
+                    
                     <ToolBarPanel Orientation="Horizontal" >
+                        
                         <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                             <MenuItem Header="Create">
                                 <MenuItem.Icon>
@@ -149,12 +153,25 @@
                         <Menu VerticalAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}">
                             <MenuItem Header="Solution Image">
 
-                                <MenuItem x:Name="tSBLoadSolutionImage" Header="Load Solution Image" Click="tSBLoadSolutionImage_Click">
+                                <MenuItem Header="Load Solution Image from File" Click="tSBLoadSolutionImageFromFile_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     </MenuItem.Icon>
                                 </MenuItem>
 
+                                <MenuItem x:Name="miLoadSolutionImageFromZipFile" Header="Load Solution Image from Zip-File" Click="tSBLoadSolutionImageFromZipFile_Click" IsEnabled="False">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+
+                                <MenuItem x:Name="miSelectSolutionImageFromConnectionSolution" Header="Select Solution Image from Connection Solution" Click="miSelectSolutionImageFromConnectionSolution_Click" IsEnabled="False">
+                                    <MenuItem.Icon>
+                                        <Image Width="16" Height="16"  Source="{StaticResource ImageAdd}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+
+                                <Separator />
                                 <MenuItem x:Name="tSBClearSolutionImage" Header="Clear Solution Image" Click="tSBClearSolutionImage_Click">
                                     <MenuItem.Icon>
                                         <Image Width="16" Height="16"  Source="{StaticResource ImageDelete}" VerticalAlignment="Center" HorizontalAlignment="Center" />

@@ -160,5 +160,15 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Model
 
             return result.ToString();
         }
+
+        public override string ToString()
+        {
+            if (!string.IsNullOrEmpty(this.FilePath))
+            {
+                return this.FilePath;
+            }
+
+            return this.SolutionName;
+        }
     }
 }

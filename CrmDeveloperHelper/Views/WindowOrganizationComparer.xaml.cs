@@ -1,4 +1,4 @@
-using Nav.Common.VSPackages.CrmDeveloperHelper.Controllers;
+using Nav.Common.VSPackages.CrmDeveloperHelper.Entities;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Helpers;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Interfaces;
 using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
@@ -21,7 +21,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private readonly object sysObjectConnections = new object();
         private readonly object sysObjectArchiveConnections = new object();
 
-        private SolutionImage _solutionImage = null;
+        private readonly List<SolutionImage> _solutionImageList = new List<SolutionImage>();
 
         private readonly IWriteToOutput _iWriteToOutput;
         private ConnectionConfiguration _crmConfig;
@@ -34,7 +34,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , ConnectionConfiguration crmConfig
             , CommonConfiguration commonConfig
-            , string solutionImageFilePath
+            , SolutionImage solutionImage
         )
         {
             InputLanguageManager.SetInputLanguage(this, CultureInfo.CreateSpecificCulture("en-US"));
@@ -56,9 +56,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             lstVwConnections.ItemsSource = this._crmConfig.Connections;
 
-            if (!string.IsNullOrEmpty(solutionImageFilePath) && File.Exists(solutionImageFilePath))
+            if (solutionImage != null)
             {
-                LoadSolutionImage(solutionImageFilePath);
+                _solutionImageList.Insert(0, solutionImage);
+
+                FillSolutionImages(solutionImage);
             }
         }
 
@@ -205,7 +207,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         bool enabled = connection1 != null && connection2 == null;
 
-                        UIElement[] list = { tSBEdit, tSBCreateCopy, tSBMoveToArchive, tSBUp, tSBDown, miConnection };
+                        UIElement[] list = { tSBEdit, tSBCreateCopy, tSBMoveToArchive, tSBUp, tSBDown, miConnection, miLoadSolutionImageFromZipFile, miSelectSolutionImageFromConnectionSolution };
 
                         foreach (var button in list)
                         {
@@ -844,9 +846,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         private IOrganizationComparerSource CreateOrganizationComparerSource(ConnectionData connection1, ConnectionData connection2)
         {
-            if (_solutionImage != null && _solutionImage.Components.Any())
+            if (cmBSolutionImage.SelectedItem is SolutionImage solutionImage)
             {
-                return new OrganizationComparerSourceBySolutionImage(connection1, connection2, _solutionImage);
+                return new OrganizationComparerSourceBySolutionImage(connection1, connection2, solutionImage);
             }
 
             return new OrganizationComparerSource(connection1, connection2);
@@ -1798,7 +1800,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
         #endregion Transfer Buttons.
 
-        private void tSBLoadSolutionImage_Click(object sender, RoutedEventArgs e)
+        private void tSBLoadSolutionImageFromFile_Click(object sender, RoutedEventArgs e)
         {
             string selectedPath = string.Empty;
             var t = new Thread(() =>
@@ -1834,15 +1836,137 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             }
         }
 
+        private void tSBLoadSolutionImageFromZipFile_Click(object sender, RoutedEventArgs e)
+        {
+            var connectionData = GetSelectedSingleConnection();
+
+            if (connectionData == null)
+            {
+                return;
+            }
+
+            string selectedPath = string.Empty;
+            var t = new Thread(() =>
+            {
+                try
+                {
+                    var openFileDialog1 = new Microsoft.Win32.OpenFileDialog
+                    {
+                        Filter = "Solution (.zip)|*.zip",
+                        FilterIndex = 1,
+                        RestoreDirectory = true
+                    };
+
+                    if (openFileDialog1.ShowDialog().GetValueOrDefault())
+                    {
+                        selectedPath = openFileDialog1.FileName;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _iWriteToOutput.WriteErrorToOutput(null, ex);
+                }
+            });
+
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+
+            t.Join();
+
+            if (!string.IsNullOrEmpty(selectedPath))
+            {
+                LoadSolutionImageFromZip(connectionData, selectedPath);
+            }
+        }
+
+        private async void miSelectSolutionImageFromConnectionSolution_Click(object sender, RoutedEventArgs e)
+        {
+            var connectionData = GetSelectedSingleConnection();
+
+            if (connectionData == null)
+            {
+                return;
+            }
+
+            ToggleControls(connectionData, false, string.Empty);
+
+            _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+            _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            IOrganizationServiceExtented service = null;
+
+            try
+            {
+                service = await QuickConnection.ConnectAsync(connectionData);
+
+                if (service != null)
+                {
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                }
+                else
+                {
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                ToggleControls(connectionData, true, string.Empty);
+            }
+
+            Solution solution = null;
+
+            var t = new Thread(() =>
+            {
+                try
+                {
+                    var formSelectSolution = new WindowSolutionSelect(_iWriteToOutput, service);
+
+                    formSelectSolution.ShowDialog().GetValueOrDefault();
+
+                    solution = formSelectSolution.SelectedSolution;
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(service.ConnectionData, ex);
+                }
+            });
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+
+            t.Join();
+
+            if (solution == null)
+            {
+                return;
+            }
+
+            var descriptor = new SolutionComponentDescriptor(service);
+
+            SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
+
+            var solutionImage = await solutionDescriptor.CreateSolutionImageAsync(solution.Id, solution.UniqueName);
+
+            if (solutionImage == null)
+            {
+                return;
+            }
+
+            _solutionImageList.Insert(0, solutionImage);
+
+            FillSolutionImages(solutionImage);
+        }
+
         private async Task LoadSolutionImage(string filePath)
         {
             if (!this.IsControlsEnabled)
             {
                 return;
             }
-
-            this._solutionImage = null;
-            txtBFilePath.Text = string.Empty;
 
             if (string.IsNullOrEmpty(filePath))
             {
@@ -1856,42 +1980,153 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             ToggleControls(null, false, Properties.WindowStatusStrings.LoadingSolutionImage);
 
+            SolutionImage solutionImage = null;
+
             try
             {
-                this._solutionImage = await SolutionImage.LoadAsync(filePath);
+                solutionImage = await SolutionImage.LoadAsync(filePath);
             }
             catch (Exception ex)
             {
                 _iWriteToOutput.WriteErrorToOutput(null, ex);
 
-                this._solutionImage = null;
+                solutionImage = null;
             }
 
-            txtBFilePath.Dispatcher.Invoke(() =>
-            {
-                if (this._solutionImage != null)
-                {
-                    txtBFilePath.Text = filePath;
-                }
-                else
-                {
-                    txtBFilePath.Text = string.Empty;
-                }
-            });
-
-            if (this._solutionImage == null)
+            if (solutionImage == null)
             {
                 ToggleControls(null, true, Properties.WindowStatusStrings.LoadingSolutionImageFailed);
                 return;
             }
 
+            _solutionImageList.Insert(0, solutionImage);
+
             ToggleControls(null, true, Properties.WindowStatusStrings.LoadingSolutionImageCompleted);
+
+            FillSolutionImages(solutionImage);
+        }
+
+        private async Task LoadSolutionImageFromZip(ConnectionData connectionData, string filePath)
+        {
+            if (!this.IsControlsEnabled)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(filePath))
+            {
+                return;
+            }
+
+            if (!File.Exists(filePath))
+            {
+                return;
+            }
+
+            ToggleControls(connectionData, false, string.Empty);
+
+            _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectingToCRM);
+            _iWriteToOutput.WriteToOutput(connectionData, connectionData.GetConnectionDescription());
+
+            IOrganizationServiceExtented service = null;
+
+            try
+            {
+                service = await QuickConnection.ConnectAsync(connectionData);
+
+                if (service != null)
+                {
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.CurrentServiceEndpointFormat1, service.CurrentServiceEndpoint);
+                }
+                else
+                {
+                    _iWriteToOutput.WriteToOutput(connectionData, Properties.OutputStrings.ConnectionFailedFormat1, connectionData.Name);
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                _iWriteToOutput.WriteErrorToOutput(connectionData, ex);
+            }
+            finally
+            {
+                ToggleControls(connectionData, true, string.Empty);
+            }
+
+            SolutionImage solutionImage = null;
+
+            try
+            {
+                ToggleControls(service.ConnectionData, false, _iWriteToOutput.WriteToOutput(service.ConnectionData, Properties.WindowStatusStrings.CreatingSolutionImageFromZipFile));
+
+                var descriptor = new SolutionComponentDescriptor(service);
+
+                var components = await descriptor.LoadSolutionComponentsFromZipFileAsync(filePath);
+
+                SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, service, descriptor);
+
+                solutionImage = await solutionDescriptor.CreateSolutionImageWithComponentsAsync(Path.GetFileNameWithoutExtension(filePath), components);
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingSolutionImageFromZipFileCompleted);
+            }
+            catch (Exception ex)
+            {
+                solutionImage = null;
+
+                this._iWriteToOutput.WriteErrorToOutput(service.ConnectionData, ex);
+
+                ToggleControls(service.ConnectionData, true, Properties.WindowStatusStrings.CreatingSolutionImageFromZipFileFailed);
+            }
+
+            if (solutionImage == null)
+            {
+                return;
+            }
+
+            _solutionImageList.Insert(0, solutionImage);
+
+            FillSolutionImages(solutionImage);
         }
 
         private void tSBClearSolutionImage_Click(object sender, RoutedEventArgs e)
         {
-            this._solutionImage = null;
-            txtBFilePath.Text = string.Empty;
+            _solutionImageList.Clear();
+
+            FillSolutionImages();
+        }
+
+        private void FillSolutionImages(SolutionImage solutionImageForSelect = null)
+        {
+            ToggleControls(null, false, Properties.WindowStatusStrings.LoadingSolutionImage);
+
+            this.Dispatcher.Invoke(() =>
+            {
+                SolutionImage currentSelectedSolutionImage = cmBSolutionImage.SelectedItem as SolutionImage;
+
+                cmBSolutionImage.Items.Clear();
+
+                cmBSolutionImage.Items.Add(string.Empty);
+
+                foreach (var item in _solutionImageList)
+                {
+                    cmBSolutionImage.Items.Add(item);
+                }
+
+                if (solutionImageForSelect != null && cmBSolutionImage.Items.Contains(solutionImageForSelect))
+                {
+                    cmBSolutionImage.SelectedItem = solutionImageForSelect;
+                }
+                else if (cmBSolutionImage.Items.Contains(currentSelectedSolutionImage))
+                {
+                    cmBSolutionImage.SelectedItem = currentSelectedSolutionImage;
+                }
+                else
+                {
+                    cmBSolutionImage.SelectedIndex = 0;
+                }
+            });
+
+            ToggleControls(null, true, Properties.WindowStatusStrings.LoadingSolutionImageCompleted);
         }
 
         private void lstVwConnections_MouseDoubleClick(object sender, MouseButtonEventArgs e)

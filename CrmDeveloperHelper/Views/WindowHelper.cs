@@ -1542,8 +1542,17 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             IWriteToOutput iWriteToOutput
             , ConnectionConfiguration crmConfig
             , CommonConfiguration commonConfig
-            , string solutionImageFilePath = null
-            )
+        )
+        {
+            OpenOrganizationComparerWindow(iWriteToOutput, crmConfig, commonConfig, null);
+        }
+
+        public static void OpenOrganizationComparerWindow(
+            IWriteToOutput iWriteToOutput
+            , ConnectionConfiguration crmConfig
+            , CommonConfiguration commonConfig
+            , SolutionImage solutionImage
+        )
         {
             System.Threading.Thread worker = new System.Threading.Thread(() =>
             {
@@ -1553,7 +1562,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         iWriteToOutput
                         , crmConfig
                         , commonConfig
-                        , solutionImageFilePath
+                        , solutionImage
                     );
 
                     form.ShowDialog();

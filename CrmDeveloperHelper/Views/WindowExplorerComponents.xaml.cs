@@ -1547,7 +1547,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                await solutionDescriptor.CreateSolutionImageWithComponentsAsync(filePath, $"{_solution.UniqueName}_{_header}", list);
+                SolutionImage solutionImage = await solutionDescriptor.CreateSolutionImageWithComponentsAsync($"{_solution.UniqueName}_{_header}", list);
+
+                await solutionImage.SaveAsync(filePath);
 
                 this._iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, _service.ConnectionData.Name, filePath);
 
@@ -1578,24 +1580,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 SolutionDescriptor solutionDescriptor = new SolutionDescriptor(_iWriteToOutput, _service, _descriptor);
 
-                string fileName = EntityFileNameFormatter.GetSolutionFileName(
-                    _service.ConnectionData.Name
-                    , _solution.UniqueName
-                    , $"{_header}_SolutionImage"
-                    , "xml"
-                );
-
-                string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
-
-                await solutionDescriptor.CreateSolutionImageWithComponentsAsync(filePath, $"{_solution.UniqueName}_{_header}", list);
-
-                this._iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.ExportedSolutionImageForConnectionFormat2, _service.ConnectionData.Name, filePath);
-
-                this._iWriteToOutput.PerformAction(_service.ConnectionData, filePath);
+                SolutionImage solutionImage = await solutionDescriptor.CreateSolutionImageWithComponentsAsync($"{_solution.UniqueName}_{_header}", list);
 
                 _commonConfig.Save();
 
-                WindowHelper.OpenOrganizationComparerWindow(_iWriteToOutput, _service.ConnectionData.ConnectionConfiguration, _commonConfig, filePath);
+                WindowHelper.OpenOrganizationComparerWindow(_iWriteToOutput, _service.ConnectionData.ConnectionConfiguration, _commonConfig, solutionImage);
 
                 ToggleControls(true, Properties.WindowStatusStrings.CreatingFileWithSolutionImageCompletedFormat1, _solution.UniqueName);
             }
@@ -1630,7 +1619,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 string filePath = Path.Combine(folder, FileOperations.RemoveWrongSymbols(fileName));
 
-                await solutionDescriptor.CreateSolutionImageWithComponentsAsync(filePath, $"{_solution.UniqueName}_{_header}", list);
+                SolutionImage solutionImage = await solutionDescriptor.CreateSolutionImageWithComponentsAsync($"{_solution.UniqueName}_{_header}", list);
+
+                await solutionImage.SaveAsync(filePath);
 
                 this._iWriteToOutput.WriteToOutput(_service.ConnectionData, "Solution All Missing Dependencies was export into file '{0}'", filePath);
 
