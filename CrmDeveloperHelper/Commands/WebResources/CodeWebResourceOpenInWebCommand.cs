@@ -14,7 +14,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
                 , baseIdStart
             )
         {
-
+            this._actionOpen = action;
         }
 
         public static CodeWebResourceOpenInWebCommand InstanceOpenInWeb { get; private set; }
