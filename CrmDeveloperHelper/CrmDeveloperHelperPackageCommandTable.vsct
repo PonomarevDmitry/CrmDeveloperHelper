@@ -638,7 +638,7 @@
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_Group2_Menu2_Group2_MenuAppModuleDyn_Group" priority="0x0606" />
 
 
-
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuSelectFileConnectionDyn_Group" priority="0x0607" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuSelectConnectionDyn_Group" priority="0x0607" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuTestConnectionDyn_Group" priority="0x0607" />
 
@@ -1940,6 +1940,13 @@
       </Menu>
 
 
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuSelectFileConnectionDyn" priority="0x0107" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Select Connection File in Folder</ButtonText>
+          <MenuText>Select Connection File in Folder</MenuText>
+        </Strings>
+      </Menu>
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuTestConnectionDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
@@ -1947,7 +1954,6 @@
           <MenuText>Test Connection</MenuText>
         </Strings>
       </Menu>
-
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuSelectConnectionDyn" priority="0x0107" type="Menu">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <Strings>
@@ -8300,6 +8306,17 @@
         </Strings>
       </Button>
 
+      <Button guid="guidDynamicCommandSet" id="CommonCrmConnectionSelectFileCommandId" priority="0x012F" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Select Connection File in Folder Placeholder</ButtonText>
+        </Strings>
+      </Button>
       <Button guid="guidDynamicCommandSet" id="CommonCrmConnectionTestCommandId" priority="0x012F" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -8363,7 +8380,16 @@
 
 
       <!-- #region Output -->
-
+      
+      <Button guid="guidCommandSet" id="OutputSelectFileCrmConnectionCommandId" priority="0x6000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Select Connection File in Folder</ButtonText>
+        </Strings>
+      </Button>
       <Button guid="guidCommandSet" id="OutputSelectCrmConnectionCommandId" priority="0x6000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10652,13 +10678,13 @@
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll" />
     </CommandPlacement>
 
+    
 
-
-    <CommandPlacement guid="guidCommandSet" id="CommonOpenConfigFolderCommandId" priority="0x0120">
+    <CommandPlacement guid="guidCommandSet" id="CommonOpenConfigFolderCommandId" priority="0x6000">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite" priority="0x012D">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite" priority="0x6010">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" />
     </CommandPlacement>
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_GroupOpenWebSite" priority="1">
@@ -10811,16 +10837,20 @@
 
 
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuTestConnectionDyn" priority="0x012E">
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuSelectFileConnectionDyn" priority="0x6020">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuSelectConnectionDyn" priority="0x012F">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuTestConnectionDyn" priority="0x6030">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonCrmConnectionCommandId" priority="0x0130">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuSelectConnectionDyn" priority="0x6040">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonConfigCommandId" priority="0x0131">
+    <CommandPlacement guid="guidCommandSet" id="CommonCrmConnectionCommandId" priority="0x6050">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonConfigCommandId" priority="0x6060">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" />
     </CommandPlacement>
 
@@ -12867,10 +12897,17 @@
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_Group2_Menu2_Group2_MenuAppModuleDyn_Group" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuTestConnectionDyn_Group" priority="0x012E">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuSelectFileConnectionDyn_Group" priority="0x6000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuSelectFileConnectionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonCrmConnectionSelectFileCommandId" priority="0x6000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuSelectFileConnectionDyn_Group" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuTestConnectionDyn_Group" priority="0x6000">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuTestConnectionDyn" />
     </CommandPlacement>
-    <CommandPlacement guid="guidDynamicCommandSet" id="CommonCrmConnectionTestCommandId" priority="0x012E">
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonCrmConnectionTestCommandId" priority="0x6000">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuTestConnectionDyn_Group" />
     </CommandPlacement>
 
@@ -14087,7 +14124,7 @@
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupTraceReader" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidGroupAndMenuSet" id="outputMenu_GroupConfiguration_MenuOpenWebSite" priority="0x0600">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="outputMenu_GroupConfiguration_MenuOpenWebSite" priority="0x6000">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupConfiguration" />
     </CommandPlacement>
 
@@ -14635,10 +14672,13 @@
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupConfiguration_MenuOpenWebSite_Group2_Menu2_Group2" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidCommandSet" id="OutputTestCrmConnectionCommandId" priority="0x6000">
+    <CommandPlacement guid="guidCommandSet" id="OutputSelectFileCrmConnectionCommandId" priority="0x6010">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupConfiguration" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputSelectCrmConnectionCommandId" priority="0x6010">
+    <CommandPlacement guid="guidCommandSet" id="OutputTestCrmConnectionCommandId" priority="0x6020">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupConfiguration" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="OutputSelectCrmConnectionCommandId" priority="0x6030">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupConfiguration" />
     </CommandPlacement>
 
@@ -15907,7 +15947,8 @@
 
 
 
-
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuSelectFileConnectionDyn" value="0x137F" />
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuSelectFileConnectionDyn_Group" value="0x1380" />
 
       <IDSymbol name="commonMenu_GroupConfiguration_MenuSelectConnectionDyn" value="0x1101" />
       <IDSymbol name="commonMenu_GroupConfiguration_MenuSelectConnectionDyn_Group" value="0x1103" />
@@ -16312,7 +16353,9 @@
       <IDSymbol name="OutputExportOpenLastSelectedSolutionInWebCommandId" value="10200" />
       <IDSymbol name="OutputExportOpenLastSelectedSolutionInExplorerCommandId" value="10250" />
 
-      <!-- 10300 -->
+      <IDSymbol name="CommonCrmConnectionSelectFileCommandId" value="10300" />
+
+      <!-- 10350 -->
 
     </GuidSymbol>
 
@@ -16863,7 +16906,8 @@
 
 
       <!-- #region Output -->
-
+      
+      <IDSymbol name="OutputSelectFileCrmConnectionCommandId" value="0x2209" />
       <IDSymbol name="OutputSelectCrmConnectionCommandId" value="0x21A8" />
       <IDSymbol name="OutputTestCrmConnectionCommandId" value="0x21A9" />
 
@@ -17067,10 +17111,10 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x137F -->
+    <!-- 0x1381 -->
 
     <!-- Commands -->
-    <!-- 0x2209 -->
+    <!-- 0x220A -->
 
 
   </Symbols>

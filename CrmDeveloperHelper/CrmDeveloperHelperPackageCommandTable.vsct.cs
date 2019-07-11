@@ -722,6 +722,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int commonMenu_GroupConfiguration_MenuOpenWebSite_Group2_Menu2_Group2_MenuMicrosoftFlowDyn_Group = 0x11CD;
         public const int commonMenu_GroupConfiguration_MenuOpenWebSite_Group2_Menu2_Group2_MenuAppModuleDyn = 0x11CE;
         public const int commonMenu_GroupConfiguration_MenuOpenWebSite_Group2_Menu2_Group2_MenuAppModuleDyn_Group = 0x11CF;
+        public const int commonMenu_GroupConfiguration_MenuSelectFileConnectionDyn = 0x137F;
+        public const int commonMenu_GroupConfiguration_MenuSelectFileConnectionDyn_Group = 0x1380;
         public const int commonMenu_GroupConfiguration_MenuSelectConnectionDyn = 0x1101;
         public const int commonMenu_GroupConfiguration_MenuSelectConnectionDyn_Group = 0x1103;
         public const int commonMenu_GroupConfiguration_MenuTestConnectionDyn = 0x1228;
@@ -990,6 +992,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int CodeXmlEntityRibbonOpenInWebCommandId = 0x27A6;
         public const int OutputExportOpenLastSelectedSolutionInWebCommandId = 0x27D8;
         public const int OutputExportOpenLastSelectedSolutionInExplorerCommandId = 0x280A;
+        public const int CommonCrmConnectionSelectFileCommandId = 0x283C;
         public const int CodeWebResourceUpdateContentPublishCommandId = 0x2000;
         public const int CodeWebResourceShowDifferenceCommandId = 0x2001;
         public const int CodeWebResourceShowDifferenceCustomCommandId = 0x2002;
@@ -1306,6 +1309,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
         public const int DocumentsAddIntoPublishListFilesWithMirrorComplexCommandId = 0x20FC;
         public const int CodeCSharpAddPluginStepCommandId = 0x218C;
         public const int FileCSharpAddPluginStepCommandId = 0x218D;
+        public const int OutputSelectFileCrmConnectionCommandId = 0x2209;
         public const int OutputSelectCrmConnectionCommandId = 0x21A8;
         public const int OutputTestCrmConnectionCommandId = 0x21A9;
         public const int OutputTraceExportFileCommandId = 0x21AA;

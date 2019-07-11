@@ -416,8 +416,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonPublishAllInCrmConnectionCommand.Initialize(commandService);
             CommonCrmConnectionCommand.Initialize(commandService);
             CommonCrmConnectionTestCommand.Initialize(commandService);
+            CommonCrmConnectionSelectFileCommand.Initialize(commandService);
 
-        
+
 
             CommonCheckEntitiesOwnerShipsCommand.Initialize(commandService);
             CommonCheckWorkflowsUsedEntitiesCommand.Initialize(commandService);
@@ -531,6 +532,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             OutputSelectCrmConnectionCommand.Initialize(commandService);
             OutputTestCrmConnectionCommand.Initialize(commandService);
+            OutputSelectFileCrmConnectionCommand.Initialize(commandService);
 
             OutputOpenCrmWebSiteCommand.Initialize(commandService);
             OutputExportOpenLastSelectedSolutionCommand.Initialize(commandService);
