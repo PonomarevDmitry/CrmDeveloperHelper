@@ -485,10 +485,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             this.Dispatcher.Invoke(() =>
             {
+                _assemblyLoad = null;
+
                 _listLocalAssembly.Clear();
                 _listMissingCrm.Clear();
 
-                cmBAssemblyToLoad.Text = string.Empty;
+                txtBLoadedAssemblyPath.Text = string.Empty;
+                txtBLoadedAssemblyName.Text = string.Empty;
+                txtBLoadedAssemblyVersion.Text = string.Empty;
+                txtBLoadedAssemblyCulture.Text = string.Empty;
+                txtBLoadedAssemblyPublicKeyToken.Text = string.Empty;
             });
 
             if (string.IsNullOrEmpty(assemblyPath)
@@ -523,6 +529,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this._assemblyLoad = assemblyCheck;
             cmBAssemblyToLoad.Text = this._assemblyLoad.FilePath;
+
+            txtBLoadedAssemblyPath.Text = this._assemblyLoad.FilePath;
+            txtBLoadedAssemblyName.Text = this._assemblyLoad.Name;
+            txtBLoadedAssemblyVersion.Text = this._assemblyLoad.Version;
+            txtBLoadedAssemblyCulture.Text = this._assemblyLoad.Culture;
+            txtBLoadedAssemblyPublicKeyToken.Text = this._assemblyLoad.PublicKeyToken;
 
             if (PluginAssembly.Id == Guid.Empty)
             {

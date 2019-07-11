@@ -20,13 +20,52 @@
     <Grid>
 
         <Grid.RowDefinitions>
+
+            <RowDefinition Height="Auto" />
+
             <RowDefinition Height="100*" />
 
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+        <Grid Grid.Row="0" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="100*"/>
+
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="15*"/>
+
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="15*"/>
+
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="30*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Content="Loaded Assembly Path" Grid.Row="0" Grid.Column="0"/>
+            <TextBox x:Name="txtBLoadedAssemblyPath" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="7" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+
+            <Label Content="Loaded Assembly Name" Grid.Row="1" Grid.Column="0"/>
+            <TextBox x:Name="txtBLoadedAssemblyName" Grid.Row="1" Grid.Column="1" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+
+            <Label Content="Version" Grid.Row="1" Grid.Column="2"/>
+            <TextBox x:Name="txtBLoadedAssemblyVersion" Grid.Row="1" Grid.Column="3" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+
+            <Label Content="Culture" Grid.Row="1" Grid.Column="4"/>
+            <TextBox x:Name="txtBLoadedAssemblyCulture" Grid.Row="1" Grid.Column="5" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+
+            <Label Content="PublicKeyToken" Grid.Row="1" Grid.Column="6"/>
+            <TextBox x:Name="txtBLoadedAssemblyPublicKeyToken" Grid.Row="1" Grid.Column="7" IsReadOnly="True" IsReadOnlyCaretVisible="True" Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+        </Grid>
+
+        <Grid Grid.Row="1" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="columnGeneralInfo" Width="450"/>
                 <ColumnDefinition Width="Auto"/>
@@ -205,7 +244,7 @@
 
         </Grid>
 
-        <ToolBar Grid.Row="1">
+        <ToolBar Grid.Row="2">
             <ToolBar.Resources>
                 <Style TargetType="{x:Type ToolBarPanel}">
                     <Setter Property="Orientation" Value="Vertical"/>
@@ -229,7 +268,7 @@
             </DockPanel>
         </ToolBar>
 
-        <StatusBar Grid.Row="2">
+        <StatusBar Grid.Row="3">
             <StatusBarItem x:Name="tSSLblConnectionName" Content="ConnectionName"/>
             <ProgressBar x:Name="tSProgressBar" Width="200" Height="15" />
             <StatusBarItem x:Name="stBIStatus" />
