@@ -52,6 +52,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
             chBChanged.IsChecked = currentValue != _initialValue;
         }
 
+        public void AddAttribute(Entity entity)
+        {
+            var currentValue = dPValue.SelectedDate;
+
+            entity.Attributes[AttributeMetadata.LogicalName] = currentValue;
+        }
+
         public void AddChangedAttribute(Entity entity)
         {
             var currentValue = dPValue.SelectedDate;

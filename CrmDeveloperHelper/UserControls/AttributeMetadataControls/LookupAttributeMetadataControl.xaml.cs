@@ -96,6 +96,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
             return false;
         }
 
+        public void AddAttribute(Entity entity)
+        {
+            entity.Attributes[AttributeMetadata.LogicalName] = this.currentValue;
+        }
+
         public void AddChangedAttribute(Entity entity)
         {
             if (_fillAllways || !IsEntityReferenceEquals(this.currentValue, _initialValue))

@@ -124,6 +124,12 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                             SetWindowTitle(string.Format("Edit Entity {0} - {1}", _entityName, _entityId));
 
+                            this.Dispatcher.Invoke(() =>
+                            {
+                                btnSaveAsCopyEntity.IsEnabled = true;
+                                btnSaveAsCopyEntity.Visibility = Visibility.Visible;
+                            });
+
                             this._attributeChecker = a => a.IsValidForUpdate.GetValueOrDefault() && !_ignoredAttributes.Contains(a.LogicalName);
 
                             foreach (var attributeValue in this._entityInstance.Attributes.OrderBy(a => a.Key))
@@ -209,7 +215,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     .Where(ent =>
                         (selectedControl != null && ent == selectedControl)
                         || ent.AttributeMetadata.LogicalName.IndexOf(textName, StringComparison.InvariantCultureIgnoreCase) > -1
-                        || 
+                        ||
                         (
                             ent.AttributeMetadata.DisplayName != null
                             && ent.AttributeMetadata.DisplayName.LocalizedLabels != null
@@ -324,6 +330,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             this.Dispatcher.Invoke(() =>
             {
+                btnSaveAsCopyEntity.IsEnabled = IsControlsEnabled && _entityInstance != null;
+
                 ActivateControls(mIEntityInformation.Items.OfType<Control>(), IsControlsEnabled && _entityInstance != null, "mIEntityInstance");
             });
         }
@@ -382,6 +390,49 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 ToggleControls(true, Properties.WindowStatusStrings.SavingEntityCompletedFormat1, _entityName);
 
                 this.Close();
+            }
+            catch (Exception ex)
+            {
+                ToggleControls(true, Properties.WindowStatusStrings.SavingEntityFailedFormat1, _entityName);
+
+                _iWriteToOutput.WriteErrorToOutput(_service.ConnectionData, ex);
+            }
+        }
+
+        private async void btnSaveAsCopyEntity_Click(object sender, RoutedEventArgs e)
+        {
+            var updateEntity = new Entity(_entityName);
+
+            var list = _listAttributeControls.OfType<IAttributeMetadataControl<AttributeMetadata>>().ToList();
+
+            foreach (var item in list)
+            {
+                item.AddAttribute(updateEntity);
+            }
+
+            if (!updateEntity.Attributes.Any())
+            {
+                _iWriteToOutput.WriteToOutput(_service.ConnectionData, Properties.OutputStrings.NoChangesInEntityFormat1, _entityName);
+                _iWriteToOutput.ActivateOutputWindow(_service.ConnectionData);
+                return;
+            }
+
+            ToggleControls(false, Properties.WindowStatusStrings.SavingEntityFormat1, _entityName);
+
+            if (_entityInstance != null)
+            {
+                _iWriteToOutput.WriteToOutputEntityInstance(_service.ConnectionData, _entityInstance);
+            }
+
+            try
+            {
+                var saver = new EntitySaverFactory().GetEntitySaver(_entityName, _service);
+
+                var tempEntityId = await saver.UpsertAsync(updateEntity, (s) => UpdateStatus(s));
+
+                _iWriteToOutput.WriteToOutputEntityInstance(_service.ConnectionData, _entityName, tempEntityId);
+
+                ToggleControls(true, Properties.WindowStatusStrings.SavingEntityCompletedFormat1, _entityName);
             }
             catch (Exception ex)
             {

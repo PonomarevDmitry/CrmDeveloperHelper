@@ -212,6 +212,20 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
             return currentValue;
         }
 
+        public void AddAttribute(Entity entity)
+        {
+            var currentValues = GetCurrentValues();
+
+            if (currentValues.Any())
+            {
+                entity.Attributes[AttributeMetadata.LogicalName] = new OptionSetValueCollection(currentValues.Select(o => new OptionSetValue(o)).ToList());
+            }
+            else
+            {
+                entity.Attributes[AttributeMetadata.LogicalName] = null;
+            }
+        }
+
         public void AddChangedAttribute(Entity entity)
         {
             var currentValues = GetCurrentValues();

@@ -130,6 +130,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.UserControls.AttributeMetadat
             return null;
         }
 
+        public void AddAttribute(Entity entity)
+        {
+            var currentValue = GetEntitNameValue();
+
+            entity.Attributes[AttributeMetadata.LogicalName] = currentValue;
+        }
+
         public void AddChangedAttribute(Entity entity)
         {
             var currentValue = GetEntitNameValue();

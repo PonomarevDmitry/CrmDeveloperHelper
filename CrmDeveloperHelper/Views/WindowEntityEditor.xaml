@@ -91,8 +91,12 @@
                 </DockPanel.Resources>
                 <ToolBarPanel x:Name="toolStrip" Orientation="Horizontal" >
 
+                    <Button x:Name="btnSaveAsCopyEntity" Content="Save Entity as Copy" Click="btnSaveAsCopyEntity_Click" Visibility="Collapsed" IsEnabled="False" />
+                    
                 </ToolBarPanel>
+                
                 <Button Content="Close" Click="Button_Click" DockPanel.Dock="Right" HorizontalAlignment="Right" TabIndex="20"/>
+                
                 <Separator DockPanel.Dock="Right" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                 <Button x:Name="btnSaveEntity" Content="Save Entity" Click="btnSaveEntity_Click" DockPanel.Dock="Right" HorizontalAlignment="Right" TabIndex="10" />
             </DockPanel>
