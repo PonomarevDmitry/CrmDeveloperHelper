@@ -1652,7 +1652,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var entity = GetSelectedEntity();
 
             if (entity == null
-                || entity.ReturnedTypeCode.IsValidEntityName()
+                || !entity.ReturnedTypeCode.IsValidEntityName()
             )
             {
                 return;
