@@ -12,7 +12,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Entities
         {
             public static partial class Headers
             {
-                public const string workflowactivitygroupname = "WorkflowActivityGroupName";
+                public const string customworkflowactivityinfo = "CustomWorkflowActivityInfo";
             }
         }
     }

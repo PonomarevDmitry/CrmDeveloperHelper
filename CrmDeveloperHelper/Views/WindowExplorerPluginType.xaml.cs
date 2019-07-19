@@ -193,6 +193,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                             , PluginType.Schema.Attributes.friendlyname
                             , PluginType.Schema.Attributes.assemblyname
                             , PluginType.Schema.Attributes.workflowactivitygroupname
+                            , PluginType.Schema.Attributes.customworkflowactivityinfo
                             , PluginType.Schema.Attributes.description
                             , PluginType.Schema.Attributes.ismanaged
                             , PluginType.Schema.Attributes.isworkflowactivity
@@ -416,7 +417,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
-            ExecuteActionEntity(entity.Id, entity.TypeName, PluginType.Schema.Attributes.workflowactivitygroupname, PluginType.Schema.Headers.workflowactivitygroupname, PerformExportXmlToFile);
+            ExecuteActionEntity(entity.Id, entity.TypeName, PluginType.Schema.Attributes.customworkflowactivityinfo, PluginType.Schema.Headers.customworkflowactivityinfo, PerformExportXmlToFile);
         }
 
         private async Task ExecuteActionEntity(Guid idPluginType, string typeName, string fieldName, string fieldTitle, Func<string, Guid, string, string, string, Task> action)
