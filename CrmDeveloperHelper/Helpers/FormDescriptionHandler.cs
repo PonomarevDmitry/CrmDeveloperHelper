@@ -299,7 +299,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             foreach (var control in section.Controls)
                             {
-                                List<string> fields = new List<string>() { tabSpacer + tabSpacer + control.Name, control.GetControlType(), control.Attribute, control.ShowLabel, control.Visible, control.Disabled };
+                                List<string> fields = new List<string>() { tabSpacer + tabSpacer + control.Name, control.GetControlType().ToString(), control.Attribute, control.ShowLabel, control.Visible, control.Disabled };
                                 AddLabels(control.Labels, locales, fields);
                                 AddAttributeLabels(control.Attribute, locales, fields);
                                 table.AddLine(fields);
@@ -325,7 +325,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
                             foreach (var control in section.Controls)
                             {
-                                List<string> fields = new List<string>() { tabSpacer + tabSpacer + control.Name, control.GetControlType(), control.Attribute, control.ShowLabel, control.Visible, control.Disabled };
+                                List<string> fields = new List<string>() { tabSpacer + tabSpacer + control.Name, control.GetControlType().ToString(), control.Attribute, control.ShowLabel, control.Visible, control.Disabled };
                                 AddLabels(control.Labels, locales, fields);
                                 AddAttributeLabels(control.Attribute, locales, fields);
                                 table.AddLine(fields);
@@ -345,7 +345,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
                         {
                             foreach (var control in section.Controls)
                             {
-                                List<string> fields = new List<string>() { tabSpacer + tabSpacer + control.Name, control.GetControlType(), control.Attribute, control.ShowLabel, control.Visible, control.Disabled };
+                                List<string> fields = new List<string>() { tabSpacer + tabSpacer + control.Name, control.GetControlType().ToString(), control.Attribute, control.ShowLabel, control.Visible, control.Disabled };
                                 AddLabels(control.Labels, locales, fields);
                                 AddAttributeLabels(control.Attribute, locales, fields);
                                 table.AddLine(fields);

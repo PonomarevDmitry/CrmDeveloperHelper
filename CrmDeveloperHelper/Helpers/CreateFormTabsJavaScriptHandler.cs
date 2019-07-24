@@ -66,6 +66,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteWebResources(tabs);
 
+            WriteQuickViewForms(tabs);
+
             WriteConstantsAndFunctions(objectName);
 
             WriteObjectEnd(objectDeclaration, constructorName);
@@ -194,7 +196,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private void WriteWebResources(List<FormTab> tabs)
         {
-            var webResouces = tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType().Equals("WebResource", StringComparison.InvariantCultureIgnoreCase));
+            var webResouces = tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType() == FormControl.FormControlType.WebResource);
 
             if (!webResouces.Any())
             {
@@ -203,6 +205,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
             WriteLine();
             WriteElementNameStart("WebResources", "{");
+
+            foreach (var control in webResouces)
+            {
+                WriteLine("'{0}': '{0}',", control.Name);
+            }
+
+            WriteElementNameEnd();
+        }
+
+        private void WriteQuickViewForms(List<FormTab> tabs)
+        {
+            var webResouces = tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType() == FormControl.FormControlType.QuickViewForm);
+
+            if (!webResouces.Any())
+            {
+                return;
+            }
+
+            WriteLine();
+            WriteElementNameStart("QuickViewForms", "{");
 
             foreach (var control in webResouces)
             {
@@ -254,7 +276,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
 
         private void WriteSubgrids(List<FormTab> tabs)
         {
-            var subgrids = tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType().Equals("SubGrid", StringComparison.InvariantCultureIgnoreCase));
+            var subgrids = tabs.SelectMany(t => t.Sections).SelectMany(s => s.Controls).Where(c => c.GetControlType() == FormControl.FormControlType.SubGrid);
 
             if (!subgrids.Any())
             {
