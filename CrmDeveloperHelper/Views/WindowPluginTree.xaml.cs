@@ -768,7 +768,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
         )
         {
-            var groupsList = steps.GroupBy(s => s.PrimaryObjectTypeCodeName, StringComparer.InvariantCultureIgnoreCase);
+            var groupsList = steps.GroupBy(s => s.PrimaryObjectTypeCodeName, StringComparer.InvariantCultureIgnoreCase).OrderBy(k => k.Key);
 
             foreach (var grEntity in groupsList)
             {
@@ -942,11 +942,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             var repository = new PluginSearchRepository(service);
             PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter);
 
-            var groupAssemblyList = pluginTypeList.GroupBy(p => new { p.PluginAssemblyId.Id, Name = p.AssemblyName });
+            var groupAssemblyList = pluginTypeList.GroupBy(p => new { p.PluginAssemblyId.Id, Name = p.AssemblyName }).OrderBy(a => a.Key.Name);
 
             var stepsByPluginAssemblyDict = search.SdkMessageProcessingStep.GroupBy(s => s.PluginAssemblyId).ToDictionary(s => s.Key);
 
-            foreach (var grPluginAssembly in groupAssemblyList.OrderBy(a => a.Key.Name))
+            foreach (var grPluginAssembly in groupAssemblyList)
             {
                 var nodePluginAssembly = new PluginTreeViewItem(ComponentType.PluginAssembly)
                 {
