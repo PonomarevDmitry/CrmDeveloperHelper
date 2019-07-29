@@ -638,6 +638,7 @@
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuOpenWebSite_Group2_Menu2_Group2_MenuAppModuleDyn_Group" priority="0x0606" />
 
 
+      <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuEditConnectionDyn_Group" priority="0x0607" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuSelectFileConnectionDyn_Group" priority="0x0607" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuSelectConnectionDyn_Group" priority="0x0607" />
       <Group guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuTestConnectionDyn_Group" priority="0x0607" />
@@ -1945,6 +1946,13 @@
         <Strings>
           <ButtonText>Select Connection File in Folder</ButtonText>
           <MenuText>Select Connection File in Folder</MenuText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuEditConnectionDyn" priority="0x0107" type="Menu">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>Edit Connection</ButtonText>
+          <MenuText>Edit Connection</MenuText>
         </Strings>
       </Menu>
       <Menu guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuTestConnectionDyn" priority="0x0107" type="Menu">
@@ -7285,7 +7293,7 @@
           <ButtonText>Find Entity Objects names for prefix and show dependent components</ButtonText>
         </Strings>
       </Button>
-      
+
       <Button guid="guidCommandSet" id="CommonFindEntityObjectsMarkedToDeleteInExplorerCommandId" priority="0x6000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -7323,7 +7331,7 @@
           <ButtonText>Find Entity Objects by name in Explorer</ButtonText>
         </Strings>
       </Button>
-      
+
       <Button guid="guidCommandSet" id="CommonFindEntityObjectsContainsStringCommandId" priority="0x010F" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -7342,7 +7350,7 @@
           <ButtonText>Find Entity Objects contains string in Explorer</ButtonText>
         </Strings>
       </Button>
-      
+
       <Button guid="guidCommandSet" id="CommonFindEntitiesByIdCommandId" priority="0x0110" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -8317,6 +8325,17 @@
           <ButtonText>Select Connection File in Folder Placeholder</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidDynamicCommandSet" id="CommonCrmConnectionEditCommandId" priority="0x012F" type="Button">
+        <CommandFlag>DynamicItemStart</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Edit Connection Placeholder</ButtonText>
+        </Strings>
+      </Button>
       <Button guid="guidDynamicCommandSet" id="CommonCrmConnectionTestCommandId" priority="0x012F" type="Button">
         <CommandFlag>DynamicItemStart</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -8380,7 +8399,7 @@
 
 
       <!-- #region Output -->
-      
+
       <Button guid="guidCommandSet" id="OutputSelectFileCrmConnectionCommandId" priority="0x6000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -8406,6 +8425,15 @@
         <CommandFlag>DontCache</CommandFlag>
         <Strings>
           <ButtonText>Test Connection</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommandSet" id="OutputEditCrmConnectionCommandId" priority="0x6000" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DontCache</CommandFlag>
+        <Strings>
+          <ButtonText>Edit Connection</ButtonText>
         </Strings>
       </Button>
 
@@ -8464,7 +8492,7 @@
           <ButtonText>Find Entity Objects names for prefix in Explorer</ButtonText>
         </Strings>
       </Button>
-      
+
       <Button guid="guidCommandSet" id="OutputFindEntityObjectsByPrefixAndShowDependentComponentsCommandId" priority="0x6000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -8493,7 +8521,7 @@
           <ButtonText>Find Entity Objects marked to delete and show dependent components</ButtonText>
         </Strings>
       </Button>
-      
+
       <Button guid="guidCommandSet" id="OutputFindEntityObjectsByNameCommandId" priority="0x6000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -8512,7 +8540,7 @@
           <ButtonText>Find Entity Objects by name in Explorer</ButtonText>
         </Strings>
       </Button>
-      
+
       <Button guid="guidCommandSet" id="OutputFindEntityObjectsContainsStringCommandId" priority="0x6000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -8531,7 +8559,7 @@
           <ButtonText>Find Entity Objects contains string in Explorer</ButtonText>
         </Strings>
       </Button>
-      
+
       <Button guid="guidCommandSet" id="OutputFindEntitiesByIdCommandId" priority="0x6000" type="Button">
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -10678,7 +10706,7 @@
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupPublishAll" />
     </CommandPlacement>
 
-    
+
 
     <CommandPlacement guid="guidCommandSet" id="CommonOpenConfigFolderCommandId" priority="0x6000">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" />
@@ -10841,16 +10869,19 @@
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuSelectFileConnectionDyn" priority="0x6020">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuTestConnectionDyn" priority="0x6030">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuEditConnectionDyn" priority="0x6030">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" />
     </CommandPlacement>
-    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuSelectConnectionDyn" priority="0x6040">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuTestConnectionDyn" priority="0x6040">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonCrmConnectionCommandId" priority="0x6050">
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuSelectConnectionDyn" priority="0x6050">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="CommonConfigCommandId" priority="0x6060">
+    <CommandPlacement guid="guidCommandSet" id="CommonCrmConnectionCommandId" priority="0x6060">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="CommonConfigCommandId" priority="0x6070">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration" />
     </CommandPlacement>
 
@@ -12904,6 +12935,13 @@
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuSelectFileConnectionDyn_Group" />
     </CommandPlacement>
 
+    <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuEditConnectionDyn_Group" priority="0x6000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuEditConnectionDyn" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidDynamicCommandSet" id="CommonCrmConnectionEditCommandId" priority="0x6000">
+      <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuEditConnectionDyn_Group" />
+    </CommandPlacement>
+
     <CommandPlacement guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuTestConnectionDyn_Group" priority="0x6000">
       <Parent guid="guidGroupAndMenuSet" id="commonMenu_GroupConfiguration_MenuTestConnectionDyn" />
     </CommandPlacement>
@@ -14672,13 +14710,17 @@
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupConfiguration_MenuOpenWebSite_Group2_Menu2_Group2" />
     </CommandPlacement>
 
+    
     <CommandPlacement guid="guidCommandSet" id="OutputSelectFileCrmConnectionCommandId" priority="0x6010">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupConfiguration" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputTestCrmConnectionCommandId" priority="0x6020">
+    <CommandPlacement guid="guidCommandSet" id="OutputEditCrmConnectionCommandId" priority="0x6020">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupConfiguration" />
     </CommandPlacement>
-    <CommandPlacement guid="guidCommandSet" id="OutputSelectCrmConnectionCommandId" priority="0x6030">
+    <CommandPlacement guid="guidCommandSet" id="OutputTestCrmConnectionCommandId" priority="0x6030">
+      <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupConfiguration" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidCommandSet" id="OutputSelectCrmConnectionCommandId" priority="0x6040">
       <Parent guid="guidGroupAndMenuSet" id="outputMenu_GroupConfiguration" />
     </CommandPlacement>
 
@@ -15956,6 +15998,8 @@
       <IDSymbol name="commonMenu_GroupConfiguration_MenuTestConnectionDyn" value="0x1228" />
       <IDSymbol name="commonMenu_GroupConfiguration_MenuTestConnectionDyn_Group" value="0x1229" />
 
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuEditConnectionDyn" value="0x1381" />
+      <IDSymbol name="commonMenu_GroupConfiguration_MenuEditConnectionDyn_Group" value="0x1382" />
 
       <!-- #region Output -->
 
@@ -16220,6 +16264,7 @@
       <IDSymbol name="CodeXmlShowDifferenceSiteMapDefaultCommandId" value="4375" />
 
       <IDSymbol name="CommonCrmConnectionTestCommandId" value="4400" />
+      <IDSymbol name="CommonCrmConnectionEditCommandId" value="10350" />
 
       <IDSymbol name="CodeWebResourceCompareWithDetailsInConnectionGroupCommandId" value="4450" />
 
@@ -16355,7 +16400,7 @@
 
       <IDSymbol name="CommonCrmConnectionSelectFileCommandId" value="10300" />
 
-      <!-- 10350 -->
+      <!-- 10400 -->
 
     </GuidSymbol>
 
@@ -16531,10 +16576,10 @@
 
       <IDSymbol name="CommonFindEntityObjectsByNameCommandId" value="0x2021" />
       <IDSymbol name="CommonFindEntityObjectsByNameInExplorerCommandId" value="0x2205" />
-      
+
       <IDSymbol name="CommonFindEntityObjectsContainsStringCommandId" value="0x2022" />
       <IDSymbol name="CommonFindEntityObjectsContainsStringInExplorerCommandId" value="0x2207" />
-      
+
       <IDSymbol name="CommonFindEntitiesByIdCommandId" value="0x20FD" />
       <IDSymbol name="CommonFindEntitiesByUniqueidentifierCommandId" value="0x2149" />
       <IDSymbol name="CommonEditEntitiesByIdCommandId" value="0x2195" />
@@ -16906,10 +16951,11 @@
 
 
       <!-- #region Output -->
-      
+
       <IDSymbol name="OutputSelectFileCrmConnectionCommandId" value="0x2209" />
       <IDSymbol name="OutputSelectCrmConnectionCommandId" value="0x21A8" />
       <IDSymbol name="OutputTestCrmConnectionCommandId" value="0x21A9" />
+      <IDSymbol name="OutputEditCrmConnectionCommandId" value="0x220A" />
 
       <IDSymbol name="OutputTraceExportFileCommandId" value="0x21AA" />
       <IDSymbol name="OutputOrganizationComparerCommandId" value="0x21AB" />
@@ -16983,7 +17029,7 @@
 
       <IDSymbol name="OutputFindEntityObjectsByPrefixCommandId" value="0x21D8" />
       <IDSymbol name="OutputFindEntityObjectsByPrefixInExplorerCommandId" value="0x2202" />
-      
+
       <IDSymbol name="OutputFindEntityObjectsByPrefixAndShowDependentComponentsCommandId" value="0x21D9" />
 
       <IDSymbol name="OutputFindEntityObjectsMarkedToDeleteInExplorerCommandId" value="0x2204" />
@@ -16991,10 +17037,10 @@
 
       <IDSymbol name="OutputFindEntityObjectsByNameCommandId" value="0x21DD" />
       <IDSymbol name="OutputFindEntityObjectsByNameInExplorerCommandId" value="0x2206" />
-      
+
       <IDSymbol name="OutputFindEntityObjectsContainsStringCommandId" value="0x21DE" />
       <IDSymbol name="OutputFindEntityObjectsContainsStringInExplorerCommandId" value="0x2208" />
-      
+
       <IDSymbol name="OutputFindEntitiesByIdCommandId" value="0x21DF" />
       <IDSymbol name="OutputFindEntitiesByUniqueidentifierCommandId" value="0x21E0" />
       <IDSymbol name="OutputEditEntitiesByIdCommandId" value="0x21E1" />
@@ -17111,10 +17157,10 @@
 
 
     <!-- Groups and Menus -->
-    <!-- 0x1381 -->
+    <!-- 0x1383 -->
 
     <!-- Commands -->
-    <!-- 0x220A -->
+    <!-- 0x220B -->
 
 
   </Symbols>

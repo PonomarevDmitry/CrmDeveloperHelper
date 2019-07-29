@@ -101,6 +101,7 @@
     <Compile Include="Commands\AbstractDynamicCommandXsdSchemas.cs" />
     <Compile Include="Commands\AbstractOutputWindowCommand.cs" />
     <Compile Include="Commands\AbstractOutputWindowDynamicCommand.cs" />
+    <Compile Include="Commands\Connections\CommonCrmConnectionEditCommand.cs" />
     <Compile Include="Commands\Connections\CommonCrmConnectionSelectFileCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.cs" />
     <Compile Include="Commands\CSharp\CodeCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.cs" />
@@ -175,6 +176,7 @@
     <Compile Include="Commands\OutputWindows\FindEdit\OutputFindEntityObjectsContainsStringInExplorerCommand.cs" />
     <Compile Include="Commands\OutputWindows\FindEdit\OutputFindEntityObjectsMarkedToDeleteAndShowDependentComponentsCommand.cs" />
     <Compile Include="Commands\OutputWindows\FindEdit\OutputFindEntityObjectsMarkedToDeleteInExplorerCommand.cs" />
+    <Compile Include="Commands\OutputWindows\OutputEditCrmConnectionCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputExportFormEventsCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputExportOpenLastSelectedSolutionCommand.cs" />
     <Compile Include="Commands\OutputWindows\OutputOpenCrmWebSiteCommand.cs" />

@@ -7,7 +7,6 @@ using Nav.Common.VSPackages.CrmDeveloperHelper.Model;
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 {
@@ -1937,6 +1936,33 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 catch (Exception ex)
                 {
                     DTEHelper.WriteExceptionToOutput(null, ex);
+                }
+            });
+
+            worker.SetApartmentState(System.Threading.ApartmentState.STA);
+
+            worker.Start();
+        }
+
+        public static void OpenCrmConnectionCard(
+            IWriteToOutput iWriteToOutput
+            , ConnectionData connectionData
+        )
+        {
+            System.Threading.Thread worker = new System.Threading.Thread(() =>
+            {
+                try
+                {
+                    var form = new WindowCrmConnectionCard(iWriteToOutput, connectionData, connectionData.ConnectionConfiguration.Users);
+
+                    form.ShowDialog();
+
+                    connectionData.Save();
+                    connectionData.ConnectionConfiguration.Save();
+                }
+                catch (Exception ex)
+                {
+                    DTEHelper.WriteExceptionToOutput(connectionData, ex);
                 }
             });
 

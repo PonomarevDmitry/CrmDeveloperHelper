@@ -416,7 +416,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonPublishAllInCrmConnectionCommand.Initialize(commandService);
             CommonCrmConnectionCommand.Initialize(commandService);
             CommonCrmConnectionTestCommand.Initialize(commandService);
+            CommonCrmConnectionEditCommand.Initialize(commandService);
             CommonCrmConnectionSelectFileCommand.Initialize(commandService);
+            CommonSelectCrmConnectionCommand.Initialize(commandService);
 
 
 
@@ -503,8 +505,6 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             DocumentsWebResourceAddFilesIntoListForPublishCommand.Initialize(commandService);
             FolderWebResourceAddFilesIntoListForPublishCommand.Initialize(commandService);
 
-            CommonSelectCrmConnectionCommand.Initialize(commandService);
-
             #region Finds and Edits
 
             CommonFindEntityObjectsByPrefixCommand.Initialize(commandService);
@@ -532,6 +532,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             OutputSelectCrmConnectionCommand.Initialize(commandService);
             OutputTestCrmConnectionCommand.Initialize(commandService);
+            OutputEditCrmConnectionCommand.Initialize(commandService);
             OutputSelectFileCrmConnectionCommand.Initialize(commandService);
 
             OutputOpenCrmWebSiteCommand.Initialize(commandService);
