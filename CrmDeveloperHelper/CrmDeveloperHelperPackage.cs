@@ -49,20 +49,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
     {
         public static CrmDeveloperHelperPackage Singleton { get; private set; }
 
-        private EnvDTE80.DTE2 _applicationObject;
-
-        public EnvDTE80.DTE2 ApplicationObject
-        {
-            get
-            {
-                if (_applicationObject == null)
-                {
-                    _applicationObject = this.GetService(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
-                }
-
-                return _applicationObject;
-            }
-        }
+        public EnvDTE80.DTE2 ApplicationObject { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CrmDeveloperHelperPackage"/> class.
@@ -94,6 +81,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             OleMenuCommandService commandService = await this.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
 
+            CodePublishListAddCommand.Initialize(commandService);
+            CodePublishListRemoveCommand.Initialize(commandService);
+
+            #region CodeWebResource
+
             CodeWebResourceCheckEncodingCommand.Initialize(commandService);
             CodeWebResourceCompareWithDetailsCommand.Initialize(commandService);
             CodeWebResourceCompareWithDetailsInConnectionGroupCommand.Initialize(commandService);
@@ -111,6 +103,95 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeWebResourceAddToSolutionLastCommand.Initialize(commandService);
             CodeWebResourceAddToSolutionInConnectionCommand.Initialize(commandService);
 
+            #endregion CodeWebResource
+
+            #region DocumentsWebResource
+
+            DocumentsWebResourceCheckEncodingCommand.Initialize(commandService);
+            DocumentsWebResourceCheckEncodingCompareFilesCommand.Initialize(commandService);
+            DocumentsWebResourceCheckEncodingCompareWithDetailsFilesCommand.Initialize(commandService);
+            DocumentsWebResourceCompareCommand.Initialize(commandService);
+            DocumentsWebResourceCompareWithDetailsCommand.Initialize(commandService);
+            DocumentsWebResourceCompareInConnectionGroupCommand.Initialize(commandService);
+            DocumentsWebResourceLinkClearCommand.Initialize(commandService);
+            DocumentsWebResourceLinkCreateCommand.Initialize(commandService);
+            DocumentsWebResourceShowDependentComponentsCommand.Initialize(commandService);
+            DocumentsWebResourceUpdateContentPublishEqualByTextCommand.Initialize(commandService);
+            DocumentsWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(commandService);
+
+            DocumentsWebResourceAddToSolutionLastCommand.Initialize(commandService);
+            DocumentsWebResourceAddToSolutionInConnectionCommand.Initialize(commandService);
+
+            DocumentsWebResourceMultiDifferenceCommand.Initialize(commandService);
+
+            DocumentsWebResourceAddFilesIntoListForPublishCommand.Initialize(commandService);
+
+            #endregion DocumentsWebResource
+
+            #region FileWebResource
+
+            FileWebResourceCheckEncodingCommand.Initialize(commandService);
+            FileWebResourceCheckEncodingCompareFilesCommand.Initialize(commandService);
+            FileWebResourceCheckEncodingCompareWithDetailsFilesCommand.Initialize(commandService);
+            FileWebResourceCheckEncodingOpenFilesCommand.Initialize(commandService);
+            FileWebResourceCompareCommand.Initialize(commandService);
+            FileWebResourceCompareWithDetailsCommand.Initialize(commandService);
+            FileWebResourceCompareInConnectionGroupCommand.Initialize(commandService);
+            FileWebResourceExplorerCommand.Initialize(commandService);
+            FileWebResourceOpenInWebCommand.Initialize(commandService);
+            FileWebResourceLinkClearCommand.Initialize(commandService);
+            FileWebResourceLinkCreateCommand.Initialize(commandService);
+            FileWebResourceShowDependentComponentsCommand.Initialize(commandService);
+            FileWebResourceShowDifferenceCommand.Initialize(commandService);
+            FileWebResourceShowDifferenceCustomCommand.Initialize(commandService);
+            FileWebResourceShowDifferenceInConnectionGroupCommand.Initialize(commandService);
+            FileWebResourceShowDifferenceThreeFileCommand.Initialize(commandService);
+            FileWebResourceUpdateContentPublishCommand.Initialize(commandService);
+            FileWebResourceUpdateContentPublishEqualByTextCommand.Initialize(commandService);
+            FileWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(commandService);
+
+            FileWebResourceAddToSolutionLastCommand.Initialize(commandService);
+            FileWebResourceAddToSolutionInConnectionCommand.Initialize(commandService);
+
+            FileWebResourceOpenFilesCommand.Initialize(commandService);
+
+            FileWebResourceMultiDifferenceCommand.Initialize(commandService);
+
+            FileWebResourceAddFilesIntoListForPublishCommand.Initialize(commandService);
+
+            #endregion FileWebResource
+
+            #region FolderWebResource
+
+            FolderWebResourceCheckEncodingCommand.Initialize(commandService);
+            FolderWebResourceCheckEncodingCompareFilesCommand.Initialize(commandService);
+            FolderWebResourceCheckEncodingCompareWithDetailsFilesCommand.Initialize(commandService);
+            FolderWebResourceCheckEncodingOpenFilesCommand.Initialize(commandService);
+            FolderWebResourceCompareCommand.Initialize(commandService);
+            FolderWebResourceCompareWithDetailsCommand.Initialize(commandService);
+            FolderWebResourceCompareInConnectionGroupCommand.Initialize(commandService);
+            FolderWebResourceLinkClearCommand.Initialize(commandService);
+            FolderWebResourceLinkCreateCommand.Initialize(commandService);
+            FolderWebResourceShowDependentComponentsCommand.Initialize(commandService);
+            FolderWebResourceUpdateContentPublishCommand.Initialize(commandService);
+            FolderWebResourceUpdateContentPublishEqualByTextCommand.Initialize(commandService);
+            FolderWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(commandService);
+
+            FolderWebResourceAddToSolutionLastCommand.Initialize(commandService);
+            FolderWebResourceAddToSolutionInConnectionCommand.Initialize(commandService);
+
+            FolderWebResourceOpenFilesCommand.Initialize(commandService);
+
+            FolderWebResourceMultiDifferenceCommand.Initialize(commandService);
+
+            FolderWebResourceAddFilesIntoListForPublishCommand.Initialize(commandService);
+
+            #endregion FolderWebResource
+
+
+
+            #region CodeJavaScript
+
             CodeJavaScriptUpdateEntityMetadataFileCommand.Initialize(commandService);
             CodeJavaScriptUpdateEntityMetadataFileWithSelectCommand.Initialize(commandService);
 
@@ -119,60 +200,139 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CodeJavaScriptUpdateGlobalOptionSetAllFileCommand.Initialize(commandService);
 
+            #endregion CodeJavaScript
+
+            #region DocumentsJavaScript
+
+            DocumentsJavaScriptUpdateEntityMetadataFileCommand.Initialize(commandService);
+            DocumentsJavaScriptUpdateGlobalOptionSetSingleFileCommand.Initialize(commandService);
+
+            #endregion DocumentsJavaScript
+
+            #region FileJavaScript
+
+            FileJavaScriptUpdateEntityMetadataFileCommand.Initialize(commandService);
+            FileJavaScriptUpdateEntityMetadataFileWithSelectCommand.Initialize(commandService);
+
+            FileJavaScriptUpdateGlobalOptionSetSingleFileCommand.Initialize(commandService);
+            FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand.Initialize(commandService);
+
+            FileJavaScriptUpdateGlobalOptionSetAllFileCommand.Initialize(commandService);
+
+            #endregion FileJavaScript
+
+            #region FolderJavaScript
+
+            FolderJavaScriptUpdateEntityMetadataFileCommand.Initialize(commandService);
+            FolderJavaScriptUpdateGlobalOptionSetSingleFileCommand.Initialize(commandService);
+
+            #endregion FolderJavaScript
+
+
+
+            #region CodeXml
+
             CodeXmlExecuteFetchXmlRequestCommand.Initialize(commandService);
             CodeXmlExecuteFetchXmlRequestInConnectionsCommand.Initialize(commandService);
             CodeXmlConvertFetchXmlToJavaScriptCodeCommand.Initialize(commandService);
             CodeXmlRibbonDiffInsertIntellisenseContextCommand.Initialize(commandService);
             CodeXmlRibbonDiffRemoveIntellisenseContextCommand.Initialize(commandService);
 
+            #region SiteMap
+
             CodeXmlSiteMapOpenInWebCommand.Initialize(commandService);
             CodeXmlSiteMapExplorerCommand.Initialize(commandService);
+
             CodeXmlShowDifferenceSiteMapDefaultCommand.Initialize(commandService);
             CodeXmlShowDifferenceSiteMapCommand.Initialize(commandService);
             CodeXmlShowDifferenceSiteMapInConnectionGroupCommand.Initialize(commandService);
+
             CodeXmlUpdateSiteMapCommand.Initialize(commandService);
             CodeXmlUpdateSiteMapInConnectionGroupCommand.Initialize(commandService);
 
+            #endregion SiteMap
+
+            #region SystemForm
+
             CodeXmlSystemFormExplorerCommand.Initialize(commandService);
             CodeXmlSystemFormOpenInWebCommand.Initialize(commandService);
+
             CodeXmlShowDifferenceSystemFormCommand.Initialize(commandService);
             CodeXmlShowDifferenceSystemFormInConnectionGroupCommand.Initialize(commandService);
+
             CodeXmlUpdateSystemFormCommand.Initialize(commandService);
             CodeXmlUpdateSystemFormInConnectionGroupCommand.Initialize(commandService);
 
+            #endregion SystemForm
+
+            #region SavedQuery
+
             CodeXmlSavedQueryExplorerCommand.Initialize(commandService);
             CodeXmlSavedQueryOpenInWebCommand.Initialize(commandService);
+
             CodeXmlShowDifferenceSavedQueryCommand.Initialize(commandService);
             CodeXmlShowDifferenceSavedQueryInConnectionGroupCommand.Initialize(commandService);
+
             CodeXmlUpdateSavedQueryCommand.Initialize(commandService);
             CodeXmlUpdateSavedQueryInConnectionGroupCommand.Initialize(commandService);
 
+            #endregion SavedQuery
+
+            #region Ribbon
+
             CodeXmlEntityRibbonOpenInWebCommand.Initialize(commandService);
+
             CodeXmlRibbonExplorerCommand.Initialize(commandService);
+
             CodeXmlShowDifferenceRibbonCommand.Initialize(commandService);
             CodeXmlShowDifferenceRibbonInConnectionGroupCommand.Initialize(commandService);
             CodeXmlShowDifferenceRibbonDiffXmlCommand.Initialize(commandService);
             CodeXmlShowDifferenceRibbonDiffXmlInConnectionGroupCommand.Initialize(commandService);
+
             CodeXmlUpdateRibbonDiffXmlCommand.Initialize(commandService);
             CodeXmlUpdateRibbonDiffXmlInConnectionGroupCommand.Initialize(commandService);
 
+            #endregion Ribbon
+
             CodeXmlOpenXsdSchemaFolderCommand.Initialize(commandService);
+            CodeXmlSetXsdSchemaCommand.Initialize(commandService);
+            CodeXmlRemoveXsdSchemaCommand.Initialize(commandService);
+
+            #endregion CodeXml
+
+            #region DocumentsXml
+
             DocumentsXmlOpenXsdSchemaFolderCommand.Initialize(commandService);
+
+            DocumentsXmlSetXsdSchemaCommand.Initialize(commandService);
+
+            DocumentsXmlRemoveXsdSchemaCommand.Initialize(commandService);
+
+            #endregion DocumentsXml
+
+            #region FileXml
+
             FileXmlOpenXsdSchemaFolderCommand.Initialize(commandService);
+
+            FileXmlSetXsdSchemaCommand.Initialize(commandService);
+
+            FileXmlRemoveXsdSchemaCommand.Initialize(commandService);
+
+            #endregion FileXml
+
+            #region FolderXml
+
             FolderXmlOpenXsdSchemaFolderCommand.Initialize(commandService);
 
-            CodeXmlSetXsdSchemaCommand.Initialize(commandService);
-            DocumentsXmlSetXsdSchemaCommand.Initialize(commandService);
-            FileXmlSetXsdSchemaCommand.Initialize(commandService);
             FolderXmlSetXsdSchemaCommand.Initialize(commandService);
 
-            CodeXmlRemoveXsdSchemaCommand.Initialize(commandService);
-            DocumentsXmlRemoveXsdSchemaCommand.Initialize(commandService);
-            FileXmlRemoveXsdSchemaCommand.Initialize(commandService);
             FolderXmlRemoveXsdSchemaCommand.Initialize(commandService);
 
-            CodePublishListAddCommand.Initialize(commandService);
-            CodePublishListRemoveCommand.Initialize(commandService);
+            #endregion FolderXml
+
+
+
+            #region CodeReport
 
             CodeReportLinkClearCommand.Initialize(commandService);
             CodeReportLinkCreateCommand.Initialize(commandService);
@@ -186,6 +346,35 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CodeReportAddToSolutionLastCommand.Initialize(commandService);
             CodeReportAddToSolutionInConnectionCommand.Initialize(commandService);
+
+            #endregion CodeReport
+
+            #region DocumentsReport
+
+            DocumentsReportLinkClearCommand.Initialize(commandService);
+
+            DocumentsReportAddToSolutionLastCommand.Initialize(commandService);
+            DocumentsReportAddToSolutionInConnectionCommand.Initialize(commandService);
+
+            #endregion DocumentsReport
+
+            #region FileReport
+
+            FileReportExplorerCommand.Initialize(commandService);
+            FileReportLinkClearCommand.Initialize(commandService);
+            FileReportLinkCreateCommand.Initialize(commandService);
+            FileReportUpdateCommand.Initialize(commandService);
+            FileReportCreateCommand.Initialize(commandService);
+            FileReportOpenInWebCommand.Initialize(commandService);
+
+            FileReportAddToSolutionLastCommand.Initialize(commandService);
+            FileReportAddToSolutionInConnectionCommand.Initialize(commandService);
+
+            #endregion FileReport
+
+
+
+            #region CodeCSharp
 
             CodeCSharpUpdateEntityMetadataFileSchemaCommand.Initialize(commandService);
             CodeCSharpUpdateEntityMetadataFileSchemaWithSelectCommand.Initialize(commandService);
@@ -218,50 +407,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CodeCSharpProjectPluginTypeStepsAddToSolutionLastCommand.Initialize(commandService);
             CodeCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.Initialize(commandService);
 
+            #endregion CodeCSharp
 
+            #region DocumentsCSharp
 
+            DocumentsCSharpUpdateEntityMetadataFileSchemaCommand.Initialize(commandService);
+            DocumentsCSharpUpdateEntityMetadataFileProxyClassCommand.Initialize(commandService);
+            DocumentsCSharpUpdateGlobalOptionSetsFileCommand.Initialize(commandService);
 
+            DocumentsCSharpProjectPluginAssemblyAddToSolutionLastCommand.Initialize(commandService);
+            DocumentsCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.Initialize(commandService);
 
-            FileWebResourceCheckEncodingCommand.Initialize(commandService);
-            FileWebResourceCheckEncodingCompareFilesCommand.Initialize(commandService);
-            FileWebResourceCheckEncodingCompareWithDetailsFilesCommand.Initialize(commandService);
-            FileWebResourceCheckEncodingOpenFilesCommand.Initialize(commandService);
-            FileWebResourceCompareCommand.Initialize(commandService);
-            FileWebResourceCompareWithDetailsCommand.Initialize(commandService);
-            FileWebResourceCompareInConnectionGroupCommand.Initialize(commandService);
-            FileWebResourceExplorerCommand.Initialize(commandService);
-            FileWebResourceOpenInWebCommand.Initialize(commandService);
-            FileWebResourceLinkClearCommand.Initialize(commandService);
-            FileWebResourceLinkCreateCommand.Initialize(commandService);
-            FileWebResourceShowDependentComponentsCommand.Initialize(commandService);
-            FileWebResourceShowDifferenceCommand.Initialize(commandService);
-            FileWebResourceShowDifferenceCustomCommand.Initialize(commandService);
-            FileWebResourceShowDifferenceInConnectionGroupCommand.Initialize(commandService);
-            FileWebResourceShowDifferenceThreeFileCommand.Initialize(commandService);
-            FileWebResourceUpdateContentPublishCommand.Initialize(commandService);
-            FileWebResourceUpdateContentPublishEqualByTextCommand.Initialize(commandService);
-            FileWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(commandService);
+            DocumentsCSharpProjectPluginAssemblyStepsAddToSolutionLastCommand.Initialize(commandService);
+            DocumentsCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand.Initialize(commandService);
 
-            FileWebResourceAddToSolutionLastCommand.Initialize(commandService);
-            FileWebResourceAddToSolutionInConnectionCommand.Initialize(commandService);
+            DocumentsCSharpProjectPluginTypeStepsAddToSolutionLastCommand.Initialize(commandService);
+            DocumentsCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.Initialize(commandService);
 
-            FileJavaScriptUpdateEntityMetadataFileCommand.Initialize(commandService);
-            FileJavaScriptUpdateEntityMetadataFileWithSelectCommand.Initialize(commandService);
+            #endregion DocumentsCSharp
 
-            FileJavaScriptUpdateGlobalOptionSetSingleFileCommand.Initialize(commandService);
-            FileJavaScriptUpdateGlobalOptionSetSingleFileWithSelectCommand.Initialize(commandService);
-
-            FileJavaScriptUpdateGlobalOptionSetAllFileCommand.Initialize(commandService);
-
-            FileReportExplorerCommand.Initialize(commandService);
-            FileReportLinkClearCommand.Initialize(commandService);
-            FileReportLinkCreateCommand.Initialize(commandService);
-            FileReportUpdateCommand.Initialize(commandService);
-            FileReportCreateCommand.Initialize(commandService);
-            FileReportOpenInWebCommand.Initialize(commandService);
-
-            FileReportAddToSolutionLastCommand.Initialize(commandService);
-            FileReportAddToSolutionInConnectionCommand.Initialize(commandService);
+            #region FileCSharp
 
             FileCSharpUpdateEntityMetadataFileSchemaCommand.Initialize(commandService);
             FileCSharpUpdateEntityMetadataFileSchemaWithSelectCommand.Initialize(commandService);
@@ -291,79 +456,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FileCSharpProjectPluginTypeStepsAddToSolutionLastCommand.Initialize(commandService);
             FileCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.Initialize(commandService);
 
+            #endregion FileCSharp
 
-
-            DocumentsWebResourceCheckEncodingCommand.Initialize(commandService);
-            DocumentsWebResourceCheckEncodingCompareFilesCommand.Initialize(commandService);
-            DocumentsWebResourceCheckEncodingCompareWithDetailsFilesCommand.Initialize(commandService);
-            DocumentsWebResourceCompareCommand.Initialize(commandService);
-            DocumentsWebResourceCompareWithDetailsCommand.Initialize(commandService);
-            DocumentsWebResourceCompareInConnectionGroupCommand.Initialize(commandService);
-            DocumentsWebResouceLinkClearCommand.Initialize(commandService);
-            DocumentsWebResouceLinkCreateCommand.Initialize(commandService);
-            DocumentsWebResourceShowDependentComponentsCommand.Initialize(commandService);
-            DocumentsWebResourceUpdateContentPublishEqualByTextCommand.Initialize(commandService);
-            DocumentsWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(commandService);
-
-            DocumentsWebResourceAddToSolutionLastCommand.Initialize(commandService);
-            DocumentsWebResourceAddToSolutionInConnectionCommand.Initialize(commandService);
-
-            DocumentsJavaScriptUpdateEntityMetadataFileCommand.Initialize(commandService);
-            DocumentsJavaScriptUpdateGlobalOptionSetSingleFileCommand.Initialize(commandService);
-
-            DocumentsReportLinkClearCommand.Initialize(commandService);
-
-            DocumentsReportAddToSolutionLastCommand.Initialize(commandService);
-            DocumentsReportAddToSolutionInConnectionCommand.Initialize(commandService);
-
-            DocumentsCSharpUpdateEntityMetadataFileSchemaCommand.Initialize(commandService);
-            DocumentsCSharpUpdateEntityMetadataFileProxyClassCommand.Initialize(commandService);
-            DocumentsCSharpUpdateGlobalOptionSetsFileCommand.Initialize(commandService);
-
-            DocumentsCSharpProjectPluginAssemblyAddToSolutionLastCommand.Initialize(commandService);
-            DocumentsCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.Initialize(commandService);
-
-            DocumentsCSharpProjectPluginAssemblyStepsAddToSolutionLastCommand.Initialize(commandService);
-            DocumentsCSharpProjectPluginAssemblyStepsAddToSolutionInConnectionCommand.Initialize(commandService);
-
-            DocumentsCSharpProjectPluginTypeStepsAddToSolutionLastCommand.Initialize(commandService);
-            DocumentsCSharpProjectPluginTypeStepsAddToSolutionInConnectionCommand.Initialize(commandService);
-
-
-
-
-
-
-
-
-            FolderAddPluginConfigurationFileCommand.Initialize(commandService);
-            FolderAddSolutionFileCommand.Initialize(commandService);
-            FolderAddEntityMetadataFileInConnectionCommand.Initialize(commandService);
-            FolderAddGlobalOptionSetFileInConnectionCommand.Initialize(commandService);
-            FolderAddSdkMessageRequestFileInConnectionCommand.Initialize(commandService);
-            FolderAddSystemFormJavaScriptFileInConnectionCommand.Initialize(commandService);
-
-
-
-            FolderWebResourceCheckEncodingCommand.Initialize(commandService);
-            FolderWebResourceCheckEncodingCompareFilesCommand.Initialize(commandService);
-            FolderWebResourceCheckEncodingCompareWithDetailsFilesCommand.Initialize(commandService);
-            FolderWebResourceCheckEncodingOpenFilesCommand.Initialize(commandService);
-            FolderWebResourceCompareCommand.Initialize(commandService);
-            FolderWebResourceCompareWithDetailsCommand.Initialize(commandService);
-            FolderWebResourceCompareInConnectionGroupCommand.Initialize(commandService);
-            FolderWebResourceLinkClearCommand.Initialize(commandService);
-            FolderWebResourceLinkCreateCommand.Initialize(commandService);
-            FolderWebResourceShowDependentComponentsCommand.Initialize(commandService);
-            FolderWebResourceUpdateContentPublishCommand.Initialize(commandService);
-            FolderWebResourceUpdateContentPublishEqualByTextCommand.Initialize(commandService);
-            FolderWebResourceUpdateContentPublishGroupConnectionCommand.Initialize(commandService);
-
-            FolderWebResourceAddToSolutionLastCommand.Initialize(commandService);
-            FolderWebResourceAddToSolutionInConnectionCommand.Initialize(commandService);
-
-            FolderJavaScriptUpdateEntityMetadataFileCommand.Initialize(commandService);
-            FolderJavaScriptUpdateGlobalOptionSetSingleFileCommand.Initialize(commandService);
+            #region FolderCSharp
 
             FolderCSharpProjectPluginAssemblyAddToSolutionInConnectionCommand.Initialize(commandService);
             FolderCSharpProjectPluginAssemblyAddToSolutionLastCommand.Initialize(commandService);
@@ -378,6 +473,22 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             FolderCSharpUpdateEntityMetadataFileProxyClassCommand.Initialize(commandService);
             FolderCSharpUpdateGlobalOptionSetsFileCommand.Initialize(commandService);
 
+            #endregion FolderCSharp
+
+
+
+            #region FolderAdd
+
+            FolderAddPluginConfigurationFileCommand.Initialize(commandService);
+            FolderAddSolutionFileCommand.Initialize(commandService);
+            FolderAddEntityMetadataFileInConnectionCommand.Initialize(commandService);
+            FolderAddGlobalOptionSetFileInConnectionCommand.Initialize(commandService);
+            FolderAddSdkMessageRequestFileInConnectionCommand.Initialize(commandService);
+            FolderAddSystemFormJavaScriptFileInConnectionCommand.Initialize(commandService);
+
+            #endregion FolderAdd
+
+            #region Project
 
             ProjectUpdatePluginAssemblyCommand.Initialize(commandService);
             ProjectUpdatePluginAssemblyInConnectionCommand.Initialize(commandService);
@@ -397,7 +508,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             ProjectPluginTypeExplorerCommand.Initialize(commandService);
             ProjectPluginTreeCommand.Initialize(commandService);
 
+            #endregion Project
 
+            #region ListForPublish
 
             ListForPublishClearListCommand.Initialize(commandService);
             ListForPublishCompareCommand.Initialize(commandService);
@@ -412,15 +525,28 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             ListForPublishAddToSolutionLastCommand.Initialize(commandService);
             ListForPublishAddToSolutionInConnectionCommand.Initialize(commandService);
 
+            ListForPublishOpenFilesCommand.Initialize(commandService);
+
+            ListForPublishMultiDifferenceCommand.Initialize(commandService);
+
+            #endregion ListForPublish
+
+            #region CrmConnection
+
             CommonCurrentConnectionCommand.Initialize(commandService);
+
             CommonPublishAllInCrmConnectionCommand.Initialize(commandService);
+
             CommonCrmConnectionCommand.Initialize(commandService);
             CommonCrmConnectionTestCommand.Initialize(commandService);
             CommonCrmConnectionEditCommand.Initialize(commandService);
             CommonCrmConnectionSelectFileCommand.Initialize(commandService);
+
             CommonSelectCrmConnectionCommand.Initialize(commandService);
 
+            #endregion CrmConnection
 
+            #region Common Check
 
             CommonCheckEntitiesOwnerShipsCommand.Initialize(commandService);
             CommonCheckWorkflowsUsedEntitiesCommand.Initialize(commandService);
@@ -431,81 +557,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             CommonCheckPluginImagesRequiredComponentsCommand.Initialize(commandService);
             CommonCheckPluginStepsCommand.Initialize(commandService);
             CommonCheckPluginStepsRequiredComponentsCommand.Initialize(commandService);
-            CommonEntityMetadataExplorerCommand.Initialize(commandService);
-            CommonEntityAttributeExplorerCommand.Initialize(commandService);
-            CommonEntityKeyExplorerCommand.Initialize(commandService);
-            CommonEntityRelationshipOneToManyExplorerCommand.Initialize(commandService);
-            CommonEntityRelationshipManyToManyExplorerCommand.Initialize(commandService);
-            CommonEntityPrivilegesExplorerCommand.Initialize(commandService);
-            CommonGlobalOptionSetsExplorerCommand.Initialize(commandService);
-            CommonOrganizationExplorerCommand.Initialize(commandService);
-            CommonPluginAssemblyExplorerCommand.Initialize(commandService);
-            CommonPluginTypeExplorerCommand.Initialize(commandService);
-            CommonCustomControlExplorerCommand.Initialize(commandService);
-            CommonApplicationRibbonExplorerCommand.Initialize(commandService);
-            CommonSiteMapExplorerCommand.Initialize(commandService);
 
-            CommonSolutionExplorerCommand.Initialize(commandService);
-            CommonSolutionExplorerInConnectionCommand.Initialize(commandService);
-            CommonImportJobExplorerInConnectionCommand.Initialize(commandService);
-
-            CommonOpenCrmWebSiteCommand.Initialize(commandService);
-            CommonOpenConfigFolderCommand.Initialize(commandService);
-            CommonConfigCommand.Initialize(commandService);
-            CommonExportFormEventsCommand.Initialize(commandService);
-            CommonReportExplorerCommand.Initialize(commandService);
-
-            CommonOpenSolutionImageCommand.Initialize(commandService);
-            CommonOpenSolutionDifferenceImageCommand.Initialize(commandService);
-            CommonSystemFormExplorerCommand.Initialize(commandService);
-            CommonSystemSavedQueryVisualizationExplorerCommand.Initialize(commandService);
-            CommonSystemSavedQueryExplorerCommand.Initialize(commandService);
-            CommonWebResourceExplorerCommand.Initialize(commandService);
-            CommonWorkflowExplorerCommand.Initialize(commandService);
-
-            CommonSystemUsersExplorerCommand.Initialize(commandService);
-            CommonTeamsExplorerCommand.Initialize(commandService);
-            CommonSecurityRolesExplorerCommand.Initialize(commandService);
-
-            CommonExportDefaultSitemapsCommand.Initialize(commandService);
-            CommonExportXsdSchemasCommand.Initialize(commandService);
-            CommonOpenXsdSchemaFolderCommand.Initialize(commandService);
-
-            
-            CommonOrganizationComparerCommand.Initialize(commandService);
-            CommonOpenOrganizationDifferenceImageCommand.Initialize(commandService);
-            CommonTraceExportFileCommand.Initialize(commandService);
-            CommonTraceReaderCommand.Initialize(commandService);
-            CommonPluginConfigurationComparerPluginAssemblyCommand.Initialize(commandService);
-            CommonPluginConfigurationCreateCommand.Initialize(commandService);
-            CommonPluginConfigurationPluginAssemblyCommand.Initialize(commandService);
-            CommonPluginConfigurationPluginTreeCommand.Initialize(commandService);
-            CommonPluginConfigurationPluginTypeCommand.Initialize(commandService);
-            CommonPluginTreeCommand.Initialize(commandService);
-            CommonSdkMessageTreeCommand.Initialize(commandService);
-            CommonSdkMessageRequestTreeCommand.Initialize(commandService);
-            CommonExportOpenLastSelectedSolutionCommand.Initialize(commandService);
             CommonCheckComponentTypeEnumCommand.Initialize(commandService);
             CommonCheckCreateAllDependencyNodeDescriptionCommand.Initialize(commandService);
-            CommonOpenDefaultSolutionInWebCommand.Initialize(commandService);
 
+            #endregion Common Check
 
-
-
-            FileWebResourceOpenFilesCommand.Initialize(commandService);
-            FolderWebResourceOpenFilesCommand.Initialize(commandService);
-            ListForPublishOpenFilesCommand.Initialize(commandService);
-
-            DocumentsWebResourceMultiDifferenceCommand.Initialize(commandService);
-            FileWebResourceMultiDifferenceCommand.Initialize(commandService);
-            FolderWebResourceMultiDifferenceCommand.Initialize(commandService);
-            ListForPublishMultiDifferenceCommand.Initialize(commandService);
-
-            FileWebResourceAddFilesIntoListForPublishCommand.Initialize(commandService);
-            DocumentsWebResourceAddFilesIntoListForPublishCommand.Initialize(commandService);
-            FolderWebResourceAddFilesIntoListForPublishCommand.Initialize(commandService);
-
-            #region Finds and Edits
+            #region Common Finds and Edits
 
             CommonFindEntityObjectsByPrefixCommand.Initialize(commandService);
             CommonFindEntityObjectsByPrefixInExplorerCommand.Initialize(commandService);
@@ -526,7 +584,114 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
             CommonEditEntitiesByIdCommand.Initialize(commandService);
 
-            #endregion Finds and Edits
+            #endregion Common Finds and Edits
+
+            #region Common Entity
+
+            CommonEntityMetadataExplorerCommand.Initialize(commandService);
+            CommonEntityAttributeExplorerCommand.Initialize(commandService);
+            CommonEntityKeyExplorerCommand.Initialize(commandService);
+            CommonEntityRelationshipOneToManyExplorerCommand.Initialize(commandService);
+            CommonEntityRelationshipManyToManyExplorerCommand.Initialize(commandService);
+            CommonEntityPrivilegesExplorerCommand.Initialize(commandService);
+
+            #endregion Common Entity
+
+            #region Common Entity Objects
+
+            CommonSystemFormExplorerCommand.Initialize(commandService);
+            CommonSystemSavedQueryVisualizationExplorerCommand.Initialize(commandService);
+            CommonSystemSavedQueryExplorerCommand.Initialize(commandService);
+
+            #endregion Common Entity Objects
+
+            #region Explorers
+
+            CommonGlobalOptionSetsExplorerCommand.Initialize(commandService);
+            CommonOrganizationExplorerCommand.Initialize(commandService);
+            CommonCustomControlExplorerCommand.Initialize(commandService);
+            CommonApplicationRibbonExplorerCommand.Initialize(commandService);
+            CommonSiteMapExplorerCommand.Initialize(commandService);
+            CommonReportExplorerCommand.Initialize(commandService);
+            CommonWebResourceExplorerCommand.Initialize(commandService);
+            CommonWorkflowExplorerCommand.Initialize(commandService);
+
+            CommonExportFormEventsCommand.Initialize(commandService);
+
+            #endregion Explorers
+
+            #region Security
+
+            CommonSystemUsersExplorerCommand.Initialize(commandService);
+            CommonTeamsExplorerCommand.Initialize(commandService);
+            CommonSecurityRolesExplorerCommand.Initialize(commandService);
+
+            #endregion Security
+
+            #region Solutions
+
+            CommonSolutionExplorerCommand.Initialize(commandService);
+            CommonSolutionExplorerInConnectionCommand.Initialize(commandService);
+            CommonImportJobExplorerInConnectionCommand.Initialize(commandService);
+
+            CommonOpenSolutionImageCommand.Initialize(commandService);
+            CommonOpenSolutionDifferenceImageCommand.Initialize(commandService);
+
+            CommonOpenDefaultSolutionInWebCommand.Initialize(commandService);
+            CommonExportOpenLastSelectedSolutionCommand.Initialize(commandService);
+
+            #endregion Solutions
+
+            #region PluginInfo
+
+            CommonPluginAssemblyExplorerCommand.Initialize(commandService);
+            CommonPluginTypeExplorerCommand.Initialize(commandService);
+
+            CommonPluginTreeCommand.Initialize(commandService);
+            CommonSdkMessageTreeCommand.Initialize(commandService);
+            CommonSdkMessageRequestTreeCommand.Initialize(commandService);
+
+            #endregion PluginInfo
+
+            #region PluginConfiguration
+
+            CommonPluginConfigurationComparerPluginAssemblyCommand.Initialize(commandService);
+            CommonPluginConfigurationCreateCommand.Initialize(commandService);
+            CommonPluginConfigurationPluginAssemblyCommand.Initialize(commandService);
+            CommonPluginConfigurationPluginTreeCommand.Initialize(commandService);
+            CommonPluginConfigurationPluginTypeCommand.Initialize(commandService);
+
+            #endregion PluginConfiguration
+
+            #region Trace
+
+            CommonTraceExportFileCommand.Initialize(commandService);
+            CommonTraceReaderCommand.Initialize(commandService);
+
+            #endregion Trace
+
+            #region OrganizationComparer
+
+            CommonOrganizationComparerCommand.Initialize(commandService);
+
+            CommonOpenOrganizationDifferenceImageCommand.Initialize(commandService);
+
+            #endregion OrganizationComparer
+
+            #region Config
+
+            CommonOpenConfigFolderCommand.Initialize(commandService);
+
+            CommonConfigCommand.Initialize(commandService);
+
+            #endregion Config
+
+            CommonOpenCrmWebSiteCommand.Initialize(commandService);
+
+            CommonExportDefaultSitemapsCommand.Initialize(commandService);
+            CommonExportXsdSchemasCommand.Initialize(commandService);
+
+            CommonOpenXsdSchemaFolderCommand.Initialize(commandService);
 
             #region Output Windows
 
@@ -599,7 +764,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
             OutputEntityPrivilegesExplorerCommand.Initialize(commandService);
             OutputEntityRelationshipManyToManyExplorerCommand.Initialize(commandService);
             OutputEntityRelationshipOneToManyExplorerCommand.Initialize(commandService);
-            
+
             OutputGlobalOptionSetsExplorerCommand.Initialize(commandService);
             OutputImportJobExplorerInConnectionCommand.Initialize(commandService);
             OutputOrganizationExplorerCommand.Initialize(commandService);
@@ -639,14 +804,13 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper
 
 
 
+            //Folder.Initialize(commandService);
+            //Folder.Initialize(commandService);
+            //Folder.Initialize(commandService);
+            //Folder.Initialize(commandService);
+            //Folder.Initialize(commandService);
 
-
-
-            //Folder.Initialize(commandService);
-            //Folder.Initialize(commandService);
-            //Folder.Initialize(commandService);
-            //Folder.Initialize(commandService);
-            //Folder.Initialize(commandService);
+            this.ApplicationObject = await this.GetServiceAsync(typeof(EnvDTE.DTE)) as EnvDTE80.DTE2;
 
             Singleton = this;
 

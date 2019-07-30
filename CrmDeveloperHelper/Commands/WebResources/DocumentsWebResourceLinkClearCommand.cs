@@ -6,16 +6,16 @@ using System.Linq;
 
 namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.WebResources
 {
-    internal sealed class DocumentsWebResouceLinkClearCommand : AbstractCommand
+    internal sealed class DocumentsWebResourceLinkClearCommand : AbstractCommand
     {
-        private DocumentsWebResouceLinkClearCommand(OleMenuCommandService commandService)
+        private DocumentsWebResourceLinkClearCommand(OleMenuCommandService commandService)
             : base(commandService, PackageIds.DocumentsWebResourceLinkClearCommandId) { }
 
-        public static DocumentsWebResouceLinkClearCommand Instance { get; private set; }
+        public static DocumentsWebResourceLinkClearCommand Instance { get; private set; }
 
         public static void Initialize(OleMenuCommandService commandService)
         {
-            Instance = new DocumentsWebResouceLinkClearCommand(commandService);
+            Instance = new DocumentsWebResourceLinkClearCommand(commandService);
         }
 
         protected override void CommandAction(DTEHelper helper)
