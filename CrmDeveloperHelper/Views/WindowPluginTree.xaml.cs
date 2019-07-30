@@ -68,6 +68,41 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             , GroupingProperty.Message
         };
 
+        private readonly List<List<GroupingProperty>> _predifinedView = new List<List<GroupingProperty>>()
+        {
+            new List<GroupingProperty>()
+            {
+                GroupingProperty.PluginAssembly
+                , GroupingProperty.PluginType
+                , GroupingProperty.Entity
+                , GroupingProperty.Message
+            }
+
+            , new List<GroupingProperty>()
+            {
+                GroupingProperty.PluginAssembly
+                , GroupingProperty.PluginType
+                , GroupingProperty.Message
+                , GroupingProperty.Entity
+            }
+
+            , new List<GroupingProperty>()
+            {
+                GroupingProperty.Entity
+                , GroupingProperty.Message
+                , GroupingProperty.PluginType
+                , GroupingProperty.Stage
+            }
+
+            , new List<GroupingProperty>()
+            {
+                GroupingProperty.Message
+                , GroupingProperty.Entity
+                , GroupingProperty.PluginType
+                , GroupingProperty.Stage
+            }
+        };
+
         private readonly List<GroupingProperty> _groupingPropertiesAll = Enum.GetValues(typeof(GroupingProperty)).OfType<GroupingProperty>().ToList();
 
         private readonly Dictionary<GroupingProperty, RequestGroupBuilder> _propertyGroups = new Dictionary<GroupingProperty, RequestGroupBuilder>();
@@ -105,6 +140,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             LoadImages();
 
             LoadConfiguration();
+
+            FillPredefinedViews();
 
             FillViewGroups();
 
@@ -335,6 +372,69 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             Mode,
         }
 
+        private void FillPredefinedViews()
+        {
+            mIView.Items.Clear();
+
+            for (int i = 0; i < _predifinedView.Count; i++)
+            {
+                var view = _predifinedView[i];
+
+                var menuItem = new MenuItem()
+                {
+                    Header = string.Join(" -> ", view.Select(g => g.ToString())),
+                    Tag = view,
+                };
+
+                menuItem.Click += this.mIPredefinedView_Click;
+
+                mIView.Items.Add(menuItem);
+            }
+
+            UpdatePredefinedViewCheck();
+        }
+
+        private async void mIPredefinedView_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is MenuItem menuItem))
+            {
+                return;
+            }
+
+            if (!(menuItem.Tag is List<GroupingProperty> grouping))
+            {
+                return;
+            }
+
+            if (_currentGrouping.SequenceEqual(grouping))
+            {
+                return;
+            }
+
+            SetGrouping(grouping);
+
+            UpdateGroupingVisibility();
+
+            this._currentGrouping.Clear();
+
+            this._currentGrouping.AddRange(grouping);
+
+            UpdatePredefinedViewCheck();
+
+            await ShowExistingPlugins();
+        }
+
+        private void UpdatePredefinedViewCheck()
+        {
+            foreach (MenuItem item in mIView.Items)
+            {
+                if (item.Tag is List<GroupingProperty> grouping)
+                {
+                    item.IsChecked = this._currentGrouping.SequenceEqual(grouping);
+                }
+            }
+        }
+
         private void FillViewGroups()
         {
             _propertyGroups.Clear();
@@ -388,9 +488,9 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 GroupSteps = GroupStepsByMode,
             };
 
-            mIView.Items.Clear();
+            mICustomView.Items.Clear();
 
-            mIView.SubmenuClosed += this.mIView_SubmenuClosed;
+            mICustomView.SubmenuClosed += this.mICustomView_SubmenuClosed;
 
             var menuItemRefreshView = new MenuItem()
             {
@@ -403,10 +503,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 },
             };
 
-            menuItemRefreshView.Click += this.mIView_SubmenuClosed;
+            menuItemRefreshView.Click += this.mICustomView_SubmenuClosed;
 
-            mIView.Items.Add(menuItemRefreshView);
-            mIView.Items.Add(new Separator());
+            mICustomView.Items.Add(menuItemRefreshView);
+            mICustomView.Items.Add(new Separator());
 
             this.IncreaseInit();
 
@@ -438,7 +538,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 comboBox.SelectionChanged += this.comboBox_SelectionChanged;
 
-                mIView.Items.Add(comboBox);
+                mICustomView.Items.Add(comboBox);
             }
 
             this.DecreaseInit();
@@ -446,7 +546,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             UpdateGroupingVisibility();
         }
 
-        private async void mIView_SubmenuClosed(object sender, RoutedEventArgs e)
+        private async void mICustomView_SubmenuClosed(object sender, RoutedEventArgs e)
         {
             if (!IsControlsEnabled)
             {
@@ -462,6 +562,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 this._currentGrouping.Clear();
 
                 this._currentGrouping.AddRange(grouping);
+
+                UpdatePredefinedViewCheck();
 
                 await ShowExistingPlugins();
             }
@@ -483,7 +585,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             List<GroupingProperty> selectedProperties = new List<GroupingProperty>();
 
-            foreach (var comboBox in mIView.Items.OfType<ComboBox>())
+            foreach (var comboBox in mICustomView.Items.OfType<ComboBox>())
             {
                 if (comboBox.SelectedItem is GroupingProperty groupingProperty)
                 {
@@ -498,7 +600,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             int index = 0;
 
-            foreach (var comboBox in mIView.Items.OfType<ComboBox>())
+            foreach (var comboBox in mICustomView.Items.OfType<ComboBox>())
             {
                 FillGroupingComboBox(usedProperties, comboBox);
 
@@ -545,7 +647,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         {
             List<GroupingProperty> result = new List<GroupingProperty>();
 
-            foreach (var comboBox in mIView.Items.OfType<ComboBox>())
+            foreach (var comboBox in mICustomView.Items.OfType<ComboBox>())
             {
                 if (comboBox.SelectedItem is GroupingProperty groupingProperty)
                 {
@@ -563,6 +665,26 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             return result;
         }
 
+        private void SetGrouping(List<GroupingProperty> grouping)
+        {
+            foreach (var comboBox in mICustomView.Items.OfType<ComboBox>())
+            {
+                comboBox.SelectedIndex = 0;
+            }
+
+            var index = 0;
+
+            foreach (var comboBox in mICustomView.Items.OfType<ComboBox>())
+            {
+                if (index < grouping.Count)
+                {
+                    comboBox.SelectedItem = grouping[index];
+                }
+
+                index++;
+            }
+        }
+
         private class RequestGroupBuilder
         {
             public GroupingProperty GroupingProperty { get; set; }
@@ -574,16 +696,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 , string
                 , string
                 , IEnumerable<RequestGroupBuilder>
-                , Task>
+
+                , Task> // Func Result
                 FillTree
             { get; set; }
 
             public Func<
-                PluginSearchResult
+                IOrganizationServiceExtented
+                , PluginSearchResult
                 , IEnumerable<SdkMessageProcessingStep>
                 , IEnumerable<RequestGroupBuilder>
                 , IEnumerable<Action<PluginTreeViewItem>>
-                , IEnumerable<PluginTreeViewItem>
+
+                , IEnumerable<PluginTreeViewItem> // Func Result
                 > GroupSteps
             { get; set; }
 
@@ -606,7 +731,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter);
 
             foreach (var nodeEntity in GroupStepsByEntity(
-                search
+                service
+                , search
                 , search.SdkMessageProcessingStep
                 , requestGroups
                 , new Action<PluginTreeViewItem>[0]
@@ -762,7 +888,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         private IEnumerable<PluginTreeViewItem> GroupStepsByEntity(
-            PluginSearchResult search
+            IOrganizationServiceExtented service
+            , PluginSearchResult search
             , IEnumerable<SdkMessageProcessingStep> steps
             , IEnumerable<RequestGroupBuilder> requestGroups
             , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
@@ -787,7 +914,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var newActionOnChilds = actionsOnChilds.Union(new Action<PluginTreeViewItem>[] { n => n.EntityLogicalName = grEntity.Key });
 
-                RecursiveGroup(nodeEntity, search, grEntity, requestGroups, newActionOnChilds);
+                RecursiveGroup(service, nodeEntity, search, grEntity, requestGroups, newActionOnChilds);
 
                 yield return nodeEntity;
             }
@@ -811,7 +938,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter);
 
             foreach (var nodeMessage in GroupStepsByMessage(
-                search
+                service
+                , search
                 , search.SdkMessageProcessingStep
                 , requestGroups
                 , new Action<PluginTreeViewItem>[0]
@@ -825,7 +953,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         private IEnumerable<PluginTreeViewItem> GroupStepsByMessage(
-            PluginSearchResult search
+            IOrganizationServiceExtented service
+            , PluginSearchResult search
             , IEnumerable<SdkMessageProcessingStep> steps
             , IEnumerable<RequestGroupBuilder> requestGroups
             , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
@@ -854,7 +983,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var newActionOnChilds = actionsOnChilds.Union(new Action<PluginTreeViewItem>[] { n => n.MessageName = grMessage.Key });
 
-                RecursiveGroup(nodeMessage, search, grMessage, requestGroups, newActionOnChilds);
+                RecursiveGroup(service, nodeMessage, search, grMessage, requestGroups, newActionOnChilds);
 
                 yield return nodeMessage;
             }
@@ -878,7 +1007,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter);
 
             foreach (var nodeEntity in GroupStepsByMessageCategory(
-                search
+                service
+                , search
                 , search.SdkMessageProcessingStep
                 , requestGroups
                 , new Action<PluginTreeViewItem>[0]
@@ -892,7 +1022,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         private IEnumerable<PluginTreeViewItem> GroupStepsByMessageCategory(
-            PluginSearchResult search
+            IOrganizationServiceExtented service
+            , PluginSearchResult search
             , IEnumerable<SdkMessageProcessingStep> steps
             , IEnumerable<RequestGroupBuilder> requestGroups
             , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
@@ -917,7 +1048,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var newActionOnChilds = actionsOnChilds.Union(new Action<PluginTreeViewItem>[] { n => n.MessageCategoryName = grMessageCategory.Key });
 
-                RecursiveGroup(nodeMessageCategory, search, grMessageCategory, requestGroups, newActionOnChilds);
+                RecursiveGroup(service, nodeMessageCategory, search, grMessageCategory, requestGroups, newActionOnChilds);
 
                 yield return nodeMessageCategory;
             }
@@ -991,7 +1122,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                                 }
                             };
 
-                            RecursiveGroup(nodePluginType, search, steps, requestGroups.Skip(1), newActionOnChilds);
+                            RecursiveGroup(service, nodePluginType, search, steps, requestGroups.Skip(1), newActionOnChilds);
                         }
                     }
                 }
@@ -1003,7 +1134,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     {
                         var steps = stepsByPluginAssemblyDict[grPluginAssembly.Key.Id];
 
-                        RecursiveGroup(nodePluginAssembly, search, steps, requestGroups, newActionOnChilds);
+                        RecursiveGroup(service, nodePluginAssembly, search, steps, requestGroups, newActionOnChilds);
                     }
                 }
 
@@ -1015,7 +1146,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         private IEnumerable<PluginTreeViewItem> GroupStepsByPluginAssembly(
-            PluginSearchResult search
+            IOrganizationServiceExtented service
+            , PluginSearchResult search
             , IEnumerable<SdkMessageProcessingStep> steps
             , IEnumerable<RequestGroupBuilder> requestGroups
             , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
@@ -1047,7 +1179,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
                 var newActionOnChilds = actionsOnChilds.Union(new Action<PluginTreeViewItem>[] { n => n.PluginAssemblyId = grPluginAssembly.Key.PluginAssemblyId });
 
-                RecursiveGroup(nodePluginAssembly, search, grPluginAssembly, requestGroups, newActionOnChilds);
+                RecursiveGroup(service, nodePluginAssembly, search, grPluginAssembly, requestGroups, newActionOnChilds);
 
                 yield return nodePluginAssembly;
             }
@@ -1103,7 +1235,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                         }
                     };
 
-                    RecursiveGroup(nodePluginType, search, steps, requestGroups, newActionOnChilds);
+                    RecursiveGroup(service, nodePluginType, search, steps, requestGroups, newActionOnChilds);
                 }
 
                 this.Dispatcher.Invoke(() =>
@@ -1114,7 +1246,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         private IEnumerable<PluginTreeViewItem> GroupStepsByPluginType(
-            PluginSearchResult search
+            IOrganizationServiceExtented service
+            , PluginSearchResult search
             , IEnumerable<SdkMessageProcessingStep> steps
             , IEnumerable<RequestGroupBuilder> requestGroups
             , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
@@ -1159,7 +1292,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     }
                 );
 
-                RecursiveGroup(nodePluginType, search, grPluginType, requestGroups, actionsOnChilds);
+                RecursiveGroup(service, nodePluginType, search, grPluginType, requestGroups, actionsOnChilds);
 
                 yield return nodePluginType;
             }
@@ -1183,7 +1316,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter);
 
             foreach (var grStage in GroupStepsByStage(
-                search
+                service
+                , search
                 , search.SdkMessageProcessingStep
                 , requestGroups
                 , new Action<PluginTreeViewItem>[0]
@@ -1197,7 +1331,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         private IEnumerable<PluginTreeViewItem> GroupStepsByStage(
-            PluginSearchResult search
+            IOrganizationServiceExtented service
+            , PluginSearchResult search
             , IEnumerable<SdkMessageProcessingStep> steps
             , IEnumerable<RequestGroupBuilder> requestGroups
             , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
@@ -1220,7 +1355,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     action?.Invoke(nodeStage);
                 }
 
-                RecursiveGroup(nodeStage, search, grStage, requestGroups, actionsOnChilds);
+                RecursiveGroup(service, nodeStage, search, grStage, requestGroups, actionsOnChilds);
 
                 yield return nodeStage;
             }
@@ -1244,7 +1379,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
             PluginSearchResult search = await repository.FindAllAsync(stages, pluginTypeNameFilter, messageNameFilter, entityNameFilter);
 
             foreach (var grMode in GroupStepsByMode(
-                search
+                service
+                , search
                 , search.SdkMessageProcessingStep
                 , requestGroups
                 , new Action<PluginTreeViewItem>[0]
@@ -1258,7 +1394,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         }
 
         private IEnumerable<PluginTreeViewItem> GroupStepsByMode(
-            PluginSearchResult search
+            IOrganizationServiceExtented service
+            , PluginSearchResult search
             , IEnumerable<SdkMessageProcessingStep> steps
             , IEnumerable<RequestGroupBuilder> requestGroups
             , IEnumerable<Action<PluginTreeViewItem>> actionsOnChilds
@@ -1281,7 +1418,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                     action?.Invoke(nodeMode);
                 }
 
-                RecursiveGroup(nodeMode, search, grMode, requestGroups, actionsOnChilds);
+                RecursiveGroup(service, nodeMode, search, grMode, requestGroups, actionsOnChilds);
 
                 yield return nodeMode;
             }
@@ -1290,7 +1427,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         #endregion Mode
 
         private void RecursiveGroup(
-            PluginTreeViewItem nodeParent
+            IOrganizationServiceExtented service
+            , PluginTreeViewItem nodeParent
             , PluginSearchResult search
             , IEnumerable<SdkMessageProcessingStep> steps
             , IEnumerable<RequestGroupBuilder> requestGroups
@@ -1302,7 +1440,8 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 var groupBuilder = requestGroups.First();
 
                 foreach (var node in groupBuilder.GroupSteps(
-                    search
+                    service
+                    , search
                     , steps
                     , requestGroups.Skip(1)
                     , newActionOnChilds
@@ -1775,7 +1914,7 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
 
             UpdateStatus(connectionData, statusFormat, args);
 
-            ToggleControl(this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, tSBCollapseAll, tSBExpandAll, tSBRegisterAssembly, menuView);
+            ToggleControl(this.tSProgressBar, cmBCurrentConnection, btnSetCurrentConnection, tSBCollapseAll, tSBExpandAll, tSBRegisterAssembly, menuView, menuCustomView);
 
             UpdateButtonsEnable();
         }
@@ -3560,6 +3699,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
                 return;
             }
 
+            await TryDeleteSdkObject(nodeItem);
+        }
+
+        private async Task TryDeleteSdkObject(PluginTreeViewItem nodeItem)
+        {
             EntityReference referenceToDelete = null;
 
             if (nodeItem.ComponentType == ComponentType.SdkMessageProcessingStepImage
@@ -3706,6 +3850,19 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Views
         private void btnSetCurrentConnection_Click(object sender, RoutedEventArgs e)
         {
             SetCurrentConnection(_iWriteToOutput, cmBCurrentConnection.SelectedItem as ConnectionData);
+        }
+
+        private async void trVPluginTree_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                e.Handled = true;
+
+                if (trVPluginTree.SelectedItem != null && trVPluginTree.SelectedItem is PluginTreeViewItem nodeItem)
+                {
+                    await TryDeleteSdkObject(nodeItem);
+                }
+            }
         }
     }
 }
