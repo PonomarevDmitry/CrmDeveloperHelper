@@ -772,6 +772,60 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Connection.
+        /// </summary>
+        internal static string OutputEditCrmConnectionCommand {
+            get {
+                return ResourceManager.GetString("OutputEditCrmConnectionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entity Metadata.
+        /// </summary>
+        internal static string OutputEntityMetadataExplorerCommand {
+            get {
+                return ResourceManager.GetString("OutputEntityMetadataExplorerCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publish All In Connection.
+        /// </summary>
+        internal static string OutputPublishAllInCrmConnectionCommand {
+            get {
+                return ResourceManager.GetString("OutputPublishAllInCrmConnectionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Connection.
+        /// </summary>
+        internal static string OutputSelectCrmConnectionCommand {
+            get {
+                return ResourceManager.GetString("OutputSelectCrmConnectionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Solution Explorer.
+        /// </summary>
+        internal static string OutputSolutionExplorerCommand {
+            get {
+                return ResourceManager.GetString("OutputSolutionExplorerCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test Connection.
+        /// </summary>
+        internal static string OutputTestCrmConnectionCommand {
+            get {
+                return ResourceManager.GetString("OutputTestCrmConnectionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Compare with Crm PluginAssembly.
         /// </summary>
         internal static string ProjectCompareToCrmAssemblyCommand {

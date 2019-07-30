@@ -31,5 +31,10 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Commands.OutputWindows
             helper.WriteToOutput(null, Properties.OutputStrings.CurrentConnectionFormat1, connectionData.Name);
             helper.ActivateOutputWindow(null);
         }
+
+        protected override void CommandBeforeQueryStatus(EnvDTE80.DTE2 applicationObject, ConnectionData connectionData, OleMenuCommand menuCommand)
+        {
+            CommonHandlers.CorrectCommandNameForConnectionName(menuCommand, Properties.CommandNames.OutputSelectCrmConnectionCommand, connectionData);
+        }
     }
 }

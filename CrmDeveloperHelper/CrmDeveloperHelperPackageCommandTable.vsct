@@ -8410,6 +8410,7 @@
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="OutputSelectCrmConnectionCommandId" priority="0x6000" type="Button">
+        <CommandFlag>TextChanges</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -8419,6 +8420,7 @@
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="OutputTestCrmConnectionCommandId" priority="0x6000" type="Button">
+        <CommandFlag>TextChanges</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -8428,6 +8430,7 @@
         </Strings>
       </Button>
       <Button guid="guidCommandSet" id="OutputEditCrmConnectionCommandId" priority="0x6000" type="Button">
+        <CommandFlag>TextChanges</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -8462,6 +8465,7 @@
 
 
       <Button guid="guidCommandSet" id="OutputPublishAllInCrmConnectionCommandId" priority="0x6000" type="Button">
+        <CommandFlag>TextChanges</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -8751,6 +8755,7 @@
 
 
       <Button guid="guidCommandSet" id="OutputEntityMetadataExplorerCommandId" priority="0x6000" type="Button">
+        <CommandFlag>TextChanges</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>
@@ -9010,6 +9015,7 @@
 
 
       <Button guid="guidCommandSet" id="OutputSolutionExplorerCommandId" priority="0x6000" type="Button">
+        <CommandFlag>TextChanges</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DefaultDisabled</CommandFlag>

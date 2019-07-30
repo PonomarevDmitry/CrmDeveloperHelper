@@ -1166,11 +1166,16 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
         internal static void CorrectCommandNameForConnectionName(EnvDTE80.DTE2 applicationObject, OleMenuCommand menuCommand, string name)
         {
             var helper = DTEHelper.Create(applicationObject);
-            var connection = helper.GetCurrentConnectionName();
+            var connectionData = helper.GetCurrentConnection();
 
-            if (!string.IsNullOrEmpty(connection))
+            CorrectCommandNameForConnectionName(menuCommand, name, connectionData);
+        }
+
+        internal static void CorrectCommandNameForConnectionName(OleMenuCommand menuCommand, string name, ConnectionData connectionData)
+        {
+            if (connectionData != null)
             {
-                name = string.Format(Properties.CommandNames.CommandNameWithConnectionFormat2, name, connection);
+                name = string.Format(Properties.CommandNames.CommandNameWithConnectionFormat2, name, connectionData.Name);
             }
 
             menuCommand.Text = name;

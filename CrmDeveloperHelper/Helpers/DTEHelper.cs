@@ -2115,11 +2115,11 @@ namespace Nav.Common.VSPackages.CrmDeveloperHelper.Helpers
             }
         }
 
-        public string GetCurrentConnectionName()
+        public ConnectionData GetCurrentConnection()
         {
             ConnectionConfiguration connectionConfig = Model.ConnectionConfiguration.Get();
 
-            return connectionConfig?.CurrentConnectionData?.Name;
+            return connectionConfig?.CurrentConnectionData;
         }
 
         public string GetLastSolutionUniqueName()

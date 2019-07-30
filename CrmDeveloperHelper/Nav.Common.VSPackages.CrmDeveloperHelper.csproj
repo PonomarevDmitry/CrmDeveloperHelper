@@ -1640,7 +1640,6 @@
       <ResourceName>Menus.ctmenu</ResourceName>
       <SubType>Designer</SubType>
       <Generator>VsctGenerator</Generator>
-      <LastGenOutput>CrmDeveloperHelperPackageCommandTable.vsct.cs</LastGenOutput>
     </VSCTCompile>
     <Resource Include="Resources\16x16_refresh.ico" />
     <Resource Include="Resources\Add.png" />
